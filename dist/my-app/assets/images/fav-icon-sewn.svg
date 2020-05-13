@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="16px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Fav_Icon_Black</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons" transform="translate(-68.000000, -232.000000)">
+            <g id="Fav_Icon_Black" transform="translate(66.000000, 232.000000)">
+                <rect id="Rectangle" x="0" y="0" width="16" height="16"></rect>
+                <path d="M7.86404879,9.76996262e-15 L13.7280976,5.82093078 L11.532,8 L13.7280976,10.1790692 L7.86404879,16 L2,10.1790692 L4.196,7.999 L2,5.82093078 L7.86404879,9.76996262e-15 Z M10.883,8.644 L7.86404879,11.6418616 L4.845,8.644 L3.29848606,10.1797033 L7.86382052,14.7114057 L12.4295862,10.1792721 L10.883,8.644 Z M7.8642517,5.64756971 L5.493,8 L7.86384588,10.3532926 L10.234,8 L7.8642517,5.64756971 Z M7.86427706,1.28945665 L3.29851143,5.82159024 L4.844,7.356 L7.86404879,4.35813843 L10.883,7.355 L12.4296115,5.82115906 L7.86427706,1.28945665 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

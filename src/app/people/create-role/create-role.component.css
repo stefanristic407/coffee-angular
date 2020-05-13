@@ -1,0 +1,233 @@
+.add-role-butn {
+    border-radius: 8px;
+    background-color: #3d8462;
+    padding: 10px 0px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-right: 4rem;
+}
+.add-role-butn:hover{
+    background-color: #3d8462; 
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.add-role-butn-mobile {
+    background-color: #3d8462;
+    border: 1px solid #3d8462;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 2% 10%;
+    border-radius: 8px;
+    height: 46px;
+    
+}
+
+.bread-nav{
+    padding-left: 25px;
+}
+
+.create-role {
+    padding: .3rem 1rem;
+}
+
+.create-role-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+    font-family: Montserrat;
+}
+
+.role-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666666;
+    font-family: Montserrat;
+}
+
+.rectangle_name {
+    height: 50px;
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+.search_role {
+    height: 35px;
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+.border-role {
+    border-left: 1px solid #cccccc;
+    padding-left: 4rem;
+}
+
+.accordion {
+    margin-top: 40px;
+}
+
+.accordion .card {
+    border: none;
+    margin-bottom: 20px;
+}
+
+.accordion .card h2 {
+    /* background: url(../assets/images/arrow-up.png) no-repeat calc(0% - -15px) center; */
+    background: url(../../../assets/images/arrow-up.png) no-repeat calc(0% - -15px) center;
+    padding-left: 3rem;
+    background-size: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.accordion .card h2.collapsed {
+    background-image: url(../../../assets/images/arrow-down.png);
+}
+
+.accordion .card-body {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sourcing {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Montserrat;
+    color: #333333;
+    margin-top: 3px;
+    margin-left: 5px;
+    display: inline-block;
+    padding-left: 1.8rem;
+}
+
+.sourcing-collapse {
+    margin-left: 1rem;
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+
+.search{
+    font-family: 'Montserrat';
+    height: 40px;
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    background: url(../../../assets/images/black-search.svg) no-repeat scroll 12px 5px;
+    padding-left: 45px;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+.padd-top{
+    padding-top: 2.5rem;
+}
+.role-error{
+    color:#FD4545;
+    font-size: 12px;
+  }
+  a.b-cum:hover{
+    color: #000000;
+      text-decoration: underline;
+      font-weight: bold;
+  }
+
+@media only screen and (max-width: 767px) {
+
+    .padd-top{
+        padding-top: 1rem;
+    }
+
+    .border-role {
+        border-left: none;
+        padding-left: 0rem;
+    }
+    .bread-nav{
+        padding-left: 15px;
+    }
+    .create-role {
+        padding: .3rem .5rem;
+    }
+
+}
+
+:host ::ng-deep .ui-tree{
+    border: none !important;
+    width: 70% !important;
+    padding: 0rem;
+    font-family: "Montserrat";
+    font-size: 16px;
+}
+:host ::ng-deep .ui-corner-all{
+    border-radius: 8px;
+}
+
+:host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter {
+    height: 46px;
+    border: solid 1px #cccccc;
+}
+
+:host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon{
+    top: 50%;
+    /* left: 1rem; */
+    color: #00080e;
+    right: 92%;
+}
+
+:host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-highlight{
+    background-color: #FFF;
+    color: #333;
+}
+
+:host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content.ui-treenode-selectable .ui-treenode-label:not(.ui-state-highlight):hover {
+    background-color: #FFF;
+}
+
+:host ::ng-deep .ui-treenode .ui-treenode-leaf{
+    /* color: red; */
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Montserrat;
+    color: #333333;
+}
+
+:host ::ng-deep .ui-treenode {
+    color: #000000;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+:host ::ng-deep .ui-tree input{
+    padding-left: 8%;
+}
+:host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-chkbox .ui-chkbox-icon {
+    margin: 0;
+}
+:host ::ng-deep .ui-chkbox .ui-chkbox-box .ui-chkbox-icon{
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #000000;
+}
+:host ::ng-deep .ui-chkbox .ui-chkbox-box{
+width: 18px;
+height: 16px;
+}
+:host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content:focus {
+    box-shadow: none;
+}    
+.clear { clear: both; }

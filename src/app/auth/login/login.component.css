@@ -1,0 +1,199 @@
+
+
+.login {
+    border-radius: 6px;
+    box-shadow: 0 0 10px 4px rgba(27, 27, 27, 0.3);
+    background-color: #ffffff;
+    padding: 2.3rem 2.3rem 1.1rem 2.3rem;
+    
+}
+
+
+.login_heading {
+    font-family: PlayfairDisplay;
+    font-size: 32px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 44px;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.login_para {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 26px;
+    letter-spacing: normal;
+    color: #666666;
+}
+
+.role-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666666;
+    font-family: Montserrat;
+}
+
+.rectangle_name {
+    height: 46px;
+    border-radius: 6px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    color:#000000;
+    font-weight: 500;
+    font-family: Montserrat;
+
+}
+.rectangle_name::placeholder {
+    font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.remember {
+
+    font-size: 13px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #333333;
+    margin-top: 3px;
+    margin-left: 7px;
+}
+.remember:before{
+    /* border-radius: 6px; */
+    border: solid 1px #827a7a87;
+    background-color: #ffffff;
+  }
+.forgot {
+    font-size: 13px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-decoration: underline;
+    color: #3d8462;
+}
+
+.forgot:hover {
+    color: #3d8462;
+}
+
+.login-butn {
+    background-color: #3d8462;
+    padding: 10px 24px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;  
+    border: #3d8462;
+    border-radius: 6px;
+    /* box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5); */
+}
+
+.login-butn:hover{
+   background-color: #3d8462; 
+     border: #3d8462;
+     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+
+}
+.login-butn:focus {
+    outline:0;
+    background-color: #3d8462 !important;
+}
+
+div.fullscreen {
+position: absolute;
+width:100%; 
+height:960px; 
+top: 0; 
+left: 0; 
+}
+
+.alert{
+display: none;
+}
+
+.invalid-combination{
+font-size: 14px;
+font-weight: 500;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: normal;
+color: #ffffff;
+border-radius: 6px;
+background-color: #e02f1f;
+padding: 10px; 
+}
+.pad-left{
+    padding:0;
+}
+.remeber-left{
+    display: inline-block;
+    padding-left: 20px;
+}
+.padding-spacing{
+    margin-bottom: 0.2px !important;
+}
+
+.mobile-login{
+    display: none;
+}
+.login-emailerror,.login-pwderror{
+    color:#FD4545;
+    font-size: 12px;
+}
+
+/* common css responsive for login reset change password */
+
+
+@media only screen and (max-width: 767px) {
+   
+
+    .web-login{
+        display:none !important;
+    }
+
+    .mobile-login{
+        display: block !important;
+        padding-top: 4rem;
+    }
+   
+}
+
+@media only screen and (max-width: 375px) {
+    .login_heading {
+        font-size: 28px;
+    }
+    
+    .login_para, .remember, .forgot{
+        font-size: 12px;
+    } 
+    
+    
+}
+
+   @media only screen and (max-width: 320px) {
+    .login_heading {
+        font-size: 24px;
+    }
+    
+    .login_para, .remember, .forgot{
+        font-size: 10px;
+    } 
+       .login{
+       padding: 1rem;    
+       }
+    
+    
+}
+
+/*ends */
+

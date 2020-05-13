@@ -1,0 +1,68 @@
+<section class="login-sec otp-sec">
+        <div class="container">
+           <div class="sewn-bg-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="27" viewBox="0 0 116 27">
+                    <g fill="none" fill-rule="evenodd">
+                        <text style="mix-blend-mode:screen" fill="#FFF" font-family="PlayfairDisplay-Bold, Playfair Display" font-size="26" font-weight="bold" letter-spacing="2.786" transform="translate(0 -5)">
+                            <tspan x="33" y="28">SEWN</tspan>
+                        </text>
+                        <g stroke="#FFF" stroke-width="1.5">
+                            <path d="M1.448 9.926L10 18.416l8.552-8.49L10 1.437l-8.552 8.49z" transform="translate(0 -5) translate(0 5)"/>
+                            <path d="M1.448 17.074L10 25.563l8.552-8.49L10 8.585l-8.552 8.49z" transform="translate(0 -5) translate(0 5)"/>
+                        </g>
+                    </g>
+                </svg>
+          <!-- <img src="assets/images/Sewn-logo.png" alt="user" class="Sewn-Logo"> -->
+           </div>
+           <div class="row">
+            <div class=" col-xs-12 col-sm-10 col-md-8 col-lg-6 login-box">
+                <div class="login">
+                    <h3 class="login_heading">Email OTP Verification </h3>
+                    <p class="login_para">A OTP has been sent to your email </p>
+
+                    <p class="otp-expiry">OTP Expires in 60s - <span id="timer" class="timer">00:<span id="time">60</span></span></p>
+                    <form class="form-container spacing-bottom web-otp">
+                        <div class="form-group row " >
+                             <label class="role-name col-md-12">ENTER 4 DIGIT OTP CODE</label>
+                            <div class="form-group col-md-12">                               
+                                <input id="codeBox1" type="number" placeholder="0" maxlength="1" (keyup)="onKeyUpEvent(1,$event)" (focus)="onFocusEvent(1)"/>
+                                <input id="codeBox2" type="number" placeholder="0" maxlength="1" (keyup)="onKeyUpEvent(2,$event)" (focus)="onFocusEvent(2)"/>
+                                <input id="codeBox3" type="number" placeholder="0" maxlength="1" (keyup)="onKeyUpEvent(3,$event)" (focus)="onFocusEvent(3)"/>
+                                <input id="codeBox4" type="number" placeholder="0" maxlength="1" (keyup)="onKeyUpEvent(4,$event)" (focus)="onFocusEvent(4)"/>
+                                <button type="button" class="btn submit-btn" routerLink="../change-password"><span class="submit-text">SUBMIT</span></button>
+                            </div>
+                        </div>
+
+                       
+
+
+                    </form>
+
+
+                    <form class="mobile-otp">
+                        <div class="form-group row pt-2 ">
+                            <div class="form-group col-md-12">
+                                <label class="role-name-mobile">ENTER 4 DIGIT OTP CODE</label>
+                                <input type="number" class="form-control rectangle_name" id="" placeholder="1234" name="OTP" autofocus required>
+                            </div>
+                        </div>
+    
+                      
+    
+                        <div class="form-group row pt-1 m-0 ">
+                           <div class="text-center w-100">
+                                    <button type="button" class="btn btn-info login-butn w-100" routerLink="../change-password"> SUBMIT</button>
+                                </div>
+                        
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+
+
+    </section>

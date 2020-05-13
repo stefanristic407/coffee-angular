@@ -1,0 +1,148 @@
+<div class="header-sewn">
+    <h1 class="hello-txt"> Add Member </h1> </div>
+
+<!-- <div class="total_header webview_add">
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+      <span id="title-breadcrumb-1" class="sr-only"></span>
+      <ul>
+          <li class="b-cum">
+            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a
+            ><span class="padl-r" aria-hidden="true"> &gt; </span>
+          </li>
+          <li class="b-cum">
+            <a class="b-cum" routerLink="/people/manage-role">People</a
+            ><span class="padl-r" aria-hidden="true"> &gt; </span>
+          </li>
+          <li class="b-cum">
+            <a class="b-cum" routerLink="/people/manage-role">Manage Roles</a
+            ><span class="padl-r" aria-hidden="true"> &gt; </span>
+          </li>
+          <li class="b-cum c-pink">Add Member</li>
+          <button type="submit" class="btn col-4 col-sm-4 col-md-3 col-lg-1 pull-right cancel_member">
+            <span class="cancel_value">CANCEL</span>
+        </button>
+      </ul>
+  </nav>
+</div> -->
+
+<div class="total_header mb-2 page-breadcrumb">
+		<div class="row">
+			<div class="col-12 d-flex no-block align-items-center">
+				<div class="">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item active"><a class="b-cum" routerLink="/features/welcome-aboard">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/manage-role">People</a></li>
+							<li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/manage-role">Manage Roles</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Add member</li>
+
+						</ol>
+					</nav>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="mt-4 mobview_add">
+			<h5 class="pl-1 mob-addmember">Add member</h5>
+		</div>
+
+<section class="row">
+    <div class="d-inline col-xs-12 col-md-12 member_heading">
+		<div class="webview_add ml-4 mt-4">
+        <p class="d-inline member_heading member_title">Add your member for</p>
+        <span class="d-inline select_title">
+          Sales & marketing 
+      <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" (click)="op.toggle($event)"/></span></div>
+	  <!-- [popover]="popTemplate" [placement]="'bottom'" -->
+	  <div class="form-group row pt-3 mobview_add " >
+			<div class="form-group col-md-12">
+				<label class="member_email">ADD MEMBER TO</label>
+				<select id="role_edit" class="form-control rectangle_dropdown" name="status">
+						<option value="">Select role</option>
+						<option value="">Sales & marketing</option>
+						<option value="Active">Active</option>
+						<option value="Disabled">Disabled</option>
+					  </select>									</div>
+		</div>
+
+	<div class="member_details">
+		<form class="form-container">
+			<div class="form-group row left-spacing">
+				<div class="form-group col-12 col-md-6 col-lg-4">
+				<label class="member_name">NAME</label>
+			<input type="text" class="form-control rectangle_name"  id="memberName" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)"
+			[(ngModel)]="member_name" name="member_name" autofocus required>
+			<div
+                class="memberFirstNameError"
+                *ngIf="memberFirstNameError != ''"
+              >
+                {{ memberFirstNameError }}
+              </div>
+			</div>
+			<div class="form-group col-12 col-md-6 col-lg-4">
+				<label class="member_email">Enter work Email Address*</label>
+			<input type="email" class="form-control rectangle_email"  id="memberEmail" placeholder="you@example.com" (keyup)="onKeyPress($event)"
+			[(ngModel)]="member_email"
+			name="member_email"  required>
+			<div class="memberEmailError" *ngIf="memberEmailError != ''">
+					{{ memberEmailError }}
+				  </div>
+			</div>
+			<div class="col-12 col-lg-2 pt-4 webview_add">
+				<button class="btn invites_button">
+					<span class="send_invites" (click)="sendInvites();">Send Invites</span>
+				</button> 
+			</div>
+			<div class="col-xs-12 col-sm-12 mt-3 mobview_add">
+					<button  type="submit" (click)="sendInvites();" class="update float-right btn">SEND INVITE</button>
+					<button  type="button" class="cancel float-right btn btn-link">CANCEL</button>
+				</div>
+			</div>
+
+			<!-- <div class="mobview_add padding-spacing"> -->
+					<!-- <div class="form-group row pt-3">
+							<div class="form-group col-md-12">
+								<label class="member_email">ADD MEMBER TO</label>
+								<select id="role_edit" class="form-control rectangle_dropdown" name="status">
+										<option value="">Select role</option>
+										<option value="">Sales & marketing</option>
+										<option value="Active">Active</option>
+										<option value="Disabled">Disabled</option>
+									  </select>									</div>
+						</div> -->
+				
+					<!-- <div class="form-group row">
+							<div class="form-group col-md-12">
+								<label class="member_email">NAME</label>
+								<input type="email" class="form-control rectangle_name" id="" placeholder="you@example.com" name="email" autofocus required>
+							</div>
+						</div>
+						<div class="form-group row ">
+								<div class="form-group col-md-12">
+									<label class="member_email">ENTER WORK EMAIL ADDRESS*</label>
+									<input type="email" class="form-control rectangle_name" id="" placeholder="you@example.com" name="email" autofocus required>
+								</div>
+							</div> -->
+							
+
+			<!-- </div> -->
+
+		</form>
+	</div>
+    </div>
+</section>
+<p-overlayPanel #op [dismissable]="true" appendTo="body">
+    <div class="overflow-popover">
+        <ul class="list-group custom-popover">
+			<li class="content_list ">Sourcing</li>
+			<li class="content_list">Accounts</li>
+        </ul>
+        <button class="btn addrole_button">
+              <span class="addrole_content">ADD ROLE</span>
+        </button>
+      </div>
+</p-overlayPanel>
+
+
+

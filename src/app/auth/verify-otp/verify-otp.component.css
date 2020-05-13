@@ -1,0 +1,203 @@
+
+
+
+.login {
+    border-radius: 6px;
+    box-shadow: 0 0 10px 4px rgba(27, 27, 27, 0.3);
+    background-color: #ffffff;
+    padding: 2.3rem 2.3rem 3rem 2.3rem;
+    }
+
+
+.login_heading {
+    font-family: PlayfairDisplay;
+    font-size: 32px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 42px;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.login_para {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 28px;
+    letter-spacing: 0.2px;
+    color: #666666;
+}
+
+.role-name {
+    font-size: 9px;
+    font-weight: 600;
+    color: #666666;
+    font-family: Montserrat;
+    padding-left: 3%;
+    letter-spacing: 0.3px;
+}
+
+ input[type=number] {
+     width: 44px;
+height: 44px;
+border-radius: 6px;
+border: solid 1px #cccccc;
+background-color: #ffffff;
+text-align: center;
+margin-right: 7px;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance:textfield;
+}
+  .otp-expiry{
+     font-family: Montserrat;
+font-size: 15px;
+font-weight: normal;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: normal;
+color: #666666;
+margin-top: 5%;
+
+  }
+  .timer{
+    font-size: 16px;
+font-weight: 600;
+color: #000000;
+  }
+  .submit-text{
+      font-family: Montserrat;
+font-size: 12px;
+font-weight: 600;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: normal;
+color: #ffffff;
+padding: 10px 6px;
+/* padding: 0% 10%; */
+
+  }
+  .spacing-bottom{
+    margin-top: 2.2rem;
+  }
+
+  ::placeholder{
+      font-family: Montserrat;
+font-size: 14px;
+font-weight: 500;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: normal;
+color: #666666;
+  }
+  ::-webkit-input-placeholder{
+font-family: Montserrat;
+font-size: 14px;
+font-weight: 500;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: normal;
+color: #666666;
+padding-top: 5%;
+  }
+ 
+
+  .submit-btn{
+     height: 45px;
+  border-radius: 6px;
+  background-color: #3d8462;
+  position: relative;
+  bottom: 3px;
+  /* padding-right: 5% ; */
+  }
+  .submit-btn:hover{
+    background-color: #3d8462; 
+      box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  
+  }
+  .form-container{
+    margin-bottom: 8rem;
+  }
+  
+  .role-name-mobile{
+    font-size: 9px;
+    font-weight: 600;
+    color: #666666;
+    font-family: Montserrat;
+    letter-spacing: 0.3px;
+  }
+  
+  .rectangle_name{
+    height: 46px;
+    border-radius: 6px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .login-butn{
+    border-radius: 6px;
+    background-color: #3d8462;
+    padding: 10px 11px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    height: 40px;
+    border: #3d8462;
+  }
+
+.mobile-otp{
+  display: none;
+}
+
+
+  @media only screen and (max-width: 767px) {
+    .web-otp{
+      display:none !important;
+  }
+
+  .mobile-otp{
+      display: block !important;
+     
+  }
+  }
+
+
+   @media only screen and (min-width: 385px) and (max-width: 575px) {
+    .login_heading {
+      font-size: 27px;
+    }
+   }
+
+@media only screen and (min-width: 320px) and (max-width: 384px) {
+input[type=number] {
+      width: 32px;
+      height: 36px;
+      margin-right: 5px;
+     }
+     .submit-btn{
+     height: 36px;
+  }
+     
+  .submit-text{
+    padding: 5px 1px;
+
+  }
+  .login_heading {
+    font-size: 23px;
+  }
+
+}

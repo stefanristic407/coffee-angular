@@ -1,0 +1,239 @@
+
+  .rectangle_name {
+    height: 50px;
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000000;
+}
+.role-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666666;
+    font-family: Montserrat;
+}
+.form_header{
+    height: 46px;
+    font-family: PlayfairDisplay;
+    font-size: 34px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000000;
+}
+.form_para{
+    height: 20px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: center;
+    color: #666666;
+}
+.form_content{
+    position: relative;
+    left: 8%;
+}
+.btn-div{
+    padding-right: 8%;
+}
+.prev-div{
+    padding-right: 10%;
+}
+.text-area{
+    height: 106px!important;
+}
+.upload-text{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+    padding-left: 12%;
+}
+
+.upload-btn{
+    padding: 8% 0%;
+    margin-top: 30%;
+
+    
+}
+.upload-div{
+padding: 0%;
+position: relative;
+right: 2%;
+}
+.cert-year{
+    width: 90%;
+}
+
+.add-text{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+    padding-left: 8%;
+}
+#role_edit{
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    background: url(/assets/images/active.png) right 16px top 19px/10px no-repeat;
+    -webkit-appearance: none;
+    font-family: Montserrat;
+    font-weight: 500;
+height: 50px !important;
+padding-top: 7px;
+cursor: pointer;
+}
+.btn{
+    text-decoration: none;
+}
+#delete-btn{
+padding: 0%;
+margin-top: 5%;
+}
+.upload-add-btn{
+    margin-top: 21%;
+    padding:0% ;
+}
+.add-btn:hover > .add-text , .upload-btn:hover > .upload-text , .upload-add-btn:hover > .upload-text {
+    text-decoration: underline;
+}
+
+.certificate-details{
+    height: 40px;
+    border-radius: 6px;
+    background-color: #eeeeee;
+    border: 1px solid #eeeeee;
+    margin-left: 9%;
+}
+.name{
+padding: .7rem;
+font-family: Montserrat;
+font-size: 14px;
+font-weight: 500;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: normal;
+color: #000000;
+
+}
+.button-div{
+    padding: .5rem;
+    margin-right: 1%;
+}
+
+.edit-btn{
+    padding: 0%;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    
+}
+.del-btn{
+    padding: 0%;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+
+.edit-img, .del-img{
+    padding-right: 10%;
+}
+
+.del-btn:focus, .edit-btn:focus{
+    box-shadow: none !important;
+    outline: 0;
+}
+.v-line{
+    display: none;
+}
+@media screen and (max-width:425px){
+    .form-control{
+        width: 88%;
+        font-size: 12px;
+    }
+    .upload-btn{
+        padding: 0;
+        margin-top: 0;
+        border: 1px solid #3d8462;
+        border-radius: 8px;
+        width: 83%;
+        height: 46px;
+        margin-left: 5%;
+    }
+    .upload-text{
+        padding-left: 5%;
+    }
+    .upload-add-btn{
+        width: 45%;
+    margin-left: 5%;
+    margin-top: 0%;
+    padding-bottom: 3%;
+    }
+    .upload-del-btn{
+        padding: 0% !important;
+        /* position: relative; */
+        /* right: 2%; */
+        border: 1px solid #3d8462;
+        border-radius: 8px;
+        display: inline-block;
+        /* margin: 0 0; */
+        width: 83%;
+        margin-left: 5%;
+        margin-top: 5%;
+    }
+    #delete-btn{
+        width: 45%;
+        padding: 0;
+        margin-top: 0;
+        border: none;
+        border-radius: none;
+        height: 46px;
+        padding-bottom: 4%;
+    }
+    .v-line{
+        font-size: xx-large;
+        display: inline-block;
+    }
+   
+    
+}
+@media screen and (max-width:767px){
+    .button-div{
+        float: left !important;
+    }
+    .certificate-details{
+        height: 80px;
+    }
+
+   
+}
