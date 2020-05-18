@@ -152,10 +152,10 @@ Login() {
     }
     else {
         //this.myAlertTop();
-        if(this.userEmail =="satya@terralogic.com" && this.userPassword == "Temp@123"){
+        if(this.userEmail =="satyanarayana.murthy@nordsud.se" && this.userPassword == "Temp@123"){
           this.router.navigate(["/auth/update-password"]);
         }
-        else if(this.userEmail == "satya@terralogic.com" && this.userPassword == "Live@123"){
+        else if(this.userEmail == "satyanarayana.murthy@nordsud.se" && this.userPassword == "Live@123"){
           this.router.navigate(["../../features/welcome-aboard"]);
 		}
 		else{
