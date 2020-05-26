@@ -15,6 +15,7 @@ export const routes: Routes = [
   },
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: 'people', loadChildren: () => import('./people/people.module').then(m => m.PeopleModule) },
+  { path: 'ordermanagement', loadChildren: () => import('./ordermanagement/ordermanagement.module').then(m => m.OrdermanagementModule) },
   { path: '**', redirectTo: 'auth' },
 ];
 

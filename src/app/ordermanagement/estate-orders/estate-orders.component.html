@@ -1,0 +1,126 @@
+
+<div class="header-sewn">
+    <h1 class="hello-txt"> Order Management</h1> </div>
+
+
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-5">
+    <span id="title-breadcrumb-1" class="sr-only"></span>
+    <ul class="bread-nav">
+        <li class="b-cum">
+            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> &gt; </span>
+        </li>
+        <li class="b-cum">
+            <a class="b-cum" routerLink="/people/manage-role">Order Management</a><span class="padl-r" aria-hidden="true"> &gt; </span>
+        </li>
+       
+        <li class="b-cum c-pink">My Orders</li>
+        <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none"> EXPORT </button>
+
+    </ul>
+</nav>
+
+<section class="estate-orders-heading">
+    <h5 class="estate-order-title"> Estate orders</h5>
+</section>
+
+
+
+<section class="estate-orders">
+    
+    <!-- <div class="row mb-4">
+        <div class="d-inline col-sm-12 search-div">
+			<input type="text" name="search" class="col-12 col-md-4 search" [(ngModel)]="estateterm" placeholder="Search by Name,role..">
+		</div>
+    </div> -->
+    <div class="row ">
+        <div class="d-inline table-w">
+    <div class="d-inline status-div col-sm-6">
+            <p class="d-inline text-filters">Origin:</p>
+            <select class="form-group status_select ml-2" [(ngModel)]="estateorigin" name="estateorigin">
+                    <option value="">All</option>
+                    <option value="Ethopia">Ethopia</option>
+                    <option value="Colombia">Colombia</option>
+                </select>
+           
+        </div>&nbsp;&nbsp;
+        <div class="d-inline role-div col-sm-6">
+            <p class="d-inline text-filters">Type of order:</p>
+            <select  class="form-group status_select ml-2" name="estatetype" [(ngModel)]="estatetype">
+                    <option value="">All</option>
+                    <option value="Sample">Sample</option>
+                    <option value="Booked">Booked</option>
+                    <option value="Pre-Booked">Pre-Booked</option>
+                </select>
+        </div>
+        <div class="d-inline status-div col-sm-6">
+                <p class="d-inline text-filters">Status:</p>
+                <select  class="form-group status_select ml-2" [(ngModel)]="estatestatus" name="estatestatus">
+                        <option value="">All</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Order Confirmed">Order Confirmed</option>
+                        <option value="Received">Received</option>
+                        <option value="Cancelled">Cancelled</option>
+
+                    </select>
+               
+            </div>&nbsp;&nbsp;
+         
+        </div>
+    </div>
+    <div class="estate-table">
+<table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
+    <thead>
+      <tr class="estate-title">
+            <th>  
+                <label class="customcheckbox m-b-20">
+                        <input type="checkbox" id="mainCheckbox" [checked]="isAllCheckedEstate()"
+                        (change)="checkAllEstate($event)" />
+                        <span class="checkmark head-check"></span>
+                    </label>
+                </th>
+        <th>Order ID </th>
+        <th>Estate Name </th>
+        <th>Date Ordered <img class="pl-4" src="assets/images/combined-shape.svg"/></th>
+        <th>Orgin </th>
+        <th>Quantity </th>
+        <th>Type of Order </th>
+        <th>Status </th>
+
+      </tr>
+    </thead>
+    <tbody >
+     <tr *ngFor="let group of data | filter:estateterm | filter:estateorigin | filter:estatetype | filter: estatestatus" class="estate-boby-txt">
+            <th>
+                    <label class="customcheckbox">
+                        <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{group.id}}" [(ngModel)]="group.state" />
+                        <span class="checkmark head-check"></span>
+                    </label>
+                </th>
+        <td>{{group.orderid}}</td>
+           <td>{{group.estatename}}</td>
+           <td>{{group.dataordered}}</td>
+           <td>{{group.origin}}</td>
+           <td>{{group.quantity}}</td>
+           <td (click)="displayData($event,group)">
+
+            <p class="typeoforder-Sample" *ngIf="group.typeoforder == 'Sample'">&#9679;  {{group.typeoforder}}</p>
+            <p class="typeoforder-Booked" *ngIf="group.typeoforder == 'Booked'">&#9679;  {{group.typeoforder}}</p>
+            <p class="typeoforder-Pre-Booked" *ngIf="group.typeoforder == 'Pre-Booked'">&#9679;  {{group.typeoforder}}</p>
+
+            </td>
+           <td>
+
+            <p class="status-Shipped" *ngIf="group.status == 'Shipped'">&#9679;  {{group.status}}</p>
+            <p class="status-Received" *ngIf="group.status == 'Received'">&#9679;  {{group.status}}</p>
+            <p class="status-Order-Confirmed" *ngIf="group.status == 'Order Confirmed'">&#9679;  {{group.status}}</p>
+            <p class="status-Shipped" *ngIf="group.status == 'Payment'">&#9679;  {{group.status}}</p>
+            <p class="status-Received" *ngIf="group.status == 'Harvest Ready'">&#9679;  {{group.status}}</p>
+
+           </td>
+       </tr>
+    </tbody>
+    </table>
+</div>
+
+</section>
+  

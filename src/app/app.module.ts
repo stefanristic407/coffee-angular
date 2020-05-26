@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { PeopleModule } from './people/people.module';
+import {OrdermanagementModule} from './ordermanagement/ordermanagement.module'
 
 
 
@@ -26,6 +27,7 @@ import { PeopleModule } from './people/people.module';
     AuthModule,
     FeaturesModule,
     PeopleModule,
+    OrdermanagementModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{provide:LocationStrategy,useClass:HashLocationStrategy}],

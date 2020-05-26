@@ -1,0 +1,961 @@
+.total_header {
+    margin-left: 2.2rem;
+    margin-right: 5.4rem;
+}
+.top-padding{
+    margin-top: 3px;
+    color: #000000;
+    font-weight: bold;
+}
+.order-id{
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.ship-pl{
+  padding-left: 3rem;
+}
+.booked{
+    border-radius: 4px;
+  background-color: rgba(71, 180, 13, 0.1);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: bold;
+  color: #e78926;
+  padding: 4px;
+}
+.note-prebooked{
+    font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  color: #e02f1f;
+}
+.bold-note{
+    font-weight: bold;
+
+}
+
+.in-order{
+    background-color: #faf8f4;
+    padding: 2rem;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    margin-right: -1rem;    
+    overflow: hidden;
+}
+
+.recent-time td{
+  font-family: Montserrat;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+  padding: 1rem 2rem 1rem 0rem;
+  border-bottom: 1px solid #dddddd;
+
+}
+
+.list-que{
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
+}
+.list-ans{
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.details-list{
+  list-style: none;
+  margin-left: 1.5rem;
+}
+
+
+/* ============Order Placed Date============= */
+.order-placed-text{
+    font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
+}
+.date-text{
+    font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+.ord-invoice-butn{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #3d8462;
+    padding: .7rem 1rem;
+}
+
+
+
+/****************************css for pre booked starts***************************************/
+.in-order{
+  background-color: #faf8f4;
+  padding: 1.5rem;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  /* margin: .5rem; */
+  overflow: hidden;
+}
+.order-txt{
+  font-family: PlayfairDisplay;
+font-size: 24px;
+font-weight: normal;
+color: #020202;
+}
+.order-status{
+  margin-left: -1.5rem;
+  font-family: Montserrat;
+  font-size: 13px;
+ font-weight: normal;
+  color: #bea080;
+  cursor: pointer;
+}
+.order-harvest{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+    margin-left: -2rem;
+    cursor: pointer;
+}
+.order-harvest :hover{
+  text-decoration: underline;
+}
+.order-tracking{
+  text-align: left;
+  width: 18%;
+  position: relative;
+  display: block;
+}
+
+.order-tracking .is-complete{
+	display: block;
+	position: relative;
+	border-radius: 50%;
+	/* height: 30px;
+  width: 30px; */
+  height: 23px;
+    width: 23px;
+	/* border: 1px solid #c29d7a4a;
+  background-color: #ffffff; */
+  border: solid 2.2px #24be46;
+  background-color: #24be46;
+	margin: 0 ;
+	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear;
+    z-index: 2;
+    
+}
+.order-tracking .is-complete:after {
+	display: block;
+	position: absolute;
+	content: '';
+	top: -2px;
+	bottom: 0;
+	margin: auto 0;
+	border: 0px solid #AFAFAF;
+	transform: rotate(45deg);
+	border-color: #ffffff;
+    border-width: 0px 2px 2px 0;
+    width: 6px;
+    left: 7px;
+    opacity: 1;
+    height: 10px;
+}
+.order-tracking.completed .is-complete{
+	/* border-color: #c29d7a;
+	border-width: 0px;
+  background-color: #c29d7a; */
+    border: solid 2px #bea080;
+    background-color: #faf8f4;
+}
+.order-tracking.completed .is-complete:after {
+  border-color: #bea080;
+  border-width: 0px 2px 2px 0;
+  width: 6px;
+  left: 7px;
+  opacity: 1;
+  height: 10px;
+}
+.order-tracking .is-complete .order-status{
+  color: #000000 !important;
+}
+
+.order-tracking:last-child:after{
+	content: '';
+	display: block;
+    height: 3px;
+    /* width: calc(100%); */
+    background-color: #c29d7a1f;
+    top: 13px;
+    position: absolute;
+	right: calc(-19%);
+    z-index: 0;
+}
+.mixups-track:last-child:after{
+	content: '';
+	display: block;
+    height: 3px;
+    width: calc(100%);
+    background-color: #c29d7a1f;
+    top: 13px;
+    position: absolute;
+	right: calc(-9%);
+    z-index: 0;
+}
+
+ .is-complete:before {
+    border-color: #fff;
+    border-width: 0px 3px 3px 0;
+    width: 7px;
+    left: 11px;
+    opacity: 1;
+}
+
+
+
+.order-tracking::before {
+	content: '';
+  display: block;
+  width: calc(72%);
+    background-color: #c29d7a1f;
+    top: 13px;
+    position: absolute;
+    left: calc(-90%);
+    z-index: 0;
+    border: dashed 0.5px #bea080;
+	/* height: 3px;
+	width: calc(100%);
+	background-color: #c29d7a1f;
+	top: 13px;
+	position: absolute;
+	left: calc(-90%);
+	z-index: 0; */
+}
+
+.mixups-tabs .order-tracking::before {left: calc(-90%);}
+.order-tracking:first-child:before{display: none;}
+.order-tracking.completed:before{
+  border: dashed 0.5px #bea080;}
+.transit-scoll{
+  width:107%;
+}
+.transit-maxwidth{
+  margin-left: 4rem;
+    margin-top: 1.5rem;
+}
+.order-date{
+  font-family: Montserrat;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    margin-left: -2.8rem;
+}
+.shipping-div{
+  padding-left: 3rem;
+}
+.shipping-addr,.estate-details{
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+}
+.edit-text,.view-details{
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: bold;
+  color: #3d8462;
+}
+.addr-text{
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  color: #000000;
+}
+.img-logo{
+  width: 100%;
+      height: 134px;
+}
+.img-estate{
+  width: 32px;
+    height: 32px;
+}
+.details-list{
+  list-style: none;
+}
+.estate-name{
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  color: #000000;
+}
+.estate-number{
+  font-family: Montserrat;
+  font-size: 11px;
+  font-weight: normal;
+  color: #000000;
+}
+.estate-mail{
+  font-family: Montserrat;
+  font-size: 11px;
+  font-weight: normal;
+  color: #000000;
+  border-left: 1px solid #cccccc;
+}
+.estate-message{
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: bold;
+  color: #3d8462;
+}
+.border-div{
+  border-bottom: 1px solid #dddddd;
+}
+.company-phone{
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  color: #666666;
+}
+.company-text{
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  color: #000000;
+}
+  /* @media only screen and (max-width: 2560px) {
+    .order-tracking::before {
+      left: calc(-97%);
+    }  
+  
+      .mixups-tabs .order-tracking::before {left: calc(-97%);}    
+  }
+  
+  @media screen and (max-width: 1440px) and (min-width: 768px){
+    .order-tracking::before {
+      left: calc(-90%);
+    }  
+  }
+  
+  
+  
+  @media only screen and (max-width: 640px) {
+    .transit-maxwidth{
+      min-width: 700px;
+       max-width: 1000px;}
+    .transit-scoll{overflow-x:auto}
+   }
+   */
+
+
+
+    /* =========changes as per design ======== */
+ .nav-pills{
+    border-bottom: 1px solid #dddddd;
+}
+li.nav-item{
+    margin-right: 10%;
+    position: relative;
+    top: .25rem;
+}
+.nav-pills .nav-link{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    padding: 1rem 0rem;
+}
+.nav-pills .nav-link.active {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+    padding: 1rem 0rem;/*  changes as per design */
+    
+}
+.problem-text{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #3d8462;
+    /* padding: 1rem 0rem; */
+    cursor: pointer;
+}
+
+/* ====================== */
+.mixups-tabs{
+	/* padding: 0rem 2rem 2rem 0rem; */
+    background-color: #ffffff;
+    overflow: hidden;
+    border-right: 1px solid #dddddd;
+	
+}
+
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #256547 !important;
+    font-size: 14px;
+	font-weight: 700;
+	background-color: unset !important;
+	/* border-bottom: 1px solid #256547; */
+    border-radius: unset;
+}
+
+.nav-pills .nav-link.active{
+    position: relative;
+    padding-right: 0;/*  changes as per design */
+    padding-left: 0;/*  changes as per design */
+}
+
+.nav-pills .nav-link.active:before{    
+    content: '';
+    width: 100%; /*  changes as per design */
+    border-radius: 30px;
+    height: 4px;
+    background: #256547;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 80%;
+    transform: translate(-50%);}
+
+    .problem-link{
+        cursor: pointer;
+    }
+    .footer-content{
+        background-color: #f9f9f9;
+        padding: 3rem 5rem;
+    }
+    .recent-title{
+        font-family: PlayfairDisplay;
+      font-size: 28px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #020202;
+    }
+    .activity-date{
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: normal;
+        color: #000000;
+    }
+    .list-time{
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #666666;
+    }
+    .list-content{
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #000000;
+    }
+    .activity-list{
+        border-bottom:  1px solid #dddddd;
+        padding: .7rem 0rem;
+        width: 60% !important;
+    }
+    .cancel-order-btn{
+        border-radius: 4px;
+        border: 1px solid #3d8462;
+        background-color: #3d8462;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: right;
+        color: #ffffff;
+        padding: 1% 2%;
+        margin-left: 3rem;
+    }
+    .cancel-order-btn:hover .cancel-order-btn{
+        /* background-color: #3d8462;  */
+        padding: 1% 2%;
+          border: #3d8462;
+          box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+     
+     }
+     .cancel-order-btn:hover{
+         box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+        }
+     .ord-invoice-butn:hover{
+        border: #3d8462;
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    }
+    .ord-invoice-butn:hover .ord-invoice-butn{
+        padding: .7rem 1rem;
+    }
+    .problem-btn{
+        border-radius: 6px;
+        background-color: #3d8462;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #ffffff;
+    }
+
+    .chat-btn{
+      border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+      box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
+      background-color: #333333;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #ffffff;
+      text-align: left;
+    }
+    .chat-indicator{
+      color: #24be46;
+    }
+    .chat-div{
+      width: 85%!important;
+    }
+    
+
+  .list-name{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+  }
+  .list-user{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+  }
+  .list-activity{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.36;
+    letter-spacing: normal;
+    color: #000000;
+  
+  }
+  .bulk-list{
+    border-bottom:  1px solid #dddddd;
+    padding: .7rem 0rem;
+}
+.list-que{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+.list-ans{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.bulk-list:last-child{
+  border-bottom: none;
+}
+.harvest-content{
+  padding-left: 0rem;
+  border-right:  1px solid #dddddd;
+}
+.recent-activity-content{
+  padding-left: 3rem;
+ 
+}
+.view-more{
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #3d8462;
+  cursor: pointer;
+  height: fit-content;
+}
+.view-more:hover{
+  text-decoration: underline;
+}
+.image-div{
+  width: 170px;
+  height: 170px;
+  border-radius: 6px;
+  background-color: #d8d8d8;
+  margin-right: 1rem;
+}
+.image-content{
+position: relative;
+right: 0%;
+padding-bottom: 6rem;
+}
+
+
+/********************* css for confirm order**************************/
+.confirm-grade{
+  font-family: Montserrat;
+font-size: 14px;
+font-weight: normal;
+line-height: 1.5;
+color: #000000;
+}
+.yes-txt{
+  border-radius: 6px;
+background-color: #3d8462;
+font-family: Montserrat;
+font-size: 13px;
+font-weight: normal;
+color: #ffffff;
+padding-top: 9px;
+  padding-bottom: 8px;
+}
+.arrow-image{
+  margin-top: -4px;
+  margin-left: 2px;
+}
+.arrow-image1{
+  margin-top: -4px;
+  margin-left: 6px;
+}
+.yes-order{
+  border-radius: 6px;
+  background-color: #3d8462;
+  font-family: Montserrat;
+font-size: 12px;
+font-weight: bold;
+color: #ffffff;
+padding: 9px 16px 8px 17px;
+}
+.cancel-order{
+  border-radius: 6px;
+  border: solid 1px #3d8462;
+  background-color: #faf8f4;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: bold;
+  color: #3d8462;
+  padding-top: 9px;
+    padding-bottom: 8px;
+}
+.leave-feedback{
+  border-radius: 6px;
+  border: solid 1px #3d8462;
+  background-color: #faf8f4;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  color: #3d8462;
+  padding-top: 9px;
+    padding-bottom: 8px;
+}
+/* .confirm-predisplay{
+  display: none;
+} */
+.yes-txt:hover{
+  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+.problem-btn:hover{
+  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+.yes-order:hover{
+  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+.cancel-order-btn{
+  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+/* ===== after changing to completeprocess ==== */
+
+.completeProcess{
+  border: solid 2.2px #24be46 !important;
+    background-color: #24be46 !important;
+}
+.completeProcess::after{
+  color: #fff!important;
+}
+
+/***************Images**********************/
+.edit-icon,.message-icon{
+  width: 14px;
+    height: 14px;
+}
+.rating-value{
+  padding-top: 6px;
+  margin-left: 2%;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  color: #000000;
+}
+.rating-space{
+  margin-bottom: -0.8rem!important;
+}
+::ng-deep .star{
+  cursor: auto !important;
+}
+
+     /********************* media query css  **************************/
+
+     #have-a-problem-web{
+       display: block;
+     }
+     #have-a-problem-mobile{
+       display: none;
+     }
+     .tab-right{
+       padding-right: 3rem;
+     }
+
+     @media only screen and (max-width: 1024px){
+
+      li.nav-item{
+        margin-right: 5%;
+        position: relative;
+        top: 0rem;
+    }
+    
+      .harvest-content{
+        border-right:  1px solid #dddddd;
+      }
+
+      .recent-activity-content{
+        padding-left: 3rem;
+      }
+      .image-div{
+        width: 100%;
+        margin-bottom: 1rem;;
+      }
+      .order-status {
+        margin-left: 0rem;
+        font-family: Montserrat;
+        font-size: 12px;
+        font-weight: normal;
+        color: #bea080;
+    }
+  
+    .order-date{
+      font-size: 11px;
+  padding-bottom: 1rem;  }
+  
+    .transit-scoll {
+      width: 100%;
+      overflow-x: auto;
+  }
+    .transit-maxwidth{
+      margin-left: 3rem;
+      margin-top: 1.5rem;
+      min-width: 700px;
+      max-width: 1000px;
+    }
+    .harvest-content{
+      padding-left:0rem;
+    }
+  
+     }
+     @media only screen and (max-width: 991px){
+      .mixups-tabs {
+        border-right: 0px solid #dddddd;
+      }
+     .payment-status-content{
+       margin-top: 1.5rem;
+     }
+     
+     }
+  
+     @media only screen and (max-width: 768px){
+  
+     .total_header {
+      margin-left: 0rem;
+      margin-right: 0rem;
+     }
+   
+    
+  
+    .transit-maxwidth{
+      margin-left: 0rem;
+  }
+
+  
+     }
+  
+     @media only screen and (max-width: 767px){
+      .harvest-content{
+        border-right:  0px solid #dddddd;
+      }
+      .footer-content {
+       background-color: #f9f9f9;
+       padding: 3rem 1rem;
+   }
+   .recent-activity-content{
+    padding-left: 3rem;
+  }
+   .harvest-content {
+    padding-left: 1rem;
+}
+
+  
+
+   .image-div{
+     width: 100%;
+     margin-bottom: 1rem;;
+   }
+
+   #have-a-problem-web{
+    display: none;
+  }
+  #have-a-problem-mobile{
+    display: block;
+    float: left;
+    width: 100%;
+    margin-bottom: 1rem;
+
+  }
+      }
+
+     
+  
+      @media only screen and (max-width: 480px){
+      
+
+    
+      .list-activity {
+        font-size: 12px;
+    }
+    .order-placed-text{
+      margin:1rem 0rem;
+    }
+    .ship-pl{
+      padding-left: 1rem;
+    }
+    .recent-activity-content{
+      padding-left: 1rem;
+    }
+    .tab-right{
+      padding-right: 0rem;
+    }
+  }
+  
+  @media only screen and (max-width: 375px){
+    .details-list {
+      margin-left: 5px;
+  }
+  .footer-content {
+    background-color: #f9f9f9;
+    padding: 3rem 0rem 3rem .5rem;
+  }
+
+  .nav-pills .nav-link{
+    font-size: 12px;
+}
+.nav-pills .nav-link.active {
+  font-size: 12px;
+}
+
+
+  }

@@ -1,0 +1,219 @@
+.bread-nav{
+    padding-left: 3.9rem;
+}
+table.dataTable thead .sorting_asc, table.dataTable thead .sorting, table.dataTable thead .sorting_desc{
+    background-image: unset !important;
+}
+.estate-orders{
+    margin:1rem  3.5rem;
+    position: relative;
+}
+.estate-orders-heading{
+    margin: 1rem 3.5rem;
+}
+
+.add-role-butn {
+    border-radius: 8px;
+    background-color: #3d8462;
+    padding: 10px 0px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-right: 4rem;
+}
+.add-role-butn:hover{
+    background-color: #3d8462; 
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.table thead th, table.dataTable.no-footer, table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td{
+    border: none !important;
+}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after, 
+table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before{
+    display:none !important;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fff !important;
+}
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
+    background-color: #fff !important;
+}
+.estate-title{
+    border-radius: 8px;
+    background-color: #faf8f4;
+}
+
+.estate-title th{
+    color: #87623b;
+    font-weight: 600;
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.estate-boby-txt td{
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.status-Shipped{
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #e78926;
+}
+.status-Received{
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #24be46;
+}
+
+.status-Order-Confirmed{
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #e78926;
+}
+.typeoforder-Sample{
+    background-color: rgba(231, 137, 38, 0.1);
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #e78926;
+    padding: .2rem;
+    width: 55%;
+}
+
+.typeoforder-Booked{
+    background-color: rgba(71, 180, 13, 0.1);
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #24be46;
+    padding: .2rem;
+    width: 55%;
+}
+
+.typeoforder-Pre-Booked{
+    background-color: rgba(231, 137, 38, 0.1);
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #e78926;
+    padding: .2rem;
+    width: 75%;
+}
+
+.estate-order-title{
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.search{
+    /*width: 255px;*/
+    font-family: 'Montserrat';
+height: 36px;
+border-radius: 8px;
+border: solid 1px #cccccc;
+background-color: #ffffff;
+background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px;
+padding-left:45px;
+
+ }
+
+ span.checkmark{
+    background-color: white;
+    border: 1px solid #666666;
+    border-radius: 4px;
+}
+.customcheckbox input:checked ~ .checkmark {
+background-color: #000;
+}
+
+.estate-title .checkmark{
+    top:-9px !important;
+}
+.estate-boby-txt .checkmark {
+    top: 3px !important;
+    left: 8px !important;
+}   
+
+#DataTables_Table_0_length{
+    position: relative;
+    bottom: 2.5rem;
+    left: 57%;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.text-filters, #dataTables_filter input{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+
+
+
+@media (max-width:1024px){
+
+    .estate-table{
+        width: 100%;
+        overflow: scroll;
+    }
+
+    .estate-table table{
+        width: 1024px;
+    }
+   
+}
+
+@media (max-width:480px){
+.estate-orders {
+    margin: 1rem 0px;
+}
+}
+
+

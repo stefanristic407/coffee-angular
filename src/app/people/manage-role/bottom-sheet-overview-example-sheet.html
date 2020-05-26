@@ -44,8 +44,11 @@
               <div class="card">
                 <div class="card-header" id="headingOne">
                   
-                  <img src="assets/images/arrow-up.png" alt="" class="image-class"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <!-- <button class="btn btn-link">
+                  <img type="button" src="{{ showVar ? 'assets/images/arrow-up.png' : 'assets/images/arrow-down.png'}}" alt=""  (click)="toggleChild()" class="image-class"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                 
+             
+                  
+                  <!-- <button class="btn btn-link">
                     </button> -->
                 </div>
               </div>

@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
+declare var $ : any;
 
 @Component({
   selector: 'app-features',
@@ -17,6 +18,7 @@ export class FeaturesComponent implements OnInit {
     //   alert( "Handler for .click() called." );
     // });
     //copy pasted all custom JS code here.....
+    
     $(function() {
       "use strict";
   
@@ -230,6 +232,9 @@ function scrollFunction() {
 
   }
 }
+
+
+
   }
 
     

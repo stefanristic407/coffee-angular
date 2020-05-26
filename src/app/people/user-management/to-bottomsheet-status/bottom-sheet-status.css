@@ -1,0 +1,46 @@
+.status-text{
+    color:#000000;
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+}
+.reset-text{
+    color:#666666;
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: bold;
+}
+::ng-deep .mat-bottom-sheet-container {
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+.main-text{
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 5%;
+}
+.check-text{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666666;
+    cursor: pointer;
+    padding-left: 1.3rem;
+}
+.space-left{
+    padding-left: 10px;
+}
+input:checked + label {
+    color:#000000;
+    font-weight: bolder;
+}
+  .check-text:before{
+    /* border-radius: 6px; */
+    border: solid 1px #827a7a87;
+    background-color: #ffffff;
+    top:2px;
+  }
+  .check-text::after{
+    height: 0.9rem;
+  }

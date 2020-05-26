@@ -17,10 +17,14 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {TreeModule} from 'primeng/tree';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {BottomSheetRoles} from '../people/user-management/to-bottomsheet-roles/bottom-sheet-roles';
+import {BottomSheetStatus} from '../people/user-management/to-bottomsheet-status/bottom-sheet-status';
+import { SheetValues } from './user-management/sheet-values';
+
 
 
 @NgModule({
-  declarations: [PeopleComponent, CreateRoleComponent, EditMembersComponent, AddMembersComponent, UserManagementComponent, ManageRoleComponent, PagenotfoundComponent],
+  declarations: [PeopleComponent, CreateRoleComponent, EditMembersComponent, AddMembersComponent, UserManagementComponent, ManageRoleComponent, PagenotfoundComponent,BottomSheetRoles,BottomSheetStatus],
   imports: [
     CommonModule,
     PeopleRoutingModule,
@@ -32,6 +36,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     TreeModule,
     MatBottomSheetModule,
     MatSidenavModule
-  ]
+  ],
+  providers: [SheetValues]
 })
 export class PeopleModule { }

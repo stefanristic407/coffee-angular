@@ -1,0 +1,205 @@
+th{
+    font-family: Montserrat;
+  /* font-size: 14px; */
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
+  padding-right: 3rem;
+}
+td{
+    font-family: Montserrat;
+    /* font-size: 14px; */
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    padding-right: 3rem;
+    padding-top: 1rem;
+
+}
+.lot-link{
+    font-family: Montserrat;
+    /* font-size: 14px; */
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+}
+hr{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: #dddddd;
+}
+.sub-title{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    padding-bottom: 0.5rem;
+}
+.bulk-details-content{
+    padding-right: 2rem;
+    border-right:  1px solid #dddddd;
+}
+.payment-status-content{
+    padding-left:2rem;
+}
+
+.list-que{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+.list-ans{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.payment-status-content{
+    padding-left:2rem;
+}
+.bulk-list{
+    border-bottom:  1px solid #dddddd;
+    padding: .7rem 0rem;
+}
+.list-que{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+.list-ans{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.status{
+    font-family: Montserrat;
+    /* font-size: 14px; */
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #e78926;
+    /* margin-bottom: 0%; */
+}
+.procedure{
+    font-family: Montserrat;
+    /* font-size: 14px; */
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+    cursor: pointer;
+}
+.right-angle{
+    padding-left: .5rem;
+}
+.shipment-id, .track-id{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+}
+.track-info-title, .shipment-title{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000; 
+    margin-bottom: 0.5rem;
+}
+.receipt-btn{
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    border-radius: 6px;
+    background-color: #eeeeee;
+
+}
+
+.bulk-list:last-child{
+    border: none;
+}
+.note{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #e02f1f;
+}
+.procedure:hover{
+    text-decoration: underline !important;
+}
+.status_paid{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #24be46;
+}
+
+.lot-table{
+    margin-bottom: 1rem;
+   }
+
+@media only screen and (max-width: 767px){
+    .bulk-details-content {
+        border-right: 0px solid #dddddd;
+    }
+    .payment-status-content{
+        padding-top:2.5rem;
+    }
+
+   }

@@ -24,11 +24,15 @@
             <input type="text" name="search" class="search" [(ngModel)]="term" placeholder="Search by Name,role..">
         </div>&nbsp;
         <div class="d-inline status-div col-sm-6">
-            <p class="d-inline">Status:</p><p class="d-inline filter"> All&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p>
+            <p class="d-inline">Status:</p>
+              <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p>
+              <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termStatus}}&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p>
         </div>&nbsp;&nbsp;
         <div class="d-inline role-div col-sm-6">
             <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-			<p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p>
+      <p class="d-inline">Role:</p>
+      <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p>
+      <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termRole}}&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p>
 
 		</div>
     </div>
@@ -53,7 +57,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="customtable">
-                                    <tr *ngFor="let user of userfilterDat | filter:term">
+                                    <tr *ngFor="let user of userfilterDat | filter:term | filter:termStatus | filter:termRole">
                                         <th>
                                             <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{user.id}}" [(ngModel)]="user.state" />
@@ -66,9 +70,8 @@
                                           {{user.Email}}
                                         </td>
                                         <td>
-											<p class="status-active" *ngIf="user.status == 'Active'">&#9679; {{user.status}}</p>
-											<p class="status-disabled" *ngIf="user.status == 'Disabled'">&#9679; {{user.status}}</p>
-
+                                          <p class="status-active" *ngIf="user.status == 'Active'">&#9679; {{user.status}}</p>
+                                          <p class="status-disabled" *ngIf="user.status == 'Disabled'">&#9679; {{user.status}}</p>
                                         </td>
                                         <td>{{user.roles}}</td>
                                         <td>
@@ -195,15 +198,19 @@
 					<input type="text" name="search" class="search" [(ngModel)]="term" placeholder="Search by Name,role..">
 				</div>&nbsp;
 				<div class="d-inline status-div col-sm-6">
-					<p class="d-inline">Status:</p><p class="d-inline filter"> All&nbsp; <img src="assets/images/active.png" (click) = "openBottomSheet()"></p>
+            <p class="d-inline">Status:</p><p class="d-inline filter"> All&nbsp; <img src="assets/images/active.png" (click)="openStatusBottomSheet()"></p>
+					<!-- <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p>
+              <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termStatus}}&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p> -->
 				</div>&nbsp;&nbsp;
 				<div class="d-inline role-div col-sm-6">
-					<p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp; <img src="assets/images/active.png"></p>
+            <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp; <img src="assets/images/active.png"  (click) = "openRoleBottomSheet()"></p>
+					<!-- <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p>
+      <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termRole}}&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p> -->
 		
 				</div>
 			</div>
         <div class="row mobile-content">
-				<ul class="dyn-data d-flex" *ngFor="let mobileuser of userfilterDat | filter:term" (click) = "openBottomSheet()">
+				<ul class="dyn-data d-flex" *ngFor="let mobileuser of userfilterDat | filter:term | filter: termStatus | filter: termRole" (click) = "openBottomSheet()">
 						<li> <label class="customcheckbox">
 						 <input type="checkbox" class="listCheckbox"  name="check" value="blue"/>
 						 <span class="checkmark "></span>
@@ -389,12 +396,12 @@
 	<ng-template #roleTemplate>
 		<div>
             <ul class="list-group custom-popover">
-              <li class="list-group-item item-color"><a class="pointer-item">All</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item">Sourcing</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item">Accountant</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item">Brand Management</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item">Marketing</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item">Sales & Marketing</a></li>
+              <li class="list-group-item item-color" (click) = "setRole('')"><a class="pointer-item">All</a></li>
+              <li class="list-group-item item-color" (click) = "setRole('Sourcing')"><a class="pointer-item">Sourcing</a></li>
+              <li class="list-group-item item-color" (click) = "setRole('Accountant')"><a class="pointer-item">Accountant</a></li>
+              <li class="list-group-item item-color" (click) = "setRole('Brand Management')"><a class="pointer-item">Brand Management</a></li>
+              <li class="list-group-item item-color" (click) = "setRole('Marketing')"><a class="pointer-item">Marketing</a></li>
+              <li class="list-group-item item-color" (click) = "setRole('Sales')"><a class="pointer-item">Sales</a></li>
             </ul>
 		</div>
 	</ng-template>
@@ -402,9 +409,9 @@
 	<ng-template #allTemplate>
            <div id="status-content">
             <ul class="list-group custom-popover">
-              <li class="list-group-item item-color"><a class="pointer-item">All</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item">Active</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item">Disabled</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('')">All</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('Active')">Active</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('Disabled')">Disabled</a></li>
             </ul>
           </div>
 		</ng-template>

@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 declare var $ : any;
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import {BottomSheetOverviewExampleSheet} from '../user-management/bottom-sheet-overview-example-sheet'
+import {BottomSheetRoles} from '../user-management/to-bottomsheet-roles/bottom-sheet-roles';
+import {BottomSheetStatus} from '../user-management/to-bottomsheet-status/bottom-sheet-status';
+import { SheetValues } from './sheet-values';
 
+// @Component({
+//   selector: 'bottom-sheet-overview-example-sheet',
+//   templateUrl: 'bottom-sheet-overview-example-sheet.html',
+//   styleUrls:['bottom-sheet-overview-example-sheet.css']
 
-@Component({
-  selector: 'bottom-sheet-overview-example-sheet',
-  templateUrl: 'bottom-sheet-overview-example-sheet.html',
-  styleUrls:['bottom-sheet-overview-example-sheet.css']
+// })
+// export class BottomSheetOverviewExampleSheet {
+//   constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
 
-})
-export class BottomSheetOverviewExampleSheet {
-  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
-
-  openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
-}
+//   openLink(event: MouseEvent): void {
+//     this._bottomSheetRef.dismiss();
+//     event.preventDefault();
+//   }
+// }
 
 
 @Component({
@@ -26,7 +29,8 @@ export class BottomSheetOverviewExampleSheet {
 })
 export class UserManagementComponent implements OnInit {
   term: any;
-
+  termStatus: any;
+  termRole: any;
 
   userfilterDat:any[] = [
     {
@@ -66,7 +70,10 @@ export class UserManagementComponent implements OnInit {
     }
   ]
 
-  constructor(private _bottomSheet: MatBottomSheet) { }
+  constructor(private _bottomSheet: MatBottomSheet, private _sheetValues: SheetValues) { 
+    this.termStatus = '';
+    this.termRole = '';
+  }
 
   ngOnInit(): void {
   }
@@ -74,7 +81,22 @@ export class UserManagementComponent implements OnInit {
   openBottomSheet(): void {
     this._bottomSheet.open(BottomSheetOverviewExampleSheet);
   }
-
+  openRoleBottomSheet(){
+    var bottomSheetRef = this._bottomSheet.open(BottomSheetRoles);
+    bottomSheetRef.afterDismissed().subscribe(() => {
+      this.termRole = this._sheetValues.roles;
+      console.log(this.termRole)
+    });
+  }
+  openStatusBottomSheet(){
+    var bottomSheetRef = this._bottomSheet.open(BottomSheetStatus);
+    
+    bottomSheetRef.afterDismissed().subscribe(() => {
+      this.termStatus = this._sheetValues.status;
+    });
+    
+    //bottomSheetRef.dismiss();
+  }
 
   ngAfterViewChecked(){}
 
@@ -84,6 +106,14 @@ export class UserManagementComponent implements OnInit {
 
   isAllChecked() {
     return this.userfilterDat.every(_ => _.state);
+  }
+
+  setStatus(term:any){
+    this.termStatus = term;
+  }
+
+  setRole(term:any){
+    this.termRole = term;
   }
 
 }

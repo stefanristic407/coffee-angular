@@ -214,27 +214,30 @@
         <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin5">
             <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
+            <div class="scroll-sidebar" id="scroll-sewn">
                 
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="pt-3">
-                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark  sidebar-link dash active" routerLink="../features/welcome-aboard" aria-expanded="false"><img src="assets/images/dashboard.svg" alt="Dashboard" ><span class="hide-menu">Dashboard</span></a></li>
-                     
-                         <li class="sidebar-item "> <a class="sidebar-link has-arrow dark dash " href="javascript:void(0" aria-expanded="false" href="javascript:void(0)"><img src="assets/images/order-management.svg" alt="Dashboard" ><span class="hide-menu">User Management </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level" >
-                                <li class="sidebar-item closed-link"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu"> Roaster </span></a></li>
-                                <li class="sidebar-item closed-link"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu"> Estate </span></a></li>
-                                <li class="sidebar-item closed-link"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu"> Facilitator </span></a></li>
+                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark  sidebar-link dash " routerLink="../features/welcome-aboard" aria-expanded="false"><img src="assets/images/dashboard.svg" alt="Dashboard" ><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark  sidebar-link dash"  href="javascript:void(0)" aria-expanded="false"><img src="assets/images/sourcing-module.svg" alt="Dashboard" ><span class="hide-menu">Sourcing Module</span></a></li>
 
+                        <li class="sidebar-item "> <a class="sidebar-link has-arrow dark dash " href="javascript:void(0" aria-expanded="false" href="javascript:void(0)"><img src="assets/images/order-management.svg" alt="Dashboard" ><span class="hide-menu">Order Management </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level" >
+                                <li class="sidebar-item closed-link"><a routerLink="../ordermanagement/myorders" class="sidebar-link"><span class="hide-menu"> My Orders </span></a></li>
+                                <li class="sidebar-item closed-link"><a routerLink="../ordermanagement/order-sample" class="sidebar-link"><span class="hide-menu"> Order Sample </span></a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item "> <a class="sidebar-link has-arrow dark dash " href="javascript:void(0" aria-expanded="false" href="javascript:void(0)"><img src="assets/images/farm-link.svg" alt="Dashboard" ><span class="hide-menu">Farm Link </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level" >
+                                <li class="sidebar-item closed-link"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu"> My Orders </span></a></li>
+                                <li class="sidebar-item closed-link"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu"> Payments </span></a></li>
                             </ul>
                         </li>
                         
-                        
-                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/insights.png" alt="Dashboard" ><span class="hide-menu">Invoice Generator</span></a></li>
-                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/e-commerce.png" alt="Dashboard" ><span class="hide-menu">Vat</span></a></li>
-                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/marketing -sales.png" alt="Dashboard" ><span class="hide-menu">Commission Management</span></a></li>
-                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/marketing -sales.png" alt="Dashboard" ><span class="hide-menu">Insights</span></a></li>
+                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/insights.png" alt="Dashboard" ><span class="hide-menu">Insights</span></a></li>
+                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/e-commerce.png" alt="Dashboard" ><span class="hide-menu">E-commerce</span></a></li>
+                        <li class="sidebar-item closed-link"> <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/marketing -sales.png" alt="Dashboard" ><span class="hide-menu">Marketing+Sales</span></a></li>
 
                        <li class="sidebar-item "> <a class="sidebar-link has-arrow dark dash " href="javascript:void(0" aria-expanded="false" href="javascript:void(0)"><img src="assets/images/people.png" alt="Dashboard" ><span class="hide-menu">People </span></a>
                             <ul aria-expanded="false" class="collapse  first-level" >
@@ -242,7 +245,6 @@
                                 <li class="sidebar-item closed-link"><a routerLink="../people/user-management" class="sidebar-link"><span class="hide-menu"> User Management </span></a></li>
                             </ul>
                         </li>
-                        
                         
                         
                 
@@ -254,7 +256,7 @@
                             
                         </li>
                         
-                        <li class="sidebar-item closed-link mb-2"> <a class="sidebar-link dark dash" href="../auth/privacy-policy/" aria-expanded="false"><img src="assets/images/privacy-policy.png" alt="Dashboard" ><span class="hide-menu">Privacy Policy </span></a>
+                        <li class="sidebar-item closed-link mb-2"> <a class="sidebar-link dark dash" routerLink="../auth/privacy-policy/" aria-expanded="false"><img src="assets/images/privacy-policy.png" alt="Dashboard" ><span class="hide-menu">Privacy Policy </span></a>
                         
                         </li>
                     </ul>

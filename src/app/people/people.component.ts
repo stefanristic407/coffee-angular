@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
+declare var $ : any;
 
 @Component({
   selector: 'app-people',
@@ -7,7 +8,6 @@ import * as $ from 'jquery';
   styleUrls: ['./people.component.css']
 })
 export class PeopleComponent implements OnInit {
-
   constructor(private elementRef:ElementRef) { }
 
   ngOnInit(): void {

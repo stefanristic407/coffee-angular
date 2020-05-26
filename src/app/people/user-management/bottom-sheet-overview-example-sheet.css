@@ -9,7 +9,9 @@
     list-style: none;
 }
 
-.usermain-data  li:nth-child(1){width: 15%;}
+.usermain-data  li:nth-child(1){
+    width: 15%;
+}
 .usermain-data  li:nth-child(2){width:15%; 
     /* padding-left: 5%; */
     padding-right: 5%;}
@@ -42,11 +44,22 @@
     font-size: 12px;
     color:#3d8462;
     font-family: Montserrat;
-    font-weight: 600;
+    font-weight: bold;
 }
 .recovery{
     border-right: 1px solid #dddddd;
 }
 ::ng-deep .mat-bottom-sheet-container {
     padding: 0px 10px !important;
+}
+.round-mangarole{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #fff;
+    border: 1px solid #a88057;
+    position: relative;
+    padding: 2px 7px;
+    background-color: #c29d7a !important;
+    /* margin-right: 2.2rem; */
 }

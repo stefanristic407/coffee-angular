@@ -3,21 +3,21 @@ declare var $ : any;
 
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 
+import {BottomSheetOverviewExampleSheet} from '../manage-role/bottom-sheet-overview-example-sheet'
 
+// @Component({
+//   selector: 'bottom-sheet-overview-example-sheet',
+//   templateUrl: 'bottom-sheet-overview-example-sheet.html',
+//   styleUrls:['bottom-sheet-overview-example-sheet.css']
+// })
+// export class BottomSheetOverviewExampleSheet {
+//   constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
 
-@Component({
-  selector: 'bottom-sheet-overview-example-sheet',
-  templateUrl: 'bottom-sheet-overview-example-sheet.html',
-  styleUrls:['bottom-sheet-overview-example-sheet.css']
-})
-export class BottomSheetOverviewExampleSheet {
-  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
-
-  openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
-}
+//   openLink(event: MouseEvent): void {
+//     this._bottomSheetRef.dismiss();
+//     event.preventDefault();
+//   }
+// }
 
 
 @Component({
