@@ -124,9 +124,6 @@
     background-color: #3d8462;
     padding: .7rem 1rem;
 }
-
-
-
 /****************************css for pre booked starts***************************************/
 .in-order{
   background-color: #faf8f4;
@@ -371,31 +368,6 @@ color: #020202;
   font-weight: normal;
   color: #000000;
 }
-  /* @media only screen and (max-width: 2560px) {
-    .order-tracking::before {
-      left: calc(-97%);
-    }  
-  
-      .mixups-tabs .order-tracking::before {left: calc(-97%);}    
-  }
-  
-  @media screen and (max-width: 1440px) and (min-width: 768px){
-    .order-tracking::before {
-      left: calc(-90%);
-    }  
-  }
-  
-  
-  
-  @media only screen and (max-width: 640px) {
-    .transit-maxwidth{
-      min-width: 700px;
-       max-width: 1000px;}
-    .transit-scoll{overflow-x:auto}
-   }
-   */
-
-
 
     /* =========changes as per design ======== */
  .nav-pills{
@@ -696,8 +668,6 @@ position: relative;
 right: 0%;
 padding-bottom: 6rem;
 }
-
-
 /********************* css for confirm order**************************/
 .confirm-grade{
   font-family: Montserrat;
@@ -771,7 +741,6 @@ padding: 9px 16px 8px 17px;
   box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 /* ===== after changing to completeprocess ==== */
-
 .completeProcess{
   border: solid 2.2px #24be46 !important;
     background-color: #24be46 !important;
@@ -779,7 +748,6 @@ padding: 9px 16px 8px 17px;
 .completeProcess::after{
   color: #fff!important;
 }
-
 /***************Images**********************/
 .edit-icon,.message-icon{
   width: 14px;
@@ -799,7 +767,6 @@ padding: 9px 16px 8px 17px;
 ::ng-deep .star{
   cursor: auto !important;
 }
-
      /********************* media query css  **************************/
 
      #have-a-problem-web{
@@ -868,94 +835,3 @@ padding: 9px 16px 8px 17px;
      
      }
   
-     @media only screen and (max-width: 768px){
-  
-     .total_header {
-      margin-left: 0rem;
-      margin-right: 0rem;
-     }
-   
-    
-  
-    .transit-maxwidth{
-      margin-left: 0rem;
-  }
-
-  
-     }
-  
-     @media only screen and (max-width: 767px){
-      .harvest-content{
-        border-right:  0px solid #dddddd;
-      }
-      .footer-content {
-       background-color: #f9f9f9;
-       padding: 3rem 1rem;
-   }
-   .recent-activity-content{
-    padding-left: 3rem;
-  }
-   .harvest-content {
-    padding-left: 1rem;
-}
-
-  
-
-   .image-div{
-     width: 100%;
-     margin-bottom: 1rem;;
-   }
-
-   #have-a-problem-web{
-    display: none;
-  }
-  #have-a-problem-mobile{
-    display: block;
-    float: left;
-    width: 100%;
-    margin-bottom: 1rem;
-
-  }
-      }
-
-     
-  
-      @media only screen and (max-width: 480px){
-      
-
-    
-      .list-activity {
-        font-size: 12px;
-    }
-    .order-placed-text{
-      margin:1rem 0rem;
-    }
-    .ship-pl{
-      padding-left: 1rem;
-    }
-    .recent-activity-content{
-      padding-left: 1rem;
-    }
-    .tab-right{
-      padding-right: 0rem;
-    }
-  }
-  
-  @media only screen and (max-width: 375px){
-    .details-list {
-      margin-left: 5px;
-  }
-  .footer-content {
-    background-color: #f9f9f9;
-    padding: 3rem 0rem 3rem .5rem;
-  }
-
-  .nav-pills .nav-link{
-    font-size: 12px;
-}
-.nav-pills .nav-link.active {
-  font-size: 12px;
-}
-
-
-  }
