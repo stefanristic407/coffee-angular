@@ -53,6 +53,10 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover{
     line-height: normal;
     letter-spacing: normal;
 }
+
+.estate-boby-txt{
+    cursor: pointer;
+}
 .estate-boby-txt td{
     font-size: 12px;
     font-weight: 500;

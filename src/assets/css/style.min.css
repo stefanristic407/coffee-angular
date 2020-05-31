@@ -17812,7 +17812,217 @@ body::-webkit-scrollbar-thumb
    /* common css for sample, booked, pre-booked starts*/
   
 
-   
+   .total_header {
+    margin-left: 2.2rem;
+    margin-right: 5.4rem;
+}
+.top-padding{
+    margin-top: 3px;
+    color: #000000;
+    font-weight: bold;
+}
+.order-id{
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.ship-pl{
+  padding-left: 3rem;
+}
+.booked{
+    border-radius: 4px;
+  background-color: rgba(71, 180, 13, 0.1);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: bold;
+  color: #e78926;
+  padding: 4px;
+}
+.note-prebooked{
+    font-family: Montserrat;
+  font-size: 12px;
+  font-weight: normal;
+  color: #e02f1f;
+}
+.bold-note{
+    font-weight: bold;
+
+}
+
+.in-order{
+    background-color: #faf8f4;
+    padding: 2rem;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    margin-right: -1rem;    
+    overflow: hidden;
+}
+
+.recent-time td{
+  font-family: Montserrat;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+  padding: 1rem 2rem 1rem 0rem;
+  border-bottom: 1px solid #dddddd;
+
+}
+
+.list-que{
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
+}
+.list-ans{
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.details-list{
+  list-style: none;
+  margin-left: 1.5rem;
+}
+
+
+/* ============Order Placed Date============= */
+.order-placed-text{
+    font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
+}
+.date-text{
+    font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+.ord-invoice-butn{
+    font-family: Montserrat !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important; 
+    text-align: right !important;
+    color: #ffffff !important;
+    border-radius: 4px !important;
+    background-color: #3d8462 !important;
+    padding: .7rem 1rem !important;
+}
+
+
+/********************* css for confirm order**************************/
+.confirm-grade{
+    font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #000000;
+  }
+  .yes-txt{
+    border-radius: 6px;
+  background-color: #3d8462;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: normal;
+  color: #ffffff;
+  padding-top: 9px;
+    padding-bottom: 8px;
+  }
+  .arrow-image{
+    margin-top: -4px;
+    margin-left: 2px;
+  }
+  .arrow-image1{
+    margin-top: -4px;
+    margin-left: 6px;
+  }
+  .yes-order{
+    border-radius: 6px !important;
+    background-color: #3d8462 !important;
+    font-family: Montserrat !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  color: #ffffff !important;
+  padding: 9px 16px 8px 17px !important;
+  }
+  .cancel-order{
+    border-radius: 6px !important;
+    border: solid 1px #3d8462 !important;
+    background-color: #faf8f4 !important;
+    font-family: Montserrat !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    color: #3d8462 !important;
+    padding-top: 9px !important;
+      padding-bottom: 8px !important;
+  }
+  .leave-feedback{
+    border-radius: 6px !important;
+    border: solid 1px #3d8462 !important;
+    background-color: #faf8f4 !important;
+    font-family: Montserrat !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    color: #3d8462 !important;
+    padding-top: 9px !important;
+      padding-bottom: 8px !important;
+  }
+  /* .confirm-predisplay{
+    display: none;
+  } */
+  .yes-txt:hover{
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  }
+  .problem-btn:hover{
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  }
+  .yes-order:hover{
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  }
+  .cancel-order-btn{
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  }
+  /* ===== after changing to completeprocess ==== */
+  
+  .completeProcess{
+    border: solid 2.2px #24be46 !important;
+      background-color: #24be46 !important;
+  }
+  .completeProcess::after{
+    color: #fff!important;
+  }
+
+
 
 
  /* common css for sample, booked, pre-booked ends*/

@@ -89,7 +89,7 @@
       </tr>
     </thead>
     <tbody >
-     <tr *ngFor="let group of data | filter:estateterm | filter:estateorigin | filter:estatetype | filter: estatestatus" class="estate-boby-txt">
+     <tr *ngFor="let group of data | filter:estateterm | filter:estateorigin | filter:estatetype | filter: estatestatus" class="estate-boby-txt" (click)="displayData($event,group)">
             <!-- <th>
                     <label class="customcheckbox">
                         <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{group.id}}" [(ngModel)]="group.state" />
@@ -101,7 +101,7 @@
            <td>{{group.dataordered}}</td>
            <td>{{group.origin}}</td>
            <td>{{group.quantity}}</td>
-           <td (click)="displayData($event,group)">
+           <td >
 
             <p class="typeoforder-Sample" *ngIf="group.typeoforder == 'Sample'">&#9679;  {{group.typeoforder}}</p>
             <p class="typeoforder-Booked" *ngIf="group.typeoforder == 'Booked'">&#9679;  {{group.typeoforder}}</p>
