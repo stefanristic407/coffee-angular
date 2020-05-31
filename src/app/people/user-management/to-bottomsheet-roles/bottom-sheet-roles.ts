@@ -13,7 +13,7 @@ import { SheetValues } from '../sheet-values';
 
     }
 
-    roles:any[]=["All", "Sales","Accounting","Finance","Brand Management","Master Admin"]
+    roles:any[]=["All", "Sourcing","Accountant","Brand Management","Marketing","Sales"]
     setValues(value: any){
       if(value == 'All'){
         value = '';

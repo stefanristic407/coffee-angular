@@ -61,6 +61,11 @@
      color: #fff;
     font-size: 14px;
     line-height: 0;
+    cursor: pointer;
+    }
+
+    .cursor-dots{
+        cursor: pointer;
     }
 
     .admin-p{
@@ -142,11 +147,11 @@
         color: transparent !important;
     }
     .sewn-profile{
-        display: block;
+        /* display: block;
         float: right;
-        width: 70%;
+        width: 70%; */
         line-height: 41px;
-        padding-top: 0.2rem;
+        padding-top: 0.7rem;
     }
     #black-sewn-logo{
         display:none;

@@ -20,6 +20,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import {BottomSheetRoles} from '../people/user-management/to-bottomsheet-roles/bottom-sheet-roles';
 import {BottomSheetStatus} from '../people/user-management/to-bottomsheet-status/bottom-sheet-status';
 import { SheetValues } from './user-management/sheet-values';
+import { ToastrModule } from 'ngx-toastr';
+import {ModalModule} from 'ngx-bootstrap/modal';
+
 
 
 
@@ -35,7 +38,9 @@ import { SheetValues } from './user-management/sheet-values';
     Ng2SearchPipeModule,
     TreeModule,
     MatBottomSheetModule,
-    MatSidenavModule
+    MatSidenavModule,
+    ModalModule.forRoot(),
+    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ],
   providers: [SheetValues]
 })

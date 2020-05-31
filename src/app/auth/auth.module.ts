@@ -18,6 +18,11 @@ import { UpdatePasswordComponent } from "./update-password/update-password.compo
 import { VerifyOtpComponent } from "./verify-otp/verify-otp.component";
 import { RoasterProfileComponent } from './setup/roaster-profile/roaster-profile.component';
 
+import { CookieService } from 'ngx-cookie-service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { HttpClientModule } from '@angular/common/http';
+import { NgOtpInputModule } from 'ng-otp-input';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -39,7 +44,11 @@ import { RoasterProfileComponent } from './setup/roaster-profile/roaster-profile
     DialogModule,
     ImageCropperModule,
     SliderModule,
-    FormsModule
-  ]
+    FormsModule,
+    HttpClientModule,
+    NgOtpInputModule,
+    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
+  ],
+  providers: [CookieService, UserserviceService],
 })
 export class AuthModule {}

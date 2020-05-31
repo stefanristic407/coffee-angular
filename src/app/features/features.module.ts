@@ -8,10 +8,12 @@ import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-
 import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { FeaturesComponent } from './features.component';
+import {PopoverModule} from 'ngx-bootstrap/popover';
 
 //PrimeNG Modules
 import {ButtonModule} from 'primeng/button';
 import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.componen
     CommonModule,
     FeaturesRoutingModule,
     //PrimeNG Modules
-    ButtonModule
+    ButtonModule,
+    PopoverModule,
+    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ]
 })
 export class FeaturesModule { }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 declare var $ :any;
 
 @Component({
@@ -14,12 +17,18 @@ export class UpdatePasswordComponent implements OnInit {
   currentPasswordError : string;
   passwordError : string;
   confirmPasswordError : string;
-  constructor(private router:Router) { }
+  updateButtonValue: string;
+
+  constructor(private router:Router, 
+    private userService : UserserviceService, 
+    private cookieService : CookieService,
+    private toastrService : ToastrService) { }
 
   ngOnInit(): void {
     this.currentPasswordError='';
     this.passwordError='';
     this.confirmPasswordError='';
+    this.updateButtonValue = "CHANGE PASSWORD";
      
 
     
@@ -378,7 +387,44 @@ export class UpdatePasswordComponent implements OnInit {
     }
 
     else{
-      this.router.navigate(["/auth/privacy-policy"]);
+
+
+      this.updateButtonValue = "UPDATING";
+      var data = {
+        "current_password" : this.currentPassword,
+        "new_password": this.newPassword,
+        "confirm_password": this.confirmPassword
+      };
+      this.userService.updatePassword(data).subscribe(
+        response => {
+          if(response['success'] == true){
+           this.updateButtonValue = "CHANGE PASSWORD";
+            this.toastrService.success("Password has been updated successfully. Please login again to continue.");
+          //  console.log("Password has been updated successfully. Please login again to continue.")
+            this.cookieService.deleteAll();
+            this.router.navigate(["/login"]);
+          } else {
+            if(response['messages']['current_password'] !== undefined){
+              // console.log("Error: Current password is "+response['messages'].current_password[0] +"!");
+            this.toastrService.error("Error: Current password is "+response['messages'].current_password[0] +"!");
+          }
+          if(response['messages']['new_password'] !== undefined){
+            // console.log("Error: New password is "+response['messages'].new_password[0] +"!");
+            this.toastrService.error("Error: New password is "+response['messages'].new_password[0] +"!");
+          }
+          if(response['messages']['confirm_password'] !== undefined){
+            // console.log("Error: Confirm password is "+response['messages'].confirm_password[0] +"!")
+            this.toastrService.error("Error: Confirm password is "+response['messages'].confirm_password[0] +"!");
+          }
+          else{
+            // console.log("Password update failed!, Try again")
+            this.toastrService.error("Password update failed!, Try again");
+          }
+          }
+         this.updateButtonValue = "CHANGE PASSWORD";
+        }
+      );
+      
     }
   }
 }

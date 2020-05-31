@@ -131,7 +131,7 @@ letter-spacing: normal;
 color: #000000;
  }
  .search{
-    /*width: 255px;*/
+    width: 255px;
     font-family: 'Montserrat';
 height: 36px;
 border-radius: 8px;
@@ -148,10 +148,12 @@ padding-left:45px;
  .status-active{
         color: #1fa83a;
         margin-bottom: 0;
+        font-weight: bold;
  }
  .status-disabled{
     color: #666666;
     margin-bottom: 0;
+    font-weight: bold;
  }
 
  a.b-cum:hover{
@@ -273,7 +275,68 @@ padding-top: 5%;
 /* .image-class{
     float: right;
 } */
-
+.delete_row{
+    border: none;
+    margin-right: 4%;
+    margin-bottom: 3%;
+}
+/*************Modal css ************/
+.update-title{
+    color: #1F1F1F;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .icon-select{
+    width: 20px;;
+  }
+  .heading{
+    word-wrap: break-word;
+  }
+  select{
+    width: 190px;
+    height: 35px;
+    padding: 5px 0px 5px 5px;
+    border: none;
+    /* background-color: #FDFDFD; */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    text-decoration: underline;
+    cursor: pointer;
+    }
+    select::-ms-expand {
+    display: none; /* remove default arrow in IE 10 and 11 */
+    }
+    option{
+        padding: 5px;
+        border: none;
+        border-bottom-width: 1px !important;
+        border-bottom-style: inset !important;
+        border-bottom-color: #d0caca;
+        padding-bottom: 10px;
+        font-size: 14px;
+    }
+    .btn:focus,.btn:active{
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    .chn-btn{
+      background-color: #256547;
+      border:1px solid #256547;
+      color: #FDFDFD;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 2% 10%;
+    }
+    .main_button{
+      text-align: center;
+    }
+    .loader{
+        height: 17px;
+        width: 17px;
+        margin-left: 4px;
+        margin-top:-4px;
+    }
 @media only screen and (min-width: 320px) and (max-width: 920px)  {
 .desk_view_user{
     display: none !important;

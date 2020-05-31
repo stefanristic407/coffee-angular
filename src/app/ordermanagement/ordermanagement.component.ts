@@ -1,4 +1,8 @@
 import { Component,  ElementRef, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 // import * as $ from 'jquery';
 declare var $ : any;
 
@@ -8,9 +12,14 @@ declare var $ : any;
   styleUrls: ['./ordermanagement.component.css']
 })
 export class OrdermanagementComponent implements OnInit {
+    userName: string;
 
     
-  constructor(private elementRef:ElementRef) { }
+  constructor(private elementRef:ElementRef, 
+    private cookieService : CookieService, 
+    private userService : UserserviceService, 
+    private router :Router,
+    private toastrService : ToastrService) { }
 
  
   ngOnInit(): void {
@@ -20,6 +29,7 @@ export class OrdermanagementComponent implements OnInit {
     //   alert( "Handler for .click() called." );
     // });
     //copy pasted all custom JS code here.....
+    this.getUserValue();
     
     $(function() {
       "use strict";
@@ -247,6 +257,31 @@ $(document).ready(function(){
 
 
   }
+
+  getUserValue(){
+    this.userService.getUsers().subscribe(
+      response => {
+        this.userName = response['result']['firstname'] + " " + response['result']['lastname'];
+      }
+    );
+    }
+    userLogout(){
+      this.userService.logOut().subscribe(
+        res => {
+          if(res['success']== true){
+            this.cookieService.deleteAll();
+            this.router.navigate(['/login']);
+
+            // console.log("Logout successfully !");
+            this.toastrService.success("Logout successfully !");
+          }
+          else{
+            //   console.log("Error while Logout!");
+            this.toastrService.error("Error while Logout!");
+          }
+        }
+      )
+    }
 
     
 ngAfterViewInit(){

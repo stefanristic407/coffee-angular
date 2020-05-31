@@ -104,7 +104,7 @@ this.confirmReport=true;
     const completedProcess = document.getElementById('shippmentDivSample');
     completedProcess.classList.remove('completed');
     this.shippmentReport=true;
-
+    this.sampleService.shipmentDone = true;
   }
   receivedStatusSample(){
     this.shipmentStatusSample();

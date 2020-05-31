@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 declare var $ : any;
 @Component({
   selector: 'app-forgot-password',
@@ -9,10 +12,16 @@ declare var $ : any;
 export class ForgotPasswordComponent implements OnInit {
   email : string;
   emailError: string;
-  constructor(private router:Router) { }
+  recoveryButtonValue:any;
+
+  constructor(private router:Router, 
+    private userService : UserserviceService,
+     private cookieService : CookieService,
+     private toastrService : ToastrService) { }
 
   ngOnInit(): void {
     this.emailError = '';
+    this.recoveryButtonValue = "EMAIL ME A RECOVERY OTP";
 
   }
   ngAfterViewChecked(){
@@ -39,7 +48,34 @@ recoveryEmail(){
     },3000);
   }
     else{
-      this.router.navigate(["auth/verify-otp"]);
+
+       this.recoveryButtonValue = "SENDING";
+       var data = [];
+       data['email'] = this.email;
+       this.userService.recoveryEmail(data).subscribe(
+         data => {
+           if(data['success'] == true){
+            this.recoveryButtonValue = "EMAIL ME A RECOVERY OTP";
+             this.toastrService.success("OTP has been sent to your email successfully!");
+             this.cookieService.set('email', this.email);
+ 
+             this.cookieService.set('otp', data['result'] );
+             console.log("otp:"+ data['result']);
+             this.router.navigate(["/auth/verify-otp"]);
+           }else{
+             if(data['messages']['email'] !== undefined){
+              //  console.log("Error: Email "+data['messages'].email[0] +"!");
+               this.toastrService.error("Error: Email "+data['messages'].email[0] +"!");
+             }
+             else{
+              // console.log("Something went wrong!, Try again")
+               this.toastrService.error("Something went wrong!, Try again");
+             }
+           }
+          this.recoveryButtonValue = "EMAIL ME A RECOVERY OTP";
+ 
+         }
+       )
     }
 }
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 declare var $ :any;
 
 @Component({
@@ -12,13 +15,18 @@ export class ChangePasswordComponent implements OnInit {
 confirmPassword : string;
 passwordError : string;
 confirmPasswordError : string;
+resetButtonValue : any;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, 
+    private userService : UserserviceService, 
+    private cookieService : CookieService,
+    private toastrService : ToastrService) { }
 
   ngOnInit(): void {
     this.passwordError='';
     this.confirmPasswordError='';
- 
+     this.resetButtonValue = "CHANGE PASSWORD";
+
     /*new password starts */
 
     $("input#newPassword").on("focus keyup", function () {
@@ -364,7 +372,35 @@ confirmPasswordError : string;
       },3000);
     }
     else{
-        this.router.navigate(["/auth/login"]);
+      this.resetButtonValue = "UPDATING";
+        var data = [];
+      data['email'] = this.cookieService.get('email');
+      data['token'] = this.cookieService.get('token');
+      data['password'] = this.newPassword;
+      data['confirm_password'] = this.confirmPassword;
+      this.userService.changePassword(data).subscribe(
+        data => {
+           this.resetButtonValue = "CHANGE PASSWORD";
+          if(data['success'] == true){
+              // console.log("Password has been resetted successfully!");
+            this.toastrService.success("Password has been resetted successfully!");
+            this.cookieService.deleteAll();
+            this.router.navigate(["/auth/login"]);
+          }else{
+            if(data['messages']['password'] !== undefined){
+
+                // console.log("Error: Password is "+data['messages'].password[0] +"!");
+              this.toastrService.error("Error: Password is "+data['messages'].password[0] +"!");
+            }
+            else{
+                // console.log("Something went wrong!, Try again");
+              this.toastrService.error("Something went wrong!, Try again");
+            }
+              this.resetButtonValue = "CHANGE PASSWORD";
+          }
+        }
+      );
+        // this.router.navigate(["/auth/login"]);
          
     }
   }  

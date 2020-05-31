@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { CookieService } from 'ngx-cookie-service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { ToastrService } from 'ngx-toastr';
+
 declare var $ : any;
 @Component({
   selector: 'app-login',
@@ -14,12 +18,16 @@ export class LoginComponent implements OnInit {
   loginEmailError: any;
   loginPasswordError: any;
   loginButtonValue: any;
-  constructor(private router: Router,) { }
+  roaster_id: any;
+  constructor(private router: Router,
+              private userService : UserserviceService, 
+              private cookieService : CookieService,
+              private toastrService : ToastrService ) { }
 
   ngOnInit(): void {
     this.loginEmailError = '';
     this.loginPasswordError = '';
-
+    this.loginButtonValue = "Login";
     $("input#pwd").on("focus keyup", function () {
          
     });
@@ -113,10 +121,18 @@ export class LoginComponent implements OnInit {
   }
   myAlertTop(){
     $(".myAlert-top").show();
-    setTimeout(function(){
-      $(".myAlert-top").hide(); 
-    }, 2000);
-
+    $(".myAlert-permission").hide();
+    $('.myAlert-status').hide();
+}
+myAlertPermission(){
+  $(".myAlert-top").hide();
+  $('.myAlert-status').hide();
+  $(".myAlert-permission").show();
+}
+myAlertStatus(){
+  $(".myAlert-top").hide();
+  $(".myAlert-permission").hide();
+  $('.myAlert-status').show();
 }
 Login() {
     var regex_email = /^[a-z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)?@[a-z][a-zA-Z-0-9]*\.[a-z]+(\.[a-z]+)?$/;
@@ -152,17 +168,59 @@ Login() {
     }
     else {
         //this.myAlertTop();
-        if(this.userEmail =="satyanarayana.murthy@nordsud.se" && this.userPassword == "Temp@123"){
-          this.router.navigate(["/auth/update-password"]);
-        }
-        else if(this.userEmail == "satyanarayana.murthy@nordsud.se" && this.userPassword == "Live@123"){
-          this.router.navigate(["../../features/welcome-aboard"]);
-		}
-		else{
-			this.myAlertTop();
-		}
-
-     
+        // if(this.userEmail =="satyanarayana.murthy@nordsud.se" && this.userPassword == "Temp@123"){
+        //   this.router.navigate(["/auth/update-password"]);
+        // }
+        // else if(this.userEmail == "satyanarayana.murthy@nordsud.se" && this.userPassword == "Live@123"){
+        //   this.router.navigate(["../../features/welcome-aboard"]);
+        this.loginButtonValue = "Logging in";
+        var data = [];
+        data['email'] = this.userEmail;
+        data['password'] = this.userPassword;
+        this.userService.roasterLogin(data).subscribe(
+          data => {
+            if (data['success'] == true) {
+              this.loginButtonValue = "Login";
+              console.log("Login Successfully with user_id : " + data['result'].user_id);
+              this.cookieService.set('user_id', data['result'].user_id);
+              this.cookieService.set('Auth', data['Authorization']);
+              this.cookieService.set('roaster_id', data['result'].roaster_ids[0]);
+              //this.toastrService.success("Logged in Successfully");
+              //        this.router.navigate(["/features/welcome-aboard"]);
+              this.userService.getRoasterAccount(data['result'].roaster_ids[0]).subscribe(
+                result => {
+                  if(result['success']== true){
+                    this.cookieService.set('name', result['result'].name);
+                    this.loginButtonValue = "Login";
+                    if(result['result'].status == "ACTIVE"){
+                      this.toastrService.success("Logged in Successfully");
+                      this.router.navigate(["/features/welcome-aboard"]);
+                    } else if(result['result'].status == "INACTIVE"){
+                      this.myAlertStatus();
+                      // this.toastrService.error("Your Account has been disabled , Contact your Admin")
+                    }
+                  } else {
+                    this.toastrService.error("Something Went Wrong, Please Try Again");
+                  }
+                }
+              )
+              this.loginButtonValue = "Login";
+             
+            }
+		else if(data['messages'] == null){
+      this.myAlertTop();
+      // this.toastrService.error("invalid Credentials ");
+    }
+    else if(data['messages'].email[0] == "auth_forbidden"){
+      this.myAlertPermission();
+      // this.toastrService.error("No permissions to Log in ");
+    }
+    else{
+      this.toastrService.error("Something Went Wrong, Please Try Again");
+    }
+    this.loginButtonValue = "Login";
+ 
+  });
     }
   }
   onKeyPress(event: any) {

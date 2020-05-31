@@ -71,13 +71,13 @@
 <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
     <thead>
       <tr class="estate-title">
-            <th>  
+            <!-- <th>  
                 <label class="customcheckbox m-b-20">
                         <input type="checkbox" id="mainCheckbox" [checked]="isAllCheckedEstate()"
                         (change)="checkAllEstate($event)" />
                         <span class="checkmark head-check"></span>
                     </label>
-                </th>
+                </th> -->
         <th>Order ID </th>
         <th>Estate Name </th>
         <th>Date Ordered <img class="pl-4" src="assets/images/combined-shape.svg"/></th>
@@ -90,12 +90,12 @@
     </thead>
     <tbody >
      <tr *ngFor="let group of data | filter:estateterm | filter:estateorigin | filter:estatetype | filter: estatestatus" class="estate-boby-txt">
-            <th>
+            <!-- <th>
                     <label class="customcheckbox">
                         <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{group.id}}" [(ngModel)]="group.state" />
                         <span class="checkmark head-check"></span>
                     </label>
-                </th>
+                </th> -->
         <td>{{group.orderid}}</td>
            <td>{{group.estatename}}</td>
            <td>{{group.dataordered}}</td>

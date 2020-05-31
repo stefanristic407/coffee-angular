@@ -16,10 +16,10 @@
     color: #3d8462 !important;
     padding: 5px;
     border: none;
-    background-color: #fdfdfd;
+    background-color: #ffffff;
     -webkit-appearance: none;
-/*    cursor: pointer;
-*/
+   cursor: pointer;
+
 }
 .member_name,.member_email{
     font-family: Montserrat;
@@ -32,7 +32,8 @@
   color: #666666;
 }
 .member_details{
-  margin-top: 10px;
+  margin-top: 3%;
+  padding-left: 3rem;
 }
 
 .rectangle_name,.rectangle_email{
@@ -92,6 +93,7 @@
   letter-spacing: normal;
   color: #000000;
  padding: 10px 0px 8px 3px;
+ cursor: pointer;
 }
 
 ::ng-deep .ui-overlaypanel{
@@ -132,11 +134,14 @@
   color: #ffffff;
 }
 .cancel_member{
-  border-radius: 8px;
-  border: solid 1px #3d8462;
-  background-color: #ffffff;
-  height: 40px;
-    margin-right: 7%;
+  background-color: #256547;
+  border: 1px solid #256547;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4% 10%;
+  margin-right: 7rem;
+ 
 
 }
 .cancel_value{
@@ -151,10 +156,10 @@
   color: #3d8462;
 }
 .total_header {
-    margin-left: 25px;
+    /* margin-left: 25px; */
+    margin-left: 4rem;
     padding: 0 !important;
-    /* padding-top: 1%; */
-    /* margin-top: -2rem;; */
+   
 }.image_cursor{
   cursor: pointer;
 }
@@ -162,7 +167,7 @@
 .cancel_member:hover{
   background-color: #3d8462;
 }
-.cancel_member:hover > .cancel_value{
+ .cancel_value{
   color: white;
 }
 .mobview_add{
@@ -174,22 +179,70 @@
 	padding-left: 23px;
 }
 .memberFirstNameError,
-.memberEmailError {
+.memberLastNameError,
+.memberEmailError,
+.memberPasswordError,
+.memberConfirmPasswordError,
+.timeZoneError,
+.languageError {
   color: red;
   font-size: 14px;
 }
-
 a.b-cum:hover{
   color: #000000;
     text-decoration: underline;
     font-weight: bold;
 }
+.confirm-pwd{
+  float: left;
+    width: 100% !important;
+}
+.loader{
+	height: 17px;
+	width: 17px;
+	margin-left: 4px;
+	margin-top:-4px;
+}
+.disable{
+  background-color: #f3efe8!important;
+  cursor: not-allowed;
+}
 
+/***********NEW CSS**************/
+.left-space{
+  padding-left: 4rem !important;
+}
+label{
+  font-weight: bold !important;
+  color: #666 !important;
+}
+.form-control{
+  font-size: 12px !important;
+  height: 46px !important;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #000;
+    /* font-weight: 500; */
+    font-family: Montserrat;
+}
+.chn-btn {
+  background-color: #256547;
+  border: 1px solid #256547;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 1% 6%;
+  margin-left: 1rem;
+}
 @media all and (max-width: 767px) {
   .mobview_add{
     display: block;
   }
   .webview_add{
+    display: none;
+  }
+  .cancel_member{
     display: none;
   }
   .page-breadcrumb{
@@ -247,6 +300,13 @@ padding-top: 7px;
 	padding-left: 0px;
 	padding-top: 0;
 }
+.member_details{
+  padding-left: 0rem;
+}
+.mob-space{
+  padding:0
+}
+
 
 }
 @media only screen and (min-width: 320px) and (max-width: 991px)  {

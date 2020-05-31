@@ -155,6 +155,12 @@ padding: 10px;
     padding-left: 2rem !important;
 }
 /* common css responsive for login reset change password */
+.loader{
+	height: 17px;
+	width: 17px;
+	margin-left: 4px;
+	margin-top:-4px;
+}
 
 
 @media only screen and (max-width: 767px) {

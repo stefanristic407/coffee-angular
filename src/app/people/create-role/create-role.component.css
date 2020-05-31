@@ -145,6 +145,13 @@
       text-decoration: underline;
       font-weight: bold;
   }
+  .loader{
+	height: 17px;
+	width: 17px;
+	margin-left: 4px;
+	margin-top:-4px;
+}
+
 
 @media only screen and (max-width: 767px) {
 
@@ -230,4 +237,7 @@ height: 16px;
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content:focus {
     box-shadow: none;
 }    
+:host ::ng-deep .ui-treenode-label {
+    text-transform: capitalize;
+}
 .clear { clear: both; }

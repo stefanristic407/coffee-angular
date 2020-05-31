@@ -24,14 +24,14 @@
                             <table class="table">
                                 <thead class="table-header">
                                     <tr class="header-row">
-                                        <th>
+                                        <!-- <th>
                                             <label class="customcheckbox m-b-20">
                                                 <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
 												(change)="checkAll($event)"/>
                                                 <span class="checkmark head-check"></span>
 											</label>
-                                        </th>
-                                        <th scope="col">Number of members</th>
+                                        </th> -->
+                                        <!-- <th scope="col">Number of members</th> -->
                                         <th scope="col">Roles</th>
                                         <th scope="col"></th>
                                         <th scope="col">Actions</th>
@@ -39,22 +39,35 @@
                                 </thead>
                                 <tbody class="customtable">
                                     <tr  *ngFor="let data of sizes; let i = index" id = "tr_{{data.id}}">
-                                        <th>
+                                        <!-- <th>
                                             <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{data.id}}" [(ngModel)]="data.state"/>
                                                 <span class="checkmark head-check"></span>
                                             </label>
-                                        </th>
-                                        <td>{{data.members}}</td>
-                                        <td >{{data.roles}}</td>
+                                        </th> -->
+                                        <!-- <td>{{data.members}}</td> -->
+                                        <td >{{data.name}}</td>
                                         <td>
                                             <span class="show_btns">
-                                            <button type="button"  class="btn view-btn" id="view-btn">View members</button>
-                                            <button type="button"  routerLink="/people/add-members" class="btn add-btn" id="add-btn">Add members</button>
+                                            <button type="button"  class="btn view-btn"   routerLink="/people/user-management" id="view-btn">View members</button>
+                                            <button type="button"  (click)="addMembers($event,data)" class="btn add-btn" id="add-btn">Add members</button>
                                         </span>
                                         </td>
                                         <td>
-                                             <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"><p class="">&#x22EE;</p></a>
+                                             <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover"><p class="">&#x22EE;</p></a>
+                                             <ng-template #poplistTemplate  id = "{{data.id}}">
+                                                    <div id="popover-mobile-content" >
+                                                          <ul class="list-group custom-popover">
+                                                            <li class="list-group-item"  routerLink="/people/add-members"> <a class="pointer-item" (click)="pop.hide();">Add Members </a></li>
+                                                            <li class="list-group-item"><a  class="pointer-item" (click)="pop.hide();">View Members</a></li>
+                                                            <li class="list-group-item"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">Edit</a></li>
+                                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
+                                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Duplicate role</a></li>
+                                                            <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Manage Permissions</a></li>
+                                                            <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">Delete</a></li>
+                                                          </ul>
+                                                        </div>
+                                                      </ng-template>
                                         </td>
                                     </tr>
                                     <!-- <tr>
@@ -164,7 +177,7 @@
        </label></li>
         <li>
           <div class="salemark">
-           <h4>{{role.roles}}</h4>
+           <h4>{{role.name}}</h4>
            <p> {{role.members}} members </p>
           </div>
         </li>
@@ -228,16 +241,4 @@
        
     
 
-      <ng-template #poplistTemplate>
-      <div id="popover-mobile-content" >
-            <ul class="list-group custom-popover">
-              <li class="list-group-item"  routerLink="/people/add-members"> <a class="pointer-item">Add Members </a></li>
-              <li class="list-group-item"><a  class="pointer-item">View Members</a></li>
-              <li class="list-group-item"><a class="pointer-item">Edit</a></li>
-              <li class="list-group-item"><a class="pointer-item">Rename</a></li>
-              <li class="list-group-item"><a class="pointer-item">Duplicate role</a></li>
-              <li class="list-group-item"><a class="pointer-item">Manage Permissions</a></li>
-              <li class="list-group-item"><a class="pointer-item">Delete</a></li>
-            </ul>
-          </div>
-        </ng-template>
+    

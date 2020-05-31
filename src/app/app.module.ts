@@ -13,7 +13,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { PeopleModule } from './people/people.module';
 import {OrdermanagementModule} from './ordermanagement/ordermanagement.module'
 
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -28,6 +28,7 @@ import {OrdermanagementModule} from './ordermanagement/ordermanagement.module'
     FeaturesModule,
     PeopleModule,
     OrdermanagementModule,
+    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true}),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{provide:LocationStrategy,useClass:HashLocationStrategy}],

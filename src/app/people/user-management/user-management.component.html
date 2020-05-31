@@ -25,14 +25,14 @@
         </div>&nbsp;
         <div class="d-inline status-div col-sm-6">
             <p class="d-inline">Status:</p>
-              <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p>
-              <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termStatus}}&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p>
+            <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover"><p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp; <img src="assets/images/active.png" ></p></a>
+              <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"  #pop="bs-popover"><p class="d-inline filter" *ngIf = "termStatus != ''"> {{termStatus}}&nbsp; <img src="assets/images/active.png" ></p></a>
         </div>&nbsp;&nbsp;
         <div class="d-inline role-div col-sm-6">
             <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
       <p class="d-inline">Role:</p>
-      <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p>
-      <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termRole}}&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p>
+      <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop3="bs-popover"><p class="d-inline filter" *ngIf = "termRole == ''"> All&nbsp; <img src="assets/images/active.png"></p></a>
+      <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop1="bs-popover"><p class="d-inline filter" *ngIf = "termRole != ''"> {{termRole}}&nbsp;<img src="assets/images/active.png"></p></a>
 
 		</div>
     </div>
@@ -42,12 +42,12 @@
                             <table class="table">
                                 <thead class="table-header">
                                     <tr class="header-row">
-                                        <th>
+                                        <!-- <th>
                                             <label class="customcheckbox m-b-20">
                                                 <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()" (change)="checkAll($event)" />
                                                 <span class="checkmark head-check"></span>
                                             </label>
-                                        </th>
+                                        </th> -->
                                         <th scope="col">Name</th>
                                         <th scope="col">Last Login&nbsp; <img src="assets/images/combined-shape.png"></th>
                                         <th scope="col">Email</th>
@@ -58,26 +58,47 @@
                                 </thead>
                                 <tbody class="customtable">
                                     <tr *ngFor="let user of userfilterDat | filter:term | filter:termStatus | filter:termRole">
-                                        <th>
+                                        <!-- <th>
                                             <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{user.id}}" [(ngModel)]="user.state" />
                                                 <span class="checkmark body-check"></span>
                                             </label>
-                                        </th>
+                                        </th> -->
                                         <td>{{user.name}}</td>
                                         <td>{{user.lastLogin}}</td>
                                         <td>
-                                          {{user.Email}}
+                                          {{user.email}}
                                         </td>
                                         <td>
-                                          <p class="status-active" *ngIf="user.status == 'Active'">&#9679; {{user.status}}</p>
-                                          <p class="status-disabled" *ngIf="user.status == 'Disabled'">&#9679; {{user.status}}</p>
+                                          <p class="status-active" *ngIf="user.status == 'ACTIVE'">&#9679; {{user.status}}</p>
+                                          <p class="status-disabled" *ngIf="user.status == 'INACTIVE'">&#9679; {{user.status}}</p>
                                         </td>
-                                        <td>{{user.roles}}</td>
+                                        <td>
+											<div *ngFor="let value of user.roles" id = "{{value.id}}_{{user.id}}"> 
+											<button type = "submit" id = "delete_row" class = "btn-danger delete_row" data-toggle="tooltip" data-placement="top" title="Delete" (click)="roleDeletionRoaster(value.id,user.id);" name = "action" value = "DELETE"><i class="fa fa-trash"></i></button>{{value.name}}<br> </div>
+
+                                        </td>
                                         <td>
 										<!-- <td><a data-toggle="popover" data-placement="left" data-toggle="popover"><p class="">&#x22EE;</p></a></td> -->
 
-                                             <a class="menu-arrow" [popover]="popTemplate" placement="left" [outsideClick]="true"><p class="">&#x22EE;</p></a>
+                                             <a class="menu-arrow" [popover]="popTemplate" placement="left" [outsideClick]="true" #pop2="bs-popover"><p class="">&#x22EE;</p></a>
+                                             <ng-template #popTemplate>
+                                                <div id="popover-mobile-content">
+                                                    <ul class="list-group custom-popover">
+                                                      <li class="list-group-item"> <a class="pointer-item" (click)="editMember(user.id);pop2.hide();">Edit member</a></li>
+                                                      <li class="list-group-item"><a class="pointer-item" (click)="pop2.hide();">Send a message</a></li>
+                                                      <li class="list-group-item"><a class="pointer-item">Send a recovery email</a></li>
+                                                      <li class="list-group-item"><a class="pointer-item" (click)="openModal(template,user.id,user.name);pop2.hide()">Assign Role</a></li>
+                                                      <li class="list-group-item" *ngIf='user.status== "ACTIVE" && user.id != loginId '> <a class="pointer-item" (click)="userDisable(user.id);pop2.hide();">Disable Account</a></li>
+									                                    <li class="list-group-item" *ngIf='user.status== "INACTIVE" && user.id != loginId '> <a class="pointer-item" (click)="userEnable(user.id);pop2.hide();">Enable Account</a></li> 
+                                                      <li class="list-group-item"><a class="pointer-item">Simulated Login</a></li>
+                                                      <li class="list-group-item"><a class="pointer-item">Make Admin</a></li>
+                                                      <li class="list-group-item"><a class="pointer-item">Customize Permissions</a></li>
+                                                      <li class="list-group-item" *ngIf="user.id != loginId"><a class="pointer-item" (click)="deleteRoasterUser(user.id);pop2.hide();">Delete</a></li>
+                                                    </ul>
+                                                    </div>
+                                              
+                                              </ng-template>
                                         </td>
                                     </tr>
                                     <!-- <tr>
@@ -198,12 +219,12 @@
 					<input type="text" name="search" class="search" [(ngModel)]="term" placeholder="Search by Name,role..">
 				</div>&nbsp;
 				<div class="d-inline status-div col-sm-6">
-            <p class="d-inline">Status:</p><p class="d-inline filter"> All&nbsp; <img src="assets/images/active.png" (click)="openStatusBottomSheet()"></p>
+            <p class="d-inline">Status:</p><p class="d-inline filter" (click)="openStatusBottomSheet()"> All&nbsp; <img src="assets/images/active.png" ></p>
 					<!-- <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p>
               <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termStatus}}&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p> -->
 				</div>&nbsp;&nbsp;
 				<div class="d-inline role-div col-sm-6">
-            <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp; <img src="assets/images/active.png"  (click) = "openRoleBottomSheet()"></p>
+            <p class="d-inline">Role:</p><p class="d-inline filter" (click) = "openRoleBottomSheet()"> All&nbsp; <img src="assets/images/active.png"></p>
 					<!-- <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p>
       <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termRole}}&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p> -->
 		
@@ -218,9 +239,13 @@
 						<li>
 						  <div class="salemark">
 						   <div class="user-name pb-1">{{mobileuser.name}}</div>
-						   <div class="user-email pb-1">{{mobileuser.Email}}</div>
+						   <div class="user-email pb-1">{{mobileuser.email}}</div>
 						   <div class="lastlogin pb-1">Last Login <span class="roles">{{mobileuser.lastLogin}}</span></div>
-						   <div class="roles">{{mobileuser.roles}}</div>
+						   <div class="delete_icon col-12 p-0 mt-1" *ngFor="let value of mobileuser.roles">
+								<button type="submit" id="delete_row" class="btn-danger delete_row icon_value" data-toggle="tooltip"
+									data-placement="top" title="Delete" (click)="roleDeletionRoaster(value.id,mobileuser.id);"
+									name="action" value="DELETE"><i class="fa fa-trash"></i></button>{{value.name}}<br>
+						  </div> 
 
 						  </div>
 						</li>
@@ -233,27 +258,13 @@
 								</g>
 							</svg></div>
 							<div class="top-space">
-									<p class="status-active" *ngIf="mobileuser.status == 'Active'">&#9679; {{mobileuser.status}}</p>
-									<p class="status-disabled" *ngIf="mobileuser.status == 'Disabled'">&#9679; {{mobileuser.status}}</p>
+									<p class="status-active" *ngIf="mobileuser.status == 'ACTIVE'">&#9679; {{mobileuser.status}}</p>
+									<p class="status-disabled" *ngIf="mobileuser.status == 'INACTIVE'">&#9679; {{mobileuser.status}}</p>
 							</div>
 
 						</li>
 						
 					 </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
           <!-- <div class="column">
             <div class="card header_main">
@@ -377,31 +388,17 @@
 	  </div>
 	 
 
-<ng-template #popTemplate>
-		<div id="popover-mobile-content">
-				<ul class="list-group custom-popover">
-				  <a class="pointer-item" routerLink="/people/edit-members"><li class="list-group-item">Edit</li></a>
-				  <li class="list-group-item"><a class="pointer-item">Send a message</a></li>
-				  <li class="list-group-item"><a class="pointer-item">Send a recovery email</a></li>
-				  <li class="list-group-item"><a class="pointer-item">Rename</a></li>
-				  <li class="list-group-item"><a class="pointer-item">Disable account</a></li>
-				  <li class="list-group-item"><a class="pointer-item">Simulated Login</a></li>
-				  <li class="list-group-item"><a class="pointer-item">Make Admin</a></li>
-				  <li class="list-group-item"><a class="pointer-item">Customize Permissions</a></li>
-				  <li class="list-group-item"><a class="pointer-item">Delete</a></li>
-				</ul>
-			  </div>
-	
-  </ng-template>
+
 	<ng-template #roleTemplate>
 		<div>
             <ul class="list-group custom-popover">
-              <li class="list-group-item item-color" (click) = "setRole('')"><a class="pointer-item">All</a></li>
-              <li class="list-group-item item-color" (click) = "setRole('Sourcing')"><a class="pointer-item">Sourcing</a></li>
-              <li class="list-group-item item-color" (click) = "setRole('Accountant')"><a class="pointer-item">Accountant</a></li>
-              <li class="list-group-item item-color" (click) = "setRole('Brand Management')"><a class="pointer-item">Brand Management</a></li>
-              <li class="list-group-item item-color" (click) = "setRole('Marketing')"><a class="pointer-item">Marketing</a></li>
-              <li class="list-group-item item-color" (click) = "setRole('Sales')"><a class="pointer-item">Sales</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setRole('');pop3.hide();pop1.hide();">All</a></li>
+              <!-- <li class="list-group-item item-color"><a class="pointer-item" (click) = "setRole('Sourcing')">Sourcing</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item"  (click) = "setRole('Accountant')">Accountant</a></li>
+              <li class="list-group-item item-color" ><a class="pointer-item" (click) = "setRole('Brand Management')">Brand Management</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setRole('Marketing')">Marketing</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item"  (click) = "setRole('Sales')">Sales</a></li> -->
+              <li class="list-group-item item-color" *ngFor="let role of roles"><a class="pointer-item" (click) = "setRole(role.name);pop1.hide();pop3.hide()">{{role.name}}</a></li>
             </ul>
 		</div>
 	</ng-template>
@@ -409,9 +406,46 @@
 	<ng-template #allTemplate>
            <div id="status-content">
             <ul class="list-group custom-popover">
-              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('')">All</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('Active')">Active</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('Disabled')">Disabled</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('');pop.hide();pop2.hide();">All</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('ACTIVE');pop.hide();pop2.hide();">Active</a></li>
+              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setStatus('INACTIVE');pop.hide();pop2.hide();">Disabled</a></li>
             </ul>
           </div>
 		</ng-template>
+
+		<ng-template #template>
+			<div class="modal-header">
+			  <h4 class="modal-title pull-left">Assign Role</h4>
+			  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+			  <form class="form-container">
+				<div class="form-group row pt-3">
+				  <div class="form-group col-md-12">
+					<label>User Name</label>
+					<input type="hidden" [(ngModel)]="modalUserRoasterId" value="{{modalUserRoasterId}}"
+					  [ngModelOptions]="{standalone: true}" />
+					<input type="text" class="form-control" [(ngModel)]="modalUserRoasterName" [value]="modalUserRoasterName"
+					  [ngModelOptions]="{standalone: true}" required>
+				  </div>
+		  
+				</div>
+			  </form>
+			  <div class="row d-inline col-xs-6 heading ml-2">
+				<p class="d-inline update-title">Select roles </p>
+				<select class="d-inline update-title" [(ngModel)]="role_roasteruser_id">
+				  <option *ngFor="let userrole of roles" [value]="userrole.id">{{userrole.name}}</option>
+				</select>
+				<span> <img src="assets/images/arrow-down.png" alt="user" class="icon-select"> </span>
+			  </div>
+			  <div class="main_button mb-2">
+				<!-- <button type="submit" (click)="SubmitRole();" class="chn-btn btn mt-5">Submit</button> -->
+				<button type="submit" class="chn-btn btn mt-5" (click)="SubmitRole();" [disabled]="assignButtonValue==='Submitting'" >
+					{{assignButtonValue}}<img class="loader" *ngIf="assignButtonValue==='Submitting'" src="assets/images/orange-loader.gif"/>
+				</button> 
+			  </div>
+			</div>
+		  </ng-template>
+		  

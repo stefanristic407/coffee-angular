@@ -17,6 +17,9 @@ const routes: Routes = [{
       path: 'create-role',
       component:CreateRoleComponent
      },
+     { path: 'create-role/:id',
+     component:CreateRoleComponent
+    },
      {
       path: 'add-members',
       component:AddMembersComponent

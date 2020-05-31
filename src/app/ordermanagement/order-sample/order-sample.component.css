@@ -353,3 +353,448 @@ color: #020202;
   font-weight: normal;
   color: #000000;
 }
+  /* @media only screen and (max-width: 2560px) {
+    .order-tracking::before {
+      left: calc(-97%);
+    }  
+  
+      .mixups-tabs .order-tracking::before {left: calc(-97%);}    
+  }
+  
+  @media screen and (max-width: 1440px) and (min-width: 768px){
+    .order-tracking::before {
+      left: calc(-90%);
+    }  
+  }
+  
+  
+  
+  @media only screen and (max-width: 640px) {
+    .transit-maxwidth{
+      min-width: 700px;
+       max-width: 1000px;}
+    .transit-scoll{overflow-x:auto}
+   }
+   */
+
+
+
+    /* =========changes as per design ======== */
+ .nav-pills{
+    border-bottom: 1px solid #dddddd;
+}
+li.nav-item{
+  margin-right: 10%;
+  position: relative;
+  top: .25rem;
+}
+.nav-pills .nav-link{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    padding: 1rem 0rem;
+}
+.nav-pills .nav-link.active {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+    padding: 1rem 0rem;/*  changes as per design */
+    
+}
+.problem-text{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #3d8462;
+    cursor: pointer;
+}
+
+/* ====================== */
+.mixups-tabs{
+	/* padding: 0rem 2rem 2rem 0rem; */
+    background-color: #ffffff;
+    overflow: hidden;
+    border-right: 1px solid #dddddd;
+	
+}
+
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #256547 !important;
+    font-size: 14px;
+	font-weight: 700;
+	background-color: unset !important;
+	/* border-bottom: 1px solid #256547; */
+    border-radius: unset;
+}
+
+.nav-pills .nav-link.active{
+    position: relative;
+    padding-right: 0;/*  changes as per design */
+    padding-left: 0;/*  changes as per design */
+}
+
+.nav-pills .nav-link.active:before{    
+    content: '';
+    width: 100%; /*  changes as per design */
+    border-radius: 30px;
+    height: 4px;
+    background: #256547;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 80%;
+    transform: translate(-50%);}
+
+    .problem-link{
+        cursor: pointer;
+    }
+    .footer-content{
+        background-color: #f9f9f9;
+        padding: 3rem 5rem;
+    }
+    .recent-title{
+        font-family: PlayfairDisplay;
+      font-size: 28px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #020202;
+    }
+    .activity-date{
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: normal;
+        color: #000000;
+    }
+    .list-time{
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #666666;
+    }
+    .list-content{
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #000000;
+    }
+    .activity-list{
+        border-bottom:  1px solid #dddddd;
+        padding: .7rem 0rem;
+        width: 60% !important;
+    }
+    .cancel-order-btn{
+        border-radius: 4px;
+        border: 1px solid #3d8462;
+        background-color: #3d8462;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: right;
+        color: #ffffff;
+        padding: 1% 2%;
+        margin-left: 3rem;
+    }
+    .cancel-order-btn:hover .cancel-order-btn{
+        /* background-color: #3d8462;  */
+        padding: 1% 2%;
+          border: #3d8462;
+          box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+     
+     }
+     .cancel-order-btn:hover{
+         box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+        }
+     .ord-invoice-butn:hover{
+        border: #3d8462;
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    }
+    .ord-invoice-butn:hover .ord-invoice-butn{
+        padding: .7rem 1rem;
+    }
+    .list-name{
+      font-family: Montserrat;
+      font-size: 14px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #000000;
+    }
+    .list-user{
+      font-family: Montserrat;
+      font-size: 12px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #666666;
+    }
+    .list-activity{
+      font-family: Montserrat;
+      font-size: 14px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.36;
+      letter-spacing: normal;
+      color: #000000;
+    
+    }
+
+    
+    .chat-btn{
+      border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+      box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
+      background-color: #333333;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #ffffff;
+      text-align: left;
+    }
+    .chat-indicator{
+      color: #24be46;
+    }
+    .chat-div{
+      width: 85%!important;
+    }
+    .problem-btn{
+      border-radius: 6px;
+      background-color: #3d8462;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #ffffff;
+  }
+
+
+  /********************* css for confirm order**************************/
+  .confirm-grade{
+    font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #000000;
+  }
+  .leave-feedback{
+    border-radius: 6px;
+  border: solid 1px #3d8462;
+  background-color: #faf8f4;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  color: #3d8462;
+  padding-top: 9px;
+    padding-bottom: 8px;
+  }
+  .arrow-image{
+    margin-top: -4px;
+    margin-left: 2px;
+  }
+  .yes-order{
+    border-radius: 6px;
+    background-color: #3d8462;
+    font-family: Montserrat;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+  padding-top: 9px;
+    padding-bottom: 8px;
+  }
+  .cancel-order{
+    border-radius: 6px;
+    border: solid 1px #3d8462;
+    background-color: #faf8f4;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: bold;
+    color: #3d8462;
+    padding-top: 9px;
+      padding-bottom: 8px;
+  }
+ 
+  .problem-btn:hover{
+      box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  }
+
+  .yes-order:hover{
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  }
+  .rating-value{
+    padding-top: 6px;
+    margin-left: 2%;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: normal;
+    color: #000000;
+  }
+  .rating-space{
+    margin-bottom: -0.8rem!important;
+  }
+  ::ng-deep .star{
+    cursor: auto !important;
+  }
+/***************Images**********************/
+.edit-icon,.message-icon{
+  width: 14px;
+    height: 14px;
+}
+    /***************TimeLine Dynamic **********************/
+    .completeProcess{
+      border: solid 2.2px #24be46 !important;
+        background-color: #24be46 !important;
+    }
+    .completeProcess::after{
+      color: #fff!important;
+    }
+    
+   /********************* media query css  **************************/
+
+   #have-a-problem-web{
+    display: block;
+  }
+  #have-a-problem-mobile{
+    display: none;
+  }
+
+   @media only screen and (max-width: 1024px){
+    .order-status {
+      margin-left: 0rem;
+      font-family: Montserrat;
+      font-size: 12px;
+      font-weight: normal;
+      color: #bea080;
+  }
+
+  li.nav-item{
+    margin-right: 5%;
+    position: relative;
+    top: 0rem;
+}
+  .order-date{
+    font-size: 11px;
+padding-bottom: 1rem;  }
+
+  .transit-scoll {
+    width: 100%;
+    overflow-x: auto;
+}
+  .transit-maxwidth{
+    margin-left: 3rem;
+    margin-top: 1.5rem;
+    min-width: 700px;
+    max-width: 1000px;
+  }
+
+   }
+   @media only screen and (max-width: 991px){
+    .mixups-tabs {
+      border-right: 0px solid #dddddd;
+    }
+   .payment-status-content{
+     margin-top: 1.5rem;
+   }
+   }
+
+   @media only screen and (max-width: 768px){
+   .total_header {
+    margin-left: 0rem;
+    margin-right: 0rem;
+   }
+ 
+
+  .transit-maxwidth{
+    margin-left: 0rem;
+}
+   }
+
+   @media only screen and (max-width: 767px){
+    #have-a-problem-web{
+      display: none;
+    }
+    #have-a-problem-mobile{
+      display: block;
+      float: left;
+      width: 100%;
+      margin-bottom: 1rem;
+  
+    }
+    .footer-content {
+     background-color: #f9f9f9;
+     padding: 3rem 1rem;
+ }
+    }
+
+    @media only screen and (max-width: 480px){
+    .list-activity {
+      font-size: 12px;
+  }
+  .order-placed-text{
+    margin:1rem 0rem;
+  }
+}
+
+@media only screen and (max-width: 375px){
+  .details-list {
+    margin-left: 5px;
+}
+.footer-content {
+  background-color: #f9f9f9;
+  padding: 3rem 0rem 3rem .5rem;
+}
+
+.nav-pills .nav-link{
+  font-size: 12px;
+}
+.nav-pills .nav-link.active {
+font-size: 12px;
+}
+}

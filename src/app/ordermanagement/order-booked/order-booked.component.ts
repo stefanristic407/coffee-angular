@@ -105,6 +105,7 @@ this.bookedService.paymentStatus();
     const completedProcess = document.getElementById('shippmentDivBooked');
     completedProcess.classList.remove('completed');
     this.shippmentReport=true;
+    this.bookedService.shipmentDone = true;
 
   }
   receivedStatusBooked(){

@@ -11390,7 +11390,7 @@ html[dir=ltr] body .p-l-0 {
 }
 
 .page-wrapper {
-    background: #eeeeee;
+    background: #FFFFFF;
     position: relative;
     margin-left: 250px
 }
@@ -11433,8 +11433,9 @@ html[dir=ltr] body .p-l-0 {
     }
 
     #main-wrapper.mini-sidebar .page-wrapper {
-        margin-left: 65px;
+        margin-left: 0px;
         margin-top: 5rem;
+        padding-left: 65px;
     }
 
     #main-wrapper.mini-sidebar .sidebar-nav .has-arrow:after,
@@ -17796,3 +17797,22 @@ body::-webkit-scrollbar-thumb
         width:29rem;
     }
 }
+
+.otp-input{
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 6px !important;
+  border: solid 1px #cccccc !important;
+  background-color: #ffffff !important;
+  text-align: center !important;
+  margin-right: 7px !important;
+}
+
+  
+   /* common css for sample, booked, pre-booked starts*/
+  
+
+   
+
+
+ /* common css for sample, booked, pre-booked ends*/

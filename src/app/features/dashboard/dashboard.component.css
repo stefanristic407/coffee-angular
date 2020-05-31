@@ -91,3 +91,32 @@ position: relative;
     position: relative;
 }
 }
+
+
+
+/* ==========checking check box========= */
+/* 
+.pad-left{
+    padding:0;
+}
+.remeber-left{
+    display: block;
+    padding-left: 20px;
+}
+.remember {
+
+    font-size: 13px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #333333;
+    margin-top: 3px;
+    margin-left: 7px;
+}
+.remember:before{
+    /* border-radius: 6px; 
+    border: solid 1px #827a7a87;
+    background-color: #ffffff;
+  } */

@@ -22,6 +22,9 @@ import { BookedGradeInfoComponent } from './order-booked/booked-grade-info/booke
 import { BookedDocumentsComponent } from './order-booked/booked-documents/booked-documents.component';
 import { PrebookConfirmOrderComponent } from './order-prebook/prebook-confirm-order/prebook-confirm-order.component';
 import {RatingModule} from 'ng-starrating';
+import {PopoverModule} from 'ngx-bootstrap/popover';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import {RatingModule} from 'ng-starrating';
     DataTablesModule,
     Ng2SearchPipeModule,
     FormsModule,
-    RatingModule
+    RatingModule,
+    PopoverModule,
+    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ]
 })
 export class OrdermanagementModule {}

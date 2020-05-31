@@ -8,6 +8,7 @@ export class OrderSampleService {
   statusPending : boolean = true;
   beforeGradeComplete : boolean = true;
   afterGradeComplete : boolean = false;
+  shipmentDone : boolean = false;
   
   constructor() { }
   paymentStatus(){

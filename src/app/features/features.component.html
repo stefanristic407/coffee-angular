@@ -185,7 +185,10 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown mobile-profile">
-                            <a class="nav-link dropdown-toggle text-muted pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/user-profile.png" alt="user" class="rounded-circle w-icon"> &nbsp; <span class="sewn-profile"> <span class="username w-100" id="username-black"> Mollie Jennings</span> <span class="username admin-p w-100" id="admin-black">Admin</span></span> </a>
+                            <a class="nav-link dropdown-toggle text-muted pro-pic cursor-dots" role="button" [popover]="popTemplate" placement="bottom" container="body" [outsideClick]="true">
+                                <img src="assets/images/user-profile.png" alt="user" class="rounded-circle w-icon"> &nbsp; <span class="sewn-profile"> <span class="username w-100" id="username-black">{{userName}}</span> 
+                                <!-- <span class="username admin-p w-100" id="admin-black">Admin</span> -->
+                            </span> </a>
                             <!-- <div class="dropdown-menu dropdown-menu-right user-dd animated"> 
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
@@ -197,6 +200,17 @@
                                 <div class="dropdown-divider"></div>
                                 <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
                             </div> -->
+
+                            <ng-template #popTemplate>
+                                <div id="popover-mobile-content">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">Logout </a></li>
+                                    </ul>
+                                                  </div>
+                          </ng-template>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated" aria-labelledby="dropdownMenuProfile">
+                                <a class="dropdown-item drop-myprofile" (click)="userLogout();" ><i class="fa fa-power-off m-r-5 m-l-5"></i> &nbsp; Logout</a>
+                            </div>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
