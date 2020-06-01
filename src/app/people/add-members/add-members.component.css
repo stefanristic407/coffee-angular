@@ -70,6 +70,12 @@
   text-align: center;
   color: #ffffff;
 }
+.loader{
+	height: 17px;
+	width: 17px;
+	margin-left: 4px;
+	margin-top:-4px;
+}
 .invites_button:hover{
     background-color: #3d8462; 
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
@@ -197,12 +203,7 @@ a.b-cum:hover{
   float: left;
     width: 100% !important;
 }
-.loader{
-	height: 17px;
-	width: 17px;
-	margin-left: 4px;
-	margin-top:-4px;
-}
+
 .disable{
   background-color: #f3efe8!important;
   cursor: not-allowed;

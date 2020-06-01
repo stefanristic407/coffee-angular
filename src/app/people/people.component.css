@@ -185,6 +185,16 @@
         left: 2.5%;
 
     }
+
+    /*******Auto suggestion css*******/
+    ::ng-deep .dropdown-menu{
+        /* height: 205px !important; */
+        font-size: 14px;
+        font-family: Montserrat;
+        text-align: center;
+        padding:0px !important;
+    }
+
     /* custom code page wrapper 1024*/
     @media only screen and (min-width: 1024px) {
         .page-wrapper {
@@ -274,6 +284,7 @@
     .search-white{
     font-family: 'Montserrat';
     height: 38px;
+    width: 350px;
     border-radius: 8px;
     border: solid 0px #cccccc;
     background-color: #ffffff;
@@ -289,10 +300,13 @@
     .search-black{
         font-family: 'Montserrat';
         height: 38px;
+        width: 350px;;
         border-radius: 8px;
         border: solid 0px #cccccc;
         background-color: #ffffff;
         background: url(../../assets/images/black-search.svg) no-repeat scroll 12px 5px;
         padding-left: 45px;
     }
-    
+
+
+   

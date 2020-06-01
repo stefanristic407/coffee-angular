@@ -17,7 +17,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" routerLink="../features/dashboard">
+                    <a class="navbar-brand" routerLink="../features/welcome-aboard">
                         <!-- Logo icon -->
                         <img src="assets/images/Sewn-logo.png" alt="user" class="Sewn-Logo web-logo" id="white-sewn-logo"> 
                         <img src="assets/images/sewn-black-logo.svg" alt="user" class="Sewn-Logo mobile-logo" id="black-sewn-logo" > 
@@ -65,12 +65,14 @@
                         <li class="nav-item search-box"> <a class="nav-link  " href="javascript:void(0)">
                             <div class=" col-sm-12 search-div" id="white-search">
                                 <!-- <input type="text" name="search" class="search" placeholder="Search.." > -->
-                                <input type="text" name="search" class="search search-white" placeholder="Search.." >
+                                <input type="text" name="search" class="search search-white" placeholder="Search.." [(ngModel)]="selected"
+                                [typeahead]="states" >
 
                             </div>
                             <div class="col-sm-12 search-div" id="black-search">
                                 <!-- <input type="text" name="search" class="search" placeholder="Search.." > -->
-                                <input type="text" name="search" class="search search-black" placeholder="Search.." >
+                                <input type="text" name="search" class="search search-black" placeholder="Search.." [(ngModel)]="selected"
+                                [typeahead]="states">
 
                             </div>
                         </a>

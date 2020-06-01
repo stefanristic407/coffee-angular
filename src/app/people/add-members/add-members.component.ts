@@ -37,7 +37,7 @@ export class AddMembersComponent implements OnInit {
   roaster_id : any;
   roles : any;
   role_id:any;
-
+  edit_roleList : any[] = [];
   userID : any;
   edit : boolean = true;
   editFlag : string = "add";
@@ -92,6 +92,7 @@ export class AddMembersComponent implements OnInit {
                  this.roasterService.getUserBasedRoles(this.roaster_id,this.userID).subscribe(
                      data => {
                        if(data['success']==true){
+                         this.edit_roleList = data['result'];
                          this.termRole = data['result'][0].name;
                          this.role_id = data['result'][0].id;
                        }
@@ -391,7 +392,7 @@ listRoles(){
               this.memberConfirmPasswordError="";
             },2000);
           }else{
-            this.loginButtonValue = "adding";
+            this.loginButtonValue = "Adding";
 		var data = {
 			'firstname' : this.member_first_name,
 			'lastname' : this.member_last_name,
@@ -423,7 +424,7 @@ listRoles(){
 				  else {
 					if(result['messages']['email'] !== undefined){
 					  this.toastrService.error("Error: Email Already Exists");
-					} if(result['messages']['password'] !== undefined){
+					} else if(result['messages']['password'] !== undefined){
 					  this.toastrService.error("Error: Password did not meet our policies");
 					} else {
 					  this.toastrService.error("There is something went wrong! Please try again later");
@@ -433,7 +434,7 @@ listRoles(){
 			  }
 		  );
       }else{
-        this.loginButtonValue = "Updating";
+        this.loginButtonValueEdit = "Updating";
         var update_data = {
           'firstname' : this.member_first_name,
           'lastname' : this.member_last_name,
@@ -445,11 +446,14 @@ listRoles(){
           data =>{
             console.log("data coming from edit api: "+ JSON.stringify(data))
             if(data['success'] == true){
-              this.loginButtonValue = "Update User";
+              this.loginButtonValueEdit = "Update User";
               console.log("User Updated Successfully :");
               console.log(data['result']);
               this.toastrService.success("User has been updated and We are assigning role to the user");
               console.log("the role of the selected user : "+ this.role_id);
+              if(this.edit_roleList.some((item) => item.id == this.role_id)){
+                this.router.navigate(['/people/user-management']);
+                }else{
 
               this.roasterService.assignUserBasedUserRoles(this.roaster_id,this.role_id, this.userID).subscribe(
                 response => {
@@ -464,17 +468,18 @@ listRoles(){
                   }
                 }
               );
+                }
             }
             else {
               if(data['messages']['user_id'] === "not_found"){
                 this.toastrService.error("Error: User Id is not existed");
-              } if(data['messages']['user_id'] === "no_role_in_app"){
+              } else if(data['messages']['user_id'] === "no_role_in_app"){
                 this.toastrService.error("Error: User Id has no role");
               } else {
                 this.toastrService.error("There is something went wrong! Please try again later");
               }
             }
-            this.loginButtonValue = "Updating";
+            this.loginButtonValueEdit = "Update User";
           }
         )
       }

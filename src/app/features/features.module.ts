@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { FeaturesRoutingModule } from './features-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -9,6 +10,8 @@ import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { FeaturesComponent } from './features.component';
 import {PopoverModule} from 'ngx-bootstrap/popover';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+
 
 //PrimeNG Modules
 import {ButtonModule} from 'primeng/button';
@@ -30,6 +33,8 @@ import { ToastrModule } from 'ngx-toastr';
     //PrimeNG Modules
     ButtonModule,
     PopoverModule,
+    FormsModule,
+    TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ]
 })

@@ -49,7 +49,7 @@
                                         <td >{{data.name}}</td>
                                         <td>
                                             <span class="show_btns">
-                                            <button type="button"  class="btn view-btn"   routerLink="/people/user-management" id="view-btn">View members</button>
+                                            <button type="button"  class="btn view-btn"  (click)="viewMembers(data)" id="view-btn">View members</button>
                                             <button type="button"  (click)="addMembers($event,data)" class="btn add-btn" id="add-btn">Add members</button>
                                         </span>
                                         </td>

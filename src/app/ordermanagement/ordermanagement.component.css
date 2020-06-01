@@ -270,6 +270,7 @@
     .search-white{
     font-family: 'Montserrat';
     height: 38px;
+    width: 350px;
     border-radius: 8px;
     border: solid 0px #cccccc;
     background-color: #ffffff;
@@ -285,6 +286,7 @@
     .search-black{
         font-family: 'Montserrat';
         height: 38px;
+        width: 350px;
         border-radius: 8px;
         border: solid 0px #cccccc;
         background-color: #ffffff;

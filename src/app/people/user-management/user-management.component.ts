@@ -7,7 +7,7 @@ import {BottomSheetStatus} from '../user-management/to-bottomsheet-status/bottom
 import { SheetValues } from './sheet-values';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
-import { NavigationExtras, Router } from '@angular/router';
+import { NavigationExtras, Router,ActivatedRoute} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -46,7 +46,8 @@ export class UserManagementComponent implements OnInit {
   modalUserRoasterId = '';
   modalUserRoasterName = '';
   role_roasteruser_id:any;
-    assignButtonValue : string;
+	assignButtonValue : string;
+	roleData  : any = "";
 
 
   constructor(private _bottomSheet: MatBottomSheet, 
@@ -55,7 +56,9 @@ export class UserManagementComponent implements OnInit {
     private cookieService : CookieService,
     private router : Router,
     private toastrService : ToastrService,
-    private modalService: BsModalService,
+	private modalService: BsModalService,
+	public route : ActivatedRoute,
+
     ) { 
     this.termStatus = '';
     this.termRole = '';
@@ -74,7 +77,15 @@ openModal(template: TemplateRef<any>, userId: any, userName: any) {
     this.roaster_id = this.cookieService.get('roaster_id');
     this.getRoasterUsers();
     this.listRoles();
-        this.assignButtonValue = "Submit";
+		this.assignButtonValue = "Submit";
+		
+		if(this.route.snapshot.queryParams['roleData'] != undefined){
+			this.roleData = decodeURIComponent(this.route.snapshot.queryParams['roleData'])
+			console.log("Data : ",this.roleData);
+		  }
+		  else{
+			this.roleData =this.termRole;
+		  }
 
   }
 

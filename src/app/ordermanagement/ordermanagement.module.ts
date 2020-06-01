@@ -24,6 +24,8 @@ import { PrebookConfirmOrderComponent } from './order-prebook/prebook-confirm-or
 import {RatingModule} from 'ng-starrating';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import { ToastrModule } from 'ngx-toastr';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+
 
 
 @NgModule({
@@ -54,6 +56,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     RatingModule,
     PopoverModule,
+    TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ]
 })

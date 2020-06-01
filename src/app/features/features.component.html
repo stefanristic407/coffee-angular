@@ -64,12 +64,14 @@
                         <li class="nav-item search-box"> <a class="nav-link  " href="javascript:void(0)">
                             <div class=" col-sm-12 search-div" id="white-search">
                                 <!-- <input type="text" name="search" class="search" placeholder="Search.." > -->
-                                <input type="text" name="search" class="search search-white" placeholder="Search.." >
+                                <input type="text" name="search" class="search search-white" placeholder="Search.." [(ngModel)]="selected"
+                                [typeahead]="states">
 
                             </div>
                             <div class="col-sm-12 search-div" id="black-search">
                                 <!-- <input type="text" name="search" class="search" placeholder="Search.." > -->
-                                <input type="text" name="search" class="search search-black" placeholder="Search.." >
+                                <input type="text" name="search" class="search search-black" placeholder="Search.." [(ngModel)]="selected"
+                                [typeahead]="states">
 
                             </div>
                         </a>

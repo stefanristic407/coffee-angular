@@ -750,20 +750,23 @@
 					  </div>
 					</div>
 				  </div>
-		  
-				  <button type="submit" class="webview_add chn-btn btn mt-1 mb-5" (click)="sendInvites();" [disabled]="loginButtonValue==='Adding'" *ngIf = "editFlag == 'add'">
+				  
+				  <button type="submit"  *ngIf = "editFlag == 'add'" class="webview_add chn-btn btn mt-1 mb-5" (click)="sendInvites();" [disabled]="loginButtonValue==='Adding'">
 						{{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Adding'" src="assets/images/orange-loader.gif"/>
 					</button>
 
 					
-					<button type="submit" class="webview_add chn-btn btn mt-1 mb-5" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'" *ngIf = "editFlag == 'edit'">
+					<button type="submit" *ngIf = "editFlag == 'edit'" class="webview_add chn-btn btn mt-1 mb-5" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'">
 							{{loginButtonValueEdit}}<img class="loader" *ngIf="loginButtonValueEdit==='Updating'" src="assets/images/orange-loader.gif"/>
 						</button>
 
 
 			<div class="col-xs-12 col-sm-12 mt-3 mobview_add">
-					<button  type="submit" (click)="sendInvites();" class="update float-right btn" [disabled]="loginButtonValue==='Sending'">
-							{{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Sending'" src="assets/images/orange-loader.gif"/>
+					<button  type="submit" (click)="sendInvites();" class="update float-right btn" [disabled]="loginButtonValue==='Adding'" *ngIf = "editFlag == 'add'">
+							{{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Adding'" src="assets/images/orange-loader.gif"/>
+						</button>
+						<button type="submit" class="update float-right btn" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'" *ngIf = "editFlag == 'edit'">
+							{{loginButtonValueEdit}}<img class="loader" *ngIf="loginButtonValueEdit==='Updating'" src="assets/images/orange-loader.gif"/>
 						</button>
 					<button  type="button" routerLink="/people/user-management" class="cancel float-right btn btn-link">CANCEL</button>
 				</div>

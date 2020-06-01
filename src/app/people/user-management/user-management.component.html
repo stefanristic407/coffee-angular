@@ -57,7 +57,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="customtable">
-                                    <tr *ngFor="let user of userfilterDat | filter:term | filter:termStatus | filter:termRole">
+                                    <tr *ngFor="let user of userfilterDat | filter:term | filter:termStatus | filter:termRole | filter:roleData">
                                         <!-- <th>
                                             <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{user.id}}" [(ngModel)]="user.state" />

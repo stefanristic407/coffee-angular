@@ -13,6 +13,32 @@ declare var $ : any;
 })
 export class FeaturesComponent implements OnInit {
     userName: string;
+    selected: string;
+    roaster_id :any;
+    user_id : any;
+
+    states: string[] = [
+      'alabama@gmail.com',
+      'alaska@gmail.com',
+      'arizona@gmail.com',
+      'arkansas@gmail.com',
+      'daniel.hedlund@nordsud.se',
+      'dinesh@gmail.com',
+      'dinesh@terralogic.com',
+      'dineshnp@nordsud.se',
+      'erik.hedlund@nordsud.se',
+      'sindhu@gmail.com',
+      'sindhu@terralogic.com',
+      'sindhu@nordsud.se',
+      'satya@gmail.com',
+      'satyanarayana@gmail.com',
+      'satyanarayana.murthy@nordsud.se',
+      'vijay@gmail.com',
+      'vijaysimha@gmail.com',
+      'vijaysimha@terralogic.com',
+      'vijaysimha.challa@nordsud.se'
+     
+    ];
 
   constructor(private elementRef:ElementRef, 
     private cookieService : CookieService, 
@@ -27,7 +53,8 @@ export class FeaturesComponent implements OnInit {
     //   alert( "Handler for .click() called." );
     // });
     //copy pasted all custom JS code here.....
-    
+    this.roaster_id = this.cookieService.get("roaster_id");
+    this.user_id = this.cookieService.get('user_id');
     this.getUserValue();
 
     $(function() {
@@ -249,7 +276,11 @@ function scrollFunction() {
   }
 
    getUserValue(){
-    this.userName = this.cookieService.get("name");
+    this.userService.getRoasterUserData(this.roaster_id,this.user_id).subscribe(
+        response => {
+          this.userName = response['result']['firstname'];
+        }
+      );
     }
     userLogout(){
       this.userService.logOut().subscribe(

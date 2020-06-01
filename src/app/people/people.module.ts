@@ -22,6 +22,7 @@ import {BottomSheetStatus} from '../people/user-management/to-bottomsheet-status
 import { SheetValues } from './user-management/sheet-values';
 import { ToastrModule } from 'ngx-toastr';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 
 
 
@@ -40,6 +41,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     MatBottomSheetModule,
     MatSidenavModule,
     ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ],
   providers: [SheetValues]

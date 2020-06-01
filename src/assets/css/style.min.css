@@ -18026,3 +18026,26 @@ body::-webkit-scrollbar-thumb
 
 
  /* common css for sample, booked, pre-booked ends*/
+
+
+ .search-box .dropdown-item.active, .dropdown-item:active {
+    color: #000 !important;
+    text-decoration: none !important;
+    background-color: #faf8f4 !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.search-box .dropdown-item {
+    display: block !important;
+    width: 100% !important;
+    padding: 5px 10px !important;
+    clear: both !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #212529 !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+    background-color: transparent !important;
+    border: 0 !important;
+}

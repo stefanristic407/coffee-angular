@@ -125,6 +125,16 @@ export class ManageRoleComponent implements OnInit {
 
 this.router.navigate(['/people/add-members'], navigationExtras);
 }
+viewMembers(data:any){
+  this.roleData = data.name;
+  let navigationExtras: NavigationExtras = {
+    queryParams: {
+      "roleData"   : encodeURIComponent(this.roleData),
+    }
+  }
+  this.router.navigate(['/people/user-management'], navigationExtras);
+
+}
 
 
 }
