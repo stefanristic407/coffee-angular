@@ -10,9 +10,16 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class RoasterserviceService {
   //API call URL's
-  private url = "http://15.206.153.210:8000/ro/api";
-  private deleteUrl = "http://15.206.153.210:8000/ro/deleteapi";
-  private putUrl = "http://15.206.153.210:8000/ro/putapi";
+  // private url = "http://15.206.153.210:8000/ro/api";
+  // private deleteUrl = "http://15.206.153.210:8000/ro/deleteapi";
+  // private putUrl = "http://15.206.153.210:8000/ro/putapi";
+
+  private roasterUrl = "https://qa-fed-api.sewnstaging.com/ro/api";
+  private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
+  private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
+  private url = "https://qa-fed-api.sewnstaging.com/api";
+  private deleteUrl = "https://qa-fed-api.sewnstaging.com/deleteapi";
+  private certificatesURL = "https://qa-fed-api.sewnstaging.com/certificates";
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
