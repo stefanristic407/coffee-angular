@@ -1,0 +1,161 @@
+    .rating-top {
+        padding: 1.5rem 4.5rem 1rem 2.5rem;
+    }
+    
+    .back-order {
+        font-family: Montserrat;
+        font-size: 13px;
+        font-weight: bold;
+        color: #3d8462;
+    }
+    
+    .save-button {
+        border-radius: 6px;
+        background-color: #3d8462;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: bold;
+        color: #ffffff;
+        padding: 8px 14px;
+    }
+    
+    .save-padding {
+        margin-right: 1%;
+    }
+    
+    .feedback-total {
+        border-radius: 8px;
+        background-color: #faf8f4;
+        padding: 1.5rem;
+    }
+    
+    .leave-text {
+        font-family: PlayfairDisplay;
+        font-size: 27px;
+        font-weight: normal;
+        color: #020202;
+    }
+    
+    .give-rating,
+    .rating-subtext {
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.5;
+        color: #000000;
+    }
+    
+    .rating-total {
+        border-radius: 6px;
+        border: dashed 1px #bbbbbb;
+        background-color: #ffffff;
+        padding: 1.4rem;
+    }
+    
+    .details-lists {
+        list-style: none;
+        margin-left: 0.5rem;
+        width: 91%;
+    }
+    
+    .person-name {
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: bold;
+        color: #000000;
+    }
+    
+    .last-seen {
+        font-family: Montserrat;
+        font-size: 13px;
+        font-weight: normal;
+        color: #666666;
+        padding-left: 1%;
+    }
+    
+    .roaster {
+        font-family: Montserrat;
+        font-size: 13px;
+        font-weight: normal;
+        color: #666666;
+    }
+    
+    .rating-value {
+        position: relative;
+        top: 5px;
+        left: 5px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #000000;
+    }
+    
+    .location {
+        font-family: Montserrat;
+        font-size: 13px;
+        font-weight: normal;
+        color: #666666;
+    }
+    
+    .details {
+        font-family: Montserrat;
+        font-size: 13px;
+        font-weight: bold;
+        color: #3d8462;
+        border-left: 1px solid #ccc;
+    }
+    
+    .rate-experience {
+        font-family: Montserrat;
+        font-size: 15px;
+        font-weight: normal;
+        color: #000000;
+        padding-top: 1.5rem;
+    }
+    
+    .over-exp {
+        font-family: Montserrat;
+        font-size: 14px;
+        font-weight: bold;
+        color: #000000;
+    }
+    
+    .review-label {
+        font-family: Montserrat;
+        font-size: 11px;
+        font-weight: bold;
+        color: #666666;
+    }
+    
+    .form-control {
+        font-size: 12px !important;
+    }
+    
+    .experience-padding {
+        padding-left: 1.5rem;
+    }
+    
+    @media only screen and (max-width: 767px) {
+        .rating-top {
+            padding: 1.5rem 0.5rem 1rem 0.5rem;
+        }
+        .experience-padding {
+            padding-left: 0rem;
+        }
+        .rate-experience {
+            padding-top: 0rem;
+            font-size: 14px;
+            padding-bottom: 0.7rem;
+        }
+        .details-lists {
+            margin-left: 0rem;
+        }
+    }
+    
+    @media only screen and (max-width:920px) and (min-width:768px) {
+        .rating-top {
+            padding: 1.5rem 1rem 1rem 1rem;
+        }
+        .experience-padding {
+            padding-left: 0;
+        }
+    }

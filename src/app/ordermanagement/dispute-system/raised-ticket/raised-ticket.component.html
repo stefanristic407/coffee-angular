@@ -1,0 +1,73 @@
+<div class="header-sewn">
+    <h1 class="hello-txt">Raised Tickets</h1>
+</div>
+
+
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
+    <span id="title-breadcrumb-1" class="sr-only"></span>
+    <ul class="bread-nav">
+        <li class="b-cum">
+            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
+        </li>
+        <li class="b-cum">
+            <a class="b-cum" routerLink="/ordermanagement/myorders">Help & Support</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
+        </li>
+
+        <li class="b-cum c-pink">Raised Tickets</li>
+        <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none"> EXPORT </button> -->
+        <div class="col-sm-4 pull-right search-div">
+            <input type="text" name="search" class="search-raised" [(ngModel)]="term" placeholder="Search Files" />
+        </div>
+
+    </ul>
+</nav>
+<div class="table-container desk_view">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-header">
+                <tr class="header-row">
+                    <th scope="col">Order ID</th>
+                    <th scope="col">
+                        Estate Name
+                    </th>
+                    <th scope="col">Date raised<img class="pl-2" src="assets/images/combined-shape.svg" /></th>
+                    <th scope="col">Type of Dispute</th>
+                    <th scope="col">
+                        Status
+                    </th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody class="customtable">
+                <tr class="ticket-boby-txt" *ngFor="let ticket of data | filter:term ">
+
+                    <td>{{ ticket.orderid }}</td>
+                    <td>{{ ticket.estatename }}</td>
+                    <td>
+                        {{ ticket.dateraised }}
+                    </td>
+                    <td>{{ticket.disputetype}}</td>
+                    <td>
+                        <p class="status-resolved" *ngIf="ticket.status == 'Resolved'">
+                            &#9679; {{ ticket.status }}
+                        </p>
+                        <p class="status-open" *ngIf="ticket.status == 'Open'">
+                            &#9679; {{ ticket.status }}
+                        </p>
+                        <p class="status-escalated" *ngIf="ticket.status == 'Escalated'">
+                            &#9679; {{ ticket.status }}
+                        </p>
+
+                    </td>
+                    <td>
+                        <button type="submit" class="btn go-to-ticket"> GO TO TICKET </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+</div>

@@ -6,21 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./license.component.css']
 })
 export class LicenseComponent implements OnInit {
-  array : number[] = [0];
- licenseDetails : any ;
-//  showLicenseDiv :boolean = false;
+  array: number[] = [0];
+  licenseDetails: any;
+  //  showLicenseDiv :boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  addCert(){
+  addCert() {
     this.array.push(this.array.length);
   }
-  delete(i){
+  delete(i) {
     const index: number = this.array.indexOf(i);
-    this.array.splice(index,1);
+    this.array.splice(index, 1);
   }
 
   // uploadLicense(){

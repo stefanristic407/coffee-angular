@@ -1,16 +1,16 @@
-.member_title{
+.member_title {
     font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #000000;
-
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
 }
-.select_title{
-     font-family: Montserrat;
+
+.select_title {
+    font-family: Montserrat;
     font-size: 16px;
     font-weight: 600;
     color: #3d8462 !important;
@@ -18,92 +18,101 @@
     border: none;
     background-color: #ffffff;
     -webkit-appearance: none;
-   cursor: pointer;
-
+    cursor: pointer;
 }
-.member_name,.member_email{
+
+.member_name,
+.member_email {
     font-family: Montserrat;
-  font-size: 11px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #666666;
-}
-.member_details{
-  margin-top: 3%;
-  padding-left: 3rem;
+    font-size: 11px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
 }
 
-.rectangle_name,.rectangle_email{
+.member_details {
+    margin-top: 3%;
+    padding-left: 3rem;
+}
+
+.rectangle_name,
+.rectangle_email {
     height: 46px;
-  border-radius: 8px;
-  border: solid 1px #cccccc;
-  background-color: #ffffff;
-  color:#000000;
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    color: #000000;
     font-weight: 500;
     font-family: Montserrat;
 }
-.rectangle_name::placeholder,.rectangle_email::placeholder{
-  font-family: Montserrat;
-  font-size: 12px;
-  font-weight: 500;
-  color:#000000;
 
+.rectangle_name::placeholder,
+.rectangle_email::placeholder {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    color: #000000;
 }
-.invites_button{
+
+.invites_button {
     height: 46px;
     border-radius: 8px;
     background-color: #3d8462;
     width: 129px;
     /* margin-top: 14%; */
-  }
-.send_invites{
-  font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #ffffff;
 }
-.loader{
-	height: 17px;
-	width: 17px;
-	margin-left: 4px;
-	margin-top:-4px;
+
+.send_invites {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
 }
-.invites_button:hover{
-    background-color: #3d8462; 
+
+.loader {
+    height: 17px;
+    width: 17px;
+    margin-left: 4px;
+    margin-top: -4px;
+}
+
+.invites_button:hover {
+    background-color: #3d8462;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
+
 .popover-title {
-  text-align: center;
+    text-align: center;
 }
 
 .custom-popover li {
     list-style: none;
     padding-right: 4.5rem;
-  border: none!important;
-}
-.content_list{
-    font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #000000;
- padding: 10px 0px 8px 3px;
- cursor: pointer;
+    border: none!important;
 }
 
-::ng-deep .ui-overlaypanel{
- 
+.content_list {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    padding: 10px 0px 8px 3px;
+    cursor: pointer;
+}
+
+::ng-deep .ui-overlaypanel {
     border: none !important;
     border-radius: 6px !important;
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
@@ -111,79 +120,88 @@
     margin-top: 16px;
     margin-left: -9px;
 }
-::ng-deep .ui-overlaypanel:before{
-  border-bottom-color: #fffafa !important;
+
+::ng-deep .ui-overlaypanel:before {
+    border-bottom-color: #fffafa !important;
 }
-::ng-deep .ui-overlaypanel-shifted:after{
-  right: 10.9em !important;
+
+::ng-deep .ui-overlaypanel-shifted:after {
+    right: 10.9em !important;
 }
-.addrole_button{
+
+.addrole_button {
     border-radius: 2px;
-  background-color: #3d8462;
-  width: 100%;
-  height: 35px;
+    background-color: #3d8462;
+    width: 100%;
+    height: 35px;
 }
-.addrole_button:hover{
-    background-color: #3d8462; 
+
+.addrole_button:hover {
+    background-color: #3d8462;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-
 }
 
-.addrole_content{
+.addrole_content {
     font-family: Montserrat;
-  font-size: 12px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #ffffff;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
 }
-.cancel_member{
-  background-color: #256547;
-  border: 1px solid #256547;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 4% 10%;
-  margin-right: 7rem;
- 
 
+.cancel_member {
+    background-color: #256547;
+    border: 1px solid #256547;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    /* padding: 4% 10%; */
+    padding: 0.7% 1.8%;
+    margin-right: 7rem;
 }
-.cancel_value{
-  font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #3d8462;
+
+.cancel_value {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3d8462;
 }
+
 .total_header {
     /* margin-left: 25px; */
     margin-left: 4rem;
     padding: 0 !important;
-   
-}.image_cursor{
-  cursor: pointer;
 }
 
-.cancel_member:hover{
-  background-color: #3d8462;
-}
- .cancel_value{
-  color: white;
-}
-.mobview_add{
-  display: none;
+.image_cursor {
+    cursor: pointer;
 }
 
-.left-spacing{
-	padding-top: 1.5rem;
-	padding-left: 23px;
+.cancel_member:hover {
+    background-color: #3d8462;
 }
+
+.cancel_value {
+    color: white;
+}
+
+.mobview_add {
+    display: none;
+}
+
+.left-spacing {
+    padding-top: 1.5rem;
+    padding-left: 23px;
+}
+
 .memberFirstNameError,
 .memberLastNameError,
 .memberEmailError,
@@ -191,35 +209,49 @@
 .memberConfirmPasswordError,
 .timeZoneError,
 .languageError {
-  color: red;
-  font-size: 14px;
+    color: #D50000;
+    font-size: 14px;
 }
-a.b-cum:hover{
-  color: #000000;
+
+a.b-cum:hover {
+    color: #000000;
     text-decoration: underline;
     font-weight: bold;
 }
-.confirm-pwd{
-  float: left;
+
+.confirm-pwd {
+    float: left;
     width: 100% !important;
 }
 
-.disable{
-  background-color: #f3efe8!important;
-  cursor: not-allowed;
+.disable {
+    background-color: #f3efe8!important;
+    cursor: not-allowed;
 }
 
+.cancel-top {
+    margin-top: -3%;
+}
+
+.bread-nav {
+    margin-left: 2%;
+}
+
+
 /***********NEW CSS**************/
-.left-space{
-  padding-left: 4rem !important;
+
+.left-space {
+    padding-left: 4rem !important;
 }
-label{
-  font-weight: bold !important;
-  color: #666 !important;
+
+label {
+    font-weight: bold !important;
+    color: #666 !important;
 }
-.form-control{
-  font-size: 12px !important;
-  height: 46px !important;
+
+.form-control {
+    font-size: 12px !important;
+    height: 46px !important;
     border-radius: 8px;
     border: 1px solid #ccc;
     background-color: #fff;
@@ -227,92 +259,96 @@ label{
     /* font-weight: 500; */
     font-family: Montserrat;
 }
+
 .chn-btn {
-  background-color: #256547;
-  border: 1px solid #256547;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 1% 6%;
-  margin-left: 1rem;
+    background-color: #256547;
+    border: 1px solid #256547;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 1% 6%;
+    margin-left: 1rem;
 }
+
 @media all and (max-width: 767px) {
-  .mobview_add{
-    display: block;
-  }
-  .webview_add{
-    display: none;
-  }
-  .cancel_member{
-    display: none;
-  }
-  .page-breadcrumb{
-    padding: 0;
-  }
-  .mob-addmember{
-    color:#87623b;
-    font-size: 16px;
-    font-family: Montserrat;
- 
-}
-.rectangle_dropdown{
-  border-radius: 8px;
-    border: solid 1px #cccccc;
-    background-color: #ffffff;
-    background: url(../../../assets/images/active.png) right 16px top 19px/10px no-repeat;
-    -webkit-appearance: none;
-    font-family: Montserrat;
-    font-size: 13px;
-    font-weight: 500;
-    color: #000000;
-height: 46px !important;
-padding-top: 7px;
-}
-.padding-spacing{
-  margin-left: 4px;
-  margin-right: 4px;
-}
-.cancel{ 
-  background-color: #FDFDFD;
-  border:none;
-  color: #256547;
-  padding: 4.3% 9%;
-    font-size: 13px;
-  font-weight: 600;
-}
-.update{
-  border:1px solid #256547;
-  color: #ffffff;
-  padding: 0% 7%;
-  font-size: 12px;
-  font-weight: 600;
-  height: 46px;
-  border-radius: 8px;
-  background-color: #3d8462;
-}
-.update:hover{
-  background-color: #3d8462; 
-  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5) !important;
-}
-.total_header{
-  margin-left: 3px;
-}
-.left-spacing{
-	padding-left: 0px;
-	padding-top: 0;
-}
-.member_details{
-  padding-left: 0rem;
-}
-.mob-space{
-  padding:0
-}
-
-
-}
-@media only screen and (min-width: 320px) and (max-width: 991px)  {
-  .member_title,.select_title{
-    font-size: 16px !important;
-  }
+    .mobview_add {
+        display: block;
+    }
+    .webview_add {
+        display: none;
+    }
+    .cancel_member {
+        display: none;
+    }
+    .page-breadcrumb {
+        padding: 0;
+    }
+    .mob-addmember {
+        color: #87623b;
+        font-size: 16px;
+        font-family: Montserrat;
+    }
+    .rectangle_dropdown {
+        border-radius: 8px;
+        border: solid 1px #cccccc;
+        background-color: #ffffff;
+        background: url(../../../assets/images/active.png) right 16px top 19px/10px no-repeat;
+        -webkit-appearance: none;
+        font-family: Montserrat;
+        font-size: 13px;
+        font-weight: 500;
+        color: #000000;
+        height: 46px !important;
+        padding-top: 7px;
+    }
+    .padding-spacing {
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .cancel {
+        background-color: #FDFDFD;
+        border: none;
+        color: #256547;
+        padding: 4.3% 9%;
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .update {
+        border: 1px solid #256547;
+        color: #ffffff;
+        padding: 0% 7%;
+        font-size: 12px;
+        font-weight: 600;
+        height: 46px;
+        border-radius: 8px;
+        background-color: #3d8462;
+    }
+    .update:hover {
+        background-color: #3d8462;
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5) !important;
+    }
+    .total_header {
+        margin-left: 3px;
+    }
+    .left-spacing {
+        padding-left: 0px;
+        padding-top: 0;
+    }
+    .member_details {
+        padding-left: 0rem;
+    }
+    .mob-space {
+        padding: 0
+    }
+    .bread-nav {
+        margin-left: 0%;
+        padding: 0;
+    }
 }
 
+@media only screen and (min-width: 320px) and (max-width: 991px) {
+    .member_title,
+    .select_title {
+        font-size: 16px !important;
+    }
+}

@@ -1,3 +1,5 @@
+// AUTHOR : Sindhuja
+// PAGE DESCRIPTION : This page contains functions of Order Details for booked type order.
 import { Component, OnInit } from '@angular/core';
 import { OrderBookedService } from '../order-booked.service';
 
@@ -7,17 +9,19 @@ import { OrderBookedService } from '../order-booked.service';
   styleUrls: ['./booked-order-details.component.css']
 })
 export class BookedOrderDetailsComponent implements OnInit {
-files : FileList;
-uploadShow : boolean = true;
-receiptShow : boolean = false;
-  constructor(public bookedService : OrderBookedService) { }
+  files: FileList;
+  uploadShow: boolean = true;
+  receiptShow: boolean = false;
+  constructor(public bookedService: OrderBookedService) { }
 
   ngOnInit(): void {
   }
-  openFile(event){
-this.files = event.target.files;
-this.uploadShow = false;
-this.receiptShow = true;
+  // Function Name : Upload receipt
+  // Description: This function helps to upload receipt in order details tab of order booked .
+  openFile(event) {
+    this.files = event.target.files;
+    this.uploadShow = false;
+    this.receiptShow = true;
   }
 
 }

@@ -1,0 +1,225 @@
+.my-profile h1 {
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.my-profile p {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #666666;
+}
+
+.cancel-butn {
+    border-radius: 8px;
+    background-color: #3d8462;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    border: #3d8462;
+}
+
+.cancel-butn:hover {
+    background-color: #3d8462;
+    border: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.my-profile {
+    padding: 1rem 1.5rem;
+}
+
+.raise-label {
+    font-size: 11px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    text-transform: uppercase;
+}
+
+.raise-box {
+    height: 50px !important;
+    border-radius: 6px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+.raise-date {
+    font-size: 11px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+    text-transform: uppercase;
+}
+
+.form-control {
+    font-size: 12px !important;
+}
+
+.upload-profile {
+    margin-top: 10px;
+    border: 1px dashed #bbbbbb;
+    position: relative;
+    padding: 2rem 5rem 1rem;
+    text-align: center;
+}
+
+.profile-pic {
+    width: 100px;
+    border-radius: 100%;
+}
+
+.add-pic {
+    margin-top: -1rem;
+    cursor: pointer;
+}
+
+.butn-mt {
+    margin-top: -3rem;
+}
+
+.pic-head-text {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000000;
+}
+
+.form_para_text {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000000;
+}
+
+.add-upload {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+    padding-left: 10px;
+}
+
+
+/* ========== Profile Pic CSS ========== */
+
+@media screen and (max-width: 40em) {
+     :host ::ng-deep .ui-dialog {
+        width: 75vw !important;
+    }
+}
+
+#change-pic:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+ :host ::ng-deep .ui-dialog-titlebar {
+    font-family: Montserrat !important;
+    font-size: 16px !important;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    font-weight: 900;
+    font-style: bold;
+}
+
+ :host ::ng-deep .ui-dialog-content {
+    border-bottom-style: dashed !important;
+    border-bottom-color: #f2efeb !important;
+    height: 40% !important;
+    overflow-y: unset;
+}
+
+ :host ::ng-deep .ui-dialog-titlebar-icon span {
+    display: none !important;
+}
+
+ :host ::ng-deep .ui-dialog-titlebar-icon::before {
+    background: url(/assets/images/close-icon.png) !important;
+    display: inline !important;
+}
+
+.close-pic {
+    cursor: pointer;
+}
+
+#save-pic,
+#change-pic {
+    font-size: 12px;
+    font-family: Montserrat;
+    font-weight: 600;
+}
+
+
+/* ======= MODAL ======= */
+
+:host ::ng-deep .ui-button {
+    margin: 0.5em 0.5em 0.5em 0;
+    width: 140px;
+}
+
+.butn-mt {
+    display: block;
+}
+
+.mobile-butn {
+    display: none;
+}
+
+.date-birth {
+    width: 58% !important;
+}
+
+.nameError,
+.phonenoError,
+.emailError,
+.descriptionError,
+.roleError {
+    color: #FD4545;
+}
+
+@media screen and (max-width: 767px) {
+    .my-profile {
+        padding: 1rem .2rem;
+    }
+    .date-birth {
+        width: 120% !important;
+    }
+    .butn-mt {
+        display: none;
+    }
+    .mobile-butn {
+        display: block;
+    }
+}

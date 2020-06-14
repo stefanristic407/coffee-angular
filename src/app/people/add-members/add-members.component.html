@@ -1,84 +1,91 @@
 <div class="header-sewn">
-    <h1 class="hello-txt"> Add Member </h1> </div>
+    <h1 class="hello-txt"> Add Member </h1>
+</div>
 
-<!-- <div class="total_header webview_add">
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-      <span id="title-breadcrumb-1" class="sr-only"></span>
-      <ul>
-          <li class="b-cum">
+<!-- <div class="total_header"> -->
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-5">
+    <span id="title-breadcrumb-1" class="sr-only"></span>
+    <ul class="bread-nav">
+        <li class="b-cum">
             <a class="b-cum" routerLink="/features/welcome-aboard">Home</a
-            ><span class="padl-r" aria-hidden="true"> &gt; </span>
+            ><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/group1.png" alt=""></span>
           </li>
           <li class="b-cum">
-            <a class="b-cum" routerLink="/people/manage-role">People</a
-            ><span class="padl-r" aria-hidden="true"> &gt; </span>
+            <a class="b-cum">People</a
+            ><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/group1.png" alt=""> </span>
           </li>
           <li class="b-cum">
             <a class="b-cum" routerLink="/people/manage-role">Manage Roles</a
-            ><span class="padl-r" aria-hidden="true"> &gt; </span>
+            ><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
           </li>
-          <li class="b-cum c-pink">Add Member</li>
-          <button type="submit" class="btn  pull-right cancel_member">
+		  <li class="b-cum c-pink" *ngIf="editFlag == 'add'">Add Member</li>
+		  <li class="b-cum c-pink" *ngIf="editFlag == 'edit'">Edit Member</li>
+
+          <!-- <button type="submit" class="btn  pull-right cancel_member">
             <span class="cancel_value">CANCEL</span>
-        </button>
+		</button> -->
+		
+		 <div class="ml-auto text-right  cancel-top">
+			<button type="submit" routerLink="/people/user-management" class="btn btn-succes cancel_member">CANCEL</button>
+		</div> 
       </ul>
   </nav>
+<!-- </div> -->
+
+
+
+<!-- <div class="total_header mb-2 page-breadcrumb">
+    <div class="row pt-3">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div class="">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active"><a class="b-cum" routerLink="/features/welcome-aboard">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/manage-role">People</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/manage-role">Manage Roles</a></li>
+        <li class="breadcrumb-item active" aria-current="page" *ngIf="editFlag == 'add'">Add member</li>
+        <li class="breadcrumb-item active" aria-current="page" *ngIf="editFlag == 'edit'">Edit member</li>
+        </ol>
+</nav>
+</div>
+<div class="ml-auto text-right">
+    <button type="submit" routerLink="/people/user-management" class="btn btn-succes cancel_member">CANCEL</button>
+</div>
+</div>
+</div>
 </div> -->
 
+<div class="mt-4 mobview_add">
+    <h5 class="pl-1 mob-addmember" *ngIf="editFlag == 'add'">Add member</h5>
+    <h5 class="pl-1 mob-addmember" *ngIf="editFlag == 'edit'">Edit member</h5>
 
-
-	<div class="total_header mb-2 page-breadcrumb">
-		<div class="row pt-3">
-			<div class="col-12 d-flex no-block align-items-center">
-				<div class="">
-					<nav aria-label="breadcrumb">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item active"><a class="b-cum" routerLink="/features/welcome-aboard">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/manage-role">People</a></li>
-							<li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/manage-role">Manage Roles</a></li>
-							<li class="breadcrumb-item active" aria-current="page"  *ngIf = "editFlag == 'add'">Add member</li>
-							<li class="breadcrumb-item active" aria-current="page" *ngIf = "editFlag == 'edit'">Edit member</li>
-						</ol>
-					</nav>
-				</div>
-				<div class="ml-auto text-right"> 
-				   <button type="submit" routerLink="/people/user-management" class="btn btn-succes cancel_member">CANCEL</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="mt-4 mobview_add">
-			<h5 class="pl-1 mob-addmember" *ngIf = "editFlag == 'add'">Add member</h5>
-			<h5 class="pl-1 mob-addmember" *ngIf = "editFlag == 'edit'">Edit member</h5>
-
-		</div>
+</div>
 
 <section class="row">
     <div class="d-inline col-xs-12 col-md-12 member_heading">
-		<div class="webview_add mt-4 left-space">
-		<p class="d-inline member_heading member_title"  *ngIf = "editFlag == 'add'">Add your member for</p>
-		<p class="d-inline member_heading member_title" *ngIf = "editFlag == 'edit'">Edit your member for</p>
+        <div class="webview_add mt-4 left-space">
+            <p class="d-inline member_heading member_title" *ngIf="editFlag == 'add'">Add your member for</p>
+            <p class="d-inline member_heading member_title" *ngIf="editFlag == 'edit'">Edit your member for</p>
 
-	  <span class="d-inline select_title" (click)="op.toggle($event)" >
+            <span class="d-inline select_title" (click)="op.toggle($event)">
 			{{this.termRole}} 
 		<img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
-	</div>
-	  <div class="form-group row pt-3 mobview_add " >
-			<div class="form-group col-md-12">
-				<label class="member_email" *ngIf = "editFlag == 'add'">ADD MEMBER TO</label>
-				<label class="member_email" *ngIf = "editFlag == 'edit'">ADD MEMBER TO</label>
+        </div>
+        <div class="form-group row pt-3 mobview_add ">
+            <div class="form-group col-md-12">
+                <label class="member_email" *ngIf="editFlag == 'add'">ADD MEMBER TO</label>
+                <label class="member_email" *ngIf="editFlag == 'edit'">ADD MEMBER TO</label>
 
-				<select id="role_edit" class="form-control rectangle_dropdown" name="status">
+                <select id="role_edit" class="form-control rectangle_dropdown" name="status">
 						<option value="" selected disabled>Select role</option>
 						<option *ngFor="let role of roles" value="role.name">{{role.name}}</option>
 						
-					  </select>									</div>
-		</div>
+					  </select> </div>
+        </div>
 
-	<div class="member_details">
-		<form class="form-container">
-			<!-- <div class="form-group row left-spacing">
+        <div class="member_details">
+            <form class="form-container">
+                <!-- <div class="form-group row left-spacing">
 				<div class="form-group col-12 col-md-6 col-lg-4">
 				<label class="member_name">NAME</label>
 			<input type="text" class="form-control rectangle_name"  id="memberName" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)"
@@ -105,148 +112,77 @@
 				</button> 
 			</div> -->
 
-			<div class="row">
-					<div class="col-md-5 col-sm-12">
-					  <div class="form-group col-md-12 mb-4 mob-space">
-						<label for="member_first_name">First Name*</label>
-						<input
-						  type="text"
-						  class="form-control"
-						  id="member_first_name"
-						  placeholder="Enter member first name"
-						  (keyup)="onKeyPress($event)"
-						  [(ngModel)]="member_first_name"
-						  name="member_first_name"
-						  required=""
-						  autofocus
-						/>
-						<div
-						  class="memberFirstNameError"
-						  *ngIf="memberFirstNameError != ''"
-						>
-						  {{ memberFirstNameError }}
-						</div>
-					  </div>
-					  <div class="form-group col-md-12 mb-4 mob-space">
-						<label for="member_last_name">Last Name*</label>
-						<input
-						  type="text"
-						  class="form-control"
-						  id="member_last_name"
-						  placeholder="Enter member last name"
-						  (keyup)="onKeyPress($event)"
-						  [(ngModel)]="member_last_name"
-						  name="member_last_name"
-						  required=""
-						/>
-						<div
-						  class="memberLastNameError"
-						  *ngIf="memberLastNameError != ''"
-						>
-						  {{ memberLastNameError }}
-						</div>
-					  </div>
-		  
-					  <div class="form-group col-md-12 mb-4 mob-space">
-						<label for="member_email">Enter work Email Address*</label>
-						<input
-						  type="email"
-						  class="form-control"
-						  id="member_email"
-						  placeholder="Work Email"
-						  (keyup)="onKeyPress($event)"
-						  [(ngModel)]="member_email"
-						  name="member_email"
-						  required=""
-						/>
-						<div class="memberEmailError" *ngIf="memberEmailError != ''">
-						  {{ memberEmailError }}
-						</div>
-					  </div>
-					  <div class="form-group col-md-12 mb-4 mob-space" *ngIf ="edit">
-						<label for="member_password">Password*</label>
-						<input
-						  type="password"
-						  class="form-control"
-						  id="member_password"
-						  placeholder="Enter member password"
-						  name="member_password"
-						  (keyup)="onKeyPress($event)"
-						  [(ngModel)]="member_password"
-						  required
-						/>
-		  
-						<div id="pwd_strength_wrap">
-							<div id="passwordDescription">Password not entered</div>
-							<div id="passwordStrength" class="strength0"></div>
-							<div id="pswd_info">
-									<strong>Strong Password Tips:</strong>
-									<ul>
-											<li class="invalid" id="length">At least 6 characters </li>
-											<li class="invalid" id="pnum">At least one number </li>
-											<li class="invalid" id="capital">At least one lowercase &amp; one uppercase letter
-											</li>
-											<li class="invalid" id="spchar">At least one special character </li>
-									</ul>
-							</div>
-					</div>
-				  <!-- END pwd_strength_wrap -->
-						<div
-						  class="memberPasswordError"
-						  *ngIf="memberPasswordError != ''"
-						>
-						  {{ memberPasswordError }}
-						</div>
-					  </div>
-					  <div class="form-group col-md-12 mt-5 mb-5 w-100 mob-space" *ngIf ="edit">
-						<label class="confirm-pwd" for="member_confirm_password">Confirm Password*</label>
-						<input
-						  type="password"
-						  class="form-control"
-						  id="member_confirm_password"
-						  placeholder="Enter member confirm password"
-						  name="member_confirm_password"
-						  (keyup)="onKeyPress($event)"
-						  [(ngModel)]="member_confirm_password"
-						  required
-						/>
-						<div
-						  class="memberConfirmPasswordError"
-						  *ngIf="memberConfirmPasswordError != ''"
-						>
-						  {{ memberConfirmPasswordError }}
-						</div>
-					  </div>
-					</div>
-		  
-					<div class=" col-md-5 col-sm-12">
-					  <div class="form-group col-md-12 mb-4 mob-space">
-						<label for="lang">Language*</label>
-						<select
-						  id="lang"
-						  class="form-control"
-						  name="lang"
-						  required=""
-						  (keyup)="onKeyPress($event)"
-						  [(ngModel)]="lang"
-						>
+                <div class="row">
+                    <div class="col-md-5 col-sm-12">
+                        <div class="form-group col-md-12 mb-4 mob-space">
+                            <label for="member_first_name">First Name*</label>
+                            <input type="text" class="form-control" id="member_first_name" placeholder="Enter member first name" (keyup)="onKeyPress($event)" [(ngModel)]="member_first_name" name="member_first_name" required="" autofocus />
+                            <div class="memberFirstNameError" *ngIf="memberFirstNameError != ''">
+                                {{ memberFirstNameError }}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 mb-4 mob-space">
+                            <label for="member_last_name">Last Name*</label>
+                            <input type="text" class="form-control" id="member_last_name" placeholder="Enter member last name" (keyup)="onKeyPress($event)" [(ngModel)]="member_last_name" name="member_last_name" required="" />
+                            <div class="memberLastNameError" *ngIf="memberLastNameError != ''">
+                                {{ memberLastNameError }}
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 mb-4 mob-space">
+                            <label for="member_email">Enter work Email Address*</label>
+                            <input type="email" class="form-control" id="member_email" placeholder="Work Email" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email" required="" />
+                            <div class="memberEmailError" *ngIf="memberEmailError != ''">
+                                {{ memberEmailError }}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 mb-4 mob-space" *ngIf="edit">
+                            <label for="member_password">Password*</label>
+                            <input type="password" class="form-control" id="member_password" placeholder="Enter member password" name="member_password" (keyup)="onKeyPress($event)" [(ngModel)]="member_password" required />
+
+                            <div id="pwd_strength_wrap">
+                                <div id="passwordDescription">Password not entered</div>
+                                <div id="passwordStrength" class="strength0"></div>
+                                <div id="pswd_info">
+                                    <strong>Strong Password Tips:</strong>
+                                    <ul>
+                                        <li class="invalid" id="length">At least 6 characters </li>
+                                        <li class="invalid" id="pnum">At least one number </li>
+                                        <li class="invalid" id="capital">At least one lowercase &amp; one uppercase letter
+                                        </li>
+                                        <li class="invalid" id="spchar">At least one special character </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- END pwd_strength_wrap -->
+                            <div class="memberPasswordError" *ngIf="memberPasswordError != ''">
+                                {{ memberPasswordError }}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 mt-5 mb-5 w-100 mob-space" *ngIf="edit">
+                            <label class="confirm-pwd" for="member_confirm_password">Confirm Password*</label>
+                            <input type="password" class="form-control" id="member_confirm_password" placeholder="Enter member confirm password" name="member_confirm_password" (keyup)="onKeyPress($event)" [(ngModel)]="member_confirm_password" required />
+                            <div class="memberConfirmPasswordError" *ngIf="memberConfirmPasswordError != ''">
+                                {{ memberConfirmPasswordError }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col-md-5 col-sm-12">
+                        <div class="form-group col-md-12 mb-4 mob-space">
+                            <label for="lang">Language*</label>
+                            <select id="lang" class="form-control" name="lang" required="" (keyup)="onKeyPress($event)" [(ngModel)]="lang">
 						  <option value="" selected disabled> Select any language</option>
 						  <option value="en"> English </option>
 						  <!-- <option value="es"> Spanish </option> -->
 						</select>
-						<div class="languageError" *ngIf="languageError != ''">
-						  {{ languageError }}
-						</div>
-					  </div>
-					  <div class="form-group col-md-12 mb-4 mob-space">
-						<label for="timezone">Timezone*</label>
-						<select
-						  id="timezone"
-						  class="form-control"
-						  name="timezone"
-						  required=""
-						  [(ngModel)]="timezone"
-						>
+                            <div class="languageError" *ngIf="languageError != ''">
+                                {{ languageError }}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 mb-4 mob-space">
+                            <label for="timezone">Timezone*</label>
+                            <select id="timezone" class="form-control" name="timezone" required="" [(ngModel)]="timezone">
 						  <option value="" selected disabled> Select any Timezone</option>
 						  <optgroup label="US (Common)">	
 							  <option value="America/Puerto_Rico">Puerto Rico (Atlantic)</option>
@@ -744,50 +680,47 @@
 							</optgroup>
 						  
 						</select>
-						<div class="timeZoneError" *ngIf="timeZoneError != ''">
-						  {{ timeZoneError }}
-						</div>
-					  </div>
-					</div>
-				  </div>
-				  
-				  <button type="submit"  *ngIf = "editFlag == 'add'" class="webview_add chn-btn btn mt-1 mb-5" (click)="sendInvites();" [disabled]="loginButtonValue==='Adding'">
+                            <div class="timeZoneError" *ngIf="timeZoneError != ''">
+                                {{ timeZoneError }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" *ngIf="editFlag == 'add'" class="webview_add chn-btn btn mt-1 mb-5" (click)="sendInvites();" [disabled]="loginButtonValue==='Adding'">
 						{{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Adding'" src="assets/images/orange-loader.gif"/>
 					</button>
 
-					
-					<button type="submit" *ngIf = "editFlag == 'edit'" class="webview_add chn-btn btn mt-1 mb-5" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'">
+
+                <button type="submit" *ngIf="editFlag == 'edit'" class="webview_add chn-btn btn mt-1 mb-5" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'">
 							{{loginButtonValueEdit}}<img class="loader" *ngIf="loginButtonValueEdit==='Updating'" src="assets/images/orange-loader.gif"/>
 						</button>
 
 
-			<div class="col-xs-12 col-sm-12 mt-3 mobview_add">
-					<button  type="submit" (click)="sendInvites();" class="update float-right btn" [disabled]="loginButtonValue==='Adding'" *ngIf = "editFlag == 'add'">
+                <div class="col-xs-12 col-sm-12 mt-3 mobview_add">
+                    <button type="submit" (click)="sendInvites();" class="update float-right btn" [disabled]="loginButtonValue==='Adding'" *ngIf="editFlag == 'add'">
 							{{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Adding'" src="assets/images/orange-loader.gif"/>
 						</button>
-						<button type="submit" class="update float-right btn" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'" *ngIf = "editFlag == 'edit'">
+                    <button type="submit" class="update float-right btn" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'" *ngIf="editFlag == 'edit'">
 							{{loginButtonValueEdit}}<img class="loader" *ngIf="loginButtonValueEdit==='Updating'" src="assets/images/orange-loader.gif"/>
 						</button>
-					<button  type="button" routerLink="/people/user-management" class="cancel float-right btn btn-link">CANCEL</button>
-				</div>
-			<!-- </div> -->
+                    <button type="button" routerLink="/people/user-management" class="cancel float-right btn btn-link">CANCEL</button>
+                </div>
+                <!-- </div> -->
 
 
-		</form>
-	</div>
+            </form>
+        </div>
     </div>
 </section>
 <p-overlayPanel #op [dismissable]="true" appendTo="body">
     <div class="overflow-popover">
         <ul class="list-group custom-popover">
-			<!-- <li class="content_list" (click) = "setRole('Sales and Marketing')">Sales and Marketing</li> -->
-			<li class="content_list" *ngFor="let role of roles" (click) = "setRole(role.name,role.id);op.hide();">{{role.name}}</li>
+            <!-- <li class="content_list" (click) = "setRole('Sales and Marketing')">Sales and Marketing</li> -->
+            <li class="content_list" *ngFor="let role of roles" (click)="setRole(role.name,role.id);op.hide();">{{role.name}}</li>
         </ul>
         <button class="btn addrole_button" routerLink="/people/create-role">
               <span class="addrole_content">ADD ROLE</span>
         </button>
-      </div>
+    </div>
 </p-overlayPanel>
-
-
-

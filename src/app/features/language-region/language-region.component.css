@@ -1,0 +1,129 @@
+.page-breadcrumb {
+    background-color: #FFFFFF;
+    margin: 1% 0.5% 0 1%;
+}
+
+.breadcrumb-item a {
+    color: #666666;
+}
+
+.breadcrumb-item.active {
+    color: #000;
+}
+
+a.b-cum:hover {
+    color: #000000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.page-wrapper {
+    background-color: #FFFFFF;
+}
+
+.create-role-btn {
+    background-color: #3d8462;
+    border-radius: 8px;
+    color: #ffffff;
+    border: 1px solid #3d8462;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0.7rem;
+    word-break: keep-all;
+}
+
+.create-role-btn:hover {
+    /* background-color: #3d8462; 
+    color:#fff; */
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+.header-value{
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #020202;
+    padding-left: 2%;
+    word-break: keep-all;
+}
+.raise-ticket{
+    padding-right: 2%;
+}
+.sub-text{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #666666;
+    padding-left: 2%;
+}
+label {
+   
+    font-family: Montserrat;
+    font-size: 11px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+
+.form-control {
+    font-size: 12px !important;
+    height: 46px !important;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #000;
+    /* font-weight: 500; */
+    font-family: Montserrat;
+}
+.description{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+.add-language{
+    height: 46px;
+  border-radius: 6px;
+  border: solid 1px #cccccc;
+  background-color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  padding-top: .75rem;
+}
+.plus-symbol{
+    padding-right: .5rem;
+}
+
+@media screen and (max-width : 425px){
+    
+    .sub-text{
+        font-size: 13px;
+    }
+    
+    .raise-ticket{
+        padding-top: 2%;
+    }
+    .create-role-btn{
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width : 1200px){
+    .add-language{
+        width: 33.33%;
+    }
+}

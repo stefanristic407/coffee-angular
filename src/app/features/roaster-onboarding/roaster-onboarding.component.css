@@ -1,4 +1,4 @@
-.label_title{
+.label_title {
     height: 14px;
     font-family: Montserrat;
     font-size: 11px;
@@ -11,272 +11,280 @@
 }
 
 .hr-text {
-line-height: 1em;
-position: relative;
-outline: 0;
-border: 0;
-color: black;
-text-align: center;
-height: 1.5em;
-opacity: .5;
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: .5;
 }
+
 .hr-text::before {
-  content: '';
-  border: solid 1px #cccccc; 
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  height: 1px;
+    content: '';
+    border: solid 1px #cccccc;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
 }
+
 .hr-text::after {
-  content: 'OR';
-  position: relative;
-  display: inline-block;
-  color: #666666;
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 0 1.5em;
-  line-height: 1.5em;
-  color: #818078;
-  background-color: #ffffff;
+    content: 'OR';
+    position: relative;
+    display: inline-block;
+    color: #666666;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0 1.5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: #ffffff;
 }
-.email{
+
+.email {
     height: 50px;
-border-radius: 6px;
-border: solid 1px #cccccc;
-background-color: #ffffff;
-}
-.send-invite{
-   height: 50px;
-border-radius: 6px;
-background-color: #3d8462;
-color: #ffffff;
-
-}
-.send-text{
-    font-family: Montserrat;
-font-size: 14px;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
-letter-spacing: normal;
-color: #ffffff;
-
-}
-.send-invite:hover{
-  background-color: #3d8462; 
-  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-
-}
-::placeholder{
-    font-family: Montserrat;
-font-size: 14px;
-font-weight: 500;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
-letter-spacing: normal;
-color: #666666;
-}
-::-webkit-input-placeholder{
-   font-family: Montserrat;
-font-size: 14px;
-font-weight: 500;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
-letter-spacing: normal;
-color: #666666;
-}
-.continue-btn{
-  border-radius: 6px;
-  background-color: #3d8462;
-  height: 50px;
-  padding: 0% 10%;
-}
-.continue-text{
-font-family: Montserrat;
-font-size: 14px;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
-letter-spacing: normal;
-text-align: center;
-color: #ffffff;
-
-}
-.continue-btn:hover{
-  background-color: #3d8462; 
-  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-.form-group{
-  margin-bottom: 0%;
-}
-
-.mobile-onboard-roaster, .continue-mobile{
-  display: none;
- 
-}
-.label_title-mobile {
-  
-  font-family: Montserrat;
-  font-size: 14px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #000;
- 
-}
-.role-name {
-  font-size: 11px;
-  font-weight: 600;
-  color: #666666;
-  font-family: Montserrat;
-}
-.rectangle_name{
-  height: 46px;
     border-radius: 6px;
     border: solid 1px #cccccc;
     background-color: #ffffff;
 }
 
-.send-invite-mobile{
-  border-radius: 6px;
-  background-color: #3d8462;
-  padding: 10px 11px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #ffffff;
-  height: 46px;
-  border: #3d8462;
+.send-invite {
+    height: 50px;
+    border-radius: 6px;
+    background-color: #3d8462;
+    color: #ffffff;
 }
 
-
-@media only screen and (max-width: 767px) {
-  .web-onboard-roaster, .continue-web{
-    display:none !important;
-}
-
-.mobile-onboard-roaster, .continue-mobile{
-    display: block !important;
-   
-}
-.hr-text{
-margin-top: 1rem;
-}
-}
-
- @media only screen and (min-width: 320px) and (max-width: 990px) {
-  .label_title{
-    height: 14px;
+.send-text {
     font-family: Montserrat;
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+}
+
+.send-invite:hover {
+    background-color: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+::placeholder {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
     color: #666666;
 }
-.email{
-    height: 30px;
-border-radius: 6px;
-border: solid 1px #cccccc;
-background-color: #ffffff;
-}
-.send-invite{
-   height: 30px;
-border-radius: 6px;
-background-color: #3d8462;
-color: #ffffff;
-padding-top: 0;
-}
-.send-text{
+
+::-webkit-input-placeholder {
     font-family: Montserrat;
-font-size: 8px;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
-letter-spacing: normal;
-color: #ffffff;
-padding: 0% 10%;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
 }
- .continue-btn{
-  border-radius: 6px;
-  background-color: #3d8462;
-  height: 30px;
-  padding-top: 0;
+
+.continue-btn {
+    border-radius: 6px;
+    background-color: #3d8462;
+    height: 50px;
+    padding: 0% 10%;
 }
-.continue-text{
-font-family: Montserrat;
-font-size: 8px;
-font-weight: 600;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
-letter-spacing: normal;
-text-align: center;
-color: #ffffff;
-padding: 0% 10%;
-}
-.hr-text {
-line-height: 1em;
-position: relative;
-outline: 0;
-border: 0;
-color: black;
-text-align: center;
-height: 1.5em;
-opacity: .5;
-margin-top: 2.5rem;
-}
-.hr-text::before {
-  content: '';
-  border: solid 1px #cccccc; 
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  height: 1px;
-}
-.hr-text::after {
-  content: 'OR';
-  position: relative;
-  display: inline-block;
-  color: #666666;
-  font-family: Montserrat;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 0 1.5em;
-  line-height: 1.5em;
-  color: #818078;
-  background-color: #ffffff;
-}
- ::placeholder{
+
+.continue-text {
     font-family: Montserrat;
-font-size: 10px;
-font-weight: 500;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
-letter-spacing: normal;
-color: #666666;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
 }
-::-webkit-input-placeholder{
-   font-family: Montserrat;
-font-size: 10px;
-font-weight: 500;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
-letter-spacing: normal;
-color: #666666;
+
+.continue-btn:hover {
+    background-color: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
- }
+
+.form-group {
+    margin-bottom: 0%;
+}
+
+.mobile-onboard-roaster,
+.continue-mobile {
+    display: none;
+}
+
+.label_title-mobile {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000;
+}
+
+.role-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666666;
+    font-family: Montserrat;
+}
+
+.rectangle_name {
+    height: 46px;
+    border-radius: 6px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+}
+
+.send-invite-mobile {
+    border-radius: 6px;
+    background-color: #3d8462;
+    padding: 10px 11px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    height: 46px;
+    border: #3d8462;
+}
+
+@media only screen and (max-width: 767px) {
+    .web-onboard-roaster,
+    .continue-web {
+        display: none !important;
+    }
+    .mobile-onboard-roaster,
+    .continue-mobile {
+        display: block !important;
+    }
+    .hr-text {
+        margin-top: 1rem;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 990px) {
+    .label_title {
+        height: 14px;
+        font-family: Montserrat;
+        font-size: 9px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #666666;
+    }
+    .email {
+        height: 30px;
+        border-radius: 6px;
+        border: solid 1px #cccccc;
+        background-color: #ffffff;
+    }
+    .send-invite {
+        height: 30px;
+        border-radius: 6px;
+        background-color: #3d8462;
+        color: #ffffff;
+        padding-top: 0;
+    }
+    .send-text {
+        font-family: Montserrat;
+        font-size: 8px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #ffffff;
+        padding: 0% 10%;
+    }
+    .continue-btn {
+        border-radius: 6px;
+        background-color: #3d8462;
+        height: 30px;
+        padding-top: 0;
+    }
+    .continue-text {
+        font-family: Montserrat;
+        font-size: 8px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: #ffffff;
+        padding: 0% 10%;
+    }
+    .hr-text {
+        line-height: 1em;
+        position: relative;
+        outline: 0;
+        border: 0;
+        color: black;
+        text-align: center;
+        height: 1.5em;
+        opacity: .5;
+        margin-top: 2.5rem;
+    }
+    .hr-text::before {
+        content: '';
+        border: solid 1px #cccccc;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+    }
+    .hr-text::after {
+        content: 'OR';
+        position: relative;
+        display: inline-block;
+        color: #666666;
+        font-family: Montserrat;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 0 1.5em;
+        line-height: 1.5em;
+        color: #818078;
+        background-color: #ffffff;
+    }
+     ::placeholder {
+        font-family: Montserrat;
+        font-size: 10px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #666666;
+    }
+     ::-webkit-input-placeholder {
+        font-family: Montserrat;
+        font-size: 10px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #666666;
+    }
+}

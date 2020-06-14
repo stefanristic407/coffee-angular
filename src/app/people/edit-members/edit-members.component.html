@@ -1,16 +1,17 @@
 <div class="header-sewn">
-    <h1 class="hello-txt"> Edit Members</h1> </div>
+    <h1 class="hello-txt"> Edit Members</h1>
+</div>
 
-    <div class="total_editheader pt-5">
-        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-            <span id="title-breadcrumb-1" class="sr-only"></span>
-            <ul class="crumb-space">
-                <li class="b-cum">
-                  <a class="b-cum" routerLink="/features/welcome-aboard">Home</a>
-                  <span class="padl-r" aria-hidden="true"> &gt; </span>
-                </li>
-                <li class="b-cum">
-                  <a class="b-cum" routerLink="/people/user-management">People</a
+<div class="total_editheader pt-5">
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+        <span id="title-breadcrumb-1" class="sr-only"></span>
+        <ul class="crumb-space">
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a>
+                <span class="padl-r" aria-hidden="true"> &gt; </span>
+            </li>
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/people/user-management">People</a
                   ><span class="padl-r" aria-hidden="true"> &gt; </span>
                 </li>
                 <li class="b-cum">
@@ -39,111 +40,109 @@
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item active"><a class="b-cum" routerLink="/features/welcome-aboard">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/">People</a></li>
-							<li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/user-management">Manage Roles</a></li>
-							<li class="breadcrumb-item active" aria-current="page"><a class="b-cum"></a>Add member</li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/">People</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/people/user-management">Manage Roles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <a class="b-cum"></a>Add member</li>
 
-						</ol>
-					</nav>
-				</div>
-				
-			</div>
-		</div>
-	</div> -->
+            </ol>
+    </nav>
+</div>
 
-  <section class="col-12">
+</div>
+</div>
+</div> -->
+
+<section class="col-12">
     <div class="d-inline col-xs-12 col-md-12 mt-3">
-		<span class="row edit_heading user_heading web_edit">Edit</span>
-		<span class="row edit_heading user_heading mob_edit">Edit</span>
+        <span class="row edit_heading user_heading web_edit">Edit</span>
+        <span class="row edit_heading user_heading mob_edit">Edit</span>
 
-		<p class="account_activation user_heading pt-1 web_edit">Account activated on 12th Jan 2020, 8:30pm</p>
-		<p class="account_activation user_heading mob_edit">Account activated on <span class="mob_activation">12th Jan 2020, 8:30pm</span></p>
+        <p class="account_activation user_heading pt-1 web_edit">Account activated on 12th Jan 2020, 8:30pm</p>
+        <p class="account_activation user_heading mob_edit">Account activated on <span class="mob_activation">12th Jan 2020, 8:30pm</span></p>
 
-		
-        
-    <div class="user_details">
-    <form class="form-container">
-       
-          <div class="col-lg-12">
-    <div class="row">
-      <div class="col-lg-9 p-0">
-         <div class="row">
-				<div class="col-lg-12 mt-1 mb-4  mob_edit">
-						<div class="btn-group btn-toggle"> 
-						   <div class="btn active_default">Active</div>
-						   <div class="btn disable_default">Disable</div>
-						 </div>
-					   </div>
-        <div class="col-lg-5 user_heading">
-        <div class="form-group">
-              <label class="user_name">NAME</label>
-          <input type="text" class="form-control rectangle_username"  id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name">
-          <div class="memberNameError" *ngIf="memberNameError != ''">{{memberNameError}}</div>
-        </div>
-          </div>
-           <div class="col-lg-5">
-          <div class="form-group">
-              <label class="user_email">ENTER WORK EMAIL ADDRESS*</label>
-          <input type="email" class="form-control rectangle_useremail"  id="member_email" placeholder="you@example.com" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email">
-          <div class="memberEmailError" *ngIf="memberEmailError != ''">{{memberEmailError}}</div>
-        </div>
-      </div>
-      <div class="col-lg-5 user_heading">
-          <div class="form-group">
-              <label class="user_email">ROLE*</label>
-          <!-- <input type="text" class="form-control rectangle_dropdown"  id="" placeholder="Sales & marketing"  name="role" required> -->
 
-          <select id="member_role" class="form-control rectangle_dropdown" (keyup)="onKeyPress($event)" [(ngModel)]="member_role" name="status">
+
+        <div class="user_details">
+            <form class="form-container">
+
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-9 p-0">
+                            <div class="row">
+                                <div class="col-lg-12 mt-1 mb-4  mob_edit">
+                                    <div class="btn-group btn-toggle">
+                                        <div class="btn active_default">Active</div>
+                                        <div class="btn disable_default">Disable</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 user_heading">
+                                    <div class="form-group">
+                                        <label class="user_name">NAME</label>
+                                        <input type="text" class="form-control rectangle_username" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name">
+                                        <div class="memberNameError" *ngIf="memberNameError != ''">{{memberNameError}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <label class="user_email">ENTER WORK EMAIL ADDRESS*</label>
+                                        <input type="email" class="form-control rectangle_useremail" id="member_email" placeholder="you@example.com" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email">
+                                        <div class="memberEmailError" *ngIf="memberEmailError != ''">{{memberEmailError}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 user_heading">
+                                    <div class="form-group">
+                                        <label class="user_email">ROLE*</label>
+                                        <!-- <input type="text" class="form-control rectangle_dropdown"  id="" placeholder="Sales & marketing"  name="role" required> -->
+
+                                        <select id="member_role" class="form-control rectangle_dropdown" (keyup)="onKeyPress($event)" [(ngModel)]="member_role" name="status">
               <option value="" selected disabled>Select role</option>
               <option value="sales">Sales & marketing</option>
             <option value="Active">Active</option>
             <option value="Disabled">Disabled</option>
           </select>
-          <div class="memberRoleError" *ngIf="memberRoleError != ''">{{memberRoleError}}</div>
+                                        <div class="memberRoleError" *ngIf="memberRoleError != ''">{{memberRoleError}}</div>
 
-          </div>
-      </div>
+                                    </div>
+                                </div>
 
-        <div class="col-lg-12 mt-4 user_heading web_edit">
-         <div class="btn-group btn-toggle"> 
-            <div class="btn active_default">Active</div>
-            <div class="btn disable_default">Disable</div>
-          </div>
-		</div>
-		
-		<div class="col-xs-12 col-sm-12 mt-3 mob_edit">
-				<button  type="submit" class="update float-right btn" (click)="update();">UPDATE</button>
-				<button  type="button" class="cancel float-right btn btn-link">CANCEL</button>
-			</div>
+                                <div class="col-lg-12 mt-4 user_heading web_edit">
+                                    <div class="btn-group btn-toggle">
+                                        <div class="btn active_default">Active</div>
+                                        <div class="btn disable_default">Disable</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 mt-3 mob_edit">
+                                    <button type="submit" class="update float-right btn" (click)="update();">UPDATE</button>
+                                    <button type="button" class="cancel float-right btn btn-link">CANCEL</button>
+                                </div>
 
 
-    </div>
-      </div>
-      <div class="col-lg-4 spacing_recovery">
-        <div class="recovery_account">
-        <p class="recovery_email">Recovery Email</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 spacing_recovery">
+                            <div class="recovery_account">
+                                <p class="recovery_email">Recovery Email</p>
 
-        <span class="email_text">An email would be sent to the users email with a recovery link of their account. They can update the password using this link. </span>
+                                <span class="email_text">An email would be sent to the users email with a recovery link of their account. They can update the password using this link. </span>
 
-        <button type="button" class="btn pull-right send_email web_edit">
+                                <button type="button" class="btn pull-right send_email web_edit">
             <span class="send_text">SEND</span>
 			</button>
-		
-			<div class="form-group row m-0 pt-3 mob_edit">
-					<div class="text-center w-100">
-							 <button type="button" class="btn btn-info login-butn w-100">SEND</button>
-						 </div>
-				 
-				 </div>
-		                </div>
-          
-      </div>
-  </div>
- </div> 
-    </form>
-</div>
+
+                                <div class="form-group row m-0 pt-3 mob_edit">
+                                    <div class="text-center w-100">
+                                        <button type="button" class="btn btn-info login-butn w-100">SEND</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
- 
-
-

@@ -1,8 +1,9 @@
-.avg-per-cup{
-	border-left: 1px solid #999999;
-	padding: 1rem 1.5rem;
+.avg-per-cup {
+    border-left: 1px solid #999999;
+    padding: 1rem 1.5rem;
 }
-.transit-txt{
+
+.transit-txt {
     font-family: PlayfairDisplay;
     font-size: 28px;
     font-weight: normal;
@@ -12,9 +13,9 @@
     letter-spacing: normal;
     text-align: center;
     color: #020202;
-   
 }
-.delivery{
+
+.delivery {
     font-family: Montserrat;
     font-size: 15px;
     font-weight: normal;
@@ -25,22 +26,26 @@
     text-align: center;
     color: #000000;
 }
-.delivery-date{
+
+.delivery-date {
     color: #333333;
 }
-.order-view{
-	color: #256547;
-	cursor: pointer;
-font-size: 12px;
-font-weight: 700;
+
+.order-view {
+    color: #256547;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
 }
-.avg-cup{
-	color: #000000;
+
+.avg-cup {
+    color: #000000;
     font-size: 20px;
     font-weight: 400;
     line-height: 24px;
 }
-.know-more{
+
+.know-more {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 600;
@@ -54,69 +59,74 @@ font-weight: 700;
     background-color: #3d8462;
     padding: 2% 4%;
 }
-.know-more-content{
+
+.know-more-content {
     padding: 2rem 2rem;
 }
-.know-more:hover{   
+
+.know-more:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-  }
+}
 
 
 /* ==========Timeline CSS from my-orders========== */
 
-
-.order-tracking{
-	text-align: left;
-	width: 16%;
-	position: relative;
-	display: block;
+.order-tracking {
+    text-align: left;
+    width: 16%;
+    position: relative;
+    display: block;
 }
-.order-tracking .is-complete{
-	display: block;
-	position: relative;
-	border-radius: 50%;
-	height: 15px;
-	width: 15px;
-	border: solid 2px #f3efe8;
-  background-color: #f3efe8;
-	margin: 0 ;
-	transition: background 0.25s linear;
-	-webkit-transition: background 0.25s linear;
+
+.order-tracking .is-complete {
+    display: block;
+    position: relative;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    border: solid 2px #f3efe8;
+    background-color: #f3efe8;
+    margin: 0;
+    transition: background 0.25s linear;
+    -webkit-transition: background 0.25s linear;
     z-index: 2;
     top: 5%;
-    
 }
+
 .order-tracking .is-complete:after {
-	display: block;
-	position: absolute;
-	/* content: ''; */
-	height: 14px;
-	width: 7px;
-	top: -2px;
-	bottom: 0;
-	left: 5px;
-	margin: auto 0;
-	border: 0px solid #AFAFAF;
-	border-width: 0px 2px 2px 0;
-	transform: rotate(45deg);
-	border-color: #f3efe8;
+    display: block;
+    position: absolute;
+    /* content: ''; */
+    height: 14px;
+    width: 7px;
+    top: -2px;
+    bottom: 0;
+    left: 5px;
+    margin: auto 0;
+    border: 0px solid #AFAFAF;
+    border-width: 0px 2px 2px 0;
+    transform: rotate(45deg);
+    border-color: #f3efe8;
     border-width: 0px 3px 3px 0;
     width: 7px;
     left: 11px;
     opacity: 1;
 }
-.order-tracking.completed .is-complete{
-	border-color: #a88057;
-	border-width: 0px;
-	background-color: #a88057;
+
+.order-tracking.completed .is-complete {
+    border-color: #a88057;
+    border-width: 0px;
+    background-color: #a88057;
 }
+
 .order-tracking.completed .is-complete:after {
-	border-color: #fff;
-	border-width: 0px 3px 3px 0;
-	width: 7px;
-	left: 11px;
-	opacity: 1;
+    border-color: #fff;
+    border-width: 0px 3px 3px 0;
+    width: 7px;
+    left: 11px;
+    opacity: 1;
 }
+
 
 /* .order-tracking:last-child:after{
 	content: '';
@@ -141,7 +151,7 @@ font-weight: 700;
     z-index: 0;
 } */
 
- .is-complete:before {
+.is-complete:before {
     border-color: #fff;
     border-width: 0px 3px 3px 0;
     width: 7px;
@@ -149,41 +159,46 @@ font-weight: 700;
     opacity: 1;
 }
 
-
-
 .order-tracking::before {
-	content: '';
-	display: block;
-	height: 3px;
-	width: calc(100%);
-	background-color: #f3efe8;
-	top: 13px;
-	position: absolute;
-	/* left: calc(-90%); */
+    content: '';
+    display: block;
+    height: 3px;
+    width: calc(100%);
+    background-color: #f3efe8;
+    top: 13px;
+    position: absolute;
+    /* left: calc(-90%); */
     z-index: 0;
     left: 1%;
 }
 
-.mixups-tabs .order-tracking::before {left: calc(-90%);}
+.mixups-tabs .order-tracking::before {
+    left: calc(-90%);
+}
+
+
 /* .order-tracking:first-child:before{display: none;} */
-.order-tracking.completed:before{background-color: #a88057;}
 
-.mixups-track{
-	width: 50%;
+.order-tracking.completed:before {
+    background-color: #a88057;
 }
-.order-status{
+
+.mixups-track {
+    width: 50%;
+}
+
+.order-status {
     font-family: Montserrat;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #000000;
-
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
 }
 
-.order-date{
+.order-date {
     font-family: Montserrat;
     font-size: 15px;
     font-weight: 600;
@@ -193,10 +208,9 @@ font-weight: 700;
     letter-spacing: normal;
     color: #000000;
     margin-bottom: 0%;
-  
 }
 
-.order-view{
+.order-view {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 600;
@@ -208,7 +222,7 @@ font-weight: 700;
     cursor: pointer;
 }
 
-.order-status-incomplete{
+.order-status-incomplete {
     font-family: Montserrat;
     font-size: 15px;
     font-weight: 600;
@@ -219,19 +233,17 @@ font-weight: 700;
     color: #bea080;
 }
 
-.progress-bar-tooltip{
+.progress-bar-tooltip {
     padding: 6rem 3rem 0rem 2rem;
-    
- }
+}
 
+.tooltips {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
 
- .tooltips {
-   position: relative;
-   display: inline-block;
-   border-bottom: 1px dotted black;
-  }
-  
-  .tooltips .cup-score {
+.tooltips .cup-score {
     width: 100%;
     color: #a88057;
     border-radius: 0px;
@@ -245,8 +257,9 @@ font-weight: 700;
     font-size: 20px;
     font-family: Montserrat;
     font-weight: 600;
-  }
-  .tooltips .score-text{
+}
+
+.tooltips .score-text {
     width: 250px;
     color: #a88057;
     border-radius: 0px;
@@ -258,4 +271,4 @@ font-weight: 700;
     /* margin-left: 0px; */
     margin-bottom: 0%;
     font-family: Montserrat;
-  }
+}

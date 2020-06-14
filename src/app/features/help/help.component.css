@@ -1,0 +1,96 @@
+.page-breadcrumb {
+    background-color: #FFFFFF;
+    margin: 1% 0.5% 0 1%;
+}
+
+.breadcrumb-item a {
+    color: #666666;
+}
+
+.breadcrumb-item.active {
+    color: #000;
+}
+
+a.b-cum:hover {
+    color: #000000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.page-wrapper {
+    background-color: #FFFFFF;
+}
+
+.header-value{
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #020202;
+    padding-left: 2%;
+    word-break: keep-all;
+}
+
+.sub-text{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #666666;
+    padding-left: 2%;
+}
+.sub-header{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    padding: 10% 0 3% 1%;
+}
+.text-data{
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.privacy-content{
+    border-bottom: 1px dashed #dddddd;
+    padding: 3% 1% ;
+    cursor: pointer;
+}
+.cookies-content{
+    border-bottom: 1px dashed #dddddd;
+    padding: 3% 1% ;
+    cursor: pointer;
+}
+.cookies-content:last-child{
+    border-bottom: none;
+}
+
+
+
+@media screen and (max-width : 425px){
+    .sub-header{
+        font-size: 16px;
+    }
+    .sub-text{
+        font-size: 13px;
+    }
+    .text-data{
+        font-size: 13px;
+    }
+  
+}

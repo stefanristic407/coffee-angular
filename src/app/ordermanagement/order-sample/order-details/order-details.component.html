@@ -21,7 +21,7 @@
                     <td>$100</td>
                 </tr>
             </tbody>
-            
+
         </table>
     </div>
 </div>
@@ -31,7 +31,7 @@
         <h4 class="sub-title">Bulk details</h4>
 
         <table class="recent-time">
-    
+
             <tr>
                 <td> <span class="list-que"> Taste profile: </span></td>
                 <td> <span class="list-ans"> Strawberry </span> </td>
@@ -81,23 +81,23 @@
         </table>
     </div>
     <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content">
-            <h4 class="sub-title">Payment status</h4>
-            <div class="w-100 mt-3">
-                <p class="status" *ngIf="sampleService.statusPending"> &#x25CF;  Pending</p>
-                <p class="status_paid" *ngIf="sampleService.statusPaid"> <img src="assets/images/statusPaid.svg">  PAID</p>
-                <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="uploadShow"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
-                <button type="button" class="btn receipt-btn mb-2" *ngIf="receiptShow"><img src="assets/images/view.png" class="pr-2">View receipt</button>
-                <p><a class="procedure mt-2">View payment procedure<img class="right-angle" src="assets/images/right-angle.png"></a></p>
-                <div class="track-info mt-4 pt-2"  *ngIf="sampleService.shipmentDone">
-                    <p class="track-info-title">Tracking ID <img src="assets/images/open-icon.png" alt=""></p>
-                    <p class="track-id">9274972094-29ei43</p>
-                </div>
-                <div class="shipment-info mt-4"  *ngIf="sampleService.shipmentDone">
-                    <p class="shipment-title">Shipment ID <img src="assets/images/open-icon.png" alt=""></p>
-                    <p class="shipment-id">9274972094-29ei43</p>
-                </div>
-                <input type="file" hidden #fileUpload (change)="openFile($event)">
+        <h4 class="sub-title">Payment status</h4>
+        <div class="w-100 mt-3">
+            <p class="status" *ngIf="sampleService.statusPending"> &#x25CF; Pending</p>
+            <p class="status_paid" *ngIf="sampleService.statusPaid"> <img src="assets/images/statusPaid.svg"> PAID</p>
+            <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="uploadShow"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
+            <button type="button" class="btn receipt-btn mb-2" *ngIf="receiptShow"><img src="assets/images/view.png" class="pr-2">View receipt</button>
+            <p><a class="procedure mt-2">View payment procedure<img class="right-angle" src="assets/images/right-angle.png"></a></p>
+            <div class="track-info mt-4 pt-2" *ngIf="sampleService.shipmentDone">
+                <p class="track-info-title">Tracking ID <img src="assets/images/open-icon.png" alt=""></p>
+                <p class="track-id">9274972094-29ei43</p>
             </div>
+            <div class="shipment-info mt-4" *ngIf="sampleService.shipmentDone">
+                <p class="shipment-title">Shipment ID <img src="assets/images/open-icon.png" alt=""></p>
+                <p class="shipment-id">9274972094-29ei43</p>
+            </div>
+            <input type="file" hidden #fileUpload (change)="openFile($event)">
+        </div>
 
-           </div>
+    </div>
 </div>

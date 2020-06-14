@@ -1,3 +1,5 @@
+// AUTHOR : Sindhuja
+// PAGE DESCRIPTION : This page contains functions of Order Details for pre-book type order.
 import { Component, OnInit } from '@angular/core';
 import { OrderPrebookService } from '../order-prebook.service';
 
@@ -7,17 +9,19 @@ import { OrderPrebookService } from '../order-prebook.service';
   styleUrls: ['./prebook-order-details.component.css']
 })
 export class PrebookOrderDetailsComponent implements OnInit {
-files : FileList;
-receiptShow : boolean = false;
-uploadShow : boolean = true;
-  constructor(public prebookService : OrderPrebookService) { }
+  files: FileList;
+  receiptShow: boolean = false;
+  uploadShow: boolean = true;
+  constructor(public prebookService: OrderPrebookService) { }
 
   ngOnInit(): void {
   }
-  openFile(event){
-this.files = event.target.files;
-this.uploadShow = false;
-this.receiptShow = true;
+  // Function Name : Upload receipt
+  // Description: This function helps to upload receipt in order details tab of order pre-book.
+  openFile(event) {
+    this.files = event.target.files;
+    this.uploadShow = false;
+    this.receiptShow = true;
   }
 
 }

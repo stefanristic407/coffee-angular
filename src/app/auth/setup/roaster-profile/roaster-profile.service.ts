@@ -5,15 +5,15 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
   providedIn: 'root'
 })
 export class RoasterProfileService {
-  roasterImage : any;
-  imageChangedEvent:any ='';
-  croppedImage:any='assets/images/roaster_logo.svg';
-  imageCropper : ImageCropperComponent;
-  displayModal :boolean = false;
+  roasterImage: any;
+  imageChangedEvent: any = '';
+  croppedImage: any = 'assets/images/roaster_logo.svg';
+  imageCropper: ImageCropperComponent;
+  displayModal: boolean = false;
   constructor() { }
 
-  saveRoasterPic(){
-    this.imageCropper.crop();  
-    this.displayModal = false; 
+  saveRoasterPic() {
+    this.imageCropper.crop();
+    this.displayModal = false;
   }
 }

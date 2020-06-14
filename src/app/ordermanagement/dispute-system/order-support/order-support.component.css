@@ -1,0 +1,123 @@
+
+.page-breadcrumb {
+    background-color: #FFFFFF;
+    margin: 1% 0.5% 0 1%;
+}
+.breadcrumb-item a {
+    color: #666666;
+}
+
+.breadcrumb-item.active {
+    color: #000;
+}
+a.b-cum:hover {
+    color: #000000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.page-wrapper {
+    background-color: #FFFFFF;
+}
+
+/* .search-div{
+    display: inline-block!important;
+    text-align: center;
+    margin-bottom: 0% !important;
+    text-align: left;
+    margin-bottom: 5% !important;
+    margin-top: 5%;
+    padding: 0;
+} */
+.search-div{
+    padding: 0;
+}
+.search{
+    width: 255px;
+    font-family: 'Montserrat';
+    height: 36px;
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    background: url(../../../../assets/images/grey.png) no-repeat scroll 12px 5px;
+    padding-left: 45px;
+}
+.dashboard-button {
+    height: 150px;
+    width: 100%;
+    border-radius: 6px;
+    border: solid 1px #dddddd;
+    background-color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+}
+.view-all-div{
+    padding-bottom: 2%;
+    padding-right: 2%;
+}
+.view-all{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #3d8462;
+    cursor: pointer;
+}
+.view-all:hover{
+    text-decoration: underline !important;
+}
+.logo-img {
+    bottom: 2px;
+    position: relative;
+}
+
+.dashboard-button:hover {
+    border: solid 1px #3d8462;
+}
+
+.dashboard-button .icon-img-filled {
+    display: none;
+}
+
+.dashboard-button:hover .icon-img-filled {
+    display: inline;
+}
+
+.dashboard-button:hover .icon-img {
+    display: none;
+}
+
+.dashboard-button .logo-img-hover {
+    display: none;
+}
+
+.dashboard-button:hover .logo-img-hover {
+    position: relative;
+    bottom: 2px;
+    display: inline;
+}
+
+.dashboard-button:hover .logo-img {
+    display: none;
+}
+.btn-name{
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    margin-top: 5%;
+}
+
+/* ========OUTLINE CSS FOR SEARCH BAR====== */
+.search:focus{
+    box-shadow: 0 0 0 0.035rem green !important;
+}

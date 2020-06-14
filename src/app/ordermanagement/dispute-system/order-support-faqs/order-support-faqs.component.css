@@ -1,0 +1,208 @@
+
+.page-breadcrumb {
+    background-color: #FFFFFF;
+    margin: 1% 0.5% 0 1%;
+}
+.breadcrumb-item a {
+    color: #666666;
+}
+
+.breadcrumb-item.active {
+    color: #000;
+}
+a.b-cum:hover {
+    color: #000000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.page-wrapper {
+    background-color: #FFFFFF;
+}
+
+.create-role-btn {
+    background-color: #3d8462;
+    border-radius: 8px;
+    color: #ffffff;
+    border: 1px solid #3d8462;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0.7rem;
+}
+
+.create-role-btn:hover {
+    /* background-color: #3d8462; 
+    color:#fff; */
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+.header-value{
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #020202;
+    padding-left: 2%;
+    word-break: keep-all;
+}
+.raise-ticket{
+    padding-right: 2%;
+}
+
+/* Accordian css */
+.accordion {
+    margin-top: 40px;
+}
+
+.accordion .card {
+    border: none;
+    margin-bottom: 20px;
+}
+
+.accordion .card h2 {
+    background: url(https://cdn0.iconfinder.com/data/icons/entypo/91/arrow56-512.png) no-repeat calc(0% - -15px) center;
+    padding-left: 3rem;
+    background-size: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.accordion .card h2.collapsed {
+    background-image: url(https://cdn0.iconfinder.com/data/icons/arrows-android-l-lollipop-icon-pack/24/expand2-256.png);
+}
+
+.accordion .card-body {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sourcing {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Montserrat;
+    color: #333333;
+    margin-top: 3px;
+    margin-left: 5px
+}
+
+.sourcing-collapse {
+    margin-left: 1rem;
+}
+
+.content{
+    font-family: Montserrat;
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.27;
+  letter-spacing: normal;
+  color: #000000;
+  padding-left: 4%;
+
+}
+.click-here{
+    font-family: Montserrat;
+    font-size: 15px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: normal;
+    font-weight: 600;
+  color: #3d8462 !important;
+  cursor: pointer;
+}
+.question{
+    font-family: Montserrat;
+    font-size: 17px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+.card{
+    border: none;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #f3efe8 !important;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+}
+.card-body{
+    padding-bottom: 0;
+}
+.card:last-child{
+    border-bottom: none!important;
+
+}
+
+.help-div{
+    border-radius: 4px;
+    background-color: #faf8f4;
+    height: 82px;
+}
+.help-text{
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #87623b;
+    padding-top: 1.75rem;
+}
+.help-btn-div{
+    padding-top: 1.3rem;
+}
+.yes-btn{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #3d8462;
+    border-radius: 4px;
+    border: solid 1px #3d8462;
+    background-color: #faf8f4;
+    margin-right: .8rem;
+    padding-top: 4%;
+    padding-bottom: 4%;
+  
+}
+.raise-btn{
+    border-radius: 4px;
+  border: solid 1px #3d8462;
+  background-color: #3d8462;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: #ffffff;
+  padding-top: 4%;
+  padding-bottom: 4%;
+}
+
+@media all and (max-width: 425px) {
+    .help-div{
+        height: max-content;
+    padding-bottom: 5%;
+    padding-top: 5% ;
+    }
+    .help-btn-div{
+        padding-top: 0;
+    }
+    .help-text{
+        padding-top: 0;
+    }
+}

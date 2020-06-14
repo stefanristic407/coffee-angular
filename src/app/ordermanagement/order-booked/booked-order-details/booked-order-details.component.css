@@ -1,15 +1,4 @@
-th{
-    font-family: Montserrat;
-  /* font-size: 14px; */
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #666666;
-  padding-right: 3rem;
-}
-td{
+th {
     font-family: Montserrat;
     /* font-size: 14px; */
     font-weight: 500;
@@ -17,12 +6,24 @@ td{
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
+    color: #666666;
+    padding-right: 3rem;
+}
+
+td {
+    font-family: Montserrat;
+    /* font-size: 14px; */
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
     color: #000000;
     padding-right: 3rem;
     padding-top: 1rem;
-
 }
-.lot-link{
+
+.lot-link {
     font-family: Montserrat;
     /* font-size: 14px; */
     font-weight: 600;
@@ -32,7 +33,8 @@ td{
     letter-spacing: normal;
     color: #3d8462;
 }
-.list-que{
+
+.list-que {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 500;
@@ -42,7 +44,8 @@ td{
     letter-spacing: normal;
     color: #666666;
 }
-.list-ans{
+
+.list-ans {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 500;
@@ -52,12 +55,14 @@ td{
     letter-spacing: normal;
     color: #000000;
 }
-hr{
+
+hr {
     margin-top: 2rem;
     margin-bottom: 2rem;
     color: #dddddd;
 }
-.sub-title{
+
+.sub-title {
     font-family: Montserrat;
     font-size: 18px;
     font-weight: 600;
@@ -68,18 +73,22 @@ hr{
     color: #000000;
     padding-bottom: 0.5rem;
 }
-.bulk-details-content{
+
+.bulk-details-content {
     padding-right: 2rem;
-    border-right:  1px solid #dddddd;
+    border-right: 1px solid #dddddd;
 }
-.payment-status-content{
-    padding-left:2rem;
+
+.payment-status-content {
+    padding-left: 2rem;
 }
-.bulk-list{
-    border-bottom:  1px solid #dddddd;
+
+.bulk-list {
+    border-bottom: 1px solid #dddddd;
     padding: .7rem 0rem;
 }
-.list-que{
+
+.list-que {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 500;
@@ -89,7 +98,8 @@ hr{
     letter-spacing: normal;
     color: #666666;
 }
-.list-ans{
+
+.list-ans {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 500;
@@ -99,7 +109,8 @@ hr{
     letter-spacing: normal;
     color: #000000;
 }
-.status{
+
+.status {
     font-family: Montserrat;
     /* font-size: 14px; */
     font-weight: 600;
@@ -110,7 +121,8 @@ hr{
     color: #e78926;
     /* margin-bottom: 0%; */
 }
-.procedure{
+
+.procedure {
     font-family: Montserrat;
     /* font-size: 14px; */
     font-weight: 600;
@@ -121,10 +133,13 @@ hr{
     color: #3d8462;
     cursor: pointer;
 }
-.right-angle{
+
+.right-angle {
     padding-left: .5rem;
 }
-.shipment-id, .track-id{
+
+.shipment-id,
+.track-id {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 600;
@@ -135,7 +150,9 @@ hr{
     color: #3d8462;
     margin-bottom: 0%;
 }
-.track-info-title, .shipment-title{
+
+.track-info-title,
+.shipment-title {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 600;
@@ -143,10 +160,11 @@ hr{
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000; 
+    color: #000000;
     margin-bottom: 0.5rem;
 }
-.receipt-btn{
+
+.receipt-btn {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 600;
@@ -159,11 +177,12 @@ hr{
     background-color: #eeeeee;
 }
 
-.bulk-list:last-child{
+.bulk-list:last-child {
     border: none;
 }
 
-.shipment-info, .track-info{
+.shipment-info,
+.track-info {
     border-radius: 6px;
     background-color: #eeeeee;
     border-radius: 6px;
@@ -171,16 +190,19 @@ hr{
     width: max-content;
     padding: 5%;
 }
-.view-lot{
+
+.view-lot {
     font-size: 13px;
-  font-weight: bold;
-  color: #3d8462;
-  cursor: pointer;
+    font-weight: bold;
+    color: #3d8462;
+    cursor: pointer;
 }
-.procedure:hover{
+
+.procedure:hover {
     text-decoration: underline!important;
 }
-.status_paid{
+
+.status_paid {
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 600;
@@ -189,15 +211,13 @@ hr{
     line-height: normal;
     letter-spacing: normal;
     color: #24be46;
-  
 }
 
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 767px) {
     .bulk-details-content {
         border-right: 0px solid #dddddd;
     }
-    .payment-status-content{
-        padding-top:2.5rem;
+    .payment-status-content {
+        padding-top: 2.5rem;
     }
-
-   }
+}

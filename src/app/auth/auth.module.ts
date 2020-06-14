@@ -23,6 +23,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -36,7 +37,8 @@ import { ToastrModule } from 'ngx-toastr';
     PrivacyPolicyComponent,
     LicenseComponent,
     ProfileImageComponent,
-    RoasterProfileComponent
+    RoasterProfileComponent,
+ 
   ],
   imports: [
     CommonModule,
@@ -47,8 +49,8 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     HttpClientModule,
     NgOtpInputModule,
-    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
+    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
   ],
   providers: [CookieService, UserserviceService],
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { AuthComponent } from './auth.component';
+import { RouterModule, Routes } from '@angular/router';
 import { PagenotfoundComponent } from '../features/pagenotfound/pagenotfound.component';
-import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
+import { AuthComponent } from './auth.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './login/login.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { SetupComponent } from './setup/setup.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 
 
 const routes: Routes = [

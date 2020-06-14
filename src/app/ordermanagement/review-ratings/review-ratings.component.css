@@ -1,0 +1,335 @@
+/*======================*/
+
+.mixups-tabs {
+    /* padding: 0rem 2rem 2rem 0rem; */
+    background-color: #ffffff;
+    overflow: hidden;
+    /* border-right: 1px solid #dddddd; */
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #256547 !important;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: unset !important;
+    /* border-bottom: 1px solid #256547; */
+    border-radius: unset;
+}
+
+.nav-pills .nav-link.active {
+    position: relative;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.nav-pills .nav-link.active:before {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 80%;
+    transform: translate(-50%);
+    border-radius: 1.5px;
+    background-color: #3d8462;
+}
+
+.nav-pills {
+    border-bottom: 1px solid #dddddd;
+}
+
+li.nav-item {
+    margin-right: 7%;
+    position: relative;
+    top: .25rem;
+}
+
+.nav-pills .nav-link {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666666;
+    text-transform: uppercase;
+    padding: 1rem 0rem;
+}
+
+.nav-pills .nav-link.active {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3d8462;
+    padding: 1rem 0rem;
+}
+
+.highlight {
+    background-color: #f9f9f9;
+}
+
+.details-list {
+    margin-left: 0rem !important;
+}
+
+#pills-home {
+    padding: 0px 10px;
+}
+
+.estate-name {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.estate-number {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+
+.estate-message {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.36;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.estate-read-more {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #3d8462;
+    cursor: pointer;
+}
+
+.estate-arrow-dwn {
+    position: relative;
+    top: 6px;
+    font-size: 18px;
+}
+
+.date-estate {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+
+.border-div {
+    border-bottom: 1px solid #dddddd;
+}
+
+.star-estate {
+    font-size: 20px;
+    position: relative;
+    top: 5px;
+    color: #999999;
+}
+
+.state-txt {
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.rating-value {
+    position: relative;
+    top: 5px;
+    left: 5px;
+}
+
+.review {
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #020202;
+}
+
+.rev-value {
+    font-family: Montserrat;
+    font-size: 34px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #333333;
+}
+
+.review-sec {
+    padding: 2rem 1rem;
+}
+
+.cust-review {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #666666;
+}
+
+.recent-time td {
+    font-family: Montserrat;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    padding: 10px !important;
+    border-bottom: 0px solid #dddddd !important;
+}
+
+.progress {
+    display: -ms-flexbox;
+    display: flex;
+    height: 6px;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: 2px;
+    width: 190px;
+    margin-top: 7px;
+}
+
+.progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #a88057;
+    transition: width .6s ease;
+}
+
+.filter {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #3d8462;
+}
+
+.back-ticket,
+.filter-text {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: bold;
+    color: #3d8462;
+    cursor: pointer;
+}
+
+.problem-text {
+    margin-top: -3rem;
+}
+
+.ret-order {
+    padding: 1.5rem 1rem 1rem 1rem;
+}
+
+.review-tabs {
+    border-left: 1px solid #dddddd;
+    padding: 0rem 3rem;
+}
+
+.list-group-item {
+    border: none;
+    font-family: 'Montserrat';
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.item-color {
+    color: #666666;
+    font-weight: 500;
+}
+
+.menu-arrow {
+    cursor: pointer;
+}
+
+::ng-deep .popover-body {
+    padding: 0 !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+}
+
+::ng-deep .bs-popover-bottom .arrow:after {
+    top: 0px !important;
+}
+
+.pointer-item {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+    .review-tabs {
+        border-left: 0px solid #dddddd;
+        padding: 0rem 0rem;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .problem-text {
+        margin-top: 0rem;
+    }
+    .tap-green {
+        margin-top: 5rem !important;
+    }
+    .star-two {
+        margin-top: 3rem;
+    }
+}

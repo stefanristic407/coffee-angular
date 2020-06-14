@@ -1,8 +1,8 @@
 <section class="login-sec">
     <div class="container">
-       <div class="sewn-bg-logo">
-      <a>
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="90" height="27" viewBox="0 0 116 27">
+        <div class="sewn-bg-logo">
+            <a>
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="90" height="27" viewBox="0 0 116 27">
                 <g fill="none" fill-rule="evenodd">
                     <text style="mix-blend-mode:screen" fill="#FFF" font-family="PlayfairDisplay-Bold, Playfair Display" font-size="26" font-weight="bold" letter-spacing="2.786" transform="translate(0 -5)">
                         <tspan x="33" y="28">SEWN</tspan>
@@ -13,42 +13,42 @@
                     </g>
                 </g>
             </svg> -->
-            
-          <img src="assets/images/Sewn-logo.png" alt="user" class="Sewn-Logo">
-        </a> 
-       </div>
-       <div class="row">
-        <div class=" col-xs-12 col-sm-10 col-md-8 col-lg-5 login-box">
-            <div class="login">
-                <h3 class="login_heading">Login to your account </h3>
-                <p class="login_para">Welcome Back, Please login to your account. </p>
 
-                <form>
-                  <div class="row">
-                   <div class="col-sm-12">
-                       
-                      <h5 class="invalid-combination myAlert-top alert text-center"> Invalid Combination. Have another go. </h5>
-                      <h5 class="invalid-combination myAlert-permission alert text-center"> You Don't have Permission to Login </h5>
-                      <h5 class="invalid-combination myAlert-status alert text-center"> Your Account has been disabled. Contact your Admin</h5>
-                         </div>
-                         </div>
-                    <div class="form-group row pt-2">
-                        <div class="form-group col-md-12 padding-spacing">
-                            <label class="role-name">EMAIL ADDRESS</label>
-                            <input type="email" class="form-control rectangle_name" id="email" placeholder="you@example.com" name="email" (keyup)="onKeyPress($event)" [(ngModel)]="userEmail" autofocus required>
-						    <div class="login-emailerror" *ngIf="loginEmailError != ''">{{loginEmailError}}</div>
+                <img src="assets/images/Sewn-logo.png" alt="user" class="Sewn-Logo">
+            </a>
+        </div>
+        <div class="row">
+            <div class=" col-xs-12 col-sm-10 col-md-8 col-lg-5 login-box">
+                <div class="login">
+                    <h3 class="login_heading">Login to your account </h3>
+                    <p class="login_para">Welcome Back, Please login to your account. </p>
 
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <h5 class="invalid-combination myAlert-top alert text-center"> Invalid Combination. Have another go. </h5>
+                                <h5 class="invalid-combination myAlert-permission alert text-center"> You Don't have Permission to Login </h5>
+                                <h5 class="invalid-combination myAlert-status alert text-center"> Your Account has been disabled. Contact your Admin</h5>
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group row pt-2">
+                            <div class="form-group col-md-12 padding-spacing">
+                                <label class="role-name">EMAIL ADDRESS</label>
+                                <input type="email" class="form-control rectangle_name" id="email" placeholder="you@example.com" name="email" (keyup)="onKeyPress($event)" [(ngModel)]="userEmail" autofocus required>
+                                <div class="login-emailerror" *ngIf="loginEmailError != ''">{{loginEmailError}}</div>
 
-                    <div class="form-group row pt-1">
-                        <div class="form-group col-md-12  padding-spacing">
-                            <label class="role-name">PASSWORD</label>
-                            
-                            <input type="password" class="form-control rectangle_name" id="pwd" placeholder="Please enter your password" (keyup)="onKeyPress($event)" [(ngModel)]="userPassword" name="password" autofocus required (keyup.enter)= "Login();">
-						    <div class="login-pwderror" *ngIf="loginPasswordError != ''">{{loginPasswordError}}</div>
-                           
-                            <!-- <div id="pwd_strength_wrap">
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-1">
+                            <div class="form-group col-md-12  padding-spacing">
+                                <label class="role-name">PASSWORD</label>
+
+                                <input type="password" class="form-control rectangle_name" id="pwd" placeholder="Please enter your password" (keyup)="onKeyPress($event)" [(ngModel)]="userPassword" name="password" autofocus required (keyup.enter)="Login();">
+                                <div class="login-pwderror" *ngIf="loginPasswordError != ''">{{loginPasswordError}}</div>
+
+                                <!-- <div id="pwd_strength_wrap">
                                 <div id="passwordDescription">Password not entered</div>
                                 <div id="passwordStrength" class="strength0"></div>
                                 <div id="pswd_info">
@@ -61,71 +61,71 @@
                                         </ul>
                                 </div>
                         </div> -->
-                        <!-- END pwd_strength_wrap -->
-                        
-                        </div>
-                    </div>
+                                <!-- END pwd_strength_wrap -->
 
-                    <div class="form-group row pt-1  d-inline-block w-100 web-login rem">
-                        <div class="custom-control custom-checkbox mb-1 float-left pad-left">
-                            <input type="checkbox" class="custom-control-input" id="remember" name="example1">
-                            <label class="custom-control-label remember pt-1" for="remember"><span class="remeber-left">Remember me</span></label>
+                            </div>
                         </div>
 
-                        <div class="float-right">
-                            <span><a  class="forgot" routerLink="../forgot-password">Forgot password?</a></span>
+                        <div class="form-group row pt-1  d-inline-block w-100 web-login rem">
+                            <div class="custom-control custom-checkbox mb-1 float-left pad-left">
+                                <input type="checkbox" class="custom-control-input" id="remember" name="example1">
+                                <label class="custom-control-label remember pt-1" for="remember"><span class="remeber-left">Remember me</span></label>
+                            </div>
+
+                            <div class="float-right">
+                                <span><a  class="forgot" routerLink="../forgot-password">Forgot password?</a></span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group row pt-1 pl-1 mobile-login">
-                        
-                        <div class="text-center w-100">
-                            <span><a class="forgot w-100" routerLink="../forgot-password">Forgot password?</a></span>
+                        <div class="form-group row pt-1 pl-1 mobile-login">
+
+                            <div class="text-center w-100">
+                                <span><a class="forgot w-100" routerLink="../forgot-password">Forgot password?</a></span>
+                            </div>
+
                         </div>
-                       
-                     </div>
-                    
 
 
-                    <div class="form-group row pt-2 pl-3 d-inline-block w-100 web-login">
-                       
+
+                        <div class="form-group row pt-2 pl-3 d-inline-block w-100 web-login">
+
                             <div class="float-left mt-2">
-                                <span><a  class="forgot ">Don't have an account? Sign up</a></span>
+                                <span><a  class="forgot"> Don't have an account? Sign up</a></span>
                             </div>
                             <div class="float-right">
                                 <button type="button" class="btn btn-info login-butn" (click)="Login()" [disabled]="loginButtonValue==='Logging in'">
                                         {{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Logging in'" src="assets/images/orange-loader.gif"/>
                                 </button>
                             </div>
-                    
-                    </div>
 
-                
-                    <div class="form-group row m-0 mobile-login">
-                        <div class="text-center w-100">
+                        </div>
+
+
+                        <div class="form-group row m-0 mobile-login">
+                            <div class="text-center w-100">
                                 <button type="button" class="btn btn-info login-butn w-100" (click)="Login()" [disabled]="loginButtonValue==='Logging in'">
                                         {{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Logging in'" src="assets/images/orange-loader.gif"/>
                                 </button>
-                                 <!-- <button type="button" class="btn btn-info login-butn w-100" (click)="myAlertTop()" routerLink="../../features">LOGIN</button> -->
-                             </div>
-                     
-                     </div>
+                                <!-- <button type="button" class="btn btn-info login-butn w-100" (click)="myAlertTop()" routerLink="../../features">LOGIN</button> -->
+                            </div>
+
+                        </div>
 
 
 
- 
-                   
-
-                </form>
 
 
-                
+
+                    </form>
+
+
+
+
+                </div>
+
+
 
             </div>
-
-            
-            
-        </div>
         </div>
 
 

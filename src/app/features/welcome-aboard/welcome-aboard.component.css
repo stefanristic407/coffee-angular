@@ -1,18 +1,20 @@
-.welcome-sec{
+.welcome-sec {
     border-radius: 5px;
     padding: 30px;
     font-size: 14px;
 }
-.update-title{
+
+.update-title {
     font-family: 'PlayfairDisplay';
     font-size: 34px;
     color: #000000;
     line-height: normal;
     letter-spacing: normal;
 }
-.create-role-butn{
+
+.create-role-butn {
     background-color: #3d8462;
-    border:1px solid #3d8462;
+    border: 1px solid #3d8462;
     color: #FFFFFF;
     font-weight: 600;
     font-size: 14px;
@@ -20,8 +22,9 @@
     border-radius: 8px;
     height: 46px;
 }
-.welocme_txt{
-   word-wrap: break-word;
+
+.welocme_txt {
+    word-wrap: break-word;
     padding: 1% 7% 2%;
     font-weight: 600;
     color: #256547;
@@ -29,22 +32,26 @@
     font-weight: 500;
     line-height: 1.43;
     color: #666666;
-  }
-.create-role-butn:hover{
-    background-color: #3d8462; 
+}
+
+.create-role-butn:hover {
+    background-color: #3d8462;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
-.mobile-wlcm{
+
+.wlcm-pt {
+    padding-top: 5rem;
+}
+
+.mobile-wlcm {
     display: none;
 }
 
 @media only screen and (max-width: 767px) {
-    .web-wlcm{
-      display:none !important;
-  }
-
-  .mobile-wlcm{
-      display: block !important;
-     
-  }
-  }
+    .web-wlcm {
+        display: none !important;
+    }
+    .mobile-wlcm {
+        display: block !important;
+    }
+}

@@ -8,14 +8,14 @@ import { RoasterProfileService } from './roaster-profile.service';
   styleUrls: ['./roaster-profile.component.css']
 })
 export class RoasterProfileComponent implements OnInit {
-  @ViewChild(ImageCropperComponent, {static:false}) imageCropper : ImageCropperComponent;
+  @ViewChild(ImageCropperComponent, { static: false }) imageCropper: ImageCropperComponent;
   canvasRotation = 0;
   rotation = 0;
   scale = 1;
   showCropper = false;
   containWithinAspectRatio = false;
   transform: ImageTransform = {};
-  constructor(public roasterService : RoasterProfileService) { }
+  constructor(public roasterService: RoasterProfileService) { }
 
   ngOnInit(): void {
   }
@@ -26,28 +26,28 @@ export class RoasterProfileComponent implements OnInit {
 
   imageCropped(event: ImageCroppedEvent) {
     this.roasterService.croppedImage = event.base64;
-}
+  }
 
-imageLoaded() {
+  imageLoaded() {
     this.showCropper = true;
     console.log('Image loaded');
-}
+  }
 
-cropperReady(sourceImageDimensions: Dimensions) {
+  cropperReady(sourceImageDimensions: Dimensions) {
     console.log('Cropper ready', sourceImageDimensions);
-}
+  }
 
-loadImageFailed() {
+  loadImageFailed() {
     console.log('Load failed');
-}
+  }
 
-zoom(){
- 
-  this.transform = {
-    ...this.transform,
-    scale: this.scale
-};
-}
+  zoom() {
+
+    this.transform = {
+      ...this.transform,
+      scale: this.scale
+    };
+  }
 
 
 }

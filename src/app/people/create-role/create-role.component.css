@@ -7,8 +7,9 @@
     color: #ffffff;
     margin-right: 4rem;
 }
-.add-role-butn:hover{
-    background-color: #3d8462; 
+
+.add-role-butn:hover {
+    background-color: #3d8462;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
@@ -21,11 +22,10 @@
     padding: 2% 10%;
     border-radius: 8px;
     height: 46px;
-    
 }
 
-.bread-nav{
-    padding-left: 25px;
+.bread-nav {
+    padding-left: 2.5%;
 }
 
 .create-role {
@@ -111,8 +111,7 @@
     padding-left: 2.375rem;
 }
 
-
-.search{
+.search {
     font-family: 'Montserrat';
     height: 40px;
     border-radius: 8px;
@@ -133,53 +132,54 @@
     pointer-events: none;
     color: #aaa;
 }
-.padd-top{
+
+.padd-top {
     padding-top: 2.5rem;
 }
-.role-error{
-    color:#FD4545;
+
+.role-error {
+    color: #D50000;
     font-size: 12px;
-  }
-  a.b-cum:hover{
-    color: #000000;
-      text-decoration: underline;
-      font-weight: bold;
-  }
-  .loader{
-	height: 17px;
-	width: 17px;
-	margin-left: 4px;
-	margin-top:-4px;
 }
 
+a.b-cum:hover {
+    color: #000000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.loader {
+    height: 17px;
+    width: 17px;
+    margin-left: 4px;
+    margin-top: -4px;
+}
 
 @media only screen and (max-width: 767px) {
-
-    .padd-top{
+    .padd-top {
         padding-top: 1rem;
     }
-
     .border-role {
         border-left: none;
         padding-left: 0rem;
     }
-    .bread-nav{
+    .bread-nav {
         padding-left: 15px;
     }
     .create-role {
         padding: .3rem .5rem;
     }
-
 }
 
-:host ::ng-deep .ui-tree{
+:host ::ng-deep .ui-tree {
     border: none !important;
     width: 70% !important;
     padding: 0rem;
     font-family: "Montserrat";
     font-size: 16px;
 }
-:host ::ng-deep .ui-corner-all{
+
+:host ::ng-deep .ui-corner-all {
     border-radius: 8px;
 }
 
@@ -187,15 +187,24 @@
     height: 46px;
     border: solid 1px #cccccc;
 }
+:host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter:focus{
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.035rem green !important;
+    border: solid 1px #cccccc !important;
+}
+:host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter:hover{
+    
+    border: solid 1px #cccccc !important;
+}
 
-:host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon{
+:host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
     top: 50%;
     /* left: 1rem; */
     color: #00080e;
     right: 92%;
 }
 
-:host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-highlight{
+:host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-highlight {
     background-color: #FFF;
     color: #333;
 }
@@ -204,7 +213,7 @@
     background-color: #FFF;
 }
 
-:host ::ng-deep .ui-treenode .ui-treenode-leaf{
+:host ::ng-deep .ui-treenode .ui-treenode-leaf {
     /* color: red; */
     font-size: 14px;
     font-weight: 500;
@@ -219,25 +228,53 @@
     font-weight: 600;
 }
 
-:host ::ng-deep .ui-tree input{
+:host ::ng-deep .ui-tree input {
     padding-left: 8%;
 }
+
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-chkbox .ui-chkbox-icon {
     margin: 0;
 }
-:host ::ng-deep .ui-chkbox .ui-chkbox-box .ui-chkbox-icon{
+
+:host ::ng-deep .ui-chkbox .ui-chkbox-box .ui-chkbox-icon {
     font-size: 14px;
     color: #ffffff;
     background-color: #000000;
 }
-:host ::ng-deep .ui-chkbox .ui-chkbox-box{
-width: 18px;
-height: 16px;
+
+:host ::ng-deep .ui-chkbox .ui-chkbox-box {
+    width: 18px;
+    height: 16px;
 }
+
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content:focus {
     box-shadow: none;
-}    
+}
+
 :host ::ng-deep .ui-treenode-label {
     text-transform: capitalize;
 }
-.clear { clear: both; }
+
+.clear {
+    clear: both;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+     :host ::ng-deep .ui-tree {
+        width: 100% !important;
+    }
+     :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+        right: 91%;
+        font-size: 1em !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+     :host ::ng-deep .ui-tree {
+        width: 100% !important;
+    }
+     :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+        right: 92%;
+        font-size: 1em !important;
+    }
+}

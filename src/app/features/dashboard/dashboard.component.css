@@ -1,18 +1,16 @@
+.hello-txt {
+    font-family: PlayfairDisplay;
+    font-size: 38px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
 
-
-    .hello-txt{
-        font-family: PlayfairDisplay;
-        font-size: 38px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.21;
-        letter-spacing: normal;
-        text-align: center;
-        color: #ffffff;
-        }
-
-.dashboard-button{
+.dashboard-button {
     height: 70px;
     width: 100%;
     border-radius: 6px;
@@ -20,33 +18,38 @@
     background-color: #ffffff;
     padding-left: 30px;
     padding-right: 30px;
-
- }   
- .roaster,.facilitator,.estate{
-      font-family: Montserrat;
-      font-size: 20px;
-      font-weight: 600;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      color: #000000;
- }
-
- .logo-img{
-            bottom: 2px;
-position: relative;
 }
- .dashboard-button:hover{
-    border: solid 1px #3d8462;
- }
 
- .dashboard-button .icon-img-filled {
+.roaster,
+.facilitator,
+.estate {
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.logo-img {
+    bottom: 2px;
+    position: relative;
+}
+
+.dashboard-button:hover {
+    border: solid 1px #3d8462;
+}
+
+.dashboard-button .icon-img-filled {
     display: none;
 }
+
 .dashboard-button:hover .icon-img-filled {
     display: inline;
 }
+
 .dashboard-button:hover .icon-img {
     display: none;
 }
@@ -54,47 +57,49 @@ position: relative;
 .dashboard-button .logo-img-hover {
     display: none;
 }
+
 .dashboard-button:hover .logo-img-hover {
     position: relative;
     bottom: 2px;
     display: inline;
 }
+
 .dashboard-button:hover .logo-img {
     display: none;
 }
 
-
-
-@media only screen and (min-width: 991px) and (max-width: 1200px)  {
-     .dashboard-button{
-    height: 70px;
-    width: 100%;
-    border-radius: 6px;
-    border: solid 1px #dddddd;
-    background-color: #ffffff;
-    padding-left: 20px;
-    padding-right: 20px;
-
- } 
-  .roaster,.facilitator,.estate{
-      font-family: Montserrat;
-      font-size: 16px;
-      font-weight: 600;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      color: #000000;
- }
-.logo-img{
-    bottom: 6px;
-    position: relative;
+@media only screen and (min-width: 991px) and (max-width: 1200px) {
+    .dashboard-button {
+        height: 70px;
+        width: 100%;
+        border-radius: 6px;
+        border: solid 1px #dddddd;
+        background-color: #ffffff;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .roaster,
+    .facilitator,
+    .estate {
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #000000;
+    }
+    .logo-img {
+        bottom: 6px;
+        position: relative;
+    }
 }
-}
-
 
 
 /* ==========checking check box========= */
+
+
 /* 
 .pad-left{
     padding:0;

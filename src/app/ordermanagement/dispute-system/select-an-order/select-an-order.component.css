@@ -1,0 +1,280 @@
+.select-order {
+    padding-top: 1.5rem;
+    padding-left: 2.2rem;
+}
+
+.back-ticket {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: bold;
+    color: #3d8462;
+}
+
+.select-order-title {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.please-select {
+    font-family: Montserrat;
+    font-size: 13px;
+    color: #000000;
+}
+
+.typeoforder-Sample,
+.status-Order-Confirmed {
+    color: #e78926;
+}
+
+.typeoforder-Booked,
+.status-Shipped {
+    color: #24be46;
+}
+
+.continue-btn {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #3d8462;
+    margin-bottom: 7rem;
+    margin-right: 3rem;
+    height: 40px;
+}
+
+.name-spacing {
+    width: 95px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+input[type='radio'] {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    outline: none;
+    border: solid 1px #666666;
+    background-color: #ffffff;
+}
+
+input[type='radio']:before {
+    content: '';
+    display: block;
+    width: 10px !important;
+    height: 10px !important;
+    margin: 16% auto;
+    border-radius: 50%;
+}
+
+input[type='radio']:checked:before {
+    width: 12px;
+    height: 12px;
+    border: solid 1px #000000;
+    background-color: #000000;
+}
+
+
+/*======================*/
+
+.mixups-tabs {
+    /* padding: 0rem 2rem 2rem 0rem; */
+    background-color: #ffffff;
+    overflow: hidden;
+    border-right: 1px solid #dddddd;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #256547 !important;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: unset !important;
+    /* border-bottom: 1px solid #256547; */
+    border-radius: unset;
+}
+
+.nav-pills .nav-link.active {
+    position: relative;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.nav-pills .nav-link.active:before {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 80%;
+    transform: translate(-50%);
+    border-radius: 1.5px;
+    background-color: #3d8462;
+}
+
+.nav-pills {
+    border-bottom: 1px solid #dddddd;
+}
+
+li.nav-item {
+    margin-right: 7%;
+    position: relative;
+    top: .25rem;
+}
+
+.nav-pills .nav-link {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666666;
+    padding: 1rem 0rem;
+}
+
+.nav-pills .nav-link.active {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3d8462;
+    padding: 1rem 0rem;
+}
+
+.highlight {
+    background-color: #f9f9f9;
+}
+
+
+/**********popover*******/
+
+.list-group-item {
+    border: none;
+    font-family: 'Montserrat';
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.item-color {
+    color: #666666;
+    font-weight: 500;
+}
+
+.menu-arrow {
+    cursor: pointer;
+}
+
+::ng-deep .popover-body {
+    padding: 0 !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+}
+
+::ng-deep .bs-popover-bottom .arrow:after {
+    top: 0px !important;
+}
+
+.pointer-item {
+    cursor: pointer;
+}
+
+.filter {
+    font-family: Montserrat;
+    font-weight: bold;
+    color: #3d8462;
+    font-size: 13px;
+}
+
+.filter-text {
+    color: #000000;
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.estate-title {
+    border-radius: 8px;
+    background-color: #faf8f4;
+}
+
+.estate-title th {
+    color: #87623b;
+    font-weight: 600;
+    font-size: 14px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.estate-boby-txt td {
+    color: #000;
+    padding: 1rem 1rem 0;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+table th,
+table td,
+.estate-title {
+    border: none !important;
+}
+
+
+/******Date Range Css*********/
+
+:host ::ng-deep .ui-inputtext {
+    border: 1px solid #3d8462 !important;
+    font-size: 13px !important;
+    color: #3d8462 !important;
+    padding: 7px 30px 5px 7px !important;
+    margin-right: 5px;
+}
+:host ::ng-deep .ui-inputtext:focus{
+    box-shadow: 0 0 0 0.035rem green !important;
+}
+
+:host ::ng-deep .ui-datepicker {
+    top: 0px !important;
+}
+
+
+/* ::ng-deep .ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
+    left: -11px !important;
+    width: 1.357em !important;
+    color: #3d8462;
+} */
+
+:host ::ng-deep .ui-button-icon-only .ui-button-icon-left {
+    color: #3d8462;
+}
+
+@media (max-width:767px) {
+    .select-order {
+        padding-left: 0.7rem;
+    }
+    .status-div,
+    .date-div {
+        top: 0.5rem;
+    }
+    .display-div {
+        top: 0.8rem;
+    }
+    .role-div {
+        padding-left: 15px !important;
+    }
+}

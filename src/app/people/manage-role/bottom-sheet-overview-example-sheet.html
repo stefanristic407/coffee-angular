@@ -19,43 +19,43 @@
       <span mat-line>Show to your coworkers</span>
     </a> -->
 
-    <div>
-        <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-				<div class="d-flex menu-list mt-2">
-					<div>Rename</div>
-					<div class="ml-4 rename"></div>
-					<div class="pl-3">Manage Permissions</div>
-				</div>
-				<div class="d-flex  menu-list mt-2">
-						<span>Duplicate Role</span>
-				</div>
+<div>
+    <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+            <div class="d-flex menu-list mt-2">
+                <div>Rename</div>
+                <div class="ml-4 rename"></div>
+                <div class="pl-3">Manage Permissions</div>
             </div>
-          </div>
-        <ul class="main-data d-flex">
-          <li class="round-mangarole">
+            <div class="d-flex  menu-list mt-2">
+                <span>Duplicate Role</span>
+            </div>
+        </div>
+    </div>
+    <ul class="main-data d-flex">
+        <li class="round-mangarole">
             1
-          </li>
-          <li>
-              <img  src="assets/images/edit.svg" alt="Edit">
-          </li>
-          <li> <img  src="assets/images/delete.svg" alt="Delete"></li>
-          <li><div id="accordion">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  
-                  <img type="button" src="{{ showVar ? 'assets/images/arrow-up.png' : 'assets/images/arrow-down.png'}}" alt=""  (click)="toggleChild()" class="image-class"  data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                 
-             
-                  
-                  <!-- <button class="btn btn-link">
+        </li>
+        <li>
+            <img src="assets/images/edit.svg" alt="Edit">
+        </li>
+        <li> <img src="assets/images/delete.svg" alt="Delete"></li>
+        <li>
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+
+                        <img type="button" src="{{ showVar ? 'assets/images/arrow-up.png' : 'assets/images/arrow-down.png'}}" alt="" (click)="toggleChild()" class="image-class" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
+
+
+                        <!-- <button class="btn btn-link">
                     </button> -->
+                    </div>
                 </div>
-              </div>
-              </div>
-            </li>
-  
-  
-        </ul>
-      </div>
-    
+            </div>
+        </li>
+
+
+    </ul>
+</div>

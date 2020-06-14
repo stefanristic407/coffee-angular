@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
-import { PeopleComponent } from './people.component';
-import { CreateRoleComponent } from './create-role/create-role.component';
+import { RouterModule, Routes } from '@angular/router';
 import { AddMembersComponent } from './add-members/add-members.component';
+import { CreateRoleComponent } from './create-role/create-role.component';
 import { EditMembersComponent } from './edit-members/edit-members.component';
-import { UserManagementComponent } from './user-management/user-management.component';
 import { ManageRoleComponent } from './manage-role/manage-role.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PeopleComponent } from './people.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+
 
 const routes: Routes = [{
    path: '', 

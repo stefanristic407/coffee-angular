@@ -1,20 +1,33 @@
 .main-data {
     padding-left: 0;
-     width: 100%; 
-     padding-top: 1rem;
-     border-top: 1px solid #dddddd;
-     margin-bottom: 0;
-    }
-.main-data  li{
+    width: 100%;
+    padding-top: 1rem;
+    border-top: 1px solid #dddddd;
+    margin-bottom: 0;
+}
+
+.main-data li {
     list-style: none;
 }
 
+
 /* .main-data  li:nth-child(1){width: 15%;} */
-.main-data  li:nth-child(2){width:15%; 
+
+.main-data li:nth-child(2) {
+    width: 15%;
     /* padding-left: 5%; */
-    padding-right: 5%;}
-.main-data  li:nth-child(3){width: 15%;}
-.main-data  li:nth-child(4){width: 15%;}
+    padding-right: 5%;
+}
+
+.main-data li:nth-child(3) {
+    width: 15%;
+}
+
+.main-data li:nth-child(4) {
+    width: 15%;
+}
+
+
 /* .accordion .card {
     border: none;
     margin-bottom: 20px;
@@ -27,20 +40,24 @@
     cursor: pointer;
     font-size: 16px;
 }
+
 .card-body {
     padding: 0.25rem;
     padding-bottom: 1rem;
 }
-.image-class{
+
+.image-class {
     width: 15px;
     height: 15px;
 }
-.card-header{
+
+.card-header {
     padding: 0 !important;
-    background-color:unset !important;
+    background-color: unset !important;
     border-bottom: none !important;
 }
-.round-mangarole{
+
+.round-mangarole {
     width: 25px;
     height: 25px;
     border-radius: 50%;
@@ -52,15 +69,16 @@
     margin-right: 2rem;
 }
 
-.menu-list{
+.menu-list {
     font-size: 14px;
-    color:#3d8462;
+    color: #3d8462;
     font-family: Montserrat;
-
 }
-.rename{
+
+.rename {
     border-right: 1px solid #dddddd;
 }
+
 ::ng-deep .mat-bottom-sheet-container {
     padding: 0px 16px !important;
 }
