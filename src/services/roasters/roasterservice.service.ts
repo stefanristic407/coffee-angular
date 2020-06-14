@@ -17,9 +17,9 @@ export class RoasterserviceService {
   private roasterUrl = "https://qa-fed-api.sewnstaging.com/ro/api";
   private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
   private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
-  private url = "https://qa-fed-api.sewnstaging.com/api";
-  private deleteUrl = "https://qa-fed-api.sewnstaging.com/deleteapi";
-  private certificatesURL = "https://qa-fed-api.sewnstaging.com/certificates";
+  private url = "https://qa-fed-api.sewnstaging.com/ro/api";
+  private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
+  private certificatesURL = "https://qa-fed-api.sewnstaging.com/ro/certificates";
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
