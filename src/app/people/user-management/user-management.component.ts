@@ -100,6 +100,18 @@ export class UserManagementComponent implements OnInit {
     }
 
   }
+//  Function Name : Check box function.
+	//  Description   : This function helps to Check all the rows of the Users list.
+	checkAll(ev) {
+		this.userfilterDat.forEach(x => (x.state = ev.target.checked));
+  }
+  
+  //  Function Name : Single Check box function.
+	//  Description   : This function helps to Check that single row isChecked.
+	isAllChecked() {
+		return this.userfilterDat.every(_ => _.state);
+	}
+
 
     // Function Name : Help
   // Description: This function helps to show the Help modal - info regarding the page 
@@ -126,7 +138,7 @@ export class UserManagementComponent implements OnInit {
                   console.log(loginResponse);
 							let sample = loginResponse['result'];
 							let latest_date = sample.map(function (e) { return e.logged_in_at; }).sort().reverse()[0];
-							this.loginValue = new DatePipe('en-Us').transform(latest_date, 'dd/MM/yyyy hh:mm:ss a', 'GMT+5:30');
+							this.loginValue = new DatePipe('en-Us').transform(latest_date, 'dd/MM/yyyy h:mma', 'GMT+5:30');
 							tempData["lastLogin"] = this.loginValue;
             	  }
             	);
@@ -217,6 +229,7 @@ export class UserManagementComponent implements OnInit {
 
   setStatus(term: any) {
     this.termStatus = term;
+    console.log(this.termStatus)
   }
 
   // Function Name : Roles Filiter

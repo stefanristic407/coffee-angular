@@ -11,11 +11,13 @@
 }
 
 .bread-nav {
-    margin-left: 2%;
+    margin-left: 5.5%;
 }
 
 .table-container {
     margin: 2% 5% 0% 5%;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
 }
 
 .page-wrapper {
@@ -23,48 +25,44 @@
 }
 
 .create-role-btn {
-    background-color: #3d8462;
-    border-radius: 8px;
+    border-radius: 4px;
+    background-color: #30855c;
     color: #ffffff;
-    border: 1px solid #3d8462;
+    border: 1px solid #30855c;
     font-size: 13px;
     font-weight: bold;
-    height: 44px;
+    padding: 0.5rem 1.5rem;
     margin-right: 4rem;
 }
 
 .create-role-btn:hover {
-    /* background-color: #3d8462; 
-    color:#fff; */
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .view-btn,
 .add-btn {
-    border-radius: 8px;
-    border: solid 1px #3d8462;
+    border-radius: 4px;
+    border: solid 1px #30855c;
     background-color: #ffffff;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #3d8462;
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: bold;
+    color: #30855c;
     margin-left: 10px;
 }
 
 .list-group-item {
     border: none;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #000000;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: bold;
+    background-color: #f8f8f8;
 }
 
 ::ng-deep .popover-body {
@@ -99,8 +97,8 @@ will-change: transform;
 } */
 
 .table-header {
-    border-radius: 8px;
-    background-color: #faf8f4;
+    border-radius: 4px;
+    background-color: #f8f8f8;
 }
 
 .header-row {
@@ -110,13 +108,14 @@ will-change: transform;
 table th,
 table td {
     border: none !important;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
-    color: #000000;
+    color: #232334;
+    font-weight: normal;
 }
 
 tr {
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #d6d6d6;
 }
 
 tr:last-child {
@@ -125,9 +124,10 @@ tr:last-child {
 }
 
 .table thead th {
-    color: #87623b;
-    font-weight: 600;
-    font-family: Montserrat;
+    color: #232334;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Muli';
 }
 
 span.checkmark {
@@ -137,7 +137,7 @@ span.checkmark {
 }
 
 .customcheckbox input:checked~.checkmark {
-    background-color: #000;
+    background-color: #30855c;
 }
 
 .breadcrumb-item a {
@@ -150,7 +150,7 @@ span.checkmark {
 
 .view-btn:hover,
 .add-btn:hover {
-    color: white;
+    color: #FFFFFF;
     background-color: #3d8462;
 }
 
@@ -168,6 +168,7 @@ span.checkmark {
 .customcheckbox .checkmark:after {
     left: 5px !important;
     top: 1px !important;
+    border-width: 0 2px 2px 0 !important;
 }
 
 a.b-cum:hover {
@@ -281,33 +282,7 @@ tr:hover>td>.show_btns {
         margin-top: 5%;
     }
     .list-group-item {
-        border: none;
-        font-family: 'Montserrat';
         font-size: 10px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #000000;
-    }
-    /* .popover-body{
-    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
-    background-color: #ffffff;
-    padding: 0;
-}
-.popover{
-    border: 1px solid #FFFFFF;
-    border-radius: 5px !important;
-    position: absolute;
-transform: translate3d(988px, 253px, 0px);
-top: 0px;
-left: 0px !important;
-will-change: transform;
-} */
-    .page-breadcrumb {
-        margin: 0;
-        padding: 15px 0px 0px 0px !important;
     }
     .create-role-btn {
         margin-right: 0rem;
@@ -438,6 +413,11 @@ will-change: transform;
     padding: 5px;
     display: none;
     margin-top: 20px;
+}
+
+.ellipse-image {
+    width: 2px;
+    height: 14px;
 }
 
 @media only screen and (max-width: 768px) {

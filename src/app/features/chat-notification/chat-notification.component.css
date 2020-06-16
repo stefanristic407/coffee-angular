@@ -34,7 +34,7 @@ a.b-cum:hover {
 }
 
 .custom-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     color: #666666;
@@ -43,7 +43,7 @@ a.b-cum:hover {
 .save-butn {
     border-radius: 6px;
     background-color: #3d8462;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     color: #ffffff;
@@ -55,7 +55,7 @@ a.b-cum:hover {
 
 .units-header,
 .chat-header {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 16px;
     font-weight: bold;
     color: #000000;
@@ -63,7 +63,7 @@ a.b-cum:hover {
 
 .farm-size,
 .quantity-size {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 11px;
     font-weight: normal;
     color: #666666;
@@ -74,7 +74,7 @@ a.b-cum:hover {
 .pounds-data,
 .kilograms-data,
 .receipt-data {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     color: #000000;
@@ -128,7 +128,7 @@ input[type='radio']:checked:before {
 }
 
 .normal-txt {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: bold;
     color: #3d8462;

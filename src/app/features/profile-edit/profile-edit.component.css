@@ -10,7 +10,7 @@
 }
 
 .my-profile p {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -96,7 +96,7 @@
 }
 
 .pic-head-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     font-stretch: normal;
@@ -108,7 +108,7 @@
 }
 
 .form_para_text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     font-stretch: normal;
@@ -120,7 +120,7 @@
 }
 
 .add-upload {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -146,7 +146,7 @@
 }
 
  :host ::ng-deep .ui-dialog-titlebar {
-    font-family: Montserrat !important;
+    font-family: Muli !important;
     font-size: 16px !important;
     color: #000000 !important;
     background-color: #ffffff !important;
@@ -177,7 +177,7 @@
 #save-pic,
 #change-pic {
     font-size: 12px;
-    font-family: Montserrat;
+    font-family: Muli;
     font-weight: 600;
 }
 
@@ -191,6 +191,33 @@
 
 .butn-mt {
     display: block;
+}
+.previous {
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #3d8462;
+    border: #ffffff;
+}
+.previous:hover{
+    text-decoration: underline;
+}
+.login-butn {
+    border-radius: 8px;
+    background-color: #3d8462;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    border: #3d8462;
+}
+
+.login-butn:hover {
+    background-color: #3d8462;
+    border: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .mobile-butn {

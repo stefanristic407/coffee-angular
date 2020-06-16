@@ -1,318 +1,151 @@
-<!-- ============================================================== -->
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
-<div id="main-wrapper" class="mini-sidebar">
-    <!-- ============================================================== -->
-    <!-- Topbar header - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <div class="overlay-sewn"></div>
-    <div class="sewn-bg-img"></div>
-    <header class="topbar " data-navbarbg="skin5">
-        <nav class="navbar top-navbar navbar-expand-md navbar-dark" id="navbar-people-sewn">
-            <div class="navbar-header" data-logobg="skin5">
-                <!-- This is for the sidebar toggle which is visible on mobile only -->
-                <a class="nav-toggler d-block d-md-none" id="menu-close" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                <!-- ============================================================== -->
-                <!-- Logo -->
-                <!-- ============================================================== -->
-                <a class="navbar-brand" routerLink="../features/welcome-aboard">
-                    <!-- Logo icon -->
-                    <img src="assets/images/Sewn-logo.png" alt="user" class="Sewn-Logo web-logo" id="white-sewn-logo">
-                    <img src="assets/images/sewn-black-logo.svg" alt="user" class="Sewn-Logo mobile-logo" id="black-sewn-logo">
+<!-- HEADER-->
+<header class="stricky">
+    <nav class="bg-white nav-top1">
 
-
-                    <img src="assets/images/sewn-black-logo.svg" alt="user" class="Sewn-Logo mobile-logo">
-
-                    <!--End Logo icon -->
-                    <!-- Logo text -->
-
-                    <!-- Logo icon -->
-                    <!-- <b class="logo-icon"> -->
-                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                    <!-- Dark Logo icon -->
-                    <!-- <img src="../../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
-
-                    <!-- </b> -->
-                    <!--End Logo icon -->
-                </a>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Toggle which is visible on mobile only -->
-                <!-- ============================================================== -->
-                <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="ti-more"></i></a>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Logo -->
-            <!-- ============================================================== -->
-            <div class="navbar-collapse " id="navbarSupportedContent" data-navbarbg="skin5">
-                <!-- ============================================================== -->
-                <!-- toggle and nav items -->
-                <!-- ============================================================== -->
-                <div class="float-left mr-auto ">
-                    <ul class="navbar-nav position-standerd">
-                        <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                        <!-- ============================================================== -->
-                        <!-- create new -->
-                        <!-- ============================================================== -->
-
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item search-box">
-                            <a class="nav-link  " href="javascript:void(0)">
-                                <div class=" col-sm-12 search-div" id="white-search">
-                                    <!-- <input type="text" name="search" class="search search-white" placeholder="Search.." > -->
-                                    <input type="text" name="search" class="search search-white" placeholder="Search.." [(ngModel)]="selected" [typeahead]="states">
-                                </div>
-                                <div class="col-sm-12 search-div" id="black-search">
-                                    <!-- <input type="text" name="search" class="search search-black" placeholder="Search.." > -->
-                                    <input type="text" name="search" class="search search-black" placeholder="Search.." [(ngModel)]="selected" [typeahead]="states">
-                                </div>
-                            </a>
-                            <!--
-                            <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>
-                            </form>
--->
-                        </li>
-                    </ul>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="company-logo pad-5">
+                    <a class="company-logo__img d-inline-block" routerLink="../features/dashboard">
+                        <img src="assets/images/Sewn-logo.png" alt="Comany-Logo">
+                    </a>
                 </div>
-                <!-- ============================================================== -->
-                <!-- Right side toggle and nav items -->
-                <!-- ============================================================== -->
-                <ul class="navbar-nav float-right">
-                    <!-- ============================================================== -->
-                    <!-- Comment -->
-                    <!-- ============================================================== -->
-                    <li class="nav-item dropdown notify">
-                        <a class="nav-link dropdown-toggle " href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="w-icon" src="assets/images/add.png" alt="Dashboard" id="white-add">
-                            <img class="w-icon" src="assets/images/black-add.svg" alt="Dashboard" id="black-add">
-
-                        </a>
-                        <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div> -->
-                    </li>
-
-                    <li class="nav-item dropdown notify">
-                        <a class="nav-link dropdown-toggle " href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="w-icon" src="assets/images/message.png" alt="Dashboard" id="white-msg">
-                            <img class="w-icon" src="assets/images/black-message.svg" alt="Dashboard" id="black-msg">
-
-                        </a>
-                        <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div> -->
-                    </li>
-                    <!-- ============================================================== -->
-                    <!-- End Comment -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Messages -->
-                    <!-- ============================================================== -->
-                    <li class="nav-item dropdown notify">
-                        <a class="nav-link dropdown-toggle " href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="w-icon" src="assets/images/alerts.png" alt="Dashboard" id="white-alert">
-                            <img class="w-icon" src="assets/images/black-alerts.svg" alt="Dashboard" id="black-alert">
-
-
-                        </a>
-                        <!-- <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="">
-                                            
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Event today</h5> 
-                                                        <span class="mail-desc">Just a reminder that event</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                           
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Settings</h5> 
-                                                        <span class="mail-desc">You can customize this template</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                          
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Pavan kumar</h5> 
-                                                        <span class="mail-desc">Just see the my admin!</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                           
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Luanch Admin</h5> 
-                                                        <span class="mail-desc">Just see the my new admin!</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div> -->
-                    </li>
-                    <!-- ============================================================== -->
-                    <!-- End Messages -->
-                    <!-- ============================================================== -->
-
-                    <!-- ============================================================== -->
-                    <!-- User profile and search -->
-                    <!-- ============================================================== -->
-                    <li class="nav-item dropdown mobile-profile">
-                        <a class="nav-link dropdown-toggle text-muted pro-pic cursor-dots" role="button" [popover]="popTemplate" placement="bottom" container="body" [outsideClick]="true">
-                            <img src="assets/images/user-profile.png" alt="user" class="rounded-circle w-icon"> &nbsp; <span class="sewn-profile"> <span class="username w-100" id="username-black"> {{userName}}</span>
-                            <!-- <span class="username admin-p w-100" id="admin-black">Admin</span> -->
-                            </span>
-                        </a>
-                        <!-- <div class="dropdown-menu dropdown-menu-right user-dd animated"> 
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                <div class="dropdown-divider"></div>
-                                <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
-                            </div> -->
-
-                        <ng-template #popTemplate>
-                            <div id="popover-mobile-content">
-                                <ul class="list-group">
-                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/myprofile">Profile </a></li>
-                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings">Account Settings </a></li>
-                                    <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">Logout </a></li>
-                                </ul>
+                <div class="d-inline-block">
+                    <form>
+                        <div class="search-on-site">
+                            <div class="search-on-site__input fnt-muli">
+                                <img class="img d-inline-block" src="assets/images/search.svg">
+                                <input type="search" placeholder="Search.." class="float-right pt-1">
                             </div>
-                        </ng-template>
-                        <div class="dropdown-menu dropdown-menu-right user-dd animated" aria-labelledby="dropdownMenuProfile">
-                            <a class="dropdown-item drop-myprofile" routerLink="/features/myprofile">&nbsp; Profile</a>
-                            <a class="dropdown-item drop-myprofile" routerLink="/features/account-settings"> &nbsp; Account Settings</a>
-                            <a class="dropdown-item drop-myprofile" (click)="userLogout();"><i class="fa fa-power-off m-r-5 m-l-5"></i> &nbsp; Logout</a>
+                        </div>
+                    </form>
+                </div>
+                <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2">
+                        <a href="javascript:void(0)" class="d-inline-block">
+                            <img class="img" src="assets/images/add.svg">
+                        </a>
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2">
+                        <a href="javascript:void(0)" class="d-inline-block">
+                            <img class="img" src="assets/images/mess.svg">
+                        </a>
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2">
+                        <a href="javascript:void(0)" class="d-inline-block">
+                            <img class="img" src="assets/images/notification.svg">
+                        </a>
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
+                        <div class="profile-link d-flex align-items-center">
+                            <div class="profile-link__img d-inline-block mr-md-2">
+                                <img src="assets/images/profile.png">
+                            </div>
+                            <div class="profile-link__info pl-lg-1 float-right">
+                                <div>
+                                    <a class="profile-name" role="button" [popover]="popTemplate" placement="bottom" container="body" [outsideClick]="true">
+                                        <h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont">{{userName}} <span class="pl-1"><img src="assets/images/triangle.svg"> </span></h6>
+                                        <span class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2" style="transform: translateY(-10px);">Admin</span>
+                                    </a>
+                                    <ng-template #popTemplate>
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group">
+                                                <li class="list-group-item"><a class="cursor-dots" routerLink="/features/myprofile">Profile </a></li>
+                                                <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings">Account Settings </a></li>
+                                                <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">Logout </a></li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
                         </div>
                     </li>
-                    <!-- ============================================================== -->
-                    <!-- User profile and search -->
-                    <!-- ============================================================== -->
                 </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <!-- ============================================================== -->
-    <!-- End Topbar header -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
-    <aside class="left-sidebar" data-sidebarbg="skin5">
-        <!-- Sidebar scroll-->
-        <div class="scroll-sidebar" id="scroll-sewn">
-            <!-- Sidebar navigation-->
-            <nav class="sidebar-nav">
-                <ul id="sidebarnav" class="pt-3">
-                    <li class="sidebar-item closed-link">
-                        <a class="sidebar-link dark  sidebar-link dash " routerLink="../features/welcome-aboard" aria-expanded="false"><img src="assets/images/dashboard.svg" alt="Dashboard"><span class="hide-menu">Dashboard</span></a>
-                    </li>
-                    <li class="sidebar-item closed-link">
-                        <a class="sidebar-link dark  sidebar-link dash" href="javascript:void(0)" aria-expanded="false"><img src="assets/images/sourcing-module.svg" alt="Dashboard"><span class="hide-menu">Sourcing Module</span></a>
+    <nav class="bg-gray8f8">
+        <div class="container">
+            <div class="row">
+
+                <ul class="nav-links fnt-muli pad-5">
+
+                    <li class="nav-links__item d-inline-block position-relative">
+
+                        <a class="d-inline-block fnt-600" routerLink="../features/welcome-aboard">Dashboard
+                            </a>
                     </li>
 
-                    <li class="sidebar-item ">
-                        <a class="sidebar-link has-arrow dark dash " href="javascript:void(0" aria-expanded="false" href="javascript:void(0)"><img src="assets/images/order-management.svg" alt="Dashboard"><span class="hide-menu">Order Management </span></a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item closed-link"><a routerLink="../ordermanagement/myorders" class="sidebar-link"><span class="hide-menu"> My Orders </span></a></li>
-                            <li class="sidebar-item closed-link"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu">My Payments </span></a></li>
+                    <li class="nav-links__item d-inline-block position-relative">
+
+                        <a class="d-inline-block fnt-600" href="javascript:void(0)">Sourcing Module
+                            </a>
+                    </li>
+
+                    <li class="nav-links__item arrow d-inline-block position-relative">
+                        <a class="d-inline-block fnt-600" href="javascript:void(0)">Order Management
+                            </a>
+                        <ul class="nav-dropdown fnt-600">
+                            <li>
+                                <a routerLink="../ordermanagement/myorders">My Orders</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">My Payments</a>
+                            </li>
                         </ul>
                     </li>
+                    <li class="nav-links__item arrow d-inline-block position-relative">
+                        <a class="d-inline-block fnt-600" href="javascript:void(0)">Farm Link
+                            </a>
+                        <ul class="nav-dropdown fnt-600">
+                            <li>
+                                <a href="javascript:void(0)">Build your brand profile</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Social Media posts</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">File Share</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Agreement</a>
+                            </li>
 
-                    <li class="sidebar-item ">
-                        <a class="sidebar-link has-arrow dark dash " href="javascript:void(0" aria-expanded="false" href="javascript:void(0)"><img src="assets/images/farm-link.svg" alt="Dashboard"><span class="hide-menu">Farm Link </span></a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item closed-link"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu"> My Orders </span></a></li>
-                            <li class="sidebar-item closed-link"><a href="javascript:void(0)" class="sidebar-link"><span class="hide-menu"> Payments </span></a></li>
                         </ul>
                     </li>
-
-
-                    <li class="sidebar-item closed-link">
-                        <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/insights.png" alt="Dashboard"><span class="hide-menu">Insights</span></a>
+                    <li class="nav-links__item d-inline-block position-relative">
+                        <a class="d-inline-block fnt-600" href="javascript:void(0)">E-commerce
+                            </a>
                     </li>
-                    <li class="sidebar-item closed-link">
-                        <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/e-commerce.png" alt="Dashboard"><span class="hide-menu">E-commerce</span></a>
+                    <li class="nav-links__item d-inline-block position-relative">
+                        <a class="d-inline-block fnt-600" href="javascript:void(0)">Insights
+                            </a>
                     </li>
-                    <li class="sidebar-item closed-link">
-                        <a class="sidebar-link dark sidebar-link dash" href="javascript:void(0" aria-expanded="false"><img src="assets/images/marketing -sales.png" alt="Dashboard"><span class="hide-menu">Marketing+Sales</span></a>
-                    </li>
+                    <li class="nav-links__item arrow d-inline-block position-relative active">
+                        <a class="d-inline-block fnt-600" href="javascript:void(0)">People
+                            </a>
+                        <ul class="nav-dropdown fnt-600">
 
-                    <li class="sidebar-item ">
-                        <a class="sidebar-link has-arrow dark dash " href="javascript:void(0" aria-expanded="false" href="javascript:void(0)"><img src="assets/images/people.png" alt="Dashboard"><span class="hide-menu">People </span></a>
-                        <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item closed-link"><a routerLink="../people/manage-role" class="sidebar-link"><span class="hide-menu"> Manage Roles </span></a></li>
-                            <li class="sidebar-item closed-link"><a routerLink="../people/user-management" class="sidebar-link"><span class="hide-menu"> User Management </span></a></li>
+                            <li>
+                                <a routerLink="../people/manage-role">Manage Roles</a>
+                            </li>
+                            <li>
+                                <a routerLink="../people/user-management">User Management </a>
+                            </li>
+
                         </ul>
-                    </li>
-
-
-
-
-                    <li class="sidebar-item closed-link mt-5">
-                        <a class="sidebar-link dark dash" href="javascript:void(0)" aria-expanded="false"> <img src="assets/images/help-and-support.png" alt="Dashboard"><span class="hide-menu">Help and Support </span></a>
-
-                    </li>
-
-                    <li class="sidebar-item closed-link">
-                        <a class="sidebar-link dark dash" href="javascript:void(0)" aria-expanded="false"> <img src="assets/images/terms-and-conditions.png" alt="Dashboard"><span class="hide-menu">Terms and Conditions </span></a>
-
-                    </li>
-
-                    <li class="sidebar-item closed-link mb-2">
-                        <a class="sidebar-link dark dash" routerLink="../auth/privacy-policy/" aria-expanded="false"><img src="assets/images/privacy-policy.png" alt="Dashboard"><span class="hide-menu">Privacy Policy </span></a>
-
                     </li>
                 </ul>
-            </nav>
-            <!-- End Sidebar navigation -->
+            </div>
         </div>
-        <!-- End Sidebar scroll-->
-    </aside>
-    <!-- ============================================================== -->
-    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
-    <div class="page-wrapper">
 
-        <div class="container-fluid">
+    </nav>
+</header>
 
 
-            <router-outlet></router-outlet>
 
-        </div>
+<div class="container">
+    <div class="router-design">
+        <router-outlet></router-outlet>
     </div>
 </div>

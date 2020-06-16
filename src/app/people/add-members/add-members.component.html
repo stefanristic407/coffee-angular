@@ -26,7 +26,7 @@
 		</button> -->
 		
 		 <div class="ml-auto text-right  cancel-top">
-			<button type="submit" routerLink="/people/user-management" class="btn btn-succes cancel_member">CANCEL</button>
+			<button type="submit" routerLink="/people/user-management" class="btn btn-succes cancel_member">Cancel</button>
 		</div> 
       </ul>
   </nav>
@@ -115,14 +115,14 @@
                 <div class="row">
                     <div class="col-md-5 col-sm-12">
                         <div class="form-group col-md-12 mb-4 mob-space">
-                            <label for="member_first_name">First Name*</label>
+                            <label for="member_first_name">First name*</label>
                             <input type="text" class="form-control" id="member_first_name" placeholder="Enter member first name" (keyup)="onKeyPress($event)" [(ngModel)]="member_first_name" name="member_first_name" required="" autofocus />
                             <div class="memberFirstNameError" *ngIf="memberFirstNameError != ''">
                                 {{ memberFirstNameError }}
                             </div>
                         </div>
                         <div class="form-group col-md-12 mb-4 mob-space">
-                            <label for="member_last_name">Last Name*</label>
+                            <label for="member_last_name">Last name*</label>
                             <input type="text" class="form-control" id="member_last_name" placeholder="Enter member last name" (keyup)="onKeyPress($event)" [(ngModel)]="member_last_name" name="member_last_name" required="" />
                             <div class="memberLastNameError" *ngIf="memberLastNameError != ''">
                                 {{ memberLastNameError }}
@@ -130,7 +130,7 @@
                         </div>
 
                         <div class="form-group col-md-12 mb-4 mob-space">
-                            <label for="member_email">Enter work Email Address*</label>
+                            <label for="member_email">Enter work email address*</label>
                             <input type="email" class="form-control" id="member_email" placeholder="Work Email" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email" required="" />
                             <div class="memberEmailError" *ngIf="memberEmailError != ''">
                                 {{ memberEmailError }}
@@ -159,8 +159,8 @@
                                 {{ memberPasswordError }}
                             </div>
                         </div>
-                        <div class="form-group col-md-12 mt-5 mb-5 w-100 mob-space" *ngIf="edit">
-                            <label class="confirm-pwd" for="member_confirm_password">Confirm Password*</label>
+                        <div class="form-group col-md-12 mt-4 mb-5 w-100 mob-space" *ngIf="edit">
+                            <label class="confirm-pwd" for="member_confirm_password">Confirm password*</label>
                             <input type="password" class="form-control" id="member_confirm_password" placeholder="Enter member confirm password" name="member_confirm_password" (keyup)="onKeyPress($event)" [(ngModel)]="member_confirm_password" required />
                             <div class="memberConfirmPasswordError" *ngIf="memberConfirmPasswordError != ''">
                                 {{ memberConfirmPasswordError }}
@@ -719,8 +719,8 @@
             <!-- <li class="content_list" (click) = "setRole('Sales and Marketing')">Sales and Marketing</li> -->
             <li class="content_list" *ngFor="let role of roles" (click)="setRole(role.name,role.id);op.hide();">{{role.name}}</li>
         </ul>
-        <button class="btn addrole_button" routerLink="/people/create-role">
-              <span class="addrole_content">ADD ROLE</span>
+        <button class="btn addrole_button" routerLink="/people/create-role">Add role
+              <!-- <span class="addrole_content">Add role</span> -->
         </button>
     </div>
 </p-overlayPanel>

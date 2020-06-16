@@ -18,7 +18,7 @@
 
 .order-status {
     margin-left: -0.8rem;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     color: #bea080;
@@ -157,7 +157,7 @@
 }
 
 .order-date {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
@@ -170,7 +170,7 @@
 
 .order-datecolor {
     color: #3d8462;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     margin-left: -1rem;
@@ -182,7 +182,7 @@
 
 .shipping-addr,
 .estate-details {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 15px;
     font-weight: bold;
     color: #000000;
@@ -190,14 +190,14 @@
 
 .edit-text,
 .view-details {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #3d8462;
 }
 
 .addr-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #000000;
@@ -219,7 +219,7 @@
 }
 
 .estate-name {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     color: #000000;
@@ -227,7 +227,7 @@
 
 .estate-number,
 .estate-mail {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 11px;
     font-weight: bold;
     color: #000000;
@@ -240,7 +240,7 @@
 }
 
 .estate-message {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #3d8462;
@@ -251,14 +251,14 @@
 }
 
 .company-phone {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     color: #666666;
 }
 
 .company-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     color: #000000;
@@ -279,7 +279,7 @@ li.nav-item {
 }
 
 .nav-pills .nav-link {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -291,7 +291,7 @@ li.nav-item {
 }
 
 .nav-pills .nav-link.active {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -304,7 +304,7 @@ li.nav-item {
 }
 
 .problem-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -381,7 +381,7 @@ li.nav-item {
 }
 
 .activity-date {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 16px;
     font-weight: normal;
     font-stretch: normal;
@@ -392,7 +392,7 @@ li.nav-item {
 }
 
 .list-time {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -403,7 +403,7 @@ li.nav-item {
 }
 
 .list-content {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -423,7 +423,7 @@ li.nav-item {
     border-radius: 4px;
     border: 1px solid #3d8462;
     background-color: #3d8462;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -457,7 +457,7 @@ li.nav-item {
 }
 
 .list-name {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -468,7 +468,7 @@ li.nav-item {
 }
 
 .list-user {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 500;
     font-stretch: normal;
@@ -479,7 +479,7 @@ li.nav-item {
 }
 
 .list-activity {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -494,7 +494,7 @@ li.nav-item {
     border-top-right-radius: 8px;
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
     background-color: #333333;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -516,7 +516,7 @@ li.nav-item {
 .problem-btn {
     border-radius: 6px;
     background-color: #3d8462;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -530,7 +530,7 @@ li.nav-item {
 /********************* css for confirm order**************************/
 
 .confirm-grade {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     line-height: 1.5;
@@ -541,7 +541,7 @@ li.nav-item {
     border-radius: 6px;
     border: solid 1px #3d8462;
     background-color: #faf8f4;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     color: #3d8462;
@@ -557,7 +557,7 @@ li.nav-item {
 .yes-order {
     border-radius: 6px;
     background-color: #3d8462;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #ffffff;
@@ -569,7 +569,7 @@ li.nav-item {
     border-radius: 6px;
     border: solid 1px #3d8462;
     background-color: #faf8f4;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #3d8462;
@@ -588,7 +588,7 @@ li.nav-item {
 .rating-value {
     padding-top: 6px;
     margin-left: 2%;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     color: #000000;
@@ -637,7 +637,7 @@ li.nav-item {
 @media only screen and (max-width: 1024px) {
     .order-status {
         margin-left: 0rem;
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 12px;
         font-weight: normal;
         color: #bea080;

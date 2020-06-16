@@ -53,8 +53,8 @@ export class CreateRoleComponent implements OnInit {
     this.roleError = '';
     this.showPermission = [];
     this.permissionList = [];
-    this.updateButtonValue = "UPDATE ROLE";
-    this.loginButtonValue = "ADD ROLE";
+    this.updateButtonValue = "Update role";
+    this.loginButtonValue = "Add role";
   }
 
   // Function Name : Permissions
@@ -136,7 +136,7 @@ export class CreateRoleComponent implements OnInit {
           result => {
             console.log(result);
             if (result['success'] == true) {
-              this.loginButtonValue = "ADD ROLE";
+              this.loginButtonValue = "Add role";
               this.toastrService.success("Role has been created. We are assigning permissions.")
               if (this.selectedFile !== undefined) {
                 var permissionsArray = [];
@@ -161,7 +161,7 @@ export class CreateRoleComponent implements OnInit {
             else {
               this.toastrService.error("Error while adding roles and permissions");
             }
-            this.loginButtonValue = "ADD ROLE";
+            this.loginButtonValue = "Add role";
           }
         )
       } else {
@@ -173,7 +173,7 @@ export class CreateRoleComponent implements OnInit {
         this.roasterService.updateRoasterRoleName(data1, this.roaster_id).subscribe(
           data => {
             if (data['success'] == true) {
-              this.updateButtonValue = "UPDATE ROLE";
+              this.updateButtonValue = "Update role";
               var permissionsArray = [];
               this.selectedFile.forEach(permission => {
                 permissionsArray.push(permission['key']);
@@ -191,7 +191,7 @@ export class CreateRoleComponent implements OnInit {
             else {
               this.toastrService.error("Error while adding roles and permissions");
             }
-            this.updateButtonValue = "UPDATE ROLE";
+            this.updateButtonValue = "Update role";
           }
         )
 

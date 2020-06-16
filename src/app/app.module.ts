@@ -30,7 +30,8 @@ import { HealthCheckComponent } from './health-check/health-check.component';
     FeaturesModule,
     PeopleModule,
     OrdermanagementModule,
-    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
+    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true,
+      positionClass: 'toast-bottom-right' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],

@@ -174,7 +174,7 @@ table.dataTable.display tbody tr:hover {
 
 .search {
     /*width: 255px;*/
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     height: 36px;
     border-radius: 8px;
     border: solid 1px #cccccc;
@@ -206,7 +206,7 @@ span.checkmark {
     position: relative;
     bottom: 2.5rem;
     left: 57%;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
@@ -218,7 +218,7 @@ span.checkmark {
 
 .text-filters,
 #dataTables_filter input {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
@@ -233,7 +233,7 @@ span.checkmark {
 
 .list-group-item {
     border: none;
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-size: 12px;
     font-weight: 600;
     font-stretch: normal;
@@ -272,7 +272,7 @@ span.checkmark {
 }
 
 .filter {
-    font-family: Montserrat;
+    font-family: Muli;
     font-weight: bold;
     color: #3d8462;
     font-size: 13px;

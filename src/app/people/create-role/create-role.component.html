@@ -13,12 +13,12 @@
             <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/group1.png" alt=""></span>
         </li>
         <li class="b-cum">
-            <a class="b-cum" routerLink="/people/manage-role">Manage Roles</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/group1.png" alt=""></span>
+            <a class="b-cum" routerLink="/people/manage-role">Manage roles</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/group1.png" alt=""></span>
         </li>
-        <li class="b-cum c-pink">Create Role</li>
-        <button type="submit" *ngIf="roleflag" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none" (click)="roleAdd()" [disabled]="loginButtonValue==='Adding'">
+        <li class="b-cum c-pink">Create role</li>
+        <button type="submit" *ngIf="roleflag" class="btn  pull-right add-role-butn d-md-block d-none" (click)="roleAdd()" [disabled]="loginButtonValue==='Adding'">
                 {{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Adding'" src="assets/images/orange-loader.gif"/> </button>
-        <button type="submit" *ngIf="!roleflag" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none" (click)="roleAdd()" [disabled]="updateButtonValue==='Updating'">
+        <button type="submit" *ngIf="!roleflag" class="btn pull-right add-role-butn d-md-block d-none" (click)="roleAdd()" [disabled]="updateButtonValue==='Updating'">
                 {{updateButtonValue}}<img class="loader" *ngIf="updateButtonValue==='Updating'" src="assets/images/orange-loader.gif"/> </button>
     </ul>
 </nav>
@@ -29,12 +29,12 @@
         <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-12">
                 <div class="create-role">
-                    <h4 class="create-role-title"> Create Role</h4>
+                    <h4 class="create-role-title"> Create role</h4>
                     <form class="form-container">
                         <div class="form-group row pt-2">
                             <div class="form-group col-md-10">
-                                <label class="role-name">GIVE YOUR ROLE A NAME</label>
-                                <input type="text" class="form-control rectangle_name" id="roleName" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="role" name="role" required>
+                                <label class="role-name">Give your role a name</label>
+                                <input type="text" class="form-control rectangle_name" id="roleName" placeholder="Please enter your role" (keyup)="onKeyPress($event)" [(ngModel)]="role" name="role" required>
                                 <div class="role-error" *ngIf="roleError != ''">{{roleError}}</div>
                             </div>
                         </div>

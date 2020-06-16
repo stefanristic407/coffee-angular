@@ -27,7 +27,7 @@
 }
 
 .fill-txt {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     line-height: 1.5;
@@ -35,7 +35,7 @@
 }
 
 th {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 500;
     font-stretch: normal;
@@ -47,7 +47,7 @@ th {
 }
 
 td {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: bold;
     font-stretch: normal;
@@ -64,7 +64,7 @@ td {
 }
 
 .ord-quantity {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: bold;
     color: #666666;
@@ -95,14 +95,14 @@ td {
 }
 
 .amount {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     color: #666666;
 }
 
 .price-total {
     color: #000000;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: bold;
 }
@@ -113,14 +113,14 @@ td {
 }
 
 .shipping-addr {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     color: #666666;
 }
 
 .edit-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     color: #3d8462;
@@ -133,14 +133,14 @@ td {
 }
 
 .add-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: bold;
     color: #000000;
 }
 
 .details {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     line-height: 1.43;
@@ -148,7 +148,7 @@ td {
 }
 
 .remeber-left {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     color: #333333;
@@ -161,7 +161,7 @@ td {
 .place-order {
     border-radius: 8px;
     background-color: #3d8462;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     text-align: center;
@@ -173,7 +173,7 @@ td {
     border-radius: 8px;
     border: solid 1px #3d8462;
     background-color: #ffffff;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #3d8462;

@@ -1,32 +1,11 @@
-/* cyrillic-ext */
-
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v14/JTUSjIg1_i6t8kCHKm459WRhyzbi.woff2) format('woff2');
-    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-
-
-/* cyrillic */
-
-@font-face {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Montserrat Regular'), local('Montserrat-Regular'), url(../css/fonts/mon-font-1.woff2) format('woff2');
-    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-
-
 /* vietnamese */
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-style: normal;
     font-weight: 400;
-    src: local('Montserrat Regular'), local('Montserrat-Regular'), url(../css/fonts/mon-font-2.woff2) format('woff2');
+    font-display: swap;
+    src: url(../css/fonts/muli/7Auwp_0qiz-afT3GLRrX.woff2) format('woff2');
     unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
 }
 
@@ -34,10 +13,11 @@
 /* latin-ext */
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-style: normal;
     font-weight: 400;
-    src: local('Montserrat Regular'), local('Montserrat-Regular'), url(../css/fonts/mon-font-3.woff2) format('woff2');
+    font-display: swap;
+    src: url(../css/fonts/muli/7Auwp_0qiz-afTzGLRrX.woff2) format('woff2');
     unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -45,10 +25,107 @@
 /* latin */
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-style: normal;
     font-weight: 400;
-    src: local('Montserrat Regular'), local('Montserrat-Regular'), url(../css/fonts/mon-font-4.woff2) format('woff2');
+    font-display: swap;
+    src: url(../css/fonts/muli/7Auwp_0qiz-afTLGLQ.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+/* vietnamese */
+
+@font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(../css/fonts/muli/vietnamese-normal-500.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+
+/* latin-ext */
+
+@font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(../css/fonts/muli/latin-ext-normal-500.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+/* latin */
+
+@font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(../css/fonts/muli/latin-normal-400.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+/* vietnamese */
+
+@font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(../css/fonts/muli/vietnamese-normal-600.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+
+/* latin-ext */
+
+@font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(../css/fonts/muli/latin-ext-normal-600.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+/* vietnamese */
+
+@font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../css/fonts/muli/vietnamese-normal-700.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+
+/* latin-ext */
+
+@font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../css/fonts/muli/latin-ext-normal-600.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+/* latin */
+
+@font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../css/fonts/muli/latin-normal-700.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -202,7 +279,7 @@
     --breakpoint-md: 768px;
     --breakpoint-lg: 992px;
     --breakpoint-xl: 1600px;
-    --font-family-sans-serif: "Montserrat";
+    --font-family-sans-serif: "Muli";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 }
 
@@ -214,7 +291,7 @@
 }
 
 html {
-    font-family: "Montserrat";
+    font-family: "Muli";
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -242,13 +319,13 @@ section {
 
 body {
     margin: 0 !important;
-    font-family: "Montserrat" !important;
+    font-family: "Muli" !important;
     font-size: 0.875rem !important;
     font-weight: 400 !important;
     line-height: 1.5 !important;
     color: #3e5569 !important;
     text-align: left !important;
-    background-color: #fff !important;
+    background-color: #f1f1f1 !important;
 }
 
 [tabindex="-1"]:focus {
@@ -2283,10 +2360,10 @@ pre code {
     padding: 0.375rem 0.75rem;
     font-size: 13px !important;
     line-height: 1.5;
-    color: #4F5467;
+    color: #232334 !important;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #e9ecef;
+    border: 1px solid #d6d6d6;
     border-radius: 2px;
     -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2320,22 +2397,22 @@ pre code {
 }
 
 .form-control::-webkit-input-placeholder {
-    color: #6c757d;
+    color: #747588;
     opacity: 1
 }
 
 .form-control:-ms-input-placeholder {
-    color: #6c757d;
+    color: #747588;
     opacity: 1
 }
 
 .form-control::-ms-input-placeholder {
-    color: #6c757d;
+    color: #747588;
     opacity: 1
 }
 
 .form-control::placeholder {
-    color: #6c757d;
+    color: #747588;
     opacity: 1
 }
 
@@ -4465,7 +4542,7 @@ input[type=submit].btn-block {
 }
 
 .custom-checkbox .custom-control-input:checked~.custom-control-label:before {
-    background-color: #000000;
+    background-color: #30855c;
 }
 
 .custom-checkbox .custom-control-input:checked~.custom-control-label:after {
@@ -6640,7 +6717,7 @@ button.close {
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: "Montserrat";
+    font-family: "Muli";
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -6765,7 +6842,7 @@ button.close {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: "Montserrat";
+    font-family: "Muli";
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -16240,16 +16317,15 @@ span.hide-menu {
 }
 
 .profile-txt {
-    color: #000000;
+    color: #232334;
     font-size: 16px;
     font-weight: 400;
 }
 
 .b-cum {
-    font-size: 12px;
-    line-height: 22px;
-    color: #666666;
-    font-weight: normal;
+    font-size: 13px !important;
+    color: #747588 !important;
+    font-weight: bold !important;
 }
 
 .padl-r {
@@ -16262,7 +16338,7 @@ span.hide-menu {
 
 .c-pink {
     /* color: #4a4a4a !important; */
-    color: #000000 !important;
+    color: #232334 !important;
     font-weight: bold !important;
 }
 
@@ -16702,7 +16778,7 @@ div.dataTables_wrapper div.dataTables_paginate {
     border: none !important;
     background-color: unset !important;
     background: unset !important;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -16721,7 +16797,7 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 
 .dataTables_wrapper .dataTables_filter input {
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     height: 36px;
     border-radius: 8px;
     border: solid 1px #cccccc;
@@ -16740,14 +16816,14 @@ div.dataTables_wrapper div.dataTables_filter {
     top: 0;
     left: auto;
     right: 36rem;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .estate-orders .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
@@ -16813,10 +16889,11 @@ body::-webkit-scrollbar-thumb {
     width: 44px !important;
     height: 44px !important;
     border-radius: 6px !important;
-    border: solid 1px #cccccc !important;
+    border: solid 1px #d6d6d6 !important;
     background-color: #ffffff !important;
     text-align: center !important;
     margin-right: 7px !important;
+    font-size: 14px !important;
 }
 
 
@@ -16829,19 +16906,19 @@ body::-webkit-scrollbar-thumb {
 
 .top-padding {
     margin-top: 3px;
-    color: #000000;
+    color: #232334;
     font-weight: bold;
 }
 
 .order-id {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 15px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .ship-pl {
@@ -16851,7 +16928,7 @@ body::-webkit-scrollbar-thumb {
 .booked {
     border-radius: 4px;
     background-color: rgba(71, 180, 13, 0.1);
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: bold;
     color: #e78926;
@@ -16859,7 +16936,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .note-prebooked {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     color: #e02f1f;
@@ -16879,19 +16956,19 @@ body::-webkit-scrollbar-thumb {
 }
 
 .recent-time td {
-    font-family: Montserrat;
+    font-family: Muli;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     padding: 1rem 2rem 1rem 0rem;
     border-bottom: 1px solid #dddddd;
 }
 
 .list-que {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -16902,14 +16979,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 .list-ans {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: bold !important;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .details-list {
@@ -16921,7 +16998,7 @@ body::-webkit-scrollbar-thumb {
 /* ============Order Placed Date============= */
 
 .order-placed-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -16932,18 +17009,18 @@ body::-webkit-scrollbar-thumb {
 }
 
 .date-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .ord-invoice-butn {
-    font-family: Montserrat !important;
+    font-family: Muli !important;
     font-size: 14px !important;
     font-weight: 600 !important;
     font-stretch: normal !important;
@@ -16961,17 +17038,17 @@ body::-webkit-scrollbar-thumb {
 /********************* css for confirm order**************************/
 
 .confirm-grade {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     line-height: 1.5;
-    color: #000000;
+    color: #232334;
 }
 
 .yes-txt {
     border-radius: 6px;
     background-color: #3d8462;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     color: #ffffff;
@@ -16992,7 +17069,7 @@ body::-webkit-scrollbar-thumb {
 .yes-order {
     border-radius: 6px !important;
     background-color: #3d8462 !important;
-    font-family: Montserrat !important;
+    font-family: Muli !important;
     font-size: 12px !important;
     font-weight: bold !important;
     color: #ffffff !important;
@@ -17003,7 +17080,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 6px !important;
     border: solid 1px #3d8462 !important;
     background-color: #faf8f4 !important;
-    font-family: Montserrat !important;
+    font-family: Muli !important;
     font-size: 12px !important;
     font-weight: bold !important;
     color: #3d8462 !important;
@@ -17015,7 +17092,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 6px !important;
     border: solid 1px #3d8462 !important;
     background-color: #faf8f4 !important;
-    font-family: Montserrat !important;
+    font-family: Muli !important;
     font-size: 14px !important;
     font-weight: normal !important;
     color: #3d8462 !important;
@@ -17112,9 +17189,9 @@ body .ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
 }
 
 a.b-cum:hover {
-    color: #000000;
-    text-decoration: underline;
-    font-weight: bold;
+    color: #232334 !important;
+    text-decoration: underline !important;
+    font-weight: bold !important;
 }
 
 .com-bed {
@@ -17126,14 +17203,14 @@ a.b-cum:hover {
 
 .list-group-item {
     border: none;
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-size: 12px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .item-color {
@@ -17162,4 +17239,441 @@ a.b-cum:hover {
 
 .pointer-item {
     cursor: pointer;
+}
+
+
+/*new design common css */
+
+.fnt-muli {
+    font-family: 'Muli', sans-serif;
+}
+
+.fnt-mont {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.fnt-play {
+    font-family: 'PlayfairDisplay';
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Font Styles */
+
+.fnt-400 {
+    font-weight: 400;
+}
+
+.fnt-500 {
+    font-weight: 500;
+}
+
+.fnt-normal {
+    font-weight: normal;
+}
+
+.fnt-600 {
+    font-weight: 600;
+}
+
+.fnt-700 {
+    font-weight: 700;
+}
+
+
+/* Mobile screens */
+
+.fnt-12 {
+    font-size: 12px;
+}
+
+.fnt-14 {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.fnt-18 {
+    font-size: 16px;
+    line-height: 26px;
+}
+
+
+/* Tablet screens */
+
+@media (min-width: 768px) {
+    .fnt-18 {
+        font-size: 18px;
+        line-height: 28px;
+    }
+}
+
+
+/* Desktop screens */
+
+.text-clr5d {
+    color: #5d5d5d;
+}
+
+
+/* Lineheight 0 */
+
+.line-h-0 {
+    line-height: 0 !important;
+}
+
+
+/* header css */
+
+.company-logo {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.company-logo>.company-logo__img>img {
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 768px) {
+    .company-logo>.company-logo__img {
+        width: 100px;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-top1 {
+        padding: 10px 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .nav-top1 {
+        padding: 12px 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .company-logo {
+        margin-right: 30px;
+    }
+}
+
+@media (min-width: 992px) {
+    .company-logo {
+        margin-right: 40px;
+    }
+}
+
+@media (min-width: 768px) {
+    .search-on-site {
+        width: 230px;
+    }
+}
+
+@media (min-width: 992px) {
+    .search-on-site {
+        width: 350px;
+    }
+}
+
+@media (min-width: 768px) {
+    .search-on-site>.search-on-site__input {
+        border-radius: 3px;
+        border: solid 0.5px #d6d6d6;
+        background-color: #ffffff;
+        padding: 3px 10px;
+        width: 100%;
+    }
+}
+
+.search-on-site>.search-on-site__input input::placeholder {
+    font-size: 16px;
+    color: #979797 !important;
+    font-weight: normal;
+}
+
+@media (min-width: 768px) {
+    .search-on-site>.search-on-site__input input {
+        border: 0;
+        outline: 0;
+        width: 85%;
+        color: #979797;
+    }
+}
+
+@media (min-width: 992px) {
+    .search-on-site>.search-on-site__input input {
+        width: 90%;
+    }
+}
+
+.header-profile-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header-profile-links__item .img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+@media (min-width: 1400px) {
+    .header-profile-links__item .img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.profile-link__img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+@media (min-width: 992px) {
+    .profile-link__img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+    }
+}
+
+.profile-link__img>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+}
+
+.nav-links__item {
+    margin-right: 10px;
+}
+
+@media (min-width: 768px) {
+    .nav-links__item {
+        margin-right: 5px;
+    }
+}
+
+@media (min-width: 992px) {
+    .nav-links__item {
+        margin-right: 10px;
+    }
+}
+
+.nav-links__item:last-child {
+    margin-right: 0;
+}
+
+.nav-links__item::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #3d8462;
+    transition: 0.4s ease-in-out;
+    z-index: 1;
+}
+
+.nav-links__item:hover {
+    background-color: #ffffff;
+}
+
+.nav-links__item.arrow::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-top: 1.5px solid #7e919a;
+    border-right: 1.5px solid #7e919a;
+    right: 0;
+    top: calc(35% + 2px);
+    transition: .4s;
+    transform: rotate(135deg);
+}
+
+.nav-links__item:hover::after {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .nav-links__item.arrow::before {
+        right: 5px;
+    }
+    .nav-links__item.arrow {
+        padding-right: 10px;
+    }
+}
+
+@media (min-width: 992px) {
+    .nav-links__item.arrow::before {
+        right: 10px;
+    }
+    .nav-links__item.arrow {
+        padding-right: 20px;
+    }
+}
+
+.nav-links__item.active {
+    background-color: #ffffff;
+}
+
+.nav-links__item.active::after {
+    width: 100%;
+}
+
+.nav-links__item>a {
+    position: relative;
+    font-size: 12px;
+    line-height: 22px;
+    color: #242424;
+    padding: 10px;
+    z-index: 2;
+}
+
+@media (min-width: 768px) {
+    .nav-links__item>a {
+        font-size: 12px;
+        line-height: 22px;
+        color: #242424;
+        padding: 8px;
+    }
+}
+
+@media (min-width: 992px) {
+    .nav-links__item>a {
+        font-size: 14px;
+        line-height: 24px;
+        color: #242424;
+        padding: 8px 10px;
+    }
+}
+
+.nav-links__item>a:hover {
+    color: #242424;
+    text-decoration: none;
+}
+
+.nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: calc(100% + 50px);
+    /* border-radius: 4px; */
+    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+    /* border: solid 0.2px #ebebeb; */
+    background-color: #ffffff;
+    margin: 0;
+    display: none;
+    opacity: 0;
+    padding: 5px 0;
+    z-index: 9;
+}
+
+.nav-dropdown li:hover::before {
+    width: 100%;
+}
+
+.nav-dropdown li a:hover {
+    color: #242424;
+    text-decoration: none;
+}
+
+.nav-dropdown li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #f8f8f8;
+    transition: 0.7s ease-in-out;
+}
+
+.nav-dropdown li {
+    position: relative;
+    padding: 3px;
+    margin: 3px;
+    color: #979797;
+    font-size: 12px;
+    line-height: 22px;
+    transition: 0.7s ease-in-out;
+    cursor: pointer;
+}
+
+.nav-dropdown li a {
+    position: relative;
+    color: #979797;
+    font-size: 12px;
+    line-height: 22px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 2;
+}
+
+@media (min-width: 992px) {
+    .nav-dropdown li {
+        font-size: 14px;
+        line-height: 24px;
+    }
+}
+
+.nav-links__item.arrow:hover::before {
+    border-top: 1.5px solid #3d8462;
+    border-right: 1.5px solid #3d8462;
+    top: calc(35% + 3px);
+    transform: rotate(315deg);
+}
+
+.nav-links__item.arrow:hover .nav-dropdown {
+    display: block;
+    opacity: 1;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.bg-gray8f8 {
+    background-color: #f8f8f8;
+}
+
+
+/* Desktop screens */
+
+.fnt-34 {
+    font-size: 34px;
+    line-height: 44px;
+}
+
+.p-15 {
+    padding: 0 15px !important;
+}
+
+.pad-5 {
+    padding: 0 7px !important;
+}
+
+.stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0px;
+    z-index: 99;
 }

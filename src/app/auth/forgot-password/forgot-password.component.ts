@@ -26,7 +26,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.emailError = "";
-    this.recoveryButtonValue = "EMAIL ME A RECOVERY OTP";
+    this.recoveryButtonValue = "Email me a recovery otp";
   }
   ngAfterViewChecked() {
     $(".email-link").on("click", function() {
@@ -54,12 +54,12 @@ export class ForgotPasswordComponent implements OnInit {
         this.emailError = "";
       }, 3000);
     } else {
-      this.recoveryButtonValue = "SENDING";
+      this.recoveryButtonValue = "Sending";
       var data = [];
       data["email"] = this.email;
       this.userService.recoveryEmail(data).subscribe(data => {
         if (data["success"] == true) {
-          this.recoveryButtonValue = "EMAIL ME A RECOVERY OTP";
+          this.recoveryButtonValue = "Email me a recovery otp";
           this.toastrService.success(
             "OTP has been sent to your email successfully!"
           );
@@ -79,7 +79,7 @@ export class ForgotPasswordComponent implements OnInit {
             this.toastrService.error("Something went wrong!, Try again");
           }
         }
-        this.recoveryButtonValue = "EMAIL ME A RECOVERY OTP";
+        this.recoveryButtonValue = "Email me a recovery otp";
       });
     }
   }

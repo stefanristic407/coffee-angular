@@ -14,7 +14,7 @@
                 </g>
             </svg> -->
 
-                <img src="assets/images/Sewn-logo.png" alt="user" class="Sewn-Logo">
+                <img src="assets/images/era-we-logo.png" alt="user" class="Sewn-Logo">
             </a>
         </div>
         <div class="row">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group row pt-2">
                             <div class="form-group col-md-12 padding-spacing">
-                                <label class="role-name">EMAIL ADDRESS</label>
+                                <label class="role-name">Email address</label>
                                 <input type="email" class="form-control rectangle_name" id="email" placeholder="you@example.com" name="email" (keyup)="onKeyPress($event)" [(ngModel)]="userEmail" autofocus required>
                                 <div class="login-emailerror" *ngIf="loginEmailError != ''">{{loginEmailError}}</div>
 
@@ -43,7 +43,7 @@
 
                         <div class="form-group row pt-1">
                             <div class="form-group col-md-12  padding-spacing">
-                                <label class="role-name">PASSWORD</label>
+                                <label class="role-name">Password</label>
 
                                 <input type="password" class="form-control rectangle_name" id="pwd" placeholder="Please enter your password" (keyup)="onKeyPress($event)" [(ngModel)]="userPassword" name="password" autofocus required (keyup.enter)="Login();">
                                 <div class="login-pwderror" *ngIf="loginPasswordError != ''">{{loginPasswordError}}</div>

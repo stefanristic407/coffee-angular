@@ -30,7 +30,7 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(): void {
     this.passwordError = "";
     this.confirmPasswordError = "";
-    this.resetButtonValue = "CHANGE PASSWORD";
+    this.resetButtonValue = "Change Password";
 
     // Function Name : Passowrd Indicator
     // Description: This function helps to indicate the entering meeting the password policy.
@@ -438,14 +438,14 @@ export class ChangePasswordComponent implements OnInit {
         this.confirmPasswordError = "";
       }, 3000);
     } else {
-      this.resetButtonValue = "UPDATING";
+      this.resetButtonValue = "Updating";
       var data = [];
       data["email"] = this.cookieService.get("email");
       data["token"] = this.cookieService.get("token");
       data["password"] = this.newPassword;
       data["confirm_password"] = this.confirmPassword;
       this.userService.changePassword(data).subscribe(data => {
-        this.resetButtonValue = "CHANGE PASSWORD";
+        this.resetButtonValue = "Change Password";
         if (data["success"] == true) {
           // console.log("Password has been resetted successfully!");
           this.toastrService.success(
@@ -463,7 +463,7 @@ export class ChangePasswordComponent implements OnInit {
             // console.log("Something went wrong!, Try again");
             this.toastrService.error("Something went wrong!, Try again");
           }
-          this.resetButtonValue = "CHANGE PASSWORD";
+          this.resetButtonValue = "Change Password";
         }
       });
       // this.router.navigate(["/auth/login"]);

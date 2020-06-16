@@ -71,6 +71,11 @@ export class ManageRoleComponent implements OnInit {
     this.loadroles();
   }
 
+   getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+  
+
   // Function Name : Open Bottom Sheet
   // Description: This function helps to open the more options in mobile view
 

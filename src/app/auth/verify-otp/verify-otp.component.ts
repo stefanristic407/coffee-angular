@@ -25,7 +25,7 @@ export class VerifyOtpComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.otpButtonValue = "SUBMIT";
+    this.otpButtonValue = "Submit";
 
     var counter = 60;
     var interval = setInterval(function() {
@@ -86,13 +86,13 @@ export class VerifyOtpComponent implements OnInit {
   // Description: This function helps to check the entered OTP is matched or not.
 
   verifyOtp() {
-    this.otpButtonValue = "VERIFYING";
+    this.otpButtonValue = "Verifying";
     var data = [];
     data["email"] = this.cookieService.get("email");
     data["otp"] = parseInt(this.otp);
     this.userService.verifyOtp(data).subscribe(data => {
       if (data["success"] == true) {
-        this.otpButtonValue = "SUBMIT";
+        this.otpButtonValue = "Submit";
         //  console.log("OTP has been verified successfully!")
         this.toastrService.success("OTP has been verified successfully!");
         this.cookieService.set("token", data["result"].token);
@@ -107,7 +107,7 @@ export class VerifyOtpComponent implements OnInit {
           // console.log("Something went wrong!, Try again")
           this.toastrService.error("Something went wrong!, Try again");
         }
-        this.otpButtonValue = "SUBMIT";
+        this.otpButtonValue = "Submit";
       }
     });
   }

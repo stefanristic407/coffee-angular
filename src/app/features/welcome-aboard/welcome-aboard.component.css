@@ -1,57 +1,54 @@
+/* Dashboard css */
+
 .welcome-sec {
-    border-radius: 5px;
-    padding: 30px;
-    font-size: 14px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding: 1rem;
+    margin: 2rem 0rem;
 }
 
-.update-title {
-    font-family: 'PlayfairDisplay';
-    font-size: 34px;
-    color: #000000;
-    line-height: normal;
-    letter-spacing: normal;
+.pink {
+    /*         background-image: linear-gradient(to top, #ffffff 106%, #faf8f4 -2%);*/
+    background-color: #faf8f4;
+    padding: 2.5rem 0rem;
 }
 
-.create-role-butn {
-    background-color: #3d8462;
-    border: 1px solid #3d8462;
+.add-tem-butn {
+    border-radius: 4px;
+    background-color: #30855c;
+    border: 1px solid #30855c;
     color: #FFFFFF;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 2% 10%;
-    border-radius: 8px;
-    height: 46px;
+    cursor: pointer;
+    padding: .6rem;
 }
 
-.welocme_txt {
-    word-wrap: break-word;
-    padding: 1% 7% 2%;
-    font-weight: 600;
-    color: #256547;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.43;
-    color: #666666;
+.add-tem-butn:focus {
+    outline: none !important;
 }
 
-.create-role-butn:hover {
-    background-color: #3d8462;
+.add-tem-butn:hover {
+    /* background-color: #3d8462; 
+    color:#fff; */
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
-.wlcm-pt {
-    padding-top: 5rem;
+.border-0 {
+    border: 0px;
 }
 
-.mobile-wlcm {
-    display: none;
+.create-txt {
+    padding: 0 30%;
 }
 
-@media only screen and (max-width: 767px) {
-    .web-wlcm {
-        display: none !important;
+
+/* media query */
+
+@media (max-width: 768px) {
+    .fnt-34 {
+        font-size: 30px;
+        line-height: 40px;
     }
-    .mobile-wlcm {
-        display: block !important;
+    .create-txt {
+        padding: 0 5%;
     }
 }

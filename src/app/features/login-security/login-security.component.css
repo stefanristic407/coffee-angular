@@ -30,7 +30,7 @@ a.b-cum:hover {
 }
 
 .sub-header {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     color: #666666;
@@ -54,7 +54,7 @@ a.b-cum:hover {
 .login-text,
 .login-history,
 .deactivate-account {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 16px;
     font-weight: bold;
     color: #000000;
@@ -66,7 +66,7 @@ a.b-cum:hover {
 }
 
 .pwd-label {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 11px;
     font-weight: bold;
     color: #666666;
@@ -76,14 +76,14 @@ a.b-cum:hover {
     position: absolute;
     right: 25px;
     top: 42px;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #3d8462;
 }
 
 .last-update {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     color: #666666;
@@ -94,7 +94,7 @@ a.b-cum:hover {
     border-radius: 6px;
     border: solid 1px #cccccc;
     background-color: #ffffff;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     color: #000000;
@@ -112,14 +112,14 @@ a.b-cum:hover {
 }
 
 .session {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #000000;
 }
 
 .current-session {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 11px;
     font-weight: normal;
     color: #1da63c;
@@ -129,14 +129,14 @@ a.b-cum:hover {
 }
 
 .session-details {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 11px;
     font-weight: normal;
     color: #666666;
 }
 
 .logout {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: bold;
     color: #3d8462;
@@ -147,7 +147,7 @@ a.b-cum:hover {
 }
 
 .sub-deactivate {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: normal;
     color: #666666;
@@ -159,7 +159,7 @@ a.b-cum:hover {
 }
 
 .deactivate-button {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     border-radius: 6px;
@@ -192,14 +192,14 @@ a.b-cum:hover {
 }
 
 .do-account {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     color: #000000;
 }
 
 .no-btn {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #3d8462;
@@ -212,7 +212,7 @@ a.b-cum:hover {
 .yes-btn {
     border-radius: 4px;
     background-color: #3d8462;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: bold;
     color: #ffffff;

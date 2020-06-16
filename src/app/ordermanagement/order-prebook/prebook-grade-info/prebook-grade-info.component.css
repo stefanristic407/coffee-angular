@@ -16,7 +16,7 @@
 }
 
 .delivery {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 15px;
     font-weight: normal;
     font-stretch: normal;
@@ -46,7 +46,7 @@
 }
 
 .know-more {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -188,7 +188,7 @@
 }
 
 .order-status {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     font-stretch: normal;
@@ -199,7 +199,7 @@
 }
 
 .order-date {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 15px;
     font-weight: 600;
     font-stretch: normal;
@@ -211,7 +211,7 @@
 }
 
 .order-view {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -223,7 +223,7 @@
 }
 
 .order-status-incomplete {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 15px;
     font-weight: 600;
     font-stretch: normal;
@@ -255,7 +255,7 @@
     /* margin-left: 0px; */
     margin-bottom: 0%;
     font-size: 20px;
-    font-family: Montserrat;
+    font-family: Muli;
     font-weight: 600;
 }
 
@@ -270,7 +270,7 @@
     /* left: 50%; */
     /* margin-left: 0px; */
     margin-bottom: 0%;
-    font-family: Montserrat;
+    font-family: Muli;
 }
 
 @media only screen and (max-width: 640px) {

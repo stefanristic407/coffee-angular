@@ -78,8 +78,8 @@ export class AddMembersComponent implements OnInit {
     //     }
     //   });
     // })
-    this.loginButtonValue = "Add User";
-    this.loginButtonValueEdit = "Update User"
+    this.loginButtonValue = "Add user";
+    this.loginButtonValueEdit = "Update user"
 
     // Function Name : Roles Edit
     // Description: This function helps to get the Role Id from user management page 
@@ -432,7 +432,7 @@ export class AddMembersComponent implements OnInit {
           result => {
             console.log(result);
             if (result['success'] == true) {
-              this.loginButtonValue = "Add User";
+              this.loginButtonValue = "Add user";
               console.log(result);
               this.toastrService.success("User has been created and We are assigning role to new user");
               this.roasterService.assignUserBasedUserRoles(this.roaster_id, this.role_id, result['result']['user_id']).subscribe(
@@ -455,7 +455,7 @@ export class AddMembersComponent implements OnInit {
                 this.toastrService.error("There is something went wrong! Please try again later");
               }
             }
-            this.loginButtonValue = "Add User";
+            this.loginButtonValue = "Add user";
           }
         );
       } else {
@@ -471,7 +471,7 @@ export class AddMembersComponent implements OnInit {
           data => {
             console.log("data coming from edit api: " + JSON.stringify(data))
             if (data['success'] == true) {
-              this.loginButtonValueEdit = "Update User";
+              this.loginButtonValueEdit = "Update user";
               console.log("User Updated Successfully :");
               console.log(data['result']);
               this.toastrService.success("User has been updated and We are assigning role to the user");
@@ -504,7 +504,7 @@ export class AddMembersComponent implements OnInit {
                 this.toastrService.error("There is something went wrong! Please try again later");
               }
             }
-            this.loginButtonValueEdit = "Update User";
+            this.loginButtonValueEdit = "Update user";
           }
         )
       }

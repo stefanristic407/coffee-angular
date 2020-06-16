@@ -29,9 +29,9 @@
             <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/group1.png" alt=""></span>
         </li>
 
-        <li class="b-cum c-pink">Manage Roles</li>
+        <li class="b-cum c-pink">Manage roles</li>
         <div class="ml-auto text-right desk_view_user">
-            <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn ">CREATE NEW ROLE</button></a>
+            <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn ">Create new role</button></a>
         </div>
         <!-- <button type="submit" class="btn col-12 col-md-2 pull-right create-role-btn web-btn d-md-block d-none"> CREATE NEW ROLE </button> -->
 
@@ -43,14 +43,14 @@
         <table class="table">
             <thead class="table-header">
                 <tr class="header-row">
-                    <!-- <th>
-                                            <label class="customcheckbox m-b-20">
+                    <th>
+                        <label class="customcheckbox m-b-20">
                                                 <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
 												(change)="checkAll($event)"/>
                                                 <span class="checkmark head-check"></span>
 											</label>
-                                        </th> -->
-                    <!-- <th scope="col">Number of members</th> -->
+                    </th>
+                    <th scope="col">Number of members</th>
                     <th scope="col">Roles</th>
                     <th scope="col"></th>
                     <th scope="col">Actions</th>
@@ -58,13 +58,13 @@
             </thead>
             <tbody class="customtable">
                 <tr *ngFor="let data of sizes; let i = index" id="tr_{{data.id}}">
-                    <!-- <th>
-                                            <label class="customcheckbox">
+                    <th>
+                        <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{data.id}}" [(ngModel)]="data.state"/>
                                                 <span class="checkmark head-check"></span>
                                             </label>
-                                        </th> -->
-                    <!-- <td>{{data.members}}</td> -->
+                    </th>
+                    <td>{{ this.getRandomInt(11) }}</td>
                     <td>{{data.name}}</td>
                     <td>
                         <span class="show_btns">
@@ -74,7 +74,7 @@
                     </td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
-                            <p class="">&#x22EE;</p>
+                            <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
                         </a>
                         <ng-template #poplistTemplate id="{{data.id}}">
                             <div id="popover-mobile-content">
@@ -188,7 +188,7 @@
         <h4 class="mobile-manage"> Manage Roles</h4>
     </div>
     <div class="ml-auto text-right pull-right pb-4">
-        <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn ">CREATE NEW ROLE</button></a>
+        <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn ">Create new role</button></a>
     </div>
 
     <ul class="dyn-data d-flex" *ngFor="let role of sizes" (click)="openBottomSheet()">

@@ -13,25 +13,25 @@
     font-style: normal;
     line-height: 42px;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .login_para {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: 28px;
     letter-spacing: 0.2px;
-    color: #666666;
+    color: #747588;
 }
 
 .role-name {
-    font-size: 9px;
+    font-size: 13px;
     font-weight: 600;
-    color: #666666;
-    font-family: Montserrat;
+    color: #232334;
+    font-family: Muli;
     padding-left: 3%;
     letter-spacing: 0.3px;
 }
@@ -40,7 +40,7 @@ input[type=number] {
     width: 44px;
     height: 44px;
     border-radius: 6px;
-    border: solid 1px #cccccc;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
     text-align: center;
     margin-right: 7px;
@@ -57,27 +57,27 @@ input[type=number] {
 }
 
 .otp-expiry {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 15px;
-    font-weight: normal;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
     /* margin-top: 5%; */
 }
 
 .timer {
     font-size: 16px;
-    font-weight: 600;
-    color: #000000;
+    font-weight: bold;
+    color: #232334;
 }
 
 .submit-text {
-    font-family: Montserrat;
-    font-size: 12px;
-    font-weight: 600;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -93,15 +93,15 @@ input[type=number] {
 
 .submit-btn {
     height: 44px;
-    border-radius: 6px;
-    background-color: #3d8462;
+    border-radius: 4px;
+    background-color: #30855c;
     position: relative;
     /* bottom: 3px; */
     right: 50%;
 }
 
 .submit-btn:hover {
-    background-color: #3d8462;
+    background-color: #30855c;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
@@ -112,15 +112,15 @@ input[type=number] {
 .role-name-mobile {
     font-size: 9px;
     font-weight: 600;
-    color: #666666;
-    font-family: Montserrat;
+    color: #747588;
+    font-family: Muli;
     letter-spacing: 0.3px;
 }
 
 .rectangle_name {
     height: 46px;
     border-radius: 6px;
-    border: solid 1px #cccccc;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
     width: 100% !important;
     text-align: left !important;
@@ -134,7 +134,7 @@ input[type=number] {
     font-weight: 600;
     color: #ffffff;
     height: 40px;
-    border: #3d8462;
+    border: #30855c;
 }
 
 .mobile-otp {
@@ -145,7 +145,7 @@ input[type=number] {
     width: 44px !important;
     height: 44px !important;
     border-radius: 6px !important;
-    border: solid 1px #cccccc !important;
+    border: solid 1px #d6d6d6 !important;
     background-color: #ffffff !important;
     text-align: center !important;
     margin-right: 7px !important;

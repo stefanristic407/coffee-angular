@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { HealthCheckComponent } from './health-check/health-check.component';
 
 
 export const routes: Routes = [
-  { path: "health-check", component: HealthCheckComponent},
+  { path:'health-check', component: HealthCheckComponent},
   {
     path: 'features',
     loadChildren: () => import('./features/features.module')

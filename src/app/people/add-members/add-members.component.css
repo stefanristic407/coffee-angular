@@ -1,19 +1,19 @@
 .member_title {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 16px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .select_title {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 16px;
     font-weight: 600;
-    color: #3d8462 !important;
+    color: #30855c !important;
     padding: 5px;
     border: none;
     background-color: #ffffff;
@@ -23,7 +23,7 @@
 
 .member_name,
 .member_email {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 11px;
     font-weight: 600;
     font-stretch: normal;
@@ -42,19 +42,19 @@
 .rectangle_email {
     height: 46px;
     border-radius: 8px;
-    border: solid 1px #cccccc;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
-    color: #000000;
+    color: #232334;
     font-weight: 500;
-    font-family: Montserrat;
+    font-family: Muli;
 }
 
 .rectangle_name::placeholder,
 .rectangle_email::placeholder {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 500;
-    color: #000000;
+    color: #747588;
 }
 
 .invites_button {
@@ -66,7 +66,7 @@
 }
 
 .send_invites {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -100,14 +100,14 @@
 }
 
 .content_list {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     padding: 10px 0px 8px 3px;
     cursor: pointer;
 }
@@ -130,41 +130,50 @@
 }
 
 .addrole_button {
-    border-radius: 2px;
-    background-color: #3d8462;
+    border-radius: 4px;
+    border: solid 1px #3d8462;
+    color: #2f845b;
+    background-color: #fff;
     width: 100%;
-    height: 35px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #2f845b;
+    font-weight: bold;
 }
 
 .addrole_button:hover {
-    background-color: #3d8462;
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    background-color: #2f845b;
+    color: #ffffff;
+    /* box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5); */
 }
 
-.addrole_content {
-    font-family: Montserrat;
-    font-size: 12px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #ffffff;
+
+/* .addrole_content {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #2f845b;
+    font-weight: bold;
 }
+
+.addrole_content:hover {
+    color: #fff !important;
+} */
 
 .cancel_member {
-    background-color: #256547;
-    border: 1px solid #256547;
-    color: #fff;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #ffffff;
     font-weight: 600;
     font-size: 14px;
-    /* padding: 4% 10%; */
+    color: #30855c;
     padding: 0.7% 1.8%;
     margin-right: 7rem;
 }
 
 .cancel_value {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -186,7 +195,8 @@
 }
 
 .cancel_member:hover {
-    background-color: #3d8462;
+    background-color: #30855c;
+    color: #fff;
 }
 
 .cancel_value {
@@ -214,7 +224,7 @@
 }
 
 a.b-cum:hover {
-    color: #000000;
+    color: #232334;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -246,28 +256,31 @@ a.b-cum:hover {
 
 label {
     font-weight: bold !important;
-    color: #666 !important;
+    color: #747588 !important;
 }
 
 .form-control {
     font-size: 12px !important;
-    height: 46px !important;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    height: 48px !important;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    color: #232334 !important;
     background-color: #fff;
-    color: #000;
     /* font-weight: 500; */
-    font-family: Montserrat;
+    font-family: Muli;
 }
 
 .chn-btn {
-    background-color: #256547;
-    border: 1px solid #256547;
+    background-color: #30855c;
+    border: 1px solid #30855c;
     color: #fff;
     font-weight: 600;
     font-size: 14px;
     padding: 1% 6%;
     margin-left: 1rem;
+}
+.chn-btn:hover{
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 @media all and (max-width: 767px) {
@@ -286,18 +299,18 @@ label {
     .mob-addmember {
         color: #87623b;
         font-size: 16px;
-        font-family: Montserrat;
+        font-family: Muli;
     }
     .rectangle_dropdown {
         border-radius: 8px;
-        border: solid 1px #cccccc;
+        border: solid 1px #d6d6d6;
         background-color: #ffffff;
         background: url(../../../assets/images/active.png) right 16px top 19px/10px no-repeat;
         -webkit-appearance: none;
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 13px;
         font-weight: 500;
-        color: #000000;
+        color: #232334;
         height: 46px !important;
         padding-top: 7px;
     }

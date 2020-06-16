@@ -35,14 +35,14 @@
 }
 
 .privacy-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #a88057;
 }
 
 .agree-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 500;
     line-height: 1.43;
@@ -50,7 +50,7 @@
 }
 
 .text_checkbox {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: 600;
     color: #666666;
@@ -58,7 +58,7 @@
 }
 
 .policy_checkbox {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: 600;
     color: #666666;
@@ -99,7 +99,7 @@
 }
 
 .next-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 600;
     color: #ffffff;

@@ -1,5 +1,5 @@
 th {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 500;
     font-stretch: normal;
@@ -11,7 +11,7 @@ th {
 }
 
 td {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: bold;
     font-stretch: normal;
@@ -24,7 +24,7 @@ td {
 }
 
 .lot-link {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
     font-stretch: normal;
@@ -35,7 +35,7 @@ td {
 }
 
 .list-que {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -46,7 +46,7 @@ td {
 }
 
 .list-ans {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -63,7 +63,7 @@ hr {
 }
 
 .sub-title {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 18px;
     font-weight: 600;
     font-stretch: normal;
@@ -89,7 +89,7 @@ hr {
 }
 
 .list-que {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -100,7 +100,7 @@ hr {
 }
 
 .list-ans {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -111,7 +111,7 @@ hr {
 }
 
 .status {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
     font-stretch: normal;
@@ -123,7 +123,7 @@ hr {
 }
 
 .procedure {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
     font-stretch: normal;
@@ -140,7 +140,7 @@ hr {
 
 .shipment-id,
 .track-id {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -153,7 +153,7 @@ hr {
 
 .track-info-title,
 .shipment-title {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -165,7 +165,7 @@ hr {
 }
 
 .receipt-btn {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -203,7 +203,7 @@ hr {
 }
 
 .status_paid {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;

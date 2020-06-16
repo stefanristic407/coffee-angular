@@ -6,13 +6,17 @@
 }
 
 .filter-text {
-    color: #000000;
+    color: #747588;
+    font-size: 14px;
     font-weight: normal;
-    font-family: Montserrat;
+    font-family: Muli;
 }
 
 .table-container {
-    margin: 1% 5% 0% 5%;
+    /* margin: 1% 5% 0% 5%; */
+    margin: 2% 5% 0% 5%;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
 }
 
 .page-wrapper {
@@ -30,7 +34,7 @@
     border-radius: 8px;
     border: solid 1px #3d8462;
     background-color: #ffffff;
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -40,16 +44,39 @@
     color: #3d8462;
 }
 
+.search-raised {
+    width: 70%;
+    height: 38px;
+    background-color: #fff;
+    background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
+    background-size: 16px 16px;
+    padding-left: 41px;
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: normal;
+    color: #232334;
+    margin-left: 4rem;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+}
+
 .list-group-item {
     border: none;
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-size: 12px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: bold;
+    background-color: #f8f8f8;
 }
 
 .item-color {
@@ -92,8 +119,8 @@ will-change: transform;
 } */
 
 .table-header {
-    border-radius: 8px;
-    background-color: #faf8f4;
+    border-radius: 4px;
+    background-color: #f8f8f8;
 }
 
 .header-row {
@@ -106,7 +133,7 @@ table td {
 }
 
 tr {
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #d6d6d6;
 }
 
 tr:last-child {
@@ -115,9 +142,10 @@ tr:last-child {
 }
 
 .table thead th {
-    color: #87623b;
-    font-weight: 600;
-    font-family: 'Montserrat';
+    color: #232334;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Muli';
 }
 
 span.checkmark {
@@ -127,7 +155,8 @@ span.checkmark {
 }
 
 .customcheckbox input:checked~.checkmark {
-    background-color: #000;
+    background-color: #3d8462;
+    ;
 }
 
 .breadcrumb-item a {
@@ -139,14 +168,10 @@ span.checkmark {
 }
 
 table td {
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-size: 14px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #000000;
+    font-weight: normal;
+    color: #232334;
 }
 
 .title-header {
@@ -154,47 +179,52 @@ table td {
 }
 
 .bread-nav {
-    margin-left: 2%;
+    margin-left: 5.5%;
 }
 
 .page-title {
-    font-family: 'Montserrat';
-    font-size: 18px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #000000;
+    font-family: 'Muli';
+    font-size: 17px;
+    font-weight: bold;
+    color: #232334;
 }
 
 .search {
     width: 255px;
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     height: 36px;
     border-radius: 8px;
-    border: solid 1px #cccccc;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
     background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px;
     padding-left: 45px;
 }
 
 .filter {
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-weight: 600;
-    color: #3d8462;
+    color: #232334;
+    font-size: 14px;
+}
+
+.border-total {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
 }
 
 .status-active {
-    color: #1fa83a;
+    color: #649a2b;
     margin-bottom: 0;
     font-weight: bold;
 }
 
 .status-disabled {
-    color: #666666;
+    /* color: #666666; */
     margin-bottom: 0;
     font-weight: bold;
+    color: #979797;
 }
 
 a.b-cum:hover {
@@ -212,12 +242,12 @@ a.b-cum:hover {
 
 :host ::ng-deep .ui-dialog .ui-dialog-content {
     padding: 1rem 2rem !important;
-    font-family: 'Montserrat' !important;
+    font-family: 'Muli' !important;
 }
 
 :host ::ng-deep .ui-dialog .ui-dialog-title {
     font-size: 20px !important;
-    font-family: 'Montserrat' !important;
+    font-family: 'Muli' !important;
 }
 
 @media screen and (max-width: 40em) {
@@ -341,7 +371,7 @@ a.b-cum:hover {
 
 .salemark {
     font-size: 13px;
-    font-family: Montserrat;
+    font-family: Muli;
     padding-bottom: 2px;
 }
 
@@ -353,7 +383,7 @@ a.b-cum:hover {
 
 .user-name,
 .roles {
-    color: #000000;
+    color: #232334;
     font-weight: 600;
 }
 
@@ -367,6 +397,7 @@ a.b-cum:hover {
 .customcheckbox .checkmark:after {
     left: 5px !important;
     top: 1px !important;
+    border-width: 0 2px 2px 0 !important;
 }
 
 
@@ -385,7 +416,7 @@ a.b-cum:hover {
 
 .update-title {
     color: #1F1F1F;
-    font-weight: 600;
+    font-weight: bold;
     font-size: 18px;
 }
 
@@ -433,9 +464,9 @@ option {
 }
 
 .chn-btn {
-    background-color: #256547;
-    border: 1px solid #256547;
-    color: #FDFDFD;
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    color: #ffffff;
     font-weight: 600;
     font-size: 14px;
     padding: 2% 10%;
@@ -452,6 +483,14 @@ option {
     margin-top: -4px;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 920px) {
+    .bread-nav {
+        /* margin-left: 2%; */
+        padding-left: 0;
+        margin-bottom: 5%;
+    }
+}
+
 @media only screen and (min-width: 320px) and (max-width: 920px) {
     .desk_view_user {
         display: none !important;
@@ -461,44 +500,26 @@ option {
         margin-top: 0%;
     }
     .list-group-item {
-        border: none;
-        font-family: 'Montserrat';
         font-size: 10px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #000000;
+        font-weight: normal;
     }
     .dyn-data {
         padding-top: 6%;
     }
-    /* .popover-body{
-    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
-    background-color: #ffffff;
-    padding: 0;
-}
-.popover{
-    border: 1px solid #FFFFFF;
-    border-radius: 5px !important;
-    position: absolute;
-transform: translate3d(988px, 253px, 0px);
-top: 0px;
-left: 0px !important;
-will-change: transform;
-} */
     .page-breadcrumb {
         margin: 0;
         padding: 15px 0px 10px 0px !important;
     }
     .page-title {
-        display: inline-block!important;
+        /* display: inline-block!important; */
         font-size: 16px;
         /*text-align: center;*/
     }
     .title-header {
-        margin-left: 0% !important;
+        margin-left: 3% !important;
+    }
+    .bread-nav {
+        margin-left: 5.2%;
     }
 }
 
@@ -509,6 +530,16 @@ will-change: transform;
     }
     .mobile_view_user {
         display: none;
+    }
+}
+
+@media only screen and (min-width: 920px) and (max-width: 991px) {
+    .bread-nav {
+        margin-bottom: 5%;
+        padding-left: 0;
+    }
+    .table-container {
+        margin-top: 3%;
     }
 }
 
@@ -573,6 +604,10 @@ will-change: transform;
         margin-left: 0%;
         padding: 0;
     }
+    .search-raised {
+        width: 100%;
+        margin-left: 0rem !important;
+    }
 }
 
 .table td,
@@ -588,7 +623,9 @@ will-change: transform;
     top: -6px !important;
 }
 
+
 /* ========OUTLINE CSS FOR SEARCH BAR====== */
-.search:focus{
+
+.search-raised:focus {
     box-shadow: 0 0 0 0.035rem green !important;
 }

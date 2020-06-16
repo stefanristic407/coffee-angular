@@ -3,7 +3,7 @@
     }
     
     .back-order {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 13px;
         font-weight: bold;
         color: #3d8462;
@@ -12,7 +12,7 @@
     .save-button {
         border-radius: 6px;
         background-color: #3d8462;
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 14px;
         font-weight: bold;
         color: #ffffff;
@@ -38,7 +38,7 @@
     
     .give-rating,
     .rating-subtext {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 14px;
         font-weight: normal;
         line-height: 1.5;
@@ -59,14 +59,14 @@
     }
     
     .person-name {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 16px;
         font-weight: bold;
         color: #000000;
     }
     
     .last-seen {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 13px;
         font-weight: normal;
         color: #666666;
@@ -74,7 +74,7 @@
     }
     
     .roaster {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 13px;
         font-weight: normal;
         color: #666666;
@@ -90,14 +90,14 @@
     }
     
     .location {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 13px;
         font-weight: normal;
         color: #666666;
     }
     
     .details {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 13px;
         font-weight: bold;
         color: #3d8462;
@@ -105,7 +105,7 @@
     }
     
     .rate-experience {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 15px;
         font-weight: normal;
         color: #000000;
@@ -113,14 +113,14 @@
     }
     
     .over-exp {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 14px;
         font-weight: bold;
         color: #000000;
     }
     
     .review-label {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 11px;
         font-weight: bold;
         color: #666666;
@@ -132,6 +132,21 @@
     
     .experience-padding {
         padding-left: 1.5rem;
+    }
+    
+    .experienceError,
+    .communicationError,
+    .experienceUserError,
+    .communicationUserError {
+        color: #D50000;
+        font-size: 12px;
+        margin-top: -7px;
+    }
+    
+    .reviewError,
+    .reviewUserError {
+        color: #D50000;
+        font-size: 12px;
     }
     
     @media only screen and (max-width: 767px) {
@@ -151,7 +166,7 @@
         }
     }
     
-    @media only screen and (max-width:920px) and (min-width:768px) {
+    @media only screen and (max-width:991px) and (min-width:768px) {
         .rating-top {
             padding: 1.5rem 1rem 1rem 1rem;
         }

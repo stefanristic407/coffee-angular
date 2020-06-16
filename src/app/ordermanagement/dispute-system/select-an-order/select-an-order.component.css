@@ -4,21 +4,21 @@
 }
 
 .back-ticket {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: bold;
     color: #3d8462;
 }
 
 .select-order-title {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 16px;
     font-weight: bold;
     color: #000000;
 }
 
 .please-select {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     color: #000000;
 }
@@ -34,7 +34,7 @@
 }
 
 .continue-btn {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 13px;
     font-weight: bold;
     color: #ffffff;
@@ -131,7 +131,7 @@ li.nav-item {
 }
 
 .nav-pills .nav-link {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 600;
     color: #666666;
@@ -139,7 +139,7 @@ li.nav-item {
 }
 
 .nav-pills .nav-link.active {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: 600;
     color: #3d8462;
@@ -155,7 +155,7 @@ li.nav-item {
 
 .list-group-item {
     border: none;
-    font-family: 'Montserrat';
+    font-family: 'Muli';
     font-size: 12px;
     font-weight: 600;
     font-stretch: normal;
@@ -194,7 +194,7 @@ li.nav-item {
 }
 
 .filter {
-    font-family: Montserrat;
+    font-family: Muli;
     font-weight: bold;
     color: #3d8462;
     font-size: 13px;
