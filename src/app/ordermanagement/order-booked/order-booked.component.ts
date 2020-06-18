@@ -49,7 +49,7 @@ export class OrderBookedComponent implements OnInit {
     //Fills the time line based on the status selected in estate order.
     this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
     console.log("the data from table trigger is  : " + this.dataFromTable);
-    if (this.dataFromTable == "Order Confirmed") {
+    if (this.dataFromTable == "Order confirmed") {
       this.bookedValueToShow = "Order Confirmed";
       setTimeout(() => {
         this.orderConfirmBooked();

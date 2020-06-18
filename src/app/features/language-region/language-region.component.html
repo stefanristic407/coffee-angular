@@ -6,10 +6,10 @@
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
+            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
         </li>
         <li class="b-cum">
-            <a class="b-cum" routerLink="/features/account-settings">Account Settings</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
+            <a class="b-cum" routerLink="/features/account-settings">Account Settings</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
         </li>
         <li class="b-cum c-pink">Language and Region</li>
     </ul>
@@ -26,28 +26,28 @@
     </div>
     <div class="row">
         <div class="col-md-8 col-lg-5 col-sm-12">
-           <form class="form-container">
-            <div class="form-group mb-4 mob-space">
-                <label for="lang">LANGUAGE</label>
-                <select id="lang" class="form-control" name="lang" required="" [(ngModel)]="lang">
+            <form class="form-container">
+                <div class="form-group mb-4 mob-space">
+                    <label for="lang">LANGUAGE</label>
+                    <select id="lang" class="form-control" name="lang" required="" [(ngModel)]="lang">
               <option value="" selected disabled> Select any language</option>
               <option value="en"> English </option>
               <option value="es"> Spanish </option>
             </select>
-            <p class="description mt-1">Choose language you would like to use in the application</p>
-            </div>
+                    <p class="description mt-1">Choose language you would like to use in the application</p>
+                </div>
 
-            <div class="form-group mt-5 mob-space">
-            <label for="add-language">I CAN CONVERSE IN</label>
-            <!-- <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover"> -->
-                <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language"><img class="plus-symbol" src="assets/images/plus.svg">Add Language</div>
-            <!-- </a> -->
-            <p class="description mt-1">Add Language that you can communicate in</p>
-            </div>
+                <div class="form-group mt-5 mob-space">
+                    <label for="add-language">I CAN CONVERSE IN</label>
+                    <!-- <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover"> -->
+                    <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language"><img class="plus-symbol" src="assets/images/plus.svg">Add Language</div>
+                    <!-- </a> -->
+                    <p class="description mt-1">Add Language that you can communicate in</p>
+                </div>
 
-            <div class="form-group mt-5 mob-space">
-                <label for="timezone">TIME ZONE</label>
-                <select id="timezone" class="form-control" name="timezone" required="" [(ngModel)]="timezone">
+                <div class="form-group mt-5 mob-space">
+                    <label for="timezone">TIME ZONE</label>
+                    <select id="timezone" class="form-control" name="timezone" required="" [(ngModel)]="timezone">
               <option value="" selected disabled> Select Timezone</option>
               <optgroup label="US (Common)">	
                 <option value="America/Puerto_Rico">Puerto Rico (Atlantic)</option>
@@ -544,8 +544,8 @@
                 <option value="Arctic/Longyearbyen">Longyearbyen</option>
               </optgroup>
             </select>
-            </div>
-           </form>
+                </div>
+            </form>
         </div>
     </div>
 </section>
@@ -596,4 +596,3 @@
       </ul>
     </div>
   </ng-template> -->
-  

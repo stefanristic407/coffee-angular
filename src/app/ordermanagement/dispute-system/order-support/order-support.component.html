@@ -1,71 +1,64 @@
 <div class="header-sewn">
-        <h1 class="hello-txt"> Order Support</h1>
+    <h1 class="hello-txt"> Order Support</h1>
+</div>
+
+<div class="row">
+    <div class="col-12 d-flex no-block align-items-center">
+        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-3">
+            <span id="title-breadcrumb-1" class="sr-only"></span>
+            <ul class="bread-nav">
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                </li>
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/ordermanagement/myorders">Order Management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                </li>
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                </li>
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/ordermanagement/order-booked">Order 12416</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                </li>
+                <li class="b-cum c-pink">Order Support</li>
+            </ul>
+        </nav>
+
+        <div class="ml-auto text-right">
+            <div class="d-inline col-sm-12 search-div">
+                <input type="text" name="search" class="search" [(ngModel)]="term" placeholder="Search" />
+            </div>
+        </div>
     </div>
-    
-        <div class="row">
-            <div class="col-12 d-flex no-block align-items-center">
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-3">
-        <span id="title-breadcrumb-1" class="sr-only"></span>
-        <ul class="bread-nav">
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
-            </li>
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/myorders">Order Management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
-            </li>
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
-            </li>
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/order-booked">Order 12416</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/group1.png" alt=""> </span>
-            </li>
-            <li class="b-cum c-pink">Order Support</li>
-        </ul>
-    </nav>
-  
-                <div class="ml-auto text-right">
-                        <div class="d-inline col-sm-12 search-div">
-                                <input
-                                  type="text"
-                                  name="search"
-                                  class="search"
-                                  [(ngModel)]="term"
-                                  placeholder="Search"
-                                />
-                              </div>
-                </div>
+</div>
+
+
+<section class="col-sm-12 col-md-12 col-lg-12 p-4">
+    <div class="row">
+        <div class="ml-auto text-right view-all-div">
+            <a class="view-all">VIEW ALL MY RAISED TICKET</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <button class="btn  dashboard-button" (click)="buyingCoffee()"><img class="logo-img " src="assets/images/coffee-bean.png"><img class="logo-img-hover " src="assets/images/coffee-bean-filled.png"><p class="btn-name">Buying Coffee</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled " src="assets/images/filled-arrow.png"> </button>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <button class="btn  dashboard-button" (click)="requestSamples()"><img class="logo-img" src="assets/images/request.png"><img class="logo-img-hover" src="assets/images/request-filled.png"><p class="btn-name">Requesting Samples</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled " src="assets/images/filled-arrow.png"> </button>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <button class="btn dashboard-button " (click)="payment()"><img class="logo-img " src="assets/images/payment.png"><img class="logo-img-hover " src="assets/images/payment-filled.png"><p class="btn-name">Payment</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled " src="assets/images/filled-arrow.png"> </button>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <button class="btn dashboard-button " (click)="coffeeBulks()"><img class="logo-img " src="assets/images/coffee-plant.png"><img class="logo-img-hover " src="assets/images/coffee-plant-filled.png"><p class="btn-name">Coffee Bulks</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled " src="assets/images/filled-arrow.png"> </button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <button class="btn dashboard-button " (click)="shipping()"><img class="logo-img " src="assets/images/shipping.png"><img class="logo-img-hover " src="assets/images/shipping-filled.png"><p class="btn-name">Shipping</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled" src="assets/images/filled-arrow.png"> </button>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <button class="btn dashboard-button " (click)="others()"><img class="logo-img" src="assets/images/others.png"><img class="logo-img-hover" src="assets/images/others-filled.png"><p class="btn-name">Others</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled" src="assets/images/filled-arrow.png"> </button>
         </div>
     </div>
 
-          
-    <section class="col-sm-12 col-md-12 col-lg-12 p-4">
-        <div  class="row">
-                <div class="ml-auto text-right view-all-div">
-                    <a class="view-all">VIEW ALL MY RAISED TICKET</a>
-                </div>
-        </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn  dashboard-button" (click)="buyingCoffee()"><img class="logo-img " src="assets/images/coffee-bean.png"><img class="logo-img-hover " src="assets/images/coffee-bean-filled.png"><p class="btn-name">Buying Coffee</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled " src="assets/images/filled-arrow.png"> </button>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn  dashboard-button" (click)="requestSamples()"><img class="logo-img" src="assets/images/request.png"><img class="logo-img-hover" src="assets/images/request-filled.png"><p class="btn-name">Requesting Samples</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled " src="assets/images/filled-arrow.png"> </button>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn dashboard-button " (click)="payment()"><img class="logo-img " src="assets/images/payment.png"><img class="logo-img-hover " src="assets/images/payment-filled.png"><p class="btn-name">Payment</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled " src="assets/images/filled-arrow.png"> </button>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                        <button class="btn dashboard-button " (click)="coffeeBulks()"><img class="logo-img " src="assets/images/coffee-plant.png"><img class="logo-img-hover " src="assets/images/coffee-plant-filled.png"><p class="btn-name">Coffee Bulks</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled " src="assets/images/filled-arrow.png"> </button>
-                    </div>
-            </div>
-            <div class="row mt-2">
-                    <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                            <button class="btn dashboard-button " (click)="shipping()"><img class="logo-img " src="assets/images/shipping.png"><img class="logo-img-hover " src="assets/images/shipping-filled.png"><p class="btn-name">Shipping</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled" src="assets/images/filled-arrow.png"> </button>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                                <button class="btn dashboard-button " (click)="others()"><img class="logo-img" src="assets/images/others.png"><img class="logo-img-hover" src="assets/images/others-filled.png"><p class="btn-name">Others</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"><img class="icon-img-filled" src="assets/images/filled-arrow.png"> </button>
-                            </div>
-            </div>
-        
-        </section>
-        
+</section>

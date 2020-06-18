@@ -1,5 +1,5 @@
 .bread-nav {
-    padding-left: 3.9rem;
+    padding-left: 3.1rem;
 }
 
 table.dataTable thead .sorting_asc,
@@ -9,22 +9,23 @@ table.dataTable thead .sorting_desc {
 }
 
 .estate-orders {
-    margin: 1rem 3.5rem;
+    /* margin: 1rem 3.1rem; */
     position: relative;
 }
 
 .estate-orders-heading {
-    margin: 1rem 3.5rem;
+    margin: 1rem 3.1rem;
 }
 
 .add-role-butn {
-    border-radius: 8px;
-    background-color: #3d8462;
+    border-radius: 4px;
+    background-color: #30855c;
     padding: 10px 0px;
+    font-family: Muli;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: bold;
     color: #ffffff;
-    margin-right: 4rem;
+    margin-right: 3rem;
 }
 
 .add-role-butn:hover {
@@ -33,12 +34,19 @@ table.dataTable thead .sorting_desc {
 }
 
 .table thead th,
-table.dataTable.no-footer,
+
+/* table.dataTable.no-footer, */
+
 table.dataTable.row-border tbody th,
 table.dataTable.row-border tbody td,
 table.dataTable.display tbody th,
 table.dataTable.display tbody td {
     border: none !important;
+}
+
+.orders-border {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6 !important;
 }
 
 table.dataTable thead .sorting:after,
@@ -63,33 +71,36 @@ table.dataTable.display tbody tr:hover {
     background-color: #fff !important;
 }
 
+table.dataTable.row-border tbody tr {
+    border-bottom: 1px solid red;
+}
+
 .estate-title {
-    border-radius: 8px;
-    background-color: #faf8f4;
+    border-radius: 4px;
+    background-color: #f8f8f8;
 }
 
 .estate-title th {
-    color: #87623b;
-    font-weight: 600;
+    font-family: Muli;
     font-size: 14px;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
+    color: #232334;
 }
 
-.estate-boby-txt {
+
+/* .estate-boby-txt {
     cursor: pointer;
-}
+} */
 
 .estate-boby-txt td {
-    font-size: 12px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #000000;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
     padding: 1rem 1rem 0 1rem;
 }
 
@@ -124,52 +135,87 @@ table.dataTable.display tbody tr:hover {
 }
 
 .typeoforder-Sample {
-    background-color: rgba(231, 137, 38, 0.1);
-    font-size: 12px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #e78926;
-    padding: .2rem;
-    width: 55%;
-}
-
-.typeoforder-Booked {
-    background-color: rgba(71, 180, 13, 0.1);
-    font-size: 12px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #24be46;
-    padding: .2rem;
-    width: 55%;
-}
-
-.typeoforder-Pre-Booked {
-    background-color: rgba(231, 137, 38, 0.1);
-    font-size: 12px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #e78926;
-    padding: .2rem;
-    width: 75%;
-}
-
-.estate-order-title {
-    font-size: 18px;
+    font-family: Muli;
+    font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #f19634;
+    /* padding: .2rem;
+    width: 55%; */
+}
+
+.typeoforder-Booked {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #649a2b;
+    /* padding: .2rem;
+    width: 55%; */
+}
+
+.typeoforder-Pre-Booked {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #7c6be8;
+    /* padding: .2rem;
+    width: 75%; */
+}
+
+.view-order {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold !important;
+    color: #80460b !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.estate-order-title {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.border-order {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.title-header {
+    margin: 1.3rem 4rem;
+}
+
+.estate-table {
+    margin: 1rem 3.1rem;
+}
+
+.filter-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.filter {
+    font-family: 'Muli';
+    font-weight: 600;
+    color: #232334;
+    font-size: 14px;
 }
 
 .search {
@@ -179,7 +225,7 @@ table.dataTable.display tbody tr:hover {
     border-radius: 8px;
     border: solid 1px #cccccc;
     background-color: #ffffff;
-    background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px;
+    /* background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px; */
     padding-left: 45px;
 }
 
@@ -240,7 +286,13 @@ span.checkmark {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: bold;
+    background-color: #f8f8f8;
 }
 
 .item-color {
@@ -271,13 +323,6 @@ span.checkmark {
     cursor: pointer;
 }
 
-.filter {
-    font-family: Muli;
-    font-weight: bold;
-    color: #3d8462;
-    font-size: 13px;
-}
-
 @media (max-width:1024px) {
     .estate-table {
         width: 100%;
@@ -292,4 +337,103 @@ span.checkmark {
     .estate-orders {
         margin: 1rem 0px;
     }
+}
+
+
+/* The container */
+
+.b-check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 1rem;
+}
+
+
+/* Hide the browser's default checkbox */
+
+.b-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+/* Create a custom checkbox */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+}
+
+.first-t {
+    top: -9px !important;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.b-check:hover input~.checkmark {
+    background-color: #fff;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+
+.b-check input:checked~.checkmark {
+    background-color: #30855c;
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the checkmark when checked */
+
+.b-check input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the checkmark/indicator */
+
+.b-check .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: 1px solid #d6d6d6;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.create-role-section {
+    padding: 0px 40px;
+}
+
+.spacing-order {
+    padding: 1rem 0.6rem !important;
 }

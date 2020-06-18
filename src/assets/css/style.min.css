@@ -6268,7 +6268,7 @@ input[type=submit].btn-block {
     padding: 0.75rem 1.25rem;
     margin-bottom: -1px;
     background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.125)
+    border: none !important;
 }
 
 .list-group-item:first-child {
@@ -11685,7 +11685,7 @@ ul.list-style-none li a:hover {
 }
 
 .page-breadcrumb {
-    padding: 20px 20px 0 20px
+    padding: 20px 0px 20px 0px;
 }
 
 .page-breadcrumb .page-title {
@@ -16329,11 +16329,12 @@ span.hide-menu {
 }
 
 .padl-r {
-    padding: 0 12px;
+    padding: 0 12px 0 2px;
 }
 
 .group-img {
-    height: 10px
+    /* height: 10px */
+    margin-top: -2px;
 }
 
 .c-pink {
@@ -16774,10 +16775,20 @@ div.dataTables_wrapper div.dataTables_paginate {
 
 .estate-orders .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    color: #3d8462 !important;
+    color: #30855c !important;
     border: none !important;
     background-color: unset !important;
     background: unset !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -16785,24 +16796,32 @@ div.dataTables_wrapper div.dataTables_paginate {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
+    color: #747588 !important;
 }
 
 div.dataTables_wrapper div.dataTables_filter {
-    text-align: left !important;
-    float: left !important;
+    /* text-align: left !important;
+    float: left !important; */
+    /* text-align: right;
+    margin-top: -7.3rem;
+    margin-right: 6.3rem; */
+    top: -4.5rem;
+    right: 9.3rem;
+    position: absolute;
 }
 
 .dataTables_wrapper .dataTables_length {
-    float: none !important;
+    float: right !important;
 }
 
 .dataTables_wrapper .dataTables_filter input {
     font-family: 'Muli';
-    height: 36px;
-    border-radius: 8px;
-    border: solid 1px #cccccc;
+    height: 40px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
-    background: url(../../assets/images/grey.png) no-repeat scroll 12px 5px;
+    background: url(../../assets/images/search-user.png) no-repeat scroll 11px 11px;
+    background-size: 16px 16px;
     padding-left: 45px;
     margin-bottom: 2rem;
 }
@@ -16813,23 +16832,25 @@ div.dataTables_wrapper div.dataTables_filter {
 
 #DataTables_Table_0_length {
     position: absolute;
-    top: 0;
+    /* top: 0; */
+    top: 7px;
     left: auto;
-    right: 36rem;
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: normal;
+    /* right: 36rem; */
+    right: 3rem;
+    font-family: Muli !important;
+    font-size: 14px;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #232334;
+    color: #747588;
 }
 
 .estate-orders .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
-    color: #3d8462 !important;
+    color: #30855c !important;
     font-weight: bold;
 }
 
@@ -16900,8 +16921,8 @@ body::-webkit-scrollbar-thumb {
 /* common css for sample, booked, pre-booked starts*/
 
 .total_header {
-    margin-left: 2.2rem;
-    margin-right: 5.4rem;
+    margin-left: 0rem;
+    margin-right: 0rem;
 }
 
 .top-padding {
@@ -17084,8 +17105,7 @@ body::-webkit-scrollbar-thumb {
     font-size: 12px !important;
     font-weight: bold !important;
     color: #3d8462 !important;
-    padding-top: 9px !important;
-    padding-bottom: 8px !important;
+    padding: 9px 16px 8px 17px !important;
 }
 
 .leave-feedback {
@@ -17249,7 +17269,7 @@ a.b-cum:hover {
 }
 
 .fnt-mont {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Muli', sans-serif;
 }
 
 .fnt-play {
@@ -17676,4 +17696,53 @@ ul {
     right: 0;
     top: 0px;
     z-index: 99;
+}
+
+.bg-fff {
+    background-color: #FFFFFF;
+}
+
+.order-fff {
+    background-color: #FFFFFF;
+    padding: 2rem;
+}
+
+.order-tab-fff {
+    background-color: #FFFFFF;
+    padding: 0rem 2rem 2rem 2rem;
+}
+
+.p-15 {
+    padding: 0 15px;
+}
+
+.border-ebebeb {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 1.5rem;
+}
+
+.bg-shipping {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 2.5rem;
+}
+
+.bg-msg {
+    border-radius: 2px;
+    border: solid 1px #747588;
+    color: #232334;
+    padding: 3px 5px;
+}
+
+.pb-7 {
+    padding-bottom: 4.8rem;
+}
+
+.pad-logo {
+    padding: 0 14px !important;
+}
+
+.procedure {
+    color: #80460b !important;
 }

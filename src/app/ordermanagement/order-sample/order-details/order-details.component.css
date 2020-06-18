@@ -1,5 +1,5 @@
 th {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 500;
     font-stretch: normal;
@@ -11,7 +11,7 @@ th {
 }
 
 .lot-table td {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: bold;
     font-stretch: normal;
@@ -25,7 +25,7 @@ th {
 }
 
 .lot-link {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
     font-stretch: normal;
@@ -42,7 +42,7 @@ hr {
 }
 
 .sub-title {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 18px;
     font-weight: 600;
     font-stretch: normal;
@@ -55,7 +55,7 @@ hr {
 
 .bulk-details-content {
     padding-right: 2rem;
-    border-right: 1px solid #dddddd;
+    /* border-right: 1px solid #dddddd; */
 }
 
 .payment-status-content {
@@ -68,7 +68,7 @@ hr {
 }
 
 .list-que {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -79,7 +79,7 @@ hr {
 }
 
 .list-ans {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -90,7 +90,7 @@ hr {
 }
 
 .status {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
     font-stretch: normal;
@@ -102,7 +102,7 @@ hr {
 }
 
 .procedure {
-    font-family: Montserrat;
+    font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
     font-stretch: normal;
@@ -119,20 +119,22 @@ hr {
 
 .shipment-id,
 .track-id {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #80460b;
+    text-decoration: underline !important;
     margin-bottom: 0%;
+    cursor: pointer;
 }
 
 .track-info-title,
 .shipment-title {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -144,16 +146,16 @@ hr {
 }
 
 .receipt-btn {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
-    border-radius: 6px;
-    background-color: #eeeeee;
+    border-radius: 2px;
+    border: solid 1px #747588;
+    color: #232334;
 }
 
 .bulk-list:last-child {
@@ -163,9 +165,6 @@ hr {
 .shipment-info,
 .track-info {
     border-radius: 6px;
-    background-color: #eeeeee;
-    border-radius: 6px;
-    background-color: #eeeeee;
     width: max-content;
     padding: 5%;
 }
@@ -175,26 +174,26 @@ hr {
 }
 
 .recent-time td {
-    font-family: Montserrat;
+    font-family: Muli;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
     color: #000000;
-    padding: 1rem 5rem 1rem 0rem;
+    padding: 1rem 4rem 1rem 0rem;
     border-bottom: 1px solid #dddddd;
 }
 
 .status_paid {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #24be46;
+    color: #232334;
 }
 
 @media only screen and (max-width: 767px) {

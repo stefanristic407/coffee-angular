@@ -89,7 +89,7 @@ export class OrderSampleComponent implements OnInit {
 	// Description: This function fills order Confirmed timeline and payment status is pending.
 	orderConfirmSample() {
 		this.sampleValueToShow = this.orderConfirmedSample.nativeElement.innerHTML;
-		this.orderConfirmedSample.nativeElement.style.color = "#000000";
+		this.orderConfirmedSample.nativeElement.style.color = "#232334";
 		this.orderConfirmedSample.nativeElement.style.fontWeight = "bold";
 		const completedProcess = document.getElementById('confirmDivSample');
 		completedProcess.classList.remove('completed');
@@ -101,7 +101,7 @@ export class OrderSampleComponent implements OnInit {
 	paySample() {
 		this.orderConfirmSample();
 		this.sampleValueToShow = this.payment.nativeElement.innerHTML;
-		this.payment.nativeElement.style.color = "#000000";
+		this.payment.nativeElement.style.color = "#232334";
 		this.payment.nativeElement.style.fontWeight = "bold";
 		const completedProcess = document.getElementById('paymentDivSample');
 		completedProcess.classList.remove('completed');
@@ -112,7 +112,7 @@ export class OrderSampleComponent implements OnInit {
 	shipmentStatusSample() {
 		this.paySample();
 		this.sampleValueToShow = this.shippmentSample.nativeElement.innerHTML;
-		this.shippmentSample.nativeElement.style.color = "#000000";
+		this.shippmentSample.nativeElement.style.color = "#232334";
 		this.shippmentSample.nativeElement.style.fontWeight = "bold";
 		const completedProcess = document.getElementById('shippmentDivSample');
 		completedProcess.classList.remove('completed');
@@ -124,7 +124,7 @@ export class OrderSampleComponent implements OnInit {
 	receivedStatusSample() {
 		this.shipmentStatusSample();
 		this.sampleValueToShow = this.receivedSample.nativeElement.innerHTML;
-		this.receivedSample.nativeElement.style.color = "#000000";
+		this.receivedSample.nativeElement.style.color = "#232334";
 		this.receivedSample.nativeElement.style.fontWeight = "bold";
 		const completedProcess = document.getElementById('receivedDivSample');
 		completedProcess.classList.remove('completed');
@@ -135,7 +135,7 @@ export class OrderSampleComponent implements OnInit {
 	gradedStatusSample() {
 		this.receivedStatusSample();
 		this.sampleValueToShow = this.gradedSample.nativeElement.innerHTML;
-		this.gradedSample.nativeElement.style.color = "#000000";
+		this.gradedSample.nativeElement.style.color = "#232334";
 		this.gradedSample.nativeElement.style.fontWeight = "bold";
 		const completedProcess = document.getElementById('gradedDivSample');
 		completedProcess.classList.remove('completed');
