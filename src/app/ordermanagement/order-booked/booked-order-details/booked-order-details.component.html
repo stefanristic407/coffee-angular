@@ -14,9 +14,9 @@
                 <tr>
                     <td>Columbia</td>
                     <td>Bourbon,Cautai</td>
-                    <td>250bags
-                        <p class="view-lot">View lot details</p>
-                        <!--    <p class="lot-link">View lot details &#x0003E;</p> -->
+                    <td>
+                        250bags
+                        <!-- <span class="date-ur">View lot details</span> -->
                     </td>
                     <td>$450/bag</td>
                     <td>$100</td>
@@ -27,7 +27,7 @@
     </div>
 </div>
 <hr>
-<div class="row">
+<div class="row pb-7">
     <div class="col-lg-7 col-md-7 col-sm-12 bulk-details-content">
         <h4 class="sub-title">Bulk details</h4>
         <table class="recent-time">
@@ -85,11 +85,11 @@
     <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content">
         <h4 class="sub-title">Payment status</h4>
         <div class="w-100 mt-3">
-            <p class="status" *ngIf="bookedService.statusPending"> &#x25CF; Pending</p>
-            <p class="status_paid" *ngIf="bookedService.statusPaid"> <img src="assets/images/statusPaid.svg"> PAID</p>
+            <p class="status_paid" *ngIf="bookedService.statusPending">PENDING</p>
+            <p class="status_paid" *ngIf="bookedService.statusPaid"> PAID</p>
             <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="uploadShow"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
             <button type="button" class="btn receipt-btn mb-2" *ngIf="receiptShow"><img src="assets/images/view.png" class="pr-2">View receipt</button>
-            <p><a class="procedure mt-2">View payment procedure<img class="right-angle" src="assets/images/right-angle.png"></a></p>
+            <p><a class="procedure mt-2">View payment procedure </a></p>
             <div class="track-info mt-4 pt-2" *ngIf="bookedService.shipmentDone">
                 <p class="track-info-title">Tracking ID <img src="assets/images/open-icon.png" alt=""></p>
                 <p class="track-id">9274972094-29ei43</p>

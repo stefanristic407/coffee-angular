@@ -95,12 +95,15 @@ export class OrdermanagementComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    $(".closed-link").click(function () {
-      $(".ti-close").addClass("ti-menu");
-      $(".checking").addClass("ti-menu");
-      $("#main-wrapper").removeClass("show-sidebar");
+    $('.nav-links__item').on('click', function() {
+      $('.nav-links__item').not(this).removeClass('active');
+      $(this).addClass('active')
+  });
 
-    });
+  $('.nav-dropdown li').on('click', function() {
+      $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
+      $(this).parents('.nav-links__item').addClass('active')
+  });
 
 
   }

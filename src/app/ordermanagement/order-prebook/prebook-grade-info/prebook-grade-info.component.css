@@ -21,10 +21,10 @@
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.6;
     letter-spacing: normal;
     text-align: center;
-    color: #000000;
+    color: #232334;
+    padding: 0px 4rem;
 }
 
 .delivery-date {
@@ -54,19 +54,19 @@
     line-height: normal;
     letter-spacing: normal;
     text-align: center;
-    color: #ffffff;
-    border-radius: 4px;
-    background-color: #3d8462;
-    padding: 2% 4%;
+    color: #80460b;
+    text-decoration: underline!important;
 }
 
 .know-more-content {
     padding: 2rem 2rem;
 }
 
+
+/* 
 .know-more:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
+} */
 
 
 /* ==========Timeline CSS from my-orders========== */
@@ -114,9 +114,9 @@
 }
 
 .order-tracking.completed .is-complete {
-    border-color: #a88057;
+    border-color: #232334;
     border-width: 0px;
-    background-color: #a88057;
+    background-color: #232334;
 }
 
 .order-tracking.completed .is-complete:after {
@@ -162,7 +162,7 @@
 .order-tracking::before {
     content: '';
     display: block;
-    height: 3px;
+    height: 2px;
     width: calc(100%);
     background-color: #f3efe8;
     top: 13px;
@@ -180,7 +180,7 @@
 /* .order-tracking:first-child:before{display: none;} */
 
 .order-tracking.completed:before {
-    background-color: #a88057;
+    background-color: #232334;
 }
 
 .mixups-track {
@@ -195,7 +195,7 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .order-date {
@@ -206,7 +206,7 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #747588;
     margin-bottom: 0%;
 }
 
@@ -218,7 +218,8 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #80460b;
+    text-decoration: underline !important;
     cursor: pointer;
 }
 
@@ -230,7 +231,7 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #bea080;
+    color: #747588;
 }
 
 .progress-bar-tooltip {
@@ -245,7 +246,7 @@
 
 .tooltips .cup-score {
     width: 100%;
-    color: #a88057;
+    color: #232334;
     border-radius: 0px;
     /* padding: 5px 0; */
     position: absolute;
@@ -261,7 +262,7 @@
 
 .tooltips .score-text {
     width: 250px;
-    color: #a88057;
+    color: #747588;
     border-radius: 0px;
     /* padding: 5px 0; */
     position: absolute;
@@ -278,4 +279,8 @@
         padding: 6rem 3rem 0rem 2rem;
         overflow-x: scroll;
     }
+}
+
+.pb-7 {
+    padding-bottom: 8.8rem;
 }

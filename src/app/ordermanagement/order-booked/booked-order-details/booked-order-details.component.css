@@ -18,7 +18,7 @@ td {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     padding-right: 3rem;
     padding-top: 1rem;
 }
@@ -32,6 +32,33 @@ td {
     line-height: normal;
     letter-spacing: normal;
     color: #3d8462;
+}
+
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: #dddddd;
+}
+
+.sub-title {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    padding-bottom: 0.5rem;
+}
+
+.bulk-details-content {
+    padding-right: 2rem;
+    /* border-right: 1px solid #dddddd; */
+}
+
+.payment-status-content {
+    padding-left: 2rem;
 }
 
 .list-que {
@@ -53,30 +80,7 @@ td {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
-}
-
-hr {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    color: #dddddd;
-}
-
-.sub-title {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #000000;
-    padding-bottom: 0.5rem;
-}
-
-.bulk-details-content {
-    padding-right: 2rem;
-    border-right: 1px solid #dddddd;
+    color: #232334;
 }
 
 .payment-status-content {
@@ -107,7 +111,7 @@ hr {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .status {
@@ -130,8 +134,9 @@ hr {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #80460b;
     cursor: pointer;
+    text-decoration: underline !important;
 }
 
 .right-angle {
@@ -147,8 +152,10 @@ hr {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #80460b;
+    text-decoration: underline !important;
     margin-bottom: 0%;
+    cursor: pointer;
 }
 
 .track-info-title,
@@ -160,46 +167,36 @@ hr {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     margin-bottom: 0.5rem;
 }
 
 .receipt-btn {
     font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
-    border-radius: 6px;
-    background-color: #eeeeee;
+    border-radius: 2px;
+    border: solid 1px #747588;
+    color: #232334;
 }
 
 .bulk-list:last-child {
     border: none;
 }
 
-.shipment-info,
-.track-info {
-    border-radius: 6px;
-    background-color: #eeeeee;
-    border-radius: 6px;
-    background-color: #eeeeee;
-    width: max-content;
-    padding: 5%;
-}
-
-.view-lot {
-    font-size: 13px;
-    font-weight: bold;
-    color: #3d8462;
-    cursor: pointer;
-}
-
-.procedure:hover {
-    text-decoration: underline!important;
+.note {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #e02f1f;
 }
 
 .status_paid {
@@ -210,7 +207,11 @@ hr {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #24be46;
+    color: #232334
+}
+
+.lot-table {
+    margin-bottom: 1rem;
 }
 
 @media only screen and (max-width: 767px) {

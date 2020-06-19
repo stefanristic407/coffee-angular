@@ -1,7 +1,13 @@
-.confirm_header {
+/* .confirm_header {
     margin-left: 2.2rem;
     margin-right: 5.4rem;
     padding-left: 0;
+} */
+
+.create-role-sec {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    ;
 }
 
 .confirm-padding {
@@ -11,63 +17,90 @@
 }
 
 .confirm-order {
+    padding: 2.5rem 1.7rem;
+    border-radius: 4px;
     background-color: #faf8f4;
-    padding: 1.8rem;
-    border: 1px solid #f0f0f0;
-    border-radius: 10px;
-    /* margin-right: -1rem;     */
     overflow: hidden;
 }
 
 .confirm-txt {
     font-family: PlayfairDisplay;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: normal;
     color: #020202;
 }
 
 .fill-txt {
     font-family: Muli;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: normal;
-    line-height: 1.5;
-    color: #000000;
+    color: #5d5d5d;
+}
+
+.bread-nav {
+    padding-left: 3rem;
 }
 
 th {
     font-family: Muli;
-    /* font-size: 14px; */
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: bold !important;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
-    padding-right: 3.90rem;
+    color: #232334;
+    padding-right: 1.9rem;
+}
+
+.table thead th {
+    border-bottom: none !important;
+    border-top: none !important;
+    padding-left: 1.9rem;
+}
+
+.table tbody td {
+    padding-left: 2rem;
+    padding-top: 17px;
+    padding-bottom: 17px;
+}
+
+.table th,
+.table td {
+    border-top: none !important;
 }
 
 td {
     font-family: Muli;
-    /* font-size: 14px; */
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
-    padding-right: 4rem;
-    padding-top: 1rem;
+    color: #232334;
+}
+
+.table-head {
+    border-radius: 4px;
+    background-color: #f8f8f8
+}
+
+.lot-table {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
 }
 
 .border-div {
-    border-bottom: 1px solid #dddddd;
+    margin-top: 2.2rem!important;
 }
 
-.ord-quantity {
+.ord-quantity,
+.amount {
     font-family: Muli;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold;
-    color: #666666;
+    color: #232334;
 }
 
 .quantity-border {
@@ -75,116 +108,134 @@ td {
 }
 
 .search {
-    height: 38px;
+    height: 50px;
     border-radius: 4px;
-    border: solid 1px #cccccc;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
+    -webkit-appearence: none !important;
 }
 
 .main-bag {
     position: absolute;
     right: 10px;
-    top: 8px;
+    top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
 }
 
 .price-tag {
     padding-left: 10px;
-    top: 8px;
-    color: #000000;
-    font-weight: normal;
-}
-
-.amount {
+    top: 15px;
     font-family: Muli;
-    font-size: 13px;
-    color: #666666;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
 }
 
 .price-total {
-    color: #000000;
     font-family: Muli;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: bold;
+    color: #232334;
+    margin-right: 4.8rem;
 }
 
 .edit-div {
-    padding-left: 6rem;
+    /* padding-left: 6rem; */
     padding-right: 28px;
 }
 
 .shipping-addr {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: normal;
-    color: #666666;
+    font-family: Muli-Regular_;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
 }
 
 .edit-text {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: normal;
-    color: #3d8462;
+    font-family: Muli-Regular_;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
 }
 
 .address-bar {
     border-radius: 4px;
-    background-color: #f9f9f9;
+    background-color: #f8f8f8;
     padding: 1.5rem 0.5rem;
 }
 
-.add-text {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: bold;
-    color: #000000;
-}
-
+.add-text,
 .details {
     font-family: Muli;
     font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.details-header {
+    font-family: Muli-Regular_;
+    font-size: 18px;
     font-weight: bold;
-    line-height: 1.43;
     color: #000000;
 }
 
 .remeber-left {
-    font-family: Muli;
+    font-family: Muli-Regular_;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     color: #333333;
 }
 
 .terms-color {
-    color: #3d8462;
+    color: #80460b;
+    text-decoration: underline;
 }
 
 .place-order {
-    border-radius: 8px;
-    background-color: #3d8462;
+    border-radius: 4px;
+    background-color: #30855c;
     font-family: Muli;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
-    text-align: center;
     color: #ffffff;
-    padding: 10px 15px;
+    padding: 0px 15px;
+    height: 46px;
 }
 
-.cancel-order {
-    border-radius: 8px;
-    border: solid 1px #3d8462;
+.ord_cancel {
+    border-radius: 4px;
+    border: solid 1px #30855c;
     background-color: #ffffff;
     font-family: Muli;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
-    color: #3d8462;
-    padding: 10px 15px;
+    color: #30855c;
+    padding: 0px 15px;
+    height: 46px;
     text-decoration: none;
 }
 
-.edit-icon {
+.ord_cancel:hover {
+    color: #ffffff;
+    background-color: #30855c;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label:before {
+    background-color: #232334 !important;
+}
+
+.bottom-border {
+    border-bottom: solid 1px #d6d6d6;
+    padding-bottom: 2rem;
+}
+
+
+/* .edit-icon {
     width: 14px;
     height: 14px;
-}
+} */
 
 
 /****************************    Media Queries   ****************************/
@@ -233,6 +284,8 @@ td {
         border-right: none !important;
     }
 }
+
+
 /* ========OUTLINE CSS FOR SEARCH BAR====== */
 
 .search:focus {

@@ -156,7 +156,7 @@
 .order-tracking::before {
     content: '';
     display: block;
-    height: 3px;
+    height: 2px;
     width: calc(100%);
     background-color: #f3efe8;
     top: 13px;
@@ -189,18 +189,18 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #232334;
+    color: #747588;
 }
 
 .order-date {
     font-family: Muli;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #747588;
+    color: #232334;
     margin-bottom: 0%;
 }
 

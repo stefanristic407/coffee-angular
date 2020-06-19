@@ -71,8 +71,20 @@
                             </p>
                         </a>
                     </div> &nbsp;&nbsp;
+
+                    <div class="d-inline border-order date-div col-sm-6">
+                        <p class="d-inline filter-text">Date range &nbsp;</p>
+                        <a class="pointer-item">
+                            <p class="d-inline filter">
+                                &nbsp; <img src="assets/images/active-calender.png" alt="">
+                                <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
+                                </p-calendar> -->
+                            </p>
+                        </a>
+
+                    </div>&nbsp;&nbsp;
                     <div class="d-inline border-order status-div col-sm-6">
-                        <p class="d-inline filter-text">Display &nbsp; &#9679; &nbsp; </p>
+                        <p class="d-inline filter-text">Display &nbsp; &#9679; &nbsp;</p>
                         <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
                             <p class="d-inline filter" *ngIf="displayNumbers == '-1'">
                                 All &nbsp; <img src="assets/images/active-user.png" />
@@ -283,17 +295,17 @@
 
 <ng-template #displayTemplate>
     <div>
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide()">All</a>
-                </li>
-                <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide()">10</a></li>
-<li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide()">25</a></li>
-<li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide()">50</a></li>
-<li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide()">100</a></li>
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide()">All</a>
+            </li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide()">10</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide()">25</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide()">50</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide()">100</a></li>
 
 
-</ul>
-</div>
+        </ul>
+    </div>
 
 </ng-template>

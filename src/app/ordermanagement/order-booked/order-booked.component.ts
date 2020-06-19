@@ -95,7 +95,7 @@ export class OrderBookedComponent implements OnInit {
   // Description: This function fills order Confirmed timeline and payment status is pending.
   orderConfirmBooked() {
     this.bookedValueToShow = this.orderConfirmedBooked.nativeElement.innerHTML;
-    this.orderConfirmedBooked.nativeElement.style.color = "#000000";
+    this.orderConfirmedBooked.nativeElement.style.color = "#232334";
     this.orderConfirmedBooked.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('confirmDivBooked');
     completedProcess.classList.remove('completed');
@@ -107,7 +107,7 @@ export class OrderBookedComponent implements OnInit {
   paymentStatusBooked() {
     this.orderConfirmBooked();
     this.bookedValueToShow = this.paymentBooked.nativeElement.innerHTML;
-    this.paymentBooked.nativeElement.style.color = "#000000";
+    this.paymentBooked.nativeElement.style.color = "#232334";
     this.paymentBooked.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('paymentDivBooked');
     completedProcess.classList.remove('completed');
@@ -119,7 +119,7 @@ export class OrderBookedComponent implements OnInit {
   shipmentStatusBooked() {
     this.paymentStatusBooked();
     this.bookedValueToShow = this.shipmentBooked.nativeElement.innerHTML;
-    this.shipmentBooked.nativeElement.style.color = "#000000";
+    this.shipmentBooked.nativeElement.style.color = "#232334";
     this.shipmentBooked.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('shippmentDivBooked');
     completedProcess.classList.remove('completed');
@@ -132,7 +132,7 @@ export class OrderBookedComponent implements OnInit {
   receivedStatusBooked() {
     this.shipmentStatusBooked();
     this.bookedValueToShow = this.receivedBooked.nativeElement.innerHTML;
-    this.receivedBooked.nativeElement.style.color = "#000000";
+    this.receivedBooked.nativeElement.style.color = "#232334";
     this.receivedBooked.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('receivedDivBooked');
     completedProcess.classList.remove('completed');
@@ -144,7 +144,7 @@ export class OrderBookedComponent implements OnInit {
   gradedStatusBooked() {
     this.receivedStatusBooked();
     this.bookedValueToShow = this.gradedBooked.nativeElement.innerHTML;
-    this.gradedBooked.nativeElement.style.color = "#000000";
+    this.gradedBooked.nativeElement.style.color = "#232334";
     this.gradedBooked.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('gradedDivBooked');
     completedProcess.classList.remove('completed');

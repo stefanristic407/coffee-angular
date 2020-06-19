@@ -1,108 +1,149 @@
 <div class="bg-fff">
-    <div class="confirm_header mb-2 page-breadcrumb">
-        <div class="row">
+    <!-- <div class="row">
             <div class="col-12">
                 <nav aria-label="breadcrumb" class="col-12 col-md-12 col-lg-12 pl-0">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item active"><a class="b-cum" routerLink="/features/welcome-aboard">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/ordermanagement/">Order management</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/ordermanagement/">Estate orders</a></li>
-                        <!-- <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/ordermanagement/">Order 12416</a></li> -->
+                        <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/ordermanagement/">Order 12416</a></li>
                         <li class="breadcrumb-item active confirm-padding" aria-current="page"><a>Order 12416</a></li>
                     </ul>
                 </nav>
             </div>
+        </div> -->
+
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
+        <span id="title-breadcrumb-1" class="sr-only"></span>
+        <ul class="bread-nav">
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+            </li>
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/ordermanagement/">Order Management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+            </li>
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/ordermanagement/">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+            </li>
+            <li class="b-cum c-pink">Order 12416</li>
+        </ul>
+    </nav>
+    <!-- <div class="confirm_header mb-2 page-breadcrumb"> -->
+
+    <section class="create-role-sec">
+        <div class="confirm-order mt-4">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <h4 class="confirm-txt fnt-play">Confirm Order</h4>
+                    <div class="fill-txt">Your sample has been recieved and graded.</div>
+                    <div class="fill-txt">Please fill in the details to order the complete shipment</div>
+                </div>
+            </div>
         </div>
-        <section class="create-role-sec mt-4">
-            <div class="confirm-order mt-5">
+        <div class="border-div">
+            <div class="row">
+                <div class="col-12 details-header pb-2">Order Details</div>
+
+                <!-- <div class="table-container"></div> -->
+                <div class="col-12 lot-content table-responsive">
+
+                    <table class="table lot-table">
+                        <thead class="table-head">
+                            <tr>
+                                <th>Customer</th>
+                                <th>Origin</th>
+                                <th>Variety</th>
+                                <th>Species</th>
+                                <th>Cupping score</th>
+                                <th>Available Quantity</th>
+                                <th>Rate per bag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Finca Guadalupe Zajú</td>
+                                <td>Columbia</td>
+                                <td>Arabica </td>
+                                <td>Bourbon</td>
+                                <td>84.5</td>
+                                <td>266/60kg</td>
+                                <td>$450/bag</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 col-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="pull-left ord-quantity">Order Quantity:
+                </div>
+                <div class="pull-right ml-auto amount">Total amount to be paid</div>
+            </div>
+            <div class="row pt-2">
                 <div class="row">
-                    <div class="col-12 col-md-12 col-lg-12">
-                        <h4 class="confirm-txt">Confirm Order</h4>
-                        <div class="fill-txt">Your sample has been recieved and graded. Please fill in the details to order the complete shipment</div>
+                    <div class="pull-left col-8 col-md-8 col-lg-8 pr-0">
+                        <input type="text" name="search" class="col-12 search" placeholder="" />
+                        <span class="main-bag">Bags</span>
                     </div>
+                    <div class="d-inline col-4 col-md-4 col-lg-4 price-tag">X<span class="pl-2">$450</span> </div>
                 </div>
-            </div>
-            <div class="mt-5  pb-4 border-div">
-                <div class="row">
-                    <div class="col-12 lot-content table-responsive">
-                        <table class="lot-table">
-                            <thead>
-                                <tr>
-                                    <th>Customer</th>
-                                    <th>Origin</th>
-                                    <th>Variety</th>
-                                    <th>Species</th>
-                                    <th>Cupping score</th>
-                                    <th>Available Quantity</th>
-                                    <th>Rate per bag</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Finca Guadalupe Zajú</td>
-                                    <td>Columbia</td>
-                                    <td>Arabica </td>
-                                    <td>Bourbon</td>
-                                    <td>84.5</td>
-                                    <td>266/60kg</td>
-                                    <td>$450/bag</td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="quantity-border mt-5 pr-4 col-12 col-md-4 col-lg-4">
-                    <div class="ord-quantity">ORDER QUANTITY:</div>
-                    <div class="row mt-3 pb-3">
-                        <div class="col-8 col-md-7 col-lg-7 pr-0">
-                            <input type="text" name="search" class="col-12 search" placeholder="" />
-                            <span class="main-bag">Bags</span>
-
-                        </div>
-                        <div class="d-inline col-4 col-md-4 col-lg-4 price-tag">X<span class="price-tag pl-2">$480</span> </div>
-                    </div>
-                    <div class="pt-4 amount">Total amount to be paid</div>
-                    <div class="price-total mt-2">$112,500</div>
-                </div>
-                <div class="edit-div col-12 col-md-8 col-lg-8 mt-5">
-                    <div class="row">
-                        <div class="pull-left shipping-addr">SHIPPING ADDRESS
-                        </div>
-                        <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png" alt="Edit">Edit</div>
-                    </div>
-                    <div class="row mt-3 address-bar">
-                        <div class="col-12 col-md-5 col-lg-4 add-text">
-                            Löfbergs Lila AB, Box 1501, 651 21 - Karlstad
-                            <div>Sweden</div>
-                        </div>
-                        <div class="col-md-1 col-lg-4"></div>
-                        <div class="col-12 col-md-5 col-lg-4 details">
-                            +420 6365719 info@lofbergs.com
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="custom-control custom-checkbox mb-1 top-spacing box_mobile">
-                            <input type="checkbox" class="custom-control-input" id="custom_check1" name="example1">
-                            <label class="custom-control-label text_checkbox" for="custom_check1"><span class="remeber-left">I have read and understood the <span class="terms-color">terms & conditions</span> of the platform, and agree to them.</span></label>
-                        </div>
-
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="row mb-5">
-                <div class="col-12 mt-4">
-                    <button type="submit" class="place-order float-right btn">PLACE ORDER</button>
-                    <button type="button" class="cancel-order float-right btn btn-link mr-2">CANCEL</button>
-                </div>
+                <div class="pull-right ml-auto price-total">$112,500</div>
             </div>
 
 
-        </section>
+            <!-- <div class="row">
+                <div class="ord-quantity">Order Quantity:</div>
+                <div class="row mt-3 pb-3">
+                    <div class="col-8 col-md-7 col-lg-7 pr-0">
+                        <input type="text" name="search" class="col-12 search" placeholder="" />
+                        <span class="main-bag">Bags</span>
 
-    </div>
+                    </div>
+                    <div class="d-inline col-4 col-md-4 col-lg-4 price-tag">X<span class="price-tag pl-2">$480</span> </div>
+                </div>
+                <div class="pt-4 amount">Total amount to be paid</div>
+                <div class="price-total mt-2">$112,500</div>
+            </div> -->
+        </div>
+
+        <div class="edit-div col-12 col-md-12 col-lg-7 mt-5">
+            <div class="row">
+                <div class="pull-left shipping-addr">Shipping Address
+                </div>
+                <div class="pull-right ml-auto edit-text"><img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit">Edit shipping details</div>
+            </div>
+            <div class="row mt-2 address-bar">
+                <div class="col-12 col-md-4 col-lg-5 add-text">
+                    Löfbergs Lila AB, Box 1501, 651 21 - Karlstad
+                    <div>Sweden</div>
+                </div>
+                <div class="col-md-1 col-lg-4"></div>
+                <div class="col-12 col-md-4 col-lg-3 details pl-lg-0">
+                    <div>+420 6365719 </div>
+                    <div class="pt-2">info@lofbergs.com</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-4 bottom-border">
+            <div class="row">
+                <div class="custom-control custom-checkbox mb-1 top-spacing box_mobile">
+                    <input type="checkbox" class="custom-control-input" id="custom_check1" name="example1">
+                    <label class="custom-control-label text_checkbox" for="custom_check1"><span class="remeber-left">I have read and understood the <span class="terms-color">terms & conditions</span> of the platform, and agree to them.</span></label>
+                </div>
+
+            </div>
+        </div>
+        <div class="row pb-5">
+            <div class="col-12 mt-4">
+                <button type="submit" class="place-order float-right btn">Place Order</button>
+                <button type="button" class="ord_cancel float-right btn btn-link mr-2">Cancel</button>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- </div> -->
 </div>

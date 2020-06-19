@@ -16,6 +16,7 @@ export class EstateOrdersComponent implements OnInit {
   estatetermType: any;
   estatetermOrigin:any;
   displayNumbers: any;
+  selected: Date[];
 
   // Static Estate Orders Data List
   public data: any[] = [
@@ -70,10 +71,17 @@ export class EstateOrdersComponent implements OnInit {
     this.displayNumbers = '10';
 
     $(document).ready(function(){
-      $(".dataTables_length").hide();
-      //$(".dataTables_info").hide();
-      $("input[type='search']").attr("placeholder", "Search by order id, estate name");
-      $(".dataTables_filter").html('<label><input type="search" class="" placeholder="Search by order id, estate name" aria-controls="DataTables_Table_0"></label>');
+      
+      $( ".dataTables_length" ).ready(function(){
+        $(".dataTables_length").hide()
+      });
+      $("input[type='search']").ready(function(){
+        $("input[type='search']").attr("placeholder", "Search by order id, estate name");
+      });
+      $(".dataTables_filter").ready(function(){
+        $(".dataTables_filter").html('<label><input type="search" class="" placeholder="Search by order id, estate name" aria-controls="DataTables_Table_0"></label>');
+      });
+  
     });
   }
 
@@ -124,6 +132,13 @@ export class EstateOrdersComponent implements OnInit {
 
   setOrigin(data:any){
     this.estatetermOrigin = data;
+    // this.dtOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 10,
+    //   processing: true
+    // };
+    //this.applyDataFIlters();
+    
   }
   setType(data:any){
     this.estatetermType = data;
@@ -133,5 +148,10 @@ export class EstateOrdersComponent implements OnInit {
     $("select").val(data).trigger('change');
     
   }
+  // applyDataFIlters(){
+  //   if(this.estatetermOrigin != ''){
+  //     let filterArray=[];
+  //   }
+  // }
 
 }

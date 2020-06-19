@@ -129,94 +129,6 @@
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-
-/* cyrillic  playfairdisplay*/
-
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 400;
-    src: url(../css/fonts/playfairdisplay/nuFkD-vYSZviVYUb_rj3ij__anPXDTnohkk72xU.woff2) format('woff2');
-    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-
-
-/* vietnamese */
-
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 400;
-    src: url(../css/fonts/playfairdisplay/nuFkD-vYSZviVYUb_rj3ij__anPXDTnojUk72xU.woff2) format('woff2');
-    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
-}
-
-
-/* latin-ext */
-
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 400;
-    src: url(../css/fonts/playfairdisplay/nuFkD-vYSZviVYUb_rj3ij__anPXDTnojEk72xU.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-
-
-/* latin */
-
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 400;
-    src: url(../css/fonts/playfairdisplay/nuFkD-vYSZviVYUb_rj3ij__anPXDTnogkk7.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-
-/* cyrillic */
-
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 700;
-    src: url(../css/fonts/playfairdisplay/sevennuFkD-vYSZviVYUb_rj3ij__anPXDTnohkk72xU.woff2) format('woff2');
-    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-
-
-/* vietnamese */
-
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 700;
-    src: url(../css/fonts/playfairdisplay/sevennuFkD-vYSZviVYUb_rj3ij__anPXDTnojUk72xU.woff2) format('woff2');
-    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
-}
-
-
-/* latin-ext */
-
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 700;
-    src: url(../css/fonts/playfairdisplay/sevennuFkD-vYSZviVYUb_rj3ij__anPXDTnojEk72xU.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-
-
-/* latin */
-
-@font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 700;
-    src: url(../css/fonts/playfairdisplay/sevennuFkD-vYSZviVYUb_rj3ij__anPXDTnogkk7.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 .search-box .app-search .form-control {
     border-radius: 0px
 }
@@ -2388,7 +2300,7 @@ pre code {
 .form-control:focus {
     color: #4F5467;
     background-color: #fff;
-    border-color: rgba(0, 0, 0, 0.25);
+    border-color: #d6d6d6 !important;
     outline: 0;
     /* -webkit-box-shadow: transparent;
     box-shadow: transparent */
@@ -16948,7 +16860,7 @@ body::-webkit-scrollbar-thumb {
 
 .booked {
     border-radius: 4px;
-    background-color: rgba(71, 180, 13, 0.1);
+    /* background-color: rgba(71, 180, 13, 0.1); */
     font-family: Muli;
     font-size: 13px;
     font-weight: bold;
@@ -16960,7 +16872,7 @@ body::-webkit-scrollbar-thumb {
     font-family: Muli;
     font-size: 12px;
     font-weight: normal;
-    color: #e02f1f;
+    color: #d50000;
 }
 
 .bold-note {
@@ -16984,7 +16896,7 @@ body::-webkit-scrollbar-thumb {
     line-height: normal;
     letter-spacing: normal;
     color: #232334;
-    padding: 1rem 2rem 1rem 0rem;
+    padding: 1rem 1rem 1rem 0rem;
     border-bottom: 1px solid #dddddd;
 }
 
@@ -17026,7 +16938,7 @@ body::-webkit-scrollbar-thumb {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
 }
 
 .date-text {
@@ -17053,6 +16965,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 4px !important;
     background-color: #3d8462 !important;
     padding: .7rem 1rem !important;
+    margin-top: -1rem !important;
 }
 
 
@@ -17137,9 +17050,10 @@ body::-webkit-scrollbar-thumb {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
-.cancel-order-btn:hover {
+
+/* .cancel-order-btn:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
+} */
 
 
 /* ===== after changing to completeprocess ==== */
@@ -17273,7 +17187,7 @@ a.b-cum:hover {
 }
 
 .fnt-play {
-    font-family: 'PlayfairDisplay';
+    font-family: 'Playfair Display', serif !important;
 }
 
 ul {
@@ -17707,6 +17621,11 @@ ul {
     padding: 2rem;
 }
 
+.recent-fff {
+    background-color: #FFFFFF;
+    padding: 2rem 2rem 0rem 2rem;
+}
+
 .order-tab-fff {
     background-color: #FFFFFF;
     padding: 0rem 2rem 2rem 2rem;
@@ -17731,7 +17650,7 @@ ul {
 .bg-msg {
     border-radius: 2px;
     border: solid 1px #747588;
-    color: #232334;
+    color: #747588;
     padding: 3px 5px;
 }
 
@@ -17745,4 +17664,73 @@ ul {
 
 .procedure {
     color: #80460b !important;
+}
+
+.confirm-order-sample {
+    color: #5d5d5d;
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 0rem !important;
+}
+
+.edit-text {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    color: #3d8462;
+}
+
+.view-details {
+    color: #80460b;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: underline!important;
+    cursor: pointer;
+}
+
+.addr-text {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    color: #747588;
+}
+
+.star-no {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    color: #232334;
+    position: relative;
+    top: 2px;
+}
+
+.pay-ml {
+    margin-left: -1rem !important;
+}
+
+.pay-mr {
+    margin-left: -1.2rem !important;
+}
+
+.length-ml {
+    margin-left: -2.1rem !important;
+}
+
+.date-vr {
+    color: #747588;
+    margin-left: -1.5rem !important;
+    font-weight: bold;
+}
+
+.date-ur {
+    color: #80460b;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: -1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline!important;
 }

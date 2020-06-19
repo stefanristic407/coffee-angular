@@ -80,7 +80,7 @@ export class OrderPrebookComponent implements OnInit {
   // Description: This function fills order Confirmed timeline and payment status is pending.
   orderConfirm() {
     this.valueToShow = this.orderConfirmed.nativeElement.innerHTML;
-    this.orderConfirmed.nativeElement.style.color = "#000000";
+    this.orderConfirmed.nativeElement.style.color = "#232334";
     this.orderConfirmed.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('confirmDiv');
     completedProcess.classList.remove('completed');
@@ -90,7 +90,7 @@ export class OrderPrebookComponent implements OnInit {
   paymentStatus() {
     this.orderConfirm();
     this.valueToShow = this.payment.nativeElement.innerHTML;
-    this.payment.nativeElement.style.color = "#000000";
+    this.payment.nativeElement.style.color = "#232334";
     this.payment.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('paymentDiv');
     completedProcess.classList.remove('completed');
@@ -102,7 +102,7 @@ export class OrderPrebookComponent implements OnInit {
   harvest() {
     this.paymentStatus();
     this.valueToShow = this.harvestReady.nativeElement.innerHTML;
-    this.harvestReady.nativeElement.style.color = "#000000";
+    this.harvestReady.nativeElement.style.color = "#232334";
     this.harvestReady.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('harvestDiv');
     completedProcess.classList.remove('completed');
@@ -112,7 +112,7 @@ export class OrderPrebookComponent implements OnInit {
   gradedStatus() {
     this.harvest();
     this.valueToShow = this.graded.nativeElement.innerHTML;
-    this.graded.nativeElement.style.color = "#000000";
+    this.graded.nativeElement.style.color = "#232334";
     this.graded.nativeElement.style.fontWeight = "bold";
     const completedProcess = document.getElementById('gradedDiv');
     completedProcess.classList.remove('completed');
