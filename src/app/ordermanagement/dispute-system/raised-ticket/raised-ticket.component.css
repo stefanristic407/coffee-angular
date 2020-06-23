@@ -14,27 +14,40 @@
 }
 
 .search-raised {
-    width: 70%;
-    height: 32px;
-    background-color: #fff;
-    background: url(/assets/images/grey.png) no-repeat scroll 11px 3px;
-    padding-left: 45px;
-    border-radius: 6px;
-    border: solid 1px #cccccc;
+    width: 71%;
+    height: 40px;
+    background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
+    background-size: 16px 16px;
+    padding-left: 41px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
     font-family: Muli;
     font-size: 14px;
-    font-weight: normal;
-    color: #666666;
+    font-weight: 600;
+    color: #747588;
+    margin-left: 4rem;
+}
+
+.ticket-heading {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.border-tickettable {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
 }
 
 .table-container {
-    margin: 3% 10% 0 3%;
+    margin: 2% 4.5% 0 4.5%;
 }
 
 .table-header {
-    border-radius: 8px;
-    background-color: #faf8f4;
+    border-radius: 4px;
+    background-color: #f8f8f8;
 }
 
 table th,
@@ -44,7 +57,7 @@ table td,
 }
 
 tr {
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #d6d6d6;
 }
 
 tr:last-child {
@@ -53,9 +66,15 @@ tr:last-child {
 }
 
 .table .table-header th {
-    color: #87623b;
-    font-weight: 600;
     font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+    padding-left: 2rem;
+}
+
+.table td {
+    padding: 1rem 2rem;
 }
 
 .status-resolved {
@@ -70,30 +89,37 @@ tr:last-child {
     color: #e02f1f;
 }
 
-.ticket-boby-tx {
+
+/* .ticket-boby-tx {
     color: #000;
     padding: 1rem 1rem 0;
     font-size: 12px;
-}
+} */
 
 .ticket-boby-txt {
-    font-size: 13px;
-    font-weight: normal;
-    color: #000000;
     font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 .go-to-ticket {
-    border-radius: 6px;
-    border: solid 1px #3d8462;
-    background-color: #ffffff;
-    height: 32px;
     font-family: Muli;
-    font-size: 11px;
-    font-weight: normal;
-    color: #3d8462;
+    font-size: 14px;
+    font-weight: bold;
+    color: #80460b;
+    text-decoration: underline;
 }
+
+.bread-nav {
+    margin-left: 4.5%;
+}
+
+
 /* ========OUTLINE CSS FOR SEARCH BAR====== */
-.search-raised:focus{
+
+.search-raised:focus {
     box-shadow: 0 0 0 0.035rem green !important;
 }

@@ -1,22 +1,30 @@
     .rating-top {
-        padding: 1.5rem 4.5rem 1rem 2.5rem;
+        padding: 1.5rem 3.2rem 1rem 3.2rem;
     }
     
     .back-order {
         font-family: Muli;
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #30855c;
+    }
+    
+    .user-name {
+        font-family: Muli;
+        font-size: 18px;
         font-weight: bold;
-        color: #3d8462;
+        color: #232334;
+        margin-top: -10px;
     }
     
     .save-button {
-        border-radius: 6px;
-        background-color: #3d8462;
+        border-radius: 4px;
+        background-color: #30855c;
         font-family: Muli;
         font-size: 14px;
         font-weight: bold;
         color: #ffffff;
-        padding: 8px 14px;
+        padding: 8px 18px;
     }
     
     .save-padding {
@@ -25,29 +33,29 @@
     
     .feedback-total {
         border-radius: 8px;
+        border: solid 1px #d6d6d6;
         background-color: #faf8f4;
-        padding: 1.5rem;
+        padding: 1.8rem;
     }
     
     .leave-text {
-        font-family: PlayfairDisplay;
-        font-size: 27px;
-        font-weight: normal;
-        color: #020202;
+        font-family: Muli;
+        font-size: 16px;
+        font-weight: 600;
+        color: #232334;
     }
     
     .give-rating,
     .rating-subtext {
         font-family: Muli;
         font-size: 14px;
-        font-weight: normal;
-        line-height: 1.5;
-        color: #000000;
+        font-weight: 600;
+        color: #747588;
     }
     
     .rating-total {
-        border-radius: 6px;
-        border: dashed 1px #bbbbbb;
+        border-radius: 4px;
+        border: solid 1px #ebebeb;
         background-color: #ffffff;
         padding: 1.4rem;
     }
@@ -62,72 +70,83 @@
         font-family: Muli;
         font-size: 16px;
         font-weight: bold;
-        color: #000000;
+        color: #232334;
     }
     
     .last-seen {
         font-family: Muli;
-        font-size: 13px;
-        font-weight: normal;
-        color: #666666;
+        font-size: 14px;
+        font-weight: 600;
+        color: #979797;
         padding-left: 1%;
     }
     
     .roaster {
         font-family: Muli;
-        font-size: 13px;
-        font-weight: normal;
-        color: #666666;
+        font-size: 14px;
+        font-weight: bold;
+        color: #747588;
     }
     
     .rating-value {
         position: relative;
         top: 5px;
         left: 5px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #000000;
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: bold;
+        color: #232334;
     }
     
     .location {
         font-family: Muli;
-        font-size: 13px;
-        font-weight: normal;
-        color: #666666;
+        font-size: 14px;
+        font-weight: bold;
+        color: #747588;
     }
     
     .details {
         font-family: Muli;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: bold;
-        color: #3d8462;
+        color: #30855c;
         border-left: 1px solid #ccc;
+    }
+    
+    .top-image {
+        margin-top: -3px;
     }
     
     .rate-experience {
         font-family: Muli;
-        font-size: 15px;
-        font-weight: normal;
-        color: #000000;
-        padding-top: 1.5rem;
+        font-size: 14px;
+        font-weight: 600;
+        color: #747588;
+        /* padding-top: 1.5rem; */
     }
     
     .over-exp {
         font-family: Muli;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: bold;
-        color: #000000;
+        color: #232334;
     }
     
     .review-label {
         font-family: Muli;
-        font-size: 11px;
-        font-weight: bold;
-        color: #666666;
+        font-size: 14px;
+        font-weight: 600;
+        color: #747588;
     }
     
-    .form-control {
-        font-size: 12px !important;
+    .area-border {
+        border-radius: 6px;
+        border: solid 1px #d6d6d6;
+        background-color: #ffffff;
+        font-family: Muli;
+        font-size: 14px !important;
+        font-weight: 600;
+        color: #232334 !important;
     }
     
     .experience-padding {

@@ -63,7 +63,7 @@ const routes: Routes = [
         component: LoginSecurityComponent
       },
       {
-        path: 'chat-notification',
+        path: 'preferences',
         component: ChatNotificationComponent
       },
       {
@@ -76,7 +76,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'welcome-aboard',
         pathMatch: 'full',
       },
       {

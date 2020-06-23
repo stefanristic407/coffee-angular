@@ -78,11 +78,12 @@ table.dataTable.row-border tbody tr {
 .estate-title {
     border-radius: 4px;
     background-color: #f8f8f8;
+    height: 55px;
 }
 
 .estate-title th {
     font-family: Muli;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -91,18 +92,65 @@ table.dataTable.row-border tbody tr {
     color: #232334;
 }
 
+.dataTable {
+    border-radius: 4px !important;
+    background-color: #f8f8f8 !important;
+}
 
-/* .estate-boby-txt {
-    cursor: pointer;
-} */
+.row {
+    color: #232334 !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-family: 'Muli' !important;
+    border-bottom: none !important;
+}
 
+table.dataTable.no-footer {
+    border-bottom: solid 1px #d6d6d6 !important;
+}
+
+table.dataTable thead th {
+    border-bottom: none !important;
+}
+
+.even {
+    font-family: Muli !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    color: #232334 !important;
+    padding: 1rem 0rem 0rem 1rem;
+}
+
+.odd {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    padding: 1rem 0rem 0rem 1rem;
+}
+
+.estate-boby-txt {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+
+/* 
 .estate-boby-txt td {
     font-family: Muli;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #232334;
-    padding: 1rem 1rem 0 1rem;
-}
+    padding: 1rem 0rem 0rem 1rem;
+} */
 
 .status-Shipped {
     font-size: 12px;
@@ -160,26 +208,43 @@ table.dataTable.row-border tbody tr {
     width: 55%; */
 }
 
-.typeoforder-Pre-Booked {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #7c6be8;
+.odd .typeoforder-Pre-Booked {
+    font-family: Muli !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    color: #7c6be8 !important;
+    /* padding: .2rem;
+    width: 75%; */
+}
+
+.foo-calendar input {
+    display: none !important;
+}
+
+.even .typeoforder-Pre-Booked {
+    font-family: Muli !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    color: #7c6be8 !important;
     /* padding: .2rem;
     width: 75%; */
 }
 
 .view-order {
-    font-family: Muli;
-    font-size: 14px;
+    font-family: Muli !important;
+    font-size: 14px !important;
     font-weight: bold !important;
     color: #80460b !important;
-    text-decoration: underline;
-    cursor: pointer;
+    text-decoration: underline !important;
+    cursor: pointer !important;
 }
 
 .estate-order-title {
@@ -194,6 +259,9 @@ table.dataTable.row-border tbody tr {
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
     padding: 10px 12px;
+}
+.border-order:focus{
+    outline-color: 1px solid #30855c;
 }
 
 .title-header {
@@ -240,7 +308,7 @@ span.checkmark {
 }
 
 .estate-title .checkmark {
-    top: -9px !important;
+    top: 3px !important;
 }
 
 .estate-boby-txt .checkmark {
@@ -327,20 +395,22 @@ span.checkmark {
 /******Date Range Css*********/
 
 :host ::ng-deep .ui-inputtext {
-    border: 1px solid #3d8462 !important;
+    /* border: 1px solid #3d8462 !important;
     font-size: 13px !important;
     color: #3d8462 !important;
     padding: 7px 30px 5px 7px !important;
-    margin-right: 5px;
+    margin-right: 5px; */
+    display: none !important;
 }
 
-:host ::ng-deep .ui-inputtext:focus {
+
+/* :host ::ng-deep .ui-inputtext:focus {
     box-shadow: 0 0 0 0.035rem green !important;
 }
 
 :host ::ng-deep .ui-datepicker {
     top: 0px !important;
-}
+} */
 
 
 /* ::ng-deep .ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
@@ -372,7 +442,7 @@ span.checkmark {
 
 /* The container */
 
-.b-check {
+.bestate-check {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -389,7 +459,7 @@ span.checkmark {
 
 /* Hide the browser's default checkbox */
 
-.b-check input {
+.bestate-check input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -400,7 +470,7 @@ span.checkmark {
 
 /* Create a custom checkbox */
 
-.checkmark {
+.estatecheckmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -411,28 +481,28 @@ span.checkmark {
     border-radius: 2px;
 }
 
-.first-t {
-    top: -9px !important;
+.first_t {
+    top: -5px !important;
 }
 
 
 /* On mouse-over, add a grey background color */
 
-.b-check:hover input~.checkmark {
+.bestate-check:hover input~.estatecheckmark {
     background-color: #fff;
 }
 
 
 /* When the checkbox is checked, add a blue background */
 
-.b-check input:checked~.checkmark {
+.bestate-check input:checked~.estatecheckmark {
     background-color: #30855c;
 }
 
 
 /* Create the checkmark/indicator (hidden when not checked) */
 
-.checkmark:after {
+.estatecheckmark:after {
     content: "";
     position: absolute;
     display: none;
@@ -441,14 +511,14 @@ span.checkmark {
 
 /* Show the checkmark when checked */
 
-.b-check input:checked~.checkmark:after {
+.bestate-check input:checked~.estatecheckmark:after {
     display: block;
 }
 
 
 /* Style the checkmark/indicator */
 
-.b-check .checkmark:after {
+.bestate-check .estatecheckmark:after {
     left: 5px;
     top: 2px;
     width: 5px;
@@ -466,4 +536,11 @@ span.checkmark {
 
 .spacing-order {
     padding: 1rem 0.6rem !important;
+}
+
+.display_div {
+    /* width: 100%; */
+    position: absolute;
+    right: 2.3rem;
+    top: -0.2rem;
 }

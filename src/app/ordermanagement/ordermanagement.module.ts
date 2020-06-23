@@ -33,6 +33,10 @@ import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-
 import {CalendarModule} from 'primeng/calendar';
 import { ReviewRatingsComponent } from './review-ratings/review-ratings.component';
 import { RatingComponent } from './rating/rating.component';
+import { MicroRoasterComponent } from './dispute-system/micro-roaster/micro-roaster.component';
+import { HorecaComponent } from './dispute-system/horeca/horeca.component';
+import { ModalModule } from "ngx-bootstrap/modal";
+import { EstateComponent } from './dispute-system/estate/estate.component';
 
 
 
@@ -61,7 +65,10 @@ import { RatingComponent } from './rating/rating.component';
     RaisedTicketComponent,
     SelectAnOrderComponent,
     ReviewRatingsComponent,
-    RatingComponent
+    RatingComponent,
+    MicroRoasterComponent,
+    HorecaComponent,
+    EstateComponent
   ],
   imports: [
     CommonModule,
@@ -72,6 +79,7 @@ import { RatingComponent } from './rating/rating.component';
     RatingModule,
     PopoverModule,
     CalendarModule,
+    ModalModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ]

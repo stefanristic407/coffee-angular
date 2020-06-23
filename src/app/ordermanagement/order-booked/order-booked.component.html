@@ -96,11 +96,12 @@
                         <h4 class="order-txt fnt-play">Confirm Shipment</h4>
                         <div class="confirm-grade pt-2">Please confirm if you have recieved the shipment you have ordered.</div>
                         <div class="confirm-grade">The order will be marked as complete then</div>
-                        <button type="submit" class="yes-txt btn mt-3" (click)="receivedShippment()">Yes i have</button>
+                        <!-- <button type="submit" class="yes-txt btn mt-3" (click)="receivedShippment()">Yes i have</button> -->
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                        <button type="submit" class="cancel-order btn mt-3">Leave a feedback!   </button>
-                        <button type="submit" class="cancel-order btn mt-3">Have a problem? </button>
+                        <button type="submit" class="yes-order btn mt-3 yes-i-have">Yes i have </button><br/>
+                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/review-ratings">Leave a feedback!</button>
+
                     </div>
                 </div>
             </div>
@@ -118,13 +119,13 @@
                             <h4 class="order-txt fnt-play">Received on 6th March</h4>
                             <div class="confirm-grade pt-2">Wohoo! You have successfully recieved the bulk you ordered.</div>
                             <div class="confirm-grade">Please Rate and Review the estate and facilitator to help us expand as a transparent community!</div>
-                            <button type="submit" class="yes-txt btn mt-3">Buy it</button>
-                            <button type="submit" class="cancel-order btn mt-3 ml-3">Browse other estates</button></div>
+                            <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/review-ratings">Leave a feedback!</button>
 
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                        <button type="submit" class="cancel-order btn mt-3">Leave a feedback!   </button>
-                        <button type="submit" class="cancel-order btn mt-3">Have a problem? </button>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
+                            <button type="submit" class="yes-order btn mt-3">Buy it again   </button>
+                            <button type="submit" class="cancel-order btn mt-3">Browse other estates </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -163,11 +164,11 @@
                 <li class="nav-item">
                     <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Grade Info</a>
                 </li>
-                <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn">Have a problem?</button></li>
+                <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/raised-tickets">Have a problem?</button></li>
             </ul>
 
             <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
-                <button type="button" class="btn problem-btn">Have a problem?</button>
+                <button type="button" class="btn problem-btn" routerLink="/ordermanagement/raised-tickets">Have a problem?</button>
             </div>
             <div class="tab-content mt-md-5" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -409,11 +410,28 @@
 
 
 
-    <div class="w-100 mt-5">
+    <div class="w-100 mt-5 pb-5">
         <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">Cancel order</button>
     </div>
     <div class="w-100 chat-div">
-        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
+        <section class="chatbox js-chatbox">
+            <div class="chatbox__header">
+                <h3 class="chatbox__header-cta-text"><span class="chatbox__header-cta-icon">
+                    </span>Order #12416 chat <span class="chat-indicator"> &#x25CF;</span> </h3>
+                <button class="js-chatbox-toggle chatbox__header-cta-btn u-btn"><i class="pi pi-angle-up"></i></button>
+            </div>
+            <!-- End of .chatbox__header -->
+            <div class="js-chatbox-display chatbox__display">
+
+            </div>
+            <!-- End of .chatbox__display -->
+            <form #myForm class="js-chatbox-form chatbox__form">
+                <input type="text" id="js-chatbox-input" class="js-chatbox-input chatbox__form-input" placeholder="Type your message..." required>
+                <button class="chatbox__form-submit u-btn"><img class="img-estate ml-4" src="assets/images/chat-send.png" alt="User"></button>
+            </form>
+            <!-- End of .chatbox__form -->
+        </section>
+        <!-- End of .chatbox -->
     </div>
 
 </div>

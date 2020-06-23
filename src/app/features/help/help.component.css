@@ -12,7 +12,7 @@
 }
 
 a.b-cum:hover {
-    color: #000000;
+    color: #232334;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -22,14 +22,14 @@ a.b-cum:hover {
 }
 
 .header-value{
-    font-family: PlayfairDisplay;
-    font-size: 28px;
-    font-weight: normal;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #020202;
+    color: #232334;
     padding-left: 2%;
     word-break: keep-all;
 }
@@ -37,12 +37,12 @@ a.b-cum:hover {
 .sub-text{
     font-family: Muli;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.43;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
     padding-left: 2%;
 }
 .sub-header{
@@ -53,32 +53,32 @@ a.b-cum:hover {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
-    padding: 10% 0 3% 1%;
+    color: #232334;
+    padding: 5% 0 0% 1%;
 }
 .text-data{
     font-family: Muli;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 .privacy-content{
-    border-bottom: 1px dashed #dddddd;
+    border-bottom: 1px dashed #d6d6d6;
     padding: 3% 1% ;
     cursor: pointer;
 }
 .cookies-content{
-    border-bottom: 1px dashed #dddddd;
+    border-bottom: 1px dashed #d6d6d6;
     padding: 3% 1% ;
     cursor: pointer;
 }
-.cookies-content:last-child{
+/* .cookies-content:last-child{
     border-bottom: none;
-}
+} */
 
 
 
@@ -93,4 +93,32 @@ a.b-cum:hover {
         font-size: 13px;
     }
   
+}
+
+.breadcrumb1 {
+    padding: 2rem 2rem 0rem 2rem;
+}
+.border-clr {
+    border-radius: 0px;
+    border: solid 1px #ebebeb;
+    padding: 1rem 1rem 2.5rem 1rem;
+    margin: .5rem;
+}
+.raise-ticket {
+    padding-right: 2%;
+}
+.create-role-btn {
+    background-color: #30855c;
+    border-radius: 4px;
+    color: #ffffff;
+    border: 1px solid #30855c;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0.7rem;
+}
+
+.create-role-btn:hover {
+    /* background-color: #30855c; 
+    color:#fff; */
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }

@@ -12,7 +12,7 @@
 }
 
 a.b-cum:hover {
-    color: #000000;
+    color: #232334;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -22,10 +22,10 @@ a.b-cum:hover {
 }
 
 .create-role-btn {
-    background-color: #3d8462;
+    background-color: #30855c;
     border-radius: 8px;
     color: #ffffff;
-    border: 1px solid #3d8462;
+    border: 1px solid #30855c;
     font-size: 13px;
     font-weight: 600;
     padding: 0.7rem;
@@ -38,14 +38,14 @@ a.b-cum:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 .header-value{
-    font-family: PlayfairDisplay;
-    font-size: 28px;
-    font-weight: normal;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #020202;
+    color: #232334;
     padding-left: 2%;
     word-break: keep-all;
 }
@@ -60,30 +60,31 @@ a.b-cum:hover {
     font-style: normal;
     line-height: 1.43;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
     padding-left: 2%;
 }
 label {
    
     font-family: Muli;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #232334;
 }
 
 .form-control {
-    font-size: 12px !important;
+    font-size: 14px !important;
     height: 46px !important;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #d6d6d6;
     background-color: #fff;
-    color: #000;
+    color: #232334 !important;
     /* font-weight: 500; */
     font-family: Muli;
+    cursor: pointer;
 }
 .description{
     font-family: Muli;
@@ -93,12 +94,12 @@ label {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
 }
 .add-language{
-    height: 46px;
+    height: 34px;
   border-radius: 6px;
-  border: solid 1px #cccccc;
+  border: solid 1px #747588;
   background-color: #ffffff;
   text-align: center;
   cursor: pointer;
@@ -126,4 +127,34 @@ label {
     .add-language{
         width: 33.33%;
     }
+}
+
+.breadcrumb1 {
+    padding: 2rem 2rem 0rem 2rem;
+}
+.border-clr {
+    border-radius: 0px;
+    border: solid 1px #ebebeb;
+    padding: 1rem 1rem 2.5rem 1rem;
+    margin: .5rem;
+}
+.list-group-item {
+    border: none;
+    font-family: "Muli";
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: bold;
+    background-color: #f8f8f8;
+}
+.popover-content.popover-body{
+    padding: 0rem 0rem !important;
 }

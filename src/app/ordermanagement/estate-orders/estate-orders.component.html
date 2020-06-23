@@ -33,114 +33,90 @@
                 <div class="title-header d-inline desk_view_user">
                     <div class="d-inline border-order role-div col-sm-6">
                         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                        <p class="d-inline filter-text">Origin:&nbsp;</p>
+                        <p class="d-inline filter-text">Origin&nbsp;</p>
                         <a class="pointer-item" [popover]="originTemplate" placement="bottom" [outsideClick]="true" container="body" #pop4="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermOrigin == ''">
-                                All&nbsp; <img src="assets/images/active-user.png" />
+                                &nbsp; <img src="assets/images/active-user.png" />
                             </p>
                         </a>
                         <a class="pointer-item" [popover]="originTemplate" placement="bottom" [outsideClick]="true" container="body" #pop5="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermOrigin != ''">
-                                {{ estatetermOrigin }} &nbsp;<img src="assets/images/active-user.png" />
+                                : {{ estatetermOrigin }} &nbsp;<img src="assets/images/active-user.png" />
                             </p>
                         </a>
                     </div>&nbsp;&nbsp;
                     <div class="d-inline border-order type-div col-sm-6">
-                        <p class="d-inline filter-text">Type of order:&nbsp;</p>
+                        <p class="d-inline filter-text">Type of order&nbsp;</p>
                         <a class="pointer-item" [popover]="typeTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermType == ''">
-                                All&nbsp; <img src="assets/images/active-user.png" />
+                                &nbsp; <img src="assets/images/active-user.png" />
                             </p>
                         </a>
                         <a class="pointer-item" [popover]="typeTemplate" placement="bottom" [outsideClick]="true" container="body" #pop3="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermType != ''">
-                                {{ estatetermType }}&nbsp; <img src="assets/images/active-user.png" />
+                                : {{ estatetermType }}&nbsp; <img src="assets/images/active-user.png" />
                             </p>
                         </a>
                     </div>&nbsp;&nbsp;
                     <div class="d-inline border-order status-div col-sm-6">
-                        <p class="d-inline filter-text">Status:&nbsp;</p>
+                        <p class="d-inline filter-text">Status&nbsp;</p>
                         <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermStatus == ''">
-                                All&nbsp; <img src="assets/images/active-user.png" />
+                                &nbsp; <img src="assets/images/active-user.png" />
                             </p>
                         </a>
                         <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop1="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermStatus != ''">
-                                {{ estatetermStatus }}&nbsp; <img src="assets/images/active-user.png" />
+                                : {{ estatetermStatus }}&nbsp; <img src="assets/images/active-user.png" />
                             </p>
                         </a>
                     </div> &nbsp;&nbsp;
 
                     <div class="d-inline border-order date-div col-sm-6">
-                        <p class="d-inline filter-text">Date range &nbsp;</p>
+                        <p class="d-inline filter-text">Date range &nbsp;
+                            <span *ngIf = "showDateRange != ''">{{showDateRange}}</span>
+                        </p>
+                        
                         <a class="pointer-item">
+                            
                             <p class="d-inline filter">
-                                &nbsp; <img src="assets/images/active-calender.png" alt="">
+                                <p-calendar #calendar 
+                                    styleClass="only-icon" 
+                                    [(ngModel)]="rangeDates" 
+                                    selectionMode="range" 
+                                    dateFormat="dd.mm.yy" 
+                                    [readonlyInput]="true"
+                                    [showButtonBar]="true" 
+                                    (onSelect)="filterDate($event)"></p-calendar>
+                                &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
                                 <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                 </p-calendar> -->
                             </p>
                         </a>
 
                     </div>&nbsp;&nbsp;
-                    <div class="d-inline border-order status-div col-sm-6">
-                        <p class="d-inline filter-text">Display &nbsp; &#9679; &nbsp;</p>
-                        <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
-                            <p class="d-inline filter" *ngIf="displayNumbers == '-1'">
-                                All &nbsp; <img src="assets/images/active-user.png" />
-                            </p>
-                        </a>
-                        <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop7="bs-popover">
-                            <p class="d-inline filter" *ngIf="displayNumbers != '-1'">
-                                {{ displayNumbers }}&nbsp; <img src="assets/images/active-user.png" />
-                            </p>
-                        </a>
+                    <div class="d-inline display_div col-sm-6">
+                        <div class="float-right border-order top-space">
+                            <p class="d-inline filter-text">Display &nbsp; &#9679; &nbsp;</p>
+                            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
+                                <p class="d-inline filter" *ngIf="displayNumbers == '-1'">
+                                    &nbsp; <img src="assets/images/active-user.png" />
+                                </p>
+                            </a>
+                            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop7="bs-popover">
+                                <p class="d-inline filter" *ngIf="displayNumbers != '-1'">
+                                    {{ displayNumbers }}&nbsp; <img src="assets/images/active-user.png" />
+                                </p>
+                            </a>
+                        </div>
                     </div>
-                    <!-- <div class="d-inline status-div col-sm-6">
-                <p class="d-inline text-filters">Origin:</p>
-                <select class="form-group status_select ml-2" [(ngModel)]="estateorigin" name="estateorigin">
-                    <option value="">All</option>
-                    <option value="Ethopia">Ethopia</option>
-                    <option value="Colombia">Colombia</option>
-                </select>
-
-            </div>&nbsp;&nbsp;
-            <div class="d-inline role-div col-sm-6">
-                <p class="d-inline text-filters">Type of order:</p>
-                <select class="form-group status_select ml-2" name="estatetype" [(ngModel)]="estatetype">
-                    <option value="">All</option>
-                    <option value="Sample">Sample</option>
-                    <option value="Booked">Booked</option>
-                    <option value="Pre-Booked">Pre-Booked</option>
-                </select>
-            </div>
-            <div class="d-inline status-div col-sm-6">
-                <p class="d-inline text-filters">Status:</p>
-                <select class="form-group status_select ml-2" [(ngModel)]="estatestatus" name="estatestatus">
-                        <option value="">All</option>
-                        <option value="Shipped">Shipped</option>
-                        <option value="Order Confirmed">Order Confirmed</option>
-                        <option value="Received">Received</option>
-                        <option value="Cancelled">Cancelled</option>
-
-                    </select>
-
-            </div>&nbsp;&nbsp; -->
-
                 </div>
             </div>
         </div>
         <div class="estate-table pt-2">
-            <table class="table table-striped table-bordered table-sm row-border hover orders-border" datatable [dtOptions]="dtOptions">
-                <thead>
+            <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
+                <!-- <thead>
                     <tr class="estate-title">
-                        <!-- <th>  
-                <label class="customcheckbox m-b-20">
-                        <input type="checkbox" id="mainCheckbox" [checked]="isAllCheckedEstate()"
-                        (change)="checkAllEstate($event)" />
-                        <span class="checkmark head-check"></span>
-                    </label>
-                </th> -->
                         <th>
                             <label class="b-check first-t">
                             <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
@@ -149,7 +125,7 @@
                         </th>
                         <th>Order ID </th>
                         <th>Estate name </th>
-                        <th>Date ordered <img class="pl-1" src="assets/images/combined-shape-user.png" /></th>
+                        <th>Date ordered </th>
                         <th>Orgin </th>
                         <th>Species</th>
                         <th>Price</th>
@@ -158,23 +134,17 @@
                         <th>Status </th>
                         <th>Action</th>
                     </tr>
-                </thead>
+                </thead> 
                 <tbody>
-                    <tr *ngFor="let group of data | filter:estatetermOrigin | filter:estatetermType | filter: estatetermStatus" class="estate-boby-txt">
-                        <!-- <th>
-                    <label class="customcheckbox">
-                        <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{group.id}}" [(ngModel)]="group.state" />
-                        <span class="checkmark head-check"></span>
-                    </label>
-                </th> -->
-                        <td class="spacing-order">
+                    <tr *ngFor="let group of data" class="estate-boby-txt">
+                        <td class="spacing-order" style="width: 40px;">
                             <label class="b-check">
                             <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
                             <span class="checkmark"></span>
                           </label>
                         </td>
 
-                        <td>{{group.orderid}}</td>
+                        <td>{{group.id}}</td>
                         <td>{{group.estatename}}</td>
                         <td>{{group.dataordered}}</td>
                         <td>{{group.origin}}</td>
@@ -189,17 +159,10 @@
 
                         </td>
                         <td>{{group.status}}
-                            <!-- 
-                        <p class="status-Shipped" *ngIf="group.status == 'Shipped'">&#9679; {{group.status}}</p>
-                        <p class="status-Received" *ngIf="group.status == 'Received'">&#9679; {{group.status}}</p>
-                        <p class="status-Order-Confirmed" *ngIf="group.status == 'Order Confirmed'">&#9679; {{group.status}}</p>
-                        <p class="status-Shipped" *ngIf="group.status == 'Payment'">&#9679; {{group.status}}</p>
-                        <p class="status-Received" *ngIf="group.status == 'Harvest Ready'">&#9679; {{group.status}}</p> -->
-
                         </td>
                         <td class="view-order" (click)="displayData($event,group)">View order</td>
                     </tr>
-                </tbody>
+                </tbody> -->
             </table>
         </div>
 
@@ -210,22 +173,16 @@
     <div id="status-content">
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide()">All</a
-                  >
+                <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide()">All</a>
                 </li>
                 <li class="list-group-item item-color">
                   <a
                     class="pointer-item"
-                    (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide()"
-                    >Colombia</a
-                  >
+                    (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide()">Colombia</a>
                 </li>
                 <li class="list-group-item item-color">
-                  <a
-                    class="pointer-item"
-                    (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide()"
-                    >Ethopia</a
-                  >
+                  <a class="pointer-item"
+                    (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide()">Ethopia</a>
                 </li>
               </ul>
             </div>

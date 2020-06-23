@@ -30,7 +30,7 @@
     font-size: 12px;
     font-weight: bold;
     color: #747588;
-    margin-left: -2.5rem;
+    margin-left: -3rem;
 }
 
 .order-harvest {
@@ -774,4 +774,8 @@ li.nav-item {
 
 .booked {
     color: #649a2b !important;
+}
+
+.yes-i-have {
+    padding: 9px 37px 8px 37px !important;
 }

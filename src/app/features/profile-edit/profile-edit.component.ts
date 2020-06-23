@@ -8,7 +8,7 @@ import { ProfilePicService } from './profile-pic/profile-pic.service';
 })
 export class ProfileEditComponent implements OnInit {
   @ViewChild("image") image;
-  date3: Date;
+  date6: Date;
   role: string;
   phoneno: number;
   email: string;

@@ -35,7 +35,7 @@
     top: 80%;
     transform: translate(-50%);
     border-radius: 1.5px;
-    background-color: #3d8462;
+    background-color: #30855c;
 }
 
 .nav-pills {
@@ -50,19 +50,19 @@ li.nav-item {
 
 .nav-pills .nav-link {
     font-family: Muli;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    color: #666666;
-    text-transform: uppercase;
-    padding: 1rem 0rem;
+    color: #747588;
+    /* text-transform: uppercase; */
+    /* padding: 0rem 0rem; */
 }
 
 .nav-pills .nav-link.active {
     font-family: Muli;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    color: #3d8462;
-    padding: 1rem 0rem;
+    color: #30855c;
+    /* padding: 0rem 0rem; */
 }
 
 .highlight {
@@ -85,7 +85,7 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .estate-number {
@@ -96,7 +96,7 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
 }
 
 .estate-message {
@@ -107,7 +107,7 @@ li.nav-item {
     font-style: normal;
     line-height: 1.36;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .estate-read-more {
@@ -118,7 +118,7 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #30855c;
     cursor: pointer;
 }
 
@@ -136,7 +136,7 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
 }
 
 .border-div {
@@ -147,7 +147,7 @@ li.nav-item {
     font-size: 20px;
     position: relative;
     top: 5px;
-    color: #999999;
+    color: #979797;
 }
 
 .state-txt {
@@ -156,7 +156,7 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .rating-value {
@@ -188,7 +188,9 @@ li.nav-item {
 }
 
 .review-sec {
-    padding: 2rem 1rem;
+    padding: 2rem;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
 }
 
 .cust-review {
@@ -199,7 +201,8 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #232334;
+    ;
 }
 
 .recent-time td {
@@ -209,18 +212,18 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
-    padding: 10px !important;
+    color: #232334;
+    padding: 5px !important;
     border-bottom: 0px solid #dddddd !important;
 }
 
 .progress {
     display: -ms-flexbox;
     display: flex;
-    height: 6px;
+    height: 4px;
     overflow: hidden;
     font-size: .75rem;
-    background-color: #e9ecef;
+    background-color: #ebebeb;
     border-radius: 2px;
     width: 190px;
     margin-top: 7px;
@@ -237,8 +240,25 @@ li.nav-item {
     color: #fff;
     text-align: center;
     white-space: nowrap;
-    background-color: #a88057;
+    border-radius: 2.5px;
+    background-color: #649a2b;
     transition: width .6s ease;
+}
+
+.orange-per {
+    background-color: #ffa001 !important;
+}
+
+.red-per {
+    background-color: #ff1e5a !important;
+}
+
+.Finca-la-pampa {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: normal;
+    color: #232334;
 }
 
 .filter {
@@ -250,7 +270,7 @@ li.nav-item {
     line-height: normal;
     letter-spacing: normal;
     text-align: right;
-    color: #3d8462;
+    color: #30855c;
 }
 
 .back-ticket,
@@ -258,7 +278,7 @@ li.nav-item {
     font-family: Muli;
     font-size: 13px;
     font-weight: bold;
-    color: #3d8462;
+    color: #30855c;
     cursor: pointer;
 }
 
@@ -271,7 +291,8 @@ li.nav-item {
 }
 
 .review-tabs {
-    border-left: 1px solid #dddddd;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
     padding: 0rem 3rem;
 }
 
@@ -284,11 +305,11 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .item-color {
-    color: #666666;
+    color: #747588;
     font-weight: 500;
 }
 
@@ -332,4 +353,8 @@ li.nav-item {
     .star-two {
         margin-top: 3rem;
     }
+}
+
+.bg-fff {
+    padding-bottom: 5rem;
 }

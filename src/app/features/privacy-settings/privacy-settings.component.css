@@ -12,7 +12,7 @@
 }
 
 a.b-cum:hover {
-    color: #000000;
+    color: #232334;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -22,36 +22,38 @@ a.b-cum:hover {
 }
 
 .create-role-btn {
-    background-color: #3d8462;
-    border-radius: 8px;
+    background-color: #30855c;
+    border-radius: 4px;
     color: #ffffff;
-    border: 1px solid #3d8462;
+    border: 1px solid #30855c;
     font-size: 13px;
     font-weight: 600;
     padding: 0.7rem;
 }
 
 .create-role-btn:hover {
-    /* background-color: #3d8462; 
+    /* background-color: #30855c; 
     color:#fff; */
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
-.header-value{
-    font-family: PlayfairDisplay;
-    font-size: 28px;
-    font-weight: normal;
+
+.header-value {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #020202;
-    padding-left: 2%;
+    color: #232334;
     word-break: keep-all;
 }
-.raise-ticket{
+
+.raise-ticket {
     padding-right: 2%;
 }
-.sub-text{
+
+.sub-text {
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
@@ -60,9 +62,9 @@ a.b-cum:hover {
     line-height: 1.43;
     letter-spacing: normal;
     color: #666666;
-    padding-left: 2%;
 }
-.sub-header{
+
+.sub-header {
     font-family: Muli;
     font-size: 18px;
     font-weight: bold;
@@ -70,10 +72,11 @@ a.b-cum:hover {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
-    padding: 10% 0 3% 1%;
+    color: #232334;
+    padding: 1rem 1rem 0rem 1rem;
 }
-.text-data{
+
+.text-data {
     font-family: Muli;
     font-size: 16px;
     font-weight: 500;
@@ -81,48 +84,70 @@ a.b-cum:hover {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
-}
-.privacy-content{
-    border-bottom: 1px dashed #dddddd;
-    padding: 3% 1% ;
-}
-.cookies-content{
-    border-bottom: 1px dashed #dddddd;
-    padding: 3% 1% ;
+    color: #232334;
 }
 
-:host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider:before{
-background-color: #24be46 !important;
+.privacy-content {
+    border-bottom: 1px dashed #cccccc;
+    padding: 1rem .2rem;
 }
-:host ::ng-deep .ui-inputswitch .ui-inputswitch-slider:before{
+
+.cookies-content {
+    border-bottom: 1px dashed #cccccc;
+    padding: 1rem .2rem;
+}
+
+.privacy-content-list,
+.cookies-content-list {
+    padding-left: 0.7rem;
+}
+
+:host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider:before {
+    background-color: #24be46 !important;
+}
+
+:host ::ng-deep .ui-inputswitch .ui-inputswitch-slider:before {
     background-color: #999999 !important;
 }
-:host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider{
-background-color: #D3F2DA !important;
+
+:host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider {
+    background-color: #D3F2DA !important;
 }
-:host ::ng-deep .ui-inputswitch .ui-inputswitch-slider{
+
+:host ::ng-deep .ui-inputswitch .ui-inputswitch-slider {
     background-color: #dddddd !important;
 }
-:host ::ng-deep .ui-inputswitch .ui-inputswitch-focus{
+
+:host ::ng-deep .ui-inputswitch .ui-inputswitch-focus {
     box-shadow: none !important;
     outline: none !important;
 }
 
-@media screen and (max-width : 425px){
-    .sub-header{
+@media screen and (max-width: 425px) {
+    .sub-header {
         font-size: 16px;
     }
-    .sub-text{
+    .sub-text {
         font-size: 13px;
     }
-    .text-data{
+    .text-data {
         font-size: 13px;
     }
-    .raise-ticket{
+    .raise-ticket {
         padding-top: 2%;
     }
-    .create-role-btn{
+    .create-role-btn {
         font-size: 10px;
     }
+}
+
+.breadcrumb1 {
+    padding: 2rem 2rem 0rem 2rem;
+}
+
+.border-clr {
+    border-radius: 0px;
+    border: solid 1px #ebebeb;
+    padding: 1rem 1rem 2.5rem 1rem;
+    margin: .5rem;
 }

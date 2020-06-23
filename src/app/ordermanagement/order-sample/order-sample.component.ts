@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GradeInfoComponent } from '../order-sample/grade-info/grade-info.component';
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import { OrderDetailsComponent } from '../order-sample/order-details/order-details.component';
 
 @Component({
 	selector: 'app-order-sample',
@@ -19,7 +20,7 @@ export class OrderSampleComponent implements OnInit {
 	@ViewChild('shippmentSample', { static: false }) private shippmentSample: ElementRef<HTMLElement>;
 	@ViewChild('receivedSample', { static: false }) private receivedSample: ElementRef<HTMLElement>;
 	@ViewChild('gradedSample', { static: false }) private gradedSample: ElementRef<HTMLElement>;
-
+	@ViewChild('myForm') myForm;
 	sampleValueToShow: string = "Order Placed";
 	orderSampleTimeline: boolean = true;
 	confirmShow: boolean = false;
@@ -118,6 +119,11 @@ export class OrderSampleComponent implements OnInit {
 		completedProcess.classList.remove('completed');
 		this.shippmentReport = true;
 		this.sampleService.shipmentDone = true;
+
+		// Calling the Order Details component by creating object of the component and accessing its methods
+
+		let uploadReceipt = new OrderDetailsComponent(this.sampleService);
+		uploadReceipt.uploadReceipt();
 	}
 	// Function Name : Order Sample Received
 	// Description: This function fills timeline of order received.
@@ -171,6 +177,49 @@ export class OrderSampleComponent implements OnInit {
 			},
 				500);
 		});
+
+		//chat 
+
+		const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
+const chatbox = document.querySelector(".js-chatbox");
+const chatboxMsgDisplay = document.querySelector(".js-chatbox-display");
+const chatboxForm = document.querySelector(".js-chatbox-form");
+
+// Use to create chat bubble when user submits text
+// Appends to display
+const createChatBubble = input => {
+  const chatSection = document.createElement("p");
+  chatSection.textContent = input;
+  chatSection.classList.add("chatbox__display-chat");
+
+  chatboxMsgDisplay.appendChild(chatSection);
+};
+
+// Toggle the visibility of the chatbox element when clicked
+// And change the icon depending on visibility
+toggleChatboxBtn.addEventListener("click", () => {
+  chatbox.classList.toggle("chatbox--is-visible");
+
+  if (chatbox.classList.contains("chatbox--is-visible")) {
+    toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
+  } else {
+    toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
+  }
+});
+
+// Form input using method createChatBubble
+// To append any user message to display
+chatboxForm.addEventListener("submit", e => {
+//   const chatInput = document.querySelector(".js-chatbox-input");
+  const chatInput=(document.getElementById("js-chatbox-input") as HTMLInputElement).value;
+//   console.log("chat text coming"+chatInput);
+
+  createChatBubble(chatInput);
+
+  e.preventDefault();
+  this.myForm.nativeElement.reset();
+});
+
 	}
 	// onRate($event:{ newValue:number}) {
 

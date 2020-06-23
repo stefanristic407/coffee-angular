@@ -12,48 +12,26 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 
-// @Component({
-//   selector: 'bottom-sheet-overview-example-sheet',
-//   templateUrl: 'bottom-sheet-overview-example-sheet.html',
-//   styleUrls:['bottom-sheet-overview-example-sheet.css']
-// })
-// export class BottomSheetOverviewExampleSheet {
-//   constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
-
-//   openLink(event: MouseEvent): void {
-//     this._bottomSheetRef.dismiss();
-//     event.preventDefault();
-//   }
-// }
-
-
 @Component({
   selector: 'app-manage-role',
   templateUrl: './manage-role.component.html',
   styleUrls: ['./manage-role.component.css']
 })
+
 export class ManageRoleComponent implements OnInit {
-  // showElement: Array<Boolean>=[]; 
   roleData: any;
   roaster_id: any;
   role_id: any;
   sizes: any[] = [];
   roleID: any;
+  roasterUsers: any[] = [];
+  userRoles: any[] = [];
   constructor(private _bottomSheet: MatBottomSheet,
     public router: Router,
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
     private toastrService: ToastrService
   ) { }
-
-  //  sizes: any[] = [
-  //   { 'id': '1', 'members': '5', 'roles': 'Sales and Marketing' },
-  //   { 'id': '2', 'members': '7', 'roles': 'Accounting' },
-  //   { 'id': '3', 'members': '4', 'roles': 'Finance' },
-  //   { 'id': '4', 'members': '9', 'roles': 'Super Admin' },
-  //   { 'id': '5', 'members': '6', 'roles': 'Admin' },
-  //   { 'id': '6', 'members': '1', 'roles': 'Finance' }
-  // ];
 
   ngOnInit(): void {
     //Auth checking
@@ -71,57 +49,77 @@ export class ManageRoleComponent implements OnInit {
     this.loadroles();
   }
 
-   getRandomInt(max) {
+  getRandomInt(max: any) {
     return Math.floor(Math.random() * Math.floor(max));
   }
-  
+
 
   // Function Name : Open Bottom Sheet
   // Description: This function helps to open the more options in mobile view
-
   openBottomSheet(): void {
     this._bottomSheet.open(BottomSheetOverviewExampleSheet);
   }
 
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
-
-  checkAll(ev) {
+  checkAll(ev: any) {
     this.sizes.forEach(x => x.state = ev.target.checked)
   }
 
   // Function Name : IsAllchecked
   // Description: This function helps to check single role.
-
   isAllChecked() {
     return this.sizes.every(_ => _.state);
   }
 
   // Function Name : Roles
   // Description: This function helps to get the all Roles of the user. 
-
   loadroles() {
-    this.roasterService.getRoles(this.roaster_id).subscribe(
+    var roasterServices = this.roasterService;
+    var roasterId = this.roaster_id;
+    //var userRoles = [];
+    roasterServices.getRoles(roasterId).subscribe(
       result => {
         if (result["success"] == true) {
-          this.sizes = result['result'];
-          console.log("Roles are :")
-          console.log(this.sizes);
-          console.log("Roles list ended here.")
+          var list = result['result'];
+          for(var i = 0; i < list.length; i++){
+            this.userRoles[list[i]['name']]  =  0;
+          }
+          for(var i = 0; i < list.length; i++){
+            list[i]['team_size'] = this.userRoles[list[i]['name']];
+            this.sizes[i] = list[i];
+          }
         }
       }
     );
+    this.getRoleCount(this.roaster_id);
+  }
+
+  getRoleCount(roasterId: any){
+    this.roasterService.getRoasterUsers(roasterId).subscribe(
+      roasterUsers => {
+        roasterUsers['result'].forEach(element => {
+          var userId = element['id'];
+          this.roasterService.getUserBasedRoles(roasterId, userId).subscribe(
+            userRoleDetails => {
+              for(var j = 0 ; j < userRoleDetails['result'].length; j++){
+                this.userRoles[userRoleDetails['result'][j]['name']]++;
+              }
+            }
+          );
+        });
+      }
+    );
+    console.log(this.userRoles);
   }
 
   // Function Name : Delete Role
   // Description: This function helps to Delete the role of the user. 
-
   deleteRole(id: any) {
     if (confirm("Please confirm! you want to delete?") == true) {
       this.roasterService.deleteRoles(this.roaster_id, id).subscribe(
         data => {
           if (data['success'] == true) {
-            // console.log("the role deleted succesfully");
             this.toastrService.success("Roles deleted successfully!");
             $('#tr_' + id).hide();
             $('body').trigger('click');
@@ -135,18 +133,15 @@ export class ManageRoleComponent implements OnInit {
 
   // Function Name : Update Role
   // Description: This function helps to update the role permissions of the user. 
-
   updateRole(id: any) {
     this.router.navigate(["/people/create-role", id]);
 
   }
-
   // Function Name : Add  Member
   // Description: This function helps to redirect to the add member page with selected role.
   addMembers(event, data: any) {
     this.roleData = data.name;
     this.roleID = data.id;
-    console.log(this.roleData);
     let navigationExtras: NavigationExtras = {
       queryParams: {
         "roleData": encodeURIComponent(this.roleData),
@@ -154,7 +149,6 @@ export class ManageRoleComponent implements OnInit {
 
       }
     }
-
     this.router.navigate(['/people/add-members'], navigationExtras);
   }
 
@@ -170,6 +164,4 @@ export class ManageRoleComponent implements OnInit {
     this.router.navigate(['/people/user-management'], navigationExtras);
 
   }
-
-
 }

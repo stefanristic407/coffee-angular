@@ -20,6 +20,8 @@ export class OrderBookedComponent implements OnInit {
   @ViewChild('shippmentBooked', { static: false }) private shipmentBooked: ElementRef<HTMLElement>;
   @ViewChild('receivedBooked', { static: false }) private receivedBooked: ElementRef<HTMLElement>;
   @ViewChild('gradedBooked', { static: false }) private gradedBooked: ElementRef<HTMLElement>;
+  @ViewChild('myForm') myForm;
+
 
   bookedValueToShow: string = "Order Placed";
   orderBookedTimeline: boolean = true;
@@ -187,10 +189,59 @@ export class OrderBookedComponent implements OnInit {
       },
         500);
     });
+
+    //chat 
+
+		const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
+    const chatbox = document.querySelector(".js-chatbox");
+    const chatboxMsgDisplay = document.querySelector(".js-chatbox-display");
+    const chatboxForm = document.querySelector(".js-chatbox-form");
+    
+    // Use to create chat bubble when user submits text
+    // Appends to display
+    const createChatBubble = input => {
+      const chatSection = document.createElement("p");
+      chatSection.textContent = input;
+      chatSection.classList.add("chatbox__display-chat");
+    
+      chatboxMsgDisplay.appendChild(chatSection);
+    };
+    
+    // Toggle the visibility of the chatbox element when clicked
+    // And change the icon depending on visibility
+    toggleChatboxBtn.addEventListener("click", () => {
+      chatbox.classList.toggle("chatbox--is-visible");
+    
+      if (chatbox.classList.contains("chatbox--is-visible")) {
+        toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
+      } else {
+        toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
+      }
+    });
+    
+    // Form input using method createChatBubble
+    // To append any user message to display
+    chatboxForm.addEventListener("submit", e => {
+    //   const chatInput = document.querySelector(".js-chatbox-input");
+      const chatInput=(document.getElementById("js-chatbox-input") as HTMLInputElement).value;
+    //   console.log("chat text coming"+chatInput);
+    
+      createChatBubble(chatInput);
+    
+      e.preventDefault();
+      this.myForm.nativeElement.reset();
+    });
+    
+      }
+      // onRate($event:{ newValue:number}) {
+    
+      //   this.newvalue=$event.newValue;
+      //  console.log(this.newvalue);
+      // }
   }
   // onRateBooked($event:{ newValue:number}) {
 
   //   this.newvalue=$event.newValue;
   //  console.log(this.newvalue);
   // }
-}
+

@@ -1,8 +1,6 @@
-<div class="header-sewn">
-    <h1 class="hello-txt"> Language & Region</h1>
-</div>
 
-<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-3">
+<div class="bg-fff">
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
@@ -11,24 +9,25 @@
         <li class="b-cum">
             <a class="b-cum" routerLink="/features/account-settings">Account Settings</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
         </li>
-        <li class="b-cum c-pink">Language and Region</li>
+        <li class="b-cum c-pink">Language & region</li>
     </ul>
 </nav>
 <section class="col-sm-12 col-md-12 col-lg-12 p-4">
     <div class="row">
         <div class="col-md-6 col-lg-6">
-            <p class="header-value mr-auto text-left fnt-play">Language & Region</p>
+            <p class="header-value mr-auto text-left">Language & region</p>
             <p class="sub-text">Please select you language and time zone</p>
         </div>
         <div class="ml-auto text-right raise-ticket">
-            <button type="submit" class="btn btn-succes create-role-btn web-btn">SAVE CHANGES</button>
+            <button type="submit" class="btn btn-succes create-role-btn web-btn">Save changes</button>
         </div>
     </div>
+    <div class="border-clr">
     <div class="row">
         <div class="col-md-8 col-lg-5 col-sm-12">
             <form class="form-container">
                 <div class="form-group mb-4 mob-space">
-                    <label for="lang">LANGUAGE</label>
+                    <label for="lang">Language</label>
                     <select id="lang" class="form-control" name="lang" required="" [(ngModel)]="lang">
               <option value="" selected disabled> Select any language</option>
               <option value="en"> English </option>
@@ -38,15 +37,17 @@
                 </div>
 
                 <div class="form-group mt-5 mob-space">
-                    <label for="add-language">I CAN CONVERSE IN</label>
-                    <!-- <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover"> -->
-                    <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language"><img class="plus-symbol" src="assets/images/plus.svg">Add Language</div>
+                    <label for="add-language">I can converse in</label>
+                    
+                    <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language">
+                        <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
+                      <img class="plus-symbol" src="assets/images/plus.svg">Add Language </a></div>
                     <!-- </a> -->
                     <p class="description mt-1">Add Language that you can communicate in</p>
                 </div>
 
                 <div class="form-group mt-5 mob-space">
-                    <label for="timezone">TIME ZONE</label>
+                    <label for="timezone">Time zone</label>
                     <select id="timezone" class="form-control" name="timezone" required="" [(ngModel)]="timezone">
               <option value="" selected disabled> Select Timezone</option>
               <optgroup label="US (Common)">	
@@ -548,9 +549,10 @@
             </form>
         </div>
     </div>
+  </div>
 </section>
-
-<!-- <ng-template #allTemplate>
+</div>
+ <ng-template #allTemplate>
     <div id="status-content">
       <ul class="list-group custom-popover">
         <li class="list-group-item item-color">
@@ -595,4 +597,4 @@
           </li>
       </ul>
     </div>
-  </ng-template> -->
+  </ng-template> 

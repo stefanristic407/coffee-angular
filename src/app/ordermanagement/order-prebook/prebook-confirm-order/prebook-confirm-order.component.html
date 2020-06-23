@@ -84,12 +84,14 @@
             <div class="row pt-2">
                 <div class="row">
                     <div class="pull-left col-8 col-md-8 col-lg-8 pr-0">
-                        <input type="text" name="search" class="col-12 search" placeholder="" />
+                        <input type="text" name="search" class="col-12 search" id="quantityId" [(ngModel)]="quantity" placeholder="" />
                         <span class="main-bag">Bags</span>
+                        <div class="confirm-ordererror" *ngIf="confirmOrderError != ''">{{confirmOrderError}}</div>
                     </div>
-                    <div class="d-inline col-4 col-md-4 col-lg-4 price-tag">X<span class="pl-2">$450</span> </div>
+                    <div class="d-inline col-4 col-md-4 col-lg-4 price-tag">X<span class="pl-2"></span>${{this.price}}</div>
                 </div>
-                <div class="pull-right ml-auto price-total">$112,500</div>
+                <div class="pull-right ml-auto price-total" *ngIf="quantity==''">$0</div>
+                <div class="pull-right ml-auto price-total" *ngIf="quantity!=''">${{price*quantity}}</div>
             </div>
 
 
@@ -137,8 +139,8 @@
         </div>
         <div class="row pb-5">
             <div class="col-12 mt-4">
-                <button type="submit" class="place-order float-right btn">Place Order</button>
-                <button type="button" class="ord_cancel float-right btn btn-link mr-2">Cancel</button>
+                <button type="submit" class="place-order float-right btn" (click)="placeOrder()">Place Order</button>
+                <button type="button" class="ord_cancel float-right btn btn-link mr-2" routerLink="/ordermanagement/order-prebook">Cancel</button>
             </div>
         </div>
 
@@ -147,3 +149,26 @@
 
     <!-- </div> -->
 </div>
+
+<ng-template #confirmtemplate>
+    <div class="modal-header">
+        <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button> -->
+    </div>
+    <div class="modal-body text-center mb-5">
+        <i class="pi pi-exclamation-triangle pb-2" style="font-size: 3em"></i>
+
+        <div class="are-sure fnt-play">
+            Confirm Order
+        </div>
+        <div class="do-account pt-1 pb-2">Are you sure you want to</div>
+        <div class="pt-4">
+            <button class="btn add-btn">Continue adding</button>
+
+        </div>
+        <div class="done_order pt-2" (click)="modalRef.hide();">Done</div>
+
+
+    </div>
+</ng-template>

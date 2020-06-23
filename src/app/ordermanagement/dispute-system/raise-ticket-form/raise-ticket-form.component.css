@@ -7,13 +7,23 @@
 .update-title {
     font-family: 'PlayfairDisplay';
     font-size: 34px;
-    color: #000000;
+    color: #232334;
     line-height: normal;
     letter-spacing: normal;
 }
 
 .raise-a-ticket {
-    padding: 1rem 2.2rem;
+    padding: .5rem 2rem 1rem 2rem;
+}
+
+.raise-order-details {
+    padding: .5rem 1rem 1rem 1rem;
+}
+
+.bg-raise {
+    border-radius: 4px;
+    padding: 2rem;
+    border: solid 1px #ebebeb;
 }
 
 .raise-a-ticket h3 {
@@ -23,13 +33,13 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .ord {
     height: 50px;
-    border-radius: 6px;
-    background-color: #f9f9f9;
+    border: solid 1px #ebebeb !important;
+    background-color: #f8f8f8 !important;
 }
 
 .raise-chng-ord {
@@ -39,32 +49,32 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #30855c;
     position: absolute;
     top: 2.3rem;
     cursor: pointer;
 }
 
 .raise-label {
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
-    text-transform: uppercase;
+    color: #232334;
+    /* text-transform: uppercase; */
 }
 
 .raise-date {
-    font-size: 11px !important;
+    font-size: 14px !important;
     font-weight: 600 !important;
     font-stretch: normal !important;
     font-style: normal !important;
     line-height: normal !important;
     letter-spacing: normal !important;
-    color: #666666 !important;
-    text-transform: uppercase !important;
+    color: #232334 !important;
+    /* text-transform: uppercase !important; */
 }
 
 .raise-box {
@@ -75,13 +85,15 @@
 }
 
 .form-control {
-    font-size: 12px !important;
+    font-size: 14px !important;
 }
 
 .raise-bg-color {
-    background-color: #faf8f4;
+    /* background-color: #faf8f4; */
     border-radius: 4px;
-    padding: 2.5rem;
+    padding: 2rem;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
 }
 
 .ord-details-heading {
@@ -91,18 +103,18 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     margin-bottom: 1.5rem;
 }
 
 .raise-estate {
     font-family: Muli;
-    font-size: 13px;
+    font-size: 14px;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.38;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .raise-estate-name {
@@ -112,7 +124,7 @@
     font-style: normal;
     line-height: 1.38;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     font-weight: 600;
 }
 
@@ -123,7 +135,7 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     padding: 1rem 2rem 1rem 0rem;
     border-bottom: 1px solid #dddddd;
 }
@@ -137,24 +149,25 @@
     line-height: normal;
     letter-spacing: normal;
     line-height: 1.38;
-    color: #666666;
+    color: #747588;
 }
 
 .list-ans {
     font-family: Muli;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     line-height: 1.38;
 }
 
 .image-upload-wrap {
     margin-top: 10px;
-    border: 1px dashed #bbbbbb;
+    border-radius: 4px;
+    border: solid 1px #dddddd;
     position: relative;
 }
 
@@ -177,23 +190,23 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462 !important;
+    color: #747588 !important;
     padding-top: 10px;
 }
 
 .cancel-butn {
-    border-radius: 8px;
-    background-color: #3d8462;
+    border-radius: 4px;
+    background-color: #30855c;
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
-    border: #3d8462;
+    border: #30855c;
 }
 
 .cancel-butn:hover {
-    background-color: #3d8462;
-    border: #3d8462;
+    background-color: #30855c;
+    border: #30855c;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
@@ -210,7 +223,7 @@
 }
 
 .date-picker {
-    width: 100% !important;
+    width: 120% !important;
 }
 
 @media (max-width:1094px) {
@@ -255,3 +268,10 @@
     }
 }
 
+.bg-fff {
+    padding-bottom: 5rem;
+}
+
+.breadcrumb1 {
+    padding: 2rem;
+}

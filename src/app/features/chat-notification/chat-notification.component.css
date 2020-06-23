@@ -1,52 +1,48 @@
-.breadcrumb-item a {
-    color: #666666;
-}
-
-.breadcrumb-item.active {
-    color: #000;
-    padding-top: 1%;
-}
-
-a.b-cum:hover {
-    color: #000000;
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-.page-wrapper {
-    background-color: #FFFFFF;
-}
-
-.page-breadcrumb {
-    background-color: #FFFFFF;
-    margin-left: 1.5rem;
-}
-
 .chat-notify {
-    padding: 1rem 1.5rem 1rem 2.6rem;
+    padding: 0.5rem 2.7rem 2.5rem 2.6rem;
+}
+
+.bread-nav {
+    margin-left: 1.7rem;
+}
+
+.prefer-space {
+    margin-right: 2.6rem;
+}
+
+.top-padding {
+    padding-top: 2rem;
 }
 
 .preferences {
-    font-family: PlayfairDisplay;
-    font-size: 27px;
-    font-weight: normal;
-    color: #000000;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.border-chat {
+    border-radius: 0px;
+    border: solid 1px #ebebeb;
+    padding: 1.5rem;
 }
 
 .custom-text {
     font-family: Muli;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: normal;
-    color: #666666;
+    color: #747588;
 }
 
 .save-butn {
-    border-radius: 6px;
-    background-color: #3d8462;
+    border-radius: 4px;
+    background-color: #30855c;
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
+    font-stretch: normal;
     color: #ffffff;
+    padding: 0.7rem;
 }
 
 .save-padding {
@@ -56,17 +52,17 @@ a.b-cum:hover {
 .units-header,
 .chat-header {
     font-family: Muli;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    color: #000000;
+    color: #232334;
 }
 
 .farm-size,
 .quantity-size {
     font-family: Muli;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: normal;
-    color: #666666;
+    color: #747588;
 }
 
 .hectares-data,
@@ -75,25 +71,26 @@ a.b-cum:hover {
 .kilograms-data,
 .receipt-data {
     font-family: Muli;
-    font-size: 14px;
-    font-weight: normal;
-    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    color: #232334;
 }
 
 .read-text {
-    font-size: 10px;
-    font-weight: normal;
-    color: #666666;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
 }
 
 .chat-content {
-    border-bottom: 1px dashed #dddddd;
+    border-bottom: 1px dashed #cccccc;
     padding-bottom: 3%;
     padding-top: 3%;
 }
 
 .chat-content1 {
-    padding-bottom: 3%;
+    /* padding-bottom: 3%; */
     padding-top: 3%;
 }
 
@@ -119,8 +116,8 @@ input[type='radio']:before {
 input[type='radio']:checked:before {
     width: 12px;
     height: 12px;
-    border: solid 1px #000000;
-    background-color: #000000;
+    border: solid 1px #30855c;
+    background-color: #30855c;
 }
 
 .top-space {

@@ -4,15 +4,15 @@
 }
 
 .breadcrumb-item a {
-    color: #666666;
+    color: #747588;
 }
 
 .breadcrumb-item.active {
-    color: #000;
+    color: #232334;
 }
 
 a.b-cum:hover {
-    color: #000000;
+    color: #232334;
     text-decoration: underline;
     font-weight: bold;
 }
@@ -25,8 +25,8 @@ a.b-cum:hover {
     height: 241px;
     width: 100%;
     border-radius: 6px;
-    border: solid 1px #dddddd;
-    background-color: #ffffff;
+    border: solid 1px #ebebeb;
+    background-color: #FFFFFF;
     padding-left: 10%;
     padding-right: 10%;
     text-align: center;
@@ -38,7 +38,7 @@ a.b-cum:hover {
 }
 
 .dashboard-button:hover {
-    border: solid 1px #3d8462;
+    border: solid 1px #30855c;
 }
 
 .dashboard-button .icon-img-filled {
@@ -75,7 +75,7 @@ a.b-cum:hover {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
     margin-top: 5%;
 }
 
@@ -88,5 +88,9 @@ a.b-cum:hover {
     line-height: 1.43;
     letter-spacing: normal;
     text-align: center;
-    color: #666666;
+    color: #747588;
+}
+
+.breadcrumb1 {
+    padding: 2rem 2rem 0rem 2rem;
 }

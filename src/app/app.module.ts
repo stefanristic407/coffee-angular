@@ -12,6 +12,8 @@ import { FeaturesModule } from './features/features.module';
 import { OrdermanagementModule } from './ordermanagement/ordermanagement.module';
 import { PeopleModule } from './people/people.module';
 import { HealthCheckComponent } from './health-check/health-check.component';
+import {CalendarModule} from 'primeng/calendar';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 
 
@@ -29,6 +31,8 @@ import { HealthCheckComponent } from './health-check/health-check.component';
     AuthModule,
     FeaturesModule,
     PeopleModule,
+    OverlayPanelModule,
+    CalendarModule,
     OrdermanagementModule,
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true,
       positionClass: 'toast-bottom-right' }),

@@ -238,6 +238,50 @@ td {
 } */
 
 
+/********Modal********/
+
+.modal-header {
+    border-bottom: none;
+}
+
+.are-sure {
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.do-account {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+.add-btn {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 0px 1rem;
+    height: 46px;
+}
+
+.done_order {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    cursor: pointer;
+}
+
+::ng-deep .modal-content {
+    top: 3rem;
+}
+
+
 /****************************    Media Queries   ****************************/
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
@@ -290,4 +334,9 @@ td {
 
 .search:focus {
     box-shadow: 0 0 0 0.035rem green !important;
+}
+
+.confirm-ordererror {
+    color: #D50000;
+    font-size: 14px;
 }

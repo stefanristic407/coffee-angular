@@ -16722,8 +16722,199 @@ div.dataTables_wrapper div.dataTables_filter {
     position: absolute;
 }
 
+table.dataTable thead th {
+    border-bottom: none !important;
+    padding: 14px 11px !important;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background: none !important;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_desc:before {
+    display: none !important;
+}
+
+.typeoforder-Sample {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f19634;
+}
+
+.typeoforder-Booked {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    color: #649a2b;
+}
+
+.typeoforder-Pre-Booked {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    color: #7c6be8;
+}
+
+.view-order {
+    font-weight: bold !important;
+    color: #80460b !important;
+    text-decoration: underline;
+}
+
+.estate-boby-txt thead tr th {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold !important;
+    color: #232334 !important;
+    text-decoration: none;
+}
+
+.estate-boby-txt tbody tr td {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600 !important;
+    color: #232334;
+}
+
+.estate-boby-txt tbody tr td {
+    border-bottom: 1px dashed #d6d6d6 !important;
+}
+
+.estate-boby-txt tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
 .dataTables_wrapper .dataTables_length {
     float: right !important;
+}
+
+.estate-orders #DataTables_Table_0_length {
+    display: none;
+}
+
+
+/* The container */
+
+.bestate-check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 1rem;
+}
+
+
+/* Hide the browser's default checkbox */
+
+.bestate-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+/* Create a custom checkbox */
+
+.estatecheckmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+}
+
+.first_t {
+    top: -5px !important;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.bestate-check:hover input~.estatecheckmark {
+    background-color: #fff;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+
+.bestate-check input:checked~.estatecheckmark {
+    background-color: #30855c;
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.estatecheckmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the checkmark when checked */
+
+.bestate-check input:checked~.estatecheckmark:after {
+    display: block;
+}
+
+
+/* Style the checkmark/indicator */
+
+.bestate-check .estatecheckmark:after {
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: 1px solid #d6d6d6;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.radio-box {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    outline: none;
+    border: solid 1px #747588;
+    background-color: #ffffff;
+}
+
+.radio-box:before {
+    content: '';
+    display: block;
+    width: 10px !important;
+    height: 10px !important;
+    margin: 16% auto;
+    border-radius: 50%;
+}
+
+.radio-box:checked:before {
+    width: 12px;
+    height: 12px;
+    border: solid 1px #30855c;
+    background-color: #30855c;
 }
 
 .dataTables_wrapper .dataTables_filter input {
@@ -17436,7 +17627,7 @@ ul {
     border-top: 1.5px solid #7e919a;
     border-right: 1.5px solid #7e919a;
     right: 0;
-    top: calc(35% + 2px);
+    top: calc(35% + 6px);
     transition: .4s;
     transform: rotate(135deg);
 }
@@ -17494,7 +17685,7 @@ ul {
         font-size: 14px;
         line-height: 24px;
         color: #242424;
-        padding: 8px 10px;
+        padding: 21px 10px;
     }
 }
 
@@ -17571,7 +17762,7 @@ ul {
 .nav-links__item.arrow:hover::before {
     border-top: 1.5px solid #3d8462;
     border-right: 1.5px solid #3d8462;
-    top: calc(35% + 3px);
+    top: calc(35% + 7px);
     transform: rotate(315deg);
 }
 
@@ -17711,11 +17902,11 @@ ul {
 }
 
 .pay-mr {
-    margin-left: -1.2rem !important;
+    margin-left: -1.8rem !important;
 }
 
 .length-ml {
-    margin-left: -2.1rem !important;
+    margin-left: -2.5rem !important;
 }
 
 .date-vr {
@@ -17729,8 +17920,194 @@ ul {
     font-family: Muli;
     font-size: 12px;
     font-weight: normal;
-    margin-left: -1rem;
+    margin-left: -1.5rem;
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline!important;
 }
+
+.table td,
+.table th {
+    vertical-align: middle !important;
+}
+
+@media (min-width: 1280px) {
+    .header-container {
+        min-width: 100% !important;
+    }
+    .pad-header {
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .sewn-container {
+        max-width: 1240px !important;
+    }
+}
+
+
+/* chat css common starts*/
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+.u-btn {
+    all: unset;
+    cursor: pointer;
+}
+
+.chat-div {
+    position: relative;
+}
+
+.chatbox {
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+    bottom: 0;
+    position: fixed;
+    right: 7em;
+    -webkit-transform: translatey(0em);
+    transform: translatey(0em);
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+    width: 27rem;
+    background-color: #f8f8f8;
+}
+
+.chatbox--is-visible {
+    -webkit-transform: translatey(0);
+    transform: translatey(0);
+}
+
+.chatbox__header {
+    background: #4e4e4e;
+    border-top-right-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    display: -webkit-box;
+    /* display: flex; */
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 9px 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chatbox__header-cta-text {
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+}
+
+.chatbox__header-cta-icon {
+    color: #fff;
+    margin-right: 0.75em;
+}
+
+.chatbox__header-cta-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    padding: 0.5em;
+    width: 100%;
+    position: absolute;
+    transition: all 300ms ease;
+    height: 40px;
+    top: 0;
+    right: 0;
+}
+
+.chatbox__header-cta-btn:hover {
+    color: #fff;
+}
+
+.chatbox__display {
+    background: #ededed;
+    height: 20em;
+    overflow: auto;
+    padding: 0.75em;
+}
+
+.chatbox__display-chat {
+    background: #fff;
+    border-radius: 0.5em;
+    color: #666;
+    font-weight: 300;
+    font-size: .90rem;
+    line-height: 1.5;
+    padding: 0.75em;
+    text-align: justify;
+}
+
+.chatbox__form {
+    display: -webkit-box;
+    display: flex;
+}
+
+.chatbox__form-input {
+    border: none;
+    color: #222;
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 1.25em 1em;
+    width: 80%;
+}
+
+.chatbox__form-input:required {
+    box-shadow: none;
+}
+
+.chatbox__form-submit {
+    background: none;
+    border: none;
+    color: #aaa;
+    padding: 1em;
+}
+
+.chatbox__display,
+.js-chatbox-form {
+    display: none;
+}
+
+.chatbox--is-visible .chatbox__display,
+.chatbox--is-visible .js-chatbox-form {
+    display: block;
+}
+
+.js-chatbox-toggle .pi-angle-up {
+    float: right !important;
+    margin-top: -11px !important;
+}
+
+.chatbox--is-visible .js-chatbox-form {
+    background-color: #ffffff;
+}
+
+.chatbox__display-chat {
+    background-color: #f2e2c5;
+    padding: .5rem;
+    border-radius: 4px;
+    color: #232334;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+button:focus {
+    outline: 1px dotted !important;
+    outline: none !important;
+}
+
+
+/* chat css common ends*/

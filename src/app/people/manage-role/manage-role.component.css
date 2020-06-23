@@ -425,3 +425,10 @@ tr:hover>td>.show_btns {
         display: none;
     }
 }
+
+.create-role-title {
+    font-size: 17px;
+    font-weight: bold;
+    color: #232334;
+    font-family: Muli;
+}
