@@ -37,6 +37,7 @@ import { MicroRoasterComponent } from './dispute-system/micro-roaster/micro-roas
 import { HorecaComponent } from './dispute-system/horeca/horeca.component';
 import { ModalModule } from "ngx-bootstrap/modal";
 import { EstateComponent } from './dispute-system/estate/estate.component';
+import { DirectMessagingComponent } from './direct-messaging/direct-messaging.component';
 
 
 
@@ -68,7 +69,8 @@ import { EstateComponent } from './dispute-system/estate/estate.component';
     RatingComponent,
     MicroRoasterComponent,
     HorecaComponent,
-    EstateComponent
+    EstateComponent,
+    DirectMessagingComponent
   ],
   imports: [
     CommonModule,

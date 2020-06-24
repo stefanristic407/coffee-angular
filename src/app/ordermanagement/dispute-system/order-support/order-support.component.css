@@ -14,7 +14,7 @@
 a.b-cum:hover {
     color: #232334;
     text-decoration: underline;
-    font-weight: bold;
+    font-weight: 600 !important;
 }
 
 .page-wrapper {
@@ -40,18 +40,18 @@ a.b-cum:hover {
     width: 255px;
     font-family: 'Muli';
     height: 36px;
-    border-radius: 0px;
-    border: solid 1px #cccccc;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
-    background: url(../../../../assets/images/grey.png) no-repeat scroll 12px 5px;
+    background: url(../../../../assets/images/search.svg) no-repeat scroll 12px 2px;
     padding-left: 45px;
 }
 
 .dashboard-button {
     height: 150px;
     width: 100%;
-    border-radius: 6px;
-    border: solid 1px #dddddd;
+    border-radius: 2px;
+    border: solid 1px #ebebeb;
     background-color: #ffffff;
     padding-left: 30px;
     padding-right: 30px;
@@ -89,31 +89,8 @@ a.b-cum:hover {
     border: solid 1px #30855c;
 }
 
-.dashboard-button .icon-img-filled {
-    display: none;
-}
 
-.dashboard-button:hover .icon-img-filled {
-    display: inline;
-}
 
-.dashboard-button:hover .icon-img {
-    display: none;
-}
-
-.dashboard-button .logo-img-hover {
-    display: none;
-}
-
-.dashboard-button:hover .logo-img-hover {
-    position: relative;
-    bottom: 2px;
-    display: inline;
-}
-
-.dashboard-button:hover .logo-img {
-    display: none;
-}
 
 .btn-name {
     font-family: Muli;
@@ -139,7 +116,7 @@ a.b-cum:hover {
 }
 
 .cancel-butn {
-    border-radius: 0px;
+    border-radius: 4px;
     background-color: #30855c;
     padding: 10px 20px;
     font-size: 14px;

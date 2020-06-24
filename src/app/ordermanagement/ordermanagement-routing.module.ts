@@ -16,6 +16,7 @@ import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/rai
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
 import { ReviewRatingsComponent} from './review-ratings/review-ratings.component'
 import {RatingComponent} from './rating/rating.component';
+import {DirectMessagingComponent} from './direct-messaging/direct-messaging.component'
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ children: [
   {
     path:'rating',
     component:RatingComponent
+  },
+  {
+    path:'direct-messaging',
+    component:DirectMessagingComponent
   },
   {
     path: '',

@@ -39,11 +39,12 @@
     font-weight: bold;
     color: #232334;
     font-family: Muli;
+    margin-left: 1%;
 }
 
 .role-name {
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 600;
     color: #747588;
     font-family: Muli;
 }
@@ -196,23 +197,24 @@ a.b-cum:hover {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
+    font-weight: 600 !important;
 }
 
 :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter:focus {
     outline: 0 !important;
     box-shadow: 0 0 0 0.035rem green !important;
-    border: solid 1px #cccccc !important;
+    border: solid 1px #d6d6d6 !important;
 }
 
 :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter:hover {
-    border: solid 1px #cccccc !important;
+    border: solid 1px #d6d6d6 !important;
 }
 
 :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
     top: 50%;
     /* left: 1rem; */
     color: #979797;
-    right: 92%;
+    right: 90%;
 }
 
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-highlight {
@@ -240,7 +242,7 @@ a.b-cum:hover {
 }
 
 :host ::ng-deep .ui-tree input {
-    padding-left: 9%;
+    padding-left: 12%;
 }
 
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-chkbox .ui-chkbox-icon {
@@ -248,7 +250,7 @@ a.b-cum:hover {
 }
 
 :host ::ng-deep .ui-chkbox .ui-chkbox-box .ui-chkbox-icon {
-    font-size: 14px;
+    font-size: 16px;
     color: #ffffff;
     background-color: #308553;
     /* border: 0px solid #308553; */
@@ -256,7 +258,12 @@ a.b-cum:hover {
 
 :host ::ng-deep .ui-chkbox .ui-chkbox-box {
     width: 18px;
-    height: 16px;
+    height: 18px;
+    border: 1px solid #979797;
+    border-radius: 2px;
+}
+:host ::ng-deep .ui-chkbox .ui-chkbox-box:hover{
+    border-color: #979797 !important; 
 }
 
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content:focus {

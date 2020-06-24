@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-12">
                     <div class="upload-profile">
-                        <img [src]="profilePicService.croppedImage" alt="profile" class="profile-pic" />
+                        <img [src]="profilePicService.croppedImage" alt="profile" class="profile-pic-feature" />
                         <div class="">
                             <a class="show_modal" (click)="showModalDialog()">
                                 <img src="assets/images/my-pro-pic.png" alt="add_pic" class="add-pic" />
@@ -54,7 +54,7 @@
                     <div class="form-group row pt-2">
                         <div class="form-group col-md-12">
                             <label class="raise-label">Whats your solution to the problem? (Optional)</label>
-                            <textarea class="form-control" placeholder="Describe your problem" rows="4" cols="50" (keyup)="onKeyPress($event)" [(ngModel)]="description" name="description" id="description" required=""> </textarea>
+                            <textarea class="form-control" placeholder="Describe your problem" rows="4" cols="50" [(ngModel)]="description" name="description" id="description"> </textarea>
                             <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
                         </div>
                     </div>
@@ -67,9 +67,18 @@
 
                         </div>
 
-                        <div class="form-group col-md-6 col-sm-12">
+                        <div class="form-group col-md-6 col-sm-12 phone-number">
+                            <input hidden class="hidden-phone-num" type="text" value="+91">
                             <label class="raise-label">Phone Number <span class="star-red"> *</span></label>
-                            <input type="number" class="form-control raise-box" placeholder="Enter your phone number" (keyup)="onKeyPress($event)" [(ngModel)]="phoneno" name="phoneno" id="phoneno" required="">
+                            <div class="phone-nmber__select" id="phone">
+                                <span class="Selected-ISD" id="finalNumber">+91</span>
+                                <ul class="select-list">
+
+                                </ul>
+                                <span>
+                            <input type="number" class="entered-number" placeholder="Enter your phone number" (keyup)="onKeyPress($event)" [(ngModel)]="phoneno" name="phoneno" id="phoneno" required="">
+                            </span>
+                            </div>
                             <div class="phonenoError" *ngIf="phonenoError != ''">{{phonenoError}}</div>
 
                         </div>

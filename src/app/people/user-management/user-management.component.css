@@ -17,6 +17,7 @@
     margin: 2% 5% 0% 5%;
     border-radius: 4px;
     border: solid 1px #d6d6d6;
+    padding: 4px;
 }
 
 .page-wrapper {
@@ -52,7 +53,7 @@
     background-size: 16px 16px;
     padding-left: 41px;
     font-family: Muli;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: normal;
     color: #232334;
     margin-left: 4rem;
@@ -65,7 +66,7 @@
     border: none;
     font-family: 'Muli';
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 600 !important;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -75,14 +76,11 @@
 
 .list-group-item:hover {
     color: #232334;
-    font-weight: bold;
+    font-weight: 600 !important;
     background-color: #f8f8f8;
 }
 
-.item-color {
-    color: #666666;
-    font-weight: 500;
-}
+
 
 .menu-arrow {
     cursor: pointer;
@@ -149,9 +147,9 @@ tr:last-child {
 }
 
 span.checkmark {
-    background-color: white;
-    border: 1px solid #666666;
-    border-radius: 4px;
+    background-color: #fff;
+    border: solid 1px #979797;
+    border-radius: 2px;
 }
 
 .customcheckbox input:checked~.checkmark {
@@ -175,16 +173,16 @@ table td {
 }
 
 .title-header {
-    margin: 3% 5% 0% 4%;
+    margin: 3% 5% 0% 5%;
 }
 
 .bread-nav {
-    margin-left: 5.5%;
+    margin-left: 5%;
 }
 
 .page-title {
     font-family: 'Muli';
-    font-size: 17px;
+    font-size: 18px;
     font-weight: bold;
     color: #232334;
 }
@@ -213,6 +211,14 @@ table td {
     background-color: #ffffff;
     padding: 10px 12px;
 }
+
+
+/* .border-total.current {
+    border-radius: 20px;
+    border: solid 1px red;
+    background-color: #ffffff;
+    padding: 10px 12px;
+} */
 
 .status-active {
     color: #649a2b;
@@ -337,6 +343,10 @@ a.b-cum:hover {
 
 .name_data {
     padding-top: 5%;
+}
+
+.user-title {
+    margin: 0% 5% 2% 4%;
 }
 
 
@@ -526,7 +536,7 @@ option {
 @media only screen and (min-width: 767px) {
     .desk_view_user {
         display: block;
-        padding: 0;
+        /* padding: 0; */
     }
     .mobile_view_user {
         display: none;

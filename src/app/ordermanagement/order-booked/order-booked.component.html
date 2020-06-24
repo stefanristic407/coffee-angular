@@ -47,37 +47,37 @@
                         <h4 class="order-txt fnt-play">{{bookedValueToShow}}</h4>
                         <div class="transit-scoll">
                             <div class="transit-maxwidth">
-                                <div class="justify-content-between d-flex">
+                                <div class="w-100 d-flex">
                                     <div class="order-tracking">
                                         <span class="is-complete "></span>
-                                        <p class="order-status length-ml mt-2 mb-1" (click)="orderPlaceBooked()" #orderPlacedBooked style="color: #000000;font-weight: bold;">Order placed</p>
-                                        <p class="order-date mb-0 es-fc-text">Estate + facilitator Notified </p>
+                                        <p class="order-status mt-2 mb-1" (click)="orderPlaceBooked()" #orderPlacedBooked style="color: #000000;font-weight: bold;">Order placed</p>
+                                        <p class="order-date mb-0 ">Estate + facilitator Notified </p>
                                     </div>
                                     <div class="order-tracking completed" id="confirmDivBooked">
                                         <span class="is-complete"></span>
-                                        <p class="order-status length-ml mt-2 mb-1" (click)="orderConfirmBooked()" #orderConfirmedBooked>Order Confirmed</p>
+                                        <p class="order-status mt-2 mb-1" (click)="orderConfirmBooked()" #orderConfirmedBooked>Order Confirmed</p>
                                         <p class="order-datecolor mb-0" *ngIf="confirmReport">View sample-1 report</p>
                                     </div>
                                     <div class="order-tracking  completed" id="paymentDivBooked">
                                         <span class="is-complete"></span>
                                         <p class="order-status mt-2 mb-1" (click)="paymentStatusBooked()" #paymentBooked>Payment</p>
-                                        <p class="order-datecolor date-vr mb-0" *ngIf="paymentReceipt">View Reciept</p>
+                                        <p class="order-datecolor  mb-0" *ngIf="paymentReceipt">View Reciept</p>
                                     </div>
                                     <div class="order-tracking  completed" id="shippmentDivBooked">
                                         <span class="is-complete"></span>
                                         <p class="order-status mt-2 mb-1" (click)="shipmentStatusBooked()" #shippmentBooked>Shipped</p>
-                                        <p class="order-date date-vr mb-0" *ngIf="shippmentReport">20 Feb 2020</p>
+                                        <p class="order-date  mb-0" *ngIf="shippmentReport">20 Feb 2020</p>
 
                                     </div>
                                     <div class="order-tracking completed" id="receivedDivBooked">
                                         <span class="is-complete"></span>
                                         <p class="order-status mt-2 mb-1" (click)="receivedStatusBooked()" #receivedBooked>Recieved</p>
-                                        <p class="order-date date-vr mb-0" *ngIf="receivedReport">1 March 2020</p>
+                                        <p class="order-date  mb-0" *ngIf="receivedReport">1 March 2020</p>
 
                                     </div>
                                     <div class="order-tracking completed" id="gradedDivBooked">
                                         <span class="is-complete"></span>
-                                        <p class="order-status length-ml mt-2 mb-1" (click)="gradedStatusBooked()" #gradedBooked>Graded by Roaster</p>
+                                        <p class="order-status  mt-2 mb-1" (click)="gradedStatusBooked()" #gradedBooked>Graded by Roaster</p>
                                         <label class="date-ur mb-0" *ngIf="uploadReport" (click)="uploader.click()">Upload report</label>
                                         <input hidden type="file" #uploader/>
                                         <p class="date-ur mb-0" *ngIf="gradedReport">View report</p>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                         <button type="submit" class="yes-order btn mt-3 yes-i-have">Yes i have </button><br/>
-                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/review-ratings">Leave a feedback!</button>
+                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback!</button>
 
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                             <h4 class="order-txt fnt-play">Received on 6th March</h4>
                             <div class="confirm-grade pt-2">Wohoo! You have successfully recieved the bulk you ordered.</div>
                             <div class="confirm-grade">Please Rate and Review the estate and facilitator to help us expand as a transparent community!</div>
-                            <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/review-ratings">Leave a feedback!</button>
+                            <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback!</button>
 
                         </div>
                         <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
@@ -141,8 +141,8 @@
                         <button type="submit" class="cancel-order btn mt-3 ml-3">Browse other estates</button>
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                        <button type="submit" class="cancel-order btn mt-3">Leave a feedback! </button>
-                        <button type="submit" class="cancel-order btn mt-3">Have a problem? </button>
+                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback! </button>
+                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">Have a problem? </button>
                     </div>
                 </div>
             </div>
@@ -164,11 +164,11 @@
                 <li class="nav-item">
                     <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Grade Info</a>
                 </li>
-                <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/raised-tickets">Have a problem?</button></li>
+                <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a problem?</button></li>
             </ul>
 
             <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
-                <button type="button" class="btn problem-btn" routerLink="/ordermanagement/raised-tickets">Have a problem?</button>
+                <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a problem?</button>
             </div>
             <div class="tab-content mt-md-5" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -256,7 +256,7 @@
                         <!-- <star-rating value="3" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true" (rate)="onRateBooked($event)"></star-rating>  -->
                         <!-- <star-rating value="4" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true"></star-rating>
                         <p class="rating-value">{{this.newvalue.toFixed(1)}}</p> -->
-                        <span> <img class="" src="assets/images/star-1.png" alt="User"> <span class="star-no pl-1"> 4.95</span> </span>
+                        <span class="cursor-pointer"  routerLink="/ordermanagement/review-ratings"> <img class="" src="assets/images/star-1.png" alt="User"> <span class="star-no pl-1"> 4.95</span> </span>
 
                     </li>
                     <li class="mt-4">

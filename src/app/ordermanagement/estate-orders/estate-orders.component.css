@@ -2,6 +2,7 @@
     padding-left: 3.1rem;
 }
 
+
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_desc {
@@ -94,7 +95,7 @@ table.dataTable.row-border tbody tr {
 
 .dataTable {
     border-radius: 4px !important;
-    background-color: #f8f8f8 !important;
+    padding: 6px 4px;
 }
 
 .row {
@@ -107,6 +108,7 @@ table.dataTable.row-border tbody tr {
 
 table.dataTable.no-footer {
     border-bottom: solid 1px #d6d6d6 !important;
+    width: 100% !important;
 }
 
 table.dataTable thead th {
@@ -260,7 +262,8 @@ table.dataTable thead th {
     background-color: #ffffff;
     padding: 10px 12px;
 }
-.border-order:focus{
+
+.border-order:focus {
     outline-color: 1px solid #30855c;
 }
 
@@ -359,14 +362,10 @@ span.checkmark {
 
 .list-group-item:hover {
     color: #232334;
-    font-weight: bold;
+    font-weight: 600;
     background-color: #f8f8f8;
 }
 
-.item-color {
-    color: #666666;
-    font-weight: 500;
-}
 
 .menu-arrow {
     cursor: pointer;
@@ -541,6 +540,6 @@ span.checkmark {
 .display_div {
     /* width: 100%; */
     position: absolute;
-    right: 2.3rem;
+    right: 3.2rem;
     top: -0.2rem;
 }

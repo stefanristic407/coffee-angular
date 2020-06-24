@@ -4,7 +4,7 @@
     background-color: #faf8f4;
     padding: 1.5rem;
     border: 0px solid #f0f0f0;
-    border-radius: 10px;
+    border-radius: 2px;
     /* margin: .5rem; */
     overflow: hidden;
 }
@@ -17,7 +17,7 @@
 }
 
 .order-status {
-    margin-left: -0.8rem;
+    /* margin-left: -0.8rem; */
     font-family: Muli;
     font-size: 13px;
     font-weight: normal;
@@ -30,62 +30,46 @@
 }
 
 .order-tracking {
-    text-align: left;
-    width: 16%;
+    width: 20%;
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .order-tracking .is-complete {
     display: block;
     position: relative;
-    border-radius: 50%;
-    /* height: 30px;
-  width: 30px; */
-    height: 23px;
-    width: 23px;
-    /* border: 1px solid #c29d7a4a;
-  background-color: #ffffff; */
-    border: solid 2.2px #649a2b;
-    background-color: #649a2b;
-    margin: 0;
-    transition: background 0.25s linear;
-    -webkit-transition: background 0.25s linear;
-    z-index: 2;
+    width: 34px;
+    height: 34px;
 }
 
 .order-tracking .is-complete:after {
-    display: block;
     position: absolute;
-    content: '';
-    top: -3px;
-    bottom: 0;
-    margin: auto 0;
-    border: 0px solid #AFAFAF;
-    transform: rotate(45deg);
-    border-color: #ffffff;
-    border-width: 0px 2px 2px 0;
-    width: 6px;
-    left: 6px;
-    opacity: 1;
-    height: 10px;
+    content: "";
+    background: url(../../../assets/images/cricle-active.png) no-repeat scroll 0px 0px;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 .order-tracking.completed .is-complete {
-    /* border-color: #c29d7a;
-	border-width: 0px;
-  background-color: #c29d7a; */
-    border: solid 2px #d6d6d6;
-    background-color: #faf8f4;
+    position: relative;
 }
 
 .order-tracking.completed .is-complete:after {
-    border-color: #d6d6d6;
-    border-width: 0px 2px 2px 0;
-    width: 6px;
-    left: 7px;
-    opacity: 1;
-    height: 10px;
+    position: absolute;
+    content: "";
+    background: url(../../../assets/images/cricle-nonactive.png) no-repeat scroll 0px 0px;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 .order-tracking:last-child:after {
@@ -123,20 +107,13 @@
 .order-tracking::before {
     content: '';
     display: block;
-    width: calc(72%);
     background-color: #c29d7a1f;
     top: 13px;
     position: absolute;
-    left: calc(-83%);
+    left: calc(-50% - -25px);
     z-index: 0;
+    width: calc(100% - 50px);
     border: dashed 0.5px #d6d6d6;
-    /* height: 3px;
-	width: calc(100%);
-	background-color: #c29d7a1f;
-	top: 13px;
-	position: absolute;
-	left: calc(-90%);
-	z-index: 0; */
 }
 
 .mixups-tabs .order-tracking::before {
@@ -152,12 +129,16 @@
 }
 
 .transit-scoll {
-    width: 107%;
+    width: 100%;
 }
 
 .transit-maxwidth {
-    margin-left: 4rem;
-    margin-top: 1.5rem;
+    /* margin-left: 4rem;
+    margin-top: 1.5rem; */
+    width: calc(100% - 100px);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 .order-date {
@@ -169,7 +150,7 @@
     line-height: normal;
     letter-spacing: normal;
     color: #747588;
-    margin-left: -1.3rem;
+    /* margin-left: -1.3rem; */
 }
 
 .order-datecolor {
@@ -177,7 +158,7 @@
     font-family: Muli;
     font-size: 12px;
     font-weight: normal;
-    margin-left: -1rem;
+    /* margin-left: -1rem; */
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline!important;
@@ -265,7 +246,7 @@
 }
 
 li.nav-item {
-    margin-right: 10%;
+    /* margin-right: 10%; */
     position: relative;
     top: .25rem;
     /* text-transform: uppercase; */
@@ -279,8 +260,8 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
-    padding: 1rem 0rem;
+    color: #232334;
+    padding: 1rem 2rem;
 }
 
 .nav-pills .nav-link.active {
@@ -291,8 +272,8 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
-    padding: 1rem 0rem;
+    color: #30855c;
+    padding: 1rem 2rem;
     /*  changes as per design */
 }
 
@@ -305,7 +286,7 @@ li.nav-item {
     line-height: normal;
     letter-spacing: normal;
     text-align: right;
-    color: #3d8462;
+    color: #30855c;
     cursor: pointer;
 }
 
@@ -323,7 +304,7 @@ li.nav-item {
 .nav-pills .show>.nav-link {
     color: #30855c !important;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     background-color: unset !important;
     /* border-bottom: 1px solid #256547; */
     border-radius: unset;
@@ -331,25 +312,25 @@ li.nav-item {
 
 .nav-pills .nav-link.active {
     position: relative;
-    padding-right: 0;
+    padding-right: 2rem;
     /*  changes as per design */
-    padding-left: 0;
+    padding-left: 2rem;
     /*  changes as per design */
 }
 
 .nav-pills .nav-link.active:before {
     content: '';
-    width: 140%;
+    width: 100%;
     /*  changes as per design */
     border-radius: 30px;
-    height: 3px;
+    height: 2px;
     background: #30855c;
     position: absolute;
     bottom: 0;
     left: 50%;
     text-align: center;
     margin: auto;
-    top: 80%;
+    top: 81%;
     transform: translate(-50%);
 }
 
@@ -403,7 +384,7 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .activity-list {
@@ -491,16 +472,17 @@ li.nav-item {
 }
 
 .problem-btn {
-    border-radius: 6px;
+    border-radius: 4px;
     background-color: #30855c;
     font-family: Muli;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
     color: #ffffff;
+    padding: .5rem 1rem;
 }
 
 
@@ -511,17 +493,17 @@ li.nav-item {
     font-size: 14px;
     font-weight: normal;
     line-height: 1.5;
-    color: #000000;
+    color: #232334;
 }
 
 .leave-feedback {
     border-radius: 6px;
-    border: solid 1px #3d8462;
+    border: solid 1px #30855c;
     background-color: #faf8f4;
     font-family: Muli;
     font-size: 14px;
     font-weight: normal;
-    color: #3d8462;
+    color: #30855c;
     padding-top: 9px;
     padding-bottom: 8px;
 }
@@ -533,7 +515,7 @@ li.nav-item {
 
 .yes-order {
     border-radius: 6px;
-    background-color: #3d8462;
+    background-color: #30855c;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -544,12 +526,12 @@ li.nav-item {
 
 .cancel-order {
     border-radius: 6px;
-    border: solid 1px #3d8462;
+    border: solid 1px #30855c;
     background-color: #faf8f4;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
-    color: #3d8462;
+    color: #30855c;
     padding-top: 9px;
     padding-bottom: 8px;
 }
@@ -568,7 +550,7 @@ li.nav-item {
     font-family: Muli;
     font-size: 12px;
     font-weight: normal;
-    color: #000000;
+    color: #232334;
 }
 
 .rating-space {
@@ -612,6 +594,9 @@ li.nav-item {
 }
 
 @media only screen and (max-width: 1024px) {
+    .nav-pills .nav-link.active:before{
+        top: 100%;
+    }
     .order-status {
         margin-left: 0rem;
         font-family: Muli;
@@ -620,7 +605,7 @@ li.nav-item {
         color: #bea080;
     }
     li.nav-item {
-        margin-right: 5%;
+        /* margin-right: 5%; */
         position: relative;
         top: 0rem;
     }
@@ -656,6 +641,9 @@ li.nav-item {
     }
     .transit-maxwidth {
         margin-left: 0rem;
+    }
+    .nav-pills .nav-link.active:before{
+        top: 100%;
     }
 }
 

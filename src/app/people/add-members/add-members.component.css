@@ -102,14 +102,18 @@
 .content_list {
     font-family: Muli;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #232334;
+    color: #747588;
     padding: 10px 0px 8px 3px;
     cursor: pointer;
+}
+.content_list:hover{
+    color: #232334;
+    background-color: #f8f8f8;
 }
 
 ::ng-deep .ui-overlaypanel {
@@ -168,8 +172,8 @@
     font-weight: 600;
     font-size: 14px;
     color: #30855c;
-    padding: 0.7% 1.8%;
-    margin-right: 7rem;
+    padding: 0.7rem 1.25rem;
+    margin-right: 2rem;
 }
 
 .cancel_value {
@@ -181,7 +185,7 @@
     line-height: normal;
     letter-spacing: normal;
     text-align: center;
-    color: #3d8462;
+    color: #30855c;
 }
 
 .total_header {
@@ -244,7 +248,7 @@ a.b-cum:hover {
 }
 
 .bread-nav {
-    margin-left: 2%;
+    margin-left: 5%;
 }
 
 

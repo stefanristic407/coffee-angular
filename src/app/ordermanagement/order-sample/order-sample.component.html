@@ -50,15 +50,15 @@
                         <h4 class="order-txt fnt-play">{{sampleValueToShow}}</h4>
                         <div class="transit-scoll">
                             <div class="transit-maxwidth">
-                                <div class="justify-content-between d-flex">
+                                <div class="w-100 d-flex">
                                     <div class="order-tracking">
                                         <span class="is-complete "></span>
-                                        <p class="order-status length-ml mt-2 mb-1" (click)="orderPlaceSample()" #orderPlacedSample style="color: #232334;font-weight: bold;">Order placed</p>
-                                        <p class="order-date mb-0 es-fc-text">Estate + facilitator Notified </p>
+                                        <p class="order-status  mt-2 mb-1" (click)="orderPlaceSample()" #orderPlacedSample style="color: #232334;font-weight: bold;">Order placed</p>
+                                        <p class="order-date mb-0 t">Estate + facilitator Notified </p>
                                     </div>
                                     <div class="order-tracking completed" id="confirmDivSample">
                                         <span class="is-complete"></span>
-                                        <p class="order-status length-ml mt-2" (click)="orderConfirmSample()" #orderConfirmedSample>Order Confirmed</p>
+                                        <p class="order-status  mt-2" (click)="orderConfirmSample()" #orderConfirmedSample>Order Confirmed</p>
                                     </div>
                                     <div class="order-tracking  completed" id="paymentDivSample">
                                         <span class="is-complete"></span>
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="order-tracking completed" id="gradedDivSample">
                                         <span class="is-complete"></span>
-                                        <p class="order-status length-ml mt-2 mb-0" (click)="gradedStatusSample()" #gradedSample>Graded by Roaster</p>
+                                        <p class="order-status  mt-2 mb-0" (click)="gradedStatusSample()" #gradedSample>Graded by Roaster</p>
                                         <label class="order-datecolor mb-0" *ngIf="uploadReportSample" (click)="upload.click()">Upload report</label>
                                         <input hidden type="file" #upload/>
                                         <p class="order-datecolor mb-0" *ngIf="gradedReportSample">View report</p>
@@ -97,7 +97,7 @@
                             <p class="confirm-order-sample">Your sample has been recieved and graded. </p>
                             <p class="confirm-order-sample"> Please confirm to order the complete shipment</p>
                         </div>
-                        <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/review-ratings">Leave a feedback </button>
+                        <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback </button>
                     </div>
                     <div class="col-md-3 pl-5">
                         <button type="submit" class="yes-order btn mt-3" routerLink="/ordermanagement/confirm-order">Yes, I want to order</button>
@@ -119,8 +119,8 @@
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                         <!-- <button type="submit" class="cancel-order btn mt-3">Leave a feedback!  <img class="arrow-image" src="assets/images/group.png" alt="arrow"> </button> -->
-                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/review-ratings">Leave a feedback!   </button>
-                        <button type="submit" class="cancel-order btn mt-3">Have a problem? </button>
+                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback!   </button>
+                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">Have a problem? </button>
                     </div>
                 </div>
             </div>
@@ -141,10 +141,10 @@
                 <li class="nav-item">
                     <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Grade Info</a>
                 </li>
-                <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/raised-tickets">Have a problem?</button></li>
+                <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a problem?</button></li>
             </ul>
             <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
-                <button type="button" class="btn problem-btn" routerLink="/ordermanagement/raised-tickets">Have a problem?</button>
+                <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a problem?</button>
             </div>
 
             <div class="tab-content mt-md-5" id="pills-tabContent">
@@ -237,7 +237,7 @@
                         <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#deaf81" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating> -->
                         <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#deaf81" readonly="true" uncheckedcolor="#979797" size="19px"></star-rating>
                         <p class="rating-value">{{this.newvalue.toFixed(1)}}</p> -->
-                        <span> <img class="" src="assets/images/star-1.png" alt="User"> <span class="star-no pl-1"> 4.95</span> </span>
+                        <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img class="" src="assets/images/star-1.png" alt="User"> <span class="star-no pl-1"> 4.95</span> </span>
 
                     </li>
                     <li class="mt-4">

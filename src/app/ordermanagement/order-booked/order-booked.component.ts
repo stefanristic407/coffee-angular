@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BookedGradeInfoComponent } from '../order-booked/booked-grade-info/booked-grade-info.component';
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import { BookedOrderDetailsComponent } from './booked-order-details/booked-order-details.component';
 declare var $: any;
 
 @Component({
@@ -127,6 +128,13 @@ export class OrderBookedComponent implements OnInit {
     completedProcess.classList.remove('completed');
     this.shippmentReport = true;
     this.bookedService.shipmentDone = true;
+
+    	// Calling the Order Details component by creating object of the component and accessing its methods
+
+		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService);
+		setTimeout(()=>{
+			uploadReceipt.uploadReceipt();
+		},500);
 
   }
   // Function Name : Order Booked Received

@@ -76,10 +76,10 @@ export class MicroRoasterComponent implements OnInit {
 					title: 'Order ID',
 					data: 'orderid'
 				}, {
-					title: 'Estate Name',
+					title: 'Estate name',
 					data: 'estatename'
 				}, {
-					title: 'Date Ordered',
+					title: 'Date ordered',
 					data: 'dataordered'
 				},
 				{
@@ -100,13 +100,13 @@ export class MicroRoasterComponent implements OnInit {
 					title: 'Quantity',
 					data: 'quantity'
 				}, {
-					title: 'Type of Order',
+					title: 'Type of order',
 					data: 'typeoforder',
 					className: 'typeoforderclass'
 				}, {
 					title: 'Status',
 					data: 'status',
-					className: 'status'
+					className: 'status-es'
 				},
 				
 				{
@@ -117,15 +117,15 @@ export class MicroRoasterComponent implements OnInit {
 			createdRow: (row: Node, data: any, index: number) => {
 				const self = this;
 				if($(row).children('td.typeoforderclass').html() == "Booked"){
-					$(row).children('td.typeoforderclass').html('<p class="typeoforder-Booked">&#9679; Booked</p>');
+					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Booked">&#9679; Booked</span>');
 					
 				}
 				if($(row).children('td.typeoforderclass').html() == "Sample"){
-					$(row).children('td.typeoforderclass').html('<p class="typeoforder-Sample">&#9679; Sample</p>');
+					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Sample">&#9679; Sample</span>');
 					
 				}
 				if($(row).children('td.typeoforderclass').html() == "Pre-Booked"){
-					$(row).children('td.typeoforderclass').html('<p class="typeoforder-Pre-Booked">&#9679; Pre-Booked</p>');
+					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Pre-Booked">&#9679; Pre-Booked</span>');
 					
 				}
 			},

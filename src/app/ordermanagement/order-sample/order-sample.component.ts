@@ -123,7 +123,9 @@ export class OrderSampleComponent implements OnInit {
 		// Calling the Order Details component by creating object of the component and accessing its methods
 
 		let uploadReceipt = new OrderDetailsComponent(this.sampleService);
-		uploadReceipt.uploadReceipt();
+		setTimeout(()=>{
+			uploadReceipt.uploadReceipt();
+		},500);
 	}
 	// Function Name : Order Sample Received
 	// Description: This function fills timeline of order received.

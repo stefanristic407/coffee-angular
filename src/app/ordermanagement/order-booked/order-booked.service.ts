@@ -12,6 +12,8 @@ export class OrderBookedService {
   beforeGradeComplete: boolean = true;
   afterGradeComplete: boolean = false;
   shipmentDone: boolean = false;
+  uploadShow: boolean = true;
+  receiptShow: boolean = false;
   constructor() { }
   // Function Name : Payment Status
   // Description: This function helps to store status of payment.

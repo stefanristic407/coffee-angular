@@ -8,7 +8,7 @@
 }
 
 .pink {
-    /*         background-image: linear-gradient(to top, #ffffff 106%, #faf8f4 -2%);*/
+    /* background-image: linear-gradient(to top, #ffffff 106%, #faf8f4 -2%);*/
     background-color: #faf8f4;
     padding: 2.5rem 0rem;
 }
@@ -19,7 +19,7 @@
     border: 1px solid #30855c;
     color: #FFFFFF;
     cursor: pointer;
-    padding: .6rem;
+    padding: 12px 24px;
 }
 
 .add-tem-butn:focus {
@@ -37,7 +37,25 @@
 }
 
 .create-txt {
-    padding: 0 30%;
+    padding: 0 32%;
+}
+
+.black {
+    color: #232334;
+}
+
+.pad-card {
+    padding: 0px 83px 0px 0px;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem 1.25rem 2.5rem 1.25rem !important;
+}
+
+.light-gray {
+    color: #747588;
 }
 
 

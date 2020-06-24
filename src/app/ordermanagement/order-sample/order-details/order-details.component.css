@@ -32,13 +32,13 @@ th {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #30855c;
 }
 
 hr {
     margin-top: 2rem;
     margin-bottom: 2rem;
-    color: #dddddd;
+    color: #ebebeb;
 }
 
 .sub-title {
@@ -167,7 +167,7 @@ hr {
 .track-info {
     border-radius: 6px;
     width: max-content;
-    padding: 5%;
+    /* padding: 5%; */
 }
 
 .recent-time td {

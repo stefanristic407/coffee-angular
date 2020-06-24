@@ -161,9 +161,10 @@ li.nav-item {
     color: #000000;
 }
 
-.item-color {
-    color: #666666;
-    font-weight: 500;
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600;
+    background-color: #f8f8f8;
 }
 
 .menu-arrow {

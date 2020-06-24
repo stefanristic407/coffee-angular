@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {UserserviceService} from 'src/services/users/userservice.service';
 import { DatePipe } from '@angular/common';
+import { Alert } from 'selenium-webdriver';
 
 // @Component({
 //   selector: 'bottom-sheet-overview-example-sheet',
@@ -98,6 +99,18 @@ export class UserManagementComponent implements OnInit {
     else {
       this.roleData = this.termRole;
     }
+// $(document).ready (function(){
+//     $('.border-total').on('click', function(){
+      
+//       if ( $('.border-total').hasClass('current') ) {
+//           $('.border-total').removeClass('current');
+          
+//       } else {
+//           $('.border-total.current').removeClass('current');
+//           $('.border-total').addClass('current');    
+//       }
+//   });
+// });
 
   }
 //  Function Name : Check box function.
@@ -402,6 +415,9 @@ export class UserManagementComponent implements OnInit {
       }
     )
   }
+
+   
+
 
 
 }

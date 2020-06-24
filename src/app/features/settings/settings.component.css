@@ -41,31 +41,7 @@ a.b-cum:hover {
     border: solid 1px #30855c;
 }
 
-.dashboard-button .icon-img-filled {
-    display: none;
-}
 
-.dashboard-button:hover .icon-img-filled {
-    display: inline;
-}
-
-.dashboard-button:hover .icon-img {
-    display: none;
-}
-
-.dashboard-button .logo-img-hover {
-    display: none;
-}
-
-.dashboard-button:hover .logo-img-hover {
-    position: relative;
-    bottom: 2px;
-    display: inline;
-}
-
-.dashboard-button:hover .logo-img {
-    display: none;
-}
 
 .btn-name {
     font-family: Muli;

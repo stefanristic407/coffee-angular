@@ -41,28 +41,28 @@
 
     </ul>
 </nav>
-<div class="title-header d-inline desk_view_user">
-    <p class="d-inline col-sm-12 page-title">User management</p>
-    <!-- <a
-    class="pointer-item"
-    [popover]="infoTemplate"
-    placement="bottom"
-    [outsideClick]="true"
-    container="body"
-    [adaptivePosition]="false" 
-  > -->
-    <i class="pi pi-question-circle help" pTooltip="Please Click to see help" tooltipPosition="bottom" (click)="showModalDialog()"></i>
-    <p-dialog header="What is Lorem Ipsum?" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+<div class="row desk_view_user">
+    <div class="user-title">
+        <p class="d-inline col-sm-12 page-title">User management</p>
+        <!-- <a
+      class="pointer-item"
+      [popover]="infoTemplate"
+      placement="bottom"
+      [outsideClick]="true"
+      container="body"
+      [adaptivePosition]="false" 
+    > -->
+        <i class="pi pi-question-circle help" pTooltip="Please Click to see help" tooltipPosition="bottom" (click)="showModalDialog()"></i>
+        <p-dialog header="What is Lorem Ipsum?" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
+                book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 
-    </p-dialog>
-    <!-- </a> -->
-    <!-- <div class="d-inline col-sm-12 search-div">
-        <input type="text" name="search" class="search" [(ngModel)]="term" placeholder="Search by Name,role.." />
-    </div> -->
-    &nbsp;
+        </p-dialog>
+    </div>
+
+</div>
+<div class="title-header d-inline desk_view_user">
     <div class="d-inline border-total status-div col-sm-6">
         <p class="d-inline filter-text">Status: &nbsp;</p>
         <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
@@ -144,10 +144,10 @@
                     </td>
                     <td>
                         <p class="status-active" *ngIf="user.status == 'ACTIVE'">
-                            &#9679; {{ user.status }}
+                            &#9679; {{ user.status | titlecase }}
                         </p>
                         <p class="status-disabled" *ngIf="user.status == 'INACTIVE'">
-                            &#9679; {{ user.status }}
+                            &#9679; {{ user.status | titlecase }}
                         </p>
                     </td>
                     <td>
@@ -453,10 +453,10 @@
         </div>
         <div class="top-space">
           <p class="status-active" *ngIf="mobileuser.status == 'ACTIVE'">
-            &#9679; {{ mobileuser.status }}
+            &#9679; {{ mobileuser.status | titlecase }}
           </p>
           <p class="status-disabled" *ngIf="mobileuser.status == 'INACTIVE'">
-            &#9679; {{ mobileuser.status }}
+            &#9679; {{ mobileuser.status | titlecase }}
           </p>
         </div>
       </li>

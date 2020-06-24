@@ -6,7 +6,7 @@
                 <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/myorders">Order Management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/ordermanagement/myorders">Order management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
             <li class="b-cum c-pink">Estate orders</li>
@@ -74,20 +74,13 @@
 
                     <div class="d-inline border-order date-div col-sm-6">
                         <p class="d-inline filter-text">Date range &nbsp;
-                            <span *ngIf = "showDateRange != ''">{{showDateRange}}</span>
+                            <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
                         </p>
-                        
+
                         <a class="pointer-item">
-                            
+
                             <p class="d-inline filter">
-                                <p-calendar #calendar 
-                                    styleClass="only-icon" 
-                                    [(ngModel)]="rangeDates" 
-                                    selectionMode="range" 
-                                    dateFormat="dd.mm.yy" 
-                                    [readonlyInput]="true"
-                                    [showButtonBar]="true" 
-                                    (onSelect)="filterDate($event)"></p-calendar>
+                                <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
                                 &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
                                 <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                 </p-calendar> -->
@@ -95,17 +88,17 @@
                         </a>
 
                     </div>&nbsp;&nbsp;
-                    <div class="d-inline display_div col-sm-6">
+                    <div class="d-inline display_div">
                         <div class="float-right border-order top-space">
-                            <p class="d-inline filter-text">Display &nbsp; &#9679; &nbsp;</p>
+                            <p class="d-inline filter-text">Display &#9679;</p>
                             <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
                                 <p class="d-inline filter" *ngIf="displayNumbers == '-1'">
-                                    &nbsp; <img src="assets/images/active-user.png" />
+                                    &nbsp; &nbsp; <img src="assets/images/active-user.png" />
                                 </p>
                             </a>
                             <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop7="bs-popover">
                                 <p class="d-inline filter" *ngIf="displayNumbers != '-1'">
-                                    {{ displayNumbers }}&nbsp; <img src="assets/images/active-user.png" />
+                                    {{ displayNumbers }}&nbsp; &nbsp; <img src="assets/images/active-user.png" />
                                 </p>
                             </a>
                         </div>
@@ -174,25 +167,22 @@
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
                 <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide()">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                  <a
-                    class="pointer-item"
-                    (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide()">Colombia</a>
-                </li>
-                <li class="list-group-item item-color">
-                  <a class="pointer-item"
-                    (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide()">Ethopia</a>
-                </li>
-              </ul>
-            </div>
-    </ng-template>
-    
-    <ng-template #allTemplate>
-        <div id="status-content">
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop1.hide()">All</a
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide()">Colombia</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide()">Ethopia</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+
+<ng-template #allTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop1.hide()">All</a
                   >
                 </li>
                 <li class="list-group-item item-color">

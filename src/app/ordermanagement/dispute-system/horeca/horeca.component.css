@@ -89,9 +89,10 @@ li.nav-item {
     color: #000000;
 }
 
-.item-color {
-    color: #666666;
-    font-weight: 500;
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600;
+    background-color: #f8f8f8;
 }
 
 .menu-arrow {
@@ -199,7 +200,7 @@ table td,
 
 .dataTable {
     border-radius: 4px !important;
-    background-color: #f8f8f8 !important;
+    /* background-color: #f8f8f8 !important; */
 }
 
 .row {
@@ -258,6 +259,7 @@ table.dataTable thead th {
 .estate-boby-txt {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
+    padding: 6px 4px;
 }
 
 @media (max-width:767px) {

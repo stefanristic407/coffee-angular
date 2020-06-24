@@ -10,8 +10,7 @@ import { OrderBookedService } from '../order-booked.service';
 })
 export class BookedOrderDetailsComponent implements OnInit {
   files: FileList;
-  uploadShow: boolean = true;
-  receiptShow: boolean = false;
+
   constructor(public bookedService: OrderBookedService) { }
 
   ngOnInit(): void {
@@ -20,8 +19,13 @@ export class BookedOrderDetailsComponent implements OnInit {
   // Description: This function helps to upload receipt in order details tab of order booked .
   openFile(event) {
     this.files = event.target.files;
-    this.uploadShow = false;
-    this.receiptShow = true;
+    this.bookedService.uploadShow = false;
+    this.bookedService.receiptShow = true;
   }
+  
+  uploadReceipt(){
+    this.bookedService.uploadShow = false;
+    this.bookedService.receiptShow = true;
+}
 
 }

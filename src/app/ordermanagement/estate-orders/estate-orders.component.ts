@@ -90,7 +90,7 @@ export class EstateOrdersComponent implements OnInit {
 			columns:[
 				// {title: '<input type="checkbox" value="">' , data: null, className: "select-checkbox", defaultContent:'<input type="checkbox" value="">'},
 				{
-					title:'<label class="bestate-check "><input type="checkbox" checked="checked"  name="estate_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)"><span class="estatecheckmark"></span></label>',
+					title:'<label class="bestate-check "><input type="checkbox"  name="estate_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)"><span class="estatecheckmark"></span></label>',
 
 					defaultContent:'<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>' , 
 				},
@@ -98,10 +98,10 @@ export class EstateOrdersComponent implements OnInit {
 					title: 'Order ID',
 					data: 'id'
 				}, {
-					title: 'Estate Ordered',
+					title: 'Estate name',
 					data: 'estatename'
 				}, {
-					title: 'Date Ordered',
+					title: 'Date ordered',
 					data: 'dataordered'
 				},
 				{
@@ -122,33 +122,33 @@ export class EstateOrdersComponent implements OnInit {
 					title: 'Quantity',
 					data: 'quantity'
 				}, {
-					title: 'Type of Order',
+					title: 'Type of order',
 					data: 'typeoforder',
 					className: 'typeoforderclass'
 				}, {
 					title: 'Status',
 					data: 'status',
-					className: 'status'
+					className: 'status-es'
 				},
 				
 				{
 					title: "Action",
-					defaultContent: "View Report",
+					defaultContent: "View order",
 					className: "view-order"
 				}
 			],
 			createdRow: (row: Node, data: any, index: number) => {
 				const self = this;
 				if($(row).children('td.typeoforderclass').html() == "Booked"){
-					$(row).children('td.typeoforderclass').html('<p class="typeoforder-Booked">&#9679; Booked</p>');
+					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Booked">&#9679; Booked</span>');
 					
 				}
 				if($(row).children('td.typeoforderclass').html() == "Sample"){
-					$(row).children('td.typeoforderclass').html('<p class="typeoforder-Sample">&#9679; Sample</p>');
+					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Sample">&#9679; Sample</span>');
 					
 				}
 				if($(row).children('td.typeoforderclass').html() == "Pre-Booked"){
-					$(row).children('td.typeoforderclass').html('<p class="typeoforder-Pre-Booked">&#9679; Pre-Booked</p>');
+					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Pre-Booked">&#9679; Pre-Booked</span>');
 					
 				}
 			},
