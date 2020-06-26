@@ -132,13 +132,13 @@ tr:last-child {
 }
 
 span.checkmark {
-    background-color: #fff;
+    background-color: #fff !important;
     border: solid 1px #979797;
     border-radius: 2px;
 }
 
 .customcheckbox input:checked~.checkmark {
-    background-color: #30855c;
+    background-color: #30855c !important;
 }
 
 .breadcrumb-item a {

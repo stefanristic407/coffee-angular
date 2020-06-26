@@ -1,6 +1,7 @@
 .router-design {
     background-color: #f1f1f1;
-    margin: 12rem 0rem 3rem 0rem;
+    /* margin: 12rem 0rem 3rem 0rem; */
+    padding-top: 12rem;
     padding-bottom: 1.5rem;
 }
 

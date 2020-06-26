@@ -17,6 +17,11 @@ export class MicroRoasterComponent implements OnInit {
 	displayNumbers: any;
 	selected: Date[];
 	rangeDates: any;
+	showOrigin: boolean = true;
+  showType:boolean = true;
+  showStatus:boolean = true;
+  showDisplay:boolean =true;
+  
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
@@ -224,5 +229,44 @@ export class MicroRoasterComponent implements OnInit {
 
 		}
 	}
-
+	toggleOrigin() {
+		this.showOrigin = !this.showOrigin;
+		if(this.showOrigin==false){
+			document.getElementById('originId').style.border="1px solid #30855c";
+		}
+		else{
+			document.getElementById('originId').style.border="1px solid #d6d6d6";
+		
+		}
+	 }
+	 toggleType() {
+	  this.showType = !this.showType;
+	  if(this.showType==false){
+		document.getElementById('typeId').style.border="1px solid #30855c";
+	}
+	else{
+		document.getElementById('typeId').style.border="1px solid #d6d6d6";
+	
+	}
+	}
+	toggleStatus() {
+		this.showStatus = !this.showStatus;
+		if(this.showStatus==false){
+		  document.getElementById('statusId').style.border="1px solid #30855c";
+	  }
+	  else{
+		  document.getElementById('statusId').style.border="1px solid #d6d6d6";
+	  
+	  }
+	  }
+	  toggleDisplay(){
+		this.showDisplay = !this.showDisplay;
+		if(this.showDisplay==false){
+		  document.getElementById('displayId').style.border="1px solid #30855c";
+	  }
+	  else{
+		  document.getElementById('displayId').style.border="1px solid #d6d6d6";
+	  
+	  }
+	  }
 }

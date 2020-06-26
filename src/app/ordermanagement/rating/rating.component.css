@@ -158,14 +158,33 @@
     .experienceUserError,
     .communicationUserError {
         color: #D50000;
-        font-size: 12px;
+        font-size: 14px;
         margin-top: -7px;
+        font-family: Muli;
+        font-weight: 600;
     }
     
     .reviewError,
     .reviewUserError {
         color: #D50000;
-        font-size: 12px;
+        font-size: 14px;
+        font-family: Muli;
+        font-weight: 600;
+    }
+    
+    .rating {
+        position: relative;
+    }
+    
+    .online-rating {
+        position: absolute;
+        top: 2px;
+        left: 4.3rem;
+        width: 15px;
+        height: 15px;
+        border: solid 2px #ffffff;
+        border-radius: 50%;
+        background-color: #649a2b;
     }
     
     @media only screen and (max-width: 767px) {

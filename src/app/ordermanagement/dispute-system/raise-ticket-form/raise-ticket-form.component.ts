@@ -9,12 +9,12 @@ export class RaiseTicketFormComponent implements OnInit {
   date3: Date;
 
   orderid : number;
-  helpyou : string;
+  helpyou : string="";
   // orderDate : string;
   weight : number;
   locaionBean : string;
   cupScore : number;
-  disputeOrder : string;
+  disputeOrder : string="";
   problem : string;
   solProblem : string;
 
@@ -56,13 +56,14 @@ export class RaiseTicketFormComponent implements OnInit {
   }
 
   submitTicket(){
-    if ( this.orderid == null || this.orderid == undefined) {
-      this.orderidError = "Please enter your order Id";
-      document.getElementById('orderId').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.orderidError = "";
-      }, 3000);
-    }else if (this.helpyou == "" || this.helpyou == null || this.helpyou == undefined) {
+    // if ( this.orderid == null || this.orderid == undefined) {
+    //   this.orderidError = "Please enter your order Id";
+    //   document.getElementById('orderId').style.border = "1px solid #D50000";
+    //   setTimeout(() => {
+    //     this.orderidError = "";
+    //   }, 3000);
+    // }
+    if (this.helpyou == "" || this.helpyou == null || this.helpyou == undefined) {
       this.helpYouError = "Please select any option";
       document.getElementById('helpYou').style.border = "1px solid #D50000";
       setTimeout(() => {
@@ -76,34 +77,34 @@ export class RaiseTicketFormComponent implements OnInit {
     //     this.orderDateError = "";
     //   }, 3000);
     // }
-    else if (this.weight == null || this.weight == undefined) {
-      this.weightError = "Please enter weight";
-      document.getElementById('weight').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.weightError = "";
-      }, 3000);
-    }
-    else if (this.locaionBean == "" ||this.locaionBean == null || this.locaionBean == undefined) {
-      this.locaionBeanError = "Please select any location";
-      document.getElementById('locaionBean').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.locaionBeanError = "";
-      }, 3000);
-    }
-    else if (this.cupScore == null || this.cupScore == undefined) {
-      this.cupScoreError = "Please enter cup score";
-      document.getElementById('cupScore').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.cupScoreError = "";
-      }, 3000);
-    }
-    else if (this.disputeOrder == "" ||this.disputeOrder == null || this.disputeOrder == undefined) {
-      this.disputeOrderError = "Please enter dispute the order";
-      document.getElementById('disputeOrder').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.disputeOrderError = "";
-      }, 3000);
-    }
+    // else if (this.weight == null || this.weight == undefined) {
+    //   this.weightError = "Please enter weight";
+    //   document.getElementById('weight').style.border = "1px solid #D50000";
+    //   setTimeout(() => {
+    //     this.weightError = "";
+    //   }, 3000);
+    // }
+    // else if (this.locaionBean == "" ||this.locaionBean == null || this.locaionBean == undefined) {
+    //   this.locaionBeanError = "Please select any location";
+    //   document.getElementById('locaionBean').style.border = "1px solid #D50000";
+    //   setTimeout(() => {
+    //     this.locaionBeanError = "";
+    //   }, 3000);
+    // }
+    // else if (this.cupScore == null || this.cupScore == undefined) {
+    //   this.cupScoreError = "Please enter cup score";
+    //   document.getElementById('cupScore').style.border = "1px solid #D50000";
+    //   setTimeout(() => {
+    //     this.cupScoreError = "";
+    //   }, 3000);
+    // }
+    // else if (this.disputeOrder == "" ||this.disputeOrder == null || this.disputeOrder == undefined) {
+    //   this.disputeOrderError = "Please enter dispute the order";
+    //   document.getElementById('disputeOrder').style.border = "1px solid #D50000";
+    //   setTimeout(() => {
+    //     this.disputeOrderError = "";
+    //   }, 3000);
+    // }
     else if (this.problem == "" ||this.problem == null || this.problem == undefined) {
       this.problemError = "Please describle your problem";
       document.getElementById('problem').style.border = "1px solid #D50000";
@@ -111,13 +112,13 @@ export class RaiseTicketFormComponent implements OnInit {
         this.problemError = "";
       }, 3000);
     }
-    else if (this.solProblem == "" ||this.solProblem == null || this.solProblem == undefined) {
-      this.solProblemError = "please describle your solution of the problem";
-      document.getElementById('solProblem').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.solProblemError = "";
-      }, 3000);
-    }
+    // else if (this.solProblem == "" ||this.solProblem == null || this.solProblem == undefined) {
+    //   this.solProblemError = "please describle your solution of the problem";
+    //   document.getElementById('solProblem').style.border = "1px solid #D50000";
+    //   setTimeout(() => {
+    //     this.solProblemError = "";
+    //   }, 3000);
+    // }
   }
 
 }

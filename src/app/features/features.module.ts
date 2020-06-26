@@ -29,7 +29,9 @@ import { RoasterQuickSetupComponent } from "./roaster-quick-setup/roaster-quick-
 import { SettingsComponent } from "./settings/settings.component";
 import { WelcomeAboardComponent } from "./welcome-aboard/welcome-aboard.component";
 import { LanguageRegionComponent } from './language-region/language-region.component';
+import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 
+import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -54,6 +56,7 @@ import { LanguageRegionComponent } from './language-region/language-region.compo
     FeaturesRoutingModule,
     //PrimeNG Modules
     ImageCropperModule,
+    OrdermanagementModule,
     SliderModule,
     ModalModule,
     DialogModule,
@@ -62,6 +65,7 @@ import { LanguageRegionComponent } from './language-region/language-region.compo
     FormsModule,
     InputSwitchModule,
     CalendarModule,
+    MatBottomSheetModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
   ]

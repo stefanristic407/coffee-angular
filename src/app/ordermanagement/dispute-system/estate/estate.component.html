@@ -1,41 +1,41 @@
 <div class="title-header d-inline desk_view_user">
-    <div class="d-inline border-order role-div col-sm-6">
+    <div class="d-inline border-order role-div col-sm-6" id="origin_id">
         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-        <p class="d-inline filter-text">Origin&nbsp;</p>
-        <a class="pointer-item" [popover]="originTemplate" placement="bottom" [outsideClick]="true" container="body" #pop4="bs-popover">
-            <p class="d-inline filter" *ngIf="estatetermOrigin == ''">
-                &nbsp; <img src="assets/images/active-user.png" />
+        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Origin&nbsp;</p>
+        <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
+            <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
+                &nbsp; <img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
             </p>
         </a>
-        <a class="pointer-item" [popover]="originTemplate" placement="bottom" [outsideClick]="true" container="body" #pop5="bs-popover">
-            <p class="d-inline filter" *ngIf="estatetermOrigin != ''">
-                : {{ estatetermOrigin }} &nbsp;<img src="assets/images/active-user.png" />
-            </p>
-        </a>
-    </div>&nbsp;&nbsp;
-    <div class="d-inline border-order type-div col-sm-6">
-        <p class="d-inline filter-text">Type of order&nbsp;</p>
-        <a class="pointer-item" [popover]="typeTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
-            <p class="d-inline filter" *ngIf="estatetermType == ''">
-                &nbsp; <img src="assets/images/active-user.png" />
-            </p>
-        </a>
-        <a class="pointer-item" [popover]="typeTemplate" placement="bottom" [outsideClick]="true" container="body" #pop3="bs-popover">
-            <p class="d-inline filter" *ngIf="estatetermType != ''">
-                : {{ estatetermType }}&nbsp; <img src="assets/images/active-user.png" />
+        <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop5="bs-popover">
+            <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
+                {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
             </p>
         </a>
     </div>&nbsp;&nbsp;
-    <div class="d-inline border-order status-div col-sm-6">
-        <p class="d-inline filter-text">Status&nbsp;</p>
-        <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop="bs-popover">
-            <p class="d-inline filter" *ngIf="estatetermStatus == ''">
-                &nbsp; <img src="assets/images/active-user.png" />
+    <div class="d-inline border-order type-div col-sm-6" id="type_id">
+        <p class="d-inline filter-text" *ngIf="estatetermType == ''">Type of order&nbsp;</p>
+        <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #pop2="bs-popover">
+            <p class="d-inline filter" *ngIf="estatetermType == ''" (click)="toggleType()">
+                &nbsp; <img src="{{ showType ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
             </p>
         </a>
-        <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop1="bs-popover">
-            <p class="d-inline filter" *ngIf="estatetermStatus != ''">
-                : {{ estatetermStatus }}&nbsp; <img src="assets/images/active-user.png" />
+        <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #pop3="bs-popover">
+            <p class="d-inline filter" *ngIf="estatetermType != ''" (click)="toggleType()">
+                {{ estatetermType }}&nbsp; <img src="{{ showType ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+            </p>
+        </a>
+    </div>&nbsp;&nbsp;
+    <div class="d-inline border-order status-div col-sm-6" id="status_id">
+        <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">Status&nbsp;</p>
+        <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+            <p class="d-inline filter" *ngIf="estatetermStatus == ''" (click)="toggleStatus()">
+                &nbsp; <img src="{{ showStatus ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+            </p>
+        </a>
+        <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop1="bs-popover">
+            <p class="d-inline filter" *ngIf="estatetermStatus != ''" (click)="toggleStatus()">
+                {{ estatetermStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
             </p>
         </a>
     </div> &nbsp;&nbsp;
@@ -51,22 +51,22 @@
                 <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
                 &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
                 <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
-                        </p-calendar> -->
+                </p-calendar> -->
             </p>
         </a>
 
     </div>&nbsp;&nbsp;
-    <div class="d-inline display_div col-sm-6">
-        <div class="float-right border-order top-space">
+    <div class="d-inline display_div">
+        <div class="float-right border-order top-space" id="display_id">
             <p class="d-inline filter-text">Display &#9679;</p>
-            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
-                <p class="d-inline filter" *ngIf="displayNumbers == '-1'">
-                    &nbsp; &nbsp; <img src="assets/images/active-user.png" />
+            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop6="bs-popover">
+                <p class="d-inline filter" *ngIf="displayNumbers == '-1'" (click)="toggleDisplay()">
+                    &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
                 </p>
             </a>
-            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop7="bs-popover">
-                <p class="d-inline filter" *ngIf="displayNumbers != '-1'">
-                    {{ displayNumbers }}&nbsp; &nbsp; <img src="assets/images/active-user.png" />
+            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop7="bs-popover">
+                <p class="d-inline filter" *ngIf="displayNumbers != '-1'" (click)="toggleDisplay()">
+                    {{ displayNumbers }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
                 </p>
             </a>
         </div>
@@ -90,13 +90,13 @@
     <div id="status-content">
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide()">All</a>
+                <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide();toggleOrigin()">All</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide()">Colombia</a>
+                <a class="pointer-item" (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide();toggleOrigin()">Colombia</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide()">Ethopia</a>
+                <a class="pointer-item" (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide();toggleOrigin()">Ethopia</a>
             </li>
         </ul>
     </div>
@@ -106,41 +106,41 @@
     <div id="status-content">
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop1.hide()">All</a
+                <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop1.hide();toggleStatus()">All</a
                           >
                         </li>
                         <li class="list-group-item item-color">
                           <a
                             class="pointer-item"
-                            (click)="setStatus('Shipped'); pop.hide(); pop1.hide()"
+                            (click)="setStatus('Shipped'); pop.hide(); pop1.hide();toggleStatus()"
                             >Shipped</a
                           >
                         </li>
                         <li class="list-group-item item-color">
                           <a
                             class="pointer-item"
-                            (click)="setStatus('Order Confirmed'); pop.hide(); pop1.hide()"
+                            (click)="setStatus('Order Confirmed'); pop.hide(); pop1.hide();toggleStatus()"
                             >Order Confirmed</a
                           >
                         </li>
                         <li class="list-group-item item-color">
                                 <a
                                   class="pointer-item"
-                                  (click)="setStatus('Payment'); pop.hide(); pop1.hide()"
+                                  (click)="setStatus('Payment'); pop.hide(); pop1.hide();toggleStatus()"
                                   >Payment</a
                                 >
                               </li>
                               <li class="list-group-item item-color">
                                     <a
                                       class="pointer-item"
-                                      (click)="setStatus('Harvest Ready'); pop.hide(); pop1.hide()"
+                                      (click)="setStatus('Harvest Ready'); pop.hide(); pop1.hide();toggleStatus()"
                                       >Harvest Ready</a
                                     >
                                   </li>
                                   <li class="list-group-item item-color">
                                         <a
                                           class="pointer-item"
-                                          (click)="setStatus('Received'); pop.hide(); pop1.hide()"
+                                          (click)="setStatus('Received'); pop.hide(); pop1.hide();toggleStatus()"
                                           >Received</a
                                         >
                                       </li>
@@ -151,12 +151,12 @@
             <div>
                 <ul class="list-group custom-popover">
                     <li class="list-group-item item-color">
-                        <a class="pointer-item" (click)="setType(''); pop3.hide(); pop2.hide()">All</a
+                        <a class="pointer-item" (click)="setType(''); pop3.hide(); pop2.hide();toggleType()">All</a
                                       >
                                     </li>
-                                    <li class="list-group-item item-color"><a class="pointer-item" (click)="setType('Sample'); pop3.hide(); pop2.hide()">Sample</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setType('Booked'); pop3.hide(); pop2.hide()">Booked</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setType('Pre-Booked'); pop3.hide(); pop2.hide()">Pre-Booked</a></li>
+                                    <li class="list-group-item item-color"><a class="pointer-item" (click)="setType('Sample'); pop3.hide(); pop2.hide();toggleType()">Sample</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setType('Booked'); pop3.hide(); pop2.hide();toggleType()">Booked</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setType('Pre-Booked'); pop3.hide(); pop2.hide();toggleType()">Pre-Booked</a></li>
 
 
         </ul>
@@ -168,12 +168,12 @@
     <div>
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide()">All</a>
+                <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide();toggleDisplay()">All</a>
             </li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide()">10</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide()">25</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide()">50</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide()">100</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide();toggleDisplay()">10</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide();toggleDisplay()">25</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide();toggleDisplay()">50</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide();toggleDisplay()">100</a></li>
 
 
         </ul>

@@ -18,6 +18,11 @@ export class EstateComponent implements OnInit {
 	displayNumbers: any;
 	selected: Date[];
 	rangeDates: any;
+	showOrigin: boolean = true;
+  showType:boolean = true;
+  showStatus:boolean = true;
+  showDisplay:boolean =true;
+  
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
@@ -226,5 +231,44 @@ export class EstateComponent implements OnInit {
 		}
 	}
  
- 
+	toggleOrigin() {
+		this.showOrigin = !this.showOrigin;
+		if(this.showOrigin==false){
+			document.getElementById('origin_id').style.border="1px solid #30855c";
+		}
+		else{
+			document.getElementById('origin_id').style.border="1px solid #d6d6d6";
+		
+		}
+	 }
+	 toggleType() {
+	  this.showType = !this.showType;
+	  if(this.showType==false){
+		document.getElementById('type_id').style.border="1px solid #30855c";
+	}
+	else{
+		document.getElementById('type_id').style.border="1px solid #d6d6d6";
+	
+	}
+	}
+	toggleStatus() {
+		this.showStatus = !this.showStatus;
+		if(this.showStatus==false){
+		  document.getElementById('status_id').style.border="1px solid #30855c";
+	  }
+	  else{
+		  document.getElementById('status_id').style.border="1px solid #d6d6d6";
+	  
+	  }
+	  }
+	  toggleDisplay(){
+		this.showDisplay = !this.showDisplay;
+		if(this.showDisplay==false){
+		  document.getElementById('display_id').style.border="1px solid #30855c";
+	  }
+	  else{
+		  document.getElementById('display_id').style.border="1px solid #d6d6d6";
+	  
+	  }
+	  }
 }

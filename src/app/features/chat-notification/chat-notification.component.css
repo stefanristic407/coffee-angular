@@ -15,7 +15,7 @@
 }
 
 .preferences {
-    font-family: Muli;
+    font-family: Muli !important;
     font-size: 18px;
     font-weight: bold;
     color: #232334;
@@ -100,7 +100,7 @@ input[type='radio'] {
     height: 16px;
     border-radius: 50%;
     outline: none;
-    border: solid 1px #666666;
+    border: solid 1px #30855c;
     background-color: #ffffff;
 }
 

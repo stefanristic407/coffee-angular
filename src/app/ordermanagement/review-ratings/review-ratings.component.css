@@ -9,9 +9,9 @@
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-    color: #256547 !important;
+    color: #232334;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     background-color: unset !important;
     /* border-bottom: 1px solid #256547; */
     border-radius: unset;
@@ -19,8 +19,10 @@
 
 .nav-pills .nav-link.active {
     position: relative;
-    padding-right: 0;
-    padding-left: 0;
+    /* padding-right: 0;
+    padding-left: 0; */
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 .nav-pills .nav-link.active:before {
@@ -52,7 +54,7 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    color: #747588;
+    color: #232334;
     /* text-transform: uppercase; */
     /* padding: 0rem 0rem; */
 }
@@ -74,13 +76,13 @@ li.nav-item {
 }
 
 #pills-home {
-    padding: 0px 10px;
+    /* padding: 0px 10px; */
 }
 
 .estate-name {
     font-family: Muli;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -91,7 +93,7 @@ li.nav-item {
 .estate-number {
     font-family: Muli;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -102,17 +104,17 @@ li.nav-item {
 .estate-message {
     font-family: Muli;
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.36;
+    line-height: normal;
     letter-spacing: normal;
-    color: #232334;
+    color: #747588;
 }
 
 .estate-read-more {
     font-family: Muli;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;
@@ -136,11 +138,12 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #747588;
+    color: #979797;
 }
 
 .border-div {
     border-bottom: 1px solid #dddddd;
+    padding-bottom: 1rem;
 }
 
 .star-estate {
@@ -151,7 +154,7 @@ li.nav-item {
 }
 
 .state-txt {
-    font-weight: 600;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -159,21 +162,48 @@ li.nav-item {
     color: #232334;
 }
 
-.rating-value {
-    position: relative;
-    top: 5px;
-    left: 5px;
+.list-ans {
+    color: #747588 !important;
 }
 
-.review {
-    font-family: PlayfairDisplay;
-    font-size: 28px;
-    font-weight: normal;
+.state-txt1 {
+    font-weight: 600;
+    font-family: Muli;
+    font-size: 14px;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #020202;
+    color: #747588;
+}
+
+.rating-value {
+    position: relative;
+    top: 5px;
+    left: 5px;
+    color: #232334;
+    font-weight: bold;
+}
+
+.review {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.main-space {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.message-space {
+    padding-left: 2rem;
+    /* padding-bottom: 1rem; */
 }
 
 .rev-value {
@@ -184,11 +214,13 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #333333;
+    color: #232334;
 }
 
 .review-sec {
-    padding: 2rem;
+    /* padding: 2rem; */
+    padding: 1.5rem 0rem 3rem 1.5rem;
+    ;
     border-radius: 4px;
     border: solid 1px #ebebeb;
 }
@@ -196,7 +228,7 @@ li.nav-item {
 .cust-review {
     font-family: Muli;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -287,13 +319,16 @@ li.nav-item {
 }
 
 .ret-order {
-    padding: 1.5rem 1rem 1rem 1rem;
+    /* padding: 1.5rem 1rem 1rem 1rem; */
+    padding: 1.5rem 0rem 1rem 0rem;
+    ;
 }
 
 .review-tabs {
     border-radius: 4px;
     border: solid 1px #ebebeb;
-    padding: 0rem 3rem;
+    /* padding: 0rem 3rem; */
+    padding: 0rem 1rem;
 }
 
 .list-group-item {
@@ -305,13 +340,20 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #232334;
+    color: #747588;
 }
 
-.item-color {
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600;
+    background-color: #f8f8f8;
+}
+
+
+/* .item-color {
     color: #747588;
     font-weight: 500;
-}
+} */
 
 .menu-arrow {
     cursor: pointer;
@@ -334,6 +376,24 @@ li.nav-item {
 
 .pointer-item {
     cursor: pointer;
+}
+
+#more {
+    display: none;
+}
+
+#more_two {
+    display: none;
+}
+
+#more_three {
+    display: none;
+}
+
+#more_contact1,
+#more_contact2,
+#more_contact3 {
+    display: none;
 }
 
 @media only screen and (max-width: 768px) {

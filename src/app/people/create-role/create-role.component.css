@@ -219,11 +219,17 @@ a.b-cum:hover {
 
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-highlight {
     background-color: #FFF;
-    color: #333;
+    color: #232334;
+    font-weight: 600;
 }
 
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content.ui-treenode-selectable .ui-treenode-label:not(.ui-state-highlight):hover {
     background-color: #FFF;
+    color: #232334;
+}
+
+:host ::ng-deep  .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label{
+font-weight: 600;
 }
 
 :host ::ng-deep .ui-treenode .ui-treenode-leaf {
@@ -231,7 +237,7 @@ a.b-cum:hover {
     font-size: 14px;
     font-weight: normal;
     font-family: Muli;
-    color: #333333;
+    color: #232334;
 }
 
 :host ::ng-deep .ui-treenode {

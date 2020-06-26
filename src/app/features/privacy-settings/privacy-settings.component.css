@@ -27,7 +27,7 @@ a.b-cum:hover {
     color: #ffffff;
     border: 1px solid #30855c;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: bold;
     padding: 0.7rem;
 }
 
@@ -50,7 +50,8 @@ a.b-cum:hover {
 }
 
 .raise-ticket {
-    padding-right: 2%;
+    padding-right: 2rem;
+    padding-top: 2rem;
 }
 
 .sub-text {
@@ -134,7 +135,7 @@ a.b-cum:hover {
         font-size: 13px;
     }
     .raise-ticket {
-        padding-top: 2%;
+        padding-top: 2rem;
     }
     .create-role-btn {
         font-size: 10px;
@@ -148,6 +149,6 @@ a.b-cum:hover {
 .border-clr {
     border-radius: 0px;
     border: solid 1px #ebebeb;
-    padding: 1rem 1rem 2.5rem 1rem;
+    padding: 2rem 2rem 2.5rem 2rem;
     margin: .5rem;
 }

@@ -16,7 +16,15 @@ import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/rai
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
 import { ReviewRatingsComponent} from './review-ratings/review-ratings.component'
 import {RatingComponent} from './rating/rating.component';
-import {DirectMessagingComponent} from './direct-messaging/direct-messaging.component'
+import {DirectMessagingComponent} from './direct-messaging/direct-messaging.component';
+import {FacilitatorOrdersComponent} from './facilitator-orders/facilitator-orders.component';
+import { RoasterOrdersComponent} from './roaster-orders/roaster-orders.component';
+import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
+import {PreOrderChatComponent} from './order-prebook/pre-order-chat/pre-order-chat.component';
+import {BookOrderChatComponent} from './order-booked/book-order-chat/book-order-chat.component'
+import { from } from 'rxjs';
+
+
 
 const routes: Routes = [
   {
@@ -31,7 +39,14 @@ children: [
     path: 'estate-orders',
     component: EstateOrdersComponent
   },
-
+  {
+    path: 'roaster-orders',
+    component: RoasterOrdersComponent
+  },
+  {
+    path: 'facilitator-orders',
+    component: FacilitatorOrdersComponent
+  },
     {
       path:'order-sample',
     component: OrderSampleComponent
@@ -83,6 +98,18 @@ children: [
   {
     path:'direct-messaging',
     component:DirectMessagingComponent
+  },
+  {
+    path:'order-chat',
+    component:OrderChatComponent
+  },
+  {
+    path:'pre-order-chat',
+    component:PreOrderChatComponent
+  },
+  {
+    path:'book-order-chat',
+    component:BookOrderChatComponent
   },
   {
     path: '',

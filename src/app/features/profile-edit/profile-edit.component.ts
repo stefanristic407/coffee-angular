@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfilePicService } from './profile-pic/profile-pic.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile-edit',
@@ -23,7 +24,7 @@ export class ProfileEditComponent implements OnInit {
   nameError: string;
   numb: string;
 
-  constructor(public profilePicService: ProfilePicService, private router : Router) {
+  constructor(public profilePicService: ProfilePicService, private router : Router, private toastrService: ToastrService) {
     this.roleError = '';
     this.phonenoError = '';
     this.emailError = '';
@@ -84,8 +85,23 @@ export class ProfileEditComponent implements OnInit {
   //  Function Name : Handle Profile File function.
   //  Description   : This function helps To open file explorer,after selecting image it will open Image Cropper Modal.
   handleFile(e) {
+    if (e.target.files.length > 0) { 
+			for (let i = 0; i <= e.target.files.length - 1; i++) { 
+
+				const fsize = e.target.files.item(i).size; 
+				const file = Math.round((fsize / 1024)); 
+				// The size of the file. 
+      if (file >= 2048) {
+        // alert("file is big")
+        this.toastrService.error("File too big, please select a file smaller than 2mb");
+        this.profilePicService.displayModal = false;
+      }
+      else{ 
     this.profilePicService.displayModal = true;
     this.profilePicService.imageChangedEvent = e;
+      }
+    }
+  }
   }
 
   //  Function Name : Close Profile Modal.

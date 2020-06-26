@@ -1,18 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
-
+let sd;
 @Component({
   selector: 'app-direct-messaging',
   templateUrl: './direct-messaging.component.html',
   styleUrls: ['./direct-messaging.component.css']
 })
 export class DirectMessagingComponent implements OnInit {
+  files: any;
+	fileEvent: any;
+	fileValue : any;
+	valurl:any = '';
 
-  constructor() { }
+  constructor(private toastrService : ToastrService) { 
+  }
 
   ngOnInit(): void {
   }
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
 
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+		this.valurl = event.target.result;
+		// console.log(this.valurl);
+		this.fileValue = '<img src="' + this.valurl + '" height="200">';
+		console.log(this.fileValue);
+		$('.imageFile').append(this.fileValue);
+		 sd = this.fileValue;
+		
+	  }
+	 
+	}
+	
+  }
+  
   ngAfterViewInit() {
   
 
@@ -26,7 +51,14 @@ export class DirectMessagingComponent implements OnInit {
 			"height": Ht
 		})
 
-
+		
+		var w2 = parseInt($('.container').css('margin-left'));
+		var p2 = parseInt($('.container').css('padding-left'));
+		var contWidth = parseInt($('.container').width());
+		var tw = (contWidth + (-45) +"px");
+		$('.chat').css({
+			"width": tw
+		})
 
 	});
 
@@ -36,7 +68,7 @@ export class DirectMessagingComponent implements OnInit {
 	let accountsName = document.querySelectorAll('.account')
 
 
-	$('.search-account__input').on('input', function () {
+	$('.search-account__input').on('input', function (event) {
 		var SearchItem = $(this).val().toLowerCase();;
 		for (var x = 0; x < accountsName.length; x++) {
       var itemVal = accountsName[x].querySelector('.name') as HTMLElement;
@@ -44,73 +76,90 @@ export class DirectMessagingComponent implements OnInit {
 			var foundItem = result.indexOf(SearchItem) !== -1;
 
 			if (foundItem) {
-				itemVal.style.display  = "block";
+				// itemVal.style.display  = "block";
+				$("."+result).css('display', 'block');
 			}
-
 			else {
-				itemVal.style.display = "none";
+				// itemVal.style.display = "none";
+				$("."+result).css('display', 'none');
 			}
 		}
-
+		event.stopImmediatePropagation();
 	});
 
 
 
-	//image upload function
-	function imageUploader() {
-		var filesInputLength = document.getElementsByClassName("files").length;
-		//Check File API support
-		if (window.File && window.FileList && window.FileReader) {
-			for (var j = 0; j < filesInputLength; j++) {
-				var filesInput = document.getElementsByClassName("files")[j];
-				filesInput.addEventListener("change", function (event) {
-          var fileVal = event.target as HTMLInputElement;
-					var files:File = (fileVal.files as FileList)[0]; //FileList object
-					for (var i = 0; i < files[0].length; i++) {
-						var file = files[i];
-						//Only pics
-						if (!file.type.match('image'))
-							continue;
-						var picReader = new FileReader();
-						picReader.addEventListener("load", function (event) {
 
-							var picFile = event.target;
-							sd = "<img style='width:100%;height:auto;' class='thumbnail chat-images' src='" + picFile.result + "'" +
-								"title='" + picFile[0].name + "'/>";
+	// //image upload function
+	// function imageUploader() {
+	// 	var filesInputLength = document.getElementsByClassName("files").length;
+	// 	//Check File API support
+	// 	if (window.File && window.FileList && window.FileReader) {
+	// 		for (var j = 0; j < filesInputLength; j++) {
+	// 			var filesInput = document.getElementsByClassName("files")[j];
+	// 			// filesInput.addEventListener("change", function (event) {
+	// 				function handleFile(event){
+	// 				// var files = event.target.files; //FileList object
+	// 				for (var i = 0; i < 1; i++) {
+	// 					var file = event.target.files[i];
+	// 					//Only pics
+	// 					if (!file.type.match('image'))
+	// 						continue;
+	// 					var picReader = new FileReader();
+	// 					picReader.addEventListener("load", function (event) {
 
-							if (i == files[0].length) {
-								$('.img-container').append(sd)
-								$('.img-container').show();
-								$('.img-container').find('img').not(':first').remove();;
-							}
+	// 						var picFile = event.target;
+	// 						sd = "<img style='width:100%;height:auto;' class='thumbnail chat-images' src='" + picFile.result + "'" +
+	// 							"title='" + picFile + "'/>";
 
-						});
-						//Read the image
-						picReader.readAsDataURL(file);
-					}
+	// 						if (i == 1) {
+	// 							$('.img-container').append(sd)
+	// 							$('.img-container').show();
+	// 							$('.img-container').find('img').not(':first').remove();;
+	// 						}
 
-				});
-			}
-		}
-		else {
-			console.log("Your browser does not support File API");
-		}
-	}
+	// 					}
+	// 					//Read the image
+	// 					picReader.readAsDataURL(file);
+	// 				}
 
-	imageUploader();
+	// 			});
+	// 		}
+	// 	}
+	// 	else {
+	// 		console.log("Your browser does not support File API");
+	// 	}
+	// }
 
-	$('body').on('click', '.start-chat', function () {
+
+
+	// imageUploader();
+
+	$('body').on('click', '.start-messaging', function (event) {
 		$('.chat').addClass('open');
+		var headerHeight = parseInt($("header").outerHeight());
+        var ReponsiveHeight = headerHeight + "px"
+        $('.chat').css({
+            "height": "calc(100vh -" + " " + ReponsiveHeight + ")",
+            top: ReponsiveHeight
+        })
+
+		event.stopImmediatePropagation();
 	});
 
-	$('body').on('click', '.chat-control__close', function () {
+
+
+	$('body').on('click', '.chat-control__close', function (event) {
 		$(this).parents('.chat').removeClass('open');
+		event.stopImmediatePropagation();
 	});
 
 
 	// Send Messages
-	$('body').on('click', '.send-message__btn', function () {
-		imageUploader();
+	$('body').on('click', '.send-message__btn', function (event) {
+		console.log(sd)
+
+		// imageUploader();
 		var ChatText = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val();
 
 		var ChatImg = $('.files').val();
@@ -145,6 +194,7 @@ export class DirectMessagingComponent implements OnInit {
 		}
 
 		if (ChatText !== '' && ChatImg !== '') {
+
 			var message = '<div class="message-to live-chat-message-body__text"><div class="message-body"><div>' + sd + '</div><div class="message-to__text "><span>' + ChatText + '</span></div></div><p class="live-time">' + strTime + '</p></div>'
 			var mesbdy = $(this).parents('.live-chat').find('.live-chat-message-body').append(message)
 			var clrInput = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val('');
@@ -181,29 +231,31 @@ export class DirectMessagingComponent implements OnInit {
 
 		$('.img-container').hide();
 		$('.img-container').find('img').remove();
-
+		event.stopImmediatePropagation();
 	});
 
 	// Back to account list
-	$('body').on('click', '.back-to-accounts', function () {
-		imageUploader();
+	$('body').on('click', '.back-to-accounts', function (event) {
+		// imageUploader();
 		$('.files').val('');
 		$('.chat-control__expand').hide();
 		$(this).parents('.chat').find('.live-chat').toggleClass('active');
 		$(this).parents('.chat').find('.chat-accounts__body').toggleClass('active');
+		event.stopImmediatePropagation();
 	});
 
 
 	// Click on account to start chart
-	$('body').on('click', '.account', function () {
-		imageUploader();
+	$('body').on('click', '.account', function (event) {
+		// imageUploader();
 
 		$(this).parents('.chat-box').find('.live-chat').toggleClass('active');
 		$(this).parents('.chat-box').find('.chat-accounts__body').toggleClass('active');
+		var headerHeight = parseInt($("header").outerHeight());
 		var height1 = parseInt($('.chat-accounts__head').outerHeight());
 		var height2 = parseInt($('.live-caht__head').outerHeight());
 		var height3 = parseInt($('.messag-form').outerHeight());
-		var TotalHeight = height1 + height2 + height3 + 'px';
+		var TotalHeight = height1 + height2 + height3 + headerHeight + 'px';
 		var Ht = "calc(100vh -" + " " + TotalHeight + ")";
 		$('.live-chat-message-body').css({
 			"height": Ht
@@ -211,7 +263,7 @@ export class DirectMessagingComponent implements OnInit {
 
 
 		if ($(window).width() < 767) {
-			TotalHeight = height1 + height2 + height3 + 75 + 'px';
+			TotalHeight = height1 + height2 + height3 + headerHeight + 75 + 'px';
 			Ht = "calc(100vh -" + " " + TotalHeight + ")";
 			console.log(Ht)
 			$('.live-chat-message-body').css({
@@ -223,12 +275,13 @@ export class DirectMessagingComponent implements OnInit {
 		if (!($('.chat').hasClass('expand-active'))) {
 			$('.chat-control__expand').show();
 		}
+		event.stopImmediatePropagation();
 	});
 
 	//Expand chat
-	$('body').on('click', '.chat-control__expand', function () {
+	$('body').on('click', '.chat-control__expand', function (event) {
 		$('.files').val('');
-		imageUploader();
+		// imageUploader();
 		$(this).hide();
 		$(this).parents('.chat').find('.chat-body__expand').html('');
 		$(this).parents('.chat').toggleClass('expand-active');
@@ -237,21 +290,24 @@ export class DirectMessagingComponent implements OnInit {
 		$(this).parents('.chat').find('.chat-body__expand').append(expandChat)
 		$('.chat-accounts').find('.chat-accounts__body').toggleClass('active');
 		$('.chat-accounts').find('.live-chat').toggleClass('active');
-
+		var headerHeight = parseInt($("header").outerHeight());
 		var height1 = parseInt($('.chat-accounts__head').outerHeight());
 		var height2 = parseInt($('.live-caht__head').outerHeight());
 		var height3 = parseInt($('.messag-form').outerHeight());
-		var TotalHeight = height1 + height2 + height3 +(-75)+ 'px';
+		var TotalHeight = height1 + height2 + height3 + headerHeight +'px';
 		var Ht = "calc(100vh -" + " " + TotalHeight + ")";
 		$('.live-chat-message-body').css({
 			"height": Ht
 		});
-		$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
-
+		$('.chat-box').css({
+            "height": "calc(100vh - 75px)"
+		})
+		if($(".live-chat-message-body__text:last").offset() !== undefined)
+			$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
 
 
 		if ($(window).width() < 767) {
-			TotalHeight = height1 + height2 + height3 + 85 + 'px';
+			TotalHeight = height1 + height2 + height3 + headerHeight + 85 + 'px';
 			Ht = "calc(100vh -" + " " + TotalHeight + ")";
 			console.log(Ht)
 			$('.live-chat-message-body').css({
@@ -264,11 +320,11 @@ export class DirectMessagingComponent implements OnInit {
 			$(this).parents('.chat').find('.chat-body__expand').html('');
 		}
 
-
+		event.stopImmediatePropagation()
 	});
 
 	//Shrink Mode
-	$('body').on('click', '.back-to-shrinkMode', function () {
+	$('body').on('click', '.back-to-shrinkMode', function (event) {
 		var chtbody = $(this).parents('.chat').find('.chat-accounts').find('.chat-accounts__body');
 		$('.chat-control__expand').show();
 		var shrinkChat = $(this).parents('.chat').find('.chat-body__expand').find('.live-chat.active').clone();
@@ -277,17 +333,20 @@ export class DirectMessagingComponent implements OnInit {
 		$(this).parents('.chat').find('.chat-accounts').append(shrinkChat);
 		$(this).parents('.chat').find('.chat-accounts').find('.chat-accounts__body').removeClass('active');
 		$(this).parents('.chat').find('.chat-accounts').find('.live-chat').addClass('active')
-
+		var headerHeight = parseInt($("header").outerHeight());
 		var height1 = parseInt($('.chat-accounts__head').outerHeight());
 		var height2 = parseInt($('.live-caht__head').outerHeight());
 		var height3 = parseInt($('.messag-form').outerHeight());
-		var TotalHeight = height1 + height2 + height3 + 'px';
+		var TotalHeight = height1 + height2 + height3 + headerHeight + 'px';
 		var Ht = "calc(100vh -" + " " + TotalHeight + ")";
 		$('.live-chat-message-body').css({
 			"height": Ht
 		});
+		$('.chat-box').css({
+            "height": "100vh"
+        })
 		if ($(window).width() < 767) {
-			TotalHeight = height1 + height2 + height3 + 75 + 'px';
+			TotalHeight = height1 + height2 + height3 + headerHeight + 75 + 'px';
 			Ht = "calc(100vh -" + " " + TotalHeight + ")";
 			console.log(Ht)
 			$('.live-chat-message-body').css({
@@ -298,35 +357,45 @@ export class DirectMessagingComponent implements OnInit {
 
 
 		$('.files').val('');
-		imageUploader();
+		// imageUploader();
 		// if (($(chtbody).hasClass('active'))) {
 		// 	$('.chat-control__expand').hide();
 		// }
-		$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
+		if($(".live-chat-message-body__text:last").offset() !== undefined)
+			$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
+		event.stopImmediatePropagation();
 	});
 
-	$('body').on('click', '.chat-inputs__img', function () {
-		imageUploader();
-
+	$('body').on('click', '.chat-inputs__img', function (event) {
+		// imageUploader();
+		event.stopImmediatePropagation();
 	});
 
 
-	$('body').on('click', '.img-container__remove', function () {
+	$('body').on('click', '.img-container__remove', function (event) {
 		sd = '';
 		$('.files').val('');
 		$(this).parents('.img-container').hide();
 		$(this).parents('.img-container').find('img').remove();
+		event.stopImmediatePropagation();
 	});
 	
-	$('body').on('click', '.back-to-conversation', function () {
+	$('body').on('click', '.back-to-conversation', function (event) {
 		$(this).parents('.account-setting').removeClass('open');
+		event.stopImmediatePropagation();
 	});
 
-	$('body').on('click', '.chat-seeting', function () {
+	$('body').on('click', '.chat-seeting', function (event) {
 		$(this).parents('.chat').find('.account-setting').addClass('open');
+		event.stopImmediatePropagation();
 	});
 
-
+	$('body').bind('keypress', function(e) {
+		if(e.keyCode==13){
+			$('.send-message__btn').trigger('click');
+		}
+		e.stopImmediatePropagation();
+	});
 
   }
 

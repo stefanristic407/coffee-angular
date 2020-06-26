@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2">
-                            <a href="javascript:void(0)" class="d-inline-block">
+                            <a class="d-inline-block cursor-pointer start-messaging">
                                 <img class="img" src="assets/images/mess.svg">
                             </a>
                         </li>
@@ -90,10 +90,13 @@
                             </a>
                             <ul class="nav-dropdown fnt-600">
                                 <li>
-                                    <a routerLink="../ordermanagement/myorders">My Orders</a>
+                                    <a routerLink="../ordermanagement/estate-orders">Estate Orders</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">My Payments</a>
+                                    <a routerLink="../ordermanagement/roaster-orders">Roaster Orders</a>
+                                </li>
+                                <li>
+                                    <a routerLink="../ordermanagement/facilitator-orders">Facilitator Orders</a>
                                 </li>
                             </ul>
                         </li>
@@ -150,6 +153,7 @@
 
 <div class="container sewn-container">
     <div class="router-design">
+        <app-direct-messaging></app-direct-messaging>
         <router-outlet></router-outlet>
     </div>
 </div>

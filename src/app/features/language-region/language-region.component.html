@@ -1,54 +1,61 @@
-
 <div class="bg-fff">
-<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-    <span id="title-breadcrumb-1" class="sr-only"></span>
-    <ul class="bread-nav">
-        <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-        </li>
-        <li class="b-cum">
-            <a class="b-cum" routerLink="/features/account-settings">Account Settings</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-        </li>
-        <li class="b-cum c-pink">Language & region</li>
-    </ul>
-</nav>
-<section class="col-sm-12 col-md-12 col-lg-12 p-4">
-    <div class="row">
-        <div class="col-md-6 col-lg-6">
-            <p class="header-value mr-auto text-left">Language & region</p>
-            <p class="sub-text">Please select you language and time zone</p>
+    <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/account-settings">Account Settings</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum c-pink">Language & region</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="ml-auto text-right raise-ticket">
+                <button type="submit" class="btn btn-succes create-role-btn web-btn">Save changes</button>
+            </div>
         </div>
-        <div class="ml-auto text-right raise-ticket">
-            <button type="submit" class="btn btn-succes create-role-btn web-btn">Save changes</button>
+    </section>
+    <section class="col-sm-12 col-md-12 col-lg-12 language-spacing">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <p class="header-value mr-auto text-left">Language & region</p>
+                <p class="sub-text">Please select you language and time zone</p>
+            </div>
+
         </div>
-    </div>
-    <div class="border-clr">
-    <div class="row">
-        <div class="col-md-8 col-lg-5 col-sm-12">
-            <form class="form-container">
-                <div class="form-group mb-4 mob-space">
-                    <label for="lang">Language</label>
-                    <select id="lang" class="form-control" name="lang" required="" [(ngModel)]="lang">
+        <div class="border-clr">
+            <div class="row">
+                <div class="col-md-8 col-lg-5 col-sm-12">
+                    <form class="form-container">
+                        <div class="form-group mb-4 mob-space">
+                            <label for="lang">Language</label>
+                            <select id="lang" class="form-control select-region" name="lang" required="" [(ngModel)]="lang">
               <option value="" selected disabled> Select any language</option>
               <option value="en"> English </option>
               <option value="es"> Spanish </option>
             </select>
-                    <p class="description mt-1">Choose language you would like to use in the application</p>
-                </div>
+                            <p class="description mt-1">Choose language you would like to use in the application</p>
+                        </div>
 
-                <div class="form-group mt-5 mob-space">
-                    <label for="add-language">I can converse in</label>
-                    
-                    <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language">
-                        <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
-                      <img class="plus-symbol" src="assets/images/plus.svg">Add Language </a></div>
-                    <!-- </a> -->
-                    <p class="description mt-1">Add Language that you can communicate in</p>
-                </div>
+                        <div class="form-group mt-5 mob-space">
+                            <label for="add-language">I can converse in</label>
 
-                <div class="form-group mt-5 mob-space">
-                    <label for="timezone">Time zone</label>
-                    <select id="timezone" class="form-control" name="timezone" required="" [(ngModel)]="timezone">
+                            <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language">
+                                <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
+                                    <img class="plus-symbol" src="assets/images/region-plus.svg">Add language </a>
+                            </div>
+                            <!-- </a> -->
+                            <p class="description mt-1">Add Language that you can communicate in</p>
+                        </div>
+
+                        <div class="form-group mt-5 mob-space">
+                            <label for="timezone">Time zone</label>
+                            <select id="timezone" class="form-control  select-region" name="timezone" required="" [(ngModel)]="timezone">
               <option value="" selected disabled> Select Timezone</option>
               <optgroup label="US (Common)">	
                 <option value="America/Puerto_Rico">Puerto Rico (Atlantic)</option>
@@ -545,19 +552,18 @@
                 <option value="Arctic/Longyearbyen">Longyearbyen</option>
               </optgroup>
             </select>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-  </div>
-</section>
+    </section>
 </div>
- <ng-template #allTemplate>
+<ng-template #allTemplate>
     <div id="status-content">
-      <ul class="list-group custom-popover">
-        <li class="list-group-item item-color">
-          <a class="pointer-item" (click)="pop2.hide()"
-            >Hindi</a
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="pop2.hide()">Hindi</a
           >
         </li>
         <li class="list-group-item item-color">
@@ -597,4 +603,4 @@
           </li>
       </ul>
     </div>
-  </ng-template> 
+  </ng-template>

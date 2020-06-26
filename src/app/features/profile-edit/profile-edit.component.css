@@ -22,17 +22,17 @@
 
 .cancel-butn {
     border-radius: 4px;
-    background-color: #3d8462;
+    background-color: #30855c;
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
-    border: #3d8462;
+    border: #30855c;
 }
 
 .cancel-butn:hover {
-    background-color: #3d8462;
-    border: #3d8462;
+    background-color: #30855c;
+    border: #30855c;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
@@ -54,7 +54,7 @@
 .raise-box {
     height: 50px !important;
     border-radius: 6px;
-    border: solid 1px #cccccc;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
 }
 
@@ -75,10 +75,11 @@
 
 .upload-profile {
     margin-top: 10px;
-    border: 1px dashed #bbbbbb;
+    border: 2px dashed #d6d6d6;
     position: relative;
     padding: 2rem 5rem 1rem;
     text-align: center;
+    border-radius: 4px;
 }
 
 .profile-pic-feature {
@@ -93,19 +94,19 @@
 }
 
 .butn-mt {
-    margin-top: -3rem;
+   padding-right: 2rem ;
+   padding-top: 2rem;
 }
 
 .pic-head-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: center;
-    color: #232334;
+    font-family: Muli !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    color: #232334 !important;
 }
 
 .form_para_text {
@@ -114,10 +115,10 @@
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
+    line-height: 1.43;
     letter-spacing: normal;
     text-align: center;
-    color: #232334;
+    color: #747588;
 }
 
 .add-upload {
@@ -128,7 +129,7 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #30855c;
     padding-left: 10px;
 }
 
@@ -152,18 +153,19 @@
 
  :host ::ng-deep .ui-dialog-titlebar {
     font-family: Muli !important;
-    font-size: 16px !important;
+    font-size: 24px !important;
     color: #232334 !important;
     background-color: #ffffff !important;
-    font-weight: 900;
-    font-style: bold;
+    font-weight: bold;
 }
 
  :host ::ng-deep .ui-dialog-content {
     border-bottom-style: dashed !important;
-    border-bottom-color: #f2efeb !important;
+    border-bottom-color: #d6d6d6 !important;
     height: 40% !important;
     overflow-y: unset;
+    border-top: none !important;
+    padding: 0 !important;
 }
 
  :host ::ng-deep .ui-dialog-titlebar-icon span {
@@ -171,21 +173,34 @@
 }
 
  :host ::ng-deep .ui-dialog-titlebar-icon::before {
-    background: url(/assets/images/close-icon.png) !important;
+    background: url(/assets/images/close.svg) !important;
     display: inline !important;
 }
 
 .close-pic {
     cursor: pointer;
+    position: relative;
+    top: 2px;
 }
 
 #save-pic,
 #change-pic {
-    font-size: 12px;
+    font-size: 14px !important;
     font-family: Muli;
     font-weight: 600;
 }
 
+:host ::ng-deep  .ui-dialog-mask.ui-widget-overlay.ui-dialog-visible.ui-dialog-mask-scrollblocker{
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+:host ::ng-deep .ui-dialog .ui-dialog-footer{
+    border: 1px solid #fff !important;
+    padding: 1.25rem 1rem !important;
+  }
+  :host ::ng-deep .overlay{
+  outline: var(--cropper-overlay-color,#919191) solid 100vw !important;
+}
 
 /* ======= MODAL ======= */
 
@@ -198,34 +213,43 @@
     display: block;
 }
 
+
 .previous {
-    border-radius: 8px;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #3d8462;
-    border: #ffffff;
+    border-radius: 4px !important;
+    background-color: #ffffff !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #30855c !important;
+    border: 1px solid #30855c !important;
+    margin-right: 1rem !important;
+    font-family: Muli !important;
 }
 
 .previous:hover {
-    text-decoration: underline;
+    background-color: #30855c !important;
+    color: #ffffff !important;
 }
 
 .login-butn {
-    border-radius: 8px;
-    background-color: #3d8462;
+    border-radius: 4px;
+    background-color: #30855c;
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
-    border: #3d8462;
+    border: #30855c;
 }
 
 .login-butn:hover {
-    background-color: #3d8462;
-    border: #3d8462;
+    background-color: #30855c;
+    border: #30855c;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.login-butn:focus {
+    outline: 0;
+    background-color: #30855c !important;
 }
 
 .mobile-butn {
@@ -241,7 +265,7 @@
 .emailError,
 .descriptionError,
 .roleError {
-    color: #FD4545;
+    color: #d50000;
 }
 
 @media screen and (max-width: 767px) {
@@ -256,6 +280,9 @@
     }
     .mobile-butn {
         display: block;
+    }
+    .delete-logo{
+        padding-right: 3%;
     }
 }
 
@@ -378,4 +405,25 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+/* ====Profile Edit changes==== */
+.add-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    /* padding-left: 8%; */
+}
+.add-text:hover {
+    text-decoration: underline;
+}
+.delete-logo{
+    padding-right: 5%;
+    position: relative;
+    bottom: 2px;
+
+}
+.add-btn{
+    width: -webkit-fill-available;
 }

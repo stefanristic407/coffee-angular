@@ -86,7 +86,7 @@ li.nav-item {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #747588;
 }
 
 .list-group-item:hover {
@@ -108,6 +108,7 @@ li.nav-item {
     border-radius: 5px !important;
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
     background-color: #ffffff;
+    top: 4px !important;
 }
 
 ::ng-deep .bs-popover-bottom .arrow:after {
@@ -260,6 +261,14 @@ table.dataTable thead th {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     padding: 6px 4px;
+}
+
+@media (max-width:991px) {
+    .estate-table {
+        /* width: 100%; */
+        overflow: scroll;
+        margin-top: 2.5rem!important;
+    }
 }
 
 @media (max-width:767px) {

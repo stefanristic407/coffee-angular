@@ -1,7 +1,7 @@
 // AUTHOR : Vijaysimhareddy
 // PAGE DESCRIPTION : This page contains functions of User Management.
 
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef,Renderer2 } from '@angular/core';
 declare var $: any;
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { BottomSheetOverviewExampleSheet } from '../user-management/bottom-sheet-overview-example-sheet'
@@ -56,8 +56,8 @@ export class UserManagementComponent implements OnInit {
   roleData: any = "";
   loginValue: any;
   displayModal: boolean;
-
-
+  showVar: boolean = true;
+  showRole:boolean = true;
   constructor(private _bottomSheet: MatBottomSheet,
     private _sheetValues: SheetValues,
     private roasterService: RoasterserviceService,
@@ -66,10 +66,15 @@ export class UserManagementComponent implements OnInit {
     private toastrService: ToastrService,
     private modalService: BsModalService,
     public route: ActivatedRoute,
-    public userService:UserserviceService) {
+	public userService:UserserviceService,
+	private renderer: Renderer2) {
     this.termStatus = '';
     this.termRole = '';
-    this.loginId = this.cookieService.get('user_id');
+	this.loginId = this.cookieService.get('user_id');
+	
+	// this.renderer.listen('window', 'click',(e:Event)=>{
+	// 	this.showVar=true;
+	//  });
   }
 
   // Function Name : Open Modal
@@ -118,6 +123,8 @@ export class UserManagementComponent implements OnInit {
 	checkAll(ev) {
 		this.userfilterDat.forEach(x => (x.state = ev.target.checked));
   }
+
+
   
   //  Function Name : Single Check box function.
 	//  Description   : This function helps to Check that single row isChecked.
@@ -403,7 +410,6 @@ export class UserManagementComponent implements OnInit {
                      this.userfilterDat=[];
                     this.getRoasterUsers();
                    },5000)
-                   
                   }
                   
                 }
@@ -416,8 +422,26 @@ export class UserManagementComponent implements OnInit {
     )
   }
 
-   
+  toggleRole() {
+	this.showRole = !this.showRole;
+	if(this.showRole==false){
+		document.getElementById('role_id').style.border="1px solid #30855c";
+	}
+	else{
+		document.getElementById('role_id').style.border="1px solid #d6d6d6";
+	
+	}
+ }
+ toggleStatus() {
+  this.showVar = !this.showVar;
+  if(this.showVar==false){
+	document.getElementById('status_id').style.border="1px solid #30855c";
+}
+else{
+	document.getElementById('status_id').style.border="1px solid #d6d6d6";
 
+}
+}
 
 
 }

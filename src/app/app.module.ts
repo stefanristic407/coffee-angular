@@ -14,7 +14,8 @@ import { PeopleModule } from './people/people.module';
 import { HealthCheckComponent } from './health-check/health-check.component';
 import {CalendarModule} from 'primeng/calendar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
-
+import { HeaderComponent } from './header/header.component';
+import { PopoverModule } from "ngx-bootstrap/popover";
 
 
 
@@ -22,7 +23,8 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 @NgModule({
   declarations: [
     AppComponent,
-    HealthCheckComponent
+    HealthCheckComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     PeopleModule,
     OverlayPanelModule,
     CalendarModule,
+    PopoverModule,
     OrdermanagementModule,
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true,
       positionClass: 'toast-bottom-right' }),

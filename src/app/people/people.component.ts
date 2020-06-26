@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { DirectMessagingComponent } from '../ordermanagement/direct-messaging/direct-messaging.component';
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -47,12 +48,15 @@ export class PeopleComponent implements OnInit {
     private cookieService: CookieService,
     private userService: UserserviceService,
     private router: Router,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService
+     ) { }
     ngOnInit(): void {
 
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get("user_id");
     this.getUserValue();
+
+
 
     }
 
@@ -69,6 +73,9 @@ export class PeopleComponent implements OnInit {
       }
     );
   }
+
+  
+  
 
 
   // Function Name : Logout
@@ -103,6 +110,9 @@ export class PeopleComponent implements OnInit {
   //     $(this).parents('.nav-links__item').addClass('active')
   // });
 
+  $(window).on('load', function() {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+});
 
   }
 

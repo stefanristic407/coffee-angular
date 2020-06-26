@@ -56,26 +56,11 @@ a.b-cum:hover {
     color: #232334;
     padding: 5% 0 0% 1%;
 }
-.text-data{
-    font-family: Muli;
-    font-size: 16px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
+
+.privacy-content-list{
+    padding: 2% 1% ;
 }
-.privacy-content{
-    border-bottom: 1px dashed #d6d6d6;
-    padding: 3% 1% ;
-    cursor: pointer;
-}
-.cookies-content{
-    border-bottom: 1px dashed #d6d6d6;
-    padding: 3% 1% ;
-    cursor: pointer;
-}
+
 /* .cookies-content:last-child{
     border-bottom: none;
 } */
@@ -105,7 +90,8 @@ a.b-cum:hover {
     margin: .5rem;
 }
 .raise-ticket {
-    padding-right: 2%;
+    padding-right: 2rem;
+    padding-top: 2rem;
 }
 .create-role-btn {
     background-color: #30855c;
@@ -121,4 +107,82 @@ a.b-cum:hover {
     /* background-color: #30855c; 
     color:#fff; */
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+
+/* Accordian css */
+
+.accordion .card {
+    border: none;
+    margin-bottom: 20px;
+}
+
+.accordion .card h2 {
+    /* background: url(../../../../assets/images/arrow-up.svg) no-repeat calc(0% - -15px) center; */
+    padding-left: .5rem;
+    padding-right: .5rem;
+    background-size: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Muli;
+}
+
+.accordion .card h2 .image
+{
+    background: url(../../../assets/images/arrow-up.svg) no-repeat right;
+    float: right;
+    width: 100%;
+}
+.accordion .card h2.collapsed .image {
+    background: url(../../../assets/images/arrow-1.png) no-repeat right;
+    float: right;
+}
+
+.accordion .card-body {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sourcing {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Muli;
+    color: #333333;
+    margin-top: 3px;
+    margin-left: 5px
+}
+
+.sourcing-collapse {
+    margin-left: 1rem;
+}
+
+.content {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: normal;
+    color: #232334;
+    padding-right: 5%;
+}
+
+.card {
+    border: none;
+    margin-bottom: 0 !important;
+    border-bottom: 1px dashed #ebebeb !important;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.card-body {
+    padding-bottom: 0;
+}
+
+
+.card:hover {
+    border-radius: 2px !important;
+    background-color: #f8f8f8;
 }

@@ -6,6 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DirectMessagingComponent } from '../ordermanagement/direct-messaging/direct-messaging.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -53,12 +55,14 @@ export class FeaturesComponent implements OnInit {
       this.roaster_id = this.cookieService.get("roaster_id");
       this.user_id = this.cookieService.get('user_id');
       this.getUserValue();
+
+   
     }
 
  
 
-  // Function Name : User Value
-  // Description: This function helps to get the details of the logged in user and show the username in header
+ // Function Name : User Value
+  //Description: This function helps to get the details of the logged in user and show the username in header
   getUserValue() {
     this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
       response => {
@@ -67,8 +71,10 @@ export class FeaturesComponent implements OnInit {
     );
   }
 
-  // Function Name : Logout
-  // Description: This function helps to logout the user from the session.
+ 
+
+ // Function Name : Logout
+  //Description: This function helps to logout the user from the session.
 
   userLogout() {
     this.userService.logOut().subscribe(
@@ -100,6 +106,9 @@ export class FeaturesComponent implements OnInit {
   //     $(this).parents('.nav-links__item').addClass('active')
   // });
 
+  $(window).on('load', function() {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+});
 
   }
 

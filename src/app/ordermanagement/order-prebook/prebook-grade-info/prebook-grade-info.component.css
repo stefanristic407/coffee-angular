@@ -84,8 +84,8 @@
     border-radius: 50%;
     height: 15px;
     width: 15px;
-    border: solid 2px #f3efe8;
-    background-color: #f3efe8;
+    border: solid 2px #747588;
+    background-color: #ffffff;
     margin: 0;
     transition: background 0.25s linear;
     -webkit-transition: background 0.25s linear;
@@ -164,7 +164,7 @@
     display: block;
     height: 2px;
     width: calc(100%);
-    background-color: #f3efe8;
+    background-color: #747588;
     top: 13px;
     position: absolute;
     /* left: calc(-90%); */

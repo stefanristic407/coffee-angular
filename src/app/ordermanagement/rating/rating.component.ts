@@ -10,27 +10,27 @@ export class RatingComponent implements OnInit {
   newvalue: any = 4;
   val: number = 5;
   val3:any;
-  review:any;
-  reviewUser:any;
+  review:any="";
+  reviewUser:any="";
   communication:any=0;
   experience:any=0;
   communicationUser:any=0;
   experienceuser:any=0;
 
-  experienceError:string;
-  communicationError:string;
-  reviewError:string;
-  experienceUserError:string;
-  communicationUserError:string;
-  reviewUserError:string;
+  experienceError:any;
+  communicationError:any;
+  reviewError:any;
+  experienceUserError:any;
+  communicationUserError:any;
+  reviewUserError:any;
 
   constructor() {
-    this.experienceError = '';
-    this.communicationError = ''; 
-    this.reviewError = '';
-    this.experienceUserError = ''; 
-    this.communicationUserError = '';
-    this.reviewUserError = ''; 
+    this.experienceError = "";
+    this.communicationError = ""; 
+    this.reviewError = "";
+    this.experienceUserError = ""; 
+    this.communicationUserError = "";
+    this.reviewUserError = ""; 
    }
 
   ngOnInit(): void {
@@ -52,8 +52,26 @@ export class RatingComponent implements OnInit {
   }
 
   submitRating(){
-    // console.log(this.experience);
-    if ( this.experience == "0") {
+    if((this.experience == "0" ) && (this.communication == "0" ) && (this.review == "") && (this.experienceuser == "0") && (this.communicationUser == "0") && (this.reviewUser == "")){
+    this.experienceError = "Tap the stars to rate";
+      this.communicationError = "Tap the stars to rate";
+      this.reviewError = "please write your review";
+      this.experienceUserError = "Tap the stars to rate";
+      this.communicationUserError = "Tap the stars to rate";
+      this.reviewUserError = "please write your review";
+      document.getElementById('reviewId').style.border = "1px solid #D50000";
+      document.getElementById('reviewUserId').style.border = "1px solid #D50000";
+      setTimeout(() => {
+        this.reviewError = "";
+        this.experienceError = "";
+        this.communicationError = "";
+        this.experienceUserError = "";
+        this.communicationUserError = "";
+        this.reviewUserError = "";
+      }, 3000);
+
+    }
+    else if ( this.experience == "0") {
       this.experienceError = "Tap the stars to rate";
       // document.getElementById('experienceId').style.border = "1px solid #D50000";
       setTimeout(() => {
@@ -94,14 +112,14 @@ export class RatingComponent implements OnInit {
         this.reviewUserError = "";
       }, 3000);
     }
+    else{
 
+    }
   }
 
   onKeyPress(event: any) {
-    if (event.target.value == "") {
-      document.getElementById(event.target.id).style.border = "1px solid #D50000";
-    } else {
-      document.getElementById(event.target.id).style.border = "1px solid #E8E8E8";
+    if (event.target.value != "") {
+      document.getElementById(event.target.id).style.border = "1px solid #d6d6d6";
     }
   }
 }

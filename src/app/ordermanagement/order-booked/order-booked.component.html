@@ -31,7 +31,7 @@
             <div class=" col-lg-12 col-md-12 col-sm-12 pr-0">
                 <div class="row ">
                     <div class="col-md-6 pl-0 pr-0">
-                        <div class="order-id">Order #12416 <span class="booked ml-2">● Booked</span></div>
+                        <div class="order-id">Order #12416 <span class="booked ml-2">● &nbsp; Booked</span></div>
 
                         <!-- <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div> -->
                     </div>
@@ -249,14 +249,14 @@
                 <ul class="details-list p-0 ml-3">
                     <li class="estate-name">Finca Guadalupe Zajú</li>
                     <li>
-                        <span class="estate-number pr-2">+420 6365719</span>
+                        <span class="estate-number pr-2">+420 6365719</span> <span class="vr-line">|</span>
                         <span class="pl-2 estate-mail">info@guadalupezaju.com</span>
                     </li>
                     <li class="d-flex rating-space">
                         <!-- <star-rating value="3" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true" (rate)="onRateBooked($event)"></star-rating>  -->
                         <!-- <star-rating value="4" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true"></star-rating>
                         <p class="rating-value">{{this.newvalue.toFixed(1)}}</p> -->
-                        <span class="cursor-pointer"  routerLink="/ordermanagement/review-ratings"> <img class="" src="assets/images/star-1.png" alt="User"> <span class="star-no pl-1"> 4.95</span> </span>
+                        <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img class="" src="assets/images/star-1.png" alt="User"> <span class="star-no pl-1"> 4.95</span> </span>
 
                     </li>
                     <li class="mt-4">
@@ -289,12 +289,12 @@
             <div class="pull-left estate-details">Stakeholders
             </div>
         </div>
-        <div class="row mt-2 border-div">
+        <div class="row mt-3 border-div">
             <div class="p-0"><img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
             <div class="pull-left">
                 <ul class="details-list p-0 ml-3">
                     <li class="estate-name">Finca La Pampa</li>
-                    <li class="estate-number">
+                    <li class="estate-number pt-1">
                         Coffee Estate
                     </li>
                 </ul>
@@ -303,12 +303,12 @@
                 <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg" alt="Message"><span class="estate-message pl-1">Message</span></span>
             </div>
         </div>
-        <div class="row mt-2">
+        <div class="row mt-3">
             <div class="p-0"><img class="img-estate" src="assets/images/stakeholder2.png" alt="User"></div>
             <div class="pull-left">
                 <ul class="details-list p-0 ml-3">
                     <li class="estate-name">Kevin Bailey</li>
-                    <li class="estate-number">
+                    <li class="estate-number pt-1">
                         Facilitator
                     </li>
                 </ul>
@@ -358,7 +358,7 @@
                 <div class="pull-left">
                     <ul class="details-list p-0 ml-3">
                         <li class="list-name">Finca La Pampa</li>
-                        <li class="list-user mb-2">
+                        <li class="list-user mb-2 pt-1">
                             Coffee Estate
                         </li>
                         <li class="list-activity">
@@ -373,7 +373,7 @@
                 <div class="pull-left">
                     <ul class="details-list p-0 ml-3">
                         <li class="list-name">Kevin Bailey</li>
-                        <li class="list-user mb-2">
+                        <li class="list-user mb-2 pt-1">
                             Facilitator
                         </li>
                         <li class="list-activity">
@@ -390,7 +390,7 @@
                 <div class="pull-left">
                     <ul class="details-list p-0 ml-3">
                         <li class="list-name">Finca La Pampa</li>
-                        <li class="list-user mb-2">
+                        <li class="list-user mb-2 pt-1">
                             Coffee Estate
                         </li>
                         <li class="list-activity">
@@ -414,24 +414,8 @@
         <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">Cancel order</button>
     </div>
     <div class="w-100 chat-div">
-        <section class="chatbox js-chatbox">
-            <div class="chatbox__header">
-                <h3 class="chatbox__header-cta-text"><span class="chatbox__header-cta-icon">
-                    </span>Order #12416 chat <span class="chat-indicator"> &#x25CF;</span> </h3>
-                <button class="js-chatbox-toggle chatbox__header-cta-btn u-btn"><i class="pi pi-angle-up"></i></button>
-            </div>
-            <!-- End of .chatbox__header -->
-            <div class="js-chatbox-display chatbox__display">
+        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/book-order-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
 
-            </div>
-            <!-- End of .chatbox__display -->
-            <form #myForm class="js-chatbox-form chatbox__form">
-                <input type="text" id="js-chatbox-input" class="js-chatbox-input chatbox__form-input" placeholder="Type your message..." required>
-                <button class="chatbox__form-submit u-btn"><img class="img-estate ml-4" src="assets/images/chat-send.png" alt="User"></button>
-            </form>
-            <!-- End of .chatbox__form -->
-        </section>
-        <!-- End of .chatbox -->
     </div>
 
 </div>

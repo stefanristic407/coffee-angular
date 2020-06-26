@@ -1,14 +1,22 @@
 <div class="bg-fff">
-
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-        <span id="title-breadcrumb-1" class="sr-only"></span>
-        <ul class="bread-nav">
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-            </li>
-            <li class="b-cum c-pink">Profile Edit</li>
-        </ul>
-    </nav>
+    <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum c-pink">Profile Edit</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="float-right ml-auto butn-mt">
+                <button type="button" class="btn cancel-butn" (click)=profileSave();> Save </button>
+            </div>
+        </div>
+    </section>
 
 
     <section class="my-profile">
@@ -16,9 +24,7 @@
 
             <h1 class="fnt-play"> My Profile</h1>
             <p> Enter or edit personal information and contact details</p>
-            <div class="float-right ml-auto butn-mt">
-                <button type="button" class="btn cancel-butn" (click)=profileSave();> Save </button>
-            </div>
+
             <div class="row">
                 <div class="col-lg-4 col-md-12">
                     <div class="upload-profile">
@@ -34,6 +40,12 @@
                         <p class="pic-head-text ">Upload your Picture</p>
 
                         <p class="form_para_text ">You can upload a JPG or PNG file. Max file size limit 2MB </p>
+                        <button class="btn btn-link add-btn p-0" (click)="profilePicService.deletePhoto();" *ngIf="profilePicService.deleteLogo">
+                                <img class="delete-logo" src="assets/images/delete.png" /><span
+                                  class="add-text"
+                                  >Delete photo</span
+                                >
+                              </button>
                         <!-- <button class="btn btn-link add-btn p-0"> <img src="assets/images/upload.svg" />
                             <span class="add-upload">Upload Logo</span> </button> -->
                         <div>
@@ -123,7 +135,7 @@
         <span class="close-img-div">
       <img
         class="close-pic pull-right"
-        src="assets/images/close-icon.png"
+        src="assets/images/close.svg"
         alt="close-image"
         (click)="closeProfileModal()"
       />
@@ -132,10 +144,10 @@
     <sewn-profile-pic></sewn-profile-pic>
     <p-footer>
         <button type="button" id="change-pic" class="previous btn " (click)="showModalDialog()">
-      CHANGE PHOTO
+      Change photo
     </button>
         <button type="button" id="save-pic" class="btn btn-info login-butn" (click)="profilePicService.saveProfilePic()">
-      SAVE PHOTO
+      Save photo
     </button>
     </p-footer>
 </p-dialog>

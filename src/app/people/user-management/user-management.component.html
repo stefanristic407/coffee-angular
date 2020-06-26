@@ -63,31 +63,31 @@
 
 </div>
 <div class="title-header d-inline desk_view_user">
-    <div class="d-inline border-total status-div col-sm-6">
-        <p class="d-inline filter-text">Status: &nbsp;</p>
-        <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
-            <p class="d-inline filter" *ngIf="termStatus == ''">
-                All&nbsp; <img src="assets/images/active-user.png" />
+    <div class="d-inline border-total status-div col-sm-6" id="status_id">
+        <p class="d-inline filter-text" *ngIf="termStatus == ''">Status&nbsp;</p>
+        <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+            <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
+                &nbsp; <img src="{{ showVar ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
             </p>
         </a>
-        <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop="bs-popover">
-            <p class="d-inline filter" *ngIf="termStatus != ''">
-                {{ termStatus }}&nbsp; <img src="assets/images/active-user.png" />
+        <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+            <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleStatus()">
+                {{ termStatus }}&nbsp; <img src="{{ showVar ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
             </p>
         </a>
     </div>
     &nbsp;&nbsp;
-    <div class="d-inline border-total role-div col-sm-6">
+    <div class="d-inline border-total role-div col-sm-6" id="role_id">
         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-        <p class="d-inline filter-text">Role:&nbsp;</p>
-        <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop3="bs-popover">
-            <p class="d-inline filter" *ngIf="termRole == ''">
-                All&nbsp; <img src="assets/images/active-user.png" />
+        <p class="d-inline filter-text" *ngIf="termRole == ''">Role&nbsp;</p>
+        <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
+            <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole();">
+                &nbsp; <img src="{{ showRole ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
             </p>
         </a>
-        <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop1="bs-popover">
-            <p class="d-inline filter" *ngIf="termRole != ''">
-                {{ termRole }}&nbsp;<img src="assets/images/active-user.png" />
+        <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop1="bs-popover">
+            <p class="d-inline filter" *ngIf="termRole != ''" (click)="toggleRole();">
+                {{ termRole }}&nbsp;<img src="{{ showRole ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
             </p>
         </a>
     </div>
@@ -167,7 +167,7 @@
               [outsideClick]="true"
               #pop2="bs-popover"
             >
-              <p class="">&#x22EE;</p>
+              <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
             </a>
             <ng-template #popTemplate>
               <div id="popover-mobile-content">
@@ -587,7 +587,7 @@
   <div>
     <ul class="list-group custom-popover">
       <li class="list-group-item item-color">
-        <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();pop5.hide();pop6.hide();"
+        <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();pop5.hide();pop6.hide();toggleRole()"
           >All</a
         >
       </li>
@@ -599,7 +599,7 @@
       <li class="list-group-item item-color" *ngFor="let role of roles">
         <a
           class="pointer-item"
-          (click)="setRole(role.name); pop1.hide(); pop3.hide();pop5.hide();pop6.hide();"
+          (click)="setRole(role.name); pop1.hide(); pop3.hide();pop5.hide();pop6.hide();toggleRole()"
           >{{ role.name }}</a
         >
       </li>
@@ -611,22 +611,22 @@
   <div id="status-content">
     <ul class="list-group custom-popover">
       <li class="list-group-item item-color">
-        <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide()"
+        <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide();toggleStatus()"
           >All</a
         >
       </li>
       <li class="list-group-item item-color">
         <a
           class="pointer-item"
-          (click)="setStatus('ACTIVE'); pop.hide(); pop2.hide()"
+          (click)="setStatus('Active'); pop.hide(); pop2.hide();toggleStatus()"
           >Active</a
         >
       </li>
       <li class="list-group-item item-color">
         <a
           class="pointer-item"
-          (click)="setStatus('INACTIVE'); pop.hide(); pop2.hide()"
-          >Disabled</a
+          (click)="setStatus('Inactive'); pop.hide(); pop2.hide();toggleStatus()"
+          >Inactive</a
         >
       </li>
     </ul>

@@ -4,11 +4,11 @@
 }
 
 .breadcrumb-item a {
-    color: #666666;
+    color: #747588;
 }
 
 .breadcrumb-item.active {
-    color: #000;
+    color: #232334;
 }
 
 a.b-cum:hover {
@@ -23,7 +23,7 @@ a.b-cum:hover {
 
 .create-role-btn {
     background-color: #30855c;
-    border-radius: 0px;
+    border-radius: 2px;
     color: #ffffff;
     border: 1px solid #30855c;
     font-size: 13px;
@@ -63,7 +63,7 @@ a.b-cum:hover {
 }
 
 .accordion .card h2 {
-    background: url(https://cdn0.iconfinder.com/data/icons/entypo/91/arrow56-512.png) no-repeat calc(0% - -15px) center;
+    background: url(../../../../assets/images/arrow-up.svg) no-repeat calc(0% - -15px) center;
     padding-left: 3rem;
     background-size: 15px;
     cursor: pointer;
@@ -71,7 +71,7 @@ a.b-cum:hover {
 }
 
 .accordion .card h2.collapsed {
-    background-image: url(https://cdn0.iconfinder.com/data/icons/arrows-android-l-lollipop-icon-pack/24/expand2-256.png);
+    background-image: url(../../../../assets/images/arrow-down.svg);
 }
 
 .accordion .card-body {
@@ -102,6 +102,7 @@ a.b-cum:hover {
     letter-spacing: normal;
     color: #232334;
     padding-left: 4%;
+    padding-right: 35%;
 }
 
 .click-here {
@@ -131,7 +132,7 @@ a.b-cum:hover {
 .card {
     border: none;
     margin-bottom: 0 !important;
-    border-bottom: 1px solid #f3efe8 !important;
+    border-bottom: 1px dashed #ebebeb !important;
     padding-bottom: 1.5rem;
     padding-top: 1.5rem;
 }
@@ -185,7 +186,7 @@ a.b-cum:hover {
 }
 
 .raise-btn {
-    border-radius: 0px;
+    border-radius: 2px;
     border: solid 1px #30855c;
     background-color: #30855c;
     font-family: Muli;
@@ -213,14 +214,26 @@ a.b-cum:hover {
     .help-text {
         padding-top: 0;
     }
+    .content{
+        padding-right: 5%;
+    }
 }
-
+@media all and (max-width: 768px) {
+    .content{
+        padding-right: 20%;
+    }
+}
+@media all and (max-width: 1024px) {
+    .content{
+        padding-right: 25%;
+    }
+}
 .breadcrumb1 {
     padding: 1rem;
 }
 
 .border-clr {
-    border-radius: 0px;
+    border-radius: 4px;
     border: solid 1px #d6d6d6;
     padding: 2rem;
 }
@@ -237,4 +250,6 @@ a.b-cum:hover {
 .card:hover {
     border-radius: 2px;
     background-color: #f8f8f8;
+    border: none;
 }
+

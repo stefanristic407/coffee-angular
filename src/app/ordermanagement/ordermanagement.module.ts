@@ -38,6 +38,13 @@ import { HorecaComponent } from './dispute-system/horeca/horeca.component';
 import { ModalModule } from "ngx-bootstrap/modal";
 import { EstateComponent } from './dispute-system/estate/estate.component';
 import { DirectMessagingComponent } from './direct-messaging/direct-messaging.component';
+import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
+import { FacilitatorOrdersComponent } from './facilitator-orders/facilitator-orders.component';
+import { RoasterOrdersComponent } from './roaster-orders/roaster-orders.component';
+import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
+import { PreOrderChatComponent } from './order-prebook/pre-order-chat/pre-order-chat.component';
+import { BookOrderChatComponent } from './order-booked/book-order-chat/book-order-chat.component';
+
 
 
 
@@ -70,7 +77,12 @@ import { DirectMessagingComponent } from './direct-messaging/direct-messaging.co
     MicroRoasterComponent,
     HorecaComponent,
     EstateComponent,
-    DirectMessagingComponent
+    DirectMessagingComponent,
+    FacilitatorOrdersComponent,
+    RoasterOrdersComponent,
+    OrderChatComponent,
+    PreOrderChatComponent,
+    BookOrderChatComponent
   ],
   imports: [
     CommonModule,
@@ -82,8 +94,10 @@ import { DirectMessagingComponent } from './direct-messaging/direct-messaging.co
     PopoverModule,
     CalendarModule,
     ModalModule,
+    MatBottomSheetModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
-  ]
+  ],
+  exports : [DirectMessagingComponent]
 })
 export class OrdermanagementModule {}

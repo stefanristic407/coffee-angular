@@ -15,7 +15,7 @@
                 <a class="b-cum" routerLink="/ordermanagement/estate-orders">Order 12416</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
-            <li class="b-cum c-pink">My Orders</li>
+            <li class="b-cum c-pink">Order support</li>
         </ul>
     </nav>
 
@@ -24,24 +24,25 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 raise-a-ticket">
                     <div class="bg-raise">
-                        <h3> Raise a Ticket</h3>
+                        <h3> Raise a ticket</h3>
 
                         <div class="form-group row pt-2">
-                            <div class="form-group col-md-8 col-sm-6">
+                            <div class="form-group col-md-9 col-sm-6">
                                 <label class="raise-label fnt-muli">Order ID #</label>
-                                <input type="number" class="form-control raise-box ord" placeholder="12345" (keyup)="onKeyPress($event)" [(ngModel)]="orderid" name="orderid" id="orderId" required="">
-                                <div class="orderidError" *ngIf="orderidError != ''">{{orderidError}}</div>
+                                <input type="number" class="form-control raise-box ord disable-ticket" placeholder="12345" (keyup)="onKeyPress($event)" [(ngModel)]="orderid" name="orderid" id="orderId" disabled="disabled" required="">
+                                <!-- <div class="orderidError" *ngIf="orderidError != ''">{{orderidError}}</div> -->
 
                             </div>
-                            <div class="form-group col-md-4 col-sm-6">
-                                <span class="raise-chng-ord fnt-muli"  routerLink="/ordermanagement/select-order"> <i class="pi pi-pencil"></i> change order</span>
+                            <div class="form-group col-md-3 col-sm-6">
+                                <span class="raise-chng-ord fnt-muli" routerLink="/ordermanagement/select-order"> <img src="/assets/images/shape-2.png" alt=""> change order</span>
                             </div>
                         </div>
                         <div class="form-group row pt-2">
-                            <div class="form-group  col-md-12">
-                                <label class="raise-label fnt-muli">What can we help you with ?*</label>
-                                <select class="form-control raise-box" (keyup)="onKeyPress($event)" [(ngModel)]="helpyou" name="helpyou" id="helpYou" required="">
-                        <option value="Payment">Payment</option>
+                            <div class="form-group  col-md-9">
+                                <label class="raise-label fnt-muli">What can we help you with ?<span class="required-color">*</span></label>
+                                <select class="form-control raise-boxs" (keyup)="onKeyPress($event)" [(ngModel)]="helpyou" name="helpyou" id="helpYou" required="">
+                                        <option  value="" selected disabled>Select an option</option>
+                                    <option value="Payment">Payment</option>
                         <option value="Order">Order</option>
                         <option value="Test">Test</option>
                     </select>
@@ -97,15 +98,21 @@
                         <div class="form-group row pt-2">
                             <div class="form-group col-md-12">
                                 <label class="raise-label fnt-muli">Why do you want to dispute the order ?</label>
-                                <input type="text" class="form-control raise-box" placeholder="Why do I have to pay before the coffee is shipped ?" (keyup)="onKeyPress($event)" [(ngModel)]="disputeOrder" name="disputeOrder" id="disputeOrder" required="">
-                                <div class="disputeOrderError" *ngIf="disputeOrderError != ''">{{disputeOrderError}}</div>
+                                <select class="form-control raise-boxs" (keyup)="onKeyPress($event)" [(ngModel)]="disputeOrder" name="disputeOrder" id="disputeOrder" required="">
+                                        <option  value="" selected disabled>Select an option</option>
+                        <option value="0">Why do I have to pay before the coffee is shipped ?</option>
+                        <option value="1">Order</option>
+                        <option value="2">Test</option>
+                    </select>
+                                <!-- <input type="text" class="form-control raise-box" placeholder="Why do I have to pay before the coffee is shipped ?" (keyup)="onKeyPress($event)" [(ngModel)]="disputeOrder" name="disputeOrder" id="disputeOrder" required=""> -->
+                                <!-- <div class="disputeOrderError" *ngIf="disputeOrderError != ''">{{disputeOrderError}}</div> -->
 
                             </div>
                         </div>
 
                         <div class="form-group row pt-2">
                             <div class="form-group col-md-12">
-                                <label class="raise-label fnt-muli">Describe your problem*</label>
+                                <label class="raise-label fnt-muli">Describe your problem<span class="required-color">*</span></label>
                                 <textarea class="form-control" placeholder="Describe your problem" rows="4" cols="50" (keyup)="onKeyPress($event)" [(ngModel)]="problem" name="problem" id="problem" required=""> </textarea>
                                 <div class="problemError" *ngIf="problemError != ''">{{problemError}}</div>
 
@@ -116,7 +123,7 @@
                             <div class="form-group col-md-12">
                                 <label class="raise-label fnt-muli">Whats your solution to the problem? (Optional)</label>
                                 <textarea class="form-control" placeholder="Describe your problem" rows="4" cols="50" (keyup)="onKeyPress($event)" [(ngModel)]="solProblem" name="solProblem" id="solProblem" required=""> </textarea>
-                                <div class="solProblemError" *ngIf="solProblemError != ''">{{solProblemError}}</div>
+                                <!-- <div class="solProblemError" *ngIf="solProblemError != ''">{{solProblemError}}</div> -->
 
                             </div>
                         </div>
@@ -140,7 +147,7 @@
 
                     <div class="raise-bg-color">
                         <h3 class="ord-details-heading fnt-muli"> Order details</h3>
-                        <div class="row mt-2 col-12 border-div">
+                        <div class="row mt-4 col-12 border-div">
                             <div class=" p-0"><img class="img-estate" src="assets/images/activity1.png" alt="User"></div>
                             <div class="pull-left">
                                 <ul class="details-list p-0 fnt-muli">
@@ -150,7 +157,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="row mt-2 col-12 border-div">
+                        <div class="row mt-4 mb-3 col-12">
                             <div class=" p-0"><img class="img-estate" src="assets/images/activity1.png" alt="User"></div>
                             <div class="pull-left">
                                 <ul class="details-list p-0 fnt-muli">
@@ -205,7 +212,7 @@
         </div>
     </section>
 
-    <div class="float-right ml-auto mb-3 pr-3">
+    <div class="float-right ml-auto mb-3 mt-2">
         <button type="button" class="btn cancel-butn fnt-muli" (click)="submitTicket();"> Submit </button>
     </div>
 

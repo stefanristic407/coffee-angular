@@ -1,21 +1,21 @@
 <div class="bg-fff">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="ret-order" >
-            <span class="cursor-pointer"  routerLink="/ordermanagement/estate-orders">
+    <div class="col-lg-12 col-md-12 col-sm-12 main-space">
+        <div class="ret-order">
+            <span class="cursor-pointer" routerLink="/ordermanagement/estate-orders">
             <img src="/assets/images/backarrow.png" alt="">
             <span class="back-ticket pl-2">Return to Order</span>
-        </span>
+            </span>
             <h4 class="Finca-la-pampa pt-3"> Finca la pampa</h4>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-12 left-space">
 
                 <div class="review-sec">
-                    <h1 class="review fnt-play"> Reviews </h1>
+                    <h1 class="review"> Reviews </h1>
                     <p class="rating-value rev-value mb-1">{{this.reviewvalue.toFixed(1)}}</p>
                     <p class="estate-number mb-1"> out of 5</p>
                     <div class="d-flex rating-space">
-                        <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="26px"></star-rating>
+                        <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="26px"></star-rating>
                     </div>
 
                     <p class="cust-review pt-3">78 customer reviews </p>
@@ -32,7 +32,7 @@
                                 </div>
 
                             </td>
-                            <td> <span class="state-txt"> (54) </span> </td>
+                            <td> <span class="state-txt1"> (54) </span> </td>
 
                         </tr>
                         <tr>
@@ -47,7 +47,7 @@
                                 </div>
                             </td>
 
-                            <td> <span class="state-txt"> (11) </span> </td>
+                            <td> <span class="state-txt1"> (11) </span> </td>
 
                         </tr>
                         <tr>
@@ -102,7 +102,7 @@
 
             </div>
 
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-8 col-md-12 right-space pl-md-0">
                 <div class="review-tabs">
                     <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
                         <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
@@ -116,14 +116,14 @@
                             </li>
                         </ul>
                         <div class="pull-right ml-auto problem-text">
-                            <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
-                                <p class="d-inline filter" *ngIf="termStatus == ''">
-                                    Most Relevant &nbsp; <img src="assets/images/active.png" />
+                            <!-- <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                                <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleRelavant();">
+                                    Most Relevant &nbsp; <img src="{{ showRelavant ? 'assets/images/active.png' : 'assets/images/user-down.svg'}}" />
                                 </p>
-                            </a>
-                            <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop="bs-popover">
-                                <p class="d-inline filter" *ngIf="termStatus != ''">
-                                    {{ termStatus }}&nbsp; <img src="assets/images/active.png" />
+                            </a> -->
+                            <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                                <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleRelavant();">
+                                    {{ termStatus }}&nbsp; <img src="{{ showRelavant ? 'assets/images/active.png' : 'assets/images/user-down.svg'}}" />
                                 </p>
                             </a>
                         </div>
@@ -142,7 +142,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-4 border-div">
+                                <div class="row pt-4 m-0">
                                     <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
                                     <div class="col-sm-9 col-8">
                                         <ul class="details-list p-0">
@@ -153,31 +153,32 @@
                                             <li class="d-flex rating-space">
 
                                                 <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px"></star-rating>
+                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
                                                 <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
 
                                             </li>
-
-                                            <li>
-                                                <span class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically truer, ones. Other systems – religion,</span>
-                                            </li>
-                                            <li>
-                                                <span class="estate-read-more" data-toggle="collapse" data-target="#estate"> Read more</span><span class="estate-arrow-dwn"> <i class="pi pi-angle-down"></i></span>
-
-                                            </li>
-                                            <div id="estate" class="collapse">
-                                                <p class="estate-number">
-                                                    Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
-                                                </p>
-                                            </div>
                                         </ul>
                                     </div>
                                     <div class="col-sm-2 col-2">
                                         <p class="date-estate"> Feb 2020</p>
                                     </div>
+                                    <div class="p-0"></div>
+                                    <div class="col-11">
+                                        <div class="message-space">
+                                            <div class="border-div">
+                                                <p class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically
+                                                    truer, ones. Other systems – religion,
+                                                    <span id="dots"></span><span id="more">
+                                                        The refrigerated dairy aisle of your local grocery store can be a great source for tasty, convenient selections for your outdoor gatherings.</span></p>
+                                                <span class="estate-read-more" id="read_id" (click)="moreMethod()"> Read more <img src="/assets/images/active-review.svg" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
 
-                                <div class="row mt-4 border-div">
+                                <div class="row pt-4 m-0">
                                     <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
                                     <div class="col-sm-9 col-8">
                                         <ul class="details-list p-0">
@@ -187,31 +188,36 @@
                                             </li>
                                             <li class="d-flex rating-space">
                                                 <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px"></star-rating>
+                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
                                                 <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
 
                                             </li>
-
-                                            <li>
-                                                <span class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically truer, ones. Other systems – religion,</span>
-                                            </li>
-                                            <li>
-                                                <span class="estate-read-more" data-toggle="collapse" data-target="#estate2"> Read more</span><span class="estate-arrow-dwn"> <i class="pi pi-angle-down"></i></span>
-
-                                            </li>
-                                            <div id="estate2" class="collapse">
+                                            <!-- <div id="estate2" class="collapse">
                                                 <p class="estate-number">
                                                     Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
                                                 </p>
-                                            </div>
+                                            </div> -->
                                         </ul>
                                     </div>
                                     <div class="col-sm-2 col-2">
                                         <p class="date-estate"> Feb 2020</p>
                                     </div>
+                                    <div class="p-0"></div>
+                                    <div class="col-11">
+                                        <div class="message-space">
+                                            <div class="border-div">
+                                                <p class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically
+                                                    truer, ones. Other systems – religion,
+                                                    <span id="dots_two"></span><span id="more_two">
+                                                            The refrigerated dairy aisle of your local grocery store can be a great source for tasty, convenient selections for your outdoor gatherings.</span></p>
+                                                <span class="estate-read-more" id="read_id_two" (click)="moreLess()"> Read more <img src="/assets/images/active-review.svg" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="row mt-4 ">
+                                <div class="row pt-4 m-0">
+
                                     <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
                                     <div class="col-sm-9 col-8">
                                         <ul class="details-list p-0">
@@ -221,33 +227,51 @@
                                             </li>
                                             <li class="d-flex rating-space">
                                                 <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px"></star-rating>
+                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
                                                 <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
 
                                             </li>
-                                            <li>
-                                                <span class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically truer, ones. Other systems – religion,</span>
-                                            </li>
-                                            <li>
-                                                <span class="estate-read-more" data-toggle="collapse" data-target="#estate1"> Read more</span><span class="estate-arrow-dwn"> <i class="pi pi-angle-down"></i></span>
 
-                                            </li>
-                                            <div id="estate1" class="collapse">
+
+                                            <!-- <div id="estate1" class="collapse">
                                                 <p class="estate-number">
                                                     Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
                                                 </p>
-                                            </div>
+                                            </div> -->
                                         </ul>
                                     </div>
                                     <div class="col-sm-2 col-2">
                                         <p class="date-estate"> Feb 2020</p>
+                                    </div>
+                                    <div class="p-0"></div>
+                                    <div class="col-11">
+                                        <div class="message-space">
+                                            <div class="border-div">
+                                                <p class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically
+                                                    truer, ones. Other systems – religion,
+                                                    <span id="dots_three"></span><span id="more_three">
+                                                            The refrigerated dairy aisle of your local grocery store can be a great source for tasty, convenient selections for your outdoor gatherings.</span></p>
+                                                <span class="estate-read-more" id="read_id_three" (click)="lessMethod()"> Read more <img src="/assets/images/active-review.svg" /></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-                                <div class="row mt-4 border-div tap-green">
+                                <div class="row star-two">
+                                    <div class="col-lg-3 col-md-4 col-6">
+                                        <p class="estate-number mb-1"> Overall experience </p>
+                                        <p class="state-txt"> <span class="star-estate"><i class="pi pi-star-o"></i> </span> 5.0</p>
+                                    </div>
+                                    <div class="col-lg-3 col-md-4 col-6">
+                                        <p class="estate-number mb-1"> Communication </p>
+                                        <p class="state-txt"> <span class="star-estate"><i class="pi pi-star-o"></i> </span> 4.5</p>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-4 m-0">
                                     <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
                                     <div class="col-sm-9 col-8">
                                         <ul class="details-list p-0">
@@ -256,32 +280,35 @@
                                                 <span class="estate-number">Roaster</span>
                                             </li>
                                             <li class="d-flex rating-space">
+
                                                 <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px"></star-rating>
+                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
                                                 <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
 
                                             </li>
-
-                                            <li>
-                                                <span class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically truer, ones. Other systems – religion,</span>
-                                            </li>
-                                            <li>
-                                                <span class="estate-read-more" data-toggle="collapse" data-target="#estate4"> Read more</span><span class="estate-arrow-dwn"> <i class="pi pi-angle-down"></i></span>
-
-                                            </li>
-                                            <div id="estate4" class="collapse">
-                                                <p class="estate-number">
-                                                    Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
-                                                </p>
-                                            </div>
                                         </ul>
                                     </div>
                                     <div class="col-sm-2 col-2">
                                         <p class="date-estate"> Feb 2020</p>
                                     </div>
+                                    <div class="p-0"></div>
+                                    <div class="col-11">
+                                        <div class="message-space">
+                                            <div class="border-div">
+                                                <p class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically
+                                                    truer, ones. Other systems – religion,
+                                                    <span id="dots_contact1"></span><span id="more_contact1">
+                                                                            Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
+                                                                        </span></p>
+                                                <span class="estate-read-more" id="read_contact1" (click)="communicationMore_one()"> Read more <img src="/assets/images/active-review.svg" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
 
-                                <div class="row mt-4 border-div">
+                                <div class="row pt-4 m-0">
                                     <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
                                     <div class="col-sm-9 col-8">
                                         <ul class="details-list p-0">
@@ -291,30 +318,37 @@
                                             </li>
                                             <li class="d-flex rating-space">
                                                 <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px"></star-rating>
+                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
                                                 <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
 
                                             </li>
-                                            <li>
-                                                <span class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically truer, ones. Other systems – religion,</span>
-                                            </li>
-                                            <li>
-                                                <span class="estate-read-more" data-toggle="collapse" data-target="#estate3"> Read more</span><span class="estate-arrow-dwn"> <i class="pi pi-angle-down"></i></span>
-
-                                            </li>
-                                            <div id="estate3" class="collapse">
-                                                <p class="estate-number">
-                                                    Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
-                                                </p>
-                                            </div>
+                                            <!-- <div id="estate2" class="collapse">
+                                                        <p class="estate-number">
+                                                            Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
+                                                        </p>
+                                                    </div> -->
                                         </ul>
                                     </div>
                                     <div class="col-sm-2 col-2">
                                         <p class="date-estate"> Feb 2020</p>
                                     </div>
+                                    <div class="p-0"></div>
+                                    <div class="col-11">
+                                        <div class="message-space">
+                                            <div class="border-div">
+                                                <p class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically
+                                                    truer, ones. Other systems – religion,
+                                                    <span id="dots_contact2"></span><span id="more_contact2">
+                                                                                Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
+                                                                            </span></p>
+                                                <span class="estate-read-more" id="read_contact2" (click)="communicationMore_two()"> Read more <img src="/assets/images/active-review.svg" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="row mt-4 ">
+                                <div class="row pt-4 m-0">
+
                                     <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
                                     <div class="col-sm-9 col-8">
                                         <ul class="details-list p-0">
@@ -324,29 +358,38 @@
                                             </li>
                                             <li class="d-flex rating-space">
                                                 <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px"></star-rating>
+                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
                                                 <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
 
                                             </li>
 
-                                            <li>
-                                                <span class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically truer, ones. Other systems – religion,</span>
-                                            </li>
-                                            <li>
-                                                <span class="estate-read-more" data-toggle="collapse" data-target="#estate5"> Read more</span><span class="estate-arrow-dwn"> <i class="pi pi-angle-down"></i></span>
 
-                                            </li>
-                                            <div id="estate5" class="collapse">
-                                                <p class="estate-number">
-                                                    Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
-                                                </p>
-                                            </div>
+                                            <!-- <div id="estate1" class="collapse">
+                                                        <p class="estate-number">
+                                                            Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
+                                                        </p>
+                                                    </div> -->
                                         </ul>
                                     </div>
                                     <div class="col-sm-2 col-2">
                                         <p class="date-estate"> Feb 2020</p>
                                     </div>
+                                    <div class="p-0"></div>
+                                    <div class="col-11">
+                                        <div class="message-space">
+                                            <div class="border-div">
+                                                <p class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically
+                                                    truer, ones. Other systems – religion,
+                                                    <span id="dots_contact3"></span><span id="more_contact3">
+                                                                                Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
+                                                                            </span></p>
+                                                <span class="estate-read-more" id="read_contact3" (click)="communicationMore_three()"> Read more <img src="/assets/images/active-review.svg" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+
                             </div>
 
                         </div>
@@ -366,20 +409,20 @@
     <div id="status-content">
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus(''); pop2.hide()">Most relevant</a
+                <a class="pointer-item" (click)="setStatus('Most relevant'); pop2.hide();toggleRelavant()">Most relevant</a
           >
         </li>
         <li class="list-group-item item-color">
           <a
             class="pointer-item"
-            (click)="setStatus('Recent reviews');  pop2.hide()"
+            (click)="setStatus('Recent reviews');  pop2.hide();toggleRelavant()"
             >Recent reviews</a
           >
         </li>
         <li class="list-group-item item-color">
           <a
             class="pointer-item"
-            (click)="setStatus('Based on rating');  pop2.hide()"
+            (click)="setStatus('Based on rating');  pop2.hide();toggleRelavant()"
             >Based on rating</a
           >
         </li>

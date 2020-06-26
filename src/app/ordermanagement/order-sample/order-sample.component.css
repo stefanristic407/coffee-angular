@@ -132,6 +132,10 @@
     width: 100%;
 }
 
+.tab-right {
+    padding-right: 1.5rem;
+}
+
 .transit-maxwidth {
     /* margin-left: 4rem;
     margin-top: 1.5rem; */
@@ -196,20 +200,20 @@
 .estate-name {
     font-family: Muli;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     color: #232334;
 }
 
 .estate-number,
 .estate-mail {
     font-family: Muli;
-    font-size: 11px;
-    font-weight: bold;
+    font-size: 12px;
+    font-weight: 600;
     color: #747588;
 }
 
 .vr-line {
-    color: #cccccc;
+    color: #d6d6d6;
     position: relative;
     left: 3%;
 }
@@ -217,32 +221,32 @@
 .estate-message {
     font-family: Muli;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .border-div {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #d6d6d6;
 }
 
 .company-phone {
     font-family: Muli;
     font-size: 12px;
     font-weight: normal;
-    color: #666666;
+    color: #747588;
 }
 
 .company-text {
     font-family: Muli;
     font-size: 12px;
     font-weight: normal;
-    color: #000000;
+    color: #232334;
 }
 
 
 /* =========changes as per design ======== */
 
 .nav-pills {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #d6d6d6;
 }
 
 li.nav-item {
@@ -448,8 +452,7 @@ li.nav-item {
 }
 
 .chat-btn {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-radius: 8px 8px 0px 0px !important;
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
     background-color: #333333;
     font-family: Muli;
@@ -594,7 +597,7 @@ li.nav-item {
 }
 
 @media only screen and (max-width: 1024px) {
-    .nav-pills .nav-link.active:before{
+    .nav-pills .nav-link.active:before {
         top: 100%;
     }
     .order-status {
@@ -642,7 +645,7 @@ li.nav-item {
     .transit-maxwidth {
         margin-left: 0rem;
     }
-    .nav-pills .nav-link.active:before{
+    .nav-pills .nav-link.active:before {
         top: 100%;
     }
 }
@@ -670,6 +673,9 @@ li.nav-item {
     .order-placed-text {
         margin: 1rem 0rem;
     }
+    .tab-right {
+        padding-right: 0rem;
+    }
 }
 
 @media only screen and (max-width: 375px) {
@@ -690,4 +696,13 @@ li.nav-item {
 
 a.b-cum {
     font-weight: bold !important;
+}
+
+.stricky-order {
+    position: fixed;
+    left: 0;
+    right: 10%;
+    bottom: 0px;
+    z-index: 99;
+    width: 23%;
 }

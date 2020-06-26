@@ -93,11 +93,11 @@
             <p class="pb-2"><a class="procedure mt-2 ">View payment procedure </a></p>
             <hr/>
             <div class="track-info mt-4 pt-2 " *ngIf="sampleService.shipmentDone ">
-                <p class="track-info-title ">Tracking ID <img class="pl-3 " src="assets/images/open-icon.png " alt=" "></p>
+                <p class="track-info-title ">Tracking ID <img class="space ml-1" src="assets/images/open-icon.png " alt=" "></p>
                 <p class="track-id ">9274972094-29ei43</p>
             </div>
             <div class="shipment-info mt-4 " *ngIf="sampleService.shipmentDone ">
-                <p class="shipment-title ">Shipment ID <img class="pl-3 " src="assets/images/open-icon.png " alt=" "></p>
+                <p class="shipment-title ">Shipment ID <img class="space " src="assets/images/open-icon.png " alt=" "></p>
                 <p class="shipment-id ">9274972094-29ei43</p>
             </div>
             <input type="file" hidden #fileUpload (change)="openFile($event) ">

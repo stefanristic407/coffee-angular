@@ -23,6 +23,8 @@ import { PeopleRoutingModule } from "./people-routing.module";
 import { PeopleComponent } from "./people.component";
 import { SheetValues } from "./user-management/sheet-values";
 import { UserManagementComponent } from "./user-management/user-management.component";
+
+import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
 @NgModule({
   declarations: [
     PeopleComponent,
@@ -38,6 +40,7 @@ import { UserManagementComponent } from "./user-management/user-management.compo
   imports: [
     CommonModule,
     PeopleRoutingModule,
+    OrdermanagementModule,
     OverlayPanelModule,
     PopoverModule.forRoot(),
     FormsModule,

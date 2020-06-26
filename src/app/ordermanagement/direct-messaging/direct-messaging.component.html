@@ -1,7 +1,7 @@
 <section>
-
+    <!-- <div class="imageFile"></div> -->
     <!--Chat Main screen with accounts-->
-    <div class="chat">
+    <div class="chat mt-chat">
         <!--Remove expand mode-->
         <div class="chat-head">
             <button class="back-to-shrinkMode">
@@ -84,7 +84,7 @@
                                 <div class="chat-inputs">
                                     <label class="chat-inputs__img">
                                         <img src="assets/images/dm-img-upload.svg">
-                                        <input type="file" class="files">
+                                        <input type="file" class="files" #file (change)="onSelectFile($event);">
 
                                     </label>
                                     <textarea type="text" rows="1" class="chat-inputs__text" placeholder="Type something.."></textarea>
@@ -134,13 +134,13 @@
                     <div class="chat-accounts__body active">
                         <div class="search-account">
                             <img src="assets/images/dm-search.svg">
-                            <input class="search-account__input" type="search" placeholder="Search Messages">
+                            <input class="search-account__input pt-1" type="search" placeholder="Search Messages">
                         </div>
 
                         <div class="chat-accounts__name">
 
                             <!--Account-->
-                            <div class="clearfix account">
+                            <div class="clearfix account umesh">
                                 <div class="d-inline-block profile-pic">
                                     <img class="profile-pic__item" src="assets/images/dm-profile.png">
                                     <span class="live-account"></span>
@@ -163,54 +163,7 @@
                             </div>
 
                             <!--Account-->
-                            <div class="clearfix account">
-                                <div class="d-inline-block profile-pic">
-                                    <img class="profile-pic__item" src="assets/images/dm-profile.png">
-                                    <span class="offline-account"></span>
-                                </div>
-                                <div class="chat-profile clearfix">
-                                    <div class="chat-profile__name d-inline-block">
-                                        <h5 class="name">Dinesh</h5>
-                                        <span class="status">Coffee Estate</span>
-                                    </div>
-                                    <div class="chat-profile__time d-inline-block">
-                                        <span>2.30</span><span>am</span>
-                                    </div>
-                                    <div class="chat-messaged">
-                                        <p class="chat-messaged__text">The coffee has been graded and sent to..
-                                        </p>
-                                        <span class="chat-messaged__total">2</span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                            <!--Account-->
-                            <div class="clearfix account">
-                                <div class="d-inline-block profile-pic">
-                                    <img class="profile-pic__item" src="assets/images/dm-profile.png">
-                                    <span class="offline-account"></span>
-                                </div>
-                                <div class="chat-profile clearfix">
-                                    <div class="chat-profile__name d-inline-block">
-                                        <h5 class="name">Satya</h5>
-                                        <span class="status">Coffee Estate</span>
-                                    </div>
-                                    <div class="chat-profile__time d-inline-block">
-                                        <span>2.30</span><span>am</span>
-                                    </div>
-                                    <div class="chat-messaged">
-                                        <p class="chat-messaged__text">The coffee has been graded and sent to..
-                                        </p>
-                                        <span class="chat-messaged__total">2</span>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <!--Account-->
-                            <div class="clearfix account">
+                            <div class="clearfix account vijay">
                                 <div class="d-inline-block profile-pic">
                                     <img class="profile-pic__item" src="assets/images/dm-profile.png">
                                     <span class="offline-account"></span>
@@ -232,16 +185,15 @@
                                 </div>
                             </div>
 
-
                             <!--Account-->
-                            <div class="clearfix account">
+                            <div class="clearfix account dinesh">
                                 <div class="d-inline-block profile-pic">
                                     <img class="profile-pic__item" src="assets/images/dm-profile.png">
                                     <span class="offline-account"></span>
                                 </div>
                                 <div class="chat-profile clearfix">
                                     <div class="chat-profile__name d-inline-block">
-                                        <h5 class="name">Jamil</h5>
+                                        <h5 class="name">Dinesh</h5>
                                         <span class="status">Coffee Estate</span>
                                     </div>
                                     <div class="chat-profile__time d-inline-block">
@@ -256,7 +208,6 @@
                                 </div>
                             </div>
 
-
                         </div>
                     </div>
 
@@ -265,8 +216,8 @@
         </div>
     </div>
 
-    <div class="start-chat">
+    <!-- <div class="start-chat">
         <span>Start Chat</span>
-    </div>
+    </div> -->
 
 </section>

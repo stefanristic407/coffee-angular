@@ -15,6 +15,7 @@ import {LoginSecurityComponent} from './login-security/login-security.component'
 import {ChatNotificationComponent} from './chat-notification/chat-notification.component'
 import { HelpComponent } from './help/help.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
+import {FDirectMessagingComponent} from './f-direct-messaging/f-direct-messaging.component';
 
 
 const routes: Routes = [
@@ -73,6 +74,10 @@ const routes: Routes = [
       {
         path: 'help',
         component: HelpComponent
+      },
+      {
+        path: 'f-direct-messaging',
+        component: FDirectMessagingComponent
       },
       {
         path: '',

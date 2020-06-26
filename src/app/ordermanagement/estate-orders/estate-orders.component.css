@@ -2,7 +2,6 @@
     padding-left: 3.1rem;
 }
 
-
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_desc {
@@ -366,7 +365,6 @@ span.checkmark {
     background-color: #f8f8f8;
 }
 
-
 .menu-arrow {
     cursor: pointer;
 }
@@ -380,6 +378,7 @@ span.checkmark {
     border-radius: 5px !important;
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
     background-color: #ffffff;
+    top: 4px !important;
 }
 
 ::ng-deep .bs-popover-bottom .arrow:after {
@@ -424,7 +423,7 @@ span.checkmark {
 
 @media (max-width:1024px) {
     .estate-table {
-        width: 100%;
+        /* width: 100%; */
         overflow: scroll;
     }
     .estate-table table {
@@ -541,5 +540,5 @@ span.checkmark {
     /* width: 100%; */
     position: absolute;
     right: 3.2rem;
-    top: -0.2rem;
+    top: -0.3rem;
 }

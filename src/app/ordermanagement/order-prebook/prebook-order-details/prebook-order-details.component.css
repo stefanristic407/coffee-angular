@@ -6,14 +6,14 @@ th {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
     padding-right: 3rem;
 }
 
 td {
     font-family: Muli;
     /* font-size: 14px; */
-    font-weight: bold;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -31,19 +31,19 @@ td {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #3d8462;
+    color: #30855c;
 }
 
 hr {
     margin-top: 2rem;
     margin-bottom: 2rem;
-    color: #dddddd;
+    color: #ebebeb;
 }
 
 .sub-title {
     font-family: Muli;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -69,13 +69,13 @@ hr {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #666666;
+    color: #747588;
 }
 
 .list-ans {
     font-family: Muli;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600 !important;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -88,31 +88,11 @@ hr {
 }
 
 .bulk-list {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #d6d6d6;
     padding: .7rem 0rem;
 }
 
-.list-que {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #666666;
-}
 
-.list-ans {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-}
 
 .status {
     font-family: Muli;
@@ -202,7 +182,7 @@ hr {
 .status_paid {
     font-family: Muli;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;

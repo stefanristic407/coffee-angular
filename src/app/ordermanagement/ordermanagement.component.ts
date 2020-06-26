@@ -6,6 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DirectMessagingComponent } from '../../app/ordermanagement/direct-messaging/direct-messaging.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -49,6 +51,7 @@ export class OrdermanagementComponent implements OnInit {
     private cookieService: CookieService,
     private userService: UserserviceService,
     private router: Router,
+    private _bottomSheet: MatBottomSheet,
     private toastrService: ToastrService) { }
 
     ngOnInit(): void {
@@ -56,6 +59,10 @@ export class OrdermanagementComponent implements OnInit {
     this.roaster_id = this.cookieService.get('roaster_id');
     this.user_id = this.cookieService.get('user_id');
     this.getUserValue();
+
+ 
+
+    
     
     }
   
@@ -71,6 +78,13 @@ export class OrdermanagementComponent implements OnInit {
       }
     );
   }
+
+  // Function Name : Open Bottom Sheet
+  // Description: This function helps to open the more options in mobile view
+  openBottomSheet(): void {
+    this._bottomSheet.open(DirectMessagingComponent);
+  }
+
 
   // Function Name : Logout
   // Description: This function helps to logout the user from the session.
@@ -105,6 +119,9 @@ export class OrdermanagementComponent implements OnInit {
   //     $(this).parents('.nav-links__item').addClass('active')
   // });
 
+  $(window).on('load', function() {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+});
 
   }
 
