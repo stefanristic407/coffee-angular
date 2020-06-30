@@ -64,12 +64,24 @@ export class UserserviceService {
   //API Function Name :Roaster Profile
   //API Description: This API calls helps to Roaster User Profile.
   
-  getRoasterProfile() {
+  getRoasterProfile(roaster_id : any) {
     var data = {};
-    data['api_call'] = "/ro/users/profile";
-    data['token'] = this.cookieService.get('Auth')
-
+    data['api_call'] = "/ro/"+ roaster_id+"/users/profile";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
     return this.http.post(this.roasterUrl, data);
+  }
+
+    //API Function Name :Update Roaster Profile
+  //API Description: This API calls helps to update Roaster User Profile.
+  
+  updateRoasterProfile(roaster_id : any,body : any) {
+    var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/users/profile";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "PUT";
+    data['data'] = body;
+    return this.http.put(this.putUrl, data);
   }
 
   //API Function Name : Update Password
@@ -181,5 +193,31 @@ export class UserserviceService {
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
+
+   //API Function Name : Privacy Settings
+  //API Description: This API call helps to set the Privacy policy terms.
+
+  privacyTerms(body: any) {
+    var data = {};
+    data['api_call'] = "/users/privacy-terms";
+    data['method'] = "POST";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+
+    //API Function Name : Privacy Settings
+  //API Description: This API call helps to get the Privacy policy terms.
+
+  getPrivacyTerms() {
+    var data = {};
+    data["api_call"] = "/users/privacy-terms";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.url, data);
+  }
+
+
+
 
 }

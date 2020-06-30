@@ -81,12 +81,13 @@ label {
     line-height: normal;
     letter-spacing: normal;
     color: #232334;
+    width: 100%;
 }
 
 .select-region {
     font-size: 14px !important;
     height: 46px !important;
-    border-radius: 8px;
+    border-radius: 4px;
     border: 1px solid #d6d6d6;
     background-color: #fff;
     color: #232334 !important;
@@ -105,6 +106,8 @@ label {
     line-height: normal;
     letter-spacing: normal;
     color: #747588;
+    display: flex;
+    width: 100%;
 }
 
 .add-language {
@@ -117,6 +120,7 @@ label {
     padding-top: 7px;
     padding-left: 8px;
     font-weight: 500;
+    float: left;
 }
 
 .plus-symbol {
@@ -148,7 +152,7 @@ label {
 }
 
 .border-clr {
-    border-radius: 0px;
+    border-radius: 2px;
     border: solid 1px #ebebeb;
     padding: 2rem 2rem 2.5rem 2rem;
     margin: .5rem;
@@ -168,10 +172,28 @@ label {
 
 .list-group-item:hover {
     color: #232334;
-    font-weight: bold;
+    font-weight: 600;
     background-color: #f8f8f8;
 }
 
-.popover-content.popover-body {
-    padding: 0rem 0rem !important;
+.popover-body {
+    padding: .5rem .5rem !important;
+}
+.cross-icon{
+    cursor: pointer;
+    padding-left: 8px;
+}
+.mat-chip-ripple{
+    border: 1px solid #747588 !important;
+}
+.mat-standard-chip{
+    color: #747588 !important;
+    background-color: #ffffff !important;
+}
+.mat-chip-list-wrapper{
+    padding-left: 1rem !important;
+}
+
+.languageError, .timeZoneError {
+    color: #D50000;
 }

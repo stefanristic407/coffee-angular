@@ -16,8 +16,16 @@ import {ChatNotificationComponent} from './chat-notification/chat-notification.c
 import { HelpComponent } from './help/help.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import {FDirectMessagingComponent} from './f-direct-messaging/f-direct-messaging.component';
+import {SourcingComponent} from './Sourcing/sourcing/sourcing.component';
+import {BrandProfileComponent} from './Farm Link/brand-profile/brand-profile.component'
+import {CoffeeExperienceComponent} from './Farm Link/coffee-experience/coffee-experience.component'
+import {AgreementComponent} from './Farm Link/agreement/agreement.component';
+import {FileShareComponent} from './Farm Link/file-share/file-share.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
-
+import {SocialMediaPostsComponent} from './Farm Link/social-media-posts/social-media-posts.component';
+import {CofeeExpeienceDetailsComponent} from './Farm Link/cofee-expeience-details/cofee-expeience-details.component'
+import {BlogDetailsComponent} from './Farm Link/blog-details/blog-details.component'
 const routes: Routes = [
   {
     path: '',
@@ -78,6 +86,41 @@ const routes: Routes = [
       {
         path: 'f-direct-messaging',
         component: FDirectMessagingComponent
+      },
+      {
+        path: 'sourcing',
+        component: SourcingComponent
+      },
+      {
+        path:'brand-profile',
+        component: BrandProfileComponent
+      },
+      {
+        path:'coffee-experience',
+        component:CoffeeExperienceComponent
+      },
+      {
+        path:'agreement',
+        component:AgreementComponent
+      },
+      {
+        path:'file-share',
+        component:FileShareComponent
+      },
+      {
+        path:'social-media',
+        component:SocialMediaPostsComponent
+      },
+      {
+        path:'reset-password',
+        component:ResetPasswordComponent
+      },{
+        path:'coffee-details',
+        component:CofeeExpeienceDetailsComponent
+      },
+      {
+        path:'blog-details',
+        component:BlogDetailsComponent
       },
       {
         path: '',

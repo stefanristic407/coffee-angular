@@ -16,7 +16,7 @@
     </nav>
         </div>
         <div class="ml-auto text-right raise-ticket">
-                <button type="submit" class="btn btn-succes create-role-btn web-btn">Save changes</button>
+                <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="privacyTerms()">Save changes</button>
             </div>
         </div>
         </section>
@@ -35,23 +35,31 @@
                     <div class="privacy-content-list">
                         <div class="privacy-content">
                             <span class="text-data text-left mr-auto">Accessing my account and it’s details</span>
-                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="account"></p-inputSwitch></span>
+                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="access_account"></p-inputSwitch></span>
                         </div>
                         <div class="privacy-content">
                             <span class="text-data text-left mr-auto">Collecting my data</span>
-                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="data"></p-inputSwitch></span>
+                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="access_data"></p-inputSwitch></span>
                         </div>
                         <div class="privacy-content">
                             <span class="text-data text-left mr-auto">Accessing my chat</span>
-                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="chat"></p-inputSwitch></span>
+                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="access_chat"></p-inputSwitch></span>
                         </div>
                     </div>
                     <p class="sub-header">Cookies</p>
                     <div class="cookies-content-list">
-                        <div class="cookies-content">
+                        <!-- <div class="cookies-content">
                             <span class="text-data text-left mr-auto">Cookies enabled</span>
-                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="cookies"></p-inputSwitch></span>
-                        </div>
+                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="agree_cookies"></p-inputSwitch></span>
+                        </div> -->
+                        <div class="cookies-content">
+                                <span class="text-data text-left mr-auto">Agree privacy policies</span>
+                                <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="agree_privacy"></p-inputSwitch></span>
+                            </div>
+                            <div class="cookies-content">
+                                    <span class="text-data text-left mr-auto">Agree terms & conditions</span>
+                                    <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="agree_terms"></p-inputSwitch></span>
+                                </div>
                     </div>
                 </div>
             </div>

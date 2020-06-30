@@ -253,3 +253,18 @@
         margin: 1% 0.5% 0 0%;
     }
 }
+
+
+.change-password-btn{
+padding: 0.5rem 1rem;
+color: #30855c;
+border: 1px solid #30855c;
+background-color: #ffffff;
+border-radius: 4px;
+font-family: Muli;
+}
+
+.change-password-btn:hover{
+background-color: #30855c;
+color: #ffffff;
+}

@@ -1,0 +1,45 @@
+<!-- <div class="table-responsive border-sourcetable">
+    <table class="table">
+        <thead class="table-header">
+            <tr class="header-row">
+                <th scope="col">Estate name</th>
+                <th scope="col">
+                    Rating<img class="pl-2" src="assets/images/combined-shape.svg" />
+                </th>
+                <th scope="col">Origin<img class="pl-2" src="assets/images/combined-shape.svg" /></th>
+                <th scope="col">Altitude range</th>
+                <th scope="col">
+                    Crop year
+                </th>
+                <th scope="col">Lots<img class="pl-2" src="assets/images/combined-shape.svg" /></th>
+                <th scope="col">Certificates</th>
+            </tr>
+        </thead>
+        <tbody class="customtable">
+            <tr class="ticket-boby-txt" *ngFor="let estate of data | filter:sourcingService.crop">
+
+                <td>{{ estate.estatename }}</td>
+                <td><span class="fa fa-star checked pr-2"></span>{{ estate.rating }}</td>
+                <td>
+                    {{ estate.origin }}
+                </td>
+                <td>{{estate.range}}</td>
+                <td>{{ estate.cropyear }} </td>
+                <td>
+                    <div><a class="lot-class pr-3">Dilema</a><a class="lot-class">Shaya</a></div>
+                    <div><a class="lot-class pr-3">Gayni</a><a class="lot-class">+5more</a></div>
+                </td>
+                <td>
+                    <span *ngIf="estate.certificates==3">
+                        <img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"><img src="/assets/images/group-certified.png">
+                    </span>
+                    <span *ngIf="estate.certificates==2"><img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"></span>
+                    <span *ngIf="estate.certificates==1"><img class="pr-2" src="/assets/images/group-utz.png"></span>
+
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+</div> -->

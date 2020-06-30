@@ -13,7 +13,7 @@
                 </nav>
             </div>
             <div class="float-right ml-auto butn-mt">
-                <button type="button" class="btn cancel-butn" (click)=profileSave();> Save </button>
+                <button type="button" class="btn cancel-butn" (click)=profileSave();> Save changes </button>
             </div>
         </div>
     </section>
@@ -100,7 +100,7 @@
                     <div class="p-grid ui-fluid date-birth">
                         <div class="p-col-6">
                             <h3 class="raise-date">Date of birth</h3>
-                            <p-calendar [(ngModel)]="date6" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1970:2020" required=""></p-calendar>
+                            <p-calendar [(ngModel)]="date6" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1970:2020" required="" dateFormat="yy-mm-dd"></p-calendar>
 
                             <!-- <p-calendar [(ngModel)]="date3" [showIcon]="true" name="Date of birth" id="dateOfBirth" required=""></p-calendar> -->
                             <!-- <div class="orderDateError" *ngIf="orderDateError != ''">{{orderDateError}}</div> -->
@@ -113,8 +113,8 @@
                     <div class="form-group row pt-4">
                         <div class="form-group col-md-6 col-sm-12">
                             <label class="raise-label">Role</label>
-                            <input type="text" class="form-control raise-box" placeholder="Sales and Marketing" (keyup)="onKeyPress($event)" [(ngModel)]="role" name="role" id="role" required="">
-                            <div class="roleError" *ngIf="roleError != ''">{{roleError}}</div>
+                            <input type="text" class="form-control raise-box" placeholder="role" disabled  [(ngModel)]="role" name="role" id="role" required="">
+                            <!-- <div class="roleError" *ngIf="roleError != ''">{{roleError}}</div> -->
                         </div>
                     </div>
 
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="float-right ml-auto mobile-butn">
-                    <button type="button" class="btn cancel-butn" (click)=profileSave();> SAVE </button>
+                    <button type="button" class="btn cancel-butn" (click)=profileSave();> Save changes </button>
                 </div>
             </div>
         </div>

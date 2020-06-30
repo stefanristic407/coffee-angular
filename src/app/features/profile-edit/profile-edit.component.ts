@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfilePicService } from './profile-pic/profile-pic.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-profile-edit',
@@ -23,14 +26,23 @@ export class ProfileEditComponent implements OnInit {
   descriptionError: string;
   nameError: string;
   numb: string;
+  roaster_id: string;
+  nameSeperate: string[];
+  firstname: string;
+  lastname: string;
 
-  constructor(public profilePicService: ProfilePicService, private router : Router, private toastrService: ToastrService) {
+  constructor(public profilePicService: ProfilePicService, 
+    private router : Router, 
+    private toastrService: ToastrService,
+    private userService : UserserviceService,
+    private roasterService : RoasterserviceService,
+    private cookieService : CookieService) {
     this.roleError = '';
     this.phonenoError = '';
     this.emailError = '';
     this.descriptionError = '';
     this.nameError = '';
-
+      this.roaster_id = this.cookieService.get('roaster_id');
   }
 
   ngOnInit(): void {
@@ -73,6 +85,32 @@ export class ProfileEditComponent implements OnInit {
               $(this).toggleClass('active');
               $(this).parents('.phone-number').find('.select-list').toggleClass('active');
           });
+
+
+          this.userService.getRoasterProfile(this.roaster_id).subscribe(
+            response => {
+              if(response['success']==true){
+                this.name = response['result']['firstname']+" "+ response['result']['lastname'];
+                this.email = response['result']['email'];
+                this.phoneno =  response['result']['phone'];
+                this.date6 = response['result']['date_of_birth'];
+
+                this.roasterService.getUserBasedRoles(this.roaster_id, response['result']['id']).subscribe(
+                  roleData => {
+                    if(roleData['success']==true){
+                      this.role = roleData['result'][0].name;
+                    }
+                    else{
+                      this.toastrService.error("Error while fetching role");
+                    }
+                  }
+                )
+              }
+              else{
+                this.toastrService.error("Error while fetching the user details");
+              }
+            }
+          )
       
   }
 
@@ -121,6 +159,11 @@ export class ProfileEditComponent implements OnInit {
   profileSave() {
     this.numb = document.getElementById('finalNumber').innerHTML + this.phoneno;
     console.log(this.numb);
+
+    this.nameSeperate = this.name.split(" ");
+    this.firstname = this.nameSeperate[0];
+    this.lastname = this.nameSeperate[1];
+    
 
     if( this.name == "" && this.email == "" && this.phoneno == null
       && this.role == ""){
@@ -174,16 +217,38 @@ export class ProfileEditComponent implements OnInit {
         this.phonenoError = "";
       }, 3000);
 
-    }  else if (this.role == "" || this.role == null || this.role == undefined) {
-      this.roleError = "Please enter role";
-      document.getElementById('role').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.roleError = "";
-      }, 3000);
-
-    }
+    }  
     else{
-      this.router.navigate(['/features/myprofile']);
+      var d = new Date(this.date6),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+  var dateValue =  [year, month, day].join('-');
+  console.log(dateValue);
+      var data = {
+        'firstname' : this.firstname,
+        'lastname' : this.lastname ,
+        'phone' : this.numb,
+        'date_of_birth' : dateValue
+       };
+       console.log(data)
+       this.userService.updateRoasterProfile(this.roaster_id,data).subscribe(
+         result => {
+           console.log(result)
+           if(result['success'] == true){
+             this.toastrService.success("Profile details updated successfully");
+             this.router.navigate(['/features/myprofile']);
+           }
+           else{
+             this.toastrService.error("Error while updating details, please try again.")
+           }
+         }
+       )
+
+      
     }
   }
 

@@ -19710,3 +19710,40 @@ button:focus {
 
 
 /* direct messaging css Ends here */
+
+
+/* progress bar slider css  starts*/
+
+body .ui-slider .ui-slider-handle {
+    width: 16px !important;
+    height: 16px !important;
+    box-shadow: 0 4px 8px 0 rgba(36, 36, 36, 0.34) !important;
+    border: solid 1px #ffffff !important;
+    background-color: #55912d !important;
+    cursor: pointer;
+}
+
+body .ui-slider {
+    border-radius: 4px !important;
+    background-color: #f1f1f1 !important;
+}
+
+body .ui-slider .ui-slider-range {
+    background-color: #55912d !important;
+}
+
+
+/* progress bar slider css  Ends*/
+
+.coffee-exp div.dataTables_wrapper div.dataTables_filter {
+    top: -8.5rem !important;
+    right: 2rem !important;
+    position: absolute !important;
+}
+
+.mat-chip-ripple{
+    border: 1px solid #747588 !important;
+}
+.mat-chip-list-wrapper{
+    padding-left: 1rem !important;
+}

@@ -15,9 +15,9 @@
             <h1 class="fnt-play"> My Profile</h1>
             <p> Enter or edit personal information and contact details</p>
             <div class="float-right ml-auto butn-mt">
-                <button type="button" class="btn cancel-butn" routerLink="/features/profile-edit">  Edit Profile </button>
+                <button type="button" class="btn cancel-butn" (click)="editProfile(profileDetails.id)">  Edit Profile </button>
             </div>
-            <div class="row pt-3">
+            <div class="row pt-3" >
                 <div class="col-lg-4 col-md-12">
                     <div class=" myprofile-pic-bg">
                         <table class="recent-time ">
@@ -25,7 +25,7 @@
                             <tr>
                                 <td> <img class="Profile-dp" src="assets/images/myprofile-pic.png" alt="Dashboard"></td>
                                 <td class="ans">
-                                    <span class="list-ans"> John Smith </span>
+                                    <span class="list-ans"> {{profileDetails.firstname}} {{profileDetails.lastname}} </span>
                                     <p class="list-ans"> Roaster </p>
                                 </td>
                             </tr>
@@ -39,20 +39,25 @@
                             <td>
                                 <img class="" src="assets/images/profile-msg.png" alt="Dashboard">
                             </td>
-                            <td class="ans"> <span class="list-ans"> smith10@gmail.com </span> </td>
+                            <td class="ans"> <span class="list-ans"> {{profileDetails.email}}</span> </td>
                         </tr>
                         <tr>
                             <td>
                                 <img class="" src="assets/images/profile-phone.png" alt="Dashboard">
                                 <!-- <img src="assets/images/dashboard.svg" alt="Dashboard"> -->
                             </td>
-                            <td class="ans"> <span class="list-ans">  +41  766 920 526 </span> </td>
+                            <td class="ans"> 
+                                    <span class="list-ans" *ngIf="profileDetails.phone == ''">  - </span>
+                                <span class="list-ans" *ngIf="profileDetails.phone != ''">  {{profileDetails.phone}}</span> </td>
                         </tr>
                         <tr>
                             <td>
                                 <img class="" src="assets/images/profile-birth-day.png" alt="Dashboard">
                             </td>
-                            <td class="ans"> <span class="list-ans">  13/10/1986</span> </td>
+                            <td class="ans">
+                                    <span class="list-ans" *ngIf="profileDetails.date_of_birth == '' ">  - </span> 
+                                 <span class="list-ans" *ngIf="profileDetails.date_of_birth != '' ">  {{profileDetails.date_of_birth}}</span> 
+                                </td>
                         </tr>
                     </table>
 
@@ -68,7 +73,7 @@
                 </div>
             </div>
             <div class="float-right ml-auto mobile-butn">
-                <button type="button" class="btn cancel-butn" routerLink="/features/profile-edit"> Edit Profile </button>
+                <button type="button" class="btn cancel-butn"  (click)="editProfile(profileDetails.id)"> Edit Profile </button>
             </div>
         </div>
     </section>

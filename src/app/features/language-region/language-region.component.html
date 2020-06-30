@@ -16,7 +16,7 @@
                 </nav>
             </div>
             <div class="ml-auto text-right raise-ticket">
-                <button type="submit" class="btn btn-succes create-role-btn web-btn">Save changes</button>
+                <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="saveLanguage()">Save changes</button>
             </div>
         </div>
     </section>
@@ -30,32 +30,42 @@
         </div>
         <div class="border-clr">
             <div class="row">
-                <div class="col-md-8 col-lg-5 col-sm-12">
+                <div class="col-md-8 col-lg-5 col-sm-12 mb-5">
                     <form class="form-container">
                         <div class="form-group mb-4 mob-space">
                             <label for="lang">Language</label>
-                            <select id="lang" class="form-control select-region" name="lang" required="" [(ngModel)]="lang">
+                            <select id="lang" class="form-control select-region" name="lang" required="" [(ngModel)]="lang"  (keyup)="onKeyPress($event)">
               <option value="" selected disabled> Select any language</option>
               <option value="en"> English </option>
               <option value="es"> Spanish </option>
             </select>
+
                             <p class="description mt-1">Choose language you would like to use in the application</p>
+                            <div class="languageError" *ngIf="languageError != ''">
+                                {{ languageError }}
+                            </div>
                         </div>
 
                         <div class="form-group mt-5 mob-space">
                             <label for="add-language">I can converse in</label>
 
-                            <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language">
+                            <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language mb-1">
                                 <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
                                     <img class="plus-symbol" src="assets/images/region-plus.svg">Add language </a>
                             </div>
+                            <mat-chip-list #chipList aria-label="language">
+                                <mat-chip *ngFor="let language of langChips" [selectable]="selectable"
+                                [removable]="removable" (removed)="remove(language)">{{language}}
+                                   <img *ngIf="removable" class="cross-icon" src="assets/images/cross.svg" (click)="remove(language)">
+                                </mat-chip>
+                              </mat-chip-list>
                             <!-- </a> -->
-                            <p class="description mt-1">Add Language that you can communicate in</p>
+                            <p class="description mt-2">Add Language that you can communicate in</p>
                         </div>
 
                         <div class="form-group mt-5 mob-space">
                             <label for="timezone">Time zone</label>
-                            <select id="timezone" class="form-control  select-region" name="timezone" required="" [(ngModel)]="timezone">
+                            <select id="timezone" class="form-control  select-region" name="timezone" required="" [(ngModel)]="timezone" (keyup)="onKeyPress($event)">
               <option value="" selected disabled> Select Timezone</option>
               <optgroup label="US (Common)">	
                 <option value="America/Puerto_Rico">Puerto Rico (Atlantic)</option>
@@ -552,6 +562,9 @@
                 <option value="Arctic/Longyearbyen">Longyearbyen</option>
               </optgroup>
             </select>
+            <div class="timeZoneError" *ngIf="timeZoneError != ''">
+                {{ timeZoneError }}
+            </div>
                         </div>
                     </form>
                 </div>
@@ -563,41 +576,48 @@
     <div id="status-content">
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="pop2.hide()">Hindi</a
+                <a class="pointer-item" (click)="addLang('Hindi');pop2.hide()">Hindi</a
           >
         </li>
         <li class="list-group-item item-color">
           <a
             class="pointer-item"
-            (click)="pop2.hide()"
+            (click)="addLang('English');pop2.hide()"
             >English</a
           >
         </li>
         <li class="list-group-item item-color">
           <a
             class="pointer-item"
-            (click)=" pop2.hide()"
+            (click)=" addLang('Spanish');pop2.hide()"
             >Spanish</a
           >
         </li>
         <li class="list-group-item item-color">
             <a
               class="pointer-item"
-              (click)=" pop2.hide()"
-              >Hindi</a
+              (click)="addLang('Tamil');pop2.hide()"
+              >Tamil</a
             >
           </li>
           <li class="list-group-item item-color">
             <a
               class="pointer-item"
-              (click)=" pop2.hide()"
+              (click)=" addLang('Kannada');pop2.hide()"
               >Kannada</a
             >
           </li>
           <li class="list-group-item item-color">
+              <a
+                class="pointer-item"
+                (click)=" addLang('Telugu');pop2.hide()"
+                >Telugu</a
+              >
+            </li>
+          <li class="list-group-item item-color">
             <a
               class="pointer-item"
-              (click)=" pop2.hide()"
+              (click)=" addLang('Malayalam');pop2.hide()"
               >Malayalam</a
             >
           </li>

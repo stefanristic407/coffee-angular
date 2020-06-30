@@ -6,6 +6,8 @@ import { PopoverModule } from "ngx-bootstrap/popover";
 import { TypeaheadModule } from "ngx-bootstrap/typeahead";
 import { ImageCropperModule } from "ngx-image-cropper";
 import { ToastrModule } from "ngx-toastr";
+import { Ng2SearchPipeModule } from "ng2-search-filter";
+
 //PrimeNG Modules
 import { ButtonModule } from "primeng/button";
 import { CalendarModule } from "primeng/calendar";
@@ -30,8 +32,24 @@ import { SettingsComponent } from "./settings/settings.component";
 import { WelcomeAboardComponent } from "./welcome-aboard/welcome-aboard.component";
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
+import { DataTablesModule } from "angular-datatables";
+
+
 
 import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
+import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
+import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
+import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
+import { FileShareComponent } from './Farm Link/file-share/file-share.component';
+import { AgreementComponent } from './Farm Link/agreement/agreement.component';
+import { SourcingComponent } from './Sourcing/sourcing/sourcing.component';
+
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
+import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
+import {EstateTableComponent} from './Sourcing/estate-table/estate-table.component'
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -49,7 +67,17 @@ import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.modul
     LoginSecurityComponent,
     ChatNotificationComponent,
     HelpComponent,
-    LanguageRegionComponent
+    LanguageRegionComponent,
+    BrandProfileComponent,
+    CoffeeExperienceComponent,
+    SocialMediaPostsComponent,
+    FileShareComponent,
+    AgreementComponent,
+    SourcingComponent,
+    ResetPasswordComponent,
+    CofeeExpeienceDetailsComponent,
+    BlogDetailsComponent,
+    EstateTableComponent
   ],
   imports: [
     CommonModule,
@@ -57,15 +85,20 @@ import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.modul
     //PrimeNG Modules
     ImageCropperModule,
     OrdermanagementModule,
+    MatChipsModule,
+    MatIconModule,
     SliderModule,
     ModalModule,
     DialogModule,
     ButtonModule,
     PopoverModule,
+    SliderModule,
+    DataTablesModule,
     FormsModule,
     InputSwitchModule,
     CalendarModule,
     MatBottomSheetModule,
+    Ng2SearchPipeModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
   ]

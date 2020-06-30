@@ -87,6 +87,7 @@ a.b-cum:hover {
 
 .dashboard-button:hover {
     border: solid 1px #30855c;
+    box-shadow: 0 22px 54px -10px rgba(223, 223, 223, 0.5);
 }
 
 
