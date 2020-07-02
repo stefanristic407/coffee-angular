@@ -219,9 +219,20 @@ li.nav-item {
     padding: 0.5rem 1rem;
 }
 
+::ng-deep .modal-header {
+    border-bottom: 0px !important;
+    padding: 1rem 2rem .5rem 2rem;
+}
+
+::ng-deep .modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 0rem 0rem 1rem 2rem;
+}
+
 @media (min-width: 576px) {
      ::ng-deep .modal-dialog {
         max-width: 58% !important;
-        margin: 1rem auto;
+        margin: 10rem auto 3rem auto;
     }
 }

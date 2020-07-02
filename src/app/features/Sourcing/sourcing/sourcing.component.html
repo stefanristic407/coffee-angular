@@ -144,7 +144,7 @@
                                 <div class="tab-pane fade show active" id="estates" role="tabpanel" aria-labelledby="nav-home-tab">
                                     <div class="cardpanel-detail">
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-6 " *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch">
+                                            <div class="col-lg-4 col-md-6 " *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
                                                 <div class="source-card card-border">
                                                     <div class="s-gal">
                                                         <img [src]="sample.image" alt="">
@@ -210,7 +210,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="customtable">
-                                                    <tr class="ticket-boby-txt" *ngFor="let estate of data | filter : crop | filter : origin | filter : grade | filter :termSearch">
+                                                    <tr class="ticket-boby-txt cursor-item" *ngFor="let estate of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
 
                                                         <td>{{ estate.estatename }}</td>
                                                         <td><span class="fa fa-star checked pr-2"></span>{{ estate.rating }}</td>
@@ -240,7 +240,7 @@
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                         <div class="cardpanel-detail">
                                             <div class="row">
-                                                <div class="col-lg-4 col-md-6 " *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter :weight">
+                                                <div class="col-lg-4 col-md-6 cursor-item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter :weight">
                                                     <div class="source-card card-border green-coffee-product">
                                                         <div class="s-gal">
                                                             <img [src]="item.image" alt="">
@@ -386,14 +386,14 @@
 </ng-template>
 
 <ng-template #filterTemplate>
-    <div class="modal-header">
+    <div class="modal-header mt-3">
         <h2 class="more-heading">More filters</h2>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <img src="/assets/images/close.svg" alt="">              </button>
     </div>
-    <div class="modal-body mb-5">
-        <div class="altitude-heading mt-2 mb-1">Altitude Range</div>
-        <div class="row border-filter">
+    <div class="modal-body mb-3">
+        <div class="border-filter altitude-heading mb-1">Altitude Range</div>
+        <div class="row pb-4">
             <div class="col-5 d-flex">
                 <div class="meter-border">
                     <input type="text" placeholder="" name="" class="col-12 search-div">
@@ -406,23 +406,160 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="">Flavour profile (A-Z)</div> -->
-        <div class="w-100% popup-filter">
-            <!-- <ul class="clearfix">
-                <li>sdasd</li>
-                <li>sdasd</li>
-                <li>sdasd</li>
-                <li>sdasd</li>
-                <li>sdasd</li>
-                <li>sdasd</li>
-                <li>sdasd</li>
-                <li>sdasd</li>
-                <li>sdasd</li>
+        <div class="border-filter flavour-profile">Flavour profile (A-Z)</div>
+        <div class="w-100% popup-filter pt-4">
+            <ul class="clearfix mb-3">
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
+                </li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label></li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                <span class="checkmark head-check"></span>
+                                Juicy
+                            </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                <span class="checkmark head-check"></span>
+                                Juicy
+                            </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                <span class="checkmark head-check"></span>
+                                Juicy
+                            </label>
+                </li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label></li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                <span class="checkmark head-check"></span>
+                                Fruity
+                            </label>
+                </li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label></li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label></li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label></li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label></li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                <span class="checkmark head-check"></span>
+                                Spicy
+                            </label>
+                </li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label></li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label></li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label></li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label></li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                <span class="checkmark head-check"></span>
+                                Jammy
+                            </label>
+                </li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label></li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label></li>
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label></li>
+                <div class="load-more pb-2">Load More</div>
 
-            </ul> -->
+            </ul>
+        </div>
+        <div class="listing-status border-filter">Listing status</div>
+        <div class="w-100% popup-filter pt-4">
+            <ul class="clearfix mb-0">
+                <li><label class="customcheckbox flavour-text">
+                            <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                            <span class="checkmark head-check"></span>
+                            At Estate
+                        </label></li>
+                <li><label class="customcheckbox flavour-text">
+                            <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                            <span class="checkmark head-check"></span>
+                            At mill
+                        </label></li>
+                <li><label class="customcheckbox flavour-text">
+                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                <span class="checkmark head-check"></span>
+                                Warehouse
+                            </label></li>
+            </ul>
+        </div>
+        <div class="certificates border-filter">Certificates</div>
+        <div class="w-100% pt-4 pb-3">
+            <ul class="mb-0">
+                <li><label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <span class="checkmark head-check"></span>
+                        Show listings with certificates  
+                                      </label></li>
+            </ul>
         </div>
 
-
+        <div class="border-filter">
+            <button type="submit" class="btn pull-right save-filter">Save</button>
+        </div>
     </div>
 
 </ng-template>

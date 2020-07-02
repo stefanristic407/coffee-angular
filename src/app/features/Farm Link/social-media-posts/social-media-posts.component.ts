@@ -1,5 +1,6 @@
 import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,8 +10,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class SocialMediaPostsComponent implements OnInit {
   modalRef: BsModalRef;
+  blogResult: string;
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService, private route : ActivatedRoute) { }
   @ViewChild('imagetemplate') private imagetemplate: any;
   @ViewChild('videotemplate') private videotemplate: any;
 
@@ -20,6 +22,10 @@ export class SocialMediaPostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.blogResult = decodeURIComponent(this.route.snapshot.queryParams['data']);
+    if(this.blogResult == "true"){
+    $('#pills-blogs-tab')[0].click();
+    }
   }
 
   imagesModal(){

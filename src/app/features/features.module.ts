@@ -49,7 +49,21 @@ import {MatIconModule} from '@angular/material/icon';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
-import {EstateTableComponent} from './Sourcing/estate-table/estate-table.component'
+import { ContactComponent } from './roastery-profile/contact/contact.component';
+import { VirtualTourComponent } from './roastery-profile/virtual-tour/virtual-tour.component';
+import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-roastery.component'
+import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
+import { EstateDetailsListComponent } from './Sourcing/estate-details-list/estate-details-list.component';
+import { AvailableCoffeeListComponent } from './Sourcing/available-coffee-list/available-coffee-list.component';
+import { OverviewComponent } from './Sourcing/estate-details-list/overview/overview.component';
+import { AboutFormComponent } from './Sourcing/estate-details-list/about-form/about-form.component';
+import { LandLotsComponent } from './Sourcing/estate-details-list/land-lots/land-lots.component';
+import { OverviewRatingsComponent } from './Sourcing/estate-details-list/overview-ratings/overview-ratings.component';
+import { RatingModule } from 'ng-starrating';
+import { SourcingOrderChatComponent } from './Sourcing/estate-details-list/sourcing-order-chat/sourcing-order-chat.component';
+import { ProfilePhotoComponent } from './roastery-profile/profile-photo/profile-photo.component';
+
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -77,7 +91,18 @@ import {EstateTableComponent} from './Sourcing/estate-table/estate-table.compone
     ResetPasswordComponent,
     CofeeExpeienceDetailsComponent,
     BlogDetailsComponent,
-    EstateTableComponent
+    RoasteryProfileComponent,
+    ContactComponent,
+    VirtualTourComponent,
+    AboutRoasteryComponent,
+    EstateDetailsListComponent,
+    AvailableCoffeeListComponent,
+    OverviewComponent,
+    AboutFormComponent,
+    LandLotsComponent,
+    OverviewRatingsComponent,
+    SourcingOrderChatComponent,
+    ProfilePhotoComponent,
   ],
   imports: [
     CommonModule,
@@ -99,6 +124,7 @@ import {EstateTableComponent} from './Sourcing/estate-table/estate-table.compone
     CalendarModule,
     MatBottomSheetModule,
     Ng2SearchPipeModule,
+    RatingModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
   ]

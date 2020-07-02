@@ -50,6 +50,7 @@
                                         <ng-template #popTemplate>
                                             <div id="popover-mobile-content">
                                                 <ul class="list-group">
+                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/roastery-profile">Roastery Profile </a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" routerLink="/features/myprofile">Profile </a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings">Account Settings </a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">Logout </a></li>
@@ -81,7 +82,7 @@
 
                         <li class="nav-links__item d-inline-block position-relative">
 
-                            <a class="d-inline-block fnt-600" href="javascript:void(0)">Sourcing Module
+                            <a class="d-inline-block fnt-600" routerLink="../features/sourcing">Sourcing Module
                             </a>
                         </li>
 
@@ -113,10 +114,9 @@
                                 <li>
                                     <a routerLink="../features/social-media">Social Media posts</a> </li>
                                 <li>
-                                    <a href="javascript:void(0)">File Share</a>
-                                </li>
+                                    <a routerLink="../features/file-share">File Share</a> </li>
                                 <li>
-                                    <a href="javascript:void(0)">Agreement</a>
+                                    <a routerLink="../features/agreement">Agreements</a>
                                 </li>
 
                             </ul>

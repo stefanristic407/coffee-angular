@@ -1,0 +1,44 @@
+<div class="table-details">
+    <div class="table-responsive border-lots">
+        <table class="table">
+            <thead class="table-header">
+                <tr class="header-row">
+                    <th>Overview</th>
+                    <th scope="col">Lot Size</th>
+                    <th scope="col"> Av. score</th>
+                    <th scope="col">Altitude</th>
+                    <th scope="col">Variety</th>
+                    <th scope="col">Species</th>
+                    <th scope="col">Flavour profile</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody class="customtable">
+                <tr class="ticket-boby-txt" *ngFor="let item of lots">
+                    <td>{{ item.lotname }}</td>
+                    <td>{{ item.lotsize }}</td>
+                    <td>{{ item.score }}</td>
+                    <td>{{item.altitude}}</td>
+                    <td>{{ item.variety }} </td>
+                    <td>{{item.species}}</td>
+
+                    <td>
+                        <div class="flavor-coffee mb-2">
+                            <span>Honey</span><span>Dark Chocolate</span><span>Spices</span>
+                        </div>
+                        <div class="flavor-coffee">
+                            <span>Red Fruit</span><span>Black tea</span>
+                        </div>
+                    </td>
+                    <td class="view-lot">View Lot</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mt-5">
+    <div class="map-heading">Map of the estate</div>
+    <div class="text-center">
+        <img src="assets/images/estate-map.jpg" alt="">
+    </div>
+</div>

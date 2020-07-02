@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { SourcingService } from '../sourcing.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-sourcing',
@@ -38,7 +40,7 @@ export class SourcingComponent implements OnInit {
 		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '$5.6 USD / kg',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82' },
 		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84' }
   ];
-  constructor(public sourcingService:SourcingService,private modalService: BsModalService,) { }
+  constructor(public sourcingService:SourcingService,private modalService: BsModalService,private router: Router) { }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
@@ -127,5 +129,8 @@ export class SourcingComponent implements OnInit {
 			document.getElementById('weight_id').style.border="1px solid #d6d6d6";
 		
 		}
+  }
+  estateList(){
+    this.router.navigate(["/features/estate-details"]);
   }
 }

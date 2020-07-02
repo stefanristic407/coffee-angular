@@ -30,6 +30,7 @@ export class ProfileEditComponent implements OnInit {
   nameSeperate: string[];
   firstname: string;
   lastname: string;
+  numberValue: any;
 
   constructor(public profilePicService: ProfilePicService, 
     private router : Router, 
@@ -92,7 +93,9 @@ export class ProfileEditComponent implements OnInit {
               if(response['success']==true){
                 this.name = response['result']['firstname']+" "+ response['result']['lastname'];
                 this.email = response['result']['email'];
-                this.phoneno =  response['result']['phone'];
+                this.numberValue =  response['result']['phone'].split("-");
+                this.phoneno = this.numberValue[1];
+                document.getElementById('finalNumber').innerHTML = this.numberValue[0];
                 this.date6 = response['result']['date_of_birth'];
 
                 this.roasterService.getUserBasedRoles(this.roaster_id, response['result']['id']).subscribe(
@@ -157,7 +160,7 @@ export class ProfileEditComponent implements OnInit {
     }
   }
   profileSave() {
-    this.numb = document.getElementById('finalNumber').innerHTML + this.phoneno;
+    this.numb = document.getElementById('finalNumber').innerHTML +"-"+ this.phoneno;
     console.log(this.numb);
 
     this.nameSeperate = this.name.split(" ");

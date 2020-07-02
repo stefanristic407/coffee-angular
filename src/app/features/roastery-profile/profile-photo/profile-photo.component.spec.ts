@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EstateTableComponent } from './estate-table.component';
+import { ProfilePhotoComponent } from './profile-photo.component';
 
-describe('EstateTableComponent', () => {
-  let component: EstateTableComponent;
-  let fixture: ComponentFixture<EstateTableComponent>;
+describe('ProfilePhotoComponent', () => {
+  let component: ProfilePhotoComponent;
+  let fixture: ComponentFixture<ProfilePhotoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EstateTableComponent ]
+      declarations: [ ProfilePhotoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EstateTableComponent);
+    fixture = TestBed.createComponent(ProfilePhotoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

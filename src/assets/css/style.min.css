@@ -19711,39 +19711,644 @@ button:focus {
 
 /* direct messaging css Ends here */
 
-
-/* progress bar slider css  starts*/
-
-body .ui-slider .ui-slider-handle {
-    width: 16px !important;
-    height: 16px !important;
-    box-shadow: 0 4px 8px 0 rgba(36, 36, 36, 0.34) !important;
-    border: solid 1px #ffffff !important;
-    background-color: #55912d !important;
-    cursor: pointer;
-}
-
-body .ui-slider {
-    border-radius: 4px !important;
-    background-color: #f1f1f1 !important;
-}
-
-body .ui-slider .ui-slider-range {
-    background-color: #55912d !important;
-}
-
-
-/* progress bar slider css  Ends*/
-
 .coffee-exp div.dataTables_wrapper div.dataTables_filter {
     top: -8.5rem !important;
     right: 2rem !important;
     position: absolute !important;
 }
 
-.mat-chip-ripple{
+.mat-chip-ripple {
     border: 1px solid #747588 !important;
 }
-.mat-chip-list-wrapper{
+
+.mat-chip-list-wrapper {
     padding-left: 1rem !important;
 }
+
+.agreements .dataTables_wrapper .dataTables_filter input {
+    font-family: 'Muli';
+    height: 40px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    background: url(../../assets/images/search-user.png) no-repeat scroll 8px 11px;
+    background-size: 16px 16px;
+    padding-left: 33px;
+    margin-top: 3rem !important;
+    width: 284px !important;
+}
+
+
+/* coffee css starts */
+
+
+/* CSS for Farm link coffee*/
+
+.farmlink-container {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 15px;
+}
+
+.pad-details {
+    padding: 0px 40% 0px 0px;
+}
+
+.text-black334 {
+    color: #232334;
+}
+
+.text-gray588 {
+    color: #747588;
+}
+
+.form-section__inputs {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    background-color: #ffffff;
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.logo-upload__input {
+    width: 70px;
+    height: 70px;
+    /* background-image: url("../../assets/images/logo-upload-bg.svg"); */
+    background-image: url("../../../../assets/images/logo-upload-bg.svg");
+    border-radius: 50%;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.logo-upload__input .img {
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    /* transform: translateX(50%); */
+    width: 22px;
+    height: 22px;
+}
+
+.logo-upload__input input[type="file"] {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.farm-input input {
+    width: 100%;
+    outline: 0;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    color: #232334;
+    font-size: 12px;
+    line-height: 22px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 600;
+    padding: 5px;
+}
+
+.farm-input input::placeholder {
+    font-size: 12px;
+    color: #747588;
+    font-weight: 600;
+    font-family: 'Muli', sans-serif;
+}
+
+.farm-input textarea::placeholder {
+    font-size: 12px;
+    color: #747588;
+    font-weight: 600;
+    font-family: 'Muli', sans-serif;
+}
+
+.farm-input textarea {
+    width: 100%;
+    outline: 0;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    color: #232334;
+    font-size: 12px;
+    line-height: 22px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 600;
+    padding: 5px;
+}
+
+.farm-input label {
+    font-size: 12px;
+    line-break: 22px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 600;
+    color: #232334;
+    display: block;
+}
+
+.form-section__head {
+    margin-bottom: 15px;
+}
+
+.form-section__inputs--withHead {
+    padding: 0 !important;
+}
+
+.farm-input--rightaligned {
+    margin-bottom: 15px;
+}
+
+.farm-input--rightaligned:last-of-type {
+    margin-bottom: 0;
+}
+
+.roastery-tags__checkboxes input {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.roastery-tags__checkboxes label {
+    display: inline-block;
+    margin: 12px 2px 0 0;
+    cursor: pointer;
+}
+
+.roastery-tags__checkboxes .custom-raotary-tags {
+    font-size: 12px;
+    line-height: 22px;
+    font-weight: 500;
+    color: #747588;
+    border-radius: 17px;
+    border: solid 1px #747588;
+    padding: 5px 10px;
+}
+
+.roastery-tags__checkboxes label.active .custom-raotary-tags {
+    color: #30855c !important;
+    border: solid 1px #30855c !important;
+    background-color: rgba(48, 133, 92, 0.05);
+}
+
+.roastery-tags__checkboxes {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 0 5px 12px 5px;
+}
+
+.roastery-upload-files {
+    border-radius: 4px;
+    border: dashed 1px #dddddd !important;
+    padding: 0 !important;
+}
+
+.roastery-upload-files input {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.roastery-uploads label {
+    padding: 25px 15px;
+    cursor: pointer;
+}
+
+.input-head--uplaod input[type="file"] {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.input-head--uplaod label {
+    border-radius: 1.4px;
+    border: solid 0.7px #747588;
+    padding: 8px;
+    position: relative;
+    cursor: pointer;
+}
+
+.input-head--uplaod label span {
+    color: #747588;
+    font-size: 12px;
+    line-height: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.upload-file-results__item {
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.upload-file-results__item button {
+    outline: 0;
+    border: 0;
+    background: none;
+    color: #80460b;
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+    padding: 0 5px;
+}
+
+.upload-file-results__item button:first-of-type {
+    padding-left: 0;
+}
+
+.upload-file-results__item button:first-of-type::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 12px;
+    background-color: #ebebeb;
+}
+
+.upload-file-results__item:last-child {
+    margin-bottom: 0;
+    border: 0;
+    padding: 0;
+}
+
+.copy-link input {
+    outline: 0;
+    border: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #232334;
+    background: none;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+}
+
+.copy-link button {
+    outline: 0;
+    border: 0;
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 5px 10px;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.download-qr-link {
+    margin-top: 25px;
+}
+
+.download-qr-link__file {
+    border-radius: 2px;
+    border: solid 1px #747588;
+    padding: 5px 10px;
+}
+
+.download-qr-link__file:hover {
+    text-decoration: none;
+    color: #232334;
+}
+
+.contact-for-help {
+    position: relative;
+}
+
+.contact-for-help::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -15px;
+    width: calc(100% + 30px);
+    height: 1px;
+    background: #d6d6d6;
+}
+
+.contact-for-help__text {
+    padding-top: 15px;
+    color: #242424;
+    font-weight: 500;
+}
+
+.contact-for-help a {
+    font-weight: 600 !important;
+    color: #80460b !important;
+}
+
+.contact-for-help a:hover {
+    text-decoration: none;
+    color: #80460b;
+}
+
+@media (max-width: 767px) {
+    .logo-upload {
+        margin: auto;
+    }
+    .farm-input {
+        padding: 0;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 991px) {
+    .copy-link__value {
+        justify-content: center;
+    }
+    .copy-link__value input {
+        border-radius: 4px;
+        border: solid 1px #ebebeb;
+        background-color: #f8f8f8;
+        margin-bottom: 15px;
+    }
+}
+
+.form-section__inputs .input-head {
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    margin: 2px;
+}
+
+.form-section__inputs .input-body {
+    padding: 15px;
+}
+
+.copy-link input {
+    width: 100%;
+}
+
+.download-qr-link {
+    margin-bottom: 25px;
+}
+
+@media (min-width: 768px) {
+    .farm-input input {
+        font-size: 14px;
+        line-height: 24px;
+        padding: 5px;
+        height: 46px;
+    }
+    /* .logo-upload {
+        margin-right: 25px;
+       
+    } */
+    .roastery-fields__logo {
+        align-items: center;
+    }
+    .form-section__inputs {
+        padding: 20px;
+    }
+    .farm-input label {
+        font-size: 14px;
+        line-break: 24px;
+    }
+    .form-section__inputs .roastery-fields {
+        margin-bottom: 15px;
+    }
+    .form-section__inputs .roastery-fields:last-of-type {
+        margin-bottom: 0;
+    }
+    .form-section__head {
+        margin-bottom: 20px;
+    }
+    .form-section__inputs .input-body {
+        padding: 20px;
+    }
+    .form-section__inputs .input-head {
+        padding: 10px 20px;
+    }
+    .farm-input--rightaligned {
+        margin-bottom: 25px;
+    }
+    .roastery-tags__checkboxes label {
+        margin: 9px 5px 0 0;
+    }
+    .roastery-tags__checkboxes {
+        border-radius: 4px;
+        border: solid 1px #d6d6d6;
+        padding: 1px 5px 10px 10px;
+    }
+    .roastery-fields--flex {
+        width: 100%;
+    }
+    .roastery-fields--flex .farm-input {
+        width: 49%;
+        margin-right: 2%;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+    .roastery-fields--flex .farm-input:nth-child(2) {
+        margin-right: 0;
+    }
+    .roastery-fields--flex .farm-input:last-of-type {
+        margin-right: 0;
+    }
+    .farmlink-container {
+        padding: 25px 35px;
+    }
+    .logo-upload__input {
+        width: 70px;
+        height: 70px;
+    }
+    .logo-upload__input .img {
+        width: 22px;
+        height: 22px;
+    }
+    .roastery-uploads label {
+        padding: 20px;
+    }
+    .input-head--uplaod label span {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .copy-link {
+        margin-bottom: 20px;
+    }
+    .copy-link button {
+        font-size: 14px;
+    }
+    .download-qr-link {
+        margin-top: 35px;
+        margin-bottom: 35px;
+    }
+    .contact-for-help::after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: -20px;
+        width: calc(100% + 40px);
+        height: 1px;
+        background: #d6d6d6;
+    }
+    .contact-for-help__text {
+        padding-top: 20px;
+    }
+}
+
+@media (min-width: 992px) {
+    /* .logo-upload {
+        margin-right: 35px;
+       
+    } */
+    .form-section__inputs {
+        padding: 25px;
+    }
+    .farm-input input::placeholder {
+        font-size: 14px;
+    }
+    .farm-input textarea::placeholder {
+        font-size: 14px;
+    }
+    .roastery-fields {
+        margin-bottom: 20px;
+    }
+    .form-section__inputs .input-body {
+        padding: 25px;
+    }
+    .form-section__inputs .input-head {
+        padding: 10px 25px;
+    }
+    .form-section__inputs {
+        margin-bottom: 20px;
+    }
+    .farm-input--rightaligned {
+        margin-bottom: 32px;
+    }
+    .roastery-tags__checkboxes .custom-raotary-tags {
+        font-size: 14px;
+        line-height: 24px;
+    }
+    .roastery-tags__checkboxes label {
+        margin: 25px 10px 10px 0;
+    }
+    .roastery-tags__checkboxes {
+        padding: 10px 15px 25px 25px;
+    }
+    .farmlink-container {
+        padding: 30px 45px;
+    }
+    .roastery-fields--flex .farm-input {
+        width: 28%;
+        margin-right: 2%;
+        margin-bottom: 0;
+    }
+    .roastery-fields--flex .farm-input:nth-child(2) {
+        margin-right: 2%;
+    }
+    .roastery-fields--flex .farm-input:last-of-type {
+        width: 40%;
+        margin-right: 0;
+    }
+    .logo-upload__input {
+        width: 90px;
+        height: 90px;
+    }
+    .logo-upload__input .img {
+        width: 32px;
+        height: 32px;
+    }
+    .roastery-uploads label {
+        padding: 20px 25px;
+    }
+    .input-head--uplaod label {
+        padding: 10px;
+    }
+    .upload-file-results__item button {
+        padding: 0 10px;
+    }
+    .copy-link input {
+        font-size: 14px;
+        width: 65%;
+        text-overflow: ellipsis;
+        margin: 0;
+    }
+    .copy-link {
+        margin-bottom: 25px;
+    }
+    .copy-link button {
+        margin-left: auto;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .copy-link__value {
+        border-radius: 4px;
+        border: solid 1px #ebebeb;
+        background-color: #f8f8f8;
+    }
+    .download-qr-link {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .contact-for-help::after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: -25px;
+        width: calc(100% + 50px);
+        height: 1px;
+        background: #d6d6d6;
+    }
+    .contact-for-help__text {
+        padding-top: 25px;
+    }
+}
+
+.preview {
+    border-radius: 4px;
+    color: #30855c;
+    border: solid 1px #30855c;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #ffffff;
+}
+
+.preview:hover {
+    color: #ffffff;
+    background-color: #30855c;
+}
+
+.save {
+    border-radius: 4px;
+    color: #ffffff;
+    border: solid 1px #30855c;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #30855c;
+}
+
+.butn-prev-save {
+    padding-left: 6rem;
+}
+
+.select-region {
+    font-size: 14px !important;
+    height: 46px !important;
+    border-radius: 2px;
+    border: 1px solid #d6d6d6;
+    background-color: #fff;
+    color: #232334 !important;
+    font-family: Muli;
+    cursor: pointer;
+    background: url(/assets/images/active-region.svg) right 16px top 14px no-repeat;
+    -webkit-appearance: none;
+}
+
+::ng-deep body .ui-inputtext {
+    height: 46px !important;
+    border: 1px solid #d6d6d6;
+}
+
+::ng-deep body .ui-inputtext:hover {
+    border: 1px solid #d6d6d6;
+}
+
+
+/* coffee css ends */
+
+
+/* File share css Ends */

@@ -104,3 +104,31 @@
     padding: 2px 0px 0px 2px;
     margin-bottom: 1.7rem;
 }
+
+
+/* progress bar slider css  starts*/
+
+::ng-deep body .ui-slider .ui-slider-handle {
+    width: 16px;
+    height: 16px;
+    box-shadow: 0 4px 8px 0 rgba(36, 36, 36, 0.34);
+    border: solid 1px #ffffff;
+    background-color: #55912d;
+    cursor: pointer;
+}
+
+::ng-deep body .ui-slider {
+    border-radius: 4px !important;
+    background-color: #f1f1f1;
+}
+
+::ng-deep body .ui-state-disabled {
+    opacity: 1;
+}
+
+::ng-deep body .ui-slider .ui-slider-range {
+    background-color: #55912d;
+}
+
+
+/* progress bar slider css  Ends*/

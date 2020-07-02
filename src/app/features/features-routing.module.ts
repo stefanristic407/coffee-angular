@@ -26,6 +26,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import {SocialMediaPostsComponent} from './Farm Link/social-media-posts/social-media-posts.component';
 import {CofeeExpeienceDetailsComponent} from './Farm Link/cofee-expeience-details/cofee-expeience-details.component'
 import {BlogDetailsComponent} from './Farm Link/blog-details/blog-details.component'
+import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
+import {EstateDetailsListComponent} from './Sourcing/estate-details-list/estate-details-list.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -121,6 +124,14 @@ const routes: Routes = [
       {
         path:'blog-details',
         component:BlogDetailsComponent
+      },
+      {
+        path:'roastery-profile',
+        component:RoasteryProfileComponent
+      },
+      {
+        path:'estate-details',
+        component:EstateDetailsListComponent
       },
       {
         path: '',

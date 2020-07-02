@@ -1,5 +1,5 @@
 // AUTHOR : Vijaysimhareddy
-// PAGE DESCRIPTION : This page contains functions of Estate Orders List,Search and Filters.
+// PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { data } from 'jquery';
   styleUrls: ['./coffee-experience.component.css']
 })
 export class CoffeeExperienceComponent implements OnInit {
-  estateterm: any;
+    estateterm: any;
 	estatetermStatus: any;
 	estatetermType: any;
 	estatetermOrigin: any;
@@ -50,10 +50,10 @@ export class CoffeeExperienceComponent implements OnInit {
 				[{ 
 					"id": "1000", 
 					"estatename": "Finca La Pampa", 
-          "origin": "Colombia", 
-          "dataordered": "24 Jan 2020", 
-          "datarecieved": "02 Feb 2020",
-          "species": "Bourbon",
+					"origin": "Colombia", 
+					"dataordered": "24 Jan 2020", 
+					"datarecieved": "02 Feb 2020",
+					"species": "Bourbon",
 					"quantity": "-", 
 					"cuppingscore": "82.5" 
 				},
