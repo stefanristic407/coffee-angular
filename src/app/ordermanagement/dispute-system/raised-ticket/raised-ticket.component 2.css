@@ -1,0 +1,126 @@
+.add-role-butn {
+    border-radius: 8px;
+    background-color: #3d8462;
+    padding: 10px 0px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-right: 4rem;
+}
+
+.add-role-butn:hover {
+    background-color: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.search-raised {
+    width: 71%;
+    height: 40px;
+    background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
+    background-size: 16px 16px;
+    padding-left: 41px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    margin-left: 4rem;
+}
+
+.ticket-heading {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.border-tickettable {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 6px 4px;
+}
+
+.table-container {
+    margin: 2% 4.5% 0 4.5%;
+}
+
+.table-header {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+table th,
+table td,
+.header-row {
+    border: none !important;
+}
+
+tr {
+    border-bottom: 1px dashed #d6d6d6;
+}
+
+tr:last-child {
+    border-bottom-style: none;
+    border-bottom-color: none;
+}
+
+.table .table-header th {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+    padding-left: 2rem;
+}
+
+.table td {
+    padding: 1rem 2rem;
+}
+
+.status-resolved {
+    color: #24be46;
+}
+
+.status-open {
+    color: #e78926;
+}
+
+.status-escalated {
+    color: #e02f1f;
+}
+
+
+/* .ticket-boby-tx {
+    color: #000;
+    padding: 1rem 1rem 0;
+    font-size: 12px;
+} */
+
+.ticket-boby-txt {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.go-to-ticket {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #80460b;
+    text-decoration: underline;
+}
+
+.bread-nav {
+    margin-left: 4.5%;
+}
+
+
+/* ========OUTLINE CSS FOR SEARCH BAR====== */
+
+.search-raised:focus {
+    box-shadow: 0 0 0 0.035rem green !important;
+}

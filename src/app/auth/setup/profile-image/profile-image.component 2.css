@@ -1,0 +1,61 @@
+span {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+ :host ::ng-deep p-slider {
+    width: 100%;
+    cursor: pointer;
+}
+
+ :host ::ng-deep .ui-slider-handle {
+    cursor: pointer !important;
+    background-color: #3d8462 !important;
+}
+
+ :host ::ng-deep .ui-slider-range {
+    background-color: #3d8462 !important;
+}
+
+.img-pos-div {
+    height: 250px;
+}
+
+.slider-div {
+    margin-top: .5rem;
+    max-width: 55%;
+}
+
+.zoom-text {
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+    text-align: right;
+}
+
+.cropper:after {
+    border: 2px solid #fff !important;
+}
+
+.zoom-div {
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+@media screen and (max-width: 425px) {
+    .slider-div {
+        margin-top: 3%;
+        max-width: 65%;
+    }
+}

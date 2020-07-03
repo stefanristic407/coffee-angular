@@ -1,0 +1,105 @@
+<!-- <div class="row ">
+                <div class="col-lg-12 col-md-12">
+                  <div class="text-center">
+                    <h4 class="form_header">License & Certificates</h4>
+                    <p class="form_para">
+                      Please uplaod your certificates, if any. This helps in
+                      your profile getting more noticed.
+                    </p>
+                  </div> -->
+
+<div class="form-group row">
+    <div class="form-group col-md-11">
+        <div class="certificate-details">
+            <span class="name pull-left">Roaster Master | 2019</span>
+            <span class="button-div pull-right">
+                            <button type="button" id="edit-btn" class="btn edit-btn"><img
+                              src="assets/images/edit.png"
+                              class="edit-img"
+                            />Edit</button><span class="name">|</span>
+            <button type="button" id="del-btn" class="btn del-btn"><img
+                              src="assets/images/delete.png"
+                              class="del-img" 
+                            />Delete</button>
+            </span>
+        </div>
+    </div>
+</div>
+<div *ngFor="let i of array">
+    <div class="form_content">
+        <div class="form-group row">
+            <div class="form-group col-md-5">
+                <label class="role-name">CERTIFICATION NAME*</label>
+                <input type="text" class="form-control rectangle_name" id="" placeholder="Enter certification name" name="email_{{i}}" required />
+            </div>
+            <div class="form-group col-md-4 col-sm-10">
+                <label class="role-name">YEAR OF CERTIFICATION</label>
+                <select id="role_edit" class="form-control rectangle_name cert-year" name="role_{{i}}" required>
+                          <option value="" selected disabled
+                            >Please select year</option
+                          >
+                          <option value="1991">1991</option>
+                          <option value="1992">1992</option>
+                          <option value="1993">1993</option>
+                        </select>
+            </div>
+            <div class="form-group col-md-1 col-sm-2 pt-2 upload-div">
+                <button *ngIf="i==0" type="button" id="upload-btn" class="btn btn-link upload-btn">
+                          <img
+                            src="assets/images/upload.svg"
+                            class="upload-img"
+                          /><span class="upload-text">Upload</span>
+                        </button>
+                <div class="upload-del-btn" *ngIf="i>0">
+                    <button *ngIf="i>0" type="button" id="upload-add-btn" class="btn btn-link upload-add-btn">
+                        <img
+                          src="assets/images/upload.svg"
+                          class="upload-img"
+                        /><span class="upload-text">Upload</span>
+                      </button>
+                    <span class="v-line" *ngIf="i>0">|</span>
+                    <button *ngIf="i>0" type="button" id="delete-btn" class="btn btn-link delete-btn" (click)="delete(i)">
+                          <img
+                            src="assets/images/delete.png"
+                            class="upload-img"
+                          /><span class="upload-text">Delete</span>
+                        </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- <div class="form-group row pt-2 prev-div">
+                      <div class="float-right ml-auto">
+                        <button
+                          type="button"
+                          class="btn btn-info login-butn"
+                          (click)="licenseDetails()"
+                        >
+                          NEXT
+                        </button>
+                        <button
+                          type="button"
+                          class="previous btn btn-info pull-left"
+                          (click)="goprevtab('second-tab')"
+                        >
+                          PREV
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+    </div>
+</div>
+<div class="form_content">
+    <div class="form-group row pt-2">
+        <div class="form-group col-md-1 pt-2">
+            <button type="button" id="add-btn" class="btn btn-link add-btn" (click)="addCert()">
+            <img src="assets/images/plus.svg" /><span
+              class="add-text"
+              >Add Another Certificate</span
+            >
+          </button>
+        </div>
+    </div>
+</div>

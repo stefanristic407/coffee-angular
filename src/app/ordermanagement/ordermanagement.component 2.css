@@ -1,0 +1,18 @@
+.router-design {
+    /* background-color: #ffffff; */
+    /* margin: 12rem 0rem 0rem 0rem; */
+    padding-top: 12rem;
+    padding-bottom: 0rem;
+}
+
+.cursor-dots {
+    cursor: pointer;
+    color: #232334;
+    font-family: Muli;
+}
+
+.profile-name {
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+}

@@ -1,0 +1,775 @@
+/****************************css for pre booked starts***************************************/
+
+.in-order {
+    background-color: #faf8f4;
+    padding: 1.5rem;
+    border: 0px solid #f0f0f0;
+    border-radius: 2px;
+    /* margin: .5rem; */
+    overflow: hidden;
+}
+
+.order-txt {
+    font-family: PlayfairDisplay;
+    font-size: 24px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.order-status {
+    /* margin-left: -0.8rem; */
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: normal;
+    color: #747588;
+    cursor: pointer;
+}
+
+.order-datecolor {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    color: #747588;
+    margin-left: -3rem;
+}
+
+.order-harvest {
+    color: #80460b;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 0rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: -2rem;
+    text-decoration: underline!important;
+}
+
+.order-harvest :hover {
+    text-decoration: underline;
+}
+
+.order-tracking {
+    width: 20%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-tracking .is-complete {
+    display: block;
+    position: relative;
+    width: 34px;
+    height: 34px;
+}
+
+.order-tracking .is-complete:after {
+    position: absolute;
+    content: "";
+    background: url(../../../assets/images/cricle-active.png) no-repeat scroll 0px 0px;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.order-tracking.completed .is-complete {
+    position: relative;
+}
+
+.order-tracking.completed .is-complete:after {
+    position: absolute;
+    content: "";
+    background: url(../../../assets/images/cricle-nonactive.png) no-repeat scroll 0px 0px;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.order-tracking .is-complete .order-status {
+    color: #232334 !important;
+}
+
+.order-tracking:last-child:after {
+    content: '';
+    display: block;
+    height: 3px;
+    /* width: calc(100%); */
+    background-color: #c29d7a1f;
+    top: 13px;
+    position: absolute;
+    right: calc(-19%);
+    z-index: 0;
+}
+
+.mixups-track:last-child:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: calc(100%);
+    background-color: #c29d7a1f;
+    top: 13px;
+    position: absolute;
+    right: calc(-9%);
+    z-index: 0;
+}
+
+.is-complete:before {
+    border-color: #fff;
+    border-width: 0px 3px 3px 0;
+    width: 7px;
+    left: 11px;
+    opacity: 1;
+}
+
+.order-tracking::before {
+    content: '';
+    display: block;
+    background-color: #c29d7a1f;
+    top: 13px;
+    position: absolute;
+    left: calc(-50% - -25px);
+    z-index: 0;
+    width: calc(100% - 50px);
+    border: dashed 0.5px #d6d6d6;
+}
+
+.mixups-tabs .order-tracking::before {
+    left: calc(-90%);
+}
+
+.order-tracking:first-child:before {
+    display: none;
+}
+
+.order-tracking.completed:before {
+    border: dashed 0.5px #d6d6d6;
+}
+
+.transit-scoll {
+    width: 100%;
+}
+
+.transit-maxwidth {
+    width: calc(100% - 100px);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-date {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+    /* margin-left: -2.8rem; */
+}
+
+
+/*shipping css */
+
+.shipping-div {
+    padding-left: 3rem;
+}
+
+.shipping-addr,
+.estate-details {
+    font-family: Muli;
+    font-size: 15px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.edit-text {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    color: #30855c;
+}
+
+.img-logo {
+    width: 100%;
+    height: 134px;
+}
+
+.img-estate {
+    width: 32px;
+    height: 32px;
+}
+
+.details-list {
+    list-style: none;
+}
+
+.estate-name {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.estate-number {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.estate-mail {
+    font-family: Muli;
+    font-size: 11px;
+    font-weight: 600;
+    color: #747588;
+    /* border-left: 1px solid #cccccc; */
+}
+
+.estate-message {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    /* color: #30855c; */
+}
+
+.border-div {
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.company-phone {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: normal;
+    color: #747588;
+}
+
+.company-text {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: normal;
+    color: #232334;
+}
+
+
+/*shipping css */
+
+
+/* =========changes as per design ======== */
+
+.nav-pills {
+    border-bottom: 1px solid #d6d6d6;
+}
+
+li.nav-item {
+    /* margin-right: 10%; */
+    position: relative;
+    top: .25rem;
+    /* text-transform: uppercase; */
+}
+
+.nav-pills .nav-link {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    padding: 1rem 2rem;
+}
+
+.nav-pills .nav-link.active {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #30855c;
+    padding: 1rem 2rem;
+    /*  changes as per design */
+}
+
+.problem-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #30855c;
+    /* padding: 1rem 0rem; */
+    cursor: pointer;
+}
+
+
+/* ====================== */
+
+.mixups-tabs {
+    /* padding: 0rem 2rem 2rem 0rem; */
+    background-color: #ffffff;
+    overflow: hidden;
+    /* border-right: 1px solid #dddddd; */
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #30855c !important;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: unset !important;
+    /* border-bottom: 1px solid #256547; */
+    border-radius: unset;
+}
+
+.nav-pills .nav-link.active {
+    position: relative;
+    padding-right: 2rem;
+    /*  changes as per design */
+    padding-left: 2rem;
+    /*  changes as per design */
+}
+
+.nav-pills .nav-link.active:before {
+    content: '';
+    width: 100%;
+    /*  changes as per design */
+    border-radius: 30px;
+    height: 2px;
+    background: #30855c;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 81%;
+    transform: translate(-50%);
+}
+
+.problem-link {
+    cursor: pointer;
+}
+
+.recent-title {
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #020202;
+}
+
+.activity-date {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #5d5d5d;
+}
+
+.list-time {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+
+.list-content {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.activity-list {
+    border-bottom: 1px solid #dddddd;
+    padding: .7rem 0rem;
+    width: 60% !important;
+}
+
+.cancel-order-btn {
+    border-radius: 4px;
+    border: 1px solid #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #30855c;
+    padding: 1% 2%;
+}
+
+.ord-invoice-butn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.problem-btn {
+    border-radius: 4px;
+    background-color: #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    padding: .5rem 1rem;
+}
+
+.chat-btn {
+    border-radius: 8px 8px 0px 0px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
+    background-color: #333333;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    text-align: left;
+}
+
+.chat-indicator {
+    color: #24be46;
+}
+
+.chat-div {
+    width: 98%!important;
+}
+
+.list-name {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.list-user {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+
+.list-activity {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.36;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.bulk-list {
+    border-bottom: 1px solid #dddddd;
+    padding: .7rem 0rem;
+}
+
+.list-que {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+
+.list-ans {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.bulk-list:last-child {
+    border-bottom: none;
+}
+
+.harvest-content {
+    padding-left: 0rem;
+    border-right: 1px solid #d6d6d6;
+}
+
+.view-more {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #30855c;
+    cursor: pointer;
+    height: fit-content;
+}
+
+.view-more:hover {
+    text-decoration: underline;
+}
+
+.image-div {
+    width: 170px;
+    height: 170px;
+    border-radius: 6px;
+    background-color: #d8d8d8;
+    margin-right: 1rem;
+}
+
+.image-content {
+    position: relative;
+    right: 0%;
+    padding-bottom: 6rem;
+}
+
+
+/***************Images**********************/
+
+.edit-icon,
+.message-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.rating-value {
+    padding-top: 6px;
+    margin-left: 2%;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: normal;
+    color: #232334;
+}
+
+.rating-space {
+    margin-bottom: -0.8rem!important;
+}
+
+::ng-deep .star {
+    cursor: auto !important;
+}
+
+
+/********************* media query css  **************************/
+
+#have-a-problem-web {
+    display: block;
+}
+
+#have-a-problem-mobile {
+    display: none;
+}
+
+.tab-right {
+    padding-right: 1.5rem;
+}
+
+@media only screen and (max-width: 1024px) {
+    .nav-pills .nav-link.active:before {
+        top: 100%;
+    }
+    li.nav-item {
+        /* margin-right: 5%; */
+        position: relative;
+        top: 0rem;
+    }
+    .harvest-content {
+        border-right: 1px solid #dddddd;
+    }
+    .recent-activity-content {
+        padding-left: 3rem;
+    }
+    .image-div {
+        width: 100%;
+        margin-bottom: 1rem;
+        ;
+    }
+    .order-status {
+        margin-left: 0rem;
+        font-family: Muli;
+        font-size: 12px;
+        font-weight: normal;
+        color: #bea080;
+    }
+    .order-date {
+        font-size: 11px;
+        padding-bottom: 1rem;
+    }
+    .transit-scoll {
+        width: 100%;
+        overflow-x: auto;
+    }
+    .transit-maxwidth {
+        margin-left: 3rem;
+        margin-top: 1.5rem;
+        min-width: 700px;
+        max-width: 1000px;
+    }
+    .harvest-content {
+        padding-left: 0rem;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .mixups-tabs {
+        border-right: 0px solid #dddddd;
+    }
+    .payment-status-content {
+        margin-top: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .nav-pills .nav-link.active:before {
+        top: 100%;
+    }
+    .total_header {
+        margin-left: 0rem;
+        margin-right: 0rem;
+    }
+    .transit-maxwidth {
+        margin-left: 0rem;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .harvest-content {
+        border-right: 0px solid #dddddd;
+    }
+    .footer-content {
+        background-color: #f9f9f9;
+        padding: 3rem 1rem;
+    }
+    .recent-activity-content {
+        padding-left: 3rem;
+    }
+    .harvest-content {
+        padding-left: 1rem;
+    }
+    .image-div {
+        width: 100%;
+        margin-bottom: 1rem;
+        ;
+    }
+    #have-a-problem-web {
+        display: none;
+    }
+    #have-a-problem-mobile {
+        display: block;
+        float: left;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .list-activity {
+        font-size: 12px;
+    }
+    .order-placed-text {
+        margin: 1rem 0rem;
+    }
+    .ship-pl {
+        padding-left: 1rem;
+    }
+    .recent-activity-content {
+        padding-left: 1rem;
+    }
+    .tab-right {
+        padding-right: 0rem;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .details-list {
+        margin-left: 5px;
+    }
+    .footer-content {
+        background-color: #f9f9f9;
+        padding: 3rem 0rem 3rem .5rem;
+    }
+    .nav-pills .nav-link {
+        font-size: 12px;
+    }
+    .nav-pills .nav-link.active {
+        font-size: 12px;
+    }
+}
+
+.border-ebebeb {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 2rem 1.5rem;
+}
+
+.bg-shipping {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 2.5rem;
+}
+
+.buy-order {
+    padding: 9px 16px 8px 25px !important;
+}
+
+.booked {
+    color: #649a2b !important;
+}
+
+.yes-i-have {
+    padding: 9px 37px 8px 37px !important;
+}
+
+.stricky-order {
+    position: fixed;
+    left: 0;
+    right: 10%;
+    bottom: 0px;
+    z-index: 99;
+    width: 23%;
+}

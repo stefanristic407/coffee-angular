@@ -1,0 +1,68 @@
+<div class="bg-fff">
+        <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+        <span id="title-breadcrumb-1" class="sr-only"></span>
+        <ul class="bread-nav">
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+            </li>
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/account-settings">Account Settings</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+            </li>
+            <li class="b-cum c-pink">Privacy Settings</li>
+        </ul>
+    </nav>
+        </div>
+        <div class="ml-auto text-right raise-ticket">
+                <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="privacyTerms()">Save changes</button>
+            </div>
+        </div>
+        </section>
+    <section class="col-sm-12 col-md-12 col-lg-12 p-4">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <p class="header-value mr-auto text-left pl-3">Privacy Settings</p>
+                <p class="sub-text pl-3">Choose what you want to share with us</p>
+            </div>
+           
+        </div>
+        <div class="border-clr">
+            <div class="row">
+                <div class="col-md-6 col-lg-6 col-sm-12">
+                    <p class="sub-header">Privacy</p>
+                    <div class="privacy-content-list">
+                        <div class="privacy-content">
+                            <span class="text-data text-left mr-auto">Accessing my account and it’s details</span>
+                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="access_account"></p-inputSwitch></span>
+                        </div>
+                        <div class="privacy-content">
+                            <span class="text-data text-left mr-auto">Collecting my data</span>
+                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="access_data"></p-inputSwitch></span>
+                        </div>
+                        <div class="privacy-content">
+                            <span class="text-data text-left mr-auto">Accessing my chat</span>
+                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="access_chat"></p-inputSwitch></span>
+                        </div>
+                    </div>
+                    <p class="sub-header">Cookies</p>
+                    <div class="cookies-content-list">
+                        <!-- <div class="cookies-content">
+                            <span class="text-data text-left mr-auto">Cookies enabled</span>
+                            <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="agree_cookies"></p-inputSwitch></span>
+                        </div> -->
+                        <div class="cookies-content">
+                                <span class="text-data text-left mr-auto">Agree privacy policies</span>
+                                <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="agree_privacy"></p-inputSwitch></span>
+                            </div>
+                            <div class="cookies-content">
+                                    <span class="text-data text-left mr-auto">Agree terms & conditions</span>
+                                    <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="agree_terms"></p-inputSwitch></span>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,342 @@
+/* .confirm_header {
+    margin-left: 2.2rem;
+    margin-right: 5.4rem;
+    padding-left: 0;
+} */
+
+.create-role-sec {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    ;
+}
+
+.confirm-padding {
+    margin-top: 1px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.confirm-order {
+    padding: 2.5rem 1.7rem;
+    border-radius: 4px;
+    background-color: #faf8f4;
+    overflow: hidden;
+}
+
+.confirm-txt {
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.fill-txt {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+.bread-nav {
+    padding-left: 3rem;
+}
+
+th {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    padding-right: 1.9rem;
+}
+
+.table thead th {
+    border-bottom: none !important;
+    border-top: none !important;
+    padding-left: 1.9rem;
+}
+
+.table tbody td {
+    padding-left: 2rem;
+    padding-top: 17px;
+    padding-bottom: 17px;
+}
+
+.table th,
+.table td {
+    border-top: none !important;
+}
+
+td {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.table-head {
+    border-radius: 4px;
+    background-color: #f8f8f8
+}
+
+.lot-table {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+.border-div {
+    margin-top: 2.2rem!important;
+}
+
+.ord-quantity,
+.amount {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.quantity-border {
+    border-right: 1px solid #dddddd;
+}
+
+.search {
+    height: 50px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    -webkit-appearence: none !important;
+}
+
+.main-bag {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.price-tag {
+    padding-left: 10px;
+    top: 15px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.price-total {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+    margin-right: 4.8rem;
+}
+
+.edit-div {
+    /* padding-left: 6rem; */
+    padding-right: 28px;
+}
+
+.shipping-addr {
+    font-family: Muli-Regular_;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.edit-text {
+    font-family: Muli-Regular_;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+}
+
+.address-bar {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 1.5rem 0.5rem;
+}
+
+.add-text,
+.details {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.details-header {
+    font-family: Muli-Regular_;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.remeber-left {
+    font-family: Muli-Regular_;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.terms-color {
+    color: #80460b;
+    text-decoration: underline;
+}
+
+.place-order {
+    border-radius: 4px;
+    background-color: #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 0px 15px;
+    height: 46px;
+}
+
+.ord_cancel {
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #ffffff;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    padding: 0px 15px;
+    height: 46px;
+    text-decoration: none;
+}
+
+.ord_cancel:hover {
+    color: #ffffff;
+    background-color: #30855c;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label:before {
+    background-color: #232334 !important;
+}
+
+.bottom-border {
+    border-bottom: solid 1px #d6d6d6;
+    padding-bottom: 2rem;
+}
+
+
+/* .edit-icon {
+    width: 14px;
+    height: 14px;
+} */
+
+
+/********Modal********/
+
+.modal-header {
+    border-bottom: none;
+}
+
+.are-sure {
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.do-account {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+.add-btn {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 0px 1rem;
+    height: 46px;
+}
+
+.done_order {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    cursor: pointer;
+}
+
+::ng-deep .modal-content {
+    top: 3rem;
+}
+
+
+/****************************    Media Queries   ****************************/
+
+@media screen and (max-width: 991px) and (min-width: 768px) {
+    .confirm_header {
+        margin-left: 2.2rem;
+        margin-right: 2.2rem;
+    }
+    .price-tag {
+        /* padding-left: 0rem !important; */
+        font-size: 13px;
+        padding-left: 4px;
+    }
+    .edit-div {
+        padding-left: 3rem;
+    }
+    .details {
+        font-size: 13px !important;
+    }
+    .quantity-border {
+        padding-right: 0rem !important;
+    }
+    .main-bag {
+        right: 6px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width:767px) and (min-width:320px) {
+    .confirm_header {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        padding-right: 0;
+    }
+    .confirm-order {
+        padding: 0.8rem;
+    }
+    .edit-div {
+        padding-left: 2rem;
+    }
+    .amount {
+        padding-top: 0rem !important;
+    }
+    .quantity-border {
+        border-right: none !important;
+    }
+}
+
+
+/* ========OUTLINE CSS FOR SEARCH BAR====== */
+
+.search:focus {
+    box-shadow: 0 0 0 0.035rem green !important;
+}
+
+.confirm-ordererror {
+    color: #D50000;
+    font-size: 14px;
+}

@@ -1,0 +1,209 @@
+th {
+    font-family: Muli;
+    /* font-size: 14px; */
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+    padding-right: 3rem;
+}
+
+td {
+    font-family: Muli;
+    /* font-size: 14px; */
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    padding-right: 3rem;
+    padding-top: 1rem;
+}
+
+.lot-link {
+    font-family: Muli;
+    /* font-size: 14px; */
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #30855c;
+}
+
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: #ebebeb;
+}
+
+.sub-title {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    padding-bottom: 0.5rem;
+}
+
+.bulk-details-content {
+    padding-right: 2rem;
+    /* border-right: 1px solid #dddddd; */
+}
+
+.payment-status-content {
+    padding-left: 2rem;
+}
+
+.list-que {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+
+.list-ans {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.payment-status-content {
+    padding-left: 2rem;
+}
+
+.bulk-list {
+    border-bottom: 1px solid #dddddd;
+    padding: .7rem 0rem;
+}
+
+
+
+.status {
+    font-family: Muli;
+    /* font-size: 14px; */
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #e78926;
+    /* margin-bottom: 0%; */
+}
+
+.procedure {
+    font-family: Muli;
+    /* font-size: 14px; */
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #80460b;
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+
+.right-angle {
+    padding-left: .5rem;
+}
+
+.shipment-id,
+.track-id {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #80460b;
+    text-decoration: underline !important;
+    margin-bottom: 0%;
+    cursor: pointer;
+}
+
+.track-info-title,
+.shipment-title {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    margin-bottom: 0.5rem;
+}
+
+.receipt-btn {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    border-radius: 2px;
+    border: solid 1px #747588;
+    color: #232334;
+}
+
+.bulk-list:last-child {
+    border: none;
+}
+
+.note {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #e02f1f;
+}
+
+.status_paid {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334
+}
+
+.lot-table {
+    margin-bottom: 1rem;
+}
+.space{
+    position: relative;
+    bottom: 3px;
+    padding-left: 2.25rem;
+}
+
+@media only screen and (max-width: 767px) {
+    .bulk-details-content {
+        border-right: 0px solid #dddddd;
+    }
+    .payment-status-content {
+        padding-top: 2.5rem;
+    }
+}

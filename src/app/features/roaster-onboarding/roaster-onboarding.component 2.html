@@ -1,0 +1,59 @@
+<div class="header-sewn">
+    <h1 class="hello-txt"> Onboard Roasters </h1>
+</div>
+
+<section class="col-sm-12 col-md-12 col-lg-12">
+    <div class="d-flex justify-content-center">
+        <form class="form-container col-md-6 col-lg-6 web-onboard-roaster">
+            <div class="form-group pt-5">
+                <label class="text-center label_title">INVITE ROASTER FOR SETUP</label>
+                <div class="input-group">
+                    <input type="email" class="form-control email" placeholder="User work email" name="email" required>
+                    <div class="input-group-append">
+                        <button class="btn send-invite" type="button" routerLink="../welcome-aboard"><span class="send-text">SEND INVITE</span> </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <form class="mobile-onboard-roaster col-sm-12">
+            <div class="text-center pb-3">
+                <label class="text-center label_title-mobile">INVITE ROASTER FOR SETUP</label>
+
+            </div>
+            <div class="form-group row pt-2">
+                <div class="form-group col-md-12">
+                    <label class="role-name">User work email</label>
+                    <input type="email" class="form-control rectangle_name" id="" placeholder="you@example.com" name="email" autofocus required>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row pt-4 m-0">
+                <div class="text-center w-100">
+                    <button type="button" class="btn send-invite-mobile w-100" routerLink="../welcome-aboard">SEND INVITE</button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-6">
+            <hr class="hr-text" data-content="OR">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center continue-web">
+        <div class="mt-5">
+            <button class="btn continue-btn" routerLink="/auth/setup"><span class="continue-text">CONTINUE SETUP</span></button>
+        </div>
+    </div>
+
+    <div class="form-group row pt-4 m-0 continue-mobile">
+        <div class="text-center w-100">
+            <button type="button" class="btn send-invite-mobile w-100" routerLink="/auth/setup">CONTINUE SETUP</button>
+        </div>
+
+    </div>
+</section>

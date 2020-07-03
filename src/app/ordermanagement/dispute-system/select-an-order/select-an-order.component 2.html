@@ -1,0 +1,43 @@
+<div class="bg-fff">
+    <section class="select-order estate-orders">
+        <div class="cursor-pointer" routerLink="/ordermanagement/raised-tickets">
+            <img src="/assets/images/back-arrow1.png" alt="">
+            <span class="back-ticket pl-2">Back to ticket</span>
+
+        </div>
+        <h5 class="select-order-title pt-4">Select an order</h5>
+        <div class="please-select pt-1">Please select one ongoing order to raise a ticket for</div>
+
+        <div class="row">
+            <div class="mixups-tabs mt-3 col-lg-12 col-md-12">
+                <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Estate</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Micro-roaster</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">HoReCa</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content mt-md-4" id="pills-tabContent">
+                    <div class="tab-pane fade show active spacing-order" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <app-estate></app-estate>
+                    </div>
+                    <div class="tab-pane fade spacing-order" id="pills-contact" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <app-micro-roaster></app-micro-roaster>
+                    </div>
+                    <div class="tab-pane fade spacing-order" id="pills-profile" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        <app-horeca></app-horeca>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+</div>

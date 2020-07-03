@@ -1,0 +1,258 @@
+<!-- <div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div class="">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a class="b-cum" routerLink="/features/welcome-aboard">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Manage Roles</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="ml-auto text-right">
+                <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn">Create new role</button></a>
+            </div>
+        </div>
+    </div>
+</div> -->
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-5">
+    <span id="title-breadcrumb-1" class="sr-only"></span>
+    <ul class="bread-nav mb-md-0">
+        <li class="b-cum">
+            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+        </li>
+        <li class="b-cum">
+            <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+        </li>
+
+        <li class="b-cum c-pink">Manage roles</li>
+        <div class="ml-auto text-right desk_view_user">
+            <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn ">Create new role</button></a>
+        </div>
+        <!-- <button type="submit" class="btn col-12 col-md-2 pull-right create-role-btn web-btn d-md-block d-none"> CREATE NEW ROLE </button> -->
+
+    </ul>
+</nav>
+<section class="roles-heading">
+    <h5 class="manage-title">Manage roles</h5>
+</section>
+
+<div class="table-container desk_view_user">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-header">
+                <tr class="header-row">
+                    <th>
+                        <label class="customcheckbox m-b-20">
+                                                <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+												(change)="checkAll($event)"/>
+                                                <span class="checkmark head-check"></span>
+											</label>
+                    </th>
+                    <th scope="col">Number of members</th>
+                    <th scope="col">Roles</th>
+                    <th scope="col"></th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="customtable">
+                <tr *ngFor="let data of sizes; let i = index" id="tr_{{data.id}}">
+                    <th>
+                        <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{data.id}}" [(ngModel)]="data.state"/>
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                    </th>
+                    <td>{{ this.getRandomInt(11) }}</td>
+                    <td>{{data.name}}</td>
+                    <td>
+                        <span class="show_btns">
+                                            <button type="button"  class="btn view-btn"  (click)="viewMembers(data)" id="view-btn">View members</button>
+                                            <button type="button"  (click)="addMembers($event,data)" class="btn add-btn" id="add-btn">Add members</button>
+                                        </span>
+                    </td>
+                    <td>
+                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                            <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
+                        </a>
+                        <ng-template #poplistTemplate id="{{data.id}}">
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item" routerLink="/people/add-members"> <a class="pointer-item" (click)="pop.hide();">Add Members </a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">View Members</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">Edit</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Duplicate role</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Manage Permissions</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">Delete</a></li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+                <!-- <tr>
+                                        <th>
+                                            <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox" />
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                        </th>
+                                        <td>3</td>
+                                        <td>Accounting</td>
+                                        <td>
+                                            <button type="button" class="btn view-btn">View members</button>
+                                            <button type="button" class="btn add-btn">Add members</button>
+                                        </td>
+                                        <td><a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox"/>
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                        </th>
+                                        <td>7</td>
+                                        <td>Finance</td>
+                                        <td>
+                                             <button type="button" class="btn view-btn">View members</button>
+                                            <button type="button" class="btn add-btn">Add members</button>
+                                              </td>
+                                        <td><a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox" />
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                        </th>
+                                        <td>2</td>
+                                        <td>Master Admin</td>
+                                        <td>
+                                            <button type="button" class="btn view-btn">View members</button>
+                                            <button type="button" class="btn add-btn">Add members</button>
+                                        </td>
+                                        <td><a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox" />
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                        </th>
+                                        <td>1</td>
+                                        <td>Admin</td>
+                                        <td>
+                                            <button type="button" class="btn view-btn">View members</button>
+                                            <button type="button" class="btn add-btn">Add members</button>
+                                        </td>
+                                        <td><a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox" />
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                        </th>
+                                        <td>10</td>
+                                        <td>Sourcing</td>
+                                        <td>
+                                            <button type="button" class="btn view-btn">View members</button>
+                                            <button type="button" class="btn add-btn">Add members</button>
+                                        </td>
+                                        <td><a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
+                                    </tr> -->
+            </tbody>
+            <!-- <div id="popover-content" style="display: none">
+                                  <ul class="list-group custom-popover">
+                                    <a routerLink="/people/add-members"><li class="list-group-item">Add Members</li></a>
+                                    <li class="list-group-item"><a>View Members</a></li>
+                                    <li class="list-group-item"><a>Edit</a></li>
+                                    <li class="list-group-item"><a>Rename</a></li>
+                                    <li class="list-group-item"><a>Duplicate role</a></li>
+                                    <li class="list-group-item"><a>Manage Permissions</a></li>
+                                    <li class="list-group-item"><a>Delete</a></li>
+                                  </ul>
+                                </div> -->
+        </table>
+    </div>
+
+</div>
+
+<div class="mobile_view_user">
+    <div class="ml-auto text-left pull-left pb-4">
+        <h4 class="mobile-manage"> Manage Roles</h4>
+    </div>
+    <div class="ml-auto text-right pull-right pb-4">
+        <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn ">Create new role</button></a>
+    </div>
+
+    <ul class="dyn-data d-flex" *ngFor="let role of sizes" (click)="openBottomSheet()">
+        <li> <label class="customcheckbox">
+         <input type="checkbox" class="listCheckbox"  name="check"/>
+         <span class="checkmark"></span>
+       </label></li>
+        <li>
+            <div class="salemark">
+                <h4>{{role.name}}</h4>
+                <p> {{role.members}} members </p>
+            </div>
+        </li>
+        <li> <img src="assets/images/black-add.svg" alt="Dashboard"></li>
+        <li> <img src="assets/images/arrow-right.svg" alt="Dashboard"></li>
+    </ul>
+
+    <!-- <ul class="dyn-data d-flex">
+    <li> <label class="customcheckbox">
+     <input type="checkbox" class="listCheckbox"  name="check"  value="red" />
+     <span class="checkmark "></span>
+   </label></li>
+    <li>
+      <div class="salemark">
+       <h4> Sales & Marketing</h4>
+       <p> 5 members</p>
+      </div>
+    </li>
+    <li> <img  src="assets/images/black-add.svg" alt="Dashboard"></li>
+    <li> <img  src="assets/images/black-add.svg" alt="Dashboard"></li>
+ </ul>
+
+ <ul class="dyn-data d-flex">
+  <li> <label class="customcheckbox">
+   <input type="checkbox" class="listCheckbox"  name="check"  value="green" />
+   <span class="checkmark "></span>
+ </label></li>
+  <li>
+    <div class="salemark">
+     <h4> Sales & Marketing</h4>
+     <p> 5 members</p>
+    </div>
+  </li>
+  <li> <img  src="assets/images/black-add.svg" alt="Dashboard"></li>
+  <li> <img  src="assets/images/black-add.svg" alt="Dashboard"></li>
+</ul> -->
+
+</div>
+
+
+<div class="blue manage-box">
+
+    <ul class="box-data d-flex">
+        <li> <img src="assets/images/black-add.svg" alt="Dashboard"></li>
+        <li> <img src="assets/images/black-add.svg" alt="Dashboard"></li>
+        <li> <img src="assets/images/black-add.svg" alt="Dashboard"></li>
+        <li data-toggle="collapse" data-target="#demo"> <img src="assets/images/black-add.svg" alt="Dashboard"></li>
+    </ul>
+</div>
+<div id="demo" class="collapse">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</div>
+
+
+
+
+<div class="red manage-box">You have <strong>red checkbox</strong> so i am here</div>
+<div class="green manage-box">You have <strong>green checkbox</strong> so i am here</div>
