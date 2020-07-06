@@ -82,45 +82,29 @@ li.nav-item {
 
 .estate-name {
     font-family: Muli;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
 .estate-number {
     font-family: Muli;
     font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
+    font-weight: bold;
     color: #747588;
 }
 
 .estate-message {
     font-family: Muli;
     font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #747588;
+    font-weight: 500;
+    color: #232334;
 }
 
 .estate-read-more {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #30855c;
     cursor: pointer;
 }
@@ -150,7 +134,7 @@ li.nav-item {
 .star-estate {
     font-size: 20px;
     position: relative;
-    top: 5px;
+    top: -1px;
     color: #979797;
 }
 
@@ -200,7 +184,16 @@ li.nav-item {
 .main-space {
     /* padding-left: 3rem !important;
     padding-right: 3rem !important; */
-    
+    position: relative;
+}
+
+.main-space:before {
+    position: absolute;
+    top: 0;
+    width: 108%;
+    border-top: 15px solid #f1f1f1;
+    content: "";
+    left: -34px;
 }
 
 .message-space {
@@ -321,9 +314,8 @@ li.nav-item {
 }
 
 .ret-order {
-    padding: 0.5rem 1rem 1rem 1rem;
+    padding: 1.5rem 1rem 1rem 1rem;
     /* padding: 1.5rem 0rem 1rem 0rem !important; */
-    
 }
 
 .review-tabs {

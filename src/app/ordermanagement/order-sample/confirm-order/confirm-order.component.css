@@ -1,13 +1,6 @@
-/* .confirm_header {
-    margin-left: 2.2rem;
-    margin-right: 5.4rem;
-    padding-left: 0;
-} */
-
 .create-role-sec {
     margin-left: 3rem;
     margin-right: 3rem;
-    ;
 }
 
 .confirm-padding {
@@ -24,7 +17,6 @@
 }
 
 .confirm-txt {
-    font-family: PlayfairDisplay;
     font-size: 28px;
     font-weight: normal;
     color: #020202;
@@ -34,7 +26,7 @@
     font-family: Muli;
     font-size: 16px;
     font-weight: normal;
-    color: #5d5d5d;
+    color: #747588;
 }
 
 .bread-nav {
@@ -45,10 +37,6 @@ th {
     font-family: Muli;
     font-size: 14px;
     font-weight: bold !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     padding-right: 1.9rem;
 }
@@ -74,10 +62,6 @@ td {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -141,23 +125,19 @@ td {
     margin-right: 4.8rem;
 }
 
-.edit-div {
-    /* padding-left: 6rem; */
-    padding-right: 28px;
-}
-
 .shipping-addr {
-    font-family: Muli-Regular_;
+    font-family: Muli;
     font-size: 18px;
     font-weight: bold;
     color: #000000;
 }
 
 .edit-text {
-    font-family: Muli-Regular_;
+    font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     color: #30855c;
+    cursor: pointer;
 }
 
 .address-bar {
@@ -175,14 +155,14 @@ td {
 }
 
 .details-header {
-    font-family: Muli-Regular_;
+    font-family: Muli;
     font-size: 18px;
     font-weight: bold;
     color: #000000;
 }
 
 .remeber-left {
-    font-family: Muli-Regular_;
+    font-family: Muli !important;
     font-size: 14px;
     font-weight: 600;
     color: #333333;
@@ -193,7 +173,8 @@ td {
     text-decoration: underline;
 }
 
-.place-order {
+.place-order,
+.save-address {
     border-radius: 4px;
     background-color: #30855c;
     font-family: Muli;
@@ -222,20 +203,10 @@ td {
     background-color: #30855c;
 }
 
-.custom-checkbox .custom-control-input:checked~.custom-control-label:before {
-    background-color: #232334 !important;
-}
-
 .bottom-border {
     border-bottom: solid 1px #d6d6d6;
     padding-bottom: 2rem;
 }
-
-
-/* .edit-icon {
-    width: 14px;
-    height: 14px;
-} */
 
 
 /********Modal********/
@@ -281,21 +252,109 @@ td {
     top: 3rem;
 }
 
+#form-address {
+    display: none;
+}
+
+.save-top {
+    margin-top: 2.8rem;
+}
+
+.ship-top {
+    margin-top: 2.2rem;
+}
+
+label {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.star {
+    color: #ff1e5a;
+}
+
+.form-control {
+    height: 50px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    font-size: 14px !important;
+}
+
+.select_order {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    background: url(/assets/images/confirm-drop.png) right 15px top 16px no-repeat;
+    -webkit-appearance: none;
+    font-family: Muli;
+    font-weight: 500;
+    height: 50px !important;
+    padding-top: 7px;
+    cursor: pointer;
+    font-size: 14px !important;
+}
+
+.checkmark {
+    top: 2px !important;
+    left: 2px !important;
+    height: 17px !important;
+    width: 17px !important;
+}
+
+.customcheckbox .checkmark:after {
+    left: 5px !important;
+    top: 1px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #232334 !important;
+}
+
+.web-sec {
+    display: block;
+}
+
+.mob-sec {
+    display: none;
+}
+
+.search:focus {
+    box-shadow: 0 0 0 0.035rem green !important;
+}
+
+.confirm-ordererror,
+.countryError,
+.addressError,
+.cityError,
+.zipError {
+    color: #D50000;
+    font-size: 14px;
+}
+
 
 /****************************    Media Queries   ****************************/
 
-@media screen and (max-width: 991px) and (min-width: 768px) {
+
+/* @media screen and (max-width: 991px) and (min-width: 768px) {
+    .web-sec {
+        display: block;
+    }
     .confirm_header {
         margin-left: 2.2rem;
         margin-right: 2.2rem;
     }
     .price-tag {
-        /* padding-left: 0rem !important; */
         font-size: 13px;
         padding-left: 4px;
-    }
-    .edit-div {
-        padding-left: 3rem;
     }
     .details {
         font-size: 13px !important;
@@ -307,36 +366,122 @@ td {
         right: 6px;
         font-size: 12px;
     }
-}
+} */
 
 @media screen and (max-width:767px) and (min-width:320px) {
-    .confirm_header {
+    .create-role {
+        margin-left: 0.9rem;
+        margin-right: 0.9rem;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+    .mob-sec {
+        display: block;
+    }
+    .web-sec {
+        display: none;
+    }
+    .confirm-ffff {
+        background-color: #ffffff;
+        margin-left: 0rem;
+        margin-right: 0rem;
+    }
+    .border-div {
+        margin-top: 1.2rem!important;
+    }
+    .back-icon {
+        border-bottom: 1px solid #ebebeb;
+        padding-bottom: 13px;
+    }
+    .back-icon a {
+        font-size: 14px;
+        color: #80460b;
+        font-weight: 600;
+    }
+    .back-icon img {
+        margin-right: 10px;
+    }
+    .create-role-sec {
         margin-left: 1rem;
         margin-right: 1rem;
-        padding-right: 0;
     }
     .confirm-order {
-        padding: 0.8rem;
+        padding: 1rem;
+    }
+    .confirm-txt {
+        font-size: 24px;
+    }
+    .fill-txt {
+        font-size: 15px;
+    }
+    .estate-list {
+        border: 1px solid #ebebeb;
+        padding: 1rem;
+    }
+    .estate-list h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #232334;
+        font-family: Muli;
+    }
+    .recent td {
+        padding: 1rem 2.8rem 1rem 0rem;
+        border-bottom: 1px solid #dddddd;
+    }
+    .list-ques {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 500;
+        color: #747588;
+    }
+    .list-answ {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600 !important;
+        color: #232334;
+    }
+    tr:last-child td {
+        border-bottom: 0;
+    }
+    .search-border {
+        border: 1px solid #d6d6d6;
+        padding: 10px;
+        margin-left: 10px;
+        border-radius: 4px;
+    }
+    .price-total {
+        margin-right: 0rem;
+    }
+    .ord-quantity,
+    .amount {
+        color: #747588;
+    }
+    .search {
+        height: auto;
+        border: none !important;
+        width: 60px;
+    }
+    .search:focus {
+        box-shadow: none !important;
+    }
+    .space-top {
+        margin-top: 2rem;
+    }
+    .bag {
+        font-size: 14px;
+        font-weight: 600;
+        color: #747588;
+    }
+    .boder-name {
+        border-top: 1px solid #dddddd;
+        padding-top: 1.2rem;
     }
     .edit-div {
-        padding-left: 2rem;
+        border-top: 1px solid #dddddd;
+        margin-top: 1rem !important;
+        padding-top: 1.3rem;
     }
-    .amount {
-        padding-top: 0rem !important;
+    .save-top {
+        margin-top: 0.5rem;
     }
-    .quantity-border {
-        border-right: none !important;
-    }
-}
-
-
-/* ========OUTLINE CSS FOR SEARCH BAR====== */
-
-.search:focus {
-    box-shadow: 0 0 0 0.035rem green !important;
-}
-
-.confirm-ordererror {
-    color: #D50000;
-    font-size: 14px;
 }

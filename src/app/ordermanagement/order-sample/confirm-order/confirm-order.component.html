@@ -1,19 +1,26 @@
-<div class="bg-fff">
-    <!-- <div class="row">
-            <div class="col-12">
-                <nav aria-label="breadcrumb" class="col-12 col-md-12 col-lg-12 pl-0">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item active"><a class="b-cum" routerLink="/features/welcome-aboard">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/ordermanagement/">Order management</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/ordermanagement/">Estate orders</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><a class="b-cum" routerLink="/ordermanagement/">Order 12416</a></li>
-                        <li class="breadcrumb-item active confirm-padding" aria-current="page"><a>Order 12416</a></li>
-                    </ul>
-                </nav>
+<div class="confirm-ffff mob-sec">
+    <section class="create-role">
+        <div class="back-icon w-100">
+            <a><img src="assets/images/back-arrow-1.png"> Back</a>
+        </div>
+        <div class="confirm-order mt-3">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h4 class="confirm-txt fnt-play">Confirm Order</h4>
+                    <div class="fill-txt">Your sample has been recieved and graded.</div>
+                    <div class="fill-txt">Please fill in the details to order the complete shipment</div>
+                </div>
             </div>
-        </div> -->
+        </div>
+    </section>
 
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
+
+</div>
+
+
+
+<div class="bg-fff">
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 web-sec">
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
@@ -28,10 +35,8 @@
             <li class="b-cum c-pink">Order 12416</li>
         </ul>
     </nav>
-    <!-- <div class="confirm_header mb-2 page-breadcrumb"> -->
-
     <section class="create-role-sec">
-        <div class="confirm-order mt-4">
+        <div class="confirm-order mt-4 web-sec">
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
                     <h4 class="confirm-txt fnt-play">Confirm Order</h4>
@@ -40,13 +45,10 @@
                 </div>
             </div>
         </div>
-        <div class="border-div">
-            <div class="row">
-                <div class="col-12 details-header pb-2">Order Details</div>
-
-                <!-- <div class="table-container"></div> -->
+        <div class="border-div ">
+            <div class="row web-sec">
+                <div class="col-12 details-header pb-2">Order details</div>
                 <div class="col-12 lot-content table-responsive">
-
                     <table class="table lot-table">
                         <thead class="table-head">
                             <tr>
@@ -74,17 +76,89 @@
                     </table>
                 </div>
             </div>
+            <div class="mob-sec">
+                <div class="row">
+                    <div class="col-lg-12 mt-2">
+                        <div class="estate-list">
+                            <h3>Order details</h3>
+                            <table class="recent w-100">
+                                <tr>
+                                    <td> <span class="list-ques"> Customer </span></td>
+                                    <td> <span class="list-answ"> Finca Guadalupe Zajú </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-ques">  Origin </span></td>
+                                    <td> <span class="list-answ">  Columbia </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-ques"> Variety </span></td>
+                                    <td> <span class="list-answ">  Arabica </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-ques"> Species </span></td>
+                                    <td> <span class="list-answ"> Bourbon</span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-ques"> Cupping score </span></td>
+                                    <td> <span class="list-answ">  84.5 </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-ques">Total </span></td>
+                                    <td> <span class="list-answ">  $300 </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-ques"> Rate per bag </span></td>
+                                    <td> <span class="list-answ"> $450/bag </span> </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mob-sec space-top">
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="pull-left ord-quantity">Order quantity:
+                        </div>
+                        <div class="pull-right ml-auto ">
+                            <div class="d-inline price-tag">${{this.price}}<span class="pl-2">X</span></div>
+                            <div class="d-inline search-border">
+                                <input type="text" name="search" class="search" id="quantityId" [(ngModel)]="quantity" placeholder="" />
+                                <span class="bag">Bags</span>
+
+                            </div>
+                            <!-- <div class="confirm-ordererror" *ngIf="confirmOrderError != ''">{{confirmOrderError}}</div> -->
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="mob-sec space-top">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="boder-name">
+                            <div class="pull-left amount">Total amount to be paid
+                            </div>
+                            <div class="pull-right ml-auto price-total" *ngIf="quantity==''">$0</div>
+                            <div class="pull-right ml-auto price-total" *ngIf="quantity!=''">${{price*quantity}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mt-3 col-12 col-md-12 col-lg-12">
+
+        <div class="mt-3 col-12 col-md-12 col-lg-12 web-sec">
             <div class="row">
-                <div class="pull-left ord-quantity">Order Quantity:
+                <div class="pull-left ord-quantity">Order quantity:
                 </div>
                 <div class="pull-right ml-auto amount">Total amount to be paid</div>
             </div>
             <div class="row pt-2">
                 <div class="row">
-                    <div class="pull-left col-8 col-md-8 col-lg-8 pr-0">
-                        <input type="text" name="search" class="col-12 search" id="quantityId" [(ngModel)]="quantity" placeholder="" />
+                    <div class="pull-left col-8 col-md-8 col-lg-8 pr-0" id="quantityId">
+                        <input type="text" name="search" class="col-12 search" [(ngModel)]="quantity" placeholder="" />
                         <span class="main-bag">Bags</span>
                         <div class="confirm-ordererror" *ngIf="confirmOrderError != ''">{{confirmOrderError}}</div>
                     </div>
@@ -110,11 +184,12 @@
             </div> -->
         </div>
 
-        <div class="edit-div col-12 col-md-12 col-lg-7 mt-5">
+
+        <div id="edit-shipping" class="edit-div col-12 col-md-12 col-lg-7 mt-5">
             <div class="row">
-                <div class="pull-left shipping-addr">Shipping Address
+                <div class="pull-left shipping-addr">Shipping address
                 </div>
-                <div class="pull-right ml-auto edit-text"><img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit">Edit shipping details</div>
+                <div class="pull-right ml-auto edit-text" (click)="editAddress();"><img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit">Edit shipping details</div>
             </div>
             <div class="row mt-2 address-bar">
                 <div class="col-12 col-md-4 col-lg-5 add-text">
@@ -128,19 +203,112 @@
                 </div>
             </div>
         </div>
+
+        <div id="form-address" class="ship-top">
+            <div class="shipping-addr mb-4">Shipping address</div>
+            <form class="form-container">
+                <div class="row">
+                    <div class="col-lg-8 ">
+                        <div class="row">
+                            <div class="form-group col-md-6 mt-md-3">
+                                <label for="country">Country<span class="star">*</span></label>
+                                <select id="country" class="form-control country select_order" (keyup)="onKeyPress($event)" [(ngModel)]="country" name="country" required="" (change)="changeCountry()">
+                                        <option value="" selected disabled>
+                                          Please select your country</option
+                                        >
+                                        <option
+                                          *ngFor="let count of confirmOrderService.countryList"
+                                          value="{{ count.isoCode }}"
+                                          >{{ count.name }}
+                                        </option>
+                                      </select>
+                                <div class="countryError" *ngIf="countryError != ''">
+                                    {{ countryError }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mt-md-3">
+                                <label for="state">State</label>
+                                <select id="state" class="form-control state select_order" [(ngModel)]="state" name="state" required="">
+                                        <option value="" selected disabled>
+                                          Please select your state</option
+                                        >
+                                        <option *ngFor="let city of confirmOrderService.cities"
+                                          >{{ city }}
+                                        </option>
+                                      </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 mt-md-3">
+                                <label for="address1">Address<span class="star">*</span></label>
+                                <input class="form-control address1" id="address1" name="address1" (keyup)="onKeyPress($event)" [(ngModel)]="address1" type="text" placeholder="Line 1" />
+                                <div class="addressError" *ngIf="addressError != ''">
+                                    {{ addressError }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mt-md-3">
+                                <label for="address2">&nbsp;</label>
+                                <input class="form-control address2" id="address2" name="address2" (keyup)="onKeyPress($event)" [(ngModel)]="address2" type="text" placeholder="Line 2" />
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3 mt-md-3">
+                                <label for="city">Enter your city<span class="star">*</span></label>
+                                <input class="form-control city" id="city" type="text" name="city" (keyup)="onKeyPress($event)" [(ngModel)]="city" placeholder="City" />
+                                <div class="cityError" *ngIf="cityError != ''">
+                                    {{ cityError }}
+                                </div>
+                            </div>
+                            <div class="form-group  col-md-3 mt-md-3">
+                                <label for="zipcode">Zipcode<span class="star">*</span></label>
+                                <input class="form-control zipcode" id="zipcode" name="zipcode" type="text" [(ngModel)]="zipcode" placeholder="eg:23134" />
+                                <div class="zipError" *ngIf="zipError != ''">
+                                    {{ zipError }}
+                                </div>
+                            </div>
+                            <div class="col-md-6 save-top">
+                                <button type="submit" class="save-address float-right btn" (click)="saveAddress()">Save address</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="col-12 mt-4 bottom-border">
             <div class="row">
-                <div class="custom-control custom-checkbox mb-1 top-spacing box_mobile">
+                <label class="customcheckbox flavour-text mb-1 top-spacin">
+                            <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                            <span class="checkmark head-check"></span>
+                            <span class="remeber-left">I have read and understood the <span class="terms-color">terms & conditions</span> of the platform, and agree to them.</span>
+                        </label>
+                <!-- <div class="custom-control custom-checkbox mb-1 top-spacing box_mobile">
                     <input type="checkbox" class="custom-control-input" id="custom_check1" name="example1">
                     <label class="custom-control-label text_checkbox" for="custom_check1"><span class="remeber-left">I have read and understood the <span class="terms-color">terms & conditions</span> of the platform, and agree to them.</span></label>
-                </div>
+                </div> -->
 
             </div>
         </div>
-        <div class="row pb-5">
+        <div class="row pb-5 web-sec">
             <div class="col-12 mt-4">
-                <button type="submit" class="place-order float-right btn" (click)="placeOrder()">Place Order</button>
+                <button type="submit" class="place-order float-right btn" (click)="placeOrder()">Place order</button>
                 <button type="button" class="ord_cancel float-right btn btn-link mr-2" routerLink="/ordermanagement/order-sample">Cancel</button>
+            </div>
+        </div>
+        <div class="mob-sec mt-4 pb-4 mb-4">
+            <div class="row">
+                <div class="col-12 w-100">
+                    <button type="submit" class="col-12 place-order btn" (click)="placeOrder()">Place order</button>
+
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class=" col-12 w-100">
+                    <button type="button" class="col-12 ord_cancel  btn btn-link" routerLink="/ordermanagement/order-sample">Cancel order</button>
+
+                </div>
             </div>
         </div>
 

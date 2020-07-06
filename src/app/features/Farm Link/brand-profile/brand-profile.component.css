@@ -1,5 +1,6 @@
 .bg-fff {
     padding: 2rem;
+    border-radius: 4px;
 }
 
 .brand-profile {
@@ -99,9 +100,9 @@
 .bor-blogs {
     border-radius: 13px;
     border: solid 0.5px #747588;
-    width: 74px;
-    height: 24px;
-    padding: 2px 0px 0px 2px;
+    width: 84px;
+    height: 30px;
+    padding: 6px 0px 0px 10px;
     margin-bottom: 1.7rem;
 }
 
@@ -132,3 +133,43 @@
 
 
 /* progress bar slider css  Ends*/
+
+.brand-profile-sec {
+    padding: 1.5rem;
+}
+
+.brand-dot {
+    width: 4px;
+    height: 4px;
+    background-color: #747588;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    top: -3px;
+    right: 3px;
+}
+
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 5px 50px;
+}
+
+
+/*  media query Fram Link */
+
+@media (max-width:640px) {
+    .brand-button {
+        padding: 1rem;
+    }
+    .brand-profile-sec {
+        padding: .5rem;
+    }
+    .bg-fff {
+        padding: 1rem .7rem;
+    }
+}

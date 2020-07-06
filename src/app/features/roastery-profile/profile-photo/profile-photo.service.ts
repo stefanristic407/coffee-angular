@@ -7,7 +7,7 @@ import { ImageCropperComponent } from 'ngx-image-cropper';
 export class ProfilePhotoService {
   image: any;
   imageChangedEvent: any = "";
-  croppedImage: any = "assets/images/profile.svg";
+  croppedImage: any = "assets/images/oval.svg";
   imageCropper: ImageCropperComponent;
   displayModal: boolean = false;
   constructor() {}

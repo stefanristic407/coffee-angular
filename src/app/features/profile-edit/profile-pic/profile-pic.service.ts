@@ -18,6 +18,7 @@ export class ProfilePicService {
     this.imageCropper.crop();
     this.displayModal = false;
     this.deleteLogo  = true;
+    console.log(this.croppedImage);
   }
   deletePhoto(){
     this.croppedImage= "assets/images/profile.svg";

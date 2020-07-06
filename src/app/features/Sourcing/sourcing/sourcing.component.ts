@@ -133,4 +133,7 @@ export class SourcingComponent implements OnInit {
   estateList(){
     this.router.navigate(["/features/estate-details"]);
   }
+  availableCoffeeList(){
+    this.router.navigate(["/features/available-coffee-list"]);
+  }
 }

@@ -578,12 +578,18 @@ span.checkmark {
 
 .share-bor {
     border-radius: 2px;
-    border: solid 1px #747588;
-    padding: 5px;
+    border: solid 2px rgba(116, 117, 136, 0.6);
+    padding: 6px 12px;
     cursor: pointer;
 }
 
 .upload-order {
     background-color: #ffffff;
     padding: 10px 12px;
+}
+
+.file-inpt {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
 }

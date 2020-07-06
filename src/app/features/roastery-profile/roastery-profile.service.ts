@@ -241,7 +241,7 @@ export class RoasteryProfileService {
     { name: "Aruba", isoCode: "AW", cities: ["Aruba"] },
     {
       name: "Ashmore and Cartier Island",
-      isoCode: "AU",
+      isoCode: "AUS",
       cities: ["Ashmore and Cartier Island"]
     },
     {

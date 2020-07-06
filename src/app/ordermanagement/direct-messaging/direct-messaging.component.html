@@ -84,7 +84,7 @@
                                 <div class="chat-inputs">
                                     <label class="chat-inputs__img">
                                         <img src="assets/images/dm-img-upload.svg">
-                                        <input type="file" class="files" #file (change)="onSelectFile($event);">
+                                        <input type="file" class="files">
 
                                     </label>
                                     <textarea type="text" rows="1" class="chat-inputs__text" placeholder="Type something.."></textarea>
@@ -124,6 +124,36 @@
                                 <div class="set-profile-name">
                                     <h5 class="name">Umesh</h5>
                                     <span class="status">Coffee Estate</span>
+                                </div>
+                            </div>
+
+                            <!--Account setting options-->
+                            <div class="account-setting-option">
+
+                                <!--Search in conversion-->
+                                <div class="account-setting-option__item">
+                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">Search in conversation</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
+                                </div>
+
+                                
+                                <!--Clear Conversion-->
+                                <div class="account-setting-option__item d-flex justify-content-between align-items-center">
+                                    <span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">Notifications</span>
+                                  <div class="notification-control ml-auto">
+                                      <input type="radio" name="notification" value="off">
+                                      <input type="radio" name="notification" value="on">
+                                      <span class="switch-control"></span>
+                                  </div>
+                                </div>
+
+                                <!--Clear Conversion-->
+                                <div class="account-setting-option__item">
+                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">Clear conversation</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
+                                </div>
+                                
+                                <!--Report User-->
+                                <div class="account-setting-option__item">
+                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">Report User</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
                                 </div>
                             </div>
                         </div>

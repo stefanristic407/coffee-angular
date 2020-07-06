@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="sourcing-details">
                     <div class="back-page w-100">
-                        <a href="#"><img src="assets/images/back-arrow-1.png"> Back</a>
+                        <a routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> Back</a>
                     </div>
                     <div class="w-100 mt-3  clearfix">
                         <div class="source-det-tit pull-left">
@@ -13,13 +13,13 @@
                             </div>
                             <div class="det-tit d-inline-block">
                                 <h2>Finca la pampa</h2>
-                                <h6><span class="fa fa-star checked"></span> 4.95</h6>
-
+                                <!-- <h6 class="star-rate"><span class="fa fa-star checked"></span> 4.95</h6> -->
+                                <span class="fa fa-star checked"></span><span class="star-rate pl-1">4.95</span>
                             </div>
                         </div>
                         <div class="source-knowmore pull-right">
-                            <a href="#">Contact us</a>
-                            <a href="#">Know more</a>
+                            <a class="contact-us">Contact us</a>
+                            <a class="know-more">Know more</a>
                         </div>
                     </div>
                 </div>
@@ -157,17 +157,21 @@
                                             </div>
                                             <div class="prodcoffee mt-3">
                                                 <h4>Our Coffee procurement is traceable & 100% transparent</h4>
-                                                <a href="#" class="video-btn"><img src="assets/images/play-button-image.svg"></a>
+                                                <div class="video-part">
+                                                    <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
+                                                </div>
                                             </div>
                                             <div class="flex prebook mt-4 pt-md-2">
-                                                <a href="#">Know more</a>
-                                                <a href="#">Pre-book estate</a>
+                                                <a class="more-text">Know more</a>
+                                                <a class="prebook-estate">Pre-book estate</a>
                                             </div>
                                         </div>
                                     </aside>
+                                    <div class="w-100 chat-div">
+                                        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <!--End About the farm-->
@@ -219,6 +223,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="w-100 chat-div">
+                                    <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -231,7 +238,7 @@
                                     <div class="position-relative">
                                         <img src="assets/images/gal1.png" alt="">
                                         <div class="video-part">
-                                            <a href="#" class="video-btn"><img src="assets/images/play-button-image.svg"></a>
+                                            <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
                                         </div>
                                     </div>
 
@@ -249,7 +256,7 @@
                                     <div class="position-relative">
                                         <img src="assets/images/gal4.png" alt="">
                                         <div class="video-part">
-                                            <a href="#" class="video-btn"><img src="assets/images/play-button-image.svg"></a>
+                                            <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -261,6 +268,9 @@
                                 </div>
                                 <div class="col-lg-4 col-md-6 gals">
                                     <img src="assets/images/gal5.png" alt="">
+                                </div>
+                                <div class="w-100 chat-div">
+                                    <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
                                 </div>
                             </div>
                         </div>
@@ -284,8 +294,12 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
-                                    <img src="assets/images/blog-4.png" class="w-100">
-                                    <a href="#" class="video-btn"><img src="assets/images/video-img.svg"></a>
+                                    <div class="position-relative">
+                                        <img src="assets/images/why-image.jpg" class="w-100">
+                                        <div class="video-part">
+                                            <a class="video-btn"><img src="assets/images/video-img.svg"></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mt-3 mt-md-5">
@@ -294,8 +308,8 @@
                                         <img src="assets/images/why-banner.png" class="w-100">
                                         <div class="marklist">
                                             <h2 class="fnt-play">Unlimited
-                                                <span class="fnt-muli">marketing materials.</span></h2>
-                                            <h5>High Res unlimites Images, Videos to promote yourself</h5>
+                                                <span class="fnt-play">marketing materials.</span></h2>
+                                            <h5 class="fnt-muli">High Res unlimites Images, Videos to promote yourself</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -325,7 +339,6 @@
                         </div>
                     </div>
                     <!--End whyus-->
-
                 </div>
 
             </div>

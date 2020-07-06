@@ -175,6 +175,7 @@ ul li {
 
 .s-gal img {
     width: 100%;
+    border-radius: 4px;
 }
 
 .s-tit {
@@ -237,6 +238,7 @@ ul li {
     border: 1px solid #ebebeb;
     margin-bottom: 26px;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .card-border:hover {
@@ -326,6 +328,7 @@ ul li {
     border-radius: 50%;
     background: #f0f0f0;
     cursor: pointer;
+    margin-right: 2px;
 }
 
 .btn-group {
@@ -599,6 +602,128 @@ span.checkmark {
 @media (max-width:480px) {
     .source-cont {
         padding: 0;
+    }
+    .sourcing-main {
+        margin: 0rem 16px;
+    }
+    .space-width {
+        width: 50%;
+        margin-right: 0;
+        padding: 10px 8px 10px 14px;
+        display: inline-block !important;
+        border: 1px solid #d6d6d6;
+    }
+    .sourcing-border {
+        border: 0;
+    }
+    .space-width:first-child {
+        border-right: 0 !important;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .space-width:nth-child(2) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .filter-set {
+        border: 1px solid #d6d6d6 !important;
+        margin-left: 0;
+        margin-top: 16px;
+        border-radius: 4px;
+    }
+    .border-grade {
+        width: auto !important;
+        display: inline-block !important;
+        margin-bottom: 10px;
+    }
+    .btn-group {
+        display: none;
+    }
+    .filter-sort {
+        top: 56px;
+    }
+    #nav-tabContent {
+        margin-top: 5.5rem;
+    }
+    .nav-link {
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+    }
+    .source-lets.flex,
+    .s-details .m-flex {
+        display: block;
+    }
+    .orgin-att {
+        width: 50%;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    .orgin-att:last-child {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    .orgin-att:nth-child(2) {
+        padding-left: 20px;
+        border-right: 0;
+    }
+    .s-cert li:first-child {
+        margin-left: 0;
+    }
+    .s-tit {
+        width: 100%;
+    }
+    .s-details h3 {
+        height: auto;
+        white-space: initial;
+    }
+    .green-coffee-product .orgin-att:last-child {
+        width: 100%;
+    }
+    .green-coffee-product .top-lots label,
+    .green-coffee-product .s-tit h5,
+    .orgin-att h6 {
+        font-size: 14px !important;
+    }
+    .s-details h6,
+    .s-details h3 {
+        font-size: 16px;
+    }
+    .pointer-item {
+        float: right;
+        margin-right: 10px;
+    }
+    /*Pagenation*/
+    .m-pagenation {
+        text-align: center;
+        width: 100%;
+    }
+    .nav-page {
+        display: inline-block;
+    }
+    .nav-page .page-link {
+        padding-left: 9px;
+        padding-right: 9px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .m-pagenation .navigation,
+    .page-item:first-child {
+        border-right: 1px solid #30855c;
+    }
+    .m-pagenation .navigation,
+    .page-item a {
+        color: #747588;
+        border: none;
+    }
+    .m-pagenation .navigation,
+    .page-item a.active {
+        color: #30855c;
+    }
+    .m-pagenation .page-item:first-child a {
+        border: 1px solid #30855c;
+    }
+    .m-pagenation .page-item:last-child a {
+        border: 1px solid #30855c;
     }
 }
 

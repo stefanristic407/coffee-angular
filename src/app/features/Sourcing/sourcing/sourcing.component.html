@@ -1,8 +1,9 @@
 <div class="bg-fff">
+    <div class="git-status"></div>
     <section class="sourcing-main">
         <div class="row  clearfix">
             <div class="col-sm-6">
-                <div class="sourcing-border d-flex">
+                <div class="sourcing-border d-md-flex">
                     <div class="d-inline filter-set space-width">
                         <p class="d-inline select-origin" *ngIf="origin == ''">Select origin&nbsp;&nbsp;</p>
                         <!-- <p class="d-inline filter-text" *ngIf="origin == ''">Origin&nbsp;</p> -->
@@ -34,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="row pt-4 pb-4">
+        <div class="row pt-3 pt-md-4 pb-md-4">
             <div class="title-header">
                 <div class="d-inline border-grade col-sm-6" id="grade_id">
                     <p class="d-inline filter-text" *ngIf="grade == ''">Grade&nbsp;</p>
@@ -140,17 +141,17 @@
                                     <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#green-coffee" role="tab" aria-controls="nav-profile" aria-selected="false">Available green coffee</a>
                                 </div>
                             </nav>
-                            <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
+                            <div class="tab-content py-md-4 px-md-3 px-sm-0" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="estates" role="tabpanel" aria-labelledby="nav-home-tab">
                                     <div class="cardpanel-detail">
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-6 " *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
+                                            <div class="col-lg-4 col-md-6" *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
                                                 <div class="source-card card-border">
                                                     <div class="s-gal">
                                                         <img [src]="sample.image" alt="">
                                                     </div>
                                                     <div class="s-details">
-                                                        <div class="flex">
+                                                        <div class="flex m-flex">
                                                             <div class=" s-tit">
                                                                 <h3>{{sample.estatename}}</h3>
                                                                 <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6>
@@ -186,7 +187,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                              
                                             </div>
+                                        </div>
+                                        <div class="m-pagenation">
+                                            <nav aria-label="Page navigation example" class="nav-page">
+                                                <ul class="pagination">
+                                                  <li class="page-item"><a class="page-link" href="#"> < </a></li>
+                                                  <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                  <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                                  <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                                  <li class="page-item"><a class="page-link" href="#"> > </a></li>
+                                                </ul>
+                                              </nav>
                                         </div>
                                     </div>
                                     <!-- <app-estate-table></app-estate-table> -->
@@ -240,7 +256,7 @@
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                         <div class="cardpanel-detail">
                                             <div class="row">
-                                                <div class="col-lg-4 col-md-6 cursor-item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter :weight">
+                                                <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter :weight" (click)="availableCoffeeList()">
                                                     <div class="source-card card-border green-coffee-product">
                                                         <div class="s-gal">
                                                             <img [src]="item.image" alt="">
@@ -279,6 +295,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="m-pagenation">
+                                                    <nav aria-label="Page navigation example" class="nav-page">
+                                                        <ul class="pagination">
+                                                          <li class="page-item"><a class="page-link" href="#"> < </a></li>
+                                                          <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                                                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                          <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                                          <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                                          <li class="page-item"><a class="page-link" href="#"> > </a></li>
+                                                        </ul>
+                                                      </nav>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="table-details">
@@ -298,7 +327,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="customtable">
-                                                        <tr class="ticket-boby-txt" *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter :weight">
+                                                        <tr class="ticket-boby-txt cursor-item" *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter :weight" (click)="availableCoffeeList()">
                                                             <td>{{ coffeeitem.name }}</td>
                                                             <td>{{ coffeeitem.estatename }}</td>
                                                             <td>{{ coffeeitem.origin }}</td>

@@ -8,8 +8,32 @@ declare var $: any;
 export class FDirectMessagingComponent implements OnInit {
 
   constructor() { }
+  // File reader for Direct Message
+  url = '';
+  
+  onSelectFile(e) {
+    
+    
+    // if(e.target.files) {
+    //   var reader = new FileReader();
+    //   reader.readAsDataURL(e.target.files[0]);
+    //   reader.onload=(event:any)=> {
+    //     this.url=event.target.result;
+    //     quicFilebg = '<img src='+this.url+'>';
+    //     // $('.prview').append(quicFilebg);
+       
+       
+    //   }
+    // }
+    
+
+  }
+
 
   ngOnInit(): void {
+
+
+    
 
     $(document).ready(function () {
       var height1 = parseInt($('.chat-accounts__head').outerHeight());
@@ -32,6 +56,7 @@ export class FDirectMessagingComponent implements OnInit {
   
   
     $('.search-account__input').on('input', function () {
+      
       var SearchItem = $(this).val().toLowerCase();;
       for (var x = 0; x < accountsName.length; x++) {
         var itemVal = accountsName[x].querySelector('.name') as HTMLElement;
@@ -105,6 +130,7 @@ export class FDirectMessagingComponent implements OnInit {
   
     // Send Messages
     $('body').on('click', '.send-message__btn', function () {
+      alert("hiii")
       imageUploader();
       var ChatText = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val();
   

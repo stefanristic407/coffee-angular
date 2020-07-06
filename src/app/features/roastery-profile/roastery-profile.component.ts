@@ -49,7 +49,7 @@ export class RoasteryProfileComponent implements OnInit {
   //  Function Name : Close Profile Modal.
   //  Description   : This function helps to close profile Image Cropper modal.
   closeProfileModal() {
-    // this.profileImageService.croppedImage = "assets/images/profile.svg";
+    this.profilePhotoService.croppedImage = "assets/images/oval.svg";
     this.profilePhotoService.displayModal = false;
   }
 

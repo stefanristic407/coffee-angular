@@ -6,7 +6,7 @@
             <div class="pad-header">
                 <div class="row align-items-center">
                     <div class="company-logo pad-logo">
-                        <a class="company-logo__img d-inline-block" routerLink="../features/dashboard">
+                        <a class="company-logo__img d-inline-block" routerLink="../features/welcome-aboard">
                             <img src="assets/images/Sewn-logo.png" alt="Comany-Logo">
                         </a>
                     </div>
@@ -43,16 +43,16 @@
                                 </div>
                                 <div class="profile-link__info pl-lg-1 float-right">
                                     <div>
-                                        <a class="profile-name" role="button" [popover]="popTemplate" placement="bottom" container="body" [outsideClick]="true">
+                                        <a class="profile-name" role="button" [popover]="popTemplate" placement="bottom" #pop2="bs-popover" container="body" [outsideClick]="true">
                                             <h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont">{{userName}} <span class="pl-1"><img src="assets/images/triangle.svg"> </span></h6>
                                             <span class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2" style="transform: translateY(-10px);">Admin</span>
                                         </a>
                                         <ng-template #popTemplate>
                                             <div id="popover-mobile-content">
                                                 <ul class="list-group">
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/roastery-profile">Roastery Profile </a></li>
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/myprofile">Profile </a></li>
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings">Account Settings </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/roastery-profile" (click)="pop2.hide()">Roastery Profile </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/myprofile" (click)="pop2.hide()">Profile </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings" (click)="pop2.hide()">Account Settings </a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">Logout </a></li>
                                                 </ul>
                                             </div>

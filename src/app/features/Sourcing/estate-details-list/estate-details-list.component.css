@@ -1,6 +1,6 @@
 .source-cont .nav-tabs .nav-link {
     border: none;
-    font-weight: bold;
+    font-weight: 600;
     border-bottom: 2px solid transparent;
     font-size: 14px;
     color: #232334;
@@ -11,6 +11,8 @@
 .source-cont .nav-tabs .nav-link.active {
     border-bottom: 2px solid #30855c;
     color: #30855c;
+    font-family: Muli;
+    font-weight: 600;
 }
 
 .checked {
@@ -28,32 +30,61 @@
 .back-page a {
     font-size: 16px;
     color: #80460b;
+    cursor: pointer;
+    font-family: Muli;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-.back-page img {
-    width: 15px;
-    height: 15px;
+.star-rate {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #242424;
+}
+
+.rating-data {
+    text-decoration: underline;
+    padding-left: 2px;
 }
 
 .det-tit h2 {
     font-size: 18px;
     font-weight: bold;
+    color: #242424;
+    font-family: Muli;
 }
 
-.source-knowmore a {
+.source-knowmore .contact-us {
+    padding: 12px 16px;
+    font-family: Muli;
+    font-size: 14px;
+    border: 1px solid #30855c;
+    font-weight: bold;
+    border-radius: 4px;
+    background-color: #30855c;
+    text-decoration: none;
+    display: inline-block;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.source-knowmore .know-more {
     padding: 12px 16px;
     border: 1px solid #30855c;
+    font-family: Muli;
     font-size: 14px;
+    font-weight: bold;
     color: #30855c;
     border-radius: 4px;
     margin-left: 10px;
     text-decoration: none;
     display: inline-block;
     margin-top: 5px;
+    cursor: pointer;
 }
 
-.source-knowmore a:hover {
-    text-decoration: none;
+.source-knowmore .know-more:hover {
     background: #30855c;
     color: #fff;
 }
@@ -86,15 +117,16 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 16px;
+    color: #232334;
+    font-family: Muli;
 }
 
 .stit p {
     font-size: 16px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
     margin-bottom: 25px;
+    color: #232334;
+    font-family: Muli;
 }
 
 .stit p:last-child {
@@ -112,16 +144,21 @@
     margin-bottom: 3px;
     margin-top: 12px;
     color: #747588;
+    font-family: Muli;
 }
 
 .real-estate h3 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    color: #232334;
+    font-family: Muli;
 }
 
 .estate-focus h3 {
     font-size: 18px;
     font-weight: bold;
+    color: #000000;
+    font-family: Muli;
 }
 
 .estate-focus ul {
@@ -147,6 +184,7 @@
     color: #747588;
     font-size: 14px;
     font-weight: 500;
+    font-family: Muli;
 }
 
 .estate-focus ul li p {
@@ -156,6 +194,7 @@
     font-size: 14px;
     color: #232334;
     font-weight: 600;
+    font-family: Muli;
 }
 
 .cetify-logo ul li {
@@ -187,26 +226,44 @@
     transform: translate(0px, -50%);
     padding: 24px;
     font-size: 18px;
+    z-index: 10;
+    font-weight: 600;
+    font-family: Muli;
 }
 
-.prebook a {
+.prebook .more-text {
     width: 100%;
     text-align: center;
+    font-family: Muli;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 10px 16px;
+    border: 1px solid #30855c;
+    font-size: 14px;
+    background-color: #30855c;
+    color: #fff;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.prebook .prebook-estate {
+    width: 100%;
+    text-align: center;
+    font-family: Muli;
     border-radius: 4px;
     font-weight: bold;
     padding: 10px 16px;
     border: 1px solid #30855c;
     font-size: 14px;
     color: #30855c;
-    margin-right: 12px;
+    cursor: pointer;
 }
 
-.prebook a:last-child {
+.prebook .prebook-estate:last-child {
     margin-right: 0;
 }
 
-.prebook a:hover {
-    text-decoration: none;
+.prebook .prebook-estate:hover {
     background: #30855c;
     color: #fff;
 }
@@ -215,6 +272,8 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 22px;
+    color: #000000;
+    font-family: Muli;
 }
 
 .p-gal img {
@@ -226,22 +285,30 @@
     font-weight: bold;
     margin-bottom: 5px;
     margin-top: 12px;
+    color: #232334;
+    font-family: Muli;
 }
 
 .profile-des h6 {
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
+    color: #000000;
 }
 
 .msg-chat {
     border: 1px solid #747588;
     padding: 4px 13px 6px;
     float: left;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .msg-chat p {
     margin-bottom: 0;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    color: #232334;
 }
 
 .gals {
@@ -284,10 +351,13 @@
     font-size: 47px;
     font-style: italic;
     margin-bottom: 12px;
+    font-weight: normal;
 }
 
 .marklist h5 {
     font-size: 16px;
+    font-family: Muli;
+    font-weight: normal;
 }
 
 .marklist h2 span {
@@ -306,11 +376,15 @@
     font-size: 38px;
     font-style: italic;
     padding-right: 4rem;
-    color: #c69c6c;
+    color: #a88057;
+    font-weight: normal;
 }
 
 .mark-brand p {
+    font-family: Muli;
     font-size: 14px;
+    font-weight: normal;
+    color: #232334;
     margin-bottom: 16px;
 }
 
@@ -538,6 +612,38 @@ ul li {
     font-size: 14px;
     font-weight: bold;
     text-decoration: underline;
+}
+
+.chat-btn {
+    border-radius: 8px 8px 0px 0px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
+    background-color: #333333;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    text-align: left;
+}
+
+.chat-indicator {
+    color: #24be46;
+}
+
+.chat-div {
+    width: 98%!important;
+}
+
+.stricky-order {
+    position: fixed;
+    left: 0;
+    right: 10%;
+    bottom: 0px;
+    z-index: 99;
+    width: 23%;
 }
 
 @media (max-width:991px) {

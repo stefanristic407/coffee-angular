@@ -1,1 +1,371 @@
-<p>about-roastery works!</p>
+<div class="row form-section">
+        <div class="col-lg-12 mt-4">
+          <form class="form-container">
+            <div class="row">
+              <div class=" col-lg-8 ">
+                <div class="border-class p-4">
+                  <div class="row mt-3">
+                    <div class="form-group col-md-6">
+                      <label for="owner_name">Owner name<span class="star">*</span></label>
+                      <input
+                        class="form-control owner_name rectangle"
+                        id="owner_name"
+                        type="text"
+                        (keyup)="onKeyPress($event)"
+                        name="owner_name"
+                        [(ngModel)]="owner_name"
+                        placeholder="Please enter owner name"
+                      />
+                      <div class="ownerNameError" *ngIf="ownerNameError != ''">
+                        {{ ownerNameError }}
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                            <label for="founded_in"
+                              >Founded in<span class="star">*</span></label
+                            >
+                            <input
+                              class="form-control rectangle founded_in"
+                              id="founded_in"
+                              type="text"
+                              (keyup)="onKeyPress($event)"
+                              name="founded_in"
+                              [(ngModel)]="founded_in"
+                              placeholder="Please enter founded year"
+                            />
+                            <div class="foundedInError" *ngIf="foundedInError != ''">
+                              {{ foundedInError }}
+                            </div>
+                          </div>
+                          
+                  </div>
+      
+                  <div class="row">
+                        <div class="form-group col-md-12 mt-3">
+                                <label for="summary">Roastery summary</label>
+                              <textarea  class="form-control summary" id="summary" name="summary" rows="5" [(ngModel)]="summary" placeholder="Tell us and to our users about who you are as a company!">
+                              </textarea>
+                        </div>
+                  </div>
+
+                  <hr>
+                 <div class="row p-3 mt-5">
+                     <p class="sub-header">Employee details</p>
+                     <p class="header-descr">Give us an overvew of your employees. You can view the inputs on the pie chart.</p>
+                 </div>
+                  <div class="row mb-3">
+                        <div class="form-group col-md-6">
+                          <label for="employee_nos">Total number of employees<span class="star">*</span></label>
+                          <input
+                            class="form-control employee_nos rectangle"
+                            id="employee_nos"
+                            type="text"
+                            (keyup)="onKeyPress($event)"
+                            name="employee_nos"
+                            [(ngModel)]="employee_nos"
+                            placeholder="Please enter no. of employees"
+                          />
+                          <div class="employeeNoError" *ngIf="employeeNoError != ''">
+                            {{ employeeNoError }}
+                          </div>
+                        </div>
+                        <div class="form-group col-md-6 ">
+                                <label for="employee_avg"
+                                  >Average employee age<span class="star">*</span></label
+                                >
+                                <input
+                                  class="form-control rectangle employee_avg"
+                                  id="employee_avg"
+                                  type="text"
+                                  (keyup)="onKeyPress($event)"
+                                  name="employee_avg"
+                                  [(ngModel)]="employee_avg"
+                                  placeholder="Please enter employee avg. age"
+                                />
+                                <div class="employeeAvgError" *ngIf="employeeAvgError != ''">
+                                  {{ employeeAvgError }}
+                                </div>
+                              </div>
+                              
+                      </div>
+                      <span class="text-data">Gender distribution<span class="star">*</span></span>
+                      <div class="row">
+                            <div class="form-group col-md-6">
+                              <label for="female_num">Total number of female employees<span class="star">*</span></label>
+                              <input
+                                class="form-control female_num rectangle"
+                                id="female_num"
+                                type="text"
+                                (keyup)="onKeyPress($event)"
+                                name="female_num"
+                                [(ngModel)]="female_num"
+                                placeholder="Please enter the number of female employees"
+                              />
+                              <div class="femaleNumError" *ngIf="femaleNumError != ''">
+                                {{ femaleNumError }}
+                              </div>
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                    <label for="male_num"
+                                      >Total number of male employees<span class="star">*</span></label
+                                    >
+                                    <input
+                                      class="form-control rectangle male_num"
+                                      id="male_num"
+                                      type="text"
+                                      (keyup)="onKeyPress($event)"
+                                      name="male_num"
+                                      [(ngModel)]="male_num"
+                                      placeholder="Please enter the number of male employees"
+                                    />
+                                    <div class="maleNumError" *ngIf="maleNumError != ''">
+                                      {{ maleNumError }}
+                                    </div>
+                                  </div>
+                                  
+                          </div>
+                          <hr>
+                          <div class="row p-3 mt-5">
+                                <p class="sub-header">Roastery capabilities</p>
+                                <p class="header-descr">Tell us about your roastery capabilities of storage etc.</p>
+                          </div>
+
+                          <div class="row">
+                                <div class="form-group col-md-4">
+                                  <label for="capacity">Roaster capacity<span class="star">*</span></label>
+                                  <input
+                                    class="form-control capacity rectangle"
+                                    id="capacity"
+                                    type="text"
+                                    (keyup)="onKeyPress($event)"
+                                    name="capacity"
+                                    [(ngModel)]="capacity"
+                                    placeholder="Enter capacity"
+                                  />
+                                  <div class="capacityError" *ngIf="capacityError != ''">
+                                    {{ capacityError }}
+                                  </div>
+                                </div>
+                                <div class="form-group col-md-2 pl-0">
+                                        <label for="kgs">&nbsp;</label>
+                                       <select  class="form-control kgs rectangle role_edit"
+                                       id="kgs"
+                                       name="kgs"
+                                       [(ngModel)]="kgs"> 
+                                           <option selected disabled value="">Kilograms</option>
+                                           <option value="1">1</option>
+                                           <option value="2">2</option>
+                                           <option value="3">3</option>
+                                           <option value="4">4</option>
+                                           <option value="5">5</option>
+                                           <option value="6">6</option>
+                                           <option value="7">7</option>
+                                           <option value="8">8</option>
+                                           <option value="9">9</option>
+                                           <option value="10">10</option>
+                                           <option value="11">11</option>
+                                           <option value="12">12</option>
+                                           <option value="13">13</option>
+                                           <option value="14">14</option>
+                                           <option value="15">15</option>
+
+                                       </select>
+                                        <div class="kilogramsError" *ngIf="kilogramsError != ''">
+                                          {{ kilogramsError }}
+                                        </div>
+                                      </div>
+
+                                <div class="form-group col-md-6 ">
+                                        <label for="capabilities"
+                                          >Capabilities<span class="star">*</span></label
+                                        >
+                                        <input
+                                          class="form-control rectangle capabilities"
+                                          id="capabilities"
+                                          type="text"
+                                          (keyup)="onKeyPress($event)"
+                                          name="capabilities"
+                                          [(ngModel)]="capabilities"
+                                          placeholder="Eg. Hand roasted, Blended, Mocha-Java"
+                                        />
+                                        <div class="capabilitiesError" *ngIf="capabilitiesError != ''">
+                                          {{ capabilitiesError }}
+                                        </div>
+                                      </div>
+                                      
+                              </div>
+
+                              <hr>
+
+                              <div class="row p-3 mt-5">
+                                    <p class="sub-header">Brands</p>
+                                    <p class="header-descr">List down your company brands.</p>
+                              </div>
+
+                              <div class="row mt-3">
+                                    <div class="form-group col-md-6">
+                                      <label for="brand_name">Brand name<span class="star">*</span></label>
+                                      <input
+                                        class="form-control brand_name rectangle"
+                                        id="brand_name"
+                                        type="text"
+                                        (keyup)="onKeyPress($event)"
+                                        name="brand_name"
+                                        [(ngModel)]="brand_name"
+                                        placeholder="Please enter brand name"
+                                      />
+                                      <div class="brandNameError" *ngIf="brandNameError != ''">
+                                        {{ brandNameError }}
+                                      </div>
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                            <label for="b_logo"
+                                              >Brand logo<span class="star">*</span></label
+                                            >
+                                           <button class="btn logo-btn" type="button">Upload</button>
+                                            <div class="brandLogoError" *ngIf="brandLogoError != ''">
+                                              {{ brandLogoError }}
+                                            </div>
+                                          </div>
+                                          
+                                  </div>
+                      
+                                  <div class="row">
+                                        <div class="form-group col-md-12 mt-3">
+                                                <label for="short_descr">A short description about the brand<span class="star">*</span></label>
+                                              <textarea  class="form-control short_descr" id="short_descr" name="short_descr" rows="5" [(ngModel)]="short_descr" placeholder="Tell us a bit about your brand">
+                                              </textarea>
+                                              <div class="shortDescError" *ngIf="shortDescError != ''">
+                                                    {{ shortDescError }}
+                                                  </div>
+                                        </div>
+                                  </div>
+
+                                  <div class="add-brand-div">
+                                      <a class="brand-tag"> 
+                                          <img class="add-field" src="assets/images/add-field.svg">
+                                          <span class="add-text">Add another brand</span>
+                                      </a>
+                                  </div>
+
+                                  <hr>
+
+                                  <div class="row p-3 mt-5">
+                                        <p class="sub-header">Contacts<span class="star">*</span></p>
+                                        <p class="header-descr">List down your top employees with whom users on the platform can get in touch with!</p>
+                                  </div>
+
+                                  <div class="row">
+                                        <div class="form-group col-md-6">
+                                          <label for="emp_title">Add a title</label>
+                                          <input
+                                            class="form-control emp_title rectangle"
+                                            id="emp_title"
+                                            type="text"
+                                            (keyup)="onKeyPress($event)"
+                                            name="emp_title"
+                                            [(ngModel)]="emp_title"
+                                            placeholder="Enter enter title"
+                                          />
+                                          <div class="empTitleError" *ngIf="empTitleError != ''">
+                                            {{ empTitleError }}
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                                <label for="emp_name">Select employee</label>
+                                               <select  class="form-control kgs rectangle role_edit"
+                                               id="emp_name"
+                                               name="emp_name"
+                                               [(ngModel)]="emp_name"> 
+                                                   <option selected disabled value="">Please select employee name</option>
+                                                   <option value="Satya">Satya</option>
+                                                   <option value="Vijay">Vijay</option>
+                                                   <option value="Sindhuja">Sindhuja</option>
+                                                   <option value="Ram">Ram</option>
+                                                   <option value="Varun">Varun</option>
+        
+                                               </select>
+                                                <!-- <div class="empNameError" *ngIf="empNameError != ''">
+                                                  {{ empNameError }}
+                                                </div> -->
+                                              </div>
+                                              </div>
+
+                                              <div class="add-brand-div">
+                                                    <a class="brand-tag"> 
+                                                        <img class="add-field" src="assets/images/add-field.svg">
+                                                        <span class="add-text">Add another contact</span>
+                                                    </a>
+                                                </div>
+
+                </div>
+              </div>
+      
+              <div class=" col-lg-4">
+                <div class="border-class">
+                  <div class="header m-1">Awards and certificates</div>
+                  <div class="row mt-3 mx-4 border-div">
+                        <div class="p-0">
+                            <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-3">
+                                <li class="estate-name">Women’s Barista Championship</li>
+                                <li class="estate-number pt-1">
+                                    2008
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right ml-auto">
+                                <img class="message-icon" src="assets/images/more-opns-file.png" alt="Message">
+                        </div>
+                    </div>
+                    <div class="row mt-3 mx-4 border-div">
+                            <div class="p-0">
+                                <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                            <div class="pull-left">
+                                <ul class="details-list p-0 ml-3">
+                                    <li class="estate-name">World Barista Championship</li>
+                                    <li class="estate-number pt-1">
+                                        2010
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pull-right ml-auto">
+                              <img class="message-icon" src="assets/images/more-opns-file.png" alt="Message">
+                            </div>
+                        </div>
+                        <div class="add-brand-div p-4">
+                                <a class="brand-tag"> 
+                                    <img class="add-field" src="assets/images/add-field.svg">
+                                    <span class="add-text">Add another contact</span>
+                                </a>
+                            </div>
+
+              
+                </div>
+                <div class="border-class mt-3">
+                        <div class="header m-1">Employee details</div>
+                        <div class="row">
+                          <div class="form-group col-md-6 emp_count_div px-4 py-2">
+                           <p class="emp_count">0</p>
+                           <p class="emp_text">Total employees</p>
+                          </div>
+                        
+                          <div class="form-group col-md-6 avg_count_div px-4 py-2">
+                           <p class="avg_count">0</p>
+                           <p class="emp_text">Average age</p>
+                          </div>
+                        </div>
+                        <div class="row mt-3 ">
+                            <div class="col-md-12 chart-div">
+                            <div class="oval text-center">
+                                <p class="note">No data to display</p>
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>

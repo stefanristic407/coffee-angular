@@ -43,6 +43,9 @@
 label{
     color: #232334;
 }
+.star{
+    color: #ff1e5a;
+}
 td{
     width: 100%;
 }
@@ -54,22 +57,15 @@ td{
     padding-top: 1.5rem;
 }
 
+.form-section{
+    display: block;
+}
+.list-section{
+    display: none;
+}
+
 /* ========CSS for select list and phone number =============  */
 
-li.select-list__item {
-    color: #232334 !important;
-    cursor: pointer !important;
-    padding: 3px !important;
-}
-
-.select-list__item:hover {
-    background: #f8f8f8;
-}
-
-.phone-nmber__select .enetered-number:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.035rem green !important;
-}
 
 
 /* .hidden-phone-num {
@@ -142,7 +138,7 @@ li.select-list__item {
 .select-list.active {
     display: block;
     opacity: 1;
-    border: 1px solid !important;
+    border: 1px solid #d6d6d6 !important;
     z-index: 9999;
     padding: 10px;
 }
@@ -172,3 +168,4 @@ input[type="number"]::-webkit-outer-spin-button {
 .entered-number::placeholder{
     font-size: 12px;
 }
+

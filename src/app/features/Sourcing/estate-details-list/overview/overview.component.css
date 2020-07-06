@@ -17,25 +17,20 @@
     border-radius: 4px;
 }
 
-
-/* .detail-descript {} */
-
-
-/* .stit {} */
-
 .stit h2 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 16px;
+    color: #000000;
+    font-family: Muli;
 }
 
 .stit p {
     font-size: 16px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
     margin-bottom: 25px;
+    color: #232334;
+    font-family: Muli;
 }
 
 .stit p:last-child {
@@ -53,16 +48,21 @@
     margin-bottom: 3px;
     margin-top: 12px;
     color: #747588;
+    font-family: Muli;
 }
 
 .real-estate h3 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    color: #232334;
+    font-family: Muli;
 }
 
 .estate-focus h3 {
     font-size: 18px;
     font-weight: bold;
+    color: #000000;
+    font-family: Muli;
 }
 
 .estate-focus ul {
@@ -81,6 +81,10 @@
     padding-bottom: 0;
 }
 
+.flex {
+    display: flex;
+}
+
 .estate-focus ul li label {
     float: left;
     width: 37%;
@@ -88,6 +92,7 @@
     color: #747588;
     font-size: 14px;
     font-weight: 500;
+    font-family: Muli;
 }
 
 .estate-focus ul li p {
@@ -97,6 +102,7 @@
     font-size: 14px;
     color: #232334;
     font-weight: 600;
+    font-family: Muli;
 }
 
 .cetify-logo ul li {
@@ -128,10 +134,29 @@
     transform: translate(0px, -50%);
     padding: 24px;
     font-size: 18px;
+    z-index: 10;
+    font-weight: 600;
+    font-family: Muli;
 }
 
-.prebook a {
+.prebook .more-text {
     width: 100%;
+    font-family: Muli;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 10px 16px;
+    border: 1px solid #30855c;
+    font-size: 14px;
+    background-color: #30855c;
+    color: #fff;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.prebook .prebook-estate {
+    width: 100%;
+    font-family: Muli;
     text-align: center;
     border-radius: 4px;
     font-weight: bold;
@@ -139,60 +164,20 @@
     border: 1px solid #30855c;
     font-size: 14px;
     color: #30855c;
-    margin-right: 12px;
+    cursor: pointer;
 }
 
-.prebook a:last-child {
+.prebook .prebook-estate:last-child {
     margin-right: 0;
 }
 
-.prebook a:hover {
-    text-decoration: none;
+.prebook .prebook-estate:hover {
     background: #30855c;
     color: #fff;
 }
 
-
-/* .employer {} */
-
-.employer h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 22px;
-}
-
 .p-gal img {
     width: 100%
-}
-
-
-/* .employ-profile {}
-
-.p-gal {}
-
-.profile-des {} */
-
-.profile-des h4 {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-top: 12px;
-}
-
-.profile-des h6 {
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.msg-chat {
-    border: 1px solid #747588;
-    padding: 4px 13px 6px;
-    float: left;
-    border-radius: 4px;
-}
-
-.msg-chat p {
-    margin-bottom: 0;
 }
 
 .gals {
@@ -295,6 +280,100 @@
 .rating-fff {
     background-color: #FFFFFF;
     margin: 0.5rem 0rem;
+}
+
+.chat-btn {
+    border-radius: 8px 8px 0px 0px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
+    background-color: #333333;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    text-align: left;
+}
+
+.chat-indicator {
+    color: #24be46;
+}
+
+.chat-div {
+    width: 98%!important;
+}
+
+.stricky-order {
+    position: fixed;
+    left: 0;
+    right: 10%;
+    bottom: 0px;
+    z-index: 99;
+    width: 23%;
+}
+
+
+/********Graph Css*********/
+
+.live-estate h2 {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.live-estate div {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+::ng-deep .gridline-path-vertical {
+    display: none;
+}
+
+::ng-deep .gridline-path-horizontal {
+    border: 1px dashed red;
+}
+
+.chart-cont .nav-tabs .nav-link {
+    border: none;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    color: #232334;
+    flex: inherit;
+    padding-bottom: 6px;
+}
+
+.chart-cont .nav-tabs .nav-link.active {
+    border-bottom: 2px solid #30855c;
+    color: #30855c;
+    font-family: Muli;
+    font-weight: 600;
+}
+
+.border-total {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.legend-color {
+    color: #f19634;
+}
+
+.legend-color2 {
+    color: #7c6be8;
+}
+
+.chart-details {
+    padding: 24px 24px 0 24px;
+    border: 1px solid #ebebeb;
 }
 
 @media (max-width:991px) {

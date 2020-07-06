@@ -105,6 +105,7 @@ export class PDirectMessagingComponent implements OnInit {
   
     // Send Messages
     $('body').on('click', '.send-message__btn', function () {
+      
       imageUploader();
       var ChatText = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val();
   

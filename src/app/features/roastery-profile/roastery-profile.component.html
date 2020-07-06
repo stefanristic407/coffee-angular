@@ -9,7 +9,7 @@
                             <li class="b-cum">
                                 <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                             </li>
-                            <li class="b-cum c-pink">Roaster-Profile</li>
+                            <li class="b-cum c-pink">Roaster profile</li>
                         </ul>
                     </nav>
                 </div>
@@ -35,6 +35,7 @@
                                 <input class="form-control company-website" id="company-website" type="text" placeholder="www.royalcoffee.az.com/">
                             </div>
                                 <div class="pic-div">
+                                    <img [src]="profilePhotoService.croppedImage" class="oval-pic">
                                         <a class="show_modal" (click)="showModalDialog()">
                                         <img src="assets/images/camera.svg" class="camera-pic">
                                         </a>
@@ -82,9 +83,7 @@
                         </div>
                         <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
                                 <div class="row">
-            
-            
-                                       <app-overview-ratings></app-overview-ratings>
+                                       <sewn-reviews></sewn-reviews>
                                 </div>
                             </div>
                     </div>

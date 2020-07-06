@@ -16,7 +16,7 @@ import {CalendarModule} from 'primeng/calendar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { HeaderComponent } from './header/header.component';
 import { PopoverModule } from "ngx-bootstrap/popover";
-
+import {GalleriaModule} from 'primeng/galleria';
 
 
 
@@ -37,6 +37,7 @@ import { PopoverModule } from "ngx-bootstrap/popover";
     CalendarModule,
     PopoverModule,
     OrdermanagementModule,
+    GalleriaModule,
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true,
       positionClass: 'toast-bottom-right' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

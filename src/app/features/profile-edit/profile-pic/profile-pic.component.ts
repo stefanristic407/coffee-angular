@@ -30,7 +30,7 @@ export class ProfilePicComponent implements OnInit {
   //  Description   : This function gives the output of cropped image.
   imageCropped(event: ImageCroppedEvent) {
     this.profilePicService.croppedImage = event.base64;
-    console.log(this.profilePicService.croppedImage)
+    // console.log(this.profilePicService.croppedImage)
   }
 
   //  Function Name : Loading Image.

@@ -1,0 +1,436 @@
+.bread-nav {
+    padding-left: 3.1rem;
+}
+
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_desc {
+    background-image: unset !important;
+}
+
+.estate-orders {
+    /* margin: 1rem 3.1rem; */
+    position: relative;
+}
+
+.estate-orders-heading {
+    margin: 1rem 3.1rem;
+}
+
+.add-role-butn {
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 10px 0px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-right: 3rem;
+}
+
+.add-role-butn:hover {
+    background-color: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.table thead th,
+
+/* table.dataTable.no-footer, */
+
+table.dataTable.row-border tbody th,
+table.dataTable.row-border tbody td,
+table.dataTable.display tbody th,
+table.dataTable.display tbody td {
+    border: none !important;
+}
+
+.orders-border {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6 !important;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc_disabled:before {
+    display: none !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fff !important;
+}
+
+table.dataTable.hover tbody tr:hover,
+table.dataTable.display tbody tr:hover {
+    background-color: #fff !important;
+}
+
+table.dataTable.row-border tbody tr {
+    border-bottom: 1px solid red;
+}
+
+.estate-title {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    height: 55px;
+}
+
+.estate-title th {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.dataTable {
+    border-radius: 4px !important;
+    padding: 6px 4px;
+}
+
+.row {
+    color: #232334 !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-family: 'Muli' !important;
+    border-bottom: none !important;
+}
+
+table.dataTable.no-footer {
+    border-bottom: solid 1px #d6d6d6 !important;
+    width: 100% !important;
+}
+
+table.dataTable thead th {
+    border-bottom: none !important;
+}
+
+.estate-boby-txt {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+.estate-order-title {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.border-order {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.border-order:focus {
+    outline-color: 1px solid #30855c;
+}
+
+.title-header {
+    margin: 1.3rem 4rem;
+}
+
+.filter-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.filter {
+    font-family: 'Muli';
+    font-weight: 600;
+    color: #232334;
+    font-size: 14px;
+}
+
+.search {
+    /*width: 255px;*/
+    font-family: 'Muli';
+    height: 36px;
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    /* background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px; */
+    padding-left: 45px;
+}
+
+span.checkmark {
+    background-color: white;
+    border: 1px solid #666666;
+    border-radius: 4px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #000;
+}
+
+.estate-title .checkmark {
+    top: 3px !important;
+}
+
+.estate-boby-txt .checkmark {
+    top: 3px !important;
+    left: 8px !important;
+}
+
+#DataTables_Table_0_length {
+    position: relative;
+    bottom: 2.5rem;
+    left: 57%;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.text-filters,
+#dataTables_filter input {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+
+/**********popover*******/
+
+.list-group-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600;
+    background-color: #f8f8f8;
+}
+
+.menu-arrow {
+    cursor: pointer;
+}
+
+::ng-deep .popover-body {
+    padding: 0 !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+    top: 4px !important;
+}
+
+::ng-deep .bs-popover-bottom .arrow:after {
+    top: 0px !important;
+}
+
+.pointer-item {
+    cursor: pointer;
+}
+
+@media (max-width:1024px) {
+    .estate-table {
+        /* width: 100%; */
+        overflow: scroll;
+    }
+    .estate-table table {
+        width: 1024px;
+    }
+}
+
+@media (max-width:480px) {
+    .estate-orders {
+        margin: 1rem 0px;
+    }
+}
+
+
+/* The container */
+
+.bestate-check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 1rem;
+}
+
+
+/* Hide the browser's default checkbox */
+
+.bestate-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+/* Create a custom checkbox */
+
+.estatecheckmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+}
+
+.first_t {
+    top: -5px !important;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.bestate-check:hover input~.estatecheckmark {
+    background-color: #fff;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+
+.bestate-check input:checked~.estatecheckmark {
+    background-color: #30855c;
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.estatecheckmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the checkmark when checked */
+
+.bestate-check input:checked~.estatecheckmark:after {
+    display: block;
+}
+
+
+/* Style the checkmark/indicator */
+
+.bestate-check .estatecheckmark:after {
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: 1px solid #d6d6d6;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.create-role-section {
+    padding: 0px 40px;
+}
+
+.spacing-order {
+    padding: 1rem 0.6rem !important;
+}
+
+
+/* .estate-boby-txt tbody tr td .more-options {
+    background: url(../../../../assets/images/ellipses.png);
+    width: 20px;
+    height: 20px;
+} */
+
+.display_div {
+    /* width: 100%; */
+    position: absolute;
+    right: 3.2rem;
+    top: -0.3rem;
+}
+
+.Give-your-end-users {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #747588;
+    width: 48%;
+    padding: 5px 0px;
+}
+
+.share-txt {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: 500;
+    color: #232334;
+}
+
+.share-img {
+    width: 17px;
+    height: 17px;
+}
+
+.dwnd-img {
+    width: 15px;
+    height: 15px;
+}
+
+.share-bor {
+    border-radius: 2px;
+    border: solid 2px rgba(116, 117, 136, 0.6);
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.upload-order {
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.file-inpt {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+::ng-deep .dwnd-img {
+    width: 22px;
+    height: 21px;
+    object-fit: contain;
+}

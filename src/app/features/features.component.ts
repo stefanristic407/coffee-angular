@@ -51,17 +51,17 @@ export class FeaturesComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService) { }
 
-    ngOnInit(): void {
-      this.roaster_id = this.cookieService.get("roaster_id");
-      this.user_id = this.cookieService.get('user_id');
-      this.getUserValue();
+  ngOnInit(): void {
+    this.roaster_id = this.cookieService.get("roaster_id");
+    this.user_id = this.cookieService.get('user_id');
+    this.getUserValue();
 
-   
-    }
 
- 
+  }
 
- // Function Name : User Value
+
+
+  // Function Name : User Value
   //Description: This function helps to get the details of the logged in user and show the username in header
   getUserValue() {
     this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
@@ -71,9 +71,9 @@ export class FeaturesComponent implements OnInit {
     );
   }
 
- 
 
- // Function Name : Logout
+
+  // Function Name : Logout
   //Description: This function helps to logout the user from the session.
 
   userLogout() {
@@ -95,21 +95,42 @@ export class FeaturesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    $('.nav-links__item').on('click', function() {
-      $('.nav-links__item').not(this).removeClass('active');
-      $(this).addClass('active')
-  });
+    $('.nav-links__item').on('click', function () {
+    
 
-  $('.nav-dropdown li').on('click', function() {
+      if ($(window).width() < 767) {
+        $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
+        $(this).find('.nav-dropdown').slideToggle();
+        $('.nav-links__item').not(this).removeClass('active');
+        $(this).toggleClass('active')
+      }
+
+      else {
+        $('.nav-links__item').not(this).removeClass('active');
+        $(this).addClass('active')
+      }
+      
+    });
+
+    $('.nav-dropdown li').on('click', function () {
       $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
       $(this).parents('.nav-links__item').addClass('active')
-  });
+    });
 
-  $(window).on('load', function() {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-});
+    $(window).on('load', function () {
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
+
+    //Open side nav
+    $('body').on('click', '.sidenav-hamberg', function() {
+      $('.sidenav-mb').toggleClass('open');
+    });
+
+    $('body').on('click', '.sidenav-mb__close', function() {
+      $('.sidenav-mb').toggleClass('open');
+    });
   }
 
- 
+
 
 }

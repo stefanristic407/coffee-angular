@@ -147,17 +147,18 @@ td {
 }
 
 .shipping-addr {
-    font-family: Muli-Regular_;
+    font-family: Muli;
     font-size: 18px;
     font-weight: bold;
     color: #000000;
 }
 
 .edit-text {
-    font-family: Muli-Regular_;
+    font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     color: #30855c;
+    cursor: pointer;
 }
 
 .address-bar {
@@ -175,14 +176,14 @@ td {
 }
 
 .details-header {
-    font-family: Muli-Regular_;
+    font-family: Muli;
     font-size: 18px;
     font-weight: bold;
     color: #000000;
 }
 
 .remeber-left {
-    font-family: Muli-Regular_;
+    font-family: Muli !important;
     font-size: 14px;
     font-weight: 600;
     color: #333333;
@@ -193,7 +194,8 @@ td {
     text-decoration: underline;
 }
 
-.place-order {
+.place-order,
+.save-address {
     border-radius: 4px;
     background-color: #30855c;
     font-family: Muli;
@@ -281,6 +283,73 @@ td {
     top: 3rem;
 }
 
+#form-address {
+    display: none;
+}
+
+.save-top {
+    margin-top: 2.8rem;
+}
+
+.ship-top {
+    margin-top: 2.2rem;
+}
+
+label {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.star {
+    color: #ff1e5a;
+}
+
+.form-control {
+    height: 50px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    font-size: 14px !important;
+}
+
+.select_order {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    background: url(/assets/images/confirm-drop.png) right 15px top 16px no-repeat;
+    -webkit-appearance: none;
+    font-family: Muli;
+    font-weight: 500;
+    height: 50px !important;
+    padding-top: 7px;
+    cursor: pointer;
+    font-size: 14px !important;
+}
+
+.checkmark {
+    top: 2px !important;
+    left: 2px !important;
+    height: 17px !important;
+    width: 17px !important;
+}
+
+.customcheckbox .checkmark:after {
+    left: 5px !important;
+    top: 1px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #232334 !important;
+}
+
 
 /****************************    Media Queries   ****************************/
 
@@ -336,7 +405,11 @@ td {
     box-shadow: 0 0 0 0.035rem green !important;
 }
 
-.confirm-ordererror {
+.confirm-ordererror,
+.countryError,
+.addressError,
+.cityError,
+.zipError {
     color: #D50000;
     font-size: 14px;
 }

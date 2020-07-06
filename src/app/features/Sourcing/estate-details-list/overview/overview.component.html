@@ -99,19 +99,196 @@
                     </div>
                     <div class="prodcoffee mt-3">
                         <h4>Our Coffee procurement is traceable & 100% transparent</h4>
-                        <a href="#" class="video-btn"><img src="assets/images/play-button-image.svg"></a>
+                        <div class="video-part">
+                            <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
+                        </div>
                     </div>
                     <div class="flex prebook mt-4 pt-md-2">
-                        <a href="#">Know more</a>
-                        <a href="#">Pre-book estate</a>
+                        <a class="more-text">Know more</a>
+                        <a class="prebook-estate">Pre-book estate</a>
                     </div>
                 </div>
             </aside>
         </div>
+
+
+
     </div>
 
-</div>
-<div class="row mt-4">
-    <!-- <app-overview-ratings></app-overview-ratings> -->
 
+
+</div>
+<!-- Chart div starts-->
+<div class="chart-details chart-cont mt-4">
+    <div class="row">
+        <div class="live-estate col-lg-12 ">
+            <h2>Live from our estate!</h2>
+            <div class="mt-2">We bring you live updates of your lot with geo tracking!</div>
+
+            <nav class="mt-4">
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">Weather</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">Soil</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv" role="tab" aria-controls="nav-profile" aria-selected="false">UV</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">Images</a>
+                </div>
+            </nav>
+
+            <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
+                <!-- weather-->
+                <div class="tab-pane fade show active" id="weather" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row">
+                        <div class="col-lg-5">
+                        </div>
+                        <div class="col-lg-7 d-inline pl-5">
+                            <div class="d-inline col-sm-6">
+                                <span class="legend-color">&#9679;</span> Legend 1
+                            </div>
+                            <div class="d-inline col-sm-6">
+                                <span class="legend-color2">&#9679;</span> Legend 2
+                            </div>
+
+                            <div class="d-inline border-total col-sm-6">
+                                <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.png" />
+                                    </p>
+                                </a>
+                            </div>&nbsp;&nbsp;
+                            <div class="d-inline border-total col-sm-6">
+                                <p class="d-inline add-variety">Hourly forecast&nbsp;&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.png" />
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                            [roundDomains]="roundDomains" [timeline]="timeline">
+                        </ngx-charts-line-chart>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="soil" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="row">
+                        <div class="col-lg-5">
+                        </div>
+                        <div class="col-lg-7 d-inline pl-5">
+                            <div class="d-inline col-sm-6">
+                                <span class="legend-color">&#9679;</span> Legend 1
+                            </div>
+                            <div class="d-inline col-sm-6">
+                                <span class="legend-color2">&#9679;</span> Legend 2
+                            </div>
+
+                            <div class="d-inline border-total col-sm-6">
+                                <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.png" />
+                                    </p>
+                                </a>
+                            </div>&nbsp;&nbsp;
+                            <div class="d-inline border-total col-sm-6">
+                                <p class="d-inline add-variety">Hourly forecast&nbsp;&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.png" />
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                            [roundDomains]="roundDomains" [timeline]="timeline">
+                        </ngx-charts-line-chart>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="uv" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="row">
+                        <div class="col-lg-5">
+                        </div>
+                        <div class="col-lg-7 d-inline pl-5">
+                            <div class="d-inline col-sm-6">
+                                <span class="legend-color">&#9679;</span> Legend 1
+                            </div>
+                            <div class="d-inline col-sm-6">
+                                <span class="legend-color2">&#9679;</span> Legend 2
+                            </div>
+
+                            <div class="d-inline border-total col-sm-6">
+                                <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.png" />
+                                    </p>
+                                </a>
+                            </div>&nbsp;&nbsp;
+                            <div class="d-inline border-total col-sm-6">
+                                <p class="d-inline add-variety">Hourly forecast&nbsp;&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.png" />
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                            [roundDomains]="roundDomains" [timeline]="timeline">
+                        </ngx-charts-line-chart>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="row">
+                        <div class="col-lg-5">
+                        </div>
+                        <div class="col-lg-7 d-inline pl-5">
+                            <div class="d-inline col-sm-6">
+                                <span class="legend-color">&#9679;</span> Legend 1
+                            </div>
+                            <div class="d-inline col-sm-6">
+                                <span class="legend-color2">&#9679;</span> Legend 2
+                            </div>
+
+                            <div class="d-inline border-total col-sm-6">
+                                <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.png" />
+                                    </p>
+                                </a>
+                            </div>&nbsp;&nbsp;
+                            <div class="d-inline border-total col-sm-6">
+                                <p class="d-inline add-variety">Hourly forecast&nbsp;&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.png" />
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                            [roundDomains]="roundDomains" [timeline]="timeline">
+                        </ngx-charts-line-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart div ends-->
+<div class="row mt-4">
+    <app-overview-ratings></app-overview-ratings>
+    <div class="w-100 chat-div">
+        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
+    </div>
 </div>

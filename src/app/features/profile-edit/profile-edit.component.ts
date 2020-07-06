@@ -6,6 +6,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 
+
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
@@ -31,6 +32,8 @@ export class ProfileEditComponent implements OnInit {
   firstname: string;
   lastname: string;
   numberValue: any;
+  user_id: string;
+  roasterId: string;
 
   constructor(public profilePicService: ProfilePicService, 
     private router : Router, 
@@ -242,8 +245,29 @@ export class ProfileEditComponent implements OnInit {
          result => {
            console.log(result)
            if(result['success'] == true){
-             this.toastrService.success("Profile details updated successfully");
-             this.router.navigate(['/features/myprofile']);
+            // let formData: FormData = new FormData();
+            // formData.append("file", this.profilePicService.croppedImage);
+            // this.roasterId = this.cookieService.get('roaster_id');
+            // this.user_id = this.cookieService.get('user_id');
+            // formData.append(
+            //   "api_call",
+            //   "/ro/" + this.roasterId + "/users/" + this.user_id + "/profile-image"
+            // );
+            // formData.append("token", this.cookieService.get("Auth"));
+            // this.userService.uploadProfileImage(formData).subscribe(
+            //   result => {
+            //     console.log(result)
+            //     if(result['success']== true){
+                this.toastrService.success("Profile details updated successfully");
+                this.router.navigate(['/features/myprofile']);
+                // }
+                // else{
+                //   console.log(result);
+                //   this.toastrService.error("Error while updating details, please try again.")
+                // }
+            //   }
+            // )
+             
            }
            else{
              this.toastrService.error("Error while updating details, please try again.")

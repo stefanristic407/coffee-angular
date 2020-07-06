@@ -28,6 +28,11 @@ import {CofeeExpeienceDetailsComponent} from './Farm Link/cofee-expeience-detail
 import {BlogDetailsComponent} from './Farm Link/blog-details/blog-details.component'
 import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
 import {EstateDetailsListComponent} from './Sourcing/estate-details-list/estate-details-list.component';
+import {SourcingOrderChatComponent} from './Sourcing/estate-details-list/sourcing-order-chat/sourcing-order-chat.component';
+import {MyfilesComponent} from './Farm Link/file-share/myfiles/myfiles.component';
+import {SharewithmeComponent} from './Farm Link/file-share/sharewithme/sharewithme.component';
+import {FileShareDetailsComponent} from './Farm Link/file-share/file-share-details/file-share-details.component';
+import {AvailableCoffeeListComponent} from './Sourcing/available-coffee-list/available-coffee-list.component';
 
 const routes: Routes = [
   {
@@ -132,6 +137,26 @@ const routes: Routes = [
       {
         path:'estate-details',
         component:EstateDetailsListComponent
+      },
+      {
+        path:'sourcing-chat',
+        component:SourcingOrderChatComponent
+      },
+      {
+        path:'my-files',
+        component:MyfilesComponent
+      },
+      {
+        path:'share',
+        component:SharewithmeComponent
+      },
+      {
+        path:'file-share-details',
+        component:FileShareDetailsComponent
+      },
+      {
+        path:'available-coffee-list',
+        component:AvailableCoffeeListComponent
       },
       {
         path: '',

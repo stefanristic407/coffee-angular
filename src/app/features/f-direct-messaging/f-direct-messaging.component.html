@@ -84,7 +84,7 @@
                                 <div class="chat-inputs">
                                     <label class="chat-inputs__img">
                                         <img src="assets/images/dm-img-upload.svg">
-                                        <input type="file" class="files">
+                                        <input type="file" class="files" (click)=" onSelectFile($event)">
 
                                     </label>
                                     <textarea type="text" rows="1" class="chat-inputs__text" placeholder="Type something.."></textarea>
@@ -97,7 +97,7 @@
 
                                 </div>
                                 <div class="send-message">
-                                    <button type="button" class="send-message__btn">
+                                    <button type="button" class="send-message__btn" (click)="onSelectFile($event)">
                                         <span>send</span>
                                         <img src="assets/images/dm-send.svg">
                                     </button>

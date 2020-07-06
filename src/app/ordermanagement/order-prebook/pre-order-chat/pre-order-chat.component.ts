@@ -14,6 +14,26 @@ export class PreOrderChatComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+
+	let img;
+		$('body').on('input', '.files', function (e) {
+			
+			if (e.target.files) {
+				var reader = new FileReader();
+				reader.readAsDataURL(e.target.files[0]);
+				reader.onload = (event: any) => {
+					// img = event.target.result;
+
+
+					img = '<img src=' + event.target.result + ' style="width: 250px;height:250px;object-fit:cover">';
+					$('.img-container').append(img)
+					$('.img-container').show();
+					$('.img-container').find('img').not(':first').remove();
+				}
+			}
+		});
+
+
     let searchresult = document.querySelectorAll('.search-parent')
     $('.search-messages__input').on('input', function () {
         var SearchItem = $(this).val().toLowerCase();;
@@ -36,54 +56,13 @@ export class PreOrderChatComponent implements OnInit {
 
     let sd;
 	let HideWords = ['fuck', 'suck']
-    //image upload function
-	function imageUploader() {
-		var filesInputLength = document.getElementsByClassName("files").length;
-		//Check File API support
-		if (window.File && window.FileList && window.FileReader) {
-			for (var j = 0; j < filesInputLength; j++) {
-				var filesInput = document.getElementsByClassName("files")[j];
-				filesInput.addEventListener("change", function (event) {
-          var fileVal = event.target as HTMLInputElement;
-          var files:File = (fileVal.files as FileList)[0]; //FileList object
-					// var files = event.target.files; //FileList object
-          for (var i = 0; i < files[0].length; i++) {
-						var file = files[i];
-						//Only pics
-						if (!file.type.match('image'))
-							continue;
-						var picReader = new FileReader();
-						picReader.addEventListener("load", function (event) {
-
-							var picFile = event.target;
-							sd = "<img class='thumbnail chat-images' src='" + picFile.result + "'" +
-              "title='" + picFile[0].name + "'/>";
-
-                if (i == files[0].length) {
-								$('.img-container').append(sd)
-								$('.img-container').show();
-								$('.img-container').find('img').not(':first').remove();;
-							}
-
-						});
-						//Read the image
-						picReader.readAsDataURL(file);
-					}
-
-				});
-			}
-		}
-		else {
-			console.log("Your browser does not support File API");
-		}
-	}
-
+    
 
 
     //Send Message
     // Send Messages
 	$('body').on('click', '.send-message__btn', function () {
-		imageUploader();
+	
 		var ChatText = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val();
 
 		var ChatImg = $('.files').val();
@@ -120,7 +99,7 @@ export class PreOrderChatComponent implements OnInit {
 		if (ChatText !== '' && ChatImg !== '') {
 
 
-            var message = '<div class="main-message message-from"><div class="main-message__profile clearfix"><div class="float-left img"><img src="../images/dispute-order/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><span class="live-time">' + strTime + '</span><div class="message-info__img">' + sd + '</div><p class="message-text">' + ChatText + '</p></div></div></div>'
+            var message = '<div class="main-message message-from"><div class="main-message__profile clearfix"><div class="float-left img"><img src="../images/dispute-order/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><span class="live-time">' + strTime + '</span><div class="message-info__img">' + img + '</div><p class="message-text">' + ChatText + '</p></div></div></div>'
 
 			var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
 			var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
@@ -145,7 +124,7 @@ export class PreOrderChatComponent implements OnInit {
 
 		else if ((ChatText == '' && ChatImg !== '')) {
 
-            var message = '<div class="main-message message-from"><div class="main-message__profile clearfix"><div class="float-left img"><img src="../images/dispute-order/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><span class="live-time">' + strTime + '</span><div class="message-info__img">' + sd + '</div></div></div></div>'
+            var message = '<div class="main-message message-from"><div class="main-message__profile clearfix"><div class="float-left img"><img src="../images/dispute-order/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><span class="live-time">' + strTime + '</span><div class="message-info__img">' + img + '</div></div></div></div>'
 
 
             var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
@@ -167,7 +146,6 @@ export class PreOrderChatComponent implements OnInit {
 
 
     $('body').on('click', '.chat-inputs__img', function () {
-		imageUploader();
 	
 
 	});

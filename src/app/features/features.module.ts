@@ -7,7 +7,7 @@ import { TypeaheadModule } from "ngx-bootstrap/typeahead";
 import { ImageCropperModule } from "ngx-image-cropper";
 import { ToastrModule } from "ngx-toastr";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
-
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 //PrimeNG Modules
 import { ButtonModule } from "primeng/button";
 import { CalendarModule } from "primeng/calendar";
@@ -33,6 +33,8 @@ import { WelcomeAboardComponent } from "./welcome-aboard/welcome-aboard.componen
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { DataTablesModule } from "angular-datatables";
+import { GalleryModule } from 'ng-gallery';
+import { LightboxModule } from 'ng-gallery/lightbox';
 
 
 
@@ -62,7 +64,17 @@ import { OverviewRatingsComponent } from './Sourcing/estate-details-list/overvie
 import { RatingModule } from 'ng-starrating';
 import { SourcingOrderChatComponent } from './Sourcing/estate-details-list/sourcing-order-chat/sourcing-order-chat.component';
 import { ProfilePhotoComponent } from './roastery-profile/profile-photo/profile-photo.component';
+import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
+import { FileShareDetailsComponent } from './Farm Link/file-share/file-share-details/file-share-details.component';
+import { MyfilesComponent } from './Farm Link/file-share/myfiles/myfiles.component';
+import { SharewithmeComponent } from './Farm Link/file-share/sharewithme/sharewithme.component';
+import { DocumentFileComponent } from './Farm Link/file-share/file-share-details/document-file/document-file.component';
+import { VideoFileComponent } from './Farm Link/file-share/file-share-details/video-file/video-file.component';
+import { DocumentTableComponent } from './Farm Link/file-share/file-share-details/document-table/document-table.component';
+import { VideoTableComponent } from './Farm Link/file-share/file-share-details/video-table/video-table.component';
+import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -103,12 +115,22 @@ import { ProfilePhotoComponent } from './roastery-profile/profile-photo/profile-
     OverviewRatingsComponent,
     SourcingOrderChatComponent,
     ProfilePhotoComponent,
+    ReviewsComponent,
+    FileShareDetailsComponent,
+    MyfilesComponent,
+    SharewithmeComponent,
+    DocumentFileComponent,
+    VideoFileComponent,
+    DocumentTableComponent,
+    VideoTableComponent,
+    ProfileLicenseComponent,
   ],
   imports: [
     CommonModule,
     FeaturesRoutingModule,
     //PrimeNG Modules
     ImageCropperModule,
+    DragDropModule,
     OrdermanagementModule,
     MatChipsModule,
     MatIconModule,
@@ -125,6 +147,9 @@ import { ProfilePhotoComponent } from './roastery-profile/profile-photo/profile-
     MatBottomSheetModule,
     Ng2SearchPipeModule,
     RatingModule,
+    NgxChartsModule,
+    GalleryModule,
+    LightboxModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
   ]

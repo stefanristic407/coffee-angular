@@ -2,26 +2,28 @@
 // PAGE DESCRIPTION : This page contains all API calls for SEWN-Roaster users.
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserserviceService {
   //API call URL's
-  // private roasterUrl = "http://15.206.153.210:8000/ro/api";
-  // private roasterDeleteUrl = "http://15.206.153.210:8000/ro/deleteapi";
-  // private putUrl = "http://15.206.153.210:8000/ro/putapi";
-  // private url = "http://15.206.153.210:8000/api";
-  // private deleteUrl = "http://15.206.153.210:8000/deleteapi";
+  private roasterUrl = environment.apiURL+"/ro/api";
+  private roasterDeleteUrl = environment.apiURL+"/ro/deleteapi";
+  private putUrl = environment.apiURL+"/ro/putapi";
+  private url = environment.apiURL+"/api";
+  private deleteUrl = environment.apiURL+"/deleteapi";
+  private certificatesURL = environment.apiURL+"/ro/certificates";
 
-  private roasterUrl = "https://qa-fed-api.sewnstaging.com/ro/api";
-  private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
-  private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
-  private url = "https://qa-fed-api.sewnstaging.com/api";
-  private deleteUrl = "https://qa-fed-api.sewnstaging.com/deleteapi";
+  // private roasterUrl = "/ro/api";
+  // private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
+  // private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
+  // private url = "https://qa-fed-api.sewnstaging.com/api";
+  // private deleteUrl = "https://qa-fed-api.sewnstaging.com/deleteapi";
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -216,6 +218,37 @@ export class UserserviceService {
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
+
+    // API Function Name : Upload Profile Image API.
+  // API Description   : This API call helps to upload the Profile Image.
+  uploadProfileImage(formData: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({ Accept: "application/json" })
+    };
+    return this.http.post(this.roasterUrl, formData, httpOptions);
+  }
+
+    // API Function Name : Upload License and Certificates API.
+  // API Description   : This API call helps to upload the license and certificates details.
+  uploadCertificate(formData: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({ Accept: "application/json" })
+    };
+    return this.http.post(this.certificatesURL, formData, httpOptions);
+  }
+
+
+      //API Function Name : Certificates 
+  //API Description: This API call helps to get the Certificates.
+
+  getCertificates(roaster_id : any) {
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/certificates";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl, data);
+  }
+
 
 
 

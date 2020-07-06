@@ -48,17 +48,17 @@ export class AgreementComponent implements OnInit {
 			this.data = {};
 			this.data = 
 				[{ 
-					"files": '<img class="dwnd-img pr-1" src="assets/images/pdf-img.PNG" alt="upload-icon">' + "SEWN service offerings",
+					"files": '<img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + "SEWN service offerings",
 					"orderid": "#129979", 
 					"addedon": "24/09/2019  3:06 pm", 
 					"customername": "The Steam Hotel", 
 					"origin": "Origin"
 				},
-				{ files: '<img class="dwnd-img pr-1" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Candela agreement pap..', orderid: '#221669', addedon: '18/12/2019  1:00pm', customername: 'Candela', origin: 'Gothenburg'},
-				{ files: '<img class="dwnd-img pr-1" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Finca Nápoles agreement..', orderid: '#879082', addedon: '01/10/2019  07:24 am',  customername: 'Finca', origin: 'Stockholm'},
-				{ files: '<img class="dwnd-img pr-1" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Santa Rosa agreement pap..', orderid: '#127908', addedon: '24/01/2020  11:05pm', customername: 'Santa', origin: 'Karlstad' },
-				{ files: '<img class="dwnd-img pr-1" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Hacienda Sonora agreement..', orderid: '#273528', addedon: '27/02/2020  4:17pm', customername: 'Hacienda', origin: 'Karlstad'},
-				{ files: '<img class="dwnd-img pr-1" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Vijay Simha agreement..', orderid: '#727520', addedon: '17/03/2020  7:17am', customername: 'Vijay', origin: 'Stockholm' }
+				{ files: '<img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Candela agreement pap..', orderid: '#221669', addedon: '18/12/2019  1:00pm', customername: 'Candela', origin: 'Gothenburg'},
+				{ files: '<img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Finca Nápoles agreement..', orderid: '#879082', addedon: '01/10/2019  07:24 am',  customername: 'Finca', origin: 'Stockholm'},
+				{ files: '<img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Santa Rosa agreement pap..', orderid: '#127908', addedon: '24/01/2020  11:05pm', customername: 'Santa', origin: 'Karlstad' },
+				{ files: '<img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Hacienda Sonora agreement..', orderid: '#273528', addedon: '27/02/2020  4:17pm', customername: 'Hacienda', origin: 'Karlstad'},
+				{ files: '<img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Vijay Simha agreement..', orderid: '#727520', addedon: '17/03/2020  7:17am', customername: 'Vijay', origin: 'Stockholm' }
 			
 			];
 			this.mainData = this.data;
@@ -116,12 +116,12 @@ export class AgreementComponent implements OnInit {
 		],
 		
 
-		rowCallback: (row: Node, data: any, index: number) => {
-			const self = this;
-			$('td', row).click(function(){
-				self.router.navigate(["/ordermanagement/select-order"]);
-			})
-		}
+		// rowCallback: (row: Node, data: any, index: number) => {
+		// 	const self = this;
+		// 	$('td', row).click(function(){
+		// 		self.router.navigate(["/ordermanagement/select-order"]);
+		// 	})
+		// }
 		
       };
       this.estatetermStatus = '';

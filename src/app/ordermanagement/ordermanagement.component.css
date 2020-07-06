@@ -7,8 +7,12 @@
 
 .cursor-dots {
     cursor: pointer;
-    color: #232334;
+    color: #747588;
     font-family: Muli;
+}
+.cursor-dots:hover{
+    text-decoration: none !important;
+    color: #232334 !important;
 }
 
 .profile-name {
@@ -16,3 +20,28 @@
     position: relative;
     top: 5px;
 }
+
+
+.list-group-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 12px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588 !important;
+}
+
+.list-group-item:hover {
+    color: #232334 !important;
+    font-weight: 600 !important;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+}
+
+::ng-deep .popover-body {
+    padding: .5rem .25rem !important;
+}
+
