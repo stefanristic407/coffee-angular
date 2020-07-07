@@ -75,9 +75,9 @@ li.nav-item {
     margin-left: 0rem !important;
 }
 
-#pills-home {
-    /* padding: 0px 10px; */
-}
+/* #pills-home {
+    padding: 0px 10px;
+} */
 
 .estate-name {
     font-family: Muli;
@@ -360,7 +360,7 @@ li.nav-item {
 }
 
 ::ng-deep .popover-body {
-    padding: 0 !important;
+    padding: .25rem .25rem !important;
 }
 
 ::ng-deep .popover {

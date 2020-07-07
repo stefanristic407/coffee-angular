@@ -129,6 +129,10 @@ export class FeaturesComponent implements OnInit {
     $('body').on('click', '.sidenav-mb__close', function() {
       $('.sidenav-mb').toggleClass('open');
     });
+
+    $('.nav-links__item .router-link').on('click', function () {
+      $('.sidenav-mb').toggleClass('open');
+    });
   }
 
 

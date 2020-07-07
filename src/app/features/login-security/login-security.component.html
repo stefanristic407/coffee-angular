@@ -13,7 +13,7 @@
     </nav> -->
 
     <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-        <div class="row">
+        <div class="row desk-view">
             <div class="col-md-6 col-lg-6">
                 <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 mr-auto text-left">
                     <span id="title-breadcrumb-1" class="sr-only"></span>
@@ -32,12 +32,18 @@
                 <button type="submit" class="btn btn-succes save-change web-btn">Save changes</button>
             </div>
         </div>
+        <div class="row mobile-view">
+                <span class="cursor-pointer" routerLink="/features/account-settings">
+                    <img src="/assets/images/back-arrow1.png" alt="">
+                    <span class="back-ticket pl-3">Back</span>
+                    </span>
+        </div>
     </section>
 
     <section class="main-spacing">
         <h3 class="header-login mb-3">Login & security</h3>
         <p class="sub-header">Change your password and secure your account</p>
-        <div class="border-total">
+        <div class="border-total pb-5">
             <div class="row">
                 <div class="col-lg-6 col-md-8 col-sm-9 col-xs-12">
                     <p class="login-text">Login</p>
@@ -81,9 +87,10 @@
                                     <li class="session">Session <span class="current-session ml-1">&#9679;&nbsp;Current Session</span></li>
                                     <li class="session-details">
                                         April 16, 2020 at 4:19 pm </li>
+                                        <li class="logout-current fnt-muli mob">Log out</li>
                                 </ul>
                             </div>
-                            <div class="pull-right ml-auto">
+                            <div class="pull-right ml-auto desk">
                                 <span class="logout-current pl-1 fnt-muli ">Log out</span>
                             </div>
                         </div>
@@ -96,9 +103,10 @@
                                     </li>
                                     <li class="session-details">
                                         April 16, 2020 at 4:19 pm </li>
+                                        <li class="logout fnt-muli mob">Logged out</li>
                                 </ul>
                             </div>
-                            <div class="pull-right ml-auto">
+                            <div class="pull-right ml-auto desk">
                                 <span class="logout pl-1 fnt-muli ">Logged out</span>
                             </div>
                         </div>
@@ -110,9 +118,10 @@
                                     <li class="session">Session </li>
                                     <li class="session-details">
                                         April 16, 2020 at 4:19 pm </li>
+                                        <li class="logout fnt-muli mob">Logged out</li>
                                 </ul>
                             </div>
-                            <div class="pull-right ml-auto">
+                            <div class="pull-right ml-auto desk">
                                 <span class="logout fnt-muli pl-1">Logged out</span>
                             </div>
                         </div>
@@ -124,9 +133,10 @@
                                     <li class="session">Session</li>
                                     <li class="session-details">
                                         April 16, 2020 at 4:19 pm </li>
+                                        <li class="logout fnt-muli mob">Logged out</li>
                                 </ul>
                             </div>
-                            <div class="pull-right ml-auto">
+                            <div class="pull-right ml-auto desk">
                                 <span class="logout fnt-muli pl-1">Logged out</span>
                             </div>
                         </div>
@@ -145,6 +155,9 @@
                 </div>
             </div>
         </div>
+        <div class="mobile-farm farm-stricky col-12">
+                <button type="button" class="btn btn-succes save-change" > Save changes </button>
+            </div>
     </section>
 </div>
 <ng-template #template>

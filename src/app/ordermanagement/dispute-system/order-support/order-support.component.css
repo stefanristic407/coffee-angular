@@ -146,3 +146,57 @@ a.b-cum:hover {
 .bg-fff {
     padding: 2rem;
 }
+
+.mobile-view{
+    display: none;
+}
+
+@media screen and (max-width: 425px){
+    .view-all{
+        font-size: 14px !important;
+        color: #80460b !important;
+        font-weight: bold !important;
+        text-decoration: underline !important;
+    }
+    .mobile-view{
+        display: block !important;
+    }
+    .web-view{
+        display: none;
+    }
+    .bg-fff{
+        padding: 1rem;
+    }
+    .breadcrumb1{
+        padding: 0%;
+    }
+    .search{
+        width: 100%;
+    }
+    .search-div{
+        padding: 1rem;
+    }
+    .mob-header{
+        color: #232334;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .dashboard-button{
+        height: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .btn-name{
+        margin-top: 0%;
+        padding-left: 5%;
+    }
+    .icon-img{
+        position: relative;
+        top: 4px;
+    }
+    .logo-img{
+        height: 24px;
+        width: 24px;
+    }
+}
+

@@ -75,6 +75,8 @@ import { VideoTableComponent } from './Farm Link/file-share/file-share-details/v
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AvailableConfirmOrderComponent } from './Sourcing/available-coffee-list/available-confirm-order/available-confirm-order.component';
+import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-placed/order-placed.component';
 
 @NgModule({
   declarations: [
@@ -124,6 +126,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DocumentTableComponent,
     VideoTableComponent,
     ProfileLicenseComponent,
+    AvailableConfirmOrderComponent,
+    OrderPlacedComponent,
   ],
   imports: [
     CommonModule,

@@ -14,6 +14,8 @@ import { data } from 'jquery';
   styleUrls: ['./myfiles.component.css']
 })
 export class MyfilesComponent implements OnInit {
+  sort:any;
+  showSort:boolean = true;
 
   @ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
@@ -55,6 +57,27 @@ export class MyfilesComponent implements OnInit {
 
 
      ngOnInit(): void {
+      this.sort = '';
+
+      //Toggle Esstate active
+	  $('.btn-switch').click(function() {
+      var $group = $(this).closest('.cardpanel-detail');
+      $('.btn-switch', $group).removeClass("active");
+      $(this).addClass("active");
+      });
+      $(".activate-toggle").click(function() {
+      $(".cardpanel-detail").fadeIn();
+       $(".table-details").fadeOut();
+        $(".remove-toggle").removeClass('active');
+       // $(".cardpanel-detail").addClass('active')
+      });
+      $(".remove-toggle").click(function() {
+      $(".table-details").fadeIn();
+       $(".cardpanel-detail").fadeOut();
+      $(".activate-toggle").removeClass('active');
+      
+      });
+  
       //Auth checking
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
@@ -118,6 +141,21 @@ export class MyfilesComponent implements OnInit {
           $("input[type='search']").attr("placeholder", "Search Files");
         });
       });
+    }
+
+    setSort(sortdata:any){
+      this.sort=sortdata;
+    }
+  
+    toggleSort(){
+      this.showSort=!this.showSort;
+      if(this.showSort==false){
+        document.getElementById('sort_id').style.border="1px solid #30855c";
+      }
+      else{
+        document.getElementById('sort_id').style.border="1px solid #d6d6d6";
+      
+      }
     }
 
 }

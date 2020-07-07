@@ -110,6 +110,45 @@ export class PeopleComponent implements OnInit {
   //     $(this).parents('.nav-links__item').addClass('active')
   // });
 
+  $('.nav-links__item').on('click', function () {
+    
+
+    if ($(window).width() < 767) {
+      $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
+      $(this).find('.nav-dropdown').slideToggle();
+      // $('.nav-links__item').not(this).removeClass('active');
+      // $(this).toggleClass('active')
+    }
+
+    // else {
+    //   $('.nav-links__item').not(this).removeClass('active');
+    //   $(this).addClass('active')
+    // }
+    
+  });
+
+  // $('.nav-dropdown li').on('click', function () {
+  //   $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
+  //   $(this).parents('.nav-links__item').addClass('active')
+  // });
+
+  $(window).on('load', function () {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+  });
+
+  //Open side nav
+  $('body').on('click', '.sidenav-hamberg', function() {
+    $('.sidenav-mb').toggleClass('open');
+  });
+
+  $('body').on('click', '.sidenav-mb__close', function() {
+    $('.sidenav-mb').toggleClass('open');
+  });
+
+  $('.nav-links__item .router-link').on('click', function () {
+    $('.sidenav-mb').toggleClass('open');
+  });
+
   $(window).on('load', function() {
     $("html, body").animate({ scrollTop: 0 }, "slow");
 });

@@ -124,22 +124,55 @@ a.b-cum:hover {
     outline: none !important;
 }
 
+.mobile-view{
+    display: none;
+}
+
 @media screen and (max-width: 425px) {
-    .sub-header {
+    .sub-header{
         font-size: 16px;
     }
-    .sub-text {
-        font-size: 13px;
+    .sub-text{
+        font-size: 14px;
+        font-weight: 600;
     }
-    .text-data {
-        font-size: 13px;
+    .text-data{
+        font-size: 14px;
     }
-    .raise-ticket {
-        padding-top: 2rem;
+    .border-clr{
+        border: none !important;
+        padding: 0rem !important;
+        margin: 0rem !important;
     }
-    .create-role-btn {
-        font-size: 10px;
+    .desk-view{
+        display: none ;
     }
+    .mobile-view{
+        display: block;
+        padding: 1rem 1rem 0rem;
+    }
+
+    .back-ticket {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: 600;
+    color: #80460b;
+    cursor: pointer;
+}
+.mob-header-view{
+    padding-left: 0% !important;
+    padding-right: 0rem !important;
+    border-bottom: 1.5px dashed #d6d6d6;
+    padding-bottom: 1rem;
+}
+.mob-content{
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-bottom: 2rem;
+}
+.create-role-btn{
+    width: 100%;
+}
 }
 
 .breadcrumb1 {
@@ -151,4 +184,14 @@ a.b-cum:hover {
     border: solid 1px #ebebeb;
     padding: 2rem 2rem 2.5rem 2rem;
     margin: .5rem;
+}
+
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 10px 30px;
 }

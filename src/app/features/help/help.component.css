@@ -65,19 +65,65 @@ a.b-cum:hover {
     border-bottom: none;
 } */
 
-
+.mobile-view{
+    display: none;
+}
 
 @media screen and (max-width : 425px){
     .sub-header{
         font-size: 16px;
     }
     .sub-text{
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: 600;
     }
     .text-data{
-        font-size: 13px;
+        font-size: 14px;
     }
-  
+    .border-clr{
+        border: none !important;
+        padding: 0rem !important;
+        margin: 0rem !important;
+    }
+    .desk-view{
+        display: none ;
+    }
+    .mobile-view{
+        display: block;
+        padding: 1rem 1rem 0rem;
+    }
+
+    .back-ticket {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: 600;
+    color: #80460b;
+    cursor: pointer;
+}
+.mob-header-view{
+    padding-left: 0% !important;
+    padding-right: 0rem !important;
+    border-bottom: 1.5px dashed #d6d6d6;
+    padding-bottom: 1rem;
+}
+.accordion{
+    padding-left: 0% !important;
+    padding-right: 0rem !important;
+    padding-bottom: 2rem !important;
+}
+.create-role-btn{
+    width: 100% !important;
+}
+}
+
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 10px 30px;
 }
 
 .breadcrumb1 {
@@ -186,3 +232,4 @@ a.b-cum:hover {
     border-radius: 2px !important;
     background-color: #f8f8f8;
 }
+

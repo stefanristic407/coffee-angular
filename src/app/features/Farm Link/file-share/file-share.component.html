@@ -19,26 +19,26 @@
                     </ul>
                 </nav>
 
-                <div class="file-share-search col-12 col-md-4 ml-md-auto mb-3 d-flex align-items-center">
+                <div class="file-share-search col-12 col-md-4 ml-md-auto mb-3 d-none d-md-flex align-items-center">
                     <img class="mr-1 mr-md-2" src="assets/images/search.svg">
                     <input type="search" placeholder="Search Files">
                 </div>
             </div>
             <div class="col-12">
-                <h1 class="fnt-18 fnt-700 fnt-muli text-black334 mb-3 mb-lg-4">File Share</h1>
+                <h1 class="fnt-18 fnt-700 fnt-muli text-black334 mb-0 mb-lg-3">File Share</h1>
                 <span class="d-block mb-3 mb-lg-4 fnt-16 fnt-text fnt-muli text-gray588 ">Pinned
                     Items</span>
 
 
                 <!--Quick pin files-->
-                <ul class="row quicker-files">
-                    <li class="col-12 col-md-4 col-lg-3 quicker-files__list">
+                <ul class="row mb-md-3 mb-lg-4">
+                    <li class="col-12 col-md-4 col-lg-3 mb-3">
                         <div class="pin-quiker-files text-center position-relative" data-toggle="modal" data-target="#sharefolder">
-                            <label>
+                            <label class="mb-0">
                                 <!-- <input type="file"> -->
                                 <div class="pin-quiker-file__upload">
-                                    <img class="mb-2 mb-md-3" src="assets/images/pin.PNG">
-                                    <p class="mb-0 fnt-16 fnt-500 fnt-muli text-black334">Pin your files
+                                    <img class="mb-0 mb-md-3" src="assets/images/pin.PNG">
+                                    <p class="mb-0 fnt-16 fnt-500 pl-3 pl-md-0 fnt-muli text-black334">Pin your files
                                         here
                                         and find them quicker</p>
                                     <span class="remove-quiker-file d-inline-block"> <img class="close-file"
@@ -48,77 +48,83 @@
                         </div>
                     </li>
 
-                    <li class="col-12 col-md-4 col-lg-3 quicker-files__list">
-                        <div class="quick-pinned-files">
-                            <div class="quick-pinned-files__Image">
-                                <input type="file">
-                                <img class="img" src="assets/images/quick-f2.png" (click)="popupPrivew($event)">
-                                <div class="quick-pinned-files__pinIcon">
-                                    <div class="w-100 h-100 position-relative">
-                                        <img src="assets/images/pin.svg">
+                    <li class="col-12 col-md-8 col-lg-9">
+                        <ul class="row quicker-files">
+                            <li class="col-12 col-md-6 col-lg-4 quicker-files__list">
+                                <div class="quick-pinned-files">
+                                    <div class="quick-pinned-files__Image">
+                                        <input type="file">
+                                        <img class="img" src="assets/images/quick-f2.png" (click)="popupPrivew($event)">
+                                        <div class="quick-pinned-files__pinIcon">
+                                            <div class="w-100 h-100 position-relative">
+                                                <img src="assets/images/pin.svg">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
-                                <div class="file-name float-left">
-                                    <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">SEWN Sales & Concept pr…</h4>
-                                    <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0">Added by
-                                        SEWN</span>
-                                </div>
-                                <div class="file-dropdown ml-auto">
-                                    <img class="img" src="assets/images/more-opns-file.png">
+                                    <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                                        <div class="file-name float-left">
+                                            <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">SEWN Sales & Concept pr…</h4>
+                                            <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0">Added by
+                                                SEWN</span>
+                                        </div>
+                                        <div class="file-dropdown ml-auto">
+                                            <img class="img" src="assets/images/more-opns-file.png">
 
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-12 col-md-4 col-lg-3 quicker-files__list">
-                        <div class="quick-pinned-files">
-                            <div class="quick-pinned-files__Image">
-                                <input type="file">
-                                <img class="img" src="assets/images/quick-f3.png" (click)="popupPrivew($event)">
-                                <div class="quick-pinned-files__pinIcon">
-                                    <div class="w-100 h-100 position-relative">
-                                        <img src="assets/images/pin.svg">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
-                                <div class="file-name float-left">
-                                    <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">SEWN Sales & Concept pr…</h4>
-                                    <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0">Added by
-                                        SEWN</span>
-                                </div>
-                                <div class="file-dropdown ml-auto">
-                                    <img class="img" src="assets/images/more-opns-file.png">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="col-12 col-md-4 col-lg-3 quicker-files__list">
-                        <div class="quick-pinned-files">
-                            <div class="quick-pinned-files__Image">
-                                <input type="file">
-                                <img class="img" src="assets/images/quick-f1.png" (click)="popupPrivew($event)">
-                                <div class="quick-pinned-files__pinIcon">
-                                    <div class="w-100 h-100 position-relative">
-                                        <img src="assets/images/pin.svg">
+                            </li>
+                            <li class="col-12 col-md-6 col-lg-4 quicker-files__list">
+                                <div class="quick-pinned-files">
+                                    <div class="quick-pinned-files__Image">
+                                        <input type="file">
+                                        <img class="img" src="assets/images/quick-f3.png" (click)="popupPrivew($event)">
+                                        <div class="quick-pinned-files__pinIcon">
+                                            <div class="w-100 h-100 position-relative">
+                                                <img src="assets/images/pin.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                                        <div class="file-name float-left">
+                                            <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">SEWN Sales & Concept pr…</h4>
+                                            <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0">Added by
+                                                SEWN</span>
+                                        </div>
+                                        <div class="file-dropdown ml-auto">
+                                            <img class="img" src="assets/images/more-opns-file.png">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
-                                <div class="file-name float-left">
-                                    <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">SEWN Sales & Concept pr…</h4>
-                                    <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0">Added by
-                                        SEWN</span>
-                                </div>
-                                <div class="file-dropdown ml-auto">
-                                    <img class="img" src="assets/images/more-opns-file.png">
+                            </li>
+                            <li class="col-12 col-md-6 col-lg-4 quicker-files__list">
+                                <div class="quick-pinned-files">
+                                    <div class="quick-pinned-files__Image">
+                                        <input type="file">
+                                        <img class="img" src="assets/images/quick-f1.png" (click)="popupPrivew($event)">
+                                        <div class="quick-pinned-files__pinIcon">
+                                            <div class="w-100 h-100 position-relative">
+                                                <img src="assets/images/pin.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                                        <div class="file-name float-left">
+                                            <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">SEWN Sales & Concept pr…</h4>
+                                            <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0">Added by
+                                                SEWN</span>
+                                        </div>
+                                        <div class="file-dropdown ml-auto">
+                                            <img class="img" src="assets/images/more-opns-file.png">
 
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </li>
+                        </ul>
                     </li>
+
+
                 </ul>
             </div>
             <div class="col-lg-12 col-md-12 col-12">
@@ -133,7 +139,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="pills-sharedwithme-tab" data-toggle="pill" href="#pills-sharedwithme" role="tab" aria-controls="pills-profile" aria-selected="false">Shared with me</a>
                             </li>
-                            <div class="pull-right ml-auto">
+                            <div class="pull-right ml-auto d-none d-md-inline-block">
                                 <button type="button" class="btn preview preview--activity-history">View activity
                                     history </button>
                             </div>
@@ -151,6 +157,7 @@
                                             class="share-txt ml-1"> Create new folder </span>
                                     </span>
                                 </div>
+
                                 <app-myfiles></app-myfiles>
 
                             </div>
@@ -193,19 +200,19 @@
             <div class="modal-body">
                 <div class="">
                     <form>
-                        <div class="roastery-fields mb-3 mb-lg-4">
+                        <div class="roastery-fields mb-4">
                             <div class="farm-input col-12 col-md-5 px-0">
-                                <label>Name</label>
+                                <label class="mb-0">Name</label>
                                 <input type="text" placeholder="1962">
                             </div>
                         </div>
-                        <div class="roastery-fields mb-3 mb-lg-4">
+                        <div class="roastery-fields mb-4">
                             <div class="farm-input col-12 px-0">
-                                <label>Give a short description to your folder (optional) *</label>
+                                <label class="mb-0">Give a short description to your folder (optional) *</label>
                                 <textarea class="mb-0" type="text" rows="5" placeholder="Give a short description to your folder (optional) "></textarea>
                             </div>
                         </div>
-                        <div class="roastery-fields mb-3 mb-lg-4">
+                        <div class="roastery-fields mb-4">
                             <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Sharing Acess</h4>
                             <span class="fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Invite to access
                                 this folder</span>
@@ -229,12 +236,12 @@
 
                         <div class="invite-to">
 
-                            <div class="roastery-fields mb-3 mb-lg-4">
+                            <div class="roastery-fields mb-4">
                                 <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Select an order*</h4>
                                 <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
                                     your files to the order helps you and your custoemrs to find files faster</span>
 
-                                <a href="#" class="d-inline-flex mt-2 view-order-file align-items-center">
+                                <a href="javascript:void(0)" class="d-inline-flex mt-2 view-order-file-share align-items-center">
                                     <img src='assets/images/view.png'>
                                     <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">View
                                         orders</span>
@@ -243,10 +250,10 @@
                             </div>
 
                             <div class="roastery-fields mb-0">
-                                <div class="farm-input col-12 col-md-8 px-0">
+                                <div class="farm-input col-12 col-lg-8 px-0">
 
                                     <label>Enter a name or email*</label>
-                                    <div class="file-share-addMail pl-3 clearfix d-flex align-items-center justify-content-between">
+                                    <div class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                                         <input class="float-left px-0" type="email" placeholder="Enter name or email">
                                         <div class="ml-auto">
 
@@ -314,7 +321,7 @@
                             <div class="farm-input col-12 px-0">
 
                                 <label>Enter a name or email*</label>
-                                <div class="file-share-addMail pl-3 clearfix d-flex align-items-center justify-content-between">
+                                <div class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                                     <input class="float-left px-0" type="email" placeholder="Enter name or email">
                                     <div class="ml-auto">
 
@@ -334,7 +341,7 @@
                             </div>
                         </div>
                         <div class="mt-3 mt-lg-4">
-                            <h4 class="fnt-16 mb-3 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">Existing members
+                            <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">Existing members
                             </h4>
                             <!--Existing Memebr-->
                             <ul class="existing-members-list">
@@ -350,7 +357,7 @@
 
                                         <div class="member__type float-right ml-auto">
 
-                                            <span class="text-capitalize fnt-14 fnt-600 fnt-muli text-black334">owner</span>
+                                            <span class="text-capitalize fnt-14 fnt-600 fnt-muli text-black334 owner">owner</span>
                                         </div>
                                     </div>
                                 </li>
@@ -400,7 +407,7 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <p class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0">The admin will be notified, once approved the file will be shared with the respected users</p>
+                <p class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0">The admin will be notified, once approved the file will be shared with the respected users</p>
                 <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">Share
                 </button>
             </div>

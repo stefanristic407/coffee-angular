@@ -1,28 +1,32 @@
 /*Detail page*/
-
 .source-cont {
     background: #fff;
     padding: 48px;
 }
-
 .back-page a {
     font-size: 16px;
     color: #80460b;
     font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
 }
-
 .det-tit h2 {
     font-size: 18px;
     font-weight: bold;
+    color: #242424;
 }
-
+.det-tit h6{
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #242424;
+}
 .g-thumbs-container {
     background-color: #FFF !important;
 }
 #basic-test {
     background-color: #FFF !important;
 }
-
 .source-knowmore .contact-us {
     padding: 12px 16px;
     font-family: Muli;
@@ -36,7 +40,6 @@
     color: #ffffff;
     cursor: pointer;
 }
-
 .source-knowmore .know-more {
     padding: 12px 16px;
     border: 1px solid #30855c;
@@ -51,19 +54,14 @@
     margin-top: 5px;
     cursor: pointer;
 }
-
 .source-knowmore .know-more:hover {
     background: #30855c;
     color: #fff;
 }
-
 .pro-logo {
     float: left;
     margin-right: 10px;
 }
-
-.des-content {}
-
 .des-content article {
     width: 65%;
     border: 1px solid #000;
@@ -73,7 +71,6 @@
     border-radius: 4px;
     border: solid 1px #ebebeb;
 }
-
 .des-content aside {
     width: 33.5%;
     border-radius: 4px;
@@ -82,17 +79,11 @@
     padding: 32px 24px;
     border-radius: 4px;
 }
-
-.detail-descript {}
-
-.stit {}
-
 .stit h2 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 16px;
 }
-
 .stit p {
     font-size: 16px;
     font-weight: normal;
@@ -101,16 +92,13 @@
     line-height: 1.5;
     margin-bottom: 25px;
 }
-
 .stit p:last-child {
     margin-bottom: 40px;
 }
-
 .source-cont .nav-item {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
-
 .real-estate h6 {
     font-size: 14px;
     font-weight: 600;
@@ -118,33 +106,27 @@
     margin-top: 12px;
     color: #747588;
 }
-
 .real-estate h3 {
     font-size: 16px;
     font-weight: bold;
 }
-
 .estate-focus h3 {
     font-size: 18px;
     font-weight: bold;
 }
-
 .estate-focus ul {
     margin-bottom: 0;
 }
-
 .estate-focus ul li {
     width: 100%;
     float: left;
     border-bottom: 1px solid #eeeeee;
     padding: 16px 0;
 }
-
 .estate-focus ul li:last-child {
     border-bottom: none;
     padding-bottom: 0;
 }
-
 .estate-focus ul li label {
     float: left;
     width: 37%;
@@ -215,9 +197,6 @@
     background: #30855c;
     color: #fff;
 }
-
-.employer {}
-
 .employer h2 {
     font-size: 18px;
     font-weight: bold;
@@ -227,13 +206,6 @@
 .p-gal img {
     width: 100%
 }
-
-.employ-profile {}
-
-.p-gal {}
-
-.profile-des {}
-
 .profile-des h4 {
     font-size: 16px;
     font-weight: bold;
@@ -381,9 +353,6 @@
 .p-prices {
     border-right: 1px solid #ebebeb;
 }
-
-.p-date {}
-
 .produect-pro {
     border-radius: 2px;
     border: solid 1px #747588;
@@ -657,4 +626,68 @@ ul li {
 
 .checked {
     color: #ffc107;
+}
+.farm-desc{
+    font-family: Muli;
+  font-size: 16px;
+  font-weight: normal;
+  color: #232334;
+}
+/********Graph Css*********/
+.live-estate h2 {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.live-estate div {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+::ng-deep .gridline-path-vertical {
+    display: none;
+}
+
+::ng-deep .gridline-path-horizontal {
+    border: 1px dashed red;
+}
+.source-cont .nav-tabs .nav-link {
+    border: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    color: #232334;
+    flex: inherit;
+    padding-bottom: 6px;
+}
+
+.source-cont .nav-tabs .nav-link.active {
+    border-bottom: 2px solid #30855c;
+    color: #30855c;
+    font-family: Muli;
+    font-weight: 600;
+}
+
+.border-total {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.legend-color {
+    color: #f19634;
+}
+
+.legend-color2 {
+    color: #7c6be8;
+}
+
+.chart-details {
+    padding: 24px 24px 0 24px;
+    border: 1px solid #ebebeb;
 }

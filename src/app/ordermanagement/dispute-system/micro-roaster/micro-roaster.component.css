@@ -100,7 +100,7 @@ li.nav-item {
 }
 
 ::ng-deep .popover-body {
-    padding: 0 !important;
+    padding: .25rem .25rem !important;
 }
 
 ::ng-deep .popover {

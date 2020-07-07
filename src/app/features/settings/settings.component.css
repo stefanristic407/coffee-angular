@@ -71,3 +71,53 @@ a.b-cum:hover {
 .breadcrumb1 {
     padding: 2rem 2rem 0rem 2rem;
 }
+
+.mobile-view{
+    display: none;
+}
+@media screen and (max-width : 425px){
+    .mobile-view{
+        display: block;
+    }
+    .desk-view{
+        display: none;
+    }
+    .dashboard-button{
+        height: 50px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 2px;
+    }
+    .btn-name{
+        font-size: 14px;
+        margin-top: 1%;
+        margin-left: 5%;
+        font-weight: 600;
+        font-family: Muli;
+
+    }
+    .mob-header{
+        font-family: Muli;
+        font-size: 16px;
+        font-weight: bold;
+        color: #232334;
+    }
+    .back-ticket{
+        color: #80460b;
+        font-size:16px;
+        font-family: Muli;
+        font-weight: 600;
+    }
+    .icon-img{
+        position: relative;
+        top: 4px;
+    }
+    .logo-img{
+        top: 2px;
+        height: 24px;
+        width: 24px;
+    }
+    .pad-bottom{
+        padding-bottom: 6rem;
+    }
+}

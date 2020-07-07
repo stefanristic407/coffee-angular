@@ -30,7 +30,7 @@
 		</div>
     </div> -->
         <div class="row ">
-            <div class="d-inline table-w pt-2">
+            <div class="d-inline table-w  mobile-filiters-farm">
                 <div class="title-header d-inline desk_view_user">
                     <div class="d-inline border-order role-div col-sm-6" id="origin_id">
                         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
@@ -46,7 +46,7 @@
                             </p>
                         </a>
                     </div>&nbsp;&nbsp;
-                    <div class="d-inline border-order type-div col-sm-6" id="type_id">
+                    <div class="d-inline border-order type-div col-sm-6 web-farm" id="type_id">
                         <p class="d-inline filter-text" *ngIf="estatetermType == ''">Type of order&nbsp;</p>
                         <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #pop2="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermType == ''" (click)="toggleType()">
@@ -59,7 +59,7 @@
                             </p>
                         </a>
                     </div>&nbsp;&nbsp;
-                    <div class="d-inline border-order status-div col-sm-6" id="status_id">
+                    <div class="d-inline border-order status-div col-sm-6 web-farm" id="status_id">
                         <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">Status&nbsp;</p>
                         <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermStatus == ''" (click)="toggleStatus()">
@@ -89,7 +89,7 @@
                         </a>
 
                     </div>&nbsp;&nbsp;
-                    <div class="d-inline display_div">
+                    <div class="d-inline display_div web-farm">
                         <div class="float-right border-order top-space" id="display_id">
                             <p class="d-inline filter-text">Display <span class="brand-dot">  </span> </p>
                             <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
@@ -108,56 +108,132 @@
             </div>
         </div>
         <div class="estate-table pt-2">
-            <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
-                <!-- <thead>
-                    <tr class="estate-title">
-                        <th>
-                            <label class="b-check first-t">
-                            <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
-                            <span class="checkmark"></span>
-                        </label>
-                        </th>
-                        <th>Order ID </th>
-                        <th>Estate name </th>
-                        <th>Date ordered </th>
-                        <th>Orgin </th>
-                        <th>Species</th>
-                        <th>Price</th>
-                        <th>Quantity </th>
-                        <th>Type of Order </th>
-                        <th>Status </th>
-                        <th>Action</th>
-                    </tr>
-                </thead> 
-                <tbody>
-                    <tr *ngFor="let group of data" class="estate-boby-txt">
-                        <td class="spacing-order" style="width: 40px;">
-                            <label class="b-check">
-                            <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
-                            <span class="checkmark"></span>
-                          </label>
-                        </td>
+            <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
 
-                        <td>{{group.id}}</td>
-                        <td>{{group.estatename}}</td>
-                        <td>{{group.dataordered}}</td>
-                        <td>{{group.origin}}</td>
-                        <td>{{group.species}}</td>
-                        <td>{{group.price}}</td>
-                        <td>{{group.quantity}}</td>
-                        <td>
-
-                            <p class="typeoforder-Sample" *ngIf="group.typeoforder == 'Sample'">&#9679; {{group.typeoforder}}</p>
-                            <p class="typeoforder-Booked" *ngIf="group.typeoforder == 'Booked'">&#9679; {{group.typeoforder}}</p>
-                            <p class="typeoforder-Pre-Booked" *ngIf="group.typeoforder == 'Pre-Booked'">&#9679; {{group.typeoforder}}</p>
-
-                        </td>
-                        <td>{{group.status}}
-                        </td>
-                        <td class="view-order" (click)="displayData($event,group)">View order</td>
-                    </tr>
-                </tbody> -->
             </table>
+
+            <div class="sourcing-panel mobile-farm">
+                <section id="tabs">
+                    <div class="source-cont">
+                        <div class="row">
+                            <div class="col-lg-12 ">
+                                <div class="filter-sort">
+                                    <div class="btn-group">
+                                        <a class="btn-switch remove-toggle">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10">
+                                            <path fill="#FFF"
+                                                d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z" />
+                                        </svg>
+
+                                        </a>
+                                        <div class="btn-group">
+                                            <a class="btn-switch activate-toggle active">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+                                                <path fill="#232334"
+                                                    d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z" />
+                                            </svg>
+
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <nav>
+                                    <div class="nav nav-tabs nav-fill pt-4" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true"></a>
+                                    </div>
+                                </nav>
+                                <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="documents" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="cardpanel-detail">
+                                            <div class="row">
+                                                <div class="col-6 bor-coffe">
+                                                    <p><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                    <p class="fnt-12 light-eight"> Finca La Pampa</p>
+                                                    <p class="fnt-12 light-eight"> Colombia</p>
+                                                    <p class="fnt-12 light-eb"> 19/12/19</p>
+                                                </div>
+                                                <div class="col-6 bor-coffe">
+                                                    <p><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                    <p class="fnt-12 light-eight"> Gesha</p>
+                                                    <p class="fnt-12 light-eight"> Ethiopia</p>
+                                                    <p class="fnt-12 light-eb"> 12/01/20</p>
+                                                </div>
+
+                                                <div class="col-6 bor-coffe">
+                                                    <p><span class="black fnt-14"> #81677</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                    <p class="fnt-12 light-eight"> Finca La Toboba</p>
+                                                    <p class="fnt-12 light-eight"> Brazil</p>
+                                                    <p class="fnt-12 light-eb"> 02/10/19</p>
+                                                </div>
+                                                <div class="col-6 bor-coffe">
+                                                    <p><span class="black fnt-14"> #12416</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                    <p class="fnt-12 light-eight"> Cafe Directo</p>
+                                                    <p class="fnt-12 light-eight"> Ethiopia</p>
+                                                    <p class="fnt-12 light-eb"> 19/11/19</p>
+                                                </div>
+                                                <div class="col-6 bor-coffe">
+                                                    <p><span class="black fnt-14"> #71716</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                    <p class="fnt-12 light-eight"> Finca La Pampa</p>
+                                                    <p class="fnt-12 light-eight"> Colombia</p>
+                                                    <p class="fnt-12 light-eb"> 02/10/19</p>
+                                                </div>
+                                                <div class="col-6 bor-coffe">
+                                                    <p><span class="black fnt-14"> #56412</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                    <p class="fnt-12 light-eight">La Isabela</p>
+                                                    <p class="fnt-12 light-eight"> Brazil</p>
+                                                    <p class="fnt-12 light-eb"> 20/02/19</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-details">
+                                            <div class="table-responsive border-sourcetable">
+                                                <div class="row mobile-ce">
+                                                    <div class="col-12 bor-d6d6">
+                                                        <p class="pt-3"><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                        <p class="fnt-14 light-eight"> Finca La Pampa</p>
+                                                        <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
+                                                    </div>
+
+                                                    <div class="col-12 bor-d6d6">
+                                                        <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                        <p class="fnt-14 light-eight"> Gesha</p>
+                                                        <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
+                                                    </div>
+                                                    <div class="col-12 bor-d6d6">
+                                                        <p class="pt-3"><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                        <p class="fnt-14 light-eight"> Finca La Tobob</p>
+                                                        <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
+                                                    </div>
+
+                                                    <div class="col-12 bor-d6d6">
+                                                        <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                        <p class="fnt-14 light-eight"> Cafe Directo</p>
+                                                        <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
+                                                    </div>
+
+                                                    <div class="col-12 bor-d6d6">
+                                                        <p class="pt-3"><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                        <p class="fnt-14 light-eight"> Finca La Pampa</p>
+                                                        <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
+                                                    </div>
+
+                                                    <div class="col-12 bor-d6d6">
+                                                        <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                        <p class="fnt-14 light-eight"> Gesha</p>
+                                                        <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
 
     </section>

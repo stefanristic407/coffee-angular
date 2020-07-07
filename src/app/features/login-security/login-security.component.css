@@ -227,12 +227,18 @@
     margin-bottom: 4px;
 }
 
+.mobile-view{
+    display:none;
+}
 
 /*********Media Queries***************/
 
 @media screen and (max-width: 575px) {
+    .top-padding{
+        padding: 0%;
+    }
     .main-spacing {
-        padding: 1.5rem 0.2rem;
+        padding: .5rem 1rem;
     }
     .save-padding {
         margin-right: 5%;
@@ -240,6 +246,65 @@
     .logout {
         font-size: 12px;
     }
+    .border-total{
+        border: none;
+        padding: 0%;
+    }
+    .desk-view{
+        display: none;
+    }
+    .mobile-view{
+        display: block;
+        padding: 1rem 1rem 1rem 2rem ;
+    }
+    .login-text,
+.login-history,
+.deactivate-account {
+    font-size: 16px;
+}
+.header-login{
+    font-size: 16px;
+}
+
+.change-password-btn{
+    color: #ffffff !important;
+    background-color: #30855c !important;
+    }
+    
+    .change-password-btn:hover{
+        box-shadow: 0 0 10px 4px rgba(27, 27, 27, 0.3) !important;
+    }
+
+    .deactivate-button {
+        color: #30855c !important;
+        background-color: #ffffff !important;
+        border: 1px solid #30855c !important;
+    }
+    .deactivate-button:hover{
+        background-color: #30855c !important;
+        color: #ffffff !important;
+    }
+    .desk{
+        display: none;
+    }
+    .mob{
+        display: block !important;
+        margin-top: 0.5rem;
+    }
+    .session{
+        font-size: 14px;
+    }
+    .back-ticket{
+        font-family: Muli;
+        font-size: 16px;
+        font-weight: 600;
+        color: #80460b;
+        cursor: pointer;
+    }
+    .save-change{
+        width: 100% !important;
+    }
+
 }
 
 @media only screen and (max-width: 991px) and (min-width: 768px) {
@@ -254,6 +319,17 @@
     }
 }
 
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 10px 30px;
+}
+
+
 
 .change-password-btn{
 padding: 0.5rem 1rem;
@@ -267,4 +343,8 @@ font-family: Muli;
 .change-password-btn:hover{
 background-color: #30855c;
 color: #ffffff;
+}
+
+.mob{
+    display: none;
 }

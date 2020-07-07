@@ -16,20 +16,20 @@ export class AvailableCoffeeListComponent implements OnInit {
 
 	public data = [
 		{
-		  srcUrl: 'https://preview.ibb.co/jrsA6R/img12.jpg',
-		  previewUrl: 'https://preview.ibb.co/jrsA6R/img12.jpg'
+		  srcUrl: 'assets/images/galleria-1.jpg',
+		  previewUrl: 'assets/images/thumbnail-4.jpg'
 		},
 		{
-		  srcUrl: 'https://preview.ibb.co/kPE1D6/clouds.jpg',
-		  previewUrl: 'https://preview.ibb.co/kPE1D6/clouds.jpg'
+		  srcUrl: 'assets/images/galleria-2.png',
+		  previewUrl: 'assets/images/thumbnail-2.jpg'
 		},
 		{
-		  srcUrl: 'https://preview.ibb.co/mwsA6R/img7.jpg',
-		  previewUrl: 'https://preview.ibb.co/mwsA6R/img7.jpg'
+		  srcUrl: 'assets/images/galleria-3.png',
+		  previewUrl: 'assets/images/thumbnail-3.jpg'
 		},
 		{
-		  srcUrl: 'https://preview.ibb.co/kZGsLm/img8.jpg',
-		  previewUrl: 'https://preview.ibb.co/kZGsLm/img8.jpg'
+		  srcUrl: 'assets/images/galleria-4.png',
+		  previewUrl: 'assets/images/thumbnail-1.jpg'
 		}
 	  ];
 	  imageData = this.data;
@@ -42,21 +42,163 @@ export class AvailableCoffeeListComponent implements OnInit {
 		// {  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84' }
   ];
 
+  
+  public multi = [
+		{
+			"name": "Legend1",
+			"series": [
+			  {
+				  "name": "27",
+				  "value": 10
+				},
+				{
+				  "name": "28",
+				  "value": 8
+				},
+				{
+				  "name": "1",
+				  "value": 12
+				},
+				{
+				  "name": "2",
+				  "value": 19
+				},
+				{
+				  "name": "3",
+				  "value": 16
+				},
+				{
+				  "name": "4",
+				  "value": 11
+				},
+				{
+				  "name": "5",
+				  "value": 13
+				},{
+				  "name": "6",
+				  "value": 23
+				},{
+				  "name": "7",
+				  "value": 18
+				},
+				{
+				  "name": "8",
+				  "value": 18
+				},
+				{
+					"name": "9",
+					"value": 17
+				  },{
+					"name": "10",
+					"value": 18
+				  },{
+					"name": "11",
+					"value": 13
+				  },
+				  {
+					"name": "12",
+					"value": 17
+				  },
+				  {
+					"name": "13",
+					"value": 12
+				  },
+				  {
+					"name": "14",
+					"value": 10
+				  }
+			]
+		  },
+		{
+		  "name": "Legend2",
+		  "series": [
+			{
+			  "name": "27",
+			  "value": 7
+			},
+			{
+			  "name": "28",
+			  "value": 2
+			},
+			{
+			  "name": "1",
+			  "value": 4
+			},
+			{
+			  "name": "2",
+			  "value": 9
+			},
+			{
+			  "name": "3",
+			  "value": 7
+			},
+			{
+			  "name": "4",
+			  "value": 3
+			},
+			{
+			  "name": "5",
+			  "value": 20
+			},{
+			  "name": "6",
+			  "value": 15
+			},{
+			  "name": "7",
+			  "value": 10
+			},
+			{
+			  "name": "8",
+			  "value": 15
+			}
+			,
+			{
+				"name": "9",
+				"value": 13
+			  },{
+				"name": "10",
+				"value": 13
+			  },{
+				"name": "11",
+				"value": 10
+			  },
+			  {
+				"name": "12",
+				"value": 8
+			  },
+			  {
+				"name": "13",
+				"value": 7
+			  },
+			  {
+				"name": "14",
+				"value": 9
+			  }
+		  ]
+		}];
+	  
+	  
+
+    view: any[] = [1080, 340];
+
+    // options for the chart
+    showXAxis = true;
+    showYAxis = true;
+    gradient = false;
+    showLegend = true;
+    showXAxisLabel = true;
+    xAxisLabel = '';
+    showYAxisLabel = true;
+    yAxisLabel = 'Temperature (°C)';
+    timeline = true;
+    roundDomains = true;
+  
+    colorScheme = {
+      domain: ['#f19634','#7c6be8']
+    };
+  
+    // line chart
+    autoScale = true;
   constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox) { }
-  responsiveOptions:any[] = [
-	{
-		breakpoint: '1024px',
-		numVisible: 5
-	},
-	{
-		breakpoint: '768px',
-		numVisible: 3
-	},
-	{
-		breakpoint: '560px',
-		numVisible: 1
-	}
-];
 
   ngOnInit(): void {
 	this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));

@@ -1,6 +1,6 @@
 <div class="bg-fff">
 
-
+<div class="web-view">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
             <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
@@ -62,5 +62,59 @@
         </div>
 
     </section>
+</div>
 
+    <div class="mobile-view">
+        <div class="row">
+            <div class="col-sm-12">
+                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                            <span id="title-breadcrumb-1" class="sr-only"></span>
+                            <ul class="bread-nav">
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/ordermanagement/myorders">Order Management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/ordermanagement/order-booked">Order 12416</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum c-pink">Order Support</li>
+                            </ul>
+                        </nav>
+            </div>
+        </div>
+        <div class="row">
+                <div class=" col-sm-12 search-div">
+                        <input type="text" name="search" class="search" [(ngModel)]="term" placeholder="Search" />
+                    </div>
+                    <div class=" col-sm-12 text-right">
+                        <a class="view-all">View all my raised tickets</a>
+                    </div>
+        </div>
+        <p class="mob-header">Order support</p>
+        <div class="row pad-bottom">
+        <div class="col-sm-12 mb-3">
+                <button class="btn dashboard-button " (click)="buyingCoffee()"><img class="logo-img float-left" src="assets/images/coffee-bean.png"><span class="btn-name float-left">Buying coffee</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+            </div>
+    <div class="col-sm-12 mb-3">
+        <button class="btn  dashboard-button  " (click)="requestSamples()"><img class="logo-img  float-left" src="assets/images/request.png"><span class="btn-name float-left">Requesting samples</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+    </div>
+    <div class="col-sm-12 mb-3">
+        <button class="btn  dashboard-button" (click)="payment()"><img class="logo-img float-left" src="assets/images/payment.png"><span class="btn-name float-left">Payment</span><img class="icon-img float-right" src="assets/images/arrow-1.png"></button>
+    </div>
+    <div class="col-sm-12 mb-3">
+            <button class="btn dashboard-button " (click)="coffeeBulks()"><img class="logo-img  float-left" src="assets/images/coffee-plant.png"><span class="btn-name float-left">Coffee bulks</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+        </div>
+<div class="col-sm-12 mb-3">
+    <button class="btn dashboard-button " (click)="shipping()"><img class="logo-img  float-left" src="assets/images/shipping.png"><span class="btn-name float-left">Shipping</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+</div>
+        <div class="col-sm-12 mb-5">
+                <button class="btn dashboard-button "  (click)="others()"><img class="logo-img float-left" src="assets/images/others.png"><span class="btn-name float-left">Others</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+            </div>
+        </div>
+    </div>
 </div>

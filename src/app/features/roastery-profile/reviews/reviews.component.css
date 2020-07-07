@@ -147,6 +147,8 @@ li.nav-item {
     padding-bottom: 1rem;
 }
 
+
+
 .star-estate {
     font-size: 20px;
     position: relative;
@@ -197,11 +199,11 @@ li.nav-item {
     color: #232334;
 }
 
-.main-space {
-    /* padding-left: 3rem !important;
-    padding-right: 3rem !important; */
+/* .main-space {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
     
-}
+} */
 
 .message-space {
     padding-left: 2rem;
@@ -362,7 +364,7 @@ li.nav-item {
 }
 
 ::ng-deep .popover-body {
-    padding: 0 !important;
+    padding: 0.25rem 0.25rem !important;
 }
 
 ::ng-deep .popover {

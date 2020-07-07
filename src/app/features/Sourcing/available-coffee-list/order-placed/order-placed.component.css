@@ -1,0 +1,18 @@
+.order-sec{
+    padding: 8rem 0;
+}
+.clarify-text{
+    font-size: 14px;
+  font-weight: normal;
+  color: #747588;
+}
+.view-order-butn{
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    cursor: pointer;
+    padding: 12px 18px;
+    margin-top: 1.6rem;
+}

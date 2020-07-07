@@ -98,7 +98,6 @@ td {
     background-color: #ffffff;
     -webkit-appearence: none !important;
 }
-
 .main-bag {
     position: absolute;
     right: 10px;
@@ -295,7 +294,6 @@ label {
     cursor: pointer;
     font-size: 14px !important;
 }
-
 .checkmark {
     top: 2px !important;
     left: 2px !important;
@@ -339,36 +337,8 @@ span.checkmark {
     color: #D50000;
     font-size: 14px;
 }
-
-
 /****************************    Media Queries   ****************************/
-
-
-/* @media screen and (max-width: 991px) and (min-width: 768px) {
-    .web-sec {
-        display: block;
-    }
-    .confirm_header {
-        margin-left: 2.2rem;
-        margin-right: 2.2rem;
-    }
-    .price-tag {
-        font-size: 13px;
-        padding-left: 4px;
-    }
-    .details {
-        font-size: 13px !important;
-    }
-    .quantity-border {
-        padding-right: 0rem !important;
-    }
-    .main-bag {
-        right: 6px;
-        font-size: 12px;
-    }
-} */
-
-@media screen and (max-width:767px) and (min-width:320px) {
+@media screen and (max-width:480px) {
     .create-role {
         margin-left: 0.9rem;
         margin-right: 0.9rem;
@@ -399,7 +369,7 @@ span.checkmark {
         font-weight: 600;
     }
     .back-icon img {
-        margin-right: 10px;
+        margin-right: 5px;
     }
     .create-role-sec {
         margin-left: 1rem;
@@ -409,10 +379,13 @@ span.checkmark {
         padding: 1rem;
     }
     .confirm-txt {
-        font-size: 24px;
+        font-size: 18px;
+        font-weight: normal;
     }
     .fill-txt {
-        font-size: 15px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 20px;
     }
     .estate-list {
         border: 1px solid #ebebeb;
@@ -426,7 +399,7 @@ span.checkmark {
     }
     .recent td {
         padding: 1rem 2.8rem 1rem 0rem;
-        border-bottom: 1px solid #dddddd;
+        border-bottom: 1px solid #d6d6d6;
     }
     .list-ques {
         font-family: Muli;
@@ -473,11 +446,11 @@ span.checkmark {
         color: #747588;
     }
     .boder-name {
-        border-top: 1px solid #dddddd;
+        border-top: 1px solid #d6d6d6;
         padding-top: 1.2rem;
     }
     .edit-div {
-        border-top: 1px solid #dddddd;
+        border-top: 1px solid #d6d6d6;
         margin-top: 1rem !important;
         padding-top: 1.3rem;
     }

@@ -160,6 +160,9 @@ input[type='radio']:checked:before {
     display: none;
 }
 
+.mobile-view{
+    display: none;
+}
 
 /*********Media Queries***************/
 
@@ -175,14 +178,17 @@ input[type='radio']:checked:before {
         margin-left: 0.7rem;
     }
     .preferences {
-        font-size: 24px;
+        font-size: 16px;
     }
     .hectares-data,
     .acres-data,
     .pounds-data,
     .kilograms-data,
     .receipt-data {
-        font-size: 13px;
+        font-size: 14px;
+    }
+    .farm-size, .quantity-size{
+        font-size: 12px;
     }
     .units-header,
     .chat-header {
@@ -194,4 +200,39 @@ input[type='radio']:checked:before {
     .web-display {
         display: none;
     }
+    .border-chat{
+        border: none;
+        padding: 0%;
+    }
+    .desk-view{
+        display: none;
+    }
+    .mobile-view{
+        display: block;
+        padding: 1rem 1rem 1rem 2rem;
+    }
+    .back-ticket {
+        font-family: Muli;
+        font-size: 16px;
+        font-weight: 600;
+        color: #80460b;
+        cursor: pointer;
+    }
+    .top-padding{
+        padding: 0rem;
+    }
+    .save-butn{
+        width: 100% !important;
+    }
+
+}
+
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 10px 30px;
 }

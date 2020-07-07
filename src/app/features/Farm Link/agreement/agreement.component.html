@@ -1,5 +1,5 @@
 <div class="bg-fff coffee-exp agreements">
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
@@ -10,7 +10,6 @@
             </li>
 
             <li class="b-cum c-pink">Agreements</li>
-            <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
 
         </ul>
     </nav>
@@ -49,65 +48,102 @@
 
 
                     <div class="d-inline display_div">
-                        <div class="float-right upload-order top-space">
-                            <label class="share-bor"> <input class="file-inpt" type="file"> <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
+                        <div class="float-right upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
+                            <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
-        <div class="estate-table pt-2">
-            <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
-                <!-- <thead>
-                    <tr class="estate-title">
-                        <th>
-                            <label class="b-check first-t">
-                            <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
-                            <span class="checkmark"></span>
-                        </label>
-                        </th>
-                        <th>Order ID </th>
-                        <th>Estate name </th>
-                        <th>Date ordered </th>
-                        <th>Orgin </th>
-                        <th>Species</th>
-                        <th>Price</th>
-                        <th>Quantity </th>
-                        <th>Type of Order </th>
-                        <th>Status </th>
-                        <th>Action</th>
-                    </tr>
-                </thead> 
-                <tbody>
-                    <tr *ngFor="let group of data" class="estate-boby-txt">
-                        <td class="spacing-order" style="width: 40px;">
-                            <label class="b-check">
-                            <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
-                            <span class="checkmark"></span>
-                          </label>
-                        </td>
+        <div class="estate-table pt-2 ">
+            <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
 
-                        <td>{{group.id}}</td>
-                        <td>{{group.estatename}}</td>
-                        <td>{{group.dataordered}}</td>
-                        <td>{{group.origin}}</td>
-                        <td>{{group.species}}</td>
-                        <td>{{group.price}}</td>
-                        <td>{{group.quantity}}</td>
-                        <td>
-
-                            <p class="typeoforder-Sample" *ngIf="group.typeoforder == 'Sample'">&#9679; {{group.typeoforder}}</p>
-                            <p class="typeoforder-Booked" *ngIf="group.typeoforder == 'Booked'">&#9679; {{group.typeoforder}}</p>
-                            <p class="typeoforder-Pre-Booked" *ngIf="group.typeoforder == 'Pre-Booked'">&#9679; {{group.typeoforder}}</p>
-
-                        </td>
-                        <td>{{group.status}}
-                        </td>
-                        <td class="view-order" (click)="displayData($event,group)">View order</td>
-                    </tr>
-                </tbody> -->
             </table>
+
+            <div class="table-details mobile-farm">
+                <div class="table-responsive border-sourcetable">
+
+                    <div class="col-12 bor-d6d6">
+                        <div class="row pt-4">
+                            <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                            <div class="col-10 mobile-ce">
+                                <p class="black fnt-14"> The Steam Hotel agreeme…</p>
+                                <p class="fnt-12 light-eight">#129979</p>
+                                <p class="fnt-12 light-eight"> Added on 24/09/2019</p>
+                                <p class="fnt-12 light-eight"> The Steam Hotel</p>
+                                <p class="fnt-12 light-eight"> Västerås</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 bor-d6d6">
+                        <div class="row pt-4">
+                            <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                            <div class="col-10 mobile-ce">
+                                <p class="black fnt-14"> Candela agreement pap</p>
+                                <p class="fnt-12 light-eight">#221669</p>
+                                <p class="fnt-12 light-eight"> Added on 18/12/2019</p>
+                                <p class="fnt-12 light-eight"> Gothenburg</p>
+                                <p class="fnt-12 light-eight"> Candela</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 bor-d6d6">
+                        <div class="row pt-4">
+                            <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                            <div class="col-10 mobile-ce">
+                                <p class="black fnt-14"> Finca Nápoles agreement</p>
+                                <p class="fnt-12 light-eight">#879082</p>
+                                <p class="fnt-12 light-eight"> Added on 01/20/2019</p>
+                                <p class="fnt-12 light-eight"> Finca Nápoles</p>
+                                <p class="fnt-12 light-eight"> Stockholm</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 bor-d6d6">
+                        <div class="row pt-4">
+                            <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                            <div class="col-10 mobile-ce">
+                                <p class="black fnt-14"> Santa Rosa agreement</p>
+                                <p class="fnt-12 light-eight">#127908</p>
+                                <p class="fnt-12 light-eight"> Added on 24/01/2020</p>
+                                <p class="fnt-12 light-eight">Santa Rosa</p>
+                                <p class="fnt-12 light-eight"> Karlstad</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 bor-d6d6">
+                        <div class="row pt-4">
+                            <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                            <div class="col-10 mobile-ce">
+                                <p class="black fnt-14"> The Steam Hotel agreeme…</p>
+                                <p class="fnt-12 light-eight">#129979</p>
+                                <p class="fnt-12 light-eight"> Added on 24/09/2019</p>
+                                <p class="fnt-12 light-eight"> The Steam Hotel</p>
+                                <p class="fnt-12 light-eight"> Västerås</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 bor-d6d6">
+                        <div class="row pt-4">
+                            <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                            <div class="col-10 mobile-ce">
+                                <p class="black fnt-14"> The Steam Hotel agreeme…</p>
+                                <p class="fnt-12 light-eight">#129979</p>
+                                <p class="fnt-12 light-eight"> Added on 24/09/2019</p>
+                                <p class="fnt-12 light-eight"> The Steam Hotel</p>
+                                <p class="fnt-12 light-eight"> Västerås</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
 
     </section>
@@ -140,3 +176,52 @@
         </ul>
     </div>
 </ng-template>
+
+
+<div class="modal fade" id="uploadfolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Upload new agreement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <form>
+
+                        <div class="invite-to">
+
+                            <div class="roastery-fields mb-3 mb-lg-4">
+                                <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Select an order <span class="star-mark">*</span></h4>
+                                <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
+                                    your files to the order helps you and your custoemrs to find files faster</span>
+
+                                <a href="#" class="d-inline-flex mt-2 view-order-file align-items-center share-bor">
+                                    <img src='assets/images/view.png'>
+                                    <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">View
+                                        orders</span>
+                                </a>
+
+                            </div>
+
+                            <div class="roastery-fields mb-0">
+                                <div class="farm-input col-12 col-md-8 px-0">
+                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Upload</h4>
+                                    <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Please upload a .pdf of the agreement</span>
+                                    <label class="share-bor w-30">  <input class="file-inpt" type="file"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">Create and Share
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

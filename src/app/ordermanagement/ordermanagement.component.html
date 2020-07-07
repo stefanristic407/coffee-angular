@@ -5,12 +5,17 @@
         <div class="container header-container">
             <div class="pad-header">
                 <div class="row align-items-center">
+                    <div class="sidenav-hamberg">
+                        <span class="sidenav-hamberg__line"></span>
+                        <span class="sidenav-hamberg__line"></span>
+                        <span class="sidenav-hamberg__line"></span>
+                    </div>
                     <div class="company-logo pad-logo">
                         <a class="company-logo__img d-inline-block" routerLink="../features/welcome-aboard">
                             <img src="assets/images/Sewn-logo.png" alt="Comany-Logo">
                         </a>
                     </div>
-                    <div class="d-inline-block">
+                    <div class="d-inline-block header-searach">
                         <form>
                             <div class="search-on-site">
                                 <div class="search-on-site__input fnt-muli">
@@ -72,17 +77,18 @@
             <div class="pad-header">
                 <div class="row">
                     <div class="w-100 sidenav-mb">
+                        <span class="sidenav-mb__close">x</span>
                     <ul class="nav-links fnt-muli pad-5">
 
                         <li class="nav-links__item d-inline-block position-relative ">
 
-                            <a class="d-inline-block fnt-600" routerLink="../features/welcome-aboard">Dashboard
+                            <a class="d-inline-block fnt-600 router-link" routerLink="../features/welcome-aboard">Dashboard
                             </a>
                         </li>
 
                         <li class="nav-links__item d-inline-block position-relative">
 
-                            <a class="d-inline-block fnt-600" routerLink="../features/sourcing">Sourcing Module
+                            <a class="d-inline-block fnt-600 router-link" routerLink="../features/sourcing">Sourcing Module
                             </a>
                         </li>
 
@@ -91,13 +97,13 @@
                             </a>
                             <ul class="nav-dropdown fnt-600">
                                 <li>
-                                    <a routerLink="../ordermanagement/estate-orders">Estate Orders</a>
+                                    <a class="router-link" routerLink="../ordermanagement/estate-orders">Estate Orders</a>
                                 </li>
                                 <li>
-                                    <a routerLink="../ordermanagement/roaster-orders">Roaster Orders</a>
+                                    <a class="router-link" routerLink="../ordermanagement/roaster-orders">Roaster Orders</a>
                                 </li>
                                 <li>
-                                    <a routerLink="../ordermanagement/facilitator-orders">Facilitator Orders</a>
+                                    <a class="router-link" routerLink="../ordermanagement/facilitator-orders">Facilitator Orders</a>
                                 </li>
                             </ul>
                         </li>
@@ -106,17 +112,17 @@
                             </a>
                             <ul class="nav-dropdown fnt-600">
                                 <li>
-                                    <a routerLink="../features/brand-profile">Build your brand profile</a>
+                                    <a class="router-link" routerLink="../features/brand-profile">Build your brand profile</a>
                                 </li>
                                 <li>
-                                    <a routerLink="../features/coffee-experience">The coffee experience</a>
+                                    <a class="router-link" routerLink="../features/coffee-experience">The coffee experience</a>
                                 </li>
                                 <li>
-                                    <a routerLink="../features/social-media">Social Media posts</a> </li>
+                                    <a class="router-link" routerLink="../features/social-media">Social Media posts</a> </li>
                                 <li>
-                                    <a routerLink="../features/file-share">File Share</a> </li>
+                                    <a class="router-link" routerLink="../features/file-share">File Share</a> </li>
                                 <li>
-                                    <a routerLink="../features/agreement">Agreements</a>
+                                    <a class="router-link" routerLink="../features/agreement">Agreements</a>
                                 </li>
 
                             </ul>
@@ -135,10 +141,10 @@
                             <ul class="nav-dropdown fnt-600">
 
                                 <li>
-                                    <a routerLink="../people/manage-role">Manage Roles</a>
+                                    <a class="router-link" routerLink="../people/manage-role">Manage Roles</a>
                                 </li>
                                 <li>
-                                    <a routerLink="../people/user-management">User Management </a>
+                                    <a class="router-link" routerLink="../people/user-management">User Management </a>
                                 </li>
 
                             </ul>

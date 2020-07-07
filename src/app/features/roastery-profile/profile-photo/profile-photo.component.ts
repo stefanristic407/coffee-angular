@@ -29,6 +29,7 @@ export class ProfilePhotoComponent implements OnInit {
   //  Description   : This function gives the output of cropped image.
   imageCropped(event: ImageCroppedEvent) {
     this.profilePhotoService.croppedImage = event.base64;
+    console.log(event)
     console.log(this.profilePhotoService.croppedImage)
   }
 

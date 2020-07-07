@@ -33,6 +33,8 @@ import {MyfilesComponent} from './Farm Link/file-share/myfiles/myfiles.component
 import {SharewithmeComponent} from './Farm Link/file-share/sharewithme/sharewithme.component';
 import {FileShareDetailsComponent} from './Farm Link/file-share/file-share-details/file-share-details.component';
 import {AvailableCoffeeListComponent} from './Sourcing/available-coffee-list/available-coffee-list.component';
+import { AvailableConfirmOrderComponent } from './Sourcing/available-coffee-list/available-confirm-order/available-confirm-order.component';
+import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-placed/order-placed.component';
 
 const routes: Routes = [
   {
@@ -158,6 +160,15 @@ const routes: Routes = [
         path:'available-coffee-list',
         component:AvailableCoffeeListComponent
       },
+      {
+        path:'available-confirm-order',
+        component:AvailableConfirmOrderComponent
+      },
+      {
+        path :'order-placed',
+        component:OrderPlacedComponent
+      },
+
       {
         path: '',
         redirectTo: 'welcome-aboard',

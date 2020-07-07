@@ -9,7 +9,6 @@ table.dataTable thead .sorting_desc {
 }
 
 .estate-orders {
-    /* margin: 1rem 3.1rem; */
     position: relative;
 }
 
@@ -47,6 +46,10 @@ table.dataTable.display tbody td {
 .orders-border {
     border-radius: 4px;
     border: solid 1px #d6d6d6 !important;
+}
+
+.agreements {
+    padding: 2rem 0rem;
 }
 
 table.dataTable thead .sorting:after,
@@ -143,16 +146,6 @@ table.dataTable thead th {
     border: solid 1px #d6d6d6;
 }
 
-
-/* 
-.estate-boby-txt td {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: 600;
-    color: #232334;
-    padding: 1rem 0rem 0rem 1rem;
-} */
-
 .status-Shipped {
     font-size: 12px;
     font-weight: 500;
@@ -192,8 +185,6 @@ table.dataTable thead th {
     line-height: normal;
     letter-spacing: normal;
     color: #f19634;
-    /* padding: .2rem;
-    width: 55%; */
 }
 
 .typeoforder-Booked {
@@ -205,8 +196,6 @@ table.dataTable thead th {
     line-height: normal;
     letter-spacing: normal;
     color: #649a2b;
-    /* padding: .2rem;
-    width: 55%; */
 }
 
 .odd .typeoforder-Pre-Booked {
@@ -218,8 +207,6 @@ table.dataTable thead th {
     line-height: normal !important;
     letter-spacing: normal !important;
     color: #7c6be8 !important;
-    /* padding: .2rem;
-    width: 75%; */
 }
 
 .foo-calendar input {
@@ -235,8 +222,6 @@ table.dataTable thead th {
     line-height: normal !important;
     letter-spacing: normal !important;
     color: #7c6be8 !important;
-    /* padding: .2rem;
-    width: 75%; */
 }
 
 .view-order {
@@ -289,13 +274,11 @@ table.dataTable thead th {
 }
 
 .search {
-    /*width: 255px;*/
     font-family: 'Muli';
     height: 36px;
     border-radius: 8px;
     border: solid 1px #cccccc;
     background-color: #ffffff;
-    /* background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px; */
     padding-left: 45px;
 }
 
@@ -393,29 +376,8 @@ span.checkmark {
 /******Date Range Css*********/
 
 :host ::ng-deep .ui-inputtext {
-    /* border: 1px solid #3d8462 !important;
-    font-size: 13px !important;
-    color: #3d8462 !important;
-    padding: 7px 30px 5px 7px !important;
-    margin-right: 5px; */
     display: none !important;
 }
-
-
-/* :host ::ng-deep .ui-inputtext:focus {
-    box-shadow: 0 0 0 0.035rem green !important;
-}
-
-:host ::ng-deep .ui-datepicker {
-    top: 0px !important;
-} */
-
-
-/* ::ng-deep .ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
-    left: -11px !important;
-    width: 1.357em !important;
-    color: #3d8462;
-} */
 
 :host ::ng-deep .ui-button-icon-only .ui-button-icon-left {
     color: #3d8462;
@@ -423,7 +385,6 @@ span.checkmark {
 
 @media (max-width:1024px) {
     .estate-table {
-        /* width: 100%; */
         overflow: scroll;
     }
     .estate-table table {
@@ -536,15 +497,7 @@ span.checkmark {
     padding: 1rem 0.6rem !important;
 }
 
-
-/* .estate-boby-txt tbody tr td .more-options {
-    background: url(../../../../assets/images/ellipses.png);
-    width: 20px;
-    height: 20px;
-} */
-
 .display_div {
-    /* width: 100%; */
     position: absolute;
     right: 3.2rem;
     top: -0.3rem;
@@ -585,11 +538,161 @@ span.checkmark {
 
 .upload-order {
     background-color: #ffffff;
-    padding: 10px 12px;
+    padding: 8px 12px;
 }
 
 .file-inpt {
     opacity: 0;
     visibility: hidden;
     display: none;
+}
+
+
+/* MOdal popup css */
+
+.create-share {
+    border-radius: 4px;
+    background-color: #30855c;
+    outline: 0;
+    border: 0;
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+.create-share:hover {
+    background-color: #30855c;
+    opacity: 1;
+}
+
+.create-share:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+    border: 0 !important;
+    background-color: #30855c !important;
+}
+
+.file-inpt {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+}
+
+.w-30 {
+    width: 20%;
+}
+
+.star-mark {
+    color: #d50000;
+}
+
+.modal-content {
+    padding: 15px !important;
+}
+
+.modal-header {
+    padding: 0 0 15px 0 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.modal-content .close {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.modal-content .close span {
+    font-size: 35px;
+    line-height: 0;
+}
+
+.modal-content .close:focus {
+    box-shadow: none !important;
+    outline: 0;
+    border: 0;
+}
+
+.modal-body {
+    padding: 15px 0 0 0 !important;
+}
+
+.modal-backdrop {
+    background-color: rgb(0, 0, 0) !important;
+}
+
+.modal-backdrop.show {
+    opacity: 0.8 !important;
+}
+
+.modal-footer {
+    border: 0 !important;
+    padding: 15px 0 0 0 !important;
+}
+
+@media (min-width: 768px) {
+    .modal-content {
+        padding: 20px !important;
+    }
+    .modal-header {
+        padding: 0 0 20px 0 !important;
+    }
+    .modal-body {
+        padding: 20px 0 0 0 !important;
+    }
+    .modal-footer {
+        padding: 20px 0 0 0 !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-header {
+        padding: 0 0 25px 0 !important;
+    }
+    .modal-body {
+        padding: 25px 0 0 0 !important;
+    }
+    .modal-dialog {
+        max-width: 740px !important;
+    }
+    .modal-footer {
+        padding: 25px 0 0 0 !important;
+        border: 0 !important;
+    }
+    .modal-content {
+        padding: 25px !important;
+    }
+}
+
+
+/*  media query Fram Link */
+
+@media (max-width:640px) {
+    .bg-fff {
+        padding: 1rem .7rem;
+    }
+    .bread-nav {
+        padding-left: 0rem;
+    }
+    .estate-orders-heading {
+        margin: .2rem;
+    }
+    .title-header {
+        margin: 1.3rem 1rem;
+    }
+    .estate-table {
+        margin: 1rem 0rem;
+    }
+    .mobile-ce p {
+        margin-bottom: .5rem !important;
+    }
+    .bor-d6d6 {
+        border-top: 2px dashed #d6d6d6;
+        padding-bottom: 5px;
+    }
+    .agreements {
+        padding: 1rem;
+    }
+    .display_div {
+        position: absolute;
+        right: 2.2rem;
+        top: -.5rem;
+    }
 }

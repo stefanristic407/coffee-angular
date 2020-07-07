@@ -62,6 +62,8 @@ a{
     background-repeat: no-repeat;
     opacity: 0.4;
     transition: 0.4s ease-in-out;
+    
+mix-blend-mode: multiply;
 }
 
 .social-post-farmlink__item:hover::after {

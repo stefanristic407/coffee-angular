@@ -71,6 +71,27 @@ export class CoffeeExperienceComponent implements OnInit {
 
 
      ngOnInit(): void {
+
+      //Toggle Esstate active
+	  $('.btn-switch').click(function() {
+		var $group = $(this).closest('.cardpanel-detail');
+		$('.btn-switch', $group).removeClass("active");
+		$(this).addClass("active");
+	  });
+	  $(".activate-toggle").click(function() {
+		$(".cardpanel-detail").fadeIn();
+		 $(".table-details").fadeOut();
+		  $(".remove-toggle").removeClass('active');
+	   // $(".cardpanel-detail").addClass('active')
+	  });
+	  $(".remove-toggle").click(function() {
+		$(".table-details").fadeIn();
+		 $(".cardpanel-detail").fadeOut();
+		$(".activate-toggle").removeClass('active');
+		
+	  });
+
+
       //Auth checking
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);

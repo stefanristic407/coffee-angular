@@ -1,6 +1,6 @@
 <div class="bg-fff">
         <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-                <div class="row">
+                <div class="row desk-view">
                     <div class="col-md-6 col-lg-6">
     <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
         <span id="title-breadcrumb-1" class="sr-only"></span>
@@ -19,10 +19,16 @@
                 <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="privacyTerms()">Save changes</button>
             </div>
         </div>
+        <div class="row mobile-view">
+                <span class="cursor-pointer" routerLink="/features/account-settings">
+                    <img src="/assets/images/back-arrow1.png" alt="">
+                    <span class="back-ticket pl-3">Back</span>
+                    </span>
+        </div>
         </section>
     <section class="col-sm-12 col-md-12 col-lg-12 p-4">
         <div class="row">
-            <div class="col-md-6 col-lg-6">
+            <div class="col-md-6 col-lg-6  mob-header-view">
                 <p class="header-value mr-auto text-left pl-3">Privacy Settings</p>
                 <p class="sub-text pl-3">Choose what you want to share with us</p>
             </div>
@@ -30,7 +36,7 @@
         </div>
         <div class="border-clr">
             <div class="row">
-                <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="col-md-6 col-lg-6 col-sm-12 mob-content">
                     <p class="sub-header">Privacy</p>
                     <div class="privacy-content-list">
                         <div class="privacy-content">
@@ -64,5 +70,8 @@
                 </div>
             </div>
         </div>
+        <div class="mobile-farm farm-stricky col-12">
+                <button type="button" class="btn btn-succes create-role-btn" > Save changes </button>
+            </div>
     </section>
 </div>

@@ -16,7 +16,7 @@
         </ul>
     </nav> -->
     <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-        <div class="row">
+        <div class="row desk-view">
             <div class="col-md-6 col-lg-6">
                 <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 mr-auto text-left">
                     <span id="title-breadcrumb-1" class="sr-only"></span>
@@ -35,6 +35,12 @@
                 <button type="submit" class="btn btn-succes save-butn">Save changes</button>
             </div>
         </div>
+        <div class="row mobile-view">
+                <span class="cursor-pointer" routerLink="/features/account-settings">
+                    <img src="/assets/images/back-arrow1.png" alt="">
+                    <span class="back-ticket pl-3">Back</span>
+                    </span>
+        </div>
     </section>
 
     <section class="chat-notify">
@@ -44,7 +50,7 @@
         <!-- <div class="float-right ml-auto save-padding">
             <button type="button" class="btn save-butn">SAVE CHANGES </button>
         </div> -->
-        <div class="border-chat">
+        <div class="border-chat pb-5">
             <div class="row">
                 <div class="col-lg-6 col-md-10 col-sm-12 col-xs-12">
                     <h2 class="units-header">Measurement Units</h2>
@@ -123,5 +129,8 @@
                 </div>
             </div>
         </div>
+        <div class="mobile-farm farm-stricky col-12">
+                <button type="button" class="btn btn-succes save-change" > Save changes </button>
+            </div>
     </section>
 </div>

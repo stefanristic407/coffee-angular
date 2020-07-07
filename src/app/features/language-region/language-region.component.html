@@ -1,6 +1,6 @@
 <div class="bg-fff">
     <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-        <div class="row">
+        <div class="row desk-view">
             <div class="col-md-6 col-lg-6">
                 <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
                     <span id="title-breadcrumb-1" class="sr-only"></span>
@@ -19,6 +19,12 @@
                 <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="saveLanguage()">Save changes</button>
             </div>
         </div>
+        <div class="row mobile-view">
+            <span class="cursor-pointer" routerLink="/features/account-settings">
+                <img src="/assets/images/back-arrow1.png" alt="">
+                <span class="back-ticket pl-3">Back</span>
+                </span>
+    </div>
     </section>
     <section class="col-sm-12 col-md-12 col-lg-12 language-spacing">
         <div class="row">
@@ -49,11 +55,11 @@
                         <div class="form-group mt-5 mob-space">
                             <label for="add-language">I can converse in</label>
 
-                            <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-12 add-language mb-1">
+                            <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-6 add-language mb-1">
                                 <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
                                     <img class="plus-symbol" src="assets/images/region-plus.svg">Add language </a>
                             </div>
-                            <mat-chip-list #chipList aria-label="language">
+                            <mat-chip-list #chipList aria-label="language" class="desk-chips">
                                 <mat-chip *ngFor="let language of langChips" [selectable]="selectable"
                                 [removable]="removable" (removed)="remove(language)">{{language}}
                                    <img *ngIf="removable" class="cross-icon" src="assets/images/cross.svg" (click)="remove(language)">
@@ -61,6 +67,12 @@
                               </mat-chip-list>
                             <!-- </a> -->
                             <p class="description mt-2">Add Language that you can communicate in</p>
+                            <mat-chip-list #chipList aria-label="language" class="mob-chips">
+                                <mat-chip *ngFor="let language of langChips" [selectable]="selectable"
+                                [removable]="removable" (removed)="remove(language)">{{language}}
+                                   <img *ngIf="removable" class="cross-icon" src="assets/images/cross.svg" (click)="remove(language)">
+                                </mat-chip>
+                              </mat-chip-list>
                         </div>
 
                         <div class="form-group mt-5 mob-space">
@@ -569,6 +581,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="mobile-farm farm-stricky col-12">
+            <button type="button" class="btn btn-succes create-role-btn" > Save changes </button>
         </div>
     </section>
 </div>
