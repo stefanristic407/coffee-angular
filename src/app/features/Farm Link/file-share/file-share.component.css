@@ -1,203 +1,3 @@
-/* file share */
-
-@media (max-width: 767px) {
-    .quicker-files {
-        flex-wrap: nowrap !important;
-        overflow-x: scroll;
-        margin-bottom: 0;
-    }
-
-    .quicker-files__list {
-        max-width: 75% !important;
-        margin-bottom: 0 !important;
-    }
-
-    .pin-quiker-file__upload {
-        padding: 8px;
-        display: flex;
-        align-items: center;
-        width: 85%;
-        text-align: left;
-    }
-
-    .pin-quiker-file__upload img {
-        width: 25px;
-        height: 30px;
-        object-fit: contain;
-    }
-
-    .pin-quiker-file__upload p {
-        font-size: 12px !important;
-        line-height: 18px !important;
-    }
-
-    .remove-quiker-file {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-    }
-
-    .Custom-select-input__selctedText::after {
-        right: -5px !important;
-        border-top: 1.5px solid #30855c !important;
-        border-right: 1.5px solid #30855c !important;
-        width: 7px !important;
-        height: 7px !important;
-    }
-
-    .modal-header {
-        border-bottom: 2px dashed #d6d6d6 !important;
-        padding: 0 0 25px 0 !important;
-    }
-
-    .modal-content .close span {
-        color: #232334 !important;
-    }
-
-    .Custom-select {
-        border: 0 !important;
-    }
-
-    .file-share-addMail input {
-        border-radius: 4px;
-        border: solid 2px #d6d6d6 !important;
-        width: 100% !important;
-        padding: 10px 15px !important;
-    }
-
-    .Custom-select-input__selctedText {
-        color: #30855c !important;
-    }
-
-    .member__type .owner {
-        color: #747588 !important;
-        padding: 10px 0;
-    }
-
-    .Custom-select-input-list__item {
-        font-size: 12px !important;
-    }
-
-    .existing-members-list {
-        border: 0 !important;
-    }
-    .existing-members-list__item {
-        padding-bottom: 20px !important;
-        margin-bottom: 20px !important;
-    }
-
-    .existing-members-list .member-profile {
-        width: 35px !important;
-        height: 35px !important;
-    }
-
-    .existing-members-list .Custom-select-input__selctedText {
-        padding: 0 10px !important;
-    }
-    .create-share {
-        width: 100%;
-    }
-
-    .modal-footer p {
-        margin-bottom: 14px !important;
-    }
-
-    .modal-body {
-        margin-top: 15px !important;
-    }
-
-    .modal .farm-input input {
-        border-radius: 4px;
-        border: solid 2px #d6d6d6 !important;
-        width: 100% !important;
-        padding: 10px 15px !important;
-    }
-
-    .modal .farm-input label {
-        font-size: 14px !important;
-        line-height: 24px !important;
-    }
-
-    .modal .farm-input textarea {
-        border-radius: 4px;
-        border: solid 2px #d6d6d6 !important;
-        width: 100% !important;
-        padding: 10px 15px !important;
-    }
-
-    .modal-content {
-        padding: 25px 15px !important;
-    }
-
-    .share-bor {
-        margin-right: 3px !important;
-    }
-    .view-order-file-share  {
-        width: 100% !important;
-        border-radius: 4px !important;
-        border: solid 2px #d6d6d6 !important;
-        color: #747588 !important;
-    }
-
-    .view-order-file-share img:first-of-type {
-        display: none;
-        opacity: 0;
-        visibility: hidden;
-    }
-}
-
-    .modal-content .close {
-        background: none;
-        opacity: 1;
-    }
-    .quicker-files {
-        flex-wrap: nowrap !important;
-        overflow-x: auto;
-        margin-bottom: 0;
-    }
-
-    .quicker-files__list {
-        margin-bottom: 0 !important;
-    }
-
-    .view-order-file-share {
-        padding: 5px 8px;
-        border-radius: 4px;
-        border: solid 2px #d6d6d6;
-        text-decoration: none;
-    }
-
-
-.file-share-container {
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    padding: 15px;
-    border-radius: 4px;
-}
-
-.pin-quiker-files {
-    border-radius: 2px;
-    border: dashed 1px rgba(128, 70, 11, 0.29);
-    background-color: #faf8f4;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-@media (min-width: 768px) {
-    .pin-quiker-files label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        margin: 0;
-        padding: 40px 20px;
-        cursor: pointer;
-    }
-}
-
-
 .pin-quiker-files input[type="file"] {
     opacity: 0;
     visibility: hidden;
@@ -437,9 +237,7 @@
     .existing-members-list__item:last-child {
         border: 0;
     }
-    
 }
-
 
 .member-profile {
     width: 25px;
@@ -817,6 +615,7 @@
         margin-right: 15px !important;
     }
 }
+
 li.nav-item {
     margin-right: 25px;
     position: relative;
@@ -834,7 +633,6 @@ li.nav-item {
     .nav-pills {
         padding-bottom: 3px;
     }
-    
 }
 
 .nav-pills .nav-link.active {
@@ -842,38 +640,6 @@ li.nav-item {
     font-size: 14px;
     font-weight: 600;
     color: #30855c;
-}
-
-.share-txt {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: 600;
-    color: #232334;
-}
-
-.share-img {
-    width: 17px;
-    height: 17px;
-}
-
-.dwnd-img {
-    width: 15px;
-    height: 15px;
-}
-
-.share-bor {
-    border-radius: 4px;
-    border: solid 2px rgba(116, 117, 136, 0.6);
-    padding: 6px 12px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-}
-
-.file-inpt {
-    opacity: 0;
-    visibility: hidden;
-    display: none;
 }
 
 .preview--activity-history {

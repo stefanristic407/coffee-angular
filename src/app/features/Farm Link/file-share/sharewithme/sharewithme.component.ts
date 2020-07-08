@@ -14,6 +14,9 @@ import { data } from 'jquery';
   styleUrls: ['./sharewithme.component.css']
 })
 export class SharewithmeComponent implements OnInit {
+  sort:any;
+  showSort:boolean = true;
+
   @ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
@@ -55,6 +58,9 @@ export class SharewithmeComponent implements OnInit {
 
 
      ngOnInit(): void {
+
+      this.sort = '';
+
       //Auth checking
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
@@ -123,6 +129,21 @@ export class SharewithmeComponent implements OnInit {
           $("input[type='search']").attr("placeholder", "Search Files");
         });
       });
+    }
+
+    setSort(sortdata:any){
+      this.sort=sortdata;
+    }
+  
+    toggleSort(){
+      this.showSort=!this.showSort;
+      if(this.showSort==false){
+        document.getElementById('sort_id').style.border="1px solid #30855c";
+      }
+      else{
+        document.getElementById('sort_id').style.border="1px solid #d6d6d6";
+      
+      }
     }
 
 }
