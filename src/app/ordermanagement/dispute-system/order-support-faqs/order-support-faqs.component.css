@@ -177,7 +177,7 @@ a.b-cum:hover {
     letter-spacing: normal;
     text-align: right;
     color: #30855c;
-    /* border-radius: 0px; */
+    border-radius: 4px;
     border: solid 1px #30855c;
     background-color: #faf8f4;
     margin-right: .8rem;
@@ -186,7 +186,7 @@ a.b-cum:hover {
 }
 
 .raise-btn {
-    border-radius: 2px;
+    border-radius: 4px;
     border: solid 1px #30855c;
     background-color: #30855c;
     font-family: Muli;
@@ -201,22 +201,87 @@ a.b-cum:hover {
     padding-top: 4%;
     padding-bottom: 4%;
 }
+.mobile-view{
+    display: none;
+}
 
 @media all and (max-width: 425px) {
+    .mobile-view{
+        display: block !important;
+        padding: 1rem;
+        margin-bottom: 4rem;
+    }
+    .desk-view{
+        display: none;
+    }
+    .raise-ticket{
+        display: none;
+    }
+    .bg-fff{
+        padding: 0rem !important;
+    }
+    .border-clr{
+        padding: .5rem !important;
+    }
+    .breadcrumb1{
+        padding: 1rem !important;
+    }
     .help-div {
         height: max-content;
         padding-bottom: 5%;
         padding-top: 5%;
+        border-radius: 2px;
+    }
+    .header-value{
+        font-size: 16px;
+        margin-top: .5rem;
     }
     .help-btn-div {
         padding-top: 0;
+        float: none !important;
     }
     .help-text {
         padding-top: 0;
+        font-size: 14px;
+        color: #232334;
+        font-weight: bold;
     }
     .content{
-        padding-right: 5%;
+        padding-right: 5% !important;
     }
+    
+.accordion .card h2 {
+    background: url(../../../../assets/images/arrow-up.svg) no-repeat calc(94% - -15px) center;
+    padding-left: .5rem;
+    background-size: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    padding-right: 2rem;
+}
+.card {
+    border: none;
+    margin-bottom: 0 !important;
+    border-bottom: 1px dashed #ebebeb !important;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+.content{
+    font-size: 12px;
+}
+.yes-btn{
+    text-align: center;
+    width: 45%;
+}
+.raise-btn{
+    text-align: center;
+    width: 50%;
+}
+.create-role-btn{
+    font-size: 14px;
+    width: 100%;
+    font-weight: 600;
+}
+
 }
 @media all and (max-width: 768px) {
     .content{
@@ -253,3 +318,16 @@ a.b-cum:hover {
     border: none;
 }
 
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 10px 30px;
+
+}
+.mobile-farm{
+    margin-bottom: 2rem;
+}

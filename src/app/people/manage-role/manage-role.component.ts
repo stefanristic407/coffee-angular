@@ -3,10 +3,6 @@
 
 import { Component, OnInit } from '@angular/core';
 declare var $: any;
-
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-
-import { BottomSheetOverviewExampleSheet } from '../manage-role/bottom-sheet-overview-example-sheet'
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -26,7 +22,7 @@ export class ManageRoleComponent implements OnInit {
   roleID: any;
   roasterUsers: any[] = [];
   userRoles: any[] = [];
-  constructor(private _bottomSheet: MatBottomSheet,
+  constructor(
     public router: Router,
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
@@ -53,12 +49,6 @@ export class ManageRoleComponent implements OnInit {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-
-  // Function Name : Open Bottom Sheet
-  // Description: This function helps to open the more options in mobile view
-  openBottomSheet(): void {
-    this._bottomSheet.open(BottomSheetOverviewExampleSheet);
-  }
 
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.

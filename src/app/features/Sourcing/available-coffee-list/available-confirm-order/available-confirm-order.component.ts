@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AvailableConfirmOrderComponent implements OnInit {
   quantity:any;
+  quantity1:any;
   price:number=450;
   confirmOrderError:any;
   modalRef: BsModalRef;
@@ -35,6 +36,7 @@ openModal(template: TemplateRef<any>) {
 }
 ngOnInit(): void {
   this.quantity="";
+  this.quantity1="";
   this.confirmOrderError="";
   this.countryError= "";
   this.addressError = "";
@@ -45,10 +47,23 @@ ngOnInit(): void {
 placeOrder(){
   if(this.quantity=="" || this.quantity == null || this.quantity == undefined){
     this.confirmOrderError = "Please enter quantity";
-    document.getElementById('quantityId').style.border = "1px solid #D50000 ";
+    document.getElementById('quantityId').style.border = "1px solid #D50000";
     setTimeout(() => {
       this.confirmOrderError = "";
       document.getElementById('quantityId').style.border = "1px solid #d6d6d6 ";
+    }, 3000);
+  }
+  else{
+  this.openModal(this.confirmtemplate);
+  }
+}
+placeOrderMob(){
+  if(this.quantity1=="" || this.quantity1 == null || this.quantity1 == undefined){
+    this.confirmOrderError = "Please enter quantity";
+    document.getElementById('quantity_id').style.border = "1px solid #D50000";
+    setTimeout(() => {
+      this.confirmOrderError = "";
+      document.getElementById('quantity_id').style.border = "1px solid #d6d6d6 ";
     }, 3000);
   }
   else{

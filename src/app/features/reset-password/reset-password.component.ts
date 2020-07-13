@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { ToastrService } from "ngx-toastr";
 import { UserserviceService } from "src/services/users/userservice.service";
@@ -18,12 +18,15 @@ export class ResetPasswordComponent implements OnInit {
   passwordError: string;
   confirmPasswordError: string;
   updateButtonValue: string;
+  result: string;
+  showBackButton : boolean =true;
 
   constructor(
     private router: Router,
     private userService: UserserviceService,
     private cookieService: CookieService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private route : ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +38,15 @@ export class ResetPasswordComponent implements OnInit {
     this.passwordError = "";
     this.confirmPasswordError = "";
     this.updateButtonValue = "Change password";
+
+
+    this.result = decodeURIComponent(this.route.snapshot.queryParams['data']);
+    if(this.result == "privacy-settings"){
+      this.showBackButton =false;
+    }
+    else{
+      this.showBackButton = true;
+    }
 
     // Function Name : Passowrd Indicator
     // Description: This function helps to indicate the entering meeting the password policy.
@@ -400,6 +412,15 @@ export class ResetPasswordComponent implements OnInit {
         "1px solid #E8E8E8";
     }
   }
+
+  // back(){
+  //   this.result = decodeURIComponent(this.route.snapshot.queryParams['data']);
+  //         if(this.result == "privacy-settings"){
+  //         this.router.navigate(['/features/privacy-settings']);
+  //         }else{
+  //         this.router.navigate(['/features/login-security']);
+  //         }
+  // }
 
   // Function Name : update Password
   // Description: This function helps to update the user Password.

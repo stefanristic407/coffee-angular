@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-privacy-settings',
@@ -14,7 +15,10 @@ export class PrivacySettingsComponent implements OnInit {
   agree_cookies : boolean = false;
   agree_privacy : boolean = false;
   agree_terms : boolean = false;
-  constructor(public userService : UserserviceService, public toastrService : ToastrService) { }
+  result: string;
+  value: string;
+  constructor(public userService : UserserviceService, public toastrService : ToastrService, 
+              private route : ActivatedRoute, private router : Router) { }
 
   ngOnInit(): void {
     this.getPrivacyTerms();
@@ -51,7 +55,21 @@ export class PrivacySettingsComponent implements OnInit {
         console.log(response);
 
         if(response['success'] == true){
+          this.result = decodeURIComponent(this.route.snapshot.queryParams['data']);
+          if(this.result == "login" || this.result == "reset-password"){
           this.toastrService.success("Privacy terms setting has been updated successfully");
+          this.value = "privacy-settings";
+          let navigationExtras: NavigationExtras = {
+          queryParams: {
+            "data": encodeURIComponent(this.value),
+          }
+        }
+        this.router.navigate(['/features/reset-password'], navigationExtras);
+        
+          }else{
+            this.toastrService.success("Privacy terms setting has been updated successfully");
+          this.router.navigate(['/features/account-settings']);
+          }
         }else {
          this.toastrService.error("Please enable all the Privacy policy settings");
           

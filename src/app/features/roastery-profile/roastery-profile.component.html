@@ -14,7 +14,8 @@
                     </nav>
                 </div>
                 <div class="float-right ml-auto butn-mt">
-                    <button type="button" class="btn cancel-butn" > Save  </button>
+                    <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.savemode" (click)="roasteryProfileService.saveRoasterProfile()" > Save  </button>
+                    <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" > Edit  </button>
                 </div>
             </div>
         </section>
@@ -32,11 +33,12 @@
                         <div class="profile-div">
                                 <div class="col-lg-4 col-md-6 title-div">
                                 <p class="title pt-3">Royal coffee roasters company</p>
-                                <input class="form-control company-website" id="company-website" type="text" placeholder="www.royalcoffee.az.com/">
+                                <input class="form-control company-website" id="company-website" *ngIf="roasteryProfileService.savemode" type="text" placeholder="www.royalcoffee.az.com/">
+                                <p class="website-text" *ngIf="roasteryProfileService.editmode">www.royalcoffee.az.com/</p>
                             </div>
                                 <div class="pic-div">
                                     <img [src]="profilePhotoService.croppedImage" class="oval-pic">
-                                        <a class="show_modal" (click)="showModalDialog()">
+                                        <a class="show_modal" *ngIf="roasteryProfileService.savemode" (click)="showModalDialog()">
                                         <img src="assets/images/camera.svg" class="camera-pic">
                                         </a>
                                 </div>

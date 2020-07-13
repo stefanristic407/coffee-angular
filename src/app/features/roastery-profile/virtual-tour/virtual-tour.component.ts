@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoasteryProfileService } from '../roastery-profile.service';
 
 @Component({
   selector: 'sewn-virtual-tour',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VirtualTourComponent implements OnInit {
 
-  constructor() { }
+  constructor(public roasteryProfileService : RoasteryProfileService) { }
 
   ngOnInit(): void {
   }

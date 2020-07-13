@@ -315,3 +315,77 @@
         max-width: 45%;
     }
 }
+
+@media screen and (max-width:425px){
+    .breadcrumb1{
+        padding: 1rem;
+    }
+    .mob-header{
+        color: #232334;
+        font-weight: bold;
+        font-size: 16px;
+        display: block !important;
+    }
+    .raise-label{
+        color: #747588;
+        
+    }
+    .web-view{
+        display: none;
+    }
+    .mobile-view{
+        display: block !important;
+    }
+    .bg-raise{
+        border: none;
+        padding: 1rem;
+    }
+    .raise-a-ticket{
+        padding: 0;
+    }
+    .raise-chng-ord{
+        width: 100%;
+        text-align: end;
+        padding-right: 2rem;
+        top: 0%;
+        font-size: 12px;
+    }
+    .raise-order-details{
+        border: none;
+        margin: 0rem;
+    }
+    .raise-estate , .raise-estate-name{
+        font-size: 12px;
+    }
+    .ord-details-heading{
+        font-size: 14px;
+    }
+    .cancel-butn{
+        width: 100%;
+    }
+    .raise-bg-color{
+        padding: 1rem 0rem 1rem 0rem;
+    }
+    .details-list{
+        margin-left: 1rem !important;
+    }
+}
+.mob-header{
+    display: none;
+}
+.mobile-view{
+    display: none;
+}
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 10px 30px;
+
+}
+.mobile-farm{
+    margin-bottom: 2rem;
+}

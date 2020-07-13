@@ -434,3 +434,60 @@ span.checkmark {
     height: 21px;
     object-fit: contain;
 }
+
+
+/*  media query Fram Link */
+
+@media (max-width:767px) {
+    .bg-fff {
+        padding: 1rem .7rem !important;
+    }
+    .bread-nav {
+        padding-left: 0rem;
+    }
+    .estate-orders-heading {
+        margin: 0rem;
+    }
+    .Give-your-end-users {
+        width: 98%;
+        padding-bottom: 1rem;
+    }
+    .web-farm {
+        display: none !important;
+    }
+    .mobile-filiters-farm {
+        padding-top: 3rem;
+    }
+    .title-header {
+        margin: 1.3rem 1rem;
+    }
+    .estate-table {
+        margin: 1rem 0rem;
+    }
+    .nav-tabs {
+        border-bottom: 0px solid #dee2e6;
+    }
+    .source-cont .nav-tabs .nav-link.active {
+        border-bottom: 0px solid #30855c;
+        color: #30855c;
+    }
+    .bor-coffe {
+        border: 1px solid #ebebeb;
+        border-radius: 4px;
+        padding-top: 10px;
+        max-width: 48% !important;
+        margin: 1% !important;
+    }
+    .mobile-ce p {
+        margin-bottom: .5rem !important;
+    }
+    .bor-d6d6 {
+        border-top: 2px dashed #d6d6d6;
+        padding-bottom: 5px;
+    }
+    .vide-tble {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

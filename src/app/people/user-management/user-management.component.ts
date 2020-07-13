@@ -3,10 +3,6 @@
 
 import { Component, OnInit, TemplateRef,Renderer2 } from '@angular/core';
 declare var $: any;
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { BottomSheetOverviewExampleSheet } from '../user-management/bottom-sheet-overview-example-sheet'
-import { BottomSheetRoles } from '../user-management/to-bottomsheet-roles/bottom-sheet-roles';
-import { BottomSheetStatus } from '../user-management/to-bottomsheet-status/bottom-sheet-status';
 import { SheetValues } from './sheet-values';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -17,22 +13,6 @@ import {UserserviceService} from 'src/services/users/userservice.service';
 import { DatePipe } from '@angular/common';
 import { Alert } from 'selenium-webdriver';
 
-// @Component({
-//   selector: 'bottom-sheet-overview-example-sheet',
-//   templateUrl: 'bottom-sheet-overview-example-sheet.html',
-//   styleUrls:['bottom-sheet-overview-example-sheet.css']
-
-// })
-// export class BottomSheetOverviewExampleSheet {
-//   constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
-
-//   openLink(event: MouseEvent): void {
-//     this._bottomSheetRef.dismiss();
-//     event.preventDefault();
-//   }
-// }
-
-
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -41,7 +21,9 @@ import { Alert } from 'selenium-webdriver';
 export class UserManagementComponent implements OnInit {
   term: any;
   termStatus: any;
+  termStatusMob:any;
   termRole: any;
+  termRoleMob:any
   roaster_id: any;
   userfilterDat: any[] = [];
   roles: any;
@@ -58,7 +40,10 @@ export class UserManagementComponent implements OnInit {
   displayModal: boolean;
   showVar: boolean = true;
   showRole:boolean = true;
-  constructor(private _bottomSheet: MatBottomSheet,
+  showMobVar:boolean = true;
+  showMobRole:boolean = true;
+
+  constructor(
     private _sheetValues: SheetValues,
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
@@ -70,6 +55,8 @@ export class UserManagementComponent implements OnInit {
 	private renderer: Renderer2) {
     this.termStatus = '';
     this.termRole = '';
+    this.termRoleMob = '';
+    this.termStatusMob = '';
 	this.loginId = this.cookieService.get('user_id');
 	
 	// this.renderer.listen('window', 'click',(e:Event)=>{
@@ -116,6 +103,7 @@ export class UserManagementComponent implements OnInit {
 //       }
 //   });
 // });
+
 
   }
 //  Function Name : Check box function.
@@ -213,42 +201,17 @@ export class UserManagementComponent implements OnInit {
     );
   }
 
-  // Function Name : open bottom sheet
-  // Description: This function helps to open bottom sheeet in mobile view.
-
-  openBottomSheet(): void {
-    this._bottomSheet.open(BottomSheetOverviewExampleSheet);
-  }
-
-  // Function Name : Roles 
-  // Description: This function helps to roles filiter in mobile view.
-
-  openRoleBottomSheet() {
-    var bottomSheetRef = this._bottomSheet.open(BottomSheetRoles);
-    bottomSheetRef.afterDismissed().subscribe(() => {
-      this.termRole = this._sheetValues.roles;
-      console.log(this.termRole)
-    });
-  }
-
-  // Function Name : status
-  // Description: This function helps to status filiter in mobile view.
-
-  openStatusBottomSheet() {
-    var bottomSheetRef = this._bottomSheet.open(BottomSheetStatus);
-
-    bottomSheetRef.afterDismissed().subscribe(() => {
-      this.termStatus = this._sheetValues.status;
-    });
-
-    //bottomSheetRef.dismiss();
-  }
 
   // Function Name : Status Filiter
   // Description: This function helps to filiter the users based on the selected status fiiter.
 
   setStatus(term: any) {
     this.termStatus = term;
+    this.termStatusMob = term;
+    console.log(this.termStatus)
+  }
+  setStatusMob(term: any) {
+    this.termStatusMob = term;
     console.log(this.termStatus)
   }
 
@@ -257,6 +220,11 @@ export class UserManagementComponent implements OnInit {
 
   setRole(term: any) {
     this.termRole = term;
+    this.termRoleMob = term;
+  }
+  
+  setRoleMob(term: any) {
+    this.termRoleMob = term;
   }
 
   // Function Name : Delete user
@@ -432,13 +400,33 @@ export class UserManagementComponent implements OnInit {
 	
 	}
  }
+ toggleRole1() {
+	this.showRole = !this.showRole;
+	if(this.showRole==false){
+		document.getElementById('role_mobid').style.border="1px solid #30855c";
+	}
+	else{
+		document.getElementById('role_mobid').style.border="1px solid #d6d6d6";
+	
+	}
+ }
  toggleStatus() {
-  this.showVar = !this.showVar;
-  if(this.showVar==false){
+  this.showMobRole = !this.showMobRole;
+  if(this.showMobRole==false){
 	document.getElementById('status_id').style.border="1px solid #30855c";
 }
 else{
 	document.getElementById('status_id').style.border="1px solid #d6d6d6";
+
+}
+}
+toggleStatus1() {
+  this.showMobVar = !this.showMobVar;
+  if(this.showMobVar==false){
+	document.getElementById('status_mobid').style.border="1px solid #30855c";
+}
+else{
+	document.getElementById('status_mobid').style.border="1px solid #d6d6d6";
 
 }
 }

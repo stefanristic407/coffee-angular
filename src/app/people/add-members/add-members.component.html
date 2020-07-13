@@ -3,7 +3,7 @@
 </div>
 
 <!-- <div class="total_header"> -->
-<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-5">
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
@@ -25,7 +25,7 @@
             <span class="cancel_value">CANCEL</span>
 		</button> -->
 		
-		 <div class="col-lg-4 ml-auto text-right  cancel-top">
+		 <div class="pull-right cancel-top">
 			<button type="submit" routerLink="/people/user-management" class="btn btn-succes cancel_member">Cancel</button>
 		</div> 
       </ul>
@@ -55,14 +55,14 @@
 </div>
 </div> -->
 
-<div class="mt-4 mobview_add">
-    <h5 class="pl-1 mob-addmember" *ngIf="editFlag == 'add'">Add member</h5>
-    <h5 class="pl-1 mob-addmember" *ngIf="editFlag == 'edit'">Edit member</h5>
+<div class="pl-3 mobview_add">
+    <h5 class=" mob-addmember" *ngIf="editFlag == 'add'">Create Role</h5>
+    <h5 class=" mob-addmember" *ngIf="editFlag == 'edit'">Edit member</h5>
 
 </div>
 
-<section class="row">
-    <div class="d-inline col-xs-12 col-md-12 member_heading">
+<section>
+    <div class="member_heading">
         <div class="webview_add mt-4 left-space">
             <p class="d-inline member_heading member_title" *ngIf="editFlag == 'add'">Add your member for</p>
             <p class="d-inline member_heading member_title" *ngIf="editFlag == 'edit'">Edit your member for</p>
@@ -71,16 +71,16 @@
 			{{this.termRole}} 
 		<img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
         </div>
-        <div class="form-group row pt-3 mobview_add ">
+        <div class="form-group row pt-3 mobview_add pl-3 pr-3">
             <div class="form-group col-md-12">
-                <label class="member_email" *ngIf="editFlag == 'add'">ADD MEMBER TO</label>
-                <label class="member_email" *ngIf="editFlag == 'edit'">ADD MEMBER TO</label>
+                <label class="member_email" *ngIf="editFlag == 'add'">Add member</label>
+                <label class="member_email" *ngIf="editFlag == 'edit'">Edit member</label>
 
-                <select id="role_edit" class="form-control rectangle_dropdown" name="status">
+                <select id="role_edit" class="form-control rectangle_dropdown" name="role">
 						<option value="" selected disabled>Select role</option>
 						<option *ngFor="let role of roles" value="role.name">{{role.name}}</option>
-						
-					  </select> </div>
+					  </select>
+					</div>
         </div>
 
         <div class="member_details">
@@ -159,7 +159,7 @@
                                 {{ memberPasswordError }}
                             </div>
                         </div>
-                        <div class="form-group col-md-12 mt-4 mb-5 w-100 mob-space" *ngIf="edit">
+                        <div class="form-group col-md-12 mt-4 mb-4 w-100 mob-space" *ngIf="edit">
                             <label class="confirm-pwd" for="member_confirm_password">Confirm password*</label>
                             <input type="password" class="form-control" id="member_confirm_password" placeholder="Enter member confirm password" name="member_confirm_password" (keyup)="onKeyPress($event)" [(ngModel)]="member_confirm_password" required />
                             <div class="memberConfirmPasswordError" *ngIf="memberConfirmPasswordError != ''">
@@ -171,7 +171,7 @@
                     <div class=" col-md-5 col-sm-12">
                         <div class="form-group col-md-12 mb-4 mob-space">
                             <label for="lang">Language*</label>
-                            <select id="lang" class="form-control" name="lang" required="" (keyup)="onKeyPress($event)" [(ngModel)]="lang">
+                            <select id="lang" class="form-control rectangle_dropdown" name="lang" required="" (keyup)="onKeyPress($event)" [(ngModel)]="lang">
 						  <option value="" selected disabled> Select any language</option>
 						  <option value="en"> English </option>
 						  <option value="es"> Spanish </option>
@@ -180,9 +180,9 @@
                                 {{ languageError }}
                             </div>
                         </div>
-                        <div class="form-group col-md-12 mb-4 mob-space">
+                        <div class="form-group col-md-12 mb-md-4 mb-0 mob-space">
                             <label for="timezone">Timezone*</label>
-                            <select id="timezone" class="form-control" name="timezone" required="" [(ngModel)]="timezone">
+                            <select id="timezone" class="form-control rectangle_dropdown" name="timezone" required="" [(ngModel)]="timezone">
 						  <option value="" selected disabled> Select any Timezone</option>
 						  <optgroup label="US (Common)">	
 							  <option value="America/Puerto_Rico">Puerto Rico (Atlantic)</option>
@@ -697,15 +697,18 @@
 						</button>
 
 
-                <div class="col-xs-12 col-sm-12 mt-3 mobview_add">
-                    <button type="submit" (click)="sendInvites();" class="update float-right btn" [disabled]="loginButtonValue==='Adding'" *ngIf="editFlag == 'add'">
+                <div class="mobview_add">
+                    <button type="submit" (click)="sendInvites();" class="update btn w-100" [disabled]="loginButtonValue==='Adding'" *ngIf="editFlag == 'add'">
 							{{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Adding'" src="assets/images/orange-loader.gif"/>
 						</button>
-                    <button type="submit" class="update float-right btn" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'" *ngIf="editFlag == 'edit'">
-							{{loginButtonValueEdit}}<img class="loader" *ngIf="loginButtonValueEdit==='Updating'" src="assets/images/orange-loader.gif"/>
-						</button>
-                    <button type="button" routerLink="/people/user-management" class="cancel float-right btn btn-link">CANCEL</button>
-                </div>
+						<button type="submit" class="update btn w-100" (click)="sendInvites();" [disabled]="loginButtonValueEdit==='Updating'" *ngIf="editFlag == 'edit'">
+								{{loginButtonValueEdit}}<img class="loader" *ngIf="loginButtonValueEdit==='Updating'" src="assets/images/orange-loader.gif"/>
+							</button>
+				</div>
+				<div class="mobview_add">
+						
+						<button type="button" routerLink="/people/user-management" class="cancel btn btn-link w-100">Cancel</button>
+				</div>
                 <!-- </div> -->
 
 

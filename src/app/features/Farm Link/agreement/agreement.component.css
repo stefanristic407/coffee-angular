@@ -2,6 +2,10 @@
     padding-left: 3.1rem;
 }
 
+.agre-index-z {
+    z-index: 9;
+}
+
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_desc {
@@ -664,7 +668,7 @@ span.checkmark {
 
 /*  media query Fram Link */
 
-@media (max-width:640px) {
+@media (max-width:767px) {
     .bg-fff {
         padding: 1rem .7rem;
     }
@@ -694,5 +698,23 @@ span.checkmark {
         position: absolute;
         right: 2.2rem;
         top: -.5rem;
+    }
+    .agreement-top {
+        margin-top: 2rem;
+    }
+    .w-30 {
+        width: 25%;
+    }
+}
+
+@media (max-width: 480px) {
+    .w-30 {
+        width: 30%;
+    }
+}
+
+@media (max-width: 360px) {
+    .w-30 {
+        width: 34%;
     }
 }

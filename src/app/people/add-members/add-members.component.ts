@@ -37,6 +37,7 @@ export class AddMembersComponent implements OnInit {
   memberConfirmPasswordError: string;
   languageError: string;
   timeZoneError: string;
+  roleError:string;
   roaster_id: any;
   roles: any;
   role_id: any;
@@ -289,9 +290,8 @@ export class AddMembersComponent implements OnInit {
   }
 
   onKeyPress(event: any) {
-    if (event.target.value == "") {
-      document.getElementById(event.target.id).style.border = "1px solid #D50000";
-    } else {
+    if (event.target.value != "") 
+  {
       document.getElementById(event.target.id).style.border = "1px solid #E8E8E8";
     }
   }

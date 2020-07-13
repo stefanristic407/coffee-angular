@@ -1,12 +1,36 @@
 <div class="bg-fff">
+
+    <div class="avaialble-mob">
+        <div class="back-page mob-left w-100">
+            <a  routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> Back</a>
+        </div>
+        <div class="organic-border">
+        <div class="mob-left w-100">
+            <div class="pro-logo d-inline-block">
+                <img src="assets/images/mob-tit-logo.jpg">
+            </div>
+            <div class="det-tit d-inline-block">
+                <h2>Organic Washed Micro-lot</h2>
+                <span class="mob-name fnt-muli fnt-600 fnt-14">Finca La Pampa</span>
+            </div>
+        </div>
+        </div>
+        <div class="row mob-left pt-0 pb-0">
+            <div class="col-12">
+                <div class="prodect-gal">
+                    <gallery id="basic-test" [items]="items"  gallerize></gallery>
+                </div>
+            </div>
+        </div>    
+    </div>
     <div class="source-cont">
         <div class="row">
             <div class="col-lg-12">
-                <div class="sourcing-details">
+                <div class="sourcing-details avaialble-web">
                     <div class="back-page w-100">
                         <a  routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> Back</a>
                     </div>
-                    <div class="w-100 mt-3  clearfix">
+                    <div class="w-100 mt-3 clearfix">
                         <div class="source-det-tit pull-left">
                             <div class="pro-logo d-inline-block">
                                 <img src="assets/images/tit-logo.PNG">
@@ -14,7 +38,6 @@
                             <div class="det-tit d-inline-block">
                                 <h2>Finca la pampa</h2>
                                 <h6><span class="fa fa-star checked"></span> 4.95</h6>
-
                             </div>
                         </div>
                         <div class="source-knowmore pull-right">
@@ -25,30 +48,38 @@
                 </div>
             </div>
         </div>
-        <div class="prodect-details mt-4">
+        <div class="prodect-details mt-md-4">
             <div class="row">
-                <div class="col-lg-5 col-md-6">
+                <div class="col-lg-5 col-md-6 avaialble-web">
                     <div class="prodect-gal">
                         <gallery id="basic-test" [items]="items"  gallerize></gallery>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-6">
                     <div class="product-description">
-                        <h2 class="p-h2 mb-4">ID - 9639</h2>
-                        <h2 class="p-h2 mb-2">Organic washed micro-lot</h2>
-                        <h6 class="p-h6 mb-4"><img src="assets/images/location-rating.png" alt=""> Columbia</h6>
-                        <p class="farm-desc">This farm has a love story behind it: Among the first generation of coffee growers in this area was Jose Isidro Pereira, a dentist-turned–coffee producer who inherited Fazenda Sertão from his mother when she passed away—an incident
+                        <h2 class="p-h2 mb-4 mob-id">ID - 9639</h2>
+                        <h2 class="p-h2 mb-2 lot-size">Organic washed micro-lot</h2>
+                        <div class="s-certified d-md-none">
+                            <ul class="flex">
+                                <li><img src="/assets/images/group-certificate.png"></li>
+                                <li><img src="/assets/images/group-utz.png"></li>
+                                <li><img src="/assets/images/group-certified.png"></li>
+                            </ul>
+                        </div>
+                        <h6 class="p-h6 mb-4"><img class="mob-img" src="assets/images/location-rating.png" alt=""> Columbia</h6>
+                        <p class="avaialble-web farm-desc">This farm has a love story behind it: Among the first generation of coffee growers in this area was Jose Isidro Pereira, a dentist-turned–coffee producer who inherited Fazenda Sertão from his mother when she passed away—an incident
                             that ended his dentistry career but put him on a path to coffee farming. In 1949, Jose Isidro met the "love of his life," Nazareth, who continues to run the farm her husband left in her care.
                         </p>
+                        <p class="avaialble-mob mb-0 fnt-14 mob-farm-desc fnt-muli">The 21st century is the golden age for surgical procedures, among them an increasingly popular method of corrective eye surgery known as LASIK. LASIK is an acronym for the surgery, which stands for Laser Assisted In Situ Keratomileusis. This procedure has become increasingly reliable, with unresolved complications reported in only 3 to 6 percent of patients. The risk of complications is still there, however, and can take several different forms.</p>
 
-                        <div class="row mt-4">
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
+                        <div class="row mt-md-4 mt-2">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                 <div class="real-estate p-prices">
                                     <h6>Price :</h6>
                                     <h3>$7.451 USD / kg</h3>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 mb-3">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                 <div class="real-estate">
                                     <h6>Available Quantity :</h6>
                                     <h3>260 bags of 60kg</h3>
@@ -79,22 +110,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-5 mb-5">
-                            <div class="col-lg-3 col-md-3 col-sm-6 mb-3 pr-0">
+                        <div class="row mt-md-5 mt-3 mb-md-5 mb-0">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
                                 <div class="real-estate">
                                     <img src="assets/images/varient.svg">
                                     <h6>Variety</h6>
                                     <h3>Arabica</h3>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 mb-3 pr-0">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
                                 <div class="real-estate">
                                     <img src="assets/images/estate.svg">
                                     <h6>Species</h6>
                                     <h3>Castillo</h3>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 mb-3 pr-0">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
                                 <div class="real-estate">
                                     <img src="assets/images/harveaster.svg">
 
@@ -102,7 +133,7 @@
                                     <h3>January, 2020</h3>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 mb-3 pr-0">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
                                 <div class="real-estate">
                                     <img src="assets/images/processing.svg">
                                     <h6>Processing</h6>
@@ -111,7 +142,7 @@
                             </div>
 
                         </div>
-                        <div class="row">
+                        <div class="row avaialble-web">
                             <div class="col-lg-12">
                                 <div class="estate-focus">
                                     <h3>Estate details</h3>
@@ -177,13 +208,78 @@
                 </div>
             </div>
         </div>
+        <div class="prodect-details avaialble-mob mt-3">
+                <div class="row">
+                        <div class="col-lg-12">
+                            <div class="estate-focus">
+                                <h3>Estate Facts</h3>
+                                <ul class="clearfix">
+                                    <li><label>Moisture :</label>
+                                        <p>12.5%</p>
+                                    </li>
+                                    <li><label>Location :</label>
+                                        <p>Tapachula</p>
+                                    </li>
+                                    <li><label>Region :</label>
+                                        <p>Chiapas</p>
+                                    </li>
+                                    <li><label>Bean Location :</label>
+                                        <p>At warehouse</p>
+                                    </li>
+                                    <li><label>Mill :</label>
+                                        <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p>
+                                    </li>
+                                    <li><label>Altitude :</label>
+                                        <p>1,000 - 1,600 meters above sea level</p>
+                                    </li>
+                                    <li><label>Flavour Profile :</label>
+                                        <ul class="sugar-prod">
+                                            <li>Honey</li>
+                                            <li>Dark chocalte</li>
+                                            <li>spices</li>
+                                        </ul>
+                                    </li>
+                                    <li><label>Weather activity :</label>
+                                        <p>0.233</p>
+                                    </li>
+                                    <li><label>Packaging :</label>
+                                        <p>Biodegradeable</p>
+                                    </li>
+                                    <li><label>Shippingto :</label>
+                                        <p>Brazil, Europe, America</p>
+                                    </li>
+                                    <li><label>Dry mil :</label>
+                                        <p>Estoda</p>
+                                    </li>
+                                    <li><label>Dry milling process :</label>
+                                        <p>Sun dried</p>
+                                    </li>
+                                    <li><label>Dry mill description :</label>
+                                        <p>involves drying of beans with the heat and energy of the sun. The dry process is the most simple, effective and natural way to drythe beans.</p>
+                                    </li>
+                                    <li><label>Wet mil :</label>
+                                        <p>Finca Taiopla</p>
+                                    </li>
+                                    <li><label>Wet mill Process :</label>
+                                        <p>Washed</p>
+                                    </li>
+                                    <li><label>Wet mil description :</label>
+                                        <p>Wet processed (washed) coffees are dried without the cherry. Washed coffee's are de-pulped then usually fermented to promote the separation of any remaining pectin still stuck to the bean and parchment, then
+                                            washed clean prior to drying.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+        </div>
         <!-- Chart div starts-->
-        <div class="chart-details mt-4">
+        <div class="chart-details chart-cont mt-4">
             <div class="row">
                 <div class="live-estate col-lg-12 ">
                     <h2>Live from our estate!</h2>
-                    <div class="mt-2">We bring you live updates of your lot with geo tracking!</div>
-
+                    <div class="mt-2 live-text">We bring you live updates of your lot with geo tracking!</div>
+        
                     <nav class="mt-4">
                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">Weather</a>
@@ -192,22 +288,22 @@
                             <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">Images</a>
                         </div>
                     </nav>
-
+        
                     <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
                         <!-- weather-->
                         <div class="tab-pane fade show active" id="weather" role="tabpanel" aria-labelledby="nav-home-tab">
                             <div class="row">
                                 <div class="col-lg-5">
                                 </div>
-                                <div class="col-lg-7 d-inline pl-5">
+                                <div class="col-lg-7 d-inline pl-0 pl-md-5">
                                     <div class="d-inline col-sm-6">
-                                        <span class="legend-color">&#9679;</span> Legend 1
+                                        <span class="legend-color"></span><span class="legend-text pl-2">Legend 1</span>
                                     </div>
                                     <div class="d-inline col-sm-6">
-                                        <span class="legend-color2">&#9679;</span> Legend 2
+                                        <span class="legend-color2"></span><span class="legend-text pl-2">Legend 2</span>
                                     </div>
-
-                                    <div class="d-inline border-total col-sm-6">
+        
+                                    <div class="d-inline border-total col-sm-6 ml-md-4">
                                         <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
                                         <a class="pointer-item">
                                             <p class="d-inline filter">
@@ -225,7 +321,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-4">
+                            <div class="row mt-0 mt-md-4">
                                 <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                     [roundDomains]="roundDomains" [timeline]="timeline">
                                 </ngx-charts-line-chart>
@@ -235,15 +331,15 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                 </div>
-                                <div class="col-lg-7 d-inline pl-5">
+                                <div class="col-lg-7 d-inline pl-0 pl-md-5">
                                     <div class="d-inline col-sm-6">
-                                        <span class="legend-color">&#9679;</span> Legend 1
+                                        <span class="legend-color"></span><span class="legend-text pl-2">Legend 1</span>
                                     </div>
                                     <div class="d-inline col-sm-6">
-                                        <span class="legend-color2">&#9679;</span> Legend 2
+                                        <span class="legend-color2"></span> <span class="legend-text pl-2">Legend 2</span>
                                     </div>
         
-                                    <div class="d-inline border-total col-sm-6">
+                                    <div class="d-inline border-total col-sm-6 ml-md-4">
                                         <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
                                         <a class="pointer-item">
                                             <p class="d-inline filter">
@@ -261,7 +357,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-4">
+                            <div class="row mt-0 mt-md-4">
                                 <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                     [roundDomains]="roundDomains" [timeline]="timeline">
                                 </ngx-charts-line-chart>
@@ -271,15 +367,15 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                 </div>
-                                <div class="col-lg-7 d-inline pl-5">
+                                <div class="col-lg-7 d-inline pl-0 pl-md-5">
                                     <div class="d-inline col-sm-6">
-                                        <span class="legend-color">&#9679;</span> Legend 1
+                                        <span class="legend-color"></span><span class="legend-text pl-2">Legend 1</span>
                                     </div>
                                     <div class="d-inline col-sm-6">
-                                        <span class="legend-color2">&#9679;</span> Legend 2
+                                        <span class="legend-color2"></span><span class="legend-text pl-2">Legend 2</span>
                                     </div>
         
-                                    <div class="d-inline border-total col-sm-6">
+                                    <div class="d-inline border-total col-sm-6 ml-md-4">
                                         <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
                                         <a class="pointer-item">
                                             <p class="d-inline filter">
@@ -297,7 +393,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-4">
+                            <div class="row mt-0 mt-md-4">
                                 <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                     [roundDomains]="roundDomains" [timeline]="timeline">
                                 </ngx-charts-line-chart>
@@ -307,15 +403,15 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                 </div>
-                                <div class="col-lg-7 d-inline pl-5">
+                                <div class="col-lg-7 d-inline pl-0 pl-md-5">
                                     <div class="d-inline col-sm-6">
-                                        <span class="legend-color">&#9679;</span> Legend 1
+                                        <span class="legend-color"></span><span class="legend-text pl-2">Legend 1</span>
                                     </div>
                                     <div class="d-inline col-sm-6">
-                                        <span class="legend-color2">&#9679;</span> Legend 2
+                                        <span class="legend-color2"></span><span class="legend-text pl-2">Legend 2</span>
                                     </div>
         
-                                    <div class="d-inline border-total col-sm-6">
+                                    <div class="d-inline border-total col-sm-6 ml-md-4">
                                         <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
                                         <a class="pointer-item">
                                             <p class="d-inline filter">
@@ -333,7 +429,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-4">
+                            <div class="row mt-0 mt-md-4">
                                 <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                     [roundDomains]="roundDomains" [timeline]="timeline">
                                 </ngx-charts-line-chart>
@@ -343,14 +439,16 @@
                 </div>
             </div>
         </div>
-        <!-- Chart div ends-->
+        
+                <!-- Chart div ends-->
     </div>
 </div>
-<div class="row mt-4 coffee-fff">
+<div class="mt-4 coffee-fff">
+    <div class="coffee-space">
     <div class="heading-other">Estates other available green coffee</div>
-    <div class="cardpanel-detail">
+    <div class="cardpanel-detail avaialble-web">
         <div class="row">
-            <div class="col-lg-4 col-md-6 cursor-item" *ngFor="let item of coffeedata">
+            <div class="col-lg-4 col-md-6 col-12 cursor-item" *ngFor="let item of coffeedata">
                 <div class="source-card card-border green-coffee-product">
                     <div class="s-gal">
                         <img [src]="item.image" alt="">
@@ -391,4 +489,74 @@
             </div>
         </div>
     </div>
+
+    <!-- Mobile Carousel -->
+    <div class="cardpanel-detail avaialble-mob">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 cursor-item">
+                        <carousel [showIndicators]="true">
+                                <slide class="animated fadeIn" *ngFor="let item of coffeedata">
+
+                                        <div class="source-card card-border green-coffee-product">
+                                                <div class="s-gal">
+                                                    <img [src]="item.image" alt="">
+                                                    <div class="cupping">
+                                                        <p>Cup score {{item.score}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="s-details ">
+                                                    <div class="flex">
+                                                        <div class="s-tit">
+                                                            <h3>{{item.name}}</h3>
+                                                            <h5>{{item.estatename}}</h5>
+                                                            <h6>{{item.price}}</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="source-lets flex">
+                                                        <div class="orgin-att">
+                                                            <label>Origin</label>
+                                                            <h6>{{item.origin}}</h6>
+                                                        </div>
+                                                        <div class="orgin-att">
+                                                            <label>Species</label>
+                                                            <h6>{{item.species}}</h6>
+                                                        </div>
+                                                        <div class="orgin-att">
+                                                            <label>Flavour</label>
+                                                            <ul class="flo-list">
+                                                                <li>Citrus</li>
+                                                                <li>Floral</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="top-lots">
+                                                        <label>Available Quantity : <span> {{item.quantity}} of 60kg </span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                </slide>
+                            </carousel>
+                   
+                </div>
+            </div>
+        </div>
+    
+    
+
+
+
 </div>
+
+<!-- <carousel> -->
+        <!-- <slide>
+          <img src="assets/images/thumbnail-4.jpg" alt="first slide" style="display: block; width: 100%;">
+        </slide>
+        <slide>
+          <img src="assets/images/thumbnail-3.jpg" alt="second slide" style="display: block; width: 100%;">
+        </slide>
+        <slide>
+          <img src="assets/images/thumbnail-1.jpg" alt="third slide" style="display: block; width: 100%;">
+        </slide>
+      </carousel> -->
+

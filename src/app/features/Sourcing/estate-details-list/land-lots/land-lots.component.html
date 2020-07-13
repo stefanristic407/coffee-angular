@@ -1,4 +1,4 @@
-<div class="table-details">
+<div class="table-details d-none d-md-block">
     <div class="table-responsive border-lots">
         <table class="table">
             <thead class="table-header">
@@ -36,12 +36,71 @@
         </table>
     </div>
 </div>
-<div class="mt-5">
+<div class="mt-5 d-none d-md-block">
     <div class="map-heading">Map of the estate</div>
     <div class="text-center">
         <img src="assets/images/estate-map.jpg" alt="">
     </div>
-    <div class="w-100 chat-div">
+    <div class="w-100 chat-div d-md-block d-none">
         <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
     </div>
 </div>
+<div class="row">
+<div class="col-lg-12 m-padding-8">
+    <div class=" d-block d-md-none" *ngFor="let lot of lots">
+        <div class="mdevics">
+    <h6 class="d-block d-md-none tit-cont">{{lot.lotname}}</h6>
+    <div class="row mt-4 mt-md-0">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
+            <div class="real-estate">
+                <h6>Lot size</h6>
+                <h3>{{ lot.lotsize }}</h3>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
+            <div class="real-estate">
+                <h6>Av. Score</h6>
+                <h3>{{ lot.score }}</h3>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
+            <div class="real-estate">
+                <h6>Altitude</h6>
+                <h3>{{lot.altitude}}</h3>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
+            <div class="real-estate">
+                <h6>Variety</h6>
+                <h3>{{ lot.variety }}</h3>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
+            <div class="real-estate">
+                <h6>Species</h6>
+                <h3>{{lot.species}}</h3>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+            <div class="real-estate">
+                <h6>Flavour</h6>
+        <ul class="sugar-prod">
+            <li>Honey</li>
+            <li>Dark chocalte</li>
+            <li>spices</li>
+        </ul>
+        </div>
+        </div>
+
+    </div>
+    <div class="landlots mb-3">
+        <a href="#">Buy Now</a>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+<div class="row mt-4 d-md-none d-block">
+        <app-overview-ratings></app-overview-ratings>
+
+    </div>

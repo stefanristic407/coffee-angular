@@ -154,7 +154,7 @@
     left: 0;
     right: 0;
     bottom: 0px;
-    z-index: 99;
+    z-index: 9;
     background-color: #fff;
     padding: 5px 50px;
 }
@@ -162,7 +162,7 @@
 
 /*  media query Fram Link */
 
-@media (max-width:640px) {
+@media (max-width:767px) {
     .brand-button {
         padding: 1rem;
     }

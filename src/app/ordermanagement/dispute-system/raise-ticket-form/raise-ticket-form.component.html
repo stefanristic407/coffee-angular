@@ -22,18 +22,81 @@
     <section class="raise-ticket-form-section">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row">
+                <p class="mob-header pl-3">Raise a ticket</p>
+                <div class="col-lg-5 col-md-12 col-sm-12 mobile-view raise-order-details">
+
+                        <div class="raise-bg-color">
+                            <h3 class="ord-details-heading fnt-muli"> Order details</h3>
+                            <div class="row mt-4 col-12 border-div">
+                                <div class=" p-0"><img class="img-estate" src="assets/images/activity1.png" alt="User"></div>
+                                <div class="pull-left">
+                                    <ul class="details-list p-0 fnt-muli">
+                                        <li class="list-name"><span class="raise-estate ">Estate name : </span> <span class="raise-estate-name"> Finca La Pampa </span></li>
+                                        <li class="list-name"><span class="raise-estate">Owner : </span> <span class="raise-estate-name"> Ronnie Lowe  </span></li>
+    
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row mt-4 mb-3 col-12">
+                                <div class=" p-0"><img class="img-estate" src="assets/images/activity1.png" alt="User"></div>
+                                <div class="pull-left">
+                                    <ul class="details-list p-0 fnt-muli">
+                                        <li class="list-name"><span class="raise-estate">Roaster name :  </span> <span class="raise-estate-name"> Lofbergs </span></li>
+                                        <li class="list-name"><span class="raise-estate">Owner :  </span> <span class="raise-estate-name"> Milton Walker </span></li>
+    
+                                    </ul>
+                                </div>
+                            </div>
+    
+    
+                            <table class="recent-time fnt-muli">
+    
+                                <tr>
+                                    <td> <span class="list-que"> Origin : </span></td>
+                                    <td> <span class="list-ans"> Colombia </span> </td>
+    
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-que">  Variety : </span></td>
+                                    <td> <span class="list-ans">  Bourbon, cautai </span> </td>
+    
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-que">  Price : </span></td>
+                                    <td> <span class="list-ans">  $7.45 USD/kg </span> </td>
+    
+                                </tr>
+    
+                                <tr>
+                                    <td> <span class="list-que">  Type of order : </span></td>
+                                    <td> <span class="list-ans">  Booked </span> </td>
+    
+                                </tr>
+    
+                                <tr>
+                                    <td> <span class="list-que">  Status : </span></td>
+                                    <td> <span class="list-ans">  Shipped </span> </td>
+    
+                                </tr>
+    
+    
+                            </table>
+    
+                        </div>
+    
+                    </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 raise-a-ticket">
                     <div class="bg-raise">
-                        <h3> Raise a ticket</h3>
+                        <h3 class="web-view"> Raise a ticket</h3>
 
                         <div class="form-group row pt-2">
                             <div class="form-group col-md-9 col-sm-6">
-                                <label class="raise-label fnt-muli">Order ID #</label>
+                                <label class="raise-label fnt-muli">Order ID #<span class="mobile-view "><span class="raise-chng-ord fnt-muli" routerLink="/ordermanagement/select-order"> <img src="/assets/images/shape-2.png" alt=""> change order</span></span></label>
                                 <input type="number" class="form-control raise-box ord disable-ticket" placeholder="12345" (keyup)="onKeyPress($event)" [(ngModel)]="orderid" name="orderid" id="orderId" disabled="disabled" required="">
                                 <!-- <div class="orderidError" *ngIf="orderidError != ''">{{orderidError}}</div> -->
 
                             </div>
-                            <div class="form-group col-md-3 col-sm-6">
+                            <div class="form-group col-md-3 col-sm-6 web-view">
                                 <span class="raise-chng-ord fnt-muli" routerLink="/ordermanagement/select-order"> <img src="/assets/images/shape-2.png" alt=""> change order</span>
                             </div>
                         </div>
@@ -143,7 +206,7 @@
                 </div>
 
 
-                <div class="col-lg-5 col-md-12 col-sm-12 raise-order-details">
+                <div class="col-lg-5 col-md-12 col-sm-12 web-view raise-order-details">
 
                     <div class="raise-bg-color">
                         <h3 class="ord-details-heading fnt-muli"> Order details</h3>
@@ -210,9 +273,12 @@
             </div>
 
         </div>
+        <div class="mobile-farm  col-12">
+                <button type="button" class="btn btn-succes fnt-muli cancel-butn"  (click)="submitTicket();"> Submit</button>
+            </div>
     </section>
 
-    <div class="float-right ml-auto mb-3 mt-2">
+    <div class="float-right ml-auto mb-3 mt-2 web-view">
         <button type="button" class="btn cancel-butn fnt-muli" (click)="submitTicket();"> Submit </button>
     </div>
 

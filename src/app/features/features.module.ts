@@ -35,6 +35,7 @@ import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { DataTablesModule } from "angular-datatables";
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 
@@ -155,6 +156,7 @@ import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-pla
     GalleryModule,
     LightboxModule,
     TypeaheadModule.forRoot(),
+    CarouselModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
   ]
 })

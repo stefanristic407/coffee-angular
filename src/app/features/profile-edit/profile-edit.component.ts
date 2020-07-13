@@ -94,13 +94,16 @@ export class ProfileEditComponent implements OnInit {
           this.userService.getRoasterProfile(this.roaster_id).subscribe(
             response => {
               if(response['success']==true){
+                console.log(response)
                 this.name = response['result']['firstname']+" "+ response['result']['lastname'];
                 this.email = response['result']['email'];
                 this.numberValue =  response['result']['phone'].split("-");
                 this.phoneno = this.numberValue[1];
                 document.getElementById('finalNumber').innerHTML = this.numberValue[0];
+                console.log(this.numberValue)
                 this.date6 = response['result']['date_of_birth'];
-
+                this.profilePicService.croppedImage = response['result']['profile_image_url'];
+                this.profilePicService.deleteLogo  = true;
                 this.roasterService.getUserBasedRoles(this.roaster_id, response['result']['id']).subscribe(
                   roleData => {
                     if(roleData['success']==true){
@@ -154,6 +157,31 @@ export class ProfileEditComponent implements OnInit {
     // this.profileImageService.croppedImage = "assets/images/profile.svg";
     this.profilePicService.displayModal = false;
   }
+
+
+   b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+  var blob = new Blob(byteArrays, {type: contentType});
+  return blob;
+}
 
   onKeyPress(event: any) {
     if (event.target.value == "") {
@@ -244,29 +272,41 @@ export class ProfileEditComponent implements OnInit {
        this.userService.updateRoasterProfile(this.roaster_id,data).subscribe(
          result => {
            console.log(result)
+           this.roasterId = this.cookieService.get('roaster_id');
+           this.user_id = this.cookieService.get('user_id');
            if(result['success'] == true){
-            // let formData: FormData = new FormData();
-            // formData.append("file", this.profilePicService.croppedImage);
-            // this.roasterId = this.cookieService.get('roaster_id');
-            // this.user_id = this.cookieService.get('user_id');
-            // formData.append(
-            //   "api_call",
-            //   "/ro/" + this.roasterId + "/users/" + this.user_id + "/profile-image"
-            // );
-            // formData.append("token", this.cookieService.get("Auth"));
-            // this.userService.uploadProfileImage(formData).subscribe(
-            //   result => {
-            //     console.log(result)
-            //     if(result['success']== true){
+            console.log(this.profilePicService.croppedImage)
+            var ImageURL = this.profilePicService.croppedImage;
+             // Split the base64 string in data and contentType
+            var block = ImageURL.split(";");
+            // Get the content type of the image
+            var contentType = block[0].split(":")[1];// In this case "image/gif"
+            // get the real base64 content of the file
+            var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+            
+            // Convert it to a blob to upload
+            var blob = this.b64toBlob(realData, contentType,0);
+            
+            let formData: FormData = new FormData();
+            formData.append("file", blob);
+            formData.append(
+              "api_call",
+              "/ro/" + this.roasterId + "/users/" + this.user_id + "/profile-image"
+            );
+            formData.append("token", this.cookieService.get("Auth"));
+            this.userService.uploadProfileImage(formData).subscribe(
+              result => {
+                console.log(result)
+                if(result['success']== true){
                 this.toastrService.success("Profile details updated successfully");
-                this.router.navigate(['/features/myprofile']);
-                // }
-                // else{
-                //   console.log(result);
-                //   this.toastrService.error("Error while updating details, please try again.")
-                // }
-            //   }
-            // )
+                this.router.navigate(['/features/account-settings']);
+                }
+                else{
+                  console.log(result);
+                  this.toastrService.error("Error while updating details, please try again.")
+                }
+              }
+            )
              
            }
            else{

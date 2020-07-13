@@ -508,12 +508,6 @@ ul li {
     fill: #fff;
 }
 
-.filter-sort {
-    position: absolute;
-    right: 20px;
-    top: -10px;
-}
-
 .table-details {
     display: none;
 }
@@ -525,10 +519,14 @@ ul li {
     padding: 10px 12px;
 }
 
+:host ::ng-deep .ui-inputtext {
+    display: none !important;
+}
+
 
 /*  media query Fram Link */
 
-@media (max-width:640px) {
+@media (max-width:767px) {
     .bg-fff {
         padding: 1rem .7rem;
     }
@@ -574,5 +572,8 @@ ul li {
     .bor-d6d6 {
         border-top: 2px dashed #d6d6d6;
         padding-bottom: 5px;
+    }
+    .w-date {
+        width: 139px !important;
     }
 }

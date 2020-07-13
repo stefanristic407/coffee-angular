@@ -1,155 +1,190 @@
-<div class="estate-table pt-3">
+<div class="estate-table web-farm pt-md-3">
     <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
     </table>
 </div>
 
-<div class="sourcing-panel mobile-farm">
-    <section id="tabs">
-        <div class="source-cont">
-            <div class="row">
-                <div class="col-lg-12 ">
-                    <div class="filter-sort">
-                        <div class="d-inline border-grade col-sm-6 mr-2" id="sort_id">
-                            <p class="d-inline filter-text" *ngIf="sort == ''">Sort by&nbsp;</p>
-                            <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body" #pop10="bs-popover">
-                                <p class="d-inline filter" *ngIf="sort == ''" (click)="toggleSort()">
-                                    &nbsp; <img src="{{ showSort ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+<div class="estate-table mobile-farm pt-md-3">
+
+    <div class="sourcing-panel mobile-farm">
+        <section id="tabs">
+            <div class="source-cont">
+                <div class="row">
+                    <div class="col-lg-12 ">
+                        <div class="filter-sort clearfix align-items-center w-100">
+                            <div class="d-inline border-grade date-div w-date col-sm-6 mr-2 float-left">
+                                <p class="d-inline filter-text">Date range &nbsp;
+                                    <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
                                 </p>
-                            </a>
-                            <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body" #pop9="bs-popover">
-                                <p class="d-inline filter" *ngIf="sort != ''" (click)="toggleSort()">
-                                    {{ sort }}&nbsp;<img src="{{ showSort ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
-                                </p>
-                            </a>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn-switch remove-toggle">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10">
+
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
+                                        &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
+                                        <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
+                                    </p-calendar> -->
+                                    </p>
+                                </a>
+
+                            </div>
+                            <div class="btn-group float-right ml-auto">
+                                <a class="btn-switch remove-toggle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10">
                                 <path fill="#FFF"
                                     d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z" />
                             </svg>
 
-                            </a>
-                            <div class="btn-group">
-                                <a class="btn-switch activate-toggle active">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+                                </a>
+                                <div class="btn-group">
+                                    <a class="btn-switch activate-toggle active">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
                                     <path fill="#232334"
                                         d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z" />
                                 </svg>
 
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <nav>
-                        <div class="nav nav-tabs nav-fill pt-4" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true"></a>
-                        </div>
-                    </nav>
-                    <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="documents" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div class="cardpanel-detail">
-                                <div class="row">
-                                    <div class="col-6 bor-coffe">
-                                        <p><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                        <p class="fnt-12 light-eight"> Finca La Pampa</p>
-                                        <p class="fnt-12 light-eight"> Colombia</p>
-                                        <p class="fnt-12 light-eb"> 19/12/19</p>
-                                    </div>
-                                    <div class="col-6 bor-coffe">
-                                        <p><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                        <p class="fnt-12 light-eight"> Gesha</p>
-                                        <p class="fnt-12 light-eight"> Ethiopia</p>
-                                        <p class="fnt-12 light-eb"> 12/01/20</p>
-                                    </div>
-
-                                    <div class="col-6 bor-coffe">
-                                        <p><span class="black fnt-14"> #81677</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                        <p class="fnt-12 light-eight"> Finca La Toboba</p>
-                                        <p class="fnt-12 light-eight"> Brazil</p>
-                                        <p class="fnt-12 light-eb"> 02/10/19</p>
-                                    </div>
-                                    <div class="col-6 bor-coffe">
-                                        <p><span class="black fnt-14"> #12416</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                        <p class="fnt-12 light-eight"> Cafe Directo</p>
-                                        <p class="fnt-12 light-eight"> Ethiopia</p>
-                                        <p class="fnt-12 light-eb"> 19/11/19</p>
-                                    </div>
-                                    <div class="col-6 bor-coffe">
-                                        <p><span class="black fnt-14"> #71716</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                        <p class="fnt-12 light-eight"> Finca La Pampa</p>
-                                        <p class="fnt-12 light-eight"> Colombia</p>
-                                        <p class="fnt-12 light-eb"> 02/10/19</p>
-                                    </div>
-                                    <div class="col-6 bor-coffe">
-                                        <p><span class="black fnt-14"> #56412</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                        <p class="fnt-12 light-eight">La Isabela</p>
-                                        <p class="fnt-12 light-eight"> Brazil</p>
-                                        <p class="fnt-12 light-eb"> 20/02/19</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-details">
-                                <div class="table-responsive border-sourcetable">
-                                    <div class="row mobile-ce">
-                                        <div class="col-12 bor-d6d6">
-                                            <p class="pt-3"><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                            <p class="fnt-14 light-eight"> Finca La Pampa</p>
-                                            <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
-                                        </div>
-
-                                        <div class="col-12 bor-d6d6">
-                                            <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                            <p class="fnt-14 light-eight"> Gesha</p>
-                                            <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
-                                        </div>
-                                        <div class="col-12 bor-d6d6">
-                                            <p class="pt-3"><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                            <p class="fnt-14 light-eight"> Finca La Tobob</p>
-                                            <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
-                                        </div>
-
-                                        <div class="col-12 bor-d6d6">
-                                            <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                            <p class="fnt-14 light-eight"> Cafe Directo</p>
-                                            <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
-                                        </div>
-
-                                        <div class="col-12 bor-d6d6">
-                                            <p class="pt-3"><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                            <p class="fnt-14 light-eight"> Finca La Pampa</p>
-                                            <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
-                                        </div>
-
-                                        <div class="col-12 bor-d6d6">
-                                            <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                            <p class="fnt-14 light-eight"> Gesha</p>
-                                            <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
-                                        </div>
-                                    </div>
-
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                        <nav>
+                            <div class="nav nav-tabs nav-fill pt-md-4" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true"></a>
+                            </div>
+                        </nav>
+                        <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="documents" role="tabpanel" aria-labelledby="nav-home-tab">
 
+                                <div class="pagination-content">
+                                    <div class="cardpanel-detail">
+                                        <div class="row pagination-content-list">
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p" routerLink="/features/file-share-details"> Finca Guadalupe </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by SEWN team </p>
+                                                <p class="fnt-12 light-eb"> Folder </p>
+                                            </div>
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p">Finca La Pampa </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by SEWN team</p>
+                                                <p class="fnt-12 light-eb"> Folder </p>
+                                            </div>
+
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p"> Roastery Machine Manuals</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by SEWN team</p>
+                                                <p class="fnt-12 light-eight"> Brazil</p>
+                                                <p class="fnt-12 light-eb"> Folder </p>
+                                            </div>
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p"> Roaster Brand </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by Löfbergs...</p>
+                                                <p><span class="fnt-12 light-eight"> #71716</span> <span class=" pull-right fnt-12 light-eight"> Document </span></p>
+                                            </div>
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p"> Roaster coffee?</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by Löfbergs... </p>
+                                                <p><span class="fnt-12 light-eight"> #71716</span> <span class=" pull-right fnt-12 light-eight"> CSV </span></p>
+                                            </div>
+
+                                        </div>
+                                        <div class="responsive-pagination clearfix">
+                                            <span class="responsive-pagination__prev float-left disable"></span>
+                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
+                                            </ul>
+                                            <span class="responsive-pagination__next float-left"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pagination-content">
+                                    <div class="table-details">
+                                        <div class="table-responsive border-sourcetable pagination-content-list">
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14"> Finca Guadalupe Zajú</p>
+                                                        <p class="fnt-12 light-eight">Modified by SEWN team</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14"> Finca La Pampa - Brand</p>
+                                                        <p class="fnt-12 light-eight">Modified by SEWN team</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14"> Roastery Machine Manuals</p>
+                                                        <p class="fnt-12 light-eight">Modified by SEWN team</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/file-floder.png" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14"> Roaster - Brand assets</p>
+                                                        <p class="fnt-12 light-eight">Modified by Löfbergs team</p>
+                                                        <p class="fnt-12 light-eight">#127908</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14">Roaster coffee??</p>
+                                                        <p class="fnt-12 light-eight">Modified by Löfbergs team</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="responsive-pagination clearfix">
+                                            <span class="responsive-pagination__prev float-left disable"></span>
+                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                <!-- <li class="responsive-pagination-list__item active">1</li>
+                                    <li class="responsive-pagination-list__item">2</li>
+                                    <li class="responsive-pagination-list__item">3</li>
+                                    <li class="responsive-pagination-list__item">4</li>
+                                    <li class="responsive-pagination-list__item">5</li> -->
+                                            </ul>
+                                            <span class="responsive-pagination__next float-left"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
-
-<ng-template #sortTemplate>
-    <div>
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Name (A-Z)'); pop10.hide(); pop9.hide();toggleSort()">Name (A-Z)</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Recently added'); pop10.hide(); pop9.hide();toggleSort()">Recently added</a>
-            </li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Cup score'); pop10.hide(); pop9.hide();toggleSort()">Cup score (High-Low)</a>
-            </li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Price'); pop10.hide(); pop9.hide();toggleSort()">Price (High - low)</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Quantity'); pop10.hide(); pop9.hide();toggleSort()">Quantity (High- Low)</a>
-            </li>
-        </ul>
+        </section>
     </div>
-</ng-template>

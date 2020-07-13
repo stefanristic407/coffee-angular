@@ -34,6 +34,29 @@ export class RatingComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
+    //Ratings
+    $('.rating__item input[type="checkbox"]').on('change', function () {
+      var $this = $(this);
+      var $prev = $(this).parents('.rating__item').index();
+      var $next = $(this).parents('.rating').find('.rating__item').length;
+      $(this).parents('.rating__item').addClass('checked');
+      $(this).parents('.rating').find('.rating__item').find('input[type="checkbox"]').prop('checked', true)
+  
+      for(var i=$prev+1; i<=$next; i++) {
+        $(this).parents('.rating').find('.rating__item').eq(i).removeClass('checked');
+        $(this).parents('.rating').find('.rating__item').eq(i).find('input[type="checkbox"]').prop('checked', false)
+      }
+      if ($this.is(':checked')) {
+        console.log($(this).val());
+        $(this).parents('.rating').removeClass('rating-required');
+        for(var x=0; x<$prev;x++) {
+          $(this).parents('.rating').find('.rating__item').eq(x).addClass('checked');
+          $(this).parents('.rating').find('.rating__item').eq(x).find('input[type="checkbox"]').prop('checked', true)
+        }
+      }
+  
+  });
   }
 
   onRate(event){
@@ -52,57 +75,25 @@ export class RatingComponent implements OnInit {
   }
 
   submitRating(){
-    if((this.experience == "0" ) && (this.communication == "0" ) && (this.review == "") && (this.experienceuser == "0") && (this.communicationUser == "0") && (this.reviewUser == "")){
-    this.experienceError = "Tap the stars to rate";
-      this.communicationError = "Tap the stars to rate";
+    var $rating=$('.rating').find('.checked');
+
+    if((this.review == "") &&  (this.reviewUser == "") && ($rating)){
       this.reviewError = "please write your review";
-      this.experienceUserError = "Tap the stars to rate";
-      this.communicationUserError = "Tap the stars to rate";
       this.reviewUserError = "please write your review";
+      $('.rating').addClass('rating-required');
+      $('.rating__item.checked').parents('.rating').removeClass('rating-required');
       document.getElementById('reviewId').style.border = "1px solid #D50000";
       document.getElementById('reviewUserId').style.border = "1px solid #D50000";
       setTimeout(() => {
         this.reviewError = "";
-        this.experienceError = "";
-        this.communicationError = "";
-        this.experienceUserError = "";
-        this.communicationUserError = "";
         this.reviewUserError = "";
-      }, 3000);
-
-    }
-    else if ( this.experience == "0") {
-      this.experienceError = "Tap the stars to rate";
-      // document.getElementById('experienceId').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.experienceError = "";
-      }, 3000);
-    }else if (this.communication == "0") {
-      this.communicationError = "Tap the stars to rate";
-      // document.getElementById('communicationId').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.communicationError = "";
-      }, 3000);
+      }, 7000);
     }
     else if (this.review == "" || this.review == null || this.review == undefined) {
       this.reviewError = "please write your review";
       document.getElementById('reviewId').style.border = "1px solid #D50000";
       setTimeout(() => {
         this.reviewError = "";
-      }, 3000);
-    }
-    else if (this.experienceuser == "0") {
-      this.experienceUserError = "Tap the stars to rate";
-      // document.getElementById('reviewId').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.experienceUserError = "";
-      }, 3000);
-    }
-    else if (this.communicationUser == "0") {
-      this.communicationUserError = "Tap the stars to rate";
-      // document.getElementById('reviewId').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.communicationUserError = "";
       }, 3000);
     }
     else if (this.reviewUser == "" || this.reviewUser == null || this.reviewUser == undefined) {
@@ -116,7 +107,18 @@ export class RatingComponent implements OnInit {
 
     }
   }
+  submitMobRating(){
+    var $rating=$('.rating').find('.checked');
 
+    if($rating){
+      $('.rating').addClass('rating-required');
+      $('.rating__item.checked').parents('.rating').removeClass('rating-required');
+    }
+    else{
+      
+    }
+
+  }
   onKeyPress(event: any) {
     if (event.target.value != "") {
       document.getElementById(event.target.id).style.border = "1px solid #d6d6d6";

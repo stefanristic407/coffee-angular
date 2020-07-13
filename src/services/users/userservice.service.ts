@@ -18,6 +18,7 @@ export class UserserviceService {
   private url = environment.apiURL+"/api";
   private deleteUrl = environment.apiURL+"/deleteapi";
   private certificatesURL = environment.apiURL+"/ro/certificates";
+  private profileImageURL = environment.apiURL+"/ro/uploadfiles";
 
   // private roasterUrl = "/ro/api";
   // private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
@@ -225,7 +226,7 @@ export class UserserviceService {
     var httpOptions = {
       headers: new HttpHeaders({ Accept: "application/json" })
     };
-    return this.http.post(this.roasterUrl, formData, httpOptions);
+    return this.http.post(this.profileImageURL, formData, httpOptions);
   }
 
     // API Function Name : Upload License and Certificates API.

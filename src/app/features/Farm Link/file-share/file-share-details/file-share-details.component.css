@@ -195,3 +195,21 @@ ul li {
  ::ng-deep #DataTables_Table_1_filter {
     display: none;
 }
+
+@media (max-width:767px) {
+    .bg-fff {
+        padding: 1rem .7rem !important;
+    }
+    .web-farm {
+        display: none !important;
+    }
+    .tab-overflow-auto {
+        overflow: auto;
+    }
+}
+
+@media (max-width:360px) {
+    .w-28 {
+        width: 32%;
+    }
+}

@@ -515,20 +515,21 @@ ul li {
     fill: #fff;
 }
 
-.filter-sort {
-    position: absolute;
-    right: 20px;
-    top: -10px;
-}
-
 .table-details {
     display: none;
+}
+
+:host ::ng-deep .ui-inputtext {
+    display: none !important;
 }
 
 
 /*  media query Fram Link */
 
-@media (max-width:640px) {
+@media (max-width:767px) {
+    .w-date {
+        width: 139px !important;
+    }
     .bg-fff {
         padding: 1rem .7rem;
     }

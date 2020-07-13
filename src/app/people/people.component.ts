@@ -43,6 +43,7 @@ export class PeopleComponent implements OnInit {
     'vijaysimha.challa@nordsud.se'
 
   ];
+  profilePic: any;
 
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
@@ -56,7 +57,21 @@ export class PeopleComponent implements OnInit {
     this.user_id = this.cookieService.get("user_id");
     this.getUserValue();
 
+    //Open side nav
+    $('body').on('click', '.sidenav-hamberg', function(event) {
+      $('.sidenav-mb').toggleClass('open');
+      event.stopImmediatePropagation();
+    });
 
+    $('body').on('click', '.sidenav-mb__close', function(event) {
+      $('.sidenav-mb').toggleClass('open');
+      event.stopImmediatePropagation();
+    });
+
+    $('.nav-links__item .router-link').on('click', function (event) {
+      $('.sidenav-mb').toggleClass('open');
+      event.stopImmediatePropagation();
+    });
 
     }
 
@@ -70,6 +85,7 @@ export class PeopleComponent implements OnInit {
     this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
       response => {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];
+        this.profilePic = response['result']['profile_image_thumb_url'];
       }
     );
   }
@@ -136,22 +152,19 @@ export class PeopleComponent implements OnInit {
     $("html, body").animate({ scrollTop: 0 }, "slow");
   });
 
-  //Open side nav
-  $('body').on('click', '.sidenav-hamberg', function() {
-    $('.sidenav-mb').toggleClass('open');
-  });
+  // Footer links
+  
+  $('body').on('click', '.footer-links__item', function () {
+    $(this).parents('.footer-links').find('.footer-links__item').not(this).removeClass('active');
+    $(this).addClass('active');
+    $('.footer-links__item').find('.ft-dropdown').not(this).removeClass('active')
 
-  $('body').on('click', '.sidenav-mb__close', function() {
-    $('.sidenav-mb').toggleClass('open');
-  });
+    $(this).find('.ft-dropdown').addClass('active')
 
-  $('.nav-links__item .router-link').on('click', function () {
-    $('.sidenav-mb').toggleClass('open');
+    setTimeout(function(){
+      $('.ft-dropdown').removeClass('active');
+     }, 3500);
   });
-
-  $(window).on('load', function() {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-});
 
   }
 

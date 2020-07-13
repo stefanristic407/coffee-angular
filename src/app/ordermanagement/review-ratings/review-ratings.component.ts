@@ -1,5 +1,4 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
-
 @Component({
   selector: 'app-review-ratings',
   templateUrl: './review-ratings.component.html',
@@ -19,8 +18,10 @@ export class ReviewRatingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
+  
   setStatus(term: any) {
     this.termStatus = term;
   }
@@ -131,4 +132,6 @@ export class ReviewRatingsComponent implements OnInit {
     this.showRelavant = !this.showRelavant;
 
   }
+
+    
 }

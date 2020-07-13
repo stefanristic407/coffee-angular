@@ -58,7 +58,7 @@
                         <!-- <button class="btn btn-link add-btn p-0"> <img src="assets/images/upload.svg" />
                             <span class="add-upload">Upload Logo</span> </button> -->
                         <div>
-                            <input type="file" accept="image/*" style="visibility: hidden;" #image (change)="handleFile($event)" />
+                            <input type="file" accept="image/*" style="visibility: hidden;" class="image" #image (change)="handleFile($event)" />
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                 </div> -->
             </div>
         </div>
-        <div class="mobile-farm farm-stricky col-12">
+        <div class="mobile-farm  col-12">
                 <button type="button" class="btn btn-succes cancel-butn"  (click)=profileSave();> Save changes </button>
             </div>
     </section>

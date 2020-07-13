@@ -4,7 +4,6 @@
     /* padding: 0rem 2rem 2rem 0rem; */
     background-color: #ffffff;
     overflow: hidden;
-    /* border-right: 1px solid #dddddd; */
 }
 
 .nav-pills .nav-link.active,
@@ -13,7 +12,6 @@
     font-size: 14px;
     font-weight: 600;
     background-color: unset !important;
-    /* border-bottom: 1px solid #256547; */
     border-radius: unset;
 }
 
@@ -55,8 +53,6 @@ li.nav-item {
     font-size: 14px;
     font-weight: 600;
     color: #232334;
-    /* text-transform: uppercase; */
-    /* padding: 0rem 0rem; */
 }
 
 .nav-pills .nav-link.active {
@@ -74,11 +70,6 @@ li.nav-item {
 .details-list {
     margin-left: 0rem !important;
 }
-
-
-/* #pills-home {
-    padding: 0px 10px;
-} */
 
 .estate-name {
     font-family: Muli;
@@ -119,10 +110,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #979797;
 }
 
@@ -131,7 +118,7 @@ li.nav-item {
     padding-bottom: 1rem;
 }
 
-.star-estate {
+.star-estate,.star-estate1{
     font-size: 20px;
     position: relative;
     top: -1px;
@@ -140,10 +127,6 @@ li.nav-item {
 
 .state-txt {
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -155,14 +138,10 @@ li.nav-item {
     font-weight: 600;
     font-family: Muli;
     font-size: 14px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
 }
 
-.rating-value {
+.rating-value,.rating-value1 {
     position: relative;
     top: 5px;
     left: 5px;
@@ -174,10 +153,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 16px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -205,10 +180,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 34px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -224,10 +195,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     ;
 }
@@ -235,10 +202,6 @@ li.nav-item {
 .recent-time td {
     font-family: Muli;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     padding: 5px !important;
     border-bottom: 0px solid #dddddd !important;
@@ -292,10 +255,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: right;
     color: #30855c;
 }
@@ -330,10 +289,6 @@ li.nav-item {
     font-family: 'Muli';
     font-size: 12px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
 }
 
@@ -342,19 +297,12 @@ li.nav-item {
     font-weight: 600;
     background-color: #f8f8f8;
 }
-
-
-/* .item-color {
-    color: #747588;
-    font-weight: 500;
-} */
-
 .menu-arrow {
     cursor: pointer;
 }
 
 ::ng-deep .popover-body {
-    padding: 0 !important;
+    padding: .25rem .25rem !important;
 }
 
 ::ng-deep .popover {
@@ -389,10 +337,16 @@ li.nav-item {
 #more_contact3 {
     display: none;
 }
-
+.review-web{
+    display: block;
+}
+.review-mobile{
+    display: none;
+}
+.bg-fff { padding-bottom: 2rem;}
 @media only screen and (max-width: 768px) {
     .review-tabs {
-        border-left: 0px solid #dddddd;
+        border:none;
         padding: 0rem 0rem;
     }
 }
@@ -404,11 +358,56 @@ li.nav-item {
     .tap-green {
         margin-top: 5rem !important;
     }
-    .star-two {
-        margin-top: 3rem;
+   
+    .review-sec{
+        padding:1.2rem;
     }
+    .rev-value{
+        font-size: 36px;
+    }
+    .rating-value1{
+        top:0px;
+        left:0px;
+    }
+    .star-estate{
+        left:3px;
+    }
+    .mob-width{
+        width: 100%;
+    }
+    .left-space{
+        padding: 0 8px;
+    }
+    .ret-order{
+        padding-top: 8px;
+    }
+    .recent-time td{
+        padding: 7px 7px 7px 0px !important;
+    }
+    .right-space{
+        padding-right: 0;
+        padding-left: 0;
+    }
+    .review-web{
+        display: none;
+    }
+    .review-mobile{
+        display: block;
+    }
+    li.nav-item{margin-right: 0;}
+    .mixups-tabs{padding-left: 0; padding-right: 0 !important;}
+    #pills-tabContent{padding-left: 16px; padding-right: 16px;}
+    .mob-feb{padding: 0;margin-top: 3px;float: right;margin-left: auto;}
+    .message-space{padding-left: 0rem;}
+    .data-space{padding: 0;}
+    .details-list{margin-bottom: 0 !important;}
+    .bg-fff { padding-bottom: 0rem;}
+    .estate-number{font-weight: 600;margin-bottom: 0 !important;}
+    .estate-name{font-size: 14px;}
+    .estate-message{font-size: 12px;font-weight: 600;color: #747588;}
+}
+@media only screen and (max-width: 340px) {
+    .review-mobile{margin-left: -6px;}
 }
 
-.bg-fff {
-    padding-bottom: 5rem;
-}
+

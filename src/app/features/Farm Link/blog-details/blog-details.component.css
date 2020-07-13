@@ -117,7 +117,12 @@
     /* margin: 1rem 1rem 0rem 1rem; */
 }
 
-@media (max-width:640px) {
+.shar-dwnd {
+    text-align: center;
+    padding: 1rem 0rem;
+}
+
+@media (max-width:767px) {
     .bg-fff {
         padding: 1rem 0rem;
         border-radius: 4px;
@@ -150,5 +155,9 @@
     }
     .grey-bor {
         border-bottom: 2px dashed #ebebeb;
+    }
+    .blogs-details {
+        padding: 15px 15px 25px 15px;
+        background-color: #ffffff;
     }
 }

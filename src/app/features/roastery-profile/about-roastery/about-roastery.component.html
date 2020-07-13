@@ -8,6 +8,7 @@
                     <div class="form-group col-md-6">
                       <label for="owner_name">Owner name<span class="star">*</span></label>
                       <input
+                      *ngIf="roasteryProfileService.savemode"
                         class="form-control owner_name rectangle"
                         id="owner_name"
                         type="text"
@@ -16,15 +17,18 @@
                         [(ngModel)]="owner_name"
                         placeholder="Please enter owner name"
                       />
+                      <p class="info-content" *ngIf="roasteryProfileService.editmode">Derrick Watkins</p>
                       <div class="ownerNameError" *ngIf="ownerNameError != ''">
                         {{ ownerNameError }}
                       </div>
+
                     </div>
                     <div class="form-group col-md-6 ">
                             <label for="founded_in"
                               >Founded in<span class="star">*</span></label
                             >
                             <input
+                            *ngIf="roasteryProfileService.savemode"
                               class="form-control rectangle founded_in"
                               id="founded_in"
                               type="text"
@@ -33,6 +37,7 @@
                               [(ngModel)]="founded_in"
                               placeholder="Please enter founded year"
                             />
+                            <p class="info-content" *ngIf="roasteryProfileService.editmode">1904</p>
                             <div class="foundedInError" *ngIf="foundedInError != ''">
                               {{ foundedInError }}
                             </div>
@@ -43,17 +48,26 @@
                   <div class="row">
                         <div class="form-group col-md-12 mt-3">
                                 <label for="summary">Roastery summary</label>
-                              <textarea  class="form-control summary" id="summary" name="summary" rows="5" [(ngModel)]="summary" placeholder="Tell us and to our users about who you are as a company!">
+                              <textarea *ngIf="roasteryProfileService.savemode"  class="form-control summary" id="summary" name="summary" rows="5" [(ngModel)]="summary" placeholder="Tell us and to our users about who you are as a company!">
                               </textarea>
+                              <p class="info-content" *ngIf="roasteryProfileService.editmode">Ever wondered how some graphic designers always manage to produce beautiful looking designs for their brochures, website designs, logo designs? Talent…yes, it helps but there are a handful of more important things you can do that will have even complete beginners producing award winning design.
+
+                                  Forget everything you’ve ever been told about Graphic Design
+                                  
+                                  There are some hard and fast things that graphic designers will insist are to be obeyed. Only use limited fonts on a design for example or never use green on a magazine or book cover as people will not buy it. Stuff and nonsense. You can pretty much do whatever you like but you must apply these STRICT GRAPHIC DESIGN RULES and you will soon be walking away with graphic design silverware.
+                                  
+                                  Somewhere on the page you MUST put in a subliminal message
+                                  
+                                  This can be done in a multitude of ways for example if you are producing a brochure selling wellington boots then start every paragraph spelling out ‘buy our wellington boots’ or better still ‘you have no choice but to buy our wellington boots now get out your cheque book and buy them – NOW!’ Another crafty method is to doctor images in photoshop so that on an innocent picture of a tree for example</p>
                         </div>
                   </div>
 
                   <hr>
-                 <div class="row p-3 mt-5">
+                 <div class="row p-3 mt-5"  *ngIf="roasteryProfileService.savemode">
                      <p class="sub-header">Employee details</p>
                      <p class="header-descr">Give us an overvew of your employees. You can view the inputs on the pie chart.</p>
                  </div>
-                  <div class="row mb-3">
+                  <div class="row mb-3"  *ngIf="roasteryProfileService.savemode">
                         <div class="form-group col-md-6">
                           <label for="employee_nos">Total number of employees<span class="star">*</span></label>
                           <input
@@ -88,8 +102,8 @@
                               </div>
                               
                       </div>
-                      <span class="text-data">Gender distribution<span class="star">*</span></span>
-                      <div class="row">
+                      <span class="text-data"  *ngIf="roasteryProfileService.savemode">Gender distribution<span class="star">*</span></span>
+                      <div class="row"  *ngIf="roasteryProfileService.savemode">
                             <div class="form-group col-md-6">
                               <label for="female_num">Total number of female employees<span class="star">*</span></label>
                               <input
@@ -124,13 +138,14 @@
                                   </div>
                                   
                           </div>
-                          <hr>
+                          <hr  *ngIf="roasteryProfileService.savemode">
                           <div class="row p-3 mt-5">
                                 <p class="sub-header">Roastery capabilities</p>
-                                <p class="header-descr">Tell us about your roastery capabilities of storage etc.</p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">Tell us about your roastery capabilities of storage etc.</p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.editmode">Our roastery capabilities of storage etc.</p>
                           </div>
 
-                          <div class="row">
+                          <div class="row"  *ngIf="roasteryProfileService.savemode">
                                 <div class="form-group col-md-4">
                                   <label for="capacity">Roaster capacity<span class="star">*</span></label>
                                   <input
@@ -153,21 +168,10 @@
                                        name="kgs"
                                        [(ngModel)]="kgs"> 
                                            <option selected disabled value="">Kilograms</option>
-                                           <option value="1">1</option>
-                                           <option value="2">2</option>
-                                           <option value="3">3</option>
-                                           <option value="4">4</option>
-                                           <option value="5">5</option>
-                                           <option value="6">6</option>
-                                           <option value="7">7</option>
-                                           <option value="8">8</option>
-                                           <option value="9">9</option>
-                                           <option value="10">10</option>
-                                           <option value="11">11</option>
-                                           <option value="12">12</option>
-                                           <option value="13">13</option>
-                                           <option value="14">14</option>
-                                           <option value="15">15</option>
+                                           <option value="Tons">Tons</option>
+                                           <option value="Kgs">Kgs</option>
+                                           <option value="Grams">Grams</option>
+                                    
 
                                        </select>
                                         <div class="kilogramsError" *ngIf="kilogramsError != ''">
@@ -193,6 +197,20 @@
                                         </div>
                                       </div>
                                       
+                              </div>
+
+                              <div class="row" *ngIf="roasteryProfileService.editmode">
+                                <div class="col-lg-11 border-total">
+                                  <div class="col-lg-3 capabilitiesDiv">
+                                    <label class="capacity-header">Roaster Capacity</label>
+                                    <p class="weight">230 Kg </p>
+                                  </div>
+                                  <div class="col-lg-11 capabilitiesdescrDiv">
+                                    <p class="capabilities_content">
+                                      We are know for our three main blends café blend, mocha java and black gold.
+                                    </p>
+                                  </div>
+                                </div>
                               </div>
 
                               <hr>
@@ -256,7 +274,7 @@
                                   </div>
 
                                   <div class="row">
-                                        <div class="form-group col-md-6">
+                                        <!-- <div class="form-group col-md-6">
                                           <label for="emp_title">Add a title</label>
                                           <input
                                             class="form-control emp_title rectangle"
@@ -270,7 +288,7 @@
                                           <div class="empTitleError" *ngIf="empTitleError != ''">
                                             {{ empTitleError }}
                                           </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group col-md-6">
                                                 <label for="emp_name">Select employee</label>
                                                <select  class="form-control kgs rectangle role_edit"

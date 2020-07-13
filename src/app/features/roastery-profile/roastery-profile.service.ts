@@ -5540,11 +5540,29 @@ export class RoasteryProfileService {
     }
   ];
   cities: Array<any>;
+
+  contactInfo : boolean = false;
+  addMediaDiv : boolean = true;
+  savemode : boolean = true;
+  editmode : boolean = false;
   constructor() {}
 
   //  Function Name :Change Country.
   //Description: This function helps to get the values of cities according to selcted country.
   changeCountry(count) {
     this.cities = this.countryList.find(con => con.isoCode == count).cities;
+  }
+
+  saveRoasterProfile(){
+    this.contactInfo = true;
+    this.addMediaDiv = false;
+    this.savemode = false;
+    this.editmode = true;
+  }
+  editRoasterProfile(){
+    this.contactInfo = false;
+    this.addMediaDiv = true;
+    this.savemode = true;
+    this.editmode = false;
   }
 }

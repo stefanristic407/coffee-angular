@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
+import { RoasteryProfileService } from './roastery-profile.service';
 
 @Component({
   selector: 'app-roastery-profile',
@@ -12,7 +13,8 @@ export class RoasteryProfileComponent implements OnInit {
   @ViewChild("image") image;
   constructor(  private router : Router, 
     private toastrService: ToastrService,
-    public profilePhotoService : ProfilePhotoService) { }
+    public profilePhotoService : ProfilePhotoService,
+    public roasteryProfileService : RoasteryProfileService) { }
 
   ngOnInit(): void {
   }

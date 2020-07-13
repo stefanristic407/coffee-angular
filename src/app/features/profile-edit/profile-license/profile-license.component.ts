@@ -91,6 +91,7 @@ export class ProfileLicenseComponent implements OnInit {
   onFileChange(event, rowcount: any) {
     this.files = event.target.files;
     this.fileEvent = this.files;
+    console.log(this.fileEvent)
     if (this.files.length > 0) { 
 			for (let x = 0; x <= this.files.length - 1; x++) { 
 

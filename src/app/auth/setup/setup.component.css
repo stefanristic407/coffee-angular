@@ -28,7 +28,7 @@
 }
 
 .next-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
@@ -206,7 +206,7 @@ select.role {
     border-radius: 8px;
     border: solid 1px #cccccc;
     background-color: #ffffff;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     color: #000000;
@@ -216,7 +216,7 @@ select.role {
     font-size: 11px;
     font-weight: 600;
     color: #666666;
-    font-family: Montserrat;
+    font-family: Muli;
 }
 
 .login-butn {
@@ -251,7 +251,7 @@ select.role {
     background-color: #ffffff;
     background: url(../../../assets/images/active.png) right 16px top 19px/10px no-repeat;
     -webkit-appearance: none;
-    font-family: Montserrat;
+    font-family: Muli;
     font-weight: 500;
     height: 50px !important;
     padding-top: 7px;
@@ -273,7 +273,7 @@ select.role {
 
 .form_para {
     height: 20px;
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 500;
     font-stretch: normal;
@@ -318,7 +318,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .done-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -347,7 +347,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .upload-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -381,7 +381,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .add-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -393,7 +393,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .pic-head-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 16px;
     font-weight: bold;
     font-stretch: normal;
@@ -424,7 +424,7 @@ input[type=number]::-webkit-outer-spin-button {
 /* ==FOOTER SECTION CSS== */
 
 .footer-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     font-stretch: normal;
@@ -435,7 +435,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .sub-text {
-    font-family: Montserrat;
+    font-family: Muli;
     font-size: 12px;
     font-weight: normal;
     font-stretch: normal;
@@ -526,7 +526,7 @@ hr {
 }
 
  :host ::ng-deep .ui-dialog-titlebar {
-    font-family: Montserrat !important;
+    font-family: Muli !important;
     font-size: 16px !important;
     color: #000000 !important;
     background-color: #ffffff !important;
@@ -556,7 +556,7 @@ hr {
 #save-pic,
 #change-pic {
     font-size: 12px;
-    font-family: Montserrat;
+    font-family: Muli;
     font-weight: 600;
 }
 
@@ -659,7 +659,7 @@ hr {
     }
     .form_header {
         height: 19px;
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 16px;
         font-weight: bold;
         text-align: center;
@@ -708,7 +708,7 @@ hr {
         right: 36%;
     }
     .pic-head-text {
-        font-family: Montserrat;
+        font-family: Muli;
         font-size: 14px;
         font-weight: bold;
         font-stretch: normal;

@@ -21,7 +21,7 @@
 
 
 
-    <section class="estate-orders">
+    <section class="estate-orders d-none d-lg-block">
 
         <!-- <div class="row mb-4">
         <div class="d-inline col-sm-12 search-div">
@@ -160,6 +160,111 @@
         </div>
 
     </section>
+    <section class="mobile-tab">
+        <div class="d-block d-lg-none">
+            <div class="raised-mobile">
+                <div class="row  pt-md-4 pb-md-4">
+                    <div class="col-12">
+                    <div class="title-header">
+                        <div class="mb-3">
+                        <input class="d-inline search-name filter-set" type="text" name="sourcingName" id="sourcingName" placeholder="Search by name">
+                        </div>
+                        <div class="d-inline border-grade col-sm-6">
+                            <p class="d-inline filter-text">orgin&nbsp;</p>
+                            <a class="pointer-item">
+                                <p class="d-inline filter">
+                                    &nbsp; <img src="assets/images/active-user.png" />
+                                </p>
+                            </a>
+        
+                        </div>
+                        <div class="d-inline border-grade col-sm-6">
+                            <p class="d-inline filter-text">Type of order&nbsp;</p>
+                            <a class="pointer-item">
+                                <p class="d-inline filter">
+                                    &nbsp; <img src="assets/images/active-user.png" />
+                                </p>
+                            </a>
+        
+                        </div>
+                        <div class="d-inline border-grade col-sm-6">
+                            <p class="d-inline filter-text">Status&nbsp;</p>
+                            <a class="pointer-item">
+                                <p class="d-inline filter">
+                                    &nbsp; <img src="assets/images/active-user.png" />
+                                </p>
+                            </a>
+        
+                        </div>
+                        <div class="d-inline border-grade col-sm-6">
+                            <p class="d-inline filter-text">Date&nbsp;</p>
+                            <a class="pointer-item">
+                                <p class="d-inline filter">
+                                    &nbsp; <img src="assets/images/active-user.png" />
+                                </p>
+                            </a>
+        
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                            <div class="pagination-content">
+
+                        <div class="raised-list mt-5 mb-5">
+                            <ul class="cleafix pagination-content-list" >
+                                <li class="order-raised pagination-content-list__item" *ngFor="let role of data">
+                                    <div class="raised-detils d-inline-block  pb-3">
+                                        <div class="raised-tit">
+                                            <h4 class="col-8">{{role.status}}</h4>
+                                            <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
+                                        </div>
+                                        <div class="raised-ticket">
+                                            <h4 class="col-8 mt-3 pull-left">{{role.id}}</h4>
+                                            <h6  class="col-4 mt-3 pull-right text-right">{{role.dataordered}}</h6>
+                                            <div class="estate-order clearfix">
+                                            <h3 class="d-inline-block pl-0 pr-0 mr-3">{{role.roastername}}  l  {{role.origin}}</h3>
+                                            <!-- <label class="ml-3 pull-left">{{role.typeoforder}}</label> -->
+                                            <span class="status-booked" *ngIf="role.typeoforder == 'Booked'">&#9679; {{role.typeoforder}}</span>
+                                            <span class="status-prebook" *ngIf="role.typeoforder == 'Pre-Booked'">
+                                                   &#9679; {{role.typeoforder}}
+                                            </span>
+                                            <span class="status-sample" *ngIf="role.typeoforder == 'Sample'">
+                                                &#9679; {{role.typeoforder}}
+                                         </span>
+                           
+                                        </div>
+                                           
+                                           <a href="#" class="col-4 mt-3 pull-right text-right">See details <img class="pl-1" src="assets/images/estate-arrow.svg" alt=""></a>
+                                        </div>
+                                    </div>
+                                </li>
+                               
+                            </ul>
+                            <div class="responsive-pagination clearfix">
+                                    <span class="responsive-pagination__prev float-left disable"></span>
+                                    <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                        <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
+                                    </ul>
+                                    <span class="responsive-pagination__next float-left"></span>
+                                </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="select-cont">
+                    <a >Continue</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 </div>
 
 <ng-template #originTemplate>

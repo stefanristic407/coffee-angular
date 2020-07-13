@@ -15,7 +15,7 @@
         </div>
     </div>
 </div> -->
-<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-5">
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav mb-md-0">
         <li class="b-cum">
@@ -26,14 +26,14 @@
         </li>
 
         <li class="b-cum c-pink">Manage roles</li>
-        <div class="ml-auto text-right desk_view_user">
+        <div class="pull-right desk_view_user p-role-butn">
             <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn ">Create new role</button></a>
         </div>
         <!-- <button type="submit" class="btn col-12 col-md-2 pull-right create-role-btn web-btn d-md-block d-none"> CREATE NEW ROLE </button> -->
 
     </ul>
 </nav>
-<section class="roles-heading">
+<section class="roles-heading d-none d-lg-block">
     <h5 class="manage-title">Manage roles</h5>
 </section>
 
@@ -78,8 +78,8 @@
                         <ng-template #poplistTemplate id="{{data.id}}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item" routerLink="/people/add-members"> <a class="pointer-item" (click)="pop.hide();">Add Members </a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">View Members</a></li>
+                                    <li class="list-group-item" routerLink="/people/add-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">Add Members </a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">View Members</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">Edit</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Duplicate role</a></li>
@@ -183,26 +183,44 @@
 </div>
 
 <div class="mobile_view_user">
-    <div class="ml-auto text-left pull-left pb-4">
+    <div class="ml-auto text-left pull-left">
         <h4 class="mobile-manage"> Manage Roles</h4>
     </div>
-    <div class="ml-auto text-right pull-right pb-4">
+    <div class="ml-auto text-right pull-right pb-3">
         <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn ">Create new role</button></a>
     </div>
 
-    <ul class="dyn-data d-flex" *ngFor="let role of sizes" (click)="openBottomSheet()">
-        <li> <label class="customcheckbox">
+    <ul class="dyn-data d-flex" *ngFor="let role of sizes  let i = index" id="tr_{{role.id}}">
+    <!--li> <label class="customcheckbox">
          <input type="checkbox" class="listCheckbox"  name="check"/>
          <span class="checkmark"></span>
-       </label></li>
+       </label></li-->
         <li>
             <div class="salemark">
                 <h4>{{role.name}}</h4>
-                <p> {{role.members}} members </p>
+                <p> {{ this.getRandomInt(11) }} members </p>
             </div>
         </li>
-        <li> <img src="assets/images/black-add.svg" alt="Dashboard"></li>
-        <li> <img src="assets/images/arrow-right.svg" alt="Dashboard"></li>
+        <li> <img src="assets/images/role-grey.svg" alt="Dashboard"></li>
+        <li> 
+             <a class="menu-arrow" [popover]="listTemplate" placement="left" [outsideClick]="true" #pop1="bs-popover">
+                <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
+            </a>
+            <ng-template #listTemplate id="{{role.id}}">
+                <div id="popover-mobile-content">
+                    <ul class="list-data custom-popover">
+                        <li class="list-item"> <a class="pointer-item" (click)="addMembers($event,role);pop1.hide();">Add Members </a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="viewMembers(role);pop1.hide();">View Members</a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="updateRole(role.id);pop1.hide();">Edit</a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="pop1.hide();">Rename</a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="pop1.hide();">Duplicate role</a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="pop1.hide();">Manage Permissions</a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="deleteRole(role.id);pop1.hide();">Delete</a></li>
+                    </ul>
+                </div>
+            </ng-template>
+    </li>
+        
     </ul>
 
     <!-- <ul class="dyn-data d-flex">

@@ -61,12 +61,25 @@
 
 /* media query */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .fnt-34 {
         font-size: 30px;
         line-height: 40px;
     }
     .create-txt {
         padding: 0 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .fnt-34 {
+        font-size: 26px;
+        line-height: 36px;
+    }
+    .create-txt {
+        padding: 0 5%;
+    }
+    .pad-card {
+        padding: 0px 10% 0px 0px;
     }
 }

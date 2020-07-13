@@ -5,7 +5,7 @@
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
-    margin-right: 4rem;
+    margin-right: 3rem;
 }
 
 .add-role-butn:hover {
@@ -19,13 +19,24 @@
     color: #FFFFFF;
     font-weight: bold;
     font-size: 14px;
-    padding: 2% 10%;
-    border-radius: 8px;
-    height: 46px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    width: 100%;
 }
-
+.role-stricky{
+    /* position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;*/
+    /* padding: 5px 32px;  */
+    margin-bottom: 4rem;
+}
 .bread-nav {
-    padding-left: 2.5%;
+    padding-left: 3rem;
+    padding-top: 2rem;
+
 }
 
 .create-role {
@@ -35,15 +46,15 @@
 }
 
 .create-role-title {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: bold;
     color: #232334;
     font-family: Muli;
-    margin-left: 1%;
+    /* margin-left: 1%; */
 }
 
 .role-name {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     color: #747588;
     font-family: Muli;
@@ -64,12 +75,12 @@
     border: solid 1px #cccccc;
     background-color: #ffffff;
 }
-
+/* 
 .border-role {
-    /* border-left: 1px solid #cccccc;
-    padding-left: 4rem; */
+    border-left: 1px solid #cccccc;
+    padding-left: 4rem;
     margin-right: 3.1rem;
-}
+} */
 
 .accordion {
     margin-top: 40px;
@@ -140,8 +151,9 @@
 }
 
 .padd-top {
-    padding-top: 2rem;
-    padding-left: 1rem;
+    padding-top: 1.4rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
 .role-error {
@@ -161,23 +173,8 @@ a.b-cum:hover {
     margin-left: 4px;
     margin-top: -4px;
 }
-
-@media only screen and (max-width: 767px) {
-    .padd-top {
-        padding-top: 1rem;
-        padding-left: 0rem;
-    }
-    .border-role {
-        border-left: none;
-        padding-left: 0rem;
-    }
-    .bread-nav {
-        padding-left: 15px;
-    }
-    .create-role {
-        padding: .3rem .5rem;
-        border: none;
-    }
+:host ::ng-deep .ui-tree .ui-tree-filter-container{
+    padding:0.4em 0;
 }
 
 :host ::ng-deep .ui-tree {
@@ -283,7 +280,15 @@ font-weight: 600;
 .clear {
     clear: both;
 }
-
+.create-stricky{
+    /* position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 5px 32px; */
+}
 @media only screen and (min-width: 768px) and (max-width: 991px) {
      :host ::ng-deep .ui-tree {
         width: 100% !important;
@@ -299,7 +304,21 @@ font-weight: 600;
         width: 100% !important;
     }
      :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
-        right: 92%;
-        font-size: 1em !important;
+        right: 91%;
+        font-size: 1.2em !important;
+    }
+    .padd-top {padding-top: 0.9rem;padding-left: 16px; padding-right: 16px;}
+    .border-role {border-left: none;padding-left: 0rem;}
+    .bread-nav {padding-left: 16px;padding-top: 0;}
+    .create-role {padding:0;border: none;}
+    .mob-padding{padding: 0 0 1rem;}
+    .create-role-title{font-size: 16px;}
+    .role-name{font-size: 14px;color: #232334;}
+    .rectangle_name{font-size: 14px !important;}
+    :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler{
+        float: left !important; 
+    }
+    :host ::ng-deep .pi-caret-down:before{
+        content: none !important;
     }
 }

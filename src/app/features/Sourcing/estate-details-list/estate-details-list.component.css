@@ -646,6 +646,9 @@ ul li {
     width: 23%;
 }
 
+.star-rate:hover{color: #80460b; text-decoration: underline;}
+
+
 @media (max-width:991px) {
     .des-content article {
         width: 100%;
@@ -665,5 +668,89 @@ ul li {
     .estate-focus ul li label,
     .estate-focus ul li p {
         width: 100%;
+    }
+
+/*Vinoth css Code */
+.m-overflow{overflow: hidden; padding: 0;}
+.m-padding-0{padding: 0;}
+.star-rate{font-size: 16px;}
+.source-cont{margin: 0rem 16px;  padding-top: 1rem;}
+.source-det-tit {width: 100%; text-align: center;  margin-top: -5rem; position: relative; z-index: 9;}
+.pro-logo{float: none; width: 100%;}
+.source-knowmore {width: 100%;}
+.source-knowmore a{width: 48%; text-align: center; margin: 0; }
+.source-tabs{overflow-x: scroll; padding-bottom: 0.3rem;}
+.nav-tabs{width: 1000px;}
+
+.m-padding-8{padding: 0 8px;}
+.des-content article{padding: 16px;}
+.stit h2{width:65%; display: inline-block; font-size: 16px;}
+.s-cert{width: 35%; display: inline-block; float: right;}
+.s-cert ul li{margin-right: 0px;}
+.s-cert ul li:last-child{margin-right: 0;}
+.s-cert li img{width: 23px;}
+.area-location, .stit p, .real-estate h6{color: #747588; font-size: 12px; }
+.m-orgin{font-size: 14px; color: #242424;     font-weight: bold;}  
+.real-estate img{width: 24px;}
+.stit p:last-child{    margin-bottom: 0px;}
+.des-content aside{    padding: 0px;     margin-top: 1rem;}
+.prebook a{padding: 10px 0 !important;}
+.prodcoffee h4{font-size: 14px;}
+.employer{padding-left: 15px; padding-right: 15px;}
+/* #land-lots{border: 1px solid #ebebeb; border-radius: 4px;} */
+.gals{margin-bottom: 8px;}
+.gals img{ width: 100%;   height: 100%;object-fit: cover;}
+.gals:nth-child(1n){ padding-right: 4px; padding-left: 0;
+    width: 50% !important;}   
+.gals:nth-child(2n){padding-left: 4px;
+    padding-right: 0;}
+    .cardpanel-detail{overflow: hidden;}
+}
+
+@media (max-width:480px) {
+  
+   
+    .source-lets.flex,
+    .s-details .m-flex {
+        display: block;
+    }
+    .orgin-att {
+        width: 50%;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    .orgin-att:last-child {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    .orgin-att:nth-child(2) {
+        padding-left: 20px;
+        border-right: 0;
+    }
+    .s-cert li:first-child {
+        margin-left: 0;
+    }
+    .s-tit {
+        width: 100%;
+    }
+    .s-details h3 {
+        height: auto;
+        white-space: initial;
+    }
+    .green-coffee-product .orgin-att:last-child {
+        width: 100%;
+    }
+    .green-coffee-product .top-lots label,
+    .green-coffee-product .s-tit h5,
+    .orgin-att h6 {
+        font-size: 14px !important;
+    }
+    .s-details h6,
+    .s-details h3 {
+        font-size: 16px;
+    }
+    .pointer-item {
+        float: right;
+        margin-right: 10px;
     }
 }

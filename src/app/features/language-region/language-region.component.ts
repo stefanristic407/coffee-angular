@@ -3,6 +3,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-language-region',
@@ -23,7 +24,7 @@ export class LanguageRegionComponent implements OnInit {
   lastName: any;
   email: any;
   constructor( public userService : UserserviceService, private cookieService : CookieService,
-              private toastrService : ToastrService) { 
+              private toastrService : ToastrService, private router : Router) { 
     this.languageError = '';
     this.timeZoneError = '';
   }
@@ -106,6 +107,7 @@ getUserValue(){
         response => {
           if(response['success'] == true){
             this.toastrService.success("The Language and timezone is update succesfully.");
+            this.router.navigate(['/features/account-settings']);
           }
           else{
             this.toastrService.error("Something went wrong!, Please try again!")

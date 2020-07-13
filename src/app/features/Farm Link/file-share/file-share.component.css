@@ -633,6 +633,9 @@ li.nav-item {
     .nav-pills {
         padding-bottom: 3px;
     }
+    .date-div {
+        width: 139px;
+    }
 }
 
 .nav-pills .nav-link.active {

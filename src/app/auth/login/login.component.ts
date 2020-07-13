@@ -2,7 +2,7 @@
 // PAGE DESCRIPTION : This page contains functions of user login.
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   loginPasswordError: any;
   loginButtonValue: any;
   roaster_id: any;
+  value: string;
   constructor(private router: Router,
     private userService: UserserviceService,
     private cookieService: CookieService,
@@ -211,8 +212,22 @@ export class LoginComponent implements OnInit {
                   this.cookieService.set('name', result['result'].name);
                   this.loginButtonValue = "Login";
                   if (result['result'].status == "ACTIVE") {
-                    this.toastrService.success("Logged in Successfully");
-                    this.router.navigate(["/features/welcome-aboard"]);
+                    this.userService.getPrivacyTerms().subscribe(
+                      response => {
+                        if(response['result'].access_account == false){ 
+                          this.value = "login";
+                          let navigationExtras: NavigationExtras = {
+                          queryParams: {
+                            "data": encodeURIComponent(this.value),
+                          }
+                        }
+                        this.router.navigate(['/features/privacy-settings'], navigationExtras);
+                        }
+                        else {
+                          this.toastrService.success("Logged in Successfully");
+                          this.router.navigate(["/features/welcome-aboard"]);
+                        }
+                      });
                   } else if (result['result'].status == "INACTIVE") {
                     this.myAlertStatus();
                     // this.toastrService.error("Your Account has been disabled , Contact your Admin")

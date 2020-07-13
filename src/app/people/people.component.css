@@ -1,16 +1,17 @@
 .router-design {
     background-color: #ffffff;
-    margin: 12rem 0rem 3rem 0rem;
+    /* margin: 12rem 0rem 3rem 0rem; */
+    margin-top: 11rem;
     padding-bottom: 1.5rem;
 }
-
 
 .cursor-dots {
     cursor: pointer;
     color: #747588;
     font-family: Muli;
 }
-.cursor-dots:hover{
+
+.cursor-dots:hover {
     text-decoration: none !important;
     color: #232334 !important;
 }
@@ -20,7 +21,6 @@
     position: relative;
     top: 5px;
 }
-
 
 .list-group-item {
     border: none;
@@ -45,4 +45,21 @@
     padding: .25rem .25rem !important;
 }
 
+.profile-pic {
+    border-radius: 100%;
+}
 
+.mobile-farm {
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    .router-design {
+        margin-top: 5rem !important;
+        padding-top: 1rem !important;
+        display: inline-block;
+    }
+    .mobile-farm {
+        display: block !important;
+    }
+}

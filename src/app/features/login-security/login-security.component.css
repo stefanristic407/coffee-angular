@@ -328,8 +328,9 @@
     background-color: #fff;
     padding: 10px 30px;
 }
-
-
+.mobile-farm{
+    margin-bottom: 2rem;
+}
 
 .change-password-btn{
 padding: 0.5rem 1rem;

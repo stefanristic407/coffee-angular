@@ -1,23 +1,21 @@
-<div class="bg-fff ">
+<div class="bg-fff file-share-details">
     <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r"
-                    aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
                 <a class="b-cum">Farm link</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                         src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/file-share">File Share</a><span class="padl-r"
-                    aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/features/file-share">File Share</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
             <li class="b-cum c-pink">Finca Guadalupe Zajú</li>
 
-            <div class="search-on-site pull-right">
+            <div class="search-on-site pull-right web-farm">
                 <div class="search-on-site__input fnt-muli">
                     <img src="assets/images/search.svg" class="img d-inline-block">
                     <input type="search" placeholder="Search.." class="float-right pt-1">
@@ -33,11 +31,10 @@
                 <h4 class="social-head pt-3">Finca Guadalupe Zajú</h4>
             </div>
             <div class="col-sm-12 col-md-8 px-0">
-                <p class="social-para p-0"> This folder contains all of the companys brand assets like brand guidelines,
-                    logo, packaging materials etc. Please follow the strict guidelines mentioned. </p>
+                <p class="social-para p-0"> This folder contains all of the companys brand assets like brand guidelines, logo, packaging materials etc. Please follow the strict guidelines mentioned. </p>
             </div>
 
-            <div class="col-12 col-md-4 d-flex flex-column align-items-end px-0">
+            <div class="col-12 col-md-4 d-flex flex-column align-items-end px-0 web-farm">
                 <span class="share-bor"> <img class="share-img" src="assets/images/share-img.png" alt="farm"> <span
                         class="share-txt ml-1"> Share</span> </span>
                 <p class="mt-2 fnt-14 fnt-muli fnt-600 text-gray588">Sharing with 2 members</p>
@@ -51,6 +48,8 @@
             <span class="share-bor" data-toggle="modal" data-target="#createfolder"> <img class="dwnd-img"
                     src="assets/images/region-plus.svg" alt="farm"> <span class="share-txt ml-1"> Create new folder </span>
             </span>
+            <span class="share-bor mobile-farm w-28"> <img class="share-img" src="assets/images/share-img.png" alt="farm"> <span
+                class="share-txt ml-1"> Share</span> </span>
         </div>
 
         <div class="sourcing-panel">
@@ -59,27 +58,22 @@
                     <div class="row">
                         <div class="col-lg-12 ">
                             <div class="filter-sort">
-                                <div class="d-inline border-grade col-sm-6 mr-2" id="sort_id">
+                                <div class="d-inline border-grade col-sm-6 mr-2 web-farm" id="sort_id">
                                     <p class="d-inline filter-text" *ngIf="sort == ''">Sort by&nbsp;</p>
-                                    <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body"
-                                        #pop10="bs-popover">
+                                    <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body" #pop10="bs-popover">
                                         <p class="d-inline filter" *ngIf="sort == ''" (click)="toggleSort()">
-                                            &nbsp; <img
-                                                src="{{ showSort ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                            &nbsp; <img src="{{ showSort ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
                                         </p>
                                     </a>
-                                    <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body"
-                                        #pop9="bs-popover">
+                                    <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body" #pop9="bs-popover">
                                         <p class="d-inline filter" *ngIf="sort != ''" (click)="toggleSort()">
-                                            {{ sort }}&nbsp;<img
-                                                src="{{ showSort ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                            {{ sort }}&nbsp;<img src="{{ showSort ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
                                         </p>
                                     </a>
                                 </div>
                                 <div class="btn-group">
                                     <a class="btn-switch remove-toggle">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10"
-                                            viewBox="0 0 14 10">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10">
                                             <path fill="#FFF"
                                                 d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z" />
                                         </svg>
@@ -87,8 +81,7 @@
                                     </a>
                                     <div class="btn-group">
                                         <a class="btn-switch activate-toggle active">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-                                                viewBox="0 0 13 13">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
                                                 <path fill="#232334"
                                                     d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z" />
                                             </svg>
@@ -99,19 +92,17 @@
                             </div>
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
-                                        href="#documents" role="tab" aria-controls="nav-home"
-                                        aria-selected="true">Documents</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#videos"
-                                        role="tab" aria-controls="nav-profile" aria-selected="false"> Videos </a>
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true">Documents</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#videos" role="tab" aria-controls="nav-profile" aria-selected="false"> Videos </a>
                                 </div>
                             </nav>
                             <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="documents" role="tabpanel"
-                                    aria-labelledby="nav-home-tab">
+                                <div class="tab-pane fade show active" id="documents" role="tabpanel" aria-labelledby="nav-home-tab">
                                     <div class="cardpanel-detail">
                                         <div class="row">
-                                            <app-document-file></app-document-file>
+                                            <div class="tab-overflow-auto">
+                                                <app-document-file></app-document-file>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="table-details">
@@ -120,13 +111,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="videos" role="tabpanel"
-                                    aria-labelledby="nav-profile-tab">
-                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                                        aria-labelledby="nav-home-tab">
+                                <div class="tab-pane fade" id="videos" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                         <div class="cardpanel-detail">
                                             <div class="row">
-                                                <app-video-file></app-video-file>
+                                                <div class="tab-overflow-auto">
+                                                    <app-video-file></app-video-file>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="table-details">
@@ -149,18 +140,13 @@
     <ng-template #sortTemplate>
         <div>
             <ul class="list-group custom-popover">
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setSort('Name (A-Z)'); pop10.hide(); pop9.hide();toggleSort()">Name (A-Z)</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setSort('Recently added'); pop10.hide(); pop9.hide();toggleSort()">Recently added</a>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Name (A-Z)'); pop10.hide(); pop9.hide();toggleSort()">Name (A-Z)</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Recently added'); pop10.hide(); pop9.hide();toggleSort()">Recently added</a>
                 </li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setSort('Cup score'); pop10.hide(); pop9.hide();toggleSort()">Cup score (High-Low)</a>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Cup score'); pop10.hide(); pop9.hide();toggleSort()">Cup score (High-Low)</a>
                 </li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setSort('Price'); pop10.hide(); pop9.hide();toggleSort()">Price (High - low)</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setSort('Quantity'); pop10.hide(); pop9.hide();toggleSort()">Quantity (High- Low)</a>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Price'); pop10.hide(); pop9.hide();toggleSort()">Price (High - low)</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Quantity'); pop10.hide(); pop9.hide();toggleSort()">Quantity (High- Low)</a>
                 </li>
             </ul>
         </div>

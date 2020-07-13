@@ -56,10 +56,21 @@
                                     </div>
                                 </div>
 
-                                <div class="chat-seeting">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="chat-seeting position-relative">
+                                    <a class="menu-arrow">
+                                        <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
+                                    </a>
+
+                                    <div class="chat-seeting__items">
+                                        <ul class="list-group custom-popover chat-seeting__content">
+                                            <li class="list-group-item"> <a class="pointer-item">Mute </a></li>
+                                            <li class="list-group-item"><a class="pointer-item">Mark as unread</a></li>
+                                            <li class="list-group-item"><a class="pointer-item">Archive</a></li>
+                                            <li class="list-group-item"><a class="pointer-item" (click)=" reportChat();">Report</a></li>
+                                            <li class="list-group-item"><a class="pointer-item" (click)="deleteChat();">Delete conversation</a></li>
+                                        </ul>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -135,22 +146,22 @@
                                     <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">Search in conversation</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
                                 </div>
 
-                                
+
                                 <!--Clear Conversion-->
                                 <div class="account-setting-option__item d-flex justify-content-between align-items-center">
                                     <span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">Notifications</span>
-                                  <div class="notification-control ml-auto">
-                                      <input type="radio" name="notification" value="off">
-                                      <input type="radio" name="notification" value="on">
-                                      <span class="switch-control"></span>
-                                  </div>
+                                    <div class="notification-control ml-auto">
+                                        <input type="radio" name="notification" value="off">
+                                        <input type="radio" name="notification" value="on">
+                                        <span class="switch-control"></span>
+                                    </div>
                                 </div>
 
                                 <!--Clear Conversion-->
                                 <div class="account-setting-option__item">
                                     <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">Clear conversation</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
                                 </div>
-                                
+
                                 <!--Report User-->
                                 <div class="account-setting-option__item">
                                     <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">Report User</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
@@ -251,3 +262,48 @@
     </div> -->
 
 </section>
+
+<ng-template #deletetemplate>
+    <div class="modal-header">
+        <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button> -->
+    </div>
+    <div class="modal-body text-center mb-5">
+        <img class="alert-msg" src="/assets/images/alert-messaging.png" alt="">
+        <div class="are-sure fnt-play">
+            Are you sure
+        </div>
+        <div class="do-account pt-1 pb-2">Do you really want to delete this conversation</div>
+        <div class="pt-4 ">
+            <button class="btn add-btn mr-3" (click)="modalRef.hide();">Yes</button>
+            <button class="btn no-btun" (click)="modalRef.hide();">No</button>
+        </div>
+
+
+    </div>
+</ng-template>
+
+<ng-template #reporttemplate>
+    <div class="modal-header">
+        <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button> -->
+    </div>
+    <div class="modal-body text-center mb-5">
+        <img class="alert-msg" src="/assets/images/alert-messaging.png" alt="">
+        <div class="are-sure fnt-play">
+            want to report?
+        </div>
+        <div class="do-account pt-1 pb-2">Do you really want to report this profile</div>
+
+        <div class="pt-4 ">
+            <button class="btn add-btn mr-3" (click)="modalRef.hide();">Yes</button>
+            <button class="btn no-btun" (click)="modalRef.hide();">No</button>
+        </div>
+
+
+
+
+    </div>
+</ng-template>

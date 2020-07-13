@@ -10,7 +10,8 @@
     color: #747588;
     font-family: Muli;
 }
-.cursor-dots:hover{
+
+.cursor-dots:hover {
     text-decoration: none !important;
     color: #232334 !important;
 }
@@ -20,7 +21,6 @@
     position: relative;
     top: 5px;
 }
-
 
 .list-group-item {
     border: none;
@@ -45,3 +45,16 @@
     padding: .25rem .25rem !important;
 }
 
+.profile-pic {
+    border-radius: 100%;
+}
+
+.mobile-farm {
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    .mobile-farm {
+        display: block !important;
+    }
+}

@@ -44,7 +44,7 @@
                         <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
                             <div class="profile-link d-flex align-items-center">
                                 <div class="profile-link__img d-inline-block mr-md-2">
-                                    <img src="assets/images/profile.png">
+                                    <img src="{{profilePic}}" class="profile-pic">
                                 </div>
                                 <div class="profile-link__info pl-lg-1 float-right">
                                     <div>
@@ -56,7 +56,7 @@
                                             <div id="popover-mobile-content">
                                                 <ul class="list-group">
                                                     <li class="list-group-item"><a class="cursor-dots" routerLink="/features/roastery-profile" (click)="pop2.hide()">Roastery Profile </a></li>
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/myprofile" (click)="pop2.hide()">Profile </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/profile-edit" (click)="pop2.hide()">Profile </a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings" (click)="pop2.hide()">Account Settings </a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">Logout </a></li>
                                                 </ul>
@@ -78,78 +78,82 @@
                 <div class="row">
                     <div class="w-100 sidenav-mb">
                         <span class="sidenav-mb__close">x</span>
-                    <ul class="nav-links fnt-muli pad-5">
+                        <ul class="nav-links fnt-muli pad-5">
 
-                        <li class="nav-links__item d-inline-block position-relative ">
+                            <li class="nav-links__item d-inline-block position-relative ">
 
-                            <a class="d-inline-block fnt-600 router-link" routerLink="../features/welcome-aboard">Dashboard
+                                <a class="d-inline-block fnt-600 router-link" routerLink="../features/welcome-aboard">Dashboard
                             </a>
-                        </li>
+                            </li>
 
-                        <li class="nav-links__item d-inline-block position-relative">
+                            <li class="nav-links__item d-inline-block position-relative">
 
-                            <a class="d-inline-block fnt-600 router-link" routerLink="../features/sourcing">Sourcing Module
+                                <a class="d-inline-block fnt-600 router-link" routerLink="../features/sourcing">Sourcing Module
                             </a>
-                        </li>
+                            </li>
 
-                        <li class="nav-links__item arrow d-inline-block position-relative active">
-                            <a class="d-inline-block fnt-600" href="javascript:void(0)">Order Management
+                            <li class="nav-links__item arrow d-inline-block position-relative active">
+                                <a class="d-inline-block fnt-600" href="javascript:void(0)">Order Management
                             </a>
-                            <ul class="nav-dropdown fnt-600">
-                                <li>
-                                    <a class="router-link" routerLink="../ordermanagement/estate-orders">Estate Orders</a>
-                                </li>
-                                <li>
-                                    <a class="router-link" routerLink="../ordermanagement/roaster-orders">Roaster Orders</a>
-                                </li>
-                                <li>
-                                    <a class="router-link" routerLink="../ordermanagement/facilitator-orders">Facilitator Orders</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-links__item arrow d-inline-block position-relative">
-                            <a class="d-inline-block fnt-600" href="javascript:void(0)">Farm Link
+                                <ul class="nav-dropdown fnt-600">
+                                    <li>
+                                        <a class="router-link" routerLink="../ordermanagement/estate-orders">Estate Orders</a>
+                                    </li>
+                                    <li>
+                                        <a class="router-link" routerLink="../ordermanagement/roaster-orders">Roaster Orders</a>
+                                    </li>
+                                    <li>
+                                        <a class="router-link" routerLink="../ordermanagement/facilitator-orders">Facilitator Orders</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-links__item arrow d-inline-block position-relative">
+                                <a class="d-inline-block fnt-600" href="javascript:void(0)">Farm Link
                             </a>
-                            <ul class="nav-dropdown fnt-600">
-                                <li>
-                                    <a class="router-link" routerLink="../features/brand-profile">Build your brand profile</a>
-                                </li>
-                                <li>
-                                    <a class="router-link" routerLink="../features/coffee-experience">The coffee experience</a>
-                                </li>
-                                <li>
-                                    <a class="router-link" routerLink="../features/social-media">Social Media posts</a> </li>
-                                <li>
-                                    <a class="router-link" routerLink="../features/file-share">File Share</a> </li>
-                                <li>
-                                    <a class="router-link" routerLink="../features/agreement">Agreements</a>
-                                </li>
+                                <ul class="nav-dropdown fnt-600">
+                                    <li>
+                                        <a class="router-link" routerLink="../features/brand-profile">Build your brand profile</a>
+                                    </li>
+                                    <li>
+                                        <a class="router-link" routerLink="../features/coffee-experience">The coffee experience</a>
+                                    </li>
+                                    <li>
+                                        <a class="router-link" routerLink="../features/social-media">Social Media posts</a> </li>
+                                    <li>
+                                        <a class="router-link" routerLink="../features/file-share">File Share</a> </li>
+                                    <li>
+                                        <a class="router-link" routerLink="../features/agreement">Agreements</a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-links__item d-inline-block position-relative">
-                            <a class="d-inline-block fnt-600" href="javascript:void(0)">E-commerce
+                                </ul>
+                            </li>
+                            <li class="nav-links__item d-inline-block position-relative">
+                                <a class="d-inline-block fnt-600" href="javascript:void(0)">E-commerce
                             </a>
-                        </li>
-                        <li class="nav-links__item d-inline-block position-relative">
-                            <a class="d-inline-block fnt-600" href="javascript:void(0)">Insights
+                            </li>
+                            <li class="nav-links__item d-inline-block position-relative">
+                                <a class="d-inline-block fnt-600" href="javascript:void(0)">Insights
                             </a>
-                        </li>
-                        <li class="nav-links__item arrow d-inline-block position-relative">
-                            <a class="d-inline-block fnt-600" href="javascript:void(0)">People
+                            </li>
+                            <li class="nav-links__item arrow d-inline-block position-relative">
+                                <a class="d-inline-block fnt-600" href="javascript:void(0)">People
                             </a>
-                            <ul class="nav-dropdown fnt-600">
+                                <ul class="nav-dropdown fnt-600">
 
-                                <li>
-                                    <a class="router-link" routerLink="../people/manage-role">Manage Roles</a>
-                                </li>
-                                <li>
-                                    <a class="router-link" routerLink="../people/user-management">User Management </a>
-                                </li>
+                                    <li>
+                                        <a class="router-link" routerLink="../people/manage-role">Manage Roles</a>
+                                    </li>
+                                    <li>
+                                        <a class="router-link" routerLink="../people/user-management">User Management </a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                    </ul>
+                                </ul>
+                            </li>
+                            <li class="nav-links__item d-md-inline-block position-relative mobile-farm">
+                                <a class="d-inline-block fnt-600" routerLink="../features/account-settings">Account Settings
+                            </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -157,7 +161,84 @@
 
     </nav>
 </header>
+<footer class="sectin-footer-mb">
+    <section>
+        <div class="container px-0">
+            <div class="d-flex">
+                <div class="col-12 px-0">
+                    <ul class="footer-links d-flex flex-wrap mb-0 align-items-center justify-content-between">
+                        <li class="footer-links__item active">
+                            <a routerLink="../features/welcome-aboard" class="d-inline-block">
+                                <div class="d-flex flex-column align-items-center">
+                                    <img class="in-active" src="assets/images/ft-icon-dashboard.svg">
+                                    <img class="active
+                                    " src="assets/images/ft-icon-active-dashboard.svg">
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">Dashboard</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="footer-links__item">
+                            <a class="d-inline-block">
+                                <div class="d-flex flex-column align-items-center start-messaging">
+                                    <img class="in-active" src="assets/images/mess.svg">
+                                    <img class="active
+                                    " src="assets/images/ft-icon-active-message.svg">
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">Messages</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="footer-links__item">
+                            <a href="javascript:void(0)" class="d-inline-block">
+                                <div class="d-flex flex-column align-items-center">
+                                    <img class="in-active" src="assets/images/notification.svg">
+                                    <img class="active
+                                    " src="assets/images/ft-icon-active-notification.svg">
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">Notifications</p>
+                                </div>
+                            </a>
+                        </li>
 
+                        <li class="footer-links__item">
+                            <a href="javascript:void(0)" class="d-inline-block">
+                                <div class="d-flex flex-column align-items-center">
+                                    <img class="in-active" src="assets/images/ft-icon-profile.svg">
+                                    <img class="active
+                                    " src="assets/images/ft-icon-active-profile.svg">
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">Profile</p>
+                                </div>
+
+                            </a>
+                            <div class="ft-dropdown">
+                                <div class="ft-dropdown__content">
+                                    <a href="javascript:void(0)" class="ft-dropdown__link d-flex clearfix align-items-center">
+                                        <div class="img float-left mr-2">
+                                            <img src="assets/images/stakeholder2.png">
+                                        </div>
+                                        <span class="text-capitalize">my profile</span>
+                                    </a>
+                                    <a routerLink="../features/roastery-profile" class="ft-dropdown__link active d-flex clearfix align-items-center ">
+                                        <div class="img float-left mr-2">
+                                            <img src="assets/images/ft-roastry-profile.png">
+                                        </div>
+                                        <span class="text-capitalize">roastery profile</span>
+                                    </a>
+
+                                    <a (click)="userLogout()" class="ft-dropdown__link d-flex clearfix align-items-center ">
+                                        <div class="img float-left mr-2">
+                                            <img src="assets/images/ft-roastry-profile.png">
+                                        </div>
+                                        <span class="text-capitalize">Logout</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</footer>
 
 
 <div class="container sewn-container">

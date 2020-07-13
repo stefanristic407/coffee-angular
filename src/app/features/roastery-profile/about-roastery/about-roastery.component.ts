@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoasteryProfileService } from '../roastery-profile.service';
 
 @Component({
   selector: 'sewn-about-roastery',
@@ -19,7 +20,7 @@ export class AboutRoasteryComponent implements OnInit {
   employee_nos : any;
   brand_name : string;
   short_descr : string;
-  emp_title : string;
+  // emp_title : string;
   emp_name : string = ''
 
   ownerNameError : string;
@@ -34,11 +35,11 @@ export class AboutRoasteryComponent implements OnInit {
   brandNameError : string;
   brandLogoError : string;
   shortDescError : string;
-  empTitleError : string;
+  // empTitleError : string;
   empNameError : string;
   
 
-  constructor() { }
+  constructor(public roasteryProfileService : RoasteryProfileService) { }
 
   ngOnInit(): void {
    

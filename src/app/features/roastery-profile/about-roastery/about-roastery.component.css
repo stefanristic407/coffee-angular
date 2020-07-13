@@ -210,3 +210,48 @@ margin-bottom: 2rem !important;
 .border-div {
     border-bottom: 1px dashed #d6d6d6;
 }
+.info-content{
+    color: #232334;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.57;
+    font-family: Muli;
+    width: 80%;
+}
+.weight{
+    font-family: Muli;
+    font-size: 38px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+.capabilities_content{
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.57;
+    letter-spacing: normal;
+    color: #232334;
+}
+.capabilitiesDiv{
+    border-right: 1px solid #d6d6d6;
+    float: left;
+    margin-right: 1rem;
+}
+.border-total{
+    border: 1px solid #d6d6d6;
+    padding: 1rem;
+    margin-left: 1rem;
+}
+.capabilitiesdescrDiv{
+    padding: 1.5rem;
+}
+.capacity-header{
+    color: #747588;
+    font-weight: 600;
+}

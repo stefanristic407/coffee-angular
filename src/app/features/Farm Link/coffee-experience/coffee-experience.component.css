@@ -2,6 +2,10 @@
     padding-left: 3.1rem;
 }
 
+.coffee-exp {
+    padding: 2rem 0rem;
+}
+
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_desc {
@@ -653,9 +657,9 @@ ul li {
 
 /*  media query Fram Link */
 
-@media (max-width:640px) {
+@media (max-width:767px) {
     .bg-fff {
-        padding: 1rem .7rem;
+        padding: 1rem .7rem !important;
     }
     .bread-nav {
         padding-left: 0rem;

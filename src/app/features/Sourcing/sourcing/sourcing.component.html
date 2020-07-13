@@ -143,72 +143,126 @@
                             </nav>
                             <div class="tab-content py-md-4 px-md-3 px-sm-0" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="estates" role="tabpanel" aria-labelledby="nav-home-tab">
-                                    <div class="cardpanel-detail">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6" *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
-                                                <div class="source-card card-border">
-                                                    <div class="s-gal">
-                                                        <img [src]="sample.image" alt="">
-                                                    </div>
-                                                    <div class="s-details">
-                                                        <div class="flex m-flex">
-                                                            <div class=" s-tit">
-                                                                <h3>{{sample.estatename}}</h3>
-                                                                <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6>
+                                <div class="d-md-block d-none">
+                                        <div class="cardpanel-detail ">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-6" *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
+                                                        <div class="source-card card-border">
+                                                            <div class="s-gal">
+                                                                <img [src]="sample.image" alt="">
                                                             </div>
-                                                            <div class="s-cert">
-                                                                <ul class="flex">
-                                                                    <li><img src="/assets/images/group-certificate.png"></li>
-                                                                    <li><img src="/assets/images/group-utz.png"></li>
-                                                                    <li><img src="/assets/images/group-certified.png"></li>
-                                                                </ul>
+                                                            <div class="s-details">
+                                                                <div class="flex m-flex">
+                                                                    <div class=" s-tit">
+                                                                        <h3>{{sample.estatename}}</h3>
+                                                                        <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6>
+                                                                    </div>
+                                                                    <div class="s-cert">
+                                                                        <ul class="flex">
+                                                                            <li><img src="/assets/images/group-certificate.png"></li>
+                                                                            <li><img src="/assets/images/group-utz.png"></li>
+                                                                            <li><img src="/assets/images/group-certified.png"></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="source-lets flex">
+                                                                    <div class="orgin-att">
+                                                                        <label>Origin</label>
+                                                                        <h6>{{sample.origin}}</h6>
+                                                                    </div>
+                                                                    <div class="orgin-att">
+                                                                        <label>Altitude</label>
+                                                                        <h6>{{sample.range}}</h6>
+                                                                    </div>
+                                                                    <div class="orgin-att">
+                                                                        <label>Crop year</label>
+                                                                        <h6>{{sample.cropyear}}</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="top-lots">
+                                                                    <label>Top lots</label>
+                                                                    <a>Dilema</a>
+                                                                    <a>Shaya</a>
+                                                                    <a>Gayni</a>
+                                                                    <a>+5more</a>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="source-lets flex">
-                                                            <div class="orgin-att">
-                                                                <label>Origin</label>
-                                                                <h6>{{sample.origin}}</h6>
-                                                            </div>
-                                                            <div class="orgin-att">
-                                                                <label>Altitude</label>
-                                                                <h6>{{sample.range}}</h6>
-                                                            </div>
-                                                            <div class="orgin-att">
-                                                                <label>Crop year</label>
-                                                                <h6>{{sample.cropyear}}</h6>
-                                                            </div>
-                                                        </div>
-                                                        <div class="top-lots">
-                                                            <label>Top lots</label>
-                                                            <a>Dilema</a>
-                                                            <a>Shaya</a>
-                                                            <a>Gayni</a>
-                                                            <a>+5more</a>
-                                                        </div>
+        
+        
                                                     </div>
                                                 </div>
-
-
+                                               
                                             </div>
                                         </div>
-                                        <!-- <div class="m-pagenation">
-                                            <nav aria-label="Page navigation example" class="nav-page">
-                                                <ul class="pagination">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#">
-                                                        </a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#"> > </a></li>
-                                                </ul>
-                                            </nav>
-                                        </div> -->
+
+
+                                <div class="d-lg-none d-block">
+                                    <div class="pagination-content d-block">
+                                            <div class="cardpanel-detail">
+                                                    <div class="row pagination-content-list">
+                                                        <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
+                                                            <div class="source-card card-border">
+                                                                <div class="s-gal">
+                                                                    <img [src]="sample.image" alt="">
+                                                                </div>
+                                                                <div class="s-details">
+                                                                    <div class="flex m-flex">
+                                                                        <div class=" s-tit">
+                                                                            <h3>{{sample.estatename}}</h3>
+                                                                            <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6>
+                                                                        </div>
+                                                                        <div class="s-cert">
+                                                                            <ul class="flex">
+                                                                                <li><img src="/assets/images/group-certificate.png"></li>
+                                                                                <li><img src="/assets/images/group-utz.png"></li>
+                                                                                <li><img src="/assets/images/group-certified.png"></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="source-lets flex">
+                                                                        <div class="orgin-att">
+                                                                            <label>Origin</label>
+                                                                            <h6>{{sample.origin}}</h6>
+                                                                        </div>
+                                                                        <div class="orgin-att">
+                                                                            <label>Altitude</label>
+                                                                            <h6>{{sample.range}}</h6>
+                                                                        </div>
+                                                                        <div class="orgin-att">
+                                                                            <label>Crop year</label>
+                                                                            <h6>{{sample.cropyear}}</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="top-lots">
+                                                                        <label>Top lots</label>
+                                                                        <a>Dilema</a>
+                                                                        <a>Shaya</a>
+                                                                        <a>Gayni</a>
+                                                                        <a>+5more</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+            
+            
+                                                        </div>
+                                                    </div>
+                                                    <div class="responsive-pagination clearfix">
+                                                            <span class="responsive-pagination__prev float-left disable"></span>
+                                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                                <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                                                            <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
+                                                            <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
+                                                            <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
+                                                            <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
+                                                            </ul>
+                                                            <span class="responsive-pagination__next float-left"></span>
+                                                        </div>
+                                                </div>
                                     </div>
+                                </div>
                                     <!-- <app-estate-table></app-estate-table> -->
+                                    <div class=" d-none d-lg-block">
                                     <div class="table-details">
                                         <div class="table-responsive border-sourcetable">
                                             <table class="table">
@@ -255,8 +309,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                                 <div class="tab-pane fade" id="green-coffee" role="tabpanel" aria-labelledby="nav-profile-tab">
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="d-md-block d-none">
                                         <div class="cardpanel-detail">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter :weight" (click)="availableCoffeeList()">
@@ -316,6 +372,68 @@
                                                 </div> -->
                                             </div>
                                         </div>
+                                    </div>
+                                        <!-- Mobile  Available Tab-->
+                                        <div class="d-lg-none d-block">
+                                            <div class="pagination-content d-block">
+                                        <div class="cardpanel-detail">
+                                                <div class="row pagination-content-list">
+                                                    <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter :weight" (click)="availableCoffeeList()">
+                                                        <div class="source-card card-border green-coffee-product">
+                                                            <div class="s-gal">
+                                                                <img [src]="item.image" alt="">
+                                                                <div class="cupping">
+                                                                    <p>Cup score {{item.score}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="s-details ">
+                                                                <div class="flex">
+                                                                    <div class="s-tit">
+                                                                        <h3>{{item.name}}</h3>
+                                                                        <h5>{{item.estatename}}</h5>
+                                                                        <h6>{{item.price}}</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="source-lets flex">
+                                                                    <div class="orgin-att">
+                                                                        <label>Origin</label>
+                                                                        <h6>{{item.origin}}</h6>
+                                                                    </div>
+                                                                    <div class="orgin-att">
+                                                                        <label>Species</label>
+                                                                        <h6>{{item.species}}</h6>
+                                                                    </div>
+                                                                    <div class="orgin-att">
+                                                                        <label>Flavour</label>
+                                                                        <ul class="flo-list">
+                                                                            <li>Citrus</li>
+                                                                            <li>Floral</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="top-lots">
+                                                                    <label>Available Quantity : <span> {{item.quantity}} of 60kg </span></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="responsive-pagination clearfix">
+                                                        <span class="responsive-pagination__prev float-left disable"></span>
+                                                        <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                            <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                                                        <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
+                                                        <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
+                                                        <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
+                                                        <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
+                                                        </ul>
+                                                        <span class="responsive-pagination__next float-left"></span>
+                                                    </div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                        <!-- Mobile Ends -->
+                                        <div class=" d-none d-lg-block">
                                         <div class="table-details">
                                             <div class="table-responsive border-coffeetable">
                                                 <table class="table">
@@ -347,6 +465,7 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>

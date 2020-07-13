@@ -23,7 +23,7 @@
 <!-- </div>
   </div>
 </div> -->
-<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
@@ -35,33 +35,25 @@
 
         <li class="b-cum c-pink">User management
         </li>
-        <div class="col-12 col-md-6 col-lg-4 pull-right search-div">
-            <input type="text" name="search" class="search-raised" [(ngModel)]="term" placeholder="Search by name, role.." />
+        <div class="col-md-6 col-lg-4 pull-right search-div ">
+            <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by name, role.." />
         </div>
 
     </ul>
 </nav>
-<div class="row desk_view_user">
-    <div class="user-title">
-        <p class="d-inline col-sm-12 page-title">User management</p>
-        <!-- <a
-      class="pointer-item"
-      [popover]="infoTemplate"
-      placement="bottom"
-      [outsideClick]="true"
-      container="body"
-      [adaptivePosition]="false" 
-    > -->
+    <section class="user-title d-md-block d-none">
+			<div class="col-lg-12 col-md-12 col-sm-12 p-0">
+					<div class="row">
+        <div class="d-inline page-title">User management</div>
         <i class="pi pi-question-circle help" pTooltip="Please Click to see help" tooltipPosition="bottom" (click)="showModalDialog()"></i>
         <p-dialog header="What is Lorem Ipsum?" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
                 book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
                 recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-
-        </p-dialog>
-    </div>
-
-</div>
+		</p-dialog>
+		</div>
+		</div>
+    </section>
 <div class="title-header d-inline desk_view_user">
     <div class="d-inline border-total status-div col-sm-6" id="status_id">
         <p class="d-inline filter-text" *ngIf="termStatus == ''">Status&nbsp;</p>
@@ -165,7 +157,7 @@
               [popover]="popTemplate"
               placement="left"
               [outsideClick]="true"
-              #pop2="bs-popover"
+              #pop12="bs-popover"
             >
               <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
             </a>
@@ -175,12 +167,12 @@
                   <li class="list-group-item">
                     <a
                       class="pointer-item"
-                      (click)="editMember(user.id); pop2.hide()"
+                      (click)="editMember(user.id); pop12.hide()"
                       >Edit member</a
                     >
                   </li>
                   <li class="list-group-item">
-                    <a class="pointer-item" (click)="pop2.hide()"
+                    <a class="pointer-item" (click)="pop12.hide()"
                       >Send a message</a
                     >
                   </li>
@@ -191,7 +183,7 @@
                     <a
                       class="pointer-item"
                       (click)="
-                        openModal(template, user.id, user.name); pop2.hide()
+                        openModal(template, user.id, user.name); pop12.hide()
                       "
                       >Assign Role</a
                     >
@@ -202,7 +194,7 @@
                   >
                     <a
                       class="pointer-item"
-                      (click)="userDisable(user.id); pop2.hide()"
+                      (click)="userDisable(user.id); pop12.hide()"
                       >Disable Account</a
                     >
                   </li>
@@ -212,7 +204,7 @@
                   >
                     <a
                       class="pointer-item"
-                      (click)="userEnable(user.id); pop2.hide()"
+                      (click)="userEnable(user.id); pop12.hide()"
                       >Enable Account</a
                     >
                   </li>
@@ -220,7 +212,7 @@
                     <a class="pointer-item">Simulated Login</a>
                   </li>
                   <li class="list-group-item">
-                    <a class="pointer-item" (click)="makeAdmin(user.id); pop2.hide()">Make Admin</a>
+                    <a class="pointer-item" (click)="makeAdmin(user.id); pop12.hide()">Make Admin</a>
                   </li>
                   <li class="list-group-item">
                     <a class="pointer-item">Customize Permissions</a>
@@ -228,7 +220,7 @@
                   <li class="list-group-item" *ngIf="user.id != loginId">
                     <a
                       class="pointer-item"
-                      (click)="deleteRoasterUser(user.id); pop2.hide()"
+                      (click)="deleteRoasterUser(user.id); pop12.hide()"
                       >Delete</a
                     >
                   </li>
@@ -237,119 +229,14 @@
             </ng-template>
           </td>
         </tr>
-        <!-- <tr>
-                                        <th>
-                                            <label class="customcheckbox">
-                                                <input type="checkbox" class="listCheckbox" />
-                                                <span class="checkmark body-check"></span>
-                                            </label>
-                                        </th>
-                                        <td>Lillian Duncan</td>
-                                        <td>24/09/2019  1:00pm</td>
-                                        <td>
-                                           Lillian@roaster.com
-                                        </td>
-                                        <td>
-                                            <p class="status-disabled">&#9679; Disabled</p>
-                                        </td> 
-                                        <td>Accountant</td>
-                                        <td><a class="menu-arrow" [popover]="popTemplate" placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
-
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <label class="customcheckbox">
-                                                <input type="checkbox" class="listCheckbox"/>
-                                                <span class="checkmark body-check"></span>
-                                            </label>
-                                        </th>
-                                        <td>Sean Hawkins</td>
-                                        <td>13/09/2019  5:00pm</td>
-                                        <td>
-                                           Sean.H@roaster.com
-                                        </td>
-                                        <td>
-                                            <p class="status-active">&#9679; Active</p>
-                                        </td>
-                                        <td>Brand Management</td>
-                                        <td><a class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <label class="customcheckbox">
-                                                <input type="checkbox" class="listCheckbox" />
-                                                <span class="checkmark body-check"></span>
-                                            </label>
-                                        </th>
-                                        <td>Harold Carpenter</td>
-                                        <td>02/09/2019 10:07am</td>
-                                        <td>
-                                           Harold@roaster.com
-                                        </td>
-                                        <td>
-                                            <p class="status-active">&#9679; Active</p>
-                                        </td>
-                                        <td>Marketing</td>
-                                        <td><a class="menu-arrow" [popover]="popTemplate" placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <label class="customcheckbox">
-                                                <input type="checkbox" class="listCheckbox" />
-                                                <span class="checkmark body-check"></span>
-                                            </label>
-                                        </th>
-                                        <td>James Fitzgerald</td>
-                                        <td>02/01/2020  7:23am</td>
-                                        <td>
-                                            James.f@roaster.com
-                                        </td>
-                                        <td>
-                                            <p class="status-active">&#9679; Active</p>
-                                        </td>
-                                        <td>Marketing</td>
-                                        <td><a class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <label class="customcheckbox">
-                                                <input type="checkbox" class="listCheckbox" />
-                                                <span class="checkmark body-check"></span>
-                                            </label>
-                                        </th>
-                                        <td>Mae Grant</td>
-                                        <td>19/08/2019  9:16pm</td>
-                                        <td>
-                                            Mae.grant@roaster.com
-                                        </td>
-                                        <td>
-                                            <p class="status-active">&#9679; Active</p>
-                                        </td>
-                                        <td>Admin</td>
-                                        <td><a  class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true"><p class="" >&#x22EE;</p></a></td>
-                                    </tr> -->
-      </tbody>
-      <!-- <div >
-                                  <ul class="list-group custom-popover">
-                                    <a ><li class="list-group-item">Edit</li></a>
-                                    <li class="list-group-item"><a>Send a message</a></li>
-                                    <li class="list-group-item"><a>Send a recovery email</a></li>
-                                    <li class="list-group-item"><a>Rename</a></li>
-                                    <li class="list-group-item"><a>Disable account</a></li>
-                                    <li class="list-group-item"><a>Simulated Login</a></li>
-                                    <li class="list-group-item"><a>Make Admin</a></li>
-                                    <li class="list-group-item"><a>Customize Permissions</a></li>
-                                    <li class="list-group-item"><a>Delete</a></li>
-                                  </ul>
-                                </div> -->
+        </tbody>
     </table>
   </div>
 </div>
 
 <div class="mobile_view_user">
-  <div class="title-header d-inline">
-    <p class="d-inline col-sm-12 page-title">User Management</p>
-    <!-- <div class="d-inline col-sm-12 search-div">
+    <p class=" page-title">User Management</p>
+    <div class="col-sm-12 search-div mb-4">
       <input
         type="text"
         name="search"
@@ -357,229 +244,181 @@
         [(ngModel)]="term"
         placeholder="Search by Name,role.."
       />
-    </div> -->
-    &nbsp;
-    <div class="d-inline status-div col-sm-6">
-      <p class="d-inline">Status:</p>
-      <p class="d-inline filter" (click)="openStatusBottomSheet()">
-        All&nbsp; <img src="assets/images/active.png" />
-      </p>
-      <!-- <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p>
-              <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termStatus}}&nbsp; <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png" ></a></p> -->
-    </div>
-    &nbsp;&nbsp;
-    <div class="d-inline role-div col-sm-6">
-      <p class="d-inline">Role:</p>
-      <p class="d-inline filter" (click)="openRoleBottomSheet()">
-        All&nbsp; <img src="assets/images/active.png" />
-      </p>
-      <!-- <p class="d-inline filter" *ngIf = "termStatus == ''"> All&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p>
-      <p class="d-inline filter" *ngIf = "termStatus != ''"> {{termRole}}&nbsp;  <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"><img src="assets/images/active.png"></a></p> -->
-    </div>
-  </div>
-  <div class="row mobile-content">
+	</div>
+<div class="d-inline filter-mob">
+	<div class="d-inline border-total status-div col-sm-6" id="status_mobid">
+			<p class="d-inline filter-text" *ngIf="termStatusMob == ''">Status&nbsp;</p>
+			<a class="pointer-item" [popover]="allTemplateMob" placement="bottom" container="body" #pop15="bs-popover">
+				<p class="d-inline filter" *ngIf="termStatusMob == ''" (click)="toggleStatus1()">
+					&nbsp; <img src="{{ showMobVar ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+				</p>
+			</a>
+			<a class="pointer-item" [popover]="allTemplateMob" placement="bottom" container="body" #pop16="bs-popover">
+				<p class="d-inline filter" *ngIf="termStatusMob != ''" (click)="toggleStatus1()">
+					{{ termStatusMob }}&nbsp; <img src="{{ showMobVar ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+				</p>
+			</a>
+		</div>
+	&nbsp;&nbsp;
+    <div class="d-inline border-total role-div col-sm-6" id="role_mobid">
+        <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
+        <p class="d-inline filter-text" *ngIf="termRoleMob == ''">Role&nbsp;</p>
+        <a class="pointer-item" [popover]="roleTemplateMob" placement="bottom" container="body" #pop7="bs-popover">
+            <p class="d-inline filter" *ngIf="termRoleMob == ''" (click)="toggleRole1();">
+                &nbsp; <img src="{{ showMobRole ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+            </p>
+        </a>
+        <a class="pointer-item" [popover]="roleTemplateMob" placement="bottom" container="body" #pop8="bs-popover">
+            <p class="d-inline filter" *ngIf="termRoleMob != ''" (click)="toggleRole1();">
+                {{ termRoleMob }}&nbsp;<img src="{{ showMobRole ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+            </p>
+        </a>
+	</div>
+</div>
+
+
+			<!--li> <label class="customcheckbox">
+				 <input type="checkbox" class="listCheckbox"  name="check"/>
+				 <span class="checkmark"></span>
+			   </label></li-->
+
+  <div class="pt-5">
+		
     <ul
-      class="dyn-data d-flex"
+      class="dyn-userdata"
       *ngFor="
         let mobileuser of userfilterDat
           | filter: term
-          | filter: termStatus
-          | filter: termRole
-      "
-      (click)="openBottomSheet()"
-    >
-      <li>
-        <label class="customcheckbox">
-          <input
-            type="checkbox"
-            class="listCheckbox"
-            name="check"
-            value="blue"
-          />
-          <span class="checkmark "></span>
-        </label>
-      </li>
-      <li>
-        <div class="salemark">
-          <div class="user-name pb-1">{{ mobileuser.name }}</div>
-          <div class="user-email pb-1">{{ mobileuser.email }}</div>
-          <div class="lastlogin pb-1">
-            Last Login <span class="roles">{{ mobileuser.lastLogin }}</span>
-          </div>
-          <div
-            class="delete_icon col-12 p-0 mt-1"
-            *ngFor="let value of mobileuser.roles"
-          >
-            <button
-              type="submit"
-              id="delete_row"
-              class="btn-danger delete_row icon_value"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Delete"
-              (click)="roleDeletionRoaster(value.id, mobileuser.id)"
-              name="action"
-              value="DELETE"
-            >
-              <i class="fa fa-trash"></i></button
-            >{{ value.name }}<br />
-          </div>
-        </div>
-      </li>
-      <li class="pull-right">
-        <div class="image-class">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            viewBox="0 0 30 30"
-          >
-            <g fill="none" fill-rule="evenodd">
-              <path d="M0 0H30V30H0z" />
-              <path
-                fill="#231f20"
-                fill-rule="nonzero"
-                d="M26.136 3l.2.009c1.187.1 2.119 1.096 2.119 2.31v9.545l-.009.2c-.101 1.186-1.097 2.118-2.31 2.118h-1.161l-.001 1.898-.01.185c-.028.245-.11.48-.243.69-.483.764-1.494.991-2.258.508l-2.191-1.386v1.241c0 1.227-.952 2.231-2.159 2.313l-.158.005h-4.776l-5.187 3.282c-.713.45-1.641.282-2.155-.363l-.103-.146c-.166-.261-.253-.565-.253-.874l-.001-1.899H4.318c-1.213 0-2.208-.931-2.31-2.118l-.008-.2v-9.545c0-1.28 1.038-2.318 2.318-2.318l5.863-.001V5.318l.01-.2C10.29 3.932 11.286 3 12.5 3h13.636zm-8.181 7.364H4.318c-.226 0-.409.183-.409.409v9.545c0 .226.183.41.41.41h1.434c.904 0 1.637.732 1.637 1.636v1.676l4.836-3.06c.21-.132.446-.214.69-.242l.185-.01h4.854c.225 0 .409-.184.409-.41v-9.545c0-.226-.184-.41-.41-.41zm8.181-5.455H12.5l-.094.01c-.18.043-.315.206-.315.4l-.001 3.135h5.865c1.226 0 2.23.954 2.312 2.16l.006.159-.001 6.046 2.793 1.766v-1.676l.008-.167c.084-.825.781-1.47 1.628-1.47h1.435l.094-.01c.18-.042.315-.205.315-.398V5.318l-.01-.094c-.043-.18-.205-.315-.399-.315z"
-              />
-              <ellipse
-                cx="25.667"
-                cy="5.659"
-                fill="#E14C4C"
-                rx="3.667"
-                ry="3.659"
-              />
-            </g>
-          </svg>
-        </div>
-        <div class="top-space">
-          <p class="status-active" *ngIf="mobileuser.status == 'ACTIVE'">
-            &#9679; {{ mobileuser.status | titlecase }}
-          </p>
-          <p class="status-disabled" *ngIf="mobileuser.status == 'INACTIVE'">
-            &#9679; {{ mobileuser.status | titlecase }}
-          </p>
-        </div>
-      </li>
+          | filter: termStatusMob
+          | filter: termRoleMob">
+	  
+		  <li>
+			  <ul class="user-list-detail">
+					<li>
+							<div class="">
+							  <div class="user-name pb-1">{{ mobileuser.name }}</div>
+							  <div class="user-email pb-2">{{ mobileuser.email }}</div>
+							  <div class="lastlogin pb-1">
+								Last Login <span class="roles">{{ mobileuser.lastLogin }}</span>
+							  </div>
+							 
+							</div>
+						  </li>
+						  <li> <img src="assets/images/add-user.svg" alt="Dashboard"></li>
+							<li class="pull-right">
+								 <a
+								 class="menu-arrow"
+								 [popover]="popUserTemplate"
+								 placement="left"
+								 [outsideClick]="true"
+								 #pop11="bs-popover"
+							   >
+								 <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
+							   </a>
+							   <ng-template #popUserTemplate>
+								 <div id="popover-mobile-content">
+								   <ul class="list-data custom-popover">
+									 <li class="list-item">
+									   <a
+										 class="pointer-item"
+										 (click)="editMember(mobileuser.id); pop11.hide()"
+										 >Edit member</a
+									   >
+									 </li>
+									 <li class="list-item">
+									   <a class="pointer-item" (click)="pop11.hide()"
+										 >Send a message</a
+									   >
+									 </li>
+									 <li class="list-item">
+									   <a class="pointer-item">Send a recovery email</a>
+									 </li>
+									 <li class="list-item">
+									   <a
+										 class="pointer-item"
+										 (click)="
+										   openModal(template, mobileuser.id, mobileuser.name); pop11.hide()
+										 "
+										 >Assign Role</a
+									   >
+									 </li>
+									 <li
+									   class="list-item"
+									   *ngIf="mobileuser.status == 'ACTIVE' && mobileuser.id != loginId"
+									 >
+									   <a
+										 class="pointer-item"
+										 (click)="userDisable(mobileuser.id); pop11.hide()"
+										 >Disable Account</a
+									   >
+									 </li>
+									 <li
+									   class="list-item"
+									   *ngIf="mobileuser.status == 'INACTIVE' && mobileuser.id != loginId"
+									 >
+									   <a
+										 class="pointer-item"
+										 (click)="userEnable(mobileuser.id); pop11.hide()"
+										 >Enable Account</a
+									   >
+									 </li>
+									 <li class="list-item">
+									   <a class="pointer-item">Simulated Login</a>
+									 </li>
+									 <li class="list-item">
+									   <a class="pointer-item" (click)="makeAdmin(mobileuser.id); pop11.hide()">Make Admin</a>
+									 </li>
+									 <li class="list-item">
+									   <a class="pointer-item">Customize Permissions</a>
+									 </li>
+									 <li class="list-item" *ngIf="mobileuser.id != loginId">
+									   <a
+										 class="pointer-item"
+										 (click)="deleteRoasterUser(mobileuser.id); pop11.hide()"
+										 >Delete</a
+									   >
+									 </li>
+								   </ul>
+								 </div>
+							   </ng-template>
+							</li>
+			  </ul>
+		  </li>
+       
+     <li>
+		 <div class="row">
+			 <div class="col-8 left-padd">
+				 <div class="row">
+				<div
+				class="delete_icon col-12  p-0 mt-1 no-padding"
+				*ngFor="let value of mobileuser.roles"
+			  >
+				<button
+				  type="submit"
+				  id="delete_row"
+				  class="btn-danger delete_row icon_value"
+				  data-toggle="tooltip"
+				  data-placement="top"
+				  title="Delete"
+				  (click)="roleDeletionRoaster(value.id, mobileuser.id)"
+				  name="action"
+				  value="DELETE"
+				>
+				  <i class="fa fa-trash"></i></button
+				><span class="role-mob">{{ value.name }}</span><br />
+			  </div></div></div>
+			 <div class="col-4 text-right right-padd">
+				 <span class="status-active" *ngIf="mobileuser.status == 'ACTIVE'">&#9679; {{ mobileuser.status | titlecase }}</span>
+				 <span class="status-disabled" *ngIf="mobileuser.status == 'INACTIVE'">
+						&#9679; {{ mobileuser.status | titlecase }}
+				 </span>
+				
+				</div>
+		 </div>
+	 </li>
+		
     </ul>
 
-    <!-- <div class="column">
-            <div class="card header_main">
-              <div class="name_head">Name</div>
-              <div class="last_head">Last Login</div>
-              <div class="email_head">Email</div>
-              <div class="status_head">Status</div>
-              <div class="roles_head">All Roles</div>
-              <div class="action_head">Action</div>
-            </div>
-          </div>
-          <div class="column" *ngFor="let size of filterDat | filter:term  | tableFilter: form.value" >
-          <div class="column">
-
-            <div class="card">
-              <div class="col-12">
-                <div class="name_data">Luis Stanley</div>
-                <div class="name_data">24/09/2019  11:45am</div>
-                <div class="name_data">Luis.s@roaster.com</div>
-                <div class="name_data">
-                  <p class="status-active">&#9679; Active</p>
-                </div>
-                 <div class="name_data">Sales   </div>
-                 <div class="name_data">
-                    <a class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a>
-                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="column">
-
-            <div class="card">
-              <div class="col-12">
-                <div class="name_data">Lillian Duncan</div>
-                <div class="name_data">24/09/2019  1:00pm</div>
-                <div class="name_data">Lillian@roaster.com</div>
-                <div class="name_data">
-                  <p class="status-disabled">&#9679; Disabled</p>
-                </div>
-                 <div class="name_data">Accounting</div>
-                 <div class="name_data">
-                    <a class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a>
-                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="column">
-
-            <div class="card">
-              <div class="col-12">
-                <div class="name_data">Sean Hawkins</div>
-                <div class="name_data">13/09/2019  5:00pm</div>
-                <div class="name_data">Sean.H@roaster.com</div>
-                <div class="name_data">
-                  <p class="status-active">&#9679; Active</p>
-                </div>
-                 <div class="name_data">Brand Management</div>
-                 <div class="name_data">
-                    <a class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a>
-                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="column">
-
-            <div class="card">
-              <div class="col-12">
-                <div class="name_data">Harold Carpenter</div>
-                <div class="name_data">02/09/2019 10:07am</div>
-                <div class="name_data">Harold@roaster.com</div>
-                <div class="name_data">
-                  <p class="status-active">&#9679; Active</p>
-                </div>
-                 <div class="name_data">Marketing</div>
-                 <div class="name_data">
-                    <a class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a>
-                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="column">
-
-            <div class="card">
-              <div class="col-12">
-                <div class="name_data">James Fitzgerald</div>
-                <div class="name_data">02/01/2020  7:23am</div>
-                <div class="name_data">James.f@roaster.com</div>
-                <div class="name_data">
-                  <p class="status-active">&#9679; Active</p>
-                </div>
-                 <div class="name_data">Marketing</div>
-                 <div class="name_data">
-                    <a  class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true"><p class="">&#x22EE;</p></a>
-                 </div>
-              </div>
-            </div>
-          </div>
-           <div class="column">
-
-            <div class="card">
-              <div class="col-12">
-                <div class="name_data">Mae Grant</div>
-                <div class="name_data">19/08/2019  9:16pm</div>
-                <div class="name_data">Mae.grant@roaster.com</div>
-                <div class="name_data">
-                  <p class="status-active">&#9679; Active</p>
-                </div>
-                 <div class="name_data">Admin</div>
-                 <div class="name_data">
-                    <a class="menu-arrow" [popover]="popTemplate"  placement="left"  [outsideClick]="true" ><p class="">&#x22EE;</p></a>
-                </div>
-                 
-              </div>
-            </div>
-          </div>  -->
   </div>
 </div>
 
@@ -587,25 +426,39 @@
   <div>
     <ul class="list-group custom-popover">
       <li class="list-group-item item-color">
-        <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();pop5.hide();pop6.hide();toggleRole()"
+        <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();toggleRole()"
           >All</a
         >
       </li>
-      <!-- <li class="list-group-item item-color"><a class="pointer-item" (click) = "setRole('Sourcing')">Sourcing</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item"  (click) = "setRole('Accountant')">Accountant</a></li>
-              <li class="list-group-item item-color" ><a class="pointer-item" (click) = "setRole('Brand Management')">Brand Management</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item" (click) = "setRole('Marketing')">Marketing</a></li>
-              <li class="list-group-item item-color"><a class="pointer-item"  (click) = "setRole('Sales')">Sales</a></li> -->
       <li class="list-group-item item-color" *ngFor="let role of roles">
         <a
           class="pointer-item"
-          (click)="setRole(role.name); pop1.hide(); pop3.hide();pop5.hide();pop6.hide();toggleRole()"
+          (click)="setRole(role.name); pop1.hide(); pop3.hide();toggleRole()"
           >{{ role.name }}</a
         >
       </li>
     </ul>
   </div>
 </ng-template>
+
+<ng-template #roleTemplateMob>
+		<div>
+		  <ul class="list-group custom-popover">
+			<li class="list-group-item item-color">
+			  <a class="pointer-item" (click)="setRoleMob('');pop7.hide();pop8.hide();toggleRole1()"
+				>All</a
+			  >
+			</li>
+			<li class="list-group-item item-color" *ngFor="let role of roles">
+			  <a
+				class="pointer-item"
+				(click)="setRoleMob(role.name);pop7.hide();pop8.hide();toggleRole1()"
+				>{{ role.name }}</a
+			  >
+			</li>
+		  </ul>
+		</div>
+	  </ng-template>
 
 <ng-template #allTemplate>
   <div id="status-content">
@@ -632,6 +485,31 @@
     </ul>
   </div>
 </ng-template>
+<ng-template #allTemplateMob>
+		<div id="status-content">
+		  <ul class="list-group custom-popover">
+			<li class="list-group-item item-color">
+			  <a class="pointer-item" (click)="setStatusMob('');pop15.hide(); pop16.hide();toggleStatus1()"
+				>All</a
+			  >
+			</li>
+			<li class="list-group-item item-color">
+			  <a
+				class="pointer-item"
+				(click)="setStatusMob('Active'); pop15.hide(); pop16.hide();toggleStatus1()"
+				>Active</a
+			  >
+			</li>
+			<li class="list-group-item item-color">
+			  <a
+				class="pointer-item"
+				(click)="setStatusMob('Inactive');pop15.hide(); pop16.hide();toggleStatus1()"
+				>Inactive</a
+			  >
+			</li>
+		  </ul>
+		</div>
+	  </ng-template>
 
 <ng-template #template>
   <div class="modal-header">

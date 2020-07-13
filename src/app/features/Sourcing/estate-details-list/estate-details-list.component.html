@@ -2,40 +2,44 @@
     <div class="source-cont">
         <div class="row">
             <div class="col-lg-12">
+                <div class="back-page w-100">
+                    <a routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> Back</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 order-2 order-md-1">
                 <div class="sourcing-details">
-                    <div class="back-page w-100">
-                        <a routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> Back</a>
-                    </div>
+                   
                     <div class="w-100 mt-3  clearfix">
                         <div class="source-det-tit pull-left">
                             <div class="pro-logo d-inline-block">
                                 <img src="assets/images/tit-logo.PNG">
                             </div>
-                            <div class="det-tit d-inline-block">
+                            <div class="det-tit d-inline-block mt-3 mt-md-0">
                                 <h2>Finca la pampa</h2>
                                 <!-- <h6 class="star-rate"><span class="fa fa-star checked"></span> 4.95</h6> -->
                                 <span class="fa fa-star checked"></span><span class="star-rate pl-1">4.95</span>
                             </div>
                         </div>
-                        <div class="source-knowmore pull-right">
+                        <div class="source-knowmore pull-right mt-4 mt-md-0">
                             <a class="contact-us">Contact us</a>
                             <a class="know-more">Know more</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 mt-3 mb-4">
+        
+            <div class="col-lg-12 mt-3 mb-4 order-1 order-md-2 m-padding-0">
                 <div class="banner-details">
                     <img src="assets/images/banner-details.jpg" alt="" class="w-100">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 ">
+            <div class="col-lg-12 m-overflow mt-4 mt-md-0 ">
 
-                <nav>
+                <nav class="source-tabs">
                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#overview" role="tab" aria-controls="nav-home" aria-selected="true">Overview</a>
                         <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#about-farm" role="tab" aria-controls="nav-profile" aria-selected="false">About the farm</a>
@@ -46,7 +50,7 @@
 
                     </div>
                 </nav>
-                <div class="tab-content py-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-content py-2 py-md-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
                     <!-- Ovrview-->
                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="nav-home-tab">
                         <app-overview></app-overview>
@@ -55,24 +59,33 @@
                     <!-- About the farm-->
                     <div class="tab-pane fade" id="about-farm" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-12 m-padding-8">
                                 <div class="des-content">
                                     <article>
                                         <div class="detail-descript">
                                             <div class="stit">
                                                 <h2>The origin</h2>
+                                                <div class="s-cert d-md-none">
+                                                    <ul class="flex">
+                                                        <li><img src="/assets/images/group-certificate.png"></li>
+                                                        <li><img src="/assets/images/group-utz.png"></li>
+                                                        <li><img src="/assets/images/group-certified.png"></li>
+                                                    </ul>
+                                                </div>
+                                                <h6 class="d-block d-md-none area-location">Columbia</h6>
+                                                <h5 class="d-block d-md-none mt-3 m-orgin">The Origin</h5>
                                                 <p>Finca La Pampa is the operator of washing stations in Yirgacheffe district and Guji district. We have integrated supply chains with our farmer out-growers in both districts and are organically certified,
                                                     maintaining traceability throughout the supply chain to ensure the best quality.</p>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-3 col-sm-6 mb-3">
+                                            <div class="row mt-4">
+                                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
                                                     <div class="real-estate">
                                                         <img src="assets/images/harveaster.svg">
                                                         <h6>Year founded in</h6>
                                                         <h3>1921</h3>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-3 col-sm-6 mb-3">
+                                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
                                                     <div class="real-estate">
                                                         <img src="assets/images/stakeholder2.png">
                                                         <h6>Estate owner</h6>
@@ -90,10 +103,10 @@
                                                     wrinkles in the flap, striation, decentered ablation, debris or growth under the flap, induced astigmatism. These complications are classified according to whether they arise in the preoperative procedures,
                                                     the procedure itself, or after the operation either early on or later.</p>
                                             </div>
-                                            <div class="employer">
+                                            <div class="employer mt-4 d-none d-md-block">
                                                 <h2>Employees</h2>
                                                 <div class="row">
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
                                                         <div class="employ-profile">
                                                             <div class="p-gal">
                                                                 <img src="assets/images/gallery-1.jpg">
@@ -108,7 +121,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
                                                         <div class="employ-profile">
                                                             <div class="p-gal">
                                                                 <img src="assets/images/gallery-2.jpg">
@@ -123,7 +136,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
                                                         <div class="employ-profile">
                                                             <div class="p-gal">
                                                                 <img src="assets/images/gallery-3.jpg">
@@ -144,10 +157,10 @@
                                     </article>
                                     <aside>
                                         <div class="certificate-book">
-                                            <div class="stit">
+                                            <div class="stit  d-none d-md-block">
                                                 <h2>Certificates</h2>
                                             </div>
-                                            <div class="cetify-logo pt-3">
+                                            <div class="cetify-logo pt-3  d-none d-md-block">
                                                 <ul class="clearfix  mb-5">
                                                     <li><img src="assets/images/slogo.png"></li>
                                                     <li><img src="assets/images/utz-certificate.png"></li>
@@ -155,24 +168,81 @@
                                                 </ul>
                                                 <img src="assets/images/map.PNG" class="w-100">
                                             </div>
-                                            <div class="prodcoffee mt-3">
+                                            <div class="prodcoffee mt-md-3">
                                                 <h4>Our Coffee procurement is traceable & 100% transparent</h4>
                                                 <div class="video-part">
                                                     <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
                                                 </div>
                                             </div>
-                                            <div class="flex prebook mt-4 pt-md-2">
+                                            
+                                            <div class="employer mt-4 d-block d-md-none">
+                                                <h2>Employees</h2>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+                                                        <div class="employ-profile">
+                                                            <div class="p-gal">
+                                                                <img src="assets/images/gallery-1.jpg">
+                                                            </div>
+                                                            <div class="profile-des">
+                                                                <h4>Hannah morris</h4>
+                                                                <h6>Cupping manager</h6>
+                                                            </div>
+                                                            <div class="msg-chat mt-2">
+                                                                <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                <p class="pl-1 d-inline-block">Message</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+                                                        <div class="employ-profile">
+                                                            <div class="p-gal">
+                                                                <img src="assets/images/gallery-2.jpg">
+                                                            </div>
+                                                            <div class="profile-des">
+                                                                <h4>Jayden briggs</h4>
+                                                                <h6>Sales manager</h6>
+                                                            </div>
+                                                            <div class="msg-chat mt-2">
+                                                                <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                <p class="pl-1 d-inline-block">Message</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+                                                        <div class="employ-profile">
+                                                            <div class="p-gal">
+                                                                <img src="assets/images/gallery-3.jpg">
+                                                            </div>
+                                                            <div class="profile-des">
+                                                                <h4>Johanna ortiz</h4>
+                                                                <h6>Business manager</h6>
+                                                            </div>
+                                                            <div class="msg-chat mt-2">
+                                                                <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                <p class="pl-1 d-inline-block">Message</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-none- d-md-block">
+                                            <div class="flex prebook mb-3 mb-md-0 mt-2 mt-md-4  pt-md-2">
                                                 <a class="more-text">Know more</a>
                                                 <a class="prebook-estate">Pre-book estate</a>
                                             </div>
                                         </div>
+                                        </div>
                                     </aside>
-                                    <div class="w-100 chat-div">
+                                    <div class="w-100 chat-div d-md-block d-none">
                                         <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt-4 d-md-none d-block">
+                                <app-overview-ratings></app-overview-ratings>
+                        
+                            </div>
                     </div>
                     <!--End About the farm-->
                     <!-- Land lots-->
@@ -223,18 +293,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="w-100 chat-div">
+                                <div class="w-100 chat-div d-md-block d-none">
                                     <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt-4 d-md-none d-block">
+                                <app-overview-ratings></app-overview-ratings>
+                        
+                            </div>
                     </div>
                     <!-- End Green coffee-->
                     <!-- gallery-->
                     <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="cardpanel-detail">
                             <div class="row">
-                                <div class="col-lg-4 col-md-6 gals">
+                                <div class="col-lg-4 col-md-6 col-6 gals">
                                     <div class="position-relative">
                                         <img src="assets/images/gal1.png" alt="">
                                         <div class="video-part">
@@ -243,16 +317,16 @@
                                     </div>
 
                                 </div>
-                                <div class="col-lg-4 col-md-6 gals">
+                                <div class="col-lg-4 col-md-6 col-6 gals">
                                     <img src="assets/images/gal6.png" alt="">
                                 </div>
-                                <div class="col-lg-4 col-md-6 gals">
+                                <div class="col-lg-4 col-md-6 col-6 gals">
                                     <img src="assets/images/gal2.png" alt="">
                                 </div>
-                                <div class="col-lg-8 col-md-6 gals">
+                                <div class="col-lg-8 col-md-6 col-6 gals">
                                     <img src="assets/images/gal3.png" alt="">
                                 </div>
-                                <div class="col-lg-4 col-md-6 gals">
+                                <div class="col-lg-4 col-md-6 col-6 gals">
                                     <div class="position-relative">
                                         <img src="assets/images/gal4.png" alt="">
                                         <div class="video-part">
@@ -260,16 +334,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 gals">
+                                <div class="col-lg-4 col-md-6 col-6 gals">
                                     <img src="assets/images/gal4.png" alt="">
                                 </div>
-                                <div class="col-lg-4 col-md-6 gals">
+                                <div class="col-lg-4 col-md-6 col-6 gals">
                                     <img src="assets/images/gal1.png" alt="">
                                 </div>
-                                <div class="col-lg-4 col-md-6 gals">
+                                <div class="col-lg-4 col-md-6 col-6 gals">
                                     <img src="assets/images/gal5.png" alt="">
                                 </div>
-                                <div class="w-100 chat-div">
+                                <div class="w-100 chat-div d-md-block d-none">
                                     <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Order #12416 chat <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
                                 </div>
                             </div>

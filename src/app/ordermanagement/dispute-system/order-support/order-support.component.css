@@ -172,6 +172,8 @@ a.b-cum:hover {
     }
     .search{
         width: 100%;
+        height: 40px;
+        background: url(../../../../assets/images/search.svg) no-repeat scroll 12px 3px;
     }
     .search-div{
         padding: 1rem;

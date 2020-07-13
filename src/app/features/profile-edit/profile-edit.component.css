@@ -457,6 +457,9 @@ hr{
 }
 
 @media screen and (max-width:425px){
+    .mobile-farm{
+        margin-bottom: 2rem;
+    }
     .back-ticket{
         font-family: Muli;
         font-size: 16px;
@@ -491,6 +494,9 @@ hr{
         padding: 13px 15px;
     }
     .cancel-butn{
+        width: 100%;
+    }
+    .image{
         width: 100%;
     }
 

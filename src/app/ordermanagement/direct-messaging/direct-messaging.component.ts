@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+
 import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 let sd;
@@ -11,13 +13,26 @@ export class DirectMessagingComponent implements OnInit {
 	files: any;
 	fileEvent: any;
 	fileValue: any;
+	modalRef: BsModalRef;
 	valurl: any = '';
 
-	constructor(private toastrService: ToastrService) {
+	constructor(private modalService: BsModalService,private toastrService: ToastrService) {}
+
+	@ViewChild('deletetemplate') private deletetemplate: any;
+	@ViewChild('reporttemplate') private reporttemplate: any;
+
+		openModal(template: TemplateRef<any>) {
+		  this.modalRef = this.modalService.show(template);
 	}
 
 	ngOnInit(): void {
 	}
+	deleteChat(){
+	this.openModal(this.deletetemplate);
+	  }
+	  reportChat(){
+    this.openModal(this.reporttemplate);
+	  }
 
 	ngAfterViewInit() {
 		let img;
@@ -86,10 +101,13 @@ export class DirectMessagingComponent implements OnInit {
 			$('.chat').addClass('open');
 			var headerHeight = parseInt($("header").outerHeight());
 			var ReponsiveHeight = headerHeight + "px"
-			$('.chat').css({
-				"height": "calc(100vh -" + " " + ReponsiveHeight + ")",
-				top: ReponsiveHeight
-			})
+			
+			if ($(window).width() > 767) {
+				$('.chat').css({
+					"height": "calc(100vh -" + " " + ReponsiveHeight + ")",
+					top: ReponsiveHeight
+				})
+			}
 
 			event.stopImmediatePropagation();
 		});
@@ -210,7 +228,7 @@ export class DirectMessagingComponent implements OnInit {
 
 
 			if ($(window).width() < 767) {
-				TotalHeight = height1 + height2 + height3 + headerHeight + 75 + 'px';
+				TotalHeight = height1 + height2 + height3 + 'px';
 				Ht = "calc(100vh -" + " " + TotalHeight + ")";
 				console.log(Ht)
 				$('.live-chat-message-body').css({
@@ -324,7 +342,7 @@ export class DirectMessagingComponent implements OnInit {
 			event.stopImmediatePropagation();
 		});
 
-		$('body').on('click', '.chat-seeting', function (event) {
+		$('body').on('click', '.chat-profile__name', function (event) {
 			var height1 = parseInt($('.live-caht__head').outerHeight());
 			$(this).parents('.chat').find('.account-setting').addClass('open');
 			var Ht = "calc(100vh -" + " " + height1 + "px" + ")";
