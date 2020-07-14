@@ -49,6 +49,7 @@
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
     padding: 10px 12px;
+    margin-right: 12px;
 }
 
 .title-header {
@@ -437,11 +438,11 @@ tr:last-child {
 
 .modal-body,
 .modal-header {
-    padding: 1rem 1.5rem 0rem 1.5rem !important;
+    padding: 0rem !important;
 }
 
 .modal-header {
-    border-bottom: none;
+    border-bottom: none !important;
 }
 
 .more-heading {
@@ -622,6 +623,7 @@ span.checkmark {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
+    .filter-set.space-width{float: left;}
     .filter-set {
         border: 1px solid #d6d6d6 !important;
         margin-left: 0;
@@ -687,7 +689,7 @@ span.checkmark {
         font-size: 16px;
     }
     .pointer-item {
-        float: right;
+        /* float: right; */
         margin-right: 10px;
     }
     /*Pagenation*/
@@ -733,6 +735,7 @@ span.checkmark {
 }
 @media (max-width:340px) {
     .select-origin, .add-variety, .filter-text, .search-name{font-size: 12px;}
+    .space-width{padding-left: 10px;}
 }
 
 @media (min-width: 576px) {

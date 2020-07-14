@@ -201,7 +201,7 @@
                 <p> {{ this.getRandomInt(11) }} members </p>
             </div>
         </li>
-        <li> <img src="assets/images/role-grey.svg" alt="Dashboard"></li>
+        <li> <img src="assets/images/role-grey.svg" alt="Dashboard" (click)="members()"></li>
         <li> 
              <a class="menu-arrow" [popover]="listTemplate" placement="left" [outsideClick]="true" #pop1="bs-popover">
                 <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>

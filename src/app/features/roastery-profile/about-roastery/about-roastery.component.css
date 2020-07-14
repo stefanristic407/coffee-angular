@@ -255,3 +255,14 @@ margin-bottom: 2rem !important;
     color: #747588;
     font-weight: 600;
 }
+@media screen and (max-width:991px) {
+    .border-class{padding-left: 16px !important; padding-right: 16px !important; border: none;}
+    .form-group {  margin-bottom: 2rem;}
+    .mp-3{padding-top: 0 !important; }
+    .sub-header{font-size: 16px;}
+    .rectangle{ height: 46px;font-size: 14px !important;}
+    .p-3{padding-top: 0 !important; padding-bottom: 0 !important;}
+    .file-attach-label{color: #747588; font-size: 10px;}
+    .add-brand-div{text-align: center;}
+    .mdevice-border{border: 1px solid #ebebeb; padding: 0 !important; margin-left: 16px; margin-right: 16px;}
+}

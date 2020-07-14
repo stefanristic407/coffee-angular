@@ -25,6 +25,8 @@ export class AgreementComponent implements OnInit {
   showType:boolean = true;
   showStatus:boolean = true;
   showDisplay:boolean =true;
+  customerMob:any;
+  showCustomerMob:boolean = true;
 
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
@@ -41,6 +43,16 @@ export class AgreementComponent implements OnInit {
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
 	};
+
+
+	public dataAgree: any[] = [
+		{  name: 'The Steam Hotel', origin:'Västerås',date: '19/12/19', orderid:'#129979',file:'The Steam Hotel agreeme…' },
+		{  name: 'Gothenburg',origin:'Candela',date: '12/01/20', orderid:'#221669',file:'Candela agreement pap' },
+		{  name: 'Finca Nápoles', origin:'Stockholm',date: '02/10/19', orderid:'#879082',file:'Finca Nápoles agreement' },
+		{  name: 'Santa Rosa',origin:'Karlstad',date: '10/01/20', orderid:'#127908',file:'Santa Rosa agreement' },
+		{  name: 'The Steam Hotel', origin:'Västerås',date: '12/04/20', orderid:'#124160',file:'The Steam Hotel agreeme…' },
+		{  name: 'The Steam Hotel',origin:'Västerås',date: '19/09/19', orderid:'#717167',file:'Santa Rosa agreement' },
+  ];
 
   constructor(public router: Router,
 		public cookieService: CookieService,
@@ -123,7 +135,8 @@ export class AgreementComponent implements OnInit {
       this.estatetermStatus = '';
       this.estatetermOrigin = '';
       this.estatetermType = '';
-      this.displayNumbers = '10';
+	  this.displayNumbers = '10';
+	  this.customerMob = '';
       $(document).ready(function () {
         $(".dataTables_length").ready(function () {
           $(".dataTables_length").hide()
@@ -172,7 +185,9 @@ export class AgreementComponent implements OnInit {
 		$("select").val(data).trigger('change');
 
 	}
-
+	setUser(data:any){
+		this.customerMob = data;
+	}
 
 	toggleOrigin() {
 		this.showOrigin = !this.showOrigin;
@@ -211,6 +226,17 @@ export class AgreementComponent implements OnInit {
 	  }
 	  else{
 		  document.getElementById('display_id').style.border="1px solid #d6d6d6";
+	  
+	  }
+	  }
+
+	  toggleCustomerMob(){
+		this.showCustomerMob = !this.showCustomerMob;
+		if(this.showCustomerMob==false){
+		  document.getElementById('orgin-mob-id').style.border="1px solid #30855c";
+	  }
+	  else{
+		  document.getElementById('orgin-mob-id').style.border="1px solid #d6d6d6";
 	  
 	  }
 	  }

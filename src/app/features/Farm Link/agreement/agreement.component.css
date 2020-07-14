@@ -705,6 +705,9 @@ span.checkmark {
     .w-30 {
         width: 25%;
     }
+    .top-padd{
+        top:8px;
+    }
 }
 
 @media (max-width: 480px) {

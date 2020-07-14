@@ -99,3 +99,11 @@ mix-blend-mode: multiply;
 .cursor-pointer img {
     cursor: pointer;
 }
+@media screen and (max-width:768px) {
+.mobile-tabs-gallary a{padding-bottom: 8px !important; }
+.mobile-tabs-gallary a:nth-child( odd ) {padding-right: 4px;}
+.mobile-tabs-gallary a:nth-child( even ) { padding-left: 4px;}
+.social-post-farmlink__item  img{border-radius: 4px;}
+.mobile-tabs-gallary .card {padding: 2rem 1rem;}
+
+}

@@ -284,7 +284,7 @@ li.nav-item {
 .ret-order {
     /* padding: 1.5rem 1rem 1rem 1rem; */
     padding: 1.5rem 0rem 1rem 0rem;
-    ;
+
 }
 
 .review-tabs {
@@ -378,6 +378,7 @@ li.nav-item {
     }
     .review-tabs{
         padding: 0rem 8px;
+        margin-bottom: 5rem;
     }
     .problem-text {
         margin-top: 0rem;

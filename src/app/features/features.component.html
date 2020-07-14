@@ -151,9 +151,16 @@
 
                                 </ul>
                             </li>
-
-                            <li class="nav-links__item d-md-inline-block position-relative mobile-farm">
+                            <li class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list" >
                                 <a class="d-inline-block fnt-600" routerLink="../features/account-settings">Account Settings
+                            </a>
+                            </li>
+                            <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
+                                <a class="d-inline-block fnt-600" >Help & Support
+                            </a>
+                            </li>
+                            <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
+                                <a class="d-inline-block fnt-600" (click)="userLogout()">Log out
                             </a>
                             </li>
                         </ul>
@@ -217,7 +224,7 @@
                                 <div class="ft-dropdown__content">
                                     <a routerLink="../features/profile-edit" class="ft-dropdown__link d-flex clearfix align-items-center">
                                         <div class="img float-left mr-2">
-                                            <img src="assets/images/stakeholder2.png">
+                                            <img class="profile-pic" src="{{profilePic}}">
                                         </div>
                                         <span class="text-capitalize">my profile</span>
                                     </a>
@@ -228,12 +235,12 @@
                                         <span class="text-capitalize">roastery profile</span>
                                     </a>
 
-                                    <a (click)="userLogout()" class="ft-dropdown__link d-flex clearfix align-items-center ">
+                                    <!-- <a (click)="userLogout()" class="ft-dropdown__link d-flex clearfix align-items-center ">
                                         <div class="img float-left mr-2">
                                             <img src="assets/images/ft-roastry-profile.png">
                                         </div>
                                         <span class="text-capitalize">Logout</span>
-                                    </a>
+                                    </a> -->
                                 </div>
                             </div>
                         </li>

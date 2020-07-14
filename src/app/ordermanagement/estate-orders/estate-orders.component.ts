@@ -25,6 +25,7 @@ export class EstateOrdersComponent implements OnInit {
   showType:boolean = true;
   showStatus:boolean = true;
   showDisplay:boolean =true;
+  searchTerm:any;
 
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
@@ -41,6 +42,13 @@ export class EstateOrdersComponent implements OnInit {
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
 	};
+	estatetermOriginMob: any;
+	showOriginMob: boolean = true;
+	showTypeMob:boolean = true;
+	showStatusMob:boolean = true;
+	estatetermStatusMob: string;
+	estatetermTypeMob: string;
+	
 	constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService) {
@@ -181,6 +189,9 @@ export class EstateOrdersComponent implements OnInit {
 		this.estatetermOrigin = '';
 		this.estatetermType = '';
 		this.displayNumbers = '10';
+		this.estatetermOriginMob = '';
+		this.estatetermStatusMob = '';
+		this.estatetermTypeMob = '';
 		$(document).ready(function () {
 			$(".dataTables_length").ready(function () {
 				$(".dataTables_length").hide()
@@ -193,14 +204,14 @@ export class EstateOrdersComponent implements OnInit {
 			});
 		});
 
-		$(document).ready(function(){
-			$('.order-raised').click(function() {
-				$('li', $('.raised-mobile').parent()).removeClass('highlight');
-				$(this).addClass('highlight');
-				$('.raised-mobile').addClass("active");
-			});
+		// $(document).ready(function(){
+		// 	$('.order-raised').click(function() {
+		// 		$('li', $('.raised-mobile').parent()).removeClass('highlight');
+		// 		$(this).addClass('highlight');
+		// 		$('.raised-mobile').addClass("active");
+		// 	});
   
-		  });
+		//   });
 
 
 
@@ -502,6 +513,19 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 			table.column(4).search(origindata).draw();
 		});
 	}
+	setOriginMob(term:any){
+		this.estatetermOriginMob = term;
+
+	}
+	setTypeMob(term:any){
+		this.estatetermTypeMob = term;
+
+	}
+	setStatusMob(term:any){
+		this.estatetermStatusMob = term;
+
+	}
+	
 	setType(data: any) {
 		this.estatetermType = data;
 		this.datatableElement.dtInstance.then(table => {
@@ -569,6 +593,16 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		
 		}
 	 }
+	 toggleOriginMob() {
+		this.showOriginMob = !this.showOriginMob;
+		if(this.showOriginMob==false){
+			document.getElementById('OrginMob-id').style.border="1px solid #30855c";
+		}
+		else{
+			document.getElementById('OrginMob-id').style.border="1px solid #d6d6d6";
+		
+		}
+	 }
 	 toggleType() {
 	  this.showType = !this.showType;
 	  if(this.showType==false){
@@ -579,6 +613,16 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 	
 	}
 	}
+	toggleTypeMob() {
+		this.showTypeMob = !this.showTypeMob;
+		if(this.showTypeMob==false){
+		  document.getElementById('type_id_Mob').style.border="1px solid #30855c";
+	  }
+	  else{
+		  document.getElementById('type_id_Mob').style.border="1px solid #d6d6d6";
+	  
+	  }
+	  }
 	toggleStatus() {
 		this.showStatus = !this.showStatus;
 		if(this.showStatus==false){
@@ -586,6 +630,16 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 	  }
 	  else{
 		  document.getElementById('status_id').style.border="1px solid #d6d6d6";
+	  
+	  }
+	  }
+	  toggleStatusMob(){
+		this.showStatusMob = !this.showStatusMob;
+		if(this.showStatusMob==false){
+		  document.getElementById('status_id_Mob').style.border="1px solid #30855c";
+	  }
+	  else{
+		  document.getElementById('status_id_Mob').style.border="1px solid #d6d6d6";
 	  
 	  }
 	  }
@@ -600,4 +654,24 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 	  }
 	  }
 
+	  OrderDetails($event, group) {
+    console.log("the incoming data  are " + group.typeoforder + "..." + group.status);
+
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "data": encodeURIComponent(group.status),
+      }
+    }
+    if (group.typeoforder == "Booked") {
+      this.router.navigate(["/ordermanagement/order-booked"], navigationExtras);
+    }
+    else if (group.typeoforder == "Sample") {
+      this.router.navigate(["/ordermanagement/order-sample"], navigationExtras);
+    }
+    else if (group.typeoforder == "Pre-Booked") {
+      this.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
+    }
+
+  }
 }

@@ -306,3 +306,28 @@ li.nav-item {
 .star{
     color: #ff1e5a;
 }
+@media screen and (max-width:991px) {
+.no-padding{    padding-left: 0; padding-right: 0;}
+.my-profile{}
+.my-profile h1{    text-align: left; padding: 1rem 16px;}
+.cover-div{margin: 0; position: relative; border: none; background: none; height: auto;}
+.pic-div{position: absolute;left: 37%; bottom:auto; top:6rem;}
+.oval-pic{width: 120px; height: 120px;}
+.title-div{ margin-left: 0;  margin-top: 5rem; text-align: center;}
+.title-div .title{color:#80460b; font-size: 16px; margin-bottom: 24px !important;    text-decoration: underline;}
+.cover-pic{ padding: 2rem;cursor: pointer;height: 160px;background: linear-gradient(#faf8f4, #ffffff);border: 1px solid #d6d6d6;}
+.company-website{    font-size: 14px !important;}
+.tab { padding: 0;}
+.mdevice{overflow: scroll; width: 100%;}
+.mdevice .nav-pills{width: 700px !important;}
+.nav-pills .nav-link, .nav-pills .nav-link.active{ position: relative;  padding-right: 0.7rem; padding-left: 0.7rem;}
+#pills-tour{padding-left: 16px; padding-right: 16px;}
+.butn-mt {  padding-right: 1rem; padding-top: 0.8rem; position: absolute; right: 0;top: 0;z-index: 9;}
+.camera-pic{ position: absolute;top: 68%;left: 70%;cursor: pointer;}
+}
+
+element.style {
+}
+@media screen and (max-width: 480px){
+.pic-div {left: 33%; top:6.5rem;}
+}

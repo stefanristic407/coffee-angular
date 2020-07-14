@@ -597,7 +597,7 @@ option {
     }
     .dyn-userdata li ul:last-child{
         border-bottom: none;
-        margin-bottom: 4rem;
+        /* margin-bottom: 4rem; */
     }
     .left-padd{padding-left: 31px;}
     /* .right-padd{padding-right: 5px;} */
@@ -620,7 +620,9 @@ option {
         margin-top: 0px !important;
         padding: 0 !important;
     }
-    .dyn-userdata:last-child{margin-bottom: 4rem;}
+    .dyn-userdata:last-child{
+        margin-bottom: 4rem;
+    }
 }
 
 .table td,

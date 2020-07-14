@@ -15,9 +15,9 @@ export class PreOrderChatComponent implements OnInit {
 
   ngAfterViewInit() {
 
+	
 	let img;
 		$('body').on('input', '.files', function (e) {
-			
 			if (e.target.files) {
 				var reader = new FileReader();
 				reader.readAsDataURL(e.target.files[0]);
@@ -25,25 +25,34 @@ export class PreOrderChatComponent implements OnInit {
 					// img = event.target.result;
 
 
-					img = '<img src=' + event.target.result + ' style="width: 250px;height:250px;object-fit:cover">';
-					$('.img-container').append(img)
-					$('.img-container').show();
-					$('.img-container').find('img').not(':first').remove();
+					img = '<img src=' + event.target.result +'>';
+					
+					setTimeout(function(){
+						$('.img-container').append(img);
+						$('.img-container').show();
+						
+					 }, 100);
+				
 				}
+
+				
+			
 			}
 		});
+
+
 
 
     let searchresult = document.querySelectorAll('.search-parent')
     $('.search-messages__input').on('input', function () {
         var SearchItem = $(this).val().toLowerCase();;
         for (var x = 0; x < searchresult.length; x++) {
-          var itemVal = searchresult[x].querySelector('.name') as HTMLElement;
+          var itemVal = searchresult[x] as HTMLElement;
             var result = searchresult[x].querySelector('.search-child').innerHTML.toLowerCase();
             var foundItem = result.indexOf(SearchItem) !== -1;
 
             if (foundItem) {
-
+				
               itemVal.style.display = "block";
             }
 
@@ -54,18 +63,19 @@ export class PreOrderChatComponent implements OnInit {
 
     });
 
-    let sd;
-	let HideWords = ['fuck', 'suck']
-    
 
+	let HideWords = ['fuck', 'suck']
+   
 
     //Send Message
     // Send Messages
 	$('body').on('click', '.send-message__btn', function () {
 	
+	
 		var ChatText = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val();
 
-		var ChatImg = $('.files').val();
+		var ChatImg =  $(this).parents('.dispute-order').find('.chat-inputs').find('.files').val();
+	
 		let strTime;
 		function formatAMPM(date) {
 			var hours = date.getHours();
@@ -97,21 +107,20 @@ export class PreOrderChatComponent implements OnInit {
 		}
 
 		if (ChatText !== '' && ChatImg !== '') {
+			
+			var message = '<div class="main-message message-to"><div class="main-message__profile clearfix"><div class="float-left img"><img src="assets/images/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"> <div class="message-info__img">'+img+'</div><p class="message-text">' + ChatText + '</p></div><span class="live-time">' + strTime + '</span></div></div>'
 
 
-            var message = '<div class="main-message message-from"><div class="main-message__profile clearfix"><div class="float-left img"><img src="../images/dispute-order/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><span class="live-time">' + strTime + '</span><div class="message-info__img">' + img + '</div><p class="message-text">' + ChatText + '</p></div></div></div>'
-
-			var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
-			var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
+            var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
+            var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
 
 			$('.files').val('');
 			$(".conversatio-body__messages").animate({ scrollTop: $(".main-message:last").offset().top });
-
 		}
 
 
 		else if ((ChatText !== '' && ChatImg == '')) {
-            var message = '<div class="main-message message-to"><div class="main-message__profile clearfix"><div class="float-left img"><img src="../images/dispute-order/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><span class="live-time">' + strTime + '</span><p class="message-text">' + ChatText + '</p></div></div></div>'
+            var message = '<div class="main-message message-to"><div class="main-message__profile clearfix"><div class="float-left img"><img src="assets/images/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><p class="message-text px-2">' + ChatText + '</p></div><span class="live-time">' + strTime + '</span></div></div>'
 
 
             var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
@@ -124,7 +133,7 @@ export class PreOrderChatComponent implements OnInit {
 
 		else if ((ChatText == '' && ChatImg !== '')) {
 
-            var message = '<div class="main-message message-from"><div class="main-message__profile clearfix"><div class="float-left img"><img src="../images/dispute-order/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><span class="live-time">' + strTime + '</span><div class="message-info__img">' + img + '</div></div></div></div>'
+            var message = '<div class="main-message message-from"><div class="main-message__profile clearfix"><div class="float-left img"><img src="assets/images/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><div class="message-info__img">' + img + '</div><span class="live-time">' + strTime + '</span></div></div></div>'
 
 
             var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
@@ -140,15 +149,11 @@ export class PreOrderChatComponent implements OnInit {
 		}
 
 		$('.img-container').hide();
-		$('.img-container').find('img').remove();
+		
 
 	});
 
 
-    $('body').on('click', '.chat-inputs__img', function () {
-	
-
-	});
 
 
     $('body').on('click', '.order-status-list-close', function () {
@@ -158,12 +163,16 @@ export class PreOrderChatComponent implements OnInit {
     $('body').on('click', '.open-order-status-list', function () {
         $('.dispute-order__status').addClass('open')
     });
-
-    $('body').bind('keypress', function(e) {
-    if(e.keyCode==13){
-		
-        $('.send-message__btn').trigger('click');
-    }
+	$('body').bind('keypress', function (e) {
+		if (e.keyCode == 13) {
+			
+			$('.send-message__btn').trigger('click');
+		}
+		e.stopImmediatePropagation();
+	});
+	
+	$('body').on('click', '.order-ticket-list__item', function () {
+        $(this).parents('.dispute-order').find('.dispute-order__conversation').addClass('open')
     });
   }
 

@@ -26,6 +26,10 @@ export class CoffeeExperienceComponent implements OnInit {
   showStatus:boolean = true;
   showDisplay:boolean =true;
 
+  coffeetermOriginMob:any;
+  showOriginMob:boolean = true;
+  termSearch:any;
+
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
@@ -41,6 +45,17 @@ export class CoffeeExperienceComponent implements OnInit {
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
 	};
+
+
+	public gridData: any[] = [
+		{  name: 'Finca La Pampa', origin:'Colombia',date: '19/12/19', orderid:'#56076' },
+		{  name: 'Gesha',origin:'Ethiopia',date: '12/01/20', orderid:'#81671' },
+		{  name: 'Finca La toboba', origin:'Brazil',date: '02/10/19', orderid:'#76076' },
+		{  name: 'Cafe Directo',origin:'Colombia',date: '10/01/20', orderid:'#46930' },
+		{  name: 'La Isabela', origin:'Ethiopia',date: '12/04/20', orderid:'#12416' },
+		{  name: 'Gesha',origin:'Colombia',date: '19/09/19', orderid:'#71716' },
+		
+  ];
 
   constructor(public router: Router,
 		public cookieService: CookieService,
@@ -166,7 +181,9 @@ export class CoffeeExperienceComponent implements OnInit {
       this.estatetermStatus = '';
       this.estatetermOrigin = '';
       this.estatetermType = '';
-      this.displayNumbers = '10';
+	  this.displayNumbers = '10';
+	  this.coffeetermOriginMob = '';
+
       $(document).ready(function () {
         $(".dataTables_length").ready(function () {
           $(".dataTables_length").hide()
@@ -575,5 +592,19 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 	  
 	  }
 	  }
+	  setOriginMob(term:any){
+		this.coffeetermOriginMob = term;
+
+	}
+	toggleOriginMob() {
+		this.showOriginMob = !this.showOriginMob;
+		if(this.showOriginMob==false){
+			document.getElementById('OrginMob-id').style.border="1px solid #30855c";
+		}
+		else{
+			document.getElementById('OrginMob-id').style.border="1px solid #d6d6d6";
+		
+		}
+	 }
 
 }

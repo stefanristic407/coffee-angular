@@ -13,7 +13,6 @@ table.dataTable thead .sorting_desc {
 }
 
 .estate-orders {
-    /* margin: 1rem 3.1rem; */
     position: relative;
 }
 
@@ -38,9 +37,6 @@ table.dataTable thead .sorting_desc {
 }
 
 .table thead th,
-
-/* table.dataTable.no-footer, */
-
 table.dataTable.row-border tbody th,
 table.dataTable.row-border tbody td,
 table.dataTable.display tbody th,
@@ -89,10 +85,6 @@ table.dataTable.row-border tbody tr {
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -122,10 +114,6 @@ table.dataTable thead th {
     font-family: Muli !important;
     font-size: 12px !important;
     font-weight: bold !important;
-    font-stretch: normal !important;
-    font-style: normal !important;
-    line-height: normal !important;
-    letter-spacing: normal !important;
     color: #232334 !important;
     padding: 1rem 0rem 0rem 1rem;
 }
@@ -134,10 +122,6 @@ table.dataTable thead th {
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     padding: 1rem 0rem 0rem 1rem;
 }
@@ -147,43 +131,21 @@ table.dataTable thead th {
     border: solid 1px #d6d6d6;
 }
 
-
-/* 
-.estate-boby-txt td {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: 600;
-    color: #232334;
-    padding: 1rem 0rem 0rem 1rem;
-} */
-
 .status-Shipped {
     font-size: 12px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #e78926;
 }
 
 .status-Received {
     font-size: 12px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #24be46;
 }
 
 .status-Order-Confirmed {
     font-size: 12px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #e78926;
 }
 
@@ -191,39 +153,21 @@ table.dataTable thead th {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #f19634;
-    /* padding: .2rem;
-    width: 55%; */
 }
 
 .typeoforder-Booked {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #649a2b;
-    /* padding: .2rem;
-    width: 55%; */
 }
 
 .odd .typeoforder-Pre-Booked {
     font-family: Muli !important;
     font-size: 14px !important;
     font-weight: 600 !important;
-    font-stretch: normal !important;
-    font-style: normal !important;
-    line-height: normal !important;
-    letter-spacing: normal !important;
     color: #7c6be8 !important;
-    /* padding: .2rem;
-    width: 75%; */
 }
 
 .foo-calendar input {
@@ -234,13 +178,7 @@ table.dataTable thead th {
     font-family: Muli !important;
     font-size: 14px !important;
     font-weight: 600 !important;
-    font-stretch: normal !important;
-    font-style: normal !important;
-    line-height: normal !important;
-    letter-spacing: normal !important;
     color: #7c6be8 !important;
-    /* padding: .2rem;
-    width: 75%; */
 }
 
 .view-order {
@@ -329,10 +267,6 @@ span.checkmark {
     font-family: Muli;
     font-size: 12px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #000000;
 }
 
@@ -341,10 +275,6 @@ span.checkmark {
     font-family: Muli;
     font-size: 12px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #000000;
 }
 
@@ -356,10 +286,6 @@ span.checkmark {
     font-family: 'Muli';
     font-size: 12px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
 }
 
@@ -392,34 +318,11 @@ span.checkmark {
 .pointer-item {
     cursor: pointer;
 }
-
-
 /******Date Range Css*********/
 
 :host ::ng-deep .ui-inputtext {
-    /* border: 1px solid #3d8462 !important;
-    font-size: 13px !important;
-    color: #3d8462 !important;
-    padding: 7px 30px 5px 7px !important;
-    margin-right: 5px; */
     display: none !important;
 }
-
-
-/* :host ::ng-deep .ui-inputtext:focus {
-    box-shadow: 0 0 0 0.035rem green !important;
-}
-
-:host ::ng-deep .ui-datepicker {
-    top: 0px !important;
-} */
-
-
-/* ::ng-deep .ui-calendar.ui-calendar-w-btn .ui-datepicker-trigger.ui-button {
-    left: -11px !important;
-    width: 1.357em !important;
-    color: #3d8462;
-} */
 
 :host ::ng-deep .ui-button-icon-only .ui-button-icon-left {
     color: #3d8462;
@@ -437,7 +340,7 @@ span.checkmark {
 
 @media (max-width:480px) {
     .estate-orders {
-        margin: 1rem 0px;
+        margin: 0.5rem 0px;
     }
 }
 
@@ -669,7 +572,8 @@ ul li {
     }
     .Give-your-end-users {
         width: 98%;
-        padding-bottom: 1rem;
+        padding-bottom: 0rem;
+        margin-bottom: 0;
     }
     .web-farm {
         display: none !important;
@@ -678,10 +582,11 @@ ul li {
         padding-top: 3rem;
     }
     .title-header {
-        margin: 1.3rem 1rem;
+        /* margin: 1.3rem 1rem; */
+        margin: 0.3rem 0.2rem
     }
     .estate-table {
-        margin: 1rem 0rem;
+        margin: 0rem 0rem 1rem;
     }
     .nav-tabs {
         border-bottom: 0px solid #dee2e6;
@@ -703,5 +608,36 @@ ul li {
     .bor-d6d6 {
         border-top: 2px dashed #d6d6d6;
         padding-bottom: 5px;
+    }
+    .search-name{
+        background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
+        padding-left: 45px !important;
+        font-family: Muli; 
+        font-size: 14px;
+        font-weight: 600;
+        color: #747588;
+        margin-left: 0px;
+        height: 42px;
+        border: 1px solid #d6d6d6 !important;
+    }
+    .filter-set{
+        width: 100%;
+        padding: 10px 10px 10px 19px;
+        margin: 0 2px 0 0;
+        border-right: 1px solid #d6d6d6;
+        margin-top: 10px;
+    }
+    .border-grade {
+        width: auto !important;
+        margin-bottom: 10px;
+        float:left;
+        margin-right: 10px;
+        border-radius: 20px;
+        border: solid 1px #d6d6d6;
+        background-color: #ffffff;
+        padding: 10px 12px;
+    }
+    .sourcing-panel {
+        padding-top: 0.5rem !important;
     }
 }

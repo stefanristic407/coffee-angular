@@ -17513,6 +17513,11 @@ ul {
     line-height: 26px;
 }
 
+.fnt-mb-14 {
+    font-size: 12px;
+    line-height: 22px;
+}
+
 
 /* Tablet screens */
 
@@ -17524,6 +17529,10 @@ ul {
     .fnt-16 {
         font-size: 16px;
         line-height: 26px;
+    }
+    .fnt-mb-14 {
+        font-size: 14px;
+        line-height: 24px;
     }
 }
 
@@ -17747,7 +17756,7 @@ ul {
         height: 100% !important;
     }
     .nav-dropdown {
-        padding: 15px 15px 15px 35px;
+        padding: 0 15px 15px 35px;
         background-color: #f8f8f8;
         display: none;
     }
@@ -18473,17 +18482,17 @@ button:focus {
     position: absolute;
     top: auto !important;
     bottom: 4%;
-    width: 30px;
-    height: 40px;
+    /* width: 30px;
+    height: 40px; */
+    width: 18px !important;
+    height: 22px !important;
     cursor: pointer;
     z-index: 999;
 }
 
-.g-nav-prev {
-    right: 4.5em;
-    left: auto !important;
+.g-nav-next {
+    right: 1.5em !important;
 }
-
 .g-items-container .g-slider {
     left: 0;
 }
@@ -18493,10 +18502,12 @@ button:focus {
 }
 
 .g-nav-prev {
-    right: 4.5em;
+    right: 3.6em;
     left: auto !important;
 }
-
+.gallery-nav svg{
+    opacity: 1 !important;
+}
 .g-counter {
     display: none;
 }
@@ -18538,7 +18549,7 @@ button:focus {
 }
 
 .cardpanel-detail .carousel-indicators {
-    bottom: -20px !important;
+    bottom: 40px !important;
 }
 
 .cardpanel-detail .carousel-control {
@@ -18574,8 +18585,42 @@ button:focus {
 .conversation-head {
     border-top: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
+    padding: 15px;
+    background-color: #ffffff;
+}
+
+.type-of-order-mobile {
+    color: #747588;
+    font-size: 12px;
+    line-height: 22px;
+}
+
+.dispute-order .conversation-head {
+    border-top: 0;
+    border-bottom: 1px solid #dedede;
     padding: 10px;
     background-color: #ffffff;
+}
+
+@media (min-width: 768px) {
+    .dispute-order .conversation-head {
+        border-top: 1px solid #dedede;
+        border-bottom: 1px solid #dedede;
+        padding: 10px;
+        background-color: #ffffff;
+    }
+
+    .dots-menu {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .type-of-order-mobile {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 
 .conversation-textBold {
@@ -18594,8 +18639,8 @@ button:focus {
 }
 
 .conversation-head__profiles li {
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: 2px solid #ffffff;
     float: left;
@@ -18645,15 +18690,15 @@ button:focus {
 }
 
 .conversation-textgray {
-    font-size: 12px;
-    line-height: 22px;
-    font-weight: 600;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 700;
     color: #747588;
 }
 
 .conversation-textBlack14 {
-    font-size: 12px;
-    line-height: 22px;
+    font-size: 16px;
+    line-height: 26px;
     font-weight: 700;
     color: #232334;
 }
@@ -18705,9 +18750,15 @@ button:focus {
 }
 
 .conversatio-body__messages {
-    height: calc(100vh - 330px);
+    height: calc(100vh - 242px);
     background-color: #f8f8f8;
     overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+    .conversatio-body__messages {
+        height: calc(100vh - 330px);
+    }
 }
 
 .conversatio-body__messages::-webkit-scrollbar {
@@ -18715,12 +18766,13 @@ button:focus {
 }
 
 .conversatio-body__messages .live-time {
-    display: block;
+    float: right;
+    /* display: block;
     margin: auto 0 0 auto;
     position: absolute;
     right: 0;
     bottom: calc(-100% + 10px);
-    width: 100px;
+    width: 100px; */
 }
 
 .dispute-order .send-message {
@@ -18735,6 +18787,8 @@ button:focus {
 
 .dispute-order__status {
     padding: 10px;
+    background: #ffffff;
+
 }
 
 .search-messages__input {
@@ -18750,6 +18804,9 @@ button:focus {
     background-color: #ffffff;
     padding: 5px;
     margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .search-messages__input::placeholder {
@@ -18768,23 +18825,13 @@ button:focus {
 
 @media (max-width: 767px) {
     .dispute-order__status {
-        position: absolute;
-        top: 166px;
-        left: calc(-100% - 50px);
-        width: 100%;
-        z-index: 9;
-        background-color: #f8f8f8;
-        transition: 0.4s ease-in-out;
+        height: 100vh;
     }
+   
     .dispute-order__status.open {
         left: 0 !important;
     }
-    .order-ticket-list__item.active {
-        background-color: #f2e2c5 !important;
-    }
-    .order-ticket-list__item:hover {
-        background-color: #f2e2c5 !important;
-    }
+    
     .order-status-list-close {
         float: right;
         font-size: 14px;
@@ -18815,6 +18862,55 @@ button:focus {
         align-items: center;
         justify-content: space-between;
     }
+
+    .dispute-order__type {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    .conversation-head__items--problem  {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    .conversation-head__items {
+        margin-bottom: 0 !important;
+    }
+
+    .dispute-order__head {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    .dots-menu span {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #747588;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    .dots-menu span:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .dispute-order__conversation {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        transition: 0.4s ease-in-out;
+        z-index: 99;
+    }
+
+    .dispute-order__conversation.open {
+        left: 0 !important;
+    }
 }
 
 @media (max-width: 991px) {
@@ -18833,7 +18929,7 @@ button:focus {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    height: calc(100vh - 344px);
+    height: calc(100vh - 300px);
     overflow-y: auto;
 }
 
@@ -18864,6 +18960,7 @@ button:focus {
 
 .ticket-num__status {
     float: right;
+    margin-left: auto;
     font-size: 12px;
     /* line-height: 22px; */
     font-weight: 600;
@@ -18901,7 +18998,7 @@ button:focus {
     font-weight: 600;
     color: #232334;
     white-space: nowrap;
-    width: calc(100% - 5px);
+    width: calc(100% - 45px);
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 10px 0 0 0;
@@ -18943,6 +19040,7 @@ button:focus {
     font-weight: 600;
     text-align: right;
     color: #747588;
+    margin-left: auto;
 }
 
 .main-message__profile {
@@ -18970,17 +19068,18 @@ button:focus {
 }
 
 .message-from .message-info__body {
-    background-color: #eeeeee;
+    /* background-color: #eeeeee; */
     border-radius: 4px;
 }
 
 .message-to .message-info__body {
     background-color: #f2e2c5;
     border-radius: 4px;
+    /* padding: 5px; */
 }
 
 .message-text {
-    padding: 8px;
+    padding: 2px 5px;
     font-size: 12px;
     line-height: 22px;
     font-weight: 600;
@@ -18995,8 +19094,10 @@ button:focus {
     margin-left: 30px;
 }
 
-.message-info {
-    display: inline-block;
+.message-to .message-info {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
     position: relative;
     width: 100%;
 }
@@ -19046,7 +19147,7 @@ button:focus {
     font-size: 12px;
     font-weight: 600;
     color: #979797;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     align-items: center;
 }
@@ -19067,6 +19168,11 @@ button:focus {
     .back-to {
         font-size: 14px;
         line-height: 24px;
+    }
+    .back-to--mobile {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden;
     }
     .dispute-order__head {
         padding: 15px;
@@ -19126,7 +19232,7 @@ button:focus {
         list-style-type: none;
         margin: 0 -15px 0 -15px;
         padding: 0;
-        height: calc(100vh - 242px);
+        height: calc(100vh - 257px);
         overflow-y: auto;
     }
     .order-ticket-list__item {
@@ -19215,7 +19321,7 @@ button:focus {
     .ticket-info-message {
         font-size: 14px;
         line-height: 20px;
-        margin: 10px 0 0 0;
+        margin: 0;
     }
     .ticket {
         padding: 15px 10px;
@@ -19234,7 +19340,7 @@ button:focus {
         padding: 10px 25px;
     }
     .order-ticket-list {
-        height: calc(100vh - 248px);
+        height: calc(100vh - 263px);
     }
     .main-message__profile .img {
         width: 35px;
@@ -21623,3 +21729,95 @@ li.select-list__item {
 }
 /* Footer Mobile end */
 
+
+.company-message {
+    background: #ffffff;
+    border: 1px dashed #d6d6d6;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.company-message__btn {
+    display: inline-block;
+
+}
+
+@media (max-width: 767px) {
+
+    .company-message {
+        margin: 0 10px 20px 10px;
+    }
+   
+    .company-message__btn button {
+        float: right;
+        outline: 0;
+        background: none;
+        border: 0;
+        border-bottom: 1px solid #80460b;
+        padding: 0;
+        color: #80460b;
+    }
+    
+}
+
+
+@media (min-width: 768px) {
+    .company-message {
+        margin: 0 10px 20px 10px;
+    }
+
+    .company-message__btn button {
+
+        float: right;
+        outline: 0;
+        background: none;
+        border: 1px solid #30855c;
+        border-radius: 4px;
+        padding: 6px 32px;
+        color: #30855c;
+    }
+}
+
+/**********Available List***********/
+.source-knowmore-avail .contact-us-avail {
+    padding: 12px 16px;
+    font-family: Muli;
+    font-size: 14px;
+    border: 1px solid #30855c;
+    font-weight: bold;
+    border-radius: 4px;
+    background-color: #30855c;
+    display: inline-block;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+}
+.source-knowmore-avail .know-more-avail {
+    padding: 12px 16px;
+    border: 1px solid #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    border-radius: 4px;
+    margin-left: 10px;
+    display: inline-block;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.source-knowmore-avail .know-more-avail:hover {
+    background: #30855c;
+    color: #fff;
+}
+
+
+/*******Side Bar********/
+.settings-list{
+    top:17%;
+}
+.help-list{
+    top:18%;
+}
+.logout-list{
+    top:19%;
+}

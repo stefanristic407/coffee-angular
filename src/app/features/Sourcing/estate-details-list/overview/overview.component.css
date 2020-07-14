@@ -338,9 +338,8 @@
 ::ng-deep .gridline-path-vertical {
     display: none;
 }
-
-::ng-deep .gridline-path-horizontal {
-    border: 1px dashed red;
+::ng-deep .ngx-charts {
+    height: 280px;
 }
 
 .chart-cont .nav-tabs .nav-link {

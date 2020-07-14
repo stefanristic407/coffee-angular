@@ -23,6 +23,14 @@ export class RoasterOrdersComponent implements OnInit {
   showStatus:boolean = true;
   showDisplay:boolean =true;
 
+  estatetermOriginMob: any;
+  showOriginMob: boolean = true;
+  showTypeMob:boolean = true;
+  showStatusMob:boolean = true;
+  estatetermStatusMob: string;
+  estatetermTypeMob: string;
+  searchTerm:any;
+  
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
@@ -178,7 +186,10 @@ export class RoasterOrdersComponent implements OnInit {
       this.roastertermStatus = '';
       this.roastertermOrigin = '';
       this.roastertermType = '';
-      this.displayNumbers = '10';
+	  this.displayNumbers = '10';
+	  this.estatetermOriginMob = '';
+      this.estatetermStatusMob = '';
+      this.estatetermTypeMob = '';
       $(document).ready(function () {
         $(".dataTables_length").ready(function () {
           $(".dataTables_length").hide()
@@ -594,5 +605,66 @@ export class RoasterOrdersComponent implements OnInit {
 	  
 	  }
 	  }
-
+	  OrderDetails($event, group) {
+		console.log("the incoming data  are " + group.typeoforder + "..." + group.status);
+	
+	
+		let navigationExtras: NavigationExtras = {
+		  queryParams: {
+			"data": encodeURIComponent(group.status),
+		  }
+		}
+		if (group.typeoforder == "Booked") {
+		  this.router.navigate(["/ordermanagement/order-booked"], navigationExtras);
+		}
+		else if (group.typeoforder == "Sample") {
+		  this.router.navigate(["/ordermanagement/order-sample"], navigationExtras);
+		}
+		else if (group.typeoforder == "Pre-Booked") {
+		  this.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
+		}
+	
+	  }
+	  setOriginMob(term:any){
+		this.estatetermOriginMob = term;
+	
+	  }
+	  setTypeMob(term:any){
+		this.estatetermTypeMob = term;
+	
+	  }
+	  setStatusMob(term:any){
+		this.estatetermStatusMob = term;
+	
+	  }
+	  toggleOriginMob() {
+		this.showOriginMob = !this.showOriginMob;
+		if(this.showOriginMob==false){
+		  document.getElementById('OrginMob-id').style.border="1px solid #30855c";
+		}
+		else{
+		  document.getElementById('OrginMob-id').style.border="1px solid #d6d6d6";
+		
+		}
+	   }
+	   toggleTypeMob() {
+		this.showTypeMob = !this.showTypeMob;
+		if(this.showTypeMob==false){
+		  document.getElementById('type_id_Mob').style.border="1px solid #30855c";
+		}
+		else{
+		  document.getElementById('type_id_Mob').style.border="1px solid #d6d6d6";
+		
+		}
+		}
+		toggleStatusMob(){
+		  this.showStatusMob = !this.showStatusMob;
+		  if(this.showStatusMob==false){
+			document.getElementById('status_id_Mob').style.border="1px solid #30855c";
+		  }
+		  else{
+			document.getElementById('status_id_Mob').style.border="1px solid #d6d6d6";
+		  
+		  }
+		  }
 }

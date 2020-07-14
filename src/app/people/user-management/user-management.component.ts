@@ -207,7 +207,6 @@ export class UserManagementComponent implements OnInit {
 
   setStatus(term: any) {
     this.termStatus = term;
-    this.termStatusMob = term;
     console.log(this.termStatus)
   }
   setStatusMob(term: any) {
@@ -220,7 +219,6 @@ export class UserManagementComponent implements OnInit {
 
   setRole(term: any) {
     this.termRole = term;
-    this.termRoleMob = term;
   }
   
   setRoleMob(term: any) {

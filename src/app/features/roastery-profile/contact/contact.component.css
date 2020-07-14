@@ -168,4 +168,17 @@ input[type="number"]::-webkit-outer-spin-button {
 .entered-number::placeholder{
     font-size: 12px;
 }
-
+@media screen and (max-width:768px) {
+.border-class.p-4{padding-left: 16px !important; padding-right: 16px !important; border: 0;}
+.mobile-border{border: none;}
+.mobile-border .header {background: none; display: none;}
+.mobile-border .form-group{margin-left: 8px; margin-right: 8px;}
+.mobile-border .form-group{margin-bottom: 2rem;}
+.list-section table tr{padding-top: 1rem; padding-bottom: 1rem; display: block; border-bottom: 1px dotted #000;}
+.list-section table tr td{display: block;}
+.list-que{padding-top: 0px; color: #747588; font-size: 12px;}
+.list-ans{padding-top: 5px; color: #232334; font-size: 14px;}
+.contact-view table{padding-left: 16px; padding-right: 16px; display: block;}
+.cont-info{border:2px solid #fff; color: #232334; font-size: 16px; padding-top: 1rem; padding-left: 1rem; padding-bottom: 1rem; background: #f8f8f8;}
+.no-padding{padding-left: 0; padding-right: 0;}
+}

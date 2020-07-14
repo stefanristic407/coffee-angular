@@ -58,6 +58,8 @@ export class FileShareComponent implements OnInit {
     let elLen;
     let newliLen;
 
+    
+
     $(document).ready(function () {
       var pLen = $('.pagination-content').length;
       console.log(pLen)

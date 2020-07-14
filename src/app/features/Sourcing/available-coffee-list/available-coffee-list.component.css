@@ -1,4 +1,4 @@
-.source-cont {
+.source-cont-available {
     background: #fff;
     padding: 48px;
 }
@@ -20,40 +20,8 @@
     font-weight: bold;
     color: #242424;
 }
-.g-thumbs-container {
+.g-thumbs-container,#basic-test  {
     background-color: #FFF !important;
-}
-#basic-test {
-    background-color: #FFF !important;
-}
-.source-knowmore .contact-us {
-    padding: 12px 16px;
-    font-family: Muli;
-    font-size: 14px;
-    border: 1px solid #30855c;
-    font-weight: bold;
-    border-radius: 4px;
-    background-color: #30855c;
-    display: inline-block;
-    color: #ffffff;
-    cursor: pointer;
-}
-.source-knowmore .know-more {
-    padding: 12px 16px;
-    border: 1px solid #30855c;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #30855c;
-    border-radius: 4px;
-    margin-left: 10px;
-    display: inline-block;
-    margin-top: 5px;
-    cursor: pointer;
-}
-.source-knowmore .know-more:hover {
-    background: #30855c;
-    color: #fff;
 }
 .pro-logo {
     float: left;
@@ -89,7 +57,7 @@
 .stit p:last-child {
     margin-bottom: 40px;
 }
-.source-cont .nav-item {
+.source-cont-available .nav-item {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
@@ -366,7 +334,6 @@
     background-color: #ffffff;
     margin-left: 0rem;
     margin-right: 0rem;
-    /* padding: 32px 48px 0; */
 }
 .coffee-space{
     padding: 32px 48px 0;
@@ -374,7 +341,7 @@
 /*************Coffee Section**************/
 .card-border {
     border: 1px solid #ebebeb;
-    margin-bottom: 26px;
+    margin-bottom: 7rem;
     border-radius: 4px;
 }
 .card-border:hover {
@@ -557,7 +524,6 @@ ul li {
     display: none;
 }
 /********Graph Css*********/
-
 .live-estate h2 {
     font-family: Muli;
     font-size: 18px;
@@ -579,6 +545,10 @@ ul li {
 ::ng-deep .gridline-path-vertical {
     display: none;
 }
+::ng-deep .ngx-charts {
+    height: 280px;
+}
+
 .chart-cont .nav-tabs .nav-link {
     border: none;
     font-weight: 600;
@@ -631,7 +601,7 @@ ul li {
 ngx-charts-line-chart{overflow:auto}
 
 @media (max-width:640px){
-    .source-cont{
+    .source-cont-available{
         padding: 24px 8px;
     }
     .prodect-details,.produect-pro{

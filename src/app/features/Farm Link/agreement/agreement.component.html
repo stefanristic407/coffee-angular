@@ -27,9 +27,9 @@
 			<input type="text" name="search" class="col-12 col-md-4 search" [(ngModel)]="estateterm" placeholder="Search by Name,role..">
 		</div>
     </div> -->
-        <div class="row ">
+        <div class="row web-farm">
             <div class="d-inline table-w pt-2 agre-index-z">
-                <div class="title-header d-inline desk_view_user">
+                <div class="title-header d-inline web">
                     <div class="d-inline border-order role-div col-sm-6" id="origin_id">
                         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
                         <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Select customer&nbsp;</p>
@@ -56,6 +56,30 @@
                 </div>
             </div>
         </div>
+        <div class="row mobile-farm">
+                        <div class="title-header  d-inline">
+                            <div class="d-inline border-order top-padd col-sm-6" id="orgin-mob-id">
+                                    <p class="d-inline filter-text" *ngIf="customerMob == ''">Select customer&nbsp;</p>
+                                    <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop9="bs-popover">
+                                        <p class="d-inline filter" *ngIf="customerMob == ''" (click)="toggleCustomerMob()">
+                                            &nbsp; <img src="{{ showCustomerMob ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                        </p>
+                                    </a>
+                                    <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop10="bs-popover">
+                                        <p class="d-inline filter" *ngIf="customerMob != ''" (click)="toggleCustomerMob()">
+                                            {{ customerMob }} &nbsp;<img src="{{ showCustomerMob ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                        </p>
+                                    </a>
+                                </div>
+
+                                <div class="d-inline display_div">
+                                        <div class="float-right upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
+                                            <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
+                                        </div>
+                                    </div>
+                        </div>
+        </div>
+
         <div class="estate-table pt-2 web-farm">
             <table class="estate-boby-txt " datatable [dtOptions]="dtOptions">
 
@@ -66,20 +90,20 @@
             <div class="table-details mobile-farm">
                 <div class="table-responsive border-sourcetable agreement-top">
 
-                    <div class="col-12 bor-d6d6">
+                    <div class="col-12 bor-d6d6" *ngFor="let data of dataAgree | filter:customerMob">
                         <div class="row pt-4">
                             <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
                             <div class="col-10 mobile-ce">
-                                <p class="black fnt-14"> The Steam Hotel agreeme…</p>
-                                <p class="fnt-12 light-eight">#129979</p>
-                                <p class="fnt-12 light-eight"> Added on 24/09/2019</p>
-                                <p class="fnt-12 light-eight"> The Steam Hotel</p>
-                                <p class="fnt-12 light-eight"> Västerås</p>
+                                <p class="black fnt-14">{{data.file}}</p>
+                                <p class="fnt-12 light-eight">{{data.orderid}}</p>
+                                <p class="fnt-12 light-eight"> Added on {{data.date}}</p>
+                                <p class="fnt-12 light-eight">{{data.name}}</p>
+                                <p class="fnt-12 light-eight"> {{data.origin}}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 bor-d6d6">
+                    <!-- <div class="col-12 bor-d6d6">
                         <div class="row pt-4">
                             <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
                             <div class="col-10 mobile-ce">
@@ -141,9 +165,9 @@
                                 <p class="fnt-12 light-eight"> Västerås</p>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
-                </div>
+                </div> 
 
             </div>
         </div>
@@ -164,21 +188,47 @@
                 <a class="pointer-item" (click)="setOrigin('Candela'); pop4.hide(); pop5.hide();toggleOrigin()">Candela</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Finca'); pop4.hide(); pop5.hide();toggleOrigin()">Finca</a>
+                <a class="pointer-item" (click)="setOrigin('Finca Nápoles'); pop4.hide(); pop5.hide();toggleOrigin()">Finca Nápoles</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Santa'); pop4.hide(); pop5.hide();toggleOrigin()">Santa</a>
+                <a class="pointer-item" (click)="setOrigin('Santa Rosa'); pop4.hide(); pop5.hide();toggleOrigin()">Santa Rosa</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Hacienda'); pop4.hide(); pop5.hide();toggleOrigin()">Hacienda</a>
+                <a class="pointer-item" (click)="setOrigin('Hacienda Sonora'); pop4.hide(); pop5.hide();toggleOrigin()">Hacienda Sonora</a>
             </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Vijay'); pop4.hide(); pop5.hide();toggleOrigin()">Vijay</a>
-            </li>
+            
         </ul>
     </div>
 </ng-template>
 
+
+
+<ng-template #templateMob>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setUser(''); pop9.hide(); pop10.hide();toggleCustomerMob()">All</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setUser('The Steam Hotel'); pop9.hide(); pop10.hide();toggleCustomerMob()">The Steam Hotel</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setUser('Candela'); pop9.hide(); pop10.hide();toggleCustomerMob()">Candela</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setUser('Finca Nápoles'); pop9.hide(); pop10.hide();toggleCustomerMob()">Finca Nápoles</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setUser('Santa Rosa'); pop9.hide(); pop10.hide();toggleCustomerMob()">Santa Rosa</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setUser('Hacienda Sonora'); pop9.hide(); pop10.hide();toggleCustomerMob()">Hacienda Sonora</a>
+                </li>
+              
+            </ul>
+        </div>
+    </ng-template>
+    
 
 <div class="modal fade" id="uploadfolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -200,7 +250,7 @@
                                 <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
                                     your files to the order helps you and your custoemrs to find files faster</span>
 
-                                <a href="#" class="d-inline-flex mt-2 view-order-file align-items-center share-bor">
+                                <a class="d-inline-flex mt-2 view-order-file align-items-center share-bor">
                                     <img src='assets/images/view.png'>
                                     <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">View
                                         orders</span>

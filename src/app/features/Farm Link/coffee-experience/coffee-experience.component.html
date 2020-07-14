@@ -29,10 +29,10 @@
 			<input type="text" name="search" class="col-12 col-md-4 search" [(ngModel)]="estateterm" placeholder="Search by Name,role..">
 		</div>
     </div> -->
-        <div class="row ">
+        <div class="row web-farm">
             <div class="d-inline table-w  mobile-filiters-farm">
                 <div class="title-header d-inline desk_view_user">
-                    <div class="d-inline border-order role-div col-sm-6" id="origin_id">
+                    <div class="d-inline border-order role-div col-sm-6 web-farm" id="origin_id">
                         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
                         <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Origin&nbsp;</p>
                         <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
@@ -73,7 +73,7 @@
                         </a>
                     </div> &nbsp;&nbsp;
 
-                    <div class="d-inline border-order date-div col-sm-6">
+                    <div class="d-inline border-order date-div col-sm-6 web-farm">
                         <p class="d-inline filter-text">Date range &nbsp;
                             <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
                         </p>
@@ -107,11 +107,50 @@
                 </div>
             </div>
         </div>
-        <div class="estate-table pt-2 ">
+
+
+        <div class="mobile-farm">
+                <div class="row  pt-md-4 pb-md-4">
+                        <div class="col-12">
+                        <div class="title-header">
+                            <div class="mb-3">
+                            <input class="d-inline search-name filter-set" type="text" name="sourcingName" [(ngModel)]="termSearch" id="sourcingName" placeholder="Search by name">
+                            </div>
+
+                            <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
+                                    <p class="d-inline filter-text" *ngIf="coffeetermOriginMob == ''">Origin&nbsp;</p>
+                                    <a class="pointer-item" [popover]="originTemplateMob" placement="bottom" container="body" #pop9="bs-popover">
+                                        <p class="d-inline filter" *ngIf="coffeetermOriginMob == ''" (click)="toggleOriginMob()">
+                                            &nbsp; <img src="{{ showOriginMob ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                        </p>
+                                    </a>
+                                    <a class="pointer-item" [popover]="originTemplateMob" placement="bottom" container="body" #pop10="bs-popover">
+                                        <p class="d-inline filter" *ngIf="coffeetermOriginMob != ''" (click)="toggleOriginMob()">
+                                            {{ coffeetermOriginMob }} &nbsp;<img src="{{ showOriginMob ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                        </p>
+                                    </a>
+                
+                
+                                </div>
+                                <div class="d-inline border-grade col-sm-6">
+                                    <p class="d-inline filter-text">Date&nbsp;</p>
+                                    <a class="pointer-item">
+                                        <p class="d-inline filter">
+                                            &nbsp; <img src="assets/images/active-calender.png" />
+                                        </p>
+                                    </a>
+                
+                                </div>
+                        </div>
+                    </div>
+                </div>            
+        </div>
+        <div class="estate-table pt-2  web-farm">
             <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
 
             </table>
-
+        </div>
+        <div class="estate-table pt-2 mobile-farm">
             <div class="sourcing-panel mobile-farm">
                 <section id="tabs">
                     <div class="source-cont">
@@ -148,13 +187,13 @@
                                         <div class="pagination-content">
                                             <div class="cardpanel-detail">
                                                 <div class="row pagination-content-list">
-                                                    <div class="col-6 bor-coffe pagination-content-list__item">
-                                                        <p><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                                        <p class="fnt-12 light-eight"> Finca La Pampa</p>
-                                                        <p class="fnt-12 light-eight"> Colombia</p>
-                                                        <p class="fnt-12 light-eb"> 19/12/19</p>
+                                                    <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of gridData | filter:termSearch | filter: coffeetermOriginMob">
+                                                        <p><span class="black fnt-14">{{item.orderid}}</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                        <p class="fnt-12 light-eight">{{item.name}}</p>
+                                                        <p class="fnt-12 light-eight"> {{item.origin}}</p>
+                                                        <p class="fnt-12 light-eb">{{item.date}}</p>
                                                     </div>
-                                                    <div class="col-6 bor-coffe pagination-content-list__item">
+                                                    <!-- <div class="col-6 bor-coffe pagination-content-list__item">
                                                         <p><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                         <p class="fnt-12 light-eight"> Gesha</p>
                                                         <p class="fnt-12 light-eight"> Ethiopia</p>
@@ -184,7 +223,7 @@
                                                         <p class="fnt-12 light-eight">La Isabela</p>
                                                         <p class="fnt-12 light-eight"> Brazil</p>
                                                         <p class="fnt-12 light-eb"> 20/02/19</p>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
 
                                                 <div class="responsive-pagination clearfix">
@@ -206,13 +245,13 @@
                                             <div class="table-details">
                                                 <div class="table-responsive border-sourcetable">
                                                     <div class="row mobile-ce pagination-content-list">
-                                                        <div class="col-12 bor-d6d6 pagination-content-list__item">
-                                                            <p class="pt-3"><span class="black fnt-14"> #81671</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                                            <p class="fnt-14 light-eight"> Finca La Pampa</p>
-                                                            <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
+                                                        <div class="col-12 bor-d6d6 pagination-content-list__item" *ngFor="let data of gridData  | filter:termSearch | filter: coffeetermOriginMob">
+                                                            <p class="pt-3"><span class="black fnt-14">{{data.orderid}}</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                            <p class="fnt-14 light-eight">{{data.name}}</p>
+                                                            <p><span class="fnt-14 light-eight">{{data.origin}}</span> <span class=" pull-right fnt-14 light-eb">{{data.date}}</span> </p>
                                                         </div>
 
-                                                        <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                        <!-- <div class="col-12 bor-d6d6 pagination-content-list__item">
                                                             <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                             <p class="fnt-14 light-eight"> Gesha</p>
                                                             <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
@@ -239,7 +278,7 @@
                                                             <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                             <p class="fnt-14 light-eight"> Gesha</p>
                                                             <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
 
                                                 </div>
@@ -364,3 +403,22 @@
     </div>
 
 </ng-template>
+
+<ng-template #originTemplateMob>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOriginMob(''); pop9.hide(); pop10.hide();toggleOriginMob()">All</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide();toggleOriginMob()">Colombia</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOriginMob('Ethiopia'); pop9.hide(); pop10.hide();toggleOriginMob()">Ethiopia</a>
+                </li>
+                <li class="list-group-item item-color">
+                        <a class="pointer-item" (click)="setOriginMob('Brazil'); pop9.hide(); pop10.hide();toggleOriginMob()">Brazil</a>
+                    </li>
+            </ul>
+        </div>
+    </ng-template>
