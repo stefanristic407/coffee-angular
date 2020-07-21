@@ -621,8 +621,7 @@ option {
         padding: 0 !important;
     }
     .dyn-userdata:last-child{
-        margin-bottom: 4rem;
-    }
+        margin-bottom: 4rem;border-bottom: none !important;    }
 }
 
 .table td,

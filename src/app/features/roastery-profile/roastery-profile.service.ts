@@ -5598,6 +5598,7 @@ if(result['success']== true){
   this.instagram = result['result']['ig_profile'];
   this.address1 = result['result']['address_line1'];
   this.address2 = result['result']['address_line2'];
+  this.changeCountry(this.country);
 }
 })
   }
@@ -5712,5 +5713,11 @@ if(result['success']== true){
     this.addMediaDiv = true;
     this.savemode = true;
     this.editmode = false;
+  }
+  preview(){
+    this.contactInfo = true;
+    this.addMediaDiv = false;
+    this.savemode = false;
+    this.editmode = true;
   }
 }

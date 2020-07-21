@@ -133,7 +133,7 @@ hr {
 }
 
 .chart-div {
-  padding: 1rem 5rem;
+  padding: 1rem;
 }
 .logo-btn {
   border-radius: 4px;
@@ -421,6 +421,9 @@ hr {
   font-weight: bold;
   color: #232334;
   text-overflow: ellipsis;
+}
+.chart-div{
+  padding: 1rem ;
 }
 
 }

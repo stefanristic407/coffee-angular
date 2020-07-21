@@ -399,8 +399,8 @@ export class UserManagementComponent implements OnInit {
 	}
  }
  toggleRole1() {
-	this.showRole = !this.showRole;
-	if(this.showRole==false){
+	this.showMobRole = !this.showMobRole;
+	if(this.showMobRole==false){
 		document.getElementById('role_mobid').style.border="1px solid #30855c";
 	}
 	else{
@@ -409,8 +409,8 @@ export class UserManagementComponent implements OnInit {
 	}
  }
  toggleStatus() {
-  this.showMobRole = !this.showMobRole;
-  if(this.showMobRole==false){
+  this.showVar = !this.showVar;
+  if(this.showVar==false){
 	document.getElementById('status_id').style.border="1px solid #30855c";
 }
 else{

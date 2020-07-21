@@ -426,14 +426,14 @@
   <div>
     <ul class="list-group custom-popover">
       <li class="list-group-item item-color">
-        <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();toggleRole()"
+        <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();pop5.hide(); pop6.hide();toggleRole()"
           >All</a
         >
       </li>
       <li class="list-group-item item-color" *ngFor="let role of roles">
         <a
           class="pointer-item"
-          (click)="setRole(role.name); pop1.hide(); pop3.hide();toggleRole()"
+          (click)="setRole(role.name); pop1.hide(); pop3.hide();pop5.hide(); pop6.hide();toggleRole()"
           >{{ role.name }}</a
         >
       </li>

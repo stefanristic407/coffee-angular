@@ -22269,6 +22269,11 @@ li.select-list__item {
         background-size: cover !important;
         position: fixed;
         background-position: center !important;
+        background-image: url(../../assets/images/coffee_estate_bg.png);
+        width: 100%;
+        height: 100vh;
+        background-repeat: no-repeat;
+        overflow: hidden;
     }
 }
 
@@ -22294,11 +22299,12 @@ li.select-list__item {
         box-shadow: 0 0 10px 4px rgba(27, 27, 27, 0.3);
         background-color: #ffffff;
         padding: 2.3rem 2.3rem 1.1rem 2.3rem;
+        width: 100%;
         height: 100%;
+        position: absolute !important;
+        bottom: 0 !important;
     }
     .login-box {
         height: calc(100vh - 145px);
-        position: fixed !important;
-        bottom: 0 !important;
     }
 }

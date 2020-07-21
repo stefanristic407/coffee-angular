@@ -13,7 +13,7 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="float-right ml-auto butn-mt">
+                <div class="float-right ml-auto butn-mt d-none d-md-block">
                     <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.savemode" (click)="roasteryProfileService.saveRoasterProfile()" > Save  </button>
                     <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" > Edit  </button>
                 </div>
@@ -95,6 +95,19 @@
                                 </div>
                             </div>
                     </div>
+    </div>
+    <div class="mobile-farm farm-stricky col-12">
+        <div  class="col-sm-12 px-0"  *ngIf="roasteryProfileService.savemode">
+        <div class="col-sm-6 d-inline px-0">
+                <button type="button" class="btn preview-butn " (click)="roasteryProfileService.preview()" > Preview  </button>
+        </div>
+        <div class="col-sm-6 px-0 d-inline">
+                <button type="button" class="btn cancel-butn" (click)="roasteryProfileService.saveRoasterProfile()" > Save  </button>
+        </div>
+    </div>
+        <button type="button" class="btn edit-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" > Go back to edit  </button>
+        
+        
     </div>
 </div>
 
