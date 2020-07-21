@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { DirectMessagingComponent } from '../ordermanagement/direct-messaging/direct-messaging.component';
+import { runInThisContext } from 'vm';
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -44,6 +45,7 @@ export class PeopleComponent implements OnInit {
 
   ];
   profilePic: any;
+  roasterProfilePic: any;
 
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
@@ -56,20 +58,39 @@ export class PeopleComponent implements OnInit {
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get("user_id");
     this.getUserValue();
-
+    this.getRoasterProfile();
     //Open side nav
     $('body').on('click', '.sidenav-hamberg', function(event) {
-      $('.sidenav-mb').toggleClass('open');
+      $('.sidenav-mb').addClass('open');
+      $('.sidenav-mb__content').addClass('open')
       event.stopImmediatePropagation();
     });
 
     $('body').on('click', '.sidenav-mb__close', function(event) {
-      $('.sidenav-mb').toggleClass('open');
+     
+      $('.sidenav-mb__content').removeClass('open')
+      setTimeout(function(){
+        $('.sidenav-mb').removeClass('open');
+       }, 800);
       event.stopImmediatePropagation();
     });
 
+    $('body').on('click', '.sidenav-mb__hide', function(event) {
+     
+      $('.sidenav-mb__content').removeClass('open')
+      setTimeout(function(){
+        $('.sidenav-mb').removeClass('open');
+       }, 800);
+      event.stopImmediatePropagation();
+    });
+
+
+
     $('.nav-links__item .router-link').on('click', function (event) {
-      $('.sidenav-mb').toggleClass('open');
+      $('.sidenav-mb__content').removeClass('open')
+      setTimeout(function(){
+        $('.sidenav-mb').removeClass('open');
+       }, 800);
       event.stopImmediatePropagation();
     });
 
@@ -91,6 +112,16 @@ export class PeopleComponent implements OnInit {
   }
 
   
+    
+  // Function Name : Roaster Profile
+  //Description: This function helps to get the details of the Roaster Profile 
+  getRoasterProfile() {
+    this.userService.getRoasterAccount(this.roaster_id).subscribe(
+      result => {
+        this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+    }
+    );
+  }
   
 
 
@@ -125,28 +156,40 @@ export class PeopleComponent implements OnInit {
   //     $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
   //     $(this).parents('.nav-links__item').addClass('active')
   // });
-
-  $('.nav-links__item').on('click', function () {
-    
-
-    if ($(window).width() < 767) {
-      $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
-      $(this).find('.nav-dropdown').slideToggle();
-      // $('.nav-links__item').not(this).removeClass('active');
-      // $(this).toggleClass('active')
+  $(window).scroll(function() {
+    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+        $('.sectin-footer-mb').css({
+          "opacity": "0",
+          "pointer-events": "none"
+        })
     }
 
-    // else {
-    //   $('.nav-links__item').not(this).removeClass('active');
-    //   $(this).addClass('active')
-    // }
+    else {
+      $('.sectin-footer-mb').css({
+        "opacity": "1",
+        "pointer-events": "all"
+      })
+    }
+ });
+
+  $(document).ready(function() {
+    if ($(window).width() < 768) {
+      $('.nav-links__item').removeClass('active');
+    }
+  });
+
+  $('.nav-links__item').on('click', function () { 
+
+    if ($(window).width() < 768) {
+      $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
+      $(this).find('.nav-dropdown').slideToggle();
+      $('.nav-links__item').not(this).removeClass('active');
+      $(this).toggleClass('active')
+    }
+
     
   });
 
-  // $('.nav-dropdown li').on('click', function () {
-  //   $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
-  //   $(this).parents('.nav-links__item').addClass('active')
-  // });
 
   $(window).on('load', function () {
     $("html, body").animate({ scrollTop: 0 }, "slow");

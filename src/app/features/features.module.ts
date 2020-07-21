@@ -78,6 +78,8 @@ import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AvailableConfirmOrderComponent } from './Sourcing/available-coffee-list/available-confirm-order/available-confirm-order.component';
 import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-placed/order-placed.component';
+import { NotificationComponent } from './notification/notification.component';
+import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +131,8 @@ import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-pla
     ProfileLicenseComponent,
     AvailableConfirmOrderComponent,
     OrderPlacedComponent,
+    NotificationComponent,
+    RoasteryLicenseComponent,
   ],
   imports: [
     CommonModule,

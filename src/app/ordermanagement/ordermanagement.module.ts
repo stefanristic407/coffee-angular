@@ -44,6 +44,9 @@ import { RoasterOrdersComponent } from './roaster-orders/roaster-orders.componen
 import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
 import { PreOrderChatComponent } from './order-prebook/pre-order-chat/pre-order-chat.component';
 import { BookOrderChatComponent } from './order-booked/book-order-chat/book-order-chat.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { OrdersComponent } from './myorders/orders/orders.component';
+import { RequestsComponent } from './myorders/requests/requests.component';
 
 
 
@@ -82,7 +85,9 @@ import { BookOrderChatComponent } from './order-booked/book-order-chat/book-orde
     RoasterOrdersComponent,
     OrderChatComponent,
     PreOrderChatComponent,
-    BookOrderChatComponent
+    BookOrderChatComponent,
+    OrdersComponent,
+    RequestsComponent
   ],
   imports: [
     CommonModule,
@@ -95,6 +100,7 @@ import { BookOrderChatComponent } from './order-booked/book-order-chat/book-orde
     CalendarModule,
     ModalModule,
     MatBottomSheetModule,
+    NgxChartsModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ],

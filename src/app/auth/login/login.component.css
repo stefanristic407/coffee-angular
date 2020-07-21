@@ -172,14 +172,7 @@ div.fullscreen {
     }
     .mobile-login {
         display: block !important;
-        padding-top: 4rem;
-    }
-    .login {
-        border-radius: 6px 6px 0px 0px;
-        box-shadow: 0 0 10px 4px rgba(27, 27, 27, 0.3);
-        background-color: #ffffff;
-        padding: 2.3rem 2.3rem 1.1rem 2.3rem;
-        height: calc(100vh - 93px);
+        padding-top: 2.5rem;
     }
 }
 

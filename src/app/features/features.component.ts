@@ -45,6 +45,7 @@ export class FeaturesComponent implements OnInit {
 
   ];
   profilePic: any;
+  roasterProfilePic: any;
 
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
@@ -56,20 +57,54 @@ export class FeaturesComponent implements OnInit {
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get('user_id');
     this.getUserValue();
+    this.getRoasterProfile();
 
+    $(window).scroll(function() {
+      if($(window).scrollTop() + $(window).height() == $(document).height()) {
+          $('.sectin-footer-mb').css({
+            "opacity": "0",
+            "pointer-events": "none"
+          })
+      }
+  
+      else {
+        $('.sectin-footer-mb').css({
+          "opacity": "1",
+          "pointer-events": "all"
+        })
+      }
+   });
     //Open side nav
     $('body').on('click', '.sidenav-hamberg', function(event) {
-      $('.sidenav-mb').toggleClass('open');
+      $('.sidenav-mb').addClass('open');
+      $('.sidenav-mb__content').addClass('open')
       event.stopImmediatePropagation();
     });
 
     $('body').on('click', '.sidenav-mb__close', function(event) {
-      $('.sidenav-mb').toggleClass('open');
+     
+      $('.sidenav-mb__content').removeClass('open')
+      setTimeout(function(){
+        $('.sidenav-mb').removeClass('open');
+       }, 800);
       event.stopImmediatePropagation();
     });
 
+    $('body').on('click', '.sidenav-mb__hide', function(event) {
+     
+      $('.sidenav-mb__content').removeClass('open')
+      setTimeout(function(){
+        $('.sidenav-mb').removeClass('open');
+       }, 800);
+      event.stopImmediatePropagation();
+    });
+
+
     $('.nav-links__item .router-link').on('click', function (event) {
-      $('.sidenav-mb').toggleClass('open');
+      $('.sidenav-mb__content').removeClass('open')
+      setTimeout(function(){
+        $('.sidenav-mb').removeClass('open');
+       }, 800);
       event.stopImmediatePropagation();
     });
 
@@ -89,8 +124,18 @@ export class FeaturesComponent implements OnInit {
     );
   }
 
+  
+  // Function Name : Roaster Profile
+  //Description: This function helps to get the details of the Roaster Profile 
+  getRoasterProfile() {
+    this.userService.getRoasterAccount(this.roaster_id).subscribe(
+      result => {
+        this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+    }
+    );
+  }
 
-
+  
   // Function Name : Logout
   //Description: This function helps to logout the user from the session.
 
@@ -116,7 +161,7 @@ export class FeaturesComponent implements OnInit {
     $('.nav-links__item').on('click', function () {
     
 
-      if ($(window).width() < 767) {
+      if ($(window).width() < 768) {
         $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
         $(this).find('.nav-dropdown').slideToggle();
         $('.nav-links__item').not(this).removeClass('active');

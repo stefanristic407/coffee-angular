@@ -45,6 +45,7 @@ export class OrdermanagementComponent implements OnInit {
 
   ];
   profilePic: any;
+  roasterProfilePic: any;
 
 
 
@@ -60,24 +61,41 @@ export class OrdermanagementComponent implements OnInit {
     this.roaster_id = this.cookieService.get('roaster_id');
     this.user_id = this.cookieService.get('user_id');
     this.getUserValue();
+      this.getRoasterProfile();
+
+   //Open side nav
+   $('body').on('click', '.sidenav-hamberg', function(event) {
+    $('.sidenav-mb').addClass('open');
+    $('.sidenav-mb__content').addClass('open')
+    event.stopImmediatePropagation();
+  });
+
+  $('body').on('click', '.sidenav-mb__close', function(event) {
+   
+    $('.sidenav-mb__content').removeClass('open')
+    setTimeout(function(){
+      $('.sidenav-mb').removeClass('open');
+     }, 800);
+    event.stopImmediatePropagation();
+  });
+
+  $('body').on('click', '.sidenav-mb__hide', function(event) {
+   
+    $('.sidenav-mb__content').removeClass('open')
+    setTimeout(function(){
+      $('.sidenav-mb').removeClass('open');
+     }, 800);
+    event.stopImmediatePropagation();
+  });
 
 
-     //Open side nav
-     $('body').on('click', '.sidenav-hamberg', function(event) {
-      $('.sidenav-mb').toggleClass('open');
-      event.stopImmediatePropagation();
-    });
-
-    $('body').on('click', '.sidenav-mb__close', function(event) {
-      $('.sidenav-mb').toggleClass('open');
-      event.stopImmediatePropagation();
-    });
-
-    $('.nav-links__item .router-link').on('click', function (event) {
-      $('.sidenav-mb').toggleClass('open');
-      event.stopImmediatePropagation();
-    });
- 
+  $('.nav-links__item .router-link').on('click', function (event) {
+    $('.sidenav-mb__content').removeClass('open')
+    setTimeout(function(){
+      $('.sidenav-mb').removeClass('open');
+     }, 800);
+    event.stopImmediatePropagation();
+  });
 
     
     
@@ -94,6 +112,18 @@ export class OrdermanagementComponent implements OnInit {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];
         this.profilePic = response['result']['profile_image_thumb_url'];
       }
+    );
+  }
+
+
+    
+  // Function Name : Roaster Profile
+  //Description: This function helps to get the details of the Roaster Profile 
+  getRoasterProfile() {
+    this.userService.getRoasterAccount(this.roaster_id).subscribe(
+      result => {
+        this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+    }
     );
   }
 
@@ -137,30 +167,59 @@ export class OrdermanagementComponent implements OnInit {
   //     $(this).parents('.nav-links__item').addClass('active')
   // });
 
+  $(window).scroll(function() {
+    if ($(window).width() < 768) {
+    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+      
+        $('.sectin-footer-mb').css({
+          "opacity": "0",
+          "pointer-events": "none"
+        })
+        $('.stricky-order').css({
+          "transform": "translateY(0)",
+          "z-index": "10",
+          "transition": "0.7s ease-in-out"
+        })
+    }
+
+    else {
+      $('.sectin-footer-mb').css({
+        "opacity": "1",
+        "pointer-events": "all"
+      })
+      $('.stricky-order').css({
+        "transform": "translateY(-52px)",
+        "z-index": "10",
+        "transition": "0.7s ease-in-out"
+      })
+    }
+  }
+ });
+
   $('.nav-links__item').on('click', function () {
     
 
-    if ($(window).width() < 767) {
+    if ($(window).width() < 768) {
       $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
       $(this).find('.nav-dropdown').slideToggle();
-      // $('.nav-links__item').not(this).removeClass('active');
-      // $(this).toggleClass('active')
+      $('.nav-links__item').not(this).removeClass('active');
+      $(this).toggleClass('active')
     }
 
-    // else {
-    //   $('.nav-links__item').not(this).removeClass('active');
-    //   $(this).addClass('active')
-    // }
     
   });
 
-  // $('.nav-dropdown li').on('click', function () {
-  //   $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
-  //   $(this).parents('.nav-links__item').addClass('active')
-  // });
 
   $(window).on('load', function () {
     $("html, body").animate({ scrollTop: 0 }, "slow");
+    if ($(window).width() < 768) {
+      $('.stricky-order').css({
+        "transform": "translateY(-52px)",
+        "z-index": "10",
+        "transition": "0.7s ease-in-out"
+      })
+    }
+   
   });
 
 // Footer links

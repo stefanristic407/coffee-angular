@@ -19,9 +19,9 @@ export class OrderChatComponent implements OnInit {
 
   ngAfterViewInit() {
 	 
-
+	const messages = document.querySelector('.conversatio-body__messages');
 	let img;
-		$('body').on('input', '.files', function (e) {
+		$('body').on('input', '.dispute-order .files', function (e) {
 			if (e.target.files) {
 				var reader = new FileReader();
 				reader.readAsDataURL(e.target.files[0]);
@@ -30,10 +30,10 @@ export class OrderChatComponent implements OnInit {
 
 
 					img = '<img src=' + event.target.result +'>';
-					
 					setTimeout(function(){
-						$('.img-container').append(img);
-						$('.img-container').show();
+						$('.dispute-order').find('.img-container').append(img);
+						$('.dispute-order').find('.img-container').show();
+						// $(this).parents('.dispute-order').find('.img-container').find('img').not(':first').remove();
 						
 					 }, 100);
 				
@@ -73,7 +73,7 @@ export class OrderChatComponent implements OnInit {
 
     //Send Message
     // Send Messages
-	$('body').on('click', '.send-message__btn', function () {
+	$('body').on('click', '.dispute-order .send-message__btn', function () {
 	
 	
 		var ChatText = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val();
@@ -118,8 +118,7 @@ export class OrderChatComponent implements OnInit {
             var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
             var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
 
-			$('.files').val('');
-			$(".conversatio-body__messages").animate({ scrollTop: $(".main-message:last").offset().top });
+			$('.dispute-order .files').val('');
 		}
 
 
@@ -130,8 +129,8 @@ export class OrderChatComponent implements OnInit {
             var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
             var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
 
-			$('.files').val('');
-			$(".conversatio-body__messages").animate({ scrollTop: $(".main-message:last").offset().top });
+			$('.dispute-order .files').val('');
+		
 
 		}
 
@@ -142,9 +141,8 @@ export class OrderChatComponent implements OnInit {
 
             var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
             var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
-            $('.files').val('');
-            $(".conversatio-body__messages").animate({ scrollTop: $(".main-message:last").offset().top });
-
+            $('.dispute-order .files').val('');
+           
 
 		}
 
@@ -153,6 +151,14 @@ export class OrderChatComponent implements OnInit {
 		}
 
 		$('.img-container').hide();
+		
+		
+		var shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
+			 
+		// After getting your messages.
+		if (!shouldScroll) {
+		  scrollToBottom();
+		}
 		
 
 	});
@@ -177,7 +183,13 @@ export class OrderChatComponent implements OnInit {
 	
 	$('body').on('click', '.order-ticket-list__item', function () {
         $(this).parents('.dispute-order').find('.dispute-order__conversation').addClass('open')
-    });
+	});
+	
+	function scrollToBottom() {
+		messages.scrollTop = messages.scrollHeight;
+	  }
+	  
+	  scrollToBottom();
   }
 
 }

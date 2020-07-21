@@ -13,7 +13,7 @@
                   type="text"
                   (keyup)="onKeyPress($event)"
                   name="name"
-                  [(ngModel)]="name"
+                  [(ngModel)]="roasteryProfileService.name"
                   placeholder="Please enter the roastery name"
                 />
                 <div class="nameError" *ngIf="nameError != ''">
@@ -33,7 +33,7 @@
                   type="email"
                   (keyup)="onKeyPress($event)"
                   name="email"
-                  [(ngModel)]="email"
+                  [(ngModel)]="roasteryProfileService.email"
                   placeholder="Roastery email"
                 />
                 <div class="emailError" *ngIf="emailError != ''">
@@ -60,7 +60,7 @@
                       placeholder="Enter your phone number"
                       name="phoneno"
                       (keyup)="onKeyPress($event)"
-                      [(ngModel)]="phoneno"
+                      [(ngModel)]="roasteryProfileService.phoneno"
                       name="phoneno"
                       id="phoneno"
                       required=""
@@ -79,7 +79,7 @@
                   id="country"
                   class="form-control country role_edit"
                   (keyup)="onKeyPress($event)"
-                  [(ngModel)]="country"
+                  [(ngModel)]="roasteryProfileService.country"
                   name="country"
                   required=""
                   (change)="changeCountry()"
@@ -102,7 +102,7 @@
                 <select
                   id="state"
                   class="form-control state role_edit"
-                  [(ngModel)]="state"
+                  [(ngModel)]="roasteryProfileService.state"
                   name="state"
                   required=""
                 >
@@ -110,7 +110,7 @@
                     Please select your state</option
                   >
                   <option *ngFor="let city of roasteryProfileService.cities"
-                    >{{ city }}
+                   value="city" >{{ city }}
                   </option>
                 </select>
               </div>
@@ -123,7 +123,7 @@
                   id="address1"
                   name="address1"
                   (keyup)="onKeyPress($event)"
-                  [(ngModel)]="address1"
+                  [(ngModel)]="roasteryProfileService.address1"
                   type="text"
                   placeholder="Line 1"
                 />
@@ -137,7 +137,7 @@
                   class="form-control address2"
                   id="address2"
                   name="address2"
-                  [(ngModel)]="address2"
+                  [(ngModel)]="roasteryProfileService.address2"
                   type="text"
                   placeholder="Line 2"
                 />
@@ -152,7 +152,7 @@
                   type="text"
                   name="city"
                   (keyup)="onKeyPress($event)"
-                  [(ngModel)]="city"
+                  [(ngModel)]="roasteryProfileService.city"
                   placeholder="City"
                 />
                 <div class="cityError" *ngIf="cityError != ''">
@@ -166,7 +166,7 @@
                   id="zipcode"
                   name="zipcode"
                   type="text"
-                  [(ngModel)]="phoneno"
+                  [(ngModel)]="roasteryProfileService.zipcode"
                   placeholder="eg:23134"
                 />
               </div>
@@ -185,7 +185,7 @@
                   id="facebook"
                   type="text"
                   name="facebook"
-                  [(ngModel)]="facebook"
+                  [(ngModel)]="roasteryProfileService.facebook"
                   placeholder="Add facebook URL"
                 />
               </div>
@@ -198,7 +198,7 @@
                   id="instagram"
                   type="text"
                   name="instagram"
-                  [(ngModel)]="instagram"
+                  [(ngModel)]="roasteryProfileService.instagram"
                   placeholder="Add instagram URL"
                 />
               </div>
@@ -214,41 +214,42 @@
   <div class="col-lg-12 mt-md-4">
     <div class="border-class p-4">
       <div class="col-lg-6 no-padding">
-        <div class="contact-view border-class">
+        <div class="contact-view ">
           <h3 class="cont-info">Contact Info</h3>
         <table>
           <tr>
-            <td class="list-que">Name</td>
-            <td class="list-ans">www.thirdwaveroasters.com</td>
+            <td class="list-que">Website</td>
+            <td class="list-ans">{{roasteryProfileService.website}}</td>
           </tr>
           <tr>
             <td class="list-que">Email address</td>
-            <td class="list-ans">hello@thirdwaveroasters.com</td>
+            <td class="list-ans">{{roasteryProfileService.email}}</td>
           </tr>
           <tr>
             <td class="list-que">Phone number</td>
-            <td class="list-ans">+46 456 786 568</td>
+            <td class="list-ans">{{roasteryProfileService.phoneno}}</td>
           </tr>
           <tr>
             <td class="list-que">Country</td>
-            <td class="list-ans">Sweden</td>
+            <td class="list-ans">{{roasteryProfileService.countryName}}</td>
           </tr>
           <tr>
             <td class="list-que">Address</td>
             <td class="list-ans">
-              Hagagatan 1, 
-              SE-113 49 Stockholm 
-              Sweden
+              {{roasteryProfileService.address1}}
+              {{roasteryProfileService.address2}}
+              <p class="mb-0">{{roasteryProfileService.state}}</p>
+              <p class="mb-0">{{roasteryProfileService.countryName}}</p>
             </td>
           </tr>
           <tr>
             <td class="list-que">Zipcode</td>
-            <td class="list-ans">2013</td>
+            <td class="list-ans">{{roasteryProfileService.zipcode}}</td>
           </tr>
           <tr>
             <td class="list-que">Social media</td>
             <td class="list-ans">
-              facebook.com/thirdwaveroasters facebook.com/thirdwaveroasters
+              {{roasteryProfileService.facebook}} {{roasteryProfileService.instagram}}
             </td>
           </tr>
         </table>

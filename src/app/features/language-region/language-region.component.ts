@@ -23,6 +23,8 @@ export class LanguageRegionComponent implements OnInit {
   timeZoneError: string;
   lastName: any;
   email: any;
+  phone: any;
+  dateOfBirth: any;
   constructor( public userService : UserserviceService, private cookieService : CookieService,
               private toastrService : ToastrService, private router : Router) { 
     this.languageError = '';
@@ -32,7 +34,8 @@ export class LanguageRegionComponent implements OnInit {
   ngOnInit(): void {
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get('user_id');
-    this.getUserValue();
+    // this.getUserValue();
+    this.getUserLanguage();
   }
   onKeyPress(event: any) {
     if (event.target.value == "") {
@@ -43,16 +46,32 @@ export class LanguageRegionComponent implements OnInit {
   }
 
   
-getUserValue(){
-  this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
-    response => {
-      this.firstName = response['result']['firstname'] ;
-      this.lastName  = response['result']['lastname'];
-      this.email = response['result']['email'] ;
-      this.lang = response['result']['language'] ;
-      this.timezone = response['result']['timezone'] ;
+// getUserValue(){
+//   this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
+//     response => {
+//       console.log(response)
+//       setTimeout(()=>{
+//       this.firstName = response['result']['firstname'] ;
+//       this.lastName  = response['result']['lastname'];
+//       this.email = response['result']['email'] ;
+//       this.lang = response['result']['language'] ;
+//       this.timezone = response['result']['timezone'] ;
+//       this.phone = response['result']['phone'];
+//       this.dateOfBirth = response['result']['date_of_birth'];
+//       },500)
+      
+//     }
+//   );
+// }
+
+getUserLanguage(){
+  this.userService.getLanguageSetting(this.roaster_id).subscribe(
+    result => {
+      console.log(result);
+      this.lang = result['result']['language'] ;
+      this.timezone = result['result']['timezone'] ;
     }
-  );
+  )
 }
 
 
@@ -96,15 +115,22 @@ getUserValue(){
       }, 4000);
     }
     else{
+      // var data = {
+      //   'firstname' : this.firstName,
+      //   'lastname' : this.lastName,
+      //   'email' : this.email,
+      //   'language' : this.lang,
+      //   'timezone' : this.timezone,
+      //   'phone' : this.phone,
+      //   'date_of_birth' : this.dateOfBirth
+      // };
       var data = {
-        'firstname' : this.firstName,
-        'lastname' : this.lastName,
-        'email' : this.email,
         'language' : this.lang,
         'timezone' : this.timezone
-      };
-      this.userService.updateUserData(data, this.roaster_id, this.user_id).subscribe(
+      }
+      this.userService.updateLanguageSetting(data, this.roaster_id).subscribe(
         response => {
+          console.log(response)
           if(response['success'] == true){
             this.toastrService.success("The Language and timezone is update succesfully.");
             this.router.navigate(['/features/account-settings']);

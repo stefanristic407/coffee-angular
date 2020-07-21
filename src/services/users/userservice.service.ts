@@ -153,6 +153,19 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data);
   }
 
+    //API Function Name : Roaster Account
+  //API Description: This API calls helps to update the Roaster Account profile.
+
+  updateRoasterAccount(id: any,body: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + id + "/profile/";
+    data['token'] = this.cookieService.get('Auth');
+    data["method"] = "PUT";
+    data["data"] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+  
+
   //API Function Name :ADD Members
   //API Description: This API calls helps to add new users.
 
@@ -250,8 +263,51 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data);
   }
 
+       //API Function Name : Certificates 
+  //API Description: This API call helps to get the Certificates.
+
+  deleteCertificate(roaster_id : any,certificateId : any) {
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/certificates/"+ certificateId;
+    data["method"] = "DELETE";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterDeleteUrl, data);
+  }
 
 
+  //API Function Name :Profile Image Delete
+  //API Description: This API calls helps to delete the profile Image of the user.
 
+  deleteProfileImage(userId : any , roasterId : any) {
+    var data = {};
+    data['api_call'] = "ro/"+roasterId+"/users/"+userId+"/profile-image";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterDeleteUrl, data);
+  };
+
+       //API Function Name : Language Setting 
+  //API Description: This API call helps to get the Language of the Roaster.
+
+  getLanguageSetting(roaster_id : any) {
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/settings";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl, data);
+  }
+
+    //API Function Name : Language Setting
+  //API Description: This API calls helps to update the Roaster Language Setting.
+
+  updateLanguageSetting(body: any,id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + id + "/settings";
+    data['token'] = this.cookieService.get('Auth');
+    data["method"] = "PUT";
+    data["data"] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+  
+  
 
 }

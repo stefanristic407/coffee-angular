@@ -411,7 +411,7 @@ ngx-charts-line-chart{overflow:auto}
     }
 }
 
-@media (max-width:480px) {
+@media (max-width:767px) {
     /*Detail page*/
     .cetify-logo ul li {
         width: 40px;

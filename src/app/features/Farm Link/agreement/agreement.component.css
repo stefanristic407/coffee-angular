@@ -696,9 +696,10 @@ span.checkmark {
     }
     .display_div {
         position: absolute;
-        right: 2.2rem;
+        right: -0.9rem;
         top: -.5rem;
     }
+    .upload-order{padding: 8px 10px;}
     .agreement-top {
         margin-top: 2rem;
     }

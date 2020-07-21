@@ -34,6 +34,14 @@ export class ProfileEditComponent implements OnInit {
   numberValue: any;
   user_id: string;
   roasterId: string;
+  city: any;
+  country: any;
+  state: any;
+  timezone: any;
+  language: any;
+  address1: any;
+  address2: any;
+  gender: any;
 
   constructor(public profilePicService: ProfilePicService, 
     private router : Router, 
@@ -97,6 +105,14 @@ export class ProfileEditComponent implements OnInit {
                 console.log(response)
                 this.name = response['result']['firstname']+" "+ response['result']['lastname'];
                 this.email = response['result']['email'];
+                this.city = response['result']['city'];
+                this.country = response['result']['country'];
+                this.state = response['result']['state'];
+                this.language = response['result']['language'];
+                this.timezone = response['result']['timezone'];
+                this.address1 = response['result']['address1'];
+                this.address2 = response['result']['address2'];
+                this.gender = response['result']['gender'];
                 this.numberValue =  response['result']['phone'].split("-");
                 this.phoneno = this.numberValue[1];
                 document.getElementById('finalNumber').innerHTML = this.numberValue[0];
@@ -266,7 +282,16 @@ export class ProfileEditComponent implements OnInit {
         'firstname' : this.firstname,
         'lastname' : this.lastname ,
         'phone' : this.numb,
-        'date_of_birth' : dateValue
+        'date_of_birth' : dateValue,
+        'state' : this.state,
+        'language' : this.language,
+        'timezone' : this.timezone,
+        'country' : this.country,
+        'city' : this.city,
+        'address1' : this.address1,
+        'address2' : this.address2,
+        'gender' : this.gender
+
        };
        console.log(data)
        this.userService.updateRoasterProfile(this.roaster_id,data).subscribe(
@@ -276,6 +301,16 @@ export class ProfileEditComponent implements OnInit {
            this.user_id = this.cookieService.get('user_id');
            if(result['success'] == true){
             console.log(this.profilePicService.croppedImage)
+            var base64Rejex = /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
+            var isBase64Valid = base64Rejex.test(this.profilePicService.croppedImage); // base64Data is the base64 string
+
+            if(!isBase64Valid){
+              this.toastrService.success("Profile details updated successfully");
+              this.router.navigate(['/features/account-settings']);
+            }else{
+
+           
+
             var ImageURL = this.profilePicService.croppedImage;
              // Split the base64 string in data and contentType
             var block = ImageURL.split(";");
@@ -307,7 +342,7 @@ export class ProfileEditComponent implements OnInit {
                 }
               }
             )
-             
+          }
            }
            else{
              this.toastrService.error("Error while updating details, please try again.")

@@ -35,8 +35,9 @@ export class DirectMessagingComponent implements OnInit {
 	  }
 
 	ngAfterViewInit() {
+		let messages = document.querySelector('.live-chat-message-body');
 		let img;
-		$('body').on('input', '.files', function (e) {
+		$('body').on('input', '.live-chat .files', function (e) {
 			if (e.target.files) {
 				var reader = new FileReader();
 				reader.readAsDataURL(e.target.files[0]);
@@ -45,9 +46,9 @@ export class DirectMessagingComponent implements OnInit {
 
 
 					img = '<img src=' + event.target.result + ' style="width: 250px;height:250px;object-fit:cover">';
-					$('.img-container').append(img)
-					$('.img-container').show();
-					$('.img-container').find('img').not(':first').remove();
+					$(this).parents('.live-chat').find('.img-container').append(img)
+					$(this).parents('.live-chat').find('.img-container').show();
+					$(this).parents('.live-chat').find('.img-container').find('img').not(':first').remove();
 				}
 			}
 		});
@@ -74,7 +75,7 @@ export class DirectMessagingComponent implements OnInit {
 
 		});
 
-		let HideWords = ['fuck', 'suck']
+		let HideWords = ['fuck', 'suck', 'slap', 'kick',]
 		let AccontsNames = [];
 		let accountsName = document.querySelectorAll('.account')
 
@@ -122,12 +123,14 @@ export class DirectMessagingComponent implements OnInit {
 
 		// Send Messages
 		$('body').on('click', '.send-message__btn', function (event) {
-			console.log(sd)
+			
 
+		
 			// imageUploader();
 			var ChatText = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val();
 
-			var ChatImg = $('.files').val();
+			var ChatImg = $(this).parents('.live-chat').find('.files').val();
+			
 			let strTime;
 			function formatAMPM(date) {
 				var hours = date.getHours();
@@ -164,8 +167,8 @@ export class DirectMessagingComponent implements OnInit {
 				var mesbdy = $(this).parents('.live-chat').find('.live-chat-message-body').append(message)
 				var clrInput = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val('');
 
-				$('.files').val('');
-				$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
+				$('.live-chat .files').val('');
+				
 
 			}
 
@@ -175,8 +178,6 @@ export class DirectMessagingComponent implements OnInit {
 				var mesbdy = $(this).parents('.live-chat').find('.live-chat-message-body').append(message)
 				var clrInput = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val('');
 
-				$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
-
 			}
 
 			else if ((ChatText == '' && ChatImg !== '')) {
@@ -185,9 +186,12 @@ export class DirectMessagingComponent implements OnInit {
 				var mesbdy = $(this).parents('.live-chat').find('.live-chat-message-body').append(message)
 				var clrInput = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val('');
 
-				$('.files').val('');
-				$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
+				$('.live-chat .files').val('');
+				
+			}
 
+			else if ((ChatText == ' ')) {
+				alert("hi")
 			}
 
 			else {
@@ -196,13 +200,22 @@ export class DirectMessagingComponent implements OnInit {
 
 			$('.img-container').hide();
 			$('.img-container').find('img').remove();
+
+
+
+		
+			  var shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
+			 
+			  // After getting your messages.
+			  if (!shouldScroll) {
+				scrollToBottom();
+			  }
 			event.stopImmediatePropagation();
 		});
 
 		// Back to account list
 		$('body').on('click', '.back-to-accounts', function (event) {
-			// imageUploader();
-			$('.files').val('');
+			$('.live-chat .files').val('');
 			$('.chat-control__expand').hide();
 			$(this).parents('.chat').find('.live-chat').toggleClass('active');
 			$(this).parents('.chat').find('.chat-accounts__body').toggleClass('active');
@@ -212,8 +225,6 @@ export class DirectMessagingComponent implements OnInit {
 
 		// Click on account to start chart
 		$('body').on('click', '.account', function (event) {
-			// imageUploader();
-
 			$(this).parents('.chat-box').find('.live-chat').toggleClass('active');
 			$(this).parents('.chat-box').find('.chat-accounts__body').toggleClass('active');
 			var headerHeight = parseInt($("header").outerHeight());
@@ -245,7 +256,7 @@ export class DirectMessagingComponent implements OnInit {
 
 		//Expand chat
 		$('body').on('click', '.chat-control__expand', function (event) {
-
+			
 			$(this).hide();
 			$(this).parents('.chat').find('.chat-body__expand').html('');
 			$(this).parents('.chat').toggleClass('expand-active');
@@ -266,8 +277,7 @@ export class DirectMessagingComponent implements OnInit {
 			$('.chat-box').css({
 				"height": "calc(100vh - 75px)"
 			})
-			if ($(".live-chat-message-body__text:last").offset() !== undefined)
-				$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
+		
 
 
 			if ($(window).width() < 767) {
@@ -283,6 +293,10 @@ export class DirectMessagingComponent implements OnInit {
 			if (!($('.chat').hasClass('expand-active'))) {
 				$(this).parents('.chat').find('.chat-body__expand').html('');
 			}
+			messages = document.querySelector('.live-chat-message-body');
+			scrollToBottom();
+
+			
 
 			event.stopImmediatePropagation()
 		});
@@ -318,9 +332,11 @@ export class DirectMessagingComponent implements OnInit {
 				})
 			}
 
-			$('.files').val('');
-			if ($(".live-chat-message-body__text:last").offset() !== undefined)
-				$(".live-chat-message-body").animate({ scrollTop: $(".live-chat-message-body__text:last").offset().top });
+			$('.live-chat .files').val('');
+			messages = document.querySelector('.live-chat-message-body');
+			scrollToBottom();
+
+
 			event.stopImmediatePropagation();
 		});
 
@@ -331,7 +347,7 @@ export class DirectMessagingComponent implements OnInit {
 
 		$('body').on('click', '.img-container__remove', function (event) {
 			sd = '';
-			$('.files').val('');
+			$('.live-chat .files').val('');
 			$(this).parents('.img-container').hide();
 			$(this).parents('.img-container').find('img').remove();
 			event.stopImmediatePropagation();
@@ -342,7 +358,7 @@ export class DirectMessagingComponent implements OnInit {
 			event.stopImmediatePropagation();
 		});
 
-		$('body').on('click', '.chat-profile__name', function (event) {
+		$('body').on('click', '.live-chat.active .chat-img-name', function (event) {
 			var height1 = parseInt($('.live-caht__head').outerHeight());
 			$(this).parents('.chat').find('.account-setting').addClass('open');
 			var Ht = "calc(100vh -" + " " + height1 + "px" + ")";
@@ -374,6 +390,16 @@ export class DirectMessagingComponent implements OnInit {
 				$(this).parents('.notification-control').addClass("active");
 			}
 		});
+
+			
+		function scrollToBottom() {
+			messages.scrollTop = messages.scrollHeight;
+		  }
+		  
+		  scrollToBottom();
+
 	}
+
+	
 
 }

@@ -26,15 +26,20 @@
 
                     <div class="mt-lg-2 cover-div">
                         <div class="cover-pic text-center ">
-                            <img class="plus-circle d-none d-md-block" src="assets/images/plus-circle.svg">
+                            <img class="plus-circle " src="assets/images/plus-circle.svg">
+                            <img class="camera desk-view" src="assets/images/camera.svg">
                             <p class="text-data pt-2">Add cover image</p>
                             <p class="text-data">Dimension 1144 x 160</p>
                         </div>
                         <div class="profile-div">
                                 <div class="col-lg-4 col-md-6 title-div">
-                                <p class="title pt-3">Royal coffee roasters company</p>
-                                <input class="form-control company-website" id="company-website" *ngIf="roasteryProfileService.savemode" type="text" placeholder="www.royalcoffee.az.com/">
-                                <p class="website-text" *ngIf="roasteryProfileService.editmode">www.royalcoffee.az.com/</p>
+                                <p class="title pt-3" (click)="link.click()">{{roasteryProfileService.name}} <img class="back_arrow_link desk-view" src="assets/images/back_arrow_link.svg"></p>
+                                <input class="form-control company-website" id="company-website" *ngIf="roasteryProfileService.savemode" type="text" placeholder="www.royalcoffee.az.com/" [(ngModel)]="roasteryProfileService.website" name="website">
+                                <p class="website-text mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.website}}</p>
+                                <a target="blank" href="{{roasteryProfileService.website}}" #link hidden></a>
+                                <p class="owned-text desk-view" *ngIf="roasteryProfileService.editmode">Owned by {{roasteryProfileService.name}}</p>
+                                <p class="founded-text desk-view" *ngIf="roasteryProfileService.editmode">Founded in {{roasteryProfileService.founded_in}}</p>
+
                             </div>
                                 <div class="pic-div">
                                     <img [src]="profilePhotoService.croppedImage" class="oval-pic">

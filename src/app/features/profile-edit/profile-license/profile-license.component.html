@@ -8,7 +8,53 @@
                     </p>
                   </div> -->
 
-                  <div class="form-group row example-list" cdkDropList (cdkDropListDropped)="drop($event)"  *ngIf="showsaveddatadiv">
+
+                  <div class="form-group row mob"  *ngIf="showsaveddatadiv">
+                    <div
+                      class="form-group col-md-12 px-3"
+                      *ngFor="let saveddata of savedcertificatesArray; let y = index"
+                      >
+                      <div class="certificate-details">
+                        <span class="name pull-left"
+                          > {{ saveddata.sname || saveddata.name }}<span class="name bar">|</span>{{ saveddata.syear || saveddata.year }}</span
+                        >
+                        <hr class="mob">
+                        <span class="button-div pull-left">
+                          <button type="button" id="edit-btn" class="btn edit-btn">
+                            <img src="assets/images/edit.png" class="edit-img" />Edit</button
+                          ><span class="name bar">|</span>
+                          <button type="button" id="del-btn" class="btn del-btn" (click)="deleteCertificate(saveddata.id)">
+                            <img src="assets/images/delete.png" class="del-img" />Delete
+                          </button>
+                          <span class="name bar">|</span>
+                          <button type="button" id="view-btn" class="btn view-btn">
+                            View
+                          </button>
+                  
+                          <!-- click function remove edit and delete-->
+                          <!-- <button type="button" id="edit-btn" 
+                                            (click)="editSavedData(saveddata.sid)" 
+                                            class="btn edit-btn"><img src="assets/images/edit.png" class="edit-img"
+                                            />Edit</button><span class="name">|</span>
+                                            <button type="button" id="del-btn" (click)="deleteSavedData(saveddata.sid)" class="btn del-btn"><img
+                                              src="assets/images/delete.png"
+                                              class="del-img" 
+                                            />Delete</button> -->
+                          <!-- click function remove edit and delete-->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+                  <div class="form-group row example-list desk" cdkDropList (cdkDropListDropped)="drop($event)"  *ngIf="showsaveddatadiv">
                         <div
                           class="form-group col-md-12 px-3 example-box"
                           *ngFor="let saveddata of savedcertificatesArray; let y = index"
@@ -22,7 +68,7 @@
                               <button type="button" id="edit-btn" class="btn edit-btn">
                                 <img src="assets/images/edit.png" class="edit-img" />Edit</button
                               ><span class="name bar">|</span>
-                              <button type="button" id="del-btn" class="btn del-btn">
+                              <button type="button" id="del-btn" class="btn del-btn" (click)="deleteCertificate(saveddata.id)">
                                 <img src="assets/images/delete.png" class="del-img" />Delete
                               </button>
                               <span class="name bar">|</span>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-raised-ticket',
@@ -16,7 +17,8 @@ export class RaisedTicketComponent implements OnInit {
 		{ orderid: '12416', estatename: 'Cafe Directo', dateraised: '25 May 2020', disputetype: 'Payment', status: 'Resolved' },
 		{ orderid: '71716', estatename: 'La Isabela', dateraised: '26 May 2020', disputetype: 'Legal', status: 'Open' }
 	];
-	constructor() { }
+  ticketRaise: any;
+	constructor(public router:Router) { }
 
 	ngOnInit(): void {
 		/*$( ".raised-detils" ).click(function() {
@@ -306,6 +308,16 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 });
 
 /* pagination ends */
-	}
+  }
+  
+  ticketDetails($event,group){
+    this.ticketRaise=group;
+
+  }
+  continueTicket(){
+    console.log(this.ticketRaise);
+    this.router.navigate(["/ordermanagement/order-chat"]);
+
+  }
 
 }

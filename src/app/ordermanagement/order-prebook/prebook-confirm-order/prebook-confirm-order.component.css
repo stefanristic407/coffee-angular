@@ -1,13 +1,6 @@
-/* .confirm_header {
-    margin-left: 2.2rem;
-    margin-right: 5.4rem;
-    padding-left: 0;
-} */
-
 .create-role-sec {
     margin-left: 3rem;
     margin-right: 3rem;
-    ;
 }
 
 .confirm-padding {
@@ -24,7 +17,6 @@
 }
 
 .confirm-txt {
-    font-family: PlayfairDisplay;
     font-size: 28px;
     font-weight: normal;
     color: #020202;
@@ -34,7 +26,7 @@
     font-family: Muli;
     font-size: 16px;
     font-weight: normal;
-    color: #5d5d5d;
+    color: #747588;
 }
 
 .bread-nav {
@@ -45,10 +37,6 @@ th {
     font-family: Muli;
     font-size: 14px;
     font-weight: bold !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     padding-right: 1.9rem;
 }
@@ -74,10 +62,6 @@ td {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -139,11 +123,6 @@ td {
     font-weight: bold;
     color: #232334;
     margin-right: 4.8rem;
-}
-
-.edit-div {
-    /* padding-left: 6rem; */
-    padding-right: 28px;
 }
 
 .shipping-addr {
@@ -224,20 +203,10 @@ td {
     background-color: #30855c;
 }
 
-.custom-checkbox .custom-control-input:checked~.custom-control-label:before {
-    background-color: #232334 !important;
-}
-
 .bottom-border {
     border-bottom: solid 1px #d6d6d6;
     padding-bottom: 2rem;
 }
-
-
-/* .edit-icon {
-    width: 14px;
-    height: 14px;
-} */
 
 
 /********Modal********/
@@ -350,56 +319,13 @@ span.checkmark {
     background-color: #232334 !important;
 }
 
-
-/****************************    Media Queries   ****************************/
-
-@media screen and (max-width: 991px) and (min-width: 768px) {
-    .confirm_header {
-        margin-left: 2.2rem;
-        margin-right: 2.2rem;
-    }
-    .price-tag {
-        /* padding-left: 0rem !important; */
-        font-size: 13px;
-        padding-left: 4px;
-    }
-    .edit-div {
-        padding-left: 3rem;
-    }
-    .details {
-        font-size: 13px !important;
-    }
-    .quantity-border {
-        padding-right: 0rem !important;
-    }
-    .main-bag {
-        right: 6px;
-        font-size: 12px;
-    }
+.web-sec {
+    display: block;
 }
 
-@media screen and (max-width:767px) and (min-width:320px) {
-    .confirm_header {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        padding-right: 0;
-    }
-    .confirm-order {
-        padding: 0.8rem;
-    }
-    .edit-div {
-        padding-left: 2rem;
-    }
-    .amount {
-        padding-top: 0rem !important;
-    }
-    .quantity-border {
-        border-right: none !important;
-    }
+.mob-sec {
+    display: none;
 }
-
-
-/* ========OUTLINE CSS FOR SEARCH BAR====== */
 
 .search:focus {
     box-shadow: 0 0 0 0.035rem green !important;
@@ -412,4 +338,128 @@ span.checkmark {
 .zipError {
     color: #D50000;
     font-size: 14px;
+}
+
+
+/****************************    Media Queries   ****************************/
+
+@media screen and (max-width:480px) {
+    .create-role {
+        margin-left: 0.9rem;
+        margin-right: 0.9rem;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+    .mob-sec {
+        display: block;
+    }
+    .web-sec {
+        display: none;
+    }
+    .confirm-ffff {
+        background-color: #ffffff;
+        margin-left: 0rem;
+        margin-right: 0rem;
+    }
+    .border-div {
+        margin-top: 1.2rem!important;
+    }
+    .back-icon {
+        border-bottom: 1px solid #ebebeb;
+        padding-bottom: 13px;
+    }
+    .back-icon a {
+        font-size: 14px;
+        color: #80460b;
+        font-weight: 600;
+    }
+    .back-icon img {
+        margin-right: 5px;
+    }
+    .create-role-sec {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    .confirm-order {
+        padding: 1rem;
+    }
+    .confirm-txt {
+        font-size: 18px;
+        font-weight: normal;
+    }
+    .fill-txt {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 20px;
+    }
+    .estate-list {
+        border: 1px solid #ebebeb;
+        padding: 1rem;
+    }
+    .estate-list h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #232334;
+        font-family: Muli;
+    }
+    .recent td {
+        padding: 1rem 2.8rem 1rem 0rem;
+        border-bottom: 1px solid #d6d6d6;
+    }
+    .list-ques {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 500;
+        color: #747588;
+    }
+    .list-answ {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600 !important;
+        color: #232334;
+    }
+    tr:last-child td {
+        border-bottom: 0;
+    }
+    .search-border {
+        border: 1px solid #d6d6d6;
+        padding: 10px;
+        margin-left: 10px;
+        border-radius: 4px;
+    }
+    .price-total {
+        margin-right: 0rem;
+    }
+    .ord-quantity,
+    .amount {
+        color: #747588;
+    }
+    .search {
+        height: auto;
+        border: none !important;
+        width: 60px;
+    }
+    .search:focus {
+        box-shadow: none !important;
+    }
+    .space-top {
+        margin-top: 2rem;
+    }
+    .bag {
+        font-size: 14px;
+        font-weight: 600;
+        color: #747588;
+    }
+    .boder-name {
+        border-top: 1px solid #d6d6d6;
+        padding-top: 1.2rem;
+    }
+    .edit-div {
+        border-top: 1px solid #d6d6d6;
+        margin-top: 1rem !important;
+        padding-top: 1.3rem;
+    }
+    .save-top {
+        margin-top: 0.5rem;
+    }
 }

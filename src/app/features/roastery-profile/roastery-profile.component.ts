@@ -55,5 +55,7 @@ export class RoasteryProfileComponent implements OnInit {
     this.profilePhotoService.displayModal = false;
   }
 
+  
+  
 
 }

@@ -1,4 +1,11 @@
 import { Injectable } from '@angular/core';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ThumbnailsPosition } from 'ng-gallery';
+import { ToastrService } from 'ngx-toastr';
+import { ProfilePhotoService } from './profile-photo/profile-photo.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -5541,11 +5548,59 @@ export class RoasteryProfileService {
   ];
   cities: Array<any>;
 
-  contactInfo : boolean = false;
-  addMediaDiv : boolean = true;
-  savemode : boolean = true;
-  editmode : boolean = false;
-  constructor() {}
+  contactInfo : boolean = true;
+  addMediaDiv : boolean = false;
+  savemode : boolean = false;
+  editmode : boolean = true;
+  userId: string;
+  roasterId: string;
+  summary: any;
+  founded_in: any;
+  website: any;
+  name: any;
+  phoneno: any;
+  country: any;
+  state: any;
+  city: any;
+  zipcode: any;
+  email: any;
+  company_image_url: any;
+  instagram: any;
+  facebook: any;
+  address1: any;
+  address2: any;
+  countryName: any;
+  constructor(public userService : UserserviceService,
+              public cookieService : CookieService,
+              public roasterService : RoasterserviceService,
+              public toastrService : ToastrService,
+              public profilePhotoService : ProfilePhotoService,
+              public router: Router
+              ) {
+    this.userId = this.cookieService.get('user_id');
+    this.roasterId = this.cookieService.get('roaster_id');
+this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
+if(result['success']== true){
+  console.log(result)
+  this.summary = result['result']['description'];
+  this.founded_in = result['result']['founded_on'];
+  this.website = result['result']['website'];
+  this.name = result['result']['name'];
+  this.phoneno = result['result']['phone'];
+  this.country = result['result']['country'];
+  this.countryName = this.countryList.find(con => con.isoCode == this.country).name;
+  this.state = result['result']['state'];
+  this.city = result['result']['city'];
+  this.zipcode = result['result']['zipcode'];
+  this.email = result['result']['email'];
+  this.profilePhotoService.croppedImage = result['result']['company_image_url'];
+  this.facebook = result['result']['fb_profile'];
+  this.instagram = result['result']['ig_profile'];
+  this.address1 = result['result']['address_line1'];
+  this.address2 = result['result']['address_line2'];
+}
+})
+  }
 
   //  Function Name :Change Country.
   //Description: This function helps to get the values of cities according to selcted country.
@@ -5553,11 +5608,104 @@ export class RoasteryProfileService {
     this.cities = this.countryList.find(con => con.isoCode == count).cities;
   }
 
+  b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+  var blob = new Blob(byteArrays, {type: contentType});
+  return blob;
+}
   saveRoasterProfile(){
-    this.contactInfo = true;
-    this.addMediaDiv = false;
-    this.savemode = false;
-    this.editmode = true;
+    
+
+    var data ={
+      'description' : this.summary,
+      'state' : this.state,
+      'country' : this.country,
+      'city' : this.city,
+      'name' : this.name,
+      'website'  : this.website,
+      'phone' : this.phoneno,
+      'email' : this.email,
+      'founded_on' : this.founded_in,
+      'zipcode' : this.zipcode,
+      'address_line1' : this.address1,
+      'adderss_line2' : this.address2,
+      'fb_profile' : this.facebook,
+      'ig_profile' : this.instagram
+    }
+    this.userService.updateRoasterAccount(this.roasterId,data).subscribe(
+      response =>{
+        if(response['success']==true){
+          console.log(response);
+          var base64Rejex = /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
+          var isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
+
+          if(!isBase64Valid){
+            this.toastrService.success("Roaster profile details updated successfully");
+            this.contactInfo = true;
+            this.addMediaDiv = false;
+            this.savemode = false;
+            this.editmode = true;
+          }else{
+
+          var ImageURL = this.profilePhotoService.croppedImage;
+           // Split the base64 string in data and contentType
+          var block = ImageURL.split(";");
+          // Get the content type of the image
+          var contentType = block[0].split(":")[1];// In this case "image/gif"
+          // get the real base64 content of the file
+          var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+          
+          // Convert it to a blob to upload
+          var blob = this.b64toBlob(realData, contentType,0);
+          
+          let formData: FormData = new FormData();
+          formData.append("file", blob);
+          formData.append(
+            "api_call",
+            "/ro/" + this.roasterId +  "/company-image"
+          );
+          formData.append("token", this.cookieService.get("Auth"));
+          this.userService.uploadProfileImage(formData).subscribe(
+            result => {
+              console.log(result)
+              if(result['success']== true){
+              this.toastrService.success("Roaster profile details updated successfully");
+              this.contactInfo = true;
+              this.addMediaDiv = false;
+              this.savemode = false;
+              this.editmode = true;
+              }
+              else{
+                console.log(result);
+                this.toastrService.error("Error while updating details, please try again.")
+              }
+            }
+          )
+        }
+        }
+        else{
+          this.toastrService.error("Error while updating details, please try again.")
+        }
+      }
+    )
   }
   editRoasterProfile(){
     this.contactInfo = false;

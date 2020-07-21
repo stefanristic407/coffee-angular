@@ -23,16 +23,16 @@
 
 <!-- TimeLine HTML code starts -->
 
-<div class="row progress-bar-tooltip pb-7 ">
+<div class="d-flex progress-bar-tooltip pb-7 order-tracking--timeline">
     <div class="col-12 col-md-12 ">
 
         <div class="row justify-content-between">
             <div class="order-tracking completed mixups-track" id="gradedTimeline1">
-                <span class="is-complete tooltips">
+                <div class="is-complete tooltips">
                             <p class="cup-score">82.5</p>
                             <p class="score-text">Cupping score</p>
 
-                        </span>
+                        </div>
                 <p class="order-date mt-3">19 DEC 2019</p>
                 <p class="order-status mt-2">Graded by Facilitator</p>
                 <p class="order-view" data-toggle="collapse" data-target="#estate"> View Report </p>
@@ -41,12 +41,12 @@
                         </div> -->
             </div>
             <div class="order-tracking mixups-track" id="gradedTimeline2">
-                <span class="is-complete tooltips">
+                <div class="is-complete tooltips">
                             <div *ngIf="sampleService.afterGradeComplete">
                                 <p class="cup-score">82.5</p>
                                 <p class="score-text">Cupping score</p>
                             </div>
-                        </span>
+                        </div>
 
                 <div *ngIf="sampleService.afterGradeComplete">
                     <p class="order-date mt-3">20 JAN 2020</p>

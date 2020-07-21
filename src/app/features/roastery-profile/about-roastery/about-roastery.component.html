@@ -4,9 +4,9 @@
             <div class="row">
               <div class=" col-lg-8 ">
                 <div class="border-class p-4">
-                  <div class="row mt-3">
-                    <div class="form-group col-md-6">
-                      <label for="owner_name">Owner name<span class="star">*</span></label>
+                  <div class="row  mt-3 no-margin"> 
+                    <div class="form-group col-md-6  no-margin">
+                      <label *ngIf="roasteryProfileService.savemode"  for="owner_name">Owner name<span class="star">*</span></label>
                       <input
                       *ngIf="roasteryProfileService.savemode"
                         class="form-control owner_name rectangle"
@@ -14,17 +14,18 @@
                         type="text"
                         (keyup)="onKeyPress($event)"
                         name="owner_name"
-                        [(ngModel)]="owner_name"
+                        [(ngModel)]="roasteryProfileService.name"
                         placeholder="Please enter owner name"
                       />
-                      <p class="info-content" *ngIf="roasteryProfileService.editmode">Derrick Watkins</p>
+                      <label *ngIf="roasteryProfileService.editmode"  for="owner_name" class="mob-view">Owner name</label>
+                      <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.name}}</p>
                       <div class="ownerNameError" *ngIf="ownerNameError != ''">
                         {{ ownerNameError }}
                       </div>
 
                     </div>
-                    <div class="form-group col-md-6 ">
-                            <label for="founded_in"
+                    <div class="form-group col-md-6  no-margin">
+                            <label *ngIf="roasteryProfileService.savemode" for="founded_in"
                               >Founded in<span class="star">*</span></label
                             >
                             <input
@@ -34,10 +35,12 @@
                               type="text"
                               (keyup)="onKeyPress($event)"
                               name="founded_in"
-                              [(ngModel)]="founded_in"
+                              [(ngModel)]="roasteryProfileService.founded_in"
                               placeholder="Please enter founded year"
                             />
-                            <p class="info-content" *ngIf="roasteryProfileService.editmode">1904</p>
+                            <label *ngIf="roasteryProfileService.editmode" for="founded_in" class="mob-view"
+                            >Founded in</label>
+                            <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.founded_in}}</p>
                             <div class="foundedInError" *ngIf="foundedInError != ''">
                               {{ foundedInError }}
                             </div>
@@ -46,19 +49,15 @@
                   </div>
       
                   <div class="row">
-                        <div class="form-group col-md-12 mt-md-3">
-                                <label for="summary">Roastery summary</label>
-                              <textarea *ngIf="roasteryProfileService.savemode"  class="form-control summary" id="summary" name="summary" rows="5" [(ngModel)]="summary" placeholder="Tell us and to our users about who you are as a company!">
+                        <div class="form-group col-md-12 mt-md-3" *ngIf="roasteryProfileService.savemode">
+                                <label for="summary" >Roastery summary</label>
+                              <textarea *ngIf="roasteryProfileService.savemode"  class="form-control summary" id="summary" name="summary" rows="5" [(ngModel)]="roasteryProfileService.summary" placeholder="Tell us and to our users about who you are as a company!">
                               </textarea>
-                              <p class="info-content" *ngIf="roasteryProfileService.editmode">Ever wondered how some graphic designers always manage to produce beautiful looking designs for their brochures, website designs, logo designs? Talent…yes, it helps but there are a handful of more important things you can do that will have even complete beginners producing award winning design.
+                        </div>
+                        <div class="form-group col-md-12 mt-md-3 mob-border" *ngIf="roasteryProfileService.editmode">
+                            <label for="summary"  class="mob-label">Roastery summary</label>
+                          <p class="info-content mob-info-content" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.summary}}</p>
 
-                                  Forget everything you’ve ever been told about Graphic Design
-                                  
-                                  There are some hard and fast things that graphic designers will insist are to be obeyed. Only use limited fonts on a design for example or never use green on a magazine or book cover as people will not buy it. Stuff and nonsense. You can pretty much do whatever you like but you must apply these STRICT GRAPHIC DESIGN RULES and you will soon be walking away with graphic design silverware.
-                                  
-                                  Somewhere on the page you MUST put in a subliminal message
-                                  
-                                  This can be done in a multitude of ways for example if you are producing a brochure selling wellington boots then start every paragraph spelling out ‘buy our wellington boots’ or better still ‘you have no choice but to buy our wellington boots now get out your cheque book and buy them – NOW!’ Another crafty method is to doctor images in photoshop so that on an innocent picture of a tree for example</p>
                         </div>
                   </div>
 
@@ -199,7 +198,7 @@
                                       
                               </div>
 
-                              <div class="row" *ngIf="roasteryProfileService.editmode">
+                              <div class="row about-web" *ngIf="roasteryProfileService.editmode">
                                 <div class="col-lg-11 border-total">
                                   <div class="col-lg-3 capabilitiesDiv">
                                     <label class="capacity-header">Roaster Capacity</label>
@@ -211,15 +210,24 @@
                                     </p>
                                   </div>
                                 </div>
-                              </div>
+							  </div>
+							  <div class="about-mobile d-flex border-capacity" *ngIf="roasteryProfileService.editmode">
+									<div class="capacity-text">
+										<label class="capacity-header">Roaster Capacity</label>
+										<h6 class="weight">230 Kg</h6>
+									</div>
+									<div class="capacity-text-1">
+										<h6 class="capabilities_content">We are know for our three main blends café blend, mocha java and black gold.</h6>
+									</div>
+							  </div>
 
                               <hr >
 
-                              <div class="row p-3 mt-md-5">
-                                    <p class="sub-header">Brands</p>
-                                    <p class="header-descr">List down your company brands.</p>
+                              <div class="row p-3 mt-md-5 mt-4">
+                                    <p class="sub-header mt-2 mt-md-0">Brands</p>
+                                    <p class="header-descr"  *ngIf="roasteryProfileService.savemode">List down your company brands.</p>
                               </div>
-
+                              <div  *ngIf="roasteryProfileService.savemode">
                               <div class="row mt-3">
                                     <div class="form-group col-md-6">
                                       <label for="brand_name">Brand name<span class="star">*</span></label>
@@ -236,7 +244,7 @@
                                         {{ brandNameError }}
                                       </div>
                                     </div>
-                                    <div class="form-group col-md-6 ">
+                                    <!-- <div class="form-group col-md-6 ">
                                             <label for="b_logo"
                                               >Brand logo<span class="star">*</span></label
                                             >
@@ -245,7 +253,7 @@
                                               {{ brandLogoError }}
                                             </div>
                                             <span class="d-block d-md-none file-attach-label mt-2">You can upload a JPG or PNG, file. Max file size limit 2MB</span>
-                                          </div>
+                                          </div> -->
                                           
                                   </div>
                       
@@ -266,9 +274,21 @@
                                           <span class="add-text">Add another brand</span>
                                       </a>
                                   </div>
+                </div>
+
+                <div class="border-capacity"  *ngIf="roasteryProfileService.editmode">
+                  <div class="row p-3">
+                    <p class="brand-title mt-3">
+                      Blue tokai
+                    </p>
+                    <p class="brand-content">
+                        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna."
+                    </p>
+                  </div>
+                </div>
 
                                   <hr>
-
+                                <div class=""   *ngIf="roasteryProfileService.savemode">
                                   <div class="row p-3 mt-5">
                                         <p class="sub-header">Contacts<span class="star">*</span></p>
                                         <p class="header-descr">List down your top employees with whom users on the platform can get in touch with!</p>
@@ -316,6 +336,120 @@
                                                         <span class="add-text">Add another contact</span>
                                                     </a>
                                                 </div>
+                                              </div>
+
+                                                <div class="mob-view"   *ngIf="roasteryProfileService.editmode">  
+                                                <div class="employer mt-4 d-none d-md-block">
+                                                    <h2>Contacts</h2>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
+                                                            <div class="employ-profile">
+                                                                <div class="p-gal">
+                                                                    <img src="assets/images/gallery-1.jpg">
+                                                                </div>
+                                                                <div class="profile-des">
+                                                                    <h4>Hannah morris</h4>
+                                                                    <h6>Cupping manager</h6>
+                                                                </div>
+                                                                <div class="msg-chat mt-2">
+                                                                    <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                    <p class="pl-1 d-inline-block">Message</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
+                                                            <div class="employ-profile">
+                                                                <div class="p-gal">
+                                                                    <img src="assets/images/gallery-2.jpg">
+                                                                </div>
+                                                                <div class="profile-des">
+                                                                    <h4>Jayden briggs</h4>
+                                                                    <h6>Sales manager</h6>
+                                                                </div>
+                                                                <div class="msg-chat mt-2">
+                                                                    <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                    <p class="pl-1 d-inline-block">Message</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
+                                                            <div class="employ-profile">
+                                                                <div class="p-gal">
+                                                                    <img src="assets/images/gallery-3.jpg">
+                                                                </div>
+                                                                <div class="profile-des">
+                                                                    <h4>Johanna ortiz</h4>
+                                                                    <h6>Business manager</h6>
+                                                                </div>
+                                                                <div class="msg-chat mt-2">
+                                                                    <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                    <p class="pl-1 d-inline-block">Message</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="about-mobile"    *ngIf="roasteryProfileService.editmode">
+                                                    <p class="sub-header mt-2 mt-md-0">Contacts</p>
+                                                <div class="row mt-3 mx-0 border-div">
+                                                    <div class="p-0">
+                                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                                                    <div class="pull-left">
+                                                        <ul class="details-list p-0 ml-3">
+                                                            <li class="contact-name">Hannah morris</li>
+                                                            <li class="contact-number ">
+                                                                Cupping manager
+                                                            </li>
+                                                            <li class="contact-number ">
+                                                                hannahmorris@royalcoffeerosters
+                                                            </li>
+                                                            <li class="contact-name">+46 793 313 322</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="pull-right ml-auto">
+                                                      <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3 mx-0 border-div">
+                                                    <div class="p-0">
+                                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                                                    <div class="pull-left">
+                                                        <ul class="details-list p-0 ml-3">
+                                                            <li class="contact-name">Molly Jennings</li>
+                                                            <li class="contact-number ">
+                                                                Cupping manager
+                                                            </li>
+                                                            <li class="contact-number ">
+                                                                mollyjkennings@royalcoffeerosters
+                                                            </li>
+                                                            <li class="contact-name">+46 793 313 322</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="pull-right ml-auto">
+                                                      <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3 mx-0 border-div">
+                                                    <div class="p-0">
+                                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                                                    <div class="pull-left">
+                                                        <ul class="details-list p-0 ml-3">
+                                                            <li class="contact-name">Johanna ortiz</li>
+                                                            <li class="contact-number ">
+                                                                Cupping manager
+                                                            </li>
+                                                            <li class="contact-number ">
+                                                                johannaortiz@royalcoffeerosters
+                                                            </li>
+                                                            <li class="contact-name">+46 793 313 322</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="pull-right ml-auto">
+                                                      <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
+                                                    </div>
+                                                </div>
+                                                </div>
 
                 </div>
               </div>
@@ -323,22 +457,32 @@
               <div class=" col-lg-4">
                 <div class="border-class mdevice-border">
                   <div class="header m-1">Awards and certificates</div>
-                  <div class="row mt-3 mx-4 border-div">
+                  <div class="row mt-3 mx-4 border-div" *ngFor = "let certificate of certificatesArray">
                         <div class="p-0">
-                            <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                            <img class="img-estate" src="assets/images/certificate.svg" alt="User"></div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-3">
-                                <li class="estate-name">Women’s Barista Championship</li>
+                                <li class="estate-name">{{certificate.name}}</li>
                                 <li class="estate-number pt-1">
-                                    2008
+                                    {{certificate.year}}
                                 </li>
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
-                                <img class="message-icon" src="assets/images/more-opns-file.png" alt="Message">
+                            <a class="menu-arrow" [popover]="listTemplate" placement="bottom" [outsideClick]="true" #pop1="bs-popover">
+                                <img class="message-icon" src="assets/images/ellipses.png" alt="Message">
+                                </a>
+                                <ng-template #listTemplate id="{{certificate.id}}">
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-data custom-popover">
+                                            <li class="list-item"> <a class="pointer-item" (click)="editCertificate($event,certificate);pop1.hide();">Edit </a></li>
+                                            <li class="list-item"><a class="pointer-item" (click)="deleteCertificate(certificate.id);pop1.hide();">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
                         </div>
                     </div>
-                    <div class="row mt-3 mx-4 border-div">
+                    <!-- <div class="row mt-3 mx-4 border-div">
                             <div class="p-0">
                                 <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
                             <div class="pull-left">
@@ -352,27 +496,27 @@
                             <div class="pull-right ml-auto">
                               <img class="message-icon" src="assets/images/more-opns-file.png" alt="Message">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="add-brand-div p-4">
-                                <a class="brand-tag"> 
+                                <a class="brand-tag" routerLink="/features/license"> 
                                     <img class="add-field" src="assets/images/add-field.svg">
-                                    <span class="add-text">Add another contact</span>
+                                    <span class="add-text">Add another certificate</span>
                                 </a>
                             </div>
 
               
                 </div>
-                <div class="border-class mt-3">
+                <div class="border-class mt-3 mdevice-border">
                         <div class="header m-1">Employee details</div>
                         <div class="row">
-                          <div class="form-group col-md-6 emp_count_div px-4 py-2">
-                           <p class="emp_count">0</p>
-                           <p class="emp_text">Total employees</p>
+                          <div class="form-group col-md-6 emp_count_div px-4 py-2 col-6 mb-0">
+                           <p class="emp_count mb-0">0</p>
+                           <label class="emp_text">Total employees</label>
                           </div>
                         
-                          <div class="form-group col-md-6 avg_count_div px-4 py-2">
-                           <p class="avg_count">0</p>
-                           <p class="emp_text">Average age</p>
+                          <div class="form-group col-md-6 avg_count_div px-4 py-2 col-6 mb-0">
+                           <p class="avg_count mb-0">0</p>
+                           <label class="emp_text">Average age</label>
                           </div>
                         </div>
                         <div class="row mt-3 ">

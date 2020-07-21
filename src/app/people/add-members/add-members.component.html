@@ -76,9 +76,9 @@
                 <label class="member_email" *ngIf="editFlag == 'add'">Add member</label>
                 <label class="member_email" *ngIf="editFlag == 'edit'">Edit member</label>
 
-                <select id="role_edit" class="form-control rectangle_dropdown" name="role" [(ngModel)]="role_id">
+                <select id="role_edit" class="form-control rectangle_dropdown" name="role_id" [(ngModel)]="role_id">
 						<option value="" selected disabled>Select role</option>
-						<option *ngFor="let role of roles" value="role.id">{{role.name}}</option>
+						<option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</option>
 					  </select>
 					</div>
         </div>

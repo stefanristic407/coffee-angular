@@ -492,7 +492,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 	setOrigin(origindata: any) {
 		this.estatetermOrigin = origindata;
 		this.datatableElement.dtInstance.then(table => {
-			table.column(4).search(origindata).draw();
+			table.column(3).search(origindata).draw();
 		});
 	}
 	setType(data: any) {

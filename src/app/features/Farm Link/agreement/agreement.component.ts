@@ -63,13 +63,13 @@ export class AgreementComponent implements OnInit {
 					"files": '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + "SEWN service offerings",
 					"addedon": "24/09/2019  3:06 pm", 
 					"customername": "The Steam Hotel", 
-					"origin": "Origin"
+					"origin": "Santa Rosa"
 				},
 				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Candela agreement pap..',  addedon: '18/12/2019  1:00pm', customername: 'Candela', origin: 'Gothenburg'},
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Finca Nápoles agreement..', addedon: '01/10/2019  07:24 am',  customername: 'Finca', origin: 'Stockholm'},
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Santa Rosa agreement pap..',  addedon: '24/01/2020  11:05pm', customername: 'Santa', origin: 'Karlstad' },
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Hacienda Sonora agreement..',  addedon: '27/02/2020  4:17pm', customername: 'Hacienda', origin: 'Karlstad'},
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Vijay Simha agreement..',  addedon: '17/03/2020  7:17am', customername: 'Vijay', origin: 'Stockholm' }
+				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Finca Nápoles agreement..', addedon: '01/10/2019  07:24 am',  customername: 'Finca', origin: 'Finca Nápoles'},
+				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Santa Rosa agreement pap..',  addedon: '24/01/2020  11:05pm', customername: 'Santa', origin: 'Santa Rosa' },
+				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Hacienda Sonora agreement..',  addedon: '27/02/2020  4:17pm', customername: 'Hacienda', origin: 'The Steam Hotel'},
+				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Vijay Simha agreement..',  addedon: '17/03/2020  7:17am', customername: 'Vijay', origin: 'Santa Rosa' }
 			
 			];
 			this.mainData = this.data;

@@ -21,6 +21,7 @@ export class SourcingComponent implements OnInit {
   showSort:boolean = true;
   showWeight:boolean = true;
   modalRef: BsModalRef;
+  variety:any;
 
 
   public data: any[] = [
@@ -34,11 +35,11 @@ export class SourcingComponent implements OnInit {
   
   public coffeedata: any[] = [
 		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '$7.4 USD / kg',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
-		{  estatename: 'Gesha', name: 'Blend washed',origin:'Colombia',species: 'Bourbon', price: '$5.53USD / kg',quantity:'297 bags','image':'/assets/images/sourcing-image3.jpg',score:'88' },
+		{  estatename: 'Gesha', name: 'Blend washed',origin:'Colombia',species: 'Castillo', price: '$5.53USD / kg',quantity:'297 bags','image':'/assets/images/sourcing-image3.jpg',score:'88.0' },
 		{  estatename: 'Finca La Toboba', name: 'FTO blend',origin:'Ethopia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'567 bags','image':'/assets/images/sourcing-image7.jpg',score:'81.5' },
-		{  estatename: 'Asoproaaa', name: 'Mebratu', origin:'Brazil',species: 'Bourbon', price: '$7.4 USD / kg',quantity:'953 bags','image':'/assets/images/sourcing-image5.jpg',score:'85.4' },
-		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '$5.6 USD / kg',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82' },
-		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84' }
+		{  estatename: 'Asoproaaa', name: 'Mebratu', origin:'Brazil',species: 'Castillo', price: '$7.4 USD / kg',quantity:'953 bags','image':'/assets/images/sourcing-image5.jpg',score:'85.4' },
+		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '$5.6 USD / kg',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82.0' },
+		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84.0' }
   ];
   constructor(public sourcingService:SourcingService,private modalService: BsModalService,private router: Router) { }
 
@@ -52,6 +53,7 @@ export class SourcingComponent implements OnInit {
     this.sort = '';
     this.origin = '';
     this.weight = '';
+    this.variety='';
 
      //Toggle Esstate active
 	  $('.btn-switch').click(function() {
@@ -358,12 +360,15 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   }
   setOrigin(origindata:any){
     this.origin=origindata;
+    console.log(this.origin)
 
   }
   setWeight(weightdata:any){
     this.weight=weightdata;
   }
-
+  setVariety(varietydata:any){
+    this.variety=varietydata;
+  }
   toggleGrade(){
     this.showGrade=!this.showGrade;
     if(this.showGrade==false){

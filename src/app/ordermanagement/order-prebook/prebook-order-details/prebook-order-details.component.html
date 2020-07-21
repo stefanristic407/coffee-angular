@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col-md-12 lot-content table-responsive">
-        <table class="lot-table">
-            <thead>
+    <div class="col-md-12 lot-content lot-content--mb table-responsive mb-15">
+        <table class="lot-table lot-table--vertical">
+            <!-- <thead>
                 <tr>
                     <th>Origin</th>
                     <th>Variety</th>
@@ -9,24 +9,48 @@
                     <th>Rate per bag</th>
                     <th>Total</th>
                 </tr>
-            </thead>
+            </thead> -->
+
             <tbody>
                 <tr>
+                    <th>Origin</th>
+                    <td>Columbia</td>
+                </tr>
+                <tr>
+                    <th>Variety</th>
+                    <td>Bourbon,Cautai</td>
+                </tr>
+                <tr>
+                    <th>Bulk Ordered</th>
+                    <td>Sample</td>
+                </tr>
+                <tr>
+                    <th>Rate per bag</th>
+                    <td>$450/bag</td>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <td>$100</td>
+                </tr>
+            </tbody>
+            <!-- <tbody>
+                <tr>
+                    
                     <td>Columbia</td>
                     <td>Bourbon,Cautai</td>
                     <td>Sample
-                        <!--    <p class="lot-link">View lot details &#x0003E;</p> -->
+                     <p class="lot-link">View lot details &#x0003E;</p> 
                     </td>
                     <td>$450/bag</td>
                     <td>$100</td>
                 </tr>
-            </tbody>
+            </tbody> -->
 
         </table>
     </div>
 </div>
 <hr>
-<div class="row pb-7">
+<div class="row">
     <div class="col-lg-7 col-md-7 col-sm-12 bulk-details-content">
         <h4 class="sub-title">Bulk details</h4>
         <table class="recent-time">
@@ -80,7 +104,7 @@
         </table>
 
     </div>
-    <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content">
+    <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content mb-15">
         <h4 class="sub-title">Payment status</h4>
         <div class="w-100 mt-3">
             <p class="status_paid" *ngIf="prebookService.statusPending">TOKEN PENDING</p>

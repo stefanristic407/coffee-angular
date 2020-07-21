@@ -1,0 +1,39 @@
+.chat-accounts__body {
+    background-color: #fff;
+    padding: .5rem .7rem;
+}
+
+.no-image {
+    width: 97% !important;
+    float: right !important;
+    border-bottom: 1px solid #dedede;
+    padding: 0 0 10px 5px;
+}
+
+.account {
+    border-bottom: 1px solid #dedede;
+}
+
+.chat-profile {
+    border-bottom: 0px solid #dedede !important;
+}
+
+.search-account {
+    padding: 4px 5px 30px 5px !important;
+    border: none !important;
+    border-bottom: 1px solid #dedede !important;
+    border-radius: 1px !important;
+}
+
+.account {
+    margin-bottom: 25px !important;
+}
+
+.name-notifi {
+    font-size: 16px;
+    line-height: 16px;
+    color: #232334;
+    font-weight: 700;
+}
+
+@media only screen and (max-width: 767px) {}

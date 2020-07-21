@@ -1,333 +1,428 @@
 .breadcrumb1 {
-    padding: 2rem 2rem 0rem 1rem;
+  padding: 2rem 2rem 0rem 1rem;
 }
 
 .cancel-butn {
-    border-radius: 4px;
-    background-color: #30855c;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #ffffff;
-    border: #30855c;
+  border-radius: 4px;
+  background-color: #30855c;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  border: #30855c;
 }
 
 .cancel-butn:hover {
-    background-color: #30855c;
-    border: #30855c;
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  background-color: #30855c;
+  border: #30855c;
+  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
-
 
 .butn-mt {
-    padding-right: 2rem ;
-    padding-top: 2rem;
- }
- .my-profile h1 {
-    font-family: Muli !important;
-    font-size: 18px;
-    font-weight: bold !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-    padding-left: 1rem;
+  padding-right: 2rem;
+  padding-top: 2rem;
+}
+.my-profile h1 {
+  font-family: Muli !important;
+  font-size: 18px;
+  font-weight: bold !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #232334;
+  padding-left: 1rem;
 }
 
-.cover-div{
-    border: 1px solid #d6d6d6;
-    background: linear-gradient(#faf8f4, #ffffff);
-    border-radius: 4px;
-    height: 160px;
-    margin: 1rem;
-
+.cover-div {
+  border: 1px solid #d6d6d6;
+  background: linear-gradient(#faf8f4, #ffffff);
+  border-radius: 4px;
+  height: 160px;
+  margin: 1rem;
 }
-.cover-pic{
-    padding: 2rem;
-    cursor: pointer;
+.cover-pic {
+  padding: 2rem;
+  cursor: pointer;
 }
-.text-data{
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: center;
-    color: #747588;
-    margin-bottom: .5rem !important;
+.text-data {
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #747588;
+  margin-bottom: 0.5rem !important;
 }
-.pic-div{
-    /* width: 160px;
+.pic-div {
+  /* width: 160px;
     height: 160px;
     border: solid 0.2px #979797;
     border-radius: 100%; */
-    position: relative;
-    left: 3rem;
-    bottom: 11rem;
-    /* background-color: #fff; */
+  position: relative;
+  left: 3rem;
+  bottom: 11rem;
+  /* background-color: #fff; */
 }
-.camera-pic{
-    position: absolute;
-    top: 78%;
-    left: 10%;
-    cursor: pointer;
+.camera-pic {
+  position: absolute;
+  top: 78%;
+  left: 10%;
+  cursor: pointer;
 }
-.oval-pic{
-    border: 1px solid #979797;
-    border-radius: 100%;
-    height: 160px;
-    width: 160px;
+.oval-pic {
+  border: 1px solid #979797;
+  border-radius: 100%;
+  height: 160px;
+  width: 160px;
 }
-.title{
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-    margin-bottom: .5rem !important;
+.title {
+  font-family: Muli;
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #232334;
+  margin-bottom: 0.5rem !important;
 }
-.company-website{
-    height: 46px;
+.company-website {
+  height: 46px;
 }
-.title-div{
-    margin-left: 14rem;
+.title-div {
+  margin-left: 14rem;
 }
 
-.website-text{
-color: #747588;
-font-weight: 600;
+.website-text {
+  color: #747588;
+  font-weight: 600;
 }
 
 /* ===== Tab Section ===== */
 
 .nav-pills {
-    border-bottom: 1px solid #d6d6d6;
-    /* width: 70% !important; */
+  border-bottom: 1px solid #d6d6d6;
+  /* width: 70% !important; */
 }
 
 li.nav-item {
-    /* margin-right: 10%; */
-    position: relative;
-    top: .25rem;
-    /* text-transform: uppercase; */
+  /* margin-right: 10%; */
+  position: relative;
+  top: 0.25rem;
+  /* text-transform: uppercase; */
 }
 
 .nav-pills .nav-link {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-    padding: 1rem 2rem;
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #232334;
+  padding: 1rem 2rem;
 }
 
 .nav-pills .nav-link.active {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #30855c;
-    padding: 1rem 2rem;
-    /*  changes as per design */
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #30855c;
+  padding: 1rem 2rem;
+  /*  changes as per design */
 }
 
-
-
-
-
 .mixups-tabs {
-    /* padding: 0rem 2rem 2rem 0rem; */
-    background-color: #ffffff;
-    overflow: hidden;
-    /* border-right: 1px solid #dddddd; */
+  /* padding: 0rem 2rem 2rem 0rem; */
+  background-color: #ffffff;
+  overflow: hidden;
+  /* border-right: 1px solid #dddddd; */
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
-    color: #30855c !important;
-    font-size: 14px;
-    font-weight: 600;
-    background-color: unset !important;
-    /* border-bottom: 1px solid #256547; */
-    border-radius: unset;
+.nav-pills .show > .nav-link {
+  color: #30855c !important;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: unset !important;
+  /* border-bottom: 1px solid #256547; */
+  border-radius: unset;
 }
 
 .nav-pills .nav-link.active {
-    position: relative;
-    padding-right: 2rem;
-    /*  changes as per design */
-    padding-left: 2rem;
-    /*  changes as per design */
+  position: relative;
+  padding-right: 2rem;
+  /*  changes as per design */
+  padding-left: 2rem;
+  /*  changes as per design */
 }
 
 .nav-pills .nav-link.active:before {
-    content: '';
-    width: 100%;
-    /*  changes as per design */
-    border-radius: 30px;
-    height: 2px;
-    background: #30855c;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    text-align: center;
-    margin: auto;
-    top: 81%;
-    transform: translate(-50%);
+  content: "";
+  width: 100%;
+  /*  changes as per design */
+  border-radius: 30px;
+  height: 2px;
+  background: #30855c;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  text-align: center;
+  margin: auto;
+  top: 81%;
+  transform: translate(-50%);
 }
-.tab{
-    padding: 2rem 2rem 0rem 2rem;
+.tab {
+  padding: 2rem 2rem 0rem 2rem;
 }
-
-
-
 
 /* ========== Profile Pic CSS ========== */
 
 @media screen and (max-width: 40em) {
-    :host ::ng-deep .ui-dialog {
-       width: 75vw !important;
-   }
+  :host ::ng-deep .ui-dialog {
+    width: 75vw !important;
+  }
 }
 
 #change-pic:focus {
-   outline: none;
-   box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 :host ::ng-deep .ui-dialog-titlebar {
-   font-family: Muli !important;
-   font-size: 24px !important;
-   color: #232334 !important;
-   background-color: #ffffff !important;
-   font-weight: bold;
+  font-family: Muli !important;
+  font-size: 24px !important;
+  color: #232334 !important;
+  background-color: #ffffff !important;
+  font-weight: bold;
 }
 
 :host ::ng-deep .ui-dialog-content {
-   border-bottom-style: dashed !important;
-   border-bottom-color: #d6d6d6 !important;
-   height: 40% !important;
-   overflow-y: unset;
-   border-top: none !important;
-   padding: 0 !important;
+  border-bottom-style: dashed !important;
+  border-bottom-color: #d6d6d6 !important;
+  height: 40% !important;
+  overflow-y: unset;
+  border-top: none !important;
+  padding: 0 !important;
 }
 
 :host ::ng-deep .ui-dialog-titlebar-icon span {
-   display: none !important;
+  display: none !important;
 }
 
 :host ::ng-deep .ui-dialog-titlebar-icon::before {
-   background: url(/assets/images/close.svg) !important;
-   display: inline !important;
+  background: url(/assets/images/close.svg) !important;
+  display: inline !important;
 }
 
 .close-pic {
-   cursor: pointer;
-   position: relative;
-   top: 2px;
+  cursor: pointer;
+  position: relative;
+  top: 2px;
 }
 
 #save-pic,
 #change-pic {
-   font-size: 14px !important;
-   font-family: Muli;
-   font-weight: 600;
+  font-size: 14px !important;
+  font-family: Muli;
+  font-weight: 600;
 }
 
-:host ::ng-deep  .ui-dialog-mask.ui-widget-overlay.ui-dialog-visible.ui-dialog-mask-scrollblocker{
-   background-color: rgba(0, 0, 0, 0.8) !important;
+:host
+  ::ng-deep
+  .ui-dialog-mask.ui-widget-overlay.ui-dialog-visible.ui-dialog-mask-scrollblocker {
+  background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
-:host ::ng-deep .ui-dialog .ui-dialog-footer{
-   border: 1px solid #fff !important;
-   padding: 1.25rem 1rem !important;
- }
- :host ::ng-deep .overlay{
- outline: var(--cropper-overlay-color,#919191) solid 100vw !important;
+:host ::ng-deep .ui-dialog .ui-dialog-footer {
+  border: 1px solid #fff !important;
+  padding: 1.25rem 1rem !important;
+}
+:host ::ng-deep .overlay {
+  outline: var(--cropper-overlay-color, #919191) solid 100vw !important;
 }
 
 /* ======= MODAL ======= */
 
 :host ::ng-deep .ui-button {
-   margin: 0.5em 0.5em 0.5em 0;
-   width: 140px;
+  margin: 0.5em 0.5em 0.5em 0;
+  width: 140px;
 }
 
 .previous {
-    border-radius: 4px !important;
-    background-color: #ffffff !important;
-    padding: 10px 20px !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    color: #30855c !important;
-    border: 1px solid #30855c !important;
-    margin-right: 1rem !important;
-    font-family: Muli !important;
+  border-radius: 4px !important;
+  background-color: #ffffff !important;
+  padding: 10px 20px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #30855c !important;
+  border: 1px solid #30855c !important;
+  margin-right: 1rem !important;
+  font-family: Muli !important;
 }
 
 .previous:hover {
-    background-color: #30855c !important;
-    color: #ffffff !important;
+  background-color: #30855c !important;
+  color: #ffffff !important;
 }
 
 .login-butn {
-    border-radius: 4px;
-    background-color: #30855c;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #ffffff;
-    border: #30855c;
+  border-radius: 4px;
+  background-color: #30855c;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  border: #30855c;
 }
 
 .login-butn:hover {
-    background-color: #30855c;
-    border: #30855c;
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+  background-color: #30855c;
+  border: #30855c;
+  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .login-butn:focus {
-    outline: 0;
-    background-color: #30855c !important;
+  outline: 0;
+  background-color: #30855c !important;
 }
 
-.star{
-    color: #ff1e5a;
-}
-@media screen and (max-width:991px) {
-.no-padding{    padding-left: 0; padding-right: 0;}
-.my-profile{}
-.my-profile h1{    text-align: left; padding: 1rem 16px;}
-.cover-div{margin: 0; position: relative; border: none; background: none; height: auto;}
-.pic-div{position: absolute;left: 37%; bottom:auto; top:6rem;}
-.oval-pic{width: 120px; height: 120px;}
-.title-div{ margin-left: 0;  margin-top: 5rem; text-align: center;}
-.title-div .title{color:#80460b; font-size: 16px; margin-bottom: 24px !important;    text-decoration: underline;}
-.cover-pic{ padding: 2rem;cursor: pointer;height: 160px;background: linear-gradient(#faf8f4, #ffffff);border: 1px solid #d6d6d6;}
-.company-website{    font-size: 14px !important;}
-.tab { padding: 0;}
-.mdevice{overflow: scroll; width: 100%;}
-.mdevice .nav-pills{width: 700px !important;}
-.nav-pills .nav-link, .nav-pills .nav-link.active{ position: relative;  padding-right: 0.7rem; padding-left: 0.7rem;}
-#pills-tour{padding-left: 16px; padding-right: 16px;}
-.butn-mt {  padding-right: 1rem; padding-top: 0.8rem; position: absolute; right: 0;top: 0;z-index: 9;}
-.camera-pic{ position: absolute;top: 68%;left: 70%;cursor: pointer;}
+.star {
+  color: #ff1e5a;
 }
 
-element.style {
+.desk-view{
+    display: none;
 }
-@media screen and (max-width: 480px){
-.pic-div {left: 33%; top:6.5rem;}
+.mob-view{
+    display: block;
+}
+@media screen and (max-width: 991px) {
+  .mob-view {
+    display: none !important;
+  }
+  .desk-view{
+      display: block !important;
+  }
+  .camera{
+      float: right;
+      
+  }
+  .back_arrow_link{
+    display: inline-block !important;
+  }
+  .plus-circle{
+      display: none;
+  }
+  .owned-text {
+    text-align: center;
+    font-size: 14px;
+    color: #232334;
+    font-weight: bold;
+    margin-bottom: 0% !important;
+  }
+  .founded-text {
+    text-align: center;
+    font-size: 14px;
+    color: #747588;
+    font-weight: bold;
+  }
+  .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .my-profile h1 {
+    text-align: left;
+    padding: 1rem 16px;
+  }
+  .cover-div {
+    margin: 0;
+    position: relative;
+    border: none;
+    background: none;
+    height: auto;
+  }
+  .pic-div {
+    position: absolute;
+    left: 37%;
+    bottom: auto;
+    top: 6rem;
+  }
+  .oval-pic {
+    width: 120px;
+    height: 120px;
+  }
+  .title-div {
+    margin-left: 0;
+    margin-top: 5rem;
+    text-align: center;
+  }
+  .title-div .title {
+    color: #80460b;
+    font-size: 16px;
+    margin-bottom: 14px !important;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .cover-pic {
+    padding: 1rem;
+    cursor: pointer;
+    height: 160px;
+    background: linear-gradient(#faf8f4, #ffffff);
+    border: 1px solid #d6d6d6;
+  }
+  .company-website {
+    font-size: 14px !important;
+  }
+  .tab {
+    padding: 0;
+  }
+  .mdevice {
+    overflow: scroll;
+    width: 100%;
+  }
+  .mdevice .nav-pills {
+    width: 700px !important;
+  }
+  .nav-pills .nav-link,
+  .nav-pills .nav-link.active {
+    position: relative;
+    padding-right: 0.7rem;
+    padding-left: 0.7rem;
+  }
+  #pills-tour {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .butn-mt {
+    padding-right: 1rem;
+    padding-top: 0.8rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9;
+  }
+  .camera-pic {
+    position: absolute;
+    top: 68%;
+    left: 70%;
+    cursor: pointer;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .pic-div {
+    left: 33%;
+    top: 6.5rem;
+  }
 }

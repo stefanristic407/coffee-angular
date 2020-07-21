@@ -21,7 +21,7 @@
 }
 
 .space-width {
-    width: 78%;
+    width: 79%;
 }
 
 .select-origin,
@@ -100,11 +100,11 @@
 
 /*********************Tab Css **********************/
 
-@media (min-width:1400px) {
+/* @media (min-width:1400px) {
     .container {
         max-width: 1240px !important;
     }
-}
+} */
 
 ul {
     padding-left: 0;
@@ -116,7 +116,6 @@ ul li {
 
 .source-cont {
     background: #fff;
-    /* padding: 48px; */
 }
 
 .sourcing-panel {
@@ -273,7 +272,6 @@ ul li {
 .flavor-coffee span {
     float: left;
     font-size: 12px;
-    /* border: 1px solid #ebebeb; */
     padding: 3px 9px 1px 15px;
     font-weight: 600;
     margin-right: 5px;
@@ -281,6 +279,7 @@ ul li {
     position: relative;
     border-radius: 11.5px;
     border: solid 0.5px #747588;
+    margin-bottom: 5px;
 }
 
 .flo-list li:last-child {
@@ -429,13 +428,6 @@ tr:last-child {
     font-weight: bold;
     text-decoration: underline !important;
 }
-
-
-/* 
-::ng-deep .modal.show .modal-dialog {
-    max-width: 55%;
-} */
-
 .modal-body,
 .modal-header {
     padding: 0rem !important;
@@ -443,8 +435,11 @@ tr:last-child {
 
 .modal-header {
     border-bottom: none !important;
+    margin-bottom: 8px;
 }
-
+::ng-deep .modal-content{
+    padding: 25px 15px !important;
+}
 .more-heading {
     font-family: Muli;
     font-size: 18px;
@@ -557,53 +552,30 @@ span.checkmark {
     color: #fff;
     font-family: Muli;
 }
-
+.arrow-spacing{
+    float: right;
+    margin-right: 5px;
+}
 .cursor-item {
     cursor: pointer;
 }
-
-@media (min-width:1366px) {
-    .container {
-        max-width: 1240px !important;
-    }
+@media screen and (max-width: 1200px) and (min-width: 992px) {
+.sourcing-top-width{width:128% }
+.orgin-att {padding-right: 10px;padding-left: 10px}
+.s-cert li {width: 22px; margin-left: 9px; }
 }
+@media (max-width:991px) {
+    .source-cont {padding: 28px;}
+    .orgin-att label,.orgin-att h6,.top-lots label,.top-lots a {font-size: 12px;}
+    .s-details {padding: 15px;}
+    .source-lets {padding-bottom: 20px; padding-top: 12px;}
+    .sourcing-main{margin: 0rem 1.5rem;}
+    .s-cert li {width: 22px; margin-left: 9px; }
 
-@media (max-width:1200px) {
-    .orgin-att {
-        padding-right: 10px;
-        padding-left: 10px
-    }
-    .s-cert li {
-        width: 22px;
-        margin-left: 9px;
-    }
 }
-
-@media (max-width:1024px) {
-    .source-cont {
-        padding: 28px;
-    }
-    .orgin-att label,
-    .orgin-att h6,
-    .top-lots label,
-    .top-lots a {
-        font-size: 12px;
-    }
-    .s-details {
-        padding: 15px;
-    }
-    .source-lets {
-        padding-bottom: 20px;
-        padding-top: 12px;
-    }
-}
-@media (max-width:480px) {
-    .source-cont {
-        padding: 0;
-    }
-    .sourcing-main {
-        margin: 0rem 16px;
-    }
+@media (max-width:767px) {
+    .source-cont {padding: 0;}
+    .sourcing-main {margin: 0rem 16px;}
     .space-width {
         width: 50%;
         margin-right: 0;
@@ -649,8 +621,9 @@ span.checkmark {
         padding-left: 0.8rem;
         padding-right: 0.8rem;
     }
-    .source-lets.flex,
-    .s-details .m-flex {
+    .source-lets.flex
+    /* .s-details .m-flex  */
+    {
         display: block;
     }
     .orgin-att {
@@ -688,42 +661,9 @@ span.checkmark {
     .s-details h3 {
         font-size: 16px;
     }
-    .pointer-item {
-        /* float: right; */
-        margin-right: 10px;
-    }
-    /*Pagenation*/
-    .m-pagenation {
-        text-align: center;
-        width: 100%;
-    }
-    .nav-page {
-        display: inline-block;
-    }
-    .nav-page .page-link {
-        padding-left: 9px;
-        padding-right: 9px;
-        font-size: 14px;
-        font-weight: bold;
-    }
-    .m-pagenation .navigation,
-    .page-item:first-child {
-        border-right: 1px solid #30855c;
-    }
-    .m-pagenation .navigation,
-    .page-item a {
-        color: #747588;
-        border: none;
-    }
-    .m-pagenation .navigation,
-    .page-item a.active {
-        color: #30855c;
-    }
-    .m-pagenation .page-item:first-child a {
-        border: 1px solid #30855c;
-    }
-    .m-pagenation .page-item:last-child a {
-        border: 1px solid #30855c;
+    .origin-spacing{
+        float: right;
+    margin-top: 8px;
     }
     .popup-filter  ul li{
         width: 50%;
@@ -732,6 +672,7 @@ span.checkmark {
         font-size: 16px;
         color: #232334;
     }
+    .s-cert li {width: 22px;margin-left: 8px;}
 }
 @media (max-width:340px) {
     .select-origin, .add-variety, .filter-text, .search-name{font-size: 12px;}

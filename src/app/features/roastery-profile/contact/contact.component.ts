@@ -7,17 +7,17 @@ declare var $ : any;
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-name : string;
-email : string;
-phoneno : string;
-city: string;
-country : string = '';
-state: string = "";
-address1 : string;
-address2 : string;
-zipcode: string;
-facebook : string;
-instagram : string;
+// name : string;
+// email : string;
+// phoneno : string;
+// city: string;
+// country : string = '';
+// state: string = "";
+// address1 : string;
+// address2 : string;
+// zipcode: string;
+// facebook : string;
+// instagram : string;
 
 
 nameError : string;
@@ -92,7 +92,7 @@ for(let i=0; i<optionText.length; i++) {
 
   changeCountry() {
     // console.log("the selected country is : " + this.country);
-    this.roasteryProfileService.changeCountry(this.country);
+    this.roasteryProfileService.changeCountry(this.roasteryProfileService.country);
   }
 
 }

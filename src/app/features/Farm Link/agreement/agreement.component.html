@@ -35,12 +35,12 @@
                         <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Select customer&nbsp;</p>
                         <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
-                                &nbsp; <img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                &nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                             </p>
                         </a>
                         <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop5="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
-                                {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                             </p>
                         </a>
                     </div>
@@ -62,12 +62,12 @@
                                     <p class="d-inline filter-text" *ngIf="customerMob == ''">Select customer&nbsp;</p>
                                     <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop9="bs-popover">
                                         <p class="d-inline filter" *ngIf="customerMob == ''" (click)="toggleCustomerMob()">
-                                            &nbsp; <img src="{{ showCustomerMob ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                            &nbsp; <img src="{{ showCustomerMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                         </p>
                                     </a>
                                     <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop10="bs-popover">
                                         <p class="d-inline filter" *ngIf="customerMob != ''" (click)="toggleCustomerMob()">
-                                            {{ customerMob }} &nbsp;<img src="{{ showCustomerMob ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                            {{ customerMob }} &nbsp;<img src="{{ showCustomerMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                         </p>
                                     </a>
                                 </div>

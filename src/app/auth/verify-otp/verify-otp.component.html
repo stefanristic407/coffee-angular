@@ -25,7 +25,7 @@
                     <form class="form-container spacing-bottom ">
                         <div class="form-group row ">
                             <label class="role-name otp-name col-md-12 mb-md-0 mb-4">Enter 6 Digit OTP code</label>
-                            <div class="form-group col-md-9 col-12">
+                            <div class="form-group col-md-9 col-12 center-otp">
                                 <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:6,allowNumbersOnly:true,disableAutoFocus: false}"></ng-otp-input>
                             </div>
                             <!-- <button type="button" class="btn submit-btn mt-4" (click)="verifyOtp()"><span class="submit-text">SUBMIT</span></button> -->

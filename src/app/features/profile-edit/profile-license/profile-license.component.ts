@@ -58,6 +58,19 @@ export class ProfileLicenseComponent implements OnInit {
     this.showsaveddatadiv = false;
     this.secondButtonValue = "Save";
 
+    this.getCertificates();
+  }
+  onKeyPress(event: any) {
+    if (event.target.value == "") {
+      document.getElementById(event.target.id).style.border =
+        "1px solid #d6d6d6";
+    // } else {
+    //   document.getElementById(event.target.id).style.border =
+    //     "1px solid #d6d6d6";
+    }
+  }
+
+  getCertificates(){
     this._userService.getCertificates(this.roasterId).subscribe(
       data => {
         if(data['success'] == true){
@@ -69,15 +82,7 @@ export class ProfileLicenseComponent implements OnInit {
       }
     )
   }
-  onKeyPress(event: any) {
-    if (event.target.value == "") {
-      document.getElementById(event.target.id).style.border =
-        "1px solid #d6d6d6";
-    // } else {
-    //   document.getElementById(event.target.id).style.border =
-    //     "1px solid #d6d6d6";
-    }
-  }
+
   setStatus(term: any) {
     this.termStatus = term;
   }
@@ -331,5 +336,20 @@ export class ProfileLicenseComponent implements OnInit {
     }
   }
 
+  deleteCertificate(certificateId : any){
+    if (confirm("Please confirm! you want to delete?") == true){
+    this._userService.deleteCertificate(this.roasterId,certificateId).subscribe(
+      response => {
+        if(response['success']==true){
+          this.toastrService.success("The selected certificate has been deleted successfully");
+          this.getCertificates();
+        }
+        else{
+          this.toastrService.error("Something went wrong while deleting the certificate");
+        }
+      }
+    )
+  }
+  }
 
 }

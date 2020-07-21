@@ -109,10 +109,10 @@
                 <div class="raised-list mt-5 mb-5">
                     <ul class="cleafix pagination-content-list" >
                         <li class="order-raised pagination-content-list__item" *ngFor="let role of data">
-                            <div class="raised-detils d-inline-block  pb-3">
+                            <div class="raised-detils d-inline-block  pb-3"  (click)="ticketDetails($event,role);">
                                 <div class="raised-tit">
                                     <h4 class="col-8">{{role.status}}</h4>
-                                    <label class="selok">Ok</label>
+                                    <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
                                 </div>
                                 <div class="raised-ticket">
                                     <h4 class="col-8 mt-3 pull-left">{{role.orderid}}</h4>
@@ -137,38 +137,7 @@
                                    <a href="#" class="col-4 mt-3 pull-right text-right">Go to ticket </a>
                                 </div>
                             </div>
-                        </li>
-
-                        <li class="order-raised">
-                            <div class="raised-detils d-inline-block pb-3">
-                                <div class="raised-tit">
-                                    <h4 class="col-8">Open</h4>
-                                    <label class="selok">Ok</label>
-                                </div>
-                                <div class="raised-ticket">
-                                    <h4 class="col-8 mt-3 pull-left">#81671</h4>
-                                    <h6  class="col-4 mt-3 pull-right text-right">24/09/2019</h6>
-                                    <h3 class="col-11 d-inline-block pb-4 pl-0 pr-0 ml-3 mr-3">Finca La Pampa  l  Colombia</h3>
-                                    <label class="ml-3 mt-2 pull-left">Requesting Sample</label>
-                                   <a href="#" class="col-4 mt-3 pull-right text-right">Go to ticket </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="order-raised">
-                            <div class="raised-detils d-inline-block  pb-3">
-                                <div class="raised-tit">
-                                    <h4 class="col-8">Open</h4>
-                                    <label class="selok">Ok</label>
-                                </div>
-                                <div class="raised-ticket">
-                                    <h4 class="col-8 mt-3 pull-left">#81671</h4>
-                                    <h6  class="col-4 mt-3 pull-right text-right">24/09/2019</h6>
-                                    <h3 class="col-11 d-inline-block pb-4 pl-0 pr-0 ml-3 mr-3">Finca La Pampa  l  Colombia</h3>
-                                    <label class="ml-3 mt-2 pull-left">Requesting Sample</label>
-                                   <a href="#" class="col-4 mt-3 pull-right text-right">Go to ticket </a>
-                                </div>
-                            </div>
-                        </li> -->
+                        </li>-->
                     </ul>
                     <div class="responsive-pagination clearfix">
                             <span class="responsive-pagination__prev float-left disable"></span>
@@ -186,7 +155,7 @@
             </div>
         </div>
         <div class="select-cont">
-            <a href="#">Continue</a>
+            <a (click)="continueTicket()">Continue</a>
         </div>
     </div>
 </div>

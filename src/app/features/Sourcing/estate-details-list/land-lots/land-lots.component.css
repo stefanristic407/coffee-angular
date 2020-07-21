@@ -34,12 +34,10 @@ tr:last-child {
     font-size: 14px;
     font-weight: bold;
     color: #232334;
-    /* padding-left: 2rem; */
     padding: 14px 15px;
 }
 
 .table td {
-    /* padding: 1rem 2rem; */
     padding: 15px 15px;
 }
 
@@ -55,7 +53,6 @@ tr:last-child {
 .flavor-coffee span {
     float: left;
     font-size: 12px;
-    /* border: 1px solid #ebebeb; */
     padding: 3px 9px 1px 15px;
     font-weight: 600;
     margin-right: 5px;
@@ -74,7 +71,7 @@ tr:last-child {
     border-radius: 50%;
     position: absolute;
     left: 6px;
-    top: 42%;
+    top: 43%;
 }
 
 .view-lot {
@@ -89,10 +86,6 @@ tr:last-child {
     font-family: Muli;
     font-size: 18px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #000000;
     padding-bottom: 2.75rem;
 }
@@ -104,10 +97,6 @@ tr:last-child {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #ffffff;
     text-align: left;
 }
@@ -129,13 +118,17 @@ tr:last-child {
     width: 23%;
 }
 
-@media (max-width:480px) {
+@media screen and (max-width: 991px) and (min-width: 768px) {
+    .map-lots img{width: 100%;}
+}
+
+@media (max-width:767px) {
    
 .tit-cont{color: #242424; font-size: 16px; font-weight: bold;}
 .real-estate h6{color: #747588; font-size: 12px; }
 .real-estate h3{font-size: 14px; font-weight: bold; color: #232334;}
 .sugar-prod li{float: left;  font-size: 12px; margin-bottom: 5px; padding: 3px 9px 1px 15px; font-weight: 600; margin-right: 5px; color: #747588; position: relative; border-radius: 11.5px;    border: solid 0.5px #747588;}
-.sugar-prod  li:before{    content: ''; width: 4px; height: 4px;background: #747588; border-radius: 50%; position: absolute;left: 6px; top: 42%;}
+.sugar-prod  li:before{    content: ''; width: 4px; height: 4px;background: #747588; border-radius: 50%; position: absolute;left: 6px; top: 43%;}
 .landlots a{background-color: #30855c; color: #fff; display: block;text-align: center;padding: 10px;
     border-radius: 4px}
 .mdevics {padding: 15px;border:1px solid #ebebeb;border-radius: 4px;margin-bottom: 1rem;}

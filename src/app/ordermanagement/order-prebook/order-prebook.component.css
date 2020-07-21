@@ -5,7 +5,6 @@
     padding: 1.5rem;
     border: 0px solid #f0f0f0;
     border-radius: 2px;
-    /* margin: .5rem; */
     overflow: hidden;
 }
 
@@ -17,7 +16,6 @@
 }
 
 .order-status {
-    /* margin-left: -1.5rem; */
     font-family: Muli;
     font-size: 13px;
     font-weight: normal;
@@ -32,7 +30,6 @@
     font-weight: normal;
     font-weight: bold;
     cursor: pointer;
-    /* margin-left: -2.5rem; */
     text-decoration: underline!important;
 }
 
@@ -41,7 +38,6 @@
 }
 
 .order-tracking {
-    /* text-align: left; */
     width: 20%;
     position: relative;
     display: flex;
@@ -158,15 +154,8 @@
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
-    /* margin-left: -2.8rem; */
 }
-
-
 /*shipping css */
 
 .shipping-div {
@@ -248,32 +237,21 @@
     font-weight: normal;
     color: #232334;
 }
-
-
 /*shipping css */
-
-
 /* =========changes as per design ======== */
-
 .nav-pills {
     border-bottom: 1px solid #d6d6d6;
 }
 
 li.nav-item {
-    /* margin-right: 10%; */
     position: relative;
     top: .25rem;
-    /* text-transform: uppercase; */
 }
 
 .nav-pills .nav-link {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     padding: 1rem 2rem;
 }
@@ -282,10 +260,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #30855c;
     padding: 1rem 2rem;
     /*  changes as per design */
@@ -295,24 +269,13 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: right;
     color: #30855c;
-    /* padding: 1rem 0rem; */
     cursor: pointer;
 }
-
-
-/* ====================== */
-
 .mixups-tabs {
-    /* padding: 0rem 2rem 2rem 0rem; */
     background-color: #ffffff;
     overflow: hidden;
-    /* border-right: 1px solid #dddddd; */
 }
 
 .nav-pills .nav-link.active,
@@ -321,16 +284,13 @@ li.nav-item {
     font-size: 14px;
     font-weight: 600;
     background-color: unset !important;
-    /* border-bottom: 1px solid #256547; */
     border-radius: unset;
 }
 
 .nav-pills .nav-link.active {
     position: relative;
     padding-right: 2rem;
-    /*  changes as per design */
     padding-left: 2rem;
-    /*  changes as per design */
 }
 
 .nav-pills .nav-link.active:before {
@@ -357,10 +317,6 @@ li.nav-item {
     font-family: PlayfairDisplay;
     font-size: 28px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #020202;
 }
 
@@ -368,10 +324,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 16px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
     color: #5d5d5d;
 }
 
@@ -379,10 +331,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
 }
 
@@ -390,10 +338,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -409,10 +353,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: right;
     color: #30855c;
     padding: 1% 2%;
@@ -428,10 +368,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #ffffff;
     padding: .5rem 1rem;
 }
@@ -443,10 +379,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #ffffff;
     text-align: left;
 }
@@ -463,10 +395,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -474,10 +402,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 12px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
 }
 
@@ -485,10 +409,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.36;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -501,10 +421,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #666666;
 }
 
@@ -512,10 +428,6 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -529,17 +441,13 @@ li.nav-item {
 }
 
 .recent-activity-content {
-    padding-left: 3rem;
+    padding-left: 0rem;
 }
 
 .view-more {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #30855c;
     cursor: pointer;
     height: fit-content;
@@ -562,8 +470,6 @@ li.nav-item {
     right: 0%;
     padding-bottom: 6rem;
 }
-
-
 /***************Images**********************/
 
 .edit-icon,
@@ -589,7 +495,86 @@ li.nav-item {
     cursor: auto !important;
 }
 
+.live-estate h2 {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
 
+.live-text{
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+.add-variety{
+    font-size: 14px;
+  font-weight: 600;
+  color: #747588;
+}
+::ng-deep .gridline-path-vertical {
+    display: none;
+}
+::ng-deep .ngx-charts {
+    height: 280px;
+}
+
+.chart-cont .nav-tabs .nav-link {
+    border: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    color: #232334;
+    flex: inherit;
+    padding-bottom: 6px;
+}
+
+.chart-cont .nav-tabs .nav-link.active {
+    border-bottom: 2px solid #30855c;
+    color: #30855c;
+    font-family: Muli;
+    font-weight: 600;
+}
+
+.border-total {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.legend-color {
+    width: 8px;
+    height: 8px;
+    background-color: #f19634;
+    border-radius: 50%;
+    display: inline-block;
+    top: -3px;
+    left: 3px;
+}
+
+.legend-color2 {
+    width: 8px;
+    height: 8px;
+    background-color: #7c6be8;
+    border-radius: 50%;
+    display: inline-block;
+    top: -3px;
+    left: 3px;
+}
+
+.chart-details {
+    padding: 2rem 1.5rem 0rem;
+    border: 1px solid #ebebeb;
+}
+.legend-text{
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: 500;
+    color: #232334;
+}
+ngx-charts-line-chart{overflow:auto}
 /********************* media query css  **************************/
 
 #have-a-problem-web {
@@ -600,9 +585,9 @@ li.nav-item {
     display: none;
 }
 
-.tab-right {
+/* .tab-right {
     padding-right: 1.5rem;
-}
+} */
 
 @media only screen and (max-width: 1024px) {
     .nav-pills .nav-link.active:before {
@@ -640,8 +625,6 @@ li.nav-item {
         overflow-x: auto;
     }
     .transit-maxwidth {
-        /* margin-left: 3rem;
-        margin-top: 1.5rem; */
         min-width: 700px;
         max-width: 1000px;
     }
@@ -700,6 +683,16 @@ li.nav-item {
         width: 100%;
         margin-bottom: 1rem;
     }
+    /*chart*/
+    #nav-tabContent .d-inline.col-sm-6{width:auto; float: left; padding-left: 0;}
+    #nav-tabContent .border-total{width: auto !important; margin-top: 1rem; clear: left; padding-left: 10px !important;    font-size: 14px;}
+    .nav-tabs.nav-fill a{font-size: 14px !important; padding-left:12px ; padding-right: 12px;}
+    .chart-details{padding-left: 12px; padding-right: 12px;}
+    #nav-tabContent{ padding-top: 10px !important;}
+    ngx-charts-line-chart{overflow: scroll;}
+    text{font-size: 12px;}
+    .legend-text{font-size: 12px;}
+     /*End chart*/
 }
 
 @media only screen and (max-width: 480px) {
@@ -745,7 +738,7 @@ li.nav-item {
 .bg-shipping {
     border-radius: 4px;
     border: solid 1px #ebebeb;
-    padding: 2.5rem;
+    padding: 2rem 1.5rem;
 }
 
 .buy-order {
@@ -761,6 +754,7 @@ li.nav-item {
     left: 0;
     right: 10%;
     bottom: 0px;
-    z-index: 99;
+    z-index: 10 !important;
     width: 23%;
+    transition: 0.8s ease-in-out;
 }

@@ -237,7 +237,6 @@
     display: none;
   }
 
-
   @media screen and (max-width: 425px) {
     hr{
       position: relative;
@@ -253,7 +252,7 @@
       margin-top: 0;
       border: 1px solid #30855c;
       border-radius: 4px;
-      width: 100%;
+      width: 50%;
       height: 46px;
       /* margin-left: 5%; */
     }
@@ -305,10 +304,18 @@
       display: block !important;
    
     }
+    .upload-div{
+      right: 0%;
+      margin-left: 0%;
+      text-align: center;
+    }
+    
   }
   @media screen and (max-width: 767px) {
     .button-div {
       float: left !important;
+      width: 100% !important;
+      display: block !important;
     }
     .certificate-details {
       height: 80px;
