@@ -16320,13 +16320,14 @@ li.b-cum {
     width: 31px;
 }
 
-.login-sec {
+
+/* .login-sec {
     background-image: url(../../assets/images/coffee_estate_bg.png);
     width: 100%;
     height: 100%;
     background-size: cover;
     position: fixed;
-}
+} */
 
 .blob:hover {
     background: transparent;
@@ -16400,9 +16401,7 @@ li.b-cum {
         background-image: url(../../assets/images/coffee_estate_bg.png);
         width: 100%;
         height: 100vh;
-        bottom: 0;
         background-size: 100%;
-        position: fixed;
         background-repeat: no-repeat;
         overflow: hidden;
     }
@@ -22265,10 +22264,12 @@ li.select-list__item {
     }
 }
 
-.login-sec {
-    background-size: cover !important;
-    position: fixed;
-    background-position: center !important;
+@media only screen and (min-width: 768px) {
+    .login-sec {
+        background-size: cover !important;
+        position: fixed;
+        background-position: center !important;
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -22276,16 +22277,14 @@ li.select-list__item {
         background-image: url(../../assets/images/coffee_estate_bg.png);
         width: 100%;
         height: 100vh;
-        bottom: 0;
         background-size: cover;
-        position: fixed;
         background-position: center;
         background-repeat: no-repeat;
         overflow: hidden;
     }
     .sewn-bg-logo {
-        min-height: 300px;
-        max-height: 300px;
+        min-height: 145px;
+        max-height: 145px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -22298,6 +22297,8 @@ li.select-list__item {
         height: 100%;
     }
     .login-box {
-        height: calc(100vh - 300px);
+        height: calc(100vh - 145px);
+        position: fixed !important;
+        bottom: 0 !important;
     }
 }

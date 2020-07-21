@@ -560,7 +560,7 @@ span.checkmark {
     cursor: pointer;
 }
 @media screen and (max-width: 1200px) and (min-width: 992px) {
-.sourcing-top-width{width:128% }
+/* .sourcing-top-width{width:128% } */
 .orgin-att {padding-right: 10px;padding-left: 10px}
 .s-cert li {width: 22px; margin-left: 9px; }
 }

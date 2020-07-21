@@ -87,10 +87,6 @@ input[type=number] {
     /* padding: 0% 10%; */
 }
 
-.spacing-bottom {
-    /* margin-top: 2.2rem; */
-}
-
 .submit-btn {
     height: 44px;
     border-radius: 4px;
@@ -103,10 +99,6 @@ input[type=number] {
 .submit-btn:hover {
     background-color: #30855c;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.form-container {
-    /* margin-bottom: 8rem; */
 }
 
 .role-name-mobile {
