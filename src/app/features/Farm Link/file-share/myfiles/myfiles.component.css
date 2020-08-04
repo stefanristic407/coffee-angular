@@ -2,14 +2,60 @@
     padding-left: 3.1rem;
 }
 
-table.dataTable thead .sorting_asc,
-table.dataTable thead .sorting,
-table.dataTable thead .sorting_desc {
-    background-image: unset !important;
+.border-lots {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 6px 4px;
+    margin-top: 0.7rem;
 }
 
+.table-container {
+    margin: 2% 4.5% 0 4.5%;
+}
+
+.table-header {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+table th,
+table td,
+.header-row {
+    border: none !important;
+}
+
+tr {
+    border-bottom: 1px dashed #d6d6d6;
+}
+
+tr:last-child {
+    border-bottom-style: none;
+    border-bottom-color: none;
+}
+
+.table .table-header th {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: bold;
+    color: #232334;
+    padding: 14px 15px;
+}
+
+.table td {
+    padding: 18px 15px;
+}
+
+.ticket-boby-txt {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: 600;
+    color: #232334;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+
 .estate-orders {
-    /* margin: 1rem 3.1rem; */
     position: relative;
 }
 
@@ -33,46 +79,9 @@ table.dataTable thead .sorting_desc {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
-.table thead th,
-
-/* table.dataTable.no-footer, */
-
-table.dataTable.row-border tbody th,
-table.dataTable.row-border tbody td,
-table.dataTable.display tbody th,
-table.dataTable.display tbody td {
-    border: none !important;
-}
-
 .orders-border {
     border-radius: 4px;
     border: solid 1px #d6d6d6 !important;
-}
-
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc_disabled:before {
-    display: none !important;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fff !important;
-}
-
-table.dataTable.hover tbody tr:hover,
-table.dataTable.display tbody tr:hover {
-    background-color: #fff !important;
-}
-
-table.dataTable.row-border tbody tr {
-    border-bottom: 1px solid red;
 }
 
 .estate-title {
@@ -85,10 +94,6 @@ table.dataTable.row-border tbody tr {
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -272,97 +277,6 @@ span.checkmark {
     }
 }
 
-
-/* The container */
-
-.bestate-check {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    margin-left: 1rem;
-}
-
-
-/* Hide the browser's default checkbox */
-
-.bestate-check input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-
-/* Create a custom checkbox */
-
-.estatecheckmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 17px;
-    width: 17px;
-    background-color: #fff;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
-.first_t {
-    top: -5px !important;
-}
-
-
-/* On mouse-over, add a grey background color */
-
-.bestate-check:hover input~.estatecheckmark {
-    background-color: #fff;
-}
-
-
-/* When the checkbox is checked, add a blue background */
-
-.bestate-check input:checked~.estatecheckmark {
-    background-color: #30855c;
-}
-
-
-/* Create the checkmark/indicator (hidden when not checked) */
-
-.estatecheckmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-
-/* Show the checkmark when checked */
-
-.bestate-check input:checked~.estatecheckmark:after {
-    display: block;
-}
-
-
-/* Style the checkmark/indicator */
-
-.bestate-check .estatecheckmark:after {
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: 1px solid #d6d6d6;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
 .create-role-section {
     padding: 0px 40px;
 }
@@ -370,14 +284,6 @@ span.checkmark {
 .spacing-order {
     padding: 1rem 0.6rem !important;
 }
-
-
-/* .estate-boby-txt tbody tr td .more-options {
-    background: url(../../../../assets/images/ellipses.png);
-    width: 20px;
-    height: 20px;
-} */
-
 .display_div {
     /* width: 100%; */
     position: absolute;
@@ -407,8 +313,9 @@ span.checkmark {
 }
 
 .dwnd-img {
-    width: 15px;
-    height: 15px;
+    width: 23px;
+    height: 23px;
+    object-fit: contain;
 }
 
 .share-bor {
@@ -429,12 +336,28 @@ span.checkmark {
     display: none;
 }
 
-::ng-deep .dwnd-img {
-    width: 22px;
-    height: 21px;
-    object-fit: contain;
+.checkmark {
+    top: 2px !important;
+    left: 8px !important;
+    height: 17px !important;
+    width: 17px !important;
 }
 
+.customcheckbox .checkmark:after {
+    left: 5px !important;
+    top: 1px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #30855c !important;
+}
 
 /*********************Tab Css **********************/
 
@@ -493,6 +416,26 @@ ul li {
     background: #f0f0f0;
     cursor: pointer;
     margin-right: 2px;
+}
+.create-share {
+    border-radius: 4px;
+    background-color: #30855c;
+    outline: 0;
+    border: 0;
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+.create-share:hover {
+    background-color: #30855c;
+    opacity: 1;
+}
+
+.create-share:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+    border: 0 !important;
+    background-color: #30855c !important;
 }
 
 .border-grade {
@@ -577,3 +520,12 @@ ul li {
         padding-bottom: 5px;
     }
 }
+
+@media (min-width: 576px){
+    ::ng-deep .modal-dialog {
+        max-width: 55% !important;
+    }
+    }
+    .customcheckbox{
+        bottom: 8px;
+    }

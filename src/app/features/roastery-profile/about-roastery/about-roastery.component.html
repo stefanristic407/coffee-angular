@@ -72,10 +72,10 @@
                           <input
                             class="form-control employee_nos rectangle"
                             id="employee_nos"
-                            type="text"
+                            type="number"
                             (keyup)="onKeyPress($event)"
                             name="employee_nos"
-                            [(ngModel)]="employee_nos"
+                            [(ngModel)]="roasteryProfileService.employee_nos"
                             placeholder="Please enter no. of employees"
                           />
                           <div class="employeeNoError" *ngIf="employeeNoError != ''">
@@ -89,10 +89,10 @@
                                 <input
                                   class="form-control rectangle employee_avg"
                                   id="employee_avg"
-                                  type="text"
+                                  type="number"
                                   (keyup)="onKeyPress($event)"
                                   name="employee_avg"
-                                  [(ngModel)]="employee_avg"
+                                  [(ngModel)]="roasteryProfileService.employee_avg"
                                   placeholder="Please enter employee avg. age"
                                 />
                                 <div class="employeeAvgError" *ngIf="employeeAvgError != ''">
@@ -108,10 +108,10 @@
                               <input
                                 class="form-control female_num rectangle"
                                 id="female_num"
-                                type="text"
+                                type="number"
                                 (keyup)="onKeyPress($event)"
                                 name="female_num"
-                                [(ngModel)]="female_num"
+                                [(ngModel)]="roasteryProfileService.female_num"
                                 placeholder="Please enter the number of female employees"
                               />
                               <div class="femaleNumError" *ngIf="femaleNumError != ''">
@@ -125,10 +125,10 @@
                                     <input
                                       class="form-control rectangle male_num"
                                       id="male_num"
-                                      type="text"
+                                      type="number"
                                       (keyup)="onKeyPress($event)"
                                       name="male_num"
-                                      [(ngModel)]="male_num"
+                                      [(ngModel)]="roasteryProfileService.male_num"
                                       placeholder="Please enter the number of male employees"
                                     />
                                     <div class="maleNumError" *ngIf="maleNumError != ''">
@@ -150,10 +150,10 @@
                                   <input
                                     class="form-control capacity rectangle"
                                     id="capacity"
-                                    type="text"
+                                    type="number"
                                     (keyup)="onKeyPress($event)"
                                     name="capacity"
-                                    [(ngModel)]="capacity"
+                                    [(ngModel)]="roasteryProfileService.capacity"
                                     placeholder="Enter capacity"
                                   />
                                   <div class="capacityError" *ngIf="capacityError != ''">
@@ -165,7 +165,7 @@
                                        <select  class="form-control kgs rectangle role_edit"
                                        id="kgs"
                                        name="kgs"
-                                       [(ngModel)]="kgs"> 
+                                       [(ngModel)]="roasteryProfileService.kgs"> 
                                            <option selected disabled value="">Kilograms</option>
                                            <option value="Tons">Tons</option>
                                            <option value="Kgs">Kgs</option>
@@ -188,7 +188,7 @@
                                           type="text"
                                           (keyup)="onKeyPress($event)"
                                           name="capabilities"
-                                          [(ngModel)]="capabilities"
+                                          [(ngModel)]="roasteryProfileService.capabilities"
                                           placeholder="Eg. Hand roasted, Blended, Mocha-Java"
                                         />
                                         <div class="capabilitiesError" *ngIf="capabilitiesError != ''">
@@ -200,13 +200,13 @@
 
                               <div class="row about-web" *ngIf="roasteryProfileService.editmode">
                                 <div class="col-lg-11 border-total">
-                                  <div class="col-lg-3 capabilitiesDiv">
+                                  <div class="col-lg-4 capabilitiesDiv">
                                     <label class="capacity-header">Roaster Capacity</label>
-                                    <p class="weight">230 Kg </p>
+                                    <p class="weight">{{roasteryProfileService.capacity}} Kgs </p>
                                   </div>
                                   <div class="col-lg-11 capabilitiesdescrDiv">
                                     <p class="capabilities_content">
-                                      We are know for our three main blends café blend, mocha java and black gold.
+                                        {{roasteryProfileService.capabilities}}
                                     </p>
                                   </div>
                                 </div>
@@ -214,10 +214,10 @@
 							  <div class="about-mobile d-flex border-capacity" *ngIf="roasteryProfileService.editmode">
 									<div class="capacity-text">
 										<label class="capacity-header">Roaster Capacity</label>
-										<h6 class="weight">230 Kg</h6>
+										<h6 class="weight">{{roasteryProfileService.capacity}} Kgs</h6>
 									</div>
 									<div class="capacity-text-1">
-										<h6 class="capabilities_content">We are know for our three main blends café blend, mocha java and black gold.</h6>
+										<h6 class="capabilities_content">{{roasteryProfileService.capabilities}}</h6>
 									</div>
 							  </div>
 
@@ -229,6 +229,13 @@
                               </div>
                               <div  *ngIf="roasteryProfileService.savemode">
                               <div class="row mt-3">
+                                <div class="form-group col-md-3">
+                                    <label for="brand_name">Brand Logo<span class="star">*</span></label>
+                                    <img src="assets/images/profile.svg" class="brand-pic">
+                                        <a class="show_modal"  >
+                                        <img src="assets/images/camera.svg" class="camera-pic">
+                                        </a>
+                                </div>
                                     <div class="form-group col-md-6">
                                       <label for="brand_name">Brand name<span class="star">*</span></label>
                                       <input
@@ -276,14 +283,19 @@
                                   </div>
                 </div>
 
-                <div class="border-capacity"  *ngIf="roasteryProfileService.editmode">
-                  <div class="row p-3">
-                    <p class="brand-title mt-3">
+                <div class="border-capacity web-border"  *ngIf="roasteryProfileService.editmode">
+                  <div class="row p-3 d-flex">
+                    <div class="col-lg-2 brand-image-div">
+                      <img src="assets/images/ft-roastry-profile.png" class="brand-image">
+                    </div>
+                    <div class="col-lg-10 brand-content-div">
+                    <p class="brand-title ">
                       Blue tokai
                     </p>
                     <p class="brand-content">
                         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna."
                     </p>
+                  </div>
                   </div>
                 </div>
 
@@ -315,13 +327,11 @@
                                                <select  class="form-control kgs rectangle role_edit"
                                                id="emp_name"
                                                name="emp_name"
-                                               [(ngModel)]="emp_name"> 
+                                               [(ngModel)]="roasteryProfileService.emp_name"
+                                               > 
                                                    <option selected disabled value="">Please select employee name</option>
-                                                   <option value="Satya">Satya</option>
-                                                   <option value="Vijay">Vijay</option>
-                                                   <option value="Sindhuja">Sindhuja</option>
-                                                   <option value="Ram">Ram</option>
-                                                   <option value="Varun">Varun</option>
+                                                   <option *ngFor="let data of roasteryProfileService.roasterUsers" value="{{data.id}}">{{data.firstname}} {{data.lastname}}</option>
+                                                
         
                                                </select>
                                                 <!-- <div class="empNameError" *ngIf="empNameError != ''">
@@ -342,14 +352,15 @@
                                                 <div class="employer mt-4 d-none d-md-block">
                                                     <h2>Contacts</h2>
                                                     <div class="row">
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2" *ngFor="let contact of roasteryProfileService.roasterContacts">
                                                             <div class="employ-profile">
                                                                 <div class="p-gal">
-                                                                    <img src="assets/images/gallery-1.jpg">
+                                                                    <img *ngIf="contact.profile_image_url == ''" src="assets/images/profile.svg">
+                                                                    <img *ngIf="contact.profile_image_url != ''" src="{{contact.profile_image_url}}">
                                                                 </div>
                                                                 <div class="profile-des">
-                                                                    <h4>Hannah morris</h4>
-                                                                    <h6>Cupping manager</h6>
+                                                                    <h4>{{contact.name | titlecase}}</h4>
+                                                                    <h6>{{contact.roles[0]}}</h6>
                                                                 </div>
                                                                 <div class="msg-chat mt-2">
                                                                     <img src="assets/images/message-icon.svg" class="d-inline-block">
@@ -357,7 +368,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
+                                                        <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
                                                             <div class="employ-profile">
                                                                 <div class="p-gal">
                                                                     <img src="assets/images/gallery-2.jpg">
@@ -386,7 +397,7 @@
                                                                     <p class="pl-1 d-inline-block">Message</p>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                                 </div>
@@ -510,20 +521,36 @@
                         <div class="header m-1">Employee details</div>
                         <div class="row">
                           <div class="form-group col-md-6 emp_count_div px-4 py-2 col-6 mb-0">
-                           <p class="emp_count mb-0">0</p>
+                           <p class="emp_count mb-0">{{roasteryProfileService.employee_nos}}</p>
                            <label class="emp_text">Total employees</label>
                           </div>
                         
                           <div class="form-group col-md-6 avg_count_div px-4 py-2 col-6 mb-0">
-                           <p class="avg_count mb-0">0</p>
+                           <p class="avg_count mb-0">{{roasteryProfileService.employee_avg}}</p>
                            <label class="emp_text">Average age</label>
                           </div>
                         </div>
                         <div class="row mt-3 ">
                             <div class="col-md-12 chart-div">
-                            <div class="oval text-center mx-auto">
+                            <div class="oval text-center mx-auto" *ngIf="this.roasteryProfileService.male_num == null && this.roasteryProfileService.female_num == null">
                                 <p class="note">No data to display</p>
                             </div>
+                            <div class=" text-center mx-auto pie-chart-div">
+                            <ngx-charts-pie-chart
+                            [view]="view"
+                            [scheme]="colorScheme"
+                            [results]="roasteryProfileService.single"
+                            [gradient]="gradient"
+                            [legend]="showLegend"
+                            [legendPosition]="legendPosition"
+                            [labels]="showLabels"
+                            [doughnut]="isDoughnut"
+                            (select)="onSelect($event)"
+                            (activate)="onActivate($event)"
+                            (deactivate)="onDeactivate($event)"
+                            >
+                          </ngx-charts-pie-chart>
+                          </div>
                         </div>
                         </div>
                       </div>

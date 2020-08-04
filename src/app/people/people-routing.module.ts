@@ -7,7 +7,7 @@ import { ManageRoleComponent } from './manage-role/manage-role.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PeopleComponent } from './people.component';
 import { UserManagementComponent } from './user-management/user-management.component';
-import {PDirectMessagingComponent} from './p-direct-messaging/p-direct-messaging.component'
+import {PDirectMessagingComponent} from './p-direct-messaging/p-direct-messaging.component';
 
 
 const routes: Routes = [{

@@ -64,12 +64,22 @@ export class FDirectMessagingComponent implements OnInit {
         var foundItem = result.indexOf(SearchItem) !== -1;
   
         if (foundItem) {
-          itemVal.style.display  = "block";
-        }
-  
-        else {
-          itemVal.style.display = "none";
-        }
+					$("." + result).css('display', 'block');
+					$(".chat-profile__time" ).css('display', 'none');
+					$(".chat-messaged" ).css('display', 'none');
+				}
+				
+				else {
+					$("." + result).css('display', 'none');
+					// $(".chat-profile__time" ).css('display', 'inline-block');
+					// $(".chat-messaged" ).css('display', 'inline-block');
+				}
+
+				if($(this).val() == 0){
+					$(".chat-profile__time" ).css('display', 'inline-block');
+					$(".chat-messaged" ).css('display', 'inline-block');
+					
+				}
       }
   
     });

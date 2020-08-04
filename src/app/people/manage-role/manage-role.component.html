@@ -63,7 +63,7 @@
                                                 <span class="checkmark head-check"></span>
                                             </label>
                     </th>
-                    <td>{{ this.getRandomInt(11) }}</td>
+                    <td>{{data.user_count}}</td>
                     <td>{{data.name}}</td>
                     <td>
                         <span class="show_btns">
@@ -198,7 +198,7 @@
         <li>
             <div class="salemark">
                 <h4>{{role.name}}</h4>
-                <p> {{ this.getRandomInt(11) }} members </p>
+                <p> {{role.user_count}} members </p>
             </div>
         </li>
         <li> <img src="assets/images/role-grey.svg" alt="Dashboard" (click)="members()"></li>

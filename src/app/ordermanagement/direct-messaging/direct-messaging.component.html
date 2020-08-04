@@ -1,3 +1,4 @@
+
 <section>
     <!-- <div class="imageFile"></div> -->
     <!--Chat Main screen with accounts-->
@@ -50,8 +51,8 @@
                                 </div>
                                 <div class="chat-profile clearfix">
                                     <div class="chat-profile__name chat-img-name d-inline-block">
-                                        <h5 class="name">Umesh</h5>
-                                        <span class="status">Coffee Estate</span>
+                                        <h5 class="name">{{activeThreadName}}</h5>
+                                        <!-- <span class="status">Coffee Estate</span> -->
                                         <span class="status last-seen">Last Seen today at 4:30pm </span>
                                     </div>
                                 </div>
@@ -78,7 +79,32 @@
 
                         <!--Live Chats are going here-->
                         <div class="live-chat-message-body position-relative">
+                            <span *ngFor = "let message of threadsMessageData[activeThread]">
+                                <span *ngIf = "message.activity_type == 'M'" >
+                                    <div class="message-to live-chat-message-body__text" *ngIf = "message.currentUser == message.member.id">
+                                        <div class="message-body">
+                                            <div class="message-to__text "><span>{{message.content}}</span></div>
+                                        </div>
+                                        <p class="live-time">{{getReadableTime(message.created_at)}}</p>
+                                    </div>
 
+                                    <div class="message-to live-chat-message-body__text" *ngIf = "message.currentUser == -1">
+                                        <div class="message-body">
+                                            <div class="message-to__text "><span>{{message.content}}</span></div>
+                                        </div>
+                                        <p class="live-time">{{getReadableTime(message.created_at)}}</p>
+                                    </div>
+
+                                    <div class="message-from live-chat-message-body__text" *ngIf = "message.currentUser != message.member.id">
+                                        <div class="message-body-from">
+                                            <div class="message-to__from "><span>{{message.content}}</span></div>
+                                        </div>
+                                        <p class="live-time">{{getReadableTime(message.created_at)}}</p>
+                                    </div>
+                                    
+                                </span>
+                                <span class="done"></span>
+                            </span>
                         </div>
 
                         <!--Send Message div-->
@@ -100,7 +126,7 @@
                                     </label>
                                     <textarea type="text" rows="1" class="chat-inputs__text" placeholder="Type something.."></textarea>
                                     <div class="send-message">
-                                        <button type="button" class="send-message__btn">
+                                        <button type="button" class="send-message__btn" (click) = "sendMessage()">
 
                                             <img src="assets/images/dm-send2.svg">
                                         </button>
@@ -108,7 +134,7 @@
 
                                 </div>
                                 <div class="send-message">
-                                    <button type="button" class="send-message__btn">
+                                    <button type="button" class="send-message__btn" (click) = "sendMessage()">
                                         <span>send</span>
                                         <img src="assets/images/dm-send.svg">
                                     </button>
@@ -174,36 +200,58 @@
                     <!--All accounts body with search-->
                     <div class="chat-accounts__body active">
                         <div class="search-account">
-                            <img src="assets/images/dm-search.svg">
-                            <input class="search-account__input pt-1" type="search" placeholder="Search Messages">
+                            <!-- <input class="search-account__input pt-1" id="searchResult" type="search" placeholder="Search Messages"> -->
+                            <div class="ng-autocomplete" width= "40px">
+                                <ng-autocomplete [data]="searchResult" 
+                                    [searchKeyword]="keyword" 
+                                    (selected)='selectEvent($event)'
+                                    (inputChanged)='onChangeSearch($event)' 
+                                    (inputFocused)='onFocused($event)' 
+                                    [itemTemplate]="itemTemplate"
+                                    [notFoundTemplate]="notFoundTemplate"
+                                    placeholder="Search name or email">
+                                    <img src="assets/images/dm-search.svg">
+                                </ng-autocomplete>
+                            
+                                <ng-template #itemTemplate let-item>
+                                    <a href="javascript:void(0)">
+                                        <span [innerHTML]="item.firstname"></span>  
+                                        <span [innerHTML]="item.lastname"></span>
+                                    </a>
+                                </ng-template>
+                            
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                            </div>
                         </div>
 
                         <div class="chat-accounts__name">
 
                             <!--Account-->
-                            <div class="clearfix account umesh">
+                            <div class="clearfix account {{data.name}}" (click) = "getChatHistory(data.id, data)" *ngFor = "let data of threadsData">
                                 <div class="d-inline-block profile-pic chat-img-name">
                                     <img class="profile-pic__item" src="assets/images/dm-profile.png">
                                     <span class="live-account"></span>
                                 </div>
                                 <div class="chat-profile clearfix">
                                     <div class="chat-profile__name d-inline-block">
-                                        <h5 class="name">Umesh</h5>
-                                        <span class="status">Coffee Estate</span>
+                                        <h5 class="name">{{data.name}}</h5>
+                                        <!-- <span class="status">Coffee Estate</span> -->
                                     </div>
-                                    <div class="chat-profile__time d-inline-block">
+                                    <!-- <div class="chat-profile__time d-inline-block">
                                         <span>2.30</span><span>am</span>
                                     </div>
                                     <div class="chat-messaged">
                                         <p class="chat-messaged__text">The coffee has been graded and sent to..
                                         </p>
                                         <span class="chat-messaged__total">2</span>
-                                    </div>
+                                    </div> -->
 
                                 </div>
                             </div>
 
-                            <!--Account-->
+                            <!-- Account
                             <div class="clearfix account vijay">
                                 <div class="d-inline-block profile-pic chat-img-name">
                                     <img class="profile-pic__item" src="assets/images/dm-profile.png">
@@ -224,10 +272,10 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!--Account-->
-                            <div class="clearfix account dinesh">
+                            <!-- <div class="clearfix account dinesh">
                                 <div class="d-inline-block profile-pic chat-img-name">
                                     <img class="profile-pic__item" src="assets/images/dm-profile.png">
                                     <span class="offline-account"></span>
@@ -247,7 +295,7 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>

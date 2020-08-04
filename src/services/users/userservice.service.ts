@@ -200,6 +200,14 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data);
   }
 
+  searchUser(key: string){
+    var data = {};
+    data['api_call'] = "/users/user-list?query="+key;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.roasterUrl, data);
+  }
+
   //API Function Name : Roaster User Last Login
   //API Description: This API calls helps to get the logged in user last login details.
   userLastlogin() {
@@ -255,9 +263,9 @@ export class UserserviceService {
       //API Function Name : Certificates 
   //API Description: This API call helps to get the Certificates.
 
-  getCertificates(roaster_id : any) {
+  getCertificates(roaster_id : any, userId : any) {
     var data = {};
-    data["api_call"] = "/ro/" + roaster_id + "/certificates";
+    data["api_call"] = "/ro/" + roaster_id + "/users/" + userId +"/certificates";
     data["method"] = "GET";
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterUrl, data);
@@ -266,9 +274,9 @@ export class UserserviceService {
        //API Function Name : Certificates 
   //API Description: This API call helps to get the Certificates.
 
-  deleteCertificate(roaster_id : any,certificateId : any) {
+  deleteCertificate(roaster_id : any,userId : any,certificateId : any) {
     var data = {};
-    data["api_call"] = "/ro/" + roaster_id + "/certificates/"+ certificateId;
+    data["api_call"] = "/ro/" + roaster_id + "/users/" + userId +"/certificates/"+ certificateId;
     data["method"] = "DELETE";
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterDeleteUrl, data);
@@ -307,6 +315,29 @@ export class UserserviceService {
     data["data"] = body;
     return this.http.post(this.roasterUrl, data);
   }
+
+       //API Function Name : Certificates 
+  //API Description: This API call helps to get the Certificates.
+
+  getCompanyCertificates(roaster_id : any) {
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id +"/certificates";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl, data);
+  }
+
+       //API Function Name : Certificates 
+  //API Description: This API call helps to get the Certificates.
+
+  deleteCompanyCertificate(roaster_id : any,certificateId : any) {
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/certificates/"+ certificateId;
+    data["method"] = "DELETE";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterDeleteUrl, data);
+  }
+
   
   
 

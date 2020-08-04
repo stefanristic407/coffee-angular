@@ -306,6 +306,11 @@ hr {
 .pointer-item {
   cursor: pointer;
 }
+.camera-pic{
+  position: relative;
+  top: 20%;
+  right: 15%;
+}
 
 @media screen and (max-width: 991px) {
   .mob-view{
@@ -425,9 +430,36 @@ hr {
 .chart-div{
   padding: 1rem ;
 }
+.camera-pic{
+  right: 7%;
+}
+.web-border{
+  border: none !important;
+  padding-left: 0rem !important;
+  padding-right: 0rem !important;
+}
+.brand-image{
+  margin-top: 5% ;
+  height: 72px !important;
+  width: 72px !important;
+}
+.brand-image-div{
+  width: 25%;
+  padding-left: 0% !important;
+}
+.brand-content-div{
+  width: 75%;
+  padding-left: 0% !important;
+  padding-right: 0% !important;
+}
 
 }
 
+.brand-image{
+  height: 90px;
+  width: 90px;
+  border-radius: 100%;
+}
 .brand-title{
   font-size: 16px;
   font-weight: bold;
@@ -482,4 +514,23 @@ hr {
   font-size: 14px;
   font-weight: 500;
   color: #232334;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  display: none;
+}
+.pie-chart-div{
+  padding-left: 2rem;
+}
+
+@media screen and (max-width:375px){
+.pie-chart-div{
+  padding-left: 0rem;
+}
+}
+.web-border{
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

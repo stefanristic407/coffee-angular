@@ -565,7 +565,7 @@ span.checkmark {
 .s-cert li {width: 22px; margin-left: 9px; }
 }
 @media (max-width:991px) {
-    .source-cont {padding: 28px;}
+    .source-cont {padding: 10px;}
     .orgin-att label,.orgin-att h6,.top-lots label,.top-lots a {font-size: 12px;}
     .s-details {padding: 15px;}
     .source-lets {padding-bottom: 20px; padding-top: 12px;}

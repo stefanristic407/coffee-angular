@@ -545,7 +545,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 			console.log(tDate.getTime());
 			console.log(fDate.getTime());
 			this.showDateRange = fDateString + " - " + tDateString;
-			
+      this.calendar.overlayVisible=false;
 
 
 			$.fn.dataTable.ext.search.push(

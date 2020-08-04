@@ -45,9 +45,9 @@ export class ManageRoleComponent implements OnInit {
     this.loadroles();
   }
 
-  getRandomInt(max: any) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
+  // getRandomInt(max: any) {
+  //   return Math.floor(Math.random() * Math.floor(max));
+  // }
 
 
   // Function Name : CheckAll
@@ -67,41 +67,43 @@ export class ManageRoleComponent implements OnInit {
   loadroles() {
     var roasterServices = this.roasterService;
     var roasterId = this.roaster_id;
+    console.log(roasterId);
     //var userRoles = [];
     roasterServices.getRoles(roasterId).subscribe(
       result => {
+        console.log(result);
         if (result["success"] == true) {
           var list = result['result'];
-          for(var i = 0; i < list.length; i++){
-            this.userRoles[list[i]['name']]  =  0;
+          for (var i = 0; i < list.length; i++) {
+            this.userRoles[list[i]['name']] = 0;
           }
-          for(var i = 0; i < list.length; i++){
+          for (var i = 0; i < list.length; i++) {
             list[i]['team_size'] = this.userRoles[list[i]['name']];
             this.sizes[i] = list[i];
           }
         }
       }
     );
-    this.getRoleCount(this.roaster_id);
+    // this.getRoleCount(this.roaster_id);
   }
 
-  getRoleCount(roasterId: any){
-    this.roasterService.getRoasterUsers(roasterId).subscribe(
-      roasterUsers => {
-        roasterUsers['result'].forEach(element => {
-          var userId = element['id'];
-          this.roasterService.getUserBasedRoles(roasterId, userId).subscribe(
-            userRoleDetails => {
-              for(var j = 0 ; j < userRoleDetails['result'].length; j++){
-                this.userRoles[userRoleDetails['result'][j]['name']]++;
-              }
-            }
-          );
-        });
-      }
-    );
-    console.log(this.userRoles);
-  }
+  // getRoleCount(roasterId: any) {
+  //   this.roasterService.getRoasterUsers(roasterId).subscribe(
+  //     roasterUsers => {
+  //       roasterUsers['result'].forEach(element => {
+  //         var userId = element['id'];
+  //         this.roasterService.getUserBasedRoles(roasterId, userId).subscribe(
+  //           userRoleDetails => {
+  //             for (var j = 0; j < userRoleDetails['result'].length; j++) {
+  //               this.userRoles[userRoleDetails['result'][j]['name']]++;
+  //             }
+  //           }
+  //         );
+  //       });
+  //     }
+  //   );
+  //   console.log(this.userRoles);
+  // }
 
   // Function Name : Delete Role
   // Description: This function helps to Delete the role of the user. 
@@ -154,7 +156,7 @@ export class ManageRoleComponent implements OnInit {
     this.router.navigate(['/people/user-management'], navigationExtras);
 
   }
-  members(){
+  members() {
     this.router.navigate(["/people/add-members"]);
   }
 }

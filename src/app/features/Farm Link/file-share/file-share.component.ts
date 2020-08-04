@@ -1,4 +1,12 @@
 import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { FileShareService } from './file-share.service';
+import { MyfilesComponent } from './myfiles/myfiles.component';
+import { Router } from '@angular/router';
+import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-file-share',
@@ -6,8 +14,28 @@ import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
   styleUrls: ['./file-share.component.css']
 })
 export class FileShareComponent implements OnInit {
+folder_name : string;
+folder_descr : string;
+invite : any = "Invite people";
+folderNameError: string;
+descriptionError: string;
+  roasterId: string;
+  pinnedData: any = [];
+  files: any;
+  fileEvent: any;
+  fileName: any;
 
-  constructor() { }
+  constructor( public router : Router,
+               public dashboard : DashboardserviceService, 
+               public toastrService : ToastrService,
+               private cookieService : CookieService,
+               private roasterService : RoasterserviceService,
+               public fileService : FileShareService,
+               public modalService:BsModalService) { 
+    this.folderNameError = "";
+    this.descriptionError = "";
+    this.roasterId = this.cookieService.get('roaster_id');
+  }
 
   ngOnInit(): void {
 
@@ -339,17 +367,82 @@ export class FileShareComponent implements OnInit {
   });
 
  
-  
-  
+ 
+  this.getPinnedFilesorFolders();
 
 
  
   }
 
   
+  getPinnedFilesorFolders(){
+    this.roasterService.getPinnedFilesandFolders(this.roasterId).subscribe(
+      data => {
+        if(data['success']==true){
+          console.log(data);
+          this.fileService.pinnedData = data['result'];
+        }else{
+          this.toastrService.error("Error while getting the pinned files/folders");
+        }
+      }
+    )
+  }
+  
+  unpinFileorFolder(id:any){
+    if (confirm("Please confirm! you want to unpin?") == true) {
+    this.roasterService.unpinFileorFolder(this.roasterId,id).subscribe(
+      data => {
+        if(data['success']==true){
+          this.toastrService.success("The Selected file is unpinned successfully");
+          setTimeout(()=>{
+            this.getPinnedFilesorFolders();
 
+          },2500);
+        }
+        else{
+          this.toastrService.error("Error while unpinning the File");
+        }
+      }
+    )
+    }
+  }
 
-
+  myFileUpload(event:any){
+    this.files = event.target.files;
+    this.fileEvent = this.files;
+    console.log(this.fileEvent);
+    this.fileName = this.files[0].name;
+    let fileList: FileList = this.fileEvent;
+    // var parent_id = 0;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append("file", file, file.name);
+      formData.append('name',this.fileName);
+      formData.append('file_module','File-Share');
+      formData.append('parent_id','0');
+      this.roasterId = this.cookieService.get("roaster_id");
+      formData.append(
+        "api_call",
+        "/ro/" + this.roasterId + "/file-manager/files"
+      );
+      formData.append("token", this.cookieService.get("Auth"));
+      this.roasterService.uploadFiles(formData).subscribe(
+        result =>{
+          if(result['success']==true){
+            this.toastrService.success("The file "+this.fileName+" uploaded successfully");
+             // Calling the Grade info component by creating object of the component and accessing its methods
+             setTimeout(()=>{
+              let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
+            callFileandFolders.getFilesandFolders();
+            },7000);
+          }else{
+            this.toastrService.error("Error while uploading the file");
+          }
+        }
+      )
+    }
+  }
  
 
 
@@ -374,6 +467,87 @@ export class FileShareComponent implements OnInit {
     PrivewPopup.classList.remove('active');
     document.body.classList.remove('popup-open');
     PrivewPopup.querySelector('.priview-popup-fileshare__img').classList.remove('active')
+  }
+
+  createFolder(){
+    if (
+      this.folder_name == "" ||
+      this.folder_name == null ||
+      this.folder_name == undefined
+    ) {
+      this.folderNameError = "Please enter your password";
+      document.getElementById("folder_name").style.border =
+        "1px solid #D50000 ";
+      setTimeout(() => {
+        this.folderNameError = "";
+      }, 3000);
+    } 
+    else if (
+      this.folder_descr == "" ||
+      this.folder_descr == null ||
+      this.folder_descr == undefined
+    ) {
+      this.descriptionError = "Please enter your password";
+      document.getElementById("folder_descr").style.border = "1px solid #D50000 ";
+      setTimeout(() => {
+        this.descriptionError = "";
+      }, 3000);
+    } 
+    else{
+      var data = {
+        "name": this.folder_name,
+        "description": this.folder_descr,
+        "file_module": "File-Share"
+      }
+
+      this.roasterService.createFolder(this.roasterId,data).subscribe(
+        data => {
+          console.log(data);
+          if(data['success']==true){
+            if(this.invite == "Invite people"){
+
+            }
+            else{
+              console.log(data);
+               // Calling the Grade info component by creating object of the component and accessing its methods
+              setTimeout(()=>{
+                let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
+              callFileandFolders.getFilesandFolders();
+              },5000);
+              
+              this.toastrService.success("New folder "+this.folder_name+" has been created.");
+
+              this.folder_name = '';
+              this.folder_descr = '';
+              this.invite = "Invite people";
+              $('.custom-radio input[type="radio"]').on('change', function () {
+                var $this = $(this);
+                var $value = $(this).val();
+          
+                if ($this.is(':checked')) {
+                  $(this).parents('.custom-radio-container').find('.custom-radio').removeClass('active')
+                  $(this).parents('.custom-radio').addClass('active');
+          
+                  if ($value == 'Only me') {
+                    $(this).parents('#createfolder').find('.invite-to').slideUp();
+                  }
+          
+                  else {
+                    $(this).parents('#createfolder').find('.invite-to').slideDown();
+                  }
+                }
+          
+          
+              });
+            }
+          }
+          else{
+            this.toastrService.error("Error while creating Folder.");
+          }
+        }
+      )
+
+    }
   }
 
 }

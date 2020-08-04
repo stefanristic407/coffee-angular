@@ -206,7 +206,7 @@ export class HorecaComponent implements OnInit {
 			console.log(tDate.getTime());
 			console.log(fDate.getTime());
 			this.showDateRange = fDateString + " - " + tDateString;
-			
+			this.calendar.overlayVisible=false;
 
 
 			$.fn.dataTable.ext.search.push(

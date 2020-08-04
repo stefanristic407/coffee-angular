@@ -1,6 +1,63 @@
 <div class="estate-table web-farm pt-md-3">
-    <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
-    </table>
+    <div class="table-responsive border-lots">
+            <table class="table">
+                <thead class="table-header">
+                    <tr class="header-row">
+                        <th>
+                            <label class="customcheckbox m-b-20">
+                                <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                                (change)="checkAll($event)"/>
+                                <span class="checkmark head-check"></span>
+                            </label>
+                        </th>
+                        <th>Files</th>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Modified</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="customtable">
+                    <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:fileService.filesTerm">
+                        <td>
+                            <label class="customcheckbox" (click)="shareDetails(item);">
+                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                <span class="checkmark head-check"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <span *ngIf="item.type=='Folder'"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.files }}</span>
+                            <span *ngIf="item.type=='Document'"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.files }}</span>
+                            <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.files }}</span>
+                            <span *ngIf="item.type=='mp4'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.files }}</span>
+                        </td>
+                        <td>{{ item.orderid }}</td>
+                        <td>{{ item.modified }}
+                        </td>
+                        <td>{{item.owner}}</td>
+                        <td>{{item.type}}</td>
+                        <td>
+                            <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                            </a>
+                            <ng-template #poplistTemplate id="{{item.id}}">
+                                <div id="popover-mobile-content">
+                                    <ul class="list-group custom-popover">
+                                        <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
 </div>
 
 <div class="estate-table mobile-farm pt-md-3">
@@ -13,13 +70,13 @@
                         <div class="filter-sort clearfix align-items-center w-100">
                             <div class="d-inline border-grade date-div w-date col-sm-6 mr-2 float-left">
                                 <p class="d-inline filter-text">Date range &nbsp;
-                                    <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
+                                    <!-- <span *ngIf="showDateRange != ''">{{showDateRange}}</span> -->
                                 </p>
 
                                 <a class="pointer-item">
                                     <p class="d-inline filter">
-                                        <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
-                                        &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
+                                        <p-calendar #calendar styleClass="only-icon" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" ></p-calendar>
+                                        &nbsp; <img src="assets/images/active-calender.png" alt="">
                                         <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                     </p-calendar> -->
                                     </p>

@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { webSocket, WebSocketSubject, WebSocketSubjectConfig } from 'rxjs/webSocket';
+import { CookieService } from 'ngx-cookie-service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service'
+import { environment } from 'src/environments/environment';
+
 
 import { ToastrService } from 'ngx-toastr';
 declare var $: any;
@@ -15,24 +21,239 @@ export class DirectMessagingComponent implements OnInit {
 	fileValue: any;
 	modalRef: BsModalRef;
 	valurl: any = '';
+	roaster_id: any;
+	subject: any; // Real time messaging variable
+	wsURL: any;
+	threadsData: any;
+	threadsMessageData: any;
+	activeThread: any;
+	currentUser: any;
+	activeThreadName: any;
+	threadCurrentUser: any;
+	searchText: any;
+	searchResult: any;
+	keyword: string;
+	constructor(
+		private modalService: BsModalService,
+		private toastrService: ToastrService,
+		private cookieService: CookieService,
+		private userSevice: UserserviceService,
+		private roasterService: RoasterserviceService
+	) {
+		this.keyword = 'firstname'
+		this.wsURL = environment.wsEndpoint;
+		this.roaster_id = this.cookieService.get("roaster_id");
+		this.subject = webSocket(`${this.wsURL}/ro/${this.roaster_id}/messaging`);
+		console.log(this.subject);
+		this.currentUser = "";
+		this.threadsMessageData = {};
+		var authCheck = {};
+		this.threadCurrentUser = "";
+		authCheck['timestamp'] = this.getTimestamp();
+		authCheck['type'] = "auth";
+		authCheck['data'] = {};
+		authCheck['data']['user_token'] = this.cookieService.get("Auth");
+		this.subject.next(authCheck);
+		this.subject.subscribe(
+			msg => {
+				console.log('message received: ')
+				console.log(msg);
+				if (msg['type'] == "history") {
+					if (msg['data'] != null) {
+						var currentUser = this.threadsMessageData[this.activeThread]['currentUser'];
+						this.threadCurrentUser = this.threadsMessageData[this.activeThread]['currentUser'];
+						this.threadsMessageData[this.activeThread] = [];
+						var temp = [];
+						temp = msg['data'].reverse();
+						temp.forEach(element => {
+							element['currentUser'] = currentUser;
+							this.threadsMessageData[this.activeThread].push(element);
+						});
+					}
+					var allMessages = $('.live-chat-message-body');
+					allMessages.scrollTop = allMessages.scrollHeight;
+				} else if (msg['type'] == "threads") {
+					//Get all threads for logged in user
+					//console.log("Messages Threads");
+					this.threadsData = [];
+					if (msg['data'] != null) {
+						msg['data'].forEach(element => {
+							var nameCheck = element.name;
+							if(nameCheck.indexOf("D:") != -1){
+								var firstArray = nameCheck.split(":");
+								var usersArray = firstArray[1].split("-");
+								usersArray.forEach(userElement => {
+									var userDetails = userElement.split("|");
+									if(userDetails[0] != this.cookieService.get('user_id')){
+										element['name'] = userDetails[1];
+									}
+								});
+								this.threadsData.push(element);
+								this.threadsMessageData[element['id']] = {};
+								this.threadsMessageData[element['id']]['messages'] = {};
+								element['members'].forEach(memberElement => {
+									if (memberElement['user']['user_id'] == this.cookieService.get('user_id')) {
+										this.threadsMessageData[element['id']]['currentUser'] = memberElement['id'];
+									}
+								});
+							}
+						});
+					} else {
+						this.threadsData = null;
+					}
+				} else if(msg['type'] == 'new-thread'){
+					var nameCheck = msg['data']['name'];
+					if(nameCheck.indexOf("D:") != -1){
+						var firstArray = nameCheck.split(":");
+						var usersArray = firstArray[1].split("-");
+						usersArray.forEach(userElement => {
+							var userDetails = userElement.split("|");
+							if(userDetails[0] != this.cookieService.get('user_id')){
+								msg['data']['name'] = userDetails[1];
+							}
+						});
+						this.threadsData.push(msg['data']);
+						this.threadsMessageData[msg['data']['id']] = {};
+						this.threadsMessageData[msg['data']['id']]['messages'] = {};
+						this.threadsMessageData[msg['data']['id']]['currentUser'] = -1;
+						this.threadCurrentUser = -1;
+					}
+				} else if (msg['type'] == 'message') {
+					if (msg['data'] != null) {
+						console.log(this.threadCurrentUser);
+						var currentThreadId = this.getThreadId(msg['data']['member']['id']);
+						msg['data']['currentUser'] = this.threadCurrentUser;
+						this.threadsMessageData[currentThreadId].push(msg['data']);
+					}
+					console.log("Message Data");
+					console.log(this.threadsMessageData);
+					var allMessages = $('.live-chat-message-body');
+					allMessages.scrollTop = allMessages.scrollHeight;
+				}
+			}, // Called whenever there is a message from the server.
+			err => {
+				console.log(err)
+			}, // Called if at any point WebSocket API signals some kind of error.
+			() => {
+				console.log('complete')
+			} // Called when connection is closed (for whatever reason).
+		);
 
-	constructor(private modalService: BsModalService,private toastrService: ToastrService) {}
+		//Getting All threads
+
+		var allThreadsInfo = {};
+		allThreadsInfo['type'] = "threads",
+			allThreadsInfo['timestamp'] = this.getTimestamp();
+		this.subject.next(allThreadsInfo);
+	}
 
 	@ViewChild('deletetemplate') private deletetemplate: any;
 	@ViewChild('reporttemplate') private reporttemplate: any;
 
-		openModal(template: TemplateRef<any>) {
-		  this.modalRef = this.modalService.show(template);
+	openModal(template: TemplateRef<any>) {
+		this.modalRef = this.modalService.show(template);
+	}
+
+	getChatHistory(id: any, threadData: any) {
+		this.activeThread = id;
+		this.activeThreadName = threadData.name;
+		var query = {
+			"type": "history",
+			"timestamp": this.getTimestamp(),
+			"data": { "thread_id": id }
+		};
+		this.subject.next(query);
+		$('.account').parents('.chat-box').find('.live-chat').toggleClass('active');
+		$('.account').parents('.chat-box').find('.chat-accounts__body').toggleClass('active');
+		var headerHeight = parseInt($("header").outerHeight());
+		var height1 = parseInt($('.chat-accounts__head').outerHeight());
+		var height2 = parseInt($('.live-caht__head').outerHeight());
+		var height3 = parseInt($('.messag-form').outerHeight());
+		var TotalHeight = height1 + height2 + height3 + headerHeight + 'px';
+		var Ht = "calc(100vh -" + " " + TotalHeight + ")";
+		$('.live-chat-message-body').css({
+			"height": Ht
+		});
+
+
+		if ($(window).width() < 767) {
+			TotalHeight = height1 + height2 + height3 + 'px';
+			Ht = "calc(100vh -" + " " + TotalHeight + ")";
+			$('.live-chat-message-body').css({
+				"height": Ht
+			})
+				;
+		}
+
+		if (!($('.chat').hasClass('expand-active'))) {
+			$('.chat-control__expand').show();
+		}
+		//event.stopImmediatePropagation();
+
+
+
 	}
 
 	ngOnInit(): void {
 	}
-	deleteChat(){
-	this.openModal(this.deletetemplate);
-	  }
-	  reportChat(){
-    this.openModal(this.reporttemplate);
-	  }
+	deleteChat() {
+		this.openModal(this.deletetemplate);
+	}
+	reportChat() {
+		this.openModal(this.reporttemplate);
+	}
+
+	getReadableTime(tTime: any) {
+		var date = new Date(tTime);
+		if (date.getHours() < 12) {
+			return date.getHours() + ":" + date.getMinutes() + " am";
+		} else if (date.getHours() == 12) {
+			return date.getHours() + ":" + date.getMinutes() + " pm";
+		} else {
+			return (date.getHours() - 12) + ":" + date.getMinutes() + " pm";
+		}
+
+	}
+
+	getThreadId(messageUser: any) {
+		var threadID = "";
+		this.threadsData.forEach(element => {
+			if(element.members == undefined){
+				threadID = this.activeThread;
+			} else {
+				element.members.forEach(elementMember => {
+					if (elementMember['id'] == messageUser) {
+						threadID = element['id'];
+					}
+				});
+			}
+			
+		});
+		return threadID;
+	}
+
+	// Send Messages
+	sendMessage() {
+		let messages = document.querySelector('.live-chat-message-body');
+		let HideWords = ['fuck', 'suck', 'slap', 'kick',]
+		// imageUploader();
+		var ChatText = $('.send-message__btn').parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val();
+		var ChatImg = $('.send-message__btn').parents('.live-chat').find('.files').val();
+		var sendMessageObject = {
+			"type": "message",
+			"data":
+			{
+				"thread_id": this.activeThread,
+				"content": ChatText
+			}
+			,
+			"timestamp": "2020-06-07 12:24:45.345"
+		}
+		$('.send-message__btn').parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val('');
+		this.subject.next(sendMessageObject);
+		var allMessages = $('.live-chat-message-body');
+		allMessages.scrollTop = allMessages.scrollHeight;
+	}
 
 	ngAfterViewInit() {
 		let messages = document.querySelector('.live-chat-message-body');
@@ -88,10 +309,22 @@ export class DirectMessagingComponent implements OnInit {
 
 				if (foundItem) {
 					$("." + result).css('display', 'block');
+					$(".chat-profile__time" ).css('display', 'none');
+					$(".chat-messaged" ).css('display', 'none');
 				}
+				
 				else {
 					$("." + result).css('display', 'none');
+					// $(".chat-profile__time" ).css('display', 'inline-block');
+					// $(".chat-messaged" ).css('display', 'inline-block');
 				}
+
+				if($(this).val() == 0){
+					$(".chat-profile__time" ).css('display', 'inline-block');
+					$(".chat-messaged" ).css('display', 'inline-block');
+					
+				}
+
 			}
 			event.stopImmediatePropagation();
 		});
@@ -102,7 +335,7 @@ export class DirectMessagingComponent implements OnInit {
 			$('.chat').addClass('open');
 			var headerHeight = parseInt($("header").outerHeight());
 			var ReponsiveHeight = headerHeight + "px"
-			
+
 			if ($(window).width() > 767) {
 				$('.chat').css({
 					"height": "calc(100vh -" + " " + ReponsiveHeight + ")",
@@ -113,6 +346,11 @@ export class DirectMessagingComponent implements OnInit {
 			event.stopImmediatePropagation();
 		});
 
+		$('.done').ready(function () {
+			var messages = $('.live-chat-message-body');
+			messages.scrollTop = messages.scrollHeight;
+		});
+
 
 
 		$('body').on('click', '.chat-control__close', function (event) {
@@ -121,97 +359,7 @@ export class DirectMessagingComponent implements OnInit {
 		});
 
 
-		// Send Messages
-		$('body').on('click', '.send-message__btn', function (event) {
-			
 
-		
-			// imageUploader();
-			var ChatText = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val();
-
-			var ChatImg = $(this).parents('.live-chat').find('.files').val();
-			
-			let strTime;
-			function formatAMPM(date) {
-				var hours = date.getHours();
-				var minutes = date.getMinutes();
-				var ampm = hours >= 12 ? 'pm' : 'am';
-				hours = hours % 12;
-				hours = hours ? hours : 12; // the hour '0' should be '12'
-				minutes = minutes < 10 ? '0' + minutes : minutes;
-				strTime = hours + ':' + minutes + ' ' + ampm;
-				console.log(strTime)
-			}
-
-			formatAMPM(new Date);
-			for (var i = 0; i <= HideWords.length; i++) {
-				// var found = ChatText.includes(HideWords[i]);
-				var RedText = ChatText.toLowerCase();
-				var found = RedText.indexOf(HideWords[i]) !== -1;
-
-				if (found) {
-					ChatText = "*********!";
-					$('.offensive-lang ').addClass('active');
-
-					setTimeout(function () {
-						$('.offensive-lang ').removeClass('active');
-					}, 8000);
-
-				}
-
-			}
-
-			if (ChatText !== '' && ChatImg !== '') {
-
-				var message = '<div class="message-to live-chat-message-body__text"><div class="message-body"><div>' + img + '</div><div class="message-to__text "><span>' + ChatText + '</span></div></div><p class="live-time">' + strTime + '</p></div>'
-				var mesbdy = $(this).parents('.live-chat').find('.live-chat-message-body').append(message)
-				var clrInput = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val('');
-
-				$('.live-chat .files').val('');
-				
-
-			}
-
-
-			else if ((ChatText !== '' && ChatImg == '')) {
-				var message = '<div class="message-to live-chat-message-body__text"><div class="message-body"><div class="message-to__text"><span>' + ChatText + '</span></div></div><p class="live-time">' + strTime + '</p></div>'
-				var mesbdy = $(this).parents('.live-chat').find('.live-chat-message-body').append(message)
-				var clrInput = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val('');
-
-			}
-
-			else if ((ChatText == '' && ChatImg !== '')) {
-
-				var message = '<div class="message-to live-chat-message-body__text"><div class="message-body"><div>' + img + '</div></div><p class="live-time">' + strTime + '</p></div>'
-				var mesbdy = $(this).parents('.live-chat').find('.live-chat-message-body').append(message)
-				var clrInput = $(this).parents('.live-chat').find('.chat-inputs').find('.chat-inputs__text').val('');
-
-				$('.live-chat .files').val('');
-				
-			}
-
-			else if ((ChatText == ' ')) {
-				alert("hi")
-			}
-
-			else {
-				return false;
-			}
-
-			$('.img-container').hide();
-			$('.img-container').find('img').remove();
-
-
-
-		
-			  var shouldScroll = messages.scrollTop + messages.clientHeight === messages.scrollHeight;
-			 
-			  // After getting your messages.
-			  if (!shouldScroll) {
-				scrollToBottom();
-			  }
-			event.stopImmediatePropagation();
-		});
 
 		// Back to account list
 		$('body').on('click', '.back-to-accounts', function (event) {
@@ -222,41 +370,9 @@ export class DirectMessagingComponent implements OnInit {
 			event.stopImmediatePropagation();
 		});
 
-
-		// Click on account to start chart
-		$('body').on('click', '.account', function (event) {
-			$(this).parents('.chat-box').find('.live-chat').toggleClass('active');
-			$(this).parents('.chat-box').find('.chat-accounts__body').toggleClass('active');
-			var headerHeight = parseInt($("header").outerHeight());
-			var height1 = parseInt($('.chat-accounts__head').outerHeight());
-			var height2 = parseInt($('.live-caht__head').outerHeight());
-			var height3 = parseInt($('.messag-form').outerHeight());
-			var TotalHeight = height1 + height2 + height3 + headerHeight + 'px';
-			var Ht = "calc(100vh -" + " " + TotalHeight + ")";
-			$('.live-chat-message-body').css({
-				"height": Ht
-			});
-
-
-			if ($(window).width() < 767) {
-				TotalHeight = height1 + height2 + height3 + 'px';
-				Ht = "calc(100vh -" + " " + TotalHeight + ")";
-				console.log(Ht)
-				$('.live-chat-message-body').css({
-					"height": Ht
-				})
-					;
-			}
-
-			if (!($('.chat').hasClass('expand-active'))) {
-				$('.chat-control__expand').show();
-			}
-			event.stopImmediatePropagation();
-		});
-
 		//Expand chat
 		$('body').on('click', '.chat-control__expand', function (event) {
-			
+
 			$(this).hide();
 			$(this).parents('.chat').find('.chat-body__expand').html('');
 			$(this).parents('.chat').toggleClass('expand-active');
@@ -277,13 +393,12 @@ export class DirectMessagingComponent implements OnInit {
 			$('.chat-box').css({
 				"height": "calc(100vh - 75px)"
 			})
-		
+
 
 
 			if ($(window).width() < 767) {
 				TotalHeight = height1 + height2 + height3 + headerHeight + 85 + 'px';
 				Ht = "calc(100vh -" + " " + TotalHeight + ")";
-				console.log(Ht)
 				$('.live-chat-message-body').css({
 					"height": Ht
 				})
@@ -296,7 +411,7 @@ export class DirectMessagingComponent implements OnInit {
 			messages = document.querySelector('.live-chat-message-body');
 			scrollToBottom();
 
-			
+
 
 			event.stopImmediatePropagation()
 		});
@@ -326,7 +441,6 @@ export class DirectMessagingComponent implements OnInit {
 			if ($(window).width() < 767) {
 				TotalHeight = height1 + height2 + height3 + headerHeight + 75 + 'px';
 				Ht = "calc(100vh -" + " " + TotalHeight + ")";
-				console.log(Ht)
 				$('.live-chat-message-body').css({
 					"height": Ht
 				})
@@ -391,15 +505,61 @@ export class DirectMessagingComponent implements OnInit {
 			}
 		});
 
-			
+
 		function scrollToBottom() {
 			messages.scrollTop = messages.scrollHeight;
-		  }
-		  
-		  scrollToBottom();
+		}
+
+		scrollToBottom();
 
 	}
 
-	
+	scrollToBottom() {
+		var messages = $('.live-chat-message-body');
+		messages.scrollTop = messages.scrollHeight;
+	}
+
+	//Autocomplete codes
+	selectEvent(item: any) {
+		// do something with selected item
+		var threadName = "D:" + this.cookieService.get('user_id') + "|" + this.cookieService.get('name');
+		threadName += "-" + item.id + "|" + item.firstname + " " + item.lastname;
+
+		var createThreadData = {};
+		createThreadData['type'] = "create";
+		createThreadData['data'] = {};
+		createThreadData['data']['name'] = threadName;
+		createThreadData['data']['members'] = [];
+		var userData = {};
+		userData['user_id'] = item['id'];
+		userData['org_type'] = item['organization_type'].toLowerCase();
+		userData['org_id'] = item['organization_id'];
+		createThreadData['data']['members'].push(userData);
+		createThreadData['timestamp'] = this.getTimestamp();
+		this.subject.next(createThreadData);
+	}
+
+	onChangeSearch(val: string) {
+		if (val.length > 2) {
+			this.userSevice.searchUser(val).subscribe(resultData => {
+				this.searchResult = resultData['result'];
+				console.log(this.searchResult);
+			})
+		}
+		// fetch remote data from here
+		// And reassign the 'data' which is binded to 'data' property.
+	}
+
+	onFocused(e: any) {
+		//console.log(e);
+		// do something when input is focused
+	}
+
+	getTimestamp() {
+		var date = new Date();
+		var utcDateTime = date.getUTCDate() + "-" + date.getMonth() + "-" + date.getUTCFullYear();
+		utcDateTime += " " + date.getUTCHours() + ":" + date.getUTCMinutes() + ":" + date.getUTCSeconds() + "." + date.getUTCMilliseconds();
+		return utcDateTime;
+	}
 
 }

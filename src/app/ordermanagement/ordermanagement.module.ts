@@ -47,6 +47,7 @@ import { BookOrderChatComponent } from './order-booked/book-order-chat/book-orde
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { OrdersComponent } from './myorders/orders/orders.component';
 import { RequestsComponent } from './myorders/requests/requests.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 
@@ -101,6 +102,7 @@ import { RequestsComponent } from './myorders/requests/requests.component';
     ModalModule,
     MatBottomSheetModule,
     NgxChartsModule,
+    AutocompleteLibModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ],

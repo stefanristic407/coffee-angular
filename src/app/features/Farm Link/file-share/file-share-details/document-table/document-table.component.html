@@ -1,18 +1,99 @@
 <div class="estate-table web-farm pt-md-3">
-    <table class="estate-boby-txt " datatable [dtOptions]="dtOptions">
-    </table>
+    <!-- <table class="estate-boby-txt " datatable [dtOptions]="dtOptions">
+    </table> -->
+    <div class="table-responsive border-lots">
+        <table class="table">
+            <thead class="table-header">
+                <tr class="header-row">
+                    <th>
+                        <label class="customcheckbox m-b-20" >
+                            <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                            (change)="checkAll($event)"/>
+                            <span class="checkmark head-check"></span>
+                        </label>
+                    </th>
+                    <th>Files</th>
+                    <th scope="col">Modified</th>
+                    <th scope="col">Type</th>
+                    <th ></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="customtable">
+                <tr class="ticket-boby-txt" *ngFor="let item of mainData  | filter:fileService.filterTerm">
+                    <td>
+                        <label class="customcheckbox"  *ngIf="item.type == 'FOLDER'"  (click)="shareDetails(item)">
+                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                            <span class="checkmark head-check"></span>
+                        </label>
+                        <label class="customcheckbox"  *ngIf="item.type != 'FOLDER'" >
+                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                <span class="checkmark head-check"></span>
+                            </label>
+                    </td>
+                    <td>
+                        <span *ngIf="item.type=='FOLDER'"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.name }}</span>
+                        <span *ngIf="item.type=='DOCUMENT'"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
+                        <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.name }}</span>
+                        <span *ngIf="item.type=='VIDEO'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                        <span *ngIf="item.type=='IMAGE'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                    </td>
+                    
+                    <td>{{ item.updated_at | date:'d/MM/y, h:mm a'  }}
+                    </td>
+                    <td>{{item.type | titlecase }}</td>
+                    <td><span class="share-bor video-share mr-3">  <img class="share-img" src="assets/images/share-img.png" alt="farm"> <span class="share-txt"> Share </span> </span></td>
+                    <td>
+                        <a class="menu-arrow" [popover]="documentTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                            <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                        </a>
+                        <ng-template #documentTemplate id="{{item.id}}">
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id);pop.hide();">Rename</a></li>
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop.hide();">Rename</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide();deleteFolder(item.id);">Delete</a></li>
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="pop.hide();deleteFile(item.id);">Delete</a></li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <div class="estate-table mobile-farm">
     <div class="pagination-content ">
         <div class="cardpanel-detail mobile-farm">
             <div class=" mobile-ce vide-tble pagination-content-list">
-                <div class="col-6 bor-coffe pagination-content-list__item">
-                    <p><span> <img class="" src="assets/images/file-fld.png" alt="upload-icon"> </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                    <p class="black fnt-14"> P 60 Drum Roaster </p>
-                    <p class="fnt-12 light-eb"> Last opened </p>
-                    <p class="fnt-12 light-eb"> 15/09/2019 11:19pm </p>
+                <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of mainData | filter:fileService.filterTerm">
+                    <p><span *ngIf="item.type=='FOLDER'"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></span>
+                        <span *ngIf="item.type=='DOCUMENT'"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></span>
+                        <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
+                        <span *ngIf="item.type=='VIDEO'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
+                        <span *ngIf="item.type=='CSV'"> <img class="" src="assets/images/file-floder.png" alt="upload-icon"></span> <span class=" pull-right"><a class="menu-arrow" [popover]="documentTemplate1" placement="left" [outsideClick]="true" #pop1="bs-popover"><img class="img" src="assets/images/more-opns-file.png"></a> 
+                        <ng-template #documentTemplate1 id="{{item.id}}">
+                                <div id="popover-mobile-content">
+                                    <ul class="list-group custom-popover">
+                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop1.hide();">Download </a></li>
+                                        <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id);pop1.hide();">Rename</a></li>
+                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop1.hide();">Rename</a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">Comment</a></li>
+                                        <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop1.hide();deleteFolder(item.id);">Delete</a></li>
+                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="pop1.hide();deleteFile(item.id);">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </ng-template></span></p>
+                    <p class="black fnt-14" *ngIf="item.type == 'FOLDER'"  (click)="shareDetails(item)"> {{item.name}} </p>
+                    <p class="black fnt-14" *ngIf="item.type != 'FOLDER'" > {{item.name}} </p>
+                    <p class="fnt-12 light-eb"> Last modified </p>
+                    <p class="fnt-12 light-eb">{{item.updated_at | date:'d/MM/y, h:mm a' }}</p>
                 </div>
-                <div class="col-6 bor-coffe pagination-content-list__item">
+                <!-- <div class="col-6 bor-coffe pagination-content-list__item">
                     <p><span> <img class="" src="assets/images/file-fld.png" alt="upload-icon"> </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                     <p class="black fnt-14"> Manual Instructions </p>
                     <p class="fnt-12 light-eb"> Last opened </p>
@@ -36,7 +117,7 @@
                     <p class="black fnt-14"> Saturn Centrifugal R…</p>
                     <p class="fnt-12 light-eb"> Last opened </p>
                     <p class="fnt-12 light-eb"> 01/02/2020 4:30pm</p>
-                </div>
+                </div> -->
 
 
             </div>
@@ -54,3 +135,78 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #template>
+        <div class="modal-header">
+            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Update folder</h5>
+            <button type="button" class="close pull-right"  aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <form>
+                    <div class="roastery-fields mb-4">
+                        <div class="farm-input col-12 col-md-5 px-0">
+                            <label class="mb-0">Name</label>
+                            <input type="hidden" [(ngModel)]="folderItemId" value="{{ folderItemId }}" [ngModelOptions]="{ standalone: true }" />
+                            <input type="text" placeholder="Enter folder name" [(ngModel)]="folderName" name="updatefolder_name" id="updatefolder_name"  required >
+                            <div class="folderNameError" *ngIf="folderNameError != ''">{{folderNameError}}</div>
+                        </div>
+                    </div>
+                    <div class="roastery-fields mb-4">
+                        <div class="farm-input col-12 px-0">
+                            <label class="mb-0">Give a short description to your folder (optional) *</label>
+                            <textarea class="mb-0" type="text" rows="5"
+                                placeholder="Give a short description to your folder (optional) "  [(ngModel)]="folderDescription" id="updatefolder_descr"  name="updatefolder_descr"  required></textarea>
+                                <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
+                        </div>
+                    </div>
+            </form>
+        <div class="main_button">
+            <button type="submit" class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"  (click)="UpdateFolder()">Update</button>
+            
+        </div>
+    </div>
+    </ng-template>  
+
+    <ng-template #fileTemplate>
+            <div class="modal-header">
+                <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Update file</h5>
+                <button type="button" class="close pull-right"  aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <form>
+                        <div class="roastery-fields mb-4">
+                            <div class="farm-input col-12 col-md-5 px-0">
+                                <label class="mb-0">Name</label>
+                                <input type="text" placeholder="Enter file name" name="updatefile_name" id="updatefile_name" [(ngModel)]="file_name"  required >
+                                <div class="fileNameError" *ngIf="fileNameError != ''">{{fileNameError}}</div>
+                            </div>
+                        </div>
+                        <div class="roastery-fields mb-4">
+                            <div class="farm-input col-12 px-0">
+                                <label class="mb-0">Give a short description to your file (optional) *</label>
+                                <textarea class="mb-0" type="text" rows="5"
+                                    placeholder="Give a short description to your file (optional) " id="updatefile_descr"  name="updatefile_descr" [(ngModel)]="file_description"  required></textarea>
+                                    <div class="filedescriptionError" *ngIf="filedescriptionError != ''">{{filedescriptionError}}</div>
+                            </div>
+                        </div>
+                        <div class="roastery-fields mb-4">
+                            <label class="mb-1 mr-2 ">File Upload </label>
+                            <label class="share-bor mr-3">
+                                <input class="file-inpt" type="file" (change)="reUploadFile($event);">
+                                 <img class="share-img" src="assets/images/upload-icon.png" alt="farm"> 
+                                 <span class="share-txt ml-2"> Upload </span> 
+                            </label>
+                            <span class="value-name">{{fileNameValue}}</span>
+                        </div>
+                </form>
+            <div class="main_button">
+                <button type="submit" class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4" (click)="updateFile()">Update</button>
+                
+            </div>
+        </div>
+        </ng-template>

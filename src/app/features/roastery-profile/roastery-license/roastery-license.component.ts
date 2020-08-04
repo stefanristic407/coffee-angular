@@ -27,6 +27,7 @@ export class RoasteryLicenseComponent implements OnInit {
   termStatus: any;
 
   showRelavant:boolean=true;
+  userId: any;
 
 
   constructor(
@@ -46,6 +47,7 @@ export class RoasteryLicenseComponent implements OnInit {
     });
     this.addanotherrow = this.licenseArray.length;
     this.roasterId = this._cokkieService.get("roaster_id");
+    this.userId = this._cokkieService.get('user_id');
     this.certificationNameError = "";
     this.certificationYearError = "";
     // this.certificationFileError = '';
@@ -69,7 +71,7 @@ export class RoasteryLicenseComponent implements OnInit {
     }
   }
 getCertificates(){
-  this._userService.getCertificates(this.roasterId).subscribe(
+  this._userService.getCompanyCertificates(this.roasterId).subscribe(
     data => {
       if(data['success'] == true){
         
@@ -80,6 +82,7 @@ getCertificates(){
     }
   )
 }
+ 
   setStatus(term: any) {
     this.termStatus = term;
   }
@@ -223,7 +226,7 @@ getCertificates(){
               this.roasterId = this._cokkieService.get("roaster_id");
               formData.append(
                 "api_call",
-                "/ro/" + this.roasterId + "/certificates"
+                "/ro/" + this.roasterId +  "/certificates"
               );
               formData.append("token", this._cokkieService.get("Auth"));
               this._userService
@@ -335,7 +338,7 @@ getCertificates(){
 
   deleteCertificate(certificateId : any){
     if (confirm("Please confirm! you want to delete?") == true){
-    this._userService.deleteCertificate(this.roasterId,certificateId).subscribe(
+    this._userService.deleteCompanyCertificate(this.roasterId,certificateId).subscribe(
       response => {
         if(response['success']==true){
           this.toastrService.success("The selected certificate has been deleted successfully");

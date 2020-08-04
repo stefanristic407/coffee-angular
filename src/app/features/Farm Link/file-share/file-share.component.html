@@ -22,7 +22,7 @@
 
                 <div class="file-share-search col-12 col-md-4 ml-md-auto mb-3 d-none d-md-flex align-items-center">
                     <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-                    <input type="search" placeholder="Search Files">
+                    <input type="search" placeholder="Search Files" [(ngModel)]="fileService.filesTerm" name="filesTerm">
                 </div>
             </div>
             <div class="col-12">
@@ -52,23 +52,22 @@
 
                     <li class="col-12 col-md-8 col-lg-9">
                         <ul class="row quicker-files">
-                            <li class="col-12 col-md-6 col-lg-4 quicker-files__list">
+                            <li class="col-12 col-md-6 col-lg-4 quicker-files__list" *ngFor="let data of fileService.pinnedData">
                                 <div class="quick-pinned-files">
                                     <div class="quick-pinned-files__Image">
                                         <input type="file">
-                                        <img class="img" src="assets/images/quick-f2.png" (click)="popupPrivew($event)">
+                                        <img class="img" src="{{data.url}}" (click)="popupPrivew($event)">
                                         <div class="quick-pinned-files__pinIcon">
                                             <div class="w-100 h-100 position-relative">
-                                                <img src="assets/images/pin.svg">
+                                                <a (click)="unpinFileorFolder(data.id);"><img src="assets/images/pin.svg"  pTooltip="Unpin" tooltipPosition="top"></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
                                         <div class="file-name float-left">
-                                            <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">SEWN Sales & Concept
-                                                pr…</h4>
-                                            <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0">Added by
-                                                SEWN</span>
+                                            <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0 folderName">{{data.name}}</h4>
+                                            <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0 ownerName">Added by
+                                                {{data.owner_name}}</span>
                                         </div>
                                         <div class="file-dropdown ml-auto">
                                             <img class="img" src="assets/images/more-opns-file.png">
@@ -77,7 +76,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="col-12 col-md-6 col-lg-4 quicker-files__list">
+                            <!-- <li class="col-12 col-md-6 col-lg-4 quicker-files__list">
                                 <div class="quick-pinned-files">
                                     <div class="quick-pinned-files__Image">
                                         <input type="file">
@@ -125,7 +124,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
 
@@ -158,7 +157,7 @@
                             <div class="tab-pane fade show active" id="pills-myfiles" role="tabpanel"
                                 aria-labelledby="pills-myfiles-tab">
                                 <div class="share-dwn ">
-                                    <label class="share-bor mr-3"><input class="file-inpt" type="file"> <img
+                                    <label class="share-bor mr-3"><input class="file-inpt" type="file" (change)="myFileUpload($event);"> <img
                                             class="share-img" src="assets/images/upload-icon.png" alt="farm"> <span
                                             class="share-txt ml-2"> Upload </span> </label>
                                     <span class="share-bor" data-toggle="modal" data-target="#createfolder"> <img
@@ -177,7 +176,7 @@
                                     <label class="share-bor mr-3"> <input class="file-inpt" type="file"> <img
                                             class="share-img" src="assets/images/upload-icon.png" alt="farm"> <span
                                             class="share-txt ml-2"> Upload </span> </label>
-                                    <span class="share-bor" data-toggle="modal" data-target="#createfolder"> <img
+                                    <span class="share-bor" data-toggle="modal" data-target="#createfolder" > <img
                                             class="dwnd-img" src="assets/images/region-plus.svg" alt="farm"> <span
                                             class="share-txt ml-1"> Create new folder </span>
                                     </span>
@@ -214,14 +213,16 @@
                         <div class="roastery-fields mb-4">
                             <div class="farm-input col-12 col-md-5 px-0">
                                 <label class="mb-0">Name</label>
-                                <input type="text" placeholder="1962">
+                                <input type="text" placeholder="Enter folder name" name="folder_name" id="folder_name" [(ngModel)]="folder_name" required >
+                                <div class="folderNameError" *ngIf="folderNameError != ''">{{folderNameError}}</div>
                             </div>
                         </div>
                         <div class="roastery-fields mb-4">
                             <div class="farm-input col-12 px-0">
                                 <label class="mb-0">Give a short description to your folder (optional) *</label>
                                 <textarea class="mb-0" type="text" rows="5"
-                                    placeholder="Give a short description to your folder (optional) "></textarea>
+                                    placeholder="Give a short description to your folder (optional) " id="folder_descr"  name="folder_descr" [(ngModel)]="folder_descr" required></textarea>
+                                    <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
                             </div>
                         </div>
                         <div class="roastery-fields mb-4">
@@ -232,14 +233,14 @@
                                 class="invite-radios mt-2  custom-radio-container clearfix d-flex align-items-center flex-wrap">
                                 <div class="float-left invite-radios__input">
                                     <label class="custom-radio fnt-14 fnt-600 fnt-muli">Invite people
-                                        <input type="radio" checked="checked" name="radio" value="Invite people">
+                                        <input type="radio" checked="checked" name="invite" [(ngModel)]="invite" value="Invite people">
                                         <span class="checkmark-custom"></span>
                                     </label>
 
                                 </div>
                                 <div class="float-left invite-radios__input">
                                     <label class="custom-radio fnt-14 fnt-600 fnt-muli">Only me
-                                        <input type="radio" name="radio" value="Only me">
+                                        <input type="radio" name="invite" [(ngModel)]="invite"  value="Only me">
                                         <span class="checkmark-custom"></span>
                                     </label>
                                 </div>
@@ -295,8 +296,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">Create and Share
+                <button type="button" *ngIf="invite != 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal">Create and Share
                 </button>
+                <button type="button" *ngIf="invite == 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal" >Create
+                    </button>
             </div>
         </div>
     </div>

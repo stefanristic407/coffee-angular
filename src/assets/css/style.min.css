@@ -20341,7 +20341,11 @@ button:focus {
     box-shadow: none;
 }
 
-.message-from,
+.message-from {
+    text-align: left;
+    padding: 10px;
+}
+
 .message-to {
     text-align: right;
     padding: 10px;
@@ -20373,6 +20377,14 @@ button:focus {
     padding: 10px;
     border-radius: 4px;
     background-color: #f2e2c5;
+    display: inline-block;
+}
+
+.message-body-from {
+    text-align: left;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #eeeeee;
     display: inline-block;
 }
 
@@ -22307,4 +22319,12 @@ li.select-list__item {
     .login-box {
         height: calc(100vh - 145px);
     }
+}
+
+.autocomplete-container {
+    box-shadow: none !important;
+}
+
+.ng-autocomplete {
+    width: 100% !important;
 }

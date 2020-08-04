@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DocumentTableComponent } from './document-table/document-table.component';
+import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
+import { BsModalService } from 'ngx-bootstrap/modal/public_api';
+import { FileShareService } from '../file-share.service';
+import { VideoTableComponent } from './video-table/video-table.component';
 
 @Component({
   selector: 'app-file-share-details',
@@ -8,10 +17,40 @@ import { Component, OnInit } from '@angular/core';
 export class FileShareDetailsComponent implements OnInit {
   sort:any;
   showSort:boolean = true;
+  folderId: string;
+  roasterId: string;
+  folderName: any;
+  description: any;
+  folder_name : string;
+folder_descr : string;
+invite : any = "Invite people";
+folderNameError: string;
+descriptionError: string;
+  router: Router;
+  dashboard: DashboardserviceService;
+  modalService: BsModalService;
+  files: any;
+  fileEvent: any;
+  fileName: any;
 
-  constructor() { }
+  constructor(public cookieService : CookieService,
+              public toastrService : ToastrService,
+              public roasterService : RoasterserviceService,
+              public fileService : FileShareService,
+              private route : ActivatedRoute) { 
+                this.roasterId = this.cookieService.get('roaster_id');
+                // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+                if(this.route.snapshot.queryParams['folderId']){
+                this.folderId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+                console.log(this.folderId)
+                }
+                
+                this.folderNameError = "";
+                this.descriptionError = "";
+  }
 
   ngOnInit(): void {
+
     this.sort = '';
 
       //Toggle Esstate active
@@ -307,6 +346,52 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 
 /* pagination ends */
 
+
+$('.remove-quiker-file').on('click', function (e) {
+  e.preventDefault();
+
+});
+
+$('.custom-radio input[type="radio"]').on('change', function () {
+  var $this = $(this);
+  var $value = $(this).val();
+
+  if ($this.is(':checked')) {
+    $(this).parents('.custom-radio-container').find('.custom-radio').removeClass('active')
+    $(this).parents('.custom-radio').addClass('active');
+
+    if ($value == 'Only me') {
+      $(this).parents('#createfolder').find('.invite-to').slideUp();
+    }
+
+    else {
+      $(this).parents('#createfolder').find('.invite-to').slideDown();
+    }
+  }
+
+
+});
+
+
+//Custom select box
+$('body').on('click', '.Custom-select-input__selctedText', function () {
+  var selctbox = $(this).parents('.Custom-select-input').find('.Custom-select-input-list').slideToggle();
+  $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').toggleClass('active')
+});
+
+$('body').on('click', ' .Custom-select-input-list__item', function () {
+  var $val = $(this).text();
+  var $setVal = $(this).parents('.Custom-select-input').find('input')
+  $setVal.val($val);
+  $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').text($val)
+  $(this).parents('.Custom-select-input').find('.Custom-select-input-list').slideToggle();
+  $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').toggleClass('active')
+});
+
+
+this.getFolderDetails();
+
+
   }
 
   setSort(sortdata:any){
@@ -324,6 +409,140 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		}
   }
 
+  getFolderDetails(){
+    this.roasterService.getFolderDetails(this.roasterId,this.folderId).subscribe(
+      data => {
+        if(data['success']==true){
+          this.folderName = data['result']['name'];
+          this.description = data['result']['description'];
+        }
+        else{
+          this.toastrService.error('Error while getting the folder details');
+        }
+      }
+    )
+  }
+
+  documentUpload(event:any){
+    this.files = event.target.files;
+    this.fileEvent = this.files;
+    console.log(this.fileEvent);
+    this.fileName = this.files[0].name;
+    let fileList: FileList = this.fileEvent;
+    var parent_id = decodeURIComponent(this.route.snapshot.queryParams['folderId']);;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append("file", file, file.name);
+      formData.append('name',this.fileName);
+      formData.append('file_module','File-Share');
+      formData.append('parent_id',parent_id);
+      this.roasterId = this.cookieService.get("roaster_id");
+      formData.append(
+        "api_call",
+        "/ro/" + this.roasterId + "/file-manager/files"
+      );
+      formData.append("token", this.cookieService.get("Auth"));
+      this.roasterService.uploadFiles(formData).subscribe(
+        result =>{
+          if(result['success']==true){
+            this.toastrService.success("The file "+this.fileName+" uploaded successfully");
+             // Calling the Grade info component by creating object of the component and accessing its methods
+             setTimeout(()=>{
+              let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
+            callFileandFolders.getFilesandFolders();
+            let callVideos=new VideoTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.fileService,this.modalService)
+            },7000);
+          }else{
+            this.toastrService.error("Error while uploading the file");
+          }
+        }
+      )
+    }
+  }
+ 
+
+
   
+  createFolder(){
+    if (
+      this.folder_name == "" ||
+      this.folder_name == null ||
+      this.folder_name == undefined
+    ) {
+      this.folderNameError = "Please enter your password";
+      document.getElementById("folder_name").style.border =
+        "1px solid #D50000 ";
+      setTimeout(() => {
+        this.folderNameError = "";
+      }, 3000);
+    } 
+    else if (
+      this.folder_descr == "" ||
+      this.folder_descr == null ||
+      this.folder_descr == undefined
+    ) {
+      this.descriptionError = "Please enter your password";
+      document.getElementById("folder_descr").style.border = "1px solid #D50000 ";
+      setTimeout(() => {
+        this.descriptionError = "";
+      }, 3000);
+    } 
+    else{
+      var data = {
+        "name": this.folder_name,
+        "description": this.folder_descr,
+        "file_module": "File-Share",
+        "parent_id" : parseInt(this.folderId)
+      }
+
+      this.roasterService.createFolder(this.roasterId,data).subscribe(
+        data => {
+          console.log(data);
+          if(data['success']==true){
+            if(this.invite == "Invite people"){
+
+            }
+            else{
+              console.log(data);
+              // Calling the Grade info component by creating object of the component and accessing its methods
+              setTimeout(()=>{
+                let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
+              callFileandFolders.getFilesandFolders();
+              },5000);
+              this.toastrService.success("New folder "+this.folder_name+" has been created.");
+
+              this.folder_name = '';
+              this.folder_descr = '';
+              this.invite = "Invite people";
+              $('.custom-radio input[type="radio"]').on('change', function () {
+                var $this = $(this);
+                var $value = $(this).val();
+          
+                if ($this.is(':checked')) {
+                  $(this).parents('.custom-radio-container').find('.custom-radio').removeClass('active')
+                  $(this).parents('.custom-radio').addClass('active');
+          
+                  if ($value == 'Only me') {
+                    $(this).parents('#createfolder').find('.invite-to').slideUp();
+                  }
+          
+                  else {
+                    $(this).parents('#createfolder').find('.invite-to').slideDown();
+                  }
+                }
+          
+          
+              });
+            }
+          }
+          else{
+            this.toastrService.error("Error while creating Folder.");
+          }
+        }
+      )
+
+    }
+  }
 
 }

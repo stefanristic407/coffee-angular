@@ -36,7 +36,7 @@ import { DataTablesModule } from "angular-datatables";
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-
+import {MatVideoModule} from 'mat-video';
 
 
 import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
@@ -80,7 +80,7 @@ import { AvailableConfirmOrderComponent } from './Sourcing/available-coffee-list
 import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-placed/order-placed.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
-
+import {TooltipModule} from 'primeng/tooltip';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -139,6 +139,7 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
     FeaturesRoutingModule,
     //PrimeNG Modules
     ImageCropperModule,
+    TooltipModule,
     DragDropModule,
     OrdermanagementModule,
     MatChipsModule,
@@ -159,6 +160,7 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
     NgxChartsModule,
     GalleryModule,
     LightboxModule,
+    MatVideoModule,
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })

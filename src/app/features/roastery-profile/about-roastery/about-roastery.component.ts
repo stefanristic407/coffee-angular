@@ -3,6 +3,7 @@ import { RoasteryProfileService } from '../roastery-profile.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'sewn-about-roastery',
@@ -42,21 +43,41 @@ export class AboutRoasteryComponent implements OnInit {
   empNameError : string;
   roasterId: any;
   certificatesArray : any = [];
+  userId: any;
+
+  single: any[];
+ view: any[] = [300, 200];
+
+ // options
+ gradient: boolean = true;
+ showLegend: boolean = false;
+ showLabels: boolean = false;
+ isDoughnut: boolean = false;
+ legendPosition: string = 'below';
+
+ colorScheme = {
+   domain: ['#747588','#f8f8f8']
+ };
 
   constructor(public roasteryProfileService : RoasteryProfileService,
               public userService : UserserviceService,
               private cookieService : CookieService,
               private toastrService : ToastrService) { 
                 this.roasterId = this.cookieService.get('roaster_id');
+                this.userId = this.cookieService.get('user_id');
+              
+               console.log()
+                // Object.assign(this.single);
               }
 
   ngOnInit(): void {
 
 this.getCertificates();
-   
+
   }
+
 getCertificates(){
-  this.userService.getCertificates(this.roasterId).subscribe(
+  this.userService.getCompanyCertificates(this.roasterId).subscribe(
     result => {
         if(result['success'] == true){
           this.certificatesArray = result['result'];
@@ -80,7 +101,7 @@ console.log("button clicked" , certificates.name);
 }
 deleteCertificate(certificateId : any){
   if (confirm("Please confirm! you want to delete?") == true){
-  this.userService.deleteCertificate(this.roasterId,certificateId).subscribe(
+  this.userService.deleteCompanyCertificate(this.roasterId,certificateId).subscribe(
     response => {
       if(response['success']==true){
         this.toastrService.success("The selected Certificate has been successfully deleted");
@@ -92,6 +113,18 @@ deleteCertificate(certificateId : any){
     }
   )
   }
+}
+
+onSelect(data): void {
+  console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+}
+
+onActivate(data): void {
+  console.log('Activate', JSON.parse(JSON.stringify(data)));
+}
+
+onDeactivate(data): void {
+  console.log('Deactivate', JSON.parse(JSON.stringify(data)));
 }
 
 }

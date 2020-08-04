@@ -2,7 +2,7 @@
 // PAGE DESCRIPTION : This page contains all API calls for SEWN-Roaster Roles and User Management.
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import {environment} from 'src/environments/environment';
 
@@ -14,6 +14,8 @@ export class RoasterserviceService {
   private url = environment.apiURL+"/ro/api";
   private deleteUrl = environment.apiURL+"/ro/deleteapi";
   private putUrl = environment.apiURL+"/ro/putapi";
+  private fileuploadUrl = environment.apiURL+"/ro/filesfolders" ;
+  private putfileuploadUrl = environment.apiURL+"/ro/putfilesfolders" ;
 
   // private url = "https://qa-fed-api.sewnstaging.com/ro/api";
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
@@ -187,5 +189,204 @@ export class RoasterserviceService {
     return this.http.put(this.putUrl, data);
   }
 
+  //API Function Name : Get Contacts
+  //API Description: This API calls helps to get the contacts of the Roaster.
+
+  getRoasterContacts(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/users/top-contacts";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
+    //API Function Name : Enable Admin User
+  //API Description: This API calls helps to Enable the selected user.
+
+  updateRoasterContacts(roaster_id: any,body:any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/users/top-contacts";
+    data['method'] = "POST";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
   
+    //API Function Name : Get Brands
+  //API Description: This API calls helps to get the Brands of the Roaster.
+
+  getRoasterBrands(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/brands";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
+     //API Function Name : Get Brands
+  //API Description: This API calls helps to create the folder .
+
+  createFolder(roaster_id: any,body : any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/folders";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+
+     //API Function Name : Get Files/Folders
+  //API Description: This API calls helps to get the files/folders.
+
+  getFilesandFolders(roaster_id: any,parentId : any) {
+    
+    let params = new HttpParams();
+    params = params.append('file_module', 'File-Share');
+    params = params.append('parent_id', parentId)
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/my-files?" + params;
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    
+    return this.http.post(this.url, data);
+  }
+
+    //API Function Name : Delete Folder
+  //API Description: This API calls helps to delete the Folder.
+
+  deleteFolder(roaster_id: any, id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/folders/" + id;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.deleteUrl, data);
+  }
+
+     //API Function Name : Delete File
+  //API Description: This API calls helps to delete the File.
+
+  deleteFile(roaster_id: any, id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/files/" + id;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.deleteUrl, data);
+  }
+
+       //API Function Name : Get Shared Files/Folders
+  //API Description: This API calls helps to get the shared files/folders.
+
+  getSharedFilesandFolders(roaster_id: any) {
+    
+    let params = new HttpParams();
+    params = params.append('file_module', 'File-Share');
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/shared?" + params;
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    
+    return this.http.post(this.url, data);
+  }
+
+       //API Function Name : Get Pinned Files/Folders
+  //API Description: This API calls helps to get the pinned files/folders.
+
+  getPinnedFilesandFolders(roaster_id: any) {
+    
+    let params = new HttpParams();
+    params = params.append('file_module', 'File-Share');
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/pinned?" + params;
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    
+    return this.http.post(this.url, data);
+  }
+
+
+      //API Function Name : Pin File/Folder
+  //API Description: This API calls helps to Pin the File/Folder.
+
+  pinFileorFolder(roaster_id: any,id:any) {
+    var data = {};
+    data['api_call'] =   "/ro/" + roaster_id + "/file-manager/" + id + "/pin";
+    data['method'] = "PUT";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
+
+       //API Function Name : Unpin File/Folder
+  //API Description: This API calls helps to unpin the File/Folder.
+
+  unpinFileorFolder(roaster_id: any, id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/" + id + "/pin";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.deleteUrl, data);
+  }
+
+       //API Function Name : Rename the Details of the  Folder
+  //API Description: This API calls helps to rename the details of the folder.
+
+  updateFolderDetails(roaster_id: any,id:any,body:any) {
+    var data = {};
+    data['api_call'] =   "/ro/" + roaster_id + "/file-manager/folders/"+ id;
+    data['method'] = "PUT";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+
+   //API Function Name : Get Folder Details
+  //API Description: This API calls helps to get the folder details.
+
+  getFolderDetails(roaster_id: any,id:any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/folders/"+id;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
+
+   //API Function Name : Get Files Details
+  //API Description: This API calls helps to get the files details.
+
+  getFileDetails(roaster_id: any,id:any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/files/"+id;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
+    // API Function Name : Upload Files API.
+  // API Description   : This API call helps to upload the Files.
+  uploadFiles(formData: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({ Accept: "application/json" })
+    };
+    return this.http.post(this.fileuploadUrl, formData, httpOptions);
+  }
+
+     // API Function Name : Upload Files API.
+  // API Description   : This API call helps to upload the Files.
+  updateFiles(formData: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({ Accept: "application/json" })
+    };
+    return this.http.post(this.putfileuploadUrl, formData, httpOptions);
+  }
+  getVideos(roaster_id: any,parentId : any) {
+    
+    let params = new HttpParams();
+    params = params.append('file_module', 'File-Share');
+    params = params.append('type_in','VIDEO');
+    params = params.append('parent_id', parentId)
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/my-files?" + params;
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
+  }
 }

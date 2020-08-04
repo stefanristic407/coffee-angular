@@ -1,6 +1,75 @@
 <div class="estate-table web-farm pt-md-3">
-    <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
-    </table>
+    <!-- <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
+    </table> -->
+    <div class="table-responsive border-lots">
+        <table class="table">
+            <thead class="table-header">
+                <tr class="header-row">
+                    <th>
+                        <label class="customcheckbox m-b-20">
+                            <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                            (change)="checkAll($event)"/>
+                            <span class="checkmark head-check"></span>
+                        </label>
+                    </th>
+                    <th>Files</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Modified</th>
+                    <th scope="col">Type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="customtable">
+                <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:fileService.filesTerm">
+                    <td>
+                        <label class="customcheckbox" *ngIf="item.type == 'FOLDER'" (click)="shareDetails(item);">
+
+                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                            <span class="checkmark head-check"></span>
+                        </label>
+                        <label class="customcheckbox" *ngIf="item.type != 'FOLDER'" >
+                            
+                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                <span class="checkmark head-check"></span>
+                            </label>
+                    </td>
+                    <td>
+                        <span *ngIf="item.type=='FOLDER'"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.name }}</span>
+                        <span *ngIf="item.type=='DOCUMENT'"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
+                        <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.name }}</span>
+                        <span *ngIf="item.type=='VIDEO'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                        <span *ngIf="item.type=='IMAGE'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                    </td>
+                    <td><span  *ngIf="item.order_ids !=''">{{ item.order_ids }}</span>
+                    <span *ngIf="item.order_ids ==''">-</span> 
+                    </td>
+                    <td>{{ item.updated_at | date:'d/MM/y, h:mm a' }}
+                    </td>
+                    <td>{{item.type | titlecase }}</td>
+                    <td>
+                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                            <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                        </a>
+                        <ng-template #poplistTemplate id="{{item.id}}">
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();pinFileorFolder(item.id)">Pin</a></li>
+                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id,item.name,item.description);pop.hide();">Rename</a></li>
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop.hide();">Rename</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide();deleteFolder(item.id)">Delete</a></li>
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="pop.hide();deleteFile(item.id)">Delete</a></li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 
 <div class="estate-table mobile-farm pt-md-3">
@@ -13,14 +82,14 @@
                         <div class="filter-sort clearfix d-flex align-items-center w-100">
                             <div class="d-inline border-order date-div w-date col-sm-6 float-left">
                                 <p class="d-inline filter-text">Date range &nbsp;
-                                    <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
+                                    <!-- <span *ngIf="showDateRange != ''">{{showDateRange}}</span> -->
                                 </p>
 
                                 <a class="pointer-item">
 
                                     <p class="d-inline filter">
-                                        <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
-                                        &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
+                                        <p-calendar #calendar styleClass="only-icon"  selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true"></p-calendar>
+                                        &nbsp; <img src="assets/images/active-calender.png" alt="">
                                         <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                     </p-calendar> -->
                                     </p>
@@ -56,7 +125,7 @@
                                 <div class="pagination-content">
                                     <div class="cardpanel-detail">
                                         <div class="row pagination-content-list">
-                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                            <!-- <div class="col-6 bor-coffe pagination-content-list__item">
                                                 <p><span class="black fnt-14 my-file-p" routerLink="/features/file-share-details"> SEWN Guidelines </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                 <p class="fnt-12 light-eight"> Modified by SEWN team </p>
                                                 <p class="fnt-12 light-eb"> Folder </p>
@@ -77,14 +146,28 @@
                                                 <p><span class="black fnt-14 my-file-p"> Löfbergs - Brand G</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                 <p class="fnt-12 light-eight"> Modified by Löfbergs...</p>
                                                 <p><span class="fnt-12 light-eight"> #71716</span> <span class=" pull-right fnt-12 light-eight"> Document </span></p>
-                                            </div>
-                                            <div class="col-6 bor-coffe pagination-content-list__item">
-                                                <p><span class="black fnt-14 my-file-p"> Löfbergs - Brand G</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                                <p class="fnt-12 light-eight"> Modified by Löfbergs... </p>
-                                                <p><span class="fnt-12 light-eight"> #71716</span> <span class=" pull-right fnt-12 light-eight"> CSV </span></p>
+                                            </div> -->
+                                            <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of mainData">
+                                                <p><span class="black fnt-14 my-file-p cursor-pointer"  (click)="shareDetails(item);"> {{item.name}}</span> <span class=" pull-right"><a class="menu-arrow" [popover]="poplistTemplate1" placement="left" [outsideClick]="true" #pop1="bs-popover"><img class="img" src="assets/images/more-opns-file.png"></a> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by {{item.owner_name}} </p>
+                                                <p><span class="fnt-12 light-eight"  *ngIf="item.order_ids !=''"> {{item.order_ids}}</span>
+                                                    <span class="fnt-12 light-eight"  *ngIf="item.order_ids ==''"> -</span> <span class=" pull-right fnt-12 light-eight"> {{item.type | titlecase}} </span></p>
+                                                    <ng-template #poplistTemplate1 id="{{item.id}}">
+                                                            <div id="popover-mobile-content">
+                                                                <ul class="list-group custom-popover">
+                                                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop1.hide();">Download </a></li>
+                                                                    <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();pinFileorFolder(item.id)">Pin</a></li>
+                                                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id,item.name,item.description);pop1.hide();">Rename</a></li>
+                                                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop1.hide();">Rename</a></li>
+                                                                    <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">Comment</a></li>
+                                                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop1.hide();deleteFolder(item.id)">Delete</a></li>
+                                                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="pop1.hide();deleteFile(item.id)">Delete</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </ng-template>
                                             </div>
 
-                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                            <!-- <div class="col-6 bor-coffe pagination-content-list__item">
                                                 <p><span class="black fnt-14 my-file-p"> Löfbergs - Brand G</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                 <p class="fnt-12 light-eight"> Modified by Löfbergs...</p>
                                                 <p><span class="fnt-12 light-eight"> #71716</span> <span class=" pull-right fnt-12 light-eight"> Document </span></p>
@@ -93,7 +176,7 @@
                                                 <p><span class="black fnt-14 my-file-p"> Löfbergs - Brand G</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                 <p class="fnt-12 light-eight"> Modified by Löfbergs... </p>
                                                 <p><span class="fnt-12 light-eight"> #71716</span> <span class=" pull-right fnt-12 light-eight"> CSV </span></p>
-                                            </div>
+                                            </div> -->
 
 
                                         </div>
@@ -116,7 +199,7 @@
                                     <div class="table-details">
                                         <div class="table-responsive border-sourcetable pagination-content-list">
 
-                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                            <!-- <div class="col-12 bor-d6d6 pagination-content-list__item">
                                                 <div class="row pt-4">
                                                     <div class="col-2"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></div>
                                                     <div class="col-8 mobile-ce">
@@ -151,23 +234,40 @@
                                                     <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
 
                                                 </div>
-                                            </div>
+                                            </div> -->
 
-                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item" *ngFor="let item of mainData">
                                                 <div class="row pt-4">
-                                                    <div class="col-2"> <img class="" src="assets/images/file-floder.png" alt="upload-icon"></div>
+                                                    <div class="col-2"><span *ngIf="item.type=='FOLDER'"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></span>
+                                                        <span *ngIf="item.type=='DOCUMENT'"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></span>
+                                                        <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
+                                                        <span *ngIf="item.type=='VIDEO'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
+                                                        <span *ngIf="item.type=='CSV'"> <img class="" src="assets/images/file-floder.png" alt="upload-icon"></span></div>
                                                     <div class="col-8 mobile-ce">
-                                                        <p class="black fnt-14"> Löfbergs - Brand assetss</p>
-                                                        <p class="fnt-12 light-eight">Modified by Löfbergs team</p>
-                                                        <p class="fnt-12 light-eight">#127908</p>
+                                                        <p class="black fnt-14 cursor-pointer"  (click)="shareDetails(item);"> {{item.name}}</p>
+                                                        <p class="fnt-12 light-eight">Modified by {{item.owner_name}}</p>
+                                                        <p class="fnt-12 light-eight" *ngIf="item.order_ids !=''">{{item.order_ids}}</p>
+                                                        <p class="fnt-12 light-eight" *ngIf="item.order_ids ==''">{{item.order_ids}}</p>
                                                     </div>
-                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
-
+                                                    <div class="col-2"> <a class="menu-arrow" [popover]="poplistTemplate2" placement="left" [outsideClick]="true" #pop2="bs-popover"><img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></a></div>
+                                                    <ng-template #poplistTemplate2 id="{{item.id}}">
+                                                            <div id="popover-mobile-content">
+                                                                <ul class="list-group custom-popover">
+                                                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop2.hide();">Download </a></li>
+                                                                    <li class="list-group-item"><a class="pointer-item" (click)="pop2.hide();pinFileorFolder(item.id)">Pin</a></li>
+                                                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id,item.name,item.description);pop2.hide();">Rename</a></li>
+                                                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop2.hide();">Rename</a></li>
+                                                                    <li class="list-group-item"><a class="pointer-item" (click)="pop2.hide();">Comment</a></li>
+                                                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop2.hide();deleteFolder(item.id)">Delete</a></li>
+                                                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="pop2.hide();deleteFile(item.id)">Delete</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </ng-template>
                                                 </div>
                                             </div>
 
 
-                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                            <!-- <div class="col-12 bor-d6d6 pagination-content-list__item">
                                                 <div class="row pt-4">
                                                     <div class="col-2"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></div>
                                                     <div class="col-8 mobile-ce">
@@ -177,7 +277,7 @@
                                                     <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
 
                                                 </div>
-                                            </div>
+                                            </div> -->
 
 
                                         </div>
@@ -204,3 +304,79 @@
             </div>
         </section>
     </div>
+
+    <ng-template #template>
+        <div class="modal-header">
+            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Update folder</h5>
+            <button type="button" class="close pull-right"  aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <form>
+                    <div class="roastery-fields mb-4">
+                        <div class="farm-input col-12 col-md-5 px-0">
+                            <label class="mb-0">Name</label>
+                            <input type="hidden" [(ngModel)]="folderItemId" value="{{ folderItemId }}" [ngModelOptions]="{ standalone: true }" />
+                            <input type="text" placeholder="Enter folder name" [(ngModel)]="folderName" name="updatefolder_name" id="updatefolder_name"  required >
+                            <div class="folderNameError" *ngIf="folderNameError != ''">{{folderNameError}}</div>
+                        </div>
+                    </div>
+                    <div class="roastery-fields mb-4">
+                        <div class="farm-input col-12 px-0">
+                            <label class="mb-0">Give a short description to your folder (optional) *</label>
+                            <textarea class="mb-0" type="text" rows="5"
+                                placeholder="Give a short description to your folder (optional) "  [(ngModel)]="folderDescription" id="updatefolder_descr"  name="updatefolder_descr"  required></textarea>
+                                <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
+                        </div>
+                    </div>
+            </form>
+        <div class="main_button">
+            <button type="submit" class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"  (click)="UpdateFolder()">Update</button>
+            
+        </div>
+    </div>
+    </ng-template>  
+
+    <ng-template #fileTemplate>
+            <div class="modal-header">
+                <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Update file</h5>
+                <button type="button" class="close pull-right"  aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <form>
+                        <div class="roastery-fields mb-4">
+                            <div class="farm-input col-12 col-md-5 px-0">
+                                <label class="mb-0">Name</label>
+                                <input type="text" placeholder="Enter file name" name="updatefile_name" id="updatefile_name" [(ngModel)]="file_name"  required >
+                                <div class="fileNameError" *ngIf="fileNameError != ''">{{fileNameError}}</div>
+                            </div>
+                        </div>
+                        <div class="roastery-fields mb-4">
+                            <div class="farm-input col-12 px-0">
+                                <label class="mb-0">Give a short description to your file (optional) *</label>
+                                <textarea class="mb-0" type="text" rows="5"
+                                    placeholder="Give a short description to your file (optional) " id="updatefile_descr"  name="updatefile_descr" [(ngModel)]="file_description"  required></textarea>
+                                    <div class="filedescriptionError" *ngIf="filedescriptionError != ''">{{filedescriptionError}}</div>
+                            </div>
+                        </div>
+                        <div class="roastery-fields mb-4">
+                            <label class="mb-1 mr-2 ">File Upload </label>
+                            <label class="share-bor mr-3">
+                                <input class="file-inpt" type="file" (change)="reUploadFile($event);">
+                                 <img class="share-img" src="assets/images/upload-icon.png" alt="farm"> 
+                                 <span class="share-txt ml-2"> Upload </span> 
+                            </label>
+                            <span class="value-name">{{fileNameValue}}</span>
+                        </div>
+                </form>
+            <div class="main_button">
+                <button type="submit" class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4" (click)="updateFile()">Update</button>
+                
+            </div>
+        </div>
+        </ng-template>
+
+

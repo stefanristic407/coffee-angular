@@ -28,6 +28,7 @@ export class ProfileLicenseComponent implements OnInit {
   termStatus: any;
 
   showRelavant:boolean=true;
+  userId: string;
 
 
   constructor(
@@ -47,6 +48,7 @@ export class ProfileLicenseComponent implements OnInit {
     });
     this.addanotherrow = this.licenseArray.length;
     this.roasterId = this._cokkieService.get("roaster_id");
+    this.userId = this._cokkieService.get('user_id');
     this.certificationNameError = "";
     this.certificationYearError = "";
     // this.certificationFileError = '';
@@ -71,7 +73,7 @@ export class ProfileLicenseComponent implements OnInit {
   }
 
   getCertificates(){
-    this._userService.getCertificates(this.roasterId).subscribe(
+    this._userService.getCertificates(this.roasterId, this.userId).subscribe(
       data => {
         if(data['success'] == true){
           
@@ -224,9 +226,10 @@ export class ProfileLicenseComponent implements OnInit {
               formData.append("name", name);
               formData.append("year", year);
               this.roasterId = this._cokkieService.get("roaster_id");
+              this.userId = this._cokkieService.get('user_id');
               formData.append(
                 "api_call",
-                "/ro/" + this.roasterId + "/certificates"
+                "/ro/" + this.roasterId +"/users/" + this.userId + "/certificates"
               );
               formData.append("token", this._cokkieService.get("Auth"));
               this._userService
@@ -338,7 +341,7 @@ export class ProfileLicenseComponent implements OnInit {
 
   deleteCertificate(certificateId : any){
     if (confirm("Please confirm! you want to delete?") == true){
-    this._userService.deleteCertificate(this.roasterId,certificateId).subscribe(
+    this._userService.deleteCertificate(this.roasterId,this.userId,certificateId).subscribe(
       response => {
         if(response['success']==true){
           this.toastrService.success("The selected certificate has been deleted successfully");

@@ -17,6 +17,8 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { HeaderComponent } from './header/header.component';
 import { PopoverModule } from "ngx-bootstrap/popover";
 import {GalleriaModule} from 'primeng/galleria';
+import {MatVideoModule} from 'mat-video';
+
 
 
 
@@ -38,6 +40,7 @@ import {GalleriaModule} from 'primeng/galleria';
     PopoverModule,
     OrdermanagementModule,
     GalleriaModule,
+    MatVideoModule,
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true,
       positionClass: 'toast-bottom-right' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

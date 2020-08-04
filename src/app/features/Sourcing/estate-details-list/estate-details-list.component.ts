@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-estate-details-list',
@@ -16,7 +17,7 @@ export class EstateDetailsListComponent implements OnInit {
 		// {  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84' }
   ];
   constructor() { }
-
+  
   ngOnInit(): void {
   }
 

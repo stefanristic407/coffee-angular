@@ -1,29 +1,55 @@
 <div class="col-12 video-section">
     <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
-        <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0"> P 60 DRUM ROASTER </h3>
+        <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0">{{parentName}}</h3>
         <span class="horizental-line__span"></span>
     </div>
     <ul class="row quicker-files">
-        <li class=" col-md-4 col-lg-3 quicker-files__list">
+        <li class=" col-md-4 col-lg-3 quicker-files__list" *ngFor="let item of mainData | filter:fileService.filterTerm">
             <div class="quick-pinned-files">
                 <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
 
                     <img class="img social-images" src="assets/images/videos-1.png">
-                    <img class="video-play" src="assets/images/play-button.png" alt="farm">
-                    <span class="vido-time">2:30 min</span>
+                    <a (click)="openModal(popTemplate,item)"><img class="video-play" src="assets/images/play-button.png" alt="farm"></a>
+                    <span class="vido-time"></span>
+                    
+                    <!-- <div class="video">
+                        <video controls  #videoPlayer autoplay>
+                            <source src="{{item.url}}" (click)="toggleVideo($event)"/>
+                            Browser not supported
+                        </video>
+                    </div> -->
+                    <!-- <div>
+                        <mat-video src="{{item.url}}"></mat-video>
+                    </div> -->
+                    
                 </div>
                 <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
                     <div class="file-name float-left">
-                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">P 60 Drum roaster introduction</h4>
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">{{item.name}}</h4>
                     </div>
                     <div class="file-dropdown ml-auto">
-                        <img class="img" src="assets/images/more-opns-file.png">
+                        <!-- <img class="img" src="assets/images/more-opns-file.png"> -->
+                        <a class="menu-arrow" [popover]="videoTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                            </a>
+                            <ng-template #videoTemplate id="{{item.id}}">
+                                <div id="popover-mobile-content">
+                                    <ul class="list-group custom-popover">
+                                        <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                        <!-- <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide();">Rename</a></li> -->
+                                        <li class="list-group-item" *ngIf="item.type == 'VIDEO'"><a class="pointer-item" (click)="pop.hide();openFileModal(fileTemplate,item.id)">Rename</a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                        <!-- <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide()">Delete</a></li> -->
+                                        <li class="list-group-item" *ngIf="item.type == 'VIDEO'"><a class="pointer-item" (click)="pop.hide();deleteFile(item.id)">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </ng-template>
                     </div>
                 </div>
             </div>
         </li>
 
-        <li class=" col-md-4 col-lg-3 quicker-files__list">
+        <!-- <li class=" col-md-4 col-lg-3 quicker-files__list">
             <div class="quick-pinned-files">
                 <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
 
@@ -41,8 +67,8 @@
                     </div>
                 </div>
             </div>
-        </li>
-        <li class=" col-md-4 col-lg-3 quicker-files__list">
+        </li> -->
+        <!-- <li class=" col-md-4 col-lg-3 quicker-files__list">
             <div class="quick-pinned-files">
                 <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
 
@@ -80,10 +106,10 @@
                     </div>
                 </div>
             </div>
-        </li>
+        </li> -->
 
     </ul>
-    <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
+    <!-- <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
         <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0"> Saturn Centrifugal Roaster</h3>
         <span class="horizental-line__span"></span>
     </div>
@@ -109,9 +135,9 @@
                 </div>
             </div>
         </li>
-    </ul>
+    </ul> -->
 
-    <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
+    <!-- <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
         <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0"> Saturn Centrifugal Roaster</h3>
         <span class="horizental-line__span"></span>
     </div>
@@ -157,5 +183,56 @@
                 </div>
             </div>
         </li>
-    </ul>
+    </ul> -->
 </div>
+
+<ng-template #fileTemplate>
+        <div class="modal-header">
+            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Update file</h5>
+            <button type="button" class="close pull-right"  aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body file-section">
+                <form>
+                    <div class="roastery-fields mb-4">
+                        <div class="farm-input col-12 col-md-5 px-0">
+                            <label class="mb-0">Name</label>
+                            <input type="text" placeholder="Enter file name" name="updatefile_name" id="updatefile_name" [(ngModel)]="file_name"  required >
+                            <div class="fileNameError" *ngIf="fileNameError != ''">{{fileNameError}}</div>
+                        </div>
+                    </div>
+                    <div class="roastery-fields mb-4">
+                        <div class="farm-input col-12 px-0">
+                            <label class="mb-0">Give a short description to your file (optional) *</label>
+                            <textarea class="mb-0" type="text" rows="5"
+                                placeholder="Give a short description to your file (optional) " id="updatefile_descr"  name="updatefile_descr" [(ngModel)]="file_description"  required></textarea>
+                                <div class="filedescriptionError" *ngIf="filedescriptionError != ''">{{filedescriptionError}}</div>
+                        </div>
+                    </div>
+                    <div class="roastery-fields mb-4">
+                        <label class="mb-1 mr-2 ">File Upload </label>
+                        <label class="share-bor mr-3">
+                            <input class="file-inpt" type="file" (change)="reUploadFile($event);">
+                             <img class="share-img" src="assets/images/upload-icon.png" alt="farm"> 
+                             <span class="share-txt ml-2"> Upload </span> 
+                        </label>
+                        <span class="value-name">{{fileNameValue}}</span>
+                    </div>
+            </form>
+        <div class="main_button">
+            <button type="submit" class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4" (click)="updateFile()">Update</button>
+            
+        </div>
+    </div>
+    </ng-template>
+
+
+<ng-template #popTemplate>
+        
+    <div class="modal-body video-section-modal">
+            <div>
+                <mat-video src="{{url}}"></mat-video>
+            </div>
+    </div>
+</ng-template>
