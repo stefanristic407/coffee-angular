@@ -191,6 +191,7 @@ export class DocumentFileComponent implements OnInit {
 
   shareDetails(size: any){
     this.folderId = size.id;
+    console.log(this.folderId)
     let navigationExtras: NavigationExtras = {
       queryParams: {
         "folderId": encodeURIComponent(this.folderId),
@@ -199,8 +200,33 @@ export class DocumentFileComponent implements OnInit {
     }
 
     this.router.navigate(['/features/file-share-details'], navigationExtras);
-    location.reload()
+    // setTimeout(()=>{location.reload()},500)
+    // location.reload()
   } 
+
+  
+  // Open Popup
+  popupPrivew(e) {
+    var PrivewPopup = document.querySelector('.priview-popup-fileshare')
+    var SetImg = PrivewPopup.querySelector('.img')
+    var url = e.target.getAttribute('src');
+    SetImg.setAttribute('src', url)
+    PrivewPopup.classList.add('active');
+    document.body.classList.add('popup-open');
+
+    setTimeout(function () {
+      PrivewPopup.querySelector('.priview-popup-fileshare__img').classList.add('active')
+    }, 50);
+  }
+
+  // Close Popup
+  popupClose() {
+    var PrivewPopup = document.querySelector('.priview-popup-fileshare')
+    PrivewPopup.classList.remove('active');
+    document.body.classList.remove('popup-open');
+    PrivewPopup.querySelector('.priview-popup-fileshare__img').classList.remove('active')
+  }
+
 
   
   updateFile(){

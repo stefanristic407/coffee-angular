@@ -4,7 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { FileShareService } from './file-share.service';
 import { MyfilesComponent } from './myfiles/myfiles.component';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -24,6 +24,7 @@ descriptionError: string;
   files: any;
   fileEvent: any;
   fileName: any;
+  folderId: any;
 
   constructor( public router : Router,
                public dashboard : DashboardserviceService, 
@@ -407,6 +408,18 @@ descriptionError: string;
     }
   }
 
+  shareDetails(size: any){
+    this.folderId = size.id;
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "folderId": encodeURIComponent(this.folderId),
+      }
+    }
+
+    this.router.navigate(['/features/file-share-details'], navigationExtras);
+  }  
+
+
   myFileUpload(event:any){
     this.files = event.target.files;
     this.fileEvent = this.files;
@@ -435,7 +448,8 @@ descriptionError: string;
              setTimeout(()=>{
               let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
             callFileandFolders.getFilesandFolders();
-            },7000);
+            },2000);
+            location.reload();
           }else{
             this.toastrService.error("Error while uploading the file");
           }
@@ -514,6 +528,7 @@ descriptionError: string;
                 let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
               callFileandFolders.getFilesandFolders();
               },5000);
+              location.reload();
               
               this.toastrService.success("New folder "+this.folder_name+" has been created.");
 

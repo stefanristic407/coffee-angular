@@ -4,8 +4,9 @@
             <div class="quick-pinned-files filegridview">
                 <div class="quick-pinned-files__Image">
                     <input type="file">
-                    <img class="img" *ngIf="item.type != 'FOLDER'" src="{{item.url}}">
-                    <div class="img fill" *ngIf="item.type == 'FOLDER'"></div>
+                    <img class="img cursor-pointer" *ngIf="item.type != 'FOLDER'" src="{{item.url}}"  (click)="popupPrivew($event)">
+                    <img class="folder-img " *ngIf="item.type == 'FOLDER'"  src="../../../../../../assets/images/folder-icon.png">
+                   
                 </div>
                 <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
                     <div class="file-name float-left">
@@ -205,3 +206,22 @@
             </div>
         </div>
         </ng-template>
+
+        <div class="priview-popup-fileshare">
+            <div class="priview-popup-fileshare__back d-flex justify-content-betwen clearfix ">
+                <div class="float-left">
+                    <img src="assets/images/popup-back-arrow.svg" (click)="popupClose()">
+                    <span class="ml-2 fnt-16 fnt-600 fnt-muli text-white"></span>
+                </div>
+                <div class="img-side-dots ml-auto">
+                    <span></span>
+                    <span></span>
+                    <span class="mb-0"></span>
+                </div>
+            </div>
+            <div class="priview-popup-fileshare__img">
+                <img class="img" src="assets/images/quick-f2.png">
+            </div>
+        
+        </div>
+    

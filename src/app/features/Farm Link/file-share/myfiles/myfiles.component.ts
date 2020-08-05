@@ -158,6 +158,7 @@ export class MyfilesComponent implements OnInit {
       result => {
         console.log(result);
         if(result['success']==true){
+          console.log(result);
           this.mainData = result['result'];
         }else{
           this.toastrService.error("Error while getting the Files and Folders");
@@ -173,7 +174,7 @@ export class MyfilesComponent implements OnInit {
       data => {
         if(data['success']==true){
           this.toastrService.success("The Selected folder is deleted successfully");
-          this.getFilesandFolders();
+         
         }
         else{
           this.toastrService.error("Error while deleting the Folder");
@@ -188,7 +189,9 @@ export class MyfilesComponent implements OnInit {
       data => {
         if(data['success']==true){
           this.toastrService.success("The Selected file is deleted successfully");
-          this.getFilesandFolders();
+          setTimeout(()=>{
+            this.getFilesandFolders();
+          },2000);
         }
         else{
           this.toastrService.error("Error while deleting the File");

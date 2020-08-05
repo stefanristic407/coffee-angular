@@ -33,19 +33,19 @@
                                 <span class="checkmark head-check"></span>
                             </label>
                     </td>
-                    <td>
+                    <td (click)="shareDetails(item);" class = "showcurser">
                         <span *ngIf="item.type=='FOLDER'"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.name }}</span>
                         <span *ngIf="item.type=='DOCUMENT'"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
                         <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.name }}</span>
                         <span *ngIf="item.type=='VIDEO'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
-                        <span *ngIf="item.type=='IMAGE'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                        <span *ngIf="item.type=='IMAGE'"><img class="dwnd-img pr-2" src="assets/images/image-file.png" alt="upload-icon">{{ item.name }}</span>
                     </td>
-                    <td><span  *ngIf="item.order_ids !=''">{{ item.order_ids }}</span>
+                    <td (click)="shareDetails(item);" class = "showcurser"><span  *ngIf="item.order_ids !=''">{{ item.order_ids }}</span>
                     <span *ngIf="item.order_ids ==''">-</span> 
                     </td>
-                    <td>{{ item.updated_at | date:'d/MM/y, h:mm a' }}
+                    <td (click)="shareDetails(item);" class = "showcurser">{{ item.updated_at | date:'d/MM/y, h:mm a' }}
                     </td>
-                    <td>{{item.type | titlecase }}</td>
+                    <td (click)="shareDetails(item);" class = "showcurser">{{item.type | titlecase }}</td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
@@ -240,7 +240,7 @@
                                                 <div class="row pt-4">
                                                     <div class="col-2"><span *ngIf="item.type=='FOLDER'"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></span>
                                                         <span *ngIf="item.type=='DOCUMENT'"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></span>
-                                                        <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
+                                                        <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/image-file.png" alt="upload-icon"></span>
                                                         <span *ngIf="item.type=='VIDEO'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
                                                         <span *ngIf="item.type=='CSV'"> <img class="" src="assets/images/file-floder.png" alt="upload-icon"></span></div>
                                                     <div class="col-8 mobile-ce">

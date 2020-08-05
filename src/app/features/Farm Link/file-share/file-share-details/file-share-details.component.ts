@@ -40,10 +40,11 @@ descriptionError: string;
               private route : ActivatedRoute) { 
                 this.roasterId = this.cookieService.get('roaster_id');
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-                if(this.route.snapshot.queryParams['folderId']){
-                this.folderId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
-                console.log(this.folderId)
-                }
+                  if(this.route.snapshot.queryParams['folderId']){
+                    this.folderId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+                    console.log(this.folderId)
+                    }
+              
                 
                 this.folderNameError = "";
                 this.descriptionError = "";
@@ -388,8 +389,8 @@ $('body').on('click', ' .Custom-select-input-list__item', function () {
   $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').toggleClass('active')
 });
 
-
 this.getFolderDetails();
+  
 
 
   }
@@ -453,6 +454,7 @@ this.getFolderDetails();
             callFileandFolders.getFilesandFolders();
             let callVideos=new VideoTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.fileService,this.modalService)
             },7000);
+            location.reload()
           }else{
             this.toastrService.error("Error while uploading the file");
           }
@@ -510,6 +512,7 @@ this.getFolderDetails();
                 let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
               callFileandFolders.getFilesandFolders();
               },5000);
+              location.reload()
               this.toastrService.success("New folder "+this.folder_name+" has been created.");
 
               this.folder_name = '';

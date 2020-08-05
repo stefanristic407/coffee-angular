@@ -22,21 +22,18 @@
             <tbody class="customtable">
                 <tr class="ticket-boby-txt" *ngFor="let item of mainData  | filter:fileService.filterTerm">
                     <td>
-                        <label class="customcheckbox"  *ngIf="item.type == 'FOLDER'"  (click)="shareDetails(item)">
-                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
-                            <span class="checkmark head-check"></span>
-                        </label>
-                        <label class="customcheckbox"  *ngIf="item.type != 'FOLDER'" >
+                        
+                        <label class="customcheckbox"  >
                                 <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
                                 <span class="checkmark head-check"></span>
                             </label>
                     </td>
                     <td>
-                        <span *ngIf="item.type=='FOLDER'"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.name }}</span>
-                        <span *ngIf="item.type=='DOCUMENT'"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
-                        <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.name }}</span>
-                        <span *ngIf="item.type=='VIDEO'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
-                        <span *ngIf="item.type=='IMAGE'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='FOLDER'"   (click)="shareDetails(item)"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='DOCUMENT'"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='VIDEO'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='IMAGE'"><img class="dwnd-img pr-2" src="assets/images/image-file.png" alt="upload-icon">{{ item.name }}</span>
                     </td>
                     
                     <td>{{ item.updated_at | date:'d/MM/y, h:mm a'  }}
@@ -73,7 +70,7 @@
                 <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of mainData | filter:fileService.filterTerm">
                     <p><span *ngIf="item.type=='FOLDER'"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></span>
                         <span *ngIf="item.type=='DOCUMENT'"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></span>
-                        <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
+                        <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/image-file.png" alt="upload-icon"></span>
                         <span *ngIf="item.type=='VIDEO'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
                         <span *ngIf="item.type=='CSV'"> <img class="" src="assets/images/file-floder.png" alt="upload-icon"></span> <span class=" pull-right"><a class="menu-arrow" [popover]="documentTemplate1" placement="left" [outsideClick]="true" #pop1="bs-popover"><img class="img" src="assets/images/more-opns-file.png"></a> 
                         <ng-template #documentTemplate1 id="{{item.id}}">

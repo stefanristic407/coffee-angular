@@ -87,7 +87,9 @@ export class VideoTableComponent implements OnInit {
       data => {
         if(data['success']==true){
           this.toastrService.success("The Selected file is deleted successfully");
+          setTimeout(() => {
           this.getTableVideos();
+          }, 2000);
         }
         else{
           this.toastrService.error("Error while deleting the File");

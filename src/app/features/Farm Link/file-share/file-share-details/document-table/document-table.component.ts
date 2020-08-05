@@ -152,7 +152,9 @@ export class DocumentTableComponent implements OnInit {
       data => {
         if(data['success']==true){
           this.toastrService.success("The Selected folder is deleted successfully");
-          this.getFilesandFolders();
+          setTimeout(() => {
+            this.getFilesandFolders();
+            }, 2000);
         }
         else{
           this.toastrService.error("Error while deleting the Folder");
@@ -167,7 +169,9 @@ export class DocumentTableComponent implements OnInit {
       data => {
         if(data['success']==true){
           this.toastrService.success("The Selected file is deleted successfully");
+          setTimeout(() => {
           this.getFilesandFolders();
+          }, 2000);
         }
         else{
           this.toastrService.error("Error while deleting the File");
@@ -236,6 +240,7 @@ export class DocumentTableComponent implements OnInit {
 
   shareDetails(size: any){
     this.folderId = size.id;
+    console.log(this.folderId)
     let navigationExtras: NavigationExtras = {
       queryParams: {
         "folderId": encodeURIComponent(this.folderId),
