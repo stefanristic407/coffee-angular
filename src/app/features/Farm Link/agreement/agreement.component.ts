@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-agreement',
@@ -27,6 +29,9 @@ export class AgreementComponent implements OnInit {
   showDisplay:boolean =true;
   customerMob:any;
   showCustomerMob:boolean = true;
+  customer_id:any = "";
+  searchTerm:any ;
+  notify : boolean 
 
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
@@ -38,14 +43,10 @@ export class AgreementComponent implements OnInit {
 
 	// Static Estate Orders Data List
 	public data: any;
-	public mainData: any[];
-	title = 'angulardatatables';
-	dtOptions: DataTables.Settings = {
-		language: { "search": '' }
-	};
 
 
-	public dataAgree: any[] = [
+
+	public mainData: any[] = [
 		{  name: 'The Steam Hotel', origin:'Västerås',date: '19/12/19', orderid:'#129979',file:'The Steam Hotel agreeme…' },
 		{  name: 'Gothenburg',origin:'Candela',date: '12/01/20', orderid:'#221669',file:'Candela agreement pap' },
 		{  name: 'Finca Nápoles', origin:'Stockholm',date: '02/10/19', orderid:'#879082',file:'Finca Nápoles agreement' },
@@ -53,26 +54,14 @@ export class AgreementComponent implements OnInit {
 		{  name: 'The Steam Hotel', origin:'Västerås',date: '12/04/20', orderid:'#124160',file:'The Steam Hotel agreeme…' },
 		{  name: 'The Steam Hotel',origin:'Västerås',date: '19/09/19', orderid:'#717167',file:'Santa Rosa agreement' },
   ];
+	roasterId: string;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
-		public dashboard: DashboardserviceService) {
-			this.data = {};
-			this.data = 
-				[{ 
-					"files": '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + "SEWN service offerings",
-					"addedon": "24/09/2019  3:06 pm", 
-					"customername": "The Steam Hotel", 
-					"origin": "Santa Rosa"
-				},
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Candela agreement pap..',  addedon: '18/12/2019  1:00pm', customername: 'Candela', origin: 'Gothenburg'},
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Finca Nápoles agreement..', addedon: '01/10/2019  07:24 am',  customername: 'Finca', origin: 'Finca Nápoles'},
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Santa Rosa agreement pap..',  addedon: '24/01/2020  11:05pm', customername: 'Santa', origin: 'Santa Rosa' },
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Hacienda Sonora agreement..',  addedon: '27/02/2020  4:17pm', customername: 'Hacienda', origin: 'The Steam Hotel'},
-				{ files: '<img class=" pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon">' + 'Vijay Simha agreement..',  addedon: '17/03/2020  7:17am', customername: 'Vijay', origin: 'Santa Rosa' }
-			
-			];
-			this.mainData = this.data;
+		public dashboard: DashboardserviceService,
+		public roasterService : RoasterserviceService,
+		public toastrService : ToastrService) {
+			this.roasterId = this.cookieService.get('roaster_id');
 		 }
 
 
@@ -82,47 +71,7 @@ export class AgreementComponent implements OnInit {
         this.router.navigate(["/auth/login"]);
       }
   
-      this.dtOptions = {
-        //ajax: this.data,
-        data: this.data,
-        pagingType: 'full_numbers',
-        pageLength: 10,
-        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-        processing: false,
-        language: { search: "" },
-        columns:[
-          // {title: '<input type="checkbox" value="">' , data: null, className: "select-checkbox", defaultContent:'<input type="checkbox" value="">'},
-          {
-            title:'<label class="bestate-check "><input type="checkbox"  name="estate_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)"><span class="estatecheckmark"></span></label>',
-  
-            defaultContent:'<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>' , 
-          },
-          {
-            title: 'Files',
-            data: 'files'
-          }, 
-          {
-            title: 'Added on',
-            data: 'addedon',
-            
-          }, 
-          {
-            title: 'Customer Name',
-            data: 'customername'
-          },
-
-          {
-            title: 'Origin',
-            data: 'origin'
-          },
-        
-          {
-            title: "",
-            defaultContent: "",
-            className: "more-options"
-          }
-		],
-		
+     
 
 		// rowCallback: (row: Node, data: any, index: number) => {
 		// 	const self = this;
@@ -130,36 +79,40 @@ export class AgreementComponent implements OnInit {
 		// 		self.router.navigate(["/ordermanagement/select-order"]);
 		// 	})
 		// }
-		
-      };
+	
       this.estatetermStatus = '';
       this.estatetermOrigin = '';
       this.estatetermType = '';
 	  this.displayNumbers = '10';
 	  this.customerMob = '';
-      $(document).ready(function () {
-        $(".dataTables_length").ready(function () {
-          $(".dataTables_length").hide()
-          $(".dataTables_info").hide();
-          
-        });
-        $("input[type='search']").ready(function () {
-          // $(".dataTables_filter>label").css("color","#FFF");
-          $("input[type='search']").attr("placeholder", "Search Files");
-        });
-      });
+	  
+	  this.getAgreements();
+  
     }
+
+	getAgreements(){
+		this.roasterService.getAgreements(this.roasterId).subscribe(
+			data => {
+				if(data['success']==true){
+					// this.mainData = data['result'];
+				}else{
+					this.toastrService.error("Error while getting the agreement list!");
+				}
+			}
+		)
+	}
+
 
     //  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.
-	checkAllEstate(ev) {
-		this.data.forEach(x => (x.state = ev.target.checked));
+	checkAll(ev) {
+		this.mainData.forEach(x => (x.state = ev.target.checked));
 	}
 
 	//  Function Name : Single Check box function.
 	//  Description   : This function helps to Check that single row isChecked.
-	isAllCheckedEstate() {
-		return this.data.every(_ => _.state);
+	isAllChecked() {
+		// return this.data.every(_ => _.state);
 	}
 	setStatus(term: any) {
 		this.estatetermStatus = term;

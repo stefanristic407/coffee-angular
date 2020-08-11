@@ -8,6 +8,7 @@ import { DashboardserviceService } from 'src/services/dashboard/dashboardservice
 import { BsModalService } from 'ngx-bootstrap/modal/public_api';
 import { FileShareService } from '../file-share.service';
 import { VideoTableComponent } from './video-table/video-table.component';
+import { FileShareDetailsService } from './file-share-details.service';
 
 @Component({
   selector: 'app-file-share-details',
@@ -37,17 +38,22 @@ descriptionError: string;
               public toastrService : ToastrService,
               public roasterService : RoasterserviceService,
               public fileService : FileShareService,
-              private route : ActivatedRoute) { 
+              private route : ActivatedRoute,
+              public filedetailsService : FileShareDetailsService) { 
                 this.roasterId = this.cookieService.get('roaster_id');
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-                  if(this.route.snapshot.queryParams['folderId']){
-                    this.folderId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
-                    console.log(this.folderId)
-                    }
-              
+                  // if(this.route.snapshot.queryParams['folderId']){
+                  //   this.folderId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+                  //   console.log(this.folderId)
+                  //   }
+                  this.route.queryParams.subscribe(params => {
+                    this.filedetailsService.folderId = params['folderId'];
+                    console.log(this.filedetailsService.folderId);
+                    this.getFolderDetails();
+                  });
                 
                 this.folderNameError = "";
-                this.descriptionError = "";
+                this.descriptionError = ""
   }
 
   ngOnInit(): void {
@@ -389,8 +395,6 @@ $('body').on('click', ' .Custom-select-input-list__item', function () {
   $(this).parents('.Custom-select-input').find('.Custom-select-input__selctedText').toggleClass('active')
 });
 
-this.getFolderDetails();
-  
 
 
   }
@@ -411,7 +415,8 @@ this.getFolderDetails();
   }
 
   getFolderDetails(){
-    this.roasterService.getFolderDetails(this.roasterId,this.folderId).subscribe(
+    console.log("calling from document file");
+    this.roasterService.getFolderDetails(this.roasterId,this.filedetailsService.folderId).subscribe(
       data => {
         if(data['success']==true){
           this.folderName = data['result']['name'];
@@ -430,7 +435,7 @@ this.getFolderDetails();
     console.log(this.fileEvent);
     this.fileName = this.files[0].name;
     let fileList: FileList = this.fileEvent;
-    var parent_id = decodeURIComponent(this.route.snapshot.queryParams['folderId']);;
+    var parent_id = this.filedetailsService.folderId;
     if (fileList.length > 0) {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
@@ -449,12 +454,13 @@ this.getFolderDetails();
           if(result['success']==true){
             this.toastrService.success("The file "+this.fileName+" uploaded successfully");
              // Calling the Grade info component by creating object of the component and accessing its methods
-             setTimeout(()=>{
-              let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
-            callFileandFolders.getFilesandFolders();
-            let callVideos=new VideoTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.fileService,this.modalService)
-            },7000);
-            location.reload()
+            //  setTimeout(()=>{
+            //   let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
+            // callFileandFolders.getFilesandFolders();
+            // let callVideos=new VideoTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.fileService,this.modalService)
+            // },7000);
+            // location.reload()
+            this.filedetailsService.getFilesandFolders();
           }else{
             this.toastrService.error("Error while uploading the file");
           }
@@ -495,7 +501,7 @@ this.getFolderDetails();
         "name": this.folder_name,
         "description": this.folder_descr,
         "file_module": "File-Share",
-        "parent_id" : parseInt(this.folderId)
+        "parent_id" : parseInt(this.filedetailsService.folderId)
       }
 
       this.roasterService.createFolder(this.roasterId,data).subscribe(
@@ -508,11 +514,12 @@ this.getFolderDetails();
             else{
               console.log(data);
               // Calling the Grade info component by creating object of the component and accessing its methods
-              setTimeout(()=>{
-                let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
-              callFileandFolders.getFilesandFolders();
-              },5000);
-              location.reload()
+              // setTimeout(()=>{
+              //   let callFileandFolders = new DocumentTableComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.route,this.modalService,this.fileService);
+              // callFileandFolders.getFilesandFolders();
+              // },5000);
+              // location.reload()
+              this.filedetailsService.getFilesandFolders();
               this.toastrService.success("New folder "+this.folder_name+" has been created.");
 
               this.folder_name = '';

@@ -159,6 +159,10 @@ const routes: Routes = [
         component:FileShareDetailsComponent
       },
       {
+        path:'file-share-details/:folderId',
+        component:FileShareDetailsComponent
+      },
+      {
         path:'available-coffee-list',
         component:AvailableCoffeeListComponent
       },

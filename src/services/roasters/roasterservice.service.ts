@@ -389,4 +389,33 @@ export class RoasterserviceService {
     console.log(data);
     return this.http.post(this.url, data);
   }
+
+      //API Function Name : Get Brands
+  //API Description: This API calls helps to create the folder .
+
+  shareFolder(roaster_id: any,file_id : any,body : any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/"+file_id+"/share";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+
+  getAgreements(roaster_id: any) {
+    
+    // let params = new HttpParams();
+    // params = params.append('file_module', 'File-Share');
+    // params = params.append('type_in','VIDEO');
+    // params = params.append('parent_id', parentId)
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/agreements";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
+  }
+
+
 }

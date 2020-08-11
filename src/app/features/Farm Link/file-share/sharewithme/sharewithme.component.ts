@@ -123,8 +123,9 @@ export class SharewithmeComponent implements OnInit {
           this.toastrService.success("The Selected file/folder is pinned successfully");
            // Calling the Grade info component by creating object of the component and accessing its methods
 
- let callPinnedDetails = new FileShareComponent(this.router,this.dashboard,this.toastrService,this.cookieService,this.roasterService,this.fileService,this.modalService);
- callPinnedDetails.getPinnedFilesorFolders();
+//  let callPinnedDetails = new FileShareComponent(this.router,this.dashboard,this.toastrService,this.cookieService,this.roasterService,this.fileService,this.modalService);
+//  callPinnedDetails.getPinnedFilesorFolders();
+this.fileService.getPinnedFilesorFolders();
         }
         else{
           this.toastrService.error("Error while pinning the File/Folder");

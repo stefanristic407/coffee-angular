@@ -81,6 +81,8 @@ import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-pla
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import {TooltipModule} from 'primeng/tooltip';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -139,6 +141,7 @@ import {TooltipModule} from 'primeng/tooltip';
     FeaturesRoutingModule,
     //PrimeNG Modules
     ImageCropperModule,
+    AutoCompleteModule,
     TooltipModule,
     DragDropModule,
     OrdermanagementModule,

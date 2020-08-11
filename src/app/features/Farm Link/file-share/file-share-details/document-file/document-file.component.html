@@ -1,28 +1,29 @@
 <div class="col-12">
-    <ul class="row quicker-files">
-        <li class=" col-md-4 col-lg-3 quicker-files__list img-div" *ngFor="let item of mainData | filter:fileService.filterTerm">
+    <ul class="row ">
+        <li class=" col-md-4 col-lg-3 my-3 quicker-files__list img-div" *ngFor="let item of filedetailsService.mainData | filter:fileService.filterTerm">
             <div class="quick-pinned-files filegridview">
                 <div class="quick-pinned-files__Image">
                     <input type="file">
-                    <img class="img cursor-pointer" *ngIf="item.type != 'FOLDER'" src="{{item.url}}"  (click)="popupPrivew($event)">
-                    <img class="folder-img " *ngIf="item.type == 'FOLDER'"  src="../../../../../../assets/images/folder-icon.png">
-                   
+                    <img class="img cursor-pointer" *ngIf="item.type == 'IMAGE'" src="{{item.url}}"  (click)="popupPrivew($event)">
+                    <img class="folder-img cursor-pointer" *ngIf="item.type == 'FOLDER'"  src="../../../../../../assets/images/folder-icon.png" (click)="filedetailsService.shareDetails(item)">
+                    <img class="folder-img video-img cursor-pointer" *ngIf="item.type == 'VIDEO'" src="../../../../assets/images/videocamera-icon.png"  (click)="openVideoModal(popTemplate,item)">
+                    <img class="folder-img cursor-pointer" *ngIf="item.type == 'DOCUMENT'" src="../../../../assets/images/document.png"  (click)="downloadFile(item)">
                 </div>
                 <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
                     <div class="file-name float-left">
-                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0 cursor-pointer" *ngIf="item.type == 'FOLDER'" (click)="shareDetails(item)">{{item.name}}</h4>
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0 cursor-pointer" *ngIf="item.type == 'FOLDER'" (click)="filedetailsService.shareDetails(item)">{{item.name}}</h4>
                         <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0" *ngIf="item.type != 'FOLDER'">{{item.name}}</h4>
                         <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0">{{item.type | titlecase}}</span>
                     </div>
                     <div class="file-dropdown ml-auto">
-                        <img class="img"  *ngIf="item.type != 'FOLDER'" src="assets/images/dwnd.png">
+                        <a [href]="item.url" target="_blank" [download]="item.name"><img class="img"  *ngIf="item.type != 'FOLDER'" src="assets/images/dwnd.png"></a>
                         <a class="menu-arrow" [popover]="documentTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <img class="img" src="assets/images/more-opns-file.png">
                             </a>
                             <ng-template #documentTemplate id="{{item.id}}">
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
-                                            <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                            <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item underline-text" [href]="item.url" target="_blank" [download]="item.name" (click)="pop.hide();">Download </a></li>
                                             <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id);pop.hide();">Rename</a></li>
                                             <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop.hide();">Rename</a></li>
                                             <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
@@ -140,7 +141,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body file-section">
                 <form>
                     <div class="roastery-fields mb-4">
                         <div class="farm-input col-12 col-md-5 px-0">
@@ -173,7 +174,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body file-section">
                     <form>
                         <div class="roastery-fields mb-4">
                             <div class="farm-input col-12 col-md-5 px-0">
@@ -225,3 +226,20 @@
         
         </div>
     
+        <ng-template #popTemplate >
+                <div class="popup-video">
+                        <div class="video-close" (click)="closePopup()">
+                                <span>&#x2715;</span>
+                            </div>
+                <div class="modal-body video-section-modal p-0">
+                        <div>
+                            <!-- <mat-video src="{{url}}"></mat-video> -->
+                            
+            <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                <source src="{{url}}" type="video/mp4" />
+              
+              </video>
+                        </div>
+                </div>
+            </div>    
+            </ng-template>

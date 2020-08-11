@@ -9,7 +9,9 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FileShareService } from '../../file-share.service';
-
+import { FileShareDetailsService } from '../file-share-details.service';
+import { PlyrModule } from 'ngx-plyr';
+import * as Plyr from 'plyr';
 @Component({
   selector: 'app-video-table',
   templateUrl: './video-table.component.html',
@@ -18,7 +20,7 @@ import { FileShareService } from '../../file-share.service';
 export class VideoTableComponent implements OnInit {
   
 	
-	public mainData: any[];
+	public mainVideoData: any[];
   roasterId: string;
   parentId: string;
   modalRef: BsModalRef;
@@ -33,6 +35,7 @@ export class VideoTableComponent implements OnInit {
   fileNameValue: any;
   files: any;
   fileEvent: any;
+  url: any;
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -40,9 +43,10 @@ export class VideoTableComponent implements OnInit {
     public toastrService : ToastrService,
     public route : ActivatedRoute,
     public fileService : FileShareService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    public filedetailsService : FileShareDetailsService
     ) {
-    //   this.mainData = 
+    //   this.mainVideoData = 
     //   [{ 
     //     name: "SEWN Guidelines",
     //     lastopened: "24/09/2019  3:06 pm", 
@@ -55,8 +59,15 @@ export class VideoTableComponent implements OnInit {
     
     // ];
     this.roasterId = this.cookieService.get('roaster_id');
-    this.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+    // this.filedetailsService.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+      // this.filedetailsService.parentId = this.filedetailsService.folderId;
 
+      this.route.queryParams.subscribe(params => {
+        this.filedetailsService.parentId = params['folderId'];
+        console.log(this.filedetailsService.parentId);
+        this.filedetailsService.getTableVideos();
+
+      });
 		 }
 
      ngOnInit(): void {
@@ -64,23 +75,45 @@ export class VideoTableComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
-     this.getTableVideos();
+    //  this.filedetailsService.getTableVideos();
     }
      
-	
+
+    openModal(template: TemplateRef<any>,item:any){
+      this.modalRef = this.modalService.show(template);
+      this.url=item.url;
+      const player = new Plyr('#player');
+      $('.popup-video').parents('.modal-content').addClass('video-content')
   
-  getTableVideos(){
-    this.roasterService.getVideos(this.roasterId,this.parentId).subscribe(
-      result=>{
-        //console.log(result);
-        if(result['success']==true){
-          this.mainData = result['result'];
-        }else{
-          this.toastrService.error("Error while getting the Videos");
-        }
-      }
-    )
+      // $('.popup-video').parents('.modal-content').css({
+      //   "padding":"0px !important"
+      // })
+      // $('.popup-video').parents('.modal-body').css({
+      //   "margin-top":"0 !important"
+      // })
+  
+    }
+    closePopup(){
+      this.modalRef.hide();
+    }
+    toggleVideo(event: any) {
+      // this.videoplayer.nativeElement.play();
+      event.toElement.play();
+  
   }
+	
+  downloadFile(item: any) { 
+    if (confirm("Please confirm! you want to download?") == true) {
+    const a = document.createElement("a"); 
+    a.href = item.url ;
+    a.download = item.name;
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a); 
+  }
+  }
+
   deleteFile(id:any){
     if (confirm("Please confirm! you want to delete?") == true) {
     this.roasterService.deleteFile(this.roasterId,id).subscribe(
@@ -88,7 +121,7 @@ export class VideoTableComponent implements OnInit {
         if(data['success']==true){
           this.toastrService.success("The Selected file is deleted successfully");
           setTimeout(() => {
-          this.getTableVideos();
+          this.filedetailsService.getTableVideos();
           }, 2000);
         }
         else{
@@ -191,7 +224,7 @@ export class VideoTableComponent implements OnInit {
             result=>{
               if(result['success']==true){
                 this.toastrService.success("The File has been updated successfully");
-                this.getTableVideos();
+                this.filedetailsService.getTableVideos();
                 this.modalRef.hide();
               }else{
                 this.toastrService.error("Error while updating the file details");
@@ -205,12 +238,12 @@ export class VideoTableComponent implements OnInit {
 // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
+    this.filedetailsService.mainVideoData.forEach(x => x.state = ev.target.checked)
   }
 
   // Function Name : IsAllchecked
   // Description: This function helps to check single role.
   isAllChecked() {
-    // return this.mainData.every(_ => _.state);
+    // return this.mainVideoData.every(_ => _.state);
   }
 }

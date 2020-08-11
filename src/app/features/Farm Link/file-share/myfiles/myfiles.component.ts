@@ -12,6 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 import { FileShareService } from '../file-share.service';
 import { FileShareComponent } from '../file-share.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { PlyrModule } from 'ngx-plyr';
+import * as Plyr from 'plyr';
+declare var $ :any;
 
 @Component({
   selector: 'app-myfiles',
@@ -47,6 +50,7 @@ export class MyfilesComponent implements OnInit {
   fileNameValue: any;
   files: any;
   fileEvent: any;
+  url: any;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
@@ -102,7 +106,6 @@ export class MyfilesComponent implements OnInit {
      ngOnInit(): void {
       // var fileModule = "File-Share";
     
-      this.getFilesandFolders();
       //Toggle Esstate active
 	  $('.btn-switch').click(function() {
       var $group = $(this).closest('.cardpanel-detail');
@@ -126,13 +129,75 @@ export class MyfilesComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
+        this.fileService.getFilesandFolders();
     }
 
+
+    
+      // Open Popup
+  popupPrivew(item) {
+    var PrivewPopup = $('.priview-popup-fileshare')
+    var SetImg = PrivewPopup.find('.img')
+    var url = item.url;
+    console.log(url)
+    SetImg.attr('src', url)
+    PrivewPopup.addClass('active');
+    document.body.classList.add('popup-open');
+
+    setTimeout(function () {
+      PrivewPopup.find('.priview-popup-fileshare__img').addClass('active')
+    }, 50);
+  }
+
+  // Close Popup
+  popupClose() {
+    var PrivewPopup = $('.priview-popup-fileshare')
+    PrivewPopup.removeClass('active');
+    document.body.classList.remove('popup-open');
+    PrivewPopup.find('.priview-popup-fileshare__img').removeClass('active')
+  }
+
+  openVideoModal(template: TemplateRef<any>,item:any){
+    this.modalRef = this.modalService.show(template);
+    this.url=item.url;
+    const player = new Plyr('#player');
+    $('.popup-video').parents('.modal-content').addClass('video-content')
+
+    // $('.popup-video').parents('.modal-content').css({
+    //   "padding":"0px !important"
+    // })
+    // $('.popup-video').parents('.modal-body').css({
+    //   "margin-top":"0 !important"
+    // })
+
+  }
+  closePopup(){
+    this.modalRef.hide();
+  }
+  toggleVideo(event: any) {
+    // this.videoplayer.nativeElement.play();
+    event.toElement.play();
+
+}
+
+downloadFile(item: any) { 
+  if (confirm("Please confirm! you want to download?") == true) {
+  const a = document.createElement("a"); 
+  a.href = item.url ;
+  a.download = item.name;
+  a.target = "_blank";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a); 
+}
+}
+
+    
 	
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
+    this.fileService.mainData.forEach(x => x.state = ev.target.checked)
   }
 
   // Function Name : IsAllchecked
@@ -145,7 +210,7 @@ export class MyfilesComponent implements OnInit {
     this.folderId = size.id;
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "folderId": encodeURIComponent(this.folderId),
+        "folderId": this.folderId,
       }
     }
 
@@ -153,19 +218,7 @@ export class MyfilesComponent implements OnInit {
   }  
 
 
-  getFilesandFolders(){
-    this.roasterService.getFilesandFolders(this.roasterId,this.parentId).subscribe(
-      result => {
-        console.log(result);
-        if(result['success']==true){
-          console.log(result);
-          this.mainData = result['result'];
-        }else{
-          this.toastrService.error("Error while getting the Files and Folders");
-        }
-      }
-    )
-  }
+ 
 
 
   deleteFolder(id:any){
@@ -174,7 +227,9 @@ export class MyfilesComponent implements OnInit {
       data => {
         if(data['success']==true){
           this.toastrService.success("The Selected folder is deleted successfully");
-         
+          setTimeout(()=>{
+            this.fileService.getFilesandFolders();
+          },2000);
         }
         else{
           this.toastrService.error("Error while deleting the Folder");
@@ -190,8 +245,8 @@ export class MyfilesComponent implements OnInit {
         if(data['success']==true){
           this.toastrService.success("The Selected file is deleted successfully");
           setTimeout(()=>{
-            this.getFilesandFolders();
-          },2000);
+            this.fileService.getFilesandFolders();
+          },2500);
         }
         else{
           this.toastrService.error("Error while deleting the File");
@@ -208,8 +263,10 @@ export class MyfilesComponent implements OnInit {
           this.toastrService.success("The Selected file/folder is pinned successfully");
  // Calling the Grade info component by creating object of the component and accessing its methods
 
- let callPinnedDetails = new FileShareComponent(this.router,this.dashboard,this.toastrService,this.cookieService,this.roasterService,this.fileService,this.modalService);
- callPinnedDetails.getPinnedFilesorFolders();
+//  let callPinnedDetails = new FileShareComponent(this.router,this.dashboard,this.toastrService,this.cookieService,this.roasterService,this.fileService,this.modalService);
+//  callPinnedDetails.getPinnedFilesorFolders();
+
+this.fileService.getPinnedFilesorFolders();
 
         }
         else{
@@ -264,7 +321,7 @@ export class MyfilesComponent implements OnInit {
             this.modalRef.hide();
             this.toastrService.success("Folder details updated sucessfully");
             setTimeout(()=>{
-              this.getFilesandFolders();
+              this.fileService.getFilesandFolders();
             },2000);
 
         }
@@ -347,7 +404,7 @@ export class MyfilesComponent implements OnInit {
               if(result['success']==true){
                 this.toastrService.success("The File has been updated successfully");
                 
-                this.getFilesandFolders();
+                this.fileService.getFilesandFolders();
                 this.modalRef.hide();
               }else{
                 this.toastrService.error("Error while updating the file details");

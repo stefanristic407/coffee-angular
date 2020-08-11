@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody class="customtable">
-                <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:fileService.filterTerm">
+                <tr class="ticket-boby-txt" *ngFor="let item of filedetailsService.mainVideoData | filter:fileService.filterTerm">
                     <td>
                         <label class="customcheckbox">
                             <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
@@ -32,7 +32,7 @@
                         <span *ngIf="item.type=='DOCUMENT'"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
                         <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.name }}</span>
                         <span *ngIf="item.type=='MP4'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
-                        <span *ngIf="item.type=='VIDEO'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='VIDEO'" (click)="openModal(popTemplate,item)"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
                     </td>
                     
                     <td>{{ item.updated_at | date:'d/MM/y, h:mm a'  }}
@@ -46,7 +46,7 @@
                         <ng-template #videoTemplate id="{{item.id}}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                    <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();downloadFile(item)">Download </a></li>
                                     <!-- <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide();">Rename</a></li> -->
                                     <li class="list-group-item" *ngIf="item.type == 'VIDEO'"><a class="pointer-item" (click)="pop.hide();openFileModal(fileTemplate,item.id)">Rename</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
@@ -66,7 +66,7 @@
     <div class="pagination-content">
         <div class="cardpanel-detail mobile-farm">
             <div class="mobile-ce vide-tble pagination-content-list">
-                <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of mainData  | filter:fileService.filterTerm">
+                <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of filedetailsService.mainVideoData  | filter:fileService.filterTerm">
                     <p><span *ngIf="item.type=='FOLDER'"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></span>
                         <span *ngIf="item.type=='DOCUMENT'"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></span>
                         <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
@@ -75,7 +75,7 @@
                         <ng-template #documentTemplate1 id="{{item.id}}">
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
-                                        <li class="list-group-item"> <a class="pointer-item" (click)="pop1.hide();">Download </a></li>
+                                        <li class="list-group-item"> <a class="pointer-item" (click)="pop1.hide();downloadFile(item)">Download </a></li>
                                         <!-- <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id);pop1.hide();">Rename</a></li> -->
                                         <li class="list-group-item" *ngIf="item.type == 'VIDEO'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop1.hide();">Rename</a></li>
                                         <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">Comment</a></li>
@@ -84,7 +84,7 @@
                                     </ul>
                                 </div>
                             </ng-template></span></p>
-                    <p class="black fnt-14"> {{item.name}} </p>
+                    <p class="black fnt-14 cursor-pointer" (click)="openModal(popTemplate,item)" > {{item.name}} </p>
                     <p class="fnt-12 light-eb"> Last modified </p>
                     <p class="fnt-12 light-eb">{{item.updated_at | date:'d/MM/y, h:mm a' }}</p>
                 </div>
@@ -173,3 +173,22 @@
     </div>
 </div>
 </ng-template>
+
+<ng-template #popTemplate >
+        <div class="popup-video">
+                <div class="video-close" (click)="closePopup()">
+                        <span>&#x2715;</span>
+                    </div>
+        <div class="modal-body video-section-modal p-0">
+                <div>
+                    <!-- <mat-video src="{{url}}"></mat-video> -->
+                    
+    <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+        <source src="{{url}}" type="video/mp4" />
+      
+      </video>
+                </div>
+        </div>
+    </div>    
+    </ng-template>
+    

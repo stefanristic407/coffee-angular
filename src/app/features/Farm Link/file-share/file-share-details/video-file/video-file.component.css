@@ -208,7 +208,7 @@
     z-index: 1;
 }
 .quicker-files{
-    overflow-y: hidden !important;
+    /* overflow-y: hidden !important; */
 }
 :host::ng-deep .progress{
     background-color: unset !important;
@@ -263,6 +263,7 @@
 }
 .video-section-modal{
     padding: 0 !important;
+    margin-top: 0 !important;
 }
 .modal-header{
     padding: 1rem !important;
@@ -296,6 +297,29 @@
 ::ng-deep .mat-slider{
     position: unset !important;
 }
+::ng-deep .modal-content.video-content{
+    padding: 0 !important;
+    background: none !important;
+}
+.video-close {
+    background: #00b3ff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 700;
+    margin: 0 0 0 auto;
+    transform: translate(50%, -50%);
+    position: absolute;
+    z-index: 99;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    pointer-events: all;
+}
 @media (min-width: 768px) {
     .pin-quiker-files label {
         padding: 20px;
@@ -318,7 +342,8 @@
         padding: 20px !important;
     }
     .modal-header {
-        padding: 1rem 1rem  !important;
+        margin: 20px !important;
+        padding: 10px 0px !important;
     }
     .file-section {
         padding: 20px 0 0 0 !important;
@@ -332,6 +357,7 @@
     }
     .video-section-modal{
         padding: 0 !important;
+        margin-top: 0 !important;
     }
     .file-section{
         padding: 20px !important;
@@ -446,8 +472,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 9;
+    z-index: 1;
     cursor: pointer;
+    pointer-events: none;
 }
 
 .table-details {
@@ -458,4 +485,12 @@
     .social-images {
         height: 100% !important;
     }
+}
+.folder-img{
+    padding: 0rem 2rem 1rem 2rem;
+}
+.open-popup{
+    position: relative;
+    z-index: 9;
+    pointer-events: all;
 }

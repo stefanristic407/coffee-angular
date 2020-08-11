@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
+import { Component, OnInit, ɵɵresolveBody, TemplateRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
@@ -7,7 +7,8 @@ import { MyfilesComponent } from './myfiles/myfiles.component';
 import { Router, NavigationExtras } from '@angular/router';
 import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-
+import { PlyrModule } from 'ngx-plyr';
+import * as Plyr from 'plyr';
 @Component({
   selector: 'app-file-share',
   templateUrl: './file-share.component.html',
@@ -25,6 +26,20 @@ descriptionError: string;
   fileEvent: any;
   fileName: any;
   folderId: any;
+  url: any;
+  modalRef: BsModalRef;
+  file_id: any;
+  company_id: any;
+  company_type: any;
+  permission: any;
+  user_id_value: any;
+
+
+  country: any;
+    
+  countries: any[];
+      
+  filteredCountriesSingle: any[];
 
   constructor( public router : Router,
                public dashboard : DashboardserviceService, 
@@ -369,25 +384,67 @@ descriptionError: string;
 
  
  
-  this.getPinnedFilesorFolders();
+  this.fileService.getPinnedFilesorFolders();
 
 
  
   }
+  openVideoModal(template: TemplateRef<any>,item:any){
+    this.modalRef = this.modalService.show(template);
+    this.url=item.url;
+    const player = new Plyr('#player');
+    $('.popup-video').parents('.modal-content').addClass('video-content')
 
-  
-  getPinnedFilesorFolders(){
-    this.roasterService.getPinnedFilesandFolders(this.roasterId).subscribe(
-      data => {
-        if(data['success']==true){
-          console.log(data);
-          this.fileService.pinnedData = data['result'];
-        }else{
-          this.toastrService.error("Error while getting the pinned files/folders");
-        }
-      }
-    )
+    // $('.popup-video').parents('.modal-content').css({
+    //   "padding":"0px !important"
+    // })
+    // $('.popup-video').parents('.modal-body').css({
+    //   "margin-top":"0 !important"
+    // })
+
   }
+  closePopup(){
+    this.modalRef.hide();
+  }
+  toggleVideo(event: any) {
+    // this.videoplayer.nativeElement.play();
+    event.toElement.play();
+
+}
+
+
+downloadFile(item: any) { 
+  if (confirm("Please confirm! you want to download?") == true) {
+  const a = document.createElement("a"); 
+  a.href = item.url ;
+  a.download = item.name;
+  a.target = "_blank";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a); 
+}
+}
+
+// filterCountrySingle(event) {
+//   let query = event.query;        
+//   this.fileService.getCountries().then(countries => {
+//       this.filteredCountriesSingle = this.filterCountry(query, countries);
+//   });
+// }
+
+// filterCountry(query, countries: any[]):any[] {
+//   //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+//   let filtered : any[] = [];
+//   for(let i = 0; i < countries.length; i++) {
+//       let country = countries[i];
+//       if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+//           filtered.push(country);
+//       }
+//   }
+//   return filtered;
+// }
+  
+ 
   
   unpinFileorFolder(id:any){
     if (confirm("Please confirm! you want to unpin?") == true) {
@@ -396,7 +453,7 @@ descriptionError: string;
         if(data['success']==true){
           this.toastrService.success("The Selected file is unpinned successfully");
           setTimeout(()=>{
-            this.getPinnedFilesorFolders();
+            this.fileService.getPinnedFilesorFolders();
 
           },2500);
         }
@@ -445,11 +502,12 @@ descriptionError: string;
           if(result['success']==true){
             this.toastrService.success("The file "+this.fileName+" uploaded successfully");
              // Calling the Grade info component by creating object of the component and accessing its methods
-             setTimeout(()=>{
-              let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
-            callFileandFolders.getFilesandFolders();
-            },2000);
-            location.reload();
+            //  setTimeout(()=>{
+            //   let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
+            // callFileandFolders.getFilesandFolders();
+            // },2000);
+            // location.reload();
+            this.fileService.getFilesandFolders();
           }else{
             this.toastrService.error("Error while uploading the file");
           }
@@ -519,16 +577,40 @@ descriptionError: string;
           console.log(data);
           if(data['success']==true){
             if(this.invite == "Invite people"){
-
+              this.file_id = data['result'].id;
+              var shareData = {
+                "user_id" : this.user_id_value,
+                "permission" : this.permission,
+                "company_type" : this.company_type,
+                "company_id" : this.company_id
+              }
+              this.roasterService.shareFolder(this.roasterId,this.file_id,shareData).subscribe(
+                res => {
+                  if(res['success']==true){
+                  console.log(data);
+                  this.fileService.getFilesandFolders();
+              
+                  this.toastrService.success("New folder "+this.folder_name+" has been created.");
+    
+                  this.folder_name = '';
+                  this.folder_descr = '';
+                }
+                else{
+                  console.log(data);
+                  this.toastrService.error("Error! while sharing the created folder");
+                }
+                }
+              )
             }
             else{
               console.log(data);
                // Calling the Grade info component by creating object of the component and accessing its methods
-              setTimeout(()=>{
-                let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
-              callFileandFolders.getFilesandFolders();
-              },5000);
-              location.reload();
+              
+                // let callFileandFolders = new MyfilesComponent(this.router,this.cookieService,this.dashboard,this.roasterService,this.toastrService,this.fileService,this.modalService);
+                // callFileandFolders.getFilesandFolders();
+              // location.reload();
+
+              this.fileService.getFilesandFolders();
               
               this.toastrService.success("New folder "+this.folder_name+" has been created.");
 
@@ -564,6 +646,9 @@ descriptionError: string;
 
     }
   }
+
+
+  
 
 }
 

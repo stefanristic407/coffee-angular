@@ -5,7 +5,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileShareService } from '../../file-share.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-
+import { PlyrModule } from 'ngx-plyr';
+import * as Plyr from 'plyr';
+import { FileShareDetailsService } from '../file-share-details.service';
 @Component({
   selector: 'app-video-file',
   templateUrl: './video-file.component.html',
@@ -14,7 +16,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class VideoFileComponent implements OnInit {
   roasterId: string;
   parentId: string;
-  mainData: any;
+  mainVideoData: any;
   parentName: any;
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   modalRef: BsModalRef;
@@ -37,41 +39,77 @@ export class VideoFileComponent implements OnInit {
     public cookieService : CookieService,
     public fileService : FileShareService,
     public route : ActivatedRoute,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    public filedetailsService : FileShareDetailsService
     ) {
       this.roasterId = this.cookieService.get('roaster_id');
-      this.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);}
+      // this.filedetailsService.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+      // this.filedetailsService.parentId = this.filedetailsService.folderId;
+
+      this.route.queryParams.subscribe(params => {
+        this.filedetailsService.parentId = params['folderId'];
+        console.log(this.filedetailsService.parentId);
+        this.filedetailsService.getTableVideos();
+      });
+    }
 
   ngOnInit(): void {
+    
+
      //Auth checking
      if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
-    this.getTableVideos();
+    // this.filedetailsService.getTableVideos();
+
   }
   openModal(template: TemplateRef<any>,item:any){
     this.modalRef = this.modalService.show(template);
     this.url=item.url;
+    const player = new Plyr('#player');
+    $('.popup-video').parents('.modal-content').addClass('video-content')
+
+    // $('.popup-video').parents('.modal-content').css({
+    //   "padding":"0px !important"
+    // })
+    // $('.popup-video').parents('.modal-body').css({
+    //   "margin-top":"0 !important"
+    // })
+
+  }
+  closePopup(){
+    this.modalRef.hide();
   }
   toggleVideo(event: any) {
     // this.videoplayer.nativeElement.play();
     event.toElement.play();
 
 }
-  getTableVideos(){
-    this.roasterService.getVideos(this.roasterId,this.parentId).subscribe(
-      result=>{
-        //console.log(result);
-        if(result['success']==true){
-          this.mainData = result['result'];
-          console.log(this.mainData);
-          this.parentName=this.mainData[0].parent_name;
-        }else{
-          this.toastrService.error("Error while getting the Videos");
-        }
-      }
-    )
-  }
+downloadFile(item: any) { 
+  if (confirm("Please confirm! you want to download?") == true) {
+  const a = document.createElement("a"); 
+  a.href = item.url ;
+  a.download = item.name;
+  a.target = "_blank";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a); 
+}
+}
+  // getTableVideos(){
+  //   this.roasterService.getVideos(this.roasterId,this.parentId).subscribe(
+  //     result=>{
+  //       //console.log(result);
+  //       if(result['success']==true){
+  //         this.mainVideoData = result['result'];
+  //         console.log(this.mainVideoData);
+  //         this.parentName=this.mainVideoData[0].parent_name;
+  //       }else{
+  //         this.toastrService.error("Error while getting the Videos");
+  //       }
+  //     }
+  //   )
+  // }
   deleteFile(id:any){
     if (confirm("Please confirm! you want to delete?") == true) {
     this.roasterService.deleteFile(this.roasterId,id).subscribe(
@@ -79,7 +117,7 @@ export class VideoFileComponent implements OnInit {
         if(data['success']==true){
           this.toastrService.success("The Selected file is deleted successfully");
           setTimeout(() => {
-          this.getTableVideos();
+          this.filedetailsService.getTableVideos();
           }, 2000);
         }
         else{
@@ -181,7 +219,7 @@ export class VideoFileComponent implements OnInit {
             result=>{
               if(result['success']==true){
                 this.toastrService.success("The File has been updated successfully");
-                this.getTableVideos();
+                this.filedetailsService.getTableVideos();
                 this.modalRef.hide();
               }else{
                 this.toastrService.error("Error while updating the file details");

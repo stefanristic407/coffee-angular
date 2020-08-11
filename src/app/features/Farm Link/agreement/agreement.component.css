@@ -32,19 +32,8 @@ table.dataTable thead .sorting_desc {
 }
 
 .add-role-butn:hover {
-    background-color: #3d8462;
+    background-color: #30855c;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.table thead th,
-
-/* table.dataTable.no-footer, */
-
-table.dataTable.row-border tbody th,
-table.dataTable.row-border tbody td,
-table.dataTable.display tbody th,
-table.dataTable.display tbody td {
-    border: none !important;
 }
 
 .orders-border {
@@ -56,31 +45,6 @@ table.dataTable.display tbody td {
     padding: 2rem 0rem;
 }
 
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc_disabled:before {
-    display: none !important;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fff !important;
-}
-
-table.dataTable.hover tbody tr:hover,
-table.dataTable.display tbody tr:hover {
-    background-color: #fff !important;
-}
-
-table.dataTable.row-border tbody tr {
-    border-bottom: 1px solid red;
-}
 
 .estate-title {
     border-radius: 4px;
@@ -99,10 +63,7 @@ table.dataTable.row-border tbody tr {
     color: #232334;
 }
 
-.dataTable {
-    border-radius: 4px !important;
-    padding: 6px 4px;
-}
+
 
 .row {
     color: #232334 !important;
@@ -112,121 +73,11 @@ table.dataTable.row-border tbody tr {
     border-bottom: none !important;
 }
 
-table.dataTable.no-footer {
-    border-bottom: solid 1px #d6d6d6 !important;
-    width: 100% !important;
-}
-
-table.dataTable thead th {
-    border-bottom: none !important;
-}
-
-.even {
-    font-family: Muli !important;
-    font-size: 12px !important;
-    font-weight: bold !important;
-    font-stretch: normal !important;
-    font-style: normal !important;
-    line-height: normal !important;
-    letter-spacing: normal !important;
-    color: #232334 !important;
-    padding: 1rem 0rem 0rem 1rem;
-}
-
-.odd {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-    padding: 1rem 0rem 0rem 1rem;
-}
-
 .estate-boby-txt {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
 }
 
-.status-Shipped {
-    font-size: 12px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #e78926;
-}
-
-.status-Received {
-    font-size: 12px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #24be46;
-}
-
-.status-Order-Confirmed {
-    font-size: 12px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #e78926;
-}
-
-.typeoforder-Sample {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #f19634;
-}
-
-.typeoforder-Booked {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #649a2b;
-}
-
-.odd .typeoforder-Pre-Booked {
-    font-family: Muli !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    font-stretch: normal !important;
-    font-style: normal !important;
-    line-height: normal !important;
-    letter-spacing: normal !important;
-    color: #7c6be8 !important;
-}
-
-.foo-calendar input {
-    display: none !important;
-}
-
-.even .typeoforder-Pre-Booked {
-    font-family: Muli !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    font-stretch: normal !important;
-    font-style: normal !important;
-    line-height: normal !important;
-    letter-spacing: normal !important;
-    color: #7c6be8 !important;
-}
 
 .view-order {
     font-family: Muli !important;
@@ -281,19 +132,195 @@ table.dataTable thead th {
     font-family: 'Muli';
     height: 36px;
     border-radius: 8px;
-    border: solid 1px #cccccc;
+    border: solid 1px #d6d6d6;
     background-color: #ffffff;
     padding-left: 45px;
 }
 
 span.checkmark {
     background-color: white;
-    border: 1px solid #666666;
-    border-radius: 4px;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
 }
 
 .customcheckbox input:checked~.checkmark {
-    background-color: #000;
+    background-color: #30855c !important;
+}
+.customcheckbox .checkmark:after {
+    left: 6px !important;
+    top: 3px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+.estate-title .checkmark {
+    top: 3px !important;
+}
+
+.estate-boby-txt .checkmark {
+    top: 3px !important;
+    left: 8px !important;
+}
+
+.border-lots {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 6px 4px;
+    margin-top: 0.7rem;
+}
+
+.table-container {
+    margin: 2% 4.5% 0 4.5%;
+}
+
+.table-header {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+table th,
+table td,
+.header-row {
+    border: none !important;
+}
+
+tr {
+    border-bottom: 1px dashed #d6d6d6;
+}
+
+tr:last-child {
+    border-bottom-style: none;
+    border-bottom-color: none;
+}
+
+.table .table-header th {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: bold;
+    color: #232334;
+    padding: 14px 15px;
+}
+
+.table td {
+    padding: 18px 15px;
+}
+
+.ticket-boby-txt {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: 600;
+    color: #232334;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    /* cursor: pointer; */
+}
+.estate-orders {
+    /* margin: 1rem 3.1rem; */
+    position: relative;
+}
+
+.estate-orders-heading {
+    margin: 1rem 3.1rem;
+}
+
+.add-role-butn {
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 10px 0px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-right: 3rem;
+}
+
+.add-role-butn:hover {
+    background-color: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.estate-title {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    height: 55px;
+}
+
+.estate-title th {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.row {
+    color: #232334 !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-family: 'Muli' !important;
+    border-bottom: none !important;
+}
+.estate-boby-txt {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+.estate-order-title {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.border-order {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.border-order:focus {
+    outline-color: 1px solid #30855c;
+}
+
+.title-header {
+    margin: 1.3rem 4rem;
+}
+
+.filter-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.filter {
+    font-family: 'Muli';
+    font-weight: 600;
+    color: #232334;
+    font-size: 14px;
+}
+
+.search {
+    /*width: 255px;*/
+    font-family: 'Muli';
+    height: 36px;
+    border-radius: 8px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    /* background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px; */
+    padding-left: 45px;
+}
+
+span.checkmark {
+    background-color: white;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #232334;
 }
 
 .estate-title .checkmark {
@@ -305,20 +332,6 @@ span.checkmark {
     left: 8px !important;
 }
 
-#DataTables_Table_0_length {
-    position: relative;
-    bottom: 2.5rem;
-    left: 57%;
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #000000;
-}
-
 .text-filters,
 #dataTables_filter input {
     font-family: Muli;
@@ -328,10 +341,60 @@ span.checkmark {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: #232334;
 }
 
 
+.customer{
+    height: 46px;
+    width: 50%;
+    /* padding: 2%; */
+    -webkit-appearance: none;
+    background: url('../../../../assets/images/role-down.svg') right 16px top 16px no-repeat;
+    border: solid 2px rgba(116, 117, 136, 0.6);
+    font-size: 16px;
+    font-family: Muli;
+    font-weight: 500;
+    cursor: pointer;
+    }
+
+    
+.file-share-search input[type="search"] {
+    outline: 0;
+    border: 0;
+    background: none;
+    font-size: 12px;
+    font-weight: 600;
+    color: #232334;
+    font-family: 'Muli', sans-serif;
+    width: 80% !important;
+}
+
+.file-share-search input[type="search"]::placeholder {
+    font-size: 12px;
+    font-weight: 600;
+    color: #747588;
+    font-family: 'Muli', sans-serif;
+}
+
+.file-share-search {
+    display: inline-block;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 5px 10px;
+}
+.notify-text{
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #747588;
+    padding-left: 5%;
+}
 /**********popover*******/
 
 .list-group-item {
@@ -478,6 +541,10 @@ span.checkmark {
     display: block;
 }
 
+.customcheckbox:hover input ~ .checkmark{
+    background-color: #ffffff !important;
+}
+
 
 /* Style the checkmark/indicator */
 
@@ -531,7 +598,13 @@ span.checkmark {
 .dwnd-img {
     width: 15px;
     height: 15px;
+    position: relative;
+    right: 6%;
 }
+/* .file-icon{
+height: 32px;
+width: 32px;
+} */
 
 .share-bor {
     border-radius: 2px;
@@ -663,6 +736,12 @@ span.checkmark {
     .modal-content {
         padding: 25px !important;
     }
+    .file-share-search input[type="search"]::placeholder {
+        font-size: 14px;
+    }
+    .file-share-search input[type="search"] {
+        font-size: 14px;
+    }
 }
 
 
@@ -709,6 +788,13 @@ span.checkmark {
     .top-padd{
         top:8px;
     }
+    .customer{
+        height: 45px !important;
+        width: 100%;
+    }
+    .notify-text{
+        padding-left: 8%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -722,3 +808,4 @@ span.checkmark {
         width: 34%;
     }
 }
+

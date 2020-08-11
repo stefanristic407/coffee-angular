@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody class="customtable">
-                <tr class="ticket-boby-txt" *ngFor="let item of mainData  | filter:fileService.filterTerm">
+                <tr class="ticket-boby-txt" *ngFor="let item of filedetailsService.mainData  | filter:fileService.filterTerm">
                     <td>
                         
                         <label class="customcheckbox"  >
@@ -29,16 +29,22 @@
                             </label>
                     </td>
                     <td>
-                        <span class="cursor-pointer" *ngIf="item.type=='FOLDER'"   (click)="shareDetails(item)"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.name }}</span>
-                        <span class="cursor-pointer" *ngIf="item.type=='DOCUMENT'"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='FOLDER'"   (click)="filedetailsService.shareDetails(item)"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='DOCUMENT'"  (click)="downloadFile(item)"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
                         <span class="cursor-pointer" *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.name }}</span>
-                        <span class="cursor-pointer" *ngIf="item.type=='VIDEO'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
-                        <span class="cursor-pointer" *ngIf="item.type=='IMAGE'"><img class="dwnd-img pr-2" src="assets/images/image-file.png" alt="upload-icon">{{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='VIDEO'" (click)="openVideoModal(popTemplate,item)"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
+                        <span class="cursor-pointer" *ngIf="item.type=='IMAGE'" (click)="popupPrivew(item)"><img class="dwnd-img pr-2" src="assets/images/image-file.png" alt="upload-icon">{{ item.name }}</span>
+
                     </td>
                     
-                    <td>{{ item.updated_at | date:'d/MM/y, h:mm a'  }}
+                    <td>
+                        <span class="cursor-pointer" *ngIf="item.type== 'FOLDER'" (click)="filedetailsService.shareDetails(item)">{{ item.updated_at | date:'d/MM/y, h:mm a'  }}</span>
+                        <span  *ngIf="item.type!= 'FOLDER'" >{{ item.updated_at | date:'d/MM/y, h:mm a'  }}</span>
                     </td>
-                    <td>{{item.type | titlecase }}</td>
+                    <td>
+                            <span class="cursor-pointer" *ngIf="item.type== 'FOLDER'" (click)="filedetailsService.shareDetails(item)">{{item.type | titlecase }}</span>
+                            <span  *ngIf="item.type!= 'FOLDER'" >{{item.type | titlecase }}</span>
+                            </td>
                     <td><span class="share-bor video-share mr-3">  <img class="share-img" src="assets/images/share-img.png" alt="farm"> <span class="share-txt"> Share </span> </span></td>
                     <td>
                         <a class="menu-arrow" [popover]="documentTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
@@ -47,7 +53,7 @@
                         <ng-template #documentTemplate id="{{item.id}}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop.hide();downloadFile(item)">Download </a></li>
                                     <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id);pop.hide();">Rename</a></li>
                                     <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop.hide();">Rename</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
@@ -67,7 +73,7 @@
     <div class="pagination-content ">
         <div class="cardpanel-detail mobile-farm">
             <div class=" mobile-ce vide-tble pagination-content-list">
-                <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of mainData | filter:fileService.filterTerm">
+                <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of filedetailsService.mainData | filter:fileService.filterTerm">
                     <p><span *ngIf="item.type=='FOLDER'"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></span>
                         <span *ngIf="item.type=='DOCUMENT'"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></span>
                         <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/image-file.png" alt="upload-icon"></span>
@@ -76,7 +82,7 @@
                         <ng-template #documentTemplate1 id="{{item.id}}">
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
-                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop1.hide();">Download </a></li>
+                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop1.hide();downloadFile(item)">Download </a></li>
                                         <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id);pop1.hide();">Rename</a></li>
                                         <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop1.hide();">Rename</a></li>
                                         <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">Comment</a></li>
@@ -85,8 +91,10 @@
                                     </ul>
                                 </div>
                             </ng-template></span></p>
-                    <p class="black fnt-14" *ngIf="item.type == 'FOLDER'"  (click)="shareDetails(item)"> {{item.name}} </p>
-                    <p class="black fnt-14" *ngIf="item.type != 'FOLDER'" > {{item.name}} </p>
+                    <p class="black fnt-14" *ngIf="item.type == 'FOLDER'"  (click)="filedetailsService.shareDetails(item)"> {{item.name}} </p>
+                    <p class="black fnt-14" *ngIf="item.type == 'IMAGE'"  (click)="popupPrivew(item)"> {{item.name}} </p>
+                    <p class="black fnt-14" *ngIf="item.type == 'VIDEO'"  (click)="openVideoModal(popTemplate,item)"> {{item.name}} </p>
+                    <p class="black fnt-14" *ngIf="item.type == 'DOCUMENT'" (click)="downloadFile(item)"> {{item.name}} </p>
                     <p class="fnt-12 light-eb"> Last modified </p>
                     <p class="fnt-12 light-eb">{{item.updated_at | date:'d/MM/y, h:mm a' }}</p>
                 </div>
@@ -207,3 +215,40 @@
             </div>
         </div>
         </ng-template>
+
+        <div class="priview-popup-fileshare">
+                <div class="priview-popup-fileshare__back d-flex justify-content-betwen clearfix ">
+                    <div class="float-left">
+                        <img src="assets/images/popup-back-arrow.svg" (click)="popupClose()">
+                        <span class="ml-2 fnt-16 fnt-600 fnt-muli text-white"></span>
+                    </div>
+                    <div class="img-side-dots ml-auto">
+                        <span></span>
+                        <span></span>
+                        <span class="mb-0"></span>
+                    </div>
+                </div>
+                <div class="priview-popup-fileshare__img">
+                    <img class="img" src="assets/images/quick-f2.png">
+                </div>
+            
+            </div>
+
+            <ng-template #popTemplate >
+                    <div class="popup-video">
+                            <div class="video-close" (click)="closePopup()">
+                                    <span>&#x2715;</span>
+                                </div>
+                    <div class="modal-body video-section-modal p-0">
+                            <div>
+                                <!-- <mat-video src="{{url}}"></mat-video> -->
+                                
+                <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                    <source src="{{url}}" type="video/mp4" />
+                  
+                  </video>
+                            </div>
+                    </div>
+                </div>    
+                </ng-template>
+                

@@ -10,6 +10,10 @@ import { ToastrService } from 'ngx-toastr';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FileShareService } from '../../file-share.service';
+import { FileShareDetailsService } from '../file-share-details.service';
+import { PlyrModule } from 'ngx-plyr';
+import * as Plyr from 'plyr';
+declare var $ :any;
 @Component({
   selector: 'app-document-table',
   templateUrl: './document-table.component.html',
@@ -41,6 +45,7 @@ export class DocumentTableComponent implements OnInit {
   fileNameValue: any;
   files: any;
   fileEvent: any;
+  url: any;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
@@ -49,7 +54,8 @@ export class DocumentTableComponent implements OnInit {
     public toastrService : ToastrService,
     public route : ActivatedRoute,
     private modalService: BsModalService,
-    public fileService : FileShareService
+    public fileService : FileShareService,
+    public filedetailsService : FileShareDetailsService
 
     ) {
       this.folderNameError = '';
@@ -67,7 +73,15 @@ export class DocumentTableComponent implements OnInit {
 			// 	{ name: 'Löfbergs - Brand assets', lastopened: '24/01/2020  11:05pm', type: 'CSV'},
 			// 	{ name: 'What is coffee?',  lastopened: '17/03/2020  7:17am', type: 'MP4'}
 			
-			// ];
+      // ];
+      this.route.queryParams.subscribe(params => {
+        this.filedetailsService.parentId = params['folderId'];
+        console.log(this.filedetailsService.parentId);
+        this.filedetailsService.getFilesandFolders();
+
+      });
+      
+    
 		 }
  // Function Name : Open Modal
   // Description: This function helps to get the Id
@@ -78,11 +92,11 @@ export class DocumentTableComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
-        this.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
-        console.log(this.parentId)
+       // this.filedetailsService.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
+      //   this.filedetailsService.parentId = this.filedetailsService.folderId;
+      //  console.log(this.filedetailsService.parentId)
      
      
-      this.getFilesandFolders();
     }
 
     openModal(template: TemplateRef<any>,id: any) {
@@ -115,12 +129,69 @@ export class DocumentTableComponent implements OnInit {
       )
   
     }
-    
-	
+
+      // Open Popup
+  popupPrivew(item) {
+    var PrivewPopup = $('.priview-popup-fileshare')
+    var SetImg = PrivewPopup.find('.img')
+    var url = item.url;
+    console.log(url)
+    SetImg.attr('src', url)
+    PrivewPopup.addClass('active');
+    document.body.classList.add('popup-open');
+
+    setTimeout(function () {
+      PrivewPopup.find('.priview-popup-fileshare__img').addClass('active')
+    }, 50);
+  }
+
+  // Close Popup
+  popupClose() {
+    var PrivewPopup = $('.priview-popup-fileshare')
+    PrivewPopup.removeClass('active');
+    document.body.classList.remove('popup-open');
+    PrivewPopup.find('.priview-popup-fileshare__img').removeClass('active')
+  }
+
+  openVideoModal(template: TemplateRef<any>,item:any){
+    this.modalRef = this.modalService.show(template);
+    this.url=item.url;
+    const player = new Plyr('#player');
+    $('.popup-video').parents('.modal-content').addClass('video-content')
+
+    // $('.popup-video').parents('.modal-content').css({
+    //   "padding":"0px !important"
+    // })
+    // $('.popup-video').parents('.modal-body').css({
+    //   "margin-top":"0 !important"
+    // })
+
+  }
+  closePopup(){
+    this.modalRef.hide();
+  }
+  toggleVideo(event: any) {
+    // this.videoplayer.nativeElement.play();
+    event.toElement.play();
+
+}
+
+downloadFile(item: any) { 
+  if (confirm("Please confirm! you want to download?") == true) {
+  const a = document.createElement("a"); 
+  a.href = item.url ;
+  a.download = item.name;
+  a.target = "_blank";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a); 
+}
+}
+
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
+    this.filedetailsService.mainData.forEach(x => x.state = ev.target.checked)
   }
 
   // Function Name : IsAllchecked
@@ -131,19 +202,19 @@ export class DocumentTableComponent implements OnInit {
 
 
   
-  getFilesandFolders(){
-    console.log(this.parentId)
-    this.roasterService.getFilesandFolders(this.roasterId,this.parentId).subscribe(
-      result => {
-        console.log(result);
-        if(result['success']==true){
-          this.mainData = result['result'];
-        }else{
-          this.toastrService.error("Error while getting the Files and Folders");
-        }
-      }
-    )
-  }
+  // getFilesandFolders(){
+  //   console.log(this.parentId)
+  //   this.roasterService.getFilesandFolders(this.roasterId,this.parentId).subscribe(
+  //     result => {
+  //       console.log(result);
+  //       if(result['success']==true){
+  //         this.mainData = result['result'];
+  //       }else{
+  //         this.toastrService.error("Error while getting the Files and Folders");
+  //       }
+  //     }
+  //   )
+  // }
 
 
   deleteFolder(id:any){
@@ -153,7 +224,7 @@ export class DocumentTableComponent implements OnInit {
         if(data['success']==true){
           this.toastrService.success("The Selected folder is deleted successfully");
           setTimeout(() => {
-            this.getFilesandFolders();
+            this.filedetailsService.getFilesandFolders();
             }, 2000);
         }
         else{
@@ -170,7 +241,7 @@ export class DocumentTableComponent implements OnInit {
         if(data['success']==true){
           this.toastrService.success("The Selected file is deleted successfully");
           setTimeout(() => {
-          this.getFilesandFolders();
+          this.filedetailsService.getFilesandFolders();
           }, 2000);
         }
         else{
@@ -226,7 +297,7 @@ export class DocumentTableComponent implements OnInit {
             this.modalRef.hide();
             this.toastrService.success("Folder details updated sucessfully");
             setTimeout(()=>{
-              this.getFilesandFolders();
+              this.filedetailsService.getFilesandFolders();
             },2000);
 
         }
@@ -238,19 +309,19 @@ export class DocumentTableComponent implements OnInit {
     }
   }
 
-  shareDetails(size: any){
-    this.folderId = size.id;
-    console.log(this.folderId)
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        "folderId": encodeURIComponent(this.folderId),
-      }
+  // shareDetails(size: any){
+  //   this.folderId = size.id;
+  //   console.log(this.folderId)
+  //   let navigationExtras: NavigationExtras = {
+  //     queryParams: {
+  //       "folderId": encodeURIComponent(this.folderId),
+  //     }
       
-    }
+  //   }
 
-    this.router.navigate(['/features/file-share-details'], navigationExtras);
-    location.reload()
-  } 
+  //   this.router.navigate(['/features/file-share-details'], navigationExtras);
+  //   location.reload()
+  // } 
 
   
   updateFile(){
@@ -322,7 +393,7 @@ export class DocumentTableComponent implements OnInit {
             result=>{
               if(result['success']==true){
                 this.toastrService.success("The File has been updated successfully");
-                this.getFilesandFolders();
+                this.filedetailsService.getFilesandFolders();
                 this.modalRef.hide();
               }else{
                 this.toastrService.error("Error while updating the file details");

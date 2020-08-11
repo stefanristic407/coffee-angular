@@ -56,8 +56,11 @@
                                 <div class="quick-pinned-files">
                                     <div class="quick-pinned-files__Image">
                                         <input type="file">
-                                        <img class="img" *ngIf="data.type != 'FOLDER'" src="{{data.url}}" (click)="popupPrivew($event)">
-                                        <img class="folder-img" *ngIf="data.type == 'FOLDER'" src="../../../../assets/images/folder-icon.png">
+                                        <img class="img" *ngIf="data.type == 'IMAGE'" src="{{data.url}}" (click)="popupPrivew($event)">
+                                        <img class="folder-img cursor-pointer" *ngIf="data.type == 'FOLDER'" src="../../../../assets/images/folder-icon.png" (click)="shareDetails(data)">
+                                        <img class="folder-img video-img cursor-pointer" *ngIf="data.type == 'VIDEO'" src="../../../../assets/images/videocamera-icon.png"   (click)="openVideoModal(popTemplate,data)">
+                                        <img class="folder-img cursor-pointer" *ngIf="data.type == 'DOCUMENT'" src="../../../../assets/images/document.png"  (click)="downloadFile(data)">
+
                                         
 <div class="priview-popup-fileshare">
     <div class="priview-popup-fileshare__back d-flex justify-content-betwen clearfix ">
@@ -83,11 +86,16 @@
                                         </div>
                                     </div>
                                     <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
-                                        <div class="file-name float-left cursor-pointer" (click)="shareDetails(data)">
+                                        <div class="file-name float-left cursor-pointer" (click)="shareDetails(data)" *ngIf="data.type == 'FOLDER'">
                                             <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0 folderName">{{data.name}}</h4>
                                             <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0 ownerName">Added by
                                                 {{data.owner_name}}</span>
                                         </div>
+                                        <div class="file-name float-left cursor-pointer"  *ngIf="data.type != 'FOLDER'">
+                                                <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0 folderName">{{data.name}}</h4>
+                                                <span class="fnt-12 fnt-muli fnt-700 text-gray588 mb-0 ownerName">Added by
+                                                    {{data.owner_name}}</span>
+                                            </div>
                                         <div class="file-dropdown ml-auto">
                                             <img class="img" src="assets/images/more-opns-file.png">
 
@@ -290,6 +298,7 @@
                                     <div
                                         class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                                         <input class="float-left px-0" type="email" placeholder="Enter name or email">
+                                        <!-- <p-autoComplete [(ngModel)]="selectedCountry" name="selectedCountry" class="float-left px-0" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete> -->
                                         <div class="ml-auto">
 
                                             <div class="Custom-select w-100 border-left66">
@@ -447,3 +456,21 @@
         </div>
     </div>
 </div>
+
+<ng-template #popTemplate >
+        <div class="popup-video">
+                <div class="video-close" (click)="closePopup()">
+                        <span>&#x2715;</span>
+                    </div>
+        <div class="modal-body video-section-modal p-0">
+                <div>
+                    <!-- <mat-video src="{{url}}"></mat-video> -->
+                    
+    <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+        <source src="{{url}}" type="video/mp4" />
+      
+      </video>
+                </div>
+        </div>
+    </div>    
+    </ng-template>

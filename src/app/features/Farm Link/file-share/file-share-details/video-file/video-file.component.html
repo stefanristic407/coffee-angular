@@ -1,16 +1,18 @@
 <div class="col-12 video-section">
     <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
-        <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0">{{parentName}}</h3>
+        <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0">{{filedetailsService.parentName}}</h3>
         <span class="horizental-line__span"></span>
     </div>
     <ul class="row quicker-files">
-        <li class=" col-md-4 col-lg-3 quicker-files__list" *ngFor="let item of mainData | filter:fileService.filterTerm">
+        <li class=" col-md-4 col-lg-3 quicker-files__list" *ngFor="let item of filedetailsService.mainVideoData | filter:fileService.filterTerm">
             <div class="quick-pinned-files">
                 <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
 
-                    <img class="img social-images" src="assets/images/videos-1.png">
-                    <a (click)="openModal(popTemplate,item)"><img class="video-play" src="assets/images/play-button.png" alt="farm"></a>
-                    <span class="vido-time"></span>
+                        <a class="open-popup d-block cursor-pointer" (click)="openModal(popTemplate,item)">
+                            <img class="img social-images folder-img" src="assets/images/videocamera-icon.png">
+                   <!-- <img class="video-play" src="assets/images/play-button.png" alt="farm"> -->
+                </a>
+                    <!-- <span class="vido-time"></span> -->
                     
                     <!-- <div class="video">
                         <video controls  #videoPlayer autoplay>
@@ -35,7 +37,7 @@
                             <ng-template #videoTemplate id="{{item.id}}">
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
-                                        <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                        <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();downloadFile(item)">Download </a></li>
                                         <!-- <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide();">Rename</a></li> -->
                                         <li class="list-group-item" *ngIf="item.type == 'VIDEO'"><a class="pointer-item" (click)="pop.hide();openFileModal(fileTemplate,item.id)">Rename</a></li>
                                         <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
@@ -228,11 +230,21 @@
     </ng-template>
 
 
-<ng-template #popTemplate>
-        
-    <div class="modal-body video-section-modal">
+<ng-template #popTemplate >
+    <div class="popup-video">
+            <div class="video-close" (click)="closePopup()">
+                    <span>&#x2715;</span>
+                </div>
+    <div class="modal-body video-section-modal p-0">
             <div>
-                <mat-video src="{{url}}"></mat-video>
+                <!-- <mat-video src="{{url}}"></mat-video> -->
+                
+<video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+    <source src="{{url}}" type="video/mp4" />
+  
+  </video>
             </div>
     </div>
+</div>    
 </ng-template>
+

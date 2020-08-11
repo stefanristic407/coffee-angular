@@ -364,6 +364,10 @@ span.checkmark {
         display: flex;
         flex-wrap: wrap;
     }
+    .video-section-modal{
+        padding: 0 !important;
+        margin-top: 0 !important;
+    }
 }
 
 .create-share {
@@ -395,3 +399,235 @@ span.checkmark {
     .customcheckbox{
         bottom: 8px;
     }
+
+/* =====Video popup css==== */
+
+.video-section-modal{
+    padding: 0 !important;
+    margin-top: 0 !important;
+}
+::ng-deep .modal-content.video-content{
+    padding: 0 !important;
+    background: none !important;
+}
+.video-close {
+    background: #00b3ff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 700;
+    margin: 0 0 0 auto;
+    transform: translate(50%, -50%);
+    position: absolute;
+    z-index: 99;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    pointer-events: all;
+}
+
+
+    
+/* ===============Image Popup CSS================== */
+.priview-popup-fileshare__back {
+    position: relative;
+    top: 12%;
+    padding: 0 5%;
+    width: 100%;
+}
+
+.priview-popup-fileshare__back img {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.priview-popup-fileshare {
+    /* pointer-events: none; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    transition: 0.4s ease-in-out;
+    z-index: 999;
+}
+
+.priview-popup-fileshare.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+.priview-popup-fileshare.active .priview-popup-fileshare__img.active {
+    bottom: 50% !important;
+    transform: translate(-50%, 50%) !important;
+}
+
+.priview-popup-fileshare__img {
+    width: calc(100% - 30px);
+    height: 300px;
+    margin: auto;
+    position: absolute;
+    bottom: -100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 2px;
+    transition: 0.8s ease-in-out;
+}
+
+.priview-popup-fileshare .img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 2px;
+}
+
+.img-side-dots span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+.underline-text{
+    text-decoration: none;
+    color: #747588;
+}
+.underline-text:hover{
+    color: #232334;
+}
+
+
+
+@media (min-width: 576px) {
+    .priview-popup-fileshare__img {
+        width: 540px;
+        margin: auto;
+        padding: 0 15px;
+    }
+}
+
+@media (min-width: 768px) {
+    .pin-quiker-files label {
+        padding: 20px;
+    }
+    .file-share-container {
+        padding: 25px 35px;
+    }
+    .quick-pinned-files__Image {
+        width: 100%;
+        height: 130px;
+        padding: 10px 10px 0 10px;
+    }
+    .quicker-files__list {
+        margin-bottom: 20px;
+    }
+    .invite-radios__input {
+        margin-right: 25px;
+    }
+    .modal-content {
+        padding: 20px !important;
+    }
+    .modal-header {
+        margin: 20px !important;
+        padding: 10px 0px !important;
+    }
+    .file-section {
+        padding: 20px !important;
+    }
+    .existing-members-list__item {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+    .modal-footer {
+        padding: 20px 0 0 0 !important;
+    }
+    .priview-popup-fileshare__img {
+        width: 75%;
+        height: 350px;
+        margin: auto;
+    }
+    .priview-popup-fileshare__back {
+        top: 40px;
+    }
+
+}
+
+@media (min-width: 992px) {
+    .pin-quiker-files label {
+        padding: 25px;
+    }
+    .quicker-files__list {
+        min-height: 180px;
+        margin-bottom: 25px;
+    }
+    .file-share-container {
+        padding: 30px 45px;
+    }
+    .quick-pinned-files__Image {
+        height: 170px;
+    }
+    .quick-pinned-files__pinIcon {
+        width: 35px;
+        height: 35px;
+    }
+    .file-share-search input[type="search"]::placeholder {
+        font-size: 14px;
+    }
+    .file-share-search input[type="search"] {
+        font-size: 14px;
+    }
+    /* .modal-header {
+        padding: 0 0 25px 0 !important;
+    }
+    .modal-body {
+        padding: 25px 0 0 0 !important;
+    }
+    .modal-dialog {
+        max-width: 740px !important;
+    }
+    .modal-footer {
+        padding: 25px 0 0 0 !important;
+        border: 0 !important;
+    } */
+    .invite-radios__input {
+        margin-right: 30px;
+    }
+    .create-share {
+        padding: 10px 15px;
+    }
+    .modal-content {
+        padding: 25px !important;
+    }
+    .existing-members-list__item {
+        padding-bottom: 22px;
+        margin-bottom: 22px;
+    }
+    .member-profile {
+        width: 35px;
+        height: 35px;
+    }
+    .remove-quiker-file {
+        top: 15px;
+        right: 15px;
+        font-size: 35px;
+    }
+    .priview-popup-fileshare__img {
+        width: 65%;
+        height: 500px;
+        margin: auto;
+    }
+}

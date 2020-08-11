@@ -1,4 +1,5 @@
 <div class="bg-fff coffee-exp agreements">
+    <div class="row">
     <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
@@ -13,6 +14,11 @@
 
         </ul>
     </nav>
+    <div class="file-share-search col-12 col-md-3 ml-md-auto mb-3 mr-5 d-none d-md-flex align-items-center">
+            <img class="mr-1 mr-md-2" src="assets/images/search.svg">
+            <input type="search" placeholder="Search Files" [(ngModel)]="searchTerm" name="filesTerm">
+        </div>
+    </div>
 
     <section class="estate-orders-heading">
         <h5 class="estate-order-title pt-3"> Agreements</h5>
@@ -81,21 +87,76 @@
         </div>
 
         <div class="estate-table pt-2 web-farm">
-            <table class="estate-boby-txt " datatable [dtOptions]="dtOptions">
+            <!-- <table class="estate-boby-txt " datatable [dtOptions]="dtOptions">
 
-            </table>
+            </table> -->
+
+            <div class="table-responsive border-lots">
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr class="header-row">
+                                <th>
+                                    <label class="customcheckbox m-b-20">
+                                        <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                                        (change)="checkAll($event)"/>
+                                        <span class="checkmark head-check"></span>
+                                    </label>
+                                </th>
+                                <th>Files</th>
+                               
+                                <th scope="col">Added on</th>
+                                <th scope="col">Customer name</th>
+                                <th scope="col">Origin</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="customtable">
+                            <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:searchTerm">
+                                <td>
+                                    <label class="customcheckbox">
+                                        <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                        <span class="checkmark head-check"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <!-- <span *ngIf="item.type=='Folder'"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.files }}</span> -->
+                                    <span><img class="file-icon pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.file }}</span>
+                                    <!-- <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.files }}</span>
+                                    <span *ngIf="item.type=='mp4'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.files }}</span> -->
+                                </td>
+                                <td>{{ item.date }}
+                                </td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.origin}}</td>
+                                <td>
+                                    <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                        <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                                    </a>
+                                    <ng-template #poplistTemplate id="{{item.id}}">
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Update</a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
         </div>
 
         <div class="estate-table pt-md-2 mobile-farm">
             <div class="table-details mobile-farm">
                 <div class="table-responsive border-sourcetable agreement-top">
 
-                    <div class="col-12 bor-d6d6" *ngFor="let data of dataAgree | filter:customerMob">
+                    <div class="col-12 bor-d6d6" *ngFor="let data of mainData | filter:customerMob">
                         <div class="row pt-4">
                             <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
                             <div class="col-10 mobile-ce">
                                 <p class="black fnt-14">{{data.file}}</p>
-                                <p class="fnt-12 light-eight">{{data.orderid}}</p>
                                 <p class="fnt-12 light-eight"> Added on {{data.date}}</p>
                                 <p class="fnt-12 light-eight">{{data.name}}</p>
                                 <p class="fnt-12 light-eight"> {{data.origin}}</p>
@@ -246,23 +307,35 @@
                         <div class="invite-to">
 
                             <div class="roastery-fields mb-3 mb-lg-4">
-                                <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Select an order <span class="star-mark">*</span></h4>
-                                <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
+                                <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Select a customer <span class="star-mark">*</span></h4>
+                                <!-- <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
                                     your files to the order helps you and your custoemrs to find files faster</span>
 
                                 <a class="d-inline-flex mt-2 view-order-file align-items-center share-bor">
                                     <img src='assets/images/view.png'>
                                     <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">View
                                         orders</span>
-                                </a>
-
+                                </a> -->
+                                <select [(ngModel)]="customer_id" class="customer px-2" name="customer" id="customer" >
+                                    <option value="">Please select customer</option>
+                                    <option value="1">Satya</option>
+                                    <option value="2">Vijay</option>
+                                    <option value="3">Sindhuja</option>
+                                    <option value="4">Dinesh</option>
+                                </select>
+                                <div class="mt-4">
+                                        <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox"  name="notify" value="notify" [(ngModel)]="notify"/>
+                                                <span class="checkmark head-check"></span>
+                                            </label><span class="notify-text">Notify customer</span>
+                                </div>
                             </div>
 
                             <div class="roastery-fields mb-0">
                                 <div class="farm-input col-12 col-md-8 px-0">
                                     <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Upload</h4>
                                     <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Please upload a .pdf of the agreement</span>
-                                    <label class="share-bor w-30">  <input class="file-inpt" type="file"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
+                                    <label class="share-bor w-30">  <input class="file-inpt" accept="application/pdf" type="file"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
                                 </div>
                             </div>
                         </div>
@@ -271,7 +344,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">Create and Share
+                <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">Upload agreement
                 </button>
             </div>
         </div>
