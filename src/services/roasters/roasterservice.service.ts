@@ -367,14 +367,18 @@ export class RoasterserviceService {
     return this.http.post(this.fileuploadUrl, formData, httpOptions);
   }
 
-     // API Function Name : Upload Files API.
-  // API Description   : This API call helps to upload the Files.
+     // API Function Name : update Files API.
+  // API Description   : This API call helps to update the Files.
   updateFiles(formData: any) {
     var httpOptions = {
       headers: new HttpHeaders({ Accept: "application/json" })
     };
     return this.http.post(this.putfileuploadUrl, formData, httpOptions);
   }
+
+  
+   //API Function Name : Get Video files
+  //API Description: This API calls helps to get the video files.
   getVideos(roaster_id: any,parentId : any) {
     
     let params = new HttpParams();
@@ -390,8 +394,8 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
-      //API Function Name : Get Brands
-  //API Description: This API calls helps to create the folder .
+      //API Function Name : Share File/Folder
+  //API Description: This API calls helps to share the file/folder to the user.
 
   shareFolder(roaster_id: any,file_id : any,body : any) {
     var data = {};
@@ -402,6 +406,9 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
+  
+   //API Function Name : Get Agreements 
+  //API Description: This API calls helps to get the agreements .
   getAgreements(roaster_id: any) {
     
     // let params = new HttpParams();
@@ -417,5 +424,58 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
+  
+   //API Function Name : Get Users List
+  //API Description: This API calls helps to get the Users List.
+  getUsersList(typeValue : any) {
+    
+    let params = new HttpParams();
+    // params = params.append('file_module', 'File-Share');
+    // params = params.append('type_in','VIDEO');
+    params = params.append('query', typeValue);
+    var data = {};
+    data['api_call'] = "/users/user-list?" + params ;
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    // console.log(data);
+    return this.http.post(this.url, data);
+  }
+
+
+   //API Function Name : Get shared users list
+  //API Description: This API calls helps to get the shared users list.
+  getSharedUserList(roasterId : any, fileId : any){
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/file-manager/" + fileId + "/shared-users";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url,data);
+
+  }
+
+        //API Function Name : UnShare File/Folder
+  //API Description: This API calls helps to unshare the file/folder to the user.
+
+  unShareFolder(roaster_id: any,file_id : any,body : any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/"+file_id+"/unshare";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+
+         //API Function Name : Update permissions of the File/Folder
+  //API Description: This API calls helps to update permissions of the File/Folder.
+
+  updatePermissions(roaster_id: any,file_id:any,body:any) {
+    var data = {};
+    data['api_call'] =   "/ro/" + roaster_id + "/file-manager/"+ file_id + "/permission";
+    data['method'] = "PUT";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
 
 }

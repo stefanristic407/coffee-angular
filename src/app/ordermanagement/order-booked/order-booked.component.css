@@ -30,7 +30,7 @@
     font-size: 12px;
     font-weight: bold;
     color: #747588;
-    margin-left: -3rem;
+    /* margin-left: -3rem; */
 }
 
 .order-harvest {
@@ -241,7 +241,7 @@
 }
 
 .border-div {
-    border-bottom: 1px solid #d6d6d6;
+    border-bottom: 1px solid #ebebeb;
 }
 
 .company-phone {
@@ -772,4 +772,16 @@ li.nav-item {
     bottom: 0px;
     z-index: 99;
     width: 23%;
+}
+
+.timing{
+    color: #232334;
+    font-weight: 600;
+    font-family: Muli;
+}
+
+.confirmation{
+    color: #747588;
+    font-weight: 600;
+    font-family: Muli;
 }

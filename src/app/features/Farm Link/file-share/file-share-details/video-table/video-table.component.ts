@@ -12,6 +12,8 @@ import { FileShareService } from '../../file-share.service';
 import { FileShareDetailsService } from '../file-share-details.service';
 import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
+
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 @Component({
   selector: 'app-video-table',
   templateUrl: './video-table.component.html',
@@ -19,6 +21,7 @@ import * as Plyr from 'plyr';
 })
 export class VideoTableComponent implements OnInit {
   
+  selectedValue: string;
 	
 	public mainVideoData: any[];
   roasterId: string;
@@ -36,6 +39,18 @@ export class VideoTableComponent implements OnInit {
   files: any;
   fileEvent: any;
   url: any;
+
+  typedValue: any;
+  usersList: any;
+  selectedOption: any;
+  company_id: any;
+  user_id_value: any;
+  company_type: any;
+  sharedUserslists: any = [];
+  sharedUsers: any;
+  shareFileId: any;
+  share_permission: any;
+
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -113,6 +128,54 @@ export class VideoTableComponent implements OnInit {
     document.body.removeChild(a); 
   }
   }
+
+
+  openShareModal(shareTemplate : TemplateRef<any>,item : any){
+    this.shareFileId = item.id;
+  this.modalRef = this.modalService.show(shareTemplate);
+  this.sharedUsersLists();
+  }
+  
+  sharedUsersLists(){
+  console.info(this.shareFileId)
+  this.roasterService.getSharedUserList(this.roasterId,this.shareFileId).subscribe(
+    response => {
+      if(response['success'] == true){
+        console.log(response)
+        this.sharedUserslists = response['result'];
+        this.sharedUsers = this.sharedUserslists.length;
+        
+      }else{
+        this.toastrService.error("Error while getting the shared users");
+      }
+    }
+  )
+  }
+  
+  
+  onSelect(event: TypeaheadMatch): void {
+  this.selectedOption = event.item;
+  console.log(this.selectedOption.id);
+  this.user_id_value = this.selectedOption.id;
+  this.company_id = this.selectedOption.organization_id;
+  this.company_type = this.selectedOption.organization_type;
+  }
+  
+  getUsersList(e :any){
+  this.typedValue = e.target.value; 
+  if(this.typedValue.length > 4){
+  this.roasterService.getUsersList(this.typedValue).subscribe(
+    data => {
+      if(data['success']==true){
+        this.usersList = data['result'];
+      }else{
+        this.toastrService.error("Error while fetching users list");
+      }
+    }
+  )
+  }
+  }
+  
 
   deleteFile(id:any){
     if (confirm("Please confirm! you want to delete?") == true) {
@@ -246,4 +309,81 @@ export class VideoTableComponent implements OnInit {
   isAllChecked() {
     // return this.mainVideoData.every(_ => _.state);
   }
+
+
+  shareFileAndFolder(){
+    var file_id = this.shareFileId;
+    var share_permission = document.getElementById('share_permission').innerHTML;
+    if(share_permission == "Can view"){
+      this.share_permission = "VIEW";
+    }else if(share_permission == "Can edit"){
+      this.share_permission = "EDIT";
+    }
+    var shareData = {
+      "user_id" : this.user_id_value,
+      "permission" : this.share_permission,
+      "company_type" : this.company_type,
+      "company_id" : this.company_id
+    }
+    console.log(shareData)
+    this.roasterService.shareFolder(this.roasterId,file_id,shareData).subscribe(
+      res => {
+        if(res['success']==true){
+          this.sharedUsersLists();
+          this.toastrService.success("The folder has been shared to the User sucessfully!")
+        }
+        else{
+          this.toastrService.error("Error while sharing the folder to the user!");
+        }
+      
+      })
+  }
+
+  removeAccess(item : any){
+   
+    if (confirm("Please confirm! you want to remove access?") == true) {
+    
+    var fileId = this.shareFileId;
+    var unShareData = {
+      'user_id' : item.user_id,
+      'company_type' : item.company_type,
+      'company_id' : item.company_id
+    }
+    this.roasterService.unShareFolder(this.roasterId, fileId,unShareData).subscribe(
+      data =>{
+        if(data['success'] == true){
+          this.sharedUsersLists();
+          this.toastrService.success("Share access has been removed successfully.")
+        }else{
+          this.toastrService.error("Error while removing the access to the user");
+        }
+      }
+    )
+  }
+}
+
+
+changePermissions(term : any, item : any){
+  var permission = term;
+  var fileId = this.shareFileId;
+  var shareData = {
+    "user_id": item.user_id,
+    "permission": permission,
+    "company_type": item.company_type,
+    "company_id": item.company_id
+  }
+  this.roasterService.updatePermissions(this.roasterId,fileId,shareData).subscribe(
+    data => {
+      console.log(data)
+      if(data['success'] == true){
+        // this.sharedUsersLists();
+        this.toastrService.success("Permission has been updated successfully.")
+      }else{
+        this.toastrService.error("Error while changing the Share permissions");
+      }
+    }
+  )
+}
+
+
 }

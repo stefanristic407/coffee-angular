@@ -722,3 +722,11 @@ li.nav-item {
     object-fit: contain;
     opacity: 0.8;
 }
+.auto-complete-box{
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+}
+.closeCard{
+    display: none;
+}

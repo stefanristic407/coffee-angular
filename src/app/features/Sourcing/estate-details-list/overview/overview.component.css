@@ -87,7 +87,7 @@
 
 .estate-focus ul li label {
     float: left;
-    width: 37%;
+    width: 28%;
     margin-bottom: 0;
     color: #747588;
     font-size: 14px;
@@ -103,6 +103,7 @@
     color: #232334;
     font-weight: 600;
     font-family: Muli;
+    margin-left: 2.3rem;
 }
 
 .cetify-logo ul li {

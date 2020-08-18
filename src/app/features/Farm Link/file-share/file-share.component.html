@@ -33,9 +33,8 @@
 
                 <!--Quick pin files-->
                 <ul class="row mb-md-3 mb-lg-4">
-                    <li class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0">
-                        <div class="pin-quiker-files text-center position-relative" data-toggle="modal"
-                            data-target="#sharefolder">
+                    <li class="col-12 col-md-4 col-lg-3 mb-3 mb-md-0" id="closeId">
+                        <div class="pin-quiker-files text-center position-relative">
                             <label class="mb-0">
                                 <!-- <input type="file"> -->
                                 <div class="pin-quiker-file__upload">
@@ -43,7 +42,7 @@
                                     <p class="mb-0 fnt-16 fnt-500 pl-3 pl-md-0 fnt-muli text-black334">Pin your files
                                         here
                                         and find them quicker</p>
-                                    <span class="remove-quiker-file d-inline-block"> <img class="close-file"
+                                    <span class="remove-quiker-file d-inline-block" (click)="closeCard()"> <img class="close-file"
                                             src="assets/images/close.svg"></span>
                                 </div>
                             </label>
@@ -297,7 +296,11 @@
                                     <label>Enter a name or email*</label>
                                     <div
                                         class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
-                                        <input class="float-left px-0" type="email" placeholder="Enter name or email">
+                                        <input class="float-left px-0 form-control auto-complete-box" type="email" [(ngModel)]="selectedValue" name="name"
+                                        [typeahead]="usersList"
+                                        typeaheadOptionField="firstname"
+                                        typeaheadWaitMs="1000"
+                                        (typeaheadOnSelect)="onSelect($event)" (keyup)="getUsersList($event)" placeholder="Enter name or email" autocomplete="off" >
                                         <!-- <p-autoComplete [(ngModel)]="selectedCountry" name="selectedCountry" class="float-left px-0" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [minLength]="1"></p-autoComplete> -->
                                         <div class="ml-auto">
 
@@ -305,7 +308,7 @@
                                                 <div class="Custom-select-input w-100  pr-3">
                                                     <input type="text" value="Can view" readonly>
                                                     <span
-                                                        class="Custom-select-input__selctedText fnt-600 fnt-muli text-black334">Can
+                                                        class="Custom-select-input__selctedText fnt-600 fnt-muli text-black334" id="permission">Can
                                                         view</span>
                                                     <ul class="Custom-select-input-list fnt-600 fnt-muli text-black334">
                                                         <li class="Custom-select-input-list__item">Can view</li>

@@ -675,3 +675,8 @@ ul li {
 .tab-overflow-auto{
     width: 100%;
 }
+.auto-complete-box{
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+}

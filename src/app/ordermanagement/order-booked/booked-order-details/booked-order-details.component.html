@@ -115,13 +115,16 @@
             <p class="pb-md-2 mb-0 mt-3 mt-md-0"><a class="procedure mt-2">View payment procedure </a></p>
             <hr/>
             <div class="track-info mt-4 pt-2" *ngIf="bookedService.shipmentDone">
-                <p class="track-info-title">Tracking ID <img class="space ml-1" src="assets/images/open-icon.png" alt=""></p>
-                <p class="track-id">9274972094-29ei43</p>
+                <p class="track-info-title">Tracking ID 
+                    <!-- <img class="space ml-1" src="assets/images/open-icon.png" alt=""> -->
+                </p>
+                <!-- <p class="track-id">9274972094-29ei43</p> -->
+                <button class="btn track-btn"><span class="track">Track shipment</span></button>
             </div>
-            <div class="shipment-info mt-4" *ngIf="bookedService.shipmentDone">
+            <!-- <div class="shipment-info mt-4" *ngIf="bookedService.shipmentDone">
                 <p class="shipment-title">Shipment ID <img class="space" src="assets/images/open-icon.png" alt=""></p>
                 <p class="shipment-id">9274972094-29ei43</p>
-            </div>
+            </div> -->
             <input type="file" hidden #fileUpload (change)="openFile($event)">
         </div>
     </div>

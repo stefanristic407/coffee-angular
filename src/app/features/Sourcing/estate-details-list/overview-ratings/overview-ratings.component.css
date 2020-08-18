@@ -80,7 +80,7 @@ li.nav-item {
 
 .estate-number {
     font-family: Muli;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     color: #747588;
 }
@@ -267,10 +267,10 @@ li.nav-item {
     color: #30855c;
     cursor: pointer;
 }
-
+/* 
 .problem-text {
     margin-top: -3rem;
-}
+} */
 
 .ret-order {
     padding: 1.5rem 1rem 1rem 1rem;
@@ -290,6 +290,7 @@ li.nav-item {
     font-size: 12px;
     font-weight: 600;
     color: #747588;
+    cursor: pointer;
 }
 
 .list-group-item:hover {

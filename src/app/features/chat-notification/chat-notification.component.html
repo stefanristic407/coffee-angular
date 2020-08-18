@@ -32,7 +32,7 @@
                 </nav>
             </div>
             <div class="ml-auto text-right prefer-space">
-                <button type="submit" class="btn btn-succes save-butn" routerLink = "/features/account-settings">Save changes</button>
+                <button type="submit" class="btn btn-succes save-butn" (click)="updatePreferences()">Save changes</button>
             </div>
         </div>
         <div class="row mobile-view">
@@ -58,26 +58,26 @@
                         <span class="farm-size">Farm Size</span>
                         <div class="chat-content">
                             <span class="hectares-data  text-left mr-auto">Hecters</span>
-                            <span class="float-right ml-auto top-space"><input type="radio" name="optradio"></span>
+                            <span class="float-right ml-auto top-space"><input type="radio" name="farmSize" value="hecters" [(ngModel)]="farmSize"></span>
                         </div>
                         <div class="chat-content">
                             <span class="acres-data text-left mr-auto">Acres</span>
-                            <span class="float-right ml-auto top-space"><input type="radio" name="optradio"></span>
+                            <span class="float-right ml-auto top-space"><input type="radio" name="farmSize" value="acres" [(ngModel)]="farmSize"></span>
                         </div>
                     </div>
                     <div class="pt-4 pb-2">
                         <span class="quantity-size">Quantity</span>
                         <div class="chat-content">
                             <span class="pounds-data  text-left mr-auto">Pounds (lb)</span>
-                            <span class="float-right ml-auto top-space"><input type="radio" name="optradio1"></span>
+                            <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="lb" [(ngModel)]="quantity"></span>
                         </div>
                         <div class="chat-content">
                             <span class="kilograms-data text-left mr-auto">Kilograms (Kg)</span>
-                            <span class="float-right ml-auto top-space"><input type="radio" name="optradio1"></span>
+                            <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="kg" [(ngModel)]="quantity"></span>
                         </div>
                         <div class="chat-content">
                             <span class="kilograms-data text-left mr-auto">Tonnes (ton)</span>
-                            <span class="float-right ml-auto top-space"><input type="radio" name="optradio1"></span>
+                            <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="ton" [(ngModel)]="quantity"></span>
                         </div>
                     </div>
                     <h2 class="chat-header pt-4 pb-2">Chat</h2>
@@ -95,7 +95,13 @@
                     </div>
                     <div class="chat-content">
                         <span class="receipt-data text-left mr-auto">Chat text size</span>
-                        <span class="float-right ml-auto normal-txt">Normal<img class="pl-1" src="assets/images/active.png"></span>
+                        <span>
+                                <a class="pointer-item float-right ml-auto" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+                                        <span class="d-inline filter float-right ml-auto normal-txt" *ngIf="termStatus != ''" (click)="toggleRelavant();">
+                                            {{ termStatus | titlecase }}&nbsp; <img src="{{ showRelavant ? 'assets/images/active.png' : 'assets/images/user-down.svg'}}" />
+                                        </span>
+                                    </a>
+                        </span>
                     </div>
 
                     <h2 class="chat-header pt-4 pb-2">Notifications</h2>
@@ -130,7 +136,36 @@
             </div>
         </div>
         <div class="mobile-farm col-12">
-                <button type="button" class="btn btn-success save-butn"  routerLink = "/features/account-settings"> Save changes </button>
+                <button type="button" class="btn btn-success save-butn"  (click)="updatePreferences()"> Save changes </button>
             </div>
     </section>
 </div>
+
+
+
+
+<ng-template #allTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setStatus('small');toggleRelavant();pop.hide()">Small</a
+                  >
+                </li>
+                <li class="list-group-item item-color">
+                  <a
+                    class="pointer-item"
+                    (click)="setStatus('normal');toggleRelavant();pop.hide()"
+                    >Normal</a
+                  >
+                </li>
+                <li class="list-group-item item-color">
+                        <a
+                          class="pointer-item"
+                          (click)="setStatus('large');toggleRelavant();pop.hide()"
+                          >Large</a
+                        >
+                      </li>
+              
+              </ul>
+            </div>
+          </ng-template>

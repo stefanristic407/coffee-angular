@@ -207,3 +207,20 @@ hr {
         padding-top: 2.5rem;
     }
 }
+.track{
+    color: #30855c;
+    font-family: Muli;
+    font-weight: bold;
+    font-size: 14px;
+}
+.track-btn{
+    border: 1px solid #30855c;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+.track-btn:hover{
+    background-color: #30855c;
+}
+.track-btn:hover .track{
+    color: #ffffff;
+}

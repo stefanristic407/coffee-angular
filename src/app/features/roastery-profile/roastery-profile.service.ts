@@ -6,6 +6,7 @@ import { ThumbnailsPosition } from 'ng-gallery';
 import { ToastrService } from 'ngx-toastr';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { Router } from '@angular/router';
+import { debug } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -5717,6 +5718,27 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
       response =>{
         if(response['success']==true){
           console.log(response);
+          // var  contactData = {
+          //   user_id : parseInt(this.emp_name)
+          // }
+          // this.roasterService.updateRoasterContacts(this.roasterId,contactData).subscribe(
+          //   res =>{
+          //     console.log(res);
+          //     if(res['success']== true){
+          // var base64Rejex = /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
+          var base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
+          var isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
+
+          if(isBase64Valid == false){
+            if(this.emp_name == ""){
+              this.toastrService.success("Roaster profile details updated successfully");
+            this.contactInfo = true;
+            this.addMediaDiv = false;
+            this.savemode = false;
+            this.editmode = true;
+            this.emp_name = "";
+            this.roasterProfile();
+            }else{
           var  contactData = {
             user_id : parseInt(this.emp_name)
           }
@@ -5724,20 +5746,20 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
             res =>{
               console.log(res);
               if(res['success']== true){
-
-              
-          var base64Rejex = /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
-          var isBase64Valid = base64Rejex.test(this.profilePhotoService.croppedImage); // base64Data is the base64 string
-
-          if(!isBase64Valid){
             this.toastrService.success("Roaster profile details updated successfully");
             this.contactInfo = true;
             this.addMediaDiv = false;
             this.savemode = false;
             this.editmode = true;
+            this.emp_name = "";
             this.roasterProfile();
+            }else{
+              this.toastrService.error("Error while updating contacts")
+            }
+          })
+            }
           }else{
-
+            console.log("entering here")
           var ImageURL = this.profilePhotoService.croppedImage;
            // Split the base64 string in data and contentType
           var block = ImageURL.split(";");
@@ -5760,26 +5782,49 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
             result => {
               console.log(result)
               if(result['success']== true){
-              this.toastrService.success("Roaster profile details updated successfully");
+                if(this.emp_name == ""){
+                  this.toastrService.success("Roaster profile details updated successfully");
               this.contactInfo = true;
               this.addMediaDiv = false;
               this.savemode = false;
               this.editmode = true;
+              this.emp_name = "";
               this.roasterProfile();
+                }else{
+                  var  contactData = {
+                    user_id : parseInt(this.emp_name)
+                  }
+                  this.roasterService.updateRoasterContacts(this.roasterId,contactData).subscribe(
+                    res =>{
+                      console.log(res);
+                      if(res['success']== true){
+                    this.toastrService.success("Roaster profile details updated successfully");
+                    this.contactInfo = true;
+                    this.addMediaDiv = false;
+                    this.savemode = false;
+                    this.editmode = true;
+                    this.emp_name = "";
+                    this.roasterProfile();
+                    }else{
+                      this.toastrService.error("Error while updating contacts")
+                    }
+                  })
+                }
+              
               }
               else{
                 console.log(result);
-                this.toastrService.error("Error while updating details, please try again.")
+                this.toastrService.error("Error while uploading company image, please try again.")
               }
             }
           )
         }
-      }else{
-        console.log(res);
-        this.toastrService.error("Error while updating details, please try again.")   
-      }
-    }
-  )
+  //     }else{
+  //       console.log(res);
+  //       this.toastrService.error("Error while updating details, please try again.")   
+  //     }
+  //   }
+  // )
         }
         else{
           this.toastrService.error("Error while updating details, please try again.")

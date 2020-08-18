@@ -33,6 +33,7 @@ export class DirectMessagingComponent implements OnInit {
 	searchText: any;
 	searchResult: any;
 	keyword: string;
+	threadLastMessages : any;
 	constructor(
 		private modalService: BsModalService,
 		private toastrService: ToastrService,
@@ -53,15 +54,14 @@ export class DirectMessagingComponent implements OnInit {
 		authCheck['type'] = "auth";
 		authCheck['data'] = {};
 		authCheck['data']['user_token'] = this.cookieService.get("Auth");
+		this.threadLastMessages = {};
 		this.subject.next(authCheck);
 		this.subject.subscribe(
 			msg => {
-				console.log('message received: ')
-				console.log(msg);
 				if (msg['type'] == "history") {
 					if (msg['data'] != null) {
-						var currentUser = this.threadsMessageData[this.activeThread]['currentUser'];
-						this.threadCurrentUser = this.threadsMessageData[this.activeThread]['currentUser'];
+						this.getCurrentUser(this.activeThread);
+						var currentUser = this.threadCurrentUser;
 						this.threadsMessageData[this.activeThread] = [];
 						var temp = [];
 						temp = msg['data'].reverse();
@@ -74,7 +74,6 @@ export class DirectMessagingComponent implements OnInit {
 					allMessages.scrollTop = allMessages.scrollHeight;
 				} else if (msg['type'] == "threads") {
 					//Get all threads for logged in user
-					//console.log("Messages Threads");
 					this.threadsData = [];
 					if (msg['data'] != null) {
 						msg['data'].forEach(element => {
@@ -89,13 +88,10 @@ export class DirectMessagingComponent implements OnInit {
 									}
 								});
 								this.threadsData.push(element);
-								this.threadsMessageData[element['id']] = {};
-								this.threadsMessageData[element['id']]['messages'] = {};
-								element['members'].forEach(memberElement => {
-									if (memberElement['user']['user_id'] == this.cookieService.get('user_id')) {
-										this.threadsMessageData[element['id']]['currentUser'] = memberElement['id'];
-									}
-								});
+								this.threadsMessageData[element['id']] = [];
+								this.threadLastMessages[element['id']] = {};
+								this.threadLastMessages[element['id']]['content'] = element['content'];
+								this.threadLastMessages[element['id']]['created_at'] = element['created_at'];
 							}
 						});
 					} else {
@@ -113,20 +109,22 @@ export class DirectMessagingComponent implements OnInit {
 							}
 						});
 						this.threadsData.push(msg['data']);
-						this.threadsMessageData[msg['data']['id']] = {};
-						this.threadsMessageData[msg['data']['id']]['messages'] = {};
-						this.threadsMessageData[msg['data']['id']]['currentUser'] = -1;
-						this.threadCurrentUser = -1;
+						this.threadsMessageData[msg['data']['id']] = [];
 					}
 				} else if (msg['type'] == 'message') {
 					if (msg['data'] != null) {
-						console.log(this.threadCurrentUser);
-						var currentThreadId = this.getThreadId(msg['data']['member']['id']);
-						msg['data']['currentUser'] = this.threadCurrentUser;
+						var currentThreadId = msg['data']['thread_id'];
+						console.log(this.threadsMessageData[currentThreadId]);
+						msg['data']['currentUser'] = msg['data']['currentUser'];
 						this.threadsMessageData[currentThreadId].push(msg['data']);
+						this.threadLastMessages[currentThreadId]['content'] = msg['data']['content'];
+						this.threadLastMessages[currentThreadId]['created_at'] = msg['data']['created_at'];
+						if(this.activeThread != currentThreadId){
+							var audio = new Audio("assets/sounds/notification.mp3");
+							audio.play();
+						}
+						
 					}
-					console.log("Message Data");
-					console.log(this.threadsMessageData);
 					var allMessages = $('.live-chat-message-body');
 					allMessages.scrollTop = allMessages.scrollHeight;
 				}
@@ -152,6 +150,14 @@ export class DirectMessagingComponent implements OnInit {
 
 	openModal(template: TemplateRef<any>) {
 		this.modalRef = this.modalService.show(template);
+	}
+
+	getCurrentUser(threadId: any){
+		this.threadsData.forEach(element => {
+			if(element['id'] == threadId){
+				this.threadCurrentUser  = element['member_id'];
+			}
+		});
 	}
 
 	getChatHistory(id: any, threadData: any) {
@@ -188,7 +194,6 @@ export class DirectMessagingComponent implements OnInit {
 		if (!($('.chat').hasClass('expand-active'))) {
 			$('.chat-control__expand').show();
 		}
-		//event.stopImmediatePropagation();
 
 
 
@@ -560,6 +565,31 @@ export class DirectMessagingComponent implements OnInit {
 		var utcDateTime = date.getUTCDate() + "-" + date.getMonth() + "-" + date.getUTCFullYear();
 		utcDateTime += " " + date.getUTCHours() + ":" + date.getUTCMinutes() + ":" + date.getUTCSeconds() + "." + date.getUTCMilliseconds();
 		return utcDateTime;
+	}
+
+	showContent(content: any){
+		if(content.length > 40){
+			return content.slice(0, 40) + "..";
+		} else {
+			return content;
+		}
+		
+	}
+
+	getOrganization(orgType: any){
+		if(orgType == "" || orgType == "sa"){
+			return "SEWN Admin";
+		}
+		if(orgType == "ro"){
+			return "Roaster";
+		}
+		if(orgType == "fc"){
+			return "Facilitator";
+		}
+		if(orgType == "es"){
+			return "Estates";
+		}
+		return "Unknown";
 	}
 
 }

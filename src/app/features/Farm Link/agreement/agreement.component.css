@@ -541,9 +541,9 @@ span.checkmark {
     display: block;
 }
 
-.customcheckbox:hover input ~ .checkmark{
+/* .customcheckbox:hover input ~ .checkmark{
     background-color: #ffffff !important;
-}
+} */
 
 
 /* Style the checkmark/indicator */

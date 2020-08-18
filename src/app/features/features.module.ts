@@ -82,6 +82,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import {TooltipModule} from 'primeng/tooltip';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     OrderPlacedComponent,
     NotificationComponent,
     RoasteryLicenseComponent,
+    RoasterOnboardComponent,
   ],
   imports: [
     CommonModule,

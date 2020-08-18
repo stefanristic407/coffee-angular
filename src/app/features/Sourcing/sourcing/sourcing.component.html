@@ -94,12 +94,12 @@
 
                 </div>
                 <div class="d-inline border-grade col-sm-6" id="weight_id">
-                    <p class="d-inline filter-text" *ngIf="weight == ''">KG&nbsp;</p>
+                    <!-- <p class="d-inline filter-text" *ngIf="weight == ''">KG&nbsp;</p>
                     <a class="pointer-item" [popover]="weightTemplate" placement="bottom" container="body" #pop3="bs-popover">
                         <p class="d-inline filter" *ngIf="weight == ''" (click)="toggleWeight()">
                             &nbsp; <img src="{{ showWeight ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />&nbsp;
                         </p>
-                    </a>
+                    </a> -->
                     <a class="pointer-item" [popover]="weightTemplate" placement="bottom" container="body" #pop8="bs-popover">
                         <p class="d-inline filter" *ngIf="weight != ''" (click)="toggleWeight()">
                             {{ weight }} &nbsp;<img src="{{ showWeight ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -327,7 +327,7 @@
                                         <div class="d-md-block d-none">
                                         <div class="cardpanel-detail">
                                             <div class="row">
-                                                <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter :weight | filter : variety" (click)="availableCoffeeList()">
+                                                <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
                                                     <div class="source-card card-border green-coffee-product">
                                                         <div class="s-gal">
                                                             <img [src]="item.image" alt="">
@@ -340,7 +340,7 @@
                                                                 <div class="s-tit">
                                                                     <h3>{{item.name}}</h3>
                                                                     <h5>{{item.estatename}}</h5>
-                                                                    <h6>{{item.price}}</h6>
+                                                                    <h6>${{item.price}} USD / {{weight}}</h6>
                                                                 </div>
                                                             </div>
                                                             <div class="source-lets flex">
@@ -349,7 +349,7 @@
                                                                     <h6>{{item.origin}}</h6>
                                                                 </div>
                                                                 <div class="orgin-att">
-                                                                    <label>Species</label>
+                                                                    <label>Variety</label>
                                                                     <h6>{{item.species}}</h6>
                                                                 </div>
                                                                 <div class="orgin-att">
@@ -361,7 +361,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="top-lots">
-                                                                <label>Available Quantity : <span> {{item.quantity}} of 60kg </span></label>
+                                                                <label>Available Quantity : <span> {{item.quantity}} of 60{{weight}} </span></label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -390,7 +390,7 @@
                                             <div class="pagination-content d-block">
                                         <div class="cardpanel-detail mb-5">
                                                 <div class="row pagination-content-list">
-                                                    <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter :weight | filter : variety" (click)="availableCoffeeList()">
+                                                    <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
                                                         <div class="source-card card-border green-coffee-product">
                                                             <div class="s-gal">
                                                                 <img [src]="item.image" alt="">
@@ -403,7 +403,7 @@
                                                                     <div class="s-tit">
                                                                         <h3>{{item.name}}</h3>
                                                                         <h5>{{item.estatename}}</h5>
-                                                                        <h6>{{item.price}}</h6>
+                                                                        <h6>${{item.price}} USD / {{weight}}</h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="source-lets flex">
@@ -412,7 +412,7 @@
                                                                         <h6>{{item.origin}}</h6>
                                                                     </div>
                                                                     <div class="orgin-att">
-                                                                        <label>Species</label>
+                                                                        <label>Variety</label>
                                                                         <h6>{{item.species}}</h6>
                                                                     </div>
                                                                     <div class="orgin-att">
@@ -424,7 +424,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="top-lots">
-                                                                    <label>Available Quantity : <span> {{item.quantity}} of 60kg </span></label>
+                                                                    <label>Available Quantity : <span> {{item.quantity}} of 60{{weight}} </span></label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -454,7 +454,7 @@
                                                             <th>Name</th>
                                                             <th scope="col">Estate name</th>
                                                             <th scope="col"> Origin</th>
-                                                            <th scope="col">Species</th>
+                                                            <th scope="col">Variety</th>
                                                             <th scope="col">Price</th>
                                                             <!-- <img class="pl-2" src="assets/images/combined-shape.svg" /> -->
                                                             <th scope="col">Quantity</th>
@@ -463,12 +463,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="customtable">
-                                                        <tr class="ticket-boby-txt cursor-item" *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter :weight | filter : variety" (click)="availableCoffeeList()">
+                                                        <tr class="ticket-boby-txt cursor-item" *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
                                                             <td>{{ coffeeitem.name }}</td>
                                                             <td>{{ coffeeitem.estatename }}</td>
                                                             <td>{{ coffeeitem.origin }}</td>
                                                             <td>{{coffeeitem.species}}</td>
-                                                            <td>{{ coffeeitem.price }} </td>
+                                                            <td>${{coffeeitem.price}} USD / {{weight}} </td>
                                                             <td>{{coffeeitem.quantity}}</td>
                                                             <td class="flavor-coffee">
                                                                 <span>Citrus</span><span>Floral</span>
@@ -491,50 +491,77 @@
     </section>
 </div>
 
-<ng-template #originTemplate>
+<!-- <ng-template #originTemplate>
     <div id="status-content">
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin(''); pop1.hide(); pop2.hide()">All</a>
+            <li class="list-group-item item-color"  (click)="setOrigin(''); pop1.hide(); pop2.hide()">
+                <a class="pointer-item">All</a>
             </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Colombia'); pop1.hide(); pop2.hide()">Colombia</a>
+            <li class="list-group-item item-color" (click)="setOrigin('Colombia'); pop1.hide(); pop2.hide()">
+                <a class="pointer-item">Colombia</a>
             </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Ethopia'); pop1.hide(); pop2.hide()">Ethopia</a>
+            <li class="list-group-item item-color" (click)="setOrigin('Ethopia'); pop1.hide(); pop2.hide()">
+                <a class="pointer-item">Ethopia</a>
             </li>
         </ul>
     </div>
-</ng-template>
+</ng-template> -->
+<ng-template #originTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                   <label class="customcheckbox flavour-text">
+                            <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                            <span class="checkmark head-check"></span>
+                            Sweden
+                        </label>
+                </li>
+                <li class="list-group-item item-color">
+                        <label class="customcheckbox flavour-text">
+                                 <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                 <span class="checkmark head-check"></span>
+                                 India
+                             </label>
+                     </li>
+                <!-- <li class="list-group-item item-color" (click)="setOrigin('India'); pop1.hide(); pop2.hide()">
+                    <a class="pointer-item">India</a>
+                </li> -->
+            </ul>
+            <div class="top-origin-border p-3">
+                <a class="pull-left clear-filter mb-2">Clear</a>
+                <button type="submit" class="btn pull-right apply-filter mb-2" (click)="pop2.hide();">Apply Filter</button>
+    
+            </div>
+        </div>
+    </ng-template>
+    
 <ng-template #gradeTemplate>
     <div id="status-content">
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setGrade(''); pop4.hide(); pop5.hide();toggleGrade()">All</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setGrade('4.45'); pop4.hide(); pop5.hide();toggleGrade()">4.45</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setGrade('4.9'); pop4.hide(); pop5.hide();toggleGrade()">4.9</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setGrade('4.6'); pop4.hide(); pop5.hide();toggleGrade()">4.6</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setGrade('4.2'); pop4.hide(); pop5.hide();toggleGrade()">4.2</a></li>
+            <li class="list-group-item item-color" (click)="setGrade(''); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item" >All</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('4.45'); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item" >4.45</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('4.9'); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item">4.9</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('4.6'); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item">4.6</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('4.2'); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item">4.2</a></li>
         </ul>
     </div>
 </ng-template>
 <ng-template #weightTemplate>
     <div id="status-content">
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setWeight(''); pop3.hide(); pop8.hide();toggleWeight()">All</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setWeight('$7.4 USD / kg'); pop3.hide(); pop8.hide();toggleWeight()">$7.4 USD / kg</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setWeight('$5.53USD / kg'); pop3.hide(); pop8.hide();toggleWeight()">$5.53USD / kg</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setWeight('$8.92 USD /kg'); pop3.hide(); pop8.hide();toggleWeight()">$8.92 USD /kg</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setWeight('$5.6 USD / kg'); pop3.hide(); pop8.hide();toggleWeight()">$5.6 USD / kg</a></li>
+            <li class="list-group-item item-color" (click)="setWeight('kg');  pop8.hide();toggleWeight()"><a class="pointer-item">KG</a></li>
+            <li class="list-group-item item-color" (click)="setWeight('lb');  pop8.hide();toggleWeight()"><a class="pointer-item">LB</a></li>
+           
         </ul>
     </div>
 </ng-template>
 <ng-template #cropTemplate>
     <div>
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setCrop(''); pop6.hide(); pop7.hide();toggleCrop()">All</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setCrop('March - June'); pop6.hide(); pop7.hide();toggleCrop()">March - June</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setCrop('Jan - March'); pop6.hide(); pop7.hide();toggleCrop()">Jan - March</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setCrop('August - Dec'); pop6.hide(); pop7.hide();toggleCrop()">August - Dec</a></li>
+            <li class="list-group-item item-color" (click)="setCrop(''); pop6.hide(); pop7.hide();toggleCrop()"><a class="pointer-item">All</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('March - June'); pop6.hide(); pop7.hide();toggleCrop()"><a class="pointer-item">March - June</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('Jan - March'); pop6.hide(); pop7.hide();toggleCrop()"><a class="pointer-item">Jan - March</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('August - Dec'); pop6.hide(); pop7.hide();toggleCrop()"><a class="pointer-item">August - Dec</a></li>
         </ul>
     </div>
 
@@ -542,16 +569,16 @@
 <ng-template #sortTemplate>
     <div>
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Name (A-Z)'); pop10.hide(); pop9.hide();toggleSort()">Name (A-Z)</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Recently added'); pop10.hide(); pop9.hide();toggleSort()">Recently added</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Cup score'); pop10.hide(); pop9.hide();toggleSort()">Cup score (High-Low)</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Price'); pop10.hide(); pop9.hide();toggleSort()">Price (High - low)</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Quantity'); pop10.hide(); pop9.hide();toggleSort()">Quantity (High- Low)</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Name (A-Z)'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Name (A-Z)</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Recently added'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Recently added</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Cup score'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Cup score (High-Low)</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Price'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Price (High - low)</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Quantity'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Quantity (High- Low)</a></li>
         </ul>
     </div>
 </ng-template>
 
-<ng-template #VarietyTemplate>
+<!-- <ng-template #VarietyTemplate>
     <div>
         <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
@@ -559,11 +586,53 @@
                     </li>
             <li class="list-group-item item-color"><a class="pointer-item" (click)="setVariety('Bourbon'); pop11.hide(); pop12.hide()">Bourbon</a></li>
             <li class="list-group-item item-color"><a class="pointer-item" (click)="setVariety('Castillo'); pop11.hide(); pop12.hide()">Castillo</a></li>
-            <!-- <li class="list-group-item item-color"><a class="pointer-item" (click)="setVariety('Gesha'); pop11.hide(); pop12.hide()"></a>Gesha</li> -->
-            <!-- <li class="list-group-item item-color"><a class="pointer-item" (click)="setVariety('Typica'); pop11.hide(); pop12.hide()"></a>Typica</li> -->
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setVariety('Gesha'); pop11.hide(); pop12.hide()"></a>Gesha</li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setVariety('Typica'); pop11.hide(); pop12.hide()"></a>Typica</li>
         </ul>
     </div>
-</ng-template>
+</ng-template> -->
+<ng-template #VarietyTemplate>
+        <div>
+            <!-- <ul class="list-group custom-popover">
+                    <li class="list-group-item item-color" (click)="setVariety(''); pop11.hide(); pop12.hide()">
+                            <a class="pointer-item">All</a>
+                        </li>
+                <li class="list-group-item item-color" (click)="setVariety('Bourbon'); pop11.hide(); pop12.hide()"><a class="pointer-item">Bourbon</a></li>
+                <li class="list-group-item item-color" (click)="setVariety('Castillo'); pop11.hide(); pop12.hide()"><a class="pointer-item">Castillo</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setVariety('Gesha'); pop11.hide(); pop12.hide()"></a>Gesha</li>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setVariety('Typica'); pop11.hide(); pop12.hide()"></a>Typica</li>
+            </ul> -->
+            <ul class="list-group custom-popover">
+                    <li class="list-group-item item-color">
+                       <label class="customcheckbox flavour-text">
+                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                <span class="checkmark head-check"></span>
+                                Bourbon
+                            </label>
+                    </li>
+                    <li class="list-group-item item-color">
+                            <label class="customcheckbox flavour-text">
+                                     <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                     <span class="checkmark head-check"></span>
+                                     Castillo
+                                 </label>
+                         </li>
+                         <li class="list-group-item item-color">
+                                <label class="customcheckbox flavour-text">
+                                         <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                         <span class="checkmark head-check"></span>
+                                         Gesha
+                                     </label>
+                             </li>
+                </ul>
+                <div class="top-origin-border p-3">
+                    <a class="pull-left clear-filter mb-2">Clear</a>
+                    <button type="submit" class="btn pull-right apply-filter mb-2" (click)="pop12.hide();">Apply Filter</button>
+        
+                </div>
+        </div>
+    </ng-template>
+    
 
 <ng-template #filterTemplate>
     <div class="modal-header mt-3">

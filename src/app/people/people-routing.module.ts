@@ -7,7 +7,8 @@ import { ManageRoleComponent } from './manage-role/manage-role.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PeopleComponent } from './people.component';
 import { UserManagementComponent } from './user-management/user-management.component';
-import {PDirectMessagingComponent} from './p-direct-messaging/p-direct-messaging.component';
+import { PDirectMessagingComponent} from './p-direct-messaging/p-direct-messaging.component';
+import { CustomerManagementComponent} from './customer-management/customer-management.component';
 
 
 const routes: Routes = [{
@@ -40,6 +41,10 @@ const routes: Routes = [{
      {
       path: 'p-direct-messaging',
       component:PDirectMessagingComponent
+     },
+     {
+      path: 'customer-management',
+      component:CustomerManagementComponent
      },
      {
       path: '',

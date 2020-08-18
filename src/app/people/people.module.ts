@@ -25,6 +25,9 @@ import { SheetValues } from "./user-management/sheet-values";
 import { UserManagementComponent } from "./user-management/user-management.component";
 
 import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
+import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { MicroRoasterComponent } from './customer-management/micro-roaster/micro-roaster.component';
+import { HoReCaComponent } from './customer-management/ho-re-ca/ho-re-ca.component';
 @NgModule({
   declarations: [
     PeopleComponent,
@@ -35,7 +38,10 @@ import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.modul
     ManageRoleComponent,
     PagenotfoundComponent,
     BottomSheetRoles,
-    BottomSheetStatus
+    BottomSheetStatus,
+    CustomerManagementComponent,
+    MicroRoasterComponent,
+    HoReCaComponent
   ],
   imports: [
     CommonModule,

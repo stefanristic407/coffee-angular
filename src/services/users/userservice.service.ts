@@ -338,7 +338,28 @@ export class UserserviceService {
     return this.http.post(this.roasterDeleteUrl, data);
   }
 
-  
+   //API Function Name : Preferences Settings
+  //API Description: This API call helps to set the Preferences terms.
+
+  updatePreferences(roasterId:any,body: any) {
+    var data = {};
+    data['api_call'] = "/ro/"+roasterId+"/users/preferences";
+    data['method'] = "PUT";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.put(this.putUrl, data);
+  }
+
+    //API Function Name : Preferences Settings
+  //API Description: This API call helps to get the Preferences terms.
+
+  getPreferences(roasterId:any) {
+    var data = {};
+    data["api_call"] = "/ro/"+roasterId+"/users/preferences";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl, data);
+  }
   
 
 }

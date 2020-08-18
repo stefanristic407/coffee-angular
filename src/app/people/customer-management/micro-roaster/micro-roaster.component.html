@@ -1,0 +1,210 @@
+<div class="estate-table web-farm pt-md-3">
+    <div class="table-responsive border-lots">
+        <table class="table">
+            <thead class="table-header">
+                <tr class="header-row">
+                    <th>
+                        <label class="customcheckbox m-b-20">
+                                <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                                (change)="checkAll($event)"/>
+                                <span class="checkmark head-check"></span>
+                            </label>
+                    </th>
+                    <th>Micro-Roastery Name</th>
+                    <th scope="col">Created on</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Active Users</th>
+                    <th scope="col">Action</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="customtable">
+                <tr class="ticket-boby-txt" *ngFor="let item of mainData">
+                    <td>
+                        <label class="customcheckbox" (click)="shareDetails(item);">
+                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                <span class="checkmark head-check"></span>
+                            </label>
+                    </td>
+                    <td>
+                        {{ item.microname }}
+                    </td>
+                    <td>{{ item.createdon }}</td>
+                    <td>{{ item.status }} </td>
+                    <td>{{item.activeuser}}</td>
+                    <td class="view-listing">{{item.action}}</td>
+                    <td>
+                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                            <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                        </a>
+                        <ng-template #poplistTemplate id="{{item.id}}">
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="estate-table mobile-farm pt-md-3">
+
+    <div class="sourcing-panel mobile-farm">
+        <section id="tabs">
+            <div class="source-cont">
+                <div class="row">
+                    <div class="col-lg-12 ">
+
+                        <nav>
+                            <div class="nav nav-tabs nav-fill pt-md-4" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true"></a>
+                            </div>
+                        </nav>
+                        <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="documents" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                                <div class="pagination-content">
+                                    <div class="cardpanel-detail">
+                                        <div class="row pagination-content-list">
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p" routerLink="/features/file-share-details"> Finca Guadalupe </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by SEWN team </p>
+                                                <p class="fnt-12 light-eb"> Folder </p>
+                                            </div>
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p">Finca La Pampa </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by SEWN team</p>
+                                                <p class="fnt-12 light-eb"> Folder </p>
+                                            </div>
+
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p"> Roastery Machine Manuals</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by SEWN team</p>
+                                                <p class="fnt-12 light-eight"> Brazil</p>
+                                                <p class="fnt-12 light-eb"> Folder </p>
+                                            </div>
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p"> Roaster Brand </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by Löfbergs...</p>
+                                                <p><span class="fnt-12 light-eight"> #71716</span> <span class=" pull-right fnt-12 light-eight"> Document </span></p>
+                                            </div>
+                                            <div class="col-6 bor-coffe pagination-content-list__item">
+                                                <p><span class="black fnt-14 my-file-p"> Roaster coffee?</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                <p class="fnt-12 light-eight"> Modified by Löfbergs... </p>
+                                                <p><span class="fnt-12 light-eight"> #71716</span> <span class=" pull-right fnt-12 light-eight"> CSV </span></p>
+                                            </div>
+
+                                        </div>
+                                        <div class="responsive-pagination clearfix">
+                                            <span class="responsive-pagination__prev float-left disable"></span>
+                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
+                                    <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
+                                            </ul>
+                                            <span class="responsive-pagination__next float-left"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pagination-content">
+                                    <div class="table-details">
+                                        <div class="table-responsive border-sourcetable pagination-content-list">
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14"> Finca Guadalupe Zajú</p>
+                                                        <p class="fnt-12 light-eight">Modified by SEWN team</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14"> Finca La Pampa - Brand</p>
+                                                        <p class="fnt-12 light-eight">Modified by SEWN team</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14"> Roastery Machine Manuals</p>
+                                                        <p class="fnt-12 light-eight">Modified by SEWN team</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/file-floder.png" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14"> Roaster - Brand assets</p>
+                                                        <p class="fnt-12 light-eight">Modified by Löfbergs team</p>
+                                                        <p class="fnt-12 light-eight">#127908</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                <div class="row pt-4">
+                                                    <div class="col-2"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></div>
+                                                    <div class="col-8 mobile-ce">
+                                                        <p class="black fnt-14">Roaster coffee??</p>
+                                                        <p class="fnt-12 light-eight">Modified by Löfbergs team</p>
+                                                    </div>
+                                                    <div class="col-2"> <img class="" src="assets/images/more-opns-file.png" alt="upload-icon"></div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="responsive-pagination clearfix">
+                                            <span class="responsive-pagination__prev float-left disable"></span>
+                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                <!-- <li class="responsive-pagination-list__item active">1</li>
+                                    <li class="responsive-pagination-list__item">2</li>
+                                    <li class="responsive-pagination-list__item">3</li>
+                                    <li class="responsive-pagination-list__item">4</li>
+                                    <li class="responsive-pagination-list__item">5</li> -->
+                                            </ul>
+                                            <span class="responsive-pagination__next float-left"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>

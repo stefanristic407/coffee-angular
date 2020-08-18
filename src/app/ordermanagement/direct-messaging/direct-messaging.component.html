@@ -88,18 +88,18 @@
                                         <p class="live-time">{{getReadableTime(message.created_at)}}</p>
                                     </div>
 
-                                    <div class="message-to live-chat-message-body__text" *ngIf = "message.currentUser == -1">
+                                    <!-- <div class="message-to live-chat-message-body__text" *ngIf = "message.currentUser == -1">
                                         <div class="message-body">
                                             <div class="message-to__text "><span>{{message.content}}</span></div>
                                         </div>
                                         <p class="live-time">{{getReadableTime(message.created_at)}}</p>
-                                    </div>
+                                    </div> -->
 
                                     <div class="message-from live-chat-message-body__text" *ngIf = "message.currentUser != message.member.id">
                                         <div class="message-body-from">
                                             <div class="message-to__from "><span>{{message.content}}</span></div>
                                         </div>
-                                        <p class="live-time">{{getReadableTime(message.created_at)}}</p>
+                                        <p class="live-time-from">{{getReadableTime(message.created_at)}}</p>
                                     </div>
                                     
                                 </span>
@@ -237,16 +237,16 @@
                                 <div class="chat-profile clearfix">
                                     <div class="chat-profile__name d-inline-block">
                                         <h5 class="name">{{data.name}}</h5>
-                                        <!-- <span class="status">Coffee Estate</span> -->
+                                        <span class="status">{{getOrganization(data.activity_member_org_type)}}</span>
                                     </div>
-                                    <!-- <div class="chat-profile__time d-inline-block">
-                                        <span>2.30</span><span>am</span>
+                                    <div class="chat-profile__time d-inline-block">
+                                        <span>{{getReadableTime(threadLastMessages[data.id].created_at)}}</span>
                                     </div>
                                     <div class="chat-messaged">
-                                        <p class="chat-messaged__text">The coffee has been graded and sent to..
+                                        <p class="chat-messaged__text">{{ showContent(threadLastMessages[data.id].content) }}
                                         </p>
-                                        <span class="chat-messaged__total">2</span>
-                                    </div> -->
+                                        <!-- <span class="chat-messaged__total">2</span> -->
+                                    </div>
 
                                 </div>
                             </div>

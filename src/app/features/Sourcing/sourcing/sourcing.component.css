@@ -65,6 +65,7 @@
     font-size: 12px;
     font-weight: 600;
     color: #747588;
+    cursor: pointer;
 }
 
 .list-group-item:hover {

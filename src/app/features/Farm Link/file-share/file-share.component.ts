@@ -9,6 +9,8 @@ import { DashboardserviceService } from 'src/services/dashboard/dashboardservice
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
+
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 @Component({
   selector: 'app-file-share',
   templateUrl: './file-share.component.html',
@@ -40,6 +42,14 @@ descriptionError: string;
   countries: any[];
       
   filteredCountriesSingle: any[];
+
+
+  selectedValue: string;
+  selectedOption: any;
+  
+  typedValue: any;
+  usersList: any[]=[];
+
 
   constructor( public router : Router,
                public dashboard : DashboardserviceService, 
@@ -444,6 +454,28 @@ downloadFile(item: any) {
 //   return filtered;
 // }
   
+onSelect(event: TypeaheadMatch): void {
+  this.selectedOption = event.item;
+  console.log(this.selectedOption.id);
+  this.user_id_value = this.selectedOption.id;
+  this.company_id = this.selectedOption.organization_id;
+  this.company_type = this.selectedOption.organization_type;
+}
+
+getUsersList(e :any){
+  this.typedValue = e.target.value; 
+  if(this.typedValue.length > 4){
+  this.roasterService.getUsersList(this.typedValue).subscribe(
+    data => {
+      if(data['success']==true){
+        this.usersList = data['result'];
+      }else{
+        this.toastrService.error("Error while fetching users list");
+      }
+    }
+  )
+}
+}
  
   
   unpinFileorFolder(id:any){
@@ -476,6 +508,10 @@ downloadFile(item: any) {
     this.router.navigate(['/features/file-share-details'], navigationExtras);
   }  
 
+  closeCard(){
+    var closeCard = document.getElementById('closeId');
+    closeCard.classList.add('closeCard');
+  }
 
   myFileUpload(event:any){
     this.files = event.target.files;
@@ -578,12 +614,19 @@ downloadFile(item: any) {
           if(data['success']==true){
             if(this.invite == "Invite people"){
               this.file_id = data['result'].id;
+              var permission = document.getElementById('permission').innerHTML;
+              if(permission == "Can view"){
+                this.permission = "VIEW";
+              }else if(permission == "Can edit"){
+                this.permission = "EDIT";
+              }
               var shareData = {
                 "user_id" : this.user_id_value,
                 "permission" : this.permission,
                 "company_type" : this.company_type,
                 "company_id" : this.company_id
               }
+              console.log(shareData)
               this.roasterService.shareFolder(this.roasterId,this.file_id,shareData).subscribe(
                 res => {
                   if(res['success']==true){
@@ -594,6 +637,7 @@ downloadFile(item: any) {
     
                   this.folder_name = '';
                   this.folder_descr = '';
+                  this.selectedOption = '';
                 }
                 else{
                   console.log(data);
@@ -616,6 +660,7 @@ downloadFile(item: any) {
 
               this.folder_name = '';
               this.folder_descr = '';
+              this.selectedOption = '';
               this.invite = "Invite people";
               $('.custom-radio input[type="radio"]').on('change', function () {
                 var $this = $(this);

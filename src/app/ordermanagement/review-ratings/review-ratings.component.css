@@ -276,10 +276,10 @@ li.nav-item {
     color: #30855c;
     cursor: pointer;
 }
-
+/* 
 .problem-text {
     margin-top: -3rem;
-}
+} */
 
 .ret-order {
     /* padding: 1.5rem 1rem 1rem 1rem; */
@@ -299,10 +299,7 @@ li.nav-item {
     font-family: 'Muli';
     font-size: 12px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
+    cursor: pointer;
     color: #747588;
 }
 

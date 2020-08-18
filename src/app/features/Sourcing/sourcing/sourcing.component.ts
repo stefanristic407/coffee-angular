@@ -34,12 +34,12 @@ export class SourcingComponent implements OnInit {
   ];
   
   public coffeedata: any[] = [
-		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '$7.4 USD / kg',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
-		{  estatename: 'Gesha', name: 'Blend washed',origin:'Colombia',species: 'Castillo', price: '$5.53USD / kg',quantity:'297 bags','image':'/assets/images/sourcing-image3.jpg',score:'88.0' },
-		{  estatename: 'Finca La Toboba', name: 'FTO blend',origin:'Ethopia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'567 bags','image':'/assets/images/sourcing-image7.jpg',score:'81.5' },
-		{  estatename: 'Asoproaaa', name: 'Mebratu', origin:'Brazil',species: 'Castillo', price: '$7.4 USD / kg',quantity:'953 bags','image':'/assets/images/sourcing-image5.jpg',score:'85.4' },
-		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '$5.6 USD / kg',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82.0' },
-		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84.0' }
+		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '7.4 USD',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
+		{  estatename: 'Gesha', name: 'Blend washed',origin:'Colombia',species: 'Castillo', price: '5.53',quantity:'297 bags','image':'/assets/images/sourcing-image3.jpg',score:'88.0' },
+		{  estatename: 'Finca La Toboba', name: 'FTO blend',origin:'Ethopia', species: 'Bourbon', price: '8.92',quantity:'567 bags','image':'/assets/images/sourcing-image7.jpg',score:'81.5' },
+		{  estatename: 'Asoproaaa', name: 'Mebratu', origin:'Brazil',species: 'Castillo', price: '7.4',quantity:'953 bags','image':'/assets/images/sourcing-image5.jpg',score:'85.4' },
+		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '5.6',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82.0' },
+		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '8.92',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84.0' }
   ];
   constructor(public sourcingService:SourcingService,private modalService: BsModalService,private router: Router) { }
 
@@ -52,7 +52,7 @@ export class SourcingComponent implements OnInit {
     this.crop = '';
     this.sort = '';
     this.origin = '';
-    this.weight = '';
+    this.weight = 'kg';
     this.variety='';
 
      //Toggle Esstate active

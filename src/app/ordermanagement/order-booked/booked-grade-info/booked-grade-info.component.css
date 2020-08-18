@@ -11,7 +11,7 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    text-align: center;
+    /* text-align: center; */
     color: #020202;
 }
 
@@ -22,9 +22,9 @@
     font-stretch: normal;
     font-style: normal;
     letter-spacing: normal;
-    text-align: center;
+    /* text-align: center; */
     color: #232334;
-    padding: 0px 4rem;
+    /* padding: 0px 4rem; */
 }
 
 .delivery-date {
@@ -282,5 +282,5 @@
 }
 
 .pb-7 {
-    padding-bottom: 8.8rem;
+    padding-bottom: 5.8rem;
 }

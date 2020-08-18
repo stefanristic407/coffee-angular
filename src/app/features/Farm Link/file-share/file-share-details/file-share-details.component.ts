@@ -10,6 +10,7 @@ import { FileShareService } from '../file-share.service';
 import { VideoTableComponent } from './video-table/video-table.component';
 import { FileShareDetailsService } from './file-share-details.service';
 
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 @Component({
   selector: 'app-file-share-details',
   templateUrl: './file-share-details.component.html',
@@ -33,6 +34,30 @@ descriptionError: string;
   files: any;
   fileEvent: any;
   fileName: any;
+
+  file_id: any;
+  company_id: any;
+  company_type: any;
+  permission: any;
+  user_id_value: any;
+
+
+  country: any;
+    
+  countries: any[];
+      
+  filteredCountriesSingle: any[];
+
+
+  selectedValue: string;
+  selectedOption: any;
+  
+  typedValue: any;
+  usersList: any[]=[];
+  share_permission: any;
+  sharedUserslists: any = [];
+  sharedUsers: any;
+
 
   constructor(public cookieService : CookieService,
               public toastrService : ToastrService,
@@ -396,8 +421,22 @@ $('body').on('click', ' .Custom-select-input-list__item', function () {
 });
 
 
-
+this.sharedUsersLists()
   }
+
+sharedUsersLists(){
+  this.roasterService.getSharedUserList(this.roasterId,this.filedetailsService.folderId).subscribe(
+    response => {
+      if(response['success'] == true){
+        this.sharedUserslists = response['result'];
+        this.sharedUsers = this.sharedUserslists.length;
+        
+      }else{
+        this.toastrService.error("Error while getting the shared users");
+      }
+    }
+  )
+}
 
   setSort(sortdata:any){
     this.sort=sortdata;
@@ -413,6 +452,32 @@ $('body').on('click', ' .Custom-select-input-list__item', function () {
 		
 		}
   }
+
+
+
+   
+onSelect(event: TypeaheadMatch): void {
+  this.selectedOption = event.item;
+  console.log(this.selectedOption.id);
+  this.user_id_value = this.selectedOption.id;
+  this.company_id = this.selectedOption.organization_id;
+  this.company_type = this.selectedOption.organization_type;
+}
+
+getUsersList(e :any){
+  this.typedValue = e.target.value; 
+  if(this.typedValue.length > 4){
+  this.roasterService.getUsersList(this.typedValue).subscribe(
+    data => {
+      if(data['success']==true){
+        this.usersList = data['result'];
+      }else{
+        this.toastrService.error("Error while fetching users list");
+      }
+    }
+  )
+}
+}
 
   getFolderDetails(){
     console.log("calling from document file");
@@ -509,7 +574,38 @@ $('body').on('click', ' .Custom-select-input-list__item', function () {
           console.log(data);
           if(data['success']==true){
             if(this.invite == "Invite people"){
-
+              this.file_id = data['result'].id;
+              var permission = document.getElementById('permission').innerHTML;
+              if(permission == "Can view"){
+                this.permission = "VIEW";
+              }else if(permission == "Can edit"){
+                this.permission = "EDIT";
+              }
+              var shareData = {
+                "user_id" : this.user_id_value,
+                "permission" : this.permission,
+                "company_type" : this.company_type,
+                "company_id" : this.company_id
+              }
+              console.log(shareData)
+              this.roasterService.shareFolder(this.roasterId,this.file_id,shareData).subscribe(
+                res => {
+                  if(res['success']==true){
+                  console.log(data);
+                  this.fileService.getFilesandFolders();
+              
+                  this.toastrService.success("New folder "+this.folder_name+" has been created.");
+    
+                  this.folder_name = '';
+                  this.folder_descr = '';
+                  this.selectedOption = '';
+                }
+                else{
+                  console.log(data);
+                  this.toastrService.error("Error! while sharing the created folder");
+                }
+                }
+              )
             }
             else{
               console.log(data);
@@ -554,5 +650,79 @@ $('body').on('click', ' .Custom-select-input-list__item', function () {
 
     }
   }
+
+  shareFileAndFolder(){
+    var file_id = this.filedetailsService.folderId;
+    var share_permission = document.getElementById('share_permission').innerHTML;
+    if(share_permission == "Can view"){
+      this.share_permission = "VIEW";
+    }else if(share_permission == "Can edit"){
+      this.share_permission = "EDIT";
+    }
+    var shareData = {
+      "user_id" : this.user_id_value,
+      "permission" : this.share_permission,
+      "company_type" : this.company_type,
+      "company_id" : this.company_id
+    }
+    console.log(shareData)
+    this.roasterService.shareFolder(this.roasterId,file_id,shareData).subscribe(
+      res => {
+        if(res['success']==true){
+          this.sharedUsersLists();
+          this.toastrService.success("The folder has been shared to the User sucessfully!")
+        }
+        else{
+          this.toastrService.error("Error while sharing the folder to the user!");
+        }
+      
+      })
+  }
+
+  removeAccess(item : any){
+   
+    if (confirm("Please confirm! you want to remove access?") == true) {
+    
+    var fileId = this.filedetailsService.folderId;
+    var unShareData = {
+      'user_id' : item.user_id,
+      'company_type' : item.company_type,
+      'company_id' : item.company_id
+    }
+    this.roasterService.unShareFolder(this.roasterId, fileId,unShareData).subscribe(
+      data =>{
+        if(data['success'] == true){
+          this.sharedUsersLists();
+          this.toastrService.success("Share access has been removed successfully.")
+        }else{
+          this.toastrService.error("Error while removing the access to the user");
+        }
+      }
+    )
+  }
+}
+
+changePermissions(term : any, item : any){
+  var permission = term;
+  var fileId = this.filedetailsService.folderId;
+  var shareData = {
+    "user_id": item.user_id,
+    "permission": permission,
+    "company_type": item.company_type,
+    "company_id": item.company_id
+  }
+  this.roasterService.updatePermissions(this.roasterId,fileId,shareData).subscribe(
+    data => {
+      console.log(data)
+      if(data['success'] == true){
+        // this.sharedUsersLists();
+        this.toastrService.success("Permission has been updated successfully.")
+      }else{
+        this.toastrService.error("Error while changing the Share permissions");
+      }
+    }
+  )
+}
+
 
 }
