@@ -219,8 +219,16 @@
                               [typeahead]="usersList"
                               typeaheadOptionField="firstname"
                               typeaheadWaitMs="1000"
+                              [typeaheadItemTemplate]="customItemTemplate"
                               (typeaheadOnSelect)="onSelect($event)" (keyup)="getUsersList($event)" placeholder="Enter name or email" autocomplete="off" >
-                                  <div class="ml-auto">
+                              <ng-template #customItemTemplate let-model="item">
+                                            <span *ngIf="model.organization_type == 'RO'" ><strong>{{model.firstname}} {{model.lastname}}</strong> (Roaster)</span>
+                                            <span *ngIf="model.organization_type == 'FC'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Facilitator)</span>
+                                            <span *ngIf="model.organization_type == 'ES'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Estate)</span>
+                                            <span *ngIf="model.organization_type == 'MR'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Micro Roaster)</span>
+                                            <span *ngIf="model.organization_type == 'HRC'"><strong>{{model.firstname}} {{model.lastname}}</strong> (HoReCa)</span>
+                              </ng-template>   
+                              <div class="ml-auto">
   
                                       <div class="Custom-select w-100 border-left66">
                                           <div class="Custom-select-input w-100  pr-3">

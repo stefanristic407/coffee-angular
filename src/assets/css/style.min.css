@@ -17519,6 +17519,11 @@ ul {
     line-height: 26px;
 }
 
+.fnt-40 {
+    font-size: 40px;
+    line-height: 50px;
+}
+
 .fnt-mb-14 {
     font-size: 12px;
     line-height: 22px;
@@ -17547,6 +17552,38 @@ ul {
 
 .text-clr5d {
     color: #5d5d5d;
+}
+
+.text-clr588 {
+    color: #747588;
+}
+
+.text-clrb46 {
+    color: #2c2b46;
+}
+
+.text-clr60b {
+    color: #80460b;
+}
+
+.text-clr4d {
+    color: #4d4d4d;
+}
+
+.text-clr000 {
+    color: #000000;
+}
+
+.text-clr5d {
+    color: #5d5d5d;
+}
+
+.txt-clr55c {
+    color: #30855c;
+}
+
+.txt-clr60b {
+    color: #80460b;
 }
 
 
@@ -22342,25 +22379,29 @@ li.select-list__item {
     width: 100% !important;
 }
 
-.available__lot,.know__listing{
+.available__lot,
+.know__listing {
     font-family: Muli;
     font-size: 14px !important;
     font-weight: bold !important;
     color: #80460b !important;
     text-decoration: underline;
 }
-.top-origin-border{
-    border-top:solid 1px #d6d6d6;
+
+.top-origin-border {
+    border-top: solid 1px #d6d6d6;
 }
-.clear-filter{
+
+.clear-filter {
     font-family: Muli;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: #80460b !important;
-  margin-top: 10px !important;
-  text-decoration: underline !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #80460b !important;
+    margin-top: 10px !important;
+    text-decoration: underline !important;
 }
-.apply-filter{
+
+.apply-filter {
     border-radius: 4px !important;
     background-color: #30855c !important;
     padding: 10px 20px !important;
@@ -22368,5 +22409,9 @@ li.select-list__item {
     font-weight: 600 !important;
     color: #fff !important;
     font-family: Muli;
-    margin-left:2rem !important;
+    margin-left: 2rem !important;
+}
+
+.display-none {
+    display: none;
 }

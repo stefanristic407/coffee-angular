@@ -83,6 +83,14 @@ import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/ro
 import {TooltipModule} from 'primeng/tooltip';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
+import { RoasterDashboardComponent } from './roaster-dashboard/roaster-dashboard.component';
+import { CoustomerWantsChartComponent } from './roaster-dashboard/coustomer-wants-chart/coustomer-wants-chart.component';
+import { ECommerceStatComponent } from './roaster-dashboard/e-commerce-stat/e-commerce-stat.component';
+import { GreenCoffeeTableComponent } from './roaster-dashboard/green-coffee-table/green-coffee-table.component';
+import { MicroRoasterStatComponent } from './roaster-dashboard/micro-roaster-stat/micro-roaster-stat.component';
+import { SalesOrdersAllStatComponent } from './roaster-dashboard/sales-orders-all-stat/sales-orders-all-stat.component';
+import { SourcedGreenCoffeeChartComponent } from './roaster-dashboard/sourced-green-coffee-chart/sourced-green-coffee-chart.component';
+import { TotalCoffeeAvailableChartComponent } from './roaster-dashboard/total-coffee-available-chart/total-coffee-available-chart.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +145,14 @@ import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.compo
     NotificationComponent,
     RoasteryLicenseComponent,
     RoasterOnboardComponent,
+    RoasterDashboardComponent,
+    CoustomerWantsChartComponent,
+    ECommerceStatComponent,
+    GreenCoffeeTableComponent,
+    MicroRoasterStatComponent,
+    SalesOrdersAllStatComponent,
+    SourcedGreenCoffeeChartComponent,
+    TotalCoffeeAvailableChartComponent,
   ],
   imports: [
     CommonModule,

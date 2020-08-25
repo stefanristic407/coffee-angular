@@ -38,6 +38,7 @@ import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-pla
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
+import { RoasterDashboardComponent} from './roaster-dashboard/roaster-dashboard.component';
 
 const routes: Routes = [
   {
@@ -186,6 +187,10 @@ const routes: Routes = [
       {
         path :'roaster-onboard',
         component: RoasterOnboardComponent
+      },
+      {
+        path :'roaster-dashboard',
+        component: RoasterDashboardComponent
       },
       {
         path: '',

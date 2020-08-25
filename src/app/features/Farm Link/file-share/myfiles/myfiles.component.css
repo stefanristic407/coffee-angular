@@ -58,7 +58,6 @@ tr:last-child {
     padding-bottom: 2rem;
 }
 
-
 .estate-orders {
     position: relative;
 }
@@ -165,13 +164,11 @@ table.dataTable thead th {
 }
 
 .search {
-    /*width: 255px;*/
     font-family: 'Muli';
     height: 36px;
     border-radius: 8px;
     border: solid 1px #cccccc;
     background-color: #ffffff;
-    /* background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px; */
     padding-left: 45px;
 }
 

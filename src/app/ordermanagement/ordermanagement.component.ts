@@ -96,8 +96,7 @@ export class OrdermanagementComponent implements OnInit {
      }, 800);
     event.stopImmediatePropagation();
   });
-
-    
+ 
     
     }
   

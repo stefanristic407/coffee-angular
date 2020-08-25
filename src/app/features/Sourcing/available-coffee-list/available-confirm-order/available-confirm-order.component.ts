@@ -26,7 +26,8 @@ countryError: string;
 addressError : string;
 zipError:string;
 cityError:string;
- 
+service: string = "Import & Delivery service";
+serviceAmount: number = 4500;
 constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public router:Router) { }
 @ViewChild('confirmtemplate') private confirmtemplate: any;
 

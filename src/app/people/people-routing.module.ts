@@ -9,6 +9,10 @@ import { PeopleComponent } from './people.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { PDirectMessagingComponent} from './p-direct-messaging/p-direct-messaging.component';
 import { CustomerManagementComponent} from './customer-management/customer-management.component';
+import { MicroRoasterDetailsComponent} from './customer-management/micro-roaster-details/micro-roaster-details.component';
+import { HorecaDetailsComponent} from './customer-management/horeca-details/horeca-details.component';
+import { DiscountEditComponent} from './customer-management/discount-edit/discount-edit.component';
+import { from } from 'rxjs';
 
 
 const routes: Routes = [{
@@ -45,6 +49,18 @@ const routes: Routes = [{
      {
       path: 'customer-management',
       component:CustomerManagementComponent
+     },
+     {
+      path: 'micro-roaster-details',
+      component:MicroRoasterDetailsComponent
+     },
+     {
+      path: 'horeca-details',
+      component:HorecaDetailsComponent
+     },
+     {
+      path: 'discount-edit',
+      component:DiscountEditComponent
      },
      {
       path: '',

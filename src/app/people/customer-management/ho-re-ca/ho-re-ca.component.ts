@@ -45,7 +45,7 @@ export class HoReCaComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
-      this.getSharedFilesandFolders();
+    
     }
 	
   // Function Name : CheckAll
@@ -68,50 +68,14 @@ export class HoReCaComponent implements OnInit {
       }
     }
 
-    // this.router.navigate(['/features/file-share-details'], navigationExtras);
+    this.router.navigate(['/people/horeca-details'], navigationExtras);
   }  
 
 
-  getSharedFilesandFolders(){
-    this.roasterService.getSharedFilesandFolders(this.estateId).subscribe(
-      result => {
-        console.log(result);
-        if(result['success']==true){
-          // this.mainData = result['result'];
-        }else{
-          this.toastrService.error("Error while getting the Shared Files and Folders");
-        }
-      }
-    )
-  }
+  
  
 
-  deleteFolder(id:any){
-    this.roasterService.deleteFolder(this.estateId,id).subscribe(
-      data => {
-        if(data['success']==true){
-          this.toastrService.success("The Selected folder is deleted successfully");
-          this.getSharedFilesandFolders();
-        }
-        else{
-          this.toastrService.error("Error while deleting the Folder");
-        }
-      }
-    )
-  }
-  deleteFile(id:any){
-    this.roasterService.deleteFile(this.estateId,id).subscribe(
-      data => {
-        if(data['success']==true){
-          this.toastrService.success("The Selected file is deleted successfully");
-          this.getSharedFilesandFolders();
-        }
-        else{
-          this.toastrService.error("Error while deleting the File");
-        }
-      }
-    )
-  }
+ 
 
  
 

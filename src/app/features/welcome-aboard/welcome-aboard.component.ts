@@ -16,6 +16,9 @@ export class WelcomeAboardComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
+
+      $('.nav-links__item').removeClass('active');
+      $('.nav-links__item').eq(0).addClass('active');
   }
   
 

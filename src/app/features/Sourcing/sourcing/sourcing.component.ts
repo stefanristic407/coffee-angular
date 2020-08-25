@@ -74,6 +74,10 @@ export class SourcingComponent implements OnInit {
       
     });
 
+    /*  active class for header */
+    $('.nav-links__item').removeClass('active');
+    $('.nav-links__item').eq(1).addClass('active');
+
 
 
 /* pagination start */

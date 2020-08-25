@@ -23,7 +23,8 @@ export class PrebookConfirmOrderComponent implements OnInit {
   addressError : string;
   zipError:string;
   cityError:string;
-
+  service: string = "Import & Delivery service";
+  serviceAmount: number = 4500;
   constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService) { }
   @ViewChild('confirmtemplate') private confirmtemplate: any;
 

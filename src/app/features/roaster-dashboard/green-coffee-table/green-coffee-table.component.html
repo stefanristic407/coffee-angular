@@ -1,0 +1,37 @@
+<div class="table-responsive ">
+    <table class="table">
+        <thead class="table-header">
+            <tr class="header-row">
+                <th>
+                    <label class="customcheckbox m-b-20">
+                            <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                            (change)="checkAll($event)"/>
+                            <span class="checkmark head-check"></span>
+                        </label>
+                </th>
+                <th>Order ID</th>
+                <th scope="col">Date requested</th>
+                <th scope="col">Roaster Name</th>
+                <th scope="col">Order Type</th>
+                <th scope="col">Buyer Name</th>
+
+            </tr>
+        </thead>
+        <tbody class="customtable">
+            <tr class="ticket-boby-txt" *ngFor="let item of mainData">
+                <td>
+                    <label class="customcheckbox" (click)="shareDetails(item);">
+                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                            <span class="checkmark head-check"></span>
+                        </label>
+                </td>
+                <td> {{ item.orderid }} </td>
+                <td>{{ item.datarequested }}</td>
+                <td>{{ item.roastername }} </td>
+                <td>{{item.ordertype}}</td>
+                <td class="view-listing ">{{item.buyername}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

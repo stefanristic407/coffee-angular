@@ -28,6 +28,10 @@ import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.modul
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { MicroRoasterComponent } from './customer-management/micro-roaster/micro-roaster.component';
 import { HoReCaComponent } from './customer-management/ho-re-ca/ho-re-ca.component';
+import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
+import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
+import { HorecaTableComponent } from './customer-management/horeca-details/horeca-table/horeca-table.component';
+import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
 @NgModule({
   declarations: [
     PeopleComponent,
@@ -41,7 +45,11 @@ import { HoReCaComponent } from './customer-management/ho-re-ca/ho-re-ca.compone
     BottomSheetStatus,
     CustomerManagementComponent,
     MicroRoasterComponent,
-    HoReCaComponent
+    HoReCaComponent,
+    MicroRoasterDetailsComponent,
+    HorecaDetailsComponent,
+    HorecaTableComponent,
+    DiscountEditComponent
   ],
   imports: [
     CommonModule,
