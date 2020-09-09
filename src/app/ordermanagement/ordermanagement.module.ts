@@ -48,6 +48,8 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { OrdersComponent } from './myorders/orders/orders.component';
 import { RequestsComponent } from './myorders/requests/requests.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { HorecaOrdersComponent } from './e-commerce-order/horeca-orders/horeca-orders.component';
+import { HorecaOrderDetailsComponent } from './e-commerce-order/horeca-order-details/horeca-order-details.component';
 
 
 
@@ -88,7 +90,9 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     PreOrderChatComponent,
     BookOrderChatComponent,
     OrdersComponent,
-    RequestsComponent
+    RequestsComponent,
+    HorecaOrdersComponent,
+    HorecaOrderDetailsComponent
   ],
   imports: [
     CommonModule,

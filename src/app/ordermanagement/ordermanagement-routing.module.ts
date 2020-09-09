@@ -23,8 +23,8 @@ import { OrderChatComponent } from './order-sample/order-chat/order-chat.compone
 import {PreOrderChatComponent} from './order-prebook/pre-order-chat/pre-order-chat.component';
 import {BookOrderChatComponent} from './order-booked/book-order-chat/book-order-chat.component'
 import { from } from 'rxjs';
-
-
+import {HorecaOrderDetailsComponent} from './e-commerce-order/horeca-order-details/horeca-order-details.component';
+import {HorecaOrdersComponent} from './e-commerce-order/horeca-orders/horeca-orders.component';
 
 const routes: Routes = [
   {
@@ -110,6 +110,13 @@ children: [
   {
     path:'book-order-chat',
     component:BookOrderChatComponent
+  },
+  {
+    path:'horeca-orders',
+    component:HorecaOrdersComponent
+  },{
+    path:'horeca-order-details',
+    component:HorecaOrderDetailsComponent
   },
   {
     path: '',
