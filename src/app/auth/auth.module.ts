@@ -23,6 +23,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ToastrModule } from 'ngx-toastr';
+import { ErrorModuleModule } from '../error-module/error-module.module';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     HttpClientModule,
     NgOtpInputModule,
+    ErrorModuleModule,
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
   ],
   providers: [CookieService, UserserviceService],

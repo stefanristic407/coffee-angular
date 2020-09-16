@@ -13,8 +13,9 @@ import { MicroRoasterDetailsComponent} from './customer-management/micro-roaster
 import { HorecaDetailsComponent} from './customer-management/horeca-details/horeca-details.component';
 import { DiscountEditComponent} from './customer-management/discount-edit/discount-edit.component';
 import { from } from 'rxjs';
-
-
+import { TeamMembersComponent } from './team-members/team-members.component';
+import { InviteMemberComponent } from './invite-member/invite-member.component';
+import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 const routes: Routes = [{
    path: '', 
    component: PeopleComponent,
@@ -63,13 +64,21 @@ const routes: Routes = [{
       component:DiscountEditComponent
      },
      {
+      path: 'team-members',
+      component:TeamMembersComponent
+     },
+     {
+       path:'invite-member',
+       component:InviteMemberComponent
+     },
+     {
       path: '',
       redirectTo: 'create-role',
       pathMatch: 'full',
     },
     {
       path: '**',
-      component: PagenotfoundComponent
+      component: PageNotFoundComponent
     }
     
    ]

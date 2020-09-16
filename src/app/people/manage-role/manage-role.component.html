@@ -78,7 +78,7 @@
                         <ng-template #poplistTemplate id="{{data.id}}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item" routerLink="/people/add-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">Add Members </a></li>
+                                    <li class="list-group-item" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">Add Members </a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">View Members</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">Edit</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>

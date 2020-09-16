@@ -325,7 +325,7 @@ export class UserManagementComponent implements OnInit {
       }
     }
 
-    this.router.navigate(['/people/add-members'], navigationExtras);
+    this.router.navigate(['/people/edit-members'], navigationExtras);
   }
 
   // Function Name : Submit Role

@@ -39,6 +39,16 @@ import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterDashboardComponent} from './roaster-dashboard/roaster-dashboard.component';
+import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component'
+import { from } from 'rxjs';
+import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
+import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
+import { AddProductComponent } from './e-commerce/add-product/add-product.component';
+import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-profile/create-roasting-profile.component';
+import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
+import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
+
+import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
 
 const routes: Routes = [
   {
@@ -193,13 +203,41 @@ const routes: Routes = [
         component: RoasterDashboardComponent
       },
       {
+        path:'roasted-coffee-batch',
+        component:RoastedCoffeeBatchesComponent
+      },
+      {
+        path:'new-roasted-batch',
+        component:NewRoastedBatchComponent
+      },
+      {
+        path:'add-product',
+        component:AddProductComponent
+      },
+      {
+        path:'create-roasting-profile',
+        component:CreateRoastingProfileComponent
+      },
+      {
+        path:'products-list',
+        component:ProductsTableComponent
+      },
+      {
+        path:'select-order-list',
+        component:SelectOrderTableComponent
+	  },
+	  {
+		  path:'roasting-profile',
+		  component:RoastingProfilesComponent
+	  },
+      {
         path: '',
         redirectTo: 'welcome-aboard',
         pathMatch: 'full',
       },
       {
         path: '**',
-        component: PagenotfoundComponent
+        component: PageNotFoundComponent
       }
     ]
   }, 

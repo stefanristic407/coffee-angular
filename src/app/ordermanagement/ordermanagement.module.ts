@@ -50,7 +50,25 @@ import { RequestsComponent } from './myorders/requests/requests.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { HorecaOrdersComponent } from './e-commerce-order/horeca-orders/horeca-orders.component';
 import { HorecaOrderDetailsComponent } from './e-commerce-order/horeca-order-details/horeca-order-details.component';
-
+import { HorecaOrderConfirmComponent } from './e-commerce-order/horeca-order-confirm/horeca-order-confirm.component';
+import { EstateInfoComponent } from './e-commerce-order/horeca-order-details/estate-info/estate-info.component';
+import {DetailsOrderComponent} from './e-commerce-order/horeca-order-details/details-order/details-order.component';
+import { HorecaSubscriptionConfirmComponent } from './e-commerce-order/horeca-subscription-confirm/horeca-subscription-confirm.component';
+import { HorecaSubscriptionDetailsComponent } from './e-commerce-order/horeca-subscription-details/horeca-subscription-details.component';
+import { DetailsSubscriptionComponent } from './e-commerce-order/horeca-subscription-details/details-subscription/details-subscription.component';
+import { SubscriptionEsatateInfoComponent } from './e-commerce-order/horeca-subscription-details/subscription-esatate-info/subscription-esatate-info.component';
+import { HorecaPreviousSubscriptionComponent } from './e-commerce-order/horeca-previous-subscription/horeca-previous-subscription.component';
+import { PreviousSubscriptionComponent } from './e-commerce-order/horeca-previous-subscription/previous-subscription/previous-subscription.component';
+import { PreviousInfoComponent } from './e-commerce-order/horeca-previous-subscription/previous-info/previous-info.component';
+import { MicroOrderBookedComponent } from './microroaster-orders/micro-order-booked/micro-order-booked.component';
+import { BookedDetailsComponent } from './microroaster-orders/micro-order-booked/booked-details/booked-details.component';
+import { BookedNotesComponent } from './microroaster-orders/micro-order-booked/booked-notes/booked-notes.component';
+import { MicroOrderSampleComponent } from './microroaster-orders/micro-order-sample/micro-order-sample.component';
+import { SampleDetailsComponent } from './microroaster-orders/micro-order-sample/sample-details/sample-details.component';
+import { SampleNotesComponent } from './microroaster-orders/micro-order-sample/sample-notes/sample-notes.component';
+import { SampleOrderConfirmationComponent } from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
+import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component'
+import { ErrorModuleModule } from '../error-module/error-module.module';
 
 
 
@@ -92,7 +110,25 @@ import { HorecaOrderDetailsComponent } from './e-commerce-order/horeca-order-det
     OrdersComponent,
     RequestsComponent,
     HorecaOrdersComponent,
-    HorecaOrderDetailsComponent
+    HorecaOrderDetailsComponent,
+    HorecaOrderConfirmComponent,
+    EstateInfoComponent,
+    DetailsOrderComponent,
+    HorecaSubscriptionConfirmComponent,
+    HorecaSubscriptionDetailsComponent,
+    DetailsSubscriptionComponent,
+    SubscriptionEsatateInfoComponent,
+    HorecaPreviousSubscriptionComponent,
+    PreviousSubscriptionComponent,
+    PreviousInfoComponent,
+    MicroOrderBookedComponent,
+    BookedDetailsComponent,
+    BookedNotesComponent,
+    MicroOrderSampleComponent,
+    SampleDetailsComponent,
+    SampleNotesComponent,
+    SampleOrderConfirmationComponent,
+    BookedOrderConfirmationComponent
   ],
   imports: [
     CommonModule,
@@ -107,6 +143,7 @@ import { HorecaOrderDetailsComponent } from './e-commerce-order/horeca-order-det
     MatBottomSheetModule,
     NgxChartsModule,
     AutocompleteLibModule,
+    ErrorModuleModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ],

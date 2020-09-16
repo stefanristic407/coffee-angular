@@ -1,0 +1,195 @@
+<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+    <span id="title-breadcrumb-1" class="sr-only"></span>
+    <ul class="bread-nav">
+        <li class="b-cum">
+            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+        </li>
+        <li class="b-cum">
+            <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+        </li>
+
+        <li class="b-cum c-pink">Manage roles
+        </li>
+    </ul>
+</nav>
+
+<section class="team__total d-md-block d-none">
+    <div class="row">
+        <div class="d-inline add-team col-lg-8">Add team member(s) to 
+            <span class="d-inline select_title" (click)="op.toggle($event)">
+                    {{this.teamRole}} 
+            <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
+            <div class="select-members mt-1">Select members to add to the role</div>
+
+        </div>
+        <div class="col-lg-4">
+            <button type="submit" routerLink="/people/invite-member" class="btn invite_members pull-right">
+                <span class="update_text">Invite new member(s)</span>
+            </button>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+        <div class="d-inline border-total status-div col-sm-6" id="status_id">
+            <p class="d-inline filter-text" *ngIf="termStatus == ''">Status&nbsp;</p>
+            <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
+                    &nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                </p>
+            </a>
+            <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+                <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleStatus()">
+                    {{ termStatus }}&nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                </p>
+            </a>
+        </div>
+        &nbsp;&nbsp;
+        <div class="d-inline border-total role-div col-sm-6" id="role_id">
+            <p class="d-inline filter-text" *ngIf="termRole == ''">Role&nbsp;</p>
+            <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
+                <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole();">
+                    &nbsp; <img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                </p>
+            </a>
+            <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop1="bs-popover">
+                <p class="d-inline filter" *ngIf="termRole != ''" (click)="toggleRole();">
+                    {{ termRole }}&nbsp;<img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                </p>
+            </a>
+        </div>
+    </div>
+         <div class="col-md-6 col-lg-4 search-div ">
+            <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="term" placeholder="Search by name, role.." />
+        </div>
+    </div>
+    <div class="table-container mb-2">
+        <div class="table-responsive">
+            <table class="table">
+                    <thead class="table-header">
+                            <tr class="header-row">
+                                <th>
+                                    <label class="customcheckbox m-b-20">
+                                            <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                                            (change)="checkAll($event)"/>
+                                            <span class="checkmark head-check"></span>
+                                        </label>
+                                </th>
+                                <th scope="col">Name</th>
+                                <th scope="col">
+                                    Last login&nbsp; <img src="assets/images/combined-shape-user.png" />
+                                </th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">
+                                    <p class="d-inline">All roles</p>
+                                    <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop5="bs-popover">
+                                        <p class="d-inline filter" *ngIf="termRole == ''">
+                                            &nbsp; <img src="assets/images/down-arrow.svg" /></p>
+                                    </a>
+                                    <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
+                                        <p class="d-inline filter" *ngIf="termRole != ''">
+                                            &nbsp;<img src="assets/images/down-arrow.svg" /></p>
+                                    </a>
+                                </th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="customtable">
+                            <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:term | filter: termRole | filter: termStatus">
+                                <td>
+                                    <label class="customcheckbox">
+                                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                            <span class="checkmark head-check"></span>
+                                        </label>
+                                </td>
+                                <td>
+                                    {{ item.name }}
+                                </td>
+                                <td>{{ item.lastLogin }}</td>
+                                <td>{{ item.Email }} </td>
+                                <td>
+                                    <p class="status-active" *ngIf="item.status == 'Active'">
+                                        &#9679; {{ item.status | titlecase }}
+                                    </p>
+                                    <p class="status-disabled" *ngIf="item.status == 'Disabled'">
+                                        &#9679; {{ item.status | titlecase }}
+                                    </p>
+                                </td>
+                                <td>{{item.roles}}</td>
+                               
+                                <td>
+                                    <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                        <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                                    </a>
+                                    <ng-template #poplistTemplate id="{{item.id}}">
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </tbody>
+            </table>
+        </div>
+    </div> 
+    <div class="mt-4">
+        <button type="button" class="btn cancel_member mt-4" routerLink="/people/manage-role">Cancel</button>
+    </div>                   
+</section>
+
+<p-overlayPanel #op [dismissable]="true" appendTo="body">
+        <div class="overflow-popover">
+            <ul class="custom-popover">
+                <!-- <li class="content_list" (click) = "setRole('Sales and Marketing')">Sales and Marketing</li> -->
+                <li class="content_list" *ngFor="let role of roles" (click)="setTeamRole(role.name,role.id);op.hide();">{{role.name}}</li>
+            </ul>
+            <button class="btn addrole_button" routerLink="/people/create-role">Add role
+                  <!-- <span class="addrole_content">Add role</span> -->
+            </button>
+        </div>
+    </p-overlayPanel>
+
+    <ng-template #roleTemplate>
+            <div>
+              <ul class="list-group">
+                <li class="list-group-item item-color">
+                  <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();pop5.hide();pop6.hide();toggleRole()"
+                    >All</a>
+                </li>
+                <li class="list-group-item item-color" *ngFor="let role of roles">
+                  <a
+                    class="pointer-item"
+                    (click)="setRole(role.name); pop1.hide(); pop3.hide();pop5.hide();pop6.hide();toggleRole()"
+                    >{{ role.name }}</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+          <ng-template #allTemplate>
+                <div id="status-content">
+                  <ul class="list-group">
+                    <li class="list-group-item item-color">
+                      <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide();toggleStatus()"
+                        >All</a>
+                    </li>
+                    <li class="list-group-item item-color">
+                      <a
+                        class="pointer-item"
+                        (click)="setStatus('Active'); pop.hide(); pop2.hide();toggleStatus()"
+                        >Active</a>
+                    </li>
+                    <li class="list-group-item item-color">
+                      <a
+                        class="pointer-item"
+                        (click)="setStatus('Disabled'); pop.hide(); pop2.hide();toggleStatus()"
+                        >Disabled</a>
+                    </li>
+                  </ul>
+                </div>
+              </ng-template>              

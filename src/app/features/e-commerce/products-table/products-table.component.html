@@ -1,0 +1,234 @@
+<section>
+    <div class="container sewn-container section-head-pad">
+<div class="bg-fff">
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+        <span id="title-breadcrumb-1" class="sr-only"></span>
+        <ul class="bread-nav mb-md-0 pull-left">
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            </li>
+            <!-- <li class="b-cum">
+                <a class="b-cum" routerLink="/features/your-services">Services</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            </li> -->
+            <li class="b-cum c-pink">Products</li>
+        </ul>
+        <div class="col-md-6 col-lg-4 pull-right search-div ">
+            <!-- <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by order id, estate name" /> -->
+            <button class="btn next" type="button">Add a product</button>
+        </div>
+    </nav>
+    <section class="grading__total">
+        <div class="row w-100 ml-0">
+        <div class="green_grading_cont">
+            <h1>Products</h1>
+            <!-- <h3 class="mb-2">Select service(s) that you want to cup</h3> -->
+        </div>
+    </div>
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="pull-left mr-auto">
+            <div class="d-inline border-total status-div col-sm-6" id="origin_id">
+                <p class="d-inline filter-text" *ngIf="termOrigin == ''">Origins&nbsp;</p>
+                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #poporigin1="bs-popover">
+                    <p class="d-inline filter" *ngIf="termOrigin == ''" (click)="toggleOrigin()">
+                        &nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #poporigin2="bs-popover">
+                    <p class="d-inline filter" *ngIf="termOrigin != ''" (click)="toggleOrigin()">
+                        {{ termOrigin }}&nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+            &nbsp;&nbsp;
+            <div class="d-inline border-total status-div col-sm-6" id="type_id">
+                <p class="d-inline filter-text" *ngIf="termType == ''">Price ranges&nbsp;</p>
+                <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #poptype1="bs-popover">
+                    <p class="d-inline filter" *ngIf="termType == ''" (click)="toggleType()">
+                        &nbsp; <img src="{{ showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #poptype2="bs-popover">
+                    <p class="d-inline filter" *ngIf="termType != ''" (click)="toggleType()">
+                        {{ termType }}&nbsp; <img src="{{ showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+            &nbsp;&nbsp;
+            <div class="d-inline border-total status-div col-sm-6" id="status_id">
+                <p class="d-inline filter-text" *ngIf="termStatus == ''">Status&nbsp;</p>
+                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                    <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
+                        &nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+                    <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleStatus()">
+                        {{ termStatus }}&nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="pull-right ml-auto">
+            <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search for products" />
+        </div>
+        </div>
+        </div>
+        <div class="table-container mb-2 mt-4">
+            <div class="table-responsive">
+                <table class="table">
+                        <thead class="table-header">
+                                <tr class="header-row">
+                                    <th>
+                                        <label class="customcheckbox m-b-20">
+                                                <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                                                (change)="checkAll($event)"/>
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                    </th>
+                                    <th scope="col">Product name</th>
+                                    <th scope="col">
+                                        Origin
+                                    </th>
+                                    <th scope="col">
+                                        Estate name
+                                    </th>
+                                    <th scope="col">Roast Level</th>
+                                    <th scope="col">Weight</th>
+                                    <th scope="col">
+                                        Status
+                                    </th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="customtable">
+                                <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:term | filter: termStatus | filter: termOrigin | filter: termType">
+                                    <td>
+                                        <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                    </td>
+                                    
+                                    <td>
+                                        <span class="product-div">
+                                            <img class="img-file" src="assets/images/dilemmo-icon.JPG">
+                                        </span>
+                                        <span class="product-name-div">
+                                            <p class="mb-1">{{ item.name }}</p>
+                                            <div><img src="assets/images/star-1.png" alt=""><span class="pl-2">4.95</span></div>
+                                        </span>
+                                    </td>
+                                    <td>{{ item.origin }} </td>
+                                    <td>{{ item.estateName }}</td>
+                                    <td>{{ item.roastLevel }} </td>
+                                    <td>
+                                        {{item.weight}}
+                                    </td>
+                                    <td>{{item.status}}</td>
+                                   
+                                    <td>
+                                       {{item.price}}
+                                    </td>
+                                    <td>
+                                        <span><a class="fnt-muli view-details">Edit Product</a><span><img class="pl-4" src="../../../../assets/images/more-opns-file.png"></span></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                </table>
+            </div>
+        </div> 
+    </section>
+</div>
+</div>
+</section>
+
+<!-- <ng-template #roleTemplate>
+    <div>
+      <ul class="list-group">
+        <li class="list-group-item item-color">
+          <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();toggleRole()"
+            >Estate name</a>
+        </li>
+        <li class="list-group-item item-color" >
+          <a
+            class="pointer-item"
+            (click)="setRole('Company1'); pop1.hide(); pop3.hide();toggleRole()"
+            >Comapny 1</a>
+        </li>
+        <li class="list-group-item item-color" >
+            <a
+              class="pointer-item"
+              (click)="setRole('Company 2'); pop1.hide(); pop3.hide();toggleRole()"
+              >Comapny 2</a>
+          </li>
+      </ul>
+    </div>
+  </ng-template> -->
+  <ng-template #allTemplate>
+        <div id="status-content">
+          <ul class="list-group">
+            <li class="list-group-item item-color">
+              <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide();toggleStatus()"
+                >All</a>
+            </li>
+            <li class="list-group-item item-color">
+              <a
+                class="pointer-item"
+                (click)="setStatus('Active'); pop.hide(); pop2.hide();toggleStatus()"
+                >Active</a>
+            </li>
+            <li class="list-group-item item-color">
+              <a
+                class="pointer-item"
+                (click)="setStatus('Disabled'); pop.hide(); pop2.hide();toggleStatus()"
+                >Disabled</a>
+            </li>
+          </ul>
+        </div>
+      </ng-template>  
+      <ng-template #typeTemplate>
+            <div id="status-content">
+              <ul class="list-group">
+                <li class="list-group-item item-color">
+                  <a class="pointer-item" (click)="setType(''); poptype1.hide(); poptype2.hide();toggleType()"
+                    >All</a>
+                </li>
+                <li class="list-group-item item-color">
+                  <a
+                    class="pointer-item"
+                    (click)="setType('$0-$500'); poptype1.hide(); poptype2.hide();toggleType()"
+                    >$0-$500</a>
+                </li>
+                <li class="list-group-item item-color">
+                  <a
+                    class="pointer-item"
+                    (click)="setType('$500-$1000'); poptype1.hide(); poptype2.hide();toggleType()"
+                    >$500-$1000</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>  
+          <ng-template #originTemplate>
+                <div id="status-content">
+                  <ul class="list-group">
+                    <li class="list-group-item item-color">
+                      <a class="pointer-item" (click)="setOrigin(''); poporigin1.hide(); poporigin2.hide();toggleOrigin()"
+                        >All</a>
+                    </li>
+                    <li class="list-group-item item-color">
+                      <a
+                        class="pointer-item"
+                        (click)="setOrigin('Colombia'); poporigin1.hide(); poporigin2.hide();toggleOrigin()"
+                        >Colombia</a>
+                    </li>
+                    <li class="list-group-item item-color">
+                      <a
+                        class="pointer-item"
+                        (click)="setOrigin('Ethiopia'); poporigin1.hide(); poporigin2.hide();toggleOrigin()"
+                        >Ethiopia</a>
+                    </li>
+                  </ul>
+                </div>
+              </ng-template>  

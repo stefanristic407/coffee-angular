@@ -91,6 +91,14 @@ import { MicroRoasterStatComponent } from './roaster-dashboard/micro-roaster-sta
 import { SalesOrdersAllStatComponent } from './roaster-dashboard/sales-orders-all-stat/sales-orders-all-stat.component';
 import { SourcedGreenCoffeeChartComponent } from './roaster-dashboard/sourced-green-coffee-chart/sourced-green-coffee-chart.component';
 import { TotalCoffeeAvailableChartComponent } from './roaster-dashboard/total-coffee-available-chart/total-coffee-available-chart.component';
+import { ErrorModuleModule } from '../error-module/error-module.module';
+import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
+import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
+import { AddProductComponent } from './e-commerce/add-product/add-product.component';
+import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-profile/create-roasting-profile.component';
+import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
+import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
+import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
 
 @NgModule({
   declarations: [
@@ -153,6 +161,13 @@ import { TotalCoffeeAvailableChartComponent } from './roaster-dashboard/total-co
     SalesOrdersAllStatComponent,
     SourcedGreenCoffeeChartComponent,
     TotalCoffeeAvailableChartComponent,
+    RoastedCoffeeBatchesComponent,
+    NewRoastedBatchComponent,
+    AddProductComponent,
+    CreateRoastingProfileComponent,
+    ProductsTableComponent,
+    RoastingProfilesComponent,
+    SelectOrderTableComponent,
   ],
   imports: [
     CommonModule,
@@ -182,6 +197,7 @@ import { TotalCoffeeAvailableChartComponent } from './roaster-dashboard/total-co
     GalleryModule,
     LightboxModule,
     MatVideoModule,
+    ErrorModuleModule,
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })

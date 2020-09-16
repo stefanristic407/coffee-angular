@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { from } from 'rxjs';
 import { PagenotfoundComponent } from '../features/pagenotfound/pagenotfound.component';
 import { AuthComponent } from './auth.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -9,8 +10,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { SetupComponent } from './setup/setup.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
-
-
+import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component'
 const routes: Routes = [
   {
     path: '',
@@ -51,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: '**',
-        component: PagenotfoundComponent
+        component: PageNotFoundComponent
       }
     ]
   }

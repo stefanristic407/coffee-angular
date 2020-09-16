@@ -25,6 +25,18 @@ import {BookOrderChatComponent} from './order-booked/book-order-chat/book-order-
 import { from } from 'rxjs';
 import {HorecaOrderDetailsComponent} from './e-commerce-order/horeca-order-details/horeca-order-details.component';
 import {HorecaOrdersComponent} from './e-commerce-order/horeca-orders/horeca-orders.component';
+import {HorecaOrderConfirmComponent} from './e-commerce-order/horeca-order-confirm/horeca-order-confirm.component';
+import {DetailsOrderComponent} from './e-commerce-order/horeca-order-details/details-order/details-order.component';
+import { HorecaSubscriptionConfirmComponent } from './e-commerce-order/horeca-subscription-confirm/horeca-subscription-confirm.component';
+import { HorecaSubscriptionDetailsComponent } from './e-commerce-order/horeca-subscription-details/horeca-subscription-details.component';
+import { DetailsSubscriptionComponent } from './e-commerce-order/horeca-subscription-details/details-subscription/details-subscription.component';
+import { SubscriptionEsatateInfoComponent } from './e-commerce-order/horeca-subscription-details/subscription-esatate-info/subscription-esatate-info.component'
+import { HorecaPreviousSubscriptionComponent } from './e-commerce-order/horeca-previous-subscription/horeca-previous-subscription.component';
+import { MicroOrderBookedComponent } from './microroaster-orders/micro-order-booked/micro-order-booked.component';
+import { MicroOrderSampleComponent } from './microroaster-orders/micro-order-sample/micro-order-sample.component';
+import {SampleOrderConfirmationComponent} from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
+import {BookedOrderConfirmationComponent} from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component';
+import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -119,13 +131,53 @@ children: [
     component:HorecaOrderDetailsComponent
   },
   {
+    path:'order-confirmation',
+    component:HorecaOrderConfirmComponent
+  },
+  {
+    path:'details-order',
+    component:DetailsOrderComponent
+  },
+  {
+	path:'subscription-confirmation',
+	component:HorecaSubscriptionConfirmComponent
+  },
+  {
+	  path:'horeca-subscription-details',
+	  component:HorecaSubscriptionDetailsComponent
+  },
+  {
+	  path:'details-subscription',
+	  component:DetailsSubscriptionComponent
+  },
+  {
+	  path:'horeca-previous-subscription',
+	  component:HorecaPreviousSubscriptionComponent
+  },
+  {
+	  path:'microroaster-booked',
+	  component:MicroOrderBookedComponent
+  },
+  {
+	  path:'microroaster-sample',
+	  component:MicroOrderSampleComponent
+  },
+  {
+    path:'sample-order-confirmation',
+    component:SampleOrderConfirmationComponent
+  },
+  {
+    path:'booked-order-confirmation',
+    component:BookedOrderConfirmationComponent
+  },
+  {
     path: '',
     redirectTo: 'myorders',
     pathMatch: 'full',
   },
   {
     path: '**',
-    component: PagenotfoundComponent
+    component: PageNotFoundComponent
   }
 ]
   },

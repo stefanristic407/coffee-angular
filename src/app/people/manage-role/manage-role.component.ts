@@ -141,7 +141,7 @@ export class ManageRoleComponent implements OnInit {
 
       }
     }
-    this.router.navigate(['/people/add-members'], navigationExtras);
+    this.router.navigate(['/people/team-members'], navigationExtras);
   }
 
   // Function Name : View Member
@@ -157,6 +157,6 @@ export class ManageRoleComponent implements OnInit {
 
   }
   members() {
-    this.router.navigate(["/people/add-members"]);
+    this.router.navigate(["/people/team-members"]);
   }
 }

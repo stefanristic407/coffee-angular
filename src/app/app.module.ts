@@ -18,7 +18,9 @@ import { HeaderComponent } from './header/header.component';
 import { PopoverModule } from "ngx-bootstrap/popover";
 import {GalleriaModule} from 'primeng/galleria';
 import {MatVideoModule} from 'mat-video';
-
+import { ErrorModuleModule } from './error-module/error-module.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorIntercept } from './error-module/error.interceptor';
 
 
 
@@ -41,11 +43,19 @@ import {MatVideoModule} from 'mat-video';
     OrdermanagementModule,
     GalleriaModule,
     MatVideoModule,
+    ErrorModuleModule,
+    HttpClientModule,
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true,
       positionClass: 'toast-bottom-right' }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorIntercept,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

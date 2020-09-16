@@ -32,6 +32,9 @@ import { MicroRoasterDetailsComponent } from './customer-management/micro-roaste
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { HorecaTableComponent } from './customer-management/horeca-details/horeca-table/horeca-table.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
+import { TeamMembersComponent } from './team-members/team-members.component';
+import { InviteMemberComponent } from './invite-member/invite-member.component';
+import { ErrorModuleModule } from '../error-module/error-module.module';
 @NgModule({
   declarations: [
     PeopleComponent,
@@ -49,7 +52,9 @@ import { DiscountEditComponent } from './customer-management/discount-edit/disco
     MicroRoasterDetailsComponent,
     HorecaDetailsComponent,
     HorecaTableComponent,
-    DiscountEditComponent
+    DiscountEditComponent,
+    TeamMembersComponent,
+    InviteMemberComponent
   ],
   imports: [
     CommonModule,
@@ -65,6 +70,7 @@ import { DiscountEditComponent } from './customer-management/discount-edit/disco
     TooltipModule,
     MatBottomSheetModule,
     MatSidenavModule,
+    ErrorModuleModule,
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
