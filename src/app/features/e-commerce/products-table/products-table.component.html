@@ -113,18 +113,20 @@
                                     
                                     <td>
                                         <span class="product-div">
-                                            <img class="img-file" src="assets/images/dilemmo-icon.JPG">
+                                            <img class="img-file" src="{{item.feature_image}}">
+                                            
                                         </span>
                                         <span class="product-name-div">
                                             <p class="mb-1">{{ item.name }}</p>
-                                            <div><img src="assets/images/star-1.png" alt=""><span class="pl-2">4.95</span></div>
+                                            <div><img src="assets/images/star-1.png" alt=""><span class="pl-2">{{ item.rating }}</span></div>
                                         </span>
                                     </td>
                                     <td>{{ item.origin }} </td>
-                                    <td>{{ item.estateName }}</td>
-                                    <td>{{ item.roastLevel }} </td>
+                                    <td>{{ item.estate_name }}</td>
+                                    <td>{{ item.roast_level }} </td>
                                     <td>
-                                        {{item.weight}}
+                                        <!-- {{item.weight}} -->
+                                        16 lb	
                                     </td>
                                     <td>{{item.status}}</td>
                                    

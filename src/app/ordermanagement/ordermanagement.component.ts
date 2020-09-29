@@ -10,6 +10,8 @@ import { DirectMessagingComponent } from '../../app/ordermanagement/direct-messa
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 // import * as $ from 'jquery';
 declare var $: any;
+import { TranslateService } from "@ngx-translate/core";
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-ordermanagement',
@@ -46,7 +48,10 @@ export class OrdermanagementComponent implements OnInit {
   ];
   profilePic: any;
   roasterProfilePic: any;
-
+  supportLanguages = ["en", "es"];
+  lag: any;
+  languages: any;
+  appLanguage: any;
 
 
   constructor(private elementRef: ElementRef,
@@ -54,7 +59,9 @@ export class OrdermanagementComponent implements OnInit {
     private userService: UserserviceService,
     private router: Router,
     private _bottomSheet: MatBottomSheet,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+    private translateService:TranslateService,
+    private globals:GlobalsService) { }
 
     ngOnInit(): void {
 
@@ -110,6 +117,15 @@ export class OrdermanagementComponent implements OnInit {
       response => {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];
         this.profilePic = response['result']['profile_image_thumb_url'];
+        var language = (response['result']['language'] == "") ? "en" : response['result']['language'];
+        this.userService.getUserLanguageStrings(language).subscribe(
+          resultLanguage => {
+            console.log(resultLanguage);
+            this.globals.languageJson = resultLanguage;
+            console.log(this.globals.languageJson);
+            this.appLanguage = this.globals.languageJson;
+          }
+        )
       }
     );
   }

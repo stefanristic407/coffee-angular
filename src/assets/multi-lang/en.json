@@ -1,0 +1,31 @@
+{
+    "header" : {
+        "Dashboard" : "Dashboard",
+        "AddMembers" : "Add Members",
+        "EditMember" : "Edit Member",
+        "OrderManagement" : "Order Management",
+        "MyOrders" : "My Orders",
+        "CreateRole" : "Create Role",
+        "People" : "People",
+        "ManageRoles" :  "Manage Roles",
+        "UserManagement" : "User Management",
+        "Settings" : "Settings",
+        "SignUp" : "SignUp",
+        "UpdatePassword" : "Update Password",
+        "LanguageAndTimezone" : "Language and Timezone",
+        "has_assignments" : "Permission has some assignments",
+        "StaticPages": "Static Pages",
+        "RoleManagement": "Role Management",
+        "MembersList":"Members List",
+        "Roaster" : "Roaster",
+        "Estate" : "Estate",
+        "Facilitator" : "Facilitator",
+        "InvoiceGenerator" : "Invoice Generator",
+        "VAT" : "VAT",
+        "CommissionManagement" : "Commission Management",
+        "Insights" : "Insights",
+        "HelpAndSupport": "Help and Support",
+        "TermsAndConditions" : "Terms and Conditions",
+        "PrivacyPolicy" : "Privacy Policy"
+    }
+}

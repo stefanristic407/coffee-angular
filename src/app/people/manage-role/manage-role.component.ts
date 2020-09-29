@@ -7,6 +7,7 @@ import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-manage-role',
@@ -22,11 +23,14 @@ export class ManageRoleComponent implements OnInit {
   roleID: any;
   roasterUsers: any[] = [];
   userRoles: any[] = [];
+  appLanguage: any;
+
   constructor(
     public router: Router,
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private globals: GlobalsService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +47,8 @@ export class ManageRoleComponent implements OnInit {
     this.sizes = [];
     this.roaster_id = this.cookieService.get('roaster_id');
     this.loadroles();
+    this.appLanguage = this.globals.languageJson;
+
   }
 
   // getRandomInt(max: any) {

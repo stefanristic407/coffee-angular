@@ -39,13 +39,13 @@
                 <tbody class="customtable">
                     <tr class="ticket-boby-txt" *ngFor="let ticket of data | filter:term ">
 
-                        <td>{{ ticket.orderid }}</td>
-                        <td>{{ ticket.estatename }}</td>
+                        <td>{{ ticket.order_id }}</td>
+                        <td>{{ ticket.estate_name }}</td>
                         <td>
-                            {{ ticket.dateraised }}
+                            {{ ticket.date_ordered }}
                         </td>
-                        <td>{{ticket.disputetype}}</td>
-                        <td>{{ ticket.status }} </td>
+                        <td>{{ticket.dispute_type}}</td>
+                        <td>{{ ticket.dispute_status }} </td>
                         <td>
                             <div type="submit" class="go-to-ticket"  (click)="continueTicket();">Go to ticket</div>
                         </td>

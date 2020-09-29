@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-roasting-profiles',
@@ -16,53 +20,59 @@ export class RoastingProfilesComponent implements OnInit {
   term:any;
 
   mainData:any[] = [
-    {
-		roastname: 'Mild roast-467',
-		roastlevel: 'Medium',
-		temperature: '600°C',
-		duration:'6 min'
-    },
-    {
-		roastname: 'Light - medium 940',
-		roastlevel: 'Light - medium',
-		temperature: '400°C',
-		duration:'3 min'
-    },
-    {
-		roastname: 'Medium458',
-		roastlevel: 'Medium',
-		temperature: '670°C',
-		duration:'5.5 min'
-    },
-    {
-		roastname: '2879- dark',
-		roastlevel: 'Dark',
-		temperature: '800°C',
-		duration:'-'
-    },
-    {
-		roastname: 'Light - medium 940',
-		roastlevel: 'Light',
-		temperature: '670°C',
-		duration:'5 min'
-	},
-	{
-		roastname: 'Medium458',
-		roastlevel: 'Dark',
-		temperature: '900°C',
-		duration:'9 min'
-	}
+  //   {
+	// 	roastname: 'Mild roast-467',
+	// 	roastlevel: 'Medium',
+	// 	temperature: '600°C',
+	// 	duration:'6 min'
+  //   },
+  //   {
+	// 	roastname: 'Light - medium 940',
+	// 	roastlevel: 'Light - medium',
+	// 	temperature: '400°C',
+	// 	duration:'3 min'
+  //   },
+  //   {
+	// 	roastname: 'Medium458',
+	// 	roastlevel: 'Medium',
+	// 	temperature: '670°C',
+	// 	duration:'5.5 min'
+  //   },
+  //   {
+	// 	roastname: '2879- dark',
+	// 	roastlevel: 'Dark',
+	// 	temperature: '800°C',
+	// 	duration:'-'
+  //   },
+  //   {
+	// 	roastname: 'Light - medium 940',
+	// 	roastlevel: 'Light',
+	// 	temperature: '670°C',
+	// 	duration:'5 min'
+	// },
+	// {
+	// 	roastname: 'Medium458',
+	// 	roastlevel: 'Dark',
+	// 	temperature: '900°C',
+	// 	duration:'9 min'
+	// }
   ]
   roleData: string;
   roleID: string;
-
+  roasterId: any ;
  
-  constructor() {
+  constructor(
+    public router: Router,
+    public cookieService: CookieService,
+    private roasterService : RoasterserviceService,
+    private toastrService : ToastrService,) {
     this.termStatus = '';
     this.termRole = '';
+    this.roasterId = this.cookieService.get('roaster_id');
    }
 
   ngOnInit(): void {
+    this.getRoastingProfile();
   }
 
   setTeamRole(term: any, roleId: any) {
@@ -115,4 +125,15 @@ export class RoastingProfilesComponent implements OnInit {
     return this.mainData.every(_ => _.state);
   } 
 
+  getRoastingProfile(){
+		this.roasterService.getRoastingProfile(this.roasterId).subscribe(
+			data => {
+				if(data['success']==true){
+					this.mainData = data['result'];
+				}else{
+					this.toastrService.error("Error while getting the agreement list!");
+				}
+			}
+		)
+	}
 }

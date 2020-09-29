@@ -10,6 +10,8 @@ import { DirectMessagingComponent } from '../ordermanagement/direct-messaging/di
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 // import * as $ from 'jquery';
 declare var $: any;
+import { TranslateService } from "@ngx-translate/core";
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-features',
@@ -46,12 +48,28 @@ export class FeaturesComponent implements OnInit {
   ];
   profilePic: any;
   roasterProfilePic: any;
+  supportLanguages = ["en", "es"];
+  lag: any;
+  languages: any;
+  appLanguage: any;
 
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
     private userService: UserserviceService,
     private router: Router,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+    private translateService:TranslateService,
+    private globals:GlobalsService) {
+      this.translateService.addLangs(this.supportLanguages);
+      if (localStorage.getItem("locale")) {
+        const browserLang = localStorage.getItem("locale");
+        this.translateService.use(browserLang);
+      } else {
+        const browserlang = this.translateService.getBrowserLang();
+        this.translateService.use(browserlang);
+        localStorage.setItem("locale", "en");
+      }
+     }
 
   ngOnInit(): void {
     this.roaster_id = this.cookieService.get("roaster_id");
@@ -119,7 +137,16 @@ export class FeaturesComponent implements OnInit {
     this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
       response => {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];
-        this.profilePic = response['result']['profile_image_thumb_url'];
+		this.profilePic = response['result']['profile_image_thumb_url'];
+		var language = (response['result']['language'] == "") ? "en" : response['result']['language'];
+        this.userService.getUserLanguageStrings(language).subscribe(
+          resultLanguage => {
+            console.log(resultLanguage);
+            this.globals.languageJson = resultLanguage;
+            console.log(this.globals.languageJson);
+            this.appLanguage = this.globals.languageJson;
+          }
+        )
       }
     );
   }

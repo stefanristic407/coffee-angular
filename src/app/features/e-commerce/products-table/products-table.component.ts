@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
+import { DataTableDirective, DataTablesModule } from 'angular-datatables';
+import { data } from 'jquery';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-products-table',
@@ -12,53 +20,53 @@ export class ProductsTableComponent implements OnInit {
   roles: any;
   role_id: any;
   termStatus: any;
-  teamRole:any;
+  teamRole: any;
   showVar: boolean = true;
-  showRole:boolean = true;
-  term:any;
+  showRole: boolean = true;
+  term: any;
 
-  mainData:any[] = [
-    {
-      
-      name: 'Tres Santos',
-      origin: 'Colombia',
-      estateName: 'Finca la pampa',
-      roastLevel:'Medium',
-      weight:'16 lb',
-      status: 'In Stock',
-      price: '$44.56'
-    },
-    {
-      
-      name: 'Tres Santos',
-      origin: 'Colombia',
-      estateName: 'Finca la pampa',
-      roastLevel:'Medium- light',
-      weight:'25 lb',
-      status: 'In Stock',
-      price: '$44.56'
-    },
-    {
-      
-      name: 'Tres Santos',
-      origin: 'Colombia',
-      estateName: 'Finca La Toboba',
-      roastLevel:'Dark',
-      weight:'16 lb',
-      status: 'Sold',
-      price: '$44.56'
-    },
-    {
-      
-      name: 'Tres Santos',
-      origin: 'Colombia',
-      estateName: 'Finca la pampa',
-      roastLevel:'Medium',
-      weight:'16 lb',
-      status: 'In Stock',
-      price: '$44.56'
-    }
-   
+  mainData: any[] = [
+    // {
+
+    //   name: 'Tres Santos',
+    //   origin: 'Colombia',
+    //   estateName: 'Finca la pampa',
+    //   roastLevel:'Medium',
+    //   weight:'16 lb',
+    //   status: 'In Stock',
+    //   price: '$44.56'
+    // },
+    // {
+
+    //   name: 'Tres Santos',
+    //   origin: 'Colombia',
+    //   estateName: 'Finca la pampa',
+    //   roastLevel:'Medium- light',
+    //   weight:'25 lb',
+    //   status: 'In Stock',
+    //   price: '$44.56'
+    // },
+    // {
+
+    //   name: 'Tres Santos',
+    //   origin: 'Colombia',
+    //   estateName: 'Finca La Toboba',
+    //   roastLevel:'Dark',
+    //   weight:'16 lb',
+    //   status: 'Sold',
+    //   price: '$44.56'
+    // },
+    // {
+
+    //   name: 'Tres Santos',
+    //   origin: 'Colombia',
+    //   estateName: 'Finca la pampa',
+    //   roastLevel:'Medium',
+    //   weight:'16 lb',
+    //   status: 'In Stock',
+    //   price: '$44.56'
+    // }
+
   ]
   roleData: string;
   roleID: string;
@@ -66,23 +74,31 @@ export class ProductsTableComponent implements OnInit {
   showType: boolean = true;
   termOrigin: any;
   termType: any;
+  roasterId: any;
 
- 
-  constructor() {
+  constructor(public router: Router,
+    public cookieService: CookieService,
+    public dashboard: DashboardserviceService,
+    private roasterService: RoasterserviceService,
+    private toastrService: ToastrService,
+    public modalService: BsModalService) {
     this.termStatus = '';
     this.termRole = '';
     this.termOrigin = '';
     this.termType = '';
-   }
+    this.roasterId = this.cookieService.get('roaster_id');
+
+  }
 
   ngOnInit(): void {
+    this.getSelectProducts();
   }
 
   // setTeamRole(term: any, roleId: any) {
   //   this.teamRole = term;
   //   this.role_id = roleId;
   // }
- // Function Name : Status Filiter
+  // Function Name : Status Filiter
   // Description: This function helps to filiter the users based on the selected status fiiter.
 
   setStatus(term: any) {
@@ -110,42 +126,42 @@ export class ProductsTableComponent implements OnInit {
   //   }
   //   else{
   //     document.getElementById('role_id').style.border="1px solid #d6d6d6";
-    
+
   //   }
   //  }
-  
-   toggleStatus() {
+
+  toggleStatus() {
     this.showVar = !this.showVar;
-    if(this.showVar==false){
-    document.getElementById('status_id').style.border="1px solid #30855c";
-  }
-  else{
-    document.getElementById('status_id').style.border="1px solid #d6d6d6";
-  
-  }
+    if (this.showVar == false) {
+      document.getElementById('status_id').style.border = "1px solid #30855c";
+    }
+    else {
+      document.getElementById('status_id').style.border = "1px solid #d6d6d6";
+
+    }
   }
 
-    
+
   toggleType() {
     this.showType = !this.showType;
-    if(this.showType==false){
-    document.getElementById('type_id').style.border="1px solid #30855c";
+    if (this.showType == false) {
+      document.getElementById('type_id').style.border = "1px solid #30855c";
+    }
+    else {
+      document.getElementById('type_id').style.border = "1px solid #d6d6d6";
+
+    }
   }
-  else{
-    document.getElementById('type_id').style.border="1px solid #d6d6d6";
-  
-  }
-  }
-    
+
   toggleOrigin() {
     this.showOrigin = !this.showOrigin;
-    if(this.showOrigin==false){
-    document.getElementById('origin_id').style.border="1px solid #30855c";
-  }
-  else{
-    document.getElementById('origin_id').style.border="1px solid #d6d6d6";
-  
-  }
+    if (this.showOrigin == false) {
+      document.getElementById('origin_id').style.border = "1px solid #30855c";
+    }
+    else {
+      document.getElementById('origin_id').style.border = "1px solid #d6d6d6";
+
+    }
   }
 
   // Function Name : CheckAll
@@ -158,7 +174,25 @@ export class ProductsTableComponent implements OnInit {
   // Description: This function helps to check single role.
   isAllChecked() {
     return this.mainData.every(_ => _.state);
-  } 
+  }
+  // table data
+  getSelectProducts() {
+    this.roasterService.getSelectProductDetails(this.roasterId).subscribe(
+      data => {
+        if (data['success'] == true) {
+          let array = data['result'];
+          if (data['result'] == null || data['result'].length == 0) {
+            this.toastrService.error("Table Data is empty");
+          }
+          else {
+            this.mainData = data['result'];
+          }
+        } else {
+          this.toastrService.error("Error while getting the agreement list!");
+        }
+      }
+    )
+  }
 
 
 }

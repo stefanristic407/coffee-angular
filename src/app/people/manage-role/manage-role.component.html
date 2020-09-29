@@ -19,15 +19,15 @@
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav mb-md-0">
         <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
         <li class="b-cum">
-            <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum">{{appLanguage.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
 
-        <li class="b-cum c-pink">Manage roles</li>
+        <li class="b-cum c-pink">{{appLanguage.manage_roles}}</li>
         <div class="pull-right desk_view_user p-role-butn">
-            <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn ">Create new role</button></a>
+            <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn "> {{appLanguage.create_new_role}}</button></a>
         </div>
         <!-- <button type="submit" class="btn col-12 col-md-2 pull-right create-role-btn web-btn d-md-block d-none"> CREATE NEW ROLE </button> -->
 
@@ -44,32 +44,36 @@
                 <tr class="header-row">
                     <th>
                         <label class="customcheckbox m-b-20">
-                                                <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
-												(change)="checkAll($event)"/>
-                                                <span class="checkmark head-check"></span>
-											</label>
+                            <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                            (change)="checkAll($event)"/>
+                            <span class="checkmark head-check"></span>
+                        </label>
                     </th>
-                    <th scope="col">Number of members</th>
+                    <!-- <th scope="col">Number of members</th>
                     <th scope="col">Roles</th>
                     <th scope="col"></th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Actions</th> -->
+                    <th>{{appLanguage.number_of_members}}</th>
+                    <th scope="col">{{appLanguage.roles}}</th>
+                    <th scope="col"></th>
+                    <th scope="col">{{appLanguage.actions}}</th>
                 </tr>
             </thead>
             <tbody class="customtable">
                 <tr *ngFor="let data of sizes; let i = index" id="tr_{{data.id}}">
                     <th>
                         <label class="customcheckbox">
-                                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{data.id}}" [(ngModel)]="data.state"/>
-                                                <span class="checkmark head-check"></span>
-                                            </label>
+                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{data.id}}" [(ngModel)]="data.state"/>
+                            <span class="checkmark head-check"></span>
+                        </label>
                     </th>
                     <td>{{data.user_count}}</td>
                     <td>{{data.name}}</td>
                     <td>
                         <span class="show_btns">
-                                            <button type="button"  class="btn view-btn"  (click)="viewMembers(data)" id="view-btn">View members</button>
-                                            <button type="button"  (click)="addMembers($event,data)" class="btn add-btn" id="add-btn">Add members</button>
-                                        </span>
+                            <button type="button"  class="btn view-btn"  (click)="viewMembers(data)" id="view-btn">{{appLanguage.view_members}}</button>
+                            <button type="button"  (click)="addMembers($event,data)" class="btn add-btn" id="add-btn">{{appLanguage.add_members}}</button>
+                        </span>
                     </td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
@@ -78,13 +82,20 @@
                         <ng-template #poplistTemplate id="{{data.id}}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">Add Members </a></li>
+                                    <!-- <li class="list-group-item" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">Add Members </a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">View Members</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">Edit</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Duplicate role</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Manage Permissions</a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">Delete</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">Delete</a></li> -->
+                                    <li class="list-group-item" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">{{appLanguage.add_members}} </a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">{{appLanguage.view_members}} </a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{appLanguage.update_role}}</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.rename}}</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.duplicate_role}} </a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.duplicate_role}}</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">{{appLanguage.delete_role}}</a></li>
                                 </ul>
                             </div>
                         </ng-template>

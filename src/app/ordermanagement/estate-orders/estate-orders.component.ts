@@ -6,6 +6,9 @@ import { CookieService } from 'ngx-cookie-service';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -48,10 +51,15 @@ export class EstateOrdersComponent implements OnInit {
 	showStatusMob:boolean = true;
 	estatetermStatusMob: string;
 	estatetermTypeMob: string;
-	
+	roasterId: any;
+
 	constructor(public router: Router,
 		public cookieService: CookieService,
-		public dashboard: DashboardserviceService) {
+		public dashboard: DashboardserviceService,
+		private roasterService: RoasterserviceService,
+		private toastrService: ToastrService,
+		public modalService: BsModalService) {
+			this.roasterId = this.cookieService.get('roaster_id');
 			this.data = {};
 			this.data = 
 				[{ 
@@ -83,7 +91,7 @@ export class EstateOrdersComponent implements OnInit {
 				{ id: '1016', estatename: 'Finca La Toboba', dataordered: '19 Oct 2018', origin: 'Colombia', quantity: '297kg', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', price: '-' },
 				{ id: '1017', estatename: 'Finca La Pampa', dataordered: '23 Nov 2018', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3,200' },
 			];
-			this.mainData = this.data;
+			// this.mainData = this.data;
 		 }
 
 	ngOnInit(): void {
@@ -94,7 +102,7 @@ export class EstateOrdersComponent implements OnInit {
 
 		this.dtOptions = {
 			//ajax: this.data,
-			data: this.data,
+			data: this.mainData,
 			pagingType: 'full_numbers',
 			pageLength: 10,
 			lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
@@ -112,10 +120,10 @@ export class EstateOrdersComponent implements OnInit {
 					data: 'id'
 				}, {
 					title: 'Estate name',
-					data: 'estatename'
+					data: 'estate_name'
 				}, {
 					title: 'Date ordered',
-					data: 'dataordered'
+					data: 'created_at'
 				},
 				{
 					title: 'Origin',
@@ -136,7 +144,7 @@ export class EstateOrdersComponent implements OnInit {
 					data: 'quantity'
 				}, {
 					title: 'Type of order',
-					data: 'typeoforder',
+					data: 'type',
 					className: 'typeoforderclass'
 				}, {
 					title: 'Status',
@@ -485,7 +493,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 });
 
 /* pagination ends */
-
+this.getEstateOrdersData();//get table data
 
 	}
 
@@ -673,5 +681,26 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
       this.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
     }
 
+  }
+  getEstateOrdersData() {
+    this.roasterService.getEstateOrders(this.roasterId).subscribe(
+      data => {
+        if ( data['success'] == true ) {
+          if ( data['result'] == null || data['result'].length == 0) {
+            this.toastrService.error("Table Data is empty");
+          }
+          else {
+            this.mainData = data['result'];
+          }
+        } 
+        else if( data['success'] == false){
+          this.toastrService.error("Table Data is empty");
+        }
+        else {
+          
+          this.toastrService.error("Error while getting the agreement list!");
+        }
+      }
+    )
   }
 }

@@ -3,6 +3,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-select-order-table',
@@ -26,7 +29,7 @@ export class SelectOrderTableComponent implements OnInit {
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
-
+	roasterId :any ;
 	@ViewChild('calendar')
   	calendar: any;
 	//dtInstance:DataTables.Api;
@@ -40,15 +43,18 @@ export class SelectOrderTableComponent implements OnInit {
 	};
 	constructor(public router: Router,
 		public cookieService: CookieService,
-		public dashboard: DashboardserviceService) {
+		public dashboard: DashboardserviceService,
+		private roasterService: RoasterserviceService,
+		private toastrService: ToastrService,) {
+			this.roasterId = this.cookieService.get('roaster_id');
 			this.data = {};
-			this.data = 
-				[
-          { orderid: '1000', estatename: 'Finca La Pampa', dataordered: '24 Jan 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
-        { orderid: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
-        { orderid: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '29kg',cuppingscore:'81.5' },
-        { orderid: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-', cuppingscore:'84.5' },
-        { orderid: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
+			// this.data = 
+			// 	[
+        //   { orderid: '1000', estatename: 'Finca La Pampa', dataordered: '24 Jan 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
+        // { orderid: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
+        // { orderid: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '29kg',cuppingscore:'81.5' },
+        // { orderid: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-', cuppingscore:'84.5' },
+        // { orderid: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
 		// { orderid: '1005', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'86' },
 		// { orderid: '1006', estatename: 'Finca La Pampa', dataordered: '24 Jan 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-', cuppingscore:'84.5' },
     //     { orderid: '1007', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
@@ -56,8 +62,8 @@ export class SelectOrderTableComponent implements OnInit {
     //     { orderid: '1009', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
     //     { orderid: '1010', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
     //     { orderid: '1011', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'86' },
-			];
-			this.mainData = this.data;
+			// ];
+			// this.mainData = this.data;
 		 }
 
 	ngOnInit(): void {
@@ -80,13 +86,13 @@ export class SelectOrderTableComponent implements OnInit {
 				defaultContent:'<input type="radio" name="optradio" class="radio-box">'},
 				{
 					title: 'Order ID',
-					data: 'orderid'
+					data: 'id'
 				}, {
 					title: 'Estate name',
-					data: 'estatename'
+					data: 'estate_name'
 				}, {
 					title: 'Date ordered',
-					data: 'dataordered'
+					data: 'created_at'
 				},
 				{
 					title: 'Origin',
@@ -106,7 +112,7 @@ export class SelectOrderTableComponent implements OnInit {
 				
 				{
 					title: "Cupping score",
-					data: "cuppingscore",
+					data: "quantity_count",
 				}
 			],
 			// createdRow: (row: Node, data: any, index: number) => {
@@ -137,6 +143,8 @@ export class SelectOrderTableComponent implements OnInit {
 				$('#DataTables_Table_0_processing').hide();
 			});
 		});
+
+		this.estateSelectAnOrderTableData(); //calling estate table data onload 
 	}
 
 	//  Function Name : Check box function.
@@ -259,5 +267,25 @@ export class SelectOrderTableComponent implements OnInit {
 		  document.getElementById('display_id').style.border="1px solid #d6d6d6";
 	  
 	  }
+	  }
+
+	  //select order table data 
+	  estateSelectAnOrderTableData() {
+		this.roasterService.getEstateOrders(this.roasterId).subscribe(
+		  data => {
+			if ( data['success'] == true ) {
+			  if ( data['result'] == null || data['result'].length == 0) {
+				this.toastrService.error("Table Data is empty");
+			  }
+			  else {
+				this.data = data['result'];
+			  }
+			} 
+			else {
+			  
+			  this.toastrService.error("Error while getting the agreement list!");
+			}
+		  }
+		)
 	  }
 }

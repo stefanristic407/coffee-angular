@@ -18,6 +18,7 @@ export class HorecaTableComponent implements OnInit {
   public mainData: any[];
   folderId: any;
   estateId: any;
+  roasterId: any;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
@@ -26,6 +27,7 @@ export class HorecaTableComponent implements OnInit {
     private toastrService : ToastrService,
     public modalService:BsModalService) {
       this.estateId = this.cookieService.get('estate_id');
+      this.roasterId = this.cookieService.get('roaster_id');
 			this.mainData = 
 				[
 				{ microname:  'Ritz Carlton', createdon: '24/09/2019  11:45am', status: 'Active', activeuser: '5', action: 'View details'},
@@ -45,7 +47,7 @@ export class HorecaTableComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
-    
+      this.getHorecaTableData();
     }
 	
   // Function Name : CheckAll
@@ -71,5 +73,26 @@ export class HorecaTableComponent implements OnInit {
     // this.router.navigate(['/features/file-share-details'], navigationExtras);
   }  
 
+  getHorecaTableData() {
+    this.roasterService.getHorecaTable(this.roasterId).subscribe(
+      data => {
+        if ( data['success'] == true ) {
+          if ( data['result'] == null || data['result'].length == 0) {
+            this.toastrService.error("Table Data is empty");
+          }
+          else {
+            this.mainData = data['result'];
+          }
+        } 
+        else if( data['success'] == false){
+          this.toastrService.error("Table Data is empty");
+        }
+        else {
+          
+          this.toastrService.error("Error while getting the agreement list!");
+        }
+      }
+    )
+  }
 
 }

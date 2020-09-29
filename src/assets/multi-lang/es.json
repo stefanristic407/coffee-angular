@@ -1,0 +1,32 @@
+{
+    "header": {
+        "Dashboard" : "Table",
+        "AddMembers" : "Añadir miembros",
+        "EditMember" : "Editar miembros",
+        "OrderManagement" : "Gestión de pedidos",
+        "MyOrders" : "Mis ordenes",
+        "CreateRole" : "Crear rol",
+        "People" : "Personas",
+        "ManageRoles" :  "Lista de roles",
+        "UserManagement" : "Gestión de usuarios",
+        "Settings" : "Configuraciones",
+        "SignUp" : "Regístrate",
+        "UpdatePassword" : "Actualiza contraseña",
+        "LanguageAndTimezone": "Idioma y zona horaria",
+        "has_assignments" : "El permiso tiene algunas tareas",
+        "StaticPages": "Páginas Estáticas",
+        "RoleManagement": "Gestión de roles",
+        "MembersList":"Lista de miembros",
+        "Roaster" : "Tostador",
+        "Estate" : "Inmuebles",
+        "Facilitator" : "Facilitador",
+        "InvoiceGenerator" : "Generador de facturas",
+        "VAT" : "VAT",
+        "CommissionManagement" : "Comisión de gestión",
+        "Insights" : "Percepciones",
+        "HelpAndSupport": "Ayuda y apoyo",
+        "TermsAndConditions" : "Términos y Condiciones",
+        "PrivacyPolicy" : "Política de privacidad"
+    }
+}
+

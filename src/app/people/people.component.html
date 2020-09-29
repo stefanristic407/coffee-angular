@@ -55,10 +55,10 @@
                                         <ng-template #popTemplate>
                                             <div id="popover-mobile-content">
                                                 <ul class="list-group">
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/roastery-profile" (click)="pop2.hide()">Roastery Profile </a></li>
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/profile-edit" (click)="pop2.hide()">Profile </a></li>
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings" (click)="pop2.hide()">Account Settings </a></li>
-                                                    <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">Logout </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/roastery-profile" (click)="pop2.hide()">{{appLanguage.roastery_profile}} </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/profile-edit" (click)="pop2.hide()">{{appLanguage.profile}} </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings" (click)="pop2.hide()">{{appLanguage.account_settings}}</a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">{{appLanguage.logout}} </a></li>
                                                 </ul>
                                             </div>
                                         </ng-template>
@@ -85,86 +85,85 @@
                             <ul class="nav-links fnt-muli pad-5">
 
                                 <li class="nav-links__item d-inline-block position-relative">
-
-                                    <a class="d-inline-block fnt-600 router-link" routerLink="../features/welcome-aboard">Dashboard
+                                    <a class="d-inline-block fnt-600 router-link" routerLink="../features/welcome-aboard">{{appLanguage.dashboard}}
                             </a>
                                 </li>
 
                                 <li class="nav-links__item d-inline-block position-relative">
 
-                                    <a class="d-inline-block fnt-600 router-link" routerLink="../features/sourcing">Sourcing Module
+                                    <a class="d-inline-block fnt-600 router-link" routerLink="../features/sourcing">{{appLanguage.sourcing_module}}
                             </a>
                                 </li>
 
                                 <li class="nav-links__item arrow d-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">Order Management
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.order_management}}
                             </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li>
-                                            <a class="router-link" routerLink="../ordermanagement/estate-orders">Estate Orders</a>
+                                            <a class="router-link" routerLink="../ordermanagement/estate-orders">{{appLanguage.estate_orders}}</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../ordermanagement/roaster-orders">Micro-Roaster Orders</a>
+                                            <a class="router-link" routerLink="../ordermanagement/roaster-orders">{{appLanguage.roaster_orders}}</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../ordermanagement/horeca-orders">HoReCa Orders</a>
+                                            <a class="router-link" routerLink="../ordermanagement/horeca-orders">{{appLanguage.facilitator_orders}}</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-links__item arrow d-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">Farm Link
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.farm_link}}
                             </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li>
-                                            <a class="router-link" routerLink="../features/brand-profile">Build your brand profile</a>
+                                            <a class="router-link" routerLink="../features/brand-profile">{{appLanguage.build_brand_profile}}</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../features/coffee-experience">The coffee experience</a>
+                                            <a class="router-link" routerLink="../features/coffee-experience">{{appLanguage.coffee_experience}}</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../features/social-media">Social Media posts</a> </li>
+                                            <a class="router-link" routerLink="../features/social-media">{{appLanguage.social_media_posts}}</a> </li>
                                         <li>
-                                            <a class="router-link" routerLink="../features/file-share">File Share</a> </li>
+                                            <a class="router-link" routerLink="../features/file-share">{{appLanguage.file_share}}</a> </li>
                                         <li>
-                                            <a class="router-link" routerLink="../features/agreement">Agreements</a>
+                                            <a class="router-link" routerLink="../features/agreement">{{appLanguage.agreements}}</a>
                                         </li>
 
                                     </ul>
                                 </li>
                                 <li class="nav-links__item d-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" routerLink="../features/roasted-coffee-batch">E-commerce
+                                    <a class="d-inline-block fnt-600" routerLink="../features/roasted-coffee-batch">{{appLanguage.ecommerce}}
                             </a>
                                 </li>
                                 <li class="nav-links__item d-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">Insights
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.insights}}
                             </a>
                                 </li>
                                 <li class="nav-links__item arrow d-inline-block position-relative active">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">People
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.people}}
                             </a>
                                     <ul class="nav-dropdown fnt-600">
 
                                         <li>
-                                            <a class="router-link" routerLink="../people/manage-role">Manage Roles</a>
+                                            <a class="router-link" routerLink="../people/manage-role">{{appLanguage.manage_roles}}</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../people/user-management">User Management </a>
+                                            <a class="router-link" routerLink="../people/user-management">{{appLanguage.user_management}}</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../people/customer-management">Customer Management </a>
+                                            <a class="router-link" routerLink="../people/customer-management">{{appLanguage.customer_management}} </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5">
-                                    <a class="d-inline-block fnt-600" routerLink="../features/account-settings">Account Settings
+                                    <a class="d-inline-block fnt-600" routerLink="../features/account-settings">{{appLanguage.account_settings}}
                             </a>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
-                                    <a class="d-inline-block fnt-600">Help & Support
+                                    <a class="d-inline-block fnt-600">{{appLanguage.help_support}}
                             </a>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
-                                    <a class="d-inline-block fnt-600" (click)="userLogout()">Log out
+                                    <a class="d-inline-block fnt-600" (click)="userLogout()">{{appLanguage.logout}}
                             </a>
                                 </li>
                             </ul>
@@ -189,7 +188,7 @@
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg">
                                     <img class="active
                                     " src="assets/images/ft-icon-active-dashboard.svg">
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">Dashboard</p>
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">{{appLanguage.dashboard}}</p>
                                 </div>
                             </a>
                         </li>
@@ -199,7 +198,7 @@
                                     <img class="in-active" src="assets/images/mess.svg">
                                     <img class="active
                                     " src="assets/images/ft-icon-active-message.svg">
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">Messages</p>
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">{{appLanguage.messages}}</p>
                                 </div>
                             </a>
                         </li>
@@ -209,7 +208,7 @@
                                     <img class="in-active" src="assets/images/notification.svg">
                                     <img class="active
                                     " src="assets/images/ft-icon-active-notification.svg">
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">Notifications</p>
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">{{appLanguage.notifications}}</p>
                                 </div>
                             </a>
                         </li>
@@ -220,7 +219,7 @@
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg">
                                     <img class="active
                                     " src="assets/images/ft-icon-active-profile.svg">
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">Profile</p>
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">{{appLanguage.profile}}</p>
                                 </div>
 
                             </a>
@@ -230,13 +229,13 @@
                                         <div class="img float-left mr-2">
                                             <img class="profile-pic" src="{{profilePic}}">
                                         </div>
-                                        <span class="text-capitalize">my profile</span>
+                                        <span class="text-capitalize">{{appLanguage.my_profile}}</span>
                                     </a>
                                     <a routerLink="../features/roastery-profile" class="ft-dropdown__link active d-flex clearfix align-items-center ">
                                         <div class="img float-left mr-2">
                                             <img class="profile-pic" src="{{roasterProfilePic}}">
                                         </div>
-                                        <span class="text-capitalize">roastery profile</span>
+                                        <span class="text-capitalize">{{appLanguage.roastery_profile}}</span>
                                     </a>
 
                                     <!-- <a (click)="userLogout()" class="ft-dropdown__link d-flex clearfix align-items-center ">

@@ -99,6 +99,10 @@ import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-pro
 import { ProductsTableComponent } from './e-commerce/products-table/products-table.component';
 import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
 import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
+import { GreenCoffeeInventoryComponent } from './green-inventory/green-coffee-inventory/green-coffee-inventory.component';
+import { ProcuredCoffeeComponent } from './green-inventory/procured-coffee/procured-coffee.component';
+import { CoffeeSaleComponent } from './green-inventory/coffee-sale/coffee-sale.component';
+import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component';
 
 @NgModule({
   declarations: [
@@ -168,6 +172,10 @@ import { SelectOrderTableComponent } from './e-commerce/select-order-table/selec
     ProductsTableComponent,
     RoastingProfilesComponent,
     SelectOrderTableComponent,
+    GreenCoffeeInventoryComponent,
+    ProcuredCoffeeComponent,
+    CoffeeSaleComponent,
+    LotSaleComponent,
   ],
   imports: [
     CommonModule,

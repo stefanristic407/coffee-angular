@@ -2,10 +2,6 @@ th {
     font-family: Muli;
     /* font-size: 14px; */
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
     padding-right: 3rem;
 }
@@ -14,10 +10,6 @@ th {
     font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     padding-right: 3rem;
     padding-top: 1rem;
@@ -28,10 +20,6 @@ th {
     font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #30855c;
 }
 
@@ -45,10 +33,6 @@ hr {
     font-family: Muli;
     font-size: 18px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     padding-bottom: 0.5rem;
 }
@@ -71,10 +55,6 @@ hr {
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #747588;
 }
 
@@ -82,10 +62,6 @@ hr {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600 !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -93,10 +69,6 @@ hr {
     font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #e78926;
     /* margin-bottom: 0%; */
 }
@@ -105,10 +77,6 @@ hr {
     font-family: Muli;
     /* font-size: 14px; */
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #80460b;
     cursor: pointer;
     text-decoration: underline !important;
@@ -123,10 +91,6 @@ hr {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #80460b;
     text-decoration: underline !important;
     margin-bottom: 0%;
@@ -138,10 +102,6 @@ hr {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     margin-bottom: 0.5rem;
 }
@@ -150,10 +110,6 @@ hr {
     font-family: Muli;
     font-size: 14px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     border-radius: 2px;
     border: solid 1px #747588;
     color: #232334;
@@ -173,10 +129,6 @@ hr {
 .recent-time td {
     font-family: Muli;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
     padding: 1rem 4rem 1rem 0rem;
     border-bottom: 1px solid #dddddd;
@@ -186,10 +138,6 @@ hr {
     font-family: Muli;
     font-size: 18px;
     font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     color: #232334;
 }
 
@@ -232,4 +180,8 @@ hr {
   color: #80460b !important;
   cursor: pointer !important;
   text-decoration: underline !important;
+}
+.position-rel{
+    position: relative;
+    top: 1rem;
 }

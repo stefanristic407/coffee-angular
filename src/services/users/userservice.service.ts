@@ -19,6 +19,7 @@ export class UserserviceService {
   private deleteUrl = environment.apiURL+"/deleteapi";
   private certificatesURL = environment.apiURL+"/ro/certificates";
   private profileImageURL = environment.apiURL+"/ro/uploadfiles";
+  private languageURL = "http://3.7.110.122:8000/language";
 
   // private roasterUrl = "/ro/api";
   // private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
@@ -360,6 +361,9 @@ export class UserserviceService {
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterUrl, data);
   }
-  
-
+  //API Function Name: getLanguage
+  //API Description: Get the Language based on user's signin and apply all application static text
+  getUserLanguageStrings(language: any){
+      return this.http.post(this.languageURL, {"lang" : language});
+  }
 }

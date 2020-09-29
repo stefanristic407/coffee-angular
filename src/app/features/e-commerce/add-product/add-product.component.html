@@ -1,1 +1,236 @@
-<p>add-product works!</p>
+<section>
+    <div class="container sewn-container section-head-pad no-padding-LR-large">
+        <div class="bg-ff">
+            <div class="row col-md-12 col-lg-12 pb-3 back-page">
+                <ul _ngcontent-wft-c307="" class="bread-nav mb-md-0 col-lg-9 no-padding-LR-large">
+                    <li class="b-cum"><a routerlink="/features/welcome-aboard" class="b-cum">Home</a>
+                        <span aria-hidden="true" class="padl-r"><img src="/assets/images/arrow-1.png" alt=""
+                                class="group-img"></span></li>
+                    <li class="b-cum c-pink">Service Setup</li>
+                </ul>
+                <span class="col-lg-3 pull-right">
+                    <button type="button" routerlink="/features/your-services"
+                        class="btn send-btn pull-right">Save</button>
+                </span>
+            </div>
+            <div class="d-flex mt-3 brand-discription-section">
+                <div class="w-100">
+                    <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
+                        <p class="fnt-18 fnt-muli fnt-700 black m-0">Add a new product</p>
+                        <div class="row mb-3 farm-input margin-top ">
+                            <div class="select col-lg-12">
+                                <label>Product Name<span class="star">*</span></label>
+                                <input type="text" name="name" class="form-control col-lg-7" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left no-padding-LR-large col-lg-12">
+                        <div class="farm-input no-padding-LR-large col-lg-15">
+                            <label class="label p-0">Product available for<span>*</span></label>
+                            <select class="form-control select-region " name="Year" required="">
+                                <option value="Both" selected>Both</option>
+                                <option value="Yes">1</option>
+                                <option value="No">2</option>
+                            </select>
+                        </div>
+                        <div class="farm-input no-padding-LR-large col-lg-15">
+                            <label class="label p-0">Eligible for discount<span>*</span></label>
+                            <select class="form-control select-region" name="Year" required="">
+                                <option value="yes" selected>yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="farm-input no-padding-LR-large col-lg-15">
+                            <label class="label p-0">Discount amount<span>*</span></label>
+                            <select class="form-control select-region" name="Year" required="">
+                                <option value="5" selected>5</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pull-left no-padding-LR-large col-lg-12">
+                        <div class="sub-header-text mb-16">Variants</div>
+
+                        <div><label class="customcheckbox">
+                                <input type="checkbox" /><span class="checkmark head-check"></span>
+                            </label>
+                            <span class="small-black-text ml-33">If this product has options like roasted coffee batch,
+                                flavour profile, availability etc.</span>
+                        </div>
+                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
+                            <div class="farm-input no-padding-LR-large col-lg-7 mr-24">
+                                <label class="label p-0">Select roasted coffee batch<span>*</span></label>
+                                <select class="form-control select-region" name="Year" required="">
+                                    <option value="Cambucha" selected>Cambucha</option>
+                                    <option value="1">Cambucha</option>
+                                    <option value="2">Cambucha</option>
+                                </select>
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Roasting profile</label>
+                                <input type="text" value="Medium479" name="name" class="form-control" placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Roast level</label>
+                                <input type="text" value="Medium Roast" name="name" class="form-control"
+                                    placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left no-padding-LR-large col-lg-12">
+                        <div class="sub-header-text">Estate Details</div>
+                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Estate name</label>
+                                <input type="text" value="Finca La Pampa" name="Finca La Pampa" class="form-control"
+                                    placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Origin</label>
+                                <input type="text" value="Mexico" name="name" class="form-control" placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Region</label>
+                                <input type="text" value="Chipas" name="name" class="form-control" placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Harvest year</label>
+                                <input type="text" value="March 2020" name="name" class="form-control" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left no-padding-LR-large col-lg-12">
+                        <div class="sub-header-text">Tasting notes</div>
+                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>body</label>
+                                <input type="text" value="5" name="Finca La Pampa" class="form-control"
+                                    placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Acidity</label>
+                                <input type="text" value="4" name="name" class="form-control" placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Aroma</label>
+                                <input type="text" value="5" name="name" class="form-control" placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Flavour</label>
+                                <input type="text" value="4" name="name" class="form-control" placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Processing</label>
+                                <input type="text" value="Fully Washed" name="name" class="form-control"
+                                    placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left no-padding-LR-large col-lg-12">
+                        <div class="sub-header-text">Tasting notes</div>
+                        <div class="farm-input no-padding-LR-large col-lg-10 ">
+                            <label> Roaster Notes</label>
+                            <textarea class="form-control descr" rows="4"
+                                placeholder="">The beauty of astronomy is that anybody can do it. From the tiniest baby to the most advanced astrophysicist, there is something for anyone who wants to enjoy astronomy. In fact, it is a science that is so accessible that virtually anybody can do it virtually anywhere they are. All they have to know how to do is to look up.</textarea>
+                        </div>
+                    </div>
+                    <div class="idd pull-left no-padding-LR-large col-lg-12">
+                        <div class="farm-input no-padding-LR-large col-lg-15">
+                            <label class="label p-0">Weight<span>*</span></label>
+                            <select class="form-control select-region" name="Year" required="">
+                                <option value="16" selected>16</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="farm-input no-padding-LR-large col-lg-15">
+                            <label class="label p-0">Status<span>*</span></label>
+                            <select class="form-control select-region" name="Year" required="">
+                                <option value="Instock" selected>Instock</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="pull-left no-padding-LR-large col-lg-12">
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Price (USD)<span>*</span></label>
+                                <input type="text" value="22.00" name="name" class="form-control" placeholder="" />
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label class="label p-0">Grind<span>*</span></label>
+                                <select class="form-control select-region" name="Year" required="">
+                                    <option value="Whole beans" selected>Whole beans</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label class="label p-0">Stock available<span>*</span></label>
+                                <select class="form-control select-region" name="Year" required="">
+                                    <option value="300" selected>300</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>SKU number<span>*</span></label>
+                                <input type="text" value="29738730-02" name="name" class="form-control"
+                                    placeholder="" />
+                            </div>
+                        </div>
+                        <div class="pull-left text-brown"><a>Add a grind variant ></a></div>
+                        <div class="pull-left no-padding-LR-large col-lg-12">
+                            <div class="sub-header-text">Add Images</div>
+                            <button class="btn cancel-btn mt-32">Update</button>
+                        </div>
+                    </div>
+                    <div class="pull-left text-brown mt-24 mb-48"><a>Add a weight variant ></a></div>
+                    <div class="pull-left no-padding-LR-large col-lg-12 border-top-dashed">
+                        <div class="sub-header-text mb-10">Crate details</div>
+                        <div class="small-black-text">Add values per crate to let your customer know</div>
+                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12 mb-48">
+                            <div class="farm-input no-padding-LR-large no-margin-LR col-lg-15">
+                                <label>Crate value</label>
+                                <input type="text" value="" name="Finca La Pampa" class="form-control"
+                                    placeholder="1 crate" />
+                            </div>
+                            <div class="equal-operators no-padding-LR-large no-margin-LR">=</div>
+                            <div class="farm-input no-padding-LR-large no-margin-LR col-lg-15">
+                                <label>Weight</label>
+                                <input type="text" value="16 lb" name="name" class="form-control" placeholder="" />
+                            </div>
+                            <div class="equal-operators no-padding-LR-large no-margin-LR">x</div>
+                            <div class="farm-input no-padding-LR-large no-margin-LR col-lg-15">
+                                <label>Number of bags</label>
+                                <input type="text" value="30" name="name" class="form-control" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left no-padding-LR-large col-lg-12 border-top-dashed">
+                        <div class="sub-header-text">VAT Details</div>
+                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
+                            <div class="farm-input no-padding-LR-large col-lg-15">
+                                <label>Vat percentage*<span></span></label>
+                                <input type="text" value="12 %" name="Finca La Pampa" class="form-control"
+                                    placeholder="" />
+                            </div>
+                            <div class="no-padding-LR-large no-margin-LR col-lg-7">
+                                <label>Is the product price inclusive of VAT*<span></span></label>
+                                <div class="col-lg-12 no-padding-LR-large">
+                                    <div><label class="customcheckbox">
+                                        <input type="checkbox" /><span class="checkmark head-check"></span>
+                                    </label>
+                                    <span class="small-black-text ml-33">The price is inclusive of VAT</span>
+                                    </div>
+                                    <!-- <div class="small-black-text">The price is inclusive of VAT</div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left no-padding-LR-large col-lg-12 border-top-dashed">
+
+                    <button class="btn cancel-btn mt-32">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

@@ -23,6 +23,9 @@ import { PeopleRoutingModule } from "./people-routing.module";
 import { PeopleComponent } from "./people.component";
 import { SheetValues } from "./user-management/sheet-values";
 import { UserManagementComponent } from "./user-management/user-management.component";
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
@@ -73,7 +76,16 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
     ErrorModuleModule,
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
-    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
+    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => {
+          return new TranslateHttpLoader(http, "./assets/multi-lang/", ".json");
+        },
+        deps: [HttpClient]
+      }
+    }),
   ],
   providers: [SheetValues]
 })

@@ -478,4 +478,80 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
+  getMicroRoasters(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/micro-roasters";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    // console.log(data);
+    return this.http.post(this.url, data);
+  } 
+  getMicroRoastersHoreca(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/hrc";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    // console.log(data);
+    return this.http.post(this.url, data);
+  } 
+  getRoastingProfile(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/roasting-profile";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data); 
+  } 
+  getRoasterCoffeeBatchs(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/roasted-batches";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
+  } 
+  getSelectOrderListTable(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/roasted-batches";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
+  } 
+  getSelectProductDetails(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/products";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  } 
+  getHorecaTable(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/products";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  } 
+  getEstateOrders(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/orders";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  } 
+  getRaisedTicketData(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/disputes";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  } 
+  // getEstateSelectAnOrderTableData(roaster_id: any) {
+  //   var data = {};
+  //   data['api_call'] = "/ro/" + roaster_id + "/orders";
+  //   data['token'] = this.cookieService.get('Auth');
+  //   return this.http.post(this.url, data);
+  // } 
 }
+

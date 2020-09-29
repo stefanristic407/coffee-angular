@@ -27,13 +27,13 @@
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
         <li class="b-cum">
-            <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum">{{appLanguage.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
 
-        <li class="b-cum c-pink">User management
+        <li class="b-cum c-pink">{{appLanguage.user_management}}
         </li>
         <div class="col-md-6 col-lg-4 pull-right search-div ">
             <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by name, role.." />
@@ -44,7 +44,7 @@
     <section class="user-title d-md-block d-none">
 			<div class="col-lg-12 col-md-12 col-sm-12 p-0">
 					<div class="row">
-        <div class="d-inline page-title">User management</div>
+        <div class="d-inline page-title">{{appLanguage.user_management}}</div>
         <i class="pi pi-question-circle help" pTooltip="Please Click to see help" tooltipPosition="bottom" (click)="showModalDialog()"></i>
         <p-dialog header="What is Lorem Ipsum?" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
@@ -56,7 +56,7 @@
     </section>
 <div class="title-header d-inline desk_view_user">
     <div class="d-inline border-total status-div col-sm-6" id="status_id">
-        <p class="d-inline filter-text" *ngIf="termStatus == ''">Status&nbsp;</p>
+        <p class="d-inline filter-text" *ngIf="termStatus == ''">{{appLanguage.status}}&nbsp;</p>
         <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
             <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
                 &nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -71,7 +71,7 @@
     &nbsp;&nbsp;
     <div class="d-inline border-total role-div col-sm-6" id="role_id">
         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-        <p class="d-inline filter-text" *ngIf="termRole == ''">Role&nbsp;</p>
+        <p class="d-inline filter-text" *ngIf="termRole == ''">{{appLanguage.role}}&nbsp;</p>
         <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
             <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole();">
                 &nbsp; <img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -95,14 +95,14 @@
                                                 <span class="checkmark head-check"></span>
                                             </label>
                     </th>
-                    <th scope="col">Name</th>
+                    <th scope="col">{{appLanguage.name}}</th>
                     <th scope="col">
-                        Last login&nbsp; <img src="assets/images/combined-shape-user.png" />
+                        {{appLanguage.last_login}}&nbsp; <img src="assets/images/combined-shape-user.png" />
                     </th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">{{appLanguage.email}}</th>
+                    <th scope="col">{{appLanguage.status}}</th>
                     <th scope="col">
-                        <p class="d-inline">All roles</p>
+                        <p class="d-inline">{{appLanguage.all_roles}}</p>
                         <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop5="bs-popover">
                             <p class="d-inline filter" *ngIf="termRole == ''">
                                 &nbsp; <img src="assets/images/down-arrow.svg" /></p>
@@ -112,7 +112,7 @@
                                 &nbsp;<img src="assets/images/down-arrow.svg" /></p>
                         </a>
                     </th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">{{appLanguage.actions}}</th>
                 </tr>
             </thead>
             <tbody class="customtable">
@@ -168,24 +168,22 @@
                     <a
                       class="pointer-item"
                       (click)="editMember(user.id); pop12.hide()"
-                      >Edit member</a
+                      >{{appLanguage.edit_member}}</a
                     >
                   </li>
                   <li class="list-group-item">
                     <a class="pointer-item" (click)="pop12.hide()"
-                      >Send a message</a
+                      >{{appLanguage.send_a_message}}</a
                     >
                   </li>
                   <li class="list-group-item">
-                    <a class="pointer-item">Send a recovery email</a>
+                    <a class="pointer-item">{{appLanguage.send_recovery_email}}</a>
                   </li>
                   <li class="list-group-item">
                     <a
                       class="pointer-item"
                       (click)="
-                        openModal(template, user.id, user.name); pop12.hide()
-                      "
-                      >Assign Role</a
+                        openModal(template, user.id, user.name); pop12.hide()">{{appLanguage.assign_role}}</a
                     >
                   </li>
                   <li
@@ -195,7 +193,7 @@
                     <a
                       class="pointer-item"
                       (click)="userDisable(user.id); pop12.hide()"
-                      >Disable Account</a
+                      >{{appLanguage.disable_account}}</a
                     >
                   </li>
                   <li
@@ -205,23 +203,23 @@
                     <a
                       class="pointer-item"
                       (click)="userEnable(user.id); pop12.hide()"
-                      >Enable Account</a
+                      >{{appLanguage.enable_account}}</a
                     >
                   </li>
                   <li class="list-group-item">
-                    <a class="pointer-item">Simulated Login</a>
+                    <a class="pointer-item">{{appLanguage.simulated_login}}</a>
                   </li>
                   <li class="list-group-item">
-                    <a class="pointer-item" (click)="makeAdmin(user.id); pop12.hide()">Make Admin</a>
+                    <a class="pointer-item" (click)="makeAdmin(user.id); pop12.hide()">{{appLanguage.make_admin}}</a>
                   </li>
                   <li class="list-group-item">
-                    <a class="pointer-item">Customize Permissions</a>
+                    <a class="pointer-item">{{appLanguage.customize_permissions}}</a>
                   </li>
                   <li class="list-group-item" *ngIf="user.id != loginId">
                     <a
                       class="pointer-item"
                       (click)="deleteRoasterUser(user.id); pop12.hide()"
-                      >Delete</a
+                      >{{appLanguage.delete}}</a
                     >
                   </li>
                 </ul>
@@ -235,7 +233,7 @@
 </div>
 
 <div class="mobile_view_user">
-    <p class=" page-title">User Management</p>
+    <p class=" page-title">{{appLanguage.user_management}}</p>
     <div class="col-sm-12 search-div mb-4">
       <input
         type="text"
@@ -247,7 +245,7 @@
 	</div>
 <div class="d-inline filter-mob">
 	<div class="d-inline border-total status-div col-sm-6" id="status_mobid">
-			<p class="d-inline filter-text" *ngIf="termStatusMob == ''">Status&nbsp;</p>
+			<p class="d-inline filter-text" *ngIf="termStatusMob == ''">{{appLanguage.status}}&nbsp;</p>
 			<a class="pointer-item" [popover]="allTemplateMob" placement="bottom" container="body" #pop15="bs-popover">
 				<p class="d-inline filter" *ngIf="termStatusMob == ''" (click)="toggleStatus1()">
 					&nbsp; <img src="{{ showMobVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -262,7 +260,7 @@
 	&nbsp;&nbsp;
     <div class="d-inline border-total role-div col-sm-6" id="role_mobid">
         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-        <p class="d-inline filter-text" *ngIf="termRoleMob == ''">Role&nbsp;</p>
+        <p class="d-inline filter-text" *ngIf="termRoleMob == ''">{{appLanguage.role}}&nbsp;</p>
         <a class="pointer-item" [popover]="roleTemplateMob" placement="bottom" container="body" #pop7="bs-popover">
             <p class="d-inline filter" *ngIf="termRoleMob == ''" (click)="toggleRole1();">
                 &nbsp; <img src="{{ showMobRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -321,17 +319,15 @@
 									 <li class="list-item">
 									   <a
 										 class="pointer-item"
-										 (click)="editMember(mobileuser.id); pop11.hide()"
-										 >Edit member</a
+										 (click)="editMember(mobileuser.id); pop11.hide()">{{appLanguage.edit_member}}</a
 									   >
 									 </li>
 									 <li class="list-item">
-									   <a class="pointer-item" (click)="pop11.hide()"
-										 >Send a message</a
+									   <a class="pointer-item" (click)="pop11.hide()">{{appLanguage.send_a_message}}</a
 									   >
 									 </li>
 									 <li class="list-item">
-									   <a class="pointer-item">Send a recovery email</a>
+									   <a class="pointer-item">{{appLanguage.send_recovery_email}}</a>
 									 </li>
 									 <li class="list-item">
 									   <a
@@ -339,7 +335,7 @@
 										 (click)="
 										   openModal(template, mobileuser.id, mobileuser.name); pop11.hide()
 										 "
-										 >Assign Role</a
+										 >{{appLanguage.assign_role}}</a
 									   >
 									 </li>
 									 <li
@@ -349,7 +345,7 @@
 									   <a
 										 class="pointer-item"
 										 (click)="userDisable(mobileuser.id); pop11.hide()"
-										 >Disable Account</a
+										 >{{appLanguage.disable_account}}</a
 									   >
 									 </li>
 									 <li
@@ -359,23 +355,22 @@
 									   <a
 										 class="pointer-item"
 										 (click)="userEnable(mobileuser.id); pop11.hide()"
-										 >Enable Account</a
+										 >{{appLanguage.enable_account}}</a
 									   >
 									 </li>
 									 <li class="list-item">
-									   <a class="pointer-item">Simulated Login</a>
+									   <a class="pointer-item">{{appLanguage.simulated_login}}</a>
 									 </li>
 									 <li class="list-item">
-									   <a class="pointer-item" (click)="makeAdmin(mobileuser.id); pop11.hide()">Make Admin</a>
+									   <a class="pointer-item" (click)="makeAdmin(mobileuser.id); pop11.hide()">{{appLanguage.make_admin}}</a>
 									 </li>
 									 <li class="list-item">
-									   <a class="pointer-item">Customize Permissions</a>
+									   <a class="pointer-item">{{appLanguage.customize_permissions}}</a>
 									 </li>
 									 <li class="list-item" *ngIf="mobileuser.id != loginId">
 									   <a
 										 class="pointer-item"
-										 (click)="deleteRoasterUser(mobileuser.id); pop11.hide()"
-										 >Delete</a
+										 (click)="deleteRoasterUser(mobileuser.id); pop11.hide()">{{appLanguage.delete}}</a
 									   >
 									 </li>
 								   </ul>

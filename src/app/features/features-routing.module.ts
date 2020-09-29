@@ -49,6 +49,11 @@ import { ProductsTableComponent } from './e-commerce/products-table/products-tab
 import { RoastingProfilesComponent } from './e-commerce/roasting-profiles/roasting-profiles.component';
 
 import { SelectOrderTableComponent } from './e-commerce/select-order-table/select-order-table.component';
+import { GreenCoffeeInventoryComponent } from './green-inventory/green-coffee-inventory/green-coffee-inventory.component';
+import { ProcuredCoffeeComponent } from './green-inventory/procured-coffee/procured-coffee.component';
+import { CoffeeSaleComponent } from './green-inventory/coffee-sale/coffee-sale.component';
+import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component';
+
 
 const routes: Routes = [
   {
@@ -229,6 +234,20 @@ const routes: Routes = [
 	  {
 		  path:'roasting-profile',
 		  component:RoastingProfilesComponent
+    },
+    {
+		  path:'green-coffee-inventory',
+		  component:GreenCoffeeInventoryComponent
+	  },	  {
+		  path:'procured-coffee',
+		  component:ProcuredCoffeeComponent
+	  },{
+		  path:'coffee-sale',
+		  component:CoffeeSaleComponent
+    },
+    {
+		  path:'lot-sale',
+		  component:LotSaleComponent
 	  },
       {
         path: '',

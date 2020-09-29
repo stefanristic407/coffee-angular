@@ -12,6 +12,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {UserserviceService} from 'src/services/users/userservice.service';
 import { DatePipe } from '@angular/common';
 import { Alert } from 'selenium-webdriver';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-user-management',
@@ -42,6 +43,7 @@ export class UserManagementComponent implements OnInit {
   showRole:boolean = true;
   showMobVar:boolean = true;
   showMobRole:boolean = true;
+  appLanguage: any;
 
   constructor(
     private _sheetValues: SheetValues,
@@ -52,7 +54,8 @@ export class UserManagementComponent implements OnInit {
     private modalService: BsModalService,
     public route: ActivatedRoute,
 	public userService:UserserviceService,
-	private renderer: Renderer2) {
+	private renderer: Renderer2,
+	private globals: GlobalsService) {
     this.termStatus = '';
     this.termRole = '';
     this.termRoleMob = '';
@@ -104,7 +107,7 @@ export class UserManagementComponent implements OnInit {
 //   });
 // });
 
-
+	this.appLanguage = this.globals.languageJson;
   }
 //  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.

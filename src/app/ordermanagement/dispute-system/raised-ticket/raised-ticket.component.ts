@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
 	selector: 'app-raised-ticket',
@@ -8,17 +13,22 @@ import { Router } from '@angular/router';
 })
 export class RaisedTicketComponent implements OnInit {
 	term: any;
-
+  roasterId : any;
 	public data: any[] = [
-		{ orderid: '81671', estatename: 'Finca La Pampa', dateraised: '24 Jan 2020', disputetype: 'Payment', status: 'Open' },
-		{ orderid: '56076', estatename: 'Gesha', dateraised: '21 Jan 2020', disputetype: 'Getting Started', status: 'Resolved' },
-		{ orderid: '46930', estatename: 'Finca La Toboba', dateraised: '22 Apr 2020', disputetype: 'Requesting Sample', status: 'Resolved' },
-		{ orderid: '9019', estatename: 'Asoproaaa', dateraised: '24 Apr 2020', disputetype: 'Shipping', status: 'Escalated' },
-		{ orderid: '12416', estatename: 'Cafe Directo', dateraised: '25 May 2020', disputetype: 'Payment', status: 'Resolved' },
-		{ orderid: '71716', estatename: 'La Isabela', dateraised: '26 May 2020', disputetype: 'Legal', status: 'Open' }
+		// { orderid: '81671', estatename: 'Finca La Pampa', dateraised: '24 Jan 2020', disputetype: 'Payment', status: 'Open' },
+		// { orderid: '56076', estatename: 'Gesha', dateraised: '21 Jan 2020', disputetype: 'Getting Started', status: 'Resolved' },
+		// { orderid: '46930', estatename: 'Finca La Toboba', dateraised: '22 Apr 2020', disputetype: 'Requesting Sample', status: 'Resolved' },
+		// { orderid: '9019', estatename: 'Asoproaaa', dateraised: '24 Apr 2020', disputetype: 'Shipping', status: 'Escalated' },
+		// { orderid: '12416', estatename: 'Cafe Directo', dateraised: '25 May 2020', disputetype: 'Payment', status: 'Resolved' },
+		// { orderid: '71716', estatename: 'La Isabela', dateraised: '26 May 2020', disputetype: 'Legal', status: 'Open' }
 	];
   ticketRaise: any;
-	constructor(public router:Router) { }
+  constructor(public router:Router, 
+    public cookieService: CookieService,   
+    private roasterService: RoasterserviceService,
+    private toastrService: ToastrService,) {
+      this.roasterId = this.cookieService.get('roaster_id');
+     }
 
 	ngOnInit(): void {
 		/*$( ".raised-detils" ).click(function() {
@@ -308,6 +318,8 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 });
 
 /* pagination ends */
+
+  this.getRaisedTicketTableData();//calling table data onload
   }
   
   ticketDetails($event,group){
@@ -318,6 +330,27 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
     console.log(this.ticketRaise);
     this.router.navigate(["/ordermanagement/order-chat"]);
 
+  }
+  getRaisedTicketTableData() {
+    this.roasterService.getRaisedTicketData(this.roasterId).subscribe(
+      data => {
+        if ( data['success'] == true ) {
+          if ( data['result'] == null || data['result'].length == 0) {
+            this.toastrService.error("Table Data is empty");
+          }
+          else {
+            this.data = data['result'];
+          }
+        } 
+        else if( data['success'] == false){
+          this.toastrService.error("Table Data is empty");
+        }
+        else {
+          
+          this.toastrService.error("Error while getting the agreement list!");
+        }
+      }
+    )
   }
 
 }
