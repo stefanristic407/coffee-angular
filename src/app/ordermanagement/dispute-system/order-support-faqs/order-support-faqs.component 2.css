@@ -1,0 +1,333 @@
+.page-breadcrumb {
+    background-color: #FFFFFF;
+    margin: 1% 0.5% 0 1%;
+}
+
+.breadcrumb-item a {
+    color: #747588;
+}
+
+.breadcrumb-item.active {
+    color: #232334;
+}
+
+a.b-cum:hover {
+    color: #232334;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.page-wrapper {
+    background-color: #FFFFFF;
+}
+
+.create-role-btn {
+    background-color: #30855c;
+    border-radius: 2px;
+    color: #ffffff;
+    border: 1px solid #30855c;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0.7rem;
+}
+
+.create-role-btn:hover {
+    /* background-color: #30855c; 
+    color:#fff; */
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.header-value {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    word-break: keep-all;
+}
+
+.raise-ticket {
+    padding-right: 2%;
+    margin-top: -2rem;
+}
+
+
+/* Accordian css */
+
+.accordion .card {
+    border: none;
+    margin-bottom: 20px;
+}
+
+.accordion .card h2 {
+    background: url(../../../../assets/images/arrow-up.svg) no-repeat calc(0% - -15px) center;
+    padding-left: 3rem;
+    background-size: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.accordion .card h2.collapsed {
+    background-image: url(../../../../assets/images/arrow-down.svg);
+}
+
+.accordion .card-body {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sourcing {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Muli;
+    color: #333333;
+    margin-top: 3px;
+    margin-left: 5px
+}
+
+.sourcing-collapse {
+    margin-left: 1rem;
+}
+
+.content {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: normal;
+    color: #232334;
+    padding-left: 4%;
+    padding-right: 35%;
+}
+
+.click-here {
+    font-family: Muli;
+    font-size: 15px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: normal;
+    font-weight: 600;
+    color: #80460b !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.question {
+    font-family: Muli;
+    font-size: 17px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.card {
+    border: none;
+    margin-bottom: 0 !important;
+    border-bottom: 1px dashed #ebebeb !important;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.card-body {
+    padding-bottom: 0;
+}
+
+.card:last-child {
+    border-bottom: none!important;
+}
+
+.help-div {
+    border-radius: 0px;
+    background-color: #faf8f4;
+    height: 82px;
+}
+
+.help-text {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #87623b;
+    padding-top: 1.75rem;
+}
+
+.help-btn-div {
+    padding-top: 1.3rem;
+}
+
+.yes-btn {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #30855c;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #faf8f4;
+    margin-right: .8rem;
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+
+.raise-btn {
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #ffffff;
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+.mobile-view{
+    display: none;
+}
+
+@media all and (max-width: 425px) {
+    .mobile-view{
+        display: block !important;
+        padding: 1rem;
+        margin-bottom: 4rem;
+    }
+    .desk-view{
+        display: none;
+    }
+    .raise-ticket{
+        display: none;
+    }
+    .bg-fff{
+        padding: 0rem !important;
+    }
+    .border-clr{
+        padding: .5rem !important;
+    }
+    .breadcrumb1{
+        padding: 1rem !important;
+    }
+    .help-div {
+        height: max-content;
+        padding-bottom: 5%;
+        padding-top: 5%;
+        border-radius: 2px;
+    }
+    .header-value{
+        font-size: 16px;
+        margin-top: .5rem;
+    }
+    .help-btn-div {
+        padding-top: 0;
+        float: none !important;
+    }
+    .help-text {
+        padding-top: 0;
+        font-size: 14px;
+        color: #232334;
+        font-weight: bold;
+    }
+    .content{
+        padding-right: 5% !important;
+    }
+    
+.accordion .card h2 {
+    background: url(../../../../assets/images/arrow-up.svg) no-repeat calc(94% - -15px) center;
+    padding-left: .5rem;
+    background-size: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    padding-right: 2rem;
+}
+.card {
+    border: none;
+    margin-bottom: 0 !important;
+    border-bottom: 1px dashed #ebebeb !important;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+.content{
+    font-size: 12px;
+}
+.yes-btn{
+    text-align: center;
+    width: 45%;
+}
+.raise-btn{
+    text-align: center;
+    width: 50%;
+}
+.create-role-btn{
+    font-size: 14px;
+    width: 100%;
+    font-weight: 600;
+}
+
+}
+@media all and (max-width: 768px) {
+    .content{
+        padding-right: 20%;
+    }
+}
+@media all and (max-width: 1024px) {
+    .content{
+        padding-right: 25%;
+    }
+}
+.breadcrumb1 {
+    padding: 1rem;
+}
+
+.border-clr {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 2rem;
+}
+
+.bg-fff {
+    background-color: #FFFFFF;
+    padding: 2rem;
+}
+
+.bread-nav {
+    margin-bottom: 0rem !important;
+}
+
+.card:hover {
+    border-radius: 2px;
+    background-color: #f8f8f8;
+    border: none;
+}
+
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 99;
+    background-color: #fff;
+    padding: 10px 30px;
+
+}
+.mobile-farm{
+    margin-bottom: 4rem;
+}

@@ -1,0 +1,390 @@
+<div class="col-12 video-section">
+    <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
+        <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0">{{filedetailsService.parentName}}</h3>
+        <span class="horizental-line__span"></span>
+    </div>
+    <ul class="row quicker-files">
+        <li class=" col-md-4 col-lg-3 quicker-files__list" *ngFor="let item of filedetailsService.mainVideoData | filter:fileService.filterTerm">
+            <div class="quick-pinned-files">
+                <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
+
+                        <a class="open-popup d-block cursor-pointer" (click)="openModal(popTemplate,item)">
+                            <img class="img social-images folder-img" src="assets/images/videocamera-icon.png">
+                   <!-- <img class="video-play" src="assets/images/play-button.png" alt="farm"> -->
+                </a>
+                    <!-- <span class="vido-time"></span> -->
+                    
+                    <!-- <div class="video">
+                        <video controls  #videoPlayer autoplay>
+                            <source src="{{item.url}}" (click)="toggleVideo($event)"/>
+                            Browser not supported
+                        </video>
+                    </div> -->
+                    <!-- <div>
+                        <mat-video src="{{item.url}}"></mat-video>
+                    </div> -->
+                    
+                </div>
+                <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                    <div class="file-name float-left">
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">{{item.name}}</h4>
+                    </div>
+                    <div class="file-dropdown ml-auto">
+                        <!-- <img class="img" src="assets/images/more-opns-file.png"> -->
+                        <a class="menu-arrow" [popover]="videoTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                            </a>
+                            <ng-template #videoTemplate id="{{item.id}}">
+                                <div id="popover-mobile-content">
+                                    <ul class="list-group custom-popover">
+                                        <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();downloadFile(item)">Download </a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide(); openShareModal(shareTemplate,item)">Share</a></li>
+                                        <!-- <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide();">Rename</a></li> -->
+                                        <li class="list-group-item" *ngIf="item.type == 'VIDEO'"><a class="pointer-item" (click)="pop.hide();openFileModal(fileTemplate,item.id)">Rename</a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                        <!-- <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide()">Delete</a></li> -->
+                                        <li class="list-group-item" *ngIf="item.type == 'VIDEO'"><a class="pointer-item" (click)="pop.hide();deleteFile(item.id)">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </ng-template>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <!-- <li class=" col-md-4 col-lg-3 quicker-files__list">
+            <div class="quick-pinned-files">
+                <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
+
+                    <img class="img social-images" src="assets/images/videos-2.png">
+                    <img class="video-play" src="assets/images/play-button.png" alt="farm">
+                    <span class="vido-time">2:30 min</span>
+
+                </div>
+                <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                    <div class="file-name float-left">
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">Safety instructions</h4>
+                    </div>
+                    <div class="file-dropdown ml-auto">
+                        <img class="img" src="assets/images/more-opns-file.png">
+                    </div>
+                </div>
+            </div>
+        </li> -->
+        <!-- <li class=" col-md-4 col-lg-3 quicker-files__list">
+            <div class="quick-pinned-files">
+                <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
+
+                    <img class="img social-images" src="assets/images/videos-3.png">
+
+                    <img class="video-play" src="assets/images/play-button.png" alt="farm">
+                    <span class="vido-time">2:30 min</span>
+                </div>
+                <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                    <div class="file-name float-left">
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">P 60 Drum roaster introduction</h4>
+                    </div>
+                    <div class="file-dropdown ml-auto">
+                        <img class="img" src="assets/images/more-opns-file.png">
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class=" col-md-4 col-lg-3 quicker-files__list">
+            <div class="quick-pinned-files">
+                <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
+
+                    <img class="img social-images" src="assets/images/videos-4.png">
+
+                    <img class="video-play" src="assets/images/play-button.png" alt="farm">
+                    <span class="vido-time">2:30 min</span>
+
+                </div>
+                <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                    <div class="file-name float-left">
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">P 60 Drum roaster introduction</h4>
+                    </div>
+                    <div class="file-dropdown ml-auto">
+                        <img class="img" src="assets/images/more-opns-file.png">
+                    </div>
+                </div>
+            </div>
+        </li> -->
+
+    </ul>
+    <!-- <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
+        <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0"> Saturn Centrifugal Roaster</h3>
+        <span class="horizental-line__span"></span>
+    </div>
+    <ul class="row quicker-files">
+        <li class="col-md-4 col-lg-3 quicker-files__list">
+            <div class="quick-pinned-files">
+                <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
+
+                    <img class="img social-images" src="assets/images/videos-5.png">
+
+                    <img class="video-play" src="assets/images/play-button.png" alt="farm">
+                    <span class="vido-time">2:30 min</span>
+
+                </div>
+                <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                    <div class="file-name float-left">
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">Saturn Centrifugal Roaster introduction
+                        </h4>
+                    </div>
+                    <div class="file-dropdown ml-auto">
+                        <img class="img" src="assets/images/more-opns-file.png">
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul> -->
+
+    <!-- <div class="d-flex align-items-center video-section__head position-relative mt-2 mb-4">
+        <h3 class="fnt-14 horizental-line__head  pr-3 fnt-muli fnt-700 d-inline-block text-black334 mb-0"> Saturn Centrifugal Roaster</h3>
+        <span class="horizental-line__span"></span>
+    </div>
+    <ul class="row quicker-files">
+        <li class="col-md-4 col-lg-3 quicker-files__list">
+            <div class="quick-pinned-files">
+                <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
+
+                    <img class="img social-images" src="assets/images/videos-6.png">
+
+                    <img class="video-play" src="assets/images/play-button.png" alt="farm">
+                    <span class="vido-time">2:30 min</span>
+
+                </div>
+                <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                    <div class="file-name float-left">
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">Neptune Drum Roaster</h4>
+                    </div>
+                    <div class="file-dropdown ml-auto">
+                        <img class="img" src="assets/images/more-opns-file.png">
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li class=" col-md-4 col-lg-3 quicker-files__list">
+            <div class="quick-pinned-files">
+                <div class="quick-pinned-files__Image social-post-farmlink__item position-relative">
+
+                    <img class="img social-images" src="assets/images/videos-7.png">
+
+                    <img class="video-play" src="assets/images/play-button.png" alt="farm">
+                    <span class="vido-time">2:30 min</span>
+
+                </div>
+                <div class="quick-pinned-files__info d-flex align-items-center flex-wrap clearfix">
+                    <div class="file-name float-left">
+                        <h4 class="fnt-12 fnt-muli fnt-700 text-black334 mb-0">Safety Instructions</h4>
+                    </div>
+                    <div class="file-dropdown ml-auto">
+                        <img class="img" src="assets/images/more-opns-file.png">
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul> -->
+</div>
+
+<ng-template #fileTemplate>
+        <div class="modal-header">
+            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Update file</h5>
+            <button type="button" class="close pull-right"  aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body file-section">
+                <form>
+                    <div class="roastery-fields mb-4">
+                        <div class="farm-input col-12 col-md-5 px-0">
+                            <label class="mb-0">Name</label>
+                            <input type="text" placeholder="Enter file name" name="updatefile_name" id="updatefile_name" [(ngModel)]="file_name"  required >
+                            <div class="fileNameError" *ngIf="fileNameError != ''">{{fileNameError}}</div>
+                        </div>
+                    </div>
+                    <div class="roastery-fields mb-4">
+                        <div class="farm-input col-12 px-0">
+                            <label class="mb-0">Give a short description to your file (optional) *</label>
+                            <textarea class="mb-0" type="text" rows="5"
+                                placeholder="Give a short description to your file (optional) " id="updatefile_descr"  name="updatefile_descr" [(ngModel)]="file_description"  required></textarea>
+                                <div class="filedescriptionError" *ngIf="filedescriptionError != ''">{{filedescriptionError}}</div>
+                        </div>
+                    </div>
+                    <div class="roastery-fields mb-4">
+                        <label class="mb-1 mr-2 ">File Upload </label>
+                        <label class="share-bor mr-3">
+                            <input class="file-inpt" type="file" (change)="reUploadFile($event);">
+                             <img class="share-img" src="assets/images/upload-icon.png" alt="farm"> 
+                             <span class="share-txt ml-2"> Upload </span> 
+                        </label>
+                        <span class="value-name">{{fileNameValue}}</span>
+                    </div>
+            </form>
+        <div class="main_button">
+            <button type="submit" class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4" (click)="updateFile()">Update</button>
+            
+        </div>
+    </div>
+    </ng-template>
+
+
+<ng-template #popTemplate >
+    <div class="popup-video">
+            <div class="video-close" (click)="closePopup()">
+                    <span>&#x2715;</span>
+                </div>
+    <div class="modal-body video-section-modal p-0">
+            <div>
+                <!-- <mat-video src="{{url}}"></mat-video> -->
+                
+<video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+    <source src="{{url}}" type="video/mp4" />
+  
+  </video>
+            </div>
+    </div>
+</div>    
+</ng-template>
+
+                  
+<!---Modal Share-->
+<!-- Modal share folder-->
+<ng-template #shareTemplate>
+    <div >
+  <div >
+      <div >
+          <div class="modal-header">
+              <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Share</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="">
+                  <form>
+                      <div class="roastery-fields mb-0">
+                          <div class="farm-input col-12 px-0">
+  
+                              <label>Enter a name or email*</label>
+                              <div
+                              class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
+                              <input class="float-left px-0 form-control auto-complete-box" type="email" [(ngModel)]="selectedValue" name="name"
+                              [typeahead]="usersList"
+                              typeaheadOptionField="firstname"
+                              typeaheadWaitMs="1000"
+                              [typeaheadItemTemplate]="customItemTemplate"
+                              (typeaheadOnSelect)="onSelect($event)" (keyup)="getUsersList($event)" placeholder="Enter name or email" autocomplete="off" >
+                              <ng-template #customItemTemplate let-model="item">
+                                <span *ngIf="model.organization_type == 'RO'" ><strong>{{model.firstname}} {{model.lastname}}</strong> (Roaster)</span>
+                                            <span *ngIf="model.organization_type == 'FC'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Facilitator)</span>
+                                            <span *ngIf="model.organization_type == 'ES'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Estate)</span>
+                                            <span *ngIf="model.organization_type == 'MR'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Micro Roaster)</span>
+                                            <span *ngIf="model.organization_type == 'HRC'"><strong>{{model.firstname}} {{model.lastname}}</strong> (HoReCa)</span>
+                              </ng-template>      
+                              <div class="ml-auto">
+  
+                                      <div class="Custom-select w-100 border-left66">
+                                          <div class="Custom-select-input w-100  pr-3">
+                                              <input type="text" value="Can view" readonly>
+                                              <span
+                                                  class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="share_permission">Can
+                                                  view</span>
+                                              <ul
+                                                  class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
+                                                  <li class="Custom-select-input-list__item">Can view</li>
+                                                  <li class="Custom-select-input-list__item">Can edit</li>
+  
+                                              </ul>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="mt-3 mt-lg-4" *ngIf="sharedUsers != 0">
+                          <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">Existing members
+                          </h4>
+                          <!--Existing Memebr-->
+                          <ul class="existing-members-list">
+                              <!-- <li class="existing-members-list__item">
+                                  <div class="member d-flex align-items-center justify-content-between clearfix">
+                                      <div class="member__info d-flex align-items-center float-left">
+                                          <div class="member-profile">
+                                              <img class="img" src="assets/images/activity3.png">
+                                          </div>
+                                          <span class="ml-2 fnt-16 fnt-600 fnt-muli text-black334">Finca La
+                                              Pampa</span>
+                                      </div>
+  
+                                      <div class="member__type float-right ml-auto">
+  
+                                          <span
+                                              class="text-capitalize fnt-14 fnt-600 fnt-muli text-black334 owner">owner</span>
+                                      </div>
+                                  </div>
+                              </li> -->
+  
+                              <li class="existing-members-list__item" *ngFor="let item of sharedUserslists">
+                                  <div class="member d-flex align-items-center justify-content-between clearfix">
+                                      <div class="member__info d-flex align-items-center float-left">
+                                          <div class="member-profile">
+                                              <img class="img user-img" src="{{item.thumb_image}}">
+  
+                                          </div>
+  
+                                          <span class="ml-2 fnt-16 fnt-600 fnt-muli text-black334">{{item.firstname}} {{item.lastname}}</span>
+  
+                                          <!-- <div class="Custom-select w-100">
+                                              <div class="Custom-select-input w-100  pr-3">
+                                                  <input type="text" value="Can view" readonly>
+                                                  <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334">Can view</span>
+                                                  <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
+                                                      <li class="Custom-select-input-list__item">Can view</li>
+                                                      <li class="Custom-select-input-list__item">Can edit</li>
+  
+                                                  </ul>
+                                              </div>
+                                          </div> -->
+                                      </div>
+  
+                                      <div class="member__type float-right ml-auto">
+                                          <div class="Custom-select w-100">
+                                              <div class="Custom-select-input w-100">
+                                                  <input type="text" value="Can view" readonly>
+                                                  <span
+                                                          class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canEdit" *ngIf="item.permission == 'EDIT'">Can
+                                                          edit</span>
+                                                          <span
+                                                          class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canView" *ngIf="item.permission == 'VIEW'">Can
+                                                          view</span>
+                                                  <ul
+                                                      class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
+                                                      <li class="Custom-select-input-list__item" (click)="changePermissions('VIEW',item)">Can view</li>
+                                                      <li class="Custom-select-input-list__item" (click)="changePermissions('EDIT',item)">Can edit</li>
+                                                      <li class="Custom-select-input-list__item" (click)="removeAccess(item)">Remove</li>
+  
+                                                  </ul>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <div class="modal-footer justify-content-between mx-3 mb-2">
+              <p
+                  class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0">
+                  The admin will be notified, once approved the file will be shared with the respected users</p>
+              <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()">Share
+              </button>
+          </div>
+      </div>
+  </div>
+  </div>
+  </ng-template>

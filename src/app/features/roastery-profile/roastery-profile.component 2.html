@@ -1,0 +1,136 @@
+
+<div class="bg-fff pb-md-5">
+        <section class="col-sm-12 col-md-12 col-lg-12 top-padding ">
+            <div class="row">
+                <div class="col-md-6 col-lg-6 d-none d-lg-block">
+                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                        <span id="title-breadcrumb-1" class="sr-only"></span>
+                        <ul class="bread-nav">
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum c-pink">Roaster profile</li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="float-right ml-auto butn-mt d-none d-md-block">
+                    <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.savemode" (click)="roasteryProfileService.saveRoasterProfile()" > Save  </button>
+                    <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" > Edit  </button>
+                </div>
+            </div>
+        </section>
+        <section class="my-profile pb-md-5">
+                <div class="col-lg-12 col-sm-12 no-padding">
+        
+                    <h1 class="fnt-muli"> Roastery Profile</h1>
+
+                    <div class="mt-lg-2 cover-div">
+                        <div class="cover-pic text-center ">
+                            <img class="plus-circle " src="assets/images/plus-circle.svg">
+                            <img class="camera desk-view" src="assets/images/camera.svg">
+                            <p class="text-data pt-2">Add cover image</p>
+                            <p class="text-data">Dimension 1144 x 160</p>
+                        </div>
+                        <div class="profile-div">
+                                <div class="col-lg-4 col-md-6 title-div">
+                                <p class="title pt-3" (click)="link.click()">{{roasteryProfileService.name}} <img class="back_arrow_link desk-view" src="assets/images/back_arrow_link.svg"></p>
+                                <input class="form-control company-website" id="company-website" *ngIf="roasteryProfileService.savemode" type="text" placeholder="www.royalcoffee.az.com/" [(ngModel)]="roasteryProfileService.website" name="website">
+                                <p class="website-text mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.website}}</p>
+                                <a target="blank" href="{{roasteryProfileService.website}}" #link hidden></a>
+                                <p class="owned-text desk-view" *ngIf="roasteryProfileService.editmode">Owned by {{roasteryProfileService.name}}</p>
+                                <p class="founded-text desk-view" *ngIf="roasteryProfileService.editmode">Founded in {{roasteryProfileService.founded_in}}</p>
+
+                            </div>
+                                <div class="pic-div">
+                                    <img [src]="profilePhotoService.croppedImage" class="oval-pic">
+                                        <a class="show_modal" *ngIf="roasteryProfileService.savemode" (click)="showModalDialog()">
+                                        <img src="assets/images/camera.svg" class="camera-pic">
+                                        </a>
+                                </div>
+                                <div>
+                                        <input type="file" accept="image/*" style="visibility: hidden;" #image (change)="handleFile($event)" />
+                                    </div>
+                            </div>
+                    </div>
+                 
+</div>
+</section>
+</div>
+
+<div class="bg-fff pb-5 mt-md-3">
+    <div class="tab">
+        <div class="mdevice">
+            <ul class="nav nav-pills mb-md-3 w-100" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-about-tab" data-toggle="pill" href="#pills-about" role="tab" aria-controls="pills-about" aria-selected="true">About roastery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-tour-tab" data-toggle="pill" href="#pills-tour" role="tab" aria-controls="pills-tour" aria-selected="false">Virtual tour</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews" role="tab" aria-controls="pills-reviews" aria-selected="false">Reviews</a>
+                        </li>
+                </ul>
+            </div>
+                <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-about" role="tabpanel" aria-labelledby="pills-about-tab">
+        
+                                <sewn-about-roastery></sewn-about-roastery>
+                        </div>
+                        <div class="tab-pane fade" id="pills-tour" role="tabpanel" aria-labelledby="pills-tour-tab">
+                                <sewn-virtual-tour></sewn-virtual-tour>
+                        </div>
+                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                           
+        
+                                <sewn-contact></sewn-contact>
+        
+                        </div>
+                        <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+                                <div class="row">
+                                       <sewn-reviews></sewn-reviews>
+                                </div>
+                            </div>
+                    </div>
+    </div>
+    <div class="mobile-farm farm-stricky col-12">
+        <div  class="col-sm-12 px-0"  *ngIf="roasteryProfileService.savemode">
+        <div class="col-sm-6 d-inline px-0">
+                <button type="button" class="btn preview-butn " (click)="roasteryProfileService.preview()" > Preview  </button>
+        </div>
+        <div class="col-sm-6 px-0 d-inline">
+                <button type="button" class="btn cancel-butn" (click)="roasteryProfileService.saveRoasterProfile()" > Save  </button>
+        </div>
+    </div>
+        <button type="button" class="btn edit-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" > Go back to edit  </button>
+        
+        
+    </div>
+</div>
+
+
+
+<p-dialog header="Edit Photo" [(visible)]="profilePhotoService.displayModal" [modal]="true" [style]="{ width: '50vw' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        <p-header>
+            <span class="close-img-div">
+          <img
+            class="close-pic pull-right"
+            src="assets/images/close.svg"
+            alt="close-image"
+            (click)="closeProfileModal()"
+          />
+        </span>
+        </p-header>
+        <sewn-profile-photo></sewn-profile-photo>
+        <p-footer>
+            <button type="button" id="change-pic" class="previous btn " (click)="showModalDialog()">
+          Change photo
+        </button>
+            <button type="button" id="save-pic" class="btn btn-info login-butn" (click)="profilePhotoService.saveProfilePic()">
+          Save photo
+        </button>
+        </p-footer>
+    </p-dialog>

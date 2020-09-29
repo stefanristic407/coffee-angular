@@ -1,0 +1,182 @@
+<div class="bg-fff">
+    <!-- <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-3">
+        <span id="title-breadcrumb-1" class="sr-only"></span>
+        <ul class="bread-nav">
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+            </li>
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/account-settings">Account Settings</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+            </li>
+            <li class="b-cum c-pink">Login & Security</li>
+        </ul>
+    </nav> -->
+
+    <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+        <div class="row desk-view">
+            <div class="col-md-6 col-lg-6">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 mr-auto text-left">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/account-settings">Account settings</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum c-pink">Login & security</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="ml-auto text-right prefer-space">
+                <button type="submit" class="btn btn-succes save-change web-btn" routerLink = "/features/account-settings">Save changes</button>
+            </div>
+        </div>
+        <div class="row mobile-view">
+                <span class="cursor-pointer" routerLink="/features/account-settings">
+                    <img src="/assets/images/back-arrow1.png" alt="">
+                    <span class="back-ticket pl-3">Back</span>
+                    </span>
+        </div>
+    </section>
+
+    <section class="main-spacing">
+        <h3 class="header-login mb-3">Login & security</h3>
+        <p class="sub-header">Change your password and secure your account</p>
+        <div class="border-total pb-5">
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-9 col-xs-12">
+                    <p class="login-text">Login</p>
+                    <div class="row left-spacing">
+                        <div class="form-group col-md-8 col-sm-6 mob-padding">
+                            <label class="pwd-label">Password<span class="star-color">*</span></label>
+                            <div>
+                            <button class="btn change-password-btn" routerLink="/features/reset-password">Change password</button>
+                        </div>
+                            <!-- <input type="password" class="form-control pwd-box ord" placeholder="" [(ngModel)]="passwordData" name="password" id="newPassword" required=""> -->
+                            <!-- <div class="orderidError" *ngIf="orderidError != ''">{{orderidError}}</div> -->
+                            <!-- <div id="pwd_strength_wrap">
+                                <div id="passwordDescription">Password not entered</div>
+                                <div id="passwordStrength" class="strength0"></div>
+                                <div id="pswd_info">
+                                    <strong>Strong Password Tips:</strong>
+                                    <ul>
+                                        <li class="invalid" id="length">At least 6 characters </li>
+                                        <li class="invalid" id="pnum">At least one number </li>
+                                        <li class="invalid" id="capital">At least one lowercase &amp; one uppercase letter</li>
+                                        <li class="invalid" id="spchar">At least one special character</li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                        </div>
+                        <!-- <div class="form-group col-md-4">
+                            <span class="change-password fnt-muli "><img src="assets/images/shape-2.png" alt=""> Change Password</span>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-12 pb-2 pl-0">
+                        <div class="last-update">Last update a year ago</div>
+                    </div>
+
+                    <div class="pt-4">
+                        <div class="login-history">Login history</div>
+                        <div class="row mt-2 history-div border-login">
+                            <div class="p-0">
+                                <img class="img-estate" src="assets/images/system.png" alt="User"></div>
+                            <div class="pull-left">
+                                <ul class="session-list p-0 ml-2">
+                                    <li class="session">Session <span class="current-session ml-1">&#9679;&nbsp;Current Session</span></li>
+                                    <li class="session-details">
+                                        April 16, 2020 at 4:19 pm </li>
+                                        <li class="logout-current fnt-muli mob">Log out</li>
+                                </ul>
+                            </div>
+                            <div class="pull-right ml-auto desk">
+                                <span class="logout-current pl-1 fnt-muli ">Log out</span>
+                            </div>
+                        </div>
+                        <div class="row mt-2 history-div border-login">
+                            <div class="p-0">
+                                <img class="img-estate" src="assets/images/system.png" alt="User"></div>
+                            <div class="pull-left">
+                                <ul class="session-list p-0 ml-2">
+                                    <li class="session">Session
+                                    </li>
+                                    <li class="session-details">
+                                        April 16, 2020 at 4:19 pm </li>
+                                        <li class="logout fnt-muli mob">Logged out</li>
+                                </ul>
+                            </div>
+                            <div class="pull-right ml-auto desk">
+                                <span class="logout pl-1 fnt-muli ">Logged out</span>
+                            </div>
+                        </div>
+                        <div class="row mt-2 history-div border-login">
+                            <div class="p-0">
+                                <img class="img-estate" src="assets/images/system.png" alt="User"></div>
+                            <div class="pull-left">
+                                <ul class="session-list p-0 ml-2">
+                                    <li class="session">Session </li>
+                                    <li class="session-details">
+                                        April 16, 2020 at 4:19 pm </li>
+                                        <li class="logout fnt-muli mob">Logged out</li>
+                                </ul>
+                            </div>
+                            <div class="pull-right ml-auto desk">
+                                <span class="logout fnt-muli pl-1">Logged out</span>
+                            </div>
+                        </div>
+                        <div class="row mt-2 history-div border-login">
+                            <div class="p-0">
+                                <img class="img-estate" src="assets/images/system.png" alt="User"></div>
+                            <div class="pull-left">
+                                <ul class="session-list p-0 ml-2">
+                                    <li class="session">Session</li>
+                                    <li class="session-details">
+                                        April 16, 2020 at 4:19 pm </li>
+                                        <li class="logout fnt-muli mob">Logged out</li>
+                                </ul>
+                            </div>
+                            <div class="pull-right ml-auto desk">
+                                <span class="logout fnt-muli pl-1">Logged out</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="pt-4">
+                        <div class="deactivate-account pb-2">Deactivate Account</div>
+                        <div class="sub-deactivate">Deavtivate your account using the button below.</div>
+                        <div class="pt-3 account-top">
+                            <button type="submit" class="btn deactivate-button" (click)="openModal(template);">Deactivate Account Now</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-farm col-12">
+                <button type="button" class="btn btn-succes save-change"  routerLink = "/features/account-settings"> Save changes </button>
+            </div>
+    </section>
+</div>
+<ng-template #template>
+    <div class="modal-header">
+        <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+    </div>
+    <div class="modal-body text-center mb-5">
+        <img src="/assets/images/group-9.png" alt="">
+        <div class="are-sure fnt-play mt-3">
+            Are you sure
+        </div>
+        <div class="do-account pt-2">Do you really want to deactivate your account?</div>
+        <div class="pt-4">
+            <button class="btn yes-btn">Yes</button>
+            <button class="btn no-btn ml-2" (click)="modalRef.hide();">No </button>
+        </div>
+
+
+    </div>
+</ng-template>

@@ -1,0 +1,768 @@
+<div class="total_header mb-md-2 page-breadcrumb margin-mb-0 pmb-0">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-md-flex flex-column order-fff w-100">
+
+
+
+                <div class="col-12 px-md-0 page-breadcrumb__nav">
+                    <div class="col-lg-6 col-md-12 pull-left mr-auto pl-0 pr-0">
+                        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-2">
+                            <span id="title-breadcrumb-1" class="sr-only"></span>
+                            <ul class="bread-nav">
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r"
+                                        aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
+                                            alt=""></span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/ordermanagement/">Order Management</a><span
+                                        class="padl-r" aria-hidden="true"><img class="group-img"
+                                            src="/assets/images/arrow-1.png" alt=""></span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/ordermanagement/">Estate Orders</a><span
+                                        class="padl-r" aria-hidden="true"> <img class="group-img"
+                                            src="/assets/images/arrow-1.png" alt="">
+                                    </span>
+                                </li>
+                                <li class="b-cum c-pink">Order 12416
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12 pull-right ml-auto pl-0 pr-0 d-none d-md-block">
+                        <span class="pull-right ml-auto order-placed-text">
+                            Order placed : <span class="date-text">1st Jan 2020</span>
+                        </span>
+                    </div>
+                </div>
+
+
+                <section class="container create-role-sec mt-2 px-md-0 mb-15">
+                    <div class="col-12 d-flex px-0">
+
+                        <div class="col-md-6 pl-0">
+                            <div class="order-id d-flex align-items-center">Order #12416 <span class="booked booked--pre ml-2">Pre-Booked</span>
+                            </div>
+
+                            <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been
+                                pre-booked, once the beans are ready, you will be notified.</div>
+                        </div>
+                        <div class="btn-div col-md-6 d-none d-md-inline-block pr-0">
+                            <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none"> Order
+                                Invoice
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="in-order mt-4" *ngIf="orderTimeline">
+                        <div class="row">
+                            <div class="col-12 col-md-12 ">
+                                <h4 class="order-txt fnt-play">{{valueToShow}}</h4>
+                                <div class="transit-scoll overflow-hidden overflow-md-auto">
+                                    <div class="transit-maxwidth main-order-tracking-mbVesrion">
+                                        <div class="w-100 d-flex flex-column flex-md-row">
+                                            <div class="order-tracking">
+                                                <span class="is-complete "></span>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2 mb-1" (click)="orderPlace()"
+                                                        #orderPlaced style="color: #232334; font-weight: bold;">Order
+                                                        placed </p>
+                                                    <p class="order-date mb-0 ">Estate + facilitator Notified </p>
+                                                </div>
+                                            </div>
+                                            <div class="order-tracking completed" id="confirmDiv">
+                                                <span class="is-complete"></span>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2" (click)="orderConfirm()"
+                                                        #orderConfirmed>Order
+                                                        Confirmed</p>
+                                                </div>
+                                                <!-- <p class="order-date">SMS & Email sent to you </p> -->
+                                            </div>
+                                            <div class="order-tracking completed" id="paymentDiv">
+                                                <span class="is-complete"></span>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status mt-2" (click)="paymentStatus()" #payment>
+                                                        Payment</p>
+                                                </div>
+                                                <!-- <p class="order-view"> View Report ></p> -->
+                                            </div>
+                                            <!-- <div class="order-tracking  completed">
+                                            <span class="is-complete"></span>
+                                            <p class="order-status mt-2">Shipped</p>
+                                        </div> -->
+                                            <div class="order-tracking completed" id="harvestDiv">
+                                                <span class="is-complete"></span>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()"
+                                                        #harvestReady>Harvest
+                                                        Ready</p>
+                                                    <p class="order-harvest mb-0"> <a class="havestShow"
+                                                            (click)="showHarvest()">Follow your harvest </a></p>
+                                                </div>
+                                            </div>
+                                            <div class="order-tracking completed" id="gradedDiv">
+                                                <span class="is-complete"></span>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2" (click)="gradedStatus()" #graded>
+                                                        Graded by
+                                                        Facilitator</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-div col-12 d-inline-block d-md-none mb-2">
+                                    <button type="submit" class="btn w-100 text-center pull-right ord-invoice-butn">
+                                        Order Invoice
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cancelled Block for Pre-book-->
+                    <div class="in-order mt-5 cancel-predisplay" *ngIf="cancelShow">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-8 col-sm-12">
+                                <h4 class="order-txt fnt-play">Cancelled</h4>
+                                <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the
+                                    estate and
+                                    facilitator to help us expand</div>
+                                <div class="confirm-grade">as a transparent community!</div>
+                                <button type="submit" class="yes-txt btn mt-3" (click)="buyIt()">Buy it</button>
+                                <button type="submit" class="cancel-order btn mt-3 ml-3">Browse other estates</button>
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
+                                <button type="submit" class="cancel-order btn mt-3"
+                                    routerLink="/ordermanagement/rating">Leave a
+                                    feedback </button>
+                                <button type="submit" class="cancel-order btn mt-3"
+                                    routerLink="/ordermanagement/order-support">Have a problem? <img
+                                        class="arrow-image1" src="assets/images/group.png" alt="arrow"></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Confirm Order Block for Pre-book-->
+                    <div class="in-order mt-5 confirm-predisplay" *ngIf="confirmOrderShow">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-8 col-sm-12">
+                                <h4 class="order-txt fnt-play">Confirm Order</h4>
+                                <div class="confirm-grade">The harvest is ready! Please book the lot to confirm the
+                                    order</div>
+                                <button type="submit" class="leave-feedback btn mt-3"
+                                    routerLink="/ordermanagement/rating">Leave
+                                    a feedback! </button>
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
+                                <button type="submit" class="yes-order btn mt-3 buy-order"
+                                    routerLink="/ordermanagement/prebook-confirmorder">Buy the order</button><br />
+                                <button type="submit" class="cancel-order btn mt-3">Order a sample</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="order-tab-fff d-lg-flex bg-none">
+            <div class="mixups-tabs col-lg-8 col-md-12 mb-md-3 mb-lg-0 pl-lg-0 tab-right mixups-tabs--pd0">
+                <div class="border-ebebeb h-100">
+                    <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                role="tab" aria-controls="pills-home" aria-selected="true">Order details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                                role="tab" aria-controls="pills-profile" aria-selected="false">Documents</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+                                role="tab" aria-controls="pills-contact" aria-selected="false">Grade Info</a>
+                        </li>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button"
+                                class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a
+                                problem?</button>
+                        </li>
+                    </ul>
+                    <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
+                        <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a
+                            problem?</button>
+                    </div>
+                    <div class="tab-content mt-md-5" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                            aria-labelledby="pills-home-tab">
+
+                            <sewn-prebook-order-details></sewn-prebook-order-details>
+
+                        </div>
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+                            <sewn-prebook-documents></sewn-prebook-documents>
+                        </div>
+                        <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                            aria-labelledby="pills-contact-tab">
+                            <div class="row">
+
+                                <sewn-prebook-grade-info></sewn-prebook-grade-info>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--             
+        <div class="row progress-bar-tooltip">
+            <div class="col-12 col-md-12 ">
+
+                <div class="row justify-content-between">
+                    <div class="order-tracking completed mixups-track" >
+                        <span class="is-complete tooltips">
+                            <span class="tooltiptext">Per cup score 82.5</span>
+                        </span>
+                        <p class="order-status mt-2">Graded by Estate</p>
+                        <p class="order-view" data-toggle="collapse" data-target="#estate"> View Report <i class="fa fa-angle-right"></i></p>
+                        <div id="estate" class="collapse">
+                        <p class="order-date">Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score </p>
+                        </div>
+                    </div>
+                    <div class="order-tracking completed mixups-track">
+                        <span class="is-complete tooltips">
+                             <span class="tooltiptext">Per cup score 83.6</span>
+
+                        </span>
+                        <p class="order-status mt-2">Graded by Facilitator</p>
+                        <p class="order-view" data-toggle="collapse" data-target="#facilitor"> View Report <i class="fa fa-angle-right"></i></p>
+                        <div id="facilitor" class="collapse">
+                            <p class="order-date">The green coffee before being onboarded on the shippment is graded again to get the latest score </p>
+                        </div>
+                    </div>
+                    <div class="order-tracking mixups-track">
+                        <span class="is-complete "></span>
+                        <p class="order-status mt-2">Graded by Roaster</p>
+                        <p class="order-date"> To ensure that you has recieved the correct batch, you can grade the coffee before accepting the order</p>
+                    </div>
+
+                </div>
+            </div>
+        </div> -->
+
+
+
+
+            <div class="shipping-div col-lg-4 col-md-12 bg-shipping shipping-div--mbVesrion mb-15">
+                <div class="shipping-div__info ">
+                <div class="d-flex">
+                    <div class="pull-left shipping-addr">Delivery address
+                    </div>
+                    <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
+                            alt="Edit"> Edit</div> -->
+                </div>
+                <div class=" d-flex mt-1 addr-text">Löfbergs Lila AB, Box 1501, 651 21 - Karlstad, Sweden</div>
+                <div class="d-flex mt-3">
+                    <img class="img-logo" src="assets/images/google-image.png" alt="Map">
+
+                </div>
+                </div>
+                <div class="d-none d-md-block ">
+                    <div class="d-flex mt-4">
+                        <div class="pull-left estate-details">Roaster Details
+                        </div>
+                        <div class="pull-right ml-auto view-details">view details</div>
+                    </div>
+
+                    <div class="d-flex mt-2 border-div">
+                        <div class="p-0"><img class="img-estate" src="assets/images/estate-details.png" alt="User">
+                        </div>
+                        <div>
+                            <ul class="details-list p-0 ml-3">
+                                <li class="estate-name">Finca Guadalupe Zajú</li>
+                                <!-- <li>
+                                    <span class="estate-number pr-2">+420 6365719</span> <span class="vr-line">|</span>
+                                    <span class="pl-2 estate-mail">info@guadalupezaju.com</span>
+                                </li> -->
+                                <li class="d-flex rating-space">
+                                    <!-- <star-rating value="3" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true" (rate)="onRateBooked($event)"></star-rating>  -->
+                                    <!-- <star-rating value="4" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true"></star-rating>
+                        <p class="rating-value">{{this.newvalue.toFixed(1)}}</p> -->
+                                    <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
+                                            class="" src="assets/images/star-1.png" alt="User"> <span
+                                            class="star-no pl-1"> 4.95</span>
+                                    </span>
+
+                                </li>
+                                <li class="mt-4">
+
+                                    <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
+                                            alt="Message"><span class="estate-message pl-1">Message</span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <table class="recent-time">
+
+                        <!-- <tr>
+                            <td> <span class="list-que"> Company Number : </span></td>
+                            <td> <span class="list-ans"> 8685657 </span> </td>
+
+                        </tr>
+                        <tr>
+                            <td> <span class="list-que"> Belongs to : </span></td>
+                            <td> <span class="list-ans"> Cooperative </span> </td>
+
+                        </tr> -->
+                        <tr>
+                            <td> <span class="list-que"> Address: </span></td>
+                            <td> <span class="list-ans"> Manizales, Caldas, 46729 - Colombia </span> </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="Stakeholders-mbVersion col-12">
+                    <div class="d-flex mt-md-4 mb-3">
+                        <div class="pull-left estate-details">Stakeholders
+                        </div>
+                    </div>
+                    <div class="d-flex mt-3 border-div">
+                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-2 ml-md-3">
+                                <li class="estate-name">Finca La Pampa</li>
+                                <li class="estate-number pt-1">
+                                    Coffee Estate
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right ml-auto">
+                            <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
+                                    alt="Message"><span class="estate-message pl-1">Message</span></span>
+                        </div>
+                    </div>
+                    <div class="d-flex mt-3">
+                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder2.png" alt="User"></div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-2 ml-md-3">
+                                <li class="estate-name">Kevin Bailey</li>
+                                <li class="estate-number pt-1">
+                                    Facilitator
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right ml-auto">
+                            <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
+                                    alt="Message"><span class="estate-message pl-1">Message</span></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="d-flex mt-md-4 footer-content recent-fff bg-white">
+            <!-- <div class="col-lg-12 col-md-12 bg-shipping"> -->
+            <!-- <div class="row"> -->
+
+            <!-- Chart div starts-->
+            <div class="col-lg-12 col-md-12 chart-details chart-cont mt-2">
+                <div class="row">
+                    <div class="live-estate col-lg-12 ">
+                        <h2>Follow your harvest</h2>
+                        <div class="mt-2 live-text">We bring you live updates of your lot with geo tracking!</div>
+
+                        <nav class="mt-4">
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather"
+                                    role="tab" aria-controls="nav-home" aria-selected="true">Weather</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil"
+                                    role="tab" aria-controls="nav-profile" aria-selected="false">Soil</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv"
+                                    role="tab" aria-controls="nav-profile" aria-selected="false">UV</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images"
+                                    role="tab" aria-controls="nav-profile" aria-selected="false">Images</a>
+                            </div>
+                        </nav>
+
+                        <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
+                            <!-- weather-->
+                            <div class="tab-pane fade show active" id="weather" role="tabpanel"
+                                aria-labelledby="nav-home-tab">
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                    </div>
+                                    <div class="col-lg-7 d-inline pl-0 pl-md-5">
+                                        <div class="d-inline col-sm-6">
+                                            <span class="legend-color"></span><span class="legend-text pl-2">Legend
+                                                1</span>
+                                        </div>
+                                        <div class="d-inline col-sm-6">
+                                            <span class="legend-color2"></span><span class="legend-text pl-2">Legend
+                                                2</span>
+                                        </div>
+
+                                        <div class="d-inline border-total col-sm-6 ml-md-4">
+                                            <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter">
+                                                    &nbsp; <img src="assets/images/active-user.png" />
+                                                </p>
+                                            </a>
+                                        </div>&nbsp;&nbsp;
+                                        <div class="d-inline border-total col-sm-6">
+                                            <p class="d-inline add-variety">Hourly forecast&nbsp;&nbsp;</p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter">
+                                                    &nbsp; <img src="assets/images/active-user.png" />
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-0 mt-md-4">
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
+                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                        [roundDomains]="roundDomains" [timeline]="timeline">
+                                    </ngx-charts-line-chart>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="soil" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                    </div>
+                                    <div class="col-lg-7 d-inline pl-0 pl-md-5">
+                                        <div class="d-inline col-sm-6">
+                                            <span class="legend-color"></span><span class="legend-text pl-2">Legend
+                                                1</span>
+                                        </div>
+                                        <div class="d-inline col-sm-6">
+                                            <span class="legend-color2"></span> <span class="legend-text pl-2">Legend
+                                                2</span>
+                                        </div>
+
+                                        <div class="d-inline border-total col-sm-6 ml-md-4">
+                                            <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter">
+                                                    &nbsp; <img src="assets/images/active-user.png" />
+                                                </p>
+                                            </a>
+                                        </div>&nbsp;&nbsp;
+                                        <div class="d-inline border-total col-sm-6">
+                                            <p class="d-inline add-variety">Hourly forecast&nbsp;&nbsp;</p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter">
+                                                    &nbsp; <img src="assets/images/active-user.png" />
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-0 mt-md-4">
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
+                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                        [roundDomains]="roundDomains" [timeline]="timeline">
+                                    </ngx-charts-line-chart>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="uv" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                    </div>
+                                    <div class="col-lg-7 d-inline pl-0 pl-md-5">
+                                        <div class="d-inline col-sm-6">
+                                            <span class="legend-color"></span><span class="legend-text pl-2">Legend
+                                                1</span>
+                                        </div>
+                                        <div class="d-inline col-sm-6">
+                                            <span class="legend-color2"></span><span class="legend-text pl-2">Legend
+                                                2</span>
+                                        </div>
+
+                                        <div class="d-inline border-total col-sm-6 ml-md-4">
+                                            <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter">
+                                                    &nbsp; <img src="assets/images/active-user.png" />
+                                                </p>
+                                            </a>
+                                        </div>&nbsp;&nbsp;
+                                        <div class="d-inline border-total col-sm-6">
+                                            <p class="d-inline add-variety">Hourly forecast&nbsp;&nbsp;</p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter">
+                                                    &nbsp; <img src="assets/images/active-user.png" />
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-0 mt-md-4">
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
+                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                        [roundDomains]="roundDomains" [timeline]="timeline">
+                                    </ngx-charts-line-chart>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                    </div>
+                                    <div class="col-lg-7 d-inline pl-0 pl-md-5">
+                                        <div class="d-inline col-sm-6">
+                                            <span class="legend-color"></span><span class="legend-text pl-2">Legend
+                                                1</span>
+                                        </div>
+                                        <div class="d-inline col-sm-6">
+                                            <span class="legend-color2"></span><span class="legend-text pl-2">Legend
+                                                2</span>
+                                        </div>
+
+                                        <div class="d-inline border-total col-sm-6 ml-md-4">
+                                            <p class="d-inline add-variety">Temperature&nbsp;&nbsp;</p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter">
+                                                    &nbsp; <img src="assets/images/active-user.png" />
+                                                </p>
+                                            </a>
+                                        </div>&nbsp;&nbsp;
+                                        <div class="d-inline border-total col-sm-6">
+                                            <p class="d-inline add-variety">Hourly forecast&nbsp;&nbsp;</p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter">
+                                                    &nbsp; <img src="assets/images/active-user.png" />
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-0 mt-md-4">
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
+                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                        [roundDomains]="roundDomains" [timeline]="timeline">
+                                    </ngx-charts-line-chart>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart div ends-->
+
+
+
+
+
+            <!-- <div #harvestDetails class=" col-lg-6 col-md-12 harvest-content " *ngIf="harvestInfo">
+                <p class=" w-100 recent-title fnt-play">Follow your harvest</p>
+                <p class=" w-100 activity-date">We bring you live updates of your lot with geo tracking!</p>
+                <div class=" w-100">
+
+                    <table class="recent-time">
+
+                        <tr>
+                            <td> <span class="list-que"> Temperature: </span></td>
+                            <td> <span class="list-ans">  34°C </span> </td>
+
+                        </tr>
+                        <tr>
+                            <td> <span class="list-que">  Atmosphic pressure: </span></td>
+                            <td> <span class="list-ans">   0.87 bar </span> </td>
+
+                        </tr>
+                        <tr>
+                            <td> <span class="list-que">   Humidity: </span></td>
+                            <td> <span class="list-ans">  30% </span> </td>
+
+                        </tr>
+
+                        <tr>
+                            <td> <span class="list-que">  Wind speed: </span></td>
+                            <td> <span class="list-ans">   3m/s </span> </td>
+
+                        </tr>
+
+                        <tr>
+                            <td> <span class="list-que">   Wind direction: </span></td>
+                            <td> <span class="list-ans">   15°N </span> </td>
+
+                        </tr>
+
+                        <tr>
+                            <td> <span class="list-que">  Cloudiness:</span></td>
+                            <td> <span class="list-ans">    15% </span> </td>
+
+                        </tr>
+
+                    </table>
+
+
+
+                </div>
+                <div class="view-details-img">
+                    <p class="view-more mt-3">View detials</p>
+                </div>
+                <div class=" image-content mt-5">
+                    <img src="assets/images/coffee_estate_bg.png" class="image-div">
+                    <img src="assets/images/coffee_estate_bg.png" class="image-div">
+                </div>
+
+            </div> -->
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="recent-fff">
+
+
+                    <div class="col-lg-12 bg-shipping">
+
+                        <div class="w-100 col-lg-6 col-md-12 recent-activity-content">
+                            <p class=" w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
+                            <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2"
+                                    src="assets/images/active.png"></p>
+                            <!-- <div class="row w-100 activity-list">
+                    <span class="col-md-3 list-time">
+                            12:44pm
+                    </span>
+                    <span class="col-md-6 list-content">
+                            Order confirmed by the Estate
+                    </span>
+                </div>
+                <div class="row w-100 activity-list">
+                        <span class="col-md-3 list-time">
+                                1:30pm
+                        </span>
+                        <span class="col-md-6 list-content">
+                                Facilitator assigned for pickup
+                        </span>
+                    </div>
+                    <div class="row w-100 activity-list">
+                            <span class="col-md-3 list-time">
+                                    4:00pm
+                            </span>
+                            <span class="col-md-6 list-content">
+                                    Assignment made ready
+                            </span>
+                        </div> -->
+                            <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row">
+                                <div class="d-none d-md-inline-block p-0">
+                                    <!-- <img class="img-estate"
+                                        src="assets/images/activity1.png" alt="User"> -->
+                                        <p class="timing">12:44pm</p>
+                                    </div>
+                                <div class="pull-left">
+                                    <ul class="details-list p-0 ">
+                                        <!-- <li class="list-name d-none d-md-inline-block">Finca La Pampa</li>
+                                        <li class="list-user mb-2 pt-1 d-none d-md-inline-block">
+                                            <p class="mb-0">Coffee Estate</p>
+                                        </li> -->
+                                        <li class="list-activity">
+                                            <div
+                                                class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
+                                                12:44pm</div>
+                                            <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Order confirmed by the Estate</p>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- <div class="pull-right ml-auto list-time d-none d-md-inline-block">12:44pm</div> -->
+                            </div>
+                            <div class="d-flex col-12 mt-3  border-div flex-column flex-md-row">
+                                <div class="d-none d-md-inline-block p-0">
+                                    <!-- <img class="img-estate"
+                                        src="assets/images/stakeholder2.png" alt="User"> -->
+                                        <p class="timing">01:30pm</p>
+                                    </div>
+                                <div class="pull-left">
+                                    <ul class="details-list p-0 ">
+                                        <!-- <li class="list-name d-none d-md-inline-block">
+                                            <p class="mb-0">Kevin Bailey</p>
+                                        </li>
+                                        <li class="list-user mb-2 pt-1 d-none d-md-inline-block">
+                                            <p class="mb-0">Facilitator</p>
+                                        </li> -->
+                                        <li class="list-activity">
+                                            <div
+                                                class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
+                                                01:30pm</div>
+                                            <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Facilitator assigned for pickup</p>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- <div class="pull-right ml-auto list-time d-none d-md-inline-block">1:30pm</div> -->
+
+                            </div>
+                            <div class="w-100 mt-4 mb-2 d-block d-md-none">
+                                <button type="button"
+                                    class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center"
+                                    (click)="cancelOrder()">Cancel order</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
+                        <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">Cancel
+                            order</button>
+                    </div>
+                    <div class="w-100 chat-div">
+                        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+                            routerLink="/ordermanagement/order-chat">Order #12416 chat <span class="chat-indicator">
+                                &#x25CF;</span><img class="pull-right ml-auto"
+                                src="assets/images/back-arrow.png"></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 
+<section class="chatbox js-chatbox">
+    <div class="chatbox__header">
+        <h3 class="chatbox__header-cta-text"><span class="chatbox__header-cta-icon">
+            </span>Order #12416 chat <span class="chat-indicator"> &#x25CF;</span> </h3>
+        <button class="js-chatbox-toggle chatbox__header-cta-btn u-btn"><i class="pi pi-angle-up"></i></button>
+    </div>
+   
+    <div class="js-chatbox-display chatbox__display">
+
+    </div>
+ 
+    <form #myForm class="js-chatbox-form chatbox__form">
+        <input type="text" id="js-chatbox-input" class="js-chatbox-input chatbox__form-input" placeholder="Type your message..." required>
+        <button class="chatbox__form-submit u-btn"><img class="img-estate ml-4" src="assets/images/chat-send.png" alt="User"></button>
+    </form>
+   
+</section> -->

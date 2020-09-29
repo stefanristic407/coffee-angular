@@ -1,0 +1,561 @@
+<div class="row form-section">
+        <div class="col-lg-12 mt-md-4">
+          <form class="form-container">
+            <div class="row">
+              <div class=" col-lg-8 ">
+                <div class="border-class p-4">
+                  <div class="row  mt-3 no-margin"> 
+                    <div class="form-group col-md-6  no-margin">
+                      <label *ngIf="roasteryProfileService.savemode"  for="owner_name">Owner name<span class="star">*</span></label>
+                      <input
+                      *ngIf="roasteryProfileService.savemode"
+                        class="form-control owner_name rectangle"
+                        id="owner_name"
+                        type="text"
+                        (keyup)="onKeyPress($event)"
+                        name="owner_name"
+                        [(ngModel)]="roasteryProfileService.name"
+                        placeholder="Please enter owner name"
+                      />
+                      <label *ngIf="roasteryProfileService.editmode"  for="owner_name" class="mob-view">Owner name</label>
+                      <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.name}}</p>
+                      <div class="ownerNameError" *ngIf="ownerNameError != ''">
+                        {{ ownerNameError }}
+                      </div>
+
+                    </div>
+                    <div class="form-group col-md-6  no-margin">
+                            <label *ngIf="roasteryProfileService.savemode" for="founded_in"
+                              >Founded in<span class="star">*</span></label
+                            >
+                            <input
+                            *ngIf="roasteryProfileService.savemode"
+                              class="form-control rectangle founded_in"
+                              id="founded_in"
+                              type="text"
+                              (keyup)="onKeyPress($event)"
+                              name="founded_in"
+                              [(ngModel)]="roasteryProfileService.founded_in"
+                              placeholder="Please enter founded year"
+                            />
+                            <label *ngIf="roasteryProfileService.editmode" for="founded_in" class="mob-view"
+                            >Founded in</label>
+                            <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.founded_in}}</p>
+                            <div class="foundedInError" *ngIf="foundedInError != ''">
+                              {{ foundedInError }}
+                            </div>
+                          </div>
+                          
+                  </div>
+      
+                  <div class="row">
+                        <div class="form-group col-md-12 mt-md-3" *ngIf="roasteryProfileService.savemode">
+                                <label for="summary" >Roastery summary</label>
+                              <textarea *ngIf="roasteryProfileService.savemode"  class="form-control summary" id="summary" name="summary" rows="5" [(ngModel)]="roasteryProfileService.summary" placeholder="Tell us and to our users about who you are as a company!">
+                              </textarea>
+                        </div>
+                        <div class="form-group col-md-12 mt-md-3 mob-border" *ngIf="roasteryProfileService.editmode">
+                            <label for="summary"  class="mob-label">Roastery summary</label>
+                          <p class="info-content mob-info-content" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.summary}}</p>
+
+                        </div>
+                  </div>
+
+                  <hr class="d-none d-lg-block">
+                 <div class="row p-3 mt-md-5 mp-3"  *ngIf="roasteryProfileService.savemode">
+                     <p class="sub-header">Employee details</p>
+                     <p class="header-descr">Give us an overvew of your employees. You can view the inputs on the pie chart.</p>
+                 </div>
+                  <div class="row mb-md-3"  *ngIf="roasteryProfileService.savemode">
+                        <div class="form-group col-md-6">
+                          <label for="employee_nos">Total number of employees<span class="star">*</span></label>
+                          <input
+                            class="form-control employee_nos rectangle"
+                            id="employee_nos"
+                            type="number"
+                            (keyup)="onKeyPress($event)"
+                            name="employee_nos"
+                            [(ngModel)]="roasteryProfileService.employee_nos"
+                            placeholder="Please enter no. of employees"
+                          />
+                          <div class="employeeNoError" *ngIf="employeeNoError != ''">
+                            {{ employeeNoError }}
+                          </div>
+                        </div>
+                        <div class="form-group col-md-6 ">
+                                <label for="employee_avg"
+                                  >Average employee age<span class="star">*</span></label
+                                >
+                                <input
+                                  class="form-control rectangle employee_avg"
+                                  id="employee_avg"
+                                  type="number"
+                                  (keyup)="onKeyPress($event)"
+                                  name="employee_avg"
+                                  [(ngModel)]="roasteryProfileService.employee_avg"
+                                  placeholder="Please enter employee avg. age"
+                                />
+                                <div class="employeeAvgError" *ngIf="employeeAvgError != ''">
+                                  {{ employeeAvgError }}
+                                </div>
+                              </div>
+                              
+                      </div>
+                      <span class="text-data"  *ngIf="roasteryProfileService.savemode">Gender distribution<span class="star">*</span></span>
+                      <div class="row"  *ngIf="roasteryProfileService.savemode">
+                            <div class="form-group col-md-6">
+                              <label for="female_num">Total number of female employees<span class="star">*</span></label>
+                              <input
+                                class="form-control female_num rectangle"
+                                id="female_num"
+                                type="number"
+                                (keyup)="onKeyPress($event)"
+                                name="female_num"
+                                [(ngModel)]="roasteryProfileService.female_num"
+                                placeholder="Please enter the number of female employees"
+                              />
+                              <div class="femaleNumError" *ngIf="femaleNumError != ''">
+                                {{ femaleNumError }}
+                              </div>
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                    <label for="male_num"
+                                      >Total number of male employees<span class="star">*</span></label
+                                    >
+                                    <input
+                                      class="form-control rectangle male_num"
+                                      id="male_num"
+                                      type="number"
+                                      (keyup)="onKeyPress($event)"
+                                      name="male_num"
+                                      [(ngModel)]="roasteryProfileService.male_num"
+                                      placeholder="Please enter the number of male employees"
+                                    />
+                                    <div class="maleNumError" *ngIf="maleNumError != ''">
+                                      {{ maleNumError }}
+                                    </div>
+                                  </div>
+                                  
+                          </div>
+                          <hr class="d-none d-md-block"  *ngIf="roasteryProfileService.savemode">
+                          <div class="row p-3 mt-md-5 mp-3">
+                                <p class="sub-header">Roastery capabilities</p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">Tell us about your roastery capabilities of storage etc.</p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.editmode">Our roastery capabilities of storage etc.</p>
+                          </div>
+
+                          <div class="row"  *ngIf="roasteryProfileService.savemode">
+                                <div class="form-group col-md-4 col-6">
+                                  <label for="capacity">Roaster capacity<span class="star">*</span></label>
+                                  <input
+                                    class="form-control capacity rectangle"
+                                    id="capacity"
+                                    type="number"
+                                    (keyup)="onKeyPress($event)"
+                                    name="capacity"
+                                    [(ngModel)]="roasteryProfileService.capacity"
+                                    placeholder="Enter capacity"
+                                  />
+                                  <div class="capacityError" *ngIf="capacityError != ''">
+                                    {{ capacityError }}
+                                  </div>
+                                </div>
+                                <div class="form-group col-md-2 pl-0 col-6">
+                                        <label for="kgs">&nbsp;</label>
+                                       <select  class="form-control kgs rectangle role_edit"
+                                       id="kgs"
+                                       name="kgs"
+                                       [(ngModel)]="roasteryProfileService.kgs"> 
+                                           <option selected disabled value="">Kilograms</option>
+                                           <option value="Tons">Tons</option>
+                                           <option value="Kgs">Kgs</option>
+                                           <option value="Grams">Grams</option>
+                                    
+
+                                       </select>
+                                        <div class="kilogramsError" *ngIf="kilogramsError != ''">
+                                          {{ kilogramsError }}
+                                        </div>
+                                      </div>
+
+                                <div class="form-group col-md-6 ">
+                                        <label for="capabilities"
+                                          >Capabilities<span class="star">*</span></label
+                                        >
+                                        <input
+                                          class="form-control rectangle capabilities"
+                                          id="capabilities"
+                                          type="text"
+                                          (keyup)="onKeyPress($event)"
+                                          name="capabilities"
+                                          [(ngModel)]="roasteryProfileService.capabilities"
+                                          placeholder="Eg. Hand roasted, Blended, Mocha-Java"
+                                        />
+                                        <div class="capabilitiesError" *ngIf="capabilitiesError != ''">
+                                          {{ capabilitiesError }}
+                                        </div>
+                                      </div>
+                                      
+                              </div>
+
+                              <div class="row about-web" *ngIf="roasteryProfileService.editmode">
+                                <div class="col-lg-11 border-total">
+                                  <div class="col-lg-4 capabilitiesDiv">
+                                    <label class="capacity-header">Roaster Capacity</label>
+                                    <p class="weight">{{roasteryProfileService.capacity}} Kgs </p>
+                                  </div>
+                                  <div class="col-lg-11 capabilitiesdescrDiv">
+                                    <p class="capabilities_content">
+                                        {{roasteryProfileService.capabilities}}
+                                    </p>
+                                  </div>
+                                </div>
+							  </div>
+							  <div class="about-mobile d-flex border-capacity" *ngIf="roasteryProfileService.editmode">
+									<div class="capacity-text">
+										<label class="capacity-header">Roaster Capacity</label>
+										<h6 class="weight">{{roasteryProfileService.capacity}} Kgs</h6>
+									</div>
+									<div class="capacity-text-1">
+										<h6 class="capabilities_content">{{roasteryProfileService.capabilities}}</h6>
+									</div>
+							  </div>
+
+                              <hr >
+
+                              <div class="row p-3 mt-md-5 mt-4">
+                                    <p class="sub-header mt-2 mt-md-0">Brands</p>
+                                    <p class="header-descr"  *ngIf="roasteryProfileService.savemode">List down your company brands.</p>
+                              </div>
+                              <div  *ngIf="roasteryProfileService.savemode">
+                              <div class="row mt-3">
+                                <div class="form-group col-md-3">
+                                    <label for="brand_name">Brand Logo<span class="star">*</span></label>
+                                    <img src="assets/images/profile.svg" class="brand-pic">
+                                        <a class="show_modal"  >
+                                        <img src="assets/images/camera.svg" class="camera-pic">
+                                        </a>
+                                </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="brand_name">Brand name<span class="star">*</span></label>
+                                      <input
+                                        class="form-control brand_name rectangle"
+                                        id="brand_name"
+                                        type="text"
+                                        (keyup)="onKeyPress($event)"
+                                        name="brand_name"
+                                        [(ngModel)]="brand_name"
+                                        placeholder="Please enter brand name"
+                                      />
+                                      <div class="brandNameError" *ngIf="brandNameError != ''">
+                                        {{ brandNameError }}
+                                      </div>
+                                    </div>
+                                    <!-- <div class="form-group col-md-6 ">
+                                            <label for="b_logo"
+                                              >Brand logo<span class="star">*</span></label
+                                            >
+                                           <button class="btn logo-btn" type="button">Upload</button>
+                                            <div class="brandLogoError" *ngIf="brandLogoError != ''">
+                                              {{ brandLogoError }}
+                                            </div>
+                                            <span class="d-block d-md-none file-attach-label mt-2">You can upload a JPG or PNG, file. Max file size limit 2MB</span>
+                                          </div> -->
+                                          
+                                  </div>
+                      
+                                  <div class="row">
+                                        <div class="form-group col-md-12 mt-3">
+                                                <label for="short_descr">A short description about the brand<span class="star">*</span></label>
+                                              <textarea  class="form-control short_descr" id="short_descr" name="short_descr" rows="5" [(ngModel)]="short_descr" placeholder="Tell us a bit about your brand">
+                                              </textarea>
+                                              <div class="shortDescError" *ngIf="shortDescError != ''">
+                                                    {{ shortDescError }}
+                                                  </div>
+                                        </div>
+                                  </div>
+
+                                  <div class="add-brand-div">
+                                      <a class="brand-tag"> 
+                                          <img class="add-field" src="assets/images/add-field.svg">
+                                          <span class="add-text">Add another brand</span>
+                                      </a>
+                                  </div>
+                </div>
+
+                <div class="border-capacity web-border"  *ngIf="roasteryProfileService.editmode">
+                  <div class="row p-3 d-flex">
+                    <div class="col-lg-2 brand-image-div">
+                      <img src="assets/images/ft-roastry-profile.png" class="brand-image">
+                    </div>
+                    <div class="col-lg-10 brand-content-div">
+                    <p class="brand-title ">
+                      Blue tokai
+                    </p>
+                    <p class="brand-content">
+                        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna."
+                    </p>
+                  </div>
+                  </div>
+                </div>
+
+                                  <hr>
+                                <div class=""   *ngIf="roasteryProfileService.savemode">
+                                  <div class="row p-3 mt-5">
+                                        <p class="sub-header">Contacts<span class="star">*</span></p>
+                                        <p class="header-descr">List down your top employees with whom users on the platform can get in touch with!</p>
+                                  </div>
+
+                                  <div class="row">
+                                        <!-- <div class="form-group col-md-6">
+                                          <label for="emp_title">Add a title</label>
+                                          <input
+                                            class="form-control emp_title rectangle"
+                                            id="emp_title"
+                                            type="text"
+                                            (keyup)="onKeyPress($event)"
+                                            name="emp_title"
+                                            [(ngModel)]="emp_title"
+                                            placeholder="Enter enter title"
+                                          />
+                                          <div class="empTitleError" *ngIf="empTitleError != ''">
+                                            {{ empTitleError }}
+                                          </div>
+                                        </div> -->
+                                        <div class="form-group col-md-6">
+                                                <label for="emp_name">Select employee</label>
+                                               <select  class="form-control kgs rectangle role_edit"
+                                               id="emp_name"
+                                               name="emp_name"
+                                               [(ngModel)]="roasteryProfileService.emp_name"
+                                               > 
+                                                   <option selected disabled value="">Please select employee name</option>
+                                                   <option *ngFor="let data of roasteryProfileService.roasterUsers" value="{{data.id}}">{{data.firstname}} {{data.lastname}}</option>
+                                                
+        
+                                               </select>
+                                                <!-- <div class="empNameError" *ngIf="empNameError != ''">
+                                                  {{ empNameError }}
+                                                </div> -->
+                                              </div>
+                                              </div>
+
+                                              <div class="add-brand-div">
+                                                    <a class="brand-tag"> 
+                                                        <img class="add-field" src="assets/images/add-field.svg">
+                                                        <span class="add-text">Add another contact</span>
+                                                    </a>
+                                                </div>
+                                              </div>
+
+                                                <div class="mob-view"   *ngIf="roasteryProfileService.editmode">  
+                                                <div class="employer mt-4 d-none d-md-block">
+                                                    <h2>Contacts</h2>
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2" *ngFor="let contact of roasteryProfileService.roasterContacts">
+                                                            <div class="employ-profile">
+                                                                <div class="p-gal">
+                                                                    <img *ngIf="contact.profile_image_url == ''" src="assets/images/profile.svg">
+                                                                    <img *ngIf="contact.profile_image_url != ''" src="{{contact.profile_image_url}}">
+                                                                </div>
+                                                                <div class="profile-des">
+                                                                    <h4>{{contact.name | titlecase}}</h4>
+                                                                    <h6>{{contact.roles[0]}}</h6>
+                                                                </div>
+                                                                <div class="msg-chat mt-2">
+                                                                    <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                    <p class="pl-1 d-inline-block">Message</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
+                                                            <div class="employ-profile">
+                                                                <div class="p-gal">
+                                                                    <img src="assets/images/gallery-2.jpg">
+                                                                </div>
+                                                                <div class="profile-des">
+                                                                    <h4>Jayden briggs</h4>
+                                                                    <h6>Sales manager</h6>
+                                                                </div>
+                                                                <div class="msg-chat mt-2">
+                                                                    <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                    <p class="pl-1 d-inline-block">Message</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
+                                                            <div class="employ-profile">
+                                                                <div class="p-gal">
+                                                                    <img src="assets/images/gallery-3.jpg">
+                                                                </div>
+                                                                <div class="profile-des">
+                                                                    <h4>Johanna ortiz</h4>
+                                                                    <h6>Business manager</h6>
+                                                                </div>
+                                                                <div class="msg-chat mt-2">
+                                                                    <img src="assets/images/message-icon.svg" class="d-inline-block">
+                                                                    <p class="pl-1 d-inline-block">Message</p>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="about-mobile"    *ngIf="roasteryProfileService.editmode">
+                                                    <p class="sub-header mt-2 mt-md-0">Contacts</p>
+                                                <div class="row mt-3 mx-0 border-div">
+                                                    <div class="p-0">
+                                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                                                    <div class="pull-left">
+                                                        <ul class="details-list p-0 ml-3">
+                                                            <li class="contact-name">Hannah morris</li>
+                                                            <li class="contact-number ">
+                                                                Cupping manager
+                                                            </li>
+                                                            <li class="contact-number ">
+                                                                hannahmorris@royalcoffeerosters
+                                                            </li>
+                                                            <li class="contact-name">+46 793 313 322</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="pull-right ml-auto">
+                                                      <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3 mx-0 border-div">
+                                                    <div class="p-0">
+                                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                                                    <div class="pull-left">
+                                                        <ul class="details-list p-0 ml-3">
+                                                            <li class="contact-name">Molly Jennings</li>
+                                                            <li class="contact-number ">
+                                                                Cupping manager
+                                                            </li>
+                                                            <li class="contact-number ">
+                                                                mollyjkennings@royalcoffeerosters
+                                                            </li>
+                                                            <li class="contact-name">+46 793 313 322</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="pull-right ml-auto">
+                                                      <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3 mx-0 border-div">
+                                                    <div class="p-0">
+                                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                                                    <div class="pull-left">
+                                                        <ul class="details-list p-0 ml-3">
+                                                            <li class="contact-name">Johanna ortiz</li>
+                                                            <li class="contact-number ">
+                                                                Cupping manager
+                                                            </li>
+                                                            <li class="contact-number ">
+                                                                johannaortiz@royalcoffeerosters
+                                                            </li>
+                                                            <li class="contact-name">+46 793 313 322</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="pull-right ml-auto">
+                                                      <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
+                                                    </div>
+                                                </div>
+                                                </div>
+
+                </div>
+              </div>
+      
+              <div class=" col-lg-4">
+                <div class="border-class mdevice-border">
+                  <div class="header m-1">Awards and certificates</div>
+                  <div class="row mt-3 mx-4 border-div" *ngFor = "let certificate of certificatesArray">
+                        <div class="p-0">
+                            <img class="img-estate" src="assets/images/certificate.svg" alt="User"></div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-3">
+                                <li class="estate-name">{{certificate.name}}</li>
+                                <li class="estate-number pt-1">
+                                    {{certificate.year}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right ml-auto">
+                            <a class="menu-arrow" [popover]="listTemplate" placement="bottom" [outsideClick]="true" #pop1="bs-popover">
+                                <img class="message-icon" src="assets/images/ellipses.png" alt="Message">
+                                </a>
+                                <ng-template #listTemplate id="{{certificate.id}}">
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-data custom-popover">
+                                            <li class="list-item"> <a class="pointer-item" (click)="editCertificate($event,certificate);pop1.hide();">Edit </a></li>
+                                            <li class="list-item"><a class="pointer-item" (click)="deleteCertificate(certificate.id);pop1.hide();">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                        </div>
+                    </div>
+                    <!-- <div class="row mt-3 mx-4 border-div">
+                            <div class="p-0">
+                                <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                            <div class="pull-left">
+                                <ul class="details-list p-0 ml-3">
+                                    <li class="estate-name">World Barista Championship</li>
+                                    <li class="estate-number pt-1">
+                                        2010
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="pull-right ml-auto">
+                              <img class="message-icon" src="assets/images/more-opns-file.png" alt="Message">
+                            </div>
+                        </div> -->
+                        <div class="add-brand-div p-4">
+                                <a class="brand-tag" routerLink="/features/license"> 
+                                    <img class="add-field" src="assets/images/add-field.svg">
+                                    <span class="add-text">Add another certificate</span>
+                                </a>
+                            </div>
+
+              
+                </div>
+                <div class="border-class mt-3 mdevice-border">
+                        <div class="header m-1">Employee details</div>
+                        <div class="row">
+                          <div class="form-group col-md-6 emp_count_div px-4 py-2 col-6 mb-0">
+                           <p class="emp_count mb-0">{{roasteryProfileService.employee_nos}}</p>
+                           <label class="emp_text">Total employees</label>
+                          </div>
+                        
+                          <div class="form-group col-md-6 avg_count_div px-4 py-2 col-6 mb-0">
+                           <p class="avg_count mb-0">{{roasteryProfileService.employee_avg}}</p>
+                           <label class="emp_text">Average age</label>
+                          </div>
+                        </div>
+                        <div class="row mt-3 ">
+                            <div class="col-md-12 chart-div">
+                            <div class="oval text-center mx-auto" *ngIf="this.roasteryProfileService.male_num == null && this.roasteryProfileService.female_num == null">
+                                <p class="note">No data to display</p>
+                            </div>
+                            <div class=" text-center mx-auto pie-chart-div">
+                            <ngx-charts-pie-chart
+                            [view]="view"
+                            [scheme]="colorScheme"
+                            [results]="roasteryProfileService.single"
+                            [gradient]="gradient"
+                            [legend]="showLegend"
+                            [legendPosition]="legendPosition"
+                            [labels]="showLabels"
+                            [doughnut]="isDoughnut"
+                            (select)="onSelect($event)"
+                            (activate)="onActivate($event)"
+                            (deactivate)="onDeactivate($event)"
+                            >
+                          </ngx-charts-pie-chart>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>

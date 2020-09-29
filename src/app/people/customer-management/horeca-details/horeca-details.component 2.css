@@ -1,0 +1,191 @@
+.bg-msg {
+    border-radius: 2px;
+    border: solid 1px #747588;
+    color: #747588;
+    padding: 12px 24px;
+}
+
+.message-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.estate-message {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500
+}
+
+.update-now {
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 10px 24px;
+    color: #fff;
+    border: #30855c;
+    margin-left: 1rem;
+}
+
+.ft-roastry-profile {
+    width: 94px;
+}
+
+.royal-cofee {
+    padding: 1rem 0rem;
+}
+
+.bg-fff {
+    padding: 1rem 2rem 2rem 2rem;
+}
+
+.customer-border {
+    width: 100%;
+    padding: 1rem 1rem 3rem 1rem;
+    border-top: 1px solid #d6d6d6;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.active {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #3d8462;
+    padding: 5px 10px;
+}
+
+.disable {
+    font-size: 12px;
+    font-weight: 600;
+    color: #979797;
+    border: solid 0.5px #3d8462;
+    background-color: #ffffff;
+    padding: 5px 10px;
+}
+
+.border-micro-roaster {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+}
+
+.discount-border {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 2rem 1rem 1rem 1rem;
+}
+
+.emp {
+    padding: 2rem 1rem;
+}
+
+.roster-cap {
+    padding: 2rem 1rem;
+    border-right: solid 1px #ebebeb;
+}
+
+.flo-list {
+    margin-bottom: 0;
+    margin-top: -5px;
+}
+
+.flo-list li {
+    float: left;
+    font-size: 12px;
+    padding: 3px 9px 1px 15px;
+    font-weight: 600;
+    margin-right: 5px;
+    color: #747588;
+    position: relative;
+    border-radius: 11.5px;
+    border: solid 0.5px #747588;
+    margin-bottom: 5px;
+}
+
+.honey {
+    padding: 2rem 1rem;
+    display: grid;
+}
+
+.roaster-employee {
+    margin: 1rem;
+}
+
+.capacity-width {
+    max-width: 73%;
+    margin-left: 2%;
+}
+
+.certificates,
+.imp-contact,
+.discount-sec {
+    margin: 1rem 0rem;
+}
+
+.certificates-inner {
+    padding: .5rem 1rem 2rem 1rem;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+.imp-contact-inner {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 1rem;
+}
+
+.customer-status-width {
+    max-width: 48%;
+    margin-left: 2%;
+}
+
+.border-contact {
+    border-right: solid 1px #ebebeb;
+}
+
+.pointer-hand {
+    cursor: pointer;
+}
+
+.active__main {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 6px;
+    margin-right: 14px;
+}
+
+.active_default {
+    background-color: #3d8462;
+    height: 30px;
+    padding: 4px 16px;
+    font-size: 14px;
+    color: #fff !important;
+    border-radius: 4px !important;
+    font-family: Muli;
+    font-weight: 600;
+}
+
+.disable_default {
+    background-color: #ffffff;
+    height: 30px;
+    padding: 4px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #979797;
+    font-family: Muli;
+}
+
+@media (max-width:767px) {
+    .ft-roastry-profile {
+        width: 74px;
+    }
+    .capacity-width,
+    .customer-status-width {
+        max-width: 100%;
+        margin-left: 0%;
+    }
+    .certificates-inner {
+        padding: 1.5rem 1rem 4rem 1rem;
+    }
+    .border-contact {
+        border-right: solid 0px #ebebeb;
+    }
+}

@@ -1,0 +1,112 @@
+.bread-nav{
+    padding-top: 2rem;
+    padding-left: 3rem;
+}
+.cancel_member{
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    color: #30855c;
+    padding: 12px 24px;
+    margin-right: 3rem;
+}
+.cancel_member:hover{
+    background-color: #30855c;
+    color: #ffffff;
+}
+.team__total{
+    padding-left: 3rem;
+    padding-top: 1rem;
+    padding-right: 3rem;
+}
+.add-team{
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+    margin-bottom: 2.2rem;
+}
+.select_title {
+    color: #30855c !important;
+    padding: 5px;
+    border: none;
+    background-color: #ffffff;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+.custom-popover li {
+    list-style: none;
+    padding-right: 4.5rem;
+    border: none!important;
+}
+.content_list {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    padding: 10px 0px 8px 3px;
+    cursor: pointer;
+}
+.content_list:hover{
+    color: #232334;
+    background-color: #f8f8f8;
+}
+::ng-deep .ui-overlaypanel {
+    border: none !important;
+    border-radius: 6px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+    /* margin-top: 16px; */
+    margin-left: -9px;
+}
+::ng-deep .ui-overlaypanel:before {
+    border-bottom-color: #fffafa !important;
+}
+
+::ng-deep .ui-overlaypanel-shifted:after {
+    right: 10.9em !important;
+}
+.addrole_button {
+    border-radius: 4px;
+    border: solid 1px #3d8462;
+    color: #2f845b;
+    background-color: #fff;
+    width: 100%;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #2f845b;
+    font-weight: bold;
+}
+.addrole_button:hover {
+    background-color: #2f845b;
+    color: #ffffff;
+}
+
+.star{
+    color: #ff1e5a;
+}
+.send-invites{
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 24px;
+}
+.rectangle_username,
+.rectangle_useremail {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    height: 46px;
+}
+.add-partner span {
+    color: #80460b;
+    text-decoration: underline;
+}
+.add-partner {
+    cursor: pointer;
+}
