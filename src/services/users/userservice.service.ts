@@ -19,7 +19,7 @@ export class UserserviceService {
   private deleteUrl = environment.apiURL+"/deleteapi";
   private certificatesURL = environment.apiURL+"/ro/certificates";
   private profileImageURL = environment.apiURL+"/ro/uploadfiles";
-  private languageURL = "http://3.7.110.122:8000/language";
+  private languageURL = environment.apiURL+"/language";
 
   // private roasterUrl = "/ro/api";
   // private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";

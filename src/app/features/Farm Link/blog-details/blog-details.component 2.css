@@ -1,0 +1,163 @@
+.bg-fff {
+    padding: 3rem 2rem 2rem 2rem;
+}
+
+.social-head {
+    font-family: Muli;
+    font-size: 24px;
+    font-weight: bold;
+    color: #232334;
+    padding: 0px 16% 0px 0px;
+}
+
+.share-txt {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: 500;
+    color: #232334;
+}
+
+.share-img {
+    width: 17px;
+    height: 17px;
+}
+
+.dwnd-img {
+    width: 15px;
+    height: 15px;
+}
+
+.share-bor {
+    border-radius: 2px;
+    border: solid 2px rgba(116, 117, 136, 0.6);
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.underline {
+    text-decoration: none;
+}
+
+.back {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: 600;
+    color: #80460b;
+}
+
+.december {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    color: #979797;
+}
+
+.blogs-inner-details {
+    padding: 1rem;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+}
+
+.related-post {
+    margin-top: 7rem;
+}
+
+.related-post-details {
+    padding: 1rem .5rem 0rem .5rem;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+}
+
+.blogs-inner-details-para {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.57;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.blog-details-img {
+    width: 100%;
+}
+
+.read-art {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    position: relative;
+    top: 1px;
+}
+
+.border {
+    border-radius: 2px;
+    border: solid 1px #ebebeb;
+    background-color: #ffffff;
+}
+
+.border:hover {
+    box-shadow: 0 22px 54px -10px rgba(223, 223, 223, 0.5);
+}
+
+.fr {
+    float: right;
+}
+
+.farm-stricky {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: 9;
+    padding: 20px 50px;
+    text-align: center;
+    /* margin: 1rem 1rem 0rem 1rem; */
+}
+
+.shar-dwnd {
+    text-align: center;
+    padding: 1rem 0rem;
+}
+
+@media (max-width:767px) {
+    .bg-fff {
+        padding: 1rem 0rem;
+        border-radius: 4px;
+        background-color: unset;
+    }
+    .social-head {
+        padding: 0px;
+    }
+    .fr {
+        float: none;
+    }
+    .blogs-inner-details {
+        padding: 0px;
+        border: none;
+    }
+    .related-post {
+        margin-top: 2rem;
+        padding: 0px;
+    }
+    .related-post-details {
+        padding: 1rem 0rem 0rem 0rem;
+        border-radius: 4px;
+        border: none;
+    }
+    .white-color {
+        background-color: #ffffff;
+    }
+    .rel-post {
+        padding: .5rem 1rem 0rem 1rem;
+    }
+    .grey-bor {
+        border-bottom: 2px dashed #ebebeb;
+    }
+    .blogs-details {
+        padding: 15px 15px 25px 15px;
+        background-color: #ffffff;
+    }
+}

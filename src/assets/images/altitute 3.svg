@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>4CA98B06-9046-4358-9CE2-6716793F4757</title>
+    <g id="Sourcing_Module" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="07_Sourcing" transform="translate(-515.000000, -945.000000)">
+            <g id="Group-9" transform="translate(515.000000, 945.000000)">
+                <g id="Group-21">
+                    <rect id="Rectangle" x="0" y="0" width="38" height="38"></rect>
+                    <g id="Group-20" transform="translate(1.000000, 1.000000)" stroke="#A88057" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2">
+                        <polyline id="Stroke-1" points="7.52843766 18.2903512 12.7688622 9.47368421 20.7247154 21.6840182"></polyline>
+                        <path d="M19.5499105,24.9007339 L25.1418126,14.4416008 L35.2723597,30.9578287 C35.2723597,32.9425231 27.3764576,34.5517965 17.6361799,34.5517965 C7.89590216,34.5517965 -2.35601012e-14,32.9425231 -2.35601012e-14,30.9578287 L2.9093878,26.065912 L7.52843766,18.2903512" id="Stroke-4"></path>
+                        <polygon id="Rectangle" points="7.10526316 3.31578947 12.7894737 0 12.7894737 6.63157895"></polygon>
+                        <polyline id="Stroke-16" points="22.4496591 19.4773907 24.6784265 19.00697 25.6282387 22.897383 26.5063449 20.2167866 30.4960266 23.1720811"></polyline>
+                        <polyline id="Stroke-18" points="10.1170287 14.2955529 12.5374043 13.3810369 17.0313798 16.0147057"></polyline>
+                        <line x1="12.7894737" y1="-1.89589698e-14" x2="12.7894737" y2="9.02977463" id="Stroke-14"></line>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

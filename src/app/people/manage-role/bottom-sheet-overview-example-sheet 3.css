@@ -1,0 +1,84 @@
+.main-data {
+    padding-left: 0;
+    width: 100%;
+    padding-top: 1rem;
+    border-top: 1px solid #dddddd;
+    margin-bottom: 0;
+}
+
+.main-data li {
+    list-style: none;
+}
+
+
+/* .main-data  li:nth-child(1){width: 15%;} */
+
+.main-data li:nth-child(2) {
+    width: 15%;
+    /* padding-left: 5%; */
+    padding-right: 5%;
+}
+
+.main-data li:nth-child(3) {
+    width: 15%;
+}
+
+.main-data li:nth-child(4) {
+    width: 15%;
+}
+
+
+/* .accordion .card {
+    border: none;
+    margin-bottom: 20px;
+} */
+
+.accordion .card h2 {
+    /* background: url(../../../assets/images/arrow-up.png) no-repeat calc(0% - -15px) center; */
+    padding-left: 3rem;
+    background-size: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.card-body {
+    padding: 0.25rem;
+    padding-bottom: 1rem;
+}
+
+.image-class {
+    width: 15px;
+    height: 15px;
+}
+
+.card-header {
+    padding: 0 !important;
+    background-color: unset !important;
+    border-bottom: none !important;
+}
+
+.round-mangarole {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #fff;
+    border: 1px solid #a88057;
+    position: relative;
+    padding: 2px 7px;
+    background-color: #c29d7a !important;
+    margin-right: 2rem;
+}
+
+.menu-list {
+    font-size: 14px;
+    color: #3d8462;
+    font-family: Muli;
+}
+
+.rename {
+    border-right: 1px solid #dddddd;
+}
+
+::ng-deep .mat-bottom-sheet-container {
+    padding: 0px 16px !important;
+}

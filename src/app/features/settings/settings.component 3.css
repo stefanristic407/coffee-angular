@@ -1,0 +1,123 @@
+.page-breadcrumb {
+    background-color: #FFFFFF;
+    margin: 1% 0.5% 0 1%;
+}
+
+.breadcrumb-item a {
+    color: #747588;
+}
+
+.breadcrumb-item.active {
+    color: #232334;
+}
+
+a.b-cum:hover {
+    color: #232334;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.page-wrapper {
+    background-color: #FFFFFF;
+}
+
+.dashboard-button {
+    height: 241px;
+    width: 100%;
+    border-radius: 2px;
+    border: solid 1px #ebebeb;
+    background-color: #FFFFFF;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+}
+
+.logo-img {
+    bottom: 2px;
+    position: relative;
+}
+
+.dashboard-button:hover {
+    border: solid 1px #30855c;
+    box-shadow: 0 22px 54px -10px rgba(223, 223, 223, 0.5);
+}
+
+
+
+.btn-name {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    margin-top: 5%;
+}
+
+.btn-content {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: center;
+    color: #747588;
+}
+
+.breadcrumb1 {
+    padding: 2rem 2rem 0rem 2rem;
+}
+
+.mobile-view{
+    display: none;
+}
+@media screen and (max-width : 425px){
+    .mobile-view{
+        display: block;
+    }
+    .desk-view{
+        display: none;
+    }
+    .dashboard-button{
+        height: 50px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 2px;
+    }
+    .btn-name{
+        font-size: 14px;
+        margin-top: 1%;
+        margin-left: 5%;
+        font-weight: 600;
+        font-family: Muli;
+
+    }
+    .mob-header{
+        font-family: Muli;
+        font-size: 16px;
+        font-weight: bold;
+        color: #232334;
+    }
+    .back-ticket{
+        color: #80460b;
+        font-size:16px;
+        font-family: Muli;
+        font-weight: 600;
+    }
+    .icon-img{
+        position: relative;
+        top: 4px;
+    }
+    .logo-img{
+        top: 2px;
+        height: 24px;
+        width: 24px;
+    }
+    .pad-bottom{
+        padding-bottom: 6rem;
+    }
+}
