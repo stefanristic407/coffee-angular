@@ -25,19 +25,19 @@
                         </form>
                     </div>
                     <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
-                        <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2">
-                            <a href="javascript:void(0)" class="d-inline-block">
+                        <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                            <a href="javascript:void(0)" class="d-inline-block image-card">
                                 <img class="img" src="assets/images/add.svg">
                             </a>
                         </li>
-                        <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2">
-                            <a class="d-inline-block cursor-pointer start-messaging">
+                        <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                            <a class="d-inline-block cursor-pointer start-messaging image-card">
                                 <img class="img" src="assets/images/mess.svg">
                             </a>
                         </li>
-                        <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2">
-                            <a href="javascript:void(0)" class="d-inline-block">
-                                <img class="img" src="assets/images/notification.svg">
+                        <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                            <a href="javascript:void(0)" class="d-inline-block image-card">
+                                <img class="img" src="assets/images/notification.svg ">
                             </a>
                         </li>
                         <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
@@ -48,7 +48,7 @@
                                 <div class="profile-link__info pl-lg-1 float-right">
                                     <div>
                                         <a class="profile-name" role="button" [popover]="popTemplate" placement="bottom" #pop2="bs-popover" container="body" [outsideClick]="true">
-                                            <h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont">{{userName}} <span class="pl-1"><img src="assets/images/triangle.svg"> </span></h6>
+                                            <span class="pl-1 col-2 float-right"><img src="assets/images/triangle.svg"> </span><h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont text-overflow-ellipsis col-10">{{userName}}</h6>
                                             <span class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2" style="transform: translateY(-10px);">Admin</span>
                                         </a>
                                         <ng-template #popTemplate>
@@ -104,13 +104,25 @@
                                                 Orders</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../ordermanagement/roaster-orders">{{appLanguage.roaster_orders}}</a>
+                                            <a class="router-link" routerLink="../ordermanagement/microroaster-orders">{{appLanguage.microroaster_orders}}</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../ordermanagement/horeca-orders">{{appLanguage.facilitator_orders}}</a>
+                                            <a class="router-link">{{appLanguage.horeca_orders}}</a>
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="nav-links__item d-md-inline-block position-relative">
+                                    <a class="d-inline-block fnt-600" routerLink="../features/green-coffee-inventory">{{appLanguage.inventory}}
+                                    </a>
+                                </li>
+                                <li class="nav-links__item d-md-inline-block position-relative">
+                                    <a class="d-inline-block fnt-600" routerLink="../features/roasted-coffee-batch">{{appLanguage.ecommerce}}
+                                    </a>
+                                </li>
+                                <!-- <li class="nav-links__item d-md-inline-block position-relative">
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.insights}}
+                                    </a>
+                                </li> -->
                                 <li class="nav-links__item arrow d-inline-block position-relative">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.farm_link}}
                                     </a>
@@ -132,14 +144,6 @@
                                         </li>
 
                                     </ul>
-                                </li>
-                                <li class="nav-links__item d-md-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600"  routerLink="../features/roasted-coffee-batch">{{appLanguage.ecommerce}}
-                                    </a>
-                                </li>
-                                <li class="nav-links__item d-md-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.insights}}
-                                    </a>
                                 </li>
                                 <li class="nav-links__item arrow d-inline-block position-relative">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.people}}

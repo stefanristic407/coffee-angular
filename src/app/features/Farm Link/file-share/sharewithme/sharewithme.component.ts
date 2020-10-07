@@ -14,6 +14,7 @@ import { FileShareService } from '../file-share.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
+import { GlobalsService } from 'src/services/globals.service';
 declare var $ :any;
 
 @Component({
@@ -44,13 +45,15 @@ export class SharewithmeComponent implements OnInit {
   fileNameError: string;
   filedescriptionError: string;
   files: any;
+  appLanguage: any;
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
     private roasterService : RoasterserviceService,
     private toastrService : ToastrService,
     public fileService : FileShareService,
-    public modalService:BsModalService) {
+    public modalService:BsModalService,
+    private globals : GlobalsService) {
       this.roasterId = this.cookieService.get('roaster_id');
 			// this.mainData = 
 			// 	[
@@ -90,6 +93,7 @@ export class SharewithmeComponent implements OnInit {
   }
 
      ngOnInit(): void {
+      this.appLanguage = this.globals.languageJson;
       //Auth checking
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);

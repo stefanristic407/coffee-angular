@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service'
 import { environment } from 'src/environments/environment';
-
+import {GlobalsService} from 'src/services/globals.service';
 
 import { ToastrService } from 'ngx-toastr';
 declare var $: any;
@@ -34,12 +34,15 @@ export class DirectMessagingComponent implements OnInit {
 	searchResult: any;
 	keyword: string;
 	threadLastMessages : any;
+	appLanguage: any;
+
 	constructor(
 		private modalService: BsModalService,
 		private toastrService: ToastrService,
 		private cookieService: CookieService,
 		private userSevice: UserserviceService,
-		private roasterService: RoasterserviceService
+		private roasterService: RoasterserviceService,
+		private globals: GlobalsService
 	) {
 		this.keyword = 'firstname'
 		this.wsURL = environment.wsEndpoint;
@@ -58,6 +61,8 @@ export class DirectMessagingComponent implements OnInit {
 		this.subject.next(authCheck);
 		this.subject.subscribe(
 			msg => {
+				console.log('message received: ')
+				console.log(msg);
 				if (msg['type'] == "history") {
 					if (msg['data'] != null) {
 						this.getCurrentUser(this.activeThread);
@@ -69,11 +74,13 @@ export class DirectMessagingComponent implements OnInit {
 							element['currentUser'] = currentUser;
 							this.threadsMessageData[this.activeThread].push(element);
 						});
+						console.log(this.threadsMessageData);
 					}
 					var allMessages = $('.live-chat-message-body');
 					allMessages.scrollTop = allMessages.scrollHeight;
 				} else if (msg['type'] == "threads") {
 					//Get all threads for logged in user
+					//console.log("Messages Threads");
 					this.threadsData = [];
 					if (msg['data'] != null) {
 						msg['data'].forEach(element => {
@@ -92,8 +99,11 @@ export class DirectMessagingComponent implements OnInit {
 								this.threadLastMessages[element['id']] = {};
 								this.threadLastMessages[element['id']]['content'] = element['content'];
 								this.threadLastMessages[element['id']]['created_at'] = element['created_at'];
+								// this.threadsMessageData[element['id']]['messages'] = [];
+								// this.threadsMessageData[element['id']]['currentUser'] = element['member_id'];
 							}
 						});
+						console.log(this.threadLastMessages);
 					} else {
 						this.threadsData = null;
 					}
@@ -109,7 +119,10 @@ export class DirectMessagingComponent implements OnInit {
 							}
 						});
 						this.threadsData.push(msg['data']);
+						//this.threadsMessageData[msg['data']['id']] = {};
 						this.threadsMessageData[msg['data']['id']] = [];
+						//this.threadsMessageData[msg['data']['id']] = -1;
+						//this.threadCurrentUser = -1;
 					}
 				} else if (msg['type'] == 'message') {
 					if (msg['data'] != null) {
@@ -125,6 +138,8 @@ export class DirectMessagingComponent implements OnInit {
 						}
 						
 					}
+					console.log("Message Data");
+					console.log(this.threadsMessageData);
 					var allMessages = $('.live-chat-message-body');
 					allMessages.scrollTop = allMessages.scrollHeight;
 				}
@@ -194,12 +209,14 @@ export class DirectMessagingComponent implements OnInit {
 		if (!($('.chat').hasClass('expand-active'))) {
 			$('.chat-control__expand').show();
 		}
+		//event.stopImmediatePropagation();
 
 
 
 	}
 
 	ngOnInit(): void {
+		this.appLanguage = this.globals.languageJson;
 	}
 	deleteChat() {
 		this.openModal(this.deletetemplate);

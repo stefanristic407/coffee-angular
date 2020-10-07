@@ -23,7 +23,8 @@
     border-radius: 4px;
     width: 100%;
 }
-.role-stricky{
+
+.role-stricky {
     /* position: fixed;
     left: 0;
     right: 0;
@@ -33,10 +34,10 @@
     /* padding: 5px 32px;  */
     margin-bottom: 4rem;
 }
+
 .bread-nav {
     padding-left: 3rem;
     padding-top: 2rem;
-
 }
 
 .create-role {
@@ -75,6 +76,8 @@
     border: solid 1px #cccccc;
     background-color: #ffffff;
 }
+
+
 /* 
 .border-role {
     border-left: 1px solid #cccccc;
@@ -173,8 +176,9 @@ a.b-cum:hover {
     margin-left: 4px;
     margin-top: -4px;
 }
-:host ::ng-deep .ui-tree .ui-tree-filter-container{
-    padding:0.4em 0;
+
+:host ::ng-deep .ui-tree .ui-tree-filter-container {
+    padding: 0.4em 0;
 }
 
 :host ::ng-deep .ui-tree {
@@ -225,8 +229,8 @@ a.b-cum:hover {
     color: #232334;
 }
 
-:host ::ng-deep  .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label{
-font-weight: 600;
+:host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label {
+    font-weight: 600;
 }
 
 :host ::ng-deep .ui-treenode .ui-treenode-leaf {
@@ -265,8 +269,9 @@ font-weight: 600;
     border: 1px solid #979797;
     border-radius: 2px;
 }
-:host ::ng-deep .ui-chkbox .ui-chkbox-box:hover{
-    border-color: #979797 !important; 
+
+:host ::ng-deep .ui-chkbox .ui-chkbox-box:hover {
+    border-color: #979797 !important;
 }
 
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content:focus {
@@ -280,7 +285,8 @@ font-weight: 600;
 .clear {
     clear: both;
 }
-.create-stricky{
+
+.create-stricky {
     /* position: fixed;
     left: 0;
     right: 0;
@@ -289,6 +295,7 @@ font-weight: 600;
     background-color: #fff;
     padding: 5px 32px; */
 }
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
      :host ::ng-deep .ui-tree {
         width: 100% !important;
@@ -307,18 +314,40 @@ font-weight: 600;
         right: 91%;
         font-size: 1.2em !important;
     }
-    .padd-top {padding-top: 0.9rem;padding-left: 16px; padding-right: 16px;}
-    .border-role {border-left: none;padding-left: 0rem;}
-    .bread-nav {padding-left: 16px;padding-top: 0;}
-    .create-role {padding:0;border: none;}
-    .mob-padding{padding: 0 0 1rem;}
-    .create-role-title{font-size: 16px;}
-    .role-name{font-size: 14px;color: #232334;}
-    .rectangle_name{font-size: 14px !important;}
-    :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler{
-        float: left !important; 
+    .padd-top {
+        padding-top: 0.9rem;
+        padding-left: 16px;
+        padding-right: 16px;
     }
-    :host ::ng-deep .pi-caret-down:before{
+    .border-role {
+        border-left: none;
+        padding-left: 0rem;
+    }
+    .bread-nav {
+        padding-left: 16px;
+        padding-top: 0;
+    }
+    .create-role {
+        padding: 0;
+        border: none;
+    }
+    .mob-padding {
+        padding: 0 0 1rem;
+    }
+    .create-role-title {
+        font-size: 16px;
+    }
+    .role-name {
+        font-size: 14px;
+        color: #232334;
+    }
+    .rectangle_name {
+        font-size: 14px !important;
+    }
+     :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler {
+        float: left !important;
+    }
+     :host ::ng-deep .pi-caret-down:before {
         content: none !important;
     }
 }

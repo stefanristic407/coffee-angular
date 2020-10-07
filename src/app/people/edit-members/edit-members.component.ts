@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from 'src/services/globals.service';
 
 
 @Component({
@@ -18,12 +19,13 @@ export class EditMembersComponent implements OnInit {
   member_role: string = "";
   memberNameError: string;
   memberEmailError: string;
-  memberRoleError: string;
-
+  memberRoleError: string; 
+  appLanguage: any;
   emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   constructor(private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private globals: GlobalsService
     ) { }
 
   ngOnInit(): void {
@@ -31,6 +33,8 @@ export class EditMembersComponent implements OnInit {
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
+    this.appLanguage = this.globals.languageJson;
+
     $('.btn-toggle').click(function () {
       $(this).find('.btn').toggleClass('active');
       $(this).find('.btn').toggleClass('active_default');

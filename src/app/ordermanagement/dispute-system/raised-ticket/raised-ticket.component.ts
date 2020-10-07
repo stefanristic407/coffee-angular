@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class RaisedTicketComponent implements OnInit {
 	term: any;
   roasterId : any;
+  odd: boolean = false ;
 	public data: any[] = [
 		// { orderid: '81671', estatename: 'Finca La Pampa', dateraised: '24 Jan 2020', disputetype: 'Payment', status: 'Open' },
 		// { orderid: '56076', estatename: 'Gesha', dateraised: '21 Jan 2020', disputetype: 'Getting Started', status: 'Resolved' },
@@ -336,17 +337,16 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
       data => {
         if ( data['success'] == true ) {
           if ( data['result'] == null || data['result'].length == 0) {
+            this.odd = true ;
             this.toastrService.error("Table Data is empty");
           }
           else {
+            this.odd = false ;
             this.data = data['result'];
           }
         } 
-        else if( data['success'] == false){
-          this.toastrService.error("Table Data is empty");
-        }
         else {
-          
+          this.odd = true ;
           this.toastrService.error("Error while getting the agreement list!");
         }
       }

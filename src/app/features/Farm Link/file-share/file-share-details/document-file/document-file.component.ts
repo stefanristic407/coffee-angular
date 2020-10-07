@@ -11,6 +11,7 @@ import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-document-file',
   templateUrl: './document-file.component.html',
@@ -56,6 +57,7 @@ export class DocumentFileComponent implements OnInit {
 
   
   selectedValue: string;
+  appLanguage: any;
   constructor(public router: Router,
               public roasterService : RoasterserviceService,
               public toastrService : ToastrService,
@@ -63,7 +65,8 @@ export class DocumentFileComponent implements OnInit {
               public cookieService : CookieService,
               public route : ActivatedRoute,
     private modalService: BsModalService,
-    public filedetailsService : FileShareDetailsService) {
+    public filedetailsService : FileShareDetailsService,
+    private globals: GlobalsService) {
                 this.roasterId = this.cookieService.get('roaster_id');
                 //this.filedetailsService.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
                 // this.route.queryParams.subscribe(params => {
@@ -83,6 +86,7 @@ export class DocumentFileComponent implements OnInit {
        if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
+      this.appLanguage = this.globals.languageJson;
       // this.filedetailsService.parentId = this.filedetailsService.folderId;
       // console.log(this.filedetailsService.parentId);
       // this.filedetailsService.getFilesandFolders();

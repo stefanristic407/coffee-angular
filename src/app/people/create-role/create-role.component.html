@@ -7,15 +7,15 @@
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
         <li class="b-cum">
-            <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum">{{appLanguage.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
         <li class="b-cum">
-            <a class="b-cum" routerLink="/people/manage-role">Manage roles</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum" routerLink="/people/manage-role">{{appLanguage.manage_roles}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
-        <li class="b-cum c-pink">Create role</li>
+        <li class="b-cum c-pink">{{appLanguage.create_role}}</li>
         <button type="submit" *ngIf="roleflag" class="btn  pull-right add-role-butn d-md-block d-none" (click)="roleAdd()" [disabled]="loginButtonValue==='Adding'">
                 {{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Adding'" src="assets/images/orange-loader.gif"/> </button>
         <button type="submit" *ngIf="!roleflag" class="btn pull-right add-role-butn d-md-block d-none" (click)="roleAdd()" [disabled]="updateButtonValue==='Updating'">
@@ -29,11 +29,11 @@
         <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-12 p-md-0 p-0">
                 <div class="create-role">
-                    <h4 class="create-role-title"> Create role</h4>
+                    <h4 class="create-role-title">{{appLanguage.create_role}}</h4>
                     <form class="form-container">
                         <div class="form-group row pt-2">
                             <div class="form-group col-md-10">
-                                <label class="role-name">Give your role a name</label>
+                                <label class="role-name">{{appLanguage.give_your_role_a_name}}</label>
                                 <input type="text" class="form-control rectangle_name" id="roleName" placeholder="Please enter your role" (keyup)="onKeyPress($event)" [(ngModel)]="role" name="role" required>
                                 <div class="role-error" *ngIf="roleError != ''">{{roleError}}</div>
                             </div>
@@ -45,7 +45,7 @@
             <div class="col-lg-7 col-md-7 col-sm-12 pr-md-0 mob-padding">
 
                 <div class="create-role border-role">
-                    <h4 class="create-role-title mb-md-3 mb-2"> Manage permissions for the role</h4>
+                    <h4 class="create-role-title mb-md-3 mb-2">{{appLanguage.manage_permissions}}</h4>
                     <p-tree [value]="permissionList" selectionMode="checkbox" [(selection)]="selectedFile" [filter]="true" filterPlaceholder="Search by role" expanded="true"></p-tree>
                     <div class="clear"></div>
 
@@ -53,15 +53,15 @@
 
             </div>
         </div>
-       
+
 
 
     </div>
     <div class="role-stricky col-12 d-md-none d-block">
-            <button type="button" *ngIf="roleflag" class="add-role-butn-mobile  mt-3" (click)="roleAdd()" [disabled]="loginButtonValue==='Adding'">
+        <button type="button" *ngIf="roleflag" class="add-role-butn-mobile  mt-3" (click)="roleAdd()" [disabled]="loginButtonValue==='Adding'">
                     {{loginButtonValue}}<img class="loader" *ngIf="loginButtonValue==='Adding'" src="assets/images/orange-loader.gif"/> </button>
-            <button type="button" *ngIf="!roleflag" class="add-role-butn-mobile mt-3"  (click)="roleAdd()" [disabled]="updateButtonValue==='Updating'">
+        <button type="button" *ngIf="!roleflag" class="add-role-butn-mobile mt-3" (click)="roleAdd()" [disabled]="updateButtonValue==='Updating'">
                             {{updateButtonValue}}<img class="loader" *ngIf="updateButtonValue==='Updating'" src="assets/images/orange-loader.gif"/>  </button>
-        </div>
+    </div>
 
 </section>

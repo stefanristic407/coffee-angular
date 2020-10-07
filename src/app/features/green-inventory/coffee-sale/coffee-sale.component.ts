@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-coffee-sale',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./coffee-sale.component.css']
 })
 export class CoffeeSaleComponent implements OnInit {
+  appLanguage: any;
 
-  constructor() { }
+  constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
   }
 
 }

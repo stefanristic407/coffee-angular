@@ -3,20 +3,20 @@
         <span class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" >Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum">Sourcing Module</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum">{{appLanguage.inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
-            <li class="b-cum c-pink">Green coffee inventory</li>
+            <li class="b-cum c-pink">{{appLanguage.green_coffee_inventory}}</li>
             <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
 
         </ul>
     </nav>
 
     <section class="estate-orders-heading">
-        <h5 class="estate-order-title pt-3">Green coffee inventory</h5>
+        <h5 class="estate-order-title pt-3">{{appLanguage.green_coffee_inventory}}</h5>
         <p class="Give-your-end-users">Manage your procured coffee and mark coffee for sale</p>
         <!-- <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
             <li class="nav-item">
@@ -32,11 +32,11 @@
             <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
             <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill" href="#pills-land-lots" role="tab" aria-controls="pills-home" aria-selected="true">Procured Coffee</a>
+                    <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill" href="#pills-land-lots" role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage.procured_coffee}}</a>
                 </li>
     
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill" href="#pills-batch-status" role="tab" aria-controls="pills-profile" aria-selected="false">Marked for sale</a>
+                    <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill" href="#pills-batch-status" role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage.marked_sale}}</a>
                 </li>
     
             </ul>
@@ -46,13 +46,12 @@
 
 
     <section class="estate-orders col-lg-12">
-
         <div class="row web-farm">
             <div class="d-inline table-w  mobile-filiters-farm">
                 <div class="title-header d-inline desk_view_user">
                     <div class="d-inline border-order role-div col-sm-6 web-farm" id="origin_id">
                         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">All origins&nbsp;</p>
+                        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">{{appLanguage.all_origins}}&nbsp;</p>
                         <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
                                 &nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -66,7 +65,7 @@
                     </div>&nbsp;&nbsp;
                     <div class="d-inline border-order role-div col-sm-6 web-farm" id="status_id">
                         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                        <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">Status&nbsp;</p>
+                        <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">{{appLanguage.status}}&nbsp;</p>
                         <a class="pointer-item" [popover]="statusTemplate" placement="bottom" container="body" #pop4="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermStatus == ''" (click)="toggleStatus()">
                                 &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />

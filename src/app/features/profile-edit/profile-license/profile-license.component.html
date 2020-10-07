@@ -21,14 +21,14 @@
                         <hr class="mob">
                         <span class="button-div pull-left">
                           <button type="button" id="edit-btn" class="btn edit-btn">
-                            <img src="assets/images/edit.png" class="edit-img" />Edit</button
+                            <img src="assets/images/edit.png" class="edit-img" />{{appLanguage.edit}}</button
                           ><span class="name bar">|</span>
                           <button type="button" id="del-btn" class="btn del-btn" (click)="deleteCertificate(saveddata.id)">
-                            <img src="assets/images/delete.png" class="del-img" />Delete
+                            <img src="assets/images/delete.png" class="del-img" />{{appLanguage.delete}}
                           </button>
                           <span class="name bar">|</span>
                           <button type="button" id="view-btn" class="btn view-btn">
-                            View
+                            {{appLanguage.view}}
                           </button>
                   
                           <!-- click function remove edit and delete-->
@@ -58,14 +58,14 @@
                             <hr class="mob">
                             <span class="button-div pull-right">
                               <button type="button" id="edit-btn" class="btn edit-btn">
-                                <img src="assets/images/edit.png" class="edit-img" />Edit</button
+                                <img src="assets/images/edit.png" class="edit-img" />{{appLanguage.edit}}</button
                               ><span class="name bar">|</span>
                               <button type="button" id="del-btn" class="btn del-btn" (click)="deleteCertificate(saveddata.id)">
-                                <img src="assets/images/delete.png" class="del-img" />Delete
+                                <img src="assets/images/delete.png" class="del-img" />{{appLanguage.delete}}
                               </button>
                               <span class="name bar">|</span>
                               <button type="button" id="view-btn" class="btn view-btn">
-                                View
+                                {{appLanguage.view}}
                               </button>
                       
                               <!-- click function remove edit and delete-->
@@ -86,7 +86,7 @@
                           <div class="col-lg-12">
                               <div class="pull-left mr-auto">
                                 <span class="text-data">
-                                    Who can view :  
+                                    {{appLanguage.who_can_view}} :  
                                 </span>
                                 <span>
                                         <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
@@ -98,7 +98,7 @@
                               </div>
                               <div class="pull-right ml-auto desk">
                                 <span class="descr"> 
-                                    This certificate is only visible to you.
+                                    {{appLanguage.certificate_visibility_text}}.
                                 </span>
                               </div>
                           </div>
@@ -107,7 +107,7 @@
                         <div class="form_content">
                           <div class="form-group row pt-4">
                             <div class="form-group col-lg-6 col-md-8">
-                              <label class="role-name">Certification name</label>
+                              <label class="role-name">{{appLanguage.certification_name}}</label>
                               <input
                                 type="text"
                                 class="form-control rectangle_name"
@@ -127,7 +127,7 @@
                               </div>
                             </div>
                             <div class="form-group col-lg-4 col-md-8 col-sm-12">
-                              <label class="role-name">Year of certification</label>
+                              <label class="role-name">{{appLanguage.year_of_certification}}</label>
                               <select
                                 class="form-control rectangle_name cert-year role_edit"
                                 [(ngModel)]="licensedata.year"
@@ -188,7 +188,7 @@
                               </div>
                             </div>
                             <div class="form-group col-lg-3 col-md-6">
-                              <label class="role-name">Upload certificate logo</label>
+                              <label class="role-name">{{appLanguage.upload_certificate_logo}}</label>
                               <input
                                 type="file"
                                 accept="application/pdf, image/jpeg, image/png"
@@ -204,10 +204,10 @@
                                   for="attachFile_{{ licensedata.id }}"
                                   class="form-control rectangle_name attachImage"
                                   ><img class="galleryImg" src="assets/images/gallery.png" /> &nbsp;
-                                  Attach</label
+                                  {{appLanguage.attach}}</label
                                 >
                                 <p id="image_info" class="role-name word-break">
-                                  You can upload a JPG or PNG, PDF file.Max file size limit 2MB
+                                  {{appLanguage.you_can_upload}}
                                 </p>
                                 <!-- <div class="certificationFileError" *ngIf="certificationFileError != ''">{{certificationFileError}}</div> -->
                               </div>
@@ -249,7 +249,7 @@
                                   (click)="savecertificate(licensedata.id, $event)"
                                 ><span
                                     class="upload-text"
-                                    >Save</span
+                                    >{{appLanguage.save}}</span
                                   >
                                 </button>
                                 <span class="v-line" *ngIf="i > 0">|</span>
@@ -262,7 +262,7 @@
                                 >
                                   <img src="assets/images/delete.png" class="upload-img" /><span
                                     class="upload-text"
-                                    >Delete</span
+                                    >{{appLanguage.delete}}</span
                                   >
                                 </button>
                               </div>
@@ -311,14 +311,14 @@
                             <div id="status-content">
                                 <ul class="list-group custom-popover">
                                     <li class="list-group-item item-color">
-                                        <a class="pointer-item" (click)="setStatus('Only me');toggleRelavant()">Only me</a
+                                        <a class="pointer-item" (click)="setStatus('Only me');toggleRelavant()">{{appLanguage.only_me}}</a
                                       >
                                     </li>
                                     <li class="list-group-item item-color">
                                       <a
                                         class="pointer-item"
                                         (click)="setStatus('Anyone on platform');toggleRelavant()"
-                                        >Anyone on platform</a
+                                        >{{appLanguage.anyone_platform}}</a
                                       >
                                     </li>
                                   

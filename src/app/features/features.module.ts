@@ -37,7 +37,9 @@ import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import {MatVideoModule} from 'mat-video';
-
+import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
 import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
@@ -59,7 +61,6 @@ import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.co
 import { EstateDetailsListComponent } from './Sourcing/estate-details-list/estate-details-list.component';
 import { AvailableCoffeeListComponent } from './Sourcing/available-coffee-list/available-coffee-list.component';
 import { OverviewComponent } from './Sourcing/estate-details-list/overview/overview.component';
-import { AboutFormComponent } from './Sourcing/estate-details-list/about-form/about-form.component';
 import { LandLotsComponent } from './Sourcing/estate-details-list/land-lots/land-lots.component';
 import { OverviewRatingsComponent } from './Sourcing/estate-details-list/overview-ratings/overview-ratings.component';
 import { RatingModule } from 'ng-starrating';
@@ -138,7 +139,6 @@ import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component'
     EstateDetailsListComponent,
     AvailableCoffeeListComponent,
     OverviewComponent,
-    AboutFormComponent,
     LandLotsComponent,
     OverviewRatingsComponent,
     SourcingOrderChatComponent,
@@ -208,7 +208,16 @@ import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component'
     ErrorModuleModule,
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),
-    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true })
+    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => {
+          return new TranslateHttpLoader(http, "./assets/multi-lang/", ".json");
+        },
+        deps: [HttpClient]
+      }
+    }),
   ]
 })
 export class FeaturesModule {}

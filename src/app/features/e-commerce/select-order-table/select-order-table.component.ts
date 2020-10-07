@@ -6,15 +6,16 @@ import { DashboardserviceService } from 'src/services/dashboard/dashboardservice
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
-  selector: 'app-select-order-table',
-  templateUrl: './select-order-table.component.html',
-  styleUrls: ['./select-order-table.component.css']
+	selector: 'app-select-order-table',
+	templateUrl: './select-order-table.component.html',
+	styleUrls: ['./select-order-table.component.css']
 })
 export class SelectOrderTableComponent implements OnInit {
 
-  estateterm: any;
+	estateterm: any;
 	estatetermStatus: any;
 	estatetermType: any;
 	estatetermOrigin: any;
@@ -22,16 +23,17 @@ export class SelectOrderTableComponent implements OnInit {
 	selected: Date[];
 	rangeDates: any;
 	showOrigin: boolean = true;
-  showType:boolean = true;
-  showStatus:boolean = true;
-  showDisplay:boolean =true;
-  
-	@ViewChild(DataTableDirective, {static: false})
+	showType: boolean = true;
+	showStatus: boolean = true;
+	showDisplay: boolean = true;
+	odd: boolean = false;
+
+	@ViewChild(DataTableDirective, { static: false })
 	datatableElement: DataTableDirective;
 	showDateRange: any;
-	roasterId :any ;
+	roasterId: any;
 	@ViewChild('calendar')
-  	calendar: any;
+	calendar: any;
 	//dtInstance:DataTables.Api;
 
 	// Static Estate Orders Data List
@@ -41,36 +43,40 @@ export class SelectOrderTableComponent implements OnInit {
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
 	};
+	appLanguage: any;
+
 	constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
 		private roasterService: RoasterserviceService,
-		private toastrService: ToastrService,) {
-			this.roasterId = this.cookieService.get('roaster_id');
-			this.data = {};
-			// this.data = 
-			// 	[
-        //   { orderid: '1000', estatename: 'Finca La Pampa', dataordered: '24 Jan 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
-        // { orderid: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
-        // { orderid: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '29kg',cuppingscore:'81.5' },
-        // { orderid: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-', cuppingscore:'84.5' },
-        // { orderid: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
+		private toastrService: ToastrService,
+		private globals: GlobalsService) {
+		this.roasterId = this.cookieService.get('roaster_id');
+		this.data = {};
+		// this.data = 
+		// 	[
+		//   { orderid: '1000', estatename: 'Finca La Pampa', dataordered: '24 Jan 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
+		// { orderid: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
+		// { orderid: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '29kg',cuppingscore:'81.5' },
+		// { orderid: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-', cuppingscore:'84.5' },
+		// { orderid: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
 		// { orderid: '1005', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'86' },
 		// { orderid: '1006', estatename: 'Finca La Pampa', dataordered: '24 Jan 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-', cuppingscore:'84.5' },
-    //     { orderid: '1007', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
-    //     { orderid: '1008', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '29kg',cuppingscore:'81.5' },
-    //     { orderid: '1009', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
-    //     { orderid: '1010', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
-    //     { orderid: '1011', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'86' },
-			// ];
-			// this.mainData = this.data;
-		 }
+		//     { orderid: '1007', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '297kg',cuppingscore:'88' },
+		//     { orderid: '1008', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '29kg',cuppingscore:'81.5' },
+		//     { orderid: '1009', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia',variety:'Bourbon', quantity: '-',cuppingscore:'84.5' },
+		//     { orderid: '1010', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'85.5' },
+		//     { orderid: '1011', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia',variety:'Bourbon', quantity: '-',cuppingscore:'86' },
+		// ];
+		// this.mainData = this.data;
+	}
 
 	ngOnInit(): void {
 		//Auth checking
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		}
+		this.appLanguage = this.globals.languageJson;
 
 		this.dtOptions = {
 			//ajax: this.data,
@@ -80,38 +86,40 @@ export class SelectOrderTableComponent implements OnInit {
 			lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			processing: true,
 			language: { search: "" },
-			columns:[
-				{title: '' , 
-				 className: "select-checkbox", 
-				defaultContent:'<input type="radio" name="optradio" class="radio-box">'},
+			columns: [
 				{
-					title: 'Order ID',
+					title: '',
+					className: "select-checkbox",
+					defaultContent: '<input type="radio" name="optradio" class="radio-box">'
+				},
+				{
+					title: this.appLanguage.order_id,
 					data: 'id'
 				}, {
-					title: 'Estate name',
+					title: this.appLanguage.estate_name,
 					data: 'estate_name'
 				}, {
-					title: 'Date ordered',
+					title: this.appLanguage.date_ordered,
 					data: 'created_at'
 				},
 				{
-					title: 'Origin',
+					title: this.appLanguage.origin,
 					data: 'origin',
-					
-				}, 
+
+				},
 				{
-					title: 'Variety',
+					title:  this.appLanguage.species,
 					data: 'variety',
-					
-				}, 
-			
+
+				},
+
 				{
-					title: 'Quantity',
+					title: this.appLanguage.quantity,
 					data: 'quantity'
-				}, 
-				
+				},
+
 				{
-					title: "Cupping score",
+					title: this.appLanguage.cupping_score,
 					data: "quantity_count",
 				}
 			],
@@ -119,18 +127,18 @@ export class SelectOrderTableComponent implements OnInit {
 			// 	const self = this;
 			// 	if($(row).children('td.typeoforderclass').html() == "Booked"){
 			// 		$(row).children('td.typeoforderclass').html('<span class="typeoforder-Booked">&#9679; Booked</span>');
-					
+
 			// 	}
 			// 	if($(row).children('td.typeoforderclass').html() == "Sample"){
 			// 		$(row).children('td.typeoforderclass').html('<span class="typeoforder-Sample">&#9679; Sample</span>');
-					
+
 			// 	}
 			// 	if($(row).children('td.typeoforderclass').html() == "Pre-Booked"){
 			// 		$(row).children('td.typeoforderclass').html('<span class="typeoforder-Pre-Booked">&#9679; Pre-Booked</span>');
-					
+
 			// 	}
 			// },
-			
+
 		};
 		this.estatetermStatus = '';
 		this.estatetermOrigin = '';
@@ -183,29 +191,29 @@ export class SelectOrderTableComponent implements OnInit {
 
 	}
 
-	openCalendar(event: any){
+	openCalendar(event: any) {
 		this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
-  		event.stopPropagation();
+		event.stopPropagation();
 	}
 
-	filterDate(event: any){
-		if(this.rangeDates[0] != null && this.rangeDates[1] != null){
-			var months = ["Jan", "Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+	filterDate(event: any) {
+		if (this.rangeDates[0] != null && this.rangeDates[1] != null) {
+			var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 			var fDate = new Date(this.rangeDates[0]);
 			var fromDate = JSON.stringify(fDate);
-			fromDate = fromDate.slice(1,11);
+			fromDate = fromDate.slice(1, 11);
 			var fSplit = fromDate.split("-");
-			
-			var fDateString = fSplit[2] + " " + months[parseInt(fSplit[1])-1] + " " + fSplit[0];
+
+			var fDateString = fSplit[2] + " " + months[parseInt(fSplit[1]) - 1] + " " + fSplit[0];
 			var tDate = new Date(this.rangeDates[1]);
 			var toDate = JSON.stringify(tDate);
-			toDate = toDate.slice(1,11);
+			toDate = toDate.slice(1, 11);
 			var tSplit = toDate.split("-");
-			var tDateString = tSplit[2] + " " + months[parseInt(tSplit[1])-1] + " " + tSplit[0];
+			var tDateString = tSplit[2] + " " + months[parseInt(tSplit[1]) - 1] + " " + tSplit[0];
 			console.log(tDate.getTime());
 			console.log(fDate.getTime());
 			this.showDateRange = fDateString + " - " + tDateString;
-			this.calendar.overlayVisible=false;
+			this.calendar.overlayVisible = false;
 
 
 			$.fn.dataTable.ext.search.push(
@@ -227,17 +235,17 @@ export class SelectOrderTableComponent implements OnInit {
 
 		}
 	}
- 
+
 	toggleOrigin() {
 		this.showOrigin = !this.showOrigin;
-		if(this.showOrigin==false){
-			document.getElementById('origin_id').style.border="1px solid #30855c";
+		if (this.showOrigin == false) {
+			document.getElementById('origin_id').style.border = "1px solid #30855c";
 		}
-		else{
-			document.getElementById('origin_id').style.border="1px solid #d6d6d6";
-		
+		else {
+			document.getElementById('origin_id').style.border = "1px solid #d6d6d6";
+
 		}
-	 }
+	}
 	//  toggleType() {
 	//   this.showType = !this.showType;
 	//   if(this.showType==false){
@@ -245,7 +253,7 @@ export class SelectOrderTableComponent implements OnInit {
 	// }
 	// else{
 	// 	document.getElementById('type_id').style.border="1px solid #d6d6d6";
-	
+
 	// }
 	// }
 	// toggleStatus() {
@@ -255,37 +263,39 @@ export class SelectOrderTableComponent implements OnInit {
 	//   }
 	//   else{
 	// 	  document.getElementById('status_id').style.border="1px solid #d6d6d6";
-	  
-	//   }
-	//   }
-	  toggleDisplay(){
-		this.showDisplay = !this.showDisplay;
-		if(this.showDisplay==false){
-		  document.getElementById('display_id').style.border="1px solid #30855c";
-	  }
-	  else{
-		  document.getElementById('display_id').style.border="1px solid #d6d6d6";
-	  
-	  }
-	  }
 
-	  //select order table data 
-	  estateSelectAnOrderTableData() {
+	//   }
+	//   }
+	toggleDisplay() {
+		this.showDisplay = !this.showDisplay;
+		if (this.showDisplay == false) {
+			document.getElementById('display_id').style.border = "1px solid #30855c";
+		}
+		else {
+			document.getElementById('display_id').style.border = "1px solid #d6d6d6";
+
+		}
+	}
+
+	//select order table data 
+	estateSelectAnOrderTableData() {
 		this.roasterService.getEstateOrders(this.roasterId).subscribe(
-		  data => {
-			if ( data['success'] == true ) {
-			  if ( data['result'] == null || data['result'].length == 0) {
-				this.toastrService.error("Table Data is empty");
+			data => {
+				if ( data['success'] == true ) {
+				  if ( data['result'] == null || data['result'].length == 0) {
+					this.odd = true ;
+					this.toastrService.error("Table Data is empty");
+				  }
+				  else {
+					this.odd = false ;
+					this.data = data['result'];
+				  }
+				} 
+				else {
+				  this.odd = true ;
+				  this.toastrService.error("Error while getting the agreement list!");
+				}
 			  }
-			  else {
-				this.data = data['result'];
-			  }
-			} 
-			else {
-			  
-			  this.toastrService.error("Error while getting the agreement list!");
-			}
-		  }
 		)
-	  }
+	}
 }

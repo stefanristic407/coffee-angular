@@ -4,24 +4,24 @@
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum">Marketing Arena</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum">{{appLanguage.marketing_arena}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
-            <li class="b-cum c-pink">Agreements</li>
+            <li class="b-cum c-pink">{{appLanguage.agreements}}</li>
 
         </ul>
     </nav>
     <div class="file-share-search col-12 col-md-3 ml-md-auto mb-3 mr-5 d-none d-md-flex align-items-center">
             <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-            <input type="search" placeholder="Search Files" [(ngModel)]="searchTerm" name="filesTerm">
+            <input type="search" placeholder="{{appLanguage.search_files}}" [(ngModel)]="searchTerm" name="filesTerm">
         </div>
     </div>
 
     <section class="estate-orders-heading">
-        <h5 class="estate-order-title pt-3"> Agreements</h5>
+        <h5 class="estate-order-title pt-3"> {{appLanguage.agreements}}</h5>
     </section>
 
 
@@ -55,7 +55,7 @@
 
                     <div class="d-inline display_div">
                         <div class="float-right upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
-                            <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
+                            <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage.upload}} </span> </label>
                         </div>
                     </div>
 
@@ -102,11 +102,11 @@
                                         <span class="checkmark head-check"></span>
                                     </label>
                                 </th>
-                                <th>Files</th>
+                                <th>{{appLanguage.files}}</th>
                                
-                                <th scope="col">Added on</th>
-                                <th scope="col">Customer name</th>
-                                <th scope="col">Origin</th>
+                                <th scope="col">{{appLanguage.added_on}}</th>
+                                <th scope="col">{{appLanguage.customer_name}}</th>
+                                <th scope="col">{{appLanguage.origin}}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -135,8 +135,8 @@
                                     <ng-template #poplistTemplate id="{{item.id}}">
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Update</a></li>
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.update}}</a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.delete}}</a></li>
                                             </ul>
                                         </div>
                                     </ng-template>
@@ -295,7 +295,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Upload new agreement</h5>
+                <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage.upload_new_agreement}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -307,7 +307,7 @@
                         <div class="invite-to">
 
                             <div class="roastery-fields mb-3 mb-lg-4">
-                                <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Select a customer <span class="star-mark">*</span></h4>
+                                <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage.select_customer}} <span class="star-mark">*</span></h4>
                                 <!-- <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
                                     your files to the order helps you and your custoemrs to find files faster</span>
 
@@ -327,15 +327,15 @@
                                         <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="notify" value="notify" [(ngModel)]="notify"/>
                                                 <span class="checkmark head-check"></span>
-                                            </label><span class="notify-text">Notify customer</span>
+                                            </label><span class="notify-text">{{appLanguage.notify_customer}}</span>
                                 </div>
                             </div>
 
                             <div class="roastery-fields mb-0">
                                 <div class="farm-input col-12 col-md-8 px-0">
-                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Upload</h4>
-                                    <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Please upload a .pdf of the agreement</span>
-                                    <label class="share-bor w-30">  <input class="file-inpt" accept="application/pdf" type="file"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
+                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage.upload}}</h4>
+                                    <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{appLanguage.please_upload_document}}</span>
+                                    <label class="share-bor w-30">  <input class="file-inpt" accept="application/pdf" type="file"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage.upload}} </span> </label>
                                 </div>
                             </div>
                         </div>
@@ -344,7 +344,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">Upload agreement
+                <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">{{appLanguage.upload_agreement}}
                 </button>
             </div>
         </div>

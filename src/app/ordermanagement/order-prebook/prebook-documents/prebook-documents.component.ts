@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'sewn-prebook-documents',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./prebook-documents.component.css']
 })
 export class PrebookDocumentsComponent implements OnInit {
-
-  constructor() { }
+  appLanguage :any;
+  constructor(public global: GlobalsService) { }
 
   ngOnInit(): void {
+    this.appLanguage = this.global.languageJson;
   }
 
 }

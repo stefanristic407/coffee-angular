@@ -144,8 +144,9 @@
                     </td>
                     <td>
                         <div *ngFor="let value of user.roles" id="{{ value.id }}_{{ user.id }}">
-                            <button type="submit" id="delete_row" class="btn-danger delete_row" data-toggle="tooltip" data-placement="top" title="Delete" (click)="roleDeletionRoaster(value.id, user.id)" name="action" value="DELETE">
-                <i class="fa fa-trash"></i></button
+                            <button type="submit" id="delete_row" class=" delete_row" data-toggle="tooltip" data-placement="top" title="Delete" (click)="roleDeletionRoaster(value.id, user.id)" name="action" value="DELETE">
+				<!-- <i class="fa fa-trash"></i> --> <img src="assets/images/delete.png" alt="">
+				</button
               >{{ value.name }}<br />
             </div>
           </td>
@@ -297,7 +298,7 @@
 							  <div class="user-name pb-1">{{ mobileuser.name }}</div>
 							  <div class="user-email pb-2">{{ mobileuser.email }}</div>
 							  <div class="lastlogin pb-1">
-								Last Login <span class="roles">{{ mobileuser.lastLogin }}</span>
+                  {{appLanguage.last_login}} <span class="roles">{{ mobileuser.lastLogin }}</span>
 							  </div>
 							 
 							</div>
@@ -391,7 +392,7 @@
 				<button
 				  type="submit"
 				  id="delete_row"
-				  class="btn-danger delete_row icon_value"
+				  class="delete_row icon_value"
 				  data-toggle="tooltip"
 				  data-placement="top"
 				  title="Delete"
@@ -399,7 +400,8 @@
 				  name="action"
 				  value="DELETE"
 				>
-				  <i class="fa fa-trash"></i></button
+				  <!-- <i class="fa fa-trash"></i> --><img src="assets/images/delete.png" alt="">
+				  </button
 				><span class="role-mob">{{ value.name }}</span><br />
 			  </div></div></div>
 			 <div class="col-4 text-right right-padd">

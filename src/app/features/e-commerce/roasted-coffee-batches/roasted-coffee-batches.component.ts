@@ -7,6 +7,7 @@ import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-roasted-coffee-batches',
@@ -22,6 +23,8 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
   showVar: boolean = true;
   showRole: boolean = true;
   term: any;
+  odd: boolean = false ;
+  appLanguage: any;
 
   mainData: any[] = [
     //   {
@@ -89,7 +92,8 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     public cookieService: CookieService,
     public dashboard: DashboardserviceService,
     private roasterService: RoasterserviceService,
-    private toastrService: ToastrService) {
+    private toastrService: ToastrService,
+    private globals: GlobalsService) {
     this.termStatus = '';
     this.termRole = '';
     this.roasterId = this.cookieService.get('roaster_id');
@@ -97,6 +101,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
 
   ngOnInit(): void {
     this.roasterCoffeeBatchsData();
+    this.appLanguage = this.globals.languageJson;
   }
 
   setTeamRole(term: any, roleId: any) {
@@ -155,12 +160,15 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
       data => {
         if (data['success'] == true) {
           if (data['result'] == null || data['result'].length == 0) {
+            this.odd = true ;
             this.toastrService.error("Table Data is empty");
           }
           else {
+            this.odd = false ;
             this.mainData = data['result'];
           }
         } else {
+          this.odd = true ;
           this.toastrService.error("Error while getting the agreement list!");
         }
       }

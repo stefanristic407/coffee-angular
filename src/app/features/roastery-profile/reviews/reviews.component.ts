@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'sewn-reviews',
@@ -11,14 +12,16 @@ export class ReviewsComponent implements OnInit {
   reviewvalue: any = 4;
   termStatus: any;
   showRelavant:boolean=true;
+  appLanguage: any;
 
-  constructor() { 
+  constructor(private globals: GlobalsService) { 
 
     this.termStatus = "Most relevant";
     
   }
 
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
   }
 
   setStatus(term: any) {

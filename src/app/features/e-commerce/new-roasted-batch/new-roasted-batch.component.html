@@ -4,14 +4,14 @@
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum">Roasted coffee</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum">{{appLanguage.roasted_coffee}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
-            <li class="b-cum c-pink">New roasted coffee batch</li>
-            <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Save</button>
+            <li class="b-cum c-pink">{{appLanguage.new_roasted_batch}}</li>
+            <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{appLanguage.save}}</button>
 
         </ul>
     </nav>
@@ -19,7 +19,7 @@
     <section class="new-roasted-batch">
         <div class="row">
             <div class="col-md-8 col-12">
-                <p class="fnt-18 fnt-muli fnt-700 black"> Create a new roasted batch </p>
+                <p class="fnt-18 fnt-muli fnt-700 black">{{appLanguage.create_roasted_batch}}</p>
 
                 <div class="row pt-3">
 
@@ -33,7 +33,7 @@
 
                 </div>
 
-                <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">Order ID* </p>
+                <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{appLanguage.order_id}}* </p>
 
                 <div class="row pt-3 pb-3">
                     <div class="col-12 col-md-6 float-md-left">
@@ -91,7 +91,7 @@
 
             </div>
             <div class="col-md-4 ">
-                <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">Order details </p>
+                <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{appLanguage.order_details}} </p>
 
                 <div class=" order-details-clr">
                     <div class="row mt-3">
@@ -112,7 +112,7 @@
                             </p>
                             <p> <span class="bg-msg">
                                 <img  src="assets/images/message-icon.svg" alt="Message" class="message-icon">
-                                <span  class="estate-message pl-1">Message</span>
+                                <span  class="estate-message pl-1">{{appLanguage.message}}</span>
                                 </span>
                             </p>
                         </div>
@@ -160,7 +160,7 @@
 
 
 
-        <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">Tasting notes </p>
+        <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{appLanguage.tasting_notes}} </p>
 
         <div class="row pt-3 pb-3">
 
@@ -234,7 +234,7 @@
             </div>
         </div>
 
-        <button class="cancel mt-2 mb-5"> Cancel </button>
+        <button class="cancel mt-2 mb-5"> {{appLanguage.cancel}} </button>
 
 
 

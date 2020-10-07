@@ -160,7 +160,6 @@ export class ManageRoleComponent implements OnInit {
       }
     }
     this.router.navigate(['/people/user-management'], navigationExtras);
-
   }
   members() {
     this.router.navigate(["/people/team-members"]);

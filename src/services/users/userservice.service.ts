@@ -289,7 +289,7 @@ export class UserserviceService {
 
   deleteProfileImage(userId : any , roasterId : any) {
     var data = {};
-    data['api_call'] = "ro/"+roasterId+"/users/"+userId+"/profile-image";
+    data['api_call'] = "/ro/"+roasterId+"/users/"+userId+"/profile-image";
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.roasterDeleteUrl, data);
   };

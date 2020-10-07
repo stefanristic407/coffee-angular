@@ -1,4 +1,5 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-review-ratings',
   templateUrl: './review-ratings.component.html',
@@ -10,15 +11,16 @@ export class ReviewRatingsComponent implements OnInit {
   reviewvalue: any = 4;
   termStatus: any;
   showRelavant:boolean=true;
+	appLanguage: any;
 
-  constructor() { 
+  constructor(public global: GlobalsService) { 
 
     this.termStatus = "Most relevant";
     
   }
 
   ngOnInit(): void {
-
+		this.appLanguage = this.global.languageJson;
   }
 
   

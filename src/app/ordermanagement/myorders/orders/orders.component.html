@@ -1,7 +1,7 @@
 <div class="title-header d-inline desk_view_user web-farm">
-    <div class="d-inline border-order role-div col-sm-6" id="origin_id">
+    <div class="d-inline border-order role-div col-sm-6" id="origin_id"> 
         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Origin&nbsp;</p>
+        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">{{appLanguage.origin}}&nbsp;</p>
         <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
             <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
                 &nbsp; <img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
@@ -14,7 +14,7 @@
         </a>
     </div>&nbsp;&nbsp;
     <div class="d-inline border-order type-div col-sm-6" id="type_id">
-        <p class="d-inline filter-text" *ngIf="estatetermType == ''">Type of order&nbsp;</p>
+        <p class="d-inline filter-text" *ngIf="estatetermType == ''">{{appLanguage.order_type}}&nbsp;</p>
         <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #pop2="bs-popover">
             <p class="d-inline filter" *ngIf="estatetermType == ''" (click)="toggleType()">
                 &nbsp; <img src="{{ showType ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
@@ -27,7 +27,7 @@
         </a>
     </div>&nbsp;&nbsp;
     <div class="d-inline border-order status-div col-sm-6" id="status_id">
-        <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">Status&nbsp;</p>
+        <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">{{appLanguage.status}}&nbsp;</p>
         <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
             <p class="d-inline filter" *ngIf="estatetermStatus == ''" (click)="toggleStatus()">
                 &nbsp; <img src="{{ showStatus ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
@@ -41,7 +41,7 @@
     </div> &nbsp;&nbsp;
 
     <div class="d-inline border-order date-div col-sm-6">
-        <p class="d-inline filter-text">Date range &nbsp;
+        <p class="d-inline filter-text">{{appLanguage.date_range}} &nbsp;
             <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
         </p>
 

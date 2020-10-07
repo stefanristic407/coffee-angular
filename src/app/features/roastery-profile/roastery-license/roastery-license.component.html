@@ -2,13 +2,13 @@
         <div class="row mobile-view">
                 <span class="cursor-pointer" routerLink="/features/roastery-profile">
                     <img src="/assets/images/back-arrow1.png" alt="">
-                    <span class="back-ticket pl-3">Back</span>
+                    <span class="back-ticket pl-3">{{appLanguage.back}}</span>
                     </span>
         </div>
 <div class="row mob">
                 <div class="col-lg-12 col-md-12">
                   <div class="profile-header-div">
-                <p class="header">Roastery profile</p>
+                <p class="header">{{appLanguage.roastery_profile}}</p>
                   </div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
             <div class="row ">
                     <div class="col-lg-12 col-md-12">
                       <div class="profile-header-div">
-                    <p class="header">Certificates</p>
+                    <p class="header">{{appLanguage.certificates}}</p>
                     <p class="form_para">Please upload your certificates, if any. This helps in your profile getting more noticed.</p>
                       </div>
                     </div>
@@ -35,14 +35,14 @@
                             <hr class="mob">
                             <span class="button-div pull-left">
                               <button type="button" id="edit-btn" class="btn edit-btn">
-                                <img src="assets/images/edit.png" class="edit-img" />Edit</button
+                                <img src="assets/images/edit.png" class="edit-img" />{{appLanguage.edit}}</button
                               ><span class="name bar">|</span>
                               <button type="button" id="del-btn" class="btn del-btn" (click)="deleteCertificate(saveddata.id)">
-                                <img src="assets/images/delete.png" class="del-img" />Delete
+                                <img src="assets/images/delete.png" class="del-img" />{{appLanguage.delete}}
                               </button>
                               <span class="name bar">|</span>
                               <button type="button" id="view-btn" class="btn view-btn">
-                                View
+                                {{appLanguage.view}}
                               </button>
                       
                               <!-- click function remove edit and delete-->
@@ -80,14 +80,14 @@
                                 <hr class="mob">
                                 <span class="button-div pull-right">
                                   <button type="button" id="edit-btn" class="btn edit-btn">
-                                    <img src="assets/images/edit.png" class="edit-img" />Edit</button
+                                    <img src="assets/images/edit.png" class="edit-img" />{{appLanguage.edit}}</button
                                   ><span class="name bar">|</span>
                                   <button type="button" id="del-btn" class="btn del-btn" (click)="deleteCertificate(saveddata.id)">
-                                    <img src="assets/images/delete.png" class="del-img" />Delete
+                                    <img src="assets/images/delete.png" class="del-img" />{{appLanguage.delete}}
                                   </button>
                                   <span class="name bar">|</span>
                                   <button type="button" id="view-btn" class="btn view-btn">
-                                    View
+                                    {{appLanguage.view}}
                                   </button>
                           
                                   <!-- click function remove edit and delete-->
@@ -271,7 +271,7 @@
                                       (click)="savecertificate(licensedata.id, $event)"
                                     ><span
                                         class="upload-text"
-                                        >Save</span
+                                        >{{appLanguage.save}}</span
                                       >
                                     </button>
                                     <span class="v-line" *ngIf="i > 0">|</span>
@@ -284,7 +284,7 @@
                                     >
                                       <img src="assets/images/delete.png" class="upload-img" /><span
                                         class="upload-text"
-                                        >Delete</span
+                                        >{{appLanguage.delete}}</span
                                       >
                                     </button>
                                   </div>

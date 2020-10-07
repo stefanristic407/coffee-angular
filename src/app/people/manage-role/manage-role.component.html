@@ -34,7 +34,7 @@
     </ul>
 </nav>
 <section class="roles-heading d-none d-lg-block">
-    <h5 class="manage-title">Manage roles</h5>
+    <h5 class="manage-title">{{appLanguage.manage_roles}}</h5>
 </section>
 
 <div class="table-container desk_view_user">
@@ -94,7 +94,7 @@
                                     <li class="list-group-item"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{appLanguage.update_role}}</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.rename}}</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.duplicate_role}} </a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.duplicate_role}}</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.manage_permissions}}</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">{{appLanguage.delete_role}}</a></li>
                                 </ul>
                             </div>
@@ -195,10 +195,10 @@
 
 <div class="mobile_view_user">
     <div class="ml-auto text-left pull-left">
-        <h4 class="mobile-manage"> Manage Roles</h4>
+        <h4 class="mobile-manage">{{appLanguage.manage_roles}}</h4>
     </div>
     <div class="ml-auto text-right pull-right pb-3">
-        <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn ">Create new role</button></a>
+        <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn ">{{appLanguage.create_new_role}}</button></a>
     </div>
 
     <ul class="dyn-data d-flex" *ngFor="let role of sizes  let i = index" id="tr_{{role.id}}">
@@ -220,13 +220,13 @@
             <ng-template #listTemplate id="{{role.id}}">
                 <div id="popover-mobile-content">
                     <ul class="list-data custom-popover">
-                        <li class="list-item"> <a class="pointer-item" (click)="addMembers($event,role);pop1.hide();">Add Members </a></li>
-                        <li class="list-item"><a class="pointer-item" (click)="viewMembers(role);pop1.hide();">View Members</a></li>
-                        <li class="list-item"><a class="pointer-item" (click)="updateRole(role.id);pop1.hide();">Edit</a></li>
-                        <li class="list-item"><a class="pointer-item" (click)="pop1.hide();">Rename</a></li>
-                        <li class="list-item"><a class="pointer-item" (click)="pop1.hide();">Duplicate role</a></li>
-                        <li class="list-item"><a class="pointer-item" (click)="pop1.hide();">Manage Permissions</a></li>
-                        <li class="list-item"><a class="pointer-item" (click)="deleteRole(role.id);pop1.hide();">Delete</a></li>
+                        <li class="list-item"> <a class="pointer-item" (click)="addMembers($event,role);pop1.hide();">{{appLanguage.add_members}} </a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="viewMembers(role);pop1.hide();">{{appLanguage.view_members}} </a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="updateRole(role.id);pop1.hide();">{{appLanguage.update_role}}</a></li>
+                        <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">{{appLanguage.rename}}</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">{{appLanguage.duplicate_role}} </a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="pop1.hide();">{{appLanguage.manage_permissions}}</a></li>
+                        <li class="list-item"><a class="pointer-item" (click)="deleteRole(role.id);pop1.hide();">{{appLanguage.delete_role}}</a></li>
                     </ul>
                 </div>
             </ng-template>

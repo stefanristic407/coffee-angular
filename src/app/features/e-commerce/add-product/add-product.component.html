@@ -3,20 +3,20 @@
         <div class="bg-ff">
             <div class="row col-md-12 col-lg-12 pb-3 back-page">
                 <ul _ngcontent-wft-c307="" class="bread-nav mb-md-0 col-lg-9 no-padding-LR-large">
-                    <li class="b-cum"><a routerlink="/features/welcome-aboard" class="b-cum">Home</a>
+                    <li class="b-cum"><a routerlink="/features/welcome-aboard" class="b-cum">{{appLanguage.home}}</a>
                         <span aria-hidden="true" class="padl-r"><img src="/assets/images/arrow-1.png" alt=""
                                 class="group-img"></span></li>
                     <li class="b-cum c-pink">Service Setup</li>
                 </ul>
                 <span class="col-lg-3 pull-right">
                     <button type="button" routerlink="/features/your-services"
-                        class="btn send-btn pull-right">Save</button>
+                        class="btn send-btn pull-right">{{appLanguage.save}}</button>
                 </span>
             </div>
             <div class="d-flex mt-3 brand-discription-section">
                 <div class="w-100">
                     <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
-                        <p class="fnt-18 fnt-muli fnt-700 black m-0">Add a new product</p>
+                        <p class="fnt-18 fnt-muli fnt-700 black m-0">{{appLanguage.add_new_product}}</p>
                         <div class="row mb-3 farm-input margin-top ">
                             <div class="select col-lg-12">
                                 <label>Product Name<span class="star">*</span></label>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="sub-header-text mb-16">Variants</div>
+                        <div class="sub-header-text mb-16">{{appLanguage.variants}}</div>
 
                         <div><label class="customcheckbox">
                                 <input type="checkbox" /><span class="checkmark head-check"></span>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="sub-header-text">Estate Details</div>
+                        <div class="sub-header-text">{{appLanguage.estate_details}}</div>
                         <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
                             <div class="farm-input no-padding-LR-large col-lg-15">
                                 <label>Estate name</label>
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="sub-header-text">Tasting notes</div>
+                        <div class="sub-header-text">{{appLanguage.tasting_notes}}</div>
                         <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
                             <div class="farm-input no-padding-LR-large col-lg-15">
                                 <label>body</label>
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="sub-header-text">Tasting notes</div>
+                        <div class="sub-header-text">{{appLanguage.tasting_notes}}</div>
                         <div class="farm-input no-padding-LR-large col-lg-10 ">
                             <label> Roaster Notes</label>
                             <textarea class="form-control descr" rows="4"

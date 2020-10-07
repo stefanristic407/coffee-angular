@@ -11,6 +11,7 @@ import { VideoTableComponent } from './video-table/video-table.component';
 import { FileShareDetailsService } from './file-share-details.service';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-file-share-details',
   templateUrl: './file-share-details.component.html',
@@ -57,6 +58,7 @@ descriptionError: string;
   share_permission: any;
   sharedUserslists: any = [];
   sharedUsers: any;
+  appLanguage: any;
 
 
   constructor(public cookieService : CookieService,
@@ -64,7 +66,8 @@ descriptionError: string;
               public roasterService : RoasterserviceService,
               public fileService : FileShareService,
               private route : ActivatedRoute,
-              public filedetailsService : FileShareDetailsService) { 
+              public filedetailsService : FileShareDetailsService,
+              private globals: GlobalsService) { 
                 this.roasterId = this.cookieService.get('roaster_id');
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                   // if(this.route.snapshot.queryParams['folderId']){
@@ -82,7 +85,7 @@ descriptionError: string;
   }
 
   ngOnInit(): void {
-
+    this.appLanguage = this.globals.languageJson;
     this.sort = '';
 
       //Toggle Esstate active

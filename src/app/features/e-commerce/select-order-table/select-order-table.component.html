@@ -3,15 +3,15 @@
         <div class="d-flex">
             <div class="cursor-pointer float-left mr-auto">
                 <img src="/assets/images/back-arrow1.png" alt="">
-                <span class="back-ticket pl-2">Back </span>
+                <span class="back-ticket pl-2">{{appLanguage.back}} </span>
     
             </div>
             
-            <button type="button" class="select_cancel float-right btn btn-link mr-2" >Cancel</button> 
-            <button type="submit" class="continue-order float-right btn" >Continue</button>
+            <button type="button" class="select_cancel float-right btn btn-link mr-2" >{{appLanguage.cancel}}</button> 
+            <button type="submit" class="continue-order float-right btn" >{{appLanguage.continue}}</button>
         </div>
        
-        <h5 class="select-order-title pt-1">Select an order</h5>
+        <h5 class="select-order-title pt-1">{{appLanguage.select_an_order}}</h5>
         <div class="please-select pt-1">Please select one ongoing order to raise a ticket for</div>
 
         <div class="row">
@@ -44,7 +44,7 @@
                 <div class="title-header d-inline desk_view_user">
                     <div class="d-inline border-order role-div col-sm-6" id="origin_id">
                         <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Origin&nbsp;</p>
+                        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">{{appLanguage.origin}}&nbsp;</p>
                         <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
                                 &nbsp; <img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
@@ -84,7 +84,7 @@
                     </div> &nbsp;&nbsp; -->
                 
                     <div class="d-inline border-order date-div col-sm-6">
-                        <p class="d-inline filter-text">Date range &nbsp;
+                        <p class="d-inline filter-text">{{appLanguage.date_range}} &nbsp;
                             <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
                         </p>
                 

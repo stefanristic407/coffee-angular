@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-green-coffee-inventory',
@@ -10,7 +11,9 @@ export class GreenCoffeeInventoryComponent implements OnInit {
   mainData : any = {};
   dtOptions: DataTables.Settings = {
 		language: { "search": '' }
-	};
+  };
+  appLanguage: any;
+
   public gridData: any[] = [
     { id: '65837', availibility_Name: 'Origanic washed Micro-lot', estate_Name: 'Finca La Pampa', origin: 'Brazil', variety: 'Bourborn',quandity: '278 Bags', cup_Score: '84.5', Actions: 'View' },
     { id: '43284', availibility_Name: 'Blend washed', estate_Name: 'Gesha', origin: 'Guatemala', variety: 'Bourborn',quandity: '297 bags', cup_Score: '88', Actions: 'View' },
@@ -28,7 +31,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
   showOrigin: boolean = true;
   showDisplay:boolean =true;
   showStatus: boolean = true;
-  constructor() { this.data = 
+  constructor(private globals: GlobalsService) { this.data = 
     [
     { id: '65837', availibility_Name: 'Origanic washed Micro-lot', estate_Name: 'Finca La Pampa', origin: 'Brazil', variety: 'Bourborn',quandity: '278 Bags', cup_Score: '84.5', Actions: 'View' },
     { id: '43284', availibility_Name: 'Blend washed', estate_Name: 'Gesha', origin: 'Guatemala', variety: 'Bourborn',quandity: '297 bags', cup_Score: '88', Actions: 'View' },
@@ -42,6 +45,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
   this.mainData = this.data;}
 
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
 
     //Toggle Esstate active
   // $('.btn-switch').click(function() {
@@ -84,39 +88,39 @@ export class GreenCoffeeInventoryComponent implements OnInit {
           defaultContent:'<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>' , 
         },
         {
-          title: 'Order ID',
+          title: this.appLanguage.order_id,
           data: 'id'
         }, {
-          title: 'Availibility Name',
+          title: this.appLanguage.availibility_name,
           data: 'availibility_Name'
         }, 
         {
-          title: 'Estate Name',
+          title: this.appLanguage.estate_name,
           data: 'estate_Name',
           
         }, 
         {
-          title: 'Origin',
+          title: this.appLanguage.origin,
           data: 'origin'
         },
 
         {
-          title: 'Variety',
+          title: this.appLanguage.variety,
           data: 'variety'
         },
         {
-          title: 'Quantity',
+          title: this.appLanguage.quantity,
           data: 'quandity',
           
         }, 
         {
-          title: 'Cup score',
+          title: this.appLanguage.cup_score,
           data: 'cup_Score'
         },
       
         {
-          title: "Action",
-          defaultContent: 'View',
+          title: this.appLanguage.action,
+          defaultContent: this.appLanguage.view,
           className: "view-order"
         },
         {

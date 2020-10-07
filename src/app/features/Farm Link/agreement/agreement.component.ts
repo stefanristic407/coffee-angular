@@ -9,6 +9,7 @@ import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-agreement',
@@ -55,12 +56,14 @@ export class AgreementComponent implements OnInit {
 		{  name: 'The Steam Hotel',origin:'Västerås',date: '19/09/19', orderid:'#717167',file:'Santa Rosa agreement' },
   ];
 	roasterId: string;
+	appLanguage: any;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
 		public roasterService : RoasterserviceService,
-		public toastrService : ToastrService) {
+		public toastrService : ToastrService,
+		private globals: GlobalsService) {
 			this.roasterId = this.cookieService.get('roaster_id');
 		 }
 
@@ -72,6 +75,7 @@ export class AgreementComponent implements OnInit {
       }
   
      
+      this.appLanguage = this.globals.languageJson;
 
 		// rowCallback: (row: Node, data: any, index: number) => {
 		// 	const self = this;

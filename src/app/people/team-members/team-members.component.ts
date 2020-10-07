@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-team-members',
@@ -19,6 +20,7 @@ export class TeamMembersComponent implements OnInit {
   showVar: boolean = true;
   showRole:boolean = true;
   term:any;
+  appLanguage: any;
 
   mainData:any[] = [
     {
@@ -61,7 +63,7 @@ export class TeamMembersComponent implements OnInit {
   roleID: string;
 
   
-  constructor(public roasterService:RoasterserviceService,public cookieService: CookieService,private router: Router,public route: ActivatedRoute) { 
+  constructor(public roasterService:RoasterserviceService,public cookieService: CookieService,private router: Router,public route: ActivatedRoute,private globals: GlobalsService) { 
     this.roaster_id = this.cookieService.get('roaster_id');
     this.termStatus = '';
 	this.termRole = '';
@@ -73,6 +75,7 @@ export class TeamMembersComponent implements OnInit {
         this.router.navigate(["/auth/login"]);
       }
       this.listRoles();
+      this.appLanguage = this.globals.languageJson;
   }
   listRoles() {
     this.roasterService.getRoles(this.roaster_id).subscribe(

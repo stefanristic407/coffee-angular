@@ -16,10 +16,10 @@
               <span class="checkmark head-check"></span>
             </label>
           </th>
-          <th>Files</th>
-          <th scope="col">Order ID</th>
-          <th scope="col">Modified</th>
-          <th scope="col">Type</th>
+          <th>{{appLanguage.files}}</th>
+          <th scope="col">{{appLanguage.order_id}}</th>
+          <th scope="col">{{appLanguage.modified}}</th>
+          <th scope="col">{{appLanguage.type}}</th>
           <th></th>
         </tr>
       </thead>
@@ -131,20 +131,20 @@
               <div id="popover-mobile-content">
                 <ul class="list-group custom-popover">
                   <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
-                    <a class="pointer-item" (click)="pop.hide();downloadFile(item)">Download </a>
+                    <a class="pointer-item" (click)="pop.hide();downloadFile(item)">{{appLanguage.download}} </a>
                   </li>
                   <li class="list-group-item">
                     <a
                       class="pointer-item"
                       (click)="pop.hide(); pinFileorFolder(item.id)"
-                      >Pin</a
+                      >{{appLanguage.pin}}</a
                     >
                   </li>
                   <li class="list-group-item">
                     <a
                       class="pointer-item"
                       (click)="pop.hide(); openShareModal(shareTemplate,item)"
-                      >Share</a
+                      >{{appLanguage.share}}</a
                     >
                   </li>
                   <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
@@ -159,31 +159,31 @@
                         );
                         pop.hide()
                       "
-                      >Rename</a
+                      >{{appLanguage.rename}}</a
                     >
                   </li>
                   <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
                     <a
                       class="pointer-item"
                       (click)="openFileModal(fileTemplate, item.id); pop.hide()"
-                      >Rename</a
+                      >{{appLanguage.rename}}</a
                     >
                   </li>
                   <li class="list-group-item">
-                    <a class="pointer-item" (click)="pop.hide()">Comment</a>
+                    <a class="pointer-item" (click)="pop.hide()">{{appLanguage.comment}}</a>
                   </li>
                   <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
                     <a
                       class="pointer-item"
                       (click)="pop.hide(); deleteFolder(item.id)"
-                      >Delete</a
+                      >{{appLanguage.delete}}</a
                     >
                   </li>
                   <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
                     <a
                       class="pointer-item"
                       (click)="pop.hide(); deleteFile(item.id)"
-                      >Delete</a
+                      >{{appLanguage.delete}}</a
                     >
                   </li>
                 </ul>
@@ -378,7 +378,7 @@
                                 *ngIf="item.type != 'FOLDER'"
                               >
                                 <a class="pointer-item" (click)="pop1.hide();downloadFile(item)"
-                                  >Download
+                                  >{{appLanguage.download}}
                                 </a>
                               </li>
                               <li class="list-group-item">
@@ -387,14 +387,14 @@
                                   (click)="
                                     pop1.hide(); pinFileorFolder(item.id)
                                   "
-                                  >Pin</a
+                                  >{{appLanguage.pin}}</a
                                 >
                               </li>
                               <li class="list-group-item">
                                 <a
                                   class="pointer-item"
                                   (click)="pop1.hide(); openShareModal(shareTemplate,item)"
-                                  >Share</a
+                                  >{{appLanguage.share}}</a
                                 >
                               </li>
                               <li
@@ -412,7 +412,7 @@
                                     );
                                     pop1.hide()
                                   "
-                                  >Rename</a
+                                  >{{appLanguage.rename}}</a
                                 >
                               </li>
                               <li
@@ -425,12 +425,12 @@
                                     openFileModal(fileTemplate, item.id);
                                     pop1.hide()
                                   "
-                                  >Rename</a
+                                  >{{appLanguage.rename}}</a
                                 >
                               </li>
                               <li class="list-group-item">
                                 <a class="pointer-item" (click)="pop1.hide()"
-                                  >Comment</a
+                                  >{{appLanguage.comment}}</a
                                 >
                               </li>
                               <li
@@ -440,7 +440,7 @@
                                 <a
                                   class="pointer-item"
                                   (click)="pop1.hide(); deleteFolder(item.id)"
-                                  >Delete</a
+                                  >{{appLanguage.delete}}</a
                                 >
                               </li>
                               <li
@@ -450,7 +450,7 @@
                                 <a
                                   class="pointer-item"
                                   (click)="pop1.hide(); deleteFile(item.id)"
-                                  >Delete</a
+                                  >{{appLanguage.delete}}</a
                                 >
                               </li>
                             </ul>
@@ -631,7 +631,7 @@
                                   *ngIf="item.type != 'FOLDER'"
                                 >
                                   <a class="pointer-item" (click)="pop2.hide();downloadFile(item)"
-                                    >Download
+                                    >{{appLanguage.download}}
                                   </a>
                                 </li>
                                 <li class="list-group-item">
@@ -640,14 +640,14 @@
                                     (click)="
                                       pop2.hide(); pinFileorFolder(item.id)
                                     "
-                                    >Pin</a
+                                    >{{appLanguage.pin}}</a
                                   >
                                 </li>
                                 <li class="list-group-item">
                                   <a
                                     class="pointer-item"
                                     (click)="pop2.hide(); openShareModal(shareTemplate,item)"
-                                    >Share</a
+                                    >{{appLanguage.share}}</a
                                   >
                                 </li>
                                 <li
@@ -665,7 +665,7 @@
                                       );
                                       pop2.hide()
                                     "
-                                    >Rename</a
+                                    >{{appLanguage.rename}}</a
                                   >
                                 </li>
                                 <li
@@ -678,12 +678,12 @@
                                       openFileModal(fileTemplate, item.id);
                                       pop2.hide()
                                     "
-                                    >Rename</a
+                                    >{{appLanguage.rename}}</a
                                   >
                                 </li>
                                 <li class="list-group-item">
                                   <a class="pointer-item" (click)="pop2.hide()"
-                                    >Comment</a
+                                    >{{appLanguage.comment}}</a
                                   >
                                 </li>
                                 <li
@@ -693,7 +693,7 @@
                                   <a
                                     class="pointer-item"
                                     (click)="pop2.hide(); deleteFolder(item.id)"
-                                    >Delete</a
+                                    >{{appLanguage.delete}}</a
                                   >
                                 </li>
                                 <li
@@ -703,7 +703,7 @@
                                   <a
                                     class="pointer-item"
                                     (click)="pop2.hide(); deleteFile(item.id)"
-                                    >Delete</a
+                                    >{{appLanguage.delete}}</a
                                   >
                                 </li>
                               </ul>
@@ -754,7 +754,7 @@
   <ng-template #template>
     <div class="modal-header">
       <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-        Update folder
+        {{appLanguage.upload_folder}}
       </h5>
       <button
         type="button"
@@ -769,7 +769,7 @@
       <form>
         <div class="roastery-fields mb-4">
           <div class="farm-input col-12 col-md-5 px-0">
-            <label class="mb-0">Name</label>
+            <label class="mb-0">{{appLanguage.name}}</label>
             <input
               type="hidden"
               [(ngModel)]="folderItemId"
@@ -792,7 +792,7 @@
         <div class="roastery-fields mb-4">
           <div class="farm-input col-12 px-0">
             <label class="mb-0"
-              >Give a short description to your folder (optional) *</label
+              >{{appLanguage.give_short_description}} *</label
             >
             <textarea
               class="mb-0"
@@ -816,7 +816,7 @@
           class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
           (click)="UpdateFolder()"
         >
-          Update
+        {{appLanguage.update}}
         </button>
       </div>
     </div>
@@ -825,7 +825,7 @@
   <ng-template #fileTemplate>
     <div class="modal-header">
       <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-        Update file
+        {{appLanguage.update_file}}
       </h5>
       <button
         type="button"
@@ -840,7 +840,7 @@
       <form>
         <div class="roastery-fields mb-4">
           <div class="farm-input col-12 col-md-5 px-0">
-            <label class="mb-0">Name</label>
+            <label class="mb-0">{{appLanguage.name}}</label>
             <input
               type="text"
               placeholder="Enter file name"
@@ -857,7 +857,7 @@
         <div class="roastery-fields mb-4">
           <div class="farm-input col-12 px-0">
             <label class="mb-0"
-              >Give a short description to your file (optional) *</label
+              >{{appLanguage.give_short_description}} *</label
             >
             <textarea
               class="mb-0"
@@ -878,7 +878,7 @@
           </div>
         </div>
         <div class="roastery-fields mb-4">
-          <label class="mb-1 mr-2 ">File Upload </label>
+          <label class="mb-1 mr-2 ">{{appLanguage.file_upload}} </label>
           <label class="share-bor mr-3">
             <input
               class="file-inpt"
@@ -890,7 +890,7 @@
               src="assets/images/upload-icon.png"
               alt="farm"
             />
-            <span class="share-txt ml-2"> Upload </span>
+            <span class="share-txt ml-2"> {{appLanguage.upload}} </span>
           </label>
           <span class="value-name">{{ fileNameValue }}</span>
         </div>
@@ -901,7 +901,7 @@
           class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
           (click)="updateFile()"
         >
-          Update
+        {{appLanguage.update}}
         </button>
       </div>
     </div>
@@ -954,7 +954,7 @@
 <div >
     <div >
         <div class="modal-header">
-            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Share</h5>
+            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage.share}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -965,7 +965,7 @@
                     <div class="roastery-fields mb-0">
                         <div class="farm-input col-12 px-0">
 
-                            <label>Enter a name or email*</label>
+                            <label>{{appLanguage.enter_name_email}}*</label>
                             <div
                             class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                             <input class="float-left px-0 form-control auto-complete-box" type="email" [(ngModel)]="selectedValue" name="name"
@@ -985,14 +985,13 @@
 
                                     <div class="Custom-select w-100 border-left66">
                                         <div class="Custom-select-input w-100  pr-3">
-                                            <input type="text" value="Can view" readonly>
+                                            <input type="text" value="{{appLanguage.can_view}}" readonly>
                                             <span
-                                                class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="share_permission">Can
-                                                view</span>
+                                                class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="share_permission">{{appLanguage.can_view}}</span>
                                             <ul
                                                 class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                <li class="Custom-select-input-list__item">Can view</li>
-                                                <li class="Custom-select-input-list__item">Can edit</li>
+                                                <li class="Custom-select-input-list__item">{{appLanguage.can_view}}</li>
+                                                <li class="Custom-select-input-list__item">{{appLanguage.can_edit}}</li>
 
                                             </ul>
                                         </div>
@@ -1002,7 +1001,7 @@
                         </div>
                     </div>
                     <div class="mt-3 mt-lg-4" *ngIf="sharedUsers != 0">
-                        <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">Existing members
+                        <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">{{appLanguage.existing_members}}
                         </h4>
                         <!--Existing Memebr-->
                         <ul class="existing-members-list">
@@ -1050,18 +1049,16 @@
                                     <div class="member__type float-right ml-auto">
                                         <div class="Custom-select w-100">
                                             <div class="Custom-select-input w-100">
-                                                <input type="text" value="Can view" readonly>
+                                                <input type="text" value="{{appLanguage.can_view}}" readonly>
                                                 <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canEdit" *ngIf="item.permission == 'EDIT'">Can
-                                                        edit</span>
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canEdit" *ngIf="item.permission == 'EDIT'">{{appLanguage.can_edit}}</span>
                                                         <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canView" *ngIf="item.permission == 'VIEW'">Can
-                                                        view</span>
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canView" *ngIf="item.permission == 'VIEW'">{{appLanguage.can_view}}</span>
                                                 <ul
                                                     class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                    <li class="Custom-select-input-list__item" (click)="changePermissions('VIEW',item)">Can view</li>
-                                                    <li class="Custom-select-input-list__item" (click)="changePermissions('EDIT',item)">Can edit</li>
-                                                    <li class="Custom-select-input-list__item" (click)="removeAccess(item)">Remove</li>
+                                                    <li class="Custom-select-input-list__item" (click)="changePermissions('VIEW',item)">{{appLanguage.can_view}}</li>
+                                                    <li class="Custom-select-input-list__item" (click)="changePermissions('EDIT',item)">{{appLanguage.can_edit}}</li>
+                                                    <li class="Custom-select-input-list__item" (click)="removeAccess(item)">{{appLanguage.remove}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1076,8 +1073,8 @@
         <div class="modal-footer justify-content-between mx-3 mb-2">
             <p
                 class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0">
-                The admin will be notified, once approved the file will be shared with the respected users</p>
-            <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()">Share
+                {{appLanguage.admin_notice_text}}</p>
+            <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()">{{appLanguage.share}}
             </button>
         </div>
     </div>

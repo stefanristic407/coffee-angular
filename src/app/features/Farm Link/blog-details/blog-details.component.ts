@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-blog-details',
@@ -8,10 +9,13 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class BlogDetailsComponent implements OnInit {
   backValue: any;
+  appLanguage: any;
 
-  constructor(private router : Router) { }
+  constructor(private router : Router,
+    private globals: GlobalsService) { }
 
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
   }
 
   back() {

@@ -7,6 +7,7 @@ import { TreeNode } from 'primeng/api';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-create-role',
@@ -26,11 +27,14 @@ export class CreateRoleComponent implements OnInit {
   permissionList: TreeNode[];
   loginButtonValue: any;
   updateButtonValue: any;
+  appLanguage: any;
+
   constructor(private router: Router,
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
     private activeRoute: ActivatedRoute,
-    private toastrService: ToastrService) {
+    private toastrService: ToastrService,
+    private globals: GlobalsService) {
     this.roaster_id = this.cookieService.get('roaster_id');
     this.activeRoute.params.subscribe(params => {
       if (params.id != undefined) {
@@ -53,8 +57,9 @@ export class CreateRoleComponent implements OnInit {
     this.roleError = '';
     this.showPermission = [];
     this.permissionList = [];
-    this.updateButtonValue = "Update role";
-    this.loginButtonValue = "Add role";
+    this.updateButtonValue = this.appLanguage.update_role;
+    this.loginButtonValue = this.appLanguage.add_role;
+    this.appLanguage = this.globals.languageJson;
   }
 
   // Function Name : Permissions
@@ -136,7 +141,7 @@ export class CreateRoleComponent implements OnInit {
           result => {
             console.log(result);
             if (result['success'] == true) {
-              this.loginButtonValue = "Add role";
+              this.loginButtonValue = this.appLanguage.add_role;
               this.toastrService.success("Role has been created. We are assigning permissions.")
               if (this.selectedFile !== undefined) {
                 var permissionsArray = [];
@@ -161,7 +166,7 @@ export class CreateRoleComponent implements OnInit {
             else {
               this.toastrService.error("Error while adding roles and permissions");
             }
-            this.loginButtonValue = "Add role";
+            this.loginButtonValue = this.appLanguage.add_role;
           }
         )
       } else {
@@ -173,7 +178,7 @@ export class CreateRoleComponent implements OnInit {
         this.roasterService.updateRoasterRoleName(data1, this.roaster_id).subscribe(
           data => {
             if (data['success'] == true) {
-              this.updateButtonValue = "Update role";
+              this.updateButtonValue = this.appLanguage.update_role;
               var permissionsArray = [];
               this.selectedFile.forEach(permission => {
                 permissionsArray.push(permission['key']);
@@ -191,7 +196,7 @@ export class CreateRoleComponent implements OnInit {
             else {
               this.toastrService.error("Error while adding roles and permissions");
             }
-            this.updateButtonValue = "Update role";
+            this.updateButtonValue = this.appLanguage.update_role;
           }
         )
 

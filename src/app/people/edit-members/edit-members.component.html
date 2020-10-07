@@ -7,21 +7,21 @@
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
             </li>
             <li class="b-cum">
-                <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                <a class="b-cum">{{appLanguage.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
             </li>
-    
-            <li class="b-cum c-pink">User management
+
+            <li class="b-cum c-pink">{{appLanguage.user_management}}
             </li>
             <div class="col-lg-6 pull-right web_edit p-0">
                 <button type="submit" class="btn pull-right update_user">
-                <span class="update_text">Edit</span>
+                <span class="update_text">{{appLanguage.edit}}</span>
                 </button>
 
                 <button type="submit" class="btn pull-right cancel_user" routerLink="/people/user-management">
-                <span class="cancel_text">Cancel</span>
+                <span class="cancel_text">{{appLanguage.cancel}}</span>
                 </button>
             </div>
         </ul>
@@ -34,57 +34,57 @@
             <div class="col-lg-8 pl-md-0" p-0>
                 <div class="edit__total">
                     <div class="row">
-                        <h4 class="edit_heading col-lg-6">Edit</h4>
+                        <h4 class="edit_heading col-lg-6">{{appLanguage.edit}}</h4>
                         <div class="btn-group btn-toggle ml-auto pull-right active__main">
-                            <div class="btn active_default">Active</div>
-                            <div class="btn disable_default">Disable</div>
+                            <div class="btn active_default btn-group__item">{{appLanguage.active}}</div>
+                            <div class="btn disable_default btn-group__item">{{appLanguage.disable}}</div>
                         </div>
                     </div>
-                    <p class="account_activation">Account activated on <span class="activation__bold">12th Jan 2020, 8:30pm</span></p>
+                    <p class="account_activation">{{appLanguage.account_activated}} <span class="activation__bold">12th Jan 2020, 8:30pm</span></p>
                     <form class="form-container Onboard-rows">
                         <div class="Onboard-rows__inputs">
-                        <div class="row">
-                            <div class="form-group col-md-6 mt-md-3">
-                                <label for="member_name">Name</label>
-                                <input class="form-control rectangle_username" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
-                                <!-- <div class="addressError" *ngIf="addressError != ''">
+                            <div class="row">
+                                <div class="form-group col-md-6 mt-md-3">
+                                    <label for="member_name">{{appLanguage.name}}</label>
+                                    <input class="form-control rectangle_username" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
+                                    <!-- <div class="addressError" *ngIf="addressError != ''">
                                     {{ addressError }}
                                 </div> -->
+                                </div>
+                                <div class="form-group col-md-6 mt-md-3">
+                                    <label for="member_email">{{appLanguage.enter_yoru_work_email}}<span class="star">*</span></label>
+                                    <input class="form-control rectangle_useremail" type="email" id="member_email" placeholder="you@example.com" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email" />
+                                </div>
                             </div>
-                            <div class="form-group col-md-6 mt-md-3">
-                                <label for="member_email">Enter work email address<span class="star">*</span></label>
-                                <input class="form-control rectangle_useremail" type="email" id="member_email" placeholder="you@example.com" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email"  />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6 mt-md-3 mb-0">
-                                <label for="member_role">Role(s)<span class="star">*</span></label>
-                                <input class="form-control rectangle_username" type="text" id="member_role" (keyup)="onKeyPress($event)" [(ngModel)]="member_role" name="status" />
-                                <!-- <div class="addressError" *ngIf="addressError != ''">
+                            <div class="row">
+                                <div class="form-group col-md-6 mt-md-3 mb-0">
+                                    <label for="member_role">{{appLanguage.roles}}<span class="star">*</span></label>
+                                    <input class="form-control rectangle_username" type="text" id="member_role" (keyup)="onKeyPress($event)" [(ngModel)]="member_role" name="status" />
+                                    <!-- <div class="addressError" *ngIf="addressError != ''">
                                     {{ addressError }}
                                 </div> -->
+                                </div>
                             </div>
                         </div>
-                    </div>
                         <div class="add-partner align-items-center mt-3">
                             <!-- <img src="assets/images/add-partner.svg"> -->
-                            <span class="ml-2 fnt-muli fnt-700 fnt-14">+ Assign another role</span>
+                            <span class="ml-2 fnt-muli fnt-700 fnt-14">+ {{appLanguage.assign_role}}</span>
                         </div>
-                    </form> 
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 pr-md-0 p-0">
                 <div class="recovery_account h-100">
-                    <p class="recovery_email mb-1">Recovery Email</p>
-                    <span class="email_text">An email would be sent to the users email with a recovery link of their account. They can update the password using this link. </span>
+                    <p class="recovery_email mb-1">{{appLanguage.recovery_email}}</p>
+                    <span class="email_text">{{appLanguage.recovery_link_desription}}. </span>
                     <div>
-                    <button type="button" class="btn send_email web_edit mt-4">
-                       Send
+                        <button type="button" class="btn send_email web_edit mt-4">
+                        {{appLanguage.send}}
                     </button>
                     </div>
                     <div class="form-group row m-0 pt-3 mob_edit">
                         <div class="text-center w-100">
-                            <button type="button" class="btn btn-info login-butn w-100">Send</button>
+                            <button type="button" class="btn btn-info login-butn w-100">{{appLanguage.send}}</button>
                         </div>
                     </div>
                 </div>

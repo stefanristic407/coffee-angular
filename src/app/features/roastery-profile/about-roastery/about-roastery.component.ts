@@ -4,6 +4,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'sewn-about-roastery',
@@ -26,6 +27,7 @@ export class AboutRoasteryComponent implements OnInit {
   short_descr : string;
   // emp_title : string;
   emp_name : string = ''
+  appLanguage: any;
 
   ownerNameError : string;
   foundedInError : string;
@@ -62,7 +64,8 @@ export class AboutRoasteryComponent implements OnInit {
   constructor(public roasteryProfileService : RoasteryProfileService,
               public userService : UserserviceService,
               private cookieService : CookieService,
-              private toastrService : ToastrService) { 
+              private toastrService : ToastrService,
+              private globals: GlobalsService) { 
                 this.roasterId = this.cookieService.get('roaster_id');
                 this.userId = this.cookieService.get('user_id');
               
@@ -73,6 +76,7 @@ export class AboutRoasteryComponent implements OnInit {
   ngOnInit(): void {
 
 this.getCertificates();
+this.appLanguage = this.globals.languageJson;
 
   }
 

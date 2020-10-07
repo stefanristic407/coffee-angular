@@ -7,29 +7,29 @@
                         <span id="title-breadcrumb-1" class="sr-only"></span>
                         <ul class="bread-nav">
                             <li class="b-cum">
-                                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                             </li>
-                            <li class="b-cum c-pink">Roaster profile</li>
+                            <li class="b-cum c-pink">{{appLanguage.roaster_profile}}</li>
                         </ul>
                     </nav>
                 </div>
                 <div class="float-right ml-auto butn-mt d-none d-md-block">
-                    <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.savemode" (click)="roasteryProfileService.saveRoasterProfile()" > Save  </button>
-                    <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" > Edit  </button>
+                    <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.savemode" (click)="roasteryProfileService.saveRoasterProfile()" > {{appLanguage.save}}  </button>
+                    <button type="button" class="btn cancel-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" > {{appLanguage.edit}}  </button>
                 </div>
             </div>
         </section>
         <section class="my-profile pb-md-5">
                 <div class="col-lg-12 col-sm-12 no-padding">
         
-                    <h1 class="fnt-muli"> Roastery Profile</h1>
+                    <h1 class="fnt-muli">{{appLanguage.roastery_profile}}</h1>
 
                     <div class="mt-lg-2 cover-div">
                         <div class="cover-pic text-center ">
                             <img class="plus-circle " src="assets/images/plus-circle.svg">
                             <img class="camera desk-view" src="assets/images/camera.svg">
-                            <p class="text-data pt-2">Add cover image</p>
-                            <p class="text-data">Dimension 1144 x 160</p>
+                            <p class="text-data pt-2">{{appLanguage.add_cover_image}}</p>
+                            <p class="text-data">{{appLanguage.dimension}} 1144 x 160</p>
                         </div>
                         <div class="profile-div">
                                 <div class="col-lg-4 col-md-6 title-div">
@@ -37,8 +37,8 @@
                                 <input class="form-control company-website" id="company-website" *ngIf="roasteryProfileService.savemode" type="text" placeholder="www.royalcoffee.az.com/" [(ngModel)]="roasteryProfileService.website" name="website">
                                 <p class="website-text mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.website}}</p>
                                 <a target="blank" href="{{roasteryProfileService.website}}" #link hidden></a>
-                                <p class="owned-text desk-view" *ngIf="roasteryProfileService.editmode">Owned by {{roasteryProfileService.name}}</p>
-                                <p class="founded-text desk-view" *ngIf="roasteryProfileService.editmode">Founded in {{roasteryProfileService.founded_in}}</p>
+                                <p class="owned-text desk-view" *ngIf="roasteryProfileService.editmode">{{appLanguage.owned_by}} {{roasteryProfileService.name}}</p>
+                                <p class="founded-text desk-view" *ngIf="roasteryProfileService.editmode">{{appLanguage.founded_in}} {{roasteryProfileService.founded_in}}</p>
 
                             </div>
                                 <div class="pic-div">
@@ -62,16 +62,16 @@
         <div class="mdevice">
             <ul class="nav nav-pills mb-md-3 w-100" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-about-tab" data-toggle="pill" href="#pills-about" role="tab" aria-controls="pills-about" aria-selected="true">About roastery</a>
+                        <a class="nav-link active" id="pills-about-tab" data-toggle="pill" href="#pills-about" role="tab" aria-controls="pills-about" aria-selected="true">{{appLanguage.about_roastery}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-tour-tab" data-toggle="pill" href="#pills-tour" role="tab" aria-controls="pills-tour" aria-selected="false">Virtual tour</a>
+                        <a class="nav-link" id="pills-tour-tab" data-toggle="pill" href="#pills-tour" role="tab" aria-controls="pills-tour" aria-selected="false">{{appLanguage.virtual_tour}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{appLanguage.contact}}</a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews" role="tab" aria-controls="pills-reviews" aria-selected="false">Reviews</a>
+                            <a class="nav-link" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews" role="tab" aria-controls="pills-reviews" aria-selected="false">{{appLanguage.reviews}}</a>
                         </li>
                 </ul>
             </div>
@@ -99,13 +99,13 @@
     <div class="mobile-farm farm-stricky col-12">
         <div  class="col-sm-12 px-0"  *ngIf="roasteryProfileService.savemode">
         <div class="col-sm-6 d-inline px-0">
-                <button type="button" class="btn preview-butn " (click)="roasteryProfileService.preview()" > Preview  </button>
+                <button type="button" class="btn preview-butn " (click)="roasteryProfileService.preview()" > {{appLanguage.preview}}  </button>
         </div>
         <div class="col-sm-6 px-0 d-inline">
-                <button type="button" class="btn cancel-butn" (click)="roasteryProfileService.saveRoasterProfile()" > Save  </button>
+                <button type="button" class="btn cancel-butn" (click)="roasteryProfileService.saveRoasterProfile()" > {{appLanguage.save}}  </button>
         </div>
     </div>
-        <button type="button" class="btn edit-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" > Go back to edit  </button>
+        <button type="button" class="btn edit-butn" *ngIf="roasteryProfileService.editmode" (click)="roasteryProfileService.editRoasterProfile()" >{{appLanguage.go_back_edit}}  </button>
         
         
     </div>
@@ -127,10 +127,10 @@
         <sewn-profile-photo></sewn-profile-photo>
         <p-footer>
             <button type="button" id="change-pic" class="previous btn " (click)="showModalDialog()">
-          Change photo
+          {{appLanguage.change_photo}}
         </button>
             <button type="button" id="save-pic" class="btn btn-info login-butn" (click)="profilePhotoService.saveProfilePic()">
-          Save photo
+          {{appLanguage.save_photo}}
         </button>
         </p-footer>
     </p-dialog>

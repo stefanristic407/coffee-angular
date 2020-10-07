@@ -257,3 +257,33 @@ label {
 .languageError, .timeZoneError {
     color: #D50000;
 }
+
+
+.help {
+    font-size: 1.95em;
+    cursor: pointer;
+    position: relative;
+    top: .25rem;
+}
+
+:host ::ng-deep .ui-dialog .ui-dialog-content {
+    padding: 2rem !important;
+    font-family: 'Muli' !important;
+    border-radius: 6px !important;
+}
+
+:host ::ng-deep .ui-dialog .ui-dialog-titlebar {
+    
+    display: none;
+}
+
+@media screen and (max-width: 40em) {
+     :host ::ng-deep .ui-dialog {
+        width: 75vw !important;
+    }
+}
+.black-semibold{
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #232334 !important;
+}

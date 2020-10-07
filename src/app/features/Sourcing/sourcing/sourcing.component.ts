@@ -1,8 +1,8 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef , Renderer2 } from '@angular/core';
 import { SourcingService } from '../sourcing.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from "@angular/router";
-
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-sourcing',
@@ -22,6 +22,7 @@ export class SourcingComponent implements OnInit {
   showWeight:boolean = true;
   modalRef: BsModalRef;
   variety:any;
+  appLanguage: any;
 
 
   public data: any[] = [
@@ -41,7 +42,15 @@ export class SourcingComponent implements OnInit {
 		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '5.6',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82.0' },
 		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '8.92',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84.0' }
   ];
-  constructor(public sourcingService:SourcingService,private modalService: BsModalService,private router: Router) { }
+  // appLanguage: any;
+  constructor(public sourcingService:SourcingService,private modalService: BsModalService,private router: Router,private globals: GlobalsService
+    ,private renderer: Renderer2) {
+      // this.renderer.listen('window', 'click',(e:Event)=>{ 
+      //   if()
+      //   this.modalRef.hide()
+      // });
+
+     }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
@@ -54,6 +63,7 @@ export class SourcingComponent implements OnInit {
     this.origin = '';
     this.weight = 'kg';
     this.variety='';
+    this.appLanguage = this.globals.languageJson;
 
      //Toggle Esstate active
 	  $('.btn-switch').click(function() {
@@ -353,6 +363,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 
 
   }
+  
   setGrade(data:any){
     this.grade=data;
   }

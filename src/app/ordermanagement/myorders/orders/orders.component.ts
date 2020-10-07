@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-orders',
@@ -24,7 +25,7 @@ export class OrdersComponent implements OnInit {
   showStatus:boolean = true;
   showDisplay:boolean =true;
   searchTerm:any;
-
+  appLanguage:any;
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
@@ -50,7 +51,7 @@ export class OrdersComponent implements OnInit {
 	
 	constructor(public router: Router,
 		public cookieService: CookieService,
-		public dashboard: DashboardserviceService) {
+		public dashboard: DashboardserviceService,public global: GlobalsService) {
 			this.data = {};
 			this.data = 
 				[{ 
@@ -90,7 +91,7 @@ export class OrdersComponent implements OnInit {
 			if (this.cookieService.get("Auth") == "") {
 				this.router.navigate(["/auth/login"]);
 			}
-	
+			this.appLanguage = this.global.languageJson;
 			this.dtOptions = {
 				//ajax: this.data,
 				data: this.data,
@@ -107,44 +108,44 @@ export class OrdersComponent implements OnInit {
 						defaultContent:'<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>' , 
 					},
 					{
-						title: 'Order ID',
+						title: this.appLanguage.order_id,
 						data: 'id'
 					}, {
-						title: 'Estate name',
+						title: this.appLanguage.estate_name,
 						data: 'estatename'
 					}, {
-						title: 'Date ordered',
+						title: this.appLanguage.date_ordered,
 						data: 'dataordered'
 					},
 					{
-						title: 'Origin',
+						title: this.appLanguage.origin,
 						data: 'origin',
 						
 					}, 
 					{
-						title: 'Species',
+						title: this.appLanguage.species,
 						data: 'species',
 						
 					}, 
 					{
-						title: 'Price',
+						title: this.appLanguage.price,
 						data: 'price'
 					},
 					{
-						title: 'Quantity',
+						title: this.appLanguage.quantity,
 						data: 'quantity'
 					}, {
-						title: 'Type of order',
+						title: this.appLanguage.order_type,
 						data: 'typeoforder',
 						className: 'typeoforderclass'
 					}, {
-						title: 'Status',
+						title: this.appLanguage.status,
 						data: 'status',
 						className: 'status-es'
 					},
 					
 					{
-						title: "Action",
+						title: this.appLanguage.action,
 						defaultContent: "View order",
 						className: "view-order"
 					}

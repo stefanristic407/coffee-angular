@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-roasting-profiles',
@@ -60,12 +61,15 @@ export class RoastingProfilesComponent implements OnInit {
   roleData: string;
   roleID: string;
   roasterId: any ;
- 
+  odd: boolean = false ;
+  appLanguage: any;
+
   constructor(
     public router: Router,
     public cookieService: CookieService,
     private roasterService : RoasterserviceService,
-    private toastrService : ToastrService,) {
+    private toastrService : ToastrService,
+    private globals: GlobalsService) {
     this.termStatus = '';
     this.termRole = '';
     this.roasterId = this.cookieService.get('roaster_id');
@@ -73,6 +77,7 @@ export class RoastingProfilesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoastingProfile();
+    this.appLanguage = this.globals.languageJson;
   }
 
   setTeamRole(term: any, roleId: any) {
@@ -116,21 +121,33 @@ export class RoastingProfilesComponent implements OnInit {
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
+    if(this.odd!){
     this.mainData.forEach(x => x.state = ev.target.checked)
+    }
   }
 
   // Function Name : IsAllchecked
   // Description: This function helps to check single role.
   isAllChecked() {
+    if(this.odd!){
     return this.mainData.every(_ => _.state);
+    }
   } 
 
   getRoastingProfile(){
 		this.roasterService.getRoastingProfile(this.roasterId).subscribe(
 			data => {
 				if(data['success']==true){
-					this.mainData = data['result'];
-				}else{
+          if ( data['result'] == null || data['result'].length == 0) {
+            this.odd = true ;
+            this.toastrService.error("Table Data is empty");
+          }
+          else {
+            this.odd = false ;
+            this.mainData = data['result'];
+          }				
+        }else{
+          this.odd = true ;
 					this.toastrService.error("Error while getting the agreement list!");
 				}
 			}

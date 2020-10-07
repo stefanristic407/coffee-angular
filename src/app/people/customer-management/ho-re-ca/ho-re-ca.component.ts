@@ -20,6 +20,7 @@ export class HoReCaComponent implements OnInit {
   folderId: any;
   estateId: any;
   roasterId: any;
+  odd : boolean = false ;
 	appLanguage: any;
 
   constructor(public router: Router,
@@ -57,13 +58,17 @@ export class HoReCaComponent implements OnInit {
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
+    if(this.odd!){
     this.mainData.forEach(x => x.state = ev.target.checked)
+    }
   }
 
   // Function Name : IsAllchecked
   // Description: This function helps to check single role.
   isAllChecked() {
+    if(this.odd!){
     // return this.mainData.every(_ => _.state);
+    }
   }
 
   shareDetails(size: any) {
@@ -84,13 +89,16 @@ export class HoReCaComponent implements OnInit {
       data => {
         if (data['success'] == true) {
           if (data['result'] == null || data['result'].length == 0) {
+            this.odd = true ;
             this.toastrService.error("Table Data is empty");
           }
           else {
+            this.odd = false ;
             this.mainData = data['result'];
           }
         } else {
-          this.toastrService.error("Error while getting the agreement list!");
+          this.odd = true ;
+          this.toastrService.error("Error while getting the table list!");
         }
       }
     )

@@ -41,15 +41,18 @@
     color: #232334;
     margin-bottom: 0;
 }
+
 .account_activation {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #747588;
 }
-.activation__bold{
+
+.activation__bold {
     color: #232334;
 }
+
 .user_name,
 .user_email {
     font-family: Muli;
@@ -57,6 +60,7 @@
     font-weight: 600;
     color: #666666;
 }
+
 .rectangle_username,
 .rectangle_useremail {
     border-radius: 4px;
@@ -64,6 +68,7 @@
     background-color: #ffffff;
     height: 46px;
 }
+
 .rectangle_username::placeholder,
 .rectangle_useremail::placeholder {
     font-family: Muli;
@@ -134,15 +139,23 @@
     color: #979797;
     font-family: Muli;
 }
-label{
+
+.btn-group__item.active:last-child {
+    background-color: #ff1e5a !important;
+}
+
+label {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #747588;
 }
-.star{
+
+.star {
     color: #ff1e5a;
 }
+
+
 /* 
 .edit-memberspacing {
     margin-top: -1.4rem;
@@ -167,36 +180,43 @@ label{
     font-size: 14px;
 }
 
-.bread-nav{
+.bread-nav {
     padding: 2rem 3rem 1.1rem;
 }
-.edit__spacing{
+
+.edit__spacing {
     padding: 0 3rem;
 }
-.edit__total{
-    padding: 1.5rem 1.5rem 6rem; 
+
+.edit__total {
+    padding: 1.5rem 1.5rem 6rem;
     border-radius: 4px;
     border: 1px solid #d6d6d6;
 }
-.active__main{
+
+.active__main {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     padding: 2px;
     margin-right: 14px;
 }
+
 .add-partner span {
     color: #80460b;
     text-decoration: underline;
 }
+
 .add-partner {
     cursor: pointer;
 }
-.delete-rows{
+
+.delete-rows {
     color: #30855c;
     font-size: 14px;
     line-height: 24px;
-  
 }
+
+
 /******************Media Query for Edit Member *********************/
 
 @media all and (max-width: 991px) {

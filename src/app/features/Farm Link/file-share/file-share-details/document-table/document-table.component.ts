@@ -16,6 +16,7 @@ import * as Plyr from 'plyr';
 declare var $ :any;
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-document-table',
@@ -63,6 +64,7 @@ export class DocumentTableComponent implements OnInit {
 
   
   selectedValue: string;
+  appLanguage: any;
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -71,7 +73,8 @@ export class DocumentTableComponent implements OnInit {
     public route : ActivatedRoute,
     private modalService: BsModalService,
     public fileService : FileShareService,
-    public filedetailsService : FileShareDetailsService
+    public filedetailsService : FileShareDetailsService,
+    private globals: GlobalsService
 
     ) {
       this.folderNameError = '';
@@ -112,7 +115,7 @@ export class DocumentTableComponent implements OnInit {
       //   this.filedetailsService.parentId = this.filedetailsService.folderId;
       //  console.log(this.filedetailsService.parentId)
      
-     
+      this.appLanguage = this.globals.languageJson;
     }
 
     openModal(template: TemplateRef<any>,id: any) {

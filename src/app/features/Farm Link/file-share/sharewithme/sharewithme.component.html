@@ -10,11 +10,11 @@
                                 <span class="checkmark head-check"></span>
                             </label>
                         </th>
-                        <th>Files</th>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Modified</th>
-                        <th scope="col">Owner</th>
-                        <th scope="col">Type</th>
+                        <th>{{appLanguage.files}}</th>
+                        <th scope="col">{{appLanguage.order_id}}</th>
+                        <th scope="col">{{appLanguage.modified}}</th>
+                        <th scope="col">{{appLanguage.owner}}</th>
+                        <th scope="col">{{appLanguage.type}}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -62,13 +62,13 @@
                                     <div id="popover-mobile-content">
                                       <ul class="list-group custom-popover">
                                         <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
-                                          <a class="pointer-item" (click)="pop.hide();downloadFile(item)">Download </a>
+                                          <a class="pointer-item" (click)="pop.hide();downloadFile(item)">{{appLanguage.download}} </a>
                                         </li>
                                         <li class="list-group-item">
                                           <a
                                             class="pointer-item"
                                             (click)="pop.hide(); pinFileorFolder(item.id)"
-                                            >Pin</a
+                                            >{{appLanguage.pin}}</a
                                           >
                                         </li>
                                         <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
@@ -83,31 +83,31 @@
                                               );
                                               pop.hide()
                                             "
-                                            >Rename</a
+                                            >{{appLanguage.rename}}</a
                                           >
                                         </li>
                                         <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
                                           <a
                                             class="pointer-item"
                                             (click)="openFileModal(fileTemplate, item.id); pop.hide()"
-                                            >Rename</a
+                                            >{{appLanguage.rename}}</a
                                           >
                                         </li>
                                         <li class="list-group-item">
-                                          <a class="pointer-item" (click)="pop.hide()">Comment</a>
+                                          <a class="pointer-item" (click)="pop.hide()">{{appLanguage.comment}}</a>
                                         </li>
                                         <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
                                           <a
                                             class="pointer-item"
                                             (click)="pop.hide(); deleteFolder(item.id)"
-                                            >Delete</a
+                                            >{{appLanguage.delete}}</a
                                           >
                                         </li>
                                         <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
                                           <a
                                             class="pointer-item"
                                             (click)="pop.hide(); deleteFile(item.id)"
-                                            >Delete</a
+                                            >{{appLanguage.delete}}</a
                                           >
                                         </li>
                                       </ul>
@@ -266,7 +266,7 @@
                                                     *ngIf="item.type != 'FOLDER'"
                                                   >
                                                     <a class="pointer-item" (click)="pop1.hide();downloadFile(item)"
-                                                      >Download
+                                                      >{{appLanguage.download}}
                                                     </a>
                                                   </li>
                                                   <li class="list-group-item">
@@ -275,7 +275,7 @@
                                                       (click)="
                                                         pop1.hide(); pinFileorFolder(item.id)
                                                       "
-                                                      >Pin</a
+                                                      >{{appLanguage.pin}}</a
                                                     >
                                                   </li>
                                                   <li
@@ -293,7 +293,7 @@
                                                         );
                                                         pop1.hide()
                                                       "
-                                                      >Rename</a
+                                                      >{{appLanguage.rename}}</a
                                                     >
                                                   </li>
                                                   <li
@@ -306,12 +306,12 @@
                                                         openFileModal(fileTemplate, item.id);
                                                         pop1.hide()
                                                       "
-                                                      >Rename</a
+                                                      >{{appLanguage.rename}}</a
                                                     >
                                                   </li>
                                                   <li class="list-group-item">
                                                     <a class="pointer-item" (click)="pop1.hide()"
-                                                      >Comment</a
+                                                      >{{appLanguage.comment}}</a
                                                     >
                                                   </li>
                                                   <li
@@ -321,7 +321,7 @@
                                                     <a
                                                       class="pointer-item"
                                                       (click)="pop1.hide(); deleteFolder(item.id)"
-                                                      >Delete</a
+                                                      >{{appLanguage.delete}}</a
                                                     >
                                                   </li>
                                                   <li
@@ -331,7 +331,7 @@
                                                     <a
                                                       class="pointer-item"
                                                       (click)="pop1.hide(); deleteFile(item.id)"
-                                                      >Delete</a
+                                                      >{{appLanguage.delete}}</a
                                                     >
                                                   </li>
                                                 </ul>
@@ -455,7 +455,7 @@
                                                           *ngIf="item.type != 'FOLDER'"
                                                         >
                                                           <a class="pointer-item" (click)="pop2.hide();downloadFile(item)"
-                                                            >Download
+                                                            >{{appLanguage.download}}
                                                           </a>
                                                         </li>
                                                         <li class="list-group-item">
@@ -464,7 +464,7 @@
                                                             (click)="
                                                               pop2.hide(); pinFileorFolder(item.id)
                                                             "
-                                                            >Pin</a
+                                                            >{{appLanguage.pin}}</a
                                                           >
                                                         </li>
                                                         <li
@@ -482,7 +482,7 @@
                                                               );
                                                               pop2.hide()
                                                             "
-                                                            >Rename</a
+                                                            >{{appLanguage.rename}}</a
                                                           >
                                                         </li>
                                                         <li
@@ -495,12 +495,12 @@
                                                               openFileModal(fileTemplate, item.id);
                                                               pop2.hide()
                                                             "
-                                                            >Rename</a
+                                                            >{{appLanguage.rename}}</a
                                                           >
                                                         </li>
                                                         <li class="list-group-item">
                                                           <a class="pointer-item" (click)="pop2.hide()"
-                                                            >Comment</a
+                                                            >{{appLanguage.comment}}</a
                                                           >
                                                         </li>
                                                         <li
@@ -510,7 +510,7 @@
                                                           <a
                                                             class="pointer-item"
                                                             (click)="pop2.hide(); deleteFolder(item.id)"
-                                                            >Delete</a
+                                                            >{{appLanguage.delete}}</a
                                                           >
                                                         </li>
                                                         <li
@@ -520,7 +520,7 @@
                                                           <a
                                                             class="pointer-item"
                                                             (click)="pop2.hide(); deleteFile(item.id)"
-                                                            >Delete</a
+                                                            >{{appLanguage.delete}}</a
                                                           >
                                                         </li>
                                                       </ul>
@@ -649,7 +649,7 @@
     <ng-template #template>
             <div class="modal-header">
               <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-                Update folder
+                {{appLanguage.update_folder}}
               </h5>
               <button
                 type="button"
@@ -664,7 +664,7 @@
               <form>
                 <div class="roastery-fields mb-4">
                   <div class="farm-input col-12 col-md-5 px-0">
-                    <label class="mb-0">Name</label>
+                    <label class="mb-0">{{appLanguage.name}}</label>
                     <input
                       type="hidden"
                       [(ngModel)]="folderItemId"
@@ -687,7 +687,7 @@
                 <div class="roastery-fields mb-4">
                   <div class="farm-input col-12 px-0">
                     <label class="mb-0"
-                      >Give a short description to your folder (optional) *</label
+                      >{{appLanguage.give_short_description}} *</label
                     >
                     <textarea
                       class="mb-0"
@@ -711,7 +711,7 @@
                   class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
                   (click)="UpdateFolder()"
                 >
-                  Update
+                {{appLanguage.update}}
                 </button>
               </div>
             </div>
@@ -720,7 +720,7 @@
           <ng-template #fileTemplate>
             <div class="modal-header">
               <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-                Update file
+                {{appLanguage.update_file}}
               </h5>
               <button
                 type="button"
@@ -735,7 +735,7 @@
               <form>
                 <div class="roastery-fields mb-4">
                   <div class="farm-input col-12 col-md-5 px-0">
-                    <label class="mb-0">Name</label>
+                    <label class="mb-0">{{appLanguage.name}}</label>
                     <input
                       type="text"
                       placeholder="Enter file name"
@@ -752,7 +752,7 @@
                 <div class="roastery-fields mb-4">
                   <div class="farm-input col-12 px-0">
                     <label class="mb-0"
-                      >Give a short description to your file (optional) *</label
+                      >{{appLanguage.give_short_description}}*</label
                     >
                     <textarea
                       class="mb-0"
@@ -773,7 +773,7 @@
                   </div>
                 </div>
                 <div class="roastery-fields mb-4">
-                  <label class="mb-1 mr-2 ">File Upload </label>
+                  <label class="mb-1 mr-2 ">{{appLanguage.file_upload}}</label>
                   <label class="share-bor mr-3">
                     <input
                       class="file-inpt"
@@ -785,7 +785,7 @@
                       src="assets/images/upload-icon.png"
                       alt="farm"
                     />
-                    <span class="share-txt ml-2"> Upload </span>
+                    <span class="share-txt ml-2"> {{appLanguage.upload}} </span>
                   </label>
                   <span class="value-name">{{ fileNameValue }}</span>
                 </div>
@@ -796,7 +796,7 @@
                   class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
                   (click)="updateFile()"
                 >
-                  Update
+                {{appLanguage.update}}
                 </button>
               </div>
             </div>

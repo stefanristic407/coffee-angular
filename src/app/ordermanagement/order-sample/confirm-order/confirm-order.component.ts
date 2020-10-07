@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { $ } from 'protractor';
 import { RoasteryProfileService } from '../../../features/roastery-profile/roastery-profile.service';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-confirm-order',
@@ -26,7 +27,9 @@ zipError:string;
 cityError:string;
 service: string = "Import & Delivery service";
 serviceAmount: number = 4500;
-  constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService) { }
+appLanguage: any;
+
+  constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public global: GlobalsService) { }
   @ViewChild('confirmtemplate') private confirmtemplate: any;
 
   openModal(template: TemplateRef<any>) {
@@ -34,6 +37,7 @@ serviceAmount: number = 4500;
 
   }
   ngOnInit(): void {
+    this.appLanguage = this.global.languageJson;
     this.quantity="";
     this.confirmOrderError="";
     this.countryError= "";

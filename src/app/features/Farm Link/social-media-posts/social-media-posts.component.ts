@@ -1,6 +1,7 @@
 import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalsService } from 'src/services/globals.service';
 
 
 @Component({
@@ -11,8 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 export class SocialMediaPostsComponent implements OnInit {
   modalRef: BsModalRef;
   blogResult: string;
+  appLanguage: any;
 
-  constructor(private modalService: BsModalService, private route : ActivatedRoute) { }
+  constructor(private modalService: BsModalService, private route : ActivatedRoute,
+		private globals: GlobalsService) { }
   @ViewChild('imagetemplate') private imagetemplate: any;
   @ViewChild('videotemplate') private videotemplate: any;
 
@@ -26,6 +29,8 @@ export class SocialMediaPostsComponent implements OnInit {
     if(this.blogResult == "true"){
     $('#pills-blogs-tab')[0].click();
     }
+    
+    this.appLanguage = this.globals.languageJson;
   }
 
   imagesModal(){

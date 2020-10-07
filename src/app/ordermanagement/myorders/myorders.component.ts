@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-myorders',
@@ -8,9 +9,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./myorders.component.css']
 })
 export class MyordersComponent implements OnInit {
+  appLanguage:any;
 
   constructor(public router:Router,
-              public cookieService:CookieService) { }
+              public cookieService:CookieService,public global: GlobalsService) { }
 
   ngOnInit(): void {
  //Auth checking
@@ -18,7 +20,8 @@ export class MyordersComponent implements OnInit {
   this.router.navigate(["/auth/login"]);
 }
 
-    
+this.appLanguage = this.global.languageJson;
+
   }
 
 

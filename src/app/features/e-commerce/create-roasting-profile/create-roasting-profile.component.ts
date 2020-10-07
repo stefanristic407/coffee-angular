@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-create-roasting-profile',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-roasting-profile.component.css']
 })
 export class CreateRoastingProfileComponent implements OnInit {
+  appLanguage: any;
 
-  constructor() { }
+  constructor( private globals: GlobalsService) { }
 
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
   }
 
 }

@@ -6,7 +6,7 @@
                     <th>
                         <label class="customcheckbox m-b-20">
                                 <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
-                                (change)="checkAll($event)"/>
+                                (change)="checkAll($event)" />
                                 <span class="checkmark head-check"></span>
                             </label>
                     </th>
@@ -55,6 +55,7 @@
                         </ng-template>
                     </td>
                 </tr>
+                <tr class="odd" *ngIf="odd"><td valign="top" colspan="11" class="dataTables_empty">No data available in table</td></tr>
             </tbody>
         </table>
     </div>

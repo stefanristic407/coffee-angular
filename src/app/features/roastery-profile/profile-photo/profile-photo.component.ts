@@ -1,6 +1,8 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import { Dimensions, ImageCroppedEvent, ImageCropperComponent, ImageTransform } from "ngx-image-cropper";
 import { ProfilePhotoService } from './profile-photo.service';
+import {GlobalsService} from 'src/services/globals.service';
+
 @Component({
   selector: 'sewn-profile-photo',
   templateUrl: './profile-photo.component.html',
@@ -16,10 +18,13 @@ export class ProfilePhotoComponent implements OnInit {
   showCropper = false;
   containWithinAspectRatio = false;
   transform: ImageTransform = {};
+  appLanguage: any;
 
-  constructor(public profilePhotoService : ProfilePhotoService) {}
+  constructor(public profilePhotoService : ProfilePhotoService,private globals: GlobalsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
+  }
 
   ngAfterViewInit(): void {
     this.profilePhotoService.imageCropper = this.imageCropper;

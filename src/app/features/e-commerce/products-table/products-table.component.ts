@@ -7,6 +7,7 @@ import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-products-table',
@@ -24,6 +25,7 @@ export class ProductsTableComponent implements OnInit {
   showVar: boolean = true;
   showRole: boolean = true;
   term: any;
+  odd: boolean = false ;
 
   mainData: any[] = [
     // {
@@ -75,13 +77,15 @@ export class ProductsTableComponent implements OnInit {
   termOrigin: any;
   termType: any;
   roasterId: any;
+  appLanguage: any;
 
   constructor(public router: Router,
     public cookieService: CookieService,
     public dashboard: DashboardserviceService,
     private roasterService: RoasterserviceService,
     private toastrService: ToastrService,
-    public modalService: BsModalService) {
+    public modalService: BsModalService,
+    private globals: GlobalsService) {
     this.termStatus = '';
     this.termRole = '';
     this.termOrigin = '';
@@ -92,6 +96,7 @@ export class ProductsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSelectProducts();
+    this.appLanguage = this.globals.languageJson;
   }
 
   // setTeamRole(term: any, roleId: any) {
@@ -167,24 +172,29 @@ export class ProductsTableComponent implements OnInit {
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
+    if(this.odd!){
+      this.mainData.forEach(x => x.state = ev.target.checked)
+    }
   }
 
   // Function Name : IsAllchecked
   // Description: This function helps to check single role.
   isAllChecked() {
-    return this.mainData.every(_ => _.state);
+    if(this.odd!){
+     return this.mainData.every(_ => _.state);
+    }
   }
   // table data
   getSelectProducts() {
     this.roasterService.getSelectProductDetails(this.roasterId).subscribe(
       data => {
         if (data['success'] == true) {
-          let array = data['result'];
-          if (data['result'] == null || data['result'].length == 0) {
+          if ( data['result'] == null || data['result'].length == 0) {
+            this.odd = true ;
             this.toastrService.error("Table Data is empty");
           }
           else {
+            this.odd = false ;
             this.mainData = data['result'];
           }
         } else {

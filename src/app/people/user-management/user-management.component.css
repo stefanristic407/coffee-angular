@@ -283,6 +283,10 @@ a.b-cum:hover {
     }
 }
 
+.table{
+    margin-bottom: 0px !important;
+}
+
 
 /*=============== For Card layout ==================*/
 
@@ -385,8 +389,9 @@ a.b-cum:hover {
 
 .delete_row {
     border: none;
-    margin-right: 4%;
+    /* margin-right: 4%; */
     margin-bottom: 3%;
+    background: none;
 }
 
 
@@ -598,7 +603,7 @@ option {
         border-bottom: none;
         /* margin-bottom: 4rem; */
     }
-    .left-padd{padding-left: 31px;}
+    .left-padd{padding-left: 25px;}
     /* .right-padd{padding-right: 5px;} */
     .user-name{color: #232334;
         font-weight: bold;

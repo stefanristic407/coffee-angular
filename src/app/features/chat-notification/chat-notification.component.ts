@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-chat-notification',
@@ -23,17 +24,20 @@ export class ChatNotificationComponent implements OnInit {
   farmSize : string;
   quantity: string;
   roasterId: string;
+  appLanguage: any;
 
   constructor(public userService : UserserviceService,
               public router : Router,
               public toastrService : ToastrService,
-              public cookieService : CookieService) { 
+              public cookieService : CookieService,
+              public globals : GlobalsService) { 
                 this.roasterId = this.cookieService.get('roaster_id');
               }
 
   ngOnInit(): void {
 
     this.getPreferences();
+    this.appLanguage = this.globals.languageJson;
   }
 
   setStatus(term: any) {

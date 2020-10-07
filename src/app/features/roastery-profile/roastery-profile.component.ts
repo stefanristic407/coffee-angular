@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ProfilePhotoService } from './profile-photo/profile-photo.service';
 import { RoasteryProfileService } from './roastery-profile.service';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-roastery-profile',
@@ -11,14 +12,17 @@ import { RoasteryProfileService } from './roastery-profile.service';
 })
 export class RoasteryProfileComponent implements OnInit {
   @ViewChild("image") image;
+  appLanguage: any;
+
   constructor(  private router : Router, 
     private toastrService: ToastrService,
     public profilePhotoService : ProfilePhotoService,
-    public roasteryProfileService : RoasteryProfileService) { }
+    public roasteryProfileService : RoasteryProfileService,
+    private globals: GlobalsService) { }
 
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
   }
-
 
   
   //  Function Name : Profile Image function.

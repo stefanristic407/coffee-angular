@@ -3,6 +3,7 @@ import { CookieService } from "ngx-cookie-service";
 import { UserserviceService } from "src/services/users/userservice.service";
 import { ToastrService } from "ngx-toastr";
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { GlobalsService } from 'src/services/globals.service';
 declare var $ : any;
 @Component({
   selector: 'app-roastery-license',
@@ -28,12 +29,13 @@ export class RoasteryLicenseComponent implements OnInit {
 
   showRelavant:boolean=true;
   userId: any;
-
+  appLanguage: any;
 
   constructor(
     private _cokkieService: CookieService,
     private _userService: UserserviceService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private globals: GlobalsService
   ) { 
     this.termStatus = "Only me";
     this.licenseArray.push({
@@ -59,7 +61,7 @@ export class RoasteryLicenseComponent implements OnInit {
     this.showsaveddatadiv = false;
     this.secondButtonValue = "Save";
     this.getCertificates();
-
+    this.appLanguage = this.globals.languageJson;
   }
   onKeyPress(event: any) {
     if (event.target.value == "") {

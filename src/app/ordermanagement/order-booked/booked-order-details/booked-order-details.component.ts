@@ -2,6 +2,7 @@
 // PAGE DESCRIPTION : This page contains functions of Order Details for booked type order.
 import { Component, OnInit } from '@angular/core';
 import { OrderBookedService } from '../order-booked.service';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-booked-order-details',
@@ -10,10 +11,11 @@ import { OrderBookedService } from '../order-booked.service';
 })
 export class BookedOrderDetailsComponent implements OnInit {
   files: FileList;
-
-  constructor(public bookedService: OrderBookedService) { }
+  appLanguage:any;
+  constructor(public bookedService: OrderBookedService,public global: GlobalsService) { }
 
   ngOnInit(): void {
+    this.appLanguage = this.global.languageJson;
   }
   // Function Name : Upload receipt
   // Description: This function helps to upload receipt in order details tab of order booked .

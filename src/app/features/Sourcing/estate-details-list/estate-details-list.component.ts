@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-estate-details-list',
@@ -7,6 +7,7 @@ import { Component, OnInit} from '@angular/core';
   styleUrls: ['./estate-details-list.component.css']
 })
 export class EstateDetailsListComponent implements OnInit {
+  appLanguage: any;
 
   public coffeedata: any[] = [
 		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '$7.4 USD / kg',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
@@ -16,9 +17,10 @@ export class EstateDetailsListComponent implements OnInit {
 		// {  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '$5.6 USD / kg',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82' },
 		// {  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84' }
   ];
-  constructor() { }
+  constructor(private globals: GlobalsService) { }
   
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
   }
 
 }

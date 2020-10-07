@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 declare var $: any;
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-sourcing-order-chat',
@@ -7,10 +8,12 @@ declare var $: any;
   styleUrls: ['./sourcing-order-chat.component.css']
 })
 export class SourcingOrderChatComponent implements OnInit {
+	appLanguage: any;
 
-  constructor() { }
+  constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
+	this.appLanguage = this.globals.languageJson;
   }
 
   ngAfterViewInit() {

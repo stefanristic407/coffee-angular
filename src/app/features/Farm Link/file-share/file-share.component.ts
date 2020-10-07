@@ -11,6 +11,7 @@ import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-file-share',
   templateUrl: './file-share.component.html',
@@ -49,6 +50,7 @@ descriptionError: string;
   
   typedValue: any;
   usersList: any[]=[];
+  appLanguage: any;
 
 
   constructor( public router : Router,
@@ -57,14 +59,15 @@ descriptionError: string;
                private cookieService : CookieService,
                private roasterService : RoasterserviceService,
                public fileService : FileShareService,
-               public modalService:BsModalService) { 
+               public modalService:BsModalService,
+               private globals : GlobalsService) { 
     this.folderNameError = "";
     this.descriptionError = "";
     this.roasterId = this.cookieService.get('roaster_id');
   }
 
   ngOnInit(): void {
-
+    this.appLanguage = this.globals.languageJson;
     $('.remove-quiker-file').on('click', function (e) {
       e.preventDefault();
 

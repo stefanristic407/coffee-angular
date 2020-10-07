@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 
 @Component({
@@ -8,11 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CofeeExpeienceDetailsComponent implements OnInit {
   date1: Date;
+  appLanguage: any;
 
-  constructor() { }
+  constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
-    
+    this.appLanguage = this.globals.languageJson;
     $("body").on("change", ".custom-label__inputs", function () {
       var $this = $(this);
   

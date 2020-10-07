@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-invite-member',
@@ -16,7 +17,10 @@ export class InviteMemberComponent implements OnInit {
   roaster_id: any;
   add_member_name:any;
   add_member_email:any;
-  constructor(public roasterService:RoasterserviceService,public cookieService: CookieService,private router: Router) {
+  appLanguage: any;
+
+  constructor(public roasterService:RoasterserviceService,public cookieService: CookieService,private router: Router,    private globals: GlobalsService
+    ) {
     this.roaster_id = this.cookieService.get('roaster_id');
    }
 
@@ -26,6 +30,7 @@ export class InviteMemberComponent implements OnInit {
     this.router.navigate(["/auth/login"]);
     }
     this.listRoles();
+    this.appLanguage = this.globals.languageJson;
   }
   listRoles() {
     this.roasterService.getRoles(this.roaster_id).subscribe(

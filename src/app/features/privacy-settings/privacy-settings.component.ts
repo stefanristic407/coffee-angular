@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-privacy-settings',
@@ -17,11 +18,14 @@ export class PrivacySettingsComponent implements OnInit {
   agree_terms : boolean = false;
   result: string;
   value: string;
+  appLanguage: any;
   constructor(public userService : UserserviceService, public toastrService : ToastrService, 
-              private route : ActivatedRoute, private router : Router) { }
+              private route : ActivatedRoute, private router : Router,
+              private globals : GlobalsService) { }
 
   ngOnInit(): void {
     this.getPrivacyTerms();
+    this.appLanguage = this.globals.languageJson;
   }
 
   getPrivacyTerms(){

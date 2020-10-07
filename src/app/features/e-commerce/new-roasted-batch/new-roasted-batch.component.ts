@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-new-roasted-batch',
@@ -13,11 +14,13 @@ export class NewRoastedBatchComponent implements OnInit {
   langChips : any = [];
   selectable = true;
   removable = true;
+  appLanguage: any;
 
-  constructor() { }
+  constructor( private globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.cupping = '';
+    this.appLanguage = this.globals.languageJson;
 
   }
   setCupping(cuppdata:any){

@@ -5,31 +5,31 @@
             <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6">
                 <div class="sourcing-border sourcing-top-width d-md-flex">
                     <div class="d-inline filter-set space-width">
-                        <p class="d-inline select-origin" *ngIf="origin == ''">Select origin&nbsp;&nbsp;</p>
+                        <p class="d-inline select-origin" *ngIf="origin == ''">{{appLanguage.select_origin}}&nbsp;&nbsp;</p>
 
                         <!-- <p class="d-inline filter-text" *ngIf="origin == ''">Origin&nbsp;</p> -->
-                        <a class="pointer-item arrow-spacing" [popover]="originTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                        <a class="pointer-item arrow-spacing" [outsideClick]="true"  [popover]="originTemplate" placement="bottom" container="body" #pop2="bs-popover">
                             <p class="d-inline filter" *ngIf="origin == ''">
                                 &nbsp; <img src="assets/images/active-user.png" />
                             </p>
                         </a>
                         <p class="d-inline select-origin" *ngIf="origin != ''">{{origin}}&nbsp;&nbsp;</p>
 
-                        <a class="pointer-item arrow-spacing" [popover]="originTemplate" placement="bottom" container="body" #pop1="bs-popover">
+                        <a class="pointer-item arrow-spacing" [outsideClick]="true"  [popover]="originTemplate" placement="bottom" container="body" #pop1="bs-popover">
                             <p class="d-inline filter" *ngIf="origin != ''">
                                 &nbsp;<img class="" src="assets/images/active-user.png" />
                             </p>
                         </a>
                     </div>
                     <div class="d-inline filter-set space-width">
-                        <p class="d-inline add-variety" *ngIf="variety == ''">Add variety&nbsp;&nbsp;</p>
-                        <a class="pointer-item arrow-spacing" [popover]="VarietyTemplate" placement="bottom" container="body" #pop11="bs-popover">
+                        <p class="d-inline add-variety" *ngIf="variety == ''">{{appLanguage.add_variety}}&nbsp;&nbsp;</p>
+                        <a class="pointer-item arrow-spacing" [outsideClick]="true" [popover]="VarietyTemplate" placement="bottom" container="body" #pop11="bs-popover">
                             <p class="d-inline filter" *ngIf="variety == ''">
                                 &nbsp; <img src="assets/images/active-user.png" />
                             </p>
                         </a>
                         <p class="d-inline add-variety" *ngIf="variety != ''">{{variety}}&nbsp;&nbsp;</p>
-                        <a class="pointer-item arrow-spacing" [popover]="VarietyTemplate" placement="bottom" container="body" #pop12="bs-popover">
+                        <a class="pointer-item arrow-spacing" [outsideClick]="true" [popover]="VarietyTemplate" placement="bottom" container="body" #pop12="bs-popover">
                             <p class="d-inline filter" *ngIf="variety != ''">
                                &nbsp;<img class="" src="assets/images/active-user.png" />
                             </p>
@@ -43,49 +43,49 @@
                             </p>
                         </a>
                     </div> -->
-                    <input class="d-inline search-name filter-set" type="text" name="sourcingName" id="sourcingName" [(ngModel)]="termSearch" placeholder="Search by name">
+                    <input class="d-inline search-name filter-set" type="text" name="sourcingName" id="sourcingName" [(ngModel)]="termSearch" placeholder="{{appLanguage.search_by_name}}">
                 </div>
             </div>
         </div>
         <div class="row pt-3 pt-md-4 pb-md-4">
             <div class="title-header">
-                <div class="d-inline border-grade col-sm-6" id="grade_id">
-                    <p class="d-inline filter-text" *ngIf="grade == ''">Grade&nbsp;</p>
-                    <a class="pointer-item" [popover]="gradeTemplate" placement="bottom" container="body" #pop4="bs-popover">
-                        <p class="d-inline filter" *ngIf="grade == ''" (click)="toggleGrade()">
+                <div class="d-inline border-grade col-sm-6" id="grade_id" [outsideClick]="true" (onShown)="toggleGrade();" (onHidden)="toggleGrade();" [popover]="gradeTemplate" placement="bottom" container="body" #pop4="bs-popover">
+                    <p class="d-inline filter-text" *ngIf="grade == ''">{{appLanguage.grade}}&nbsp;</p>
+                    <a class="pointer-item" >
+                        <p class="d-inline filter" *ngIf="grade == ''">
                             &nbsp; <img src="{{ showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                         </p>
                     </a>
-                    <a class="pointer-item" [popover]="gradeTemplate" placement="bottom" container="body" #pop5="bs-popover">
-                        <p class="d-inline filter" *ngIf="grade != ''" (click)="toggleGrade()">
+                    <a class="pointer-item" >
+                        <p class="d-inline filter" *ngIf="grade != ''">
                             {{ grade }} &nbsp;<img src="{{ showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                         </p>
                     </a>
                 </div>
-                <div class="d-inline border-grade col-sm-6" id="crop_id">
-                    <p class="d-inline filter-text" *ngIf="crop == ''">Crop year&nbsp;</p>
-                    <a class="pointer-item" [popover]="cropTemplate" placement="bottom" container="body" #pop6="bs-popover">
-                        <p class="d-inline filter" *ngIf="crop == ''" (click)="toggleCrop()">
+                <div class="d-inline border-grade col-sm-6" id="crop_id" [outsideClick]="true" (onShown)="toggleCrop();" (onHidden)="toggleCrop();" [popover]="cropTemplate" placement="bottom" container="body" #pop6="bs-popover">
+                    <p class="d-inline filter-text" *ngIf="crop == ''">{{appLanguage.crop_year}}&nbsp;</p>
+                    <a class="pointer-item" >
+                        <p class="d-inline filter" *ngIf="crop == ''" >
                             &nbsp; <img src="{{ showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                         </p>
                     </a>
-                    <a class="pointer-item" [popover]="cropTemplate" placement="bottom" container="body" #pop7="bs-popover">
-                        <p class="d-inline filter" *ngIf="crop != ''" (click)="toggleCrop()">
+                    <a class="pointer-item">
+                        <p class="d-inline filter" *ngIf="crop != ''" >
                             {{ crop }} &nbsp;<img src="{{ showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                         </p>
                     </a>
                 </div>
-                <div class="d-inline border-grade col-sm-6">
-                    <p class="d-inline filter-text">More filters&nbsp;</p>
+                <div class="d-inline border-grade col-sm-6" (click)="openModal(filterTemplate);">
+                    <p class="d-inline filter-text">{{appLanguage.more_filters}}&nbsp;</p>
                     <a class="pointer-item">
-                        <p class="d-inline filter" (click)="openModal(filterTemplate);">
+                        <p class="d-inline filter" >
                             &nbsp; <img src="assets/images/down-arrow.svg" />
                         </p>
                     </a>
 
                 </div>
                 <div class="d-inline border-grade col-sm-6">
-                    <p class="d-inline filter-text">Advanced search&nbsp;</p>
+                    <p class="d-inline filter-text">{{appLanguage.advanced_search}}&nbsp;</p>
                     <a class="pointer-item">
                         <p class="d-inline filter">
                             &nbsp; <img src="assets/images/down-arrow.svg" />
@@ -100,8 +100,8 @@
                             &nbsp; <img src="{{ showWeight ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />&nbsp;
                         </p>
                     </a> -->
-                    <a class="pointer-item" [popover]="weightTemplate" placement="bottom" container="body" #pop8="bs-popover">
-                        <p class="d-inline filter" *ngIf="weight != ''" (click)="toggleWeight()">
+                    <a class="pointer-item" [outsideClick]="true" (onShown)="toggleWeight();" (onHidden)="toggleWeight();"  [popover]="weightTemplate" placement="bottom" container="body" #pop8="bs-popover">
+                        <p class="d-inline filter" *ngIf="weight != ''" >
                             {{ weight }} &nbsp;<img src="{{ showWeight ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                         </p>
                     </a>
@@ -115,15 +115,15 @@
                     <div class="row">
                         <div class="col-lg-12 ">
                             <div class="filter-sort">
-                                <div class="d-inline border-grade col-12 col-md-6 mr-md-2 mr-3" id="sort_id">
-                                    <p class="d-inline filter-text" *ngIf="sort == ''">Sort by&nbsp;</p>
-                                    <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body" #pop10="bs-popover">
-                                        <p class="d-inline filter" *ngIf="sort == ''" (click)="toggleSort()">
+                                <div class="d-inline border-grade col-12 col-md-6 mr-md-2 mr-3" id="sort_id" [outsideClick]="true" (onShown)="toggleSort();" (onHidden)="toggleSort();" [popover]="sortTemplate" placement="bottom" container="body" #pop10="bs-popover">
+                                    <p class="d-inline filter-text" *ngIf="sort == ''">{{appLanguage.sort_by}}&nbsp;</p>
+                                    <a class="pointer-item" >
+                                        <p class="d-inline filter" *ngIf="sort == ''" >
                                             &nbsp; <img src="{{ showSort ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                         </p>
                                     </a>
-                                    <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body" #pop9="bs-popover">
-                                        <p class="d-inline filter" *ngIf="sort != ''" (click)="toggleSort()">
+                                    <a class="pointer-item">
+                                        <p class="d-inline filter" *ngIf="sort != ''">
                                             {{ sort }}&nbsp;<img src="{{ showSort ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                         </p>
                                     </a>
@@ -149,8 +149,8 @@
                             </div>
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#estates" role="tab" aria-controls="nav-home" aria-selected="true">Estates</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#green-coffee" role="tab" aria-controls="nav-profile" aria-selected="false">Available green coffee</a>
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#estates" role="tab" aria-controls="nav-home" aria-selected="true">{{appLanguage.estates}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#green-coffee" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.available_green_coffee}}</a>
                                 </div>
                             </nav>
                             <div class="tab-content py-md-4 px-md-3 px-sm-0" id="nav-tabContent">
@@ -179,20 +179,20 @@
                                                                 </div>
                                                                 <div class="source-lets flex">
                                                                     <div class="orgin-att">
-                                                                        <label>Origin</label>
+                                                                        <label>{{appLanguage.origin}}</label>
                                                                         <h6>{{sample.origin}}</h6>
                                                                     </div>
                                                                     <div class="orgin-att">
-                                                                        <label>Altitude</label>
+                                                                        <label>{{appLanguage.altitude}}</label>
                                                                         <h6>{{sample.range}}</h6>
                                                                     </div>
                                                                     <div class="orgin-att">
-                                                                        <label>Crop year</label>
+                                                                        <label>{{appLanguage.crop_year}}</label>
                                                                         <h6>{{sample.cropyear}}</h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="top-lots">
-                                                                    <label>Top lots</label>
+                                                                    <label>{{appLanguage.top_lots}}</label>
                                                                     <a>Dilema</a>
                                                                     <a>Shaya</a>
                                                                     <a>Gayni</a>
@@ -234,20 +234,20 @@
                                                                     </div>
                                                                     <div class="source-lets flex">
                                                                         <div class="orgin-att">
-                                                                            <label>Origin</label>
+                                                                            <label>{{appLanguage.origin}}</label>
                                                                             <h6>{{sample.origin}}</h6>
                                                                         </div>
                                                                         <div class="orgin-att">
-                                                                            <label>Altitude</label>
+                                                                            <label>{{appLanguage.altitude}}</label>
                                                                             <h6>{{sample.range}}</h6>
                                                                         </div>
                                                                         <div class="orgin-att">
-                                                                            <label>Crop year</label>
+                                                                            <label>{{appLanguage.crop_year}}</label>
                                                                             <h6>{{sample.cropyear}}</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="top-lots">
-                                                                        <label>Top lots</label>
+                                                                        <label>{{appLanguage.top_lots}}</label>
                                                                         <a>Dilema</a>
                                                                         <a>Shaya</a>
                                                                         <a>Gayni</a>
@@ -280,18 +280,17 @@
                                             <table class="table">
                                                 <thead class="table-header">
                                                     <tr class="header-row">
-                                                        <th scope="col">Estate name</th>
-                                                        <th scope="col">
-                                                            Rating
+                                                        <th scope="col">{{appLanguage.estate_name}}</th>
+                                                        <th scope="col">{{appLanguage.rating }}
                                                             <!-- <img class="pl-2" src="assets/images/combined-shape.svg" /> -->
                                                         </th>
-                                                        <th scope="col">Origin</th>
-                                                        <th scope="col">Altitude range</th>
+                                                        <th scope="col">{{appLanguage.origin}}</th>
+                                                        <th scope="col">{{appLanguage.altitude_range}}</th>
                                                         <th scope="col">
-                                                            Crop year
+                                                            {{appLanguage.crop_year}}
                                                         </th>
-                                                        <th scope="col">Lots</th>
-                                                        <th scope="col">Certificates</th>
+                                                        <th scope="col">{{appLanguage.lots}}</th>
+                                                        <th scope="col">{{appLanguage.certificates}}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="customtable">
@@ -332,7 +331,7 @@
                                                         <div class="s-gal">
                                                             <img [src]="item.image" alt="">
                                                             <div class="cupping">
-                                                                <p>Cup score {{item.score}}</p>
+                                                                <p>{{appLanguage.cup_score}} {{item.score}}</p>
                                                             </div>
                                                         </div>
                                                         <div class="s-details ">
@@ -345,15 +344,15 @@
                                                             </div>
                                                             <div class="source-lets flex">
                                                                 <div class="orgin-att">
-                                                                    <label>Origin</label>
+                                                                    <label>{{appLanguage.origin}}</label>
                                                                     <h6>{{item.origin}}</h6>
                                                                 </div>
                                                                 <div class="orgin-att">
-                                                                    <label>Variety</label>
+                                                                    <label>{{appLanguage.variety}}</label>
                                                                     <h6>{{item.species}}</h6>
                                                                 </div>
                                                                 <div class="orgin-att">
-                                                                    <label>Flavour</label>
+                                                                    <label>{{appLanguage.flavour}}</label>
                                                                     <ul class="flo-list">
                                                                         <li>Citrus</li>
                                                                         <li>Floral</li>
@@ -361,7 +360,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="top-lots">
-                                                                <label>Available Quantity : <span> {{item.quantity}} of 60{{weight}} </span></label>
+                                                                <label>{{appLanguage.available_quantity}} : <span> {{item.quantity}} of 60{{weight}} </span></label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -395,7 +394,7 @@
                                                             <div class="s-gal">
                                                                 <img [src]="item.image" alt="">
                                                                 <div class="cupping">
-                                                                    <p>Cup score {{item.score}}</p>
+                                                                    <p>{{appLanguage.cup_score}} {{item.score}}</p>
                                                                 </div>
                                                             </div>
                                                             <div class="s-details ">
@@ -408,15 +407,15 @@
                                                                 </div>
                                                                 <div class="source-lets flex">
                                                                     <div class="orgin-att">
-                                                                        <label>Origin</label>
+                                                                        <label>{{appLanguage.origin}}</label>
                                                                         <h6>{{item.origin}}</h6>
                                                                     </div>
                                                                     <div class="orgin-att">
-                                                                        <label>Variety</label>
+                                                                        <label>{{appLanguage.variety}}</label>
                                                                         <h6>{{item.species}}</h6>
                                                                     </div>
                                                                     <div class="orgin-att">
-                                                                        <label>Flavour</label>
+                                                                        <label>{{appLanguage.flavour}}</label>
                                                                         <ul class="flo-list">
                                                                             <li>Citrus</li>
                                                                             <li>Floral</li>
@@ -424,7 +423,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="top-lots">
-                                                                    <label>Available Quantity : <span> {{item.quantity}} of 60{{weight}} </span></label>
+                                                                    <label>{{appLanguage.available_quantity}} : <span> {{item.quantity}} of 60{{weight}} </span></label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -451,15 +450,15 @@
                                                 <table class="table">
                                                     <thead class="table-header">
                                                         <tr class="header-row">
-                                                            <th>Name</th>
-                                                            <th scope="col">Estate name</th>
-                                                            <th scope="col"> Origin</th>
-                                                            <th scope="col">Variety</th>
-                                                            <th scope="col">Price</th>
+                                                            <th>{{appLanguage.name}}</th>
+                                                            <th scope="col">{{appLanguage.estate_name}}</th>
+                                                            <th scope="col">{{appLanguage.origin}}</th>
+                                                            <th scope="col">{{appLanguage.variety}}</th>
+                                                            <th scope="col">{{appLanguage.price}}</th>
                                                             <!-- <img class="pl-2" src="assets/images/combined-shape.svg" /> -->
-                                                            <th scope="col">Quantity</th>
-                                                            <th scope="col">Flavour profile</th>
-                                                            <th scope="col">Cup score</th>
+                                                            <th scope="col">{{appLanguage.quantity}}</th>
+                                                            <th scope="col">{{appLanguage.flavour_profile}}</th>
+                                                            <th scope="col">{{appLanguage.cup_score}}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody class="customtable">
@@ -538,19 +537,19 @@
 <ng-template #gradeTemplate>
     <div id="status-content">
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setGrade(''); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item" >All</a></li>
-            <li class="list-group-item item-color" (click)="setGrade('4.45'); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item" >4.45</a></li>
-            <li class="list-group-item item-color" (click)="setGrade('4.9'); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item">4.9</a></li>
-            <li class="list-group-item item-color" (click)="setGrade('4.6'); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item">4.6</a></li>
-            <li class="list-group-item item-color" (click)="setGrade('4.2'); pop4.hide(); pop5.hide();toggleGrade()"><a class="pointer-item">4.2</a></li>
+            <li class="list-group-item item-color" (click)="setGrade(''); pop4.hide(); "><a class="pointer-item" >All</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('4.45'); pop4.hide();  "><a class="pointer-item" >4.45</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('4.9'); pop4.hide();  "><a class="pointer-item">4.9</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('4.6'); pop4.hide();  "><a class="pointer-item">4.6</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('4.2'); pop4.hide();  "><a class="pointer-item">4.2</a></li>
         </ul>
     </div>
 </ng-template>
 <ng-template #weightTemplate>
     <div id="status-content">
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setWeight('kg');  pop8.hide();toggleWeight()"><a class="pointer-item">KG</a></li>
-            <li class="list-group-item item-color" (click)="setWeight('lb');  pop8.hide();toggleWeight()"><a class="pointer-item">LB</a></li>
+            <li class="list-group-item item-color" (click)="setWeight('kg');  pop8.hide();"><a class="pointer-item">KG</a></li>
+            <li class="list-group-item item-color" (click)="setWeight('lb');  pop8.hide();"><a class="pointer-item">LB</a></li>
            
         </ul>
     </div>
@@ -558,10 +557,10 @@
 <ng-template #cropTemplate>
     <div>
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setCrop(''); pop6.hide(); pop7.hide();toggleCrop()"><a class="pointer-item">All</a></li>
-            <li class="list-group-item item-color" (click)="setCrop('March - June'); pop6.hide(); pop7.hide();toggleCrop()"><a class="pointer-item">March - June</a></li>
-            <li class="list-group-item item-color" (click)="setCrop('Jan - March'); pop6.hide(); pop7.hide();toggleCrop()"><a class="pointer-item">Jan - March</a></li>
-            <li class="list-group-item item-color" (click)="setCrop('August - Dec'); pop6.hide(); pop7.hide();toggleCrop()"><a class="pointer-item">August - Dec</a></li>
+            <li class="list-group-item item-color" (click)="setCrop(''); pop6.hide(); "><a class="pointer-item">All</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('March - June'); pop6.hide(); "><a class="pointer-item">March - June</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('Jan - March'); pop6.hide(); "><a class="pointer-item">Jan - March</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('August - Dec'); pop6.hide(); "><a class="pointer-item">August - Dec</a></li>
         </ul>
     </div>
 
@@ -569,11 +568,11 @@
 <ng-template #sortTemplate>
     <div>
         <ul class="list-group custom-popover">
-        <li class="list-group-item item-color" (click)="setSort('Name (A-Z)'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Name (A-Z)</a></li>
-        <li class="list-group-item item-color" (click)="setSort('Recently added'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Recently added</a></li>
-        <li class="list-group-item item-color" (click)="setSort('Cup score'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Cup score (High-Low)</a></li>
-        <li class="list-group-item item-color" (click)="setSort('Price'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Price (High - low)</a></li>
-        <li class="list-group-item item-color" (click)="setSort('Quantity'); pop10.hide(); pop9.hide();toggleSort()"><a class="pointer-item">Quantity (High- Low)</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Name (A-Z)'); pop10.hide(); "><a class="pointer-item">Name (A-Z)</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Recently added'); pop10.hide(); "><a class="pointer-item">Recently added</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Cup score'); pop10.hide(); "><a class="pointer-item">Cup score (High-Low)</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Price'); pop10.hide(); "><a class="pointer-item">Price (High - low)</a></li>
+        <li class="list-group-item item-color" (click)="setSort('Quantity'); pop10.hide(); "><a class="pointer-item">Quantity (High- Low)</a></li>
         </ul>
     </div>
 </ng-template>

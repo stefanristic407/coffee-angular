@@ -2,6 +2,7 @@
 // PAGE DESCRIPTION : This page contains functions of Order Details for sample type order.
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrderSampleService } from '../order-sample.service';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'sewn-order-details',
@@ -10,13 +11,14 @@ import { OrderSampleService } from '../order-sample.service';
 })
 export class OrderDetailsComponent implements OnInit {
  
-
   files: FileList;
+	appLanguage: any;
 
-  constructor(public sampleService: OrderSampleService) { }
+  constructor(public sampleService: OrderSampleService,
+    public global: GlobalsService) { }
 
   ngOnInit(): void {
-    
+    this.appLanguage = this.global.languageJson;
   }
 
   // Function Name : Upload receipt

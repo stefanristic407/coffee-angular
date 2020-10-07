@@ -3,6 +3,7 @@ import { SourcingService } from '../sourcing.service';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { map } from 'rxjs/operators';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-available-coffee-list',
@@ -11,6 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class AvailableCoffeeListComponent implements OnInit {
 	items: GalleryItem[];
+	appLanguage: any;
 
 
 
@@ -198,7 +200,7 @@ export class AvailableCoffeeListComponent implements OnInit {
   
     // line chart
     autoScale = true;
-  constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox) { }
+  constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox,private globals: GlobalsService) { }
 
   ngOnInit(): void {
 	this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
@@ -208,6 +210,7 @@ export class AvailableCoffeeListComponent implements OnInit {
 		thumbPosition: ThumbnailsPosition.Top
 	  });
 	  lightboxRef.load(this.items);
+	  this.appLanguage = this.globals.languageJson;
   }
 
 }

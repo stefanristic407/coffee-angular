@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-micro-roaster-details',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./micro-roaster-details.component.css']
 })
 export class MicroRoasterDetailsComponent implements OnInit {
+  appLanguage: any;
 
-  constructor() { }
+  constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
     $('.btn-toggle').click(function () {
@@ -15,6 +17,8 @@ export class MicroRoasterDetailsComponent implements OnInit {
       $(this).find('.btn').toggleClass('active_default');
       $(this).find('.btn').toggleClass('disable_default');
     });
+    this.appLanguage = this.globals.languageJson;
+
   }
 
 }

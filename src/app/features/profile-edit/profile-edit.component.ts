@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalsService } from 'src/services/globals.service';
 
 
 @Component({
@@ -42,13 +43,15 @@ export class ProfileEditComponent implements OnInit {
   address1: any;
   address2: any;
   gender: any;
+  appLanguage: any;
 
   constructor(public profilePicService: ProfilePicService, 
     private router : Router, 
     private toastrService: ToastrService,
     private userService : UserserviceService,
     private roasterService : RoasterserviceService,
-    private cookieService : CookieService) {
+    private cookieService : CookieService,
+    private globals : GlobalsService) {
     this.roleError = '';
     this.phonenoError = '';
     this.emailError = '';
@@ -97,7 +100,8 @@ export class ProfileEditComponent implements OnInit {
               $(this).toggleClass('active');
               $(this).parents('.phone-number').find('.select-list').toggleClass('active');
           });
-
+          
+    this.appLanguage = this.globals.languageJson;
 
           this.userService.getRoasterProfile(this.roaster_id).subscribe(
             response => {

@@ -2,6 +2,7 @@
 // PAGE DESCRIPTION : This page contains functions of Order Details for pre-book type order.
 import { Component, OnInit } from '@angular/core';
 import { OrderPrebookService } from '../order-prebook.service';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'sewn-prebook-order-details',
@@ -12,9 +13,11 @@ export class PrebookOrderDetailsComponent implements OnInit {
   files: FileList;
   receiptShow: boolean = false;
   uploadShow: boolean = true;
-  constructor(public prebookService: OrderPrebookService) { }
+  appLanguage :any;
+  constructor(public prebookService: OrderPrebookService,public global: GlobalsService) { }
 
   ngOnInit(): void {
+    this.appLanguage = this.global.languageJson;
   }
   // Function Name : Upload receipt
   // Description: This function helps to upload receipt in order details tab of order pre-book.

@@ -17,6 +17,7 @@ import * as Plyr from 'plyr';
 declare var $ :any;
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-myfiles',
@@ -65,13 +66,15 @@ export class MyfilesComponent implements OnInit {
   shareFileId: any;
 
   selectedValue: string;
+  appLanguage: any;
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
     public roasterService : RoasterserviceService,
     public toastrService : ToastrService,
     public fileService : FileShareService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private globals : GlobalsService
     ) {
       this.roasterId = this.cookieService.get('roaster_id');
     
@@ -118,7 +121,7 @@ export class MyfilesComponent implements OnInit {
   }
      ngOnInit(): void {
       // var fileModule = "File-Share";
-    
+      this.appLanguage = this.globals.languageJson;
       //Toggle Esstate active
 	  $('.btn-switch').click(function() {
       var $group = $(this).closest('.cardpanel-detail');

@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PrebookGradeInfoComponent } from './prebook-grade-info/prebook-grade-info.component';
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import { GlobalsService } from 'src/services/globals.service';
 
 declare var $: any;
 @Component({
@@ -190,15 +191,18 @@ export class OrderPrebookComponent implements OnInit {
   
     // line, area
     autoScale = true;
-
+    appLanguage :any;
   constructor(public prebookService: OrderPrebookService, private route: ActivatedRoute,
-    public router: Router,public cookieService : CookieService) { }
+    public router: Router,public cookieService : CookieService,
+    public global: GlobalsService) { }
 
   ngOnInit(): void {
      //Auth checking
      if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
+    this.appLanguage = this.global.languageJson;
+
     //Fills the time line based on the status selected in estate order.
     this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
     if (this.dataFromTable == "Order Confirmed") {
@@ -286,7 +290,7 @@ export class OrderPrebookComponent implements OnInit {
 
     // Calling the Grade info component by creating object of the component and accessing its methods
 
-    let callGradeInfo = new PrebookGradeInfoComponent(this.prebookService);
+    let callGradeInfo = new PrebookGradeInfoComponent(this.prebookService,this.global);
     callGradeInfo.gradeComplete();
 
 

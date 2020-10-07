@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-help',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./help.component.css']
 })
 export class HelpComponent implements OnInit {
+  appLanguage: any;
 
-  constructor() { }
+  constructor(private globals : GlobalsService) { }
 
   ngOnInit(): void {
+    
+    this.appLanguage = this.globals.languageJson;
   }
 
 }

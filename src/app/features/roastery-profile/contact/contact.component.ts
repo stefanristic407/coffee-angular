@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
 declare var $ : any;
+import {GlobalsService} from 'src/services/globals.service';
+
 @Component({
   selector: 'sewn-contact',
   templateUrl: './contact.component.html',
@@ -26,8 +28,8 @@ phoneError : string;
 countryError: string;
 addressError : string;
 cityError : string;
-
-  constructor(public roasteryProfileService : RoasteryProfileService) { 
+appLanguage: any;
+  constructor(public roasteryProfileService : RoasteryProfileService,private globals: GlobalsService) { 
     this.nameError = '';
     this.emailError= '';
     this.phoneError = '';
@@ -37,6 +39,7 @@ cityError : string;
   }
 
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
     let selectedVal = "+91";
     let EnteredNum;
     let optionText = ['IND 91', 'USA 1', 'AUS 61', 'ITA 39', 'Ban 880', 'SWE 46','AFG 93', 'UK 44','UAE 971', 'CHE 41','SAU 966','PRT 351', 'PO 48', 'NOR 47', 'NZL 64','GER 49', 'FRA 33', 'DNK 45','CHN 86','PAK 92' ]

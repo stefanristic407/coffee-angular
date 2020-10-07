@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-coffee-experience',
@@ -56,10 +57,12 @@ export class CoffeeExperienceComponent implements OnInit {
 		{  name: 'Gesha',origin:'Colombia',date: '19/09/19', orderid:'#71716' },
 		
   ];
+	appLanguage: any;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
-		public dashboard: DashboardserviceService) {
+		public dashboard: DashboardserviceService,
+		private globals: GlobalsService) {
 			this.data = {};
 			this.data = 
 				[{ 
@@ -87,6 +90,7 @@ export class CoffeeExperienceComponent implements OnInit {
 
      ngOnInit(): void {
 
+		this.appLanguage = this.globals.languageJson;
       //Toggle Esstate active
 	  $('.btn-switch').click(function() {
 		var $group = $(this).closest('.cardpanel-detail');

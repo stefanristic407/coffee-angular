@@ -16,11 +16,15 @@
     margin-left: 3rem;
 }
 
+.table{
+    margin-bottom: 0px !important;
+}
+
 .table-container {
     margin: 2% 3rem 0% 3rem;
     border-radius: 4px;
     border: solid 1px #d6d6d6;
-    padding: 6px 4px;
+    padding: 6px 4px 0px 4px;
 }
 
 .page-wrapper {

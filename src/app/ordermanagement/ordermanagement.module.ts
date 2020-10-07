@@ -24,7 +24,7 @@ import { OrderDetailsComponent } from "./order-sample/order-details/order-detail
 import { OrderSampleComponent } from "./order-sample/order-sample.component";
 import { OrdermanagementRoutingModule } from "./ordermanagement-routing.module";
 import { OrdermanagementComponent } from "./ordermanagement.component";
-import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
+// import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { OrderSupportComponent } from './dispute-system/order-support/order-support.component';
 import { OrderSupportFaqsComponent } from './dispute-system/order-support-faqs/order-support-faqs.component';
 import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/raise-ticket-form.component';
@@ -76,7 +76,7 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
   declarations: [
     OrdermanagementComponent,
     MyordersComponent,
-    PagenotfoundComponent,
+    // PagenotfoundComponent,
     OrderSampleComponent,
     OrderDetailsComponent,
     EstateOrdersComponent,

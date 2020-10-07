@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { GlobalsService } from 'src/services/globals.service';
 declare var $: any;
 
 @Component({
@@ -11,8 +12,10 @@ export class LoginSecurityComponent implements OnInit {
   passwordData:any;
   display: boolean = false;
   modalRef: BsModalRef;
+  appLanguage: any;
 
   constructor(private modalService: BsModalService,
+      private globals : GlobalsService
     ) { }
 
     openModal(template: TemplateRef<any>) {
@@ -199,6 +202,7 @@ export class LoginSecurityComponent implements OnInit {
     });
     /*newPassword Ends */
 
+    this.appLanguage = this.globals.languageJson;
   }
   showDialog() {
     this.display = true;

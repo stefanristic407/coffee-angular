@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { ToastrService } from "ngx-toastr";
 import { UserserviceService } from "src/services/users/userservice.service";
+import { GlobalsService } from 'src/services/globals.service';
 declare var $: any;
 
 @Component({
@@ -20,13 +21,15 @@ export class ResetPasswordComponent implements OnInit {
   updateButtonValue: string;
   result: string;
   showBackButton : boolean =true;
+  appLanguage: any;
 
   constructor(
     private router: Router,
     private userService: UserserviceService,
     private cookieService: CookieService,
     private toastrService: ToastrService,
-    private route : ActivatedRoute 
+    private route : ActivatedRoute ,
+    private globals : GlobalsService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +43,7 @@ export class ResetPasswordComponent implements OnInit {
     this.updateButtonValue = "Change password";
 
 
+    this.appLanguage = this.globals.languageJson;
     this.result = decodeURIComponent(this.route.snapshot.queryParams['data']);
     if(this.result == "privacy-settings"){
       this.showBackButton =false;

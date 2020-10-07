@@ -22415,3 +22415,37 @@ li.select-list__item {
 .display-none {
     display: none;
 }
+
+body .ui-widget {
+    font-family: 'Muli', sans-serif !important;
+    font-size: 13px !important;
+    text-decoration: none;
+}
+
+
+/* slick hover image animation */
+
+.zoom-effect-container {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.image-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.image-card img {
+    -webkit-transition: 0.4s ease;
+    transition: 0.4s ease;
+}
+
+.zoom-effect-container:hover .image-card img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}

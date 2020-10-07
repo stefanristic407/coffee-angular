@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
   selector: 'app-overview',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-
+appLanguage: any;
 
   public multi = [
 
@@ -165,9 +166,10 @@ export class OverviewComponent implements OnInit {
     // line, area
     autoScale = true;
       
-  constructor() { }
+  constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
+	this.appLanguage = this.globals.languageJson;
   }
 
 }

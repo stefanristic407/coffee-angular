@@ -10,6 +10,7 @@ import * as Plyr from 'plyr';
 import { FileShareDetailsService } from '../file-share-details.service';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-video-file',
   templateUrl: './video-file.component.html',
@@ -48,6 +49,7 @@ export class VideoFileComponent implements OnInit {
 
   
   selectedValue: string;
+  appLanguage: any;
   constructor(public router: Router,
     public roasterService : RoasterserviceService,
     public toastrService : ToastrService,
@@ -55,7 +57,8 @@ export class VideoFileComponent implements OnInit {
     public fileService : FileShareService,
     public route : ActivatedRoute,
     private modalService: BsModalService,
-    public filedetailsService : FileShareDetailsService
+    public filedetailsService : FileShareDetailsService,
+    private globals: GlobalsService
     ) {
       this.roasterId = this.cookieService.get('roaster_id');
       // this.filedetailsService.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);
@@ -70,7 +73,7 @@ export class VideoFileComponent implements OnInit {
 
   ngOnInit(): void {
     
-
+    this.appLanguage = this.globals.languageJson;
      //Auth checking
      if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);

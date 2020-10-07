@@ -14,6 +14,7 @@ import { PlyrModule } from 'ngx-plyr';
 import * as Plyr from 'plyr';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-video-table',
   templateUrl: './video-table.component.html',
@@ -50,6 +51,7 @@ export class VideoTableComponent implements OnInit {
   sharedUsers: any;
   shareFileId: any;
   share_permission: any;
+  appLanguage: any;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
@@ -59,7 +61,8 @@ export class VideoTableComponent implements OnInit {
     public route : ActivatedRoute,
     public fileService : FileShareService,
     private modalService: BsModalService,
-    public filedetailsService : FileShareDetailsService
+    public filedetailsService : FileShareDetailsService,
+    private globals : GlobalsService
     ) {
     //   this.mainVideoData = 
     //   [{ 
@@ -90,6 +93,7 @@ export class VideoTableComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
+      this.appLanguage = this.globals.languageJson;
     //  this.filedetailsService.getTableVideos();
     }
      

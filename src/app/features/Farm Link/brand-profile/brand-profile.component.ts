@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 
 @Component({
@@ -12,10 +13,13 @@ export class BrandProfileComponent implements OnInit {
   learnval:  number = 5 ;
   sustainval: number = 5 ;
   visitval: number = 15 ;
+  appLanguage: any;
 
-  constructor() { }
+  constructor(
+		private globals: GlobalsService) { }
 
   ngOnInit(): void {
+    this.appLanguage = this.globals.languageJson;
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
+import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-procured-coffee',
   templateUrl: './procured-coffee.component.html',
@@ -8,9 +9,8 @@ import { Lightbox } from 'ng-gallery/lightbox';
 })
 export class ProcuredCoffeeComponent implements OnInit {
 	items: GalleryItem[];
-
-
-
+	appLanguage: any;
+	
 	public data = [
 		{
 		  srcUrl: 'assets/images/galleria-1.jpg',
@@ -38,7 +38,7 @@ export class ProcuredCoffeeComponent implements OnInit {
 		// {  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '$5.6 USD / kg',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82' },
 		// {  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84' }
   ];
-  constructor(public gallery: Gallery, public lightbox: Lightbox) { }
+  constructor(public gallery: Gallery, public lightbox: Lightbox,private globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
@@ -47,7 +47,8 @@ export class ProcuredCoffeeComponent implements OnInit {
       imageSize: ImageSize.Cover,
       thumbPosition: ThumbnailsPosition.Top
       });
-      lightboxRef.load(this.items);
+	  lightboxRef.load(this.items);
+	  this.appLanguage = this.globals.languageJson;
     }
 
 }

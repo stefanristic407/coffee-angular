@@ -2,36 +2,36 @@
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
         <li class="b-cum">
-            <a class="b-cum">People</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum">{{appLanguage.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
 
-        <li class="b-cum c-pink">Manage roles
+        <li class="b-cum c-pink">{{appLanguage.manage_roles}}
         </li>
     </ul>
 </nav>
 
 <section class="team__total d-md-block d-none">
     <div class="row">
-        <div class="d-inline add-team col-lg-8">Add team member(s) to 
+        <div class="d-inline add-team col-lg-8">{{appLanguage.add_team_members}}
             <span class="d-inline select_title" (click)="op.toggle($event)">
                     {{this.teamRole}} 
             <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
-            <div class="select-members mt-1">Select members to add to the role</div>
+            <div class="select-members mt-1">{{appLanguage.select_members_role}}</div>
 
         </div>
         <div class="col-lg-4">
             <button type="submit" routerLink="/people/invite-member" class="btn invite_members pull-right">
-                <span class="update_text">Invite new member(s)</span>
+                <span class="update_text">{{appLanguage.invite_new_members}}</span>
             </button>
         </div>        
     </div>
     <div class="row">
         <div class="col-lg-8">
         <div class="d-inline border-total status-div col-sm-6" id="status_id">
-            <p class="d-inline filter-text" *ngIf="termStatus == ''">Status&nbsp;</p>
+            <p class="d-inline filter-text" *ngIf="termStatus == ''">{{appLanguage.status}}&nbsp;</p>
             <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
                 <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
                     &nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -45,7 +45,7 @@
         </div>
         &nbsp;&nbsp;
         <div class="d-inline border-total role-div col-sm-6" id="role_id">
-            <p class="d-inline filter-text" *ngIf="termRole == ''">Role&nbsp;</p>
+            <p class="d-inline filter-text" *ngIf="termRole == ''">{{appLanguage.role}}&nbsp;</p>
             <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
                 <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole();">
                     &nbsp; <img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -59,7 +59,7 @@
         </div>
     </div>
          <div class="col-md-6 col-lg-4 search-div ">
-            <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="term" placeholder="Search by name, role.." />
+            <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="term" placeholder="{{appLanguage.search_name_role}}" />
         </div>
     </div>
     <div class="table-container mb-2">
@@ -74,14 +74,14 @@
                                             <span class="checkmark head-check"></span>
                                         </label>
                                 </th>
-                                <th scope="col">Name</th>
+                                <th scope="col">{{appLanguage.name}}</th>
                                 <th scope="col">
-                                    Last login&nbsp; <img src="assets/images/combined-shape-user.png" />
+                                    {{appLanguage.last_login}}&nbsp; <img src="assets/images/combined-shape-user.png" />
                                 </th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">{{appLanguage.email}}</th>
+                                <th scope="col">{{appLanguage.status}}</th>
                                 <th scope="col">
-                                    <p class="d-inline">All roles</p>
+                                    <p class="d-inline">{{appLanguage.all_roles}}</p>
                                     <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop5="bs-popover">
                                         <p class="d-inline filter" *ngIf="termRole == ''">
                                             &nbsp; <img src="assets/images/down-arrow.svg" /></p>
@@ -91,7 +91,7 @@
                                             &nbsp;<img src="assets/images/down-arrow.svg" /></p>
                                     </a>
                                 </th>
-                                <th scope="col">Actions</th>
+                                <th scope="col">{{appLanguage.actions}}</th>
                             </tr>
                         </thead>
                         <tbody class="customtable">
@@ -124,11 +124,11 @@
                                     <ng-template #poplistTemplate id="{{item.id}}">
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
-                                                <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                                <!-- <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li> -->
+                                                <!-- <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li> -->
+                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.delete}}</a></li>
                                             </ul>
                                         </div>
                                     </ng-template>
@@ -139,7 +139,7 @@
         </div>
     </div> 
     <div class="mt-4">
-        <button type="button" class="btn cancel_member mt-4" routerLink="/people/manage-role">Cancel</button>
+        <button type="button" class="btn cancel_member mt-4" routerLink="/people/manage-role">{{appLanguage.cancel}}</button>
     </div>                   
 </section>
 
@@ -149,7 +149,7 @@
                 <!-- <li class="content_list" (click) = "setRole('Sales and Marketing')">Sales and Marketing</li> -->
                 <li class="content_list" *ngFor="let role of roles" (click)="setTeamRole(role.name,role.id);op.hide();">{{role.name}}</li>
             </ul>
-            <button class="btn addrole_button" routerLink="/people/create-role">Add role
+            <button class="btn addrole_button" routerLink="/people/create-role">{{appLanguage.add_role}}
                   <!-- <span class="addrole_content">Add role</span> -->
             </button>
         </div>

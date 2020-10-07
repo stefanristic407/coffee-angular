@@ -6,7 +6,7 @@
                     <div class="dispute-order__head clearfix">
                         <div class="back-to cursor-pointer" routerLink="/ordermanagement/order-sample">
                             <img src="assets/images/do-back-arrow.svg">
-                            <span class="ml-2">Return to order</span>
+                            <span class="ml-2">{{appLanguage.return_to_order}}</span>
 
                         </div>
 
@@ -31,9 +31,9 @@
 
                                     </div>
                                     <div>
-                                        <span>Order&nbsp;</span>
+                                        <span>{{appLanguage.order}}&nbsp;</span>
                                         <span>#12416</span>
-                                        <p class="type-of-order-mobile mb-0">Sample</p>
+                                        <p class="type-of-order-mobile mb-0">{{appLanguage.sample}}}</p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
@@ -62,8 +62,8 @@
                             <div class="conversation-head__items clearfix float-left">
                                 <div class="dispute-order__type">
                                     <div class="type-of-order">
-                                        <h6 class="conversation-textgray type-of-order__head">Type of order</h6>
-                                        <span class="conversation-textBlack14 type-of-order__type">Sample</span>
+                                        <h6 class="conversation-textgray type-of-order__head">{{appLanguage.type_of_order}}</h6>
+                                        <span class="conversation-textBlack14 type-of-order__type">{{appLanguage.sample}}</span>
                                     </div>
                                 </div>
 
@@ -71,7 +71,7 @@
 
                             <div
                                 class="conversation-head__items conversation-head__items--problem float-right ml-lg-auto">
-                                <a class="have-proble-order" href="#">Have a problem?</a>
+                                <a class="have-proble-order" href="#">{{appLanguage.have_a_problem}}</a>
                             </div>
                         </div>
 
@@ -89,7 +89,7 @@
                                     <div class="d-flex justify-content-between flex-column flex-lg-row">
                                         <div>
                                             <div class="col-12 col-md-10 col-lg-7 px-0">
-                                                <h6 class="fnt-mb-14 fnt-700 fnt-muli text-black334 mb-1">Dispute raised
+                                                <h6 class="fnt-mb-14 fnt-700 fnt-muli text-black334 mb-1">{{appLanguage.dispute_raised}}
                                                     :</h6>
                                                 <p class="fnt-mb-14 fnt-600 fnt-muli text-gray588 mb-1 mb-md-2 mb-lg-1">Roaster ABC has
                                                     raised dispute on the purchase of GC. Please take
@@ -98,7 +98,7 @@
                                         </div>
                                         <div class="company-message__btn col-lg-4 px-0">
                                             <button class="fnt-14 fnt-muli fnt-700">
-                                                Escalate
+                                                {{appLanguage.escalate}}
                                             </button>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                         </div>
                                         <div class="company-message__btn col-lg-4 px-0">
                                             <button class="fnt-14 fnt-muli fnt-700">
-                                                View dispute
+                                                {{appLanguage.view_dispute}}
                                             </button>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@
 
                                         </label>
                                         <textarea type="text" rows="1" class="chat-inputs__text"
-                                            placeholder="Type something.."></textarea>
+                                            placeholder={{appLanguage.type_something}}..></textarea>
                                         <div class="send-message">
                                             <button type="button" class="send-message__btn">
 
@@ -222,14 +222,14 @@
 
                     <div class="dispute-order__status open float-md-left">
                         <div class="order-status">
-                            <span class="conversation-textgray">Order Status :&nbsp;</span>
-                            <span class="conversation-textBlack14">Shipped</span>
+                            <span class="conversation-textgray">{{appLanguage.order_status}} :&nbsp;</span>
+                            <span class="conversation-textBlack14">{{appLanguage.shipped}}</span>
                             <!-- <span class="order-status-list-close">Close</span> -->
                         </div>
 
                         <div class="search-messages">
                             <img src="assets/images/dm-search.svg">
-                            <input class="search-messages__input" type="search" placeholder="Search Messages">
+                            <input class="search-messages__input" type="search" placeholder={{appLanguage.search_messages}}>
                         </div>
 
                         <ul class="order-ticket-list">
@@ -238,9 +238,9 @@
                                     <div class="ticket__head clearfix">
                                         <div class="ticket-num">
                                             <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                Order #12416
+                                                {{appLanguage.order}} #12416
                                             </h4>
-                                            <span class="ticket-num__typeOrder">Pre-booked order</span>
+                                            <span class="ticket-num__typeOrder">{{appLanguage.pre_booked}} {{appLanguage.order}}</span>
                                         </div>
                                         <span class="ticket-num__time">07:44 am</span>
                                         <!-- <span class="ticket-num__status">open</span> -->
@@ -259,7 +259,7 @@
                                     <div class="ticket__head clearfix">
                                         <div class="ticket-num">
                                             <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                Ticket #154
+                                                {{appLanguage.ticket}} #154
                                             </h4>
                                             <span class="ticket-num__typeOrder">Buying Coffee</span>
                                         </div>
@@ -279,7 +279,7 @@
                                     <div class="ticket__head clearfix">
                                         <div class="ticket-num">
                                             <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                Ticket #154
+                                                {{appLanguage.ticket}} #154
                                             </h4>
                                             <span class="ticket-num__typeOrder">Buying Coffee</span>
                                         </div>
@@ -299,7 +299,7 @@
                                     <div class="ticket__head clearfix">
                                         <div class="ticket-num">
                                             <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                Ticket #154
+                                                {{appLanguage.ticket}} #154
                                             </h4>
                                             <span class="ticket-num__typeOrder">Buying Coffee</span>
                                         </div>
@@ -319,7 +319,7 @@
                                     <div class="ticket__head clearfix">
                                         <div class="ticket-num">
                                             <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                Ticket #154
+                                                {{appLanguage.ticket}} #154
                                             </h4>
                                             <span class="ticket-num__typeOrder">Buying Coffee</span>
                                         </div>
@@ -340,7 +340,7 @@
                                     <div class="ticket__head clearfix">
                                         <div class="ticket-num">
                                             <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                Ticket #154
+                                                {{appLanguage.ticket}} #154
                                             </h4>
                                             <span class="ticket-num__typeOrder">Buying Coffee</span>
                                         </div>

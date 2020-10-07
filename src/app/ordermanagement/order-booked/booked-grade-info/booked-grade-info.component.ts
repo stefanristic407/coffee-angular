@@ -2,6 +2,7 @@
 // PAGE DESCRIPTION : This page contains functions of Grade Info for booked type order.
 import { Component, OnInit } from '@angular/core';
 import { OrderBookedService } from '../order-booked.service';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-booked-grade-info',
@@ -9,11 +10,11 @@ import { OrderBookedService } from '../order-booked.service';
   styleUrls: ['./booked-grade-info.component.css']
 })
 export class BookedGradeInfoComponent implements OnInit {
-
-  constructor(public bookedService: OrderBookedService) { }
+  appLanguage:any;
+  constructor(public bookedService: OrderBookedService,public global: GlobalsService) { }
 
   ngOnInit(): void {
-
+    this.appLanguage = this.global.languageJson;
   }
   // Function Name : Grade Info Timeline
   // Description: This function helps to fill the grade info timeline if graded by roaster is selected of order booked .

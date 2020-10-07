@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-rating',
@@ -23,8 +24,9 @@ export class RatingComponent implements OnInit {
   experienceUserError:any;
   communicationUserError:any;
   reviewUserError:any;
+	appLanguage: any;
 
-  constructor() {
+  constructor(public global: GlobalsService) {
     this.experienceError = "";
     this.communicationError = ""; 
     this.reviewError = "";
@@ -34,7 +36,7 @@ export class RatingComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    this.appLanguage = this.global.languageJson;
     //Ratings
     $('.rating__item input[type="checkbox"]').on('change', function () {
       var $this = $(this);

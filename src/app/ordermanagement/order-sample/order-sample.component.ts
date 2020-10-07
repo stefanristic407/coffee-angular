@@ -7,6 +7,7 @@ import { GradeInfoComponent } from '../order-sample/grade-info/grade-info.compon
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import { OrderDetailsComponent } from '../order-sample/order-details/order-details.component';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
 	selector: 'app-order-sample',
@@ -35,15 +36,18 @@ export class OrderSampleComponent implements OnInit {
 	cancelShow: boolean = false;
 	totalstar = 5;
 	newvalue: any = 2;
+	appLanguage: any;
 
 	constructor(private sampleService: OrderSampleService, private route: ActivatedRoute,
-		public router: Router,public cookieService : CookieService) { }
+		public router: Router,public cookieService : CookieService,
+		public global: GlobalsService) { }
 
 	ngOnInit(): void {
 		//Auth checking
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		  }
+		  this.appLanguage = this.global.languageJson;
 		//Fills the time line based on the status selected in estate order.
 		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
 		console.log("the data from table trigger is  : " + this.dataFromTable);
@@ -122,7 +126,7 @@ export class OrderSampleComponent implements OnInit {
 
 		// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new OrderDetailsComponent(this.sampleService);
+		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.global);
 		setTimeout(()=>{
 			uploadReceipt.uploadReceipt();
 		},500);
@@ -157,7 +161,7 @@ export class OrderSampleComponent implements OnInit {
 
 		// Calling the Grade info component by creating object of the component and accessing its methods
 
-		let callGradeInfo = new GradeInfoComponent(this.sampleService);
+		let callGradeInfo = new GradeInfoComponent(this.sampleService,this.global);
 		callGradeInfo.gradeComplete();
 
 

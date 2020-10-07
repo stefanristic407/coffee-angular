@@ -3,14 +3,14 @@
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/features/welcome-aboard"> {{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum">Farm link</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
+                <a class="b-cum"> {{appLanguage.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                         src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/file-share">File Share</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/features/file-share"> {{appLanguage.file_share}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
             <li class="b-cum c-pink">{{folderName}}</li>
@@ -18,7 +18,7 @@
             <div class="search-on-site pull-right web-farm">
                 <div class="search-on-site__input fnt-muli">
                     <img src="assets/images/search.svg" class="img d-inline-block">
-                    <input type="search" placeholder="Search.." class="float-right pt-1" [(ngModel)]="fileService.filterTerm" name="filterTerm">
+                    <input type="search" placeholder="{{appLanguage.search}}.." class="float-right pt-1" [(ngModel)]="fileService.filterTerm" name="filterTerm">
                 </div>
             </div>
         </ul>
@@ -36,7 +36,7 @@
             <div class="col-12 col-md-4 d-flex flex-column align-items-end px-0 web-farm">
                 <span class="share-bor"  data-toggle="modal"
                 data-target="#sharefolder"> <img class="share-img" src="assets/images/share-img.png" alt="farm"> <span
-                        class="share-txt ml-1"> Share</span> </span>
+                        class="share-txt ml-1">  {{appLanguage.share}}</span> </span>
                 <p class="mt-2 fnt-14 fnt-muli fnt-600 text-gray588" *ngIf="sharedUsers != 0">Sharing with {{sharedUsers}} members</p>
 
             </div>
@@ -44,12 +44,12 @@
 
         <div class="share-dwn pt-2 pb-3 ">
             <label class="share-bor mr-3"><input class="file-inpt" type="file" (change)="documentUpload($event)"> <img class="share-img"
-                    src="assets/images/upload-icon.png" alt="farm"> <span class="share-txt ml-1"> Upload </span> </label>
+                    src="assets/images/upload-icon.png" alt="farm"> <span class="share-txt ml-1"> {{appLanguage.upload}} </span> </label>
             <span class="share-bor" data-toggle="modal" data-target="#createfolder"> <img class="dwnd-img"
-                    src="assets/images/region-plus.svg" alt="farm"> <span class="share-txt ml-1"> Create new folder </span>
+                    src="assets/images/region-plus.svg" alt="farm"> <span class="share-txt ml-1">  {{appLanguage.create_new_folder}} </span>
             </span>
             <span class="share-bor mobile-farm w-28"> <img class="share-img" src="assets/images/share-img.png" alt="farm"> <span
-                class="share-txt ml-1"> Share</span> </span>
+                class="share-txt ml-1">  {{appLanguage.share}}</span> </span>
         </div>
 
         <div class="sourcing-panel">
@@ -92,8 +92,8 @@
                             </div>
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true">Documents</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#videos" role="tab" aria-controls="nav-profile" aria-selected="false"> Videos </a>
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true">{{appLanguage.documents}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#videos" role="tab" aria-controls="nav-profile" aria-selected="false"> {{appLanguage.videos}} </a>
                                 </div>
                             </nav>
                             <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
@@ -146,7 +146,7 @@ aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Create folder</h5>
+            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage.create_folder}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -156,35 +156,34 @@ aria-hidden="true">
                 <form>
                     <div class="roastery-fields mb-4">
                         <div class="farm-input col-12 col-md-5 px-0">
-                            <label class="mb-0">Name</label>
+                            <label class="mb-0">{{appLanguage.name}}</label>
                             <input type="text" placeholder="Enter folder name" name="folder_name" id="folder_name" [(ngModel)]="folder_name" required >
                             <div class="folderNameError" *ngIf="folderNameError != ''">{{folderNameError}}</div>
                         </div>
                     </div>
                     <div class="roastery-fields mb-4">
                         <div class="farm-input col-12 px-0">
-                            <label class="mb-0">Give a short description to your folder (optional) *</label>
+                            <label class="mb-0">{{appLanguage.give_short_description}}*</label>
                             <textarea class="mb-0" type="text" rows="5"
                                 placeholder="Give a short description to your folder (optional) " id="folder_descr"  name="folder_descr" [(ngModel)]="folder_descr" required></textarea>
                                 <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
                         </div>
                     </div>
                     <div class="roastery-fields mb-4">
-                        <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Sharing Acess</h4>
-                        <span class="fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Invite to access
-                            this folder</span>
+                        <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage.sharing_access}}</h4>
+                        <span class="fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{appLanguage.invite_to_access}}</span>
                         <div
                             class="invite-radios mt-2  custom-radio-container clearfix d-flex align-items-center flex-wrap">
                             <div class="float-left invite-radios__input">
-                                <label class="custom-radio fnt-14 fnt-600 fnt-muli">Invite people
-                                    <input type="radio" checked="checked" name="invite" [(ngModel)]="invite" value="Invite people">
+                                <label class="custom-radio fnt-14 fnt-600 fnt-muli">{{appLanguage.invite_people}}
+                                    <input type="radio" checked="checked" name="invite" [(ngModel)]="invite" value="{{appLanguage.invite_people}}">
                                     <span class="checkmark-custom"></span>
                                 </label>
 
                             </div>
                             <div class="float-left invite-radios__input">
-                                <label class="custom-radio fnt-14 fnt-600 fnt-muli">Only me
-                                    <input type="radio" name="invite" [(ngModel)]="invite"  value="Only me">
+                                <label class="custom-radio fnt-14 fnt-600 fnt-muli">{{appLanguage.only_me}}
+                                    <input type="radio" name="invite" [(ngModel)]="invite"  value="{{appLanguage.only_me}}">
                                     <span class="checkmark-custom"></span>
                                 </label>
                             </div>
@@ -195,15 +194,13 @@ aria-hidden="true">
                     <div class="invite-to">
 
                         <div class="roastery-fields mb-4">
-                            <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">Select an order*</h4>
-                            <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
-                                your files to the order helps you and your custoemrs to find files faster</span>
+                            <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage.select_an_order}}*</h4>
+                            <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{appLanguage.link_your_files}}</span>
 
                             <a href="javascript:void(0)"
                                 class="d-inline-flex mt-2 view-order-file-share align-items-center">
                                 <img src='assets/images/view.png'>
-                                <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">View
-                                    orders</span>
+                                <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">{{appLanguage.view_orders}}</span>
                             </a>
 
                         </div>
@@ -211,7 +208,7 @@ aria-hidden="true">
                         <div class="roastery-fields mb-0">
                             <div class="farm-input col-12 col-lg-8 px-0">
 
-                                <label>Enter a name or email*</label>
+                                <label>{{appLanguage.enter_name_email}}*</label>
                                 <div
                                     class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                                     <input class="float-left px-0 form-control auto-complete-box" type="email" [(ngModel)]="selectedValue" name="name"
@@ -223,13 +220,12 @@ aria-hidden="true">
 
                                         <div class="Custom-select w-100 border-left66">
                                             <div class="Custom-select-input w-100  pr-3">
-                                                <input type="text" value="Can view" readonly>
+                                                <input type="text" value="{{appLanguage.can_view}}" readonly>
                                                 <span
-                                                    class="Custom-select-input__selctedText fnt-600 fnt-muli text-black334" id="permission">Can
-                                                    view</span>
+                                                    class="Custom-select-input__selctedText fnt-600 fnt-muli text-black334" id="permission">{{appLanguage.can_view}}</span>
                                                 <ul class="Custom-select-input-list fnt-600 fnt-muli text-black334">
-                                                    <li class="Custom-select-input-list__item">Can view</li>
-                                                    <li class="Custom-select-input-list__item">Can edit</li>
+                                                    <li class="Custom-select-input-list__item">{{appLanguage.can_view}}</li>
+                                                    <li class="Custom-select-input-list__item">{{appLanguage.can_edit}}</li>
 
                                                 </ul>
                                             </div>
@@ -244,9 +240,9 @@ aria-hidden="true">
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" *ngIf="invite != 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal">Create and Share
+            <button type="button" *ngIf="invite != 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal">{{appLanguage.create_share}}
             </button>
-            <button type="button" *ngIf="invite == 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal" >Create
+            <button type="button" *ngIf="invite == 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal" >{{appLanguage.create}}
                 </button>
         </div>
     </div>
@@ -276,7 +272,7 @@ aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">Share</h5>
+                <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage.share}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -287,7 +283,7 @@ aria-hidden="true">
                         <div class="roastery-fields mb-0">
                             <div class="farm-input col-12 px-0">
 
-                                <label>Enter a name or email*</label>
+                                <label>{{appLanguage.enter_name_email}}*</label>
                                 <div
                                 class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                                 <input class="float-left px-0 form-control auto-complete-box" type="email" [(ngModel)]="selectedValue" name="name"
@@ -307,14 +303,13 @@ aria-hidden="true">
 
                                         <div class="Custom-select w-100 border-left66">
                                             <div class="Custom-select-input w-100  pr-3">
-                                                <input type="text" value="Can view" readonly>
+                                                <input type="text" value="{{appLanguage.can_view}}" readonly>
                                                 <span
-                                                    class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="share_permission">Can
-                                                    view</span>
+                                                    class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="share_permission">{{appLanguage.can_view}}</span>
                                                 <ul
                                                     class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                    <li class="Custom-select-input-list__item">Can view</li>
-                                                    <li class="Custom-select-input-list__item">Can edit</li>
+                                                    <li class="Custom-select-input-list__item">{{appLanguage.can_view}}</li>
+                                                    <li class="Custom-select-input-list__item">{{appLanguage.can_edit}}</li>
 
                                                 </ul>
                                             </div>
@@ -324,7 +319,7 @@ aria-hidden="true">
                             </div>
                         </div>
                         <div class="mt-3 mt-lg-4" *ngIf = "sharedUsers != 0">
-                            <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">Existing members
+                            <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">{{appLanguage.existing_members}}
                             </h4>
                             <!--Existing Memebr-->
                             <ul class="existing-members-list">
@@ -372,18 +367,16 @@ aria-hidden="true">
                                         <div class="member__type float-right ml-auto">
                                             <div class="Custom-select w-100">
                                                 <div class="Custom-select-input w-100">
-                                                    <input type="text" value="Can view" readonly>
+                                                    <input type="text" value="{{appLanguage.can_view}}" readonly>
                                                     <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canEdit" *ngIf="item.permission == 'EDIT'">Can
-                                                        edit</span>
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canEdit" *ngIf="item.permission == 'EDIT'">{{appLanguage.can_edit}}</span>
                                                         <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canView" *ngIf="item.permission == 'VIEW'">Can
-                                                        view</span>
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canView" *ngIf="item.permission == 'VIEW'">{{appLanguage.can_view}}</span>
                                                     <ul
                                                         class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                        <li class="Custom-select-input-list__item" (click)="changePermissions('VIEW',item)">Can view</li>
-                                                        <li class="Custom-select-input-list__item" (click)="changePermissions('EDIT',item)">Can edit</li>
-                                                        <li class="Custom-select-input-list__item" (click)="removeAccess(item)">Remove</li>
+                                                        <li class="Custom-select-input-list__item" (click)="changePermissions('VIEW',item)">{{appLanguage.can_view}}</li>
+                                                        <li class="Custom-select-input-list__item" (click)="changePermissions('EDIT',item)">{{appLanguage.can_edit}}</li>
+                                                        <li class="Custom-select-input-list__item" (click)="removeAccess(item)">{{appLanguage.remove}}</li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -398,8 +391,8 @@ aria-hidden="true">
             <div class="modal-footer justify-content-between">
                 <p
                     class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0">
-                    The admin will be notified, once approved the file will be shared with the respected users</p>
-                <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()">Share
+                    {{appLanguage.admin_notice_text}}</p>
+                <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()">{{appLanguage.share}}
                 </button>
             </div>
         </div>
