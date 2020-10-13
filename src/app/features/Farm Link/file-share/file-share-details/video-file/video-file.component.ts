@@ -46,7 +46,6 @@ export class VideoFileComponent implements OnInit {
   sharedUsers: any;
   shareFileId: any;
   share_permission: any;
-
   
   selectedValue: string;
   appLanguage: any;
@@ -74,13 +73,14 @@ export class VideoFileComponent implements OnInit {
   ngOnInit(): void {
     
     this.appLanguage = this.globals.languageJson;
-     //Auth checking
+    //Auth checking
      if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
     // this.filedetailsService.getTableVideos();
 
   }
+ 
   openModal(template: TemplateRef<any>,item:any){
     this.modalRef = this.modalService.show(template);
     this.url=item.url;

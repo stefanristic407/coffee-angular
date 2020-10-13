@@ -22,6 +22,7 @@ export class ResetPasswordComponent implements OnInit {
   result: string;
   showBackButton : boolean =true;
   appLanguage: any;
+  resetActive:any =0;
 
   constructor(
     private router: Router,
@@ -43,7 +44,7 @@ export class ResetPasswordComponent implements OnInit {
     this.updateButtonValue = "Change password";
 
 
-    this.appLanguage = this.globals.languageJson;
+    this.language();
     this.result = decodeURIComponent(this.route.snapshot.queryParams['data']);
     if(this.result == "privacy-settings"){
       this.showBackButton =false;
@@ -426,6 +427,10 @@ export class ResetPasswordComponent implements OnInit {
   //         }
   // }
 
+  language(){
+    this.appLanguage = this.globals.languageJson;
+       this.resetActive++;
+    }
   // Function Name : update Password
   // Description: This function helps to update the user Password.
 

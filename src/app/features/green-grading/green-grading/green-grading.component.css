@@ -1,0 +1,59 @@
+.bread-nav{
+    padding-top: 2rem;
+    padding-left: 3rem;
+}
+.grading__total{
+    padding: 40px 48px;
+}
+.green_grading_cont h1{
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+.green_grading_cont h3{
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #747588;
+    margin-top: 4px;
+}
+.green_grade_button{
+    width: 100%;
+    text-align: left;
+    border-radius: 2px;
+    border: solid 1px #ebebeb;
+    background-color: #ffffff;
+    padding: 2rem;
+}
+.green_grade_button:hover {
+    border-radius: 2px;
+    box-shadow: 0 22px 54px -10px rgba(223, 223, 223, 0.5);
+    border: solid 1px #30855c;
+}
+.grade_heading{
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: 600;
+    color: #232334;
+}
+.grade_para{
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+.grade_butn{
+    border-radius: 4px;
+    color: #30855c;
+    border: solid 1px #30855c;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    background-color: #ffffff;
+}
+.grade_butn:hover {
+    color: #ffffff;
+    background-color: #30855c;
+}

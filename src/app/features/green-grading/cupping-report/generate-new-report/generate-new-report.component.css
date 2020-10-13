@@ -1,0 +1,138 @@
+.newreport_cont{
+    padding: 3rem 2rem 2rem;
+}
+.back-page a {
+    font-size: 16px;
+    color: #80460b;
+    cursor: pointer;
+    font-family: Muli;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.sample_info,
+.evaluator {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+.info_heading {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 12px 10px;
+}
+
+.sample_info_head {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.view_process {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    color: #80460b;
+}
+
+.info_list ul li {
+    width: 100%;
+    float: left;
+    border-bottom: 1px dashed #eee;
+    padding: 12px;
+}
+
+.info_list ul li label {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    color: #747588;
+    float: left;
+    width: 58%;
+    margin-bottom: 0;
+}
+
+.info_list ul li p {
+    margin-bottom: 0;
+    width: 42%;
+    float: left;
+    font-size: 12px;
+    color: #232334;
+    font-weight: 600;
+}
+
+.info_list ul li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.color-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    padding-left: 30px;
+    margin-bottom: 0;
+}
+
+.customcheckbox .checkmark:after {
+    left: 7px !important;
+    top: 3px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #30855c !important;
+}
+
+.cupping-report {
+    padding: 24px 34px;
+    margin: 2rem 0rem 1.5rem;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+.add-comment {
+    text-align: center;
+    color: #30855c;
+    background-color: #ffffff;
+    padding: 8px;
+    border-radius: 2px;
+    border: solid 1px #30855c;
+}
+.font-report{
+    font-weight: bold;
+}
+.font-details{
+    font-weight: normal;
+}
+.download-butn{
+    border-radius: 2px;
+    border: 1px solid #747588;
+    padding: 8px 12px;
+    cursor: pointer;
+    align-items: center;
+}
+.cancel-butn{
+    border-radius: 4px;
+    border: 1px solid #30855c;
+    background-color: #fff;
+    color: #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 22px;
+    height: 46px;
+    margin-right: 1rem;
+}
+.cancel-butn:hover{
+    background-color: #30855c;
+    color:#ffffff;
+}

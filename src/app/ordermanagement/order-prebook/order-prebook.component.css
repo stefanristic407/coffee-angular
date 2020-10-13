@@ -156,6 +156,8 @@
     font-weight: bold;
     color: #747588;
 }
+
+
 /*shipping css */
 
 .shipping-div {
@@ -237,8 +239,13 @@
     font-weight: normal;
     color: #232334;
 }
+
+
 /*shipping css */
+
+
 /* =========changes as per design ======== */
+
 .nav-pills {
     border-bottom: 1px solid #d6d6d6;
 }
@@ -273,6 +280,7 @@ li.nav-item {
     color: #30855c;
     cursor: pointer;
 }
+
 .mixups-tabs {
     background-color: #ffffff;
     overflow: hidden;
@@ -355,6 +363,13 @@ li.nav-item {
     font-weight: 600;
     text-align: right;
     color: #30855c;
+    padding: 1% 2%;
+}
+
+.cancel-order-btn:hover {
+    border: 1px solid #30855c;
+    color: #ffffff;
+    background-color: #30855c;
     padding: 1% 2%;
 }
 
@@ -470,6 +485,8 @@ li.nav-item {
     right: 0%;
     padding-bottom: 6rem;
 }
+
+
 /***************Images**********************/
 
 .edit-icon,
@@ -502,20 +519,23 @@ li.nav-item {
     color: #000000;
 }
 
-.live-text{
+.live-text {
     font-family: Muli;
     font-size: 16px;
     font-weight: normal;
     color: #5d5d5d;
 }
-.add-variety{
+
+.add-variety {
     font-size: 14px;
-  font-weight: 600;
-  color: #747588;
+    font-weight: 600;
+    color: #747588;
 }
+
 ::ng-deep .gridline-path-vertical {
     display: none;
 }
+
 ::ng-deep .ngx-charts {
     height: 280px;
 }
@@ -568,13 +588,19 @@ li.nav-item {
     padding: 2rem 1.5rem 0rem;
     border: 1px solid #ebebeb;
 }
-.legend-text{
+
+.legend-text {
     font-family: Muli;
     font-size: 16px;
     font-weight: 500;
     color: #232334;
 }
-ngx-charts-line-chart{overflow:auto}
+
+ngx-charts-line-chart {
+    overflow: auto
+}
+
+
 /********************* media query css  **************************/
 
 #have-a-problem-web {
@@ -584,6 +610,7 @@ ngx-charts-line-chart{overflow:auto}
 #have-a-problem-mobile {
     display: none;
 }
+
 
 /* .tab-right {
     padding-right: 1.5rem;
@@ -684,15 +711,40 @@ ngx-charts-line-chart{overflow:auto}
         margin-bottom: 1rem;
     }
     /*chart*/
-    #nav-tabContent .d-inline.col-sm-6{width:auto; float: left; padding-left: 0;}
-    #nav-tabContent .border-total{width: auto !important; margin-top: 1rem; clear: left; padding-left: 10px !important;    font-size: 14px;}
-    .nav-tabs.nav-fill a{font-size: 14px !important; padding-left:12px ; padding-right: 12px;}
-    .chart-details{padding-left: 12px; padding-right: 12px;}
-    #nav-tabContent{ padding-top: 10px !important;}
-    ngx-charts-line-chart{overflow: scroll;}
-    text{font-size: 12px;}
-    .legend-text{font-size: 12px;}
-     /*End chart*/
+    #nav-tabContent .d-inline.col-sm-6 {
+        width: auto;
+        float: left;
+        padding-left: 0;
+    }
+    #nav-tabContent .border-total {
+        width: auto !important;
+        margin-top: 1rem;
+        clear: left;
+        padding-left: 10px !important;
+        font-size: 14px;
+    }
+    .nav-tabs.nav-fill a {
+        font-size: 14px !important;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .chart-details {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    #nav-tabContent {
+        padding-top: 10px !important;
+    }
+    ngx-charts-line-chart {
+        overflow: scroll;
+    }
+    text {
+        font-size: 12px;
+    }
+    .legend-text {
+        font-size: 12px;
+    }
+    /*End chart*/
 }
 
 @media only screen and (max-width: 480px) {
@@ -758,13 +810,14 @@ ngx-charts-line-chart{overflow:auto}
     width: 23%;
     transition: 0.8s ease-in-out;
 }
-.timing{
+
+.timing {
     color: #232334;
     font-weight: 600;
     font-family: Muli;
 }
 
-.confirmation{
+.confirmation {
     color: #747588;
     font-weight: 600;
     font-family: Muli;

@@ -1,0 +1,497 @@
+<section>
+        <div class="container sewn-container section-head-pad">
+            <div class="bg-fff">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav mb-md-0">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                        </li>
+                        <li class="b-cum">
+                            <a class="b-cum">Coffee Cupping</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                        </li>
+                        <li class="b-cum">
+                                <a class="b-cum">My Cupping Reports</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                            </li>
+                        <li class="b-cum c-pink">Service iD #81671</li>
+                    </ul>
+                </nav>
+                <section class="green_coffee_total">
+                    <h1 class="fnt-muli">Service ID #81671</h1>
+                    <div class="row mt-3">
+                        <div class="col-lg-3 col-12 pr-md-0">
+                            <div class="sample_info">
+                                <div class="info_heading d-flex">
+                                    <div class="pull-left sample_info_head">Sample Info</div>
+                                    <div class="ml-auto pull-right"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
+                                </div>
+                                <div class="info_list">
+                                    <ul class="clearfix mb-0">
+                                        <li>
+                                            <label>Service request ID  :</label>
+                                            <p>74572</p>
+                                        </li>
+                                        <li>
+                                            <label>Estate Name  :</label>
+                                            <p>Finca la pampa</p>
+                                        </li>
+                                        <li>
+                                            <label>Origin  :</label>
+                                            <p>Colombia</p>
+                                        </li>
+                                        <li>
+                                            <label>Harvest year  :</label>
+                                            <p>March 2020</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-12 pr-md-0">
+                            <div class="evaluator">
+                                <div class="info_list">
+                                    <ul class="clearfix mb-0">
+                                        <li>
+                                            <label>Evaluator  :</label>
+                                            <p>Leon Joseph</p>
+                                        </li>
+                                        <li>
+                                            <label>Invited Evaluators :</label>
+                                            <p>Brent Graham
+                                                Caleb Nunez
+                                                Theodore Marsh</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-12 ">
+                            <div class="evaluator">
+                                <div class="info_list">
+                                    <ul class="clearfix mb-0">
+                                        <li>
+                                            <label>Status  :</label>
+                                            <p>Complete</p>
+                                        </li>
+                                        <li>
+                                            <label>Date completed  :</label>
+                                            <p>23/07/2020</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-lg-12 col-md-12 col-12">
+                            <!-- <div class="table__info"> -->
+                                <div class="table-responsive border__cupping">
+                                    <table class="table mb-0">
+                                        <thead class="table-header">
+                                            <tr class="header-row">
+                                                <th>Evaluator</th>
+                                                <th scope="col">Final Score</th>
+                                                <th scope="col"> Aroma</th>
+                                                <th scope="col">Dry</th>
+                                                <th scope="col">Break</th>
+                                                <th scope="col">Flavour</th>
+                                                <th scope="col">Aftertaste</th>
+                                                <th scope="col">Acidity</th>
+                                                <th scope="col">Body</th>
+                                                <th scope="col">Balance</th>
+                                                <th scope="col">Uniformirty</th>
+                                                <th scope="col">Clean cup</th>
+                                                <th scope="col">Sweetness</th>
+                                                <th scope="col">Overall</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="customtable">
+                                            <tr class="ticket-boby-txt" *ngFor="let item of serviceData">
+                                                <td>{{item.evaluator}}</td>
+                                                <td>{{item.score}}</td>
+                                                <td>{{item.aroma}}</td>
+                                                <td>{{item.dry}}</td>
+                                                <td>{{item.break}}</td>
+                                                <td>{{item.flavour}}</td>
+                                                <td>{{item.aftertaste}}</td>
+                                                <td>{{item.acidity}}</td>
+                                                <td>{{item.body}}</td>
+                                                <td>{{item.balance}}</td>
+                                                <td>{{item.uniformity}}</td>
+                                                <td>{{item.cleanup}}</td>
+                                                <td>{{item.sweetness}}</td>
+                                                <td>{{item.overall}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="sample_info__padd">
+                                    <div class="info_heading">
+                                        <div class="sample_info_head">Evaluators</div>
+                                    </div>
+                                    <div class="eval_list">
+                                        <ul class="clearfix mb-0">
+                                            <li>
+                                                <div class="eval_name">Leon Joseph / Q grader</div>
+                                            </li>
+                                            <li>
+                                                <div class="eval_name">Gussie Barker / Q grader</div>
+                                            </li>
+                                            <li>
+                                                <div class="eval_name">Nancy Jones / Q grader</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 pl-0 pr-0">
+                                <div class="sample_info__padd">
+                                    <div class="info_heading">
+                                        <div class="sample_info_head">Descriptors</div>
+                                    </div>
+                                    <div class="descriptor_list">
+                                        <ul class="clearfix mb-0">
+                                            <li class="">
+                                                <span>Dark chocolate</span>
+                                                <span>honeycomb hints</span>
+                                            </li>
+                                            <li>
+                                                <span>Dark chocolate</span>
+                                                <span>honeycomb hints</span> 
+                                                <span>cocoa</span>
+                                            </li>
+                                            <li>
+                                                <span>Dark chocolate</span>
+                                                <span>honeycomb hints</span> 
+                                                <span>nutty</span>
+                                                <span>+12</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="sample_info__padd">
+                                    <div class="info_heading">
+                                        <div class="sample_info_head">Comments</div>
+                                    </div>
+                                    <div class="comments_list">
+                                        <ul class="clearfix mb-0">
+                                            <li>
+                                                <div class="eval_name">Dark chocolate, honeycomb hints, cocoa, and nutty</div>
+                                            </li>
+                                            <li>
+                                                <div class="eval_name">Dark chocolate, honeycomb hints, cocoa, and nutty</div>
+                                            </li>
+                                            <li>
+                                                <div class="eval_name">Dark chocolate, honeycomb hints, cocoa, and nutty</div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                                <div class="col-lg-9 col-md-9 col-12">
+                                        <div class="results__info">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-12">
+                                                <div class="results__head d-flex" *ngIf="type">
+                                                    <div class="pull-left result_text">Results</div>
+                                                    <div class="ml-auto pull-right">
+                                                        <span class="view_process_color color_legend2"></span><span class="view_process pl-2 pr-4">Leon Joseph</span>
+                                                        <span class="view_process_color color_legend1"></span><span class="view_process pl-2">Gussie Barker</span>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3 scroll_chart" *ngIf="type">
+                                                        <ngx-charts-bubble-chart
+                                                        [view]="view"
+                                                        [scheme]="colorScheme"
+                                                        [results]="bubbleData"
+                                                        [xAxis]="showXAxis"
+                                                        [yAxis]="showYAxis" 
+                                                        [yScaleMin]="yScaleMin"
+                                                        [yScaleMax]="yScaleMax"
+                                                        [minRadius]="minRadius">
+                                                      </ngx-charts-bubble-chart>
+                                                </div>
+                                                <div class="results__head d-flex" *ngIf="!type">
+                                                    <div class="pull-left result_text">Results</div>
+                                                    <div class="ml-auto pull-right">
+                                                        <!-- <span class="view_process_color color_legend2"></span><span class="view_process pl-2">Leon Joseph</span></div> -->
+                                                        <span class="view_process_color color_legend2"></span><span class="view_process pl-2 pr-4">Leon Joseph</span>
+                                                        <span class="view_process_color color_legend1"></span><span class="view_process pl-2">Gussie Barker</span>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3 scroll_chart" *ngIf="!type">
+                                                        <ngx-charts-bubble-chart
+                                                        [view]="view"
+                                                        [scheme]="colorSchemeScore"
+                                                        [results]="scoreData"
+                                                        [xAxis]="showXAxisScore"
+                                                        [yAxis]="showYAxisScore" 
+                                                        [yScaleMin]="yScaleMinScore"
+                                                        [yScaleMax]="yScaleMaxScore"
+                                                        [minRadius]="minRadiusScore">
+                                                        </ngx-charts-bubble-chart>
+                                                </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-12">
+                                        <!-- <div class="view__info mb-3 p-3 mt-md-0 mt-3" *ngIf="!type">
+                                            <a class="pointer-item">
+                                                <p class="d-inline result_text">Cupping 1.0 &nbsp; </p>
+                                                <span class="d-inline filter float-right ml-auto">
+                                                      <img src="assets/images/active-user.png" />
+                                                </span>
+                                            </a>
+                                        </div> -->
+                                        <div class="view__info mt-md-0 mt-3">
+                                            <div class="view_head">
+                                                View
+                                            </div>
+                                            <div class="view_body">
+                                                <div class="d-flex"><input type="radio" name="type" [value]="true" [(ngModel)]="type" [checked]="type"><span class="compare_category pl-2">Compare categories</span></div>
+                                                <div class="d-flex pt-3"><input type="radio" name="type" [value]="false" [(ngModel)]="type" [checked]="!type"><span class="compare_category pl-2">Compare final scores</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div> 
+                        <div class="row mt-4">
+                            <div class="col-lg-5 col-12 pr-md-0">
+                                <div class="evaluator">
+                                    <div class="info_heading d-flex">
+                                        <div class="sample_info_head">Green coffee grading</div>
+                                    </div>
+                                    <div class="info_list grad_width">
+                                        <ul class="clearfix mb-0">
+                                            <li>
+                                                <label>Moisture content</label>
+                                                <p>11%</p>
+                                            </li>
+                                            <li>
+                                                <label>Water Activity</label>
+                                                <p>0.62 aw</p>
+                                            </li>
+                                            <li>
+                                                <label>Odor</label>
+                                                <p>None</p>
+                                            </li>
+                                            <li>
+                                                <label>Color</label>
+                                                <p>Green</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="row mt-4">
+                                <div class="col-lg-6 col-12 pr-md-0">
+                                        <div class="sample_info">
+                                            <div class="category__head">
+                                                <div class="row align-items-center">
+                                                    <label class="categ-labels col-12 col-md-4">Category 1</label>
+                                                    <label class="categ-labels col-12 col-md-4">Number of defects</label>
+                                                    <label class="categ-labels col-12 col-md-4 pl-md-0">Equivalent defects</label>
+                
+                                                </div>
+                                            </div>
+                                            <div class="category__body">
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Full Black</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Full Sour</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Dried Cherry/Pod</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Fungus Damaged</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Foreign Matter</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Severe Insect Damage</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-labels col-12 col-md-4">Total category 1 defects :</label>
+                                                    <div class="col-12 col-md-4 col-md-8 col-lg-8 ">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <!-- <div class="col-12 col-lg-4 pl-md-0">
+                                                <input type="text" name="" id="" class="category-value">
+                                            </div> -->
+                                                </div>
+                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="sample_info">
+                                            <div class="category__head">
+                                                <div class="row align-items-center">
+                                                    <label class="categ-labels col-12 col-md-4">Category 2</label>
+                                                    <label class="categ-labels col-12 col-md-4">Number of defects</label>
+                                                    <label class="categ-labels col-12 col-md-4 pl-md-0">Equivalent defects</label>
+                                                </div>
+                                            </div>
+                                            <div class="category__body">
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Partial Black</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Partial Sour</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Parchment / Pergamino</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Floater</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Immature / Unripe</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Withered</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Shells</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Broken / Chipped/ Cut</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="35">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="7">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Hull/Husk</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="1">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-label col-12 col-md-4">Slight Insect Damage</label>
+                                                    <div class="col-12 col-md-4 col-lg-4 padd-right-8">
+                                                        <input type="text" name="" id="" class="category-value" value="10">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-lg-4 pl-md-0">
+                                                        <input type="text" name="" id="" class="category-value" value="0">
+                                                    </div>
+                                                </div>
+                                                <div class="category-inputs row align-items-center">
+                                                    <label class="categ-labels col-12 col-md-4">Total category 2 defects :</label>
+                                                    <div class="col-12 col-md-8 col-lg-8 ">
+                                                        <input type="text" name="" id="" class="category-value" value="8">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 pt-4">
+                                <button type="submit" class="next_butn float-right btn font_butn">Generate new report</button>
+                                <button type="submit" class="clear_butn float-right btn mr-2 font_butn">Re-cup sample</button>
+                            </div>
+                        </div>
+                </section>
+            </div>
+        </div>
+    </section>

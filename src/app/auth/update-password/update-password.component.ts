@@ -31,13 +31,13 @@ export class UpdatePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     //Auth checking
-    if (this.cookieService.get("Auth") == "") {
-      this.router.navigate(["/auth/login"]);
-    }
+    // if (this.cookieService.get("Auth") == "") {
+    //   this.router.navigate(["/auth/login"]);
+    // }
     this.currentPasswordError = "";
     this.passwordError = "";
     this.confirmPasswordError = "";
-    this.updateButtonValue = "CHANGE PASSWORD";
+    this.updateButtonValue = "Change password";
 
     // Function Name : Passowrd Indicator
     // Description: This function helps to indicate the entering meeting the password policy.
@@ -464,7 +464,7 @@ export class UpdatePasswordComponent implements OnInit {
         this.confirmPasswordError = "";
       }, 3000);
     } else {
-      this.updateButtonValue = "UPDATING";
+      this.updateButtonValue = "Updating";
       var data = {
         current_password: this.currentPassword,
         new_password: this.newPassword,
@@ -472,7 +472,7 @@ export class UpdatePasswordComponent implements OnInit {
       };
       this.userService.updatePassword(data).subscribe(response => {
         if (response["success"] == true) {
-          this.updateButtonValue = "CHANGE PASSWORD";
+          this.updateButtonValue = "Change password";
           this.toastrService.success(
             "Password has been updated successfully. Please login again to continue."
           );
@@ -508,7 +508,7 @@ export class UpdatePasswordComponent implements OnInit {
             this.toastrService.error("Password update failed!, Try again");
           }
         }
-        this.updateButtonValue = "CHANGE PASSWORD";
+        this.updateButtonValue = "Change password";
       });
     }
   }

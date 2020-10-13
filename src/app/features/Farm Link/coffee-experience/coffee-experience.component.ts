@@ -58,6 +58,7 @@ export class CoffeeExperienceComponent implements OnInit {
 		
   ];
 	appLanguage: any;
+	coffeeExpActive:any = 0;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
@@ -89,8 +90,8 @@ export class CoffeeExperienceComponent implements OnInit {
 
 
      ngOnInit(): void {
-
-		this.appLanguage = this.globals.languageJson;
+		this.language();
+		// this.appLanguage = this.globals.languageJson;
       //Toggle Esstate active
 	  $('.btn-switch').click(function() {
 		var $group = $(this).closest('.cardpanel-detail');
@@ -610,5 +611,8 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		
 		}
 	 }
-
+	 language(){
+		this.appLanguage = this.globals.languageJson;
+		this.coffeeExpActive++;
+	}
 }

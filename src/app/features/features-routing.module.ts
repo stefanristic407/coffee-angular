@@ -55,6 +55,23 @@ import { CoffeeSaleComponent } from './green-inventory/coffee-sale/coffee-sale.c
 import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component';
 
 
+import { CuppingReportComponent } from './green-grading/cupping-report/cupping-report.component';
+import { CuppingServiceComponent } from './green-grading/cupping-report/cupping-service/cupping-service.component';
+import { GenerateNewReportComponent } from './green-grading/cupping-report/generate-new-report/generate-new-report.component';
+
+import { CuppingResultsComponent } from './green-grading/cupping-results/cupping-results.component';
+import { GenerateReportComponent } from './green-grading/generate-report/generate-report.component';
+
+import { GradeSampleComponent } from './green-grading/grade-sample/grade-sample.component';
+import { GradeServiceComponent } from './green-grading/grade-service/grade-service.component';
+import {GreenCoffeeGradingComponent} from './green-grading/green-coffee-grading/green-coffee-grading.component';
+import {GreenGradingComponent} from './green-grading/green-grading/green-grading.component';
+import { ServiceRequestsComponent } from './green-grading/service-requests/service-requests.component';
+import {SourceGradingComponent} from './green-grading/source-grading/source-grading.component';
+import { ServiceRequestedComponent} from './green-grading/service-requested/service-requested.component';
+import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
+
+
 const routes: Routes = [
   {
     path: '',
@@ -248,7 +265,60 @@ const routes: Routes = [
     {
 		  path:'lot-sale',
 		  component:LotSaleComponent
-	  },
+    },
+    {
+      path:'cupping-reports',
+      component: CuppingReportComponent
+    },
+    {
+      path:'cupping-service',
+      component:CuppingServiceComponent	  
+      },
+      {
+        path:'generate-new-report',
+        component:GenerateNewReportComponent
+        },
+        {
+          path:'cupping-results',
+          component:CuppingResultsComponent
+        },
+        {
+          path:'generate-report',
+          component: GenerateReportComponent
+        },
+        {
+          path:'grade-sample',
+          component: GradeSampleComponent
+        },
+        {
+          path:'grade-service',
+          component: GradeServiceComponent
+        },
+        {
+          path:'service-request',
+          component: ServiceRequestsComponent
+        },
+        {
+          path:'green-coffee-grading',
+          component: GreenCoffeeGradingComponent
+        },
+        {
+          path:'green-grading',
+          component: GreenGradingComponent
+        },
+        {
+          path:'source-grading',
+          component: SourceGradingComponent
+      },
+      {
+        path:'service-requested',
+        component:ServiceRequestedComponent
+        },
+        {
+          path:'process-details',
+          component: ProcessDetailsComponent
+        },
+
       {
         path: '',
         redirectTo: 'welcome-aboard',

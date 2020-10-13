@@ -10,6 +10,7 @@ import {GlobalsService} from 'src/services/globals.service';
 })
 export class WelcomeAboardComponent implements OnInit {
   appLanguage: any;
+  welcomeActive:any =0;
 
   constructor(private router: Router,
     private cookieService:CookieService,
@@ -24,8 +25,11 @@ export class WelcomeAboardComponent implements OnInit {
 
       $('.nav-links__item').removeClass('active');
       $('.nav-links__item').eq(0).addClass('active');
+      this.language();
+    }
+    language(){
       this.appLanguage = this.globals.languageJson;
-  }
-  
+         this.welcomeActive++;
+      }
 
 }

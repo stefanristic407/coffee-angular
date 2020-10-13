@@ -51,7 +51,7 @@ descriptionError: string;
   typedValue: any;
   usersList: any[]=[];
   appLanguage: any;
-
+	shareMainActive:any=0;
 
   constructor( public router : Router,
                public dashboard : DashboardserviceService, 
@@ -67,7 +67,9 @@ descriptionError: string;
   }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+	// this.appLanguage = this.globals.languageJson;
+	this.language();
+
     $('.remove-quiker-file').on('click', function (e) {
       e.preventDefault();
 
@@ -424,8 +426,10 @@ descriptionError: string;
     event.toElement.play();
 
 }
-
-
+language(){
+	this.appLanguage = this.globals.languageJson;
+	this.shareMainActive++;
+}
 downloadFile(item: any) { 
   if (confirm("Please confirm! you want to download?") == true) {
   const a = document.createElement("a"); 

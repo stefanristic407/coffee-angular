@@ -427,6 +427,13 @@ li.nav-item {
     padding: 1% 2%;
 }
 
+.cancel-order-btn:hover {
+    border: 1px solid #30855c;
+    color: #ffffff;
+    background-color: #30855c;
+    padding: 1% 2%;
+}
+
 .ord-invoice-butn:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
@@ -774,13 +781,13 @@ li.nav-item {
     width: 23%;
 }
 
-.timing{
+.timing {
     color: #232334;
     font-weight: 600;
     font-family: Muli;
 }
 
-.confirmation{
+.confirmation {
     color: #747588;
     font-weight: 600;
     font-family: Muli;

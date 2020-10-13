@@ -1,3 +1,10 @@
+<div class="total-loader" *ngIf="contactActive !=1">
+	<!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+	<div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+		<img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+	</div>
+</div>
+<div *ngIf="contactActive == 1">
 <div class="row form-section" *ngIf="!roasteryProfileService.contactInfo">
   <div class="col-lg-12 mt-md-4">
     <form class="form-container">
@@ -258,3 +265,5 @@
     </div>
   </div>
 </div>
+</div>
+

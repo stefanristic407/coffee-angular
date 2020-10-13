@@ -17965,8 +17965,8 @@ ul {
 
 @media (min-width: 1400px) {
     .header-profile-links__item .img {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
     }
 }
 
@@ -20348,7 +20348,7 @@ button:focus {
     width: 80%;
     border: 0;
     outline: 0;
-    padding: 1px 10px;
+    padding: 3px 10px;
     resize: none;
     overflow: auto;
 }
@@ -21471,9 +21471,9 @@ li.select-list__item {
     .web-farm {
         display: none !important;
     }
-    .router-design {
+    /* .router-design {
         padding-top: 5rem !important;
-    }
+    } */
     .coffee-exp div.dataTables_wrapper div.dataTables_filter {
         top: -1.5rem !important;
         right: 3rem !important;
@@ -22422,6 +22422,34 @@ body .ui-widget {
     text-decoration: none;
 }
 
+.section-head-pad {
+    padding-top: 32px;
+}
+
+@media (min-width: 1200px) {
+    .router-design {
+        padding-top: 141px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .router-design {
+        padding-top: 207px;
+    }
+}
+
+@media (min-width: 768px) {
+    .router-design {
+        padding-top: 147px;
+    }
+}
+
+@media (max-width: 767px) {
+    .router-design {
+        padding-top: 52px;
+    }
+}
+
 
 /* slick hover image animation */
 
@@ -22448,4 +22476,239 @@ body .ui-widget {
 .zoom-effect-container:hover .image-card img {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+
+/* ================ SETUP COMMON CSS  ================== */
+
+
+/* ======image css====== */
+
+.successful-text {
+    margin-top: 2rem !important;
+    font-weight: 400 !important;
+}
+
+.previous {
+    border-radius: 4px !important;
+    background-color: #ffffff !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #30855c !important;
+    border: 1px solid #30855c !important;
+    margin-right: 1rem !important;
+    font-family: Muli !important;
+}
+
+.previous:hover {
+    background-color: #30855c !important;
+    color: #ffffff !important;
+}
+
+.success-mail {
+    margin: 0 30% !important;
+}
+
+.mail-box {
+    margin-top: 8% !important;
+    margin-bottom: 15% !important;
+}
+
+.done-btn {
+    height: 50px !important;
+    border-radius: 3px !important;
+    background-color: #30855c !important;
+    padding: 0% 3% !important;
+    margin-top: 5% !important;
+}
+
+.done-text {
+    font-family: Muli !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    text-align: center !important;
+    color: #ffffff !important;
+}
+
+.cancel-butn {
+    border-radius: 4px !important;
+    background-color: #ffffff !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #30855c !important;
+    border: 1px solid #30855c !important;
+    /* margin-left: 6.3rem !important; */
+    margin-right: 1rem !important;
+    font-family: Muli !important;
+}
+
+.cancel-butn:hover {
+    background-color: #30855c !important;
+    color: #ffffff !important;
+}
+
+li.select-list__item {
+    color: #232334 !important;
+    cursor: pointer !important;
+    padding: 3px !important;
+}
+
+.select-list__item:hover {
+    background: #f8f8f8 !important;
+}
+
+
+/* Phone Number select */
+
+
+/* .hidden-phone-num {
+    opacity: 0;
+    display: none;
+} */
+
+.phone-number {
+    display: inline-block !important;
+}
+
+.phone-number .select-list {
+    border: 0 !important;
+    outline: 0 !important;
+}
+
+.phone-number .entered-number {
+    border: 0 !important;
+    outline: 0 !important;
+    padding: 0 10px !important;
+    width: 77% !important;
+    display: inline-block !important;
+}
+
+.phone-number .enetered-number:focus {
+    border: none !important;
+}
+
+@media screen and (max-width: 425px) {
+    .phone-number .entered-number {
+        width: 75% !important;
+    }
+}
+
+.Selected-ISD {
+    display: inline-block !important;
+    cursor: pointer !important;
+    position: relative !important;
+    padding-right: 20px !important;
+    border-right: 1px solid #d6d6d6 !important;
+}
+
+.Selected-ISD::after {
+    position: absolute !important;
+    content: "" !important;
+    width: 6px !important;
+    height: 6px !important;
+    border-top: 1.5px solid #d6d6d6 !important;
+    border-right: 1.5px solid #d6d6d6 !important;
+    right: 7px !important;
+    top: 50% !important;
+    transition: .4s !important;
+    transform: translateY(-50%) rotate(135deg) !important;
+}
+
+.Selected-ISD.active::after {
+    transform: translateY(-50%) rotate(315deg) !important;
+}
+
+.select-list {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 150px !important;
+    padding: 10px 0 !important;
+    background: #fff !important;
+    list-style-type: none !important;
+    opacity: 0 !important;
+    display: none !important;
+    transition: 0.6s ease-in-out !important;
+    overflow: auto !important;
+    cursor: pointer !important;
+}
+
+.select-list.active {
+    display: block !important;
+    opacity: 1 !important;
+    border: 1px solid #f8f8f8 !important;
+    z-index: 9999 !important;
+    padding: 10px !important;
+}
+
+.phone-nmber__select {
+    position: relative !important;
+    border: 1px solid #d6d6d6 !important;
+    padding: 15px 15px !important;
+    border-radius: 4px !important;
+    height: 50px !important;
+}
+
+.entered-number:focus .phone-nmber__select {
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.035rem green !important;
+}
+/* =========end for common setup css=========== */
+
+.total-loader {
+    /* position: fixed;
+    top: 0px;
+    bottom: 0%;
+    left: 0;
+    right: 0%;
+    background-color: #fff;
+    text-align: center; */
+}
+
+.loader-gif {
+    /* margin-top: 15%; */
+    width: 100%;
+}
+
+.loader-gif-sub {
+    /* margin-top: 18%; */
+    width: 100%;
+}
+
+@media (max-width:767px) {
+    .web-loader {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
+
+@media (min-width:768px) {
+    .mob-loader {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
+
+input#search-bar:focus::-webkit-input-placeholder {
+    transition: opacity 0.45s ease;
+    opacity: 0;
+}
+
+input#search-bar:focus::-moz-placeholder {
+    transition: opacity 0.45s ease;
+    opacity: 0;
+}
+
+input#search-bar:focus:-ms-placeholder {
+    transition: opacity 0.45s ease;
+    opacity: 0;
 }

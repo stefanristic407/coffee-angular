@@ -1,145 +1,157 @@
-<div class="bg-fff">
-    <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-        <div class="row desk-view">
-            <div class="col-md-6 col-lg-6">
-                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-                    <span id="title-breadcrumb-1" class="sr-only"></span>
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/account-settings">{{appLanguage.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
-                        <li class="b-cum c-pink">{{appLanguage.profile_edit}}</li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="float-right ml-auto butn-mt">
-                <button type="button" class="btn cancel-butn" (click)=profileSave();> {{appLanguage.save_changes}} </button>
-            </div>
+<div class="total-loader" *ngIf="profileEditActive !=1">
+        <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+        <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
         </div>
-        <div class="row mobile-view">
-            <span class="cursor-pointer" routerLink="/features/account-settings">
+    </div>
+    <div *ngIf="profileEditActive == 1">
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff">
+            <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+                <div class="row desk-view">
+                    <div class="col-md-6 col-lg-6">
+                        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                            <span id="title-breadcrumb-1" class="sr-only"></span>
+                            <ul class="bread-nav">
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/account-settings">{{appLanguage.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum c-pink">{{appLanguage.profile_edit}}</li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="float-right ml-auto butn-mt">
+                        <button type="button" class="btn cancel-butn" (click)=profileSave();> {{appLanguage.save_changes}} </button>
+                    </div>
+                </div>
+                <div class="row mobile-view">
+                    <span class="cursor-pointer" routerLink="/features/account-settings">
                     <img src="/assets/images/back-arrow1.png" alt="">
                     <span class="back-ticket pl-3">{{appLanguage.back}}</span>
-            </span>
-        </div>
-    </section>
+                    </span>
+                </div>
+            </section>
 
 
-    <section class="my-profile">
-        <div class="col-lg-12 col-sm-12">
+            <section class="my-profile">
+                <div class="col-lg-12 col-sm-12">
 
-            <h1 class="fnt-play"> {{appLanguage.my_profile}}</h1>
-            <p class="pb-2"> {{appLanguage.enter_personal_detail_text}}</p>
-            <hr class="mob mt-4">
-            <div class="row">
-                <div class="col-lg-4 col-md-12">
-                    <div class="upload-profile">
-                        <img [src]="profilePicService.croppedImage" alt="profile" class="profile-pic-feature" />
-                        <div class="">
-                            <a class="show_modal" (click)="showModalDialog()">
-                                <img src="assets/images/my-pro-pic.png" alt="add_pic" class="add-pic" />
-                            </a>
+                    <h1 class="fnt-play"> {{appLanguage.my_profile}}</h1>
+                    <p class="pb-2"> {{appLanguage.enter_personal_detail_text}}</p>
+                    <hr class="mob mt-4">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="upload-profile">
+                                <img [src]="profilePicService.croppedImage" alt="profile" class="profile-pic-feature" />
+                                <div class="">
+                                    <a class="show_modal" (click)="showModalDialog()">
+                                        <img src="assets/images/my-pro-pic.png" alt="add_pic" class="add-pic" />
+                                    </a>
 
-                        </div>
+                                </div>
 
 
-                        <p class="pic-head-text ">{{appLanguage.upload_your_picture}}</p>
+                                <p class="pic-head-text ">{{appLanguage.upload_your_picture}}</p>
 
-                        <p class="form_para_text ">{{appLanguage.you_can_upload}} </p>
-                        <button class="btn btn-link add-btn p-0" (click)="profilePicService.deletePhoto();" *ngIf="profilePicService.deleteLogo">
+                                <p class="form_para_text ">{{appLanguage.you_can_upload}} </p>
+                                <button class="btn btn-link add-btn p-0" (click)="profilePicService.deletePhoto();" *ngIf="profilePicService.deleteLogo">
                                 <img class="delete-logo" src="assets/images/delete.png" /><span
                                   class="add-text"
                                   >{{appLanguage.delete_photo}}</span
                                 >
                               </button>
-                        <!-- <button class="btn btn-link add-btn p-0"> <img src="assets/images/upload.svg" />
+                                <!-- <button class="btn btn-link add-btn p-0"> <img src="assets/images/upload.svg" />
                             <span class="add-upload">Upload Logo</span> </button> -->
-                        <div>
-                            <input type="file" accept="image/*" style="visibility: hidden;" class="image" #image (change)="handleFile($event)" />
+                                <div>
+                                    <input type="file" accept="image/*" style="visibility: hidden;" class="image" #image (change)="handleFile($event)" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 col-md-12 edit-section">
+                        <div class="col-lg-8 col-md-12 edit-section">
 
-                    <div class="form-group row pt-4">
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label class="raise-label">{{appLanguage.name}} <span class="star-red"> *</span></label>
-                            <input type="text" class="form-control raise-box" placeholder="Please enter your name" (keyup)="onKeyPress($event)" [(ngModel)]="name" name="name" id="name" required="">
-                            <div class="nameError" *ngIf="nameError != ''">{{nameError}}</div>
-                        </div>
-                    </div>
+                            <div class="form-group row pt-4">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <label class="raise-label">{{appLanguage.name}} <span class="star-red"> *</span></label>
+                                    <input type="text" class="form-control raise-box" placeholder="Please enter your name" (keyup)="onKeyPress($event)" [(ngModel)]="name" name="name" id="name" required="">
+                                    <div class="nameError" *ngIf="nameError != ''">{{nameError}}</div>
+                                </div>
+                            </div>
 
-                    <div class="p-grid ui-fluid date-birth">
-                        <div class="p-col-6">
-                            <h3 class="raise-date">{{appLanguage.date_of_birth}}</h3>
-                            <p-calendar [(ngModel)]="date6" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1970:2020" required="" dateFormat="yy-mm-dd"></p-calendar>
+                            <div class="p-grid ui-fluid date-birth">
+                                <div class="p-col-6">
+                                    <h3 class="raise-date">{{appLanguage.date_of_birth}}</h3>
+                                    <p-calendar [(ngModel)]="date6" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1970:2020" required="" dateFormat="yy-mm-dd"></p-calendar>
 
-                            <!-- <p-calendar [(ngModel)]="date3" [showIcon]="true" name="Date of birth" id="dateOfBirth" required=""></p-calendar> -->
-                            <!-- <div class="orderDateError" *ngIf="orderDateError != ''">{{orderDateError}}</div> -->
+                                    <!-- <p-calendar [(ngModel)]="date3" [showIcon]="true" name="Date of birth" id="dateOfBirth" required=""></p-calendar> -->
+                                    <!-- <div class="orderDateError" *ngIf="orderDateError != ''">{{orderDateError}}</div> -->
 
-                        </div>
-                    </div>
+                                </div>
+                            </div>
 
-                    <div class="form-group row pt-4">
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label class="raise-label">{{appLanguage.role}}</label>
-                            <input type="text" class="form-control raise-box" placeholder="role" disabled [(ngModel)]="role" name="role" id="role" required="">
-                            <!-- <div class="roleError" *ngIf="roleError != ''">{{roleError}}</div> -->
-                        </div>
-                    </div>
+                            <div class="form-group row pt-4">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <label class="raise-label">{{appLanguage.role}}</label>
+                                    <input type="text" class="form-control raise-box" placeholder="role" disabled [(ngModel)]="role" name="role" id="role" required="">
+                                    <!-- <div class="roleError" *ngIf="roleError != ''">{{roleError}}</div> -->
+                                </div>
+                            </div>
 
 
-                    <div class="form-group row pt-2">
-                        <div class="form-group col-md-12">
-                            <label class="raise-label">Profile Description</label>
-                            <textarea class="form-control" placeholder="Profile Description" rows="4" cols="50" [(ngModel)]="description" name="description" id="description"> </textarea>
-                            <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
-                        </div>
-                    </div>
+                            <div class="form-group row pt-2">
+                                <div class="form-group col-md-12">
+                                    <label class="raise-label">Profile Description</label>
+                                    <textarea class="form-control" placeholder="Profile Description" rows="4" cols="50" [(ngModel)]="description" name="description" id="description"> </textarea>
+                                    <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
+                                </div>
+                            </div>
 
-                    <div class="form-group row pt-1">
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label class="raise-label">{{appLanguage.email_address}} <span class="star-red"> *</span></label>
-                            <input type="email" class="form-control raise-box" placeholder="Please enter your work email" (keyup)="onKeyPress($event)" [(ngModel)]="email" name="email" id="email" required="">
-                            <div class="emailError" *ngIf="emailError != ''">{{emailError}}</div>
+                            <div class="form-group row pt-1">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <label class="raise-label">{{appLanguage.email_address}} <span class="star-red"> *</span></label>
+                                    <input type="email" class="form-control raise-box" placeholder="Please enter your work email" (keyup)="onKeyPress($event)" [(ngModel)]="email" name="email" id="email" required="">
+                                    <div class="emailError" *ngIf="emailError != ''">{{emailError}}</div>
 
-                        </div>
+                                </div>
 
-                        <div class="form-group col-md-6 col-sm-12 phone-number">
-                            <input hidden class="hidden-phone-num" type="text" value="+91">
-                            <label class="raise-label">{{appLanguage.phone_number}}<span class="star-red"> *</span></label>
-                            <div class="phone-nmber__select" id="phone">
-                                <span class="Selected-ISD" id="finalNumber">+91</span>
-                                <ul class="select-list">
+                                <div class="form-group col-md-6 col-sm-12 phone-number">
+                                    <input hidden class="hidden-phone-num" type="text" value="+91">
+                                    <label class="raise-label">{{appLanguage.phone_number}}<span class="star-red"> *</span></label>
+                                    <div class="phone-nmber__select" id="phone">
+                                        <span class="Selected-ISD" id="finalNumber">+91</span>
+                                        <ul class="select-list">
 
-                                </ul>
-                                <span>
+                                        </ul>
+                                        <span>
                             <input type="number" class="entered-number" placeholder="Enter your phone number" (keyup)="onKeyPress($event)" [(ngModel)]="phoneno" name="phoneno" id="phoneno" required="">
                             </span>
-                            </div>
-                            <div class="phonenoError" *ngIf="phonenoError != ''">{{phonenoError}}</div>
+                                    </div>
+                                    <div class="phonenoError" *ngIf="phonenoError != ''">{{phonenoError}}</div>
 
+                                </div>
+                            </div>
+
+
+                            <hr class="desk">
+
+                            <sewn-profile-license></sewn-profile-license>
                         </div>
                     </div>
-
-
-                    <hr class="desk">
-
-                    <sewn-profile-license></sewn-profile-license>
                 </div>
-            </div>
+
+                <div class="mobile-farm  col-12">
+                    <button type="button" class="btn btn-succes cancel-butn" (click)=profileSave();> {{appLanguage.save_changes}} </button>
+                </div>
+
+            </section>
+
         </div>
+    </div>
+</section>
 
-        <div class="mobile-farm  col-12">
-            <button type="button" class="btn btn-succes cancel-butn" (click)=profileSave();> {{appLanguage.save_changes}} </button>
-        </div>
-
-    </section>
-
-</div>
 
 
 
@@ -164,3 +176,4 @@
     </button>
     </p-footer>
 </p-dialog>
+</div>

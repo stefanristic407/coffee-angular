@@ -1,22 +1,24 @@
-<div class="bg-fff">
-    <section class="select-order estate-orders">
-        <div class="d-flex">
-            <div class="cursor-pointer float-left mr-auto">
-                <img src="/assets/images/back-arrow1.png" alt="">
-                <span class="back-ticket pl-2">{{appLanguage.back}} </span>
-    
-            </div>
-            
-            <button type="button" class="select_cancel float-right btn btn-link mr-2" >{{appLanguage.cancel}}</button> 
-            <button type="submit" class="continue-order float-right btn" >{{appLanguage.continue}}</button>
-        </div>
-       
-        <h5 class="select-order-title pt-1">{{appLanguage.select_an_order}}</h5>
-        <div class="please-select pt-1">Please select one ongoing order to raise a ticket for</div>
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff">
+            <section class="select-order estate-orders">
+                <div class="d-flex">
+                    <div class="cursor-pointer float-left mr-auto">
+                        <img src="/assets/images/back-arrow1.png" alt="">
+                        <span class="back-ticket pl-2">{{appLanguage.back}} </span>
 
-        <div class="row">
-            <div class="mixups-tabs mt-3 pt-3 col-lg-12 col-md-12">
-                <!-- <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                    </div>
+
+                    <button type="button" class="select_cancel float-right btn btn-link mr-2">{{appLanguage.cancel}}</button>
+                    <button type="submit" class="continue-order float-right btn">{{appLanguage.continue}}</button>
+                </div>
+
+                <h5 class="select-order-title pt-1">{{appLanguage.select_an_order}}</h5>
+                <div class="please-select pt-1">Please select one ongoing order to raise a ticket for</div>
+
+                <div class="row">
+                    <div class="mixups-tabs mt-3 pt-3 col-lg-12 col-md-12">
+                        <!-- <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Estate</a>
                     </li>
@@ -41,22 +43,22 @@
                     </div>
                 </div> -->
 
-                <div class="title-header d-inline desk_view_user">
-                    <div class="d-inline border-order role-div col-sm-6" id="origin_id">
-                        <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">{{appLanguage.origin}}&nbsp;</p>
-                        <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
-                                &nbsp; <img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                        <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop5="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
-                                {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                    </div>&nbsp;&nbsp;
-                    <!-- <div class="d-inline border-order type-div col-sm-6" id="type_id">
+                        <div class="title-header d-inline desk_view_user">
+                            <div class="d-inline border-order role-div col-sm-6" id="origin_id">
+                                <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
+                                <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">{{appLanguage.origin}}&nbsp;</p>
+                                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
+                                    <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
+                                        &nbsp; <img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                    </p>
+                                </a>
+                                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop5="bs-popover">
+                                    <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
+                                        {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                    </p>
+                                </a>
+                            </div>&nbsp;&nbsp;
+                            <!-- <div class="d-inline border-order type-div col-sm-6" id="type_id">
                         <p class="d-inline filter-text" *ngIf="estatetermType == ''">Type of order&nbsp;</p>
                         <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #pop2="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermType == ''" (click)="toggleType()">
@@ -82,69 +84,69 @@
                             </p>
                         </a>
                     </div> &nbsp;&nbsp; -->
-                
-                    <div class="d-inline border-order date-div col-sm-6">
-                        <p class="d-inline filter-text">{{appLanguage.date_range}} &nbsp;
-                            <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
-                        </p>
-                
-                        <a class="pointer-item">
-                
-                            <p class="d-inline filter">
-                                <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
-                                &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
-                                <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
+
+                            <div class="d-inline border-order date-div col-sm-6">
+                                <p class="d-inline filter-text">{{appLanguage.date_range}} &nbsp;
+                                    <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
+                                </p>
+
+                                <a class="pointer-item">
+
+                                    <p class="d-inline filter">
+                                        <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
+                                        &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
+                                        <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                 </p-calendar> -->
-                            </p>
-                        </a>
-                
-                    </div>&nbsp;&nbsp;
-                    <div class="d-inline display_div">
-                        <div class="float-right border-order top-space" id="display_id">
-                            <p class="d-inline filter-text">Display &#9679;</p>
-                            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop6="bs-popover">
-                                <p class="d-inline filter" *ngIf="displayNumbers == '-1'" (click)="toggleDisplay()">
-                                    &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
-                                </p>
-                            </a>
-                            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop7="bs-popover">
-                                <p class="d-inline filter" *ngIf="displayNumbers != '-1'" (click)="toggleDisplay()">
-                                    {{ displayNumbers }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
-                                </p>
-                            </a>
+                                    </p>
+                                </a>
+
+                            </div>&nbsp;&nbsp;
+                            <div class="d-inline display_div">
+                                <div class="float-right border-order top-space" id="display_id">
+                                    <p class="d-inline filter-text">Display &#9679;</p>
+                                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop6="bs-popover">
+                                        <p class="d-inline filter" *ngIf="displayNumbers == '-1'" (click)="toggleDisplay()">
+                                            &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                        </p>
+                                    </a>
+                                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop7="bs-popover">
+                                        <p class="d-inline filter" *ngIf="displayNumbers != '-1'" (click)="toggleDisplay()">
+                                            {{ displayNumbers }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                        </p>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Table -->
-                
-                <div class="table-container estate-table mt-4">
-                    <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
-                    </table>
-                
-                </div>
-                <!-- <div class="row pb-5">
+
+                        <!-- Table -->
+
+                        <div class="table-container estate-table mt-4">
+                            <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
+                            </table>
+
+                        </div>
+                        <!-- <div class="row pb-5">
                     <div class="col-12 mt-4">
                       
                 </div> -->
-                
-                <ng-template #originTemplate>
-                    <div id="status-content">
-                        <ul class="list-group custom-popover">
-                            <li class="list-group-item item-color">
-                                <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide();toggleOrigin()">All</a>
-                            </li>
-                            <li class="list-group-item item-color">
-                                <a class="pointer-item" (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide();toggleOrigin()">Colombia</a>
-                            </li>
-                            <li class="list-group-item item-color">
-                                <a class="pointer-item" (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide();toggleOrigin()">Ethopia</a>
-                            </li>
-                        </ul>
-                    </div>
-                </ng-template>
-                
-                <!-- <ng-template #allTemplate>
+
+                        <ng-template #originTemplate>
+                            <div id="status-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item item-color">
+                                        <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide();toggleOrigin()">All</a>
+                                    </li>
+                                    <li class="list-group-item item-color">
+                                        <a class="pointer-item" (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide();toggleOrigin()">Colombia</a>
+                                    </li>
+                                    <li class="list-group-item item-color">
+                                        <a class="pointer-item" (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide();toggleOrigin()">Ethopia</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+
+                        <!-- <ng-template #allTemplate>
                     <div id="status-content">
                         <ul class="list-group custom-popover">
                             <li class="list-group-item item-color">
@@ -205,28 +207,31 @@
                     </div>
                 
                 </ng-template> -->
-                
-                <ng-template #displayTemplate>
-                    <div>
-                        <ul class="list-group custom-popover">
-                            <li class="list-group-item item-color">
-                                <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide();toggleDisplay()">All</a>
-                            </li>
-                            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide();toggleDisplay()">10</a></li>
-                            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide();toggleDisplay()">25</a></li>
-                            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide();toggleDisplay()">50</a></li>
-                            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide();toggleDisplay()">100</a></li>
-                
-                
-                        </ul>
-                    </div>
-                
-                </ng-template>
 
-            </div>
+                        <ng-template #displayTemplate>
+                            <div>
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item item-color">
+                                        <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide();toggleDisplay()">All</a>
+                                    </li>
+                                    <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide();toggleDisplay()">10</a></li>
+                                    <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide();toggleDisplay()">25</a></li>
+                                    <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide();toggleDisplay()">50</a></li>
+                                    <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide();toggleDisplay()">100</a></li>
+
+
+                                </ul>
+                            </div>
+
+                        </ng-template>
+
+                    </div>
+                </div>
+
+
+
+            </section>
         </div>
 
-
-
-    </section>
-</div>
+    </div>
+</section>

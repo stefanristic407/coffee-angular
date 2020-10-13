@@ -1,0 +1,161 @@
+<section>
+    <div class="container sewn-container section-head-pad">
+<div class="bg-fff">
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+        <span id="title-breadcrumb-1" class="sr-only"></span>
+        <ul class="bread-nav mb-md-0 pull-left">
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            </li>
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/green-grading">Green grading</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            </li>
+            <li class="b-cum c-pink">Grade a service</li>
+        </ul>
+        <div class="col-md-6 col-lg-4 pull-right search-div ">
+            <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by name, role.." />
+        </div>
+    </nav>
+    <section class="grading__total">
+        <div class="row w-100 ml-0">
+        <div class="green_grading_cont">
+            <h1>Estate services requests</h1>
+            <h3 class="mb-2">Select service(s) that you want to cup</h3>
+        </div>
+    </div>
+        <div class="row mt-4">
+            <div class="col-lg-8">
+            <div class="d-inline border-total role-div col-sm-6" id="role_id">
+                <p class="d-inline filter-text" *ngIf="termRole == ''">Estate name&nbsp;</p>
+                <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
+                    <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole();">
+                        &nbsp; <img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop1="bs-popover">
+                    <p class="d-inline filter" *ngIf="termRole != ''" (click)="toggleRole();">
+                        {{ termRole }}&nbsp;<img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+            &nbsp;&nbsp;
+            <div class="d-inline border-total status-div col-sm-6" id="status_id">
+                <p class="d-inline filter-text" *ngIf="termStatus == ''">Status&nbsp;</p>
+                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                    <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
+                        &nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+                    <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleStatus()">
+                        {{ termStatus }}&nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+        </div>
+        </div>
+        <div class="table-container mb-2 mt-4">
+            <div class="table-responsive">
+                <table class="table">
+                        <thead class="table-header">
+                                <tr class="header-row">
+                                    <th>
+                                        <label class="customcheckbox m-b-20">
+                                                <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                                                (change)="checkAll($event)"/>
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                    </th>
+                                    <th scope="col">Service ID</th>
+                                    <th scope="col">Estate Name&nbsp; <img src="assets/images/combined-shape-user.png" /></th>
+                                    <th scope="col">
+                                        Origin&nbsp; <img src="assets/images/combined-shape-user.png" />
+                                    </th>
+                                    <th scope="col">
+                                        Region&nbsp; <img src="assets/images/combined-shape-user.png" />
+                                    </th>
+                                    <th scope="col">Date Requested</th>
+                                    <th scope="col">Service Type</th>
+                                    <th scope="col">
+                                        Status
+                                    </th>
+                                    <th scope="col">Type</th>
+                                </tr>
+                            </thead>
+                            <tbody class="customtable">
+                                <tr class="ticket-boby-txt cursor-pointer" *ngFor="let item of mainData | filter:term | filter: termRole | filter: termStatus" routerLink="/features/generate-report">
+                                    <td>
+                                        <label class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                    </td>
+                                    <td>
+                                        {{ item.id }}
+                                    </td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.origin }} </td>
+                                    <td>{{ item.region }}</td>
+                                    <td>{{ item.date }} </td>
+                                    <td>
+                                        {{item.serviceType}}
+                                    </td>
+                                    <td>{{item.status}}</td>
+                                   
+                                    <td>
+                                       {{item.type}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                </table>
+            </div>
+        </div> 
+    </section>
+</div>
+</div>
+</section>
+
+<ng-template #roleTemplate>
+    <div>
+      <ul class="list-group">
+        <li class="list-group-item item-color">
+          <a class="pointer-item" (click)="setRole(''); pop3.hide(); pop1.hide();toggleRole()"
+            >Estate name</a>
+        </li>
+        <li class="list-group-item item-color" >
+          <a
+            class="pointer-item"
+            (click)="setRole('Company1'); pop1.hide(); pop3.hide();toggleRole()"
+            >Comapny 1</a>
+        </li>
+        <li class="list-group-item item-color" >
+            <a
+              class="pointer-item"
+              (click)="setRole('Company 2'); pop1.hide(); pop3.hide();toggleRole()"
+              >Comapny 2</a>
+          </li>
+      </ul>
+    </div>
+  </ng-template>
+  <ng-template #allTemplate>
+        <div id="status-content">
+          <ul class="list-group">
+            <li class="list-group-item item-color">
+              <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide();toggleStatus()"
+                >All</a>
+            </li>
+            <li class="list-group-item item-color">
+              <a
+                class="pointer-item"
+                (click)="setStatus('Active'); pop.hide(); pop2.hide();toggleStatus()"
+                >Active</a>
+            </li>
+            <li class="list-group-item item-color">
+              <a
+                class="pointer-item"
+                (click)="setStatus('Disabled'); pop.hide(); pop2.hide();toggleStatus()"
+                >Disabled</a>
+            </li>
+          </ul>
+        </div>
+      </ng-template>  

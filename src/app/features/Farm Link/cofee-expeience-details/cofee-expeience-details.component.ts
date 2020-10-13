@@ -10,11 +10,13 @@ import { GlobalsService } from 'src/services/globals.service';
 export class CofeeExpeienceDetailsComponent implements OnInit {
   date1: Date;
   appLanguage: any;
+	coffeeDetailsActive:any = 0;
 
   constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+    this.language();
+
     $("body").on("change", ".custom-label__inputs", function () {
       var $this = $(this);
   
@@ -38,9 +40,8 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
 
   }
 
-  
-
-
-  
-
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.coffeeDetailsActive++;
+  }
 }

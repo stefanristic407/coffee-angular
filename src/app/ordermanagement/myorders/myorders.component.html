@@ -28,7 +28,13 @@
         </div>
     </section>
 </div> -->
-
+<div class="total-loader" *ngIf="myOrdersActive !=1">
+        <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+        <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+        </div>
+    </div>
+    <div *ngIf="myOrdersActive == 1">
 <div class="bg-fff">
 
     <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
@@ -82,4 +88,5 @@
 
 
     </section>
+</div>
 </div>

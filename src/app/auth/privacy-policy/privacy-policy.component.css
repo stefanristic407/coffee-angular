@@ -1,8 +1,8 @@
 .sewn_heading {
-    background-color: #f3efe8;
-    /* height: 60px; */
-    /* padding-left: 101px; */
+   
     padding: 2rem 7rem;
+    margin-bottom: 2rem;
+    background-color: white;
 }
 
 
@@ -28,7 +28,7 @@
 .policy-title {
     font-family: PlayfairDisplay;
     font-size: 32px;
-    color: #000000;
+    color: #232334;
     margin-top: 36px;
     font-weight: 500;
     line-height: 42px;
@@ -46,14 +46,14 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 1.43;
-    color: #666666;
+    color: #747588;
 }
 
 .text_checkbox {
     font-family: Muli;
     font-size: 13px;
     font-weight: 600;
-    color: #666666;
+    color: #747588;
     cursor: pointer;
 }
 
@@ -61,7 +61,7 @@
     font-family: Muli;
     font-size: 13px;
     font-weight: 600;
-    color: #666666;
+    color: #747588;
     cursor: pointer;
     /* color: #333333 */
 }
@@ -81,21 +81,21 @@
 }
 
 .policy_color {
-    color: #3d8462;
+    color: #30855c;
 }
 
 .next-button {
     height: 40px;
     border-radius: 6px;
-    background-color: #3d8462;
+    background-color: #30855c;
     margin-top: 3%;
     /* margin-bottom: 9%; */
 }
 
 .next-button:hover {
-    background-color: #3d8462;
+    background-color: #30855c;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-    /* border: #3d8462; */
+    /* border: #30855c; */
 }
 
 .next-text {
@@ -117,7 +117,7 @@
 
 input:checked+label {
     /* color: #333333; */
-    color: #000000;
+    color: #232334;
     font-weight: 600;
 }
 
@@ -135,7 +135,7 @@ input:checked+label {
 
 .text_checkbox::after,
 .policy_checkbox::after {
-    height: 1.4rem;
+    height: .95rem;
 }
 
 .mob-privacy {
@@ -199,24 +199,24 @@ input:checked+label {
         font-size: 10px;
     }
     .login-butn {
-        background-color: #3d8462;
+        background-color: #30855c;
         padding: 10px 24px;
         font-size: 11px;
         font-weight: 600;
         color: #ffffff;
-        border: #3d8462;
+        border: #30855c;
         border-radius: 6px;
         width: 90%;
         /* box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5); */
     }
     .login-butn:hover {
-        background-color: #3d8462;
-        border: #3d8462;
+        background-color: #30855c;
+        border: #30855c;
         box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
     }
     .login-butn:focus {
         outline: 0;
-        background-color: #3d8462 !important;
+        background-color: #30855c !important;
     }
     .middle_column {
         padding-left: 0 !important;

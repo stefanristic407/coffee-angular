@@ -1,3 +1,10 @@
+<div class="total-loader" *ngIf="shareMe !=1">
+	<!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+	<div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+		<img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+	</div>
+</div>
+<div *ngIf="shareMe == 1">
 <div class="estate-table web-farm pt-md-3">
     <div class="table-responsive border-lots">
             <table class="table">
@@ -800,4 +807,5 @@
                 </button>
               </div>
             </div>
-          </ng-template>
+		  </ng-template>
+	</div>	  

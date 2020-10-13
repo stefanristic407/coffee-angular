@@ -1,131 +1,143 @@
-<div class="bg-fff">
-        <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+<div class="total-loader" *ngIf="helpActive !=1">
+        <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+        <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+        </div>
+    </div>
+    <div *ngIf="helpActive == 1">
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff">
+            <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
                 <div class="row desk-view">
                     <div class="col-md-6 col-lg-6">
-<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-    <span id="title-breadcrumb-1" class="sr-only"></span>
-    <ul class="bread-nav ">
-        <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-        </li>
-        <li class="b-cum">
-            <a class="b-cum" routerLink="/features/account-settings">{{appLanguage.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-        </li>
-        <li class="b-cum c-pink">{{appLanguage.help}}</li>
-        
-    </ul>
-</nav>
-</div>
-<div class="ml-auto text-right raise-ticket">
-        <button type="submit" class="btn btn-succes create-role-btn web-btn" routerLink = "/features/account-settings">{{appLanguage.save_changes}}</button>
-    </div>
-</div>
-<div class="row mobile-view">
-        <span class="cursor-pointer" routerLink="/features/account-settings">
+                        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                            <span id="title-breadcrumb-1" class="sr-only"></span>
+                            <ul class="bread-nav ">
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/account-settings">{{appLanguage.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum c-pink">{{appLanguage.help}}</li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="ml-auto text-right raise-ticket">
+                        <button type="submit" class="btn btn-succes create-role-btn web-btn" routerLink="/features/account-settings">{{appLanguage.save_changes}}</button>
+                    </div>
+                </div>
+                <div class="row mobile-view">
+                    <span class="cursor-pointer" routerLink="/features/account-settings">
             <img src="/assets/images/back-arrow1.png" alt="">
             <span class="back-ticket pl-3">{{appLanguage.back}}</span>
-            </span>
-</div>
-</section>
-<section class="col-sm-12 col-md-12 col-lg-12 p-4">
-    <div class="row">
-        <div class="col-md-6 col-lg-6 pl-4 mob-header-view">
-            <p class="header-value mr-auto text-left">{{appLanguage.help}}</p>
-            <p class="sub-text">{{appLanguage.help_text}}</p>
-        </div>
-    </div>
-    <div class="border-clr">
-            <div class="row">
-                <div class="accordion col-lg-7 col-md-10 col-sm-12 mb-3" id="accordionExample">
-                    <div class="privacy-content-list">
-                        <p class="sub-header">{{appLanguage.help}}</p>
+                    </span>
+                </div>
+            </section>
+            <section class="col-sm-12 col-md-12 col-lg-12 p-4">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 pl-4 mob-header-view">
+                        <p class="header-value mr-auto text-left">{{appLanguage.help}}</p>
+                        <p class="sub-text">{{appLanguage.help_text}}</p>
                     </div>
-                    <div class="card">
-                        <div class="card-head" id="headingOne">
-                            <h2 class="mb-0 question" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <span class="image">{{appLanguage.get_help}}
+                </div>
+                <div class="border-clr">
+                    <div class="row">
+                        <div class="accordion col-lg-7 col-md-10 col-sm-12 mb-3" id="accordionExample">
+                            <div class="privacy-content-list">
+                                <p class="sub-header">{{appLanguage.help}}</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-head" id="headingOne">
+                                    <h2 class="mb-0 question" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <span class="image">{{appLanguage.get_help}}
                                     <!-- <img src="assets/images/arrow-1.png"> -->
                                 </span>
-                            </h2>
-                        </div>
+                                    </h2>
+                                </div>
 
-                        <div id="collapseOne" class="collapse sourcing-collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <p class="content">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                    </p>
+                                <div id="collapseOne" class="collapse sourcing-collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="content">
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="card">
+                                <div class="card-head" id="headingTwo">
+                                    <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <span class="image"> {{appLanguage.our_terms_conditions}} </span>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseTwo" class="collapse sourcing-collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="content">
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="privacy-content-list">
+                                <p class="sub-header">{{appLanguage.feedback}}</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-head" id="headingThree">
+                                    <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <span class="image">{{appLanguage.give_feedback}}</span>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseThree" class="collapse sourcing-collapse " aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="content">
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-head" id="headingFour">
+                                    <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <span class="image">{{appLanguage.report_problem}}</span>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseFour" class="collapse sourcing-collapse " aria-labelledby="headingFour" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="content">
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-head" id="headingFive">
+                                    <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <span class="image">{{appLanguage.rate_us}}</span>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseFive" class="collapse sourcing-collapse " aria-labelledby="headingFive" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="content">
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-head" id="headingTwo">
-                            <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    <span class="image"> {{appLanguage.our_terms_conditions}} </span>
-                            </h2>
-                        </div>
-
-                        <div id="collapseTwo" class="collapse sourcing-collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <p class="content">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                    </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="privacy-content-list">
-                            <p class="sub-header">{{appLanguage.feedback}}</p>
-                        </div>
-                    <div class="card">
-                        <div class="card-head" id="headingThree">
-                            <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <span class="image">{{appLanguage.give_feedback}}</span>
-                            </h2>
-                        </div>
-
-                        <div id="collapseThree" class="collapse sourcing-collapse " aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <p class="content">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                    </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head" id="headingFour">
-                            <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    <span class="image">{{appLanguage.report_problem}}</span>
-                            </h2>
-                        </div>
-
-                        <div id="collapseFour" class="collapse sourcing-collapse " aria-labelledby="headingFour" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <p class="content">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                    </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head" id="headingFive">
-                            <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                    <span class="image">{{appLanguage.rate_us}}</span>
-                            </h2>
-                        </div>
-
-                        <div id="collapseFive" class="collapse sourcing-collapse " aria-labelledby="headingFive" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <p class="content">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                                     </p>
-                            </div>
-                        </div>
-                    </div>
-                   
                 </div>
-            </div>
+                <div class="mobile-farm col-12">
+                    <button type="button" class="btn btn-succes create-role-btn" routerLink="/features/account-settings"> {{appLanguage.save_changes}} </button>
+                </div>
+            </section>
         </div>
-        <div class="mobile-farm col-12">
-                <button type="button" class="btn btn-succes create-role-btn" routerLink = "/features/account-settings"> {{appLanguage.save_changes}} </button>
-            </div>
+    </div>
 </section>
 </div>

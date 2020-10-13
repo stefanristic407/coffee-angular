@@ -35,6 +35,7 @@ export class DirectMessagingComponent implements OnInit {
 	keyword: string;
 	threadLastMessages : any;
 	appLanguage: any;
+	messagingActive:any =0;
 
 	constructor(
 		private modalService: BsModalService,
@@ -216,8 +217,13 @@ export class DirectMessagingComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.appLanguage = this.globals.languageJson;
+		// this.appLanguage = this.globals.languageJson;
+		this.language();
 	}
+	language(){
+		this.appLanguage = this.globals.languageJson;
+		   this.messagingActive++;
+		}
 	deleteChat() {
 		this.openModal(this.deletetemplate);
 	}

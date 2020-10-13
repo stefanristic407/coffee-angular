@@ -10,7 +10,8 @@ import { GlobalsService } from 'src/services/globals.service';
 export class ProcuredCoffeeComponent implements OnInit {
 	items: GalleryItem[];
 	appLanguage: any;
-	
+	procuredActive:any =0;
+
 	public data = [
 		{
 		  srcUrl: 'assets/images/galleria-1.jpg',
@@ -48,7 +49,10 @@ export class ProcuredCoffeeComponent implements OnInit {
       thumbPosition: ThumbnailsPosition.Top
       });
 	  lightboxRef.load(this.items);
-	  this.appLanguage = this.globals.languageJson;
+	  this.language();
     }
-
+	language(){
+		this.appLanguage = this.globals.languageJson;
+	   	this.procuredActive++;
+	  }
 }

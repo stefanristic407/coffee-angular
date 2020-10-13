@@ -13,16 +13,19 @@ export class OverviewRatingsComponent implements OnInit {
   termStatus: any;
   showRelavant:boolean=true;
   appLanguage: any;
-
+  estateRatingActive:any=0;
+  
   constructor(private globals: GlobalsService) { 
-
     this.termStatus = "Most relevant";
-    
   }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.estateRatingActive++;
+	}
 
   setStatus(term: any) {
     this.termStatus = term;

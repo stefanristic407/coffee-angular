@@ -31,6 +31,11 @@ zipError:string;
 cityError:string;
 service: string = "Import & Delivery service";
 serviceAmount: number = 4500;
+available_bags:number = 266;
+terms:boolean = false;
+termError:string;
+availableConfirmActive:any=0;
+
 constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public router:Router,private globals: GlobalsService) { }
 @ViewChild('confirmtemplate') private confirmtemplate: any;
 
@@ -46,10 +51,15 @@ ngOnInit(): void {
   this.addressError = "";
   this.zipError= "";
   this.cityError="";
+  this.termError="";
   // this.price="$450";
-  this.appLanguage = this.globals.languageJson;
-
+  this.language();  
 }
+language(){
+	this.appLanguage = this.globals.languageJson;
+	this.availableConfirmActive++;
+  }
+
 placeOrder(){
   if(this.quantity=="" || this.quantity == null || this.quantity == undefined){
     this.confirmOrderError = "Please enter quantity";
@@ -58,6 +68,21 @@ placeOrder(){
       this.confirmOrderError = "";
       document.getElementById('quantityId').style.border = "1px solid #d6d6d6 ";
     }, 3000);
+  }
+  else if(this.quantity>this.available_bags){
+	this.confirmOrderError = "Please enter quantity in range of available for sale";
+    document.getElementById('quantityId').style.border = "1px solid #D50000";
+    setTimeout(() => {
+      this.confirmOrderError = "";
+      document.getElementById('quantityId').style.border = "1px solid #d6d6d6 ";
+    }, 3000);
+
+  }
+  else if(this.terms == false){
+	this.termError="Please accept the terms and conditions";
+	setTimeout(() => {
+		this.termError = "";
+	  }, 3000);
   }
   else{
   this.openModal(this.confirmtemplate);

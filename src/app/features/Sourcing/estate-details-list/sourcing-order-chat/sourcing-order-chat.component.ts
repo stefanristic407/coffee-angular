@@ -9,11 +9,12 @@ import {GlobalsService} from 'src/services/globals.service';
 })
 export class SourcingOrderChatComponent implements OnInit {
 	appLanguage: any;
+	sourcingChatActive:any=0;
 
   constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
-	this.appLanguage = this.globals.languageJson;
+    this.language();
   }
 
   ngAfterViewInit() {
@@ -191,5 +192,8 @@ export class SourcingOrderChatComponent implements OnInit {
     }
     });
   }
-
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.sourcingChatActive++;
+	}
 }

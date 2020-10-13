@@ -53,6 +53,7 @@ export class PeopleComponent implements OnInit {
   lag: any;
   languages: any;
   appLanguage: any;
+  isActive:any=0;
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
     private userService: UserserviceService,
@@ -134,6 +135,7 @@ export class PeopleComponent implements OnInit {
             this.globals.languageJson = resultLanguage;
             console.log(this.globals.languageJson);
             this.appLanguage = this.globals.languageJson;
+            this.isActive++;
           }
         )
       }
@@ -148,6 +150,7 @@ export class PeopleComponent implements OnInit {
     this.userService.getRoasterAccount(this.roaster_id).subscribe(
       result => {
         this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+        this.isActive++;
     }
     );
   }

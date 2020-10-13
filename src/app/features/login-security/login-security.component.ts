@@ -13,6 +13,7 @@ export class LoginSecurityComponent implements OnInit {
   display: boolean = false;
   modalRef: BsModalRef;
   appLanguage: any;
+  securityActive:any =0;
 
   constructor(private modalService: BsModalService,
       private globals : GlobalsService
@@ -202,8 +203,12 @@ export class LoginSecurityComponent implements OnInit {
     });
     /*newPassword Ends */
 
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
+  language(){
+    	this.appLanguage = this.globals.languageJson;
+       this.securityActive++;
+    }
   showDialog() {
     this.display = true;
 }

@@ -350,6 +350,11 @@ span.checkmark {
     color: #D50000;
     font-size: 14px;
 }
+.termError{
+    color: #D50000;
+    font-size: 14px;
+    margin-left: 10px;
+}
 /****************************    Media Queries   ****************************/
 @media screen and (max-width:768px) {
     .create-role {

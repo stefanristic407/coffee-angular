@@ -2,7 +2,6 @@
     padding-left: 3.1rem;
 }
 
-
 .border-lots {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
@@ -55,6 +54,7 @@ tr:last-child {
     padding-bottom: 2rem;
     /* cursor: pointer; */
 }
+
 .estate-orders {
     /* margin: 1rem 3.1rem; */
     position: relative;
@@ -104,6 +104,7 @@ tr:last-child {
     font-family: 'Muli' !important;
     border-bottom: none !important;
 }
+
 .estate-boby-txt {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
@@ -308,7 +309,6 @@ span.checkmark {
     display: none;
 }
 
-
 .checkmark {
     top: 2px !important;
     left: 8px !important;
@@ -331,6 +331,7 @@ span.checkmark {
 .customcheckbox input:checked~.checkmark {
     background-color: #30855c !important;
 }
+
 
 /*********************Tab Css **********************/
 
@@ -473,20 +474,24 @@ ul li {
         width: 139px !important;
     }
 }
-.customcheckbox{
+
+.customcheckbox {
     bottom: 8px;
 }
 
+
 /* =====Video popup css==== */
 
-.video-section-modal{
+.video-section-modal {
     padding: 0 !important;
     margin-top: 0 !important;
 }
-::ng-deep .modal-content.video-content{
+
+::ng-deep .modal-content.video-content {
     padding: 0 !important;
     background: none !important;
 }
+
 .video-close {
     background: #00b3ff;
     width: 25px;
@@ -508,8 +513,8 @@ ul li {
 }
 
 
-    
 /* ===============Image Popup CSS================== */
+
 .priview-popup-fileshare__back {
     position: relative;
     top: 12%;
@@ -579,15 +584,15 @@ ul li {
     margin-bottom: 3px;
     cursor: pointer;
 }
-.underline-text{
+
+.underline-text {
     text-decoration: none;
     color: #747588;
 }
-.underline-text:hover{
+
+.underline-text:hover {
     color: #232334;
 }
-
-
 
 @media (min-width: 576px) {
     .priview-popup-fileshare__img {
@@ -640,11 +645,10 @@ ul li {
     .priview-popup-fileshare__back {
         top: 40px;
     }
-    .video-section-modal{
+    .video-section-modal {
         padding: 0 !important;
         margin-top: 0 !important;
     }
-
 }
 
 @media (min-width: 992px) {
@@ -711,4 +715,8 @@ ul li {
         height: 500px;
         margin: auto;
     }
+}
+
+.table {
+    margin-bottom: 0px !important;
 }

@@ -23,6 +23,9 @@ export class FeaturesComponent implements OnInit {
   selected: string;
   roaster_id: any;
   user_id: any;
+  featureActive:any=0;
+  screenwidth:any= true;
+  
 
   states: string[] = [
     'alabama@gmail.com',
@@ -53,6 +56,7 @@ export class FeaturesComponent implements OnInit {
   languages: any;
   appLanguage: any;
 
+
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
     private userService: UserserviceService,
@@ -69,6 +73,7 @@ export class FeaturesComponent implements OnInit {
         this.translateService.use(browserlang);
         localStorage.setItem("locale", "en");
       }
+      console.log(this.screenwidth);
      }
 
   ngOnInit(): void {
@@ -92,6 +97,13 @@ export class FeaturesComponent implements OnInit {
         })
       }
    });
+
+   var pt = $('header').outerHeight() + "px";
+    $('.router-design').css({
+   "padding-top": pt
+    })
+
+    
     //Open side nav
     $('body').on('click', '.sidenav-hamberg', function(event) {
       $('.sidenav-mb').addClass('open');
@@ -141,10 +153,12 @@ export class FeaturesComponent implements OnInit {
 		var language = (response['result']['language'] == "") ? "en" : response['result']['language'];
         this.userService.getUserLanguageStrings(language).subscribe(
           resultLanguage => {
+            // this.featureActive=1;
             console.log(resultLanguage);
             this.globals.languageJson = resultLanguage;
             console.log(this.globals.languageJson);
             this.appLanguage = this.globals.languageJson;
+           this.featureActive++;
           }
         )
       }
@@ -158,6 +172,7 @@ export class FeaturesComponent implements OnInit {
     this.userService.getRoasterAccount(this.roaster_id).subscribe(
       result => {
         this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+        this.featureActive++;
     }
     );
   }

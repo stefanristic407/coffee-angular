@@ -12,8 +12,6 @@ export class PrivacyPolicyComponent implements OnInit {
 
   ngOnInit(): void {
     //Auth checking
-    if (this.cookieService.get("Auth") == "") {
-      this.router.navigate(["/auth/login"]);
-    }
+  
   }
 }

@@ -174,10 +174,11 @@
     width: 60%;
 }
 
-.ownerName{
+.ownerName {
     text-overflow: ellipsis;
 }
-.folderName{
+
+.folderName {
     text-overflow: ellipsis;
 }
 
@@ -186,25 +187,29 @@
         width: 65%;
     }
 }
-.video-img{
+
+.video-img {
     height: 100%;
     width: 100%;
 }
-.folder-img{
+
+.folder-img {
     padding: 0rem 2.5rem 1rem 2.5rem;
 }
 
 
 /* =====Video popup css==== */
 
-.video-section-modal{
+.video-section-modal {
     padding: 0 !important;
     margin-top: 0 !important;
 }
-::ng-deep .modal-content.video-content{
+
+::ng-deep .modal-content.video-content {
     padding: 0 !important;
     background: none !important;
 }
+
 .video-close {
     background: #00b3ff;
     width: 25px;
@@ -282,7 +287,7 @@
     .existing-members-list__item:last-child {
         border: 0;
     }
-    .video-section-modal{
+    .video-section-modal {
         padding: 0 !important;
         margin-top: 0 !important;
     }
@@ -722,11 +727,13 @@ li.nav-item {
     object-fit: contain;
     opacity: 0.8;
 }
-.auto-complete-box{
+
+.auto-complete-box {
     box-shadow: none !important;
     border: none !important;
     outline: none !important;
 }
-.closeCard{
+
+.closeCard {
     display: none;
 }

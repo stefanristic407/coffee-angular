@@ -14,6 +14,8 @@ export class FileShareService {
   roasterId: any;
   parentId: any = 0;
   mainData: any;
+//   shareMainActive:any=0;
+
   constructor(
     public roasterService : RoasterserviceService,
     public toastrService : ToastrService,
@@ -41,7 +43,8 @@ export class FileShareService {
           this.mainData = result['result'];
         }else{
           this.toastrService.error("Error while getting the Files and Folders");
-        }
+		}
+		// this.shareMainActive++;
       }
     )
   }

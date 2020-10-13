@@ -63,3 +63,27 @@
         display: block !important;
     }
 }
+
+@media (min-width: 1200px) {
+    .router-design {
+        padding-top: 0px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .router-design {
+        padding-top: 0px !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .router-design {
+        padding-top: 0px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .router-design {
+        padding-top: 0px !important;
+    }
+}

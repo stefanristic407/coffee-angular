@@ -1,56 +1,61 @@
-<div class="bg-fff">
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-        <span id="title-breadcrumb-1" class="sr-only"></span>
-        <ul class="bread-nav">
+<div class="total-loader" *ngIf="customerActive != 1">
+    <img class="loader-gif-sub" src="/assets/images/loader.gif">
+</div>
+<div *ngIf="customerActive == 1">
+    <div class="bg-fff">
+        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+            <span id="title-breadcrumb-1" class="sr-only"></span>
+            <ul class="bread-nav">
 
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-            </li>
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                </li>
 
-            <li class="b-cum">
-                <a class="b-cum">{{appLanguage.people}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-            </li>
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/people/customer-management">{{appLanguage.people}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                </li>
 
-            <li class="b-cum c-pink">{{appLanguage.customer_management}}</li>
+                <li class="b-cum c-pink">{{appLanguage.customer_management}}</li>
 
-        </ul>
-    </nav>
+            </ul>
+        </nav>
 
-    <section class="social-media">
-        <div class="col-lg-12 col-md-12 col-12">
-            <div class="row">
-                <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
-                    <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill" href="#pills-land-lots" role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage.micro_roasters}}</a>
-                        </li>
+        <section class="social-media">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="row">
+                    <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                        <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill" href="#pills-land-lots" role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage.micro_roasters}}</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill" href="#pills-batch-status" role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage.horeca}}</a>
-                        </li>
-
-
-                    </ul>
-
-                    <div class="tab-content mt-md-4" id="pills-tabContent">
-
-                        <div class="tab-pane fade show active" id="pills-land-lots" role="tabpanel" aria-labelledby="pills-land-lots-tab">
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill" href="#pills-batch-status" role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage.horeca}}</a>
+                            </li>
 
 
-                            <app-micro-roaster> </app-micro-roaster>
+                        </ul>
+
+                        <div class="tab-content mt-md-4" id="pills-tabContent">
+
+                            <div class="tab-pane fade show active" id="pills-land-lots" role="tabpanel" aria-labelledby="pills-land-lots-tab">
+
+
+                                <app-micro-roaster> </app-micro-roaster>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-batch-status" role="tabpanel" aria-labelledby="pills-batch-status-tab">
+
+
+                                <app-ho-re-ca> </app-ho-re-ca>
+                            </div>
+
+
                         </div>
-
-                        <div class="tab-pane fade" id="pills-batch-status" role="tabpanel" aria-labelledby="pills-batch-status-tab">
-
-
-                            <app-ho-re-ca> </app-ho-re-ca>
-                        </div>
-
 
                     </div>
-
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </div>

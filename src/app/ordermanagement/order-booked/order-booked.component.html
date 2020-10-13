@@ -8,18 +8,15 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r"
-                                        aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
                                             alt=""></span>
                                 </li>
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage.order_management}}</a><span
-                                        class="padl-r" aria-hidden="true"><img class="group-img"
+                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li>
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage.estate_orders}}</a><span
-                                        class="padl-r" aria-hidden="true"> <img class="group-img"
+                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage.estate_orders}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
                                 <li class="b-cum c-pink">{{appLanguage.order}} 12416
@@ -39,8 +36,7 @@
                     <div class=" col-lg-12 col-md-12 col-sm-12 pr-0">
                         <div class="row ">
                             <div class="col-md-6 pl-0 pr-0">
-                                <div class="order-id d-flex align-items-center">{{appLanguage.order}} #12416 <span
-                                        class="booked booked--green ml-2">{{appLanguage.booked}}</span></div>
+                                <div class="order-id d-flex align-items-center">{{appLanguage.order}} #12416 <span class="booked booked--green ml-2">{{appLanguage.booked}}</span></div>
 
                                 <!-- <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div> -->
                             </div>
@@ -60,10 +56,9 @@
                                             <div class="order-tracking">
                                                 <span class="is-complete "></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text mt-order-0">
-                                                    <p class="order-status mt-2 mb-1" (click)="orderPlaceBooked()"
-                                                        #orderPlacedBooked style="color: #000000;font-weight: bold;">
-                                                        Order
-                                                        placed</p>
+                                                    <p class="order-status mt-2 mb-1" (click)="orderPlaceBooked()" #orderPlacedBooked style="color: #000000;font-weight: bold;">
+                                                        Order placed
+                                                    </p>
                                                     <p class="order-date mb-0 ">Estate + facilitator Notified </p>
                                                 </div>
                                             </div>
@@ -71,17 +66,15 @@
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
 
-                                                    <p class="order-status mt-2 mb-1" (click)="orderConfirmBooked()"
-                                                        #orderConfirmedBooked>Order Confirmed</p>
-                                                    <p class="order-datecolor mb-0" *ngIf="confirmReport">View sample-1
-                                                        report</p>
+                                                    <p class="order-status mt-2 mb-1" (click)="orderConfirmBooked()" #orderConfirmedBooked>Order Confirmed</p>
+                                                    <p class="order-datecolor mb-0" *ngIf="confirmReport">View sample-1 report
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking  completed" id="paymentDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1" (click)="paymentStatusBooked()"
-                                                        #paymentBooked>Payment</p>
+                                                    <p class="order-status mt-2 mb-1" (click)="paymentStatusBooked()" #paymentBooked>Payment</p>
                                                     <p class="order-datecolor  mb-0" *ngIf="paymentReceipt">View Reciept
                                                     </p>
                                                 </div>
@@ -89,27 +82,23 @@
                                             <div class="order-tracking  completed" id="shippmentDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1" (click)="shipmentStatusBooked()"
-                                                        #shippmentBooked>Shipped</p>
+                                                    <p class="order-status mt-2 mb-1" (click)="shipmentStatusBooked()" #shippmentBooked>Shipped</p>
                                                     <p class="order-date  mb-0" *ngIf="shippmentReport">20 Feb 2020</p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="receivedDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1" (click)="receivedStatusBooked()"
-                                                        #receivedBooked>Recieved</p>
+                                                    <p class="order-status mt-2 mb-1" (click)="receivedStatusBooked()" #receivedBooked>Recieved</p>
                                                     <p class="order-date  mb-0" *ngIf="receivedReport">1 March 2020</p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="gradedDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status  mt-2 mb-1" (click)="gradedStatusBooked()"
-                                                        #gradedBooked>Graded by Roaster</p>
+                                                    <p class="order-status  mt-2 mb-1" (click)="gradedStatusBooked()" #gradedBooked>Graded by Roaster</p>
 
-                                                    <label class="date-ur mb-0" *ngIf="uploadReport"
-                                                        (click)="uploader.click()">Upload report</label>
+                                                    <label class="date-ur mb-0" *ngIf="uploadReport" (click)="uploader.click()">Upload report</label>
                                                     <input hidden type="file" #uploader />
                                                     <p class="date-ur mb-0" *ngIf="gradedReport">View report</p>
                                                 </div>
@@ -127,15 +116,13 @@
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
                                 <h4 class="order-txt fnt-play">{{appLanguage.confirm_shipment}}</h4>
-                                <div class="confirm-grade pt-2">Please confirm if you have recieved the shipment you
-                                    have ordered.</div>
+                                <div class="confirm-grade pt-2">Please confirm if you have recieved the shipment you have ordered.</div>
                                 <div class="confirm-grade">The order will be marked as complete then</div>
                                 <!-- <button type="submit" class="yes-txt btn mt-3" (click)="receivedShippment()">Yes i have</button> -->
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                                 <button type="submit" class="yes-order btn mt-3 yes-i-have">{{appLanguage.yes_i_have}} </button><br />
-                                <button type="submit" class="cancel-order btn mt-3"
-                                    routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
 
                             </div>
                         </div>
@@ -152,12 +139,10 @@
                                 </div>
                                 <div class="col-md-11 pl-0">
                                     <h4 class="order-txt fnt-play">{{appLanguage.received_on}}</h4>
-                                    <div class="confirm-grade pt-2">Wohoo! You have successfully recieved the bulk you
-                                        ordered.</div>
-                                    <div class="confirm-grade">Please Rate and Review the estate and facilitator to help
-                                        us expand as a transparent community!</div>
-                                    <button type="submit" class="cancel-order btn mt-3"
-                                        routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
+                                    <div class="confirm-grade pt-2">Wohoo! You have successfully recieved the bulk you ordered.
+                                    </div>
+                                    <div class="confirm-grade">Please Rate and Review the estate and facilitator to help us expand as a transparent community!</div>
+                                    <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
 
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
@@ -173,17 +158,14 @@
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
                                 <h4 class="order-txt fnt-play">{{appLanguage.cancelled}}</h4>
-                                <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the
-                                    estate and facilitator to help us expand</div>
+                                <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the estate and facilitator to help us expand</div>
                                 <div class="confirm-grade">as a transparent community!</div>
                                 <button type="submit" class="yes-txt btn mt-3">{{appLanguage.buy_it}}</button>
                                 <button type="submit" class="cancel-order btn mt-3 ml-3">{{appLanguage.browse_estates}}</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="cancel-order btn mt-3"
-                                    routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
-                                <button type="submit" class="cancel-order btn mt-3"
-                                    routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}} </button>
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}} </button>
                             </div>
                         </div>
                     </div>
@@ -196,24 +178,20 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="order-tab-fff d-lg-flex bg-none pl-lg-0">
+        <div class="order-tab-fff d-lg-flex bg-none">
             <div class="mixups-tabs pr-lg-5 col-lg-8 col-md-12 mb-md-3 mb-lg-0 pl-lg-0 mixups-tabs--pd0 ">
                 <div class="border-ebebeb h-100">
                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                role="tab" aria-controls="pills-home" aria-selected="true">Order details</a>
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Order details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                role="tab" aria-controls="pills-profile" aria-selected="false">Documents</a>
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Documents</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-                                role="tab" aria-controls="pills-contact" aria-selected="false">Grade Info</a>
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Grade Info</a>
                         </li>
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button"
-                                class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}}</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}}</button>
                         </li>
                     </ul>
 
@@ -221,16 +199,13 @@
                         <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}}</button>
                     </div>
                     <div class="tab-content mt-md-5" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                            aria-labelledby="pills-home-tab">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <app-booked-order-details></app-booked-order-details>
                         </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                            aria-labelledby="pills-profile-tab">
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <sewn-booked-documents></sewn-booked-documents>
                         </div>
-                        <div class="tab-pane fade" id="pills-contact" role="tabpanel"
-                            aria-labelledby="pills-contact-tab">
+                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <div class="row">
 
                                 <app-booked-grade-info></app-booked-grade-info>
@@ -280,55 +255,55 @@
             </div>
             <div class="shipping-div shipping-div--mbVesrion col-lg-4 col-md-12 mixups-tabs--pd0 bg-shipping ">
                 <div class="shipping-div__info ">
-                <div class="d-flex">
-                    <div class="pull-left shipping-addr">{{appLanguage.delivery_address}}
-                    </div>
-                    <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
+                    <div class="d-flex">
+                        <div class="pull-left shipping-addr">{{appLanguage.delivery_address}}
+                        </div>
+                        <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
                             alt="Edit"> Edit</div> -->
-                </div>
-                <div class=" d-flex mt-1 addr-text">Löfbergs Lila AB, Box 1501, 651 21 - Karlstad, Sweden</div>
-                <div class="d-flex mt-3">
-                    <img class="img-logo" src="assets/images/google-image.png" alt="Map">
+                    </div>
+                    <div class=" d-flex mt-1 addr-text">Löfbergs Lila AB, Box 1501, 651 21 - Karlstad, Sweden</div>
+                    <div class="d-flex mt-3">
+                        <img class="img-logo" src="assets/images/google-image.png" alt="Map">
 
-                </div>
+                    </div>
                 </div>
                 <div class="d-none d-md-block ">
-                <div class="d-flex mt-4">
-                    <div class="pull-left estate-details">{{appLanguage.roaster_details}}
+                    <div class="d-flex mt-4">
+                        <div class="pull-left estate-details">{{appLanguage.roaster_details}}
+                        </div>
+                        <div class="pull-right ml-auto view-details">{{appLanguage.view_details}}</div>
                     </div>
-                    <div class="pull-right ml-auto view-details">{{appLanguage.view_details}}</div>
-                </div>
 
-                <div class="d-flex mt-2 border-div">
-                    <div class="p-0"><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
-                    <div>
-                        <ul class="details-list p-0 ml-3">
-                            <li class="estate-name">Finca Guadalupe Zajú</li>
-                            <!-- <li>
+                    <div class="d-flex mt-2 border-div">
+                        <div class="p-0"><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
+                        <div>
+                            <ul class="details-list p-0 ml-3">
+                                <li class="estate-name">Finca Guadalupe Zajú</li>
+                                <!-- <li>
                                 <span class="estate-number pr-2">+420 6365719</span> <span class="vr-line">|</span>
                                 <span class="pl-2 estate-mail">info@guadalupezaju.com</span>
                             </li> -->
-                            <li class="d-flex rating-space">
-                                <!-- <star-rating value="3" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true" (rate)="onRateBooked($event)"></star-rating>  -->
-                                <!-- <star-rating value="4" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true"></star-rating>
+                                <li class="d-flex rating-space">
+                                    <!-- <star-rating value="3" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true" (rate)="onRateBooked($event)"></star-rating>  -->
+                                    <!-- <star-rating value="4" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true"></star-rating>
                         <p class="rating-value">{{this.newvalue.toFixed(1)}}</p> -->
-                                <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img class=""
+                                    <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img class=""
                                         src="assets/images/star-1.png" alt="User"> <span class="star-no pl-1">
                                         4.95</span>
-                                </span>
+                                    </span>
 
-                            </li>
-                            <li class="mt-4">
+                                </li>
+                                <li class="mt-4">
 
-                                <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
+                                    <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
                                         alt="Message"><span class="estate-message pl-1">Message</span></span>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <table class="recent-time m-auto">
+                    <table class="recent-time m-auto">
 
-                    <!-- <tr>
+                        <!-- <tr>
                         <td> <span class="list-que"> Company Number : </span></td>
                         <td> <span class="list-ans"> 8685657 </span> </td>
 
@@ -338,54 +313,55 @@
                         <td> <span class="list-ans"> Cooperative </span> </td>
 
                     </tr> -->
-                    <tr>
-                        <td> <span class="list-que"> Address: </span></td>
-                        <td> <span class="list-ans"> Manizales, Caldas, 46729 - Colombia </span> </td>
+                        <tr>
+                            <td> <span class="list-que"> Address: </span></td>
+                            <td> <span class="list-ans"> Manizales, Caldas, 46729 - Colombia </span> </td>
 
-                    </tr>
-                </table>
-            </div>
-            <div class="Stakeholders-mbVersion col-12">
-                <div class="d-flex mt-md-4 mb-3">
-                    <div class="pull-left estate-details">{{appLanguage.stakeholders}}
-                    </div>
+                        </tr>
+                    </table>
                 </div>
-                <div class="d-flex mt-3 border-div">
-                    <div class="p-0"><img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
-                    <div class="pull-left">
-                        <ul class="details-list p-0 ml-2 ml-md-3">
-                            <li class="estate-name">Finca La Pampa</li>
-                            <li class="estate-number pt-1">
-                                Coffee Estate
-                            </li>
-                        </ul>
+                <div class="Stakeholders-mbVersion col-12">
+                    <div class="d-flex mt-md-4 mb-3">
+                        <div class="pull-left estate-details">{{appLanguage.stakeholders}}
+                        </div>
                     </div>
-                    <div class="pull-right ml-auto">
-                        <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
+                    <div class="d-flex mt-3 border-div">
+                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-2 ml-md-3">
+                                <li class="estate-name">Finca La Pampa</li>
+                                <li class="estate-number pt-1">
+                                    Coffee Estate
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right ml-auto">
+                            <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
                                 alt="Message"><span class="estate-message pl-1">Message</span></span>
+                        </div>
                     </div>
-                </div>
-                <div class="d-flex mt-3">
-                    <div class="p-0"><img class="img-estate" src="assets/images/stakeholder2.png" alt="User"></div>
-                    <div class="pull-left">
-                        <ul class="details-list p-0 ml-2 ml-md-3">
-                            <li class="estate-name">Kevin Bailey</li>
-                            <li class="estate-number pt-1">
-                                Facilitator
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="pull-right ml-auto">
-                        <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
+                    <div class="d-flex mt-3">
+                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder2.png" alt="User"></div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-2 ml-md-3">
+                                <li class="estate-name">Kevin Bailey</li>
+                                <li class="estate-number pt-1">
+                                    Facilitator
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pull-right ml-auto">
+                            <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
                                 alt="Message"><span class="estate-message pl-1">Message</span></span>
-                    </div>
+                        </div>
 
+                    </div>
                 </div>
-</div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <div class="row mt-4">
@@ -397,8 +373,7 @@
 
                 <div class="w-100 col-lg-6 col-md-12 recent-activity-content">
                     <p class=" w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
-                    <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2"
-                            src="assets/images/active.png"></p>
+                    <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2" src="assets/images/active.png"></p>
                     <!-- <div class="row w-100 activity-list">
                     <span class="col-md-3 list-time">
                             12:44pm
@@ -427,17 +402,16 @@
                         <div class="d-none d-md-inline-block p-0">
                             <!-- <img class="img-estate" src="assets/images/activity1.png" alt="User"> -->
                             <p class="timing">12:44pm</p>
-                            </div>
+                        </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ">
                                 <!-- <li class="list-name d-none d-md-inline-block">Finca La Pampa</li> -->
                                 <!-- <li class="list-user mb-2 pt-1 d-none d-md-inline-block">
                                     <p class="mb-0">Coffee Estate</p>
                                 </li> -->
-                              
+
                                 <li class="list-activity">
-                                    <div
-                                        class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
+                                    <div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
                                         12:44pm</div>
                                     <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span> Order confirmed by the Estate</p>
 
@@ -450,8 +424,8 @@
                         <div class="d-none d-md-inline-block p-0">
                             <!-- <img class="img-estate"
                                 src="assets/images/stakeholder2.png" alt="User"> -->
-                                <p class="timing">01:30pm</p>
-                            </div>
+                            <p class="timing">01:30pm</p>
+                        </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ">
                                 <!-- <li class="list-name d-none d-md-inline-block">
@@ -461,8 +435,7 @@
                                     <p class="mb-0">Facilitator</p>
                                 </li> -->
                                 <li class="list-activity">
-                                    <div
-                                        class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
+                                    <div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
                                         01:30pm</div>
                                     <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Facilitator assigned for pickup</p>
 
@@ -487,8 +460,7 @@
                 <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{appLanguage.cancel_order}}</button>
             </div>
             <div class="w-100 chat-div">
-                <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                    routerLink="/ordermanagement/order-chat">{{appLanguage.order}} #12416 {{appLanguage.chat}} <span class="chat-indicator">
+                <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/order-chat">{{appLanguage.order}} #12416 {{appLanguage.chat}} <span class="chat-indicator">
                         &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
 
             </div>

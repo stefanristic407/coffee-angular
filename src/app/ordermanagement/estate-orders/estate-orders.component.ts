@@ -56,6 +56,7 @@ export class EstateOrdersComponent implements OnInit {
 	estatetermStatusMob: string;
 	estatetermTypeMob: string;
 	roasterId: any;
+	estateOrdersActive:any =0;
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
@@ -104,7 +105,9 @@ export class EstateOrdersComponent implements OnInit {
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		}
-		this.appLanguage = this.global.languageJson;
+		// this.appLanguage = this.global.languageJson;
+		this.language();
+
 		this.dtOptions = {
 			//ajax: this.data,
 			data: this.mainData,
@@ -507,7 +510,10 @@ export class EstateOrdersComponent implements OnInit {
 		this.getEstateOrdersData();//get table data
 
 	}
-
+	language(){
+		this.appLanguage = this.global.languageJson;
+		this.estateOrdersActive++;
+	}
 	//  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.
 	checkAllEstate(ev) {

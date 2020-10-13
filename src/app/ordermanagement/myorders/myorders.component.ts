@@ -9,7 +9,9 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./myorders.component.css']
 })
 export class MyordersComponent implements OnInit {
-  appLanguage:any;
+  appLanguage:any;  
+  myOrdersActive:any =0;
+
 
   constructor(public router:Router,
               public cookieService:CookieService,public global: GlobalsService) { }
@@ -20,9 +22,12 @@ export class MyordersComponent implements OnInit {
   this.router.navigate(["/auth/login"]);
 }
 
-this.appLanguage = this.global.languageJson;
+this.language();
 
   }
-
+  language(){
+    this.appLanguage = this.global.languageJson;
+       this.myOrdersActive++;
+    }
 
 }

@@ -22,6 +22,7 @@ export class EditMembersComponent implements OnInit {
   memberRoleError: string; 
   appLanguage: any;
   emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  editActive:any=0;
 
   constructor(private router: Router,
     private cookieService: CookieService,
@@ -33,7 +34,7 @@ export class EditMembersComponent implements OnInit {
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
-    this.appLanguage = this.globals.languageJson;
+    this.language();
 
     $('.btn-toggle').click(function () {
       $(this).find('.btn').toggleClass('active');
@@ -78,6 +79,11 @@ export class EditMembersComponent implements OnInit {
       document.getElementById(event.target.id).style.border = "1px solid #E8E8E8";
     }
   }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.editActive++;
+  }
+
   // update() {
   //   if (this.member_name == "" || this.member_name == null || this.member_name == undefined) {
   //     this.memberNameError = "Please enter your member name";

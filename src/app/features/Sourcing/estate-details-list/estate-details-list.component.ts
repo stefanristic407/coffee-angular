@@ -8,6 +8,7 @@ import {GlobalsService} from 'src/services/globals.service';
 })
 export class EstateDetailsListComponent implements OnInit {
   appLanguage: any;
+  estateDetailsActive:any=0;
 
   public coffeedata: any[] = [
 		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '$7.4 USD / kg',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
@@ -20,7 +21,10 @@ export class EstateDetailsListComponent implements OnInit {
   constructor(private globals: GlobalsService) { }
   
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
-
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.estateDetailsActive++;
+	}
 }

@@ -60,6 +60,7 @@ export class DocumentTableComponent implements OnInit {
   sharedUsers: any;
   shareFileId: any;
   share_permission: any;
+  documentTable:any=0;
 
 
   
@@ -117,6 +118,7 @@ export class DocumentTableComponent implements OnInit {
      
       this.appLanguage = this.globals.languageJson;
     }
+   
 
     openModal(template: TemplateRef<any>,id: any) {
       this.modalRef = this.modalService.show(template);

@@ -58,6 +58,7 @@ export class DocumentFileComponent implements OnInit {
   
   selectedValue: string;
   appLanguage: any;
+
   constructor(public router: Router,
               public roasterService : RoasterserviceService,
               public toastrService : ToastrService,
@@ -86,13 +87,12 @@ export class DocumentFileComponent implements OnInit {
        if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
-      this.appLanguage = this.globals.languageJson;
+	  this.appLanguage = this.globals.languageJson;
       // this.filedetailsService.parentId = this.filedetailsService.folderId;
       // console.log(this.filedetailsService.parentId);
       // this.filedetailsService.getFilesandFolders();
   }
-
-  
+ 
   openModal(template: TemplateRef<any>,id: any) {
     this.modalRef = this.modalService.show(template);
     this.roasterService.getFolderDetails(this.roasterId,id).subscribe(data =>{

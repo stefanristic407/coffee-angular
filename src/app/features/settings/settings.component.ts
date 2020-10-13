@@ -8,11 +8,16 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class SettingsComponent implements OnInit {
   appLanguage: any;
+  settingsActive:any =0;
 
   constructor(public globals : GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+       this.settingsActive++;
+    }
 
 }

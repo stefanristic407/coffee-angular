@@ -12,8 +12,9 @@ export class GreenCoffeeInventoryComponent implements OnInit {
   dtOptions: DataTables.Settings = {
 		language: { "search": '' }
   };
-  appLanguage: any;
-
+  appLanguage: any ={};
+  greenActive:any =0;
+  loader:boolean;
   public gridData: any[] = [
     { id: '65837', availibility_Name: 'Origanic washed Micro-lot', estate_Name: 'Finca La Pampa', origin: 'Brazil', variety: 'Bourborn',quandity: '278 Bags', cup_Score: '84.5', Actions: 'View' },
     { id: '43284', availibility_Name: 'Blend washed', estate_Name: 'Gesha', origin: 'Guatemala', variety: 'Bourborn',quandity: '297 bags', cup_Score: '88', Actions: 'View' },
@@ -42,11 +43,13 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     // { id: '', avalibility_Name: '', estate_Name: '', origin: '', variety: '',quandity: '', cup_Score: '', Actions: '' },
 
   ];
-  this.mainData = this.data;}
+  this.mainData = this.data;
+
+}
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
-
+   
+    this.language();
     //Toggle Esstate active
   // $('.btn-switch').click(function() {
   // var $group = $(this).closest('.cardpanel-detail');
@@ -431,7 +434,12 @@ $(this).parents('.pagination-content').find('.responsive-pagination__next').addC
 /* pagination ends */
 
   }
-  
+  language(){
+   
+    this.appLanguage = this.globals.languageJson;
+   this.greenActive++;
+
+  }
 	toggleOrigin() {
 		this.showOrigin = !this.showOrigin;
 		if(this.showOrigin==false){

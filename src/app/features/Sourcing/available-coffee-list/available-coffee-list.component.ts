@@ -13,7 +13,7 @@ import {GlobalsService} from 'src/services/globals.service';
 export class AvailableCoffeeListComponent implements OnInit {
 	items: GalleryItem[];
 	appLanguage: any;
-
+	availableCoffeeActive:any=0;
 
 
 	public data = [
@@ -210,7 +210,11 @@ export class AvailableCoffeeListComponent implements OnInit {
 		thumbPosition: ThumbnailsPosition.Top
 	  });
 	  lightboxRef.load(this.items);
-	  this.appLanguage = this.globals.languageJson;
-  }
 
+	  this.language();  
+  }
+  language(){
+	this.appLanguage = this.globals.languageJson;
+	this.availableCoffeeActive++;
+  }
 }

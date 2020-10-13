@@ -29,6 +29,8 @@ countryError: string;
 addressError : string;
 cityError : string;
 appLanguage: any;
+contactActive:any =0;
+
   constructor(public roasteryProfileService : RoasteryProfileService,private globals: GlobalsService) { 
     this.nameError = '';
     this.emailError= '';
@@ -39,7 +41,7 @@ appLanguage: any;
   }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+    this.language();
     let selectedVal = "+91";
     let EnteredNum;
     let optionText = ['IND 91', 'USA 1', 'AUS 61', 'ITA 39', 'Ban 880', 'SWE 46','AFG 93', 'UK 44','UAE 971', 'CHE 41','SAU 966','PRT 351', 'PO 48', 'NOR 47', 'NZL 64','GER 49', 'FRA 33', 'DNK 45','CHN 86','PAK 92' ]
@@ -90,6 +92,10 @@ for(let i=0; i<optionText.length; i++) {
     }
   
 }
+language(){
+	this.appLanguage = this.globals.languageJson;
+   	this.contactActive++;
+  }
  //  Function Name :Country Selection .
   // Description: To select a country.
 

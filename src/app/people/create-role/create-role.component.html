@@ -1,8 +1,13 @@
 <div class="header-sewn">
     <h1 class="hello-txt"> Create Role</h1>
 </div>
-
-
+<div class="total-loader" *ngIf="createActive != 2">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<div  *ngIf="createActive == 2">
 <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
@@ -65,3 +70,4 @@
     </div>
 
 </section>
+</div>

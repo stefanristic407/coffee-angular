@@ -1,78 +1,89 @@
-<div class="bg-fff">
-    <div class="avaialble-mob">
-        <div class="back-page mob-left w-100">
-            <a  routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> {{appLanguage.back}}</a>
+<div class="total-loader" *ngIf="availableCoffeeActive !=1">
+        <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+        <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
         </div>
-        <div class="organic-border">
-        <div class="mob-left w-100">
-            <div class="pro-logo d-inline-block">
-                <img src="assets/images/mob-tit-logo.jpg">
-            </div>
-            <div class="det-tit d-inline-block">
-                <h2>Organic Washed Micro-lot</h2>
-                <span class="mob-name fnt-muli fnt-600 fnt-14">Finca La Pampa</span>
-            </div>
-        </div>
-        </div>
-        <div class="row mob-left pt-0 pb-0">
-            <div class="col-12">
-                <div class="prodect-gal">
-                    <gallery id="basic-test" [items]="items"  gallerize></gallery>
-                </div>
-            </div>
-        </div>    
     </div>
-    <div class="source-cont-available">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="sourcing-details avaialble-web">
-                    <div class="back-page w-100">
-                        <a  routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> Back</a>
-                    </div>
-                    <div class="w-100 mt-3 clearfix">
-                        <div class="source-det-tit pull-left">
-                            <div class="pro-logo d-inline-block">
-                                <img src="assets/images/tit-logo.PNG">
-                            </div>
-                            <div class="det-tit d-inline-block">
-                                <h2>Finca la pampa</h2>
-                                <h6><span class="fa fa-star checked"></span> 4.95</h6>
-                            </div>
+<div *ngIf="availableCoffeeActive == 1">
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff">
+            <div class="avaialble-mob">
+                <div class="back-page mob-left w-100">
+                    <a routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> {{appLanguage.back}}</a>
+                </div>
+                <div class="organic-border">
+                    <div class="mob-left w-100">
+                        <div class="pro-logo d-inline-block">
+                            <img src="assets/images/mob-tit-logo.jpg">
                         </div>
-                        <div class="source-knowmore-avail pull-right">
-                            <a class="contact-us-avail" routerLink="/features/available-confirm-order">{{appLanguage.buy_now}}</a>
-                            <a class="know-more-avail">{{appLanguage.order_sample}}</a>
+                        <div class="det-tit d-inline-block">
+                            <h2>Organic Washed Micro-lot</h2>
+                            <span class="mob-name fnt-muli fnt-600 fnt-14">Finca La Pampa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mob-left pt-0 pb-0">
+                    <div class="col-12">
+                        <div class="prodect-gal">
+                            <gallery id="basic-test" [items]="items" gallerize></gallery>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="prodect-details mt-md-4">
-            <div class="row">
-                <div class="col-lg-5 col-md-6 avaialble-web">
-                    <div class="prodect-gal">
-                        <gallery id="basic-test" [items]="items"  gallerize></gallery>
+            <div class="source-cont-available">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="sourcing-details avaialble-web">
+                            <div class="back-page w-100">
+                                <a routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> Back</a>
+                            </div>
+                            <div class="w-100 mt-3 clearfix">
+                                <div class="source-det-tit pull-left">
+                                    <div class="pro-logo d-inline-block">
+                                        <img src="assets/images/tit-logo.PNG">
+                                    </div>
+                                    <div class="det-tit d-inline-block">
+                                        <h2>Finca la pampa</h2>
+                                        <h6><span class="fa fa-star checked"></span> 4.95</h6>
+                                    </div>
+                                </div>
+                                <div class="source-knowmore-avail pull-right">
+                                    <a class="contact-us-avail" routerLink="/features/available-confirm-order">{{appLanguage.buy_now}}</a>
+                                    <a class="know-more-avail">{{appLanguage.order_sample}}</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-7 col-md-6">
-                    <div class="product-description">
-                            <h2 class="available__lot mb-4 mob-id">{{appLanguage.lot_id}} - 9639</h2>
-                            <h2 class="p-h2 mb-2 lot-size">Organic washed micro-lot</h2>
-                        <div class="s-certified d-md-none">
-                            <ul class="flex">
-                                <li><img src="/assets/images/group-certificate.png"></li>
-                                <li><img src="/assets/images/group-utz.png"></li>
-                                <li><img src="/assets/images/group-certified.png"></li>
-                            </ul>
+                <div class="prodect-details mt-md-4">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6 avaialble-web">
+                            <div class="prodect-gal">
+                                <gallery id="basic-test" [items]="items" gallerize></gallery>
+                            </div>
                         </div>
-                        <h6 class="p-h6 mb-4"><img class="mob-img" src="assets/images/location-rating.png" alt=""> Columbia</h6>
-                        <p class="avaialble-web farm-desc">This farm has a love story behind it: Among the first generation of coffee growers in this area was Jose Isidro Pereira, a dentist-turned–coffee producer who inherited Fazenda Sertão from his mother when she passed away—an incident
-                            that ended his dentistry career but put him on a path to coffee farming. In 1949, Jose Isidro met the "love of his life," Nazareth, who continues to run the farm her husband left in her care.
-                        </p>
-                        <p class="avaialble-mob mb-0 fnt-14 mob-farm-desc fnt-muli">The 21st century is the golden age for surgical procedures, among them an increasingly popular method of corrective eye surgery known as LASIK. LASIK is an acronym for the surgery, which stands for Laser Assisted In Situ Keratomileusis. This procedure has become increasingly reliable, with unresolved complications reported in only 3 to 6 percent of patients. The risk of complications is still there, however, and can take several different forms.</p>
+                        <div class="col-lg-7 col-md-6">
+                            <div class="product-description">
+                                <h2 class="available__lot mb-4 mob-id">{{appLanguage.lot_id}} - 9639</h2>
+                                <h2 class="p-h2 mb-2 lot-size">Organic washed micro-lot</h2>
+                                <div class="s-certified d-md-none">
+                                    <ul class="flex">
+                                        <li><img src="/assets/images/group-certificate.png"></li>
+                                        <li><img src="/assets/images/group-utz.png"></li>
+                                        <li><img src="/assets/images/group-certified.png"></li>
+                                    </ul>
+                                </div>
+                                <h6 class="p-h6 mb-4"><img class="mob-img" src="assets/images/location-rating.png" alt=""> Columbia</h6>
+                                <p class="avaialble-web farm-desc">This farm has a love story behind it: Among the first generation of coffee growers in this area was Jose Isidro Pereira, a dentist-turned–coffee producer who inherited Fazenda Sertão from his mother when she passed away—an
+                                    incident that ended his dentistry career but put him on a path to coffee farming. In 1949, Jose Isidro met the "love of his life," Nazareth, who continues to run the farm her husband left in her care.
+                                </p>
+                                <p class="avaialble-mob mb-0 fnt-14 mob-farm-desc fnt-muli">The 21st century is the golden age for surgical procedures, among them an increasingly popular method of corrective eye surgery known as LASIK. LASIK is an acronym for the surgery, which stands for Laser Assisted In Situ
+                                    Keratomileusis. This procedure has become increasingly reliable, with unresolved complications reported in only 3 to 6 percent of patients. The risk of complications is still there, however, and can take several different
+                                    forms.</p>
 
-                        <div class="row mt-md-4 mt-2">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
+                                <div class="row mt-md-4 mt-2">
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                         <div class="real-estate p-prices">
                                             <h6>{{appLanguage.price}} :</h6>
                                             <h3>$7.451 USD / kg</h3>
@@ -82,14 +93,14 @@
                                         <div class="real-estate">
                                             <h6>{{appLanguage.inco}} :</h6>
                                             <h3>FOB</h3>
-        
+
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                         <div class="real-estate">
                                             <h6>{{appLanguage.available_quantity}} :</h6>
                                             <h3>260 bags of 60kg</h3>
-        
+
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
@@ -98,68 +109,68 @@
                                             <h3>110 bags</h3>
                                         </div>
                                     </div>
-                        </div>
-                        <div class="produect-pro mt-4">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="real-estate p-date">
-                                        <h6>12 Feb, 2020</h6>
-                                        <h3> {{appLanguage.cup_score}} : 87.0</h3>
-                                    </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="real-estate">
-                                        <div class="p-photo">
-                                            <img src="assets/images/profile-coffee.jpg">
+                                <div class="produect-pro mt-4">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-sm-6">
+                                            <div class="real-estate p-date">
+                                                <h6>12 Feb, 2020</h6>
+                                                <h3> {{appLanguage.cup_score}} : 87.0</h3>
+                                            </div>
                                         </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6">
+                                            <div class="real-estate">
+                                                <div class="p-photo">
+                                                    <img src="assets/images/profile-coffee.jpg">
+                                                </div>
 
-                                        <h3>Kristine cox</h3>
-                                        <h6>{{appLanguage.estate_owner}}</h6>
+                                                <h3>Kristine cox</h3>
+                                                <h6>{{appLanguage.estate_owner}}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 v-report">
+                                            <a class="view-report">{{appLanguage.view_report}} </a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6 v-report">
-                                    <a class="view-report">{{appLanguage.view_report}} </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-md-5 mt-3 mb-md-5 mb-0">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
-                                <div class="real-estate">
-                                    <img src="assets/images/varient.svg">
-                                    <h6>{{appLanguage.variety}}</h6>
-                                    <h3>Arabica</h3>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
-                                <div class="real-estate">
-                                    <img src="assets/images/estate.svg">
-                                    <h6>{{appLanguage.species}}</h6>
-                                    <h3>Castillo</h3>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
-                                <div class="real-estate">
-                                    <img src="assets/images/harveaster.svg">
+                                <div class="row mt-md-5 mt-3 mb-md-5 mb-0">
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
+                                        <div class="real-estate">
+                                            <img src="assets/images/varient.svg">
+                                            <h6>{{appLanguage.variety}}</h6>
+                                            <h3>Arabica</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
+                                        <div class="real-estate">
+                                            <img src="assets/images/estate.svg">
+                                            <h6>{{appLanguage.species}}</h6>
+                                            <h3>Castillo</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
+                                        <div class="real-estate">
+                                            <img src="assets/images/harveaster.svg">
 
-                                    <h6>{{appLanguage.crop_year}}</h6>
-                                    <h3>January, 2020</h3>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
-                                <div class="real-estate">
-                                    <img src="assets/images/processing.svg">
-                                    <h6>{{appLanguage.processing}}</h6>
-                                    <h3>Natural/Sun Dried</h3>
-                                </div>
-                            </div>
+                                            <h6>{{appLanguage.crop_year}}</h6>
+                                            <h3>January, 2020</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
+                                        <div class="real-estate">
+                                            <img src="assets/images/processing.svg">
+                                            <h6>{{appLanguage.processing}}</h6>
+                                            <h3>Natural/Sun Dried</h3>
+                                        </div>
+                                    </div>
 
-                        </div>
-                        <div class="row avaialble-web">
-                            <div class="col-lg-12">
-                                <div class="estate-focus">
-                                    <h3>{{appLanguage.estate_details}}</h3>
-                                    <ul class="clearfix">
-                                        <!-- <li><label>Moisture :</label>
+                                </div>
+                                <div class="row avaialble-web">
+                                    <div class="col-lg-12">
+                                        <div class="estate-focus">
+                                            <h3>{{appLanguage.estate_details}}</h3>
+                                            <ul class="clearfix">
+                                                <!-- <li><label>Moisture :</label>
                                             <p>12.5%</p>
                                         </li>
                                         <li><label>Location :</label>
@@ -212,26 +223,26 @@
                                             <p>Wet processed (washed) coffees are dried without the cherry. Washed coffee's are de-pulped then usually fermented to promote the separation of any remaining pectin still stuck to the bean and parchment, then
                                                 washed clean prior to drying.</p>
                                         </li> -->
-                                        <li><label>{{appLanguage.location}} :</label>
-                                            <p>Tapachula</p>
-                                        </li>
-                                        <li><label>{{appLanguage.region}} :</label>
-                                            <p>Chiapas</p>
-                                        </li>
-                                        <li><label>{{appLanguage.type}} :</label>
-                                            <p>Single Origin</p>
-                                        </li>
-                                        <li><label>{{appLanguage.listing_status}} :</label>
-                                            <p> warehouse</p>
-                                        </li>
-                                        <li><label>{{appLanguage.wet_mill_processing}} :</label>
-                                            <!-- <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p> -->
-                                            <p>Washed</p>
-                                        </li>
-                                        <li><label>{{appLanguage.fermentation_hr}}  :</label>
-                                            <p>12hr</p>
-                                        </li>
-                                        <!-- <li><label>Flavour Profile :</label>
+                                                <li><label>{{appLanguage.location}} :</label>
+                                                    <p>Tapachula</p>
+                                                </li>
+                                                <li><label>{{appLanguage.region}} :</label>
+                                                    <p>Chiapas</p>
+                                                </li>
+                                                <li><label>{{appLanguage.type}} :</label>
+                                                    <p>Single Origin</p>
+                                                </li>
+                                                <li><label>{{appLanguage.listing_status}} :</label>
+                                                    <p> warehouse</p>
+                                                </li>
+                                                <li><label>{{appLanguage.wet_mill_processing}} :</label>
+                                                    <!-- <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p> -->
+                                                    <p>Washed</p>
+                                                </li>
+                                                <li><label>{{appLanguage.fermentation_hr}}  :</label>
+                                                    <p>12hr</p>
+                                                </li>
+                                                <!-- <li><label>Flavour Profile :</label>
                                             <ul class="sugar-prod">
                                                 <li>Honey</li>
                                                 <li>Dark chocalte</li>
@@ -244,33 +255,35 @@
                                         <li><label>Packaging :</label>
                                             <p>Biodegradeable</p>
                                         </li> -->
-                                        
-                                        <li><label>{{appLanguage.dry_mill_processing}} :</label>
-                                            <p>Sun dried</p>
-                                        </li>
-                                        <li><label>{{appLanguage.drying_period}} :</label>
-                                            <p>24hr</p>
-                                        </li>
-                                        <li><label>{{appLanguage.water_activity}} :</label>
-                                            <p>0.62aw</p>
-                                        </li>
-                                        <li><label>{{appLanguage.moisture}} :</label>
-                                            <p>12.5%</p>
-                                        </li> 
-                                        <li><label>{{appLanguage.packaging}} :</label>
-                                            <p>Biodegradeable</p>
-                                        </li> 
-                                        <li><p class="know__listing">{{appLanguage.know_more_listing}}</p></li>
-                                    </ul>
+
+                                                <li><label>{{appLanguage.dry_mill_processing}} :</label>
+                                                    <p>Sun dried</p>
+                                                </li>
+                                                <li><label>{{appLanguage.drying_period}} :</label>
+                                                    <p>24hr</p>
+                                                </li>
+                                                <li><label>{{appLanguage.water_activity}} :</label>
+                                                    <p>0.62aw</p>
+                                                </li>
+                                                <li><label>{{appLanguage.moisture}} :</label>
+                                                    <p>12.5%</p>
+                                                </li>
+                                                <li><label>{{appLanguage.packaging}} :</label>
+                                                    <p>Biodegradeable</p>
+                                                </li>
+                                                <li>
+                                                    <p class="know__listing">{{appLanguage.know_more_listing}}</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="prodect-details avaialble-mob mt-3">
-                <div class="row">
+                <div class="prodect-details avaialble-mob mt-3">
+                    <div class="row">
                         <div class="col-lg-12">
                             <div class="estate-focus">
                                 <h3>{{appLanguage.estate_facts}}</h3>
@@ -325,292 +338,297 @@
                                         <p>Washed</p>
                                     </li>
                                     <li><label>{{appLanguage.wet_mill_desc}} :</label>
-                                        <p>Wet processed (washed) coffees are dried without the cherry. Washed coffee's are de-pulped then usually fermented to promote the separation of any remaining pectin still stuck to the bean and parchment, then
-                                            washed clean prior to drying.</p>
+                                        <p>Wet processed (washed) coffees are dried without the cherry. Washed coffee's are de-pulped then usually fermented to promote the separation of any remaining pectin still stuck to the bean and parchment, then washed
+                                            clean prior to drying.</p>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-        </div>
-        <!-- Chart div starts-->
-        <div class="chart-details chart-cont mt-4">
-            <div class="row">
-                <div class="live-estate col-lg-12 ">
-                    <h2>{{appLanguage.live_from_estate}}!</h2>
-                    <div class="mt-2 live-text">{{appLanguage.we_updates_geotracking}}!</div>
-        
-                    <nav class="mt-4">
-                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">{{appLanguage.weather}}</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.soil}}</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.uv}}</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.images}}</a>
-                        </div>
-                    </nav>
-        
-                    <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
-                        <!-- weather-->
-                        <div class="tab-pane fade show active" id="weather" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div class="row">
-                                <div class="col-lg-5">
-                                </div>
-                                <div class="col-lg-7 d-inline pl-0 pl-md-5">
-                                    <div class="d-inline col-sm-6">
-                                        <span class="legend-color"></span><span class="legend-text pl-2">{{appLanguage.legend1}}</span>
-                                    </div>
-                                    <div class="d-inline col-sm-6">
-                                        <span class="legend-color2"></span><span class="legend-text pl-2">{{appLanguage.legend2}}</span>
-                                    </div>
-        
-                                    <div class="d-inline border-total col-sm-6 ml-md-4">
-                                        <p class="d-inline add-variety">{{appLanguage.temperature}}&nbsp;&nbsp;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter">
-                                                &nbsp; <img src="assets/images/active-user.png" />
-                                            </p>
-                                        </a>
-                                    </div>&nbsp;&nbsp;
-                                    <div class="d-inline border-total col-sm-6">
-                                        <p class="d-inline add-variety">{{appLanguage.hourly_forecast}}&nbsp;&nbsp;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter">
-                                                &nbsp; <img src="assets/images/active-user.png" />
-                                            </p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-0 mt-md-4">
-                                <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                    [roundDomains]="roundDomains" [timeline]="timeline">
-                                </ngx-charts-line-chart>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="soil" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <div class="row">
-                                <div class="col-lg-5">
-                                </div>
-                                <div class="col-lg-7 d-inline pl-0 pl-md-5">
-                                    <div class="d-inline col-sm-6">
-                                        <span class="legend-color"></span><span class="legend-text pl-2"> {{appLanguage.legend1}}</span>
-                                    </div>
-                                    <div class="d-inline col-sm-6">
-                                        <span class="legend-color2"></span> <span class="legend-text pl-2">{{appLanguage.legend2}}</span>
-                                    </div>
-        
-                                    <div class="d-inline border-total col-sm-6 ml-md-4">
-                                        <p class="d-inline add-variety">{{appLanguage.temperature}}&nbsp;&nbsp;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter">
-                                                &nbsp; <img src="assets/images/active-user.png" />
-                                            </p>
-                                        </a>
-                                    </div>&nbsp;&nbsp;
-                                    <div class="d-inline border-total col-sm-6">
-                                        <p class="d-inline add-variety">{{appLanguage.hourly_forecast}}&nbsp;&nbsp;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter">
-                                                &nbsp; <img src="assets/images/active-user.png" />
-                                            </p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-0 mt-md-4">
-                                <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                    [roundDomains]="roundDomains" [timeline]="timeline">
-                                </ngx-charts-line-chart>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="uv" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <div class="row">
-                                <div class="col-lg-5">
-                                </div>
-                                <div class="col-lg-7 d-inline pl-0 pl-md-5">
-                                    <div class="d-inline col-sm-6">
-                                        <span class="legend-color"></span><span class="legend-text pl-2">{{appLanguage.legend1}}</span>
-                                    </div>
-                                    <div class="d-inline col-sm-6">
-                                        <span class="legend-color2"></span><span class="legend-text pl-2">{{appLanguage.legend2}}</span>
-                                    </div>
-        
-                                    <div class="d-inline border-total col-sm-6 ml-md-4">
-                                        <p class="d-inline add-variety">{{appLanguage.temperature}}&nbsp;&nbsp;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter">
-                                                &nbsp; <img src="assets/images/active-user.png" />
-                                            </p>
-                                        </a>
-                                    </div>&nbsp;&nbsp;
-                                    <div class="d-inline border-total col-sm-6">
-                                        <p class="d-inline add-variety">{{appLanguage.hourly_forecast}}&nbsp;&nbsp;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter">
-                                                &nbsp; <img src="assets/images/active-user.png" />
-                                            </p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-0 mt-md-4">
-                                <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                    [roundDomains]="roundDomains" [timeline]="timeline">
-                                </ngx-charts-line-chart>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <div class="row">
-                                <div class="col-lg-5">
-                                </div>
-                                <div class="col-lg-7 d-inline pl-0 pl-md-5">
-                                    <div class="d-inline col-sm-6">
-                                        <span class="legend-color"></span><span class="legend-text pl-2">{{appLanguage.legend1}}</span>
-                                    </div>
-                                    <div class="d-inline col-sm-6">
-                                        <span class="legend-color2"></span><span class="legend-text pl-2">{{appLanguage.legend2}}</span>
-                                    </div>
-        
-                                    <div class="d-inline border-total col-sm-6 ml-md-4">
-                                        <p class="d-inline add-variety">{{appLanguage.temperature}}&nbsp;&nbsp;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter">
-                                                &nbsp; <img src="assets/images/active-user.png" />
-                                            </p>
-                                        </a>
-                                    </div>&nbsp;&nbsp;
-                                    <div class="d-inline border-total col-sm-6">
-                                        <p class="d-inline add-variety">{{appLanguage.hourly_forecast}}&nbsp;&nbsp;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter">
-                                                &nbsp; <img src="assets/images/active-user.png" />
-                                            </p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-0 mt-md-4">
-                                <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                    [roundDomains]="roundDomains" [timeline]="timeline">
-                                </ngx-charts-line-chart>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-        
-                <!-- Chart div ends-->
-    </div>
-</div>
-<div class="mt-4 coffee-fff">
-    <div class="coffee-space">
-    <div class="heading-other">{{appLanguage.estates_other_green_coffee}}</div>
-    <div class="cardpanel-detail avaialble-web">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-12 cursor-item" *ngFor="let item of coffeedata">
-                <div class="source-card card-border green-coffee-product">
-                    <div class="s-gal">
-                        <img [src]="item.image" alt="">
-                        <div class="cupping">
-                            <p>{{appLanguage.cup_score}} {{item.score}}</p>
-                        </div>
-                    </div>
-                    <div class="s-details ">
-                        <div class="flex">
-                            <div class="s-tit">
-                                <h3>{{item.name}}</h3>
-                                <h5>{{item.estatename}}</h5>
-                                <h6>{{item.price}}</h6>
-                            </div>
-                        </div>
-                        <div class="source-lets flex">
-                            <div class="orgin-att">
-                                <label>{{appLanguage.origin}}</label>
-                                <h6>{{item.origin}}</h6>
-                            </div>
-                            <div class="orgin-att">
-                                <label>{{appLanguage.variety}}</label>
-                                <h6>{{item.species}}</h6>
-                            </div>
-                            <div class="orgin-att">
-                                <label>{{appLanguage.flavour}}</label>
-                                <ul class="flo-list">
-                                    <li>Citrus</li>
-                                    <li>Floral</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="top-lots">
-                            <label>{{appLanguage.available_quantity}} : <span> {{item.quantity}} of 60kg </span></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <!-- Chart div starts-->
+                <div class="chart-details chart-cont mt-4">
+                    <div class="row">
+                        <div class="live-estate col-lg-12 ">
+                            <h2>{{appLanguage.live_from_estate}}!</h2>
+                            <div class="mt-2 live-text">{{appLanguage.we_updates_geotracking}}!</div>
 
-    <!-- Mobile Carousel -->
-    <div class="cardpanel-detail avaialble-mob">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-12 cursor-item">
-                        <carousel [showIndicators]="true">
+                            <nav class="mt-4">
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">{{appLanguage.weather}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.soil}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.uv}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.images}}</a>
+                                </div>
+                            </nav>
+
+                            <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
+                                <!-- weather-->
+                                <div class="tab-pane fade show active" id="weather" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                        </div>
+                                        <div class="col-lg-7 d-inline pl-0 pl-md-5">
+                                            <div class="d-inline col-sm-6">
+                                                <span class="legend-color"></span><span class="legend-text pl-2">{{appLanguage.legend1}}</span>
+                                            </div>
+                                            <div class="d-inline col-sm-6">
+                                                <span class="legend-color2"></span><span class="legend-text pl-2">{{appLanguage.legend2}}</span>
+                                            </div>
+
+                                            <div class="d-inline border-total col-sm-6 ml-md-4">
+                                                <p class="d-inline add-variety">{{appLanguage.temperature}}&nbsp;&nbsp;</p>
+                                                <a class="pointer-item">
+                                                    <p class="d-inline filter">
+                                                        &nbsp; <img src="assets/images/active-user.png" />
+                                                    </p>
+                                                </a>
+                                            </div>&nbsp;&nbsp;
+                                            <div class="d-inline border-total col-sm-6">
+                                                <p class="d-inline add-variety">{{appLanguage.hourly_forecast}}&nbsp;&nbsp;</p>
+                                                <a class="pointer-item">
+                                                    <p class="d-inline filter">
+                                                        &nbsp; <img src="assets/images/active-user.png" />
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-0 mt-md-4">
+                                        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                            [roundDomains]="roundDomains" [timeline]="timeline">
+                                        </ngx-charts-line-chart>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="soil" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                        </div>
+                                        <div class="col-lg-7 d-inline pl-0 pl-md-5">
+                                            <div class="d-inline col-sm-6">
+                                                <span class="legend-color"></span><span class="legend-text pl-2"> {{appLanguage.legend1}}</span>
+                                            </div>
+                                            <div class="d-inline col-sm-6">
+                                                <span class="legend-color2"></span> <span class="legend-text pl-2">{{appLanguage.legend2}}</span>
+                                            </div>
+
+                                            <div class="d-inline border-total col-sm-6 ml-md-4">
+                                                <p class="d-inline add-variety">{{appLanguage.temperature}}&nbsp;&nbsp;</p>
+                                                <a class="pointer-item">
+                                                    <p class="d-inline filter">
+                                                        &nbsp; <img src="assets/images/active-user.png" />
+                                                    </p>
+                                                </a>
+                                            </div>&nbsp;&nbsp;
+                                            <div class="d-inline border-total col-sm-6">
+                                                <p class="d-inline add-variety">{{appLanguage.hourly_forecast}}&nbsp;&nbsp;</p>
+                                                <a class="pointer-item">
+                                                    <p class="d-inline filter">
+                                                        &nbsp; <img src="assets/images/active-user.png" />
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-0 mt-md-4">
+                                        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                            [roundDomains]="roundDomains" [timeline]="timeline">
+                                        </ngx-charts-line-chart>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="uv" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                        </div>
+                                        <div class="col-lg-7 d-inline pl-0 pl-md-5">
+                                            <div class="d-inline col-sm-6">
+                                                <span class="legend-color"></span><span class="legend-text pl-2">{{appLanguage.legend1}}</span>
+                                            </div>
+                                            <div class="d-inline col-sm-6">
+                                                <span class="legend-color2"></span><span class="legend-text pl-2">{{appLanguage.legend2}}</span>
+                                            </div>
+
+                                            <div class="d-inline border-total col-sm-6 ml-md-4">
+                                                <p class="d-inline add-variety">{{appLanguage.temperature}}&nbsp;&nbsp;</p>
+                                                <a class="pointer-item">
+                                                    <p class="d-inline filter">
+                                                        &nbsp; <img src="assets/images/active-user.png" />
+                                                    </p>
+                                                </a>
+                                            </div>&nbsp;&nbsp;
+                                            <div class="d-inline border-total col-sm-6">
+                                                <p class="d-inline add-variety">{{appLanguage.hourly_forecast}}&nbsp;&nbsp;</p>
+                                                <a class="pointer-item">
+                                                    <p class="d-inline filter">
+                                                        &nbsp; <img src="assets/images/active-user.png" />
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-0 mt-md-4">
+                                        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                            [roundDomains]="roundDomains" [timeline]="timeline">
+                                        </ngx-charts-line-chart>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                        </div>
+                                        <div class="col-lg-7 d-inline pl-0 pl-md-5">
+                                            <div class="d-inline col-sm-6">
+                                                <span class="legend-color"></span><span class="legend-text pl-2">{{appLanguage.legend1}}</span>
+                                            </div>
+                                            <div class="d-inline col-sm-6">
+                                                <span class="legend-color2"></span><span class="legend-text pl-2">{{appLanguage.legend2}}</span>
+                                            </div>
+
+                                            <div class="d-inline border-total col-sm-6 ml-md-4">
+                                                <p class="d-inline add-variety">{{appLanguage.temperature}}&nbsp;&nbsp;</p>
+                                                <a class="pointer-item">
+                                                    <p class="d-inline filter">
+                                                        &nbsp; <img src="assets/images/active-user.png" />
+                                                    </p>
+                                                </a>
+                                            </div>&nbsp;&nbsp;
+                                            <div class="d-inline border-total col-sm-6">
+                                                <p class="d-inline add-variety">{{appLanguage.hourly_forecast}}&nbsp;&nbsp;</p>
+                                                <a class="pointer-item">
+                                                    <p class="d-inline filter">
+                                                        &nbsp; <img src="assets/images/active-user.png" />
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-0 mt-md-4">
+                                        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                            [roundDomains]="roundDomains" [timeline]="timeline">
+                                        </ngx-charts-line-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart div ends-->
+            </div>
+        </div>
+
+        <div class="mt-4 coffee-fff">
+            <div class="coffee-space">
+                <div class="heading-other">{{appLanguage.estates_other_green_coffee}}</div>
+                <div class="cardpanel-detail avaialble-web">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12 cursor-item" *ngFor="let item of coffeedata">
+                            <div class="source-card card-border green-coffee-product">
+                                <div class="s-gal">
+                                    <img [src]="item.image" alt="">
+                                    <div class="cupping">
+                                        <p>{{appLanguage.cup_score}} {{item.score}}</p>
+                                    </div>
+                                </div>
+                                <div class="s-details ">
+                                    <div class="flex">
+                                        <div class="s-tit">
+                                            <h3>{{item.name}}</h3>
+                                            <h5>{{item.estatename}}</h5>
+                                            <h6>{{item.price}}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="source-lets flex">
+                                        <div class="orgin-att">
+                                            <label>{{appLanguage.origin}}</label>
+                                            <h6>{{item.origin}}</h6>
+                                        </div>
+                                        <div class="orgin-att">
+                                            <label>{{appLanguage.variety}}</label>
+                                            <h6>{{item.species}}</h6>
+                                        </div>
+                                        <div class="orgin-att">
+                                            <label>{{appLanguage.flavour}}</label>
+                                            <ul class="flo-list">
+                                                <li>Citrus</li>
+                                                <li>Floral</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="top-lots">
+                                        <label>{{appLanguage.available_quantity}} : <span> {{item.quantity}} of 60kg </span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Carousel -->
+                <div class="cardpanel-detail avaialble-mob">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12 cursor-item">
+                            <carousel [showIndicators]="true">
                                 <slide class="animated fadeIn" *ngFor="let item of coffeedata">
 
-                                        <div class="source-card card-border green-coffee-product">
-                                                <div class="s-gal">
-                                                    <img [src]="item.image" alt="">
-                                                    <div class="cupping">
-                                                        <p>{{appLanguage.cup_score}} {{item.score}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="s-details ">
-                                                    <div class="flex">
-                                                        <div class="s-tit">
-                                                            <h3>{{item.name}}</h3>
-                                                            <h5>{{item.estatename}}</h5>
-                                                            <h6>{{item.price}}</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="source-lets flex">
-                                                        <div class="orgin-att">
-                                                            <label>{{appLanguage.origin}}</label>
-                                                            <h6>{{item.origin}}</h6>
-                                                        </div>
-                                                        <div class="orgin-att">
-                                                            <label>{{appLanguage.variety}}</label>
-                                                            <h6>{{item.species}}</h6>
-                                                        </div>
-                                                        <div class="orgin-att">
-                                                            <label>{{appLanguage.flavour}}</label>
-                                                            <ul class="flo-list">
-                                                                <li>Citrus</li>
-                                                                <li>Floral</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="top-lots">
-                                                        <label>{{appLanguage.available_quantity}} : <span> {{item.quantity}} of 60kg </span></label>
-                                                    </div>
+                                    <div class="source-card card-border green-coffee-product">
+                                        <div class="s-gal">
+                                            <img [src]="item.image" alt="">
+                                            <div class="cupping">
+                                                <p>{{appLanguage.cup_score}} {{item.score}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="s-details ">
+                                            <div class="flex">
+                                                <div class="s-tit">
+                                                    <h3>{{item.name}}</h3>
+                                                    <h5>{{item.estatename}}</h5>
+                                                    <h6>{{item.price}}</h6>
                                                 </div>
                                             </div>
+                                            <div class="source-lets flex">
+                                                <div class="orgin-att">
+                                                    <label>{{appLanguage.origin}}</label>
+                                                    <h6>{{item.origin}}</h6>
+                                                </div>
+                                                <div class="orgin-att">
+                                                    <label>{{appLanguage.variety}}</label>
+                                                    <h6>{{item.species}}</h6>
+                                                </div>
+                                                <div class="orgin-att">
+                                                    <label>{{appLanguage.flavour}}</label>
+                                                    <ul class="flo-list">
+                                                        <li>Citrus</li>
+                                                        <li>Floral</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="top-lots">
+                                                <label>{{appLanguage.available_quantity}} : <span> {{item.quantity}} of 60kg </span></label>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </slide>
                             </carousel>
-                   
+
+                        </div>
+                    </div>
                 </div>
+
+
+
+
+
             </div>
+
         </div>
-    
-    
-
-
-
+    </div>
+</section>
 </div>
-
 <!-- <carousel> -->
-        <!-- <slide>
+<!-- <slide>
           <img src="assets/images/thumbnail-4.jpg" alt="first slide" style="display: block; width: 100%;">
         </slide>
         <slide>
@@ -620,4 +638,3 @@
           <img src="assets/images/thumbnail-1.jpg" alt="third slide" style="display: block; width: 100%;">
         </slide>
       </carousel> -->
-

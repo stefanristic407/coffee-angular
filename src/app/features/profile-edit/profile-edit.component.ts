@@ -44,6 +44,7 @@ export class ProfileEditComponent implements OnInit {
   address2: any;
   gender: any;
   appLanguage: any;
+  profileEditActive:any =0;
 
   constructor(public profilePicService: ProfilePicService, 
     private router : Router, 
@@ -101,7 +102,7 @@ export class ProfileEditComponent implements OnInit {
               $(this).parents('.phone-number').find('.select-list').toggleClass('active');
           });
           
-    this.appLanguage = this.globals.languageJson;
+       
 
           this.userService.getRoasterProfile(this.roaster_id).subscribe(
             response => {
@@ -137,13 +138,18 @@ export class ProfileEditComponent implements OnInit {
               }
               else{
                 this.toastrService.error("Error while fetching the user details");
-              }
+			  }
+			//   this.profileEditActive++;
             }
-          )
+		  )
+		     this.languageConversion();
       
   }
 
-
+  languageConversion(){
+    this.appLanguage = this.globals.languageJson;
+       this.profileEditActive++;
+    }
   //  Function Name : Profile Image function.
   //  Description   : This function helps to trigger click event of upload image.
   showModalDialog() {
@@ -305,15 +311,13 @@ export class ProfileEditComponent implements OnInit {
            this.user_id = this.cookieService.get('user_id');
            if(result['success'] == true){
             console.log(this.profilePicService.croppedImage)
-            var base64Rejex = /^(?:[A-Z0-9+\/]{4})*(?:[A-Z0-9+\/]{2}==|[A-Z0-9+\/]{3}=|[A-Z0-9+\/]{4})$/i;
+            var base64Rejex = /^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,(?:[A-Za-z0-9]|[+/])+={0,2}/;
             var isBase64Valid = base64Rejex.test(this.profilePicService.croppedImage); // base64Data is the base64 string
 
-            if(!isBase64Valid){
+            if(isBase64Valid == false){
               this.toastrService.success("Profile details updated successfully");
               this.router.navigate(['/features/account-settings']);
             }else{
-
-           
 
             var ImageURL = this.profilePicService.croppedImage;
              // Split the base64 string in data and contentType

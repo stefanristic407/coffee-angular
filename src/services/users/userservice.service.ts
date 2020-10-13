@@ -366,4 +366,41 @@ export class UserserviceService {
   getUserLanguageStrings(language: any){
       return this.http.post(this.languageURL, {"lang" : language});
   }
+  attachRoasterImage(userId : any, fileId : any, token){
+    var data = {};
+    data["api_call"] = "/ro/users/"+userId+"/attach-image/"+ fileId;
+    data["token"] = token;
+    data["method"] = "POST";
+    return this.http.post(this.roasterUrl, data);
+  }
+    // API Function Name : Onboarding - Personal Details addition API.
+  // API Description   : This API call helps to add Personal details of the user.
+  personalDetails(body: any) {
+    var data = {};
+    data["api_call"] = "/invite/users";
+    data["data"] = body;
+    data['token'] = "";
+    return this.http.post(this.roasterUrl, data);
+  }
+  // API Function Name : Roaster Onboarding - Roaster Account addition API.
+  // API Description   : This API call helps to add Roaster Account user.
+  roasterDetails(body: any) {
+    var data = {};
+    data["api_call"] = "/ro/onboard";
+    data["data"] = body;
+    data['token'] = "";
+    return this.http.post(this.roasterUrl, data);
+  }
+
+     //API Function Name : Certificate Types
+  //API Description: This API call helps to get the Certificate types.
+
+  getCertificateTypes() {
+    var data = {};
+    data["api_call"] = "/general/certificate-types";
+    data["method"] = "GET";
+    data["token"] = "";
+    return this.http.post(this.roasterUrl, data);
+  }
+
 }

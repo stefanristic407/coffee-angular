@@ -41,7 +41,7 @@ descriptionError: string;
   company_type: any;
   permission: any;
   user_id_value: any;
-
+  fileshareActive:any=0;
 
   country: any;
     
@@ -86,6 +86,7 @@ descriptionError: string;
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;
+    // this.language();
     this.sort = '';
 
       //Toggle Esstate active
@@ -440,6 +441,11 @@ sharedUsersLists(){
     }
   )
 }
+
+// language(){
+//   this.appLanguage = this.globals.languageJson;
+//      this.fileshareActive++;
+//   }
 
   setSort(sortdata:any){
     this.sort=sortdata;

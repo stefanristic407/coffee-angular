@@ -64,7 +64,7 @@ export class MyfilesComponent implements OnInit {
   sharedUserslists: any = [];
   sharedUsers: any;
   shareFileId: any;
-
+  myFiles:any=0;
   selectedValue: string;
   appLanguage: any;
   constructor(public router: Router,
@@ -121,7 +121,6 @@ export class MyfilesComponent implements OnInit {
   }
      ngOnInit(): void {
       // var fileModule = "File-Share";
-      this.appLanguage = this.globals.languageJson;
       //Toggle Esstate active
 	  $('.btn-switch').click(function() {
       var $group = $(this).closest('.cardpanel-detail');
@@ -146,10 +145,14 @@ export class MyfilesComponent implements OnInit {
         this.router.navigate(["/auth/login"]);
       }
         this.fileService.getFilesandFolders();
-       
+        this.language();
         // this.sharedUsersLists()
       }
 
+      language(){
+        this.appLanguage = this.globals.languageJson;
+           this.myFiles++;
+        }
 
       openShareModal(shareTemplate : TemplateRef<any>,item : any){
         this.shareFileId = item.id;

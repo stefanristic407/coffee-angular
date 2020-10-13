@@ -25,7 +25,7 @@ export class ChatNotificationComponent implements OnInit {
   quantity: string;
   roasterId: string;
   appLanguage: any;
-
+  preferActive:any=0;
   constructor(public userService : UserserviceService,
               public router : Router,
               public toastrService : ToastrService,
@@ -37,9 +37,12 @@ export class ChatNotificationComponent implements OnInit {
   ngOnInit(): void {
 
     this.getPreferences();
+    this.language();
+    }
+  language(){
     this.appLanguage = this.globals.languageJson;
-  }
-
+       this.preferActive++;
+    }
   setStatus(term: any) {
     this.termStatus = term;
   }
@@ -70,6 +73,7 @@ export class ChatNotificationComponent implements OnInit {
         }else{
           this.toastrService.error("Error while getting the preferences setting");
         }
+        this.preferActive++;
       }
     )
 

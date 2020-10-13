@@ -145,7 +145,10 @@ label {
     background-color: #fff;
     padding: 10px 30px;
 }
-
+.lang-total{
+    height:200px;
+    overflow:scroll;
+}
 
 @media screen and (max-width: 425px) {
     .mobile-farm{

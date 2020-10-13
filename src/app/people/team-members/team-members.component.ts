@@ -21,6 +21,7 @@ export class TeamMembersComponent implements OnInit {
   showRole:boolean = true;
   term:any;
   appLanguage: any;
+  teamActive:any=0;
 
   mainData:any[] = [
     {
@@ -75,7 +76,7 @@ export class TeamMembersComponent implements OnInit {
         this.router.navigate(["/auth/login"]);
       }
       this.listRoles();
-      this.appLanguage = this.globals.languageJson;
+      this.language();
   }
   listRoles() {
     this.roasterService.getRoles(this.roaster_id).subscribe(
@@ -90,9 +91,14 @@ export class TeamMembersComponent implements OnInit {
           this.teamRole = this.roleData;
           this.role_id = this.roleID;
         }
-        // this.teamRole = this.roles[0].name;
+		// this.teamRole = this.roles[0].name;
+		this.teamActive++;
       }
     )
+  }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.teamActive++;
   }
   
   setTeamRole(term: any, roleId: any) {

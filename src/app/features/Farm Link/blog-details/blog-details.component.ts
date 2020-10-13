@@ -10,14 +10,19 @@ import { GlobalsService } from 'src/services/globals.service';
 export class BlogDetailsComponent implements OnInit {
   backValue: any;
   appLanguage: any;
-
+	blogDetailsActive:any = 0;
   constructor(private router : Router,
     private globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+	// this.appLanguage = this.globals.languageJson;
+	this.language();
   }
 
+  language(){
+	this.appLanguage = this.globals.languageJson;
+	this.blogDetailsActive++;
+}
   back() {
     this.backValue = true;
     let navigationExtras: NavigationExtras = {

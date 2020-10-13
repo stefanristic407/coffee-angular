@@ -1,0 +1,56 @@
+<div class="table-container mb-2 mt-4">
+    <div class="table-responsive">
+        <table class="table">
+                <thead class="table-header">
+                        <tr class="header-row">
+                            <th>
+                                <label class="customcheckbox m-b-20">
+                                        <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
+                                        (change)="checkAll($event)"/>
+                                        <span class="checkmark head-check"></span>
+                                    </label>
+                            </th>
+                            <th scope="col">Service ID</th>
+                            <th scope="col">Estate Name</th>
+                            
+                            <th scope="col">
+                                Region
+                            </th>
+                            <th scope="col">
+                                Evaluators
+                            </th>
+                            <th scope="col">Date Conducted</th>
+                            <th scope="col">Avg. Cup Score</th>
+                            
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="customtable">
+                        <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:term | filter: termRole | filter: termStatus">
+                            <td>
+                                <label class="customcheckbox">
+                                        <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
+                                        <span class="checkmark head-check"></span>
+                                    </label>
+                            </td>
+                            <td>
+                                {{ item.id }}
+                            </td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.region }} </td>
+                            <td>{{ item.evaluators }}</td>
+                            <td>{{ item.date }} </td>
+                            <td>
+                                {{item.average}}
+                            </td>
+                           
+                            <td>
+                               <button type="button" class="btn pdf-btn">View PDF</button>
+                               <button type="button" class="btn table-btn">View table</button>
+                               <img class="ellipse-image" src="/assets/images/ellipses.png" alt="">
+                            </td>
+                        </tr>
+                    </tbody>
+        </table>
+    </div>
+</div> 

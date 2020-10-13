@@ -1,0 +1,255 @@
+.green_coffee_total {
+    padding: 23px 32px;
+}
+
+.green_coffee_total h1 {
+    font-size: 24px;
+    font-weight: normal;
+    color: #232334;
+}
+
+.sample_info,
+.evaluator {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+.info_heading {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 12px 10px;
+}
+
+.eval_heading {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 12px 20px;
+}
+
+.sample_info_head {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.view_process {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    color: #80460b;
+}
+
+.info_list ul li {
+    width: 100%;
+    float: left;
+    border-bottom: 1px dashed #d6d6d6;
+    padding: 12px;
+}
+
+.info_list ul li label {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    color: #747588;
+    float: left;
+    width: 58%;
+    margin-bottom: 0;
+}
+
+.info_list ul li p {
+    margin-bottom: 0;
+    width: 42%;
+    float: left;
+    font-size: 12px;
+    color: #232334;
+    font-weight: 600;
+}
+
+.info_list ul li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.cupping-type {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    background: url(/assets/images/cupping-down.svg) right 15px top 16px no-repeat;
+    -webkit-appearance: none;
+    font-family: Muli;
+    font-weight: 500;
+    height: 50px !important;
+    padding-top: 7px;
+    cursor: pointer;
+    font-size: 14px !important;
+}
+
+.evaluators__head h1 {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: bold;
+    color: #232334;
+    padding-bottom: 4px;
+}
+
+.customcheckbox .checkmark:after {
+    left: 7px !important;
+    top: 3px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #30855c !important;
+}
+
+.sample_info_body {
+    padding: 0px 8px 16px;
+}
+
+.color-text {
+    padding-left: 30px;
+}
+
+.evaluator_list ul li {
+    width: 100%;
+    float: left;
+    border-bottom: 1px dashed #d6d6d6;
+    padding: 12px;
+}
+
+.evaluator_list ul li label {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+    float: left;
+    width: 58%;
+    margin-bottom: 0;
+}
+
+.evaluator_list ul li p {
+    margin-bottom: 0;
+    width: 42%;
+    float: left;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.evaluator_list ul li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.add-invite {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #80460b;
+    padding-left: 12px;
+}
+
+.cupping_label {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.border__grade {
+    border-bottom: 1px dashed #d6d6d6;
+    padding-bottom: 22px;
+}
+
+.next_butn {
+    border-radius: 4px;
+    background-color: #30855c;
+    color: #fff;
+}
+
+.clear_butn {
+    border-radius: 4px;
+    border: 1px solid #30855c;
+    background-color: #fff;
+    color: #30855c;
+}
+
+.clear_butn:hover {
+    color: #ffffff;
+    background-color: #30855c;
+}
+
+.font_butn {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 22px;
+    height: 46px;
+}
+
+.cupping-total {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 16px;
+}
+
+.arrow__spacing {
+    float: right;
+}
+
+
+/**********popover*******/
+
+.list-group-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 12px;
+    font-weight: 600;
+    color: #747588;
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600;
+    background-color: #f8f8f8;
+}
+
+.menu-arrow {
+    cursor: pointer;
+}
+
+::ng-deep .popover-body {
+    padding: .25rem .25rem !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+    top: 4px !important;
+}
+
+::ng-deep .bs-popover-bottom .arrow:after {
+    top: 0px !important;
+}
+
+.pointer-item {
+    cursor: pointer;
+}
+@media (max-width: 767px) {
+.green_coffee_total{
+    padding: 16px;
+}
+.green_coffee_total h1 {font-size: 20px;}
+.evaluator_list ul li { padding: 10px 0px;}
+}

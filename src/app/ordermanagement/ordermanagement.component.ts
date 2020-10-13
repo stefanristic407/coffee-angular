@@ -52,6 +52,7 @@ export class OrdermanagementComponent implements OnInit {
   lag: any;
   languages: any;
   appLanguage: any;
+  orderActive:any=0;
 
 
   constructor(private elementRef: ElementRef,
@@ -124,6 +125,7 @@ export class OrdermanagementComponent implements OnInit {
             this.globals.languageJson = resultLanguage;
             console.log(this.globals.languageJson);
             this.appLanguage = this.globals.languageJson;
+            this.orderActive++;
           }
         )
       }
@@ -138,6 +140,7 @@ export class OrdermanagementComponent implements OnInit {
     this.userService.getRoasterAccount(this.roaster_id).subscribe(
       result => {
         this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+        this.orderActive++;
     }
     );
   }

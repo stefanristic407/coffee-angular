@@ -18,6 +18,7 @@ export class InviteMemberComponent implements OnInit {
   add_member_name:any;
   add_member_email:any;
   appLanguage: any;
+  inviteActive:any=0;
 
   constructor(public roasterService:RoasterserviceService,public cookieService: CookieService,private router: Router,    private globals: GlobalsService
     ) {
@@ -30,8 +31,13 @@ export class InviteMemberComponent implements OnInit {
     this.router.navigate(["/auth/login"]);
     }
     this.listRoles();
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.inviteActive++;
+  }
+
   listRoles() {
     this.roasterService.getRoles(this.roaster_id).subscribe(
       response => {
@@ -46,7 +52,8 @@ export class InviteMemberComponent implements OnInit {
         //   this.role_id = this.roleID;
         // }
 
-        // this.termRole = this.roles[0].name;
+		// this.termRole = this.roles[0].name;
+		this.inviteActive++;
       }
     )
   }

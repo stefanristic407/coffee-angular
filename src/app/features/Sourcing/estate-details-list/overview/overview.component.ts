@@ -8,6 +8,7 @@ import {GlobalsService} from 'src/services/globals.service';
 })
 export class OverviewComponent implements OnInit {
 appLanguage: any;
+overviewActive:any=0;
 
   public multi = [
 
@@ -169,7 +170,11 @@ appLanguage: any;
   constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
-	this.appLanguage = this.globals.languageJson;
+    this.language();
   }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.overviewActive++;
+	}
 
 }

@@ -1,0 +1,441 @@
+<section class="grade_source_total">
+    <!-- Sample -->
+    <div class="row mt-md-4">
+        <div class="col-lg-3 col-12 ">
+            <div class="sample_info">
+                <div class="info_heading d-flex">
+                    <div class="pull-left sample_info_head">Sample Info</div>
+                    <div class="ml-auto pull-right"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
+                </div>
+                <div class="info_list">
+                    <ul class="clearfix mb-0">
+                        <li>
+                            <label>Service request ID  :</label>
+                            <p>74572</p>
+                        </li>
+                        <li>
+                            <label>Estate Name  :</label>
+                            <p>Finca la pampa</p>
+                        </li>
+                        <li>
+                            <label>Origin  :</label>
+                            <p>Colombia</p>
+                        </li>
+                        <li>
+                            <label>Harvest year  :</label>
+                            <p>March 2020</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-12 mt-lg-0 mt-3">
+            <div class="evaluator">
+                <div class="info_list">
+                    <ul class="clearfix mb-0">
+                        <li>
+                            <label>Evaluator  :</label>
+                            <p>Leon Joseph / QC-grader</p>
+                        </li>
+                        <li>
+                            <label>Cupping type  :</label>
+                            <p>Non-Blind Cupping</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Score -->
+    <div class="final-score mt-4">
+        <div class="row col-12 final-label ">
+            <p class="pull-left d-flex m-0 mdev-width-5"> <span class="fnt-16 fnt-700 fnt-muli black mr-3 mt-2"> Final Score </span> <span> <input class="lots-input col-6" type="number" placeholder="00"> </span> </p>
+
+            <div class="btn-group btn-toggle ml-md-auto  pull-right active__main">
+                <div class="btn active_default">Active</div>
+                <div class="btn disable_default">Quick</div>
+            </div>
+
+        </div>
+
+        <div class="select-roaster-level mt-2">
+            <div class=" roast-border">
+                <p class="fnt-12 fnt-700 fnt-muli black m-0">Select roast level</p>
+                <div class="roast-custom-check">
+                    <label class="roast-container">
+
+            <input type="checkbox">
+            <span class="checkmark"></span>
+            </label>
+
+                    <label class="roast-container">2
+            <input type="checkbox">
+            <span class="checkmark"></span>
+            </label>
+
+                    <label class="roast-container">3
+            <input type="checkbox" >
+            <span class="checkmark"></span>
+            </label>
+
+                    <label class="roast-container">4
+            <input type="checkbox" >
+            <span class="checkmark"></span>
+            </label>
+
+                    <label class="roast-container">5
+            <input type="checkbox" >
+            <span class="checkmark"></span>
+            </label>
+
+                    <label class="roast-container">6
+            <input type="checkbox">
+            <span class="checkmark">2</span>
+            </label>
+
+                    <label class="roast-container">7
+            <input type="checkbox" >
+            <span class="checkmark"></span>
+            </label>
+
+                    <label class="roast-container">8
+            <input type="checkbox" >
+            <span class="checkmark"></span>
+            </label>
+
+                </div>
+
+                <div class="table-final-score mt-4 mt-md-3">
+                    <div class="w-md-10">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Fragrance/Aroma</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <div class="fragrance">
+                            <div class="fragrance-border">
+                                <p class="fnt-10 fnt-700 fnt-muli black mb-1">Dry</p>
+                                <p-slider [(ngModel)]="val3" [step]="20"></p-slider>
+                                <p class="fnt-10 fnt-700 fnt-muli black mt-1">Step: {{val3}}</p>
+                            </div>
+                            <p class="fnt-10 fnt-700 fnt-muli black mb-1 mt-2">Break</p>
+                            <p-slider [(ngModel)]="val4" [step]="20"></p-slider>
+                            <p class="fnt-10 fnt-700 fnt-muli black mt-1">Step: {{val3}}</p>
+
+                        </div>
+                    </div>
+                    <div class="w-md-8 mdev-tab">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Flavor</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                    </div>
+                    <div class="w-md-8 mdev-tab">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Aftertaste</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                    </div>
+                    <div class="w-md-9">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Acidity</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <div class="acidity">
+                            <p class="fnt-10 fnt-700 fnt-muli black">Intensity</p>
+
+                            <div class="custom-check">
+                                <div class="">
+                                    <label class="acidity-container">
+                    <input type="radio" name="intensity" checked="checked">
+                    <span class="checkmark">1</span>
+                    </label>
+                                    <p class="fnt-9 fnt-700 fnt-muli black"> Low </p>
+                                </div>
+                                <label class="acidity-container">2
+                    <input type="radio" name="intensity">
+                    <span class="checkmark">2</span>
+                    </label>
+                                <label class="acidity-container">3
+                    <input type="radio" name="intensity">
+                    <span class="checkmark"></span>
+                    </label>
+
+                                <div class="">
+                                    <label class="acidity-container">4
+                    <input type="radio" name="intensity">
+                    <span class="checkmark"></span>
+                    </label>
+                                    <p class="fnt-9 fnt-700 fnt-muli black"> High </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="w-md-9">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Body</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <div class="acidity">
+                            <p class="fnt-10 fnt-700 fnt-muli black">Level</p>
+
+                            <div class="custom-check">
+                                <div class="">
+                                    <label class="acidity-container">
+                    <input type="radio" name="level" checked="checked">
+                    <span class="checkmark">1</span>
+                    </label>
+                                    <p class="fnt-9 fnt-700 fnt-muli black"> thin </p>
+                                </div>
+                                <label class="acidity-container">2
+                    <input type="radio" name="level">
+                    <span class="checkmark">2</span>
+                    </label>
+                                <label class="acidity-container">3
+                    <input type="radio" name="level">
+                    <span class="checkmark"></span>
+                    </label>
+
+                                <div class="">
+                                    <label class="acidity-container">4
+                    <input type="radio" name="level">
+                    <span class="checkmark"></span>
+                    </label>
+                                    <p class="fnt-9 fnt-700 fnt-muli black"> heavy </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-md-8">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Balance</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                    </div>
+                    <div class="w-md-9">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Uniformity</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <div class="level">
+
+                            <div class="custom-check">
+
+                                <label class="level-container">
+                    <input type="radio" name="Uniformity" >
+                    <span class="checkmark">1</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="Uniformity" >
+                    <span class="checkmark">2</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="Uniformity" >
+                    <span class="checkmark">3</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="Uniformity" >
+                        <span class="checkmark">4</span>
+                    </label>
+
+
+
+                            </div>
+                        </div>
+                        <button class="add-comment fnt-10 fnt-muli fnt-700"> Add a comment</button>
+
+                    </div>
+                    <div class="w-md-9">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Clean Cup</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+
+                        <div class="level">
+
+                            <div class="custom-check">
+
+                                <label class="level-container">
+                                    <input type="radio" name="clean-cup" >
+                    <span class="checkmark">1</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="clean-cup" >
+                    <span class="checkmark">2</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="clean-cup" >
+                    <span class="checkmark">3</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="clean-cup" >
+                        <span class="checkmark">4</span>
+                    </label>
+
+
+
+                            </div>
+                        </div>
+                        <button class="add-comment fnt-10 fnt-muli fnt-700"> Add a comment</button>
+
+                    </div>
+                    <div class="w-md-9">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Sweetness </label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <div class="level">
+
+                            <div class="custom-check">
+
+                                <label class="level-container"> 
+                                    <input type="radio" name="sweetness" >
+                    <span class="checkmark">1</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="sweetness" >
+                    <span class="checkmark">2</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="sweetness" >
+                    <span class="checkmark">3</span>
+                    </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="sweetness" >
+                        <span class="checkmark">4</span>
+                    </label>
+
+
+                            </div>
+                        </div>
+                        <button class="add-comment fnt-10 fnt-muli fnt-700"> Add a comment</button>
+
+                    </div>
+                    <div class="w-md-8">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Overall</label>
+                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                    </div>
+                    <div class="w-md-10">
+                        <label class="fnt-12 fnt-700 fnt-muli black"> Defects 
+                </label>
+                        <div class="defects">
+                            <p class="fnt-10 fnt-700 fnt-muli black m-0"> Number of cups</p>
+                            <div class="custom-check mb-2">
+
+                                <label class="level-container">
+                                    <input type="radio" name="Defects" >
+                        <span class="checkmark">1</span>
+                        </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="Defects" >
+                        <span class="checkmark">2</span>
+                        </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="Defects" >
+                        <span class="checkmark">3</span>
+                        </label>
+
+                                <label class="level-container">
+                                    <input type="radio" name="Defects" >
+                        <span class="checkmark">4</span>
+                        </label>
+
+
+                            </div>
+                            <p class="fnt-10 fnt-700 fnt-muli black m-0">Intensity</p>
+                            <div class="btn-group toggle_butn ml-auto pull-right defect__main mt-2">
+                                <div class="btn taint_default">Taint</div>
+                                <div class="btn fault_default">Fault</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Add Descriptors  -->
+            <div class="add-description mt-4">
+                <div class="row">
+
+                    <div class="col-md-6 col-12">
+                        <a class="pointer-item" [popover]="allTemplate" placement="right" [outsideClick]="true" container="body" #pop2="bs-popover"> <span class="share-bor"><img src="assets/images/region-plus.svg" alt="farm" class="dwnd-img"><span class="share-txt ml-1"> Add Descriptors </span></span>
+                        </a>
+                        <div class="chips">
+                            <mat-chip-list #chipList aria-label="language" class="desk-chips">
+                                <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language}}
+                                    <img *ngIf="removable" class="cross-icon" src="assets/images/cross-white.svg" (click)="remove(language)">
+                                </mat-chip>
+                            </mat-chip-list>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12 mt-md-0 mt-3">
+
+                        <label class="comment-label">Add a comment</label>
+                        <input type="text" placeholder="Please enter your comment here" class="comment-input">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- buttons save and cancel -->
+    <div class="w-100 btn-save-cancel mb-5 mb-md-0">
+        <button class="pull-left grade-cancel">Cancel </button>
+        <button class="pull-right grade-save"> Submit</button>
+    </div>
+
+</section>
+
+
+
+<ng-template #allTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="addLang('Plum');pop2.hide()">Plum</a
+          >
+        </li>
+        <li class="list-group-item item-color">
+          <a
+            class="pointer-item"
+            (click)="addLang('Pineapple');pop2.hide()"
+            >Pineapple</a
+          >
+        </li>
+        <li class="list-group-item item-color">
+          <a
+            class="pointer-item"
+            (click)=" addLang('Apple');pop2.hide()"
+            >Apple</a
+          >
+        </li>
+        <li class="list-group-item item-color">
+            <a
+              class="pointer-item"
+              (click)="addLang('Orange');pop2.hide()"
+              >Orange</a
+            >
+          </li>
+          <li class="list-group-item item-color">
+            <a
+              class="pointer-item"
+              (click)=" addLang('Kiwi');pop2.hide()"
+              >Kiwi</a
+            >
+          </li>
+          <li class="list-group-item item-color">
+              <a
+                class="pointer-item"
+                (click)=" addLang('Guava');pop2.hide()"
+                >Guava</a
+              >
+            </li>
+          <li class="list-group-item item-color">
+            <a
+              class="pointer-item"
+              (click)=" addLang('Grape');pop2.hide()"
+              >Grape</a
+            >
+          </li>
+      </ul>
+    </div>
+  </ng-template>

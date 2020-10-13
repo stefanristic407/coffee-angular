@@ -33,7 +33,7 @@ export class AgreementComponent implements OnInit {
   customer_id:any = "";
   searchTerm:any ;
   notify : boolean 
-
+	agreementsActive:any=0;
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
@@ -44,8 +44,6 @@ export class AgreementComponent implements OnInit {
 
 	// Static Estate Orders Data List
 	public data: any;
-
-
 
 	public mainData: any[] = [
 		{  name: 'The Steam Hotel', origin:'Västerås',date: '19/12/19', orderid:'#129979',file:'The Steam Hotel agreeme…' },
@@ -58,14 +56,15 @@ export class AgreementComponent implements OnInit {
 	roasterId: string;
 	appLanguage: any;
 
+
   constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
 		public roasterService : RoasterserviceService,
 		public toastrService : ToastrService,
 		private globals: GlobalsService) {
-			this.roasterId = this.cookieService.get('roaster_id');
-		 }
+		this.roasterId = this.cookieService.get('roaster_id');
+	}
 
 
      ngOnInit(): void {
@@ -73,10 +72,8 @@ export class AgreementComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
-  
-     
-      this.appLanguage = this.globals.languageJson;
-
+	  this.language();
+	//   this.appLanguage = this.globals.languageJson;
 		// rowCallback: (row: Node, data: any, index: number) => {
 		// 	const self = this;
 		// 	$('td', row).click(function(){
@@ -89,23 +86,26 @@ export class AgreementComponent implements OnInit {
       this.estatetermType = '';
 	  this.displayNumbers = '10';
 	  this.customerMob = '';
-	  
 	  this.getAgreements();
   
     }
-
+ 	language(){
+        this.appLanguage = this.globals.languageJson;
+        this.agreementsActive++;
+	}
+	
 	getAgreements(){
 		this.roasterService.getAgreements(this.roasterId).subscribe(
 			data => {
 				if(data['success']==true){
 					// this.mainData = data['result'];
-				}else{
-					this.toastrService.error("Error while getting the agreement list!");
 				}
+				// else{
+				// 	this.toastrService.error("Error while getting the agreement list!");
+				// }
 			}
 		)
 	}
-
 
     //  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.

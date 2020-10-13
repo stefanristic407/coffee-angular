@@ -49,6 +49,7 @@ export class AboutRoasteryComponent implements OnInit {
 
   single: any[];
  view: any[] = [300, 200];
+ aboutActive:any =0;
 
  // options
  gradient: boolean = true;
@@ -74,22 +75,25 @@ export class AboutRoasteryComponent implements OnInit {
               }
 
   ngOnInit(): void {
-
-this.getCertificates();
-this.appLanguage = this.globals.languageJson;
-
+	this.getCertificates();
+	this.language();
   }
-
-getCertificates(){
-  this.userService.getCompanyCertificates(this.roasterId).subscribe(
-    result => {
-        if(result['success'] == true){
-          this.certificatesArray = result['result'];
-        }else{
-          this.toastrService.error("Error in loading Roaster Certificates");
-        }
-  });
-}
+  language(){
+	this.appLanguage = this.globals.languageJson;
+   	this.aboutActive++;
+  }
+	getCertificates(){
+	this.userService.getCompanyCertificates(this.roasterId).subscribe(
+		result => {
+			if(result['success'] == true){
+			this.certificatesArray = result['result'];
+			// this.aboutActive++;
+			}else{
+			this.toastrService.error("Error in loading Roaster Certificates");
+			}
+			this.aboutActive++;
+	});
+	}
   
   onKeyPress(event: any) {
     if (event.target.value == "") {

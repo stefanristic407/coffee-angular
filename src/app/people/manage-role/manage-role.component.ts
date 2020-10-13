@@ -24,14 +24,16 @@ export class ManageRoleComponent implements OnInit {
   roasterUsers: any[] = [];
   userRoles: any[] = [];
   appLanguage: any;
-
+  roleActive:any=0;
   constructor(
     public router: Router,
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
     private toastrService: ToastrService,
     private globals: GlobalsService
-  ) { }
+  ) { 
+    // this.isActive = 0;
+  }
 
   ngOnInit(): void {
     //Auth checking
@@ -47,10 +49,14 @@ export class ManageRoleComponent implements OnInit {
     this.sizes = [];
     this.roaster_id = this.cookieService.get('roaster_id');
     this.loadroles();
-    this.appLanguage = this.globals.languageJson;
 
+    this.language();
   }
+language(){
+  this.appLanguage = this.globals.languageJson;
+  this.roleActive++;
 
+}
   // getRandomInt(max: any) {
   //   return Math.floor(Math.random() * Math.floor(max));
   // }
@@ -77,6 +83,7 @@ export class ManageRoleComponent implements OnInit {
     //var userRoles = [];
     roasterServices.getRoles(roasterId).subscribe(
       result => {
+
         console.log(result);
         if (result["success"] == true) {
           var list = result['result'];
@@ -88,6 +95,7 @@ export class ManageRoleComponent implements OnInit {
             this.sizes[i] = list[i];
           }
         }
+        this.roleActive++;
       }
     );
     // this.getRoleCount(this.roaster_id);
@@ -124,8 +132,9 @@ export class ManageRoleComponent implements OnInit {
           } else {
             this.toastrService.error("There are Users assigned to this role.");
           }
-
-        });
+        }
+        
+        );
     }
   }
 

@@ -29,6 +29,14 @@
     background-color: #3d8462;
 }
 
+.delete_name_txt {
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 500;
+    color: #232334;
+    line-height: 24px;
+}
+
 .view-btn,
 .add-btn {
     border-radius: 8px;
@@ -71,6 +79,7 @@
     line-height: normal;
     letter-spacing: normal;
     color: #747588;
+    cursor: pointer;
 }
 
 .list-group-item:hover {
@@ -82,7 +91,6 @@
 .menu-arrow {
     cursor: pointer;
 }
-
 
 .user-list-detail .list-item {
     border: none;
@@ -98,8 +106,10 @@
     background-color: #f8f8f8;
 }
 
-.user-list-detail .list-data li{width: auto !important; 
-    padding: 13px 5rem 13px 16px !important;}
+.user-list-detail .list-data li {
+    width: auto !important;
+    padding: 13px 5rem 13px 16px !important;
+}
 
 .ellipse-image {
     /* width: 2px;
@@ -175,7 +185,6 @@ span.checkmark {
 
 .customcheckbox input:checked~.checkmark {
     background-color: #30855c !important;
-    
 }
 
 .breadcrumb-item a {
@@ -201,6 +210,7 @@ table td {
     padding-top: 2rem;
     padding-left: 3rem;
 }
+
 .page-title {
     font-family: 'Muli';
     font-size: 18px;
@@ -231,6 +241,7 @@ table td {
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
     padding: 10px 12px;
+    cursor: pointer;
 }
 
 
@@ -283,15 +294,12 @@ a.b-cum:hover {
     }
 }
 
-.table{
+.table {
     margin-bottom: 0px !important;
 }
 
 
 /*=============== For Card layout ==================*/
-
-
-
 
 
 /* Style the counter cards */
@@ -350,6 +358,8 @@ a.b-cum:hover {
 .user-title {
     margin: 0% 5% 2% 3rem;
 }
+
+
 /* 
 .salemark {
     font-size: 13px;
@@ -362,6 +372,8 @@ a.b-cum:hover {
     /* float: right; */
     font-size: 12px;
 }
+
+
 /* 
 .user-name,
 .roles {
@@ -470,12 +482,16 @@ option {
     width: 15px;
     height: 17px;
 }
+
 .desk_view_user {
     display: block !important;
 }
+
 .mobile_view_user {
     display: none !important;
 }
+
+
 /* 
 @media only screen and (min-width: 768px) and (max-width: 920px) {
     .bread-nav {
@@ -541,15 +557,12 @@ option {
     }
     .mobile_view_user {
         display: block !important;
-     
     }
     .spacing-top {
         margin-top: 1.4rem !important;
     }
-    .search-div
-    {
+    .search-div {
         display: inline-block!important;
-       
     }
     .title-header {
         margin-left: 0% !important;
@@ -580,52 +593,96 @@ option {
         margin-left: 0rem !important;
     }
     /****New Css***/
-    .filter-mob{
+    .filter-mob {
         margin: 1rem 1rem;
     }
-    .dyn-userdata{float: left;
+    .dyn-userdata {
+        float: left;
         border-bottom: 1px dashed #d6d6d6;
-        padding-bottom: 16px;width:100%}
-    .dyn-userdata li{padding-left: 15px; padding-right: 15px; width: 100% !important; float: left;}
+        padding-bottom: 16px;
+        width: 100%
+    }
+    .dyn-userdata li {
+        padding-left: 15px;
+        padding-right: 15px;
+        width: 100% !important;
+        float: left;
+    }
     /* .dyn-userdata{ margin-top: 16px; border-radius: 4px; padding-top: 1rem !important; padding-bottom: 1rem !important; } */
-    .user-list-detail li{ padding-left: 0 !important; padding-right: 0 !important;}
-    .user-list-detail li:nth-child(1){width: 71% !important; float: left;}
-    .user-list-detail li:nth-child(2){width: 20% !important;
+    .user-list-detail li {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .user-list-detail li:nth-child(1) {
+        width: 71% !important;
+        float: left;
+    }
+    .user-list-detail li:nth-child(2) {
+        width: 20% !important;
         text-align: center;
-        float: left;}
-    .user-list-detail li:last-child {    width: 9% !important;  text-align: center;float: left;}
-    .dyn-userdata li{width: 100% !important;}
-    .no-padding{padding-left: 0; padding-right: 0;}
-    .delete_row{
+        float: left;
+    }
+    .user-list-detail li:last-child {
+        width: 9% !important;
+        text-align: center;
+        float: left;
+    }
+    .dyn-userdata li {
+        width: 100% !important;
+    }
+    .no-padding {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .delete_row {
         margin-bottom: 1%;
     }
-    .dyn-userdata li ul:last-child{
+    .dyn-userdata li ul:last-child {
         border-bottom: none;
         /* margin-bottom: 4rem; */
     }
-    .left-padd{padding-left: 25px;}
+    .left-padd {
+        padding-left: 25px;
+    }
     /* .right-padd{padding-right: 5px;} */
-    .user-name{color: #232334;
+    .user-name {
+        color: #232334;
         font-weight: bold;
-        font-size: 14px;}
-    .user-email{color: #747588;
+        font-size: 14px;
+    }
+    .user-email {
+        color: #747588;
         font-weight: bold;
-        font-size: 14px;}    
-    .lastlogin{font-size: 12px;color:#747588;font-weight: 600;padding-bottom: 1.2rem !important;}
-    .roles{font-size: 12px;color:#232334;font-weight: 600;}
-    .role-mob{
-        color:#232334;font-size: 14px;font-weight: bold;
+        font-size: 14px;
+    }
+    .lastlogin {
+        font-size: 12px;
+        color: #747588;
+        font-weight: 600;
+        padding-bottom: 1.2rem !important;
+    }
+    .roles {
+        font-size: 12px;
+        color: #232334;
+        font-weight: 600;
+    }
+    .role-mob {
+        color: #232334;
+        font-size: 14px;
+        font-weight: bold;
     }
     .modal-header {
         border-bottom: 1px solid #d6d6d6 !important;
-     padding: 0 0 25px 0 !important;
+        padding: 0 0 25px 0 !important;
     }
     .modal-body {
         margin-top: 0px !important;
         padding: 0 !important;
     }
-    .dyn-userdata:last-child{
-        margin-bottom: 4rem;border-bottom: none !important;    }
+    .dyn-userdata:last-child {
+        margin-bottom: 4rem;
+        border-bottom: none !important;
+    }
 }
 
 .table td,

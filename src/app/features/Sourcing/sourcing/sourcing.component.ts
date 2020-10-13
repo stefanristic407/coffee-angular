@@ -23,7 +23,7 @@ export class SourcingComponent implements OnInit {
   modalRef: BsModalRef;
   variety:any;
   appLanguage: any;
-
+  sourcingActive:any=0;
 
   public data: any[] = [
 		{  estatename: 'Finca La Pampa', rating: '4.45',origin:'Colombia', range: '980-1100m', cropyear: 'March - June',certificates:'3','image':'/assets/images/sourcing-image1.jpg' },
@@ -63,7 +63,7 @@ export class SourcingComponent implements OnInit {
     this.origin = '';
     this.weight = 'kg';
     this.variety='';
-    this.appLanguage = this.globals.languageJson;
+    this.language();
 
      //Toggle Esstate active
 	  $('.btn-switch').click(function() {
@@ -394,6 +394,10 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		
 		}
   }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+       this.sourcingActive++;
+    }
   toggleCrop(){
     this.showCrop=!this.showCrop;
     if(this.showCrop==false){

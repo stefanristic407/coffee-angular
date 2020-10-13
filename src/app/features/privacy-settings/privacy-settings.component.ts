@@ -19,15 +19,19 @@ export class PrivacySettingsComponent implements OnInit {
   result: string;
   value: string;
   appLanguage: any;
+  privacyActive:any=0;
   constructor(public userService : UserserviceService, public toastrService : ToastrService, 
               private route : ActivatedRoute, private router : Router,
               private globals : GlobalsService) { }
 
   ngOnInit(): void {
     this.getPrivacyTerms();
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
-
+  language(){
+    this.appLanguage = this.globals.languageJson;
+       this.privacyActive++;
+    }
   getPrivacyTerms(){
     this.userService.getPrivacyTerms().subscribe(
       response => {
@@ -41,6 +45,7 @@ export class PrivacySettingsComponent implements OnInit {
         }else{
           this.toastrService.show("Kindly add the Privacy settings");
         }
+        this.privacyActive++;
       }
     )
   }

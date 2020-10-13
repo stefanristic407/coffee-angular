@@ -1,170 +1,172 @@
-<div class="bg-fff coffee-exp agreements">
-    <div class="row">
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-        <span id="title-breadcrumb-1" class="sr-only"></span>
-        <ul class="bread-nav">
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-            </li>
-            <li class="b-cum">
-                <a class="b-cum">{{appLanguage.marketing_arena}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-            </li>
-
-            <li class="b-cum c-pink">{{appLanguage.agreements}}</li>
-
-        </ul>
-    </nav>
-    <div class="file-share-search col-12 col-md-3 ml-md-auto mb-3 mr-5 d-none d-md-flex align-items-center">
-            <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-            <input type="search" placeholder="{{appLanguage.search_files}}" [(ngModel)]="searchTerm" name="filesTerm">
-        </div>
+<div class="total-loader" *ngIf="agreementsActive !=1">
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
     </div>
+</div>
+<div *ngIf="agreementsActive == 1">
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff coffee-exp agreements">
+            <div class="row">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum">
+                            <a class="b-cum">{{appLanguage.marketing_arena}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum c-pink">{{appLanguage.agreements}}</li>
+                    </ul>
+                </nav>
+                <div class="file-share-search col-12 col-md-3 ml-md-auto mb-3 mr-5 d-none d-md-flex align-items-center">
+                    <img class="mr-1 mr-md-2" src="assets/images/search.svg">
+                    <input type="search" placeholder="{{appLanguage.search_files}}" [(ngModel)]="searchTerm" name="filesTerm">
+                </div>
+            </div>
 
-    <section class="estate-orders-heading">
-        <h5 class="estate-order-title pt-3"> {{appLanguage.agreements}}</h5>
-    </section>
+            <section class="estate-orders-heading">
+                <h5 class="estate-order-title pt-3">{{appLanguage.agreements}}</h5>
+            </section>
 
+            <section class="estate-orders">
 
-
-    <section class="estate-orders">
-
-        <!-- <div class="row mb-4">
+                <!-- <div class="row mb-4">
         <div class="d-inline col-sm-12 search-div">
 			<input type="text" name="search" class="col-12 col-md-4 search" [(ngModel)]="estateterm" placeholder="Search by Name,role..">
 		</div>
     </div> -->
-        <div class="row web-farm">
-            <div class="d-inline table-w pt-2 agre-index-z">
-                <div class="title-header d-inline web">
-                    <div class="d-inline border-order role-div col-sm-6" id="origin_id">
-                        <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                        <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Select customer&nbsp;</p>
-                        <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
-                                &nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                        <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop5="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
-                                {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                    </div>
+                <div class="row web-farm">
+                    <div class="d-inline table-w pt-2 agre-index-z">
+                        <div class="title-header d-inline web">
+                            <div class="d-inline border-order role-div col-sm-6" id="origin_id">
+                                <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
+                                <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Select customer&nbsp;</p>
+                                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
+                                    <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
+                                        &nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    </p>
+                                </a>
+                                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop5="bs-popover">
+                                    <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
+                                        {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    </p>
+                                </a>
+                            </div>
 
-
-
-                    <div class="d-inline display_div">
-                        <div class="float-right upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
-                            <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage.upload}} </span> </label>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="row mobile-farm">
-                        <div class="title-header  d-inline">
-                            <div class="d-inline border-order top-padd col-sm-6" id="orgin-mob-id">
-                                    <p class="d-inline filter-text" *ngIf="customerMob == ''">Select customer&nbsp;</p>
-                                    <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop9="bs-popover">
-                                        <p class="d-inline filter" *ngIf="customerMob == ''" (click)="toggleCustomerMob()">
-                                            &nbsp; <img src="{{ showCustomerMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                    <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop10="bs-popover">
-                                        <p class="d-inline filter" *ngIf="customerMob != ''" (click)="toggleCustomerMob()">
-                                            {{ customerMob }} &nbsp;<img src="{{ showCustomerMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
+                            <div class="d-inline display_div">
+                                <div class="float-right upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
+                                    <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage.upload}} </span> </label>
                                 </div>
+                            </div>
 
-                                <div class="d-inline display_div">
-                                        <div class="float-right upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
-                                            <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
-                                        </div>
-                                    </div>
                         </div>
-        </div>
+                    </div>
+                </div>
+                <div class="row mobile-farm">
+                    <div class="title-header  d-inline">
+                        <div class="d-inline border-order top-padd col-sm-6" id="orgin-mob-id">
+                            <p class="d-inline filter-text" *ngIf="customerMob == ''">Select customer&nbsp;</p>
+                            <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop9="bs-popover">
+                                <p class="d-inline filter" *ngIf="customerMob == ''" (click)="toggleCustomerMob()">
+                                    &nbsp; <img src="{{ showCustomerMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                </p>
+                            </a>
+                            <a class="pointer-item" [popover]="templateMob" placement="bottom" container="body" #pop10="bs-popover">
+                                <p class="d-inline filter" *ngIf="customerMob != ''" (click)="toggleCustomerMob()">
+                                    {{ customerMob }} &nbsp;<img src="{{ showCustomerMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                </p>
+                            </a>
+                        </div>
 
-        <div class="estate-table pt-2 web-farm">
-            <!-- <table class="estate-boby-txt " datatable [dtOptions]="dtOptions">
+                        <div class="d-inline display_div">
+                            <div class="float-right upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
+                                <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> Upload </span> </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="estate-table pt-2 web-farm">
+                    <!-- <table class="estate-boby-txt " datatable [dtOptions]="dtOptions">
 
             </table> -->
 
-            <div class="table-responsive border-lots">
-                    <table class="table">
-                        <thead class="table-header">
-                            <tr class="header-row">
-                                <th>
-                                    <label class="customcheckbox m-b-20">
+                    <div class="table-responsive border-lots">
+                        <table class="table">
+                            <thead class="table-header">
+                                <tr class="header-row">
+                                    <th>
+                                        <label class="customcheckbox m-b-20">
                                         <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
                                         (change)="checkAll($event)"/>
                                         <span class="checkmark head-check"></span>
                                     </label>
-                                </th>
-                                <th>{{appLanguage.files}}</th>
-                               
-                                <th scope="col">{{appLanguage.added_on}}</th>
-                                <th scope="col">{{appLanguage.customer_name}}</th>
-                                <th scope="col">{{appLanguage.origin}}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="customtable">
-                            <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:searchTerm">
-                                <td>
-                                    <label class="customcheckbox">
+                                    </th>
+                                    <th>{{appLanguage.files}}</th>
+
+                                    <th scope="col">{{appLanguage.added_on}}</th>
+                                    <th scope="col">{{appLanguage.customer_name}}</th>
+                                    <th scope="col">{{appLanguage.origin}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="customtable">
+                                <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:searchTerm">
+                                    <td>
+                                        <label class="customcheckbox">
                                         <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
                                         <span class="checkmark head-check"></span>
                                     </label>
-                                </td>
-                                <td>
-                                    <!-- <span *ngIf="item.type=='Folder'"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.files }}</span> -->
-                                    <span><img class="file-icon pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.file }}</span>
-                                    <!-- <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.files }}</span>
+                                    </td>
+                                    <td>
+                                        <!-- <span *ngIf="item.type=='Folder'"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.files }}</span> -->
+                                        <span><img class="file-icon pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.file }}</span>
+                                        <!-- <span *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.files }}</span>
                                     <span *ngIf="item.type=='mp4'"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.files }}</span> -->
-                                </td>
-                                <td>{{ item.date }}
-                                </td>
-                                <td>{{item.name}}</td>
-                                <td>{{item.origin}}</td>
-                                <td>
-                                    <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
-                                        <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
-                                    </a>
-                                    <ng-template #poplistTemplate id="{{item.id}}">
-                                        <div id="popover-mobile-content">
-                                            <ul class="list-group custom-popover">
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.update}}</a></li>
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.delete}}</a></li>
-                                            </ul>
-                                        </div>
-                                    </ng-template>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-        </div>
-
-        <div class="estate-table pt-md-2 mobile-farm">
-            <div class="table-details mobile-farm">
-                <div class="table-responsive border-sourcetable agreement-top">
-
-                    <div class="col-12 bor-d6d6" *ngFor="let data of mainData | filter:customerMob">
-                        <div class="row pt-4">
-                            <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
-                            <div class="col-10 mobile-ce">
-                                <p class="black fnt-14">{{data.file}}</p>
-                                <p class="fnt-12 light-eight"> Added on {{data.date}}</p>
-                                <p class="fnt-12 light-eight">{{data.name}}</p>
-                                <p class="fnt-12 light-eight"> {{data.origin}}</p>
-                            </div>
-                        </div>
+                                    </td>
+                                    <td>{{ item.date }}
+                                    </td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.origin}}</td>
+                                    <td>
+                                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                            <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                                        </a>
+                                        <ng-template #poplistTemplate id="{{item.id}}">
+                                            <div id="popover-mobile-content">
+                                                <ul class="list-group custom-popover">
+                                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.update}}</a></li>
+                                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{appLanguage.delete}}</a></li>
+                                                </ul>
+                                            </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <!-- <div class="col-12 bor-d6d6">
+                </div>
+
+                <div class="estate-table pt-md-2 mobile-farm">
+                    <div class="table-details mobile-farm">
+                        <div class="table-responsive border-sourcetable agreement-top">
+
+                            <div class="col-12 bor-d6d6" *ngFor="let data of mainData | filter:customerMob">
+                                <div class="row pt-4">
+                                    <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
+                                    <div class="col-10 mobile-ce">
+                                        <p class="black fnt-14">{{data.file}}</p>
+                                        <p class="fnt-12 light-eight"> Added on {{data.date}}</p>
+                                        <p class="fnt-12 light-eight">{{data.name}}</p>
+                                        <p class="fnt-12 light-eight"> {{data.origin}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-12 bor-d6d6">
                         <div class="row pt-4">
                             <div class="col-2"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></div>
                             <div class="col-10 mobile-ce">
@@ -228,13 +230,16 @@
                         </div>
                     </div>-->
 
-                </div> 
+                        </div>
 
-            </div>
+                    </div>
+                </div>
+
+            </section>
         </div>
 
-    </section>
-</div>
+    </div>
+</section>
 
 <ng-template #originTemplate>
     <div id="status-content">
@@ -257,7 +262,7 @@
             <li class="list-group-item item-color">
                 <a class="pointer-item" (click)="setOrigin('Hacienda Sonora'); pop4.hide(); pop5.hide();toggleOrigin()">Hacienda Sonora</a>
             </li>
-            
+
         </ul>
     </div>
 </ng-template>
@@ -265,31 +270,31 @@
 
 
 <ng-template #templateMob>
-        <div id="status-content">
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setUser(''); pop9.hide(); pop10.hide();toggleCustomerMob()">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setUser('The Steam Hotel'); pop9.hide(); pop10.hide();toggleCustomerMob()">The Steam Hotel</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setUser('Candela'); pop9.hide(); pop10.hide();toggleCustomerMob()">Candela</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setUser('Finca Nápoles'); pop9.hide(); pop10.hide();toggleCustomerMob()">Finca Nápoles</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setUser('Santa Rosa'); pop9.hide(); pop10.hide();toggleCustomerMob()">Santa Rosa</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setUser('Hacienda Sonora'); pop9.hide(); pop10.hide();toggleCustomerMob()">Hacienda Sonora</a>
-                </li>
-              
-            </ul>
-        </div>
-    </ng-template>
-    
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setUser(''); pop9.hide(); pop10.hide();toggleCustomerMob()">All</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setUser('The Steam Hotel'); pop9.hide(); pop10.hide();toggleCustomerMob()">The Steam Hotel</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setUser('Candela'); pop9.hide(); pop10.hide();toggleCustomerMob()">Candela</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setUser('Finca Nápoles'); pop9.hide(); pop10.hide();toggleCustomerMob()">Finca Nápoles</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setUser('Santa Rosa'); pop9.hide(); pop10.hide();toggleCustomerMob()">Santa Rosa</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setUser('Hacienda Sonora'); pop9.hide(); pop10.hide();toggleCustomerMob()">Hacienda Sonora</a>
+            </li>
+
+        </ul>
+    </div>
+</ng-template>
+
 
 <div class="modal fade" id="uploadfolder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -316,7 +321,7 @@
                                     <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">View
                                         orders</span>
                                 </a> -->
-                                <select [(ngModel)]="customer_id" class="customer px-2" name="customer" id="customer" >
+                                <select [(ngModel)]="customer_id" class="customer px-2" name="customer" id="customer">
                                     <option value="">Please select customer</option>
                                     <option value="1">Satya</option>
                                     <option value="2">Vijay</option>
@@ -324,7 +329,7 @@
                                     <option value="4">Dinesh</option>
                                 </select>
                                 <div class="mt-4">
-                                        <label class="customcheckbox">
+                                    <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="notify" value="notify" [(ngModel)]="notify"/>
                                                 <span class="checkmark head-check"></span>
                                             </label><span class="notify-text">{{appLanguage.notify_customer}}</span>
@@ -349,4 +354,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -1,5 +1,11 @@
 <!-- HEADER-->
-<header class="stricky">
+<div class="total-loader" *ngIf="orderActive!=2">
+    <!-- <img class="loader-gif" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<header class="stricky" *ngIf="orderActive==2">
     <nav class="bg-white nav-top1">
 
         <div class="container header-container">
@@ -258,7 +264,7 @@
 </footer>
 
 
-<div class="container sewn-container">
+<div class="container sewn-container" *ngIf="orderActive==2">
     <div class="router-design">
 
         <app-direct-messaging></app-direct-messaging>

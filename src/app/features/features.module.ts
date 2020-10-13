@@ -104,6 +104,28 @@ import { GreenCoffeeInventoryComponent } from './green-inventory/green-coffee-in
 import { ProcuredCoffeeComponent } from './green-inventory/procured-coffee/procured-coffee.component';
 import { CoffeeSaleComponent } from './green-inventory/coffee-sale/coffee-sale.component';
 import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component';
+import { CuppingReportComponent } from './green-grading/cupping-report/cupping-report.component';
+import { CuppingServiceComponent } from './green-grading/cupping-report/cupping-service/cupping-service.component';
+import { GenerateNewReportComponent } from './green-grading/cupping-report/generate-new-report/generate-new-report.component';
+import { ServiceReportsComponent } from './green-grading/cupping-report/service-reports/service-reports.component';
+import { OtherReportsComponent } from './green-grading/cupping-report/other-reports/other-reports.component';
+import { CuppingResultsComponent } from './green-grading/cupping-results/cupping-results.component';
+import { GenerateReportComponent } from './green-grading/generate-report/generate-report.component';
+import { GenerateCoffeeGradingComponent } from './green-grading/generate-report/generate-coffee-grading/generate-coffee-grading.component';
+import { GenerateCuppingReportComponent } from './green-grading/generate-report/generate-cupping-report/generate-cupping-report.component';
+import { GenerateCuppingResultsComponent } from './green-grading/generate-report/generate-cupping-results/generate-cupping-results.component';
+import { GenerateGreenCoffeeComponent } from './green-grading/generate-report/generate-green-coffee/generate-green-coffee.component';
+import { GenerateMySampleComponent } from './green-grading/generate-report/generate-my-sample/generate-my-sample.component';
+import {GradeMySampleComponent} from './green-grading/grade-my-sample/grade-my-sample.component';
+import { GradeSampleComponent } from './green-grading/grade-sample/grade-sample.component';
+import { GradeServiceComponent } from './green-grading/grade-service/grade-service.component';
+import {GreenCoffeeGradingComponent} from './green-grading/green-coffee-grading/green-coffee-grading.component';
+import {GreenGradingComponent} from './green-grading/green-grading/green-grading.component';
+import { ServiceRequestsComponent } from './green-grading/service-requests/service-requests.component';
+import {SourceGradingComponent} from './green-grading/source-grading/source-grading.component';
+import { ServiceRequestedComponent} from './green-grading/service-requested/service-requested.component';
+import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
+
 
 @NgModule({
   declarations: [
@@ -176,6 +198,28 @@ import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component'
     ProcuredCoffeeComponent,
     CoffeeSaleComponent,
     LotSaleComponent,
+    CuppingReportComponent,
+    CuppingServiceComponent,
+    GenerateNewReportComponent,
+    ServiceReportsComponent,
+    OtherReportsComponent,
+    CuppingResultsComponent,
+    GenerateReportComponent,
+    GenerateCoffeeGradingComponent,
+    GenerateCuppingReportComponent,
+    GenerateCuppingResultsComponent,
+    GenerateGreenCoffeeComponent,
+    GenerateMySampleComponent,
+    GradeMySampleComponent,
+    GradeSampleComponent,
+    GradeServiceComponent,
+    GreenCoffeeGradingComponent,
+    GreenGradingComponent,
+    ServiceRequestsComponent,
+    SourceGradingComponent,
+    ServiceRequestedComponent,
+    ProcessDetailsComponent,
+ 
   ],
   imports: [
     CommonModule,

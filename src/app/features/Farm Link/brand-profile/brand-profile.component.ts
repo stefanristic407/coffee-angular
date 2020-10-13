@@ -14,12 +14,16 @@ export class BrandProfileComponent implements OnInit {
   sustainval: number = 5 ;
   visitval: number = 15 ;
   appLanguage: any;
-
+	brandProfileActive:any=0;
   constructor(
 		private globals: GlobalsService) { }
 
-  ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
-  }
+ngOnInit(): void {
+    this.language();
+}
+language(){
+	this.appLanguage = this.globals.languageJson;
+	this.brandProfileActive++;
+}
 
 }

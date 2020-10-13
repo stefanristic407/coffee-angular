@@ -12,7 +12,7 @@ declare var $ : any;
   styleUrls: ['./profile-license.component.css']
 })
 export class ProfileLicenseComponent implements OnInit {
-
+  popover : any;
   public licenseArray: any = [];
   public addanotherrow: number;
   licenseDetails: any;
@@ -31,7 +31,7 @@ export class ProfileLicenseComponent implements OnInit {
   showRelavant:boolean=true;
   userId: string;
   appLanguage: any;
-
+  licenseActive:any=0;
 
   constructor(
     private _cokkieService: CookieService,
@@ -62,10 +62,13 @@ export class ProfileLicenseComponent implements OnInit {
     this.savedcertificatesArray = [];
     this.showsaveddatadiv = false;
     this.secondButtonValue = "Save";
-
-    this.appLanguage = this.globals.languageJson;
+    this.language();
     this.getCertificates();
   }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+       this.licenseActive++;
+    }
   onKeyPress(event: any) {
     if (event.target.value == "") {
       document.getElementById(event.target.id).style.border =
@@ -83,6 +86,8 @@ export class ProfileLicenseComponent implements OnInit {
           
           this.showsaveddatadiv = true;
           this.savedcertificatesArray = data['result'];
+          this.licenseActive++;
+
           console.log(this.savedcertificatesArray);
         }
       }
@@ -96,7 +101,12 @@ export class ProfileLicenseComponent implements OnInit {
     this.showRelavant = !this.showRelavant;
 
   }
-
+  openPopover(pop){
+    this.popover = pop;
+  }
+  closePopover(){
+    this.popover.hide();
+  }
   //  Function Name : File Open.
   //Description: This function open file explorer.
   onFileChange(event, rowcount: any) {

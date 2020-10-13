@@ -8,11 +8,15 @@ import {GlobalsService} from 'src/services/globals.service';
 })
 export class OrderPlacedComponent implements OnInit {
   appLanguage: any;
+  availableOrderActive:any=0;
 
   constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+    this.language();  
   }
-
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.availableOrderActive++;
+  }
 }

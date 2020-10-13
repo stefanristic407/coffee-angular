@@ -46,6 +46,8 @@ export class SharewithmeComponent implements OnInit {
   filedescriptionError: string;
   files: any;
   appLanguage: any;
+  shareMe:any =0;
+
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -98,8 +100,14 @@ export class SharewithmeComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
-      this.getSharedFilesandFolders();
-    }
+	  this.getSharedFilesandFolders();
+	  this.language();
+
+	}
+	language(){
+		this.appLanguage = this.globals.languageJson;
+		this.shareMe++;
+	}
 	
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.

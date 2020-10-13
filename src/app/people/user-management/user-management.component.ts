@@ -44,6 +44,7 @@ export class UserManagementComponent implements OnInit {
   showMobVar:boolean = true;
   showMobRole:boolean = true;
   appLanguage: any;
+  userActive:any=0;
 
   constructor(
     private _sheetValues: SheetValues,
@@ -106,8 +107,13 @@ export class UserManagementComponent implements OnInit {
 //       }
 //   });
 // });
+this.language();
 
-	this.appLanguage = this.globals.languageJson;
+  }
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.userActive = 1;
+  
   }
 //  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.
@@ -171,7 +177,10 @@ export class UserManagementComponent implements OnInit {
             tempData['roles'] = "";
             this.userfilterDat.push(tempData)
           });
+          this.userActive++;          
+
         }
+        
         else {
           this.toastrService.error("Unable to fetch users data");
         }
@@ -184,7 +193,6 @@ export class UserManagementComponent implements OnInit {
         //     }
         //   )
         //   this.userfilterDat = result['result'];
-
         console.log("Users are :")
         console.log(this.userfilterDat);
       });
@@ -199,7 +207,8 @@ export class UserManagementComponent implements OnInit {
         this.roles = result['result'];
         console.log(this.roles);
         this.role_roasteruser_id = this.roles[0].id;
-        console.log(this.role_roasteruser_id)
+        console.log(this.role_roasteruser_id);
+        this.userActive++;
       }
     );
   }
@@ -247,6 +256,7 @@ export class UserManagementComponent implements OnInit {
             this.toastrService.error("Unable to delete the user.");
 
           }
+          // this.userActive++;
         }
       )
     }
@@ -269,6 +279,7 @@ export class UserManagementComponent implements OnInit {
           else {
             this.toastrService.error("Error while disabling the User account");
           }
+          // this.userActive++;
         }
       )
     }
@@ -291,6 +302,7 @@ export class UserManagementComponent implements OnInit {
           else {
             this.toastrService.error("Error while enabling the User account");
           }
+          // this.userActive++;
         }
       )
     }
@@ -313,6 +325,7 @@ export class UserManagementComponent implements OnInit {
           } else {
             this.toastrService.error("Unable to delete the role. ");
           }
+          // this.userActive++;
         }
       );
     }
@@ -352,6 +365,7 @@ export class UserManagementComponent implements OnInit {
           this.toastrService.error("User Role Already exists.Please select another role");
         }
         this.assignButtonValue = "Submit";
+        // this.userActive++;
       })
   }
 
@@ -386,7 +400,7 @@ export class UserManagementComponent implements OnInit {
             }
           }
         }
-        
+        // this.userActive++;
       }
     )
   }

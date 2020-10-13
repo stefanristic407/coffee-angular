@@ -52,7 +52,8 @@ export class VideoTableComponent implements OnInit {
   shareFileId: any;
   share_permission: any;
   appLanguage: any;
-
+  // videoTable:any=0;
+  
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -93,10 +94,10 @@ export class VideoTableComponent implements OnInit {
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
       }
-      this.appLanguage = this.globals.languageJson;
-    //  this.filedetailsService.getTableVideos();
+          //  this.filedetailsService.getTableVideos();
+          this.appLanguage = this.globals.languageJson;
     }
-     
+   
 
     openModal(template: TemplateRef<any>,item:any){
       this.modalRef = this.modalService.show(template);

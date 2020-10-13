@@ -8,6 +8,7 @@ import {GlobalsService} from 'src/services/globals.service';
 })
 export class LandLotsComponent implements OnInit {
   appLanguage: any;
+  landLotsActive:any=0;
 
   public lots: any[] = [
 		{  lotname: 'Dilema', lotsize: '14 acres',score:'84', altitude: '1,966-2,019m', variety: 'Arabica',species:'Bourbon, Castillo',flavourprofile:'' },
@@ -18,7 +19,11 @@ export class LandLotsComponent implements OnInit {
   constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+    this.language();  
   }
 
+    language(){
+      this.appLanguage = this.globals.languageJson;
+      this.landLotsActive++;
+    }
 }

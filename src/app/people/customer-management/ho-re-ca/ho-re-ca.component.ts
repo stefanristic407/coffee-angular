@@ -21,7 +21,9 @@ export class HoReCaComponent implements OnInit {
   estateId: any;
   roasterId: any;
   odd : boolean = false ;
-	appLanguage: any;
+  appLanguage: any;
+  horecaActive:any=0;
+
 
   constructor(public router: Router,
     public cookieService: CookieService,
@@ -52,9 +54,13 @@ export class HoReCaComponent implements OnInit {
       this.router.navigate(["/auth/login"]);
     }
     this.MicroRoastersHoreca();
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
 
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.horecaActive++;
+  }
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
@@ -96,10 +102,12 @@ export class HoReCaComponent implements OnInit {
             this.odd = false ;
             this.mainData = data['result'];
           }
+          this.horecaActive++;
         } else {
           this.odd = true ;
           this.toastrService.error("Error while getting the table list!");
         }
+        // this.horecaActive++;
       }
     )
   }

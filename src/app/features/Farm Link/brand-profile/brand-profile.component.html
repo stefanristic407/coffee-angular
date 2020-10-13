@@ -1,119 +1,125 @@
-<div class="bg-fff">
-    <div class="row">
-        <div class="col-12 d-flex no-block align-items-center">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                <span id="title-breadcrumb-1" class="sr-only"></span>
-                <ul class="bread-nav">
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                    </li>
-                    <li class="b-cum">
-                        <a class="b-cum">{{appLanguage.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                    </li>
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/brand-profile">{{appLanguage.brand_profile}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                    </li>
-                    <li class="b-cum c-pink">{{appLanguage.home_page}}</li>
-                </ul>
-            </nav>
-        </div>
+<div class="total-loader" *ngIf="brandProfileActive !=1">
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
     </div>
-
-    <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec">
-
-        <div class="row mb-4">
-            <div class="col-md-6 col-12">
-                <p class="brand-profile"> {{appLanguage.brand_profile}}</p>
-                <p class="brand-para">{{appLanguage.brand_profile_text}} </p>
+</div>
+<div *ngIf="brandProfileActive == 1">
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                        <span id="title-breadcrumb-1" class="sr-only"></span>
+                        <ul class="bread-nav">
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum">
+                                <a class="b-cum">{{appLanguage.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/brand-profile">{{appLanguage.brand_profile}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum c-pink">{{appLanguage.home_page}}</li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-            <div class="col-md-6 col-12 web-farm">
-                <button type="button" class="preview" href="javascript:void(0);">{{appLanguage.preview}} </button>
 
-            </div>
-        </div>
+            <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec">
+
+                <div class="row mb-4">
+                    <div class="col-md-6 col-12">
+                        <p class="brand-profile"> {{appLanguage.brand_profile}}</p>
+                        <p class="brand-para">{{appLanguage.brand_profile_text}} </p>
+                    </div>
+                    <div class="col-md-6 col-12 web-farm">
+                        <button type="button" class="preview" href="javascript:void(0);">{{appLanguage.preview}} </button>
+
+                    </div>
+                </div>
 
 
-        <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-                <button class="btn brand-button">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                        <button class="btn brand-button">
                     <p class="home-page">Home Page</p>
                     <p class="home-pg-para"> This is your company’s main landing page. use interesting content to bring in your user </p>
                     <p-slider [(ngModel)]="homeval" [style]="{'width':'100%'}" disabled ></p-slider>
                     <p class="per-slider">{{homeval}}% <span class="complete"> complete </span></p>
                     <div class="w-100 ">
                         <button type="button" class="brand-pfc-butn" href="javascript:void(0);" > Go to Home page </button>
-            </div>
-            </button>
-        </div>
+                    </div>
+                    </button>
+                </div>
 
-        <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-            <button class="btn brand-button">
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                    <button class="btn brand-button">
                     <p class="home-page">About Us</p>
                     <p class="home-pg-para"> Write about your origin, who you are and what makes your company special </p>
                     <p-slider [(ngModel)]="aboutval" [style]="{'width':'100%'}" disabled></p-slider>
                     <p class="per-slider">{{aboutval}}% <span class="complete"> complete </span></p>
                     <div class="w-100 ">
                         <button type="button" class="brand-pfc-butn" href="javascript:void(0);" > Go to About us </button>
+                </div>
+                </button>
         </div>
-        </button>
-</div>
 
-<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-    <button class="btn brand-button">
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+            <button class="btn brand-button">
                     <p class="home-page">Learn</p>
                     <p class="home-pg-para"> Share facts about your coffee vairety, lots coffee making techinques </p>
                     <p-slider [(ngModel)]="learnval" [style]="{'width':'100%'}" disabled></p-slider>
                     <p class="per-slider">{{learnval}}% <span class="complete"> complete </span></p>
                     <div class="w-100 ">
                         <button type="button" class="brand-pfc-butn" href="javascript:void(0);" > Go to Learn </button>
-</div>
-</button>
-</div>
+        </div>
+        </button>
+    </div>
 
-<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-    <button class="btn brand-button">
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+        <button class="btn brand-button">
                     <p class="home-page">Sustainability</p>
                     <p class="home-pg-para"> Tell you users about your social responsibility and sustainability practices </p>
                     <p-slider [(ngModel)]="sustainval" [style]="{'width':'100%'}" disabled></p-slider>
                     <p class="per-slider">{{sustainval}}% <span class="complete"> complete </span></p>
                     <div class="w-100 ">
                         <button type="button" class="brand-pfc-butn" href="javascript:void(0);" > Go to sustainability </button>
-</div>
-</button>
-</div>
+    </div>
+    </button>
+    </div>
 
-<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-    <button class="btn brand-button">
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+        <button class="btn brand-button">
                     <p class="home-page">Blog</p>
                     <p class="home-pg-para"> Add images and videos of your estate to give the user a whole experience </p>
                     <p class="complete bor-blogs"><span class="brand-dot">  </span>15 Blogs</p>
                     <div class="w-100 ">
                         <button type="button" class="brand-pfc-butn" href="javascript:void(0);" > Go to Blogs </button>
-</div>
-</button>
-</div>
+    </div>
+    </button>
+    </div>
 
-<div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-    <button class="btn brand-button">
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+        <button class="btn brand-button">
                     <p class="home-page">Visit Us</p>
                     <p class="home-pg-para"> Add your contact details and basic FAQs of your estate  </p>
                     <p-slider [(ngModel)]="visitval" [style]="{'width':'100%'}" disabled></p-slider>
                     <p class="per-slider">{{visitval}}% <span class="complete"> complete </span></p>
                     <div class="w-100 ">
                         <button type="button" class="brand-pfc-butn" href="javascript:void(0);" >Go to Visit us </button>
-</div>
-</button>
-</div>
+    </div>
+    </button>
+    </div>
 
 
-</div>
-<div class="mobile-farm  col-12">
-    <button type="button" class="brand-pfc-butn" href="javascript:void(0);"> Preview </button>
-</div>
+    </div>
+    <div class="mobile-farm  col-12">
+        <button type="button" class="brand-pfc-butn" href="javascript:void(0);"> Preview </button>
+    </div>
+    </section>
+    </div>
+    </div>
 </section>
-
-
-
-
-
 </div>

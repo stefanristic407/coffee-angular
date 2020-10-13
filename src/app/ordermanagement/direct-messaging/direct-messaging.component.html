@@ -1,4 +1,10 @@
-
+<div class="total-loader" *ngIf="messagingActive !=1">
+        <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+        <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+        </div>
+    </div>
+    <div *ngIf="messagingActive == 1">
 <section>
     <!-- <div class="imageFile"></div> -->
     <!--Chat Main screen with accounts-->
@@ -355,3 +361,4 @@
 
     </div>
 </ng-template>
+</div>

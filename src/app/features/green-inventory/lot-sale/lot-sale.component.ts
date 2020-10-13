@@ -8,11 +8,17 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class LotSaleComponent implements OnInit {
   appLanguage: any;
+  lotSaleActive:any =0;
 
   constructor(private globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
+  language(){
+   
+    this.appLanguage = this.globals.languageJson;
+   this.lotSaleActive++;
 
+  }
 }

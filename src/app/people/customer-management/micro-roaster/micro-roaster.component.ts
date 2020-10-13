@@ -22,6 +22,8 @@ export class MicroRoasterComponent implements OnInit {
   roasterId: any;
   odd: boolean = false ;
   appLanguage: any;
+  microActive:any=0;
+
   constructor(public router: Router,
     public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -51,9 +53,13 @@ export class MicroRoasterComponent implements OnInit {
       this.router.navigate(["/auth/login"]);
     }
     this.getMicroRoaster();
-    this.appLanguage = this.globals.languageJson;
+    this.language();
   }
 
+  language(){
+    this.appLanguage = this.globals.languageJson;
+    this.microActive++;
+  }
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
@@ -93,7 +99,8 @@ export class MicroRoasterComponent implements OnInit {
           else {
             this.odd = false ;
             this.mainData = data['result'];
-          }
+		  }
+		  this.microActive++;
         } 
         else {
           this.odd = true ;
@@ -102,6 +109,4 @@ export class MicroRoasterComponent implements OnInit {
       }
     )
   }
-
-
 }
