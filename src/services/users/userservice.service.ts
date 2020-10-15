@@ -178,6 +178,7 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data);
   }
 
+
   //API Function Name : Update Edit Member
   //API Description: This API calls helps to Edit userdata Details.
 
@@ -388,7 +389,7 @@ export class UserserviceService {
     var data = {};
     data["api_call"] = "/ro/onboard";
     data["data"] = body;
-    data['token'] = "";
+    data['token'] = this.cookieService.get('authorization_key');
     return this.http.post(this.roasterUrl, data);
   }
 
@@ -402,5 +403,18 @@ export class UserserviceService {
     data["token"] = "";
     return this.http.post(this.roasterUrl, data);
   }
-
+  addConverseLanguage(body: any) {
+    var data = {};
+    data['api_call'] = "/users/converse-languages";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+  getConverseLanguage() {
+    var data = {};
+    data["api_call"] = "/users/converse-languages";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
 }

@@ -26,14 +26,14 @@
                             <div class="search-on-site">
                                 <div class="search-on-site__input fnt-muli">
                                     <img class="img d-inline-block" src="assets/images/search.svg">
-                                    <input type="search" placeholder="Search.." class="float-right pt-1">
+                                    <input type="search" placeholder="Search.." class="float-right fadout-search pt-1">
                                 </div>
                             </div>
                         </form>
                     </div>
                     <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                         <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                            <a href="javascript:void(0)" class="d-inline-block image-card">
+                            <a routerLink="../people/team-members" class="d-inline-block image-card">
                                 <img class="img" src="assets/images/add.svg">
                             </a>
                         </li>
@@ -50,12 +50,15 @@
                         <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
                             <div class="profile-link d-flex align-items-center">
                                 <div class="profile-link__img d-inline-block mr-md-2">
-                                    <img src="{{profilePic}}" class="profile-pic">
+                                    <!-- <img src="{{profilePic}}" class="profile-pic"> -->
+                                    <img *ngIf="profilePic !=''" class="profile-pic" src="{{profilePic}}">
+                                    <img *ngIf="profilePic ==''" class="profile-pic" src="assets/images/profile.svg">
                                 </div>
                                 <div class="profile-link__info pl-lg-1 float-right">
                                     <div>
                                         <a class="profile-name" role="button" [popover]="popTemplate" #pop2="bs-popover" placement="bottom" container="body" [outsideClick]="true">
-                                            <span class="pl-1 col-2 float-right"><img src="assets/images/triangle.svg"> </span><h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont text-overflow-ellipsis col-10">{{userName}}</h6>
+                                            <span class="pl-1 col-2 float-right"><img src="assets/images/triangle.svg"> </span>
+                                            <h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont text-overflow-ellipsis col-10">{{userName}}</h6>
                                             <span class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2" style="transform: translateY(-10px);">{{appLanguage.admin}}</span>
                                         </a>
                                         <ng-template #popTemplate>
@@ -102,7 +105,7 @@
                             </a>
                                 </li>
 
-                                <li class="nav-links__item arrow d-inline-block position-relative">
+                                <li class="nav-links__item arrow d-inline-block position-relative active">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage.order_management}}
                             </a>
                                     <ul class="nav-dropdown fnt-600">
@@ -121,7 +124,7 @@
                                     <a class="d-inline-block fnt-600" routerLink="../features/green-coffee-inventory">{{appLanguage.inventory}}
                                     </a>
                                 </li>
-                               
+
                                 <li class="nav-links__item d-inline-block position-relative">
                                     <a class="d-inline-block fnt-600" routerLink="../features/roasted-coffee-batch">{{appLanguage.ecommerce}}
                             </a>
@@ -235,7 +238,9 @@
                                 <div class="ft-dropdown__content">
                                     <a href="javascript:void(0)" class="ft-dropdown__link d-flex clearfix align-items-center">
                                         <div class="img float-left mr-2">
-                                            <img class="profile-pic" src="{{profilePic}}">
+                                            <!-- <img class="profile-pic" src="{{profilePic}}"> -->
+                                            <img *ngIf="profilePic !=''" class="profile-pic" src="{{profilePic}}">
+                                            <img *ngIf="profilePic ==''" class="profile-pic" src="assets/images/profile.svg">
                                         </div>
                                         <span class="text-capitalize">{{appLanguage.my_profile}}</span>
                                     </a>

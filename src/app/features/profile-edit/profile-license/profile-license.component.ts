@@ -32,6 +32,8 @@ export class ProfileLicenseComponent implements OnInit {
   userId: string;
   appLanguage: any;
   licenseActive:any=0;
+  certificationTypeError: string;
+  certificateTypeArray: any;
 
   constructor(
     private _cokkieService: CookieService,
@@ -44,6 +46,7 @@ export class ProfileLicenseComponent implements OnInit {
       id: 1,
       name: "",
       year: "",
+      type: "",
       certattachment: "",
       attachFileDiv: true,
       fileTagDiv: false,
@@ -54,7 +57,7 @@ export class ProfileLicenseComponent implements OnInit {
     this.userId = this._cokkieService.get('user_id');
     this.certificationNameError = "";
     this.certificationYearError = "";
-    // this.certificationFileError = '';
+    this.certificationTypeError = '';
   }
 
  
@@ -64,6 +67,7 @@ export class ProfileLicenseComponent implements OnInit {
     this.secondButtonValue = "Save";
     this.language();
     this.getCertificates();
+    this.getCertificateTypes();
   }
   language(){
     this.appLanguage = this.globals.languageJson;
@@ -89,6 +93,20 @@ export class ProfileLicenseComponent implements OnInit {
           this.licenseActive++;
 
           console.log(this.savedcertificatesArray);
+        }
+      }
+    )
+  }
+
+  getCertificateTypes(){
+    this._userService.getCertificateTypes().subscribe(
+      res => {
+        if(res['success'] == true){
+          this.certificateTypeArray = res['result'];
+          console.log("types", this.certificateTypeArray)
+        }
+        else{
+          this.toastrService.error("Error while getting certificate types");
         }
       }
     )
@@ -151,6 +169,7 @@ export class ProfileLicenseComponent implements OnInit {
       id: this.addanotherrow,
       name: "",
       year: "",
+      type: "",
       certattachment: "",
       attachFileDiv: true,
       fileTagDiv: false,
@@ -177,13 +196,17 @@ export class ProfileLicenseComponent implements OnInit {
           $(".myAlert-top").show();
           this.certificationNameError = "Please Fill the mandatory Fields";
           this.certificationYearError = "Please Fill the mandatory Fields";
+          this.certificationTypeError = "Please Fill the mandatory Fields";
           document.getElementById("certification_name").style.border =
             "1px solid #d50000";
             document.getElementById("certification_year").style.border =
             "1px solid #d50000";
+            document.getElementById("certification_type").style.border =
+            "1px solid #d50000";
           setTimeout(() => {
             this.certificationNameError = "";
             this.certificationYearError = "";
+            this.certificationTypeError = "";
           }, 3000);
         }
       else if (
@@ -211,6 +234,19 @@ export class ProfileLicenseComponent implements OnInit {
           this.certificationYearError = "";
         }, 3000);
       }
+      else if (
+        this.licenseArray[j].type == 0 ||
+        this.licenseArray[j].type == null ||
+        this.licenseArray[j].type == undefined
+      ) {
+        $(".myAlert-top").show();
+        this.certificationYearError = "Please select certification Type";
+        document.getElementById("certification_type").style.border =
+          "1px solid #d50000";
+        setTimeout(() => {
+          this.certificationTypeError = "";
+        }, 3000);
+      }
       // else if(this.files[0]  == null || this.files[0] == undefined){
       //   $(".myAlert-top").show();
       //   this.certificationFileError="Please enter your certification File";
@@ -231,6 +267,10 @@ export class ProfileLicenseComponent implements OnInit {
             // Need to call an upload certificate API, if success response comes flag value will be "uploaded" else "upload" .
             var name = this.licenseArray[j].name;
             var year = this.licenseArray[j].year;
+            var type = this.licenseArray[j].type;
+            // debugger
+            // var type_id = parseInt(type)
+            // console.log(type_id);
             let fileList: FileList = this.fileEvent;
 
             if (fileList.length > 0) {
@@ -239,6 +279,7 @@ export class ProfileLicenseComponent implements OnInit {
               formData.append("file", file, file.name);
               formData.append("name", name);
               formData.append("year", year);
+              formData.append("certificate_type_id", type);
               this.roasterId = this._cokkieService.get("roaster_id");
               this.userId = this._cokkieService.get('user_id');
               formData.append(
@@ -259,6 +300,7 @@ export class ProfileLicenseComponent implements OnInit {
                       sid: uploadResult["result"]["id"],
                       sname: name,
                       syear: year,
+                      stype: type,
                       scertattachment: this.licenseArray[j].certattachment,
                       uploadFileFlag: uploadCondition
                     });
@@ -298,6 +340,7 @@ export class ProfileLicenseComponent implements OnInit {
         id: 1,
         name: "",
         year: "",
+        type: "",
         certattachment: "",
         attachFileDiv: true,
         fileTagDiv: false,
@@ -321,6 +364,7 @@ export class ProfileLicenseComponent implements OnInit {
           id: this.addanotherrow,
           name: this.savedcertificatesArray[y].sname,
           year: this.savedcertificatesArray[y].syear,
+          type: this.savedcertificatesArray[y].stype,
           certattachment: this.savedcertificatesArray[y].scertattachment,
           attachFileDiv: false,
           fileTagDiv: true,

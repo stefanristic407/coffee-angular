@@ -409,6 +409,26 @@ tr:hover>td>.show_btns {
 .mobile_view_user {
     display: none;
 }
+.help {
+    font-size: 1.95em;
+    cursor: pointer;
+    position: relative;
+    top: 0.35rem;
+}
+
+:host ::ng-deep .ui-dialog .ui-dialog-content {
+    padding: 1rem 2rem !important;
+    font-family: 'Muli' !important;
+}
+
+:host ::ng-deep .ui-widget {
+    font-size: 14px !important;
+}
+:host ::ng-deep .ui-dialog .ui-dialog-title {
+    font-size: 20px !important;
+    font-family: 'Muli' !important;
+}
+
 /* Responsive columns */
 
 @media screen and (max-width: 991px) {

@@ -201,15 +201,6 @@ label {
     margin-right: 14px;
 }
 
-.add-partner span {
-    color: #80460b;
-    text-decoration: underline;
-}
-
-.add-partner {
-    cursor: pointer;
-}
-
 .delete-rows {
     color: #30855c;
     font-size: 14px;
@@ -292,4 +283,33 @@ label {
     .crumb-space {
         margin-left: 10px;
     }
+}
+
+.add-partner span {
+    color: #80460b;
+    position: relative;
+}
+
+.add-partner {
+    cursor: pointer;
+}
+
+.add-partner span::after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    background-color: #80460b;
+    transition: 0.4s ease-in-out;
+}
+
+.add-partner span:hover {
+    color: #80460b;
+    text-decoration: none;
+}
+
+.add-partner span:hover::after {
+    width: 100%;
 }

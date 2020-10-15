@@ -1,3 +1,10 @@
+<div class="total-loader" *ngIf="orderConfirmActive !=1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<div *ngIf="orderConfirmActive == 1">
 <div class="confirm-ffff mob-sec">
     <section class="create-role">
         <div class="back-icon w-100">
@@ -390,7 +397,6 @@
 
         </div>
         <div class="done_order pt-2" (click)="modalRef.hide();">Done</div>
-
-
     </div>
 </ng-template>
+</div>

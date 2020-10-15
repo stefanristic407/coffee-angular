@@ -11,14 +11,18 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class GradeInfoComponent implements OnInit {
 	appLanguage: any;
+	gradeSampleActive:any =0;
 
     constructor(public sampleService: OrderSampleService,
         public global: GlobalsService) { }
 
     ngOnInit(): void {
-        this.appLanguage = this.global.languageJson;
+        this.language();
     }
-
+    language(){
+        this.appLanguage = this.global.languageJson;
+           this.gradeSampleActive++;
+        }
 
     // Function Name : Grade Info Timeline
     // Description: This function helps to fill the grade info timeline if graded by roaster is selected of order sample .

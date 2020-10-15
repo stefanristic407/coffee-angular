@@ -654,7 +654,7 @@ export class SetupComponent implements OnInit {
                 this.cookieService.set("authorization_key", data['Authorization'])
             console.log(data);
             this.firstButtonValue = "Next";
-
+                console.log(this.cookieService.get('authorization_key'));
             $(".myAlert-top").hide();
             this.toastrService.success(
               "User details has been added successfully"

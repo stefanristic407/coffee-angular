@@ -4,57 +4,57 @@
     </div>
 </div>
 <div *ngIf="coffeeExpActive == 1">
-<section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff coffee-exp">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                <span id="title-breadcrumb-1" class="sr-only"></span>
-                <ul class="bread-nav">
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                    </li>
-                    <li class="b-cum">
-                        <a class="b-cum">{{appLanguage.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                    </li>
+    <section>
+        <div class="container sewn-container section-head-pad">
+            <div class="bg-fff coffee-exp">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum">
+                            <a class="b-cum">{{appLanguage.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
 
-                    <li class="b-cum c-pink">{{appLanguage.coffee_experience}}</li>
-                    <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
+                        <li class="b-cum c-pink">{{appLanguage.coffee_experience}}</li>
+                        <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
 
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
 
-            <section class="estate-orders-heading">
-                <h5 class="estate-order-title pt-3"> {{appLanguage.coffee_experience}}</h5>
-                <p class="Give-your-end-users">{{appLanguage.coffee_experience_text}}</p>
-            </section>
+                <section class="estate-orders-heading">
+                    <h5 class="estate-order-title pt-3"> {{appLanguage.coffee_experience}}</h5>
+                    <p class="Give-your-end-users">{{appLanguage.coffee_experience_text}}</p>
+                </section>
 
 
 
-            <section class="estate-orders">
+                <section class="estate-orders">
 
-                <!-- <div class="row mb-4">
+                    <!-- <div class="row mb-4">
         <div class="d-inline col-sm-12 search-div">
 			<input type="text" name="search" class="col-12 col-md-4 search" [(ngModel)]="estateterm" placeholder="Search by Name,role..">
 		</div>
     </div> -->
-                <div class="row web-farm">
-                    <div class="d-inline table-w  mobile-filiters-farm">
-                        <div class="title-header d-inline desk_view_user">
-                            <div class="d-inline border-order role-div col-sm-6 web-farm" id="origin_id">
-                                <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                                <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Origin&nbsp;</p>
-                                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
-                                    <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
-                                        &nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                    </p>
-                                </a>
-                                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop5="bs-popover">
-                                    <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
-                                        {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                    </p>
-                                </a>
-                            </div>&nbsp;&nbsp;
-                            <div class="d-inline border-order type-div col-sm-6 web-farm" id="type_id">
+                    <div class="row web-farm">
+                        <div class="d-inline table-w  mobile-filiters-farm">
+                            <div class="title-header d-inline desk_view_user">
+                                <div class="d-inline border-order role-div col-sm-6 web-farm" id="origin_id">
+                                    <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
+                                    <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">Origin&nbsp;</p>
+                                    <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
+                                        <p class="d-inline filter" *ngIf="estatetermOrigin == ''" (click)="toggleOrigin()">
+                                            &nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        </p>
+                                    </a>
+                                    <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" #pop5="bs-popover">
+                                        <p class="d-inline filter" *ngIf="estatetermOrigin != ''" (click)="toggleOrigin()">
+                                            {{ estatetermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        </p>
+                                    </a>
+                                </div>&nbsp;&nbsp;
+                                <!-- <div class="d-inline border-order type-div col-sm-6 web-farm" id="type_id">
                                 <p class="d-inline filter-text" *ngIf="estatetermType == ''">Type of order&nbsp;</p>
                                 <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #pop2="bs-popover">
                                     <p class="d-inline filter" *ngIf="estatetermType == ''" (click)="toggleType()">
@@ -66,8 +66,8 @@
                                         {{ estatetermType }}&nbsp; <img src="{{ showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
-                            </div>&nbsp;&nbsp;
-                            <div class="d-inline border-order status-div col-sm-6 web-farm" id="status_id">
+                            </div>&nbsp;&nbsp; -->
+                                <!-- <div class="d-inline border-order status-div col-sm-6 web-farm" id="status_id">
                                 <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">Status&nbsp;</p>
                                 <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
                                     <p class="d-inline filter" *ngIf="estatetermStatus == ''" (click)="toggleStatus()">
@@ -79,129 +79,129 @@
                                         {{ estatetermStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
-                            </div> &nbsp;&nbsp;
+                            </div> &nbsp;&nbsp; -->
 
-                            <div class="d-inline border-order date-div col-sm-6 web-farm">
-                                <p class="d-inline filter-text">Date range &nbsp;
-                                    <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
-                                </p>
-
-                                <a class="pointer-item">
-
-                                    <p class="d-inline filter">
-                                        <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
-                                        &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
-                                        <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
-                                </p-calendar> -->
+                                <div class="d-inline border-order date-div col-sm-6 web-farm">
+                                    <p class="d-inline filter-text">Date range &nbsp;
+                                        <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
                                     </p>
-                                </a>
 
-                            </div>&nbsp;&nbsp;
-                            <div class="d-inline display_div web-farm">
-                                <div class="float-right border-order top-space" id="display_id">
-                                    <p class="d-inline filter-text">Display <span class="brand-dot">  </span> </p>
-                                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
-                                        <p class="d-inline filter" *ngIf="displayNumbers == '-1'" (click)="toggleDisplay()">
-                                            &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop7="bs-popover">
-                                        <p class="d-inline filter" *ngIf="displayNumbers != '-1'" (click)="toggleDisplay()">
-                                            {{ displayNumbers }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="mobile-farm">
-                    <div class="row  pt-md-4 pb-md-4">
-                        <div class="col-12">
-                            <div class="title-header">
-                                <div class="mb-3">
-                                    <input class="d-inline search-name filter-set" type="text" name="sourcingName" [(ngModel)]="termSearch" id="sourcingName" placeholder="Search by name">
-                                </div>
-
-                                <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
-                                    <p class="d-inline filter-text" *ngIf="coffeetermOriginMob == ''">Origin&nbsp;</p>
-                                    <a class="pointer-item" [popover]="originTemplateMob" placement="bottom" container="body" #pop9="bs-popover">
-                                        <p class="d-inline filter" *ngIf="coffeetermOriginMob == ''" (click)="toggleOriginMob()">
-                                            &nbsp; <img src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                    <a class="pointer-item" [popover]="originTemplateMob" placement="bottom" container="body" #pop10="bs-popover">
-                                        <p class="d-inline filter" *ngIf="coffeetermOriginMob != ''" (click)="toggleOriginMob()">
-                                            {{ coffeetermOriginMob }} &nbsp;<img src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-
-
-                                </div>
-                                <div class="d-inline border-grade col-sm-6">
-                                    <p class="d-inline filter-text">Date&nbsp;</p>
                                     <a class="pointer-item">
+
                                         <p class="d-inline filter">
-                                            &nbsp; <img src="assets/images/active-calender.png" />
+                                            <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
+                                            &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
+                                            <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
+                                </p-calendar> -->
                                         </p>
                                     </a>
 
+                                </div>&nbsp;&nbsp;
+                                <div class="d-inline display_div web-farm">
+                                    <div class="float-right border-order top-space" id="display_id">
+                                        <p class="d-inline filter-text">Display <span class="brand-dot">  </span> </p>
+                                        <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop6="bs-popover">
+                                            <p class="d-inline filter" *ngIf="displayNumbers == '-1'" (click)="toggleDisplay()">
+                                                &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                            </p>
+                                        </a>
+                                        <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop7="bs-popover">
+                                            <p class="d-inline filter" *ngIf="displayNumbers != '-1'" (click)="toggleDisplay()">
+                                                {{ displayNumbers }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                            </p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="estate-table pt-2  web-farm">
-                    <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
 
-                    </table>
-                </div>
-                <div class="estate-table pt-2 mobile-farm">
-                    <div class="sourcing-panel mobile-farm">
-                        <section id="tabs">
-                            <div class="source-cont">
-                                <div class="row">
-                                    <div class="col-lg-12 ">
-                                        <div class="filter-sort">
-                                            <div class="btn-group">
-                                                <a class="btn-switch remove-toggle">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10">
+
+                    <div class="mobile-farm">
+                        <div class="row  pt-md-4 pb-md-4">
+                            <div class="col-12">
+                                <div class="title-header">
+                                    <div class="mb-3">
+                                        <input class="d-inline search-name filter-set" type="text" name="sourcingName" [(ngModel)]="termSearch" id="sourcingName" placeholder="Search by name">
+                                    </div>
+
+                                    <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
+                                        <p class="d-inline filter-text" *ngIf="coffeetermOriginMob == ''">Origin&nbsp;</p>
+                                        <a class="pointer-item" [popover]="originTemplateMob" placement="bottom" container="body" #pop9="bs-popover">
+                                            <p class="d-inline filter" *ngIf="coffeetermOriginMob == ''" (click)="toggleOriginMob()">
+                                                &nbsp; <img src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                            </p>
+                                        </a>
+                                        <a class="pointer-item" [popover]="originTemplateMob" placement="bottom" container="body" #pop10="bs-popover">
+                                            <p class="d-inline filter" *ngIf="coffeetermOriginMob != ''" (click)="toggleOriginMob()">
+                                                {{ coffeetermOriginMob }} &nbsp;<img src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                            </p>
+                                        </a>
+
+
+                                    </div>
+                                    <div class="d-inline border-grade col-sm-6">
+                                        <p class="d-inline filter-text">Date&nbsp;</p>
+                                        <a class="pointer-item">
+                                            <p class="d-inline filter">
+                                                &nbsp; <img src="assets/images/active-calender.png" />
+                                            </p>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="estate-table pt-2  web-farm">
+                        <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
+
+                        </table>
+                    </div>
+                    <div class="estate-table pt-2 mobile-farm">
+                        <div class="sourcing-panel mobile-farm">
+                            <section id="tabs">
+                                <div class="source-cont">
+                                    <div class="row">
+                                        <div class="col-lg-12 ">
+                                            <div class="filter-sort">
+                                                <div class="btn-group">
+                                                    <a class="btn-switch remove-toggle">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10">
                                             <path fill="#FFF"
                                                 d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z" />
                                         </svg>
 
-                                                </a>
-                                                <div class="btn-group">
-                                                    <a class="btn-switch activate-toggle active">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+                                                    </a>
+                                                    <div class="btn-group">
+                                                        <a class="btn-switch activate-toggle active">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
                                                 <path fill="#232334"
                                                     d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z" />
                                             </svg>
 
-                                                    </a>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <nav>
-                                            <div class="nav nav-tabs nav-fill pt-4" id="nav-tab" role="tablist">
-                                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true"></a>
-                                            </div>
-                                        </nav>
-                                        <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
-                                            <div class="tab-pane fade show active" id="documents" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            <nav>
+                                                <div class="nav nav-tabs nav-fill pt-4" id="nav-tab" role="tablist">
+                                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true"></a>
+                                                </div>
+                                            </nav>
+                                            <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
+                                                <div class="tab-pane fade show active" id="documents" role="tabpanel" aria-labelledby="nav-home-tab">
 
-                                                <div class="pagination-content">
-                                                    <div class="cardpanel-detail">
-                                                        <div class="row pagination-content-list">
-                                                            <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of gridData | filter:termSearch | filter: coffeetermOriginMob">
-                                                                <p><span class="black fnt-14">{{item.orderid}}</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                                                <p class="fnt-12 light-eight">{{item.name}}</p>
-                                                                <p class="fnt-12 light-eight"> {{item.origin}}</p>
-                                                                <p class="fnt-12 light-eb">{{item.date}}</p>
-                                                            </div>
-                                                            <!-- <div class="col-6 bor-coffe pagination-content-list__item">
+                                                    <div class="pagination-content">
+                                                        <div class="cardpanel-detail">
+                                                            <div class="row pagination-content-list">
+                                                                <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of gridData | filter:termSearch | filter: coffeetermOriginMob">
+                                                                    <p><span class="black fnt-14">{{item.orderid}}</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                                    <p class="fnt-12 light-eight">{{item.name}}</p>
+                                                                    <p class="fnt-12 light-eight"> {{item.origin}}</p>
+                                                                    <p class="fnt-12 light-eb">{{item.date}}</p>
+                                                                </div>
+                                                                <!-- <div class="col-6 bor-coffe pagination-content-list__item">
                                                         <p><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                         <p class="fnt-12 light-eight"> Gesha</p>
                                                         <p class="fnt-12 light-eight"> Ethiopia</p>
@@ -232,34 +232,34 @@
                                                         <p class="fnt-12 light-eight"> Brazil</p>
                                                         <p class="fnt-12 light-eb"> 20/02/19</p>
                                                     </div> -->
-                                                        </div>
+                                                            </div>
 
-                                                        <div class="responsive-pagination clearfix">
-                                                            <span class="responsive-pagination__prev float-left disable"></span>
-                                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
-                                                                <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                                                            <div class="responsive-pagination clearfix">
+                                                                <span class="responsive-pagination__prev float-left disable"></span>
+                                                                <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                                    <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
                                                 <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
                                                 <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
                                                 <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
                                                 <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
-                                                            </ul>
-                                                            <span class="responsive-pagination__next float-left"></span>
+                                                                </ul>
+                                                                <span class="responsive-pagination__next float-left"></span>
+                                                            </div>
                                                         </div>
+
                                                     </div>
 
-                                                </div>
+                                                    <div class="pagination-content">
+                                                        <div class="table-details">
+                                                            <div class="table-responsive border-sourcetable">
+                                                                <div class="row mobile-ce pagination-content-list">
+                                                                    <div class="col-12 bor-d6d6 pagination-content-list__item" *ngFor="let data of gridData  | filter:termSearch | filter: coffeetermOriginMob">
+                                                                        <p class="pt-3"><span class="black fnt-14">{{data.orderid}}</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
+                                                                        <p class="fnt-14 light-eight">{{data.name}}</p>
+                                                                        <p><span class="fnt-14 light-eight">{{data.origin}}</span> <span class=" pull-right fnt-14 light-eb">{{data.date}}</span> </p>
+                                                                    </div>
 
-                                                <div class="pagination-content">
-                                                    <div class="table-details">
-                                                        <div class="table-responsive border-sourcetable">
-                                                            <div class="row mobile-ce pagination-content-list">
-                                                                <div class="col-12 bor-d6d6 pagination-content-list__item" *ngFor="let data of gridData  | filter:termSearch | filter: coffeetermOriginMob">
-                                                                    <p class="pt-3"><span class="black fnt-14">{{data.orderid}}</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
-                                                                    <p class="fnt-14 light-eight">{{data.name}}</p>
-                                                                    <p><span class="fnt-14 light-eight">{{data.origin}}</span> <span class=" pull-right fnt-14 light-eb">{{data.date}}</span> </p>
-                                                                </div>
-
-                                                                <!-- <div class="col-12 bor-d6d6 pagination-content-list__item">
+                                                                    <!-- <div class="col-12 bor-d6d6 pagination-content-list__item">
                                                             <p class="pt-3"><span class="black fnt-14"> #56076</span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
                                                             <p class="fnt-14 light-eight"> Gesha</p>
                                                             <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
@@ -287,55 +287,55 @@
                                                             <p class="fnt-14 light-eight"> Gesha</p>
                                                             <p><span class="fnt-14 light-eight"> Colombia</span> <span class=" pull-right fnt-14 light-eb">19/12/19</span> </p>
                                                         </div> -->
-                                                            </div>
+                                                                </div>
 
-                                                        </div>
-                                                        <div class="responsive-pagination clearfix">
-                                                            <span class="responsive-pagination__prev float-left disable"></span>
-                                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
-                                                                <!-- <li class="responsive-pagination-list__item active">1</li>
+                                                            </div>
+                                                            <div class="responsive-pagination clearfix">
+                                                                <span class="responsive-pagination__prev float-left disable"></span>
+                                                                <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                                    <!-- <li class="responsive-pagination-list__item active">1</li>
                                                 <li class="responsive-pagination-list__item">2</li>
                                                 <li class="responsive-pagination-list__item">3</li>
                                                 <li class="responsive-pagination-list__item">4</li>
                                                 <li class="responsive-pagination-list__item">5</li> -->
-                                                            </ul>
-                                                            <span class="responsive-pagination__next float-left"></span>
-                                                        </div>
+                                                                </ul>
+                                                                <span class="responsive-pagination__next float-left"></span>
+                                                            </div>
 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
+                        </div>
                     </div>
-                </div>
 
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<ng-template #originTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide();toggleOrigin()">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide();toggleOrigin()">Colombia</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide();toggleOrigin()">Ethopia</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
+    <ng-template #originTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide();toggleOrigin()">All</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide();toggleOrigin()">Colombia</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide();toggleOrigin()">Ethopia</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
 
-<ng-template #allTemplate>
+    <!-- <ng-template #allTemplate>
     <div id="status-content">
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
@@ -395,41 +395,41 @@
         </ul>
     </div>
 
-</ng-template>
+</ng-template> -->
 
-<ng-template #displayTemplate>
-    <div>
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide();toggleDisplay()">All</a>
-            </li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide();toggleDisplay()">10</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide();toggleDisplay()">25</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide();toggleDisplay()">50</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide();toggleDisplay()">100</a></li>
+    <ng-template #displayTemplate>
+        <div>
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide();toggleDisplay()">All</a>
+                </li>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide();toggleDisplay()">10</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide();toggleDisplay()">25</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide();toggleDisplay()">50</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide();toggleDisplay()">100</a></li>
 
 
-        </ul>
-    </div>
+            </ul>
+        </div>
 
-</ng-template>
+    </ng-template>
 
-<ng-template #originTemplateMob>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOriginMob(''); pop9.hide(); pop10.hide();toggleOriginMob()">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide();toggleOriginMob()">Colombia</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOriginMob('Ethiopia'); pop9.hide(); pop10.hide();toggleOriginMob()">Ethiopia</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOriginMob('Brazil'); pop9.hide(); pop10.hide();toggleOriginMob()">Brazil</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
+    <ng-template #originTemplateMob>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOriginMob(''); pop9.hide(); pop10.hide();toggleOriginMob()">All</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide();toggleOriginMob()">Colombia</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOriginMob('Ethiopia'); pop9.hide(); pop10.hide();toggleOriginMob()">Ethiopia</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setOriginMob('Brazil'); pop9.hide(); pop10.hide();toggleOriginMob()">Brazil</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
 </div>

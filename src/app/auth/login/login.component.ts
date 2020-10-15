@@ -198,8 +198,14 @@ export class LoginComponent implements OnInit {
       data['password'] = this.userPassword;
       this.userService.roasterLogin(data).subscribe(
         data => {
-          if (data['success'] == true) {
+          if (data == null) {
+            this.toastrService.error("Something Went Wrong, Please Try Again");
             this.loginButtonValue = "Login";
+            // this.toastrService.error("invalid Credentials ");
+          }
+          else if (data['success'] == true) {
+            // this.loginButtonValue = "Login";
+            this.loginButtonValue = "Logging in";
             console.log("Login Successfully with user_id : " + data['result'].user_id);
             this.cookieService.set('user_id', data['result'].user_id);
             this.cookieService.set('Auth', data['Authorization']);
@@ -209,8 +215,8 @@ export class LoginComponent implements OnInit {
             this.userService.getRoasterAccount(data['result'].roaster_ids[0]).subscribe(
               result => {
                 if (result['success'] == true) {
+                  this.loginButtonValue = "Logging in";
                   this.cookieService.set('name', result['result'].name);
-                  this.loginButtonValue = "Login";
                   if (result['result'].status == "ACTIVE") {
                     this.userService.getPrivacyTerms().subscribe(
                       response => {
@@ -222,10 +228,12 @@ export class LoginComponent implements OnInit {
                           }
                         }
                         this.router.navigate(['/features/privacy-settings'], navigationExtras);
+                        this.loginButtonValue = "Login";
                         }
                         else {
                           this.toastrService.success("Logged in Successfully");
                           this.router.navigate(["/features/welcome-aboard"]);
+                          this.loginButtonValue = "Login";
                         }
                       });
                   } else if (result['result'].status == "INACTIVE") {
@@ -237,21 +245,23 @@ export class LoginComponent implements OnInit {
                 }
               }
             )
-            this.loginButtonValue = "Login";
 
           }
           else if (data['messages'] == null) {
             this.myAlertTop();
+            this.loginButtonValue = "Login";
             // this.toastrService.error("invalid Credentials ");
           }
           else if (data['messages'].email[0] == "auth_forbidden") {
             this.myAlertPermission();
+            this.loginButtonValue = "Login";
             // this.toastrService.error("No permissions to Log in ");
           }
           else {
             this.toastrService.error("Something Went Wrong, Please Try Again");
+            this.loginButtonValue = "Login";
           }
-          this.loginButtonValue = "Login";
+          // this.loginButtonValue = "Login";
 
         });
     }

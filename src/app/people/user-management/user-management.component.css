@@ -35,6 +35,7 @@
     font-weight: 500;
     color: #232334;
     line-height: 24px;
+    vertical-align: middle !important;
 }
 
 .view-btn,

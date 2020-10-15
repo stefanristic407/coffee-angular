@@ -10,11 +10,12 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class OrderChatComponent implements OnInit {
 	appLanguage: any;
+	ChatSampleActive:any =0;
 
   constructor(public global: GlobalsService) { }
 
   ngOnInit(): void {
-	this.appLanguage = this.global.languageJson;
+	this.language();
   }
 
 
@@ -194,5 +195,8 @@ export class OrderChatComponent implements OnInit {
 	  
 	  scrollToBottom();
   }
-
+  language(){
+	this.appLanguage = this.global.languageJson;
+	   this.ChatSampleActive++;
+	}
 }

@@ -28,6 +28,7 @@ cityError:string;
 service: string = "Import & Delivery service";
 serviceAmount: number = 4500;
 appLanguage: any;
+orderConfirmActive:any=0;
 
   constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public global: GlobalsService) { }
   @ViewChild('confirmtemplate') private confirmtemplate: any;
@@ -37,7 +38,7 @@ appLanguage: any;
 
   }
   ngOnInit(): void {
-    this.appLanguage = this.global.languageJson;
+    // this.appLanguage = this.global.languageJson;
     this.quantity="";
     this.confirmOrderError="";
     this.countryError= "";
@@ -45,7 +46,13 @@ appLanguage: any;
     this.zipError= "";
     this.cityError="";
     // this.price="$450";
+    this.language();  
   }
+  language(){
+    this.appLanguage = this.global.languageJson;
+    this.orderConfirmActive++;
+    }
+  
   placeOrder(){
     if(this.quantity=="" || this.quantity == null || this.quantity == undefined){
       this.confirmOrderError = "Please enter quantity";

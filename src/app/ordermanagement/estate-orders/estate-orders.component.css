@@ -218,6 +218,7 @@ table.dataTable thead th {
     font-size: 14px;
     font-weight: 600;
     color: #747588;
+    cursor: pointer;
 }
 
 .filter {
@@ -282,6 +283,7 @@ span.checkmark {
     font-size: 12px;
     font-weight: 600;
     color: #747588;
+    cursor: pointer;
 }
 
 .list-group-item:hover {
@@ -386,40 +388,20 @@ span.checkmark {
 .first_t {
     top: -5px !important;
 }
-
-
-/* On mouse-over, add a grey background color */
-
 .bestate-check:hover input~.estatecheckmark {
     background-color: #fff;
 }
-
-
-/* When the checkbox is checked, add a blue background */
-
 .bestate-check input:checked~.estatecheckmark {
     background-color: #30855c;
 }
-
-
-/* Create the checkmark/indicator (hidden when not checked) */
-
 .estatecheckmark:after {
     content: "";
     position: absolute;
     display: none;
 }
-
-
-/* Show the checkmark when checked */
-
 .bestate-check input:checked~.estatecheckmark:after {
     display: block;
 }
-
-
-/* Style the checkmark/indicator */
-
 .bestate-check .estatecheckmark:after {
     left: 5px;
     top: 2px;
@@ -446,7 +428,32 @@ span.checkmark {
     right: 3.2rem;
     top: -0.3rem;
 }
-
+.checkmark {
+    top: 2px !important;
+    left: 2px !important;
+    height: 17px !important;
+    width: 17px !important;
+}
+.customcheckbox .checkmark:after {
+    left: 5px !important;
+    top: 1px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+.customcheckbox input:checked~.checkmark {
+    background-color: #30855c !important;
+}
+.flavour-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    padding-left: 36px;
+}
 @media (max-width:991px) {
     .source-cont {
         padding: 0;

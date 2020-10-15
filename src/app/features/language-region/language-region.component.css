@@ -148,6 +148,7 @@ label {
 .lang-total{
     height:200px;
     overflow:scroll;
+    width: 180px;
 }
 
 @media screen and (max-width: 425px) {

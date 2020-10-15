@@ -1,3 +1,10 @@
+<div class="total-loader" *ngIf="SampleOrderActive !=1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<div *ngIf="SampleOrderActive == 1">
 <div class="row">
     <div class="col-md-12 lot-content lot-content--mb table-responsive mb-15">
         <table class="lot-table lot-table--vertical">
@@ -131,4 +138,5 @@
         </div>
 
     </div>
+</div>
 </div>

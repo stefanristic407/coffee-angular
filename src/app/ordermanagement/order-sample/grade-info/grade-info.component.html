@@ -1,6 +1,12 @@
 
 <!-- TimeLine HTML code starts -->
-
+<div class="total-loader" *ngIf="gradeSampleActive !=1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<div *ngIf="gradeSampleActive == 1">
 <div class="d-flex progress-bar-tooltip pb-7 order-tracking--timeline">
     <div class="col-12 col-md-12 ">
 
@@ -65,4 +71,5 @@
          
         </div> -->
 
+</div>
 </div>

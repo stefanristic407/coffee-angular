@@ -165,11 +165,11 @@
             <div class="raised-mobile">
                 <div class="row  pt-md-4 pb-md-4">
                     <div class="col-12">
-                    <div class="title-header">
-                        <div class="mb-3">
-                        <input class="d-inline search-name filter-set" type="text" name="sourcingName" id="sourcingName" [(ngModel)]="searchTerm" placeholder="Search by name">
-                        </div>
-                        <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
+                        <div class="title-header">
+                            <div class="mb-3">
+                                <input class="d-inline search-name filter-set fadout-search" type="text" name="sourcingName" id="sourcingName" [(ngModel)]="searchTerm" placeholder="Search by name">
+                            </div>
+                            <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
                                 <p class="d-inline filter-text" *ngIf="estatetermOriginMob == ''">Origin&nbsp;</p>
                                 <a class="pointer-item" [popover]="originTemplateMob" placement="bottom" container="body" #pop9="bs-popover">
                                     <p class="d-inline filter" *ngIf="estatetermOriginMob == ''" (click)="toggleOriginMob()">
@@ -181,7 +181,7 @@
                                         {{ estatetermOriginMob }} &nbsp;<img src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
-            
+
                             </div>
                             <div class="d-inline border-grade col-sm-6" id="type_id_Mob">
                                 <p class="d-inline filter-text" *ngIf="estatetermTypeMob == ''">Type of order&nbsp;</p>
@@ -195,7 +195,7 @@
                                         {{ estatetermTypeMob }}&nbsp; <img src="{{ showTypeMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
-            
+
                             </div>
                             <div class="d-inline border-grade col-sm-6" id="status_id_Mob">
                                 <p class="d-inline filter-text" *ngIf="estatetermStatusMob == ''">Status&nbsp;</p>
@@ -211,67 +211,67 @@
                                 </a>
                             </div>
                             <div class="d-inline border-grade col-sm-6">
-                                    <p class="d-inline filter-text">Date &nbsp;
-                                            <span *ngIf="showDateRange != ''"></span>
-                                        </p>
-                
-                                        <a class="pointer-item">
-                
-                                            <p class="d-inline filter">
-                                                <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" ></p-calendar>
-                                                &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
-                                                <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
+                                <p class="d-inline filter-text">Date &nbsp;
+                                    <span *ngIf="showDateRange != ''"></span>
+                                </p>
+
+                                <a class="pointer-item">
+
+                                    <p class="d-inline filter">
+                                        <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true"></p-calendar>
+                                        &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
+                                        <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                                 </p-calendar> -->
-                                            </p>
-                                        </a>
-                
+                                    </p>
+                                </a>
+
                                 <!-- <p class="d-inline filter-text">Date&nbsp;</p>
                                 <a class="pointer-item">
                                     <p class="d-inline filter">
                                         &nbsp; <img src="assets/images/active-user.png" />
                                     </p>
                                 </a> -->
-            
+
                             </div>
-        
-                    </div>
+
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                            <div class="pagination-content">
+                        <div class="pagination-content">
 
-                        <div class="raised-list mt-5 mb-5">
-                            <ul class="cleafix pagination-content-list" >
-                                <li class="order-raised pagination-content-list__item" *ngFor="let role of data  | filter:estatetermOriginMob | filter:estatetermTypeMob | filter: estatetermStatusMob | filter:searchTerm">
-                                    <div class="raised-detils d-inline-block  pb-3" (click)="OrderDetails($event,role);">
-                                        <div class="raised-tit">
-                                            <h4 class="col-8">{{role.status}}</h4>
-                                            <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
-                                        </div>
-                                        <div class="raised-ticket">
-                                            <h4 class="col-8 mt-3 pull-left">{{role.id}}</h4>
-                                            <h6  class="col-4 mt-3 pull-right text-right">{{role.dataordered}}</h6>
-                                            <div class="estate-order clearfix">
-                                            <h3 class="d-inline-block pl-0 pr-0 mr-3">{{role.facilitatorname}}  l  {{role.origin}}</h3>
-                                            <!-- <label class="ml-3 pull-left">{{role.typeoforder}}</label> -->
-                                            <span class="status-booked" *ngIf="role.typeoforder == 'Booked'">&#9679; {{role.typeoforder}}</span>
-                                            <span class="status-prebook" *ngIf="role.typeoforder == 'Pre-Booked'">
+                            <div class="raised-list mt-5 mb-5">
+                                <ul class="cleafix pagination-content-list">
+                                    <li class="order-raised pagination-content-list__item" *ngFor="let role of data  | filter:estatetermOriginMob | filter:estatetermTypeMob | filter: estatetermStatusMob | filter:searchTerm">
+                                        <div class="raised-detils d-inline-block  pb-3" (click)="OrderDetails($event,role);">
+                                            <div class="raised-tit">
+                                                <h4 class="col-8">{{role.status}}</h4>
+                                                <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
+                                            </div>
+                                            <div class="raised-ticket">
+                                                <h4 class="col-8 mt-3 pull-left">{{role.id}}</h4>
+                                                <h6 class="col-4 mt-3 pull-right text-right">{{role.dataordered}}</h6>
+                                                <div class="estate-order clearfix">
+                                                    <h3 class="d-inline-block pl-0 pr-0 mr-3">{{role.facilitatorname}} l {{role.origin}}</h3>
+                                                    <!-- <label class="ml-3 pull-left">{{role.typeoforder}}</label> -->
+                                                    <span class="status-booked" *ngIf="role.typeoforder == 'Booked'">&#9679; {{role.typeoforder}}</span>
+                                                    <span class="status-prebook" *ngIf="role.typeoforder == 'Pre-Booked'">
                                                    &#9679; {{role.typeoforder}}
                                             </span>
-                                            <span class="status-sample" *ngIf="role.typeoforder == 'Sample'">
+                                                    <span class="status-sample" *ngIf="role.typeoforder == 'Sample'">
                                                 &#9679; {{role.typeoforder}}
                                          </span>
-                           
+
+                                                </div>
+
+                                                <a href="#" class="col-4 mt-3 pull-right text-right">See details <img class="pl-1" src="assets/images/estate-arrow.svg" alt=""></a>
+                                            </div>
                                         </div>
-                                           
-                                           <a href="#" class="col-4 mt-3 pull-right text-right">See details <img class="pl-1" src="assets/images/estate-arrow.svg" alt=""></a>
-                                        </div>
-                                    </div>
-                                </li>
-                             
-                            </ul>
-                            <div class="responsive-pagination clearfix">
+                                    </li>
+
+                                </ul>
+                                <div class="responsive-pagination clearfix">
                                     <span class="responsive-pagination__prev float-left disable"></span>
                                     <ul class="responsive-pagination-list d-flex float-left mb-0">
                                         <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
@@ -293,7 +293,7 @@
         </div>
     </section>
 
-    
+
 </div>
 
 <ng-template #originTemplate>
@@ -393,26 +393,26 @@
 
 
 <ng-template #originTemplateMob>
-        <div id="status-content">
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setOriginMob(''); pop9.hide(); pop10.hide();toggleOriginMob()">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide();toggleOriginMob()">Colombia</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setOriginMob('Ethopia'); pop9.hide(); pop10.hide();toggleOriginMob()">Ethopia</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setOriginMob(''); pop9.hide(); pop10.hide();toggleOriginMob()">All</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide();toggleOriginMob()">Colombia</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setOriginMob('Ethopia'); pop9.hide(); pop10.hide();toggleOriginMob()">Ethopia</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
 
-    <ng-template #allTemplateMob>
-            <div id="status-content">
-                <ul class="list-group custom-popover">
-                    <li class="list-group-item item-color">
-                        <a class="pointer-item" (click)="setStatus(''); pop13.hide(); pop14.hide();toggleStatusMob()">All</a
+<ng-template #allTemplateMob>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus(''); pop13.hide(); pop14.hide();toggleStatusMob()">All</a
                           >
                         </li>
                         <li class="list-group-item item-color">
@@ -461,11 +461,11 @@
                                       >
                                     </li>
                                     <li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Sample'); pop11.hide(); pop12.hide();toggleTypeMob()">Sample</a></li>
-                    <li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Booked'); pop11.hide(); pop12.hide();toggleTypeMob()">Booked</a></li>
-                    <li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Pre-Booked'); pop11.hide(); pop12.hide();toggleTypeMob()">Pre-Booked</a></li>
-        
-        
-                </ul>
-            </div>
-        
-        </ng-template>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Booked'); pop11.hide(); pop12.hide();toggleTypeMob()">Booked</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Pre-Booked'); pop11.hide(); pop12.hide();toggleTypeMob()">Pre-Booked</a></li>
+
+
+        </ul>
+    </div>
+
+</ng-template>

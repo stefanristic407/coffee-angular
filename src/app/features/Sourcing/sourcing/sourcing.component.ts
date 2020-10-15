@@ -43,13 +43,14 @@ export class SourcingComponent implements OnInit {
 		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '8.92',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84.0' }
   ];
   // appLanguage: any;
+  activeTab = this.sourcingService.currentView;
+
   constructor(public sourcingService:SourcingService,private modalService: BsModalService,private router: Router,private globals: GlobalsService
     ,private renderer: Renderer2) {
       // this.renderer.listen('window', 'click',(e:Event)=>{ 
       //   if()
       //   this.modalRef.hide()
       // });
-
      }
 
   openModal(template: TemplateRef<any>) {
@@ -63,7 +64,8 @@ export class SourcingComponent implements OnInit {
     this.origin = '';
     this.weight = 'kg';
     this.variety='';
-    this.language();
+    this.appLanguage = this.globals.languageJson;
+    // this.sourcingService.currentView =  "search";
 
      //Toggle Esstate active
 	  $('.btn-switch').click(function() {
@@ -89,6 +91,7 @@ export class SourcingComponent implements OnInit {
     $('.nav-links__item').eq(1).addClass('active');
 
 
+   
 
 /* pagination start */
 let listCount = 0;
@@ -361,9 +364,18 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 /* pagination ends */
 
 
+// this.language();
 
   }
-  
+  search(activeTab){
+    this.activeTab = activeTab;
+    this.sourcingService.currentView = activeTab ;
+  }
+
+  result(activeTab){
+    this.activeTab = activeTab;
+    this.sourcingService.currentView = activeTab ;
+  }
   setGrade(data:any){
     this.grade=data;
   }
@@ -393,11 +405,11 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 			document.getElementById('grade_id').style.border="1px solid #d6d6d6";
 		
 		}
-  }
-  language(){
-    this.appLanguage = this.globals.languageJson;
-       this.sourcingActive++;
-    }
+  	}
+//   language(){
+//     this.appLanguage = this.globals.languageJson;
+//        this.sourcingActive++;
+//     }
   toggleCrop(){
     this.showCrop=!this.showCrop;
     if(this.showCrop==false){
@@ -430,8 +442,11 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   }
   estateList(){
     this.router.navigate(["/features/estate-details"]);
+    this.sourcingService.currentView = "search" ;
   }
   availableCoffeeList(){
     this.router.navigate(["/features/available-coffee-list"]);
+    this.sourcingService.currentView = "result" ;
+
   }
 }

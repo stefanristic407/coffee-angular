@@ -37,6 +37,7 @@ export class OrderSampleComponent implements OnInit {
 	totalstar = 5;
 	newvalue: any = 2;
 	appLanguage: any;
+	orderSampleActive:any =0;
 
 	constructor(private sampleService: OrderSampleService, private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
@@ -47,7 +48,7 @@ export class OrderSampleComponent implements OnInit {
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		  }
-		  this.appLanguage = this.global.languageJson;
+		  this.language();
 		//Fills the time line based on the status selected in estate order.
 		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
 		console.log("the data from table trigger is  : " + this.dataFromTable);
@@ -173,6 +174,11 @@ export class OrderSampleComponent implements OnInit {
 		this.orderSampleTimeline = false;
 		this.confirmShow = false;
 		this.cancelShow = true;
+	}
+
+	language(){
+		this.appLanguage = this.global.languageJson;
+		this.orderSampleActive++;
 	}
 
 	//Click on cancel button scrolls to cancel div

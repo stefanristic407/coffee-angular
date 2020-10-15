@@ -1,10 +1,10 @@
-<div class="total-loader" *ngIf="langActive !=2">
+<div class="total-loader" *ngIf="langActive !=1">
 	<!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
 	<div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
 		<img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
 	</div>
 </div>
-<div *ngIf="langActive == 2">
+<div *ngIf="langActive == 1">
 <section>
     <div class="container sewn-container section-head-pad">
         <div class="bg-fff">
@@ -600,7 +600,7 @@
 <ng-template #allTemplate>
     <div id="status-content">
         <ul class="list-group custom-popover lang-total">
-            <li class="list-group-item item-color pointer-item" *ngFor="let language of languageCodeArray" (click)="addLang(language.name); pop2.hide()">
+            <li class="list-group-item item-color pointer-item" *ngFor="let language of languageCodeArray" (click)="addLang(language.name,language.code); pop2.hide()">
 					<!-- <li class="list-group-item item-color" (click)="setCrop(''); pop6.hide(); "><a class="pointer-item">All</a></li> -->
             	<a class="pointer-item">{{language.name}}</a>
         	</li>

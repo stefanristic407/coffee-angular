@@ -1,3 +1,10 @@
+<div class="total-loader" *ngIf="orderSampleActive !=1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<div *ngIf="orderSampleActive == 1">
 <div class="total_header mb-md-2 page-breadcrumb margin-mb-0 pmb-0">
     <div class="row">
         <div class="col-12">
@@ -468,4 +475,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

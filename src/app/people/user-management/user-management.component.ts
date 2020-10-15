@@ -38,7 +38,7 @@ export class UserManagementComponent implements OnInit {
   assignButtonValue: string;
   roleData: any = "";
   loginValue: any;
-  displayModal: boolean;
+  // displayModal: boolean;
   showVar: boolean = true;
   showRole:boolean = true;
   showMobVar:boolean = true;
@@ -132,9 +132,9 @@ this.language();
 
     // Function Name : Help
   // Description: This function helps to show the Help modal - info regarding the page 
-  showModalDialog() {
-    this.displayModal = true;
-}
+//   showModalDialog() {
+//     this.displayModal = true;
+// }
 
   // Function Name : Roaster
   // Description: This function helps to get the Role Id from user management page 

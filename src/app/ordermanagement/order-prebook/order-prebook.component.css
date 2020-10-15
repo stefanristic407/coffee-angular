@@ -259,17 +259,43 @@ li.nav-item {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
+    line-height: 24px;
     color: #232334;
-    padding: 1rem 2rem;
 }
 
 .nav-pills .nav-link.active {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #30855c;
-    padding: 1rem 2rem;
-    /*  changes as per design */
+    position: relative;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    display: inline-block;
+}
+
+.nav-pills .nav-link:before {
+    content: '';
+    width: 0%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 80%;
+    transform: translate(-50%);
+    border-radius: 1.5px;
+    background-color: #30855c;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.nav-pills .nav-link:hover::before {
+    width: 100%;
+    content: '';
+    opacity: 1;
+}
+
+.nav-pills .nav-link.active:before {
+    opacity: 1;
+    width: 100%;
 }
 
 .problem-text {

@@ -25,6 +25,8 @@ export class ManageRoleComponent implements OnInit {
   userRoles: any[] = [];
   appLanguage: any;
   roleActive:any=0;
+  displayModal: boolean;
+
   constructor(
     public router: Router,
     private roasterService: RoasterserviceService,
@@ -173,4 +175,9 @@ language(){
   members() {
     this.router.navigate(["/people/team-members"]);
   }
+   // Function Name : Help
+  // Description: This function helps to show the Help modal - info regarding the page 
+  showModalDialog() {
+    this.displayModal = true;
+}
 }

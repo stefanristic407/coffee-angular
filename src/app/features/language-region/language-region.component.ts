@@ -35,6 +35,9 @@ export class LanguageRegionComponent implements OnInit {
   displayModal: boolean;
   appLanguage: any;
   langActive:any =0;
+  languageCode:any=[];
+  languages:any;
+  langName:any;
 
   languageCodeArray : Array<any> = [
     {
@@ -973,6 +976,8 @@ export class LanguageRegionComponent implements OnInit {
       "native": "isiZulu"
     }
   ];
+	codeNames: any;
+	codeData: any;
 
   constructor( public userService : UserserviceService, private cookieService : CookieService,
               private toastrService : ToastrService, private router : Router,
@@ -984,7 +989,8 @@ export class LanguageRegionComponent implements OnInit {
   ngOnInit(): void {
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get('user_id');
-    this.getUserValue();
+	this.getUserValue();
+	this.getUserConverse();
 	// this.getUserLanguage();
 	this.language();
   }
@@ -1020,9 +1026,23 @@ export class LanguageRegionComponent implements OnInit {
          this.country = response['result']['country'];
          this.city = response['result']['city'];
       },500)
-      this.langActive++;
+    //   this.langActive++;
     }
   );
+}
+getUserConverse(){
+	this.userService.getConverseLanguage().subscribe(response=>{
+		console.log(response);
+		this.languages = response['result']['languages'];
+		// console.log("Before API:"+this.langChips);
+		for (var i = 0; i < this.languages.length; i++) {
+		this.langName = this.languageCodeArray.find(lang => lang.code == this.languages[i]).name;
+		this.codeData = this.languageCodeArray.find(lang => lang.code == this.languages[i]).code;
+		this.langChips.push(this.langName);
+		this.languageCode.push(this.codeData);
+		}
+		// console.log("API:"+this.langChips);
+	})
 }
 
 // getUserLanguage(){
@@ -1036,17 +1056,18 @@ export class LanguageRegionComponent implements OnInit {
 // }
 
 
-  addLang(value:any) {
+  addLang(value:any,code:any) {
     // const input = event.input;
     // const value = event.value;
-
-	// Add our fruit
-	console.log("lang:"+value);
+	// console.log("lang:"+value,"code:"+code);
     if ((value || '').trim()) {
-      this.langChips.push(value.trim());
-    }
-
-    // // Reset the input value
+	  this.langChips.push(value.trim());
+	  this.languageCode.push(code);
+	}
+  console.log(this.langChips);
+  console.log(this.languageCode);
+  
+    // // Reset the input values
     // if (input) {
     //   input.value = '';
     // }
@@ -1055,10 +1076,11 @@ export class LanguageRegionComponent implements OnInit {
 
   remove(lang: string): void {
     const index = this.langChips.indexOf(lang);
-
     if (index >= 0) {
       this.langChips.splice(index, 1);
+      this.languageCode.splice(index, 1);
     }
+    // console.log("remaining:"+this.langChips,this.languageCode);
   }
 
   showModalDialog() {
@@ -1095,18 +1117,25 @@ export class LanguageRegionComponent implements OnInit {
         "state": this.state,
         "country": this.country
       };
-    
-      // var data = {
-      //   'language' : this.lang,
-      //   'timezone' : this.timezone
-      // }
       this.userService.updateRoasterProfile( this.roaster_id,data).subscribe(
         response => {
-          console.log(response)
+          console.log(response);
           if(response['success'] == true){
+          var dataLang = {
+          	'languages' : this.languageCode,
+          }
+			  this.userService.addConverseLanguage(dataLang).subscribe(result=>{
+				if(result['success'] == true){
+					this.toastrService.success("Added converse languages successfully.");
+				}
+				else{
+					this.toastrService.error("Error while adding converse languages")
+				}
+			  })
             this.toastrService.success("The Language and timezone is updated succesfully.");
             // this.router.navigate(['/features/account-settings']);
-            this.getUserValue();
+			this.getUserValue();
+			this.getUserConverse();
             this.showModalDialog();
           }
           else{
@@ -1114,8 +1143,7 @@ export class LanguageRegionComponent implements OnInit {
           }
         }
       )
-    }
-
+	}
   }
 
    // Function Name : Logout

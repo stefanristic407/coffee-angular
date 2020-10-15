@@ -334,28 +334,46 @@ li.nav-item {
     border-radius: unset;
 }
 
+.nav-pills .nav-link {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
 .nav-pills .nav-link.active {
     position: relative;
     padding-right: 2rem;
-    /*  changes as per design */
     padding-left: 2rem;
-    /*  changes as per design */
+    display: inline-block;
 }
 
-.nav-pills .nav-link.active:before {
+.nav-pills .nav-link:before {
     content: '';
-    width: 100%;
-    /*  changes as per design */
-    border-radius: 30px;
+    width: 0%;
     height: 2px;
-    background: #30855c;
     position: absolute;
     bottom: 0;
     left: 50%;
     text-align: center;
     margin: auto;
-    top: 81%;
+    top: 80%;
     transform: translate(-50%);
+    border-radius: 1.5px;
+    background-color: #30855c;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.nav-pills .nav-link:hover::before {
+    width: 100%;
+    content: '';
+    opacity: 1;
+}
+
+.nav-pills .nav-link.active:before {
+    opacity: 1;
+    width: 100%;
 }
 
 .problem-link {

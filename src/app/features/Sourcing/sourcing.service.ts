@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SourcingService {
-
+  currentView : string = "search";
   constructor(private http: HttpClient) {
    }
 

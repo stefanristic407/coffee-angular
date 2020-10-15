@@ -16777,7 +16777,27 @@ table.dataTable thead .sorting_desc:before {
 .view-order {
     font-weight: bold !important;
     color: #80460b !important;
-    text-decoration: underline;
+    position: relative;
+}
+
+.view-order::after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 1px;
+    left: 0;
+    bottom: 15px;
+    background-color: #80460b;
+    transition: 0.4s ease-in-out;
+}
+
+.view-order:hover {
+    color: #80460b;
+    text-decoration: none;
+}
+
+.view-order:hover::after {
+    width: 77%;
 }
 
 .estate-boby-txt thead tr th {
@@ -18501,7 +18521,7 @@ ul {
         flex-direction: column !important;
     }
     .lot-table--vertical tr th {
-        width: 150px;
+        width: 142px;
     }
     .lot-table--vertical tr td {
         padding: 10px 0 0 0 !important;
@@ -22660,17 +22680,20 @@ li.select-list__item {
     outline: 0 !important;
     box-shadow: 0 0 0 0.035rem green !important;
 }
+
+
 /* =========end for common setup css=========== */
 
-.total-loader {
-    /* position: fixed;
+
+/* .total-loader {
+    position: fixed;
     top: 0px;
     bottom: 0%;
     left: 0;
     right: 0%;
     background-color: #fff;
-    text-align: center; */
-}
+    text-align: center;
+} */
 
 .loader-gif {
     /* margin-top: 15%; */
@@ -22698,17 +22721,21 @@ li.select-list__item {
     }
 }
 
-input#search-bar:focus::-webkit-input-placeholder {
+.fadout-search:focus::-webkit-input-placeholder {
     transition: opacity 0.45s ease;
     opacity: 0;
 }
 
-input#search-bar:focus::-moz-placeholder {
+.fadout-search:focus::-moz-placeholder {
     transition: opacity 0.45s ease;
     opacity: 0;
 }
 
-input#search-bar:focus:-ms-placeholder {
+.fadout-search:focus:-ms-placeholder {
     transition: opacity 0.45s ease;
     opacity: 0;
+}
+
+.fadout-search:focus::placeholder {
+    color: transparent !important;
 }

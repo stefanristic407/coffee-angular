@@ -1,3 +1,10 @@
+<div class="total-loader" *ngIf="ChatSampleActive !=1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<div *ngIf="ChatSampleActive == 1">
 <section class="">
     <div class="container">
         <div class="row">
@@ -363,3 +370,4 @@
         </div>
     </div>
 </section>
+</div>

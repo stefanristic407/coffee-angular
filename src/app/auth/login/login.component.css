@@ -75,12 +75,29 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    text-decoration: underline !important;
+    position: relative;
+    /* text-decoration: underline !important; */
     color: #80460b !important;
+}
+
+.forgot::after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    background-color: #80460b;
+    transition: 0.4s ease-in-out;
 }
 
 .forgot:hover {
     color: #80460b;
+    text-decoration: none;
+}
+
+.forgot:hover::after {
+    width: 100%;
 }
 
 .login-butn {

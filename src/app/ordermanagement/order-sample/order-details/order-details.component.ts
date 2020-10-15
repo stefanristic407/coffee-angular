@@ -13,12 +13,13 @@ export class OrderDetailsComponent implements OnInit {
  
   files: FileList;
 	appLanguage: any;
+  SampleOrderActive:any =0;
 
   constructor(public sampleService: OrderSampleService,
     public global: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.global.languageJson;
+    this.language();
   }
 
   // Function Name : Upload receipt
@@ -33,4 +34,8 @@ export class OrderDetailsComponent implements OnInit {
     this.sampleService.uploadShow = false;
     this.sampleService.receiptShow = true;
 }
+language(){
+  this.appLanguage = this.global.languageJson;
+     this.SampleOrderActive++;
+  }
 }
