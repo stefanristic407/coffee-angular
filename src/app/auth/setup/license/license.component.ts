@@ -258,7 +258,7 @@ export class LicenseComponent implements OnInit {
                 "api_call",
                 "/ro/" + this.roasterId + "/certificates"
               );
-              formData.append("token", this.tokenData);
+              formData.append("token", this._cokkieService.get('authorization_key'));
               this._userService
                 .uploadCertificate(formData)
                 .subscribe(uploadResult => {

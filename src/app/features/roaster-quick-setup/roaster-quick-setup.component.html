@@ -13,14 +13,14 @@
         <li class="b-cum c-pink">Customer onboarding</li>
         <div class="pull-right">
             <!-- <button type="submit" class="btn btn-succes cancel_member" routerLink="/people/team-members">{{appLanguage.cancel}}</button> -->
-            <button type="submit" class="btn btn-succes send-invites" routerLink="/people/team-members">Send invites</button>
+            <button type="submit" class="btn btn-succes send-invites" (click)="sendInvite()">Send invites</button>
         </div>
     </ul>
 </nav>
 <section class="team__total d-md-block d-none">
     <div class="row">
         <div class="col-12">
-            <div class="add-team">Invite HoReCa</div>  
+            <div class="add-team">Invite {{this.headerValue}}</div>  
             <div class="invite-setup">Invite your customers to the platform for setup </div> 
         </div>   
     </div>
@@ -39,6 +39,11 @@
                         <label for="add_member_email">{{appLanguage.enter_yoru_work_email}}<span class="star">*</span></label>
                         <input class="form-control rectangle_useremail" type="email" id="add_member_email" placeholder="you@example.com"  [(ngModel)]="add_member_email" name="add_member_email"  />
                     </div>
+                    <div class="form-group col-md-3 mt-md-1" *ngIf=" this.headerValue == 'HoReCa' ">
+                        <label for="add_member_type">{{appLanguage.enter_yoru_work_type}}<span class="star">*</span></label>
+                        <input class="form-control rectangle_useremail" type="text" id="add_member_type" placeholder="Enter your work type"  [(ngModel)]="add_member_type" name="add_member_type"  />
+                    </div>
+
                     <div>
                         <label for="add_member_email"></label>
                         <div class="mt-4 delete-link">Delete</div>
@@ -49,7 +54,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-succes cancel_member mt-5 mb-5" routerLink="/people/team-members">Cancel</button>                    </div>
+                        <button type="submit" class="btn btn-succes cancel_member mt-5 mb-5" routerLink="/features/dashboard">Cancel</button>                    </div>
                 </div>
             </form>     
         </div>

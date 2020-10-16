@@ -6,12 +6,6 @@
     padding: 2rem 0rem;
 }
 
-table.dataTable thead .sorting_asc,
-table.dataTable thead .sorting,
-table.dataTable thead .sorting_desc {
-    background-image: unset !important;
-}
-
 .estate-orders {
     position: relative;
     padding-left: 0px;
@@ -38,44 +32,12 @@ table.dataTable thead .sorting_desc {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
-.table thead th,
-table.dataTable.row-border tbody th,
-table.dataTable.row-border tbody td,
-table.dataTable.display tbody th,
-table.dataTable.display tbody td {
-    border: none !important;
-}
 
 .orders-border {
     border-radius: 4px;
     border: solid 1px #d6d6d6 !important;
 }
 
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc_disabled:before {
-    display: none !important;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fff !important;
-}
-
-table.dataTable.hover tbody tr:hover,
-table.dataTable.display tbody tr:hover {
-    background-color: #fff !important;
-}
-
-table.dataTable.row-border tbody tr {
-    border-bottom: 1px solid red;
-}
 
 .estate-title {
     border-radius: 4px;
@@ -95,38 +57,6 @@ table.dataTable.row-border tbody tr {
     padding: 6px 4px;
 }
 
-.row {
-    color: #232334 !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    font-family: 'Muli' !important;
-    border-bottom: none !important;
-}
-
-table.dataTable.no-footer {
-    border-bottom: solid 1px #d6d6d6 !important;
-    width: 100% !important;
-}
-
-table.dataTable thead th {
-    border-bottom: none !important;
-}
-
-.even {
-    font-family: Muli !important;
-    font-size: 12px !important;
-    font-weight: bold !important;
-    color: #232334 !important;
-    padding: 1rem 0rem 0rem 1rem;
-}
-
-.odd {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: bold;
-    color: #232334;
-    padding: 1rem 0rem 0rem 1rem;
-}
 
 .estate-boby-txt {
     border-radius: 4px;
@@ -233,13 +163,11 @@ table.dataTable thead th {
 }
 
 .search {
-    /*width: 255px;*/
     font-family: 'Muli';
     height: 36px;
     border-radius: 8px;
     border: solid 1px #cccccc;
     background-color: #ffffff;
-    /* background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px; */
     padding-left: 45px;
 }
 
@@ -262,23 +190,6 @@ span.checkmark {
     left: 8px !important;
 }
 
-#DataTables_Table_0_length {
-    position: relative;
-    bottom: 2.5rem;
-    left: 57%;
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: normal;
-    color: #000000;
-}
-
-.text-filters,
-#dataTables_filter input {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: normal;
-    color: #000000;
-}
 
 
 /**********popover*******/
@@ -442,7 +353,7 @@ span.checkmark {
 }
 
 .spacing-order {
-    padding: 1rem 0.6rem !important;
+    padding: 0rem !important;
 }
 
 .display_div {
@@ -618,8 +529,6 @@ ul li {
 .table-details {
     display: none;
 }
-
-
 /*  media query Fram Link */
 
 @media (max-width:767px) {

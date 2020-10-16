@@ -154,7 +154,7 @@ export class CoffeeExperienceComponent implements OnInit {
             data: 'datarecieved'
           },
           {
-            title: 'Species',
+            title: 'Variety',
             data: 'species',
             
           }, 

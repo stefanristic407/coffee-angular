@@ -1,4 +1,4 @@
-.hello-txt {
+/* .hello-txt {
     font-family: PlayfairDisplay;
     font-size: 38px;
     font-weight: normal;
@@ -94,7 +94,7 @@
         bottom: 6px;
         position: relative;
     }
-}
+} */
 
 
 /* ==========checking check box========= */
@@ -125,3 +125,227 @@
     border: solid 1px #827a7a87;
     background-color: #ffffff;
   } */
+
+  /* .form-container{
+    border-radius: 5px;
+    padding: 30px;
+    background-color: #FAF8F4;
+    border:1px solid #FAF8F4;
+    font-size: 14px;
+    margin-top: 25vh;
+
+}
+.update-title{
+    color: #1F1F1F;
+    font-weight: 600;
+    font-family: 'Muli';
+    font-size: 18px;
+}
+.chn-btn{
+    background-color: #FDFDFD;
+    border:1px solid #256547;
+    color: #256547;
+    font-weight: 600;
+    font-family: 'Muli';
+    font-size: 14px;
+    padding: 2% 10%;
+}
+.note{
+    word-wrap: break-word;
+    padding: 1% 3% 2%;
+   font-weight: 400;
+    color: #333333;
+  }
+section{
+    background-color: #FDFDFD;
+}
+
+.chn-btn:hover{
+    background-color: #256547;
+    color: #fff;
+    font-size: 14px;
+    padding: 2% 10%;
+    font-family: 'Muli';
+    border:1px solid #256547;
+}
+
+
+ */
+
+/* ========Welcome Onboard CSS======== */
+
+.hello-txt {
+    font-family: PlayfairDisplay;
+    font-size: 38px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+  }
+  .sub-text{
+    font-weight: normal;
+    line-height: 1.43;
+    color: #747588;
+  }
+  
+  .title{
+    font-family: PlayfairDisplay;
+    font-size: 34px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    color: #232334;
+  }
+  
+  .dashboard-button {
+    height: 70px;
+    width: 100%;
+    border-radius: 6px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding-left: 28px;
+    padding-right: 28px;
+    text-align: left;
+  }
+  .roaster,
+  .facilitator,
+  .estate {
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    padding-left: .5rem;
+    position: relative;
+    top: 2px;
+  }
+  
+  .logo-img {
+    bottom: 2px;
+    position: relative;
+  }
+  .dashboard-button:hover {
+    border: solid 1px #30855c;
+  }
+  
+  .dashboard-button .icon-img-filled {
+    display: none;
+  }
+  .dashboard-button:hover .icon-img-filled {
+    display: inline;
+    position: relative;
+    top: 3px;
+  }
+  .dashboard-button:hover .icon-img {
+    display: none;
+  }
+  .icon-img{
+    position: relative;
+    top: 3px;
+  }
+  
+  /* .dashboard-button .logo-img-hover {
+    display: none;
+  }
+  .dashboard-button:hover .logo-img-hover {
+    position: relative;
+    bottom: 2px;
+    display: inline;
+  } */
+  /* .dashboard-button:hover .logo-img {
+    display: none;
+  } */
+  
+  /* ========Onhover Jump Issue Fix======= */
+  img#estate_hover {
+    position: relative;
+    bottom: 3px;
+  }
+  img#facilitator_hover {
+    position: relative;
+    right: 1px;
+  }
+  
+  /* .dashboard-button:hover .facilitator {
+    position: relative;
+    top: 2px;
+    right: 0.1rem;
+  } */
+  
+  /* .dashboard-button:hover .estate {
+    position: relative;
+    top: 3px;
+  } */
+  .onboard-section{
+    padding: 0rem 2rem 15rem 3rem;
+  }
+  
+  @media only screen and (min-width: 991px) and (max-width: 1200px) {
+    .dashboard-button {
+      height: 70px;
+      width: 100%;
+      border-radius: 6px;
+      border: solid 1px #d6d6d6;
+      background-color: #ffffff;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .roaster,
+    .facilitator,
+    .estate {
+      font-family: Muli;
+      font-size: 16px;
+      font-weight: 600;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #232334;
+    }
+    .logo-img {
+      bottom: 6px;
+      position: relative;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .header-sewn {
+      text-align: center;
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .title{
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 425px){
+    .title{
+      text-align: left;
+      font-size: 22px;
+      margin-bottom: 2rem !important;
+    }
+    .roaster, .facilitator, .estate{
+      font-size: 16px;
+    }
+    .dashboard-button{
+      height: 56px;
+      border-radius: 4px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .onboard-section{
+      padding: 2rem 2rem 15rem 2rem !important;
+    }
+  }
+  

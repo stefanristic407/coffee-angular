@@ -21,6 +21,8 @@ export class UserserviceService {
   private profileImageURL = environment.apiURL+"/ro/uploadfiles";
   private languageURL = environment.apiURL+"/language";
 
+  private inviteUrl = environment.apiURL+"/ro/inviteusers";
+
   // private roasterUrl = "/ro/api";
   // private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
   // private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
@@ -381,7 +383,7 @@ export class UserserviceService {
     data["api_call"] = "/invite/users";
     data["data"] = body;
     data['token'] = "";
-    return this.http.post(this.roasterUrl, data);
+    return this.http.post(this.inviteUrl, data);
   }
   // API Function Name : Roaster Onboarding - Roaster Account addition API.
   // API Description   : This API call helps to add Roaster Account user.
@@ -416,5 +418,29 @@ export class UserserviceService {
     data["method"] = "GET";
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterUrl,data);
+  }
+
+  sendMicroRoasterInvite(roasterId: any,email:any,name:any){
+    var data = {};
+    data["api_call"] = "/ro/"+ roasterId+"/micro-roasters/invite-token";
+    data["token"] = this.cookieService.get("Auth");
+    data["method"] = "POST";
+    data['data'] = {
+      'email' : email,
+      'micro_roaster_name' : name
+    };
+    return this.http.post(this.roasterUrl, data);
+  }
+  sendHorecaInvite(roasterId: any,email:any,name:any,type:any){
+    var data = {};
+    data["api_call"] = "/ro/"+ roasterId+"/hrc/invite-token";
+    data["token"] = this.cookieService.get("Auth");
+    data["method"] = "POST";
+    data['data'] = {
+      'email' : email,
+      'horeca_name' : name,
+      'horeca_type' : type
+    };
+    return this.http.post(this.roasterUrl, data);
   }
 }

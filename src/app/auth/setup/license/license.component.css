@@ -124,6 +124,7 @@
   height: 50px !important;
   padding-top: 7px;
   cursor: pointer;
+  text-overflow: ellipsis;
 }
 .btn {
   text-decoration: none;
@@ -200,7 +201,7 @@
 
 .edit-img,
 .del-img {
-  padding-right: 10%;
+  padding-right: 10px;
   position: relative;
   bottom: 3px;
 }

@@ -1,7 +1,7 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  buttonValue: string;
 
   constructor(private router: Router,
     private cookieService:CookieService) { }
@@ -18,6 +19,29 @@ export class DashboardComponent implements OnInit {
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
+    
+  }
+  
+  microRoaster() {
+    this.buttonValue = "Micro-Roaster";
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        buttonValue: encodeURIComponent(this.buttonValue)
+      }
+    };
+
+    this.router.navigate(["/features/roaster-quick-setup"], navigationExtras);
+  }
+
+  horeca() {
+    this.buttonValue = "HoReCa";
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        buttonValue: encodeURIComponent(this.buttonValue)
+      }
+    };
+
+    this.router.navigate(["/features/roaster-quick-setup"], navigationExtras);
   }
 
 }

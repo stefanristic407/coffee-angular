@@ -125,6 +125,8 @@ import { ServiceRequestsComponent } from './green-grading/service-requests/servi
 import {SourceGradingComponent} from './green-grading/source-grading/source-grading.component';
 import { ServiceRequestedComponent} from './green-grading/service-requested/service-requested.component';
 import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
+import { MarkedSaleComponent } from './green-inventory/green-coffee-inventory/marked-sale/marked-sale.component';
+import { CoffeeProcuredTabComponent } from './green-inventory/green-coffee-inventory/coffee-procured-tab/coffee-procured-tab.component';
 
 
 @NgModule({
@@ -219,6 +221,8 @@ import { ProcessDetailsComponent } from './green-grading/process-details/process
     SourceGradingComponent,
     ServiceRequestedComponent,
     ProcessDetailsComponent,
+    MarkedSaleComponent,
+    CoffeeProcuredTabComponent,
  
   ],
   imports: [
