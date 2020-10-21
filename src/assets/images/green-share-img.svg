@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17.113" viewBox="0 0 17 17.113">
+  <g id="Group_6" data-name="Group 6" transform="translate(0 0.113)">
+    <rect id="Bounds" width="17" height="17" fill="none"/>
+    <g id="Group_4" data-name="Group 4" transform="translate(3 1)">
+      <path id="Path_2" data-name="Path 2" d="M6.968,10.95,0,5.475,6.968,0" transform="translate(1.493 1.493)" fill="none" stroke="#3d8462" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.113"/>
+      <g id="Oval" transform="translate(0 5.475)" fill="#fff" stroke="#3d8462" stroke-miterlimit="10" stroke-width="1.113">
+        <circle cx="1.64" cy="1.64" r="1.64" stroke="none"/>
+        <circle cx="1.64" cy="1.64" r="2.196" fill="none"/>
+      </g>
+      <g id="Oval-2" data-name="Oval" transform="translate(6.968 0)" fill="#fff" stroke="#3d8462" stroke-miterlimit="10" stroke-width="1.113">
+        <circle cx="1.64" cy="1.64" r="1.64" stroke="none"/>
+        <circle cx="1.64" cy="1.64" r="2.196" fill="none"/>
+      </g>
+      <g id="Oval-3" data-name="Oval" transform="translate(6.968 10.95)" fill="#fff" stroke="#3d8462" stroke-miterlimit="10" stroke-width="1.113">
+        <circle cx="1.64" cy="1.64" r="1.64" stroke="none"/>
+        <circle cx="1.64" cy="1.64" r="2.196" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

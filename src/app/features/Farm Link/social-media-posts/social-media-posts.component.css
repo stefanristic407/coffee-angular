@@ -37,11 +37,12 @@
     position: relative;
     padding-right: 15px;
     padding-left: 15px;
+    display: inline-block;
 }
 
 .nav-pills .nav-link.active:before {
     content: '';
-    width: 100%;
+    width: 0%;
     height: 2px;
     position: absolute;
     bottom: 0;
@@ -52,6 +53,19 @@
     transform: translate(-50%);
     border-radius: 1.5px;
     background-color: #30855c;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.nav-pills .nav-link:hover::before {
+    width: 100%;
+    content: '';
+    opacity: 1;
+}
+
+.nav-pills .nav-link.active:before {
+    opacity: 1;
+    width: 100%;
 }
 
 .nav-pills {

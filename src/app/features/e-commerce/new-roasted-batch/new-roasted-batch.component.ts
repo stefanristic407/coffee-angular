@@ -15,6 +15,8 @@ export class NewRoastedBatchComponent implements OnInit {
   selectable = true;
   removable = true;
   appLanguage: any;
+  greenIconShow: boolean = false;
+
 
   constructor( private globals: GlobalsService) { }
 

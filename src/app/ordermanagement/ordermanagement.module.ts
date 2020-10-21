@@ -1,3 +1,4 @@
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -39,6 +40,7 @@ import { ModalModule } from "ngx-bootstrap/modal";
 import { EstateComponent } from './dispute-system/estate/estate.component';
 import { DirectMessagingComponent } from './direct-messaging/direct-messaging.component';
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FacilitatorOrdersComponent } from './facilitator-orders/facilitator-orders.component';
 import { RoasterOrdersComponent } from './roaster-orders/roaster-orders.component';
 import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
@@ -131,6 +133,7 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
     BookedOrderConfirmationComponent
   ],
   imports: [
+    // BrowserAnimationsModule,
     CommonModule,
     OrdermanagementRoutingModule,
     DataTablesModule,
@@ -144,6 +147,7 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
     NgxChartsModule,
     AutocompleteLibModule,
     ErrorModuleModule,
+    MatTooltipModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ],

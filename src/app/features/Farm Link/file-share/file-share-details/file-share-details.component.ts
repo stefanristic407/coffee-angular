@@ -42,6 +42,7 @@ descriptionError: string;
   permission: any;
   user_id_value: any;
   fileshareActive:any=0;
+  greenIconShow: boolean = false;
 
   country: any;
     

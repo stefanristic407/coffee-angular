@@ -1,6 +1,6 @@
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Booked.
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,ViewEncapsulation } from '@angular/core';
 import { OrderBookedService } from './order-booked.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookedGradeInfoComponent } from '../order-booked/booked-grade-info/booked-grade-info.component';
@@ -14,7 +14,9 @@ import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-order-booked',
   templateUrl: './order-booked.component.html',
-  styleUrls: ['./order-booked.component.css']
+  styleUrls: ['./order-booked.component.css'],
+  encapsulation: ViewEncapsulation.None,
+
 })
 export class OrderBookedComponent implements OnInit {
   @ViewChild('orderPlacedBooked', { static: false }) private orderPlacedBooked: ElementRef<HTMLElement>;
@@ -36,6 +38,8 @@ export class OrderBookedComponent implements OnInit {
   receivedReport: boolean = false;
   gradedReport: boolean = false;
   uploadReport: boolean = true;
+  greenIconShow: boolean = false;
+
   dataFromTable: any;
 
   cancelShow: boolean = false;

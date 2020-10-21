@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g transform="translate(-272 -242) translate(272 242)">
+                <circle cx="12" cy="12" r="11.5" stroke="#74758A"/>
+                <text fill="#747588" font-family="Muli-SemiBold, Muli" font-size="14" font-weight="500">
+                    <tspan x="9" y="17">?</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

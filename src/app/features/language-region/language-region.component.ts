@@ -1135,7 +1135,7 @@ getUserConverse(){
             this.toastrService.success("The Language and timezone is updated succesfully.");
             // this.router.navigate(['/features/account-settings']);
 			this.getUserValue();
-			this.getUserConverse();
+			// this.getUserConverse();
             this.showModalDialog();
           }
           else{

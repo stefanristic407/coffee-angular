@@ -1,6 +1,6 @@
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Sample.
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,ViewEncapsulation } from '@angular/core';
 import { OrderSampleService } from './order-sample.service';
 import { ActivatedRoute } from '@angular/router';
 import { GradeInfoComponent } from '../order-sample/grade-info/grade-info.component';
@@ -12,7 +12,8 @@ import { GlobalsService } from 'src/services/globals.service';
 @Component({
 	selector: 'app-order-sample',
 	templateUrl: './order-sample.component.html',
-	styleUrls: ['./order-sample.component.css']
+	styleUrls: ['./order-sample.component.css'],
+	encapsulation: ViewEncapsulation.None,
 })
 export class OrderSampleComponent implements OnInit {
 	@ViewChild('orderPlacedSample', { static: false }) private orderPlacedSample: ElementRef<HTMLElement>;
@@ -32,6 +33,7 @@ export class OrderSampleComponent implements OnInit {
 	uploadReportSample: boolean = true;
 
 	dataFromTable: any;
+	greenIconShow: boolean = false;
 
 	cancelShow: boolean = false;
 	totalstar = 5;
@@ -84,6 +86,8 @@ export class OrderSampleComponent implements OnInit {
 				this.gradedStatusSample();
 			}, 500);
 		}
+
+		
 	}
 
 	// Function Name : Order Placed

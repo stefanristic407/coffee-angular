@@ -111,8 +111,10 @@
             </span>
           </td>
           <td  >
-            <span *ngIf="item.type == 'FOLDER'" class="showcurser" (click)="shareDetails(item)"> {{ item.updated_at | date: "d/MM/y, h:mm a" }}</span>
-            <span  *ngIf="item.type != 'FOLDER'" >{{ item.updated_at | date: "d/MM/y, h:mm a" }}</span>
+            <span *ngIf="item.type == 'FOLDER'" class="showcurser share_icon" (click)="shareDetails(item)"> {{ item.updated_at | date: "d/MM/y, h:mm a" }}<div class="edit"><a><img src="assets/images/share-img.png" alt="" /></a></div>
+           </span>
+            <span  *ngIf="item.type != 'FOLDER'" class="share_icon">{{ item.updated_at | date: "d/MM/y, h:mm a" }}<div class="edit"><a><img src="assets/images/share-img.png" alt="" /></a></div>
+            </span>
           </td>
           <td >
             <span *ngIf="item.type == 'FOLDER'" (click)="shareDetails(item)" class="showcurser"> {{ item.type | titlecase }}</span>

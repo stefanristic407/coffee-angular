@@ -1,0 +1,20 @@
+.back-arrow-butn {
+    display: inline-flex;
+}
+
+.back-href:hover .back-arrow-butn {
+    -webkit-transform: translateX(-6px);
+    -ms-transform: translateX(-6px);
+    transform: translateX(-6px);
+    -webkit-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -o-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    transition: all .6s cubic-bezier(.2, .59, .21, .6);
+}
+
+.back-page {
+    display: inline-block;
+    -webkit-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -o-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -webkit-font-smoothing: antialiased;
+}

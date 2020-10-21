@@ -45,7 +45,6 @@ table.dataTable thead .sorting_desc {
     padding: 2rem 0rem;
 }
 
-
 .estate-title {
     border-radius: 4px;
     background-color: #f8f8f8;
@@ -63,8 +62,6 @@ table.dataTable thead .sorting_desc {
     color: #232334;
 }
 
-
-
 .row {
     color: #232334 !important;
     font-size: 14px !important;
@@ -78,6 +75,9 @@ table.dataTable thead .sorting_desc {
     border: solid 1px #d6d6d6;
 }
 
+.ticket-boby-txt:hover {
+    box-shadow: 0 12px 34px 0 rgba(0, 0, 0, 0.1);
+}
 
 .view-order {
     font-family: Muli !important;
@@ -146,11 +146,13 @@ span.checkmark {
 .customcheckbox input:checked~.checkmark {
     background-color: #30855c !important;
 }
+
 .customcheckbox .checkmark:after {
     left: 6px !important;
     top: 3px !important;
     border-width: 0 2px 2px 0 !important;
 }
+
 .estate-title .checkmark {
     top: 3px !important;
 }
@@ -212,6 +214,7 @@ tr:last-child {
     padding-bottom: 2rem;
     /* cursor: pointer; */
 }
+
 .estate-orders {
     /* margin: 1rem 3.1rem; */
     position: relative;
@@ -261,6 +264,7 @@ tr:last-child {
     font-family: 'Muli' !important;
     border-bottom: none !important;
 }
+
 .estate-boby-txt {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
@@ -344,8 +348,7 @@ span.checkmark {
     color: #232334;
 }
 
-
-.customer{
+.customer {
     height: 46px;
     width: 50%;
     /* padding: 2%; */
@@ -356,9 +359,8 @@ span.checkmark {
     font-family: Muli;
     font-weight: 500;
     cursor: pointer;
-    }
+}
 
-    
 .file-share-search input[type="search"] {
     outline: 0;
     border: 0;
@@ -384,7 +386,8 @@ span.checkmark {
     background-color: #ffffff;
     padding: 5px 10px;
 }
-.notify-text{
+
+.notify-text {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -395,6 +398,8 @@ span.checkmark {
     color: #747588;
     padding-left: 5%;
 }
+
+
 /**********popover*******/
 
 .list-group-item {
@@ -541,6 +546,7 @@ span.checkmark {
     display: block;
 }
 
+
 /* .customcheckbox:hover input ~ .checkmark{
     background-color: #ffffff !important;
 } */
@@ -601,6 +607,8 @@ span.checkmark {
     position: relative;
     right: 6%;
 }
+
+
 /* .file-icon{
 height: 32px;
 width: 32px;
@@ -778,21 +786,23 @@ width: 32px;
         right: -0.9rem;
         top: -.5rem;
     }
-    .upload-order{padding: 8px 10px;}
+    .upload-order {
+        padding: 8px 10px;
+    }
     .agreement-top {
         margin-top: 2rem;
     }
     .w-30 {
         width: 25%;
     }
-    .top-padd{
-        top:8px;
+    .top-padd {
+        top: 8px;
     }
-    .customer{
+    .customer {
         height: 45px !important;
         width: 100%;
     }
-    .notify-text{
+    .notify-text {
         padding-left: 8%;
     }
 }
@@ -808,4 +818,3 @@ width: 32px;
         width: 34%;
     }
 }
-

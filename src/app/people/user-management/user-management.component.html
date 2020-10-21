@@ -23,14 +23,14 @@
 <!-- </div>
   </div>
 </div> -->
-<div class="total-loader" *ngIf="userActive != 3">
+<div class="total-loader" *ngIf="userActive != 2">
     <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
     <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
         <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
     </div>
 </div>
 
-<div class="bg-fff coffee-exp" *ngIf=" userActive == 3">
+<div class="bg-fff coffee-exp" *ngIf=" userActive == 2">
     <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
@@ -137,7 +137,7 @@
                                                 <span class="checkmark body-check"></span>
                                             </label>
                         </th>
-                        <td>{{ user.name }}</td>
+                        <td class="table_ellipsis">{{ user.name }}<span class="tooltiptext">{{ user.name }}</span></td>
                         <td>{{ user.lastLogin }}</td>
                         <td>
                             {{ user.email }}
@@ -152,7 +152,7 @@
                         </td>
                         <td>
                             <div *ngFor="let value of user.roles" id="{{ value.id }}_{{ user.id }}">
-                                <button type="submit" id="delete_row" class=" delete_row" data-toggle="tooltip" data-placement="top" title="Delete" (click)="roleDeletionRoaster(value.id, user.id)" name="action" value="DELETE">
+                                <button type="submit" id="delete_row" class=" delete_row" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openAssignRoleModal(deleteAssignTemplate,value.id, user.id)" name="action" value="DELETE">
 				<!-- <i class="fa fa-trash"></i> --> <img src="assets/images/delete.png" alt="">
 				</button>
                                 <span class="delete_name_txt"> {{ value.name }} </span> <br />
@@ -196,8 +196,7 @@
                   </li>
                   <li
                     class="list-group-item"
-                    *ngIf="user.status == 'INACTIVE' && user.id != loginId"
-                  >
+                    *ngIf="user.status == 'INACTIVE' && user.id != loginId">
                     <a
                       class="pointer-item"
                       (click)="userEnable(user.id); pop12.hide()"
@@ -206,17 +205,16 @@
                   </li>
                   <li class="list-group-item">
                     <a class="pointer-item">{{appLanguage.simulated_login}}</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a class="pointer-item" (click)="makeAdmin(user.id); pop12.hide()">{{appLanguage.make_admin}}</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a class="pointer-item">{{appLanguage.customize_permissions}}</a>
-                                        </li>
-                                        <li class="list-group-item" *ngIf="user.id != loginId">
-                                            <a class="pointer-item" (click)="deleteRoasterUser(user.id); pop12.hide()">{{appLanguage.delete}}</a
-                    >
-                  </li>
+					</li>
+					<li class="list-group-item">
+						<a class="pointer-item" (click)="makeAdmin(user.id); pop12.hide()">{{appLanguage.make_admin}}</a>
+					</li>
+					<li class="list-group-item">
+						<a class="pointer-item">{{appLanguage.customize_permissions}}</a>
+					</li>
+					<li class="list-group-item" *ngIf="user.id != loginId">
+						<a class="pointer-item" (click)="openDeleteModal(deleteTemplate,user.id); pop12.hide()">{{appLanguage.delete}}</a>
+					</li>
                 </ul>
               </div>
             </ng-template>
@@ -540,5 +538,39 @@
           like Aldus PageMaker including versions of Lorem Ipsum.
         </p>
 	  </ng-template> -->
-	  
-	</div>
+	  <ng-template #deleteTemplate>
+		<!-- <div class="modal-header border-header">
+			<h1 class="fnt-play head-roles">Manage roles</h1>
+			<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+		</div> -->
+		<div class="modal-body mt-5 mb-5 text-center fnt-muli">
+		   <div><img src="assets/images/delete-role.svg" alt=""></div>
+		   <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
+		   <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
+		   <div class="mt-4">
+				<button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage.cancel}}</button>
+				<button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRoasterUser(deleteUserId);">{{appLanguage.delete}}</button>
+		   </div>
+		</div>
+	</ng-template>
+
+	<ng-template #deleteAssignTemplate>
+		<!-- <div class="modal-header border-header">
+			<h1 class="fnt-play head-roles">Manage roles</h1>
+			<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+		</div> -->
+		<div class="modal-body mt-5 mb-5 text-center fnt-muli">
+		   <div><img src="assets/images/delete-role.svg" alt=""></div>
+		   <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
+		   <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
+		   <div class="mt-4">
+				<button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage.cancel}}</button>
+				<button class="btn delete-btn ml-3" (click)="modalRef.hide();roleDeletionRoaster(deleteValueId,deleteRoleId)">{{appLanguage.delete}}</button>
+		   </div>
+		</div>
+	</ng-template>
+</div>

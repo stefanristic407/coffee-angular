@@ -45,6 +45,9 @@ export class UserManagementComponent implements OnInit {
   showMobRole:boolean = true;
   appLanguage: any;
   userActive:any=0;
+	deleteUserId: any;
+	deleteRoleId: any;
+	deleteValueId: any;
 
   constructor(
     private _sheetValues: SheetValues,
@@ -71,12 +74,22 @@ export class UserManagementComponent implements OnInit {
   // Function Name : Open Modal
   // Description: This function helps to get the Role Id from user management page 
 
-  openModal(template: TemplateRef<any>, userId: any, userName: any) {
+  	openModal(template: TemplateRef<any>, userId: any, userName: any) {
     this.modalRef = this.modalService.show(template);
     this.modalUserRoasterId = userId;
     this.modalUserRoasterName = userName;
     //console.log("UserName : " , this.modalUserName);
   }
+  	openDeleteModal(template1:TemplateRef<any>,deleteId:any){
+	this.modalRef = this.modalService.show(template1);
+	this.deleteUserId = deleteId;
+	}
+	openAssignRoleModal(template2:TemplateRef<any>,valueId:any,deleteRoleId:any){
+	this.modalRef = this.modalService.show(template2);
+	this.deleteValueId=valueId;
+	this.deleteRoleId = deleteRoleId;
+	}
+
   ngOnInit(): void {
     //Auth checking
     if (this.cookieService.get("Auth") == "") {
@@ -177,10 +190,8 @@ this.language();
             tempData['roles'] = "";
             this.userfilterDat.push(tempData)
           });
-          this.userActive++;          
-
+        //   this.userActive++;          
         }
-        
         else {
           this.toastrService.error("Unable to fetch users data");
         }
@@ -241,7 +252,7 @@ this.language();
   // Description: This function helps to delete the selected user.
 
   deleteRoasterUser(userID: any) {
-    if (confirm("Please confirm! you want to delete?") == true) {
+    // if (confirm("Please confirm! you want to delete?") == true) {
 
       this.roasterService.deleteRoasterUser(this.roaster_id, userID).subscribe(
         response => {
@@ -259,7 +270,7 @@ this.language();
           // this.userActive++;
         }
       )
-    }
+    // }
   }
 
   // Function Name : user Disable
@@ -311,8 +322,8 @@ this.language();
   // Function Name : Roles delete
   // Description: This function helps to delete the selected user role.
 
-  roleDeletionRoaster(roleID: any, userID: any) {
-    if (confirm("Please confirm! you want to delete?") == true) {
+roleDeletionRoaster(roleID: any, userID: any) {
+    // if (confirm("Please confirm! you want to delete?") == true) {
       this.roasterService.deleteRoasterUserRole(this.roaster_id, roleID, userID).subscribe(
         res => {
           console.log(res);
@@ -321,15 +332,14 @@ this.language();
             $("#" + roleID + "_" + userID).hide();
             // this.loadUsers();
             // window.location.reload();
-
           } else {
             this.toastrService.error("Unable to delete the role. ");
           }
           // this.userActive++;
         }
       );
-    }
-  }
+    // }
+}
 
   // Function Name : Edit Member
   // Description: This function helps to redirect to edit member page with user id as route params

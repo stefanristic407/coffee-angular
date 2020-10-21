@@ -83,7 +83,6 @@ export class SourcingComponent implements OnInit {
       $(".table-details").fadeIn();
        $(".cardpanel-detail").fadeOut();
       $(".activate-toggle").removeClass('active');
-      
     });
 
     /*  active class for header */

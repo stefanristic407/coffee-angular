@@ -23,7 +23,10 @@ export class EditMembersComponent implements OnInit {
   appLanguage: any;
   emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   editActive:any=0;
-
+  savemode : boolean = false;
+  editmode : boolean = true;
+  activeFlag:boolean =true;
+  
   constructor(private router: Router,
     private cookieService: CookieService,
     private globals: GlobalsService
@@ -121,4 +124,14 @@ export class EditMembersComponent implements OnInit {
   //   }
   // }
 
+  saveMember(){
+    this.savemode = false;
+    this.editmode = true;
+  }
+  editMember(){
+    // this.contactInfo = false;
+    // this.addMediaDiv = true;
+    this.savemode = true;
+    this.editmode = false;
+  }
 }

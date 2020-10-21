@@ -30,6 +30,8 @@ export class OrderPrebookComponent implements OnInit {
   orderTimeline: boolean = true;
   cancelShow: boolean = false;
   confirmOrderShow: boolean = false;
+  greenIconShow: boolean = false;
+
   dataFromTable: any;
   totalstar = 5;
   newvalue: any = 4;

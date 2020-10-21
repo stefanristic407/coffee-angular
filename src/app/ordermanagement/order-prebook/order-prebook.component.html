@@ -11,18 +11,15 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r"
-                                        aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
                                             alt=""></span>
                                 </li>
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage.order_management}}</a><span
-                                        class="padl-r" aria-hidden="true"><img class="group-img"
+                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li>
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage.estate_orders}}</a><span
-                                        class="padl-r" aria-hidden="true"> <img class="group-img"
+                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage.estate_orders}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                             src="/assets/images/arrow-1.png" alt="">
                                     </span>
                                 </li>
@@ -47,8 +44,7 @@
                             <div class="order-id d-flex align-items-center">{{appLanguage.order}} #12416 <span class="booked booked--pre ml-2">Pre-Booked</span>
                             </div>
 
-                            <div class="pt-2 note-prebooked"><span class="bold-note">{{appLanguage.note}} :</span> The lot has been
-                                pre-booked, once the beans are ready, you will be notified.</div>
+                            <div class="pt-2 note-prebooked"><span class="bold-note">{{appLanguage.note}} :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div>
                         </div>
                         <div class="btn-div col-md-6 d-none d-md-inline-block pr-0">
                             <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none"> {{appLanguage.order_invoice}}
@@ -67,26 +63,21 @@
                                         <div class="w-100 d-flex flex-column flex-md-row">
                                             <div class="order-tracking">
                                                 <span class="is-complete "></span>
-                                                <div
-                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2 mb-1" (click)="orderPlace()"
-                                                        #orderPlaced style="color: #232334; font-weight: bold;">{{appLanguage.order_placed}}</p>
+                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2 mb-1" (click)="orderPlace()" #orderPlaced style="color: #232334; font-weight: bold;">{{appLanguage.order_placed}}</p>
                                                     <p class="order-date mb-0 ">Estate + facilitator Notified </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="confirmDiv">
                                                 <span class="is-complete"></span>
-                                                <div
-                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2" (click)="orderConfirm()"
-                                                        #orderConfirmed>{{appLanguage.order_confirmed}}</p>
+                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2" (click)="orderConfirm()" #orderConfirmed>{{appLanguage.order_confirmed}}</p>
                                                 </div>
                                                 <!-- <p class="order-date">SMS & Email sent to you </p> -->
                                             </div>
                                             <div class="order-tracking completed" id="paymentDiv">
                                                 <span class="is-complete"></span>
-                                                <div
-                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                     <p class="order-status mt-2" (click)="paymentStatus()" #payment>
                                                         {{appLanguage.payment}}</p>
                                                 </div>
@@ -98,22 +89,18 @@
                                         </div> -->
                                             <div class="order-tracking completed" id="harvestDiv">
                                                 <span class="is-complete"></span>
-                                                <div
-                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()"
-                                                        #harvestReady>Harvest
-                                                        {{appLanguage.ready}}</p>
-                                                    <p class="order-harvest mb-0"> <a class="havestShow"
-                                                            (click)="showHarvest()">Follow your harvest </a></p>
+                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()" #harvestReady>Harvest {{appLanguage.ready}}
+                                                    </p>
+                                                    <p class="order-harvest mb-0"> <a class="havestShow" (click)="showHarvest()">Follow your harvest </a></p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="gradedDiv">
                                                 <span class="is-complete"></span>
-                                                <div
-                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                     <p class="order-status  mt-2" (click)="gradedStatus()" #graded>
-                                                        Graded by
-                                                        Facilitator</p>
+                                                        Graded by Facilitator
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -133,18 +120,14 @@
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
                                 <h4 class="order-txt fnt-play">{{appLanguage.cancelled}}</h4>
-                                <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the
-                                    estate and
-                                    facilitator to help us expand</div>
+                                <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the estate and facilitator to help us expand</div>
                                 <div class="confirm-grade">as a transparent community!</div>
                                 <button type="submit" class="yes-txt btn mt-3" (click)="buyIt()">Buy it</button>
                                 <button type="submit" class="cancel-order btn mt-3 ml-3">Browse other estates</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="cancel-order btn mt-3"
-                                    routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
-                                <button type="submit" class="cancel-order btn mt-3"
-                                    routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}}<img
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}}<img
                                         class="arrow-image1" src="assets/images/group.png" alt="arrow"></button>
                             </div>
                         </div>
@@ -156,14 +139,12 @@
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
                                 <h4 class="order-txt fnt-play">{{appLanguage.confirm_order}}</h4>
-                                <div class="confirm-grade">The harvest is ready! Please book the lot to confirm the
-                                    order</div>
-                                <button type="submit" class="leave-feedback btn mt-3"
-                                    routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
+                                <div class="confirm-grade">The harvest is ready! Please book the lot to confirm the order
+                                </div>
+                                <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">{{appLanguage.leave_a_feedback}}</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="yes-order btn mt-3 buy-order"
-                                    routerLink="/ordermanagement/prebook-confirmorder">{{appLanguage.buy_the_order}}</button><br />
+                                <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">{{appLanguage.buy_the_order}}</button><br />
                                 <button type="submit" class="cancel-order btn mt-3">{{appLanguage.order_sample}}</button>
                             </div>
                         </div>
@@ -183,37 +164,30 @@
                 <div class="border-ebebeb h-100">
                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage.order_details}}</a>
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage.order_details}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage.documents}}</a>
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage.documents}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-                                role="tab" aria-controls="pills-contact" aria-selected="false">{{appLanguage.grade_info}}</a>
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{appLanguage.grade_info}}</a>
                         </li>
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button"
-                                class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}}</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}}</button>
                         </li>
                     </ul>
                     <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
                         <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage.have_a_problem}}</button>
                     </div>
                     <div class="tab-content mt-md-5" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                            aria-labelledby="pills-home-tab">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
                             <sewn-prebook-order-details></sewn-prebook-order-details>
 
                         </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                            aria-labelledby="pills-profile-tab">
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <sewn-prebook-documents></sewn-prebook-documents>
                         </div>
-                        <div class="tab-pane fade" id="pills-contact" role="tabpanel"
-                            aria-labelledby="pills-contact-tab">
+                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <div class="row">
 
                                 <sewn-prebook-grade-info></sewn-prebook-grade-info>
@@ -265,17 +239,17 @@
 
             <div class="shipping-div col-lg-4 col-md-12 bg-shipping shipping-div--mbVesrion mb-15">
                 <div class="shipping-div__info ">
-                <div class="d-flex">
-                    <div class="pull-left shipping-addr">{{appLanguage.delivery_address}}
-                    </div>
-                    <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
+                    <div class="d-flex">
+                        <div class="pull-left shipping-addr">{{appLanguage.delivery_address}}
+                        </div>
+                        <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
                             alt="Edit"> Edit</div> -->
-                </div>
-                <div class=" d-flex mt-1 addr-text">Löfbergs Lila AB, Box 1501, 651 21 - Karlstad, Sweden</div>
-                <div class="d-flex mt-3">
-                    <img class="img-logo" src="assets/images/google-image.png" alt="Map">
+                    </div>
+                    <div class=" d-flex mt-1 addr-text">Löfbergs Lila AB, Box 1501, 651 21 - Karlstad, Sweden</div>
+                    <div class="d-flex mt-3">
+                        <img class="img-logo" src="assets/images/google-image.png" alt="Map">
 
-                </div>
+                    </div>
                 </div>
                 <div class="d-none d-md-block ">
                     <div class="d-flex mt-4">
@@ -305,9 +279,11 @@
 
                                 </li>
                                 <li class="mt-4">
-
-                                    <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
-                                            alt="Message"><span class="estate-message pl-1">Message</span></span>
+                                    <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
+ 
+                                        <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
+                                        <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
+                                        <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
                                 </li>
                             </ul>
                         </div>
@@ -347,8 +323,11 @@
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
-                            <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
-                                    alt="Message"><span class="estate-message pl-1">Message</span></span>
+                            <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
+ 
+                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
+                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
+                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
                         </div>
                     </div>
                     <div class="d-flex mt-3">
@@ -362,8 +341,11 @@
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
-                            <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
-                                    alt="Message"><span class="estate-message pl-1">Message</span></span>
+                            <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
+ 
+                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
+                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
+                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
                         </div>
                     </div>
                 </div>
@@ -385,21 +367,16 @@
 
                         <nav class="mt-4">
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather"
-                                    role="tab" aria-controls="nav-home" aria-selected="true">{{appLanguage.weather}}</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil"
-                                    role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.soil}}</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv"
-                                    role="tab" aria-controls="nav-profile" aria-selected="false">UV</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images"
-                                    role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.images}}</a>
+                                <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">{{appLanguage.weather}}</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.soil}}</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv" role="tab" aria-controls="nav-profile" aria-selected="false">UV</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage.images}}</a>
                             </div>
                         </nav>
 
                         <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
                             <!-- weather-->
-                            <div class="tab-pane fade show active" id="weather" role="tabpanel"
-                                aria-labelledby="nav-home-tab">
+                            <div class="tab-pane fade show active" id="weather" role="tabpanel" aria-labelledby="nav-home-tab">
                                 <div class="row">
                                     <div class="col-lg-5">
                                     </div>
@@ -432,10 +409,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-0 mt-md-4">
-                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
-                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                         [roundDomains]="roundDomains" [timeline]="timeline">
                                     </ngx-charts-line-chart>
                                 </div>
@@ -473,10 +447,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-0 mt-md-4">
-                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
-                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                         [roundDomains]="roundDomains" [timeline]="timeline">
                                     </ngx-charts-line-chart>
                                 </div>
@@ -514,10 +485,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-0 mt-md-4">
-                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
-                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                         [roundDomains]="roundDomains" [timeline]="timeline">
                                     </ngx-charts-line-chart>
                                 </div>
@@ -555,10 +523,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-0 mt-md-4">
-                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
-                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                         [roundDomains]="roundDomains" [timeline]="timeline">
                                     </ngx-charts-line-chart>
                                 </div>
@@ -639,8 +604,7 @@
 
                         <div class="w-100 col-lg-6 col-md-12 recent-activity-content">
                             <p class=" w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
-                            <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2"
-                                    src="assets/images/active.png"></p>
+                            <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2" src="assets/images/active.png"></p>
                             <!-- <div class="row w-100 activity-list">
                     <span class="col-md-3 list-time">
                             12:44pm
@@ -669,8 +633,8 @@
                                 <div class="d-none d-md-inline-block p-0">
                                     <!-- <img class="img-estate"
                                         src="assets/images/activity1.png" alt="User"> -->
-                                        <p class="timing">12:44pm</p>
-                                    </div>
+                                    <p class="timing">12:44pm</p>
+                                </div>
                                 <div class="pull-left">
                                     <ul class="details-list p-0 ">
                                         <!-- <li class="list-name d-none d-md-inline-block">Finca La Pampa</li>
@@ -678,8 +642,7 @@
                                             <p class="mb-0">Coffee Estate</p>
                                         </li> -->
                                         <li class="list-activity">
-                                            <div
-                                                class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
+                                            <div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
                                                 12:44pm</div>
                                             <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Order confirmed by the Estate</p>
 
@@ -692,8 +655,8 @@
                                 <div class="d-none d-md-inline-block p-0">
                                     <!-- <img class="img-estate"
                                         src="assets/images/stakeholder2.png" alt="User"> -->
-                                        <p class="timing">01:30pm</p>
-                                    </div>
+                                    <p class="timing">01:30pm</p>
+                                </div>
                                 <div class="pull-left">
                                     <ul class="details-list p-0 ">
                                         <!-- <li class="list-name d-none d-md-inline-block">
@@ -703,8 +666,7 @@
                                             <p class="mb-0">Facilitator</p>
                                         </li> -->
                                         <li class="list-activity">
-                                            <div
-                                                class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
+                                            <div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
                                                 01:30pm</div>
                                             <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Facilitator assigned for pickup</p>
 
@@ -715,9 +677,7 @@
 
                             </div>
                             <div class="w-100 mt-4 mb-2 d-block d-md-none">
-                                <button type="button"
-                                    class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center"
-                                    (click)="cancelOrder()">{{appLanguage.cancel_order}}</button>
+                                <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center" (click)="cancelOrder()">{{appLanguage.cancel_order}}</button>
                             </div>
                         </div>
                         <div class="col-lg-6 col-12">
@@ -731,8 +691,7 @@
                         <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{appLanguage.cancel_order}}</button>
                     </div>
                     <div class="w-100 chat-div">
-                        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                            routerLink="/ordermanagement/order-chat">{{appLanguage.order}} #12416 {{appLanguage.chat}} <span class="chat-indicator">
+                        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/order-chat">{{appLanguage.order}} #12416 {{appLanguage.chat}} <span class="chat-indicator">
                                 &#x25CF;</span><img class="pull-right ml-auto"
                                 src="assets/images/back-arrow.png"></button>
 

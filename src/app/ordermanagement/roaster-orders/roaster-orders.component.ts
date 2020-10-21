@@ -93,6 +93,12 @@ export class RoasterOrdersComponent implements OnInit {
 			this.router.navigate(["/auth/login"]);
 		}
 		this.appLanguage = this.global.languageJson;
+		// var editIcon = function ( data, type, row ) {
+		// 	if ( type === 'display' ) {
+		// 		return data + ' <span class="tooltiptext">Tooltip text</span>';
+		// 	}
+		// 	return data;
+		// };
 		this.dtOptions = {
 			//ajax: this.data,
 			data: this.data,
@@ -100,6 +106,7 @@ export class RoasterOrdersComponent implements OnInit {
 			pageLength: 10,
 			lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			processing: false,
+			autoWidth: false,
 			language: {
 				search: "",
 				emptyTable: this.appLanguage.no_table_data
@@ -116,7 +123,14 @@ export class RoasterOrdersComponent implements OnInit {
 					data: 'id'
 				}, {
 					title: this.appLanguage.roaster_name,
-					data: 'roastername'
+					data: 'roastername',
+					className: 'table_ellipsis',
+					render: function ( data, type, row ) {
+						// if ( type === 'display' ) {
+							return data +'<span class="tooltiptext">'+ data +'</span>';
+						// }
+						// return data;
+					}
 				}, {
 					title: this.appLanguage.date_ordered,
 					data: 'dataordered'

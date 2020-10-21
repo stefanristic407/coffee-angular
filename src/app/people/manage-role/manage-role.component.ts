@@ -1,13 +1,14 @@
 // AUTHOR : Vijaysimhareddy
 // PAGE DESCRIPTION : This page contains functions of Manage a Role.
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 declare var $: any;
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import {GlobalsService} from 'src/services/globals.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-manage-role',
@@ -26,13 +27,16 @@ export class ManageRoleComponent implements OnInit {
   appLanguage: any;
   roleActive:any=0;
   displayModal: boolean;
+  modalRef: BsModalRef;
+	deleteroleId: any;
 
   constructor(
     public router: Router,
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
     private toastrService: ToastrService,
-    private globals: GlobalsService
+    private globals: GlobalsService,
+    private modalService: BsModalService
   ) { 
     // this.isActive = 0;
   }
@@ -58,6 +62,13 @@ language(){
   this.appLanguage = this.globals.languageJson;
   this.roleActive++;
 
+}
+openModal(template: TemplateRef<any>) {
+  this.modalRef = this.modalService.show(template);
+}
+openDeleteModal(template1:TemplateRef<any>,deleteId:any){
+	this.modalRef = this.modalService.show(template1);
+	this.deleteroleId = deleteId;
 }
   // getRandomInt(max: any) {
   //   return Math.floor(Math.random() * Math.floor(max));
@@ -124,7 +135,7 @@ language(){
   // Function Name : Delete Role
   // Description: This function helps to Delete the role of the user. 
   deleteRole(id: any) {
-    if (confirm("Please confirm! you want to delete?") == true) {
+    // if (confirm("Please confirm! you want to delete?") == true) {
       this.roasterService.deleteRoles(this.roaster_id, id).subscribe(
         data => {
           if (data['success'] == true) {
@@ -135,10 +146,10 @@ language(){
             this.toastrService.error("There are Users assigned to this role.");
           }
         }
-        
-        );
-    }
+    );
+    // }
   }
+
 
   // Function Name : Update Role
   // Description: This function helps to update the role permissions of the user. 
@@ -172,12 +183,16 @@ language(){
     }
     this.router.navigate(['/people/user-management'], navigationExtras);
   }
+
   members() {
     this.router.navigate(["/people/team-members"]);
   }
+
    // Function Name : Help
   // Description: This function helps to show the Help modal - info regarding the page 
-  showModalDialog() {
-    this.displayModal = true;
-}
+  	showModalDialog() {
+    	this.displayModal = true;
+	}
+
+
 }

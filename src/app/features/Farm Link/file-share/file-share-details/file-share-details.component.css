@@ -17,6 +17,15 @@
     padding: 0px 30% 0px 0px;
 }
 
+.share-bor:hover {
+    border-radius: 4px;
+    border: solid 2px #30855c;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
 
 /*=======   Tabs  =======*/
 
@@ -213,9 +222,6 @@ ul li {
         width: 32%;
     }
 }
-
-
-
 
 
 /* MOdal popup css */
@@ -599,7 +605,6 @@ ul li {
     background-color: #30855c;
 }
 
-
 .create-share {
     border-radius: 4px;
     background-color: #30855c;
@@ -660,10 +665,11 @@ ul li {
     width: 60%;
 }
 
-.ownerName{
+.ownerName {
     text-overflow: ellipsis;
 }
-.folderName{
+
+.folderName {
     text-overflow: ellipsis;
 }
 
@@ -672,10 +678,12 @@ ul li {
         width: 65%;
     }
 }
-.tab-overflow-auto{
+
+.tab-overflow-auto {
     width: 100%;
 }
-.auto-complete-box{
+
+.auto-complete-box {
     box-shadow: none !important;
     border: none !important;
     outline: none !important;

@@ -20,6 +20,8 @@ export class BrandProfileComponent implements OnInit {
 
 ngOnInit(): void {
     this.language();
+    $('.nav-links__item').removeClass('active');
+    $('.nav-links__item').eq(1).addClass('active');
 }
 language(){
 	this.appLanguage = this.globals.languageJson;

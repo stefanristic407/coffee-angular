@@ -637,27 +637,35 @@
     position: relative;
     padding-right: 15px;
     padding-left: 15px;
+    display: inline-block;
 }
 
 .nav-pills .nav-link:before {
     content: '';
-    width: 0;
+    width: 0%;
     height: 2px;
     position: absolute;
     bottom: 0;
     left: 50%;
     text-align: center;
     margin: auto;
-    transform: translateX(-50%);
+    top: 80%;
+    transform: translate(-50%);
     border-radius: 1.5px;
     background-color: #30855c;
-    transition: 0.3s ease-in-out;
     opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.nav-pills .nav-link:hover::before {
+    width: 100%;
+    content: '';
+    opacity: 1;
 }
 
 .nav-pills .nav-link.active:before {
-    width: 100%;
     opacity: 1;
+    width: 100%;
 }
 
 .nav-pills {

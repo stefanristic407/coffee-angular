@@ -21,7 +21,7 @@ import {MatVideoModule} from 'mat-video';
 import { ErrorModuleModule } from './error-module/error-module.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorIntercept } from './error-module/error.interceptor';
-
+import 'hammerjs'; 
 
 
 @NgModule({

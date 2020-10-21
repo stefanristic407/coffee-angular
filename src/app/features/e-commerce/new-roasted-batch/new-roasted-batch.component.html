@@ -112,9 +112,11 @@
                                 <span  class="star-no pl-1"> 4.95</span>
                                         </span>
                                     </p>
-                                    <p> <span class="bg-msg">
-                                <img  src="assets/images/message-icon.svg" alt="Message" class="message-icon">
-                                <span  class="estate-message pl-1">{{appLanguage.message}}</span>
+                                    <p>
+                                        <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
+                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
+                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
+                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">{{appLanguage.message}}</span>
                                         </span>
                                     </p>
                                 </div>

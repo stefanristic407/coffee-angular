@@ -188,7 +188,23 @@ span.checkmark {
     color: #000000;
 }
 
+.share_icon {
+	position: relative;
+	display: inline-block;
+}
 
+.share_icon:hover .edit {
+	display: block;
+}
+
+.edit {
+	padding-top: 17px;	
+	padding-right: 0px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}
 /**********popover*******/
 
 .list-group-item {
