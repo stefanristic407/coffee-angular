@@ -41,7 +41,17 @@
                     </div>
                     <div class="form-group col-md-3 mt-md-1" *ngIf=" this.headerValue == 'HoReCa' ">
                         <label for="add_member_type">{{appLanguage.enter_yoru_work_type}}<span class="star">*</span></label>
-                        <input class="form-control rectangle_useremail" type="text" id="add_member_type" placeholder="Enter your work type"  [(ngModel)]="add_member_type" name="add_member_type"  />
+                        <!-- <input class="form-control rectangle_useremail" type="text" id="add_member_type" placeholder="Enter your work type"  [(ngModel)]="add_member_type" name="add_member_type"  /> -->
+                        <select class="form-control rectangle_name role_edit"  [(ngModel)]="add_member_type" name="add_member_type" id="add_member_type" required="">
+                            <option value="" selected disabled>
+                              Company type</option
+                            >
+                            <option value="Hotel">Hotel</option>
+                            <option value="Cafe">Cafe</option>
+                            <option value="Restaurant">Restaurant</option>
+                            <option value="Bar">Bar</option>
+                           
+                          </select>
                     </div>
 
                     <div>

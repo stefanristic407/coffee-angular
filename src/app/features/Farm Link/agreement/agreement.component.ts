@@ -55,6 +55,12 @@ export class AgreementComponent implements OnInit {
   ];
 	roasterId: string;
 	appLanguage: any;
+	customer_type: string;
+	files: any;
+	fileEvent: any;
+	fileNameValue: any;
+	customerIdError: string;
+	fileName: string | Blob;
 
 
   constructor(public router: Router,
@@ -80,7 +86,7 @@ export class AgreementComponent implements OnInit {
 		// 		self.router.navigate(["/ordermanagement/select-order"]);
 		// 	})
 		// }
-	
+	  this.customer_type = "hrc";
       this.estatetermStatus = '';
       this.estatetermOrigin = '';
       this.estatetermType = '';
@@ -95,7 +101,7 @@ export class AgreementComponent implements OnInit {
 	}
 	
 	getAgreements(){
-		this.roasterService.getAgreements(this.roasterId).subscribe(
+		this.roasterService.getAgreements(this.roasterId, this.customer_type).subscribe(
 			data => {
 				if(data['success']==true){
 					// this.mainData = data['result'];
@@ -198,4 +204,83 @@ export class AgreementComponent implements OnInit {
 	  }
 	  }
 
+	  reUploadFile(event:any){
+		this.files = event.target.files;
+		this.fileEvent = this.files;
+		console.log(this.fileEvent);
+		this.fileNameValue = this.files[0].name;
+	  }
+	
+
+	  uploadAgreement(){
+		if (
+			this.customer_id == "" ||
+			this.customer_id == null ||
+			this.customer_id == undefined
+		  ) {
+			this.customerIdError = "Please Select Customer Id";
+			document.getElementById("customer_id").style.border =
+			  "1px solid #D50000 ";
+			setTimeout(() => {
+			  this.customerIdError = "";
+			}, 3000);
+		  } 
+		  else{
+			let fileList: FileList = this.fileEvent;
+			// var parent_id = 0;
+			if (fileList.length > 0) {
+			  let file: File = fileList[0];
+			  let formData: FormData = new FormData();
+			  formData.append("file", file, file.name);
+			  formData.append('name',this.fileName);
+			  formData.append('file_module','Agreements');
+			  this.roasterId = this.cookieService.get("roaster_id");
+			  formData.append(
+				"api_call",
+				"/ro/" + this.roasterId + "/file-manager/files"
+			  );
+			  formData.append("token", this.cookieService.get("Auth"));
+			  this.roasterService.uploadFiles(formData).subscribe(
+				result =>{
+				  if(result['success']==true){
+					  
+					this.toastrService.success("The file "+this.fileName+" uploaded successfully");
+					var data = {
+						'customer_id' : this.customer_id,
+						'notify_customer' : this.notify,
+						'file_id' : result['result']['file_id']
+					}
+					this.roasterService.uploadAgreements(this.roasterId,this.customer_type,data).subscribe(
+						res => {
+							if(res['success'] == true){
+								this.toastrService.success('The Agreement has been uploaded successfully');
+							// this.fileService.getFilesandFolders();
+							}
+							else{
+								this.toastrService.error("Error while uploading Agreegement");
+							}
+						}
+					)
+				  }else{
+					this.toastrService.error("Error while uploading the file");
+				  }
+				}
+			  )
+			}
+		  }
+	  }
+
+	  deleteAgreement(item : any){
+		  this.roasterService.deleteAgreement(this.roasterId, this.customer_type,item.id).subscribe(
+			  res => {
+				  if(res['success'] == true){
+					  this.toastrService.success("The Selected agreement deleted successfully!");
+					//   this.getAgreements();
+				  }
+				  else{
+					  this.toastrService.error("Error while deleting the agreement");
+				  }
+			  }
+		  )
+	  }
 }

@@ -14,7 +14,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 export class RoasterQuickSetupComponent implements OnInit {
   add_member_name:any;
   add_member_email:any;
-  add_member_type: any;
+  add_member_type: any = "";
   appLanguage: any;
   roaster_id: any;
   inviteActive:any=0;

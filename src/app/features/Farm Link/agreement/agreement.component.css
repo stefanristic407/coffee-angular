@@ -5,7 +5,7 @@
 .agre-index-z {
     z-index: 9;
 }
-
+/* 
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_desc {
@@ -18,7 +18,7 @@ table.dataTable thead .sorting_desc {
 
 .estate-orders-heading {
     margin: 1rem 3.1rem;
-}
+} */
 
 .add-role-butn {
     border-radius: 4px;
@@ -79,14 +79,6 @@ table.dataTable thead .sorting_desc {
     box-shadow: 0 12px 34px 0 rgba(0, 0, 0, 0.1);
 }
 
-.view-order {
-    font-family: Muli !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    color: #80460b !important;
-    text-decoration: underline !important;
-    cursor: pointer !important;
-}
 
 .estate-order-title {
     font-family: Muli;
@@ -157,10 +149,7 @@ span.checkmark {
     top: 3px !important;
 }
 
-.estate-boby-txt .checkmark {
-    top: 3px !important;
-    left: 8px !important;
-}
+
 
 .border-lots {
     border-radius: 4px;
@@ -239,24 +228,6 @@ tr:last-child {
     background-color: #3d8462;
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
-
-.estate-title {
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    height: 55px;
-}
-
-.estate-title th {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-}
-
 .row {
     color: #232334 !important;
     font-size: 14px !important;
@@ -327,14 +298,7 @@ span.checkmark {
     background-color: #232334;
 }
 
-.estate-title .checkmark {
-    top: 3px !important;
-}
 
-.estate-boby-txt .checkmark {
-    top: 3px !important;
-    left: 8px !important;
-}
 
 .text-filters,
 #dataTables_filter input {
@@ -443,7 +407,9 @@ span.checkmark {
 .pointer-item {
     cursor: pointer;
 }
-
+.customerIdError, .notifyError , .uploadError{
+    color: #d50000;
+}
 
 /******Date Range Css*********/
 

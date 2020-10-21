@@ -409,19 +409,61 @@ export class RoasterserviceService {
   
    //API Function Name : Get Agreements 
   //API Description: This API calls helps to get the agreements .
-  getAgreements(roaster_id: any) {
+  getAgreements(roaster_id: any,customer_type : any) {
     
     // let params = new HttpParams();
     // params = params.append('file_module', 'File-Share');
     // params = params.append('type_in','VIDEO');
     // params = params.append('parent_id', parentId)
     var data = {};
-    data['api_call'] = "/ro/" + roaster_id + "/agreements";
+    data['api_call'] = "/ro/" + roaster_id + customer_type + "/agreements";
     // data['params'] = params;
     data['token'] = this.cookieService.get('Auth');
     //  const params = new HttpParams().append( 'file_module', fileModule )
     console.log(data);
     return this.http.post(this.url, data);
+  }
+
+
+    //API Function Name : Upload Agreements 
+  //API Description: This API calls helps to upload the agreements .
+  uploadAgreements(roaster_id: any,customer_type : any, body : any) {
+    
+    // let params = new HttpParams();
+    // params = params.append('file_module', 'File-Share');
+    // params = params.append('type_in','VIDEO');
+    // params = params.append('parent_id', parentId)
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + customer_type + "/agreements";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
+  }
+
+
+
+        //API Function Name : Update Agreements 
+  //API Description: This API calls helps to update the agreements.
+
+  updateAgreements(roaster_id: any,customer_type:any,id:any,body:any) {
+    var data = {};
+    data['api_call'] =   "/ro/" + roaster_id + customer_type + "/agreements/"+ id;
+    data['method'] = "PUT";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+         //API Function Name : Delete Agreement
+  //API Description: This API calls helps to Delete the Agreement.
+
+  deleteAgreement(roaster_id: any, customer_type : any, id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + customer_type + "/agreements/"+ id;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.deleteUrl, data);
   }
 
   

@@ -124,3 +124,15 @@
  text-decoration: underline;
   color: #80460b;
 }
+.role_edit {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    background: url(../../../assets/images/active.png) right 16px top 19px/10px no-repeat;
+    -webkit-appearance: none;
+    font-family: Muli;
+    font-weight: 500;
+    height: 50px !important;
+    padding-top: 7px;
+    cursor: pointer;
+}
