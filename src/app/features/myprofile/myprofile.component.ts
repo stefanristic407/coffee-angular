@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationExtras, Router } from '@angular/router';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-myprofile',
@@ -11,13 +12,15 @@ import { NavigationExtras, Router } from '@angular/router';
 export class MyprofileComponent implements OnInit {
   roaster_id: string;
   profileDetails : any =[];
+  appLanguage : any;
 
   constructor(private userService : UserserviceService, private cookieService : CookieService,
-               private router : Router ) { 
+               private router : Router, private globals : GlobalsService ) { 
     this.roaster_id = this.cookieService.get('roaster_id');
   }
 
   ngOnInit(): void {
+    this.appLanguage =this.globals.languageJson;
     this.userService.getRoasterProfile(this.roaster_id).subscribe(
       
       response => {

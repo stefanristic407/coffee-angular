@@ -1,0 +1,82 @@
+.back-arrow-butn {
+    display: inline-flex;
+}
+
+.back-href {
+    color: #80460b;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.back-href:hover .back-arrow-butn {
+    -webkit-transform: translateX(-6px);
+    -ms-transform: translateX(-6px);
+    transform: translateX(-6px);
+    -webkit-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -o-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    transition: all .6s cubic-bezier(.2, .59, .21, .6);
+}
+
+.back-page {
+    display: inline-block;
+    -webkit-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -o-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -webkit-font-smoothing: antialiased;
+}
+
+.order-chat-image {
+    margin-top: -5px;
+}
+
+.img-can-coverse {
+    width: 24px;
+    height: 24px;
+}
+
+.ellyse-main {
+    background-color: #fff;
+    padding: 10px 15px 20px 15px;
+}
+
+.ellyse-pic {
+    width: 80px;
+    height: 80px;
+}
+
+.country-txt {
+    position: absolute;
+    padding-left: 5px;
+}
+
+.main-message__profile .img:hover .person-details-info {
+    display: block;
+    cursor: pointer;
+}
+
+.person-details-info {
+    display: none;
+    position: absolute;
+    left: 50px;
+    top: 0;
+    z-index: 2;
+    width: 1000px;
+}
+
+.img-location {
+    height: auto !important;
+    width: auto !important;
+}
+
+.view-chat-profile {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 24px;
+    padding: 8px 16px;
+    border: 1px solid #30855c;
+    border-radius: 4px;
+    background-color: #30855c;
+}

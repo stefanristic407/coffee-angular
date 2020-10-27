@@ -30,7 +30,7 @@ export class EstateOrdersComponent implements OnInit {
 	showDisplay: boolean = true;
 	searchTerm: any;
 	odd: boolean = false;
-
+	hideTable : boolean = false ; 
 
 	@ViewChild(DataTableDirective, { static: false })
 	datatableElement: DataTableDirective;
@@ -704,15 +704,19 @@ export class EstateOrdersComponent implements OnInit {
 			data => {
 				if (data['success'] == true) {
 					if (data['result'] == null || data['result'].length == 0) {
-						this.odd = true;
-						this.toastrService.error(this.appLanguage.no_table_data);
+						this.odd = true;							
+						this.hideTable = true ; 
+						// this.toastrService.error(this.appLanguage.no_table_data);
 					}
 					else {
 						this.odd = false;
+						this.hideTable = false ; 
 						this.mainData = data['result'];
 					}
+					this.estateOrdersActive++;
 				}
 				else {
+					this.estateOrdersActive++;
 					this.odd = true;
 					this.toastrService.error(this.appLanguage.error_message);
 				}

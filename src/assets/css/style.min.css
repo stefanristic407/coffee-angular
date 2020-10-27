@@ -22764,6 +22764,9 @@ li.select-list__item {
     color: transparent !important;
 }
 
+
+/* nav pills tabs */
+
 .nav-pills .nav-link.active {
     position: relative;
     padding-right: 15px;
@@ -22799,11 +22802,20 @@ li.select-list__item {
     width: 100%;
 }
 
+
+/* nav pills tabs ends */
+
+
+/* table tr hover */
+
 .table tr:hover,
 .odd:hover {
     box-shadow: 0 12px 34px 0 rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
+
+
+/* table tr hover ends  */
 
 @media (max-width:991px) {
     .source-cont {
@@ -23022,3 +23034,103 @@ li.select-list__item {
         padding-left: 16px;
     }
 }
+
+
+/* filiters hover  */
+
+.hover-filters {
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.hover-filters:hover {
+    transform: scale(1.05);
+}
+
+
+/* filiters hover ends  */
+
+
+/* sourcing tabs */
+
+.source-cont .nav-tabs .nav-link {
+    border: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    color: #232334;
+    flex: inherit;
+    padding-bottom: 6px;
+    position: relative;
+}
+
+.source-cont .nav-tabs .nav-link.active {
+    /* border-bottom: 2px solid #30855c; */
+    color: #30855c;
+    font-family: Muli;
+    font-weight: 600;
+}
+
+.source-cont .nav-tabs .nav-link:before {
+    content: '';
+    width: 0%;
+    height: 2px;
+    position: absolute;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    bottom: -2px;
+    transform: translate(-50%);
+    border-radius: 1.5px;
+    background-color: #30855c;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.source-cont .nav-tabs .nav-link:hover::before {
+    width: 100%;
+    content: '';
+    opacity: 1;
+}
+
+.source-cont .nav-tabs .nav-link.active:before {
+    opacity: 1;
+    width: 100%;
+}
+
+
+/* sourcing tabs ends */
+
+
+/*  back butn hover*/
+
+.back-href {
+    color: #80460b !important;
+    text-decoration: none !important;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.back-arrow-butn {
+    display: inline-flex;
+}
+
+.back-href:hover .back-arrow-butn {
+    -webkit-transform: translateX(-6px);
+    -ms-transform: translateX(-6px);
+    transform: translateX(-6px);
+    -webkit-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -o-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    transition: all .6s cubic-bezier(.2, .59, .21, .6);
+}
+
+.back-page {
+    display: inline-block;
+    -webkit-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -o-transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    transition: all .6s cubic-bezier(.2, .59, .21, .6);
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* back butn hover end */

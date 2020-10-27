@@ -71,6 +71,7 @@ import { SampleNotesComponent } from './microroaster-orders/micro-order-sample/s
 import { SampleOrderConfirmationComponent } from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
 import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component'
 import { ErrorModuleModule } from '../error-module/error-module.module';
+// import { EmptyTableComponent } from '../error-module/empty-table/empty-table.component';
 
 
 
@@ -148,6 +149,7 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
     AutocompleteLibModule,
     ErrorModuleModule,
     MatTooltipModule,
+    // EmptyTableComponent,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
   ],

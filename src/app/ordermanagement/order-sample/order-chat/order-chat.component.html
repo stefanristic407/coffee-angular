@@ -129,8 +129,56 @@
                                     <!--Mesaage From-->
                                     <div class="main-message message-from">
                                         <div class="main-message__profile clearfix">
-                                            <div class="float-left img">
+                                            <div class="float-left img position-relative">
                                                 <img src="assets/images/user-profile.png">
+
+                                                <!-- hover -->
+                                                <div class="person-details-info">
+                                                    <div class="row">
+                                                        <div class="col-4 ellyse-main">
+                                                            <div class="mt-3 border-div d-flex">
+                                                                <div class="p-0">
+                                                                    <img class="ellyse-pic" src="assets/images/ellyse-profic.png" alt="User">
+                                                                </div>
+                                                                <div class="pull-left">
+                                                                    <ul class="details-list p-0 ml-2 ml-md-3">
+                                                                        <li class="fnt-18 fnt-muli fnt-700 txt-clr334">Ellyse Perry </li>
+                                                                        <li class="fnt-16 fnt-muli fnt-400 txt-clr334 pt-1"> Employee @Blue tokai Coffee </li>
+                                                                        <li class="fnt-16 fnt-muli fnt-600 text-clr588 pt-1"> <span>Roasters</span> <span class="pl-5"> <img class="img-location" src="assets/images/location-ellyse.png" alt="User"> Norway</span> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <p class="fnt-18 fnt-muli fnt-600 text-clr588">Can converse in : </p>
+                                                                <div class="row">
+                                                                    <div class="col-4">
+                                                                        <p> <span> <img class="img-can-coverse" src="assets/images/swedish.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> Swedish</span> </p>
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                        <p> <span> <img class="img-can-coverse" src="assets/images/english.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> English</span> </p>
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                        <p> <span> <img class="img-can-coverse" src="assets/images/French.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> French</span> </p>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="mt-3 d-flex">
+                                                                <div class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
+                                                                    <img class="message-icon img-location " *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
+                                                                    <img class="message-icon img-location " *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
+                                                                    <span class="estate-message pl-1" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">{{appLanguage.message}}</span>
+                                                                </div>
+                                                                <div class="ml-3">
+                                                                    <button class="view-chat-profile"> View Profile </button>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="profile-name">
                                                 <div class="float-left">
@@ -161,8 +209,46 @@
 
                                     <div class="main-message message-to">
                                         <div class="main-message__profile clearfix">
-                                            <div class="float-left img">
+                                            <div class="float-left img position-relative">
                                                 <img src="assets/images/user-profile.png">
+
+                                                <!-- hover -->
+
+                                                <div class="person-details-info">
+                                                    <div class="row">
+                                                        <div class="col-4 ellyse-main">
+                                                            <div class="mt-3 border-div d-flex">
+                                                                <div class="p-0">
+                                                                    <img class="ellyse-pic" src="assets/images/ellyse-profic.png" alt="User">
+                                                                </div>
+                                                                <div class="pull-left">
+                                                                    <ul class="details-list p-0 ml-2 ml-md-3">
+                                                                        <li class="fnt-18 fnt-muli fnt-700 txt-clr334">Ellyse Perry </li>
+                                                                        <li class="fnt-18 fnt-muli fnt-400 txt-clr334 pt-1"> Employee @Blue tokai Coffee </li>
+                                                                        <li class="fnt-18 fnt-muli fnt-600 text-clr588 pt-1"> <span>Roasters</span> <span class="pl-5"><img class="img-estate" src="assets/images/location-ellyse.png" alt="User"> Norway</span> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="">
+                                                                <p class="fnt-18 fnt-muli fnt-600 text-clr588">Can converse in : </p>
+                                                                <div class="row">
+                                                                    <div class="col-4">
+                                                                        <p> <span> <img class="img-can-coverse" src="assets/images/swedish.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> Swedish</span> </p>
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                        <p> <span> <img class="img-can-coverse" src="assets/images/english.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> English</span> </p>
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                        <p> <span> <img class="img-can-coverse" src="assets/images/French.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> French</span> </p>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="profile-name">
                                                 <div class="float-left">
@@ -229,7 +315,7 @@
 
                             <div class="search-messages">
                                 <img src="assets/images/dm-search.svg">
-                                <input class="search-messages__input" type="search" placeholder={{appLanguage.search_messages}}>
+                                <input class="search-messages__input fadout-search" type="search" placeholder={{appLanguage.search_messages}}>
                             </div>
 
                             <ul class="order-ticket-list">
@@ -358,44 +444,6 @@
         </div>
 
 
-        <!-- hover -->
-        <section class="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-4 ellyse-main">
-                        <div class="mt-3 border-div d-flex">
-                            <div class="p-0">
-                                <img class="ellyse-pic" src="assets/images/ellyse-profic.png" alt="User">
-                            </div>
-                            <div class="pull-left">
-                                <ul class="details-list p-0 ml-2 ml-md-3">
-                                    <li class="fnt-18 fnt-muli fnt-700 txt-clr334">Ellyse Perry </li>
-                                    <li class="fnt-18 fnt-muli fnt-400 txt-clr334 pt-1"> Employee @Blue tokai Coffee </li>
-                                    <li class="fnt-18 fnt-muli fnt-600 text-clr588 pt-1"> <span>Roasters</span> <span class="pl-5"><img class="img-estate" src="assets/images/location-ellyse.png" alt="User"> Norway</span> </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="">
-                            <p class="fnt-18 fnt-muli fnt-600 text-clr588">Can converse in : </p>
-                            <div class="row">
-                                <div class="col-4">
-                                    <p> <span> <img class="img-can-coverse" src="assets/images/swedish.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> Swedish</span> </p>
-                                </div>
-                                <div class="col-4">
-                                    <p> <span> <img class="img-can-coverse" src="assets/images/english.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> English</span> </p>
-                                </div>
-                                <div class="col-4">
-                                    <p> <span> <img class="img-can-coverse" src="assets/images/French.png" alt="User"></span> <span class="fnt-16 fnt-muli fnt-600 txt-clr334 country-txt"> French</span> </p>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </section>
 
 
     </section>

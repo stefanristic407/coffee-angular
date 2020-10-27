@@ -44,7 +44,7 @@
             <li class="b-cum c-pink">{{appLanguage.user_management}}
             </li>
             <div class="col-md-6 col-lg-4 pull-right search-div ">
-                <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by name, role.." />
+                <input type="text" name="search" class="search-raised desk_view_user fadout-search" [(ngModel)]="term" placeholder="Search by name, role.." />
             </div>
 
         </ul>
@@ -205,66 +205,60 @@
                   </li>
                   <li class="list-group-item">
                     <a class="pointer-item">{{appLanguage.simulated_login}}</a>
-					</li>
-					<li class="list-group-item">
-						<a class="pointer-item" (click)="makeAdmin(user.id); pop12.hide()">{{appLanguage.make_admin}}</a>
-					</li>
-					<li class="list-group-item">
-						<a class="pointer-item">{{appLanguage.customize_permissions}}</a>
-					</li>
-					<li class="list-group-item" *ngIf="user.id != loginId">
-						<a class="pointer-item" (click)="openDeleteModal(deleteTemplate,user.id); pop12.hide()">{{appLanguage.delete}}</a>
-					</li>
-                </ul>
-              </div>
-            </ng-template>
-          </td>
-        </tr>
-        </tbody>
-    </table>
-  </div>
-</div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a class="pointer-item" (click)="makeAdmin(user.id); pop12.hide()">{{appLanguage.make_admin}}</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a class="pointer-item">{{appLanguage.customize_permissions}}</a>
+                                        </li>
+                                        <li class="list-group-item" *ngIf="user.id != loginId">
+                                            <a class="pointer-item" (click)="openDeleteModal(deleteTemplate,user.id); pop12.hide()">{{appLanguage.delete}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<div class="mobile_view_user">
-    <p class=" page-title">{{appLanguage.user_management}}</p>
-    <div class="col-sm-12 search-div mb-4">
-      <input
-        type="text"
-        name="search"
-        class="search"
-        [(ngModel)]="term"
-        placeholder="Search by Name,role.."
-      />
-	</div>
-<div class="d-inline filter-mob">
-	<div class="d-inline border-total status-div col-sm-6" id="status_mobid" [outsideClick]="true" (onShown)="toggleStatus1();" (onHidden)="toggleStatus1();" [popover]="allTemplateMob" placement="bottom" container="body" #pop15="bs-popover">
-			<p class="d-inline filter-text" *ngIf="termStatusMob == ''">{{appLanguage.status}}&nbsp;</p>
-			<a class="pointer-item" >
-				<p class="d-inline filter" *ngIf="termStatusMob == ''">
-					&nbsp; <img src="{{ showMobVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-				</p>
-			</a>
-                                            <a class="pointer-item">
-                                                <p class="d-inline filter" *ngIf="termStatusMob != ''">
-                                                    {{ termStatusMob }}&nbsp; <img src="{{ showMobVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                </p>
-                                            </a>
-                                </div>
-                                &nbsp;&nbsp;
-                                <div class="d-inline border-total role-div col-sm-6" id="role_mobid" [outsideClick]="true" (onShown)="toggleRole1();" (onHidden)="toggleRole1();" [popover]="roleTemplateMob" placement="bottom" container="body" #pop7="bs-popover">
-                                    <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                                    <p class="d-inline filter-text" *ngIf="termRoleMob == ''">{{appLanguage.role}}&nbsp;</p>
-                                    <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="termRoleMob == ''">
-                                            &nbsp; <img src="{{ showMobRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                    <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="termRoleMob != ''">
-                                            {{ termRoleMob }}&nbsp;<img src="{{ showMobRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                </div>
+    <div class="mobile_view_user">
+        <p class=" page-title">{{appLanguage.user_management}}</p>
+        <div class="col-sm-12 search-div mb-4">
+            <input type="text" name="search" class="search fadout-search" [(ngModel)]="term" placeholder="Search by Name,role.." />
+        </div>
+        <div class="d-inline filter-mob">
+            <div class="d-inline border-total status-div col-sm-6" id="status_mobid" [outsideClick]="true" (onShown)="toggleStatus1();" (onHidden)="toggleStatus1();" [popover]="allTemplateMob" placement="bottom" container="body" #pop15="bs-popover">
+                <p class="d-inline filter-text" *ngIf="termStatusMob == ''">{{appLanguage.status}}&nbsp;</p>
+                <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="termStatusMob == ''">
+                        &nbsp; <img src="{{ showMobVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="termStatusMob != ''">
+                        {{ termStatusMob }}&nbsp; <img src="{{ showMobVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+            &nbsp;&nbsp;
+            <div class="d-inline border-total role-div col-sm-6" id="role_mobid" [outsideClick]="true" (onShown)="toggleRole1();" (onHidden)="toggleRole1();" [popover]="roleTemplateMob" placement="bottom" container="body" #pop7="bs-popover">
+                <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
+                <p class="d-inline filter-text" *ngIf="termRoleMob == ''">{{appLanguage.role}}&nbsp;</p>
+                <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="termRoleMob == ''">
+                        &nbsp; <img src="{{ showMobRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="termRoleMob != ''">
+                        {{ termRoleMob }}&nbsp;<img src="{{ showMobRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
         </div>
 
 

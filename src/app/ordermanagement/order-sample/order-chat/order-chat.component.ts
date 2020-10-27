@@ -11,11 +11,21 @@ import { GlobalsService } from 'src/services/globals.service';
 export class OrderChatComponent implements OnInit {
 	appLanguage: any;
 	ChatSampleActive:any =0;
+	greenIconShow: boolean = false;
 
   constructor(public global: GlobalsService) { }
 
   ngOnInit(): void {
 	this.language();
+
+
+	$(window).on(".conversation-head__profiles", "click",function(e) {
+        // $(window).trigger("click");
+		// $(".person-details-info").css({left: e.pageX});
+		//  $(".person-details-info").css({top: e.pageY});
+		//   $(".person-details-info").show();
+		alert(e.pageX);
+		 });
   }
 
 

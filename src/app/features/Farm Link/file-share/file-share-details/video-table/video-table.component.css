@@ -270,7 +270,25 @@ span.checkmark {
     width: 17px;
     height: 17px;
 }
+.share_icon {
+	position: relative;
+    display: table-cell;
+    width: 5%!important;
+}
 
+.share_icon:hover .edit , tr:hover .edit {
+	display: block;
+}
+
+.edit {
+	padding-top: 17px;	
+    padding-right: 0px;
+    padding-left: 0px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}
 .dwnd-img {
     width: 23px;
     height: 23px;

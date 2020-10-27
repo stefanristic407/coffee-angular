@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { InternalServerErrorComponent } from './internal-server-error/internal-server-error.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NoInternetConnectionComponent } from './no-internet-connection/no-internet-connection.component';
+import { EmptyTableComponent } from './empty-table/empty-table.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
         {
           path: 'network-connection-error',
           component: NoInternetConnectionComponent
+        },
+        {
+          path: 'empty-table',
+          component: EmptyTableComponent
         },
         {
             path: '**',

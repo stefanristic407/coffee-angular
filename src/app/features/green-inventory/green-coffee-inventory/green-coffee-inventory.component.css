@@ -32,12 +32,10 @@
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
-
 .orders-border {
     border-radius: 4px;
     border: solid 1px #d6d6d6 !important;
 }
-
 
 .estate-title {
     border-radius: 4px;
@@ -56,7 +54,6 @@
     border-radius: 4px !important;
     padding: 6px 4px;
 }
-
 
 .estate-boby-txt {
     border-radius: 4px;
@@ -191,7 +188,6 @@ span.checkmark {
 }
 
 
-
 /**********popover*******/
 
 .list-group-item {
@@ -231,6 +227,8 @@ span.checkmark {
 .pointer-item {
     cursor: pointer;
 }
+
+
 /******Date Range Css*********/
 
 :host ::ng-deep .ui-inputtext {
@@ -390,11 +388,13 @@ span.checkmark {
 .nav-pills {
     border-bottom: 1px solid #dddddd;
 }
+
 li.nav-item {
     margin-right: 7%;
     position: relative;
     top: .25rem;
 }
+
 .nav-pills .nav-link {
     font-family: Muli;
     font-size: 14px;
@@ -403,33 +403,40 @@ li.nav-item {
     padding-left: 0px;
     padding-right: 0px;
 }
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
     color: #232334;
     font-size: 14px;
     font-weight: 600;
     background-color: unset !important;
     border-radius: unset;
 }
+
 .nav-pills .nav-link.active {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #30855c;
 }
+
 .nav-pills .nav-link.active {
     position: relative;
     padding-right: 0px;
     padding-left: 0px;
 }
+
 .nav-link {
     display: block;
-    padding: .5rem 1rem;
+    padding: 0rem 1rem .5rem 1rem;
 }
+
 li.nav-item {
     margin-right: 3%;
     position: relative;
     top: .25rem;
 }
+
 .nav-pills .nav-link.active:before {
     content: '';
     width: 100%;
@@ -444,10 +451,13 @@ li.nav-item {
     border-radius: 1.5px;
     background-color: #30855c;
 }
+
 .mixups-tabs {
     background-color: #ffffff;
     overflow: hidden;
 }
+
+
 /*********************Tab Css **********************/
 
 @media (min-width:1400px) {
@@ -529,6 +539,8 @@ ul li {
 .table-details {
     display: none;
 }
+
+
 /*  media query Fram Link */
 
 @media (max-width:767px) {
@@ -580,10 +592,10 @@ ul li {
         border-top: 2px dashed #d6d6d6;
         padding-bottom: 5px;
     }
-    .search-name{
+    .search-name {
         background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
         padding-left: 45px !important;
-        font-family: Muli; 
+        font-family: Muli;
         font-size: 14px;
         font-weight: 600;
         color: #747588;
@@ -591,7 +603,7 @@ ul li {
         height: 42px;
         border: 1px solid #d6d6d6 !important;
     }
-    .filter-set{
+    .filter-set {
         width: 100%;
         padding: 10px 10px 10px 19px;
         margin: 0 2px 0 0;
@@ -601,7 +613,7 @@ ul li {
     .border-grade {
         width: auto !important;
         margin-bottom: 10px;
-        float:left;
+        float: left;
         margin-right: 10px;
         border-radius: 20px;
         border: solid 1px #d6d6d6;

@@ -31,6 +31,7 @@ export class OrderSampleComponent implements OnInit {
 	receivedReport: boolean = false;
 	gradedReportSample: boolean = false;
 	uploadReportSample: boolean = true;
+	
 
 	dataFromTable: any;
 	greenIconShow: boolean = false;

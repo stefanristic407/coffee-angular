@@ -23,6 +23,7 @@
                         <th scope="col">{{appLanguage.owner}}</th>
                         <th scope="col">{{appLanguage.type}}</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody class="customtable">
@@ -50,8 +51,8 @@
                                 </span>
                               </td>
                               <td  >
-                                    <span *ngIf="item.type == 'FOLDER'" class="cursor-pointer share_icon" (click)="shareDetails(item)"> {{ item.updated_at | date: "d/MM/y, h:mm a" }}<div class="edit"><a><img src="assets/images/share-img.png" alt="" /></a></div></span>
-                                    <span  *ngIf="item.type != 'FOLDER'" class="share_icon" >{{ item.updated_at | date: "d/MM/y, h:mm a" }}<div class="edit"><a><img src="assets/images/share-img.png" alt="" /></a></div></span>
+                                    <span *ngIf="item.type == 'FOLDER'" class="cursor-pointer " (click)="shareDetails(item)"> {{ item.updated_at | date: "d/MM/y, h:mm a" }}</span>
+                                    <span  *ngIf="item.type != 'FOLDER'" class="" >{{ item.updated_at | date: "d/MM/y, h:mm a" }}</span>
                                   </td>
                                   <td >
                                     <span *ngIf="item.type == 'FOLDER'" (click)="shareDetails(item)" class="cursor-pointer"> {{ item.owner_name | titlecase }}</span>
@@ -60,6 +61,10 @@
                                   <td >
                                         <span *ngIf="item.type == 'FOLDER'" (click)="shareDetails(item)" class="cursor-pointer"> {{ item.type | titlecase }}</span>
                                         <span  *ngIf="item.type != 'FOLDER'" >{{ item.type | titlecase }}</span>
+                                      </td>
+                                      <td class="share_icon"> <div class="edit"><label class="share-bor mr-3"> <input class="file-inpt" type="file"> <img
+                                        class="share-img" src="assets/images/share-img.png" alt="farm"> <span
+                                        class="share-txt ml-2"> {{appLanguage.share}} </span> </label></div>  
                                       </td>
                         <td>
                             <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">

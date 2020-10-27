@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild ,ViewEncapsulation} from '@angular/core';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Router } from '@angular/router';
@@ -7,7 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-micro-roaster',
   templateUrl: './micro-roaster.component.html',
-  styleUrls: ['./micro-roaster.component.css']
+  styleUrls: ['./micro-roaster.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class MicroRoasterComponent implements OnInit {
   estateterm: any;
@@ -82,7 +83,16 @@ export class MicroRoasterComponent implements OnInit {
 					data: 'orderid'
 				}, {
 					title: 'Estate name',
-					data: 'estatename'
+					data: 'estatename',
+					className: 'table_ellipsis',
+					render: function ( data, type, row ) {
+						// if ( type === 'display' ) {
+							return data ;
+							// '<span class="tooltiptext"  matTooltip="{{appLanguage.order_confirmed}}"
+							// matTooltipClass="tooltiptext" ></span>';
+						// }
+						// return data;
+					}
 				}, {
 					title: 'Date ordered',
 					data: 'dataordered'
@@ -113,7 +123,7 @@ export class MicroRoasterComponent implements OnInit {
 					data: 'status',
 					className: 'status-es'
 				},
-				
+				 
 				{
 					title: "Cupping score",
 					data: "cuppingscore",

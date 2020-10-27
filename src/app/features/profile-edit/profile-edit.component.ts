@@ -117,6 +117,7 @@ export class ProfileEditComponent implements OnInit {
                 this.timezone = response['result']['timezone'];
                 this.address1 = response['result']['address1'];
                 this.address2 = response['result']['address2'];
+                this.description = response['result']['description'];
                 this.gender = response['result']['gender'];
                 this.numberValue =  response['result']['phone'].split("-");
                 this.phoneno = this.numberValue[1];
@@ -293,6 +294,7 @@ export class ProfileEditComponent implements OnInit {
         'lastname' : this.lastname ,
         'phone' : this.numb,
         'date_of_birth' : dateValue,
+        'description' : this.description,
         'state' : this.state,
         'language' : this.language,
         'timezone' : this.timezone,
@@ -316,7 +318,7 @@ export class ProfileEditComponent implements OnInit {
 
             if(isBase64Valid == false){
               this.toastrService.success("Profile details updated successfully");
-              this.router.navigate(['/features/account-settings']);
+              this.router.navigate(['/features/myprofile']);
             }else{
 
             var ImageURL = this.profilePicService.croppedImage;
@@ -342,7 +344,7 @@ export class ProfileEditComponent implements OnInit {
                 console.log(result)
                 if(result['success']== true){
                 this.toastrService.success("Profile details updated successfully");
-                this.router.navigate(['/features/account-settings']);
+                this.router.navigate(['/features/myprofile']);
                 }
                 else{
                   console.log(result);

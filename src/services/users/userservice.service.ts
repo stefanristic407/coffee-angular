@@ -20,7 +20,7 @@ export class UserserviceService {
   private certificatesURL = environment.apiURL+"/ro/certificates";
   private profileImageURL = environment.apiURL+"/ro/uploadfiles";
   private languageURL = environment.apiURL+"/language";
-
+  private sendEmailURL = environment.apiURL+"/sendemail";
   private inviteUrl = environment.apiURL+"/ro/inviteusers";
 
   // private roasterUrl = "/ro/api";
@@ -442,5 +442,10 @@ export class UserserviceService {
       'horeca_type' : type
     };
     return this.http.post(this.roasterUrl, data);
+  }
+
+  sendUrlToEmail(body:any){
+    var data = body;
+    return this.http.post(this.sendEmailURL, data);
   }
 }

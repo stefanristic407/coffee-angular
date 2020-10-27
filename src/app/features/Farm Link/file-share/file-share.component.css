@@ -149,6 +149,37 @@
 .file-share-addMail {
     background-color: #ffffff;
 }
+.oh__text{  
+    color: #020202;
+}
+.delete__text{
+    color: #5d5d5d;
+}
+.cancel-btn{
+    color: #30855c;
+    border-radius: 4px;
+    border: 1px solid #30855c;
+    background-color:#fff;
+    cursor: pointer;
+}
+.cancel-btn:hover{
+    background-color:#30855c;
+    color: #fff;
+}
+.delete-btn{
+    color: #fff;
+    border-radius: 4px;
+    background-color: #30855c;
+}
+.cancel-btn,.delete-btn{
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 11px 30px;
+}
+:host ::ng-deep .modal-dialog {
+    max-width: 39% !important;
+}
 
 @media (min-width: 768px) {
     .file-share-addMail {
@@ -157,6 +188,9 @@
         background-color: #ffffff;
     }
 }
+
+
+
 
 .file-share-addMail input {
     outline: 0;

@@ -27,6 +27,7 @@ export class RoasterQuickSetupComponent implements OnInit {
   constructor(public roasterService:RoasterserviceService,
     public cookieService: CookieService,
     private router: Router,  
+    private toastrService : ToastrService,
     public route: ActivatedRoute, 
     public userService : UserserviceService, 
      private globals: GlobalsService) {
@@ -57,8 +58,27 @@ export class RoasterQuickSetupComponent implements OnInit {
             // this.inviteSent = 1;
             console.log(data);
             console.log("https://qa-micro-roaster.sewnstaging.com/#/auth/setup?token="+data['result'].token);
+            var body = {
+              "name" : this.add_member_name,
+              "portal" : this.headerValue,
+              "content_type" : "invite_with_url",
+              "senders" : [this.add_member_email],
+              "url" : "https://qa-micro-roaster.sewnstaging.com/#/auth/setup?token="+data['result'].token
+            };
+            this.userService.sendUrlToEmail(body).subscribe(
+              res => {
+                if(res['status'] == "200 OK"){
+                  this.toastrService.success("Email has been sent successfully");
+                }
+                else{
+                  
+                  this.toastrService.error("Error while sending email to the User");
+                }
+              }
+            )
           }else{
             console.log(data);
+            this.toastrService.error("Error while sending email to the User");
           }
         })
       } else if (this.headerValue == "HoReCa") {
@@ -67,8 +87,27 @@ export class RoasterQuickSetupComponent implements OnInit {
             // this.inviteSent = 1;
             console.log(data);
             console.log("https://qa-client-horeca.sewnstaging.com/#/auth/horeca-setup?token="+data['result'].token);
+            var body = {
+              "name" : this.add_member_name,
+              "portal" : this.headerValue,
+              "content_type" : "invite_with_url",
+              "senders" : [this.add_member_email],
+              "url" : "https://qa-client-horeca.sewnstaging.com/#/auth/horeca-setup?token="+data['result'].token
+            };
+            this.userService.sendUrlToEmail(body).subscribe(
+              res => {
+                if(res['200 OK'] == true){
+                  this.toastrService.success("Email has been sent successfully");
+                }
+                else{
+                  
+                  this.toastrService.error("Error while sending email to the User");
+                }
+              }
+            )
           }else{
             console.log(data);
+            this.toastrService.error("Error while sending email to the User");
           }
         })
       } 

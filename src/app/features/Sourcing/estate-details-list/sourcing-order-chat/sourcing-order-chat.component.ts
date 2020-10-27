@@ -10,6 +10,7 @@ import {GlobalsService} from 'src/services/globals.service';
 export class SourcingOrderChatComponent implements OnInit {
 	appLanguage: any;
 	sourcingChatActive:any=0;
+	greenIconShow: boolean = false;
 
   constructor(private globals: GlobalsService) { }
 

@@ -67,6 +67,8 @@ export class MyfilesComponent implements OnInit {
   myFiles:any=0;
   selectedValue: string;
   appLanguage: any;
+	deleteFolderId: any;
+	deleteFileId: any;
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -158,7 +160,15 @@ export class MyfilesComponent implements OnInit {
         this.shareFileId = item.id;
     this.modalRef = this.modalService.show(shareTemplate);
     this.sharedUsersLists();
-      }
+	  }
+	openDeleteModal(deleteTemplate:TemplateRef<any>,deleteId:any){
+		this.modalRef = this.modalService.show(deleteTemplate);
+		this.deleteFolderId = deleteId;
+	}
+	openFileDeleteModal(deleteFileTemplate:TemplateRef<any>,deleteFileId:any){
+		this.modalRef = this.modalService.show(deleteFileTemplate);
+		this.deleteFileId = deleteFileId;
+	}
     
     sharedUsersLists(){
       console.info(this.shareFileId)
@@ -288,7 +298,7 @@ downloadFile(item: any) {
 
 
   deleteFolder(id:any){
-    if (confirm("Please confirm! you want to delete?") == true) {
+    // if (confirm("Please confirm! you want to delete?") == true) {
     this.roasterService.deleteFolder(this.roasterId,id).subscribe(
       data => {
         if(data['success']==true){
@@ -302,10 +312,10 @@ downloadFile(item: any) {
         }
       }
     )
-    }
+    // }
   }
   deleteFile(id:any){
-    if (confirm("Please confirm! you want to delete?") == true) {
+    // if (confirm("Please confirm! you want to delete?") == true) {
     this.roasterService.deleteFile(this.roasterId,id).subscribe(
       data => {
         if(data['success']==true){
@@ -319,7 +329,7 @@ downloadFile(item: any) {
         }
       }
     )
-    }
+    // }
   }
 
   pinFileorFolder(id:any){

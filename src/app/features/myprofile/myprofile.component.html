@@ -17,7 +17,7 @@
                     <h1 class="fnt-play"> My Profile</h1>
                     <p> Enter or edit personal information and contact details</p>
                     <div class="float-right ml-auto butn-mt">
-                        <button type="button" class="btn cancel-butn" (click)="editProfile(profileDetails.id)">  Edit Profile </button>
+                        <button type="button" class="btn cancel-butn" routerLink="/features/profile-edit">  Edit Profile </button>
                     </div>
                     <div class="row pt-3">
                         <div class="col-lg-4 col-md-12">
@@ -25,7 +25,10 @@
                                 <table class="recent-time ">
 
                                     <tr>
-                                        <td> <img class="Profile-dp" src="assets/images/myprofile-pic.png" alt="Dashboard"></td>
+                                        <td> 
+                                            <img class="Profile-dp" *ngIf="profileDetails.profile_image_url == ''" src="assets/images/profile.svg" alt="Dashboard">
+                                            <img class="Profile-dp" *ngIf="profileDetails.profile_image_url != ''" src="{{profileDetails.profile_image_url}}" alt="Dashboard">
+                                        </td>
                                         <td class="ans">
                                             <span class="list-ans"> {{profileDetails.firstname}} {{profileDetails.lastname}} </span>
                                             <p class="list-ans"> Roaster </p>

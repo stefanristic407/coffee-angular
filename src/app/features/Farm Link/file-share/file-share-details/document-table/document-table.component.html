@@ -46,8 +46,10 @@
                         <span class="cursor-pointer" *ngIf="item.type== 'FOLDER'" (click)="filedetailsService.shareDetails(item)">{{item.type | titlecase }}</span>
                         <span *ngIf="item.type!= 'FOLDER'">{{item.type | titlecase }}</span>
                     </td>
-                    <td><span class="share-bor video-share mr-3" (click)="openShareModal(shareTemplate,item)">  <img class="share-img" src="assets/images/share-img.png" alt="farm"> <span class="share-txt"> {{appLanguage.share}} </span> </span>
-                    </td>
+                    <td class="share_icon"> <div class="edit"><label class="share-bor mr-3"> <input class="file-inpt" type="file"> <img
+                        class="share-img" src="assets/images/share-img.png" alt="farm"> <span
+                        class="share-txt ml-2"> {{appLanguage.share}} </span> </label></div>  
+                      </td>
                     <td>
                         <a class="menu-arrow" [popover]="documentTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>

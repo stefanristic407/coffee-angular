@@ -1,7 +1,7 @@
 // AUTHOR : Vijaysimhareddy
 // PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
@@ -10,7 +10,9 @@ import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-agreement',
   templateUrl: './agreement.component.html',
@@ -32,7 +34,7 @@ export class AgreementComponent implements OnInit {
   showCustomerMob:boolean = true;
   customer_id:any = "";
   searchTerm:any ;
-  notify : boolean 
+//   notify : boolean 
 	agreementsActive:any=0;
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
@@ -45,14 +47,14 @@ export class AgreementComponent implements OnInit {
 	// Static Estate Orders Data List
 	public data: any;
 
-	public mainData: any[] = [
-		{  name: 'The Steam Hotel', origin:'Västerås',date: '19/12/19', orderid:'#129979',file:'The Steam Hotel agreeme…' },
-		{  name: 'Gothenburg',origin:'Candela',date: '12/01/20', orderid:'#221669',file:'Candela agreement pap' },
-		{  name: 'Finca Nápoles', origin:'Stockholm',date: '02/10/19', orderid:'#879082',file:'Finca Nápoles agreement' },
-		{  name: 'Santa Rosa',origin:'Karlstad',date: '10/01/20', orderid:'#127908',file:'Santa Rosa agreement' },
-		{  name: 'The Steam Hotel', origin:'Västerås',date: '12/04/20', orderid:'#124160',file:'The Steam Hotel agreeme…' },
-		{  name: 'The Steam Hotel',origin:'Västerås',date: '19/09/19', orderid:'#717167',file:'Santa Rosa agreement' },
-  ];
+// 	public mainData: any[] = [
+// 		{  name: 'The Steam Hotel', origin:'Västerås',date: '19/12/19', orderid:'#129979',file:'The Steam Hotel agreeme…' },
+// 		{  name: 'Gothenburg',origin:'Candela',date: '12/01/20', orderid:'#221669',file:'Candela agreement pap' },
+// 		{  name: 'Finca Nápoles', origin:'Stockholm',date: '02/10/19', orderid:'#879082',file:'Finca Nápoles agreement' },
+// 		{  name: 'Santa Rosa',origin:'Karlstad',date: '10/01/20', orderid:'#127908',file:'Santa Rosa agreement' },
+// 		{  name: 'The Steam Hotel', origin:'Västerås',date: '12/04/20', orderid:'#124160',file:'The Steam Hotel agreeme…' },
+// 		{  name: 'The Steam Hotel',origin:'Västerås',date: '19/09/19', orderid:'#717167',file:'Santa Rosa agreement' },
+//   ];
 	roasterId: string;
 	appLanguage: any;
 	customer_type: string;
@@ -61,18 +63,51 @@ export class AgreementComponent implements OnInit {
 	fileNameValue: any;
 	customerIdError: string;
 	fileName: string | Blob;
-
+	horecaList: any;
+	mainData: any;
+	modalRef: BsModalRef;
+	customer_id_value: any;
+	uploadFileValue: any;
+	file_url: any;
+	agreement_file_id: any;
+	re_fileNameValue: any;
+	re_fileEvent: any;
+	re_files: any;
+	reuploaded_agreement: any;
+	item_id: any;
+	deleteAgreementId: any;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
 		public roasterService : RoasterserviceService,
 		public toastrService : ToastrService,
+		public roasteryProfileService : RoasteryProfileService,
+		private modalService: BsModalService,
 		private globals: GlobalsService) {
 		this.roasterId = this.cookieService.get('roaster_id');
 	}
 
+	openFileModal(template: TemplateRef<any>,itemId:any) {
+		this.modalRef = this.modalService.show(template);
+		this.roasterService.getAgreementValue(this.roasterId,this.customer_type,itemId).subscribe(
+		  data => {
+			if(data['success']==true){
+			  this.customer_id_value = data['result'].customer_id;
+			  this.file_url = data['result'].file_url;
+			  this.agreement_file_id = data['result'].file_id;
+			  this.re_fileNameValue = data['result'].file_name;
+			  this.item_id = data['result'].id;	
+			}
+		  }
+		)
+	
+	  }
 
+	  openDeleteModal(deleteTemplate:TemplateRef<any>,deleteId:any){
+		this.modalRef = this.modalService.show(deleteTemplate);
+		this.deleteAgreementId = deleteId;
+	}
      ngOnInit(): void {
       //Auth checking
       if (this.cookieService.get("Auth") == "") {
@@ -93,22 +128,40 @@ export class AgreementComponent implements OnInit {
 	  this.displayNumbers = '10';
 	  this.customerMob = '';
 	  this.getAgreements();
-  
+	  this.getHorecaList();
     }
  	language(){
         this.appLanguage = this.globals.languageJson;
         this.agreementsActive++;
+	}
+	getHorecaList(){
+		this.roasterService.getMicroRoastersHoreca(this.roasterId).subscribe(
+			res => {
+				if(res['success'] == true){
+					this.horecaList = res['result'];
+					
+				}
+				else{
+					this.toastrService.error("Error while getting HoReCa list");
+				}
+			}
+		)
+	}
+
+	getCountryName(code : any){
+		return this.roasteryProfileService.countryList.find(con => con.isoCode == code).name;	
 	}
 	
 	getAgreements(){
 		this.roasterService.getAgreements(this.roasterId, this.customer_type).subscribe(
 			data => {
 				if(data['success']==true){
-					// this.mainData = data['result'];
+					this.mainData = data['result'];
+					console.log(this.mainData)
 				}
-				// else{
-				// 	this.toastrService.error("Error while getting the agreement list!");
-				// }
+				else{
+					this.toastrService.error("Error while getting the agreement list!");
+				}
 			}
 		)
 	}
@@ -126,16 +179,16 @@ export class AgreementComponent implements OnInit {
 	}
 	setStatus(term: any) {
 		this.estatetermStatus = term;
-		this.datatableElement.dtInstance.then(table => {
-			table.column(9).search(this.estatetermStatus).draw();
-		});
+		// this.datatableElement.dtInstance.then(table => {
+		// 	table.column(9).search(this.estatetermStatus).draw();
+		// });
 	}
 
 	setOrigin(origindata: any) {
 		this.estatetermOrigin = origindata;
-		this.datatableElement.dtInstance.then(table => {
-			table.column(4).search(origindata).draw();
-		});
+		// this.datatableElement.dtInstance.then(table => {
+		// 	table.column(4).search(origindata).draw();
+		// });
 	}
 	setType(data: any) {
 		this.estatetermType = data;
@@ -204,7 +257,7 @@ export class AgreementComponent implements OnInit {
 	  }
 	  }
 
-	  reUploadFile(event:any){
+	  uploadFile(event:any){
 		this.files = event.target.files;
 		this.fileEvent = this.files;
 		console.log(this.fileEvent);
@@ -219,7 +272,7 @@ export class AgreementComponent implements OnInit {
 			this.customer_id == undefined
 		  ) {
 			this.customerIdError = "Please Select Customer Id";
-			document.getElementById("customer_id").style.border =
+			document.getElementById("customer").style.border =
 			  "1px solid #D50000 ";
 			setTimeout(() => {
 			  this.customerIdError = "";
@@ -232,7 +285,7 @@ export class AgreementComponent implements OnInit {
 			  let file: File = fileList[0];
 			  let formData: FormData = new FormData();
 			  formData.append("file", file, file.name);
-			  formData.append('name',this.fileName);
+			  formData.append('name',this.fileNameValue);
 			  formData.append('file_module','Agreements');
 			  this.roasterId = this.cookieService.get("roaster_id");
 			  formData.append(
@@ -244,17 +297,17 @@ export class AgreementComponent implements OnInit {
 				result =>{
 				  if(result['success']==true){
 					  
-					this.toastrService.success("The file "+this.fileName+" uploaded successfully");
+					this.toastrService.success("The file "+this.fileNameValue+" uploaded successfully");
 					var data = {
-						'customer_id' : this.customer_id,
-						'notify_customer' : this.notify,
-						'file_id' : result['result']['file_id']
+						'customer_id' : parseInt(this.customer_id),
+						'notify_customer' : true,
+						'file_id' : result['result']['id']
 					}
 					this.roasterService.uploadAgreements(this.roasterId,this.customer_type,data).subscribe(
 						res => {
 							if(res['success'] == true){
 								this.toastrService.success('The Agreement has been uploaded successfully');
-							// this.fileService.getFilesandFolders();
+							this.getAgreements();
 							}
 							else{
 								this.toastrService.error("Error while uploading Agreegement");
@@ -270,12 +323,79 @@ export class AgreementComponent implements OnInit {
 		  }
 	  }
 
+	  reUploadFile(event:any){
+		this.re_files = event.target.files;
+		this.re_fileEvent = this.re_files;
+		console.log(this.re_fileEvent);
+		this.re_fileNameValue = this.re_files[0].name;
+		
+	  }
+	
+
+	  updateAgreement(){
+		if (
+			this.customer_id_value == "" ||
+			this.customer_id_value == null ||
+			this.customer_id_value == undefined
+		  ) {
+			this.customerIdError = "Please Select Customer Id";
+			document.getElementById("customer_id_value").style.border =
+			  "1px solid #D50000 ";
+			setTimeout(() => {
+			  this.customerIdError = "";
+			}, 3000);
+		  }
+		  else{
+			let fileList: FileList = this.re_fileEvent;
+			// var parent_id = 0;
+			if (fileList.length > 0) {
+			  let file: File = fileList[0];
+			  let formData: FormData = new FormData();
+			  formData.append("file", file, file.name);
+			  formData.append('name',this.re_fileNameValue);
+			  formData.append('file_module','Agreements');
+			  this.roasterId = this.cookieService.get("roaster_id");
+			  formData.append(
+				"api_call",
+				"/ro/" + this.roasterId + "/file-manager/files"
+			  );
+			  formData.append("token", this.cookieService.get("Auth"));
+			  this.roasterService.uploadFiles(formData).subscribe(
+				result =>{
+				  if(result['success']==true){
+					  this.agreement_file_id = result['result'].id
+					this.toastrService.success("The file "+this.re_fileNameValue+" uploaded successfully");
+				  }else{
+					this.toastrService.error("Error while uploading the agreement");
+				  }
+				}
+			  )
+			}
+			 
+			  var data = {
+				'file_id' : this.agreement_file_id
+			  }
+			  this.roasterService.updateAgreements(this.roasterId,this.customer_type,this.item_id,data).subscribe(
+				  res => {
+					  if(res['success'] == true){
+						this.getAgreements();
+						this.toastrService.success("The Agreement updated successfully");
+
+					  }
+					  else{
+						  this.toastrService.error("Error while updating the agreement details");
+					  }
+				  }
+			  )
+		  }
+	  }
+
 	  deleteAgreement(item : any){
 		  this.roasterService.deleteAgreement(this.roasterId, this.customer_type,item.id).subscribe(
 			  res => {
 				  if(res['success'] == true){
 					  this.toastrService.success("The Selected agreement deleted successfully!");
-					//   this.getAgreements();
+					  this.getAgreements();
 				  }
 				  else{
 					  this.toastrService.error("Error while deleting the agreement");

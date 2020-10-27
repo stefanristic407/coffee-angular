@@ -21,20 +21,20 @@
     }
     
     .cancel-butn {
-        border-radius: 4px;
-        background-color: #30855c;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: 600;
-        color: #ffffff;
-        border: #30855c;
+        border-radius: 4px !important;
+        background-color: #30855c !important;
+        padding: 10px 20px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        color: #ffffff !important;
+        border: #30855c !important;
         margin-top: -9rem;
     }
     
     .cancel-butn:hover {
-        background-color: #30855c;
-        border: #30855c;
-        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+        background-color: #30855c !important;
+        border: #30855c !important;
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5) !important;
     }
     
     .my-profile {
@@ -141,3 +141,18 @@
         border: solid 1px #ebebeb;
         padding: 2rem 2rem 15rem 2rem;
     }
+    /* .edit-btn{
+        border-radius: 4px;
+        background-color: #30855c;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #30855c;
+        border: #30855c;
+        margin-top: -9rem;
+    }
+    .cancel-butn:hover {
+        /* background-color: #30855c;
+        border: #30855c; 
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    } */

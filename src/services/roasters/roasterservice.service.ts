@@ -416,7 +416,7 @@ export class RoasterserviceService {
     // params = params.append('type_in','VIDEO');
     // params = params.append('parent_id', parentId)
     var data = {};
-    data['api_call'] = "/ro/" + roaster_id + customer_type + "/agreements";
+    data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements";
     // data['params'] = params;
     data['token'] = this.cookieService.get('Auth');
     //  const params = new HttpParams().append( 'file_module', fileModule )
@@ -434,7 +434,7 @@ export class RoasterserviceService {
     // params = params.append('type_in','VIDEO');
     // params = params.append('parent_id', parentId)
     var data = {};
-    data['api_call'] = "/ro/" + roaster_id + customer_type + "/agreements";
+    data['api_call'] = "/ro/" + roaster_id +"/"+ customer_type + "/agreements";
     // data['params'] = params;
     data['token'] = this.cookieService.get('Auth');
     data['data'] = body;
@@ -443,6 +443,17 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
+  
+        //API Function Name : Update Agreements 
+  //API Description: This API calls helps to update the agreements.
+
+  getAgreementValue(roaster_id: any,customer_type:any,id:any) {
+    var data = {};
+    data['api_call'] =   "/ro/" + roaster_id + "/" + customer_type + "/agreements/"+ id;
+    data['method'] = "GET";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
 
 
         //API Function Name : Update Agreements 
@@ -450,7 +461,7 @@ export class RoasterserviceService {
 
   updateAgreements(roaster_id: any,customer_type:any,id:any,body:any) {
     var data = {};
-    data['api_call'] =   "/ro/" + roaster_id + customer_type + "/agreements/"+ id;
+    data['api_call'] =   "/ro/" + roaster_id + "/" + customer_type + "/agreements/"+ id;
     data['method'] = "PUT";
     data['token'] = this.cookieService.get('Auth');
     data['data'] = body;
@@ -461,7 +472,7 @@ export class RoasterserviceService {
 
   deleteAgreement(roaster_id: any, customer_type : any, id: any) {
     var data = {};
-    data['api_call'] = "/ro/" + roaster_id + customer_type + "/agreements/"+ id;
+    data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements/"+ id;
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.deleteUrl, data);
   }

@@ -52,6 +52,8 @@ descriptionError: string;
   usersList: any[]=[];
   appLanguage: any;
 	shareMainActive:any=0;
+	unPinId: any;
+	loadId: any;
 
   constructor( public router : Router,
                public dashboard : DashboardserviceService, 
@@ -418,6 +420,16 @@ descriptionError: string;
     // })
 
   }
+  openUnpinModal(template1:TemplateRef<any>,unpinId:any){
+	this.modalRef = this.modalService.show(template1);
+	this.unPinId = unpinId;
+	}
+	openDownloadModal(template2:TemplateRef<any>,downloadId:any){
+		this.modalRef = this.modalService.show(template2);
+		this.loadId = downloadId;
+		}
+
+
   closePopup(){
     this.modalRef.hide();
   }
@@ -486,10 +498,10 @@ getUsersList(e :any){
  
   
   unpinFileorFolder(id:any){
-    if (confirm("Please confirm! you want to unpin?") == true) {
+    // if (confirm("Please confirm! you want to unpin?") == true) {
     this.roasterService.unpinFileorFolder(this.roasterId,id).subscribe(
       data => {
-        if(data['success']==true){
+        if(data['success'] == true){
           this.toastrService.success("The Selected file is unpinned successfully");
           setTimeout(()=>{
             this.fileService.getPinnedFilesorFolders();
@@ -501,7 +513,7 @@ getUsersList(e :any){
         }
       }
     )
-    }
+    // }
   }
 
   shareDetails(size: any){

@@ -196,6 +196,25 @@ span.checkmark {
 .share_icon:hover .edit {
 	display: block;
 }
+.share_icon {
+	position: relative;
+    display: table-cell;
+    width: 10%!important;
+}
+
+.share_icon:hover .edit , tr:hover .edit {
+	display: block;
+}
+
+.edit {
+	padding-top: 17px;	
+    padding-right: 0px;
+    padding-left: 10px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: none;
+}
 
 .edit {
 	padding-top: 17px;	
