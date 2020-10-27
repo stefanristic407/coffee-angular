@@ -1,27 +1,22 @@
 .bread-nav {
     padding-left: 3.1rem;
 }
-
 .showcurser {
     cursor: pointer;
 }
-
 .border-lots {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     padding: 6px 4px;
     margin-top: 0.7rem;
 }
-
 .table-container {
     margin: 2% 4.5% 0 4.5%;
 }
-
 .table-header {
     border-radius: 4px;
     background-color: #f8f8f8;
 }
-
 table th,
 table td,
 .header-row {
@@ -44,11 +39,9 @@ tr:last-child {
     color: #232334;
     padding: 14px 15px;
 }
-
 .table td {
     padding: 18px 15px;
 }
-
 .ticket-boby-txt {
     font-family: Muli;
     font-size: 13px;
@@ -58,52 +51,6 @@ tr:last-child {
     padding-bottom: 2rem;
 }
 
-.estate-orders {
-    position: relative;
-}
-
-.estate-orders-heading {
-    margin: 1rem 3.1rem;
-}
-
-.add-role-butn {
-    border-radius: 4px;
-    background-color: #30855c;
-    padding: 10px 0px;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffffff;
-    margin-right: 3rem;
-}
-
-.add-role-butn:hover {
-    background-color: #3d8462;
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.orders-border {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6 !important;
-}
-
-.estate-title {
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    height: 55px;
-}
-
-.estate-title th {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: bold;
-    color: #232334;
-}
-
-.dataTable {
-    border-radius: 4px !important;
-    padding: 6px 4px;
-}
 
 .row {
     color: #232334 !important;
@@ -112,21 +59,6 @@ tr:last-child {
     font-family: 'Muli' !important;
     border-bottom: none !important;
 }
-
-table.dataTable.no-footer {
-    border-bottom: solid 1px #d6d6d6 !important;
-    width: 100% !important;
-}
-
-table.dataTable thead th {
-    border-bottom: none !important;
-}
-
-.estate-boby-txt {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-}
-
 .estate-order-title {
     font-family: Muli;
     font-size: 18px;
