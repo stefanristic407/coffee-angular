@@ -35,7 +35,7 @@ export class ManageRoleComponent implements OnInit {
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
     private toastrService: ToastrService,
-    private globals: GlobalsService,
+    public globals: GlobalsService,
     private modalService: BsModalService
   ) { 
     // this.isActive = 0;

@@ -77,7 +77,7 @@
                         <th scope="col">{{appLanguage.actions}}</th>
                     </tr>
                 </thead>
-                <tbody class="customtable">
+                <tbody class="customtable" *ngIf="this.globals.checkItem('acl-list')=='view' || this.globals.checkItem('acl-list')=='manage'">
                     <tr *ngFor="let data of sizes; let i = index" id="tr_{{data.id}}">
                         <th>
                             <label class="customcheckbox">
@@ -98,7 +98,7 @@
                                 <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
                             </a>
                             <ng-template #poplistTemplate id="{{data.id}}">
-                                <div id="popover-mobile-content">
+                                <div id="popover-mobile-content" *ngIf="this.globals.checkItem('acl-management')=='manage'">
                                     <ul class="list-group custom-popover">
                                         <!-- <li class="list-group-item" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">Add Members </a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">View Members</a></li>

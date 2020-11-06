@@ -1,0 +1,18 @@
+.bg-fff {
+    padding: 2rem;
+    border-radius: 4px;
+}
+
+@media (max-width:767px) {
+    .bg-fff {
+        padding: 1rem .7rem;
+    }
+}
+
+.send-invites {
+    color: #ffffff;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #30855c;
+    padding: 8px 16px;
+}

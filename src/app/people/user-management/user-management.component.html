@@ -99,9 +99,9 @@
                     <tr class="header-row">
                         <th>
                             <label class="customcheckbox m-b-20">
-                                                <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()" (change)="checkAll($event)" />
-                                                <span class="checkmark head-check"></span>
-                                            </label>
+								<input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()" (change)="checkAll($event)" />
+								<span class="checkmark head-check"></span>
+							</label>
                         </th>
                         <th scope="col">{{appLanguage.name}}</th>
                         <th scope="col">
@@ -123,7 +123,7 @@
                         <th scope="col">{{appLanguage.actions}}</th>
                     </tr>
                 </thead>
-                <tbody class="customtable">
+                <tbody class="customtable" *ngIf="this.globals.checkItem('user-management')=='manage' || this.globals.checkItem('user-management')=='view'">
                     <tr *ngFor="
             let user of userfilterDat
               | filter: term
@@ -165,7 +165,7 @@
                                 <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
                             </a>
                             <ng-template #popTemplate>
-                                <div id="popover-mobile-content">
+                                <div id="popover-mobile-content" *ngIf="this.globals.checkItem('user-management')=='manage'">
                                     <ul class="list-group custom-popover">
                                         <li class="list-group-item">
                                             <a class="pointer-item" (click)="editMember(user.id); pop12.hide()">{{appLanguage.edit_member}}</a

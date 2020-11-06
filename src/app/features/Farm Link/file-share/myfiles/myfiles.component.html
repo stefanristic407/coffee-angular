@@ -121,7 +121,7 @@
             <span *ngIf="item.type == 'FOLDER'" (click)="shareDetails(item)" class="showcurser"> {{ item.type | titlecase }}</span>
             <span  *ngIf="item.type != 'FOLDER'" >{{ item.type | titlecase }}</span>
           </td>
-          <td class="share_icon"> <div class="edit"><label class="share-bor mr-3"> <input class="file-inpt" type="file"> <img
+          <td class="share_icon"> <div class="edit"><label class="share-bor mr-3" (click)="openShareModal(shareTemplate,item)">  <img
             class="share-img" src="assets/images/share-img.png" alt="farm"> <span
             class="share-txt ml-2"> {{appLanguage.share}} </span> </label></div>  
           </td>

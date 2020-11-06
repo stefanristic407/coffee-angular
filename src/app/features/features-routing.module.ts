@@ -70,6 +70,8 @@ import { ServiceRequestsComponent } from './green-grading/service-requests/servi
 import {SourceGradingComponent} from './green-grading/source-grading/source-grading.component';
 import { ServiceRequestedComponent} from './green-grading/service-requested/service-requested.component';
 import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
+import { InviteFriendsComponent} from './invite-friends/invite-friends.component';
+import { InviteSucessComponent} from './invite-friends/invite-sucess/invite-sucess.component';
 
 
 const routes: Routes = [
@@ -317,6 +319,14 @@ const routes: Routes = [
         {
           path:'process-details',
           component: ProcessDetailsComponent
+        },
+        {
+          path:'invite-friends',
+          component: InviteFriendsComponent
+        },
+        {
+          path:'invite-sucess',
+          component: InviteSucessComponent
         },
 
       {

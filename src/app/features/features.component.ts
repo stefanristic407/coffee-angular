@@ -63,7 +63,7 @@ export class FeaturesComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     private translateService:TranslateService,
-    private globals:GlobalsService) {
+    public globals:GlobalsService) {
       this.translateService.addLangs(this.supportLanguages);
       if (localStorage.getItem("locale")) {
         const browserLang = localStorage.getItem("locale");

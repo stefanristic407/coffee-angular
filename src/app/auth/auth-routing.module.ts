@@ -10,7 +10,9 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { SetupComponent } from './setup/setup.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
-import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -43,6 +45,10 @@ const routes: Routes = [
       {
         path: 'privacy-policy',
         component: PrivacyPolicyComponent
+      },
+      {
+        path: 'sign-up',
+        component: SignUpComponent
       },
       {
         path: '',

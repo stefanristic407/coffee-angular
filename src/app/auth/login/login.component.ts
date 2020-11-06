@@ -22,6 +22,11 @@ export class LoginComponent implements OnInit {
   loginButtonValue: any;
   roaster_id: any;
   value: string;
+  permissionList: any;
+  slugList: any;
+  accesslist: any;
+  permissionSlugData: any=[];
+  accessData: any=[];
   constructor(private router: Router,
     private userService: UserserviceService,
     private cookieService: CookieService,
@@ -228,10 +233,11 @@ export class LoginComponent implements OnInit {
                           }
                         }
                         this.router.navigate(['/features/privacy-settings'], navigationExtras);
-                        this.loginButtonValue = "Login";
+						this.loginButtonValue = "Login";
+						
                         }
                         else {
-                          this.toastrService.success("Logged in Successfully");
+						  this.toastrService.success("Logged in Successfully");
                           this.router.navigate(["/features/welcome-aboard"]);
                           this.loginButtonValue = "Login";
                         }
@@ -245,7 +251,33 @@ export class LoginComponent implements OnInit {
                 }
               }
             )
+			this.userService.getUserPermissions(data['result'].roaster_ids[0]).subscribe(
+				result => {
+					// alert(1);
+					if(result['success'] == true){
+						this.permissionList=result['result'];
+						// var slugData = result['result'];
+						// slugData.forEach(element => {
+						//   var tempList = {};
+						//   tempList['slugList'] = element.slug;
+						//   tempList['accessList'] = element.access_type;
+						//   this.permissionSlugData.push(tempList);
+						// for (var i = 0; i < this.permissionList.length; i++) {
+						// 	this.slugList= this.permissionList[i];
+						// 	this.accesslist=this.permissionList[i]['access_type'];
+						// 	this.permissionSlugData.push(this.slugList);
+						// 	this.accessData.push(this.accesslist);
+						// }	
+						// this.cookieService.set('permissionSlug', this.permissionSlugData);
+						// this.cookieService.set('permissionAccess',this.accessData);
+					// });
+					this.cookieService.set('permissionSlug',JSON.stringify(this.permissionList));
 
+				}
+				
+			});
+				
+			
           }
           else if (data['messages'] == null) {
             this.myAlertTop();

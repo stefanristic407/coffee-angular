@@ -607,10 +607,10 @@ li.nav-item {
     color: #fff!important;
 }
 
+
+/*  tooltiptext start */
+
 .tooltiptext {
-    /* visibility: hidden; */
-    /* width: auto; */
-    /* object-fit: contain; */
     overflow: visible !important;
     border-radius: 4px !important;
     box-shadow: 0 -22px 34px 0 rgba(0, 0, 0, 0.08) !important;
@@ -618,20 +618,13 @@ li.nav-item {
     background-color: #ffffff !important;
     line-height: 1.43 !important;
     letter-spacing: normal !important;
-    color: #747588 !important ;
+    color: #747588 !important;
     font-size: 14px !important;
     text-align: center !important;
     padding: 15px 20px 15px 20px!important;
-    /* left: 22%; */
-    /* display:inline; */
-    /* margin-top: 2%; */
-    /* margin-left: 1.5%; */
-    /* Position the tooltip */
-    /* position: absolute !important; */
-    /* z-index: 1 !important; */
-    /* left: 15%; */
-  }
-  .tooltiptext::after {
+}
+
+.tooltiptext::after {
     content: "" !important;
     position: absolute !important;
     bottom: 100% !important;
@@ -640,21 +633,20 @@ li.nav-item {
     border-width: 8px !important;
     border-style: solid !important;
     border-color: transparent transparent #ffffff transparent !important;
-  }
-  
- /* .table_ellipsis:hover .tooltiptext {
-    visibility: visible;
-  } */
-  .table_ellipsis {
+}
+
+.table_ellipsis {
     max-width: 72px!important;
     width: 54px !important;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
+}
 
-    /* position: relative; */
-  }
+
+/* tooltiptext ends*/
+
 
 /********************* media query css  **************************/
 

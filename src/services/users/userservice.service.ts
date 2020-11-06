@@ -448,4 +448,28 @@ export class UserserviceService {
     var data = body;
     return this.http.post(this.sendEmailURL, data);
   }
+
+  getAvailableEstates(roasterId : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roasterId + "/estates/availability";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+
+  getAvailableEstateList(roasterId : any, estateId : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roasterId + "/estates/" + estateId;
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+  getUserPermissions(roasterId : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roasterId + "/users/permissions";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+
 }

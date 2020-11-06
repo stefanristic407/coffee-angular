@@ -56,64 +56,51 @@
                                             <div class="order-tracking">
                                                 <span class="is-complete "></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text mt-order-0">
-                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="orderPlaceBooked()" matTooltip="Order placed"
-                                                    matTooltipClass="tooltiptext" #orderPlacedBooked style="color: #000000;font-weight: bold;">
+                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="orderPlaceBooked()" matTooltip="Order placed" matTooltipClass="tooltiptext" #orderPlacedBooked style="color: #000000;font-weight: bold;">
                                                         Order placed
                                                     </p>
-                                                    <p class="order-date mb-0 table_ellipsis" matTooltip="Estate + facilitator Notified"
-                                                    matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
+                                                    <p class="order-date mb-0 table_ellipsis" matTooltip="Estate + facilitator Notified" matTooltipClass="tooltiptext" matTooltip="" matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="confirmDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
 
-                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="orderConfirmBooked()" #orderConfirmedBooked matTooltip="Order Confirmed"
-                                                    matTooltipClass="tooltiptext">Order Confirmed</p>
-                                                    <p class="order-datecolor mb-0 table_ellipsis" *ngIf="confirmReport" matTooltip="View sample-1 report"
-                                                    matTooltipClass="tooltiptext">View sample-1 report
+                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="orderConfirmBooked()" #orderConfirmedBooked matTooltip="Order Confirmed" matTooltipClass="tooltiptext">Order Confirmed</p>
+                                                    <p class="order-datecolor mb-0 table_ellipsis" *ngIf="confirmReport" matTooltip="View sample-1 report" matTooltipClass="tooltiptext">View sample-1 report
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking  completed" id="paymentDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="paymentStatusBooked()" matTooltip="Payment"
-                                                    matTooltipClass="tooltiptext" #paymentBooked>Payment</p>
-                                                    <p class="order-datecolor  mb-0 table_ellipsis" matTooltip="View Reciept"
-                                                    matTooltipClass="tooltiptext" *ngIf="paymentReceipt">View Reciept
+                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="paymentStatusBooked()" matTooltip="Payment" matTooltipClass="tooltiptext" #paymentBooked>Payment</p>
+                                                    <p class="order-datecolor  mb-0 table_ellipsis" matTooltip="View Reciept" matTooltipClass="tooltiptext" *ngIf="paymentReceipt">View Reciept
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking  completed" id="shippmentDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="shipmentStatusBooked()" matTooltip="Shipped"
-                                                    matTooltipClass="tooltiptext" #shippmentBooked>Shipped</p>
-                                                    <p class="order-date  mb-0 table_ellipsis" matTooltip="20 Feb 2020"
-                                                    matTooltipClass="tooltiptext" *ngIf="shippmentReport">20 Feb 2020</p>
+                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="shipmentStatusBooked()" matTooltip="Shipped" matTooltipClass="tooltiptext" #shippmentBooked>Shipped</p>
+                                                    <p class="order-date  mb-0 table_ellipsis" matTooltip="20 Feb 2020" matTooltipClass="tooltiptext" *ngIf="shippmentReport">20 Feb 2020</p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="receivedDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="receivedStatusBooked()" matTooltip="Recieved"
-                                                    matTooltipClass="tooltiptext" #receivedBooked>Recieved</p>
-                                                    <p class="order-date  mb-0 table_ellipsis" *ngIf="receivedReport" matTooltip="1 March 2020"
-                                                    matTooltipClass="tooltiptext">1 March 2020</p>
+                                                    <p class="order-status mt-2 mb-1 table_ellipsis" (click)="receivedStatusBooked()" matTooltip="Recieved" matTooltipClass="tooltiptext" #receivedBooked>Recieved</p>
+                                                    <p class="order-date  mb-0 table_ellipsis" *ngIf="receivedReport" matTooltip="1 March 2020" matTooltipClass="tooltiptext">1 March 2020</p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="gradedDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status  mt-2 mb-1 table_ellipsis" (click)="gradedStatusBooked()" matTooltip="Graded by Roaster"
-                                                    matTooltipClass="tooltiptext" #gradedBooked>Graded by Roaster</p>
+                                                    <p class="order-status  mt-2 mb-1 table_ellipsis" (click)="gradedStatusBooked()" matTooltip="Graded by Roaster" matTooltipClass="tooltiptext" #gradedBooked>Graded by Roaster</p>
 
-                                                    <label class="date-ur mb-0 table_ellipsis" *ngIf="uploadReport" matTooltip="Upload report"
-                                                    matTooltipClass="tooltiptext" (click)="uploader.click()">Upload report</label>
+                                                    <label class="date-ur mb-0 table_ellipsis" *ngIf="uploadReport" matTooltip="Upload report" matTooltipClass="tooltiptext" (click)="uploader.click()">Upload report</label>
                                                     <input hidden type="file" #uploader />
-                                                    <p class="date-ur mb-0 table_ellipsis" matTooltip="View report"
-                                                    matTooltipClass="tooltiptext" *ngIf="gradedReport">View report</p>
+                                                    <p class="date-ur mb-0 table_ellipsis" matTooltip="View report" matTooltipClass="tooltiptext" *ngIf="gradedReport">View report</p>
                                                 </div>
                                             </div>
                                         </div>

@@ -54,13 +54,18 @@ export class PeopleComponent implements OnInit {
   languages: any;
   appLanguage: any;
   isActive:any=0;
+	slug_list: any;
+	access_list: string;
+	slugType: any;
+	accessType: any;
+
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
     private userService: UserserviceService,
     private router: Router,
     private toastrService: ToastrService,
     private translateService:TranslateService,
-    private globals:GlobalsService) {
+    public globals:GlobalsService) {
 
       this.translateService.addLangs(this.supportLanguages);
     if (localStorage.getItem("locale")) {
@@ -77,7 +82,16 @@ export class PeopleComponent implements OnInit {
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get("user_id");
     this.getUserValue();
-    this.getRoasterProfile();
+	this.getRoasterProfile();
+	this.slug_list=JSON.parse(this.cookieService.get('permissionSlug'));
+	// var slugData = result['result'];
+						// slugData.forEach(element => {
+						//   var tempList = {};
+						//   tempList['slugList'] = element.slug;
+						//   tempList['accessList'] = element.access_type;
+						//   this.permissionSlugData.push(tempList);
+	
+
     //Open side nav
     $('body').on('click', '.sidenav-hamberg', function(event) {
       $('.sidenav-mb').addClass('open');
@@ -117,7 +131,18 @@ export class PeopleComponent implements OnInit {
 
     }
 
-
+	// checkItem(data){
+	// 	console.log(data);
+	// 	var slugType='';
+	// 	console.log(this.slug_list);
+	// 	for (var i = 0; i < this.slug_list.length; i++) {
+	// 		if(this.slug_list[i].slug == data){
+	// 		slugType =  this.slug_list[i].access_type;
+	// 		// console.log(slugType);
+	// 		return slugType;
+	// 		}
+	// 	}	
+	// }
 
 
   // Function Name : User Value
@@ -177,6 +202,8 @@ export class PeopleComponent implements OnInit {
       }
     )
   }
+
+ 
 
   ngAfterViewInit() {
   //   $('.nav-links__item').on('click', function() {

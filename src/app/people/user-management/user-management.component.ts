@@ -59,7 +59,7 @@ export class UserManagementComponent implements OnInit {
     public route: ActivatedRoute,
 	public userService:UserserviceService,
 	private renderer: Renderer2,
-	private globals: GlobalsService) {
+	public globals: GlobalsService) {
     this.termStatus = '';
     this.termRole = '';
     this.termRoleMob = '';
@@ -95,6 +95,7 @@ export class UserManagementComponent implements OnInit {
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
+    
     this.userfilterDat = [];
     this.roaster_id = this.cookieService.get('roaster_id');
     this.getRoasterUsers();

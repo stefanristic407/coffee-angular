@@ -62,7 +62,7 @@ export class OrdermanagementComponent implements OnInit {
     private _bottomSheet: MatBottomSheet,
     private toastrService: ToastrService,
     private translateService:TranslateService,
-    private globals:GlobalsService) { }
+    public globals:GlobalsService) { }
 
     ngOnInit(): void {
 

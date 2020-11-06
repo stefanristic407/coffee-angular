@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorModuleModule } from '../error-module/error-module.module';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
     LicenseComponent,
     ProfileImageComponent,
     RoasterProfileComponent,
+    SignUpComponent,
  
   ],
   imports: [

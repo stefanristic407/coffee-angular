@@ -65,20 +65,20 @@
                                                 <span class="is-complete "></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                     <p class="order-status  mt-2 mb-1" (click)="orderPlace()" #orderPlaced style="color: #232334; font-weight: bold;">{{appLanguage.order_placed}}</p>
-                                                    <p class="order-date mb-0 ">Estate + facilitator Notified </p>
+                                                    <p class="order-date mb-0 " matTooltip="Estate + facilitator Notified" matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="confirmDiv">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2" (click)="orderConfirm()" #orderConfirmed>{{appLanguage.order_confirmed}}</p>
+                                                    <p class="order-status  mt-2" (click)="orderConfirm()" matTooltip="" matTooltipClass="tooltiptext" #orderConfirmed>{{appLanguage.order_confirmed}}</p>
                                                 </div>
                                                 <!-- <p class="order-date">SMS & Email sent to you </p> -->
                                             </div>
                                             <div class="order-tracking completed" id="paymentDiv">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status mt-2" (click)="paymentStatus()" #payment>
+                                                    <p class="order-status mt-2" (click)="paymentStatus()" matTooltip="" matTooltipClass="tooltiptext" #payment>
                                                         {{appLanguage.payment}}</p>
                                                 </div>
                                                 <!-- <p class="order-view"> View Report ></p> -->
@@ -90,7 +90,7 @@
                                             <div class="order-tracking completed" id="harvestDiv">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()" #harvestReady>Harvest {{appLanguage.ready}}
+                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()" matTooltip="" matTooltipClass="tooltiptext" #harvestReady>Harvest {{appLanguage.ready}}
                                                     </p>
                                                     <p class="order-harvest mb-0"> <a class="havestShow" (click)="showHarvest()">Follow your harvest </a></p>
                                                 </div>
@@ -98,7 +98,7 @@
                                             <div class="order-tracking completed" id="gradedDiv">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2" (click)="gradedStatus()" #graded>
+                                                    <p class="order-status  mt-2" (click)="gradedStatus()" matTooltip=" Graded by Facilitator" matTooltipClass="tooltiptext" #graded>
                                                         Graded by Facilitator
                                                     </p>
                                                 </div>

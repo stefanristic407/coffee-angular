@@ -333,19 +333,6 @@ export class AgreementComponent implements OnInit {
 	
 
 	  updateAgreement(){
-		if (
-			this.customer_id_value == "" ||
-			this.customer_id_value == null ||
-			this.customer_id_value == undefined
-		  ) {
-			this.customerIdError = "Please Select Customer Id";
-			document.getElementById("customer_id_value").style.border =
-			  "1px solid #D50000 ";
-			setTimeout(() => {
-			  this.customerIdError = "";
-			}, 3000);
-		  }
-		  else{
 			let fileList: FileList = this.re_fileEvent;
 			// var parent_id = 0;
 			if (fileList.length > 0) {
@@ -364,30 +351,28 @@ export class AgreementComponent implements OnInit {
 				result =>{
 				  if(result['success']==true){
 					  this.agreement_file_id = result['result'].id
+					  var data = {
+						'file_id' : this.agreement_file_id
+					  }
+					  this.roasterService.updateAgreements(this.roasterId,this.customer_type,this.item_id,data).subscribe(
+						  res => {
+							  if(res['success'] == true){
+								this.getAgreements();
+								this.toastrService.success("The Agreement updated successfully");
+		
+							  }
+							  else{
+								  this.toastrService.error("Error while updating the agreement details");
+							  }
+						  }
+					  )
 					this.toastrService.success("The file "+this.re_fileNameValue+" uploaded successfully");
 				  }else{
 					this.toastrService.error("Error while uploading the agreement");
 				  }
 				}
 			  )
-			}
-			 
-			  var data = {
-				'file_id' : this.agreement_file_id
-			  }
-			  this.roasterService.updateAgreements(this.roasterId,this.customer_type,this.item_id,data).subscribe(
-				  res => {
-					  if(res['success'] == true){
-						this.getAgreements();
-						this.toastrService.success("The Agreement updated successfully");
-
-					  }
-					  else{
-						  this.toastrService.error("Error while updating the agreement details");
-					  }
-				  }
-			  )
-		  }
+			}  
 	  }
 
 	  deleteAgreement(item : any){

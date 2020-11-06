@@ -3,6 +3,10 @@ import { SourcingService } from '../sourcing.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from "@angular/router";
 import {GlobalsService} from 'src/services/globals.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
+import { throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sourcing',
@@ -44,13 +48,20 @@ export class SourcingComponent implements OnInit {
   ];
   // appLanguage: any;
   activeTab = this.sourcingService.currentView;
+  roasterId: any;
+  estateData: any;
 
-  constructor(public sourcingService:SourcingService,private modalService: BsModalService,private router: Router,private globals: GlobalsService
-    ,private renderer: Renderer2) {
+  constructor(public sourcingService:SourcingService,
+    private modalService: BsModalService,private router: Router,
+    private globals: GlobalsService,private renderer: Renderer2,
+    private userService : UserserviceService,
+    private cookieService : CookieService,
+    private toastrService : ToastrService) {
       // this.renderer.listen('window', 'click',(e:Event)=>{ 
       //   if()
       //   this.modalRef.hide()
       // });
+      this.roasterId  = this.cookieService.get('roaster_id');
      }
 
   openModal(template: TemplateRef<any>) {
@@ -364,8 +375,24 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 
 
 // this.language();
-
+  this.getAvailableEstates();
   }
+
+  getAvailableEstates(){
+    this.userService.getAvailableEstates(this.roasterId).subscribe(
+      data => {
+        if(data['success'] == true){
+          console.log(data['result']);
+          this.estateData = data['result'];
+        }else{
+          this.toastrService.error("Error while getting estates");
+        }
+      }
+    )
+  }
+
+  
+
   search(activeTab){
     this.activeTab = activeTab;
     this.sourcingService.currentView = activeTab ;

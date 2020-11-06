@@ -100,7 +100,7 @@
                             </a>
                                 </li>
 
-                                <li class="nav-links__item d-inline-block position-relative">
+                                <li class="nav-links__item d-inline-block position-relative" *ngIf="this.globals.checkItem('sourcing-management')=='manage' || this.globals.checkItem('sourcing-management')=='view'">
 
                                     <a class="d-inline-block fnt-600 router-link" routerLink="../features/sourcing">{{appLanguage.sourcing_module}}
                             </a>
@@ -157,10 +157,10 @@
                             </a>
                                     <ul class="nav-dropdown fnt-600">
 
-                                        <li>
+                                        <li *ngIf="this.globals.checkItem('acl-management')=='manage' || this.globals.checkItem('acl-management')=='view' || this.globals.checkItem('acl-list')=='manage' || this.globals.checkItem('acl-list')=='view'">
                                             <a class="router-link" routerLink="../people/manage-role">{{appLanguage.manage_roles}}</a>
                                         </li>
-                                        <li>
+                                        <li *ngIf="this.globals.checkItem('user-management')=='manage' || this.globals.checkItem('user-management') =='view'">
                                             <a class="router-link" routerLink="../people/user-management">{{appLanguage.user_management}}</a>
                                         </li>
                                         <li>
