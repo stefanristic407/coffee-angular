@@ -24,7 +24,7 @@ export class HoReCaComponent implements OnInit {
   odd : boolean = false ;
   appLanguage?: any;
   horecaActive:any=0;
-
+  horecaWeb: 'https://qa-client-horeca.sewnstaging.com/';
 
   constructor(public router: Router,
     public cookieService: CookieService,
@@ -120,7 +120,7 @@ export class HoReCaComponent implements OnInit {
         const encryptedCode = this.roasterService.encryptData(data);
         // const decryptedCode = this.roasterService.decryptData(encryptedCode);
         // console.log(decryptedCode);
-        const redirectUrl = environment.horecaWeb + '/#/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
+        const redirectUrl = this.horecaWeb + '/#/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
         this.roasterService.navigate(redirectUrl, true);
       }
     }, err => {

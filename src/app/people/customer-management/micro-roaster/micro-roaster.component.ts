@@ -24,6 +24,8 @@ export class MicroRoasterComponent implements OnInit {
   odd: boolean = false ;
   appLanguage?: any;
   microActive:any=0;
+    microRoasterWeb: 'https://qa-micro-roaster.sewnstaging.com';
+
 
   constructor(public router: Router,
     public cookieService: CookieService,
@@ -119,7 +121,7 @@ export class MicroRoasterComponent implements OnInit {
         const encryptedCode = this.roasterService.encryptData(data);
         // const decryptedCode = this.roasterService.decryptData(encryptedCode);
         // console.log(decryptedCode);
-        const redirectUrl = environment.microRoasterWeb + '/#/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
+        const redirectUrl = this.microRoasterWeb + '/#/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
         this.roasterService.navigate(redirectUrl, true);
       }
     }, err => {

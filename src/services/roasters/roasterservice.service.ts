@@ -17,7 +17,7 @@ export class RoasterserviceService {
   private putUrl = environment.apiURL+"/ro/putapi";
   private fileuploadUrl = environment.apiURL+"/ro/filesfolders" ;
   private putfileuploadUrl = environment.apiURL+"/ro/putfilesfolders" ;
-
+  private encryptionKey: 'sewen_secrete_key';
   // private url = "https://qa-fed-api.sewnstaging.com/ro/api";
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
   // private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
@@ -609,14 +609,14 @@ export class RoasterserviceService {
   // } 
   encryptData(data) {
     try {
-      return CryptoJS.AES.encrypt(JSON.stringify(data), environment.encryptionKey).toString();
+      return CryptoJS.AES.encrypt(JSON.stringify(data), this.encryptionKey).toString();
     } catch (e) {
       console.log(e);
     }
   }
   decryptData(data) {
     try {
-      const bytes = CryptoJS.AES.decrypt(data, environment.encryptionKey);
+      const bytes = CryptoJS.AES.decrypt(data, this.encryptionKey);
       console.log(bytes);
       if (bytes.toString()) {
         return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
