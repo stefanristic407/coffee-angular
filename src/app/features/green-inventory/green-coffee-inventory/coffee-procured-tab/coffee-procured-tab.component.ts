@@ -12,7 +12,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
   
   display:any;
   showDisplay:boolean = true;
-  appLanguage: any;
+  appLanguage?: any;
 
   mainData:any[] = [
     { id: '65837', availibility_Name: 'Origanic washed Micro-lot', estate_Name: 'Finca La Pampa', origin: 'Brazil', variety: 'Bourborn',quandity: '278 Bags', cup_Score: '84.5', Actions: 'View' },

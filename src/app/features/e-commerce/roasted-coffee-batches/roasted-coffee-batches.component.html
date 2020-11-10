@@ -5,15 +5,15 @@
                 <span id="title-breadcrumb-1" class="sr-only"></span>
                 <ul class="bread-nav mb-md-0">
                     <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
                     </li>
                     <li class="b-cum">
-                        <a class="b-cum">{{appLanguage.ecommerce}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                        <a class="b-cum">{{appLanguage?.ecommerce}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
                     </li>
-                    <li class="b-cum c-pink">{{appLanguage.roasted_coffee_batchs}}</li>
+                    <li class="b-cum c-pink">{{appLanguage?.roasted_coffee_batchs}}</li>
                     <div class="ml-auto pull-right batch-roasted mr-md-5">
-                        <button class="btn create-batch mr-2" routerLink="/features/new-roasted-batch">{{appLanguage.create_new_batch}}</button>
-                        <button class="btn manage-profiles" routerLink="/features/roasting-profile">{{appLanguage.manage_roasting_profiles}}</button>
+                        <button class="btn create-batch mr-2" routerLink="/features/new-roasted-batch">{{appLanguage?.create_new_batch}}</button>
+                        <button class="btn manage-profiles" routerLink="/features/roasting-profile">{{appLanguage?.manage_roasting_profiles}}</button>
                         <!-- <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by name, role.." /> -->
                     </div>
                 </ul>
@@ -21,7 +21,7 @@
             <section class="grading__total">
                 <div class="row w-100 ml-0">
                     <div class="green_grading_cont">
-                        <h1>{{appLanguage.roasted_coffee_batchs}}</h1>
+                        <h1>{{appLanguage?.roasted_coffee_batchs}}</h1>
                         <!-- <h3>Maintain an inventory of your roasted coffee which have been procured on the platform</h3> -->
                     </div>
                     <!-- <div>
@@ -31,17 +31,17 @@
                 </div>
                 <div class="d-flex">
                     <div class="mb-2 pull-left mr-auto col-md-7 p-0">
-                        {{appLanguage.maintain_inventory_text}}</div>
+                        {{appLanguage?.maintain_inventory_text}}</div>
                     <div class="pull-right ml-auto col-md-4">
                         <!-- <div class="col-md-5"> -->
-                        <input type="text" name="search" class="search-raised desk_view_user fadout-search" [(ngModel)]="term" placeholder="{{appLanguage.search}}" />
+                        <input type="text" name="search" class="search-raised desk_view_user fadout-search" [(ngModel)]="term" placeholder="{{appLanguage?.search}}" />
                         <!-- </div> -->
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-lg-8">
                         <div class="d-inline border-total role-div col-sm-6" id="role_id" [outsideClick]="true" (onShown)="toggleRole();" (onHidden)="toggleRole();" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
-                            <p class="d-inline filter-text" *ngIf="termRole == ''">{{appLanguage.roast_level}}&nbsp;</p>
+                            <p class="d-inline filter-text" *ngIf="termRole == ''">{{appLanguage?.roast_level}}&nbsp;</p>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="termRole == ''">
                                     &nbsp; <img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -67,17 +67,17 @@
                                                 <span class="checkmark head-check"></span>
                                             </label>
                                     </th>
-                                    <th scope="col">{{appLanguage.batch_name}}</th>
-                                    <th scope="col">{{appLanguage.order_id}}&nbsp;</th>
+                                    <th scope="col">{{appLanguage?.batch_name}}</th>
+                                    <th scope="col">{{appLanguage?.order_id}}&nbsp;</th>
                                     <th scope="col">
-                                        {{appLanguage.estate_name}}
+                                        {{appLanguage?.estate_name}}
                                     </th>
                                     <th scope="col">
-                                        {{appLanguage.created_sr_only}}
+                                        {{appLanguage?.created_sr_only}}
                                     </th>
-                                    <th scope="col">{{appLanguage.quantity}}</th>
-                                    <th scope="col">{{appLanguage.roasting_profile}}</th>
-                                    <th scope="col">{{appLanguage.actions}}</th>
+                                    <th scope="col">{{appLanguage?.quantity}}</th>
+                                    <th scope="col">{{appLanguage?.roasting_profile}}</th>
+                                    <th scope="col">{{appLanguage?.actions}}</th>
                                 </tr>
                             </thead>
                             <tbody class="customtable">
@@ -99,11 +99,11 @@
                                         {{item.roasting_profile_name}}
                                     </td>
                                     <td class="view__details">
-                                        {{appLanguage.view_details}}
+                                        {{appLanguage?.view_details}}
                                     </td>
                                 </tr>
                                 <tr class="odd" *ngIf="odd">
-                                    <td valign="top" colspan="11" class="dataTables_empty">{{appLanguage.no_data_table}}</td>
+                                    <td valign="top" colspan="11" class="dataTables_empty">{{appLanguage?.no_data_table}}</td>
                                 </tr>
                             </tbody>
                         </table>

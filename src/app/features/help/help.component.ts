@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./help.component.css']
 })
 export class HelpComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
   helpActive:any=0;
 
   constructor(private globals : GlobalsService) { }

@@ -15,24 +15,24 @@
                                 <span id="title-breadcrumb-1" class="sr-only"></span>
                                 <ul class="bread-nav">
                                     <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
                                     <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/account-settings">{{appLanguage.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                        <a class="b-cum" routerLink="/features/account-settings">{{appLanguage?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
-                                    <li class="b-cum c-pink">{{appLanguage.profile_edit}}</li>
+                                    <li class="b-cum c-pink">{{appLanguage?.profile_edit}}</li>
                                 </ul>
                             </nav>
                         </div>
                         <div class="float-right ml-auto butn-mt">
-                            <button type="button" class="btn cancel-butn" routerLink="/features/welcome-aboard"> {{appLanguage.cancel}} </button>
-                            <button type="button" class="btn save-btn" (click)=profileSave();> {{appLanguage.save}} </button>
+                            <button type="button" class="btn cancel-butn" routerLink="/features/welcome-aboard"> {{appLanguage?.cancel}} </button>
+                            <button type="button" class="btn save-btn" (click)=profileSave();> {{appLanguage?.save}} </button>
                         </div>
                     </div>
                     <div class="row mobile-view">
                         <span class="cursor-pointer" routerLink="/features/account-settings">
                     <img src="/assets/images/back-arrow1.png" alt="">
-                    <span class="back-ticket pl-3">{{appLanguage.back}}</span>
+                    <span class="back-ticket pl-3">{{appLanguage?.back}}</span>
                         </span>
                     </div>
                 </section>
@@ -41,8 +41,8 @@
                 <section class="my-profile">
                     <div class="col-lg-12 col-sm-12">
 
-                        <h1 class="fnt-play"> {{appLanguage.my_profile}}</h1>
-                        <p class="pb-2"> {{appLanguage.enter_personal_detail_text}}</p>
+                        <h1 class="fnt-play"> {{appLanguage?.my_profile}}</h1>
+                        <p class="pb-2"> {{appLanguage?.enter_personal_detail_text}}</p>
                         <hr class="mob mt-4">
                         <div class="row">
                             <div class="col-lg-4 col-md-12">
@@ -58,13 +58,13 @@
                                     </div>
 
 
-                                    <p class="pic-head-text ">{{appLanguage.upload_your_picture}}</p>
+                                    <p class="pic-head-text ">{{appLanguage?.upload_your_picture}}</p>
 
-                                    <p class="form_para_text ">{{appLanguage.you_can_upload}} </p>
+                                    <p class="form_para_text ">{{appLanguage?.you_can_upload}} </p>
                                     <button class="btn btn-link add-btn p-0" (click)="profilePicService.deletePhoto();" *ngIf="profilePicService.deleteLogo">
                                 <img class="delete-logo" src="assets/images/delete.png" /><span
                                   class="add-text"
-                                  >{{appLanguage.delete_photo}}</span
+                                  >{{appLanguage?.delete_photo}}</span
                                 >
                               </button>
                                     <!-- <button class="btn btn-link add-btn p-0"> <img src="assets/images/upload.svg" />
@@ -78,7 +78,7 @@
 
                                 <div class="form-group row pt-4">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label class="raise-label">{{appLanguage.name}} <span class="star-red"> *</span></label>
+                                        <label class="raise-label">{{appLanguage?.name}} <span class="star-red"> *</span></label>
                                         <input type="text" class="form-control raise-box" placeholder="Please enter your name" (keyup)="onKeyPress($event)" [(ngModel)]="name" name="name" id="name" required="">
                                         <div class="nameError" *ngIf="nameError != ''">{{nameError}}</div>
                                     </div>
@@ -86,7 +86,7 @@
 
                             <div class="form-group row pt-2">
                                 <div class="form-group col-md-12">
-                                    <label class="raise-label">{{appLanguage.tell_us_about}}</label>
+                                    <label class="raise-label">{{appLanguage?.tell_us_about}}</label>
                                     <textarea class="form-control" placeholder="Profile Description" rows="4" cols="50" [(ngModel)]="description" name="description" id="description"> </textarea>
                                     <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
                                 </div>
@@ -94,7 +94,7 @@
 
                             <div class="p-grid ui-fluid date-birth">
                                 <div class="p-col-6">
-                                    <h3 class="raise-date">{{appLanguage.date_of_birth}}</h3>
+                                    <h3 class="raise-date">{{appLanguage?.date_of_birth}}</h3>
                                     <p-calendar [(ngModel)]="date6" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1970:2020" required="" dateFormat="yy-mm-dd"></p-calendar>
 
                                         <!-- <p-calendar [(ngModel)]="date3" [showIcon]="true" name="Date of birth" id="dateOfBirth" required=""></p-calendar> -->
@@ -105,7 +105,7 @@
 
                                 <div class="form-group row pt-4">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label class="raise-label">{{appLanguage.role}}</label>
+                                        <label class="raise-label">{{appLanguage?.role}}</label>
                                         <input type="text" class="form-control raise-box" placeholder="role" disabled [(ngModel)]="role" name="role" id="role" required="">
                                         <!-- <div class="roleError" *ngIf="roleError != ''">{{roleError}}</div> -->
                                     </div>
@@ -116,7 +116,7 @@
 
                                 <div class="form-group row pt-1">
                                     <div class="form-group col-md-6 col-sm-12">
-                                        <label class="raise-label">{{appLanguage.email_address}} <span class="star-red"> *</span></label>
+                                        <label class="raise-label">{{appLanguage?.email_address}} <span class="star-red"> *</span></label>
                                         <input type="email" class="form-control raise-box" placeholder="Please enter your work email" (keyup)="onKeyPress($event)" [(ngModel)]="email" name="email" id="email" required="">
                                         <div class="emailError" *ngIf="emailError != ''">{{emailError}}</div>
 
@@ -124,7 +124,7 @@
 
                                     <div class="form-group col-md-6 col-sm-12 phone-number">
                                         <input hidden class="hidden-phone-num" type="text" value="+91">
-                                        <label class="raise-label">{{appLanguage.phone_number}}<span class="star-red"> *</span></label>
+                                        <label class="raise-label">{{appLanguage?.phone_number}}<span class="star-red"> *</span></label>
                                         <div class="phone-nmber__select" id="phone">
                                             <span class="Selected-ISD" id="finalNumber">+91</span>
                                             <ul class="select-list">
@@ -148,7 +148,7 @@
                     </div>
 
                 <div class="mobile-farm  col-12">
-                    <button type="button" class="btn btn-succes save-btn" (click)=profileSave();> {{appLanguage.save_changes}} </button>
+                    <button type="button" class="btn btn-succes save-btn" (click)=profileSave();> {{appLanguage?.save_changes}} </button>
                 </div>
 
                 </section>
@@ -160,7 +160,7 @@
 
 
 
-    <p-dialog header="{{appLanguage.edit_photo}}" [(visible)]="profilePicService.displayModal" [modal]="true" [style]="{ width: '50vw' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <p-dialog header="{{appLanguage?.edit_photo}}" [(visible)]="profilePicService.displayModal" [modal]="true" [style]="{ width: '50vw' }" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
         <p-header>
             <span class="close-img-div">
       <img
@@ -174,10 +174,10 @@
         <sewn-profile-pic></sewn-profile-pic>
         <p-footer>
             <button type="button" id="change-pic" class="previous btn " (click)="showModalDialog()">
-     {{appLanguage.change_photo}}
+     {{appLanguage?.change_photo}}
     </button>
             <button type="button" id="save-pic" class="btn btn-info login-butn" (click)="profilePicService.saveProfilePic()">
-      {{appLanguage.save_photo}}
+      {{appLanguage?.save_photo}}
     </button>
         </p-footer>
     </p-dialog>

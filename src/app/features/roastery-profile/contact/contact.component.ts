@@ -28,7 +28,7 @@ phoneError : string;
 countryError: string;
 addressError : string;
 cityError : string;
-appLanguage: any;
+appLanguage?: any;
 contactActive:any =0;
 
   constructor(public roasteryProfileService : RoasteryProfileService,private globals: GlobalsService) { 

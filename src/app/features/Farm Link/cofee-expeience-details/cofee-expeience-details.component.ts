@@ -9,7 +9,7 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class CofeeExpeienceDetailsComponent implements OnInit {
   date1: Date;
-  appLanguage: any;
+  appLanguage?: any;
 	coffeeDetailsActive:any = 0;
 
   constructor(private globals: GlobalsService) { }

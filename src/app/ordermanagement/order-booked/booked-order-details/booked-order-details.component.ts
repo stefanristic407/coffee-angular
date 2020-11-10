@@ -11,7 +11,7 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class BookedOrderDetailsComponent implements OnInit {
   files: FileList;
-  appLanguage:any;
+  appLanguage?:any;
   constructor(public bookedService: OrderBookedService,public global: GlobalsService) { }
 
   ngOnInit(): void {

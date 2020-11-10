@@ -9,7 +9,7 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class BlogDetailsComponent implements OnInit {
   backValue: any;
-  appLanguage: any;
+  appLanguage?: any;
 	blogDetailsActive:any = 0;
   constructor(private router : Router,
     private globals: GlobalsService) { }

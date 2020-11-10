@@ -37,6 +37,9 @@ import { MicroOrderSampleComponent } from './microroaster-orders/micro-order-sam
 import {SampleOrderConfirmationComponent} from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
 import {BookedOrderConfirmationComponent} from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component';
 import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
+import { MrOrdersComponent} from './microroaster-orders/mr-orders/mr-orders.component';
+import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
+
 
 const routes: Routes = [
   {
@@ -169,6 +172,14 @@ children: [
   {
     path:'booked-order-confirmation',
     component:BookedOrderConfirmationComponent
+  },
+  {
+    path:'mr-orders',
+    component:MrOrdersComponent
+  },
+  {
+    path:'mr-request-details',
+    component:MrRequestDetailsComponent
   },
   {
     path: '',

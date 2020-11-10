@@ -48,7 +48,7 @@ export class VideoFileComponent implements OnInit {
   share_permission: any;
   
   selectedValue: string;
-  appLanguage: any;
+  appLanguage?: any;
   constructor(public router: Router,
     public roasterService : RoasterserviceService,
     public toastrService : ToastrService,

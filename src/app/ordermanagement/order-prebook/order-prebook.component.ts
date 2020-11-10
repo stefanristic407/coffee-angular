@@ -193,7 +193,7 @@ export class OrderPrebookComponent implements OnInit {
   
     // line, area
     autoScale = true;
-    appLanguage :any;
+    appLanguage? :any;
   constructor(public prebookService: OrderPrebookService, private route: ActivatedRoute,
     public router: Router,public cookieService : CookieService,
     public global: GlobalsService) { }

@@ -27,7 +27,7 @@ export class LicenseComponent implements OnInit {
   certificationYearError: string;
   // certificationFileError: string;
   secondButtonValue: any;
-  appLanguage: any;
+  appLanguage?: any;
   tokenData: string;
   certificateTypeArray: any;
   certificationTypeError: string;

@@ -13,7 +13,7 @@ export class BrandProfileComponent implements OnInit {
   learnval:  number = 5 ;
   sustainval: number = 5 ;
   visitval: number = 15 ;
-  appLanguage: any;
+  appLanguage?: any;
 	brandProfileActive:any=0;
   constructor(
 		private globals: GlobalsService) { }

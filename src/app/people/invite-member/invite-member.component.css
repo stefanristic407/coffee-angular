@@ -36,6 +36,9 @@
     -webkit-appearance: none;
     cursor: pointer;
 }
+.nameError , .emailError {
+    color: #d50000;
+}
 .custom-popover li {
     list-style: none;
     padding-right: 4.5rem;

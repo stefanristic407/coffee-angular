@@ -43,7 +43,7 @@ export class UserManagementComponent implements OnInit {
   showRole:boolean = true;
   showMobVar:boolean = true;
   showMobRole:boolean = true;
-  appLanguage: any;
+  appLanguage?: any;
   userActive:any=0;
 	deleteUserId: any;
 	deleteRoleId: any;
@@ -95,7 +95,12 @@ export class UserManagementComponent implements OnInit {
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
-    
+  
+    // console.log(this.globals.permissions['user-management']);
+	if(!this.globals.permissions['user-management']){
+		this.router.navigate(["/people/permission-error"]);
+  }
+  
     this.userfilterDat = [];
     this.roaster_id = this.cookieService.get('roaster_id');
     this.getRoasterUsers();

@@ -6,6 +6,9 @@ export const environment = {
   // apiURL: 'http://3.7.110.122:8000',
   apiURL: 'https://qa-fed-api.sewnstaging.com',
   wsEndpoint: 'wss://qa-core-messaging.sewnstaging.com/v1',
+  encryptionKey: 'sewen_secrete_key',
+  microRoasterWeb: 'https://qa-micro-roaster.sewnstaging.com',
+  horecaWeb: 'https://qa-client-horeca.sewnstaging.com/',
   production: false
 };
 

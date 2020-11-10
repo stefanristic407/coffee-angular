@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./micro-roaster-details.component.css']
 })
 export class MicroRoasterDetailsComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(private globals: GlobalsService) { }
 

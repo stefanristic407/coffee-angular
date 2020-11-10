@@ -39,7 +39,7 @@ export class OrderSampleComponent implements OnInit {
 	cancelShow: boolean = false;
 	totalstar = 5;
 	newvalue: any = 2;
-	appLanguage: any;
+	appLanguage?: any;
 	orderSampleActive:any =0;
 
 	constructor(private sampleService: OrderSampleService, private route: ActivatedRoute,

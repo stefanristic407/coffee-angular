@@ -26,7 +26,7 @@ export class SourcingComponent implements OnInit {
   showWeight:boolean = true;
   modalRef: BsModalRef;
   variety:any;
-  appLanguage: any;
+  appLanguage?: any;
   sourcingActive:any=0;
 
   public data: any[] = [
@@ -46,7 +46,7 @@ export class SourcingComponent implements OnInit {
 		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '5.6',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82.0' },
 		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '8.92',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84.0' }
   ];
-  // appLanguage: any;
+  // appLanguage?: any;
   activeTab = this.sourcingService.currentView;
   roasterId: any;
   estateData: any;

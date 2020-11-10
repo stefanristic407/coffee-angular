@@ -7,7 +7,7 @@ import {GlobalsService} from 'src/services/globals.service';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
-appLanguage: any;
+appLanguage?: any;
 overviewActive:any=0;
 
   public multi = [

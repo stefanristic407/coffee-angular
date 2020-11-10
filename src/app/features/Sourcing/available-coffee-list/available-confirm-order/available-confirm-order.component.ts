@@ -16,7 +16,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
   price:number=450;
   confirmOrderError:any;
   modalRef: BsModalRef;
-  appLanguage: any;
+  appLanguage?: any;
 
 
   country : string = '';

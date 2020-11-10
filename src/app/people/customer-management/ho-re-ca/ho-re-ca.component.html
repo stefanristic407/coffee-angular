@@ -19,11 +19,11 @@
                     <th scope="col">Status</th>
                     <th scope="col">Active Users</th>
                     <th scope="col">Action</th> -->
-                    <th>{{appLanguage.horeca_name}}</th>
-                    <th scope="col"> {{appLanguage.created_on}}</th>
-                    <th scope="col">{{appLanguage.status}}</th>
-                    <th scope="col">{{appLanguage.active_users}}</th>
-                    <th scope="col">{{appLanguage.actions}}</th>
+                    <th>{{appLanguage?.horeca_name}}</th>
+                    <th scope="col"> {{appLanguage?.created_on}}</th>
+                    <th scope="col">{{appLanguage?.status}}</th>
+                    <th scope="col">{{appLanguage?.active_users}}</th>
+                    <th scope="col">{{appLanguage?.actions}}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -36,12 +36,12 @@
                             </label>
                     </td>
                     <td>
-                        {{ item.microname }}
+                        {{ item.name }}
                     </td>
-                    <td>{{ item.createdon }}</td>
+                    <td>{{ item.created_at | date: 'dd-MM-yyyy HH:mm' }}</td>
                     <td>{{ item.status }} </td>
-                    <td>{{item.activeuser}}</td>
-                    <td class="view-listing">{{item.action}}</td>
+                    <td>{{item.active_users}}</td>
+                    <td class="view-listing">View Details</td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
@@ -54,6 +54,7 @@
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();stimulatedLogin(item);">Stimulated login</a></li>
                                 </ul>
                             </div>
                         </ng-template>

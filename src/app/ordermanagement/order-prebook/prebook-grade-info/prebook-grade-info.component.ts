@@ -11,7 +11,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./prebook-grade-info.component.css']
 })
 export class PrebookGradeInfoComponent implements OnInit {
-  appLanguage :any;
+  appLanguage? :any;
   constructor(public prebookService: OrderPrebookService,public global: GlobalsService) { }
 
   ngOnInit(): void {

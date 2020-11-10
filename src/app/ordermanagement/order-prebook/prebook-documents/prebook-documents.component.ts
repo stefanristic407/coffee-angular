@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./prebook-documents.component.css']
 })
 export class PrebookDocumentsComponent implements OnInit {
-  appLanguage :any;
+  appLanguage? :any;
   constructor(public global: GlobalsService) { }
 
   ngOnInit(): void {

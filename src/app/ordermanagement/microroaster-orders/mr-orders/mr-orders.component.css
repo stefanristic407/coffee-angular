@@ -1,0 +1,102 @@
+.bg-fff {
+    padding: 1rem 2rem 2rem 2rem;
+}
+
+.add-role-butn {
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 10px 0px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-right: 3rem;
+}
+
+.add-role-butn:hover {
+    background-color: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+
+/*=======   Tabs  =======*/
+
+.mixups-tabs {
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #232334;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: unset !important;
+    border-radius: unset;
+}
+
+.nav-pills .nav-link.active {
+    position: relative;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: inline-block;
+}
+
+.nav-pills .nav-link.active:before {
+    content: '';
+    width: 0%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 80%;
+    transform: translate(-50%);
+    border-radius: 1.5px;
+    background-color: #30855c;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.nav-pills .nav-link:hover::before {
+    width: 100%;
+    content: '';
+    opacity: 1;
+}
+
+.nav-pills .nav-link.active:before {
+    opacity: 1;
+    width: 100%;
+}
+
+.nav-pills {
+    border-bottom: 1px solid #dddddd;
+}
+
+li.nav-item {
+    margin-right: 7%;
+    position: relative;
+    top: .25rem;
+}
+
+.nav-pills .nav-link {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.nav-pills .nav-link.active {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #30855c;
+}
+
+@media (max-width:767px) {
+    .bg-fff {
+        padding: 1rem .7rem;
+        border-radius: 4px;
+    }
+}

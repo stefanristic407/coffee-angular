@@ -43,7 +43,7 @@ export class SelectOrderTableComponent implements OnInit {
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
 	};
-	appLanguage: any;
+	appLanguage?: any;
 
 	constructor(public router: Router,
 		public cookieService: CookieService,

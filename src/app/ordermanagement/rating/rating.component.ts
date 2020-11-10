@@ -24,7 +24,7 @@ export class RatingComponent implements OnInit {
   experienceUserError:any;
   communicationUserError:any;
   reviewUserError:any;
-	appLanguage: any;
+	appLanguage?: any;
 
   constructor(public global: GlobalsService) {
     this.experienceError = "";

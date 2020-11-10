@@ -17,15 +17,15 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum d-none d-md-inline-block">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt="">
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt="">
                             </span>
                                 </li>
                                 <li class="b-cum">
-                                    <a class="b-cum">{{appLanguage.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img
+                                    <a class="b-cum">{{appLanguage?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img
                                     class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/coffee-experience">{{appLanguage.coffee_experience}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
+                                    <a class="b-cum" routerLink="/features/coffee-experience">{{appLanguage?.coffee_experience}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                     src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
                                 <li class="b-cum c-pink">Order #81671</li>
@@ -40,12 +40,12 @@
                                 <h4 class="fnt-18 fnt-muli fnt-700 text-black334 mb-0">
                                     order&nbsp;<span>#81671</span>
                                 </h4>
-                                <p class="fnt-14 fnt-muli text-gray588 pr-md-5">{{appLanguage.coffee_experience_text}}</p>
+                                <p class="fnt-14 fnt-muli text-gray588 pr-md-5">{{appLanguage?.coffee_experience_text}}</p>
                             </div>
 
                             <div class="col-12 col-md-3 butn-prev-save butn-prev-save--desktop">
-                                <button type="button" class="preview " routerLink=""> {{appLanguage.preview}} </button>&nbsp;&nbsp;&nbsp;
-                                <button type="button" class="save" routerLink=""> {{appLanguage.save}} </button>
+                                <button type="button" class="preview " routerLink=""> {{appLanguage?.preview}} </button>&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="save" routerLink=""> {{appLanguage?.save}} </button>
                             </div>
                         </div>
                         <div class="row">
@@ -62,11 +62,11 @@
 
                                             </div>
                                             <div class="farm-input col-12 col-md-5 order-3 order-md-2 pr-md-0">
-                                                <label class="label">{{appLanguage.roaster_name}}</label>
+                                                <label class="label">{{appLanguage?.roaster_name}}</label>
                                                 <input type="text">
                                             </div>
                                             <div class="farm-input col-12 col-md-5 order-4 order-md-3 pr-md-0">
-                                                <label>{{appLanguage.roaster_website}}</label>
+                                                <label>{{appLanguage?.roaster_website}}</label>
                                                 <input type="text" placeholder="www.sewn.se/lofbergs">
                                             </div>
                                             <div class="delete-upload mb-4 mb-md-3 mt-3 col-12 order-2 order-md-4 text-center text-md-left">
@@ -74,7 +74,7 @@
                                                     <img src="assets/images/delete-upload.svg">
                                                     <span class="fnt-muli ml-2 fnt-700">Delete Photo</span>
                                                 </div>
-                                                <p class="fnt-14 mb-0 mt-md-2 fnt-muli fnt-400 text-gray588">{{appLanguage.you_can_upload}}</p>
+                                                <p class="fnt-14 mb-0 mt-md-2 fnt-muli fnt-400 text-gray588">{{appLanguage?.you_can_upload}}</p>
                                             </div>
                                         </div>
 
@@ -82,14 +82,14 @@
 
                                     <div class="roastery-fields">
                                         <div class="farm-input col-12 px-0">
-                                            <label class="label">{{appLanguage.short_description}}</label>
+                                            <label class="label">{{appLanguage?.short_description}}</label>
                                             <textarea type="text"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="roastery-fields">
                                         <div class="farm-input col-12  col-md-5 px-0">
-                                            <label class="label">{{appLanguage.year_founded_in}}</label>
+                                            <label class="label">{{appLanguage?.year_founded_in}}</label>
                                             <select class="form-control select-region" name="Year" required="">
                                         <option value="" selected disabled> Select any Year</option>
                                         <option value="2017"> 2017 </option>
@@ -104,7 +104,7 @@
                                     <div class="roastery-fields">
                                         <div class="roastery-tags">
                                             <div class="farm-input col-12 px-0">
-                                                <label>{{appLanguage.select_tags}}(max
+                                                <label>{{appLanguage?.select_tags}}(max
                                             5)</label>
                                                 <div class="roastery-tags__checkboxes">
                                                     <label class="active custom-label">
@@ -160,15 +160,15 @@
 
                                     <div class="roastery-fields roastery-fields--flex d-flex align-items-start flex-wrap clearfix">
                                         <div class="farm-input float-md-left r-w-35">
-                                            <label>{{appLanguage.order_cup_score}}</label>
+                                            <label>{{appLanguage?.order_cup_score}}</label>
                                             <input type="text">
                                         </div>
                                         <div class="farm-input float-md-left r-w-60">
-                                            <label>{{appLanguage.date_cup_graded}}</label>
+                                            <label>{{appLanguage?.date_cup_graded}}</label>
                                             <p-calendar [(ngModel)]="date1" aria-placeholder="2020-03-02"></p-calendar>
                                         </div>
                                         <div class="farm-input float-md-left r-w-100">
-                                            <label>{{appLanguage.cup_roaster}}</label>
+                                            <label>{{appLanguage?.cup_roaster}}</label>
                                             <select class="form-control select-region" name="employee" required="">
                                         <option value="" selected disabled> Select an employee</option>
                                         <option value="Vijay"> Vijay </option>
@@ -184,12 +184,12 @@
                                 <!--Form section-->
                                 <div class="form-section__inputs form-section__inputs--withHead">
                                     <div class="input-head">
-                                        <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">{{appLanguage.coffee_facts}}</h5>
+                                        <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">{{appLanguage?.coffee_facts}}</h5>
                                     </div>
                                     <div class="input-body">
                                         <div class="farm-input farm-input--rightaligned col-12 px-0">
                                             <div class="row align-items-center">
-                                                <label class="col-md-5 col-lg-4 label">{{appLanguage.temperature}}</label>
+                                                <label class="col-md-5 col-lg-4 label">{{appLanguage?.temperature}}</label>
                                                 <div class="col-md-7 col-lg-8">
                                                     <input type="text">
                                                 </div>
@@ -197,7 +197,7 @@
                                         </div>
                                         <div class="farm-input farm-input--rightaligned col-12 px-0">
                                             <div class="row align-items-center">
-                                                <label class="col-md-5 col-lg-4 label">{{appLanguage.roasting_time}}</label>
+                                                <label class="col-md-5 col-lg-4 label">{{appLanguage?.roasting_time}}</label>
                                                 <div class="col-md-7 col-lg-8">
                                                     <input type="text">
                                                 </div>
@@ -205,7 +205,7 @@
                                         </div>
                                         <div class="farm-input farm-input--rightaligned col-12 px-0">
                                             <div class="row align-items-center">
-                                                <label class="col-md-5 col-lg-4 label">{{appLanguage.moisture}}</label>
+                                                <label class="col-md-5 col-lg-4 label">{{appLanguage?.moisture}}</label>
                                                 <div class="col-md-7 col-lg-8">
                                                     <input type="text">
                                                 </div>
@@ -213,7 +213,7 @@
                                         </div>
                                         <div class="farm-input farm-input--rightaligned col-12 px-0">
                                             <div class="row align-items-center">
-                                                <label class="col-md-5 col-lg-4 label">{{appLanguage.roasting_machine}}</label>
+                                                <label class="col-md-5 col-lg-4 label">{{appLanguage?.roasting_machine}}</label>
                                                 <div class="col-md-7 col-lg-8">
                                                     <input type="text">
                                                 </div>
@@ -225,18 +225,18 @@
                                 <!--Form section-->
                                 <div class="form-section__inputs form-section__inputs--withHead">
                                     <div class="input-head">
-                                        <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">{{appLanguage.coffee_facts}}</h5>
+                                        <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">{{appLanguage?.coffee_facts}}</h5>
                                     </div>
                                     <div class="input-body row align-items-center clearfix">
                                         <div class="col-12 col-md-6 float-md-left">
                                             <div class="farm-input">
-                                                <label class="label">{{appLanguage.facebook}}</label>
+                                                <label class="label">{{appLanguage?.facebook}}</label>
                                                 <input type="text" placeholder="Custom URL">
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6 float-md-left">
                                             <div class="farm-input">
-                                                <label class="label">{{appLanguage.instagram}}</label>
+                                                <label class="label">{{appLanguage?.instagram}}</label>
                                                 <input type="text" placeholder="Custom URL">
                                             </div>
                                         </div>
@@ -248,7 +248,7 @@
 
                                 <div class="form-section__inputs form-section__inputs--withHead">
                                     <div class="input-head input-head--uplaod d-flex align-items-center justify-content-between">
-                                        <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">{{appLanguage.certificates}}</h5>
+                                        <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">{{appLanguage?.certificates}}</h5>
                                         <label class="mb-0">
                                     <input type="file">
                                     <span class="fnt-muli fnt-700 d-inline-block">+</span>
@@ -263,11 +263,11 @@
                                                 </div>
                                                 <div class="d-flex">
                                                     <button class="fnt-muli fnt-14 fnt-700">
-                                                {{appLanguage.view}}
+                                                {{appLanguage?.view}}
                                             </button>
 
                                                     <button class="fnt-muli fnt-14 fnt-700">
-                                                {{appLanguage.delete}}
+                                                {{appLanguage?.delete}}
                                             </button>
                                                 </div>
                                             </div>
@@ -279,11 +279,11 @@
                                                 </div>
                                                 <div class="d-flex">
                                                     <button class="fnt-muli fnt-14 fnt-700">
-                                                {{appLanguage.view}}
+                                                {{appLanguage?.view}}
                                             </button>
 
                                                     <button class="fnt-muli fnt-14 fnt-700">
-                                                {{appLanguage.delete}}
+                                                {{appLanguage?.delete}}
                                             </button>
                                                 </div>
                                             </div>
@@ -301,10 +301,10 @@
                                             <div class="d-flex flex-wrap align-items-center justify-content-center">
                                                 <img src="assets/images/upload-icon.png">
                                                 <span
-                                                    class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-black334">{{appLanguage.upload_an_image}}</span>
+                                                    class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-black334">{{appLanguage?.upload_an_image}}</span>
                                                 <p
                                                     class="mb-0 d-block w-100 text-center mt-2 fnt-12 fnt-muli fnt-normal text-gray588">
-                                                    {{appLanguage.choose_image_text}}</p>
+                                                    {{appLanguage?.choose_image_text}}</p>
                                             </div>
 
                                         </label>
@@ -322,10 +322,10 @@
                                             <div class="d-flex flex-wrap align-items-center justify-content-center">
                                                 <img src="assets/images/upload-icon.png">
                                                 <span
-                                                    class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-black334">{{appLanguage.upload_an_video}}</span>
+                                                    class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-black334">{{appLanguage?.upload_an_video}}</span>
                                                 <p
                                                     class="mb-0 d-block w-100 text-center mt-2 fnt-12 fnt-muli fnt-normal text-gray588">
-                                                    {{appLanguage.choose_image_text}} </p>
+                                                    {{appLanguage?.choose_image_text}} </p>
                                             </div>
 
                                         </label>
@@ -343,10 +343,10 @@
                                             <div class="d-flex flex-wrap align-items-center justify-content-center">
                                                 <img src="assets/images/upload-icon.png">
                                                 <span
-                                                    class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-black334">{{appLanguage.marketing_material}}</span>
+                                                    class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 text-black334">{{appLanguage?.marketing_material}}</span>
                                                 <p
                                                     class="mb-0 d-block w-100 text-center mt-2 fnt-12 fnt-muli fnt-normal text-gray588">
-                                                    {{appLanguage.choose_image_text}}</p>
+                                                    {{appLanguage?.choose_image_text}}</p>
                                             </div>
 
                                         </label>
@@ -358,40 +358,40 @@
                                 <!--Share your story-->
                                 <div class="form-section__inputs">
                                     <div class="roastery-fields">
-                                        <h4 class="fnt-16 fnt-700 fnt-muli text-black334">{{appLanguage.share_your_story}}</h4>
+                                        <h4 class="fnt-16 fnt-700 fnt-muli text-black334">{{appLanguage?.share_your_story}}</h4>
 
                                         <div class="copy-link">
-                                            <label class="fnt-14 fnt-600 fnt-muli text-gray588">{{appLanguage.share_story_text}}</label>
+                                            <label class="fnt-14 fnt-600 fnt-muli text-gray588">{{appLanguage?.share_story_text}}</label>
                                             <div class="copy-link__value d-flex d-md-column d-lg-row flex-wrap align-items-center">
                                                 <input type="text" value="https://sewn.com/coffeeexperien.." readonly>
-                                                <button>{{appLanguage.copy_link}}</button>
+                                                <button>{{appLanguage?.copy_link}}</button>
                                             </div>
                                         </div>
 
                                         <div class="scan-qr-link text-center">
                                             <span class="d-inline-block mx-auto fnt-12 fnt-600 fnt-muli text-black334 mb-3 mt-3 mt-md-0 mb-lg-4 text-capitalize">or</span>
-                                            <p class="text-md-left fnt-14 fnt-600 fnt-muli text-black334 mb-3 mb-lg-4">{{appLanguage.scan_download_text}}</p>
+                                            <p class="text-md-left fnt-14 fnt-600 fnt-muli text-black334 mb-3 mb-lg-4">{{appLanguage?.scan_download_text}}</p>
                                             <div class="text-center">
                                                 <img class="img-fluid" src="assets/images/qr.PNG">
 
                                                 <div class="download-qr-link">
                                                     <a class="download-qr-link__file d-inline-flex align-items-center" href="assets/images/dwnd.png" download>
                                                         <img src="assets/images/dwnd.png">
-                                                        <span class="text-capitalize mb-0 ml-2 fnt-14 fnt-500 fnt-muli text-black334">{{appLanguage.download}}</span>
+                                                        <span class="text-capitalize mb-0 ml-2 fnt-14 fnt-500 fnt-muli text-black334">{{appLanguage?.download}}</span>
                                                     </a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="text-center contact-for-help">
-                                        <p class="mb-0 contact-for-help__text">{{appLanguage.having_trouble}}?<a class="ml-1" href="#">{{appLanguage.contact_us}}</a></p>
+                                        <p class="mb-0 contact-for-help__text">{{appLanguage?.having_trouble}}?<a class="ml-1" href="#">{{appLanguage?.contact_us}}</a></p>
                                     </div>
                                 </div>
 
 
                                 <div class="col-12 col-md-3 butn-prev-save butn-prev-save--mobile">
-                                    <button type="button" class="preview " routerLink=""> {{appLanguage.preview}} </button>&nbsp;&nbsp;&nbsp;
-                                    <button type="button" class="save" routerLink=""> {{appLanguage.save}} </button>
+                                    <button type="button" class="preview " routerLink=""> {{appLanguage?.preview}} </button>&nbsp;&nbsp;&nbsp;
+                                    <button type="button" class="save" routerLink=""> {{appLanguage?.save}} </button>
                                 </div>
 
                             </div>

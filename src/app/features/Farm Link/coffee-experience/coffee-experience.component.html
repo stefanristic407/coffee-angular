@@ -11,21 +11,21 @@
                     <span id="title-breadcrumb-1" class="sr-only"></span>
                     <ul class="bread-nav">
                         <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                         </li>
                         <li class="b-cum">
-                            <a class="b-cum">{{appLanguage.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            <a class="b-cum">{{appLanguage?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                         </li>
 
-                        <li class="b-cum c-pink">{{appLanguage.coffee_experience}}</li>
+                        <li class="b-cum c-pink">{{appLanguage?.coffee_experience}}</li>
                         <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
 
                     </ul>
                 </nav>
 
                 <section class="estate-orders-heading">
-                    <h5 class="estate-order-title pt-3"> {{appLanguage.coffee_experience}}</h5>
-                    <p class="Give-your-end-users">{{appLanguage.coffee_experience_text}}</p>
+                    <h5 class="estate-order-title pt-3"> {{appLanguage?.coffee_experience}}</h5>
+                    <p class="Give-your-end-users">{{appLanguage?.coffee_experience_text}}</p>
                 </section>
 
 
@@ -153,8 +153,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="estate-table pt-2  web-farm">
-                        <table class="estate-boby-txt web-farm" datatable [dtOptions]="dtOptions">
+                    <div class="estate-table pt-2 web-farm">
+                        <table class="estate-boby-txt web-farm"  *ngIf="this.globals.permissions['coffee-list'].view || this.globals.permissions['coffee-list'].manage" datatable [dtOptions]="dtOptions">
 
                         </table>
                     </div>

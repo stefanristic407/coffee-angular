@@ -62,7 +62,7 @@ export class RoastingProfilesComponent implements OnInit {
   roleID: string;
   roasterId: any ;
   odd: boolean = false ;
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(
     public router: Router,

@@ -72,6 +72,8 @@ import { ServiceRequestedComponent} from './green-grading/service-requested/serv
 import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
 import { InviteFriendsComponent} from './invite-friends/invite-friends.component';
 import { InviteSucessComponent} from './invite-friends/invite-sucess/invite-sucess.component';
+import { VatManagementComponent} from './vat-management/vat-management.component';
+import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 
 
 const routes: Routes = [
@@ -328,7 +330,14 @@ const routes: Routes = [
           path:'invite-sucess',
           component: InviteSucessComponent
         },
-
+        {
+          path:'vat-management',
+          component: VatManagementComponent
+        },
+        {
+          path:'q-a-forum',
+          component: QAForumComponent
+        },
       {
         path: '',
         redirectTo: 'welcome-aboard',

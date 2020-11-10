@@ -1,0 +1,76 @@
+.assigned-pad {
+    padding: 1rem .5rem;
+}
+
+.assigned {
+    display: flow-root;
+}
+
+.assigned-question {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 1rem 3rem 1rem 1.5rem;
+}
+
+.ans-bot {
+    position: relative;
+}
+
+.ans-bot::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    background: #747588;
+    border-radius: 50%;
+    position: absolute;
+    left: 15px;
+    top: 42%;
+}
+
+.share-ur-knowledge-main {
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    padding: 1rem;
+}
+
+.bor-bot-dash {
+    border-bottom: dashed 2px #d6d6d6;
+    width: 40rem;
+}
+
+.share-ur-knowledge-main__coffee-profile,
+.share-ur-knowledge-main__chlid1,
+.share-ur-knowledge-main__chlid2 {
+    padding-left: 3rem;
+}
+
+.see-all-ans {
+    position: relative;
+    text-decoration: underline;
+}
+
+.see-all-ans:hover {
+    color: #80460b;
+}
+
+.see-all-ans:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    background-color: #80460b;
+    transition: 0.4s ease-in-out;
+}
+
+.ans-w-23 {
+    width: 23%;
+}
+
+.submit {
+    border-radius: 4px;
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    padding: 9px;
+}

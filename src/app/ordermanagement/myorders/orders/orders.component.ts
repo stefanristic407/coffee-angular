@@ -25,7 +25,7 @@ export class OrdersComponent implements OnInit {
   showStatus:boolean = true;
   showDisplay:boolean =true;
   searchTerm:any;
-  appLanguage:any;
+  appLanguage?:any;
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;

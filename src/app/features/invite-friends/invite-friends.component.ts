@@ -29,7 +29,7 @@ export class InviteFriendsComponent implements OnInit {
 			</div>
 		
 		</div>`
-      $(this).parents('.Onboard-rows').find('.Onboard-rows__inputs:last').append(NewRow);
+      $(this).parents('.Onboard-invite').find('.Onboard-invite__inputs:last').append(NewRow);
     });
 
     $('body').on('click', '.delete-rows', function () {

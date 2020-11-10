@@ -23,7 +23,7 @@ export class RoasterOrdersComponent implements OnInit {
 	showType: boolean = true;
 	showStatus: boolean = true;
 	showDisplay: boolean = true;
-	appLanguage: any;
+	appLanguage?: any;
 
 	estatetermOriginMob: any;
 	showOriginMob: boolean = true;

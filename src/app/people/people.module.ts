@@ -38,6 +38,7 @@ import { DiscountEditComponent } from './customer-management/discount-edit/disco
 import { TeamMembersComponent } from './team-members/team-members.component';
 import { InviteMemberComponent } from './invite-member/invite-member.component';
 import { ErrorModuleModule } from '../error-module/error-module.module';
+import { PermissionErrorComponent } from './permission-error/permission-error.component';
 @NgModule({
   declarations: [
     PeopleComponent,
@@ -57,7 +58,8 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
     HorecaTableComponent,
     DiscountEditComponent,
     TeamMembersComponent,
-    InviteMemberComponent
+    InviteMemberComponent,
+    PermissionErrorComponent
   ],
   imports: [
     CommonModule,

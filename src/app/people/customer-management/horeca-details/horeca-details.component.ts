@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./horeca-details.component.css']
 })
 export class HorecaDetailsComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(private globals: GlobalsService) { }
 

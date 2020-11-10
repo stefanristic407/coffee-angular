@@ -4,19 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MicroOrderSampleService {
-	statusPaid: boolean = false;
-	statusPending: boolean = true;
+	uploadShow: boolean = true;
+	statusPending : boolean = true;
+	statusPaid : boolean = false;
+	receiptShow : boolean = false;
 	beforeGradeComplete: boolean = true;
 	afterGradeComplete: boolean = false;
-	shipmentDone: boolean = false;
-	uploadShow: boolean = true;
-	receiptShow: boolean = false;
-	constructor() { }
-
-	// Function Name : Payment Status
-	// Description: This function helps to store status of payment.
-	paymentStatus() {
-		this.statusPending = false;
-		this.statusPaid = true;
-	}
+	shipment_status : boolean = false;
+	constructor() { 
+		this.statusPending = true;
+	  }
 }

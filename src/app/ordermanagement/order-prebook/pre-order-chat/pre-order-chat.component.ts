@@ -8,7 +8,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./pre-order-chat.component.css']
 })
 export class PreOrderChatComponent implements OnInit {
-	appLanguage:any;
+	appLanguage?:any;
   constructor(public global: GlobalsService) { }
 
   ngOnInit(): void {

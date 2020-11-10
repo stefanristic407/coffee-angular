@@ -17617,6 +17617,10 @@ ul {
     color: #232334;
 }
 
+.text-white {
+    color: #ffffff;
+}
+
 
 /* Lineheight 0 */
 
@@ -23170,10 +23174,19 @@ li.select-list__item {
         display: inline-block;
         transform: translate(100%, 50%);
     }
+    .delete-b2b {
+        right: 10%;
+        bottom: 0%;
+    }
 }
 
 @media (min-width: 992px) {
     .Onboard-input {
         margin-bottom: 25px !important;
     }
+}
+
+.order-table #DataTables_Table_0_filter,
+.request-table #DataTables_Table_1_filter {
+    display: none !important;
 }

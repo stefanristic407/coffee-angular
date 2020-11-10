@@ -20,7 +20,7 @@ export class EditMembersComponent implements OnInit {
   memberNameError: string;
   memberEmailError: string;
   memberRoleError: string; 
-  appLanguage: any;
+  appLanguage?: any;
   emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   editActive:any=0;
   savemode : boolean = false;

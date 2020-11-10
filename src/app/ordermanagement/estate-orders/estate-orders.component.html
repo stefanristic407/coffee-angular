@@ -10,25 +10,25 @@
             <span id="title-breadcrumb-1" class="sr-only"></span>
             <ul class="bread-nav">
                 <li class="b-cum">
-                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r"
+                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r"
                         aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                 </li>
                 <li class="b-cum">
-                    <a class="b-cum" routerLink="/ordermanagement/myorders">{{appLanguage.order_management}}</a><span
+                    <a class="b-cum" routerLink="/ordermanagement/myorders">{{appLanguage?.order_management}}</a><span
                         class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png"
                             alt="">
                     </span>
                 </li>
 
-                <li class="b-cum c-pink">{{appLanguage.estate_orders}}</li>
+                <li class="b-cum c-pink">{{appLanguage?.estate_orders}}</li>
                 <button type="submit"
-                    class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{appLanguage.export}}</button>
+                    class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{appLanguage?.export}}</button>
 
             </ul>
         </nav>
 
         <section class="estate-orders-heading">
-            <h5 class="estate-order-title">{{appLanguage.estate_orders}}</h5>
+            <h5 class="estate-order-title">{{appLanguage?.estate_orders}}</h5>
         </section>
         <div class="estate-orders d-none d-lg-block">
             <app-empty-table></app-empty-table>
@@ -41,25 +41,25 @@
             <span id="title-breadcrumb-1" class="sr-only"></span>
             <ul class="bread-nav">
                 <li class="b-cum">
-                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r"
+                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r"
                         aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                 </li>
                 <li class="b-cum">
-                    <a class="b-cum" routerLink="/ordermanagement/myorders">{{appLanguage.order_management}}</a><span
+                    <a class="b-cum" routerLink="/ordermanagement/myorders">{{appLanguage?.order_management}}</a><span
                         class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png"
                             alt="">
                     </span>
                 </li>
 
-                <li class="b-cum c-pink">{{appLanguage.estate_orders}}</li>
+                <li class="b-cum c-pink">{{appLanguage?.estate_orders}}</li>
                 <button type="submit"
-                    class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{appLanguage.export}}</button>
+                    class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{appLanguage?.export}}</button>
 
             </ul>
         </nav>
 
         <section class="estate-orders-heading">
-            <h5 class="estate-order-title">{{appLanguage.estate_orders}}</h5>
+            <h5 class="estate-order-title">{{appLanguage?.estate_orders}}</h5>
         </section>
 
 
@@ -78,7 +78,7 @@
                             placement="bottom" container="body" [outsideClick]="true" (onShown)="toggleOrigin();"
                             (onHidden)="toggleOrigin();" #pop4="bs-popover">
                             <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                            <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">{{appLanguage.origin}}&nbsp;
+                            <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">{{appLanguage?.origin}}&nbsp;
                             </p>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermOrigin == ''">
@@ -97,7 +97,7 @@
                             placement="bottom" container="body" [outsideClick]="true" (onShown)="toggleType();"
                             (onHidden)="toggleType();" #pop2="bs-popover">
                             <p class="d-inline filter-text" *ngIf="estatetermType == ''">
-                                {{appLanguage.order_type}}&nbsp;</p>
+                                {{appLanguage?.order_type}}&nbsp;</p>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermType == ''">
                                     &nbsp; <img
@@ -114,7 +114,7 @@
                         <div class="d-inline border-order status-div col-sm-6" id="status_id" [popover]="allTemplate"
                             placement="bottom" container="body" #pop="bs-popover" [outsideClick]="true"
                             (onShown)="toggleStatus();" (onHidden)="toggleStatus();">
-                            <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">{{appLanguage.status}}&nbsp;
+                            <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">{{appLanguage?.status}}&nbsp;
                             </p>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermStatus == ''">
@@ -131,7 +131,7 @@
                         </div> &nbsp;&nbsp;
 
                         <div class="d-inline border-order date-div col-sm-6">
-                            <p class="d-inline filter-text">{{appLanguage.date_range}} &nbsp;
+                            <p class="d-inline filter-text">{{appLanguage?.date_range}} &nbsp;
                                 <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
                             </p>
 
@@ -151,7 +151,7 @@
                         </div>&nbsp;&nbsp;
                         <div class="d-inline display_div">
                             <div class="float-right border-order top-space" id="display_id">
-                                <p class="d-inline filter-text">{{appLanguage.dispaly}} &#9679;</p>
+                                <p class="d-inline filter-text">{{appLanguage?.dispaly}} &#9679;</p>
                                 <a class="pointer-item" [popover]="displayTemplate" placement="bottom"
                                     [outsideClick]="true" container="body" #pop6="bs-popover">
                                     <p class="d-inline filter" *ngIf="displayNumbers == '-1'" (click)="toggleDisplay()">
@@ -234,11 +234,11 @@
                                 <div class="mb-3">
                                     <input class="d-inline search-name filter-set fadout-search" type="text"
                                         name="sourcingName" [(ngModel)]="searchTerm" id="sourcingName"
-                                        placeholder={{appLanguage.search_by_name}}>
+                                        placeholder={{appLanguage?.search_by_name}}>
                                 </div>
                                 <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
                                     <p class="d-inline filter-text" *ngIf="estatetermOriginMob == ''">
-                                        {{appLanguage.origin}}&nbsp;</p>
+                                        {{appLanguage?.origin}}&nbsp;</p>
                                     <a class="pointer-item" [popover]="originTemplateMob" placement="bottom"
                                         container="body" #pop9="bs-popover">
                                         <p class="d-inline filter" *ngIf="estatetermOriginMob == ''"
@@ -259,7 +259,7 @@
                                 </div>
                                 <div class="d-inline border-grade col-sm-6" id="type_id_Mob">
                                     <p class="d-inline filter-text" *ngIf="estatetermTypeMob == ''">
-                                        {{appLanguage.order_type}}&nbsp;</p>
+                                        {{appLanguage?.order_type}}&nbsp;</p>
                                     <a class="pointer-item" [popover]="typeTemplateMob" placement="bottom"
                                         container="body" #pop11="bs-popover">
                                         <p class="d-inline filter" *ngIf="estatetermTypeMob == ''"
@@ -280,7 +280,7 @@
                                 </div>
                                 <div class="d-inline border-grade col-sm-6" id="status_id_Mob">
                                     <p class="d-inline filter-text" *ngIf="estatetermStatusMob == ''">
-                                        {{appLanguage.status}}&nbsp;</p>
+                                        {{appLanguage?.status}}&nbsp;</p>
                                     <a class="pointer-item" [popover]="allTemplateMob" placement="bottom"
                                         container="body" #pop13="bs-popover">
                                         <p class="d-inline filter" *ngIf="estatetermStatusMob == ''"
@@ -299,7 +299,7 @@
                                     </a>
                                 </div>
                                 <div class="d-inline border-grade col-sm-6">
-                                    <p class="d-inline filter-text">{{appLanguage.date}} &nbsp;
+                                    <p class="d-inline filter-text">{{appLanguage?.date}} &nbsp;
                                         <span *ngIf="showDateRange != ''"></span>
                                     </p>
 
@@ -362,7 +362,7 @@
                                                         </span>
                                                     </div>
 
-                                                    <a class="col-5 mt-3 pull-right text-right">{{appLanguage.see_details}}
+                                                    <a class="col-5 mt-3 pull-right text-right">{{appLanguage?.see_details}}
                                                         <img class="pl-1" src="assets/images/estate-arrow.svg"
                                                             alt=""></a>
                                                 </div>
@@ -444,15 +444,15 @@
             <!-- <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
                 <a class="pointer-item"
-                    (click)="setOrigin(''); pop4.hide(); pop5.hide();toggleOrigin()">{{appLanguage.all}}</a>
+                    (click)="setOrigin(''); pop4.hide(); pop5.hide();toggleOrigin()">{{appLanguage?.all}}</a>
             </li>
             <li class="list-group-item item-color">
                 <a class="pointer-item"
-                    (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide();toggleOrigin()">{{appLanguage.colombia}}</a>
+                    (click)="setOrigin('Colombia'); pop4.hide(); pop5.hide();toggleOrigin()">{{appLanguage?.colombia}}</a>
             </li>
             <li class="list-group-item item-color">
                 <a class="pointer-item"
-                    (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide();toggleOrigin()">{{appLanguage.ethopia}}</a>
+                    (click)="setOrigin('Ethopia'); pop4.hide(); pop5.hide();toggleOrigin()">{{appLanguage?.ethopia}}</a>
             </li>
         </ul> -->
             <ul class="list-group custom-popover">
@@ -505,15 +505,15 @@
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setOriginMob(''); pop9.hide(); pop10.hide();toggleOriginMob()">{{appLanguage.all}}</a>
+                        (click)="setOriginMob(''); pop9.hide(); pop10.hide();toggleOriginMob()">{{appLanguage?.all}}</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide();toggleOriginMob()">{{appLanguage.colombia}}</a>
+                        (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide();toggleOriginMob()">{{appLanguage?.colombia}}</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setOriginMob('Ethopia'); pop9.hide(); pop10.hide();toggleOriginMob()">{{appLanguage.ethopia}}</a>
+                        (click)="setOriginMob('Ethopia'); pop9.hide(); pop10.hide();toggleOriginMob()">{{appLanguage?.ethopia}}</a>
                 </li>
             </ul>
         </div>
@@ -523,22 +523,22 @@
         <div id="status-content">
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color" (click)="setStatus(''); pop.hide();">
-                    <a class="pointer-item">{{appLanguage.all}}</a>
+                    <a class="pointer-item">{{appLanguage?.all}}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Shipped'); pop.hide()">
-                    <a class="pointer-item">{{appLanguage.shipped}}</a>
+                    <a class="pointer-item">{{appLanguage?.shipped}}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Order Confirmed'); pop.hide()">
-                    <a class="pointer-item">{{appLanguage.order_confirmed}}</a>
+                    <a class="pointer-item">{{appLanguage?.order_confirmed}}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Payment'); pop.hide()">
-                    <a class="pointer-item">{{appLanguage.payment}}</a>
+                    <a class="pointer-item">{{appLanguage?.payment}}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Harvest Ready'); pop.hide()">
-                    <a class="pointer-item">{{appLanguage.harvest_ready}}</a>
+                    <a class="pointer-item">{{appLanguage?.harvest_ready}}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Received'); pop.hide()">
-                    <a class="pointer-item">{{appLanguage.received}}</a>
+                    <a class="pointer-item">{{appLanguage?.received}}</a>
                 </li>
             </ul>
         </div>
@@ -549,27 +549,27 @@
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setStatus(''); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage.all}}</a>
+                        (click)="setStatus(''); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage?.all}}</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setStatusMob('Shipped'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage.shipped}}</a>
+                        (click)="setStatusMob('Shipped'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage?.shipped}}</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setStatusMob('Order Confirmed'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage.order_confirmed}}</a>
+                        (click)="setStatusMob('Order Confirmed'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage?.order_confirmed}}</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setStatusMob('Payment'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage.payment}}</a>
+                        (click)="setStatusMob('Payment'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage?.payment}}</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setStatusMob('Harvest Ready'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage.harvest_ready}}</a>
+                        (click)="setStatusMob('Harvest Ready'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage?.harvest_ready}}</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setStatusMob('Received'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage.received}}</a>
+                        (click)="setStatusMob('Received'); pop13.hide(); pop14.hide();toggleStatusMob()">{{appLanguage?.received}}</a>
                 </li>
             </ul>
         </div>

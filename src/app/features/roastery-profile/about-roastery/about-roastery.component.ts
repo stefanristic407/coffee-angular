@@ -27,7 +27,7 @@ export class AboutRoasteryComponent implements OnInit {
   short_descr : string;
   // emp_title : string;
   emp_name : string = ''
-  appLanguage: any;
+  appLanguage?: any;
 
   ownerNameError : string;
   foundedInError : string;

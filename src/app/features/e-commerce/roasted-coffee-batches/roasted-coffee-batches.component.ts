@@ -24,7 +24,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
   showRole: boolean = true;
   term: any;
   odd: boolean = false ;
-  appLanguage: any;
+  appLanguage?: any;
 
   mainData: any[] = [
     //   {

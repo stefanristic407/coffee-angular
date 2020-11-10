@@ -33,7 +33,7 @@ export class LanguageRegionComponent implements OnInit {
   country: any;
   city: any;
   displayModal: boolean;
-  appLanguage: any;
+  appLanguage?: any;
   langActive:any =0;
   languageCode:any=[];
   languages:any;

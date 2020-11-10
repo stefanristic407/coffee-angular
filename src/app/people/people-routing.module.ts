@@ -16,6 +16,7 @@ import { from } from 'rxjs';
 import { TeamMembersComponent } from './team-members/team-members.component';
 import { InviteMemberComponent } from './invite-member/invite-member.component';
 import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
+import {PermissionErrorComponent} from '../people/permission-error/permission-error.component';
 const routes: Routes = [{
    path: '', 
    component: PeopleComponent,
@@ -71,6 +72,11 @@ const routes: Routes = [{
        path:'invite-member',
        component:InviteMemberComponent
      },
+     {
+       path:'permission-error',
+       component:PermissionErrorComponent
+     }
+     ,
      {
       path: '',
       redirectTo: 'create-role',

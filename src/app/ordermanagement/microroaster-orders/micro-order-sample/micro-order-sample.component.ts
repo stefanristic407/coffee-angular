@@ -10,7 +10,7 @@ import { MicroOrderSampleService } from './micro-order-sample.service';
 })
 export class MicroOrderSampleComponent implements OnInit {
 
-  @ViewChild('orderPlacedSample', { static: false }) private orderPlacedSample: ElementRef<HTMLElement>;
+	@ViewChild('orderPlacedSample', { static: false }) private orderPlacedSample: ElementRef<HTMLElement>;
 	@ViewChild('orderConfirmedSample', { static: false }) private orderConfirmedSample: ElementRef<HTMLElement>;
 	@ViewChild('paymentSample', { static: false }) private payment: ElementRef<HTMLElement>;
 	@ViewChild('shippmentSample', { static: false }) private shippmentSample: ElementRef<HTMLElement>;
@@ -25,59 +25,27 @@ export class MicroOrderSampleComponent implements OnInit {
 	receivedReport: boolean = false;
 	gradedReportSample: boolean = false;
 	uploadReportSample: boolean = true;
-
-	dataFromTable: any;
-
 	cancelShow: boolean = false;
-	totalstar = 5;
-	newvalue: any = 2;
+	receivedOrderShow : boolean = false;
+	paymentStatusDiv : boolean = true;
+	paymentCompletedDiv : boolean = false;
+	date6: Date;
+	savemode : boolean = true;
+	editmode : boolean = false;
+  constructor(private route: ActivatedRoute,
+		public router: Router,public cookieService : CookieService,
+		public horecaDetailService : MicroOrderSampleService) { }
 
-	constructor( private route: ActivatedRoute,
-    public router: Router,public cookieService : CookieService,
-    public microroasterSampleService : MicroOrderSampleService) { }
-
-	ngOnInit(): void {
-		//Auth checking
-		if (this.cookieService.get("Auth") == "") {
-			this.router.navigate(["/auth/login"]);
-		  }
-		//Fills the time line based on the status selected in estate order.
-		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
-		console.log("the data from table trigger is  : " + this.dataFromTable);
-		if (this.dataFromTable == "Order Confirmed") {
-			this.sampleValueToShow = "Order Confirmed";
-			setTimeout(() => {
-				this.orderConfirmSample();
-			}, 500);
-		}
-		else if (this.dataFromTable == "Payment") {
-			this.sampleValueToShow = "Payment";
-			setTimeout(() => {
-				this.paySample();
-			}, 500);
-
-		}
-		else if (this.dataFromTable == "Shipped") {
-			this.sampleValueToShow = "Shipped";
-			setTimeout(() => {
-				this.shipmentStatusSample();
-			}, 500);
-
-		}
-		else if (this.dataFromTable == "Received") {
-			this.sampleValueToShow = "Received";
-			setTimeout(() => {
-				this.receivedStatusSample();
-			}, 500);
-		}
-		else if (this.dataFromTable == "Graded") {
-			this.sampleValueToShow = "Graded";
-			setTimeout(() => {
-				this.gradedStatusSample();
-			}, 500);
-		}
+  ngOnInit(): void {
+	//Auth checking
+	if (this.cookieService.get("Auth") == "") {
+		this.router.navigate(["/auth/login"]);
 	}
+	this.sampleValueToShow = "Order Placed";
+	this.paymentStatusDiv = true;
 
+  }
+  
 	// Function Name : Order Placed
 	// Description: This function fills order placed timeline .
 	orderPlaceSample() {
@@ -103,7 +71,12 @@ export class MicroOrderSampleComponent implements OnInit {
 		this.payment.nativeElement.style.fontWeight = "bold";
 		const completedProcess = document.getElementById('paymentDivSample');
 		completedProcess.classList.remove('completed');
-		this.microroasterSampleService.paymentStatus();
+		// this.sampleService.paymentStatus();
+		this.paymentCompletedDiv = true;
+		this.paymentStatusDiv = false;
+		this.horecaDetailService.receiptShow = true;
+		this.horecaDetailService.statusPaid = true;
+		this.horecaDetailService.statusPending = false;
 	}
 	// Function Name : Order Sample Shippment
 	// Description: This function shows Tracking Id and Shippment Id in order details tab once shippment is done.
@@ -115,7 +88,15 @@ export class MicroOrderSampleComponent implements OnInit {
 		const completedProcess = document.getElementById('shippmentDivSample');
 		completedProcess.classList.remove('completed');
 		this.shippmentReport = true;
-		this.microroasterSampleService.shipmentDone = true;
+
+		
+		this.paymentCompletedDiv = true;
+		this.paymentStatusDiv = false;
+		this.horecaDetailService.receiptShow = true;
+		this.horecaDetailService.statusPaid = true;
+		this.horecaDetailService.statusPending = false;
+		this.horecaDetailService.shipment_status = true;
+		// this.sampleService.shipmentDone = true;
 
 		// Calling the Order Details component by creating object of the component and accessing its methods
 
@@ -133,11 +114,15 @@ export class MicroOrderSampleComponent implements OnInit {
 		this.receivedSample.nativeElement.style.fontWeight = "bold";
 		const completedProcess = document.getElementById('receivedDivSample');
 		completedProcess.classList.remove('completed');
-    this.receivedReport = true;
-    setTimeout(() => {
-			this.orderSampleTimeline = false;
-			this.confirmShow = true;
-		}, 2000);
+		this.receivedReport = true;
+		this.receivedOrderShow = true;
+		this.orderSampleTimeline = false;
+		this.paymentStatusDiv = false;
+		this.paymentCompletedDiv = false;
+		
+		this.horecaDetailService.receiptShow = true;
+		this.horecaDetailService.statusPaid = true;
+		this.horecaDetailService.statusPending = false;
 	}
 	// Function Name : Order Booked Graded
 	// Description: This function shows order is graded and grade info tab timeline is filled.
@@ -151,7 +136,10 @@ export class MicroOrderSampleComponent implements OnInit {
 		this.uploadReportSample = false;
 		this.gradedReportSample = true;
 		$('#pills-contact-tab')[0].click();
-
+		setTimeout(() => {
+			this.orderSampleTimeline = false;
+			this.confirmShow = true;
+		}, 2000);
 
 		// Calling the Grade info component by creating object of the component and accessing its methods
 
@@ -161,71 +149,16 @@ export class MicroOrderSampleComponent implements OnInit {
 
 	}
 
-	// Function Name : Order Sample Cancel Button
-	// Description: This function helps to cancel the order.
-	cancelOrder() {
-		this.orderSampleTimeline = false;
-		this.confirmShow = false;
-		this.cancelShow = true;
+	save(){
+		this.savemode = false;
+		this.editmode = true;
+		$('#track-link').prop('disabled', true);
+		$('#navigators').prop('disabled', true);
 	}
-
-	//Click on cancel button scrolls to cancel div
-	ngAfterViewInit() {
-		$(".cancel-order-btn").click(function () {
-			$('html,body').animate({
-				scrollTop: $(".cancel-predisplay").offset().top
-			},
-				500);
-		});
-
-		//chat 
-
-// 		const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
-// const chatbox = document.querySelector(".js-chatbox");
-// const chatboxMsgDisplay = document.querySelector(".js-chatbox-display");
-// const chatboxForm = document.querySelector(".js-chatbox-form");
-
-// // Use to create chat bubble when user submits text
-// // Appends to display
-// const createChatBubble = input => {
-//   const chatSection = document.createElement("p");
-//   chatSection.textContent = input;
-//   chatSection.classList.add("chatbox__display-chat");
-
-//   chatboxMsgDisplay.appendChild(chatSection);
-// };
-
-// // Toggle the visibility of the chatbox element when clicked
-// // And change the icon depending on visibility
-// toggleChatboxBtn.addEventListener("click", () => {
-//   chatbox.classList.toggle("chatbox--is-visible");
-
-//   if (chatbox.classList.contains("chatbox--is-visible")) {
-//     toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
-//   } else {
-//     toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
-//   }
-// });
-
-// // Form input using method createChatBubble
-// // To append any user message to display
-// chatboxForm.addEventListener("submit", e => {
-// //   const chatInput = document.querySelector(".js-chatbox-input");
-//   const chatInput=(document.getElementById("js-chatbox-input") as HTMLInputElement).value;
-// //   console.log("chat text coming"+chatInput);
-
-//   createChatBubble(chatInput);
-
-//   e.preventDefault();
-//   this.myForm.nativeElement.reset();
-// });
-
- 	}
-// 	// onRate($event:{ newValue:number}) {
-
-// 	//   this.newvalue=$event.newValue;
-// 	//  console.log(this.newvalue);
-// 	// }
-  
-
+	edit(){
+		this.savemode = true;
+		this.editmode = false;
+		$('#track-link').prop('disabled', false);
+		$('#navigators').prop('disabled', false);
+	}
 }

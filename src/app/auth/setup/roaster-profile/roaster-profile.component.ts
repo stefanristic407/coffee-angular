@@ -24,7 +24,7 @@ export class RoasterProfileComponent implements OnInit, AfterViewInit {
   showCropper = false;
   containWithinAspectRatio = false;
   transform: ImageTransform = {};
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(public roasterService: RoasterProfileService,    private globals: GlobalsService
     ) {}

@@ -24,7 +24,7 @@ export class ManageRoleComponent implements OnInit {
   roleID: any;
   roasterUsers: any[] = [];
   userRoles: any[] = [];
-  appLanguage: any;
+  appLanguage?: any;
   roleActive:any=0;
   displayModal: boolean;
   modalRef: BsModalRef;
@@ -45,6 +45,9 @@ export class ManageRoleComponent implements OnInit {
     //Auth checking
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
+    }
+    if(!this.globals.permissions['acl-management'] && !this.globals.permissions['acl-list']){
+      this.router.navigate(["/people/permission-error"]);
     }
     $(document).ready(function () {
       $('input[type="checkbox"]').click(function () {

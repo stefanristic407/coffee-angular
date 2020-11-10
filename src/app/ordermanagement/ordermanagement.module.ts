@@ -71,6 +71,10 @@ import { SampleNotesComponent } from './microroaster-orders/micro-order-sample/s
 import { SampleOrderConfirmationComponent } from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
 import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component'
 import { ErrorModuleModule } from '../error-module/error-module.module';
+import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.component';
+import { OrdersTableComponent } from './microroaster-orders/mr-orders/orders-table/orders-table.component';
+import { RequestsTableComponent } from './microroaster-orders/mr-orders/requests-table/requests-table.component';
+import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 // import { EmptyTableComponent } from '../error-module/empty-table/empty-table.component';
 
 
@@ -131,7 +135,11 @@ import { ErrorModuleModule } from '../error-module/error-module.module';
     SampleDetailsComponent,
     SampleNotesComponent,
     SampleOrderConfirmationComponent,
-    BookedOrderConfirmationComponent
+    BookedOrderConfirmationComponent,
+    MrOrdersComponent,
+    OrdersTableComponent,
+    RequestsTableComponent,
+    MrRequestDetailsComponent
   ],
   imports: [
     // BrowserAnimationsModule,

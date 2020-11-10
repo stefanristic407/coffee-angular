@@ -18,7 +18,7 @@ export class ProfilePhotoComponent implements OnInit {
   showCropper = false;
   containWithinAspectRatio = false;
   transform: ImageTransform = {};
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(public profilePhotoService : ProfilePhotoService,private globals: GlobalsService) {}
 

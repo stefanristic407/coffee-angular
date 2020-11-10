@@ -5,14 +5,14 @@
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
         <li class="b-cum">
-            <a class="b-cum">{{appLanguage.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum">{{appLanguage?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
         <li class="b-cum c-pink">Customer onboarding</li>
         <div class="pull-right">
-            <!-- <button type="submit" class="btn btn-succes cancel_member" routerLink="/people/team-members">{{appLanguage.cancel}}</button> -->
+            <!-- <button type="submit" class="btn btn-succes cancel_member" routerLink="/people/team-members">{{appLanguage?.cancel}}</button> -->
             <button type="submit" class="btn btn-succes send-invites" (click)="sendInvite()">Send invites</button>
         </div>
     </ul>
@@ -29,18 +29,18 @@
             <form class="form-container">
                 <div class="row">
                     <div class="form-group col-md-4 mt-md-1">
-                        <label for="add_member_name">{{appLanguage.name}}<span class="star">*</span></label>
+                        <label for="add_member_name">{{appLanguage?.name}}<span class="star">*</span></label>
                         <input class="form-control rectangle_username" id="add_member_name" placeholder="Enter your Full Name"  [(ngModel)]="add_member_name" name="add_member_name" type="text" />
                         <!-- <div class="addressError" *ngIf="addressError != ''">
                             {{ addressError }}
                         </div> -->
                     </div>
                     <div class="form-group col-md-4 mt-md-1">
-                        <label for="add_member_email">{{appLanguage.enter_yoru_work_email}}<span class="star">*</span></label>
+                        <label for="add_member_email">{{appLanguage?.enter_yoru_work_email}}<span class="star">*</span></label>
                         <input class="form-control rectangle_useremail" type="email" id="add_member_email" placeholder="you@example.com"  [(ngModel)]="add_member_email" name="add_member_email"  />
                     </div>
                     <div class="form-group col-md-3 mt-md-1" *ngIf=" this.headerValue == 'HoReCa' ">
-                        <label for="add_member_type">{{appLanguage.enter_yoru_work_type}}<span class="star">*</span></label>
+                        <label for="add_member_type">{{appLanguage?.enter_yoru_work_type}}<span class="star">*</span></label>
                         <!-- <input class="form-control rectangle_useremail" type="text" id="add_member_type" placeholder="Enter your work type"  [(ngModel)]="add_member_type" name="add_member_type"  /> -->
                         <select class="form-control rectangle_name role_edit"  [(ngModel)]="add_member_type" name="add_member_type" id="add_member_type" required="">
                             <option value="" selected disabled>

@@ -7,7 +7,7 @@ import {GlobalsService} from 'src/services/globals.service';
   styleUrls: ['./estate-details-list.component.css']
 })
 export class EstateDetailsListComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
   estateDetailsActive:any=0;
 
   public coffeedata: any[] = [

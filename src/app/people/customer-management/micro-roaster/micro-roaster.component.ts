@@ -8,6 +8,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {GlobalsService} from 'src/services/globals.service';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-micro-roaster',
@@ -21,7 +22,7 @@ export class MicroRoasterComponent implements OnInit {
   estateId: any;
   roasterId: any;
   odd: boolean = false ;
-  appLanguage: any;
+  appLanguage?: any;
   microActive:any=0;
 
   constructor(public router: Router,
@@ -109,4 +110,21 @@ export class MicroRoasterComponent implements OnInit {
       }
     )
   }
+  stimulatedLogin(item) {
+    console.log(item);
+    this.roasterService.getMicroRoasterStimulatedLogin(item.id, this.roasterId).subscribe(res => {
+      if (res['success']) {
+        const data = res['result'];
+        data['micro_roaster_id'] = item['id'];
+        const encryptedCode = this.roasterService.encryptData(data);
+        // const decryptedCode = this.roasterService.decryptData(encryptedCode);
+        // console.log(decryptedCode);
+        const redirectUrl = environment.microRoasterWeb + '/#/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
+        this.roasterService.navigate(redirectUrl, true);
+      }
+    }, err => {
+      console.log(err);
+    });
+  }
+
 }

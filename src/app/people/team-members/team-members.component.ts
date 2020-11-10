@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { Toast, ToastrService } from 'ngx-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import {GlobalsService} from 'src/services/globals.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class TeamMembersComponent implements OnInit {
   showVar: boolean = true;
   showRole:boolean = true;
   term:any;
-  appLanguage: any;
+  appLanguage?: any;
   teamActive:any=0;
 
   mainData:any[] = [
@@ -150,4 +150,15 @@ export class TeamMembersComponent implements OnInit {
   isAllChecked() {
     return this.mainData.every(_ => _.state);
   } 
+
+  inviteNewMembers() {
+    console.log(this.roleData)
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "roleData": encodeURIComponent(this.roleData),
+        "roleID": encodeURIComponent(this.roleID)
+      }
+    }
+    this.router.navigate(['/people/invite-member'], navigationExtras);
+  }
 }

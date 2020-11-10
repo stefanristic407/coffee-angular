@@ -23,10 +23,10 @@
               <span class="checkmark head-check"></span>
             </label>
           </th>
-          <th>{{appLanguage.files}}</th>
-          <th scope="col">{{appLanguage.order_id}}</th>
-          <th scope="col">{{appLanguage.modified}}</th>
-          <th scope="col">{{appLanguage.type}}</th>
+          <th>{{appLanguage?.files}}</th>
+          <th scope="col">{{appLanguage?.order_id}}</th>
+          <th scope="col">{{appLanguage?.modified}}</th>
+          <th scope="col">{{appLanguage?.type}}</th>
           <th></th>
           <th></th>
         </tr>
@@ -123,7 +123,7 @@
           </td>
           <td class="share_icon"> <div class="edit"><label class="share-bor mr-3" (click)="openShareModal(shareTemplate,item)">  <img
             class="share-img" src="assets/images/share-img.png" alt="farm"> <span
-            class="share-txt ml-2"> {{appLanguage.share}} </span> </label></div>  
+            class="share-txt ml-2"> {{appLanguage?.share}} </span> </label></div>  
           </td>
           <td>
             <a
@@ -145,20 +145,20 @@
               <div id="popover-mobile-content">
                 <ul class="list-group custom-popover">
                   <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
-                    <a class="pointer-item" (click)="pop.hide();downloadFile(item)">{{appLanguage.download}} </a>
+                    <a class="pointer-item" (click)="pop.hide();downloadFile(item)">{{appLanguage?.download}} </a>
                   </li>
                   <li class="list-group-item">
                     <a
                       class="pointer-item"
                       (click)="pop.hide(); pinFileorFolder(item.id)"
-                      >{{appLanguage.pin}}</a
+                      >{{appLanguage?.pin}}</a
                     >
                   </li>
                   <li class="list-group-item">
                     <a
                       class="pointer-item"
                       (click)="pop.hide(); openShareModal(shareTemplate,item)"
-                      >{{appLanguage.share}}</a
+                      >{{appLanguage?.share}}</a
                     >
                   </li>
                   <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
@@ -173,31 +173,31 @@
                         );
                         pop.hide()
                       "
-                      >{{appLanguage.rename}}</a
+                      >{{appLanguage?.rename}}</a
                     >
                   </li>
                   <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
                     <a
                       class="pointer-item"
                       (click)="openFileModal(fileTemplate, item.id); pop.hide()"
-                      >{{appLanguage.rename}}</a
+                      >{{appLanguage?.rename}}</a
                     >
                   </li>
                   <li class="list-group-item">
-                    <a class="pointer-item" (click)="pop.hide()">{{appLanguage.comment}}</a>
+                    <a class="pointer-item" (click)="pop.hide()">{{appLanguage?.comment}}</a>
                   </li>
                   <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
                     <a
                       class="pointer-item"
                       (click)="pop.hide();openDeleteModal(deleteTemplate,item.id)"
-                      >{{appLanguage.delete}}</a
+                      >{{appLanguage?.delete}}</a
                     >
                   </li>
                   <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
                     <a
                       class="pointer-item"
                       (click)="pop.hide(); openFileDeleteModal(deleteFileTemplate,item.id);"
-                      >{{appLanguage.delete}}</a
+                      >{{appLanguage?.delete}}</a
                     >
                   </li>
                 </ul>
@@ -392,7 +392,7 @@
                                 *ngIf="item.type != 'FOLDER'"
                               >
                                 <a class="pointer-item" (click)="pop1.hide();downloadFile(item)"
-                                  >{{appLanguage.download}}
+                                  >{{appLanguage?.download}}
                                 </a>
                               </li>
                               <li class="list-group-item">
@@ -401,14 +401,14 @@
                                   (click)="
                                     pop1.hide(); pinFileorFolder(item.id)
                                   "
-                                  >{{appLanguage.pin}}</a
+                                  >{{appLanguage?.pin}}</a
                                 >
                               </li>
                               <li class="list-group-item">
                                 <a
                                   class="pointer-item"
                                   (click)="pop1.hide(); openShareModal(shareTemplate,item)"
-                                  >{{appLanguage.share}}</a
+                                  >{{appLanguage?.share}}</a
                                 >
                               </li>
                               <li
@@ -426,7 +426,7 @@
                                     );
                                     pop1.hide()
                                   "
-                                  >{{appLanguage.rename}}</a
+                                  >{{appLanguage?.rename}}</a
                                 >
                               </li>
                               <li
@@ -439,12 +439,12 @@
                                     openFileModal(fileTemplate, item.id);
                                     pop1.hide()
                                   "
-                                  >{{appLanguage.rename}}</a
+                                  >{{appLanguage?.rename}}</a
                                 >
                               </li>
                               <li class="list-group-item">
                                 <a class="pointer-item" (click)="pop1.hide()"
-                                  >{{appLanguage.comment}}</a
+                                  >{{appLanguage?.comment}}</a
                                 >
                               </li>
                               <li
@@ -454,7 +454,7 @@
                                 <a
                                   class="pointer-item"
                                   (click)="pop1.hide(); openDeleteModal(deleteTemplate,item.id)"
-                                  >{{appLanguage.delete}}</a
+                                  >{{appLanguage?.delete}}</a
                                 >
                               </li>
                               <li
@@ -464,7 +464,7 @@
                                 <a
                                   class="pointer-item"
                                   (click)="pop1.hide();openFileDeleteModal(deleteFileTemplate,item.id);"
-                                  >{{appLanguage.delete}}</a
+                                  >{{appLanguage?.delete}}</a
                                 >
                               </li>
                             </ul>
@@ -645,7 +645,7 @@
                                   *ngIf="item.type != 'FOLDER'"
                                 >
                                   <a class="pointer-item" (click)="pop2.hide();downloadFile(item)"
-                                    >{{appLanguage.download}}
+                                    >{{appLanguage?.download}}
                                   </a>
                                 </li>
                                 <li class="list-group-item">
@@ -654,14 +654,14 @@
                                     (click)="
                                       pop2.hide(); pinFileorFolder(item.id)
                                     "
-                                    >{{appLanguage.pin}}</a
+                                    >{{appLanguage?.pin}}</a
                                   >
                                 </li>
                                 <li class="list-group-item">
                                   <a
                                     class="pointer-item"
                                     (click)="pop2.hide(); openShareModal(shareTemplate,item)"
-                                    >{{appLanguage.share}}</a
+                                    >{{appLanguage?.share}}</a
                                   >
                                 </li>
                                 <li
@@ -679,7 +679,7 @@
                                       );
                                       pop2.hide()
                                     "
-                                    >{{appLanguage.rename}}</a
+                                    >{{appLanguage?.rename}}</a
                                   >
                                 </li>
                                 <li
@@ -692,12 +692,12 @@
                                       openFileModal(fileTemplate, item.id);
                                       pop2.hide()
                                     "
-                                    >{{appLanguage.rename}}</a
+                                    >{{appLanguage?.rename}}</a
                                   >
                                 </li>
                                 <li class="list-group-item">
                                   <a class="pointer-item" (click)="pop2.hide()"
-                                    >{{appLanguage.comment}}</a
+                                    >{{appLanguage?.comment}}</a
                                   >
                                 </li>
                                 <li
@@ -707,7 +707,7 @@
                                   <a
                                     class="pointer-item"
                                     (click)="pop2.hide();openDeleteModal(deleteTemplate,item.id)"
-                                    >{{appLanguage.delete}}</a
+                                    >{{appLanguage?.delete}}</a
                                   >
                                 </li>
                                 <li
@@ -717,7 +717,7 @@
                                   <a
                                     class="pointer-item"
                                     (click)="pop2.hide(); openFileDeleteModal(deleteFileTemplate,item.id)"
-                                    >{{appLanguage.delete}}</a
+                                    >{{appLanguage?.delete}}</a
                                   >
                                 </li>
                               </ul>
@@ -768,7 +768,7 @@
   <ng-template #template>
     <div class="modal-header">
       <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-        {{appLanguage.upload_folder}}
+        {{appLanguage?.upload_folder}}
       </h5>
       <button
         type="button"
@@ -783,7 +783,7 @@
       <form>
         <div class="roastery-fields mb-4">
           <div class="farm-input col-12 col-md-5 px-0">
-            <label class="mb-0">{{appLanguage.name}}</label>
+            <label class="mb-0">{{appLanguage?.name}}</label>
             <input
               type="hidden"
               [(ngModel)]="folderItemId"
@@ -806,7 +806,7 @@
         <div class="roastery-fields mb-4">
           <div class="farm-input col-12 px-0">
             <label class="mb-0"
-              >{{appLanguage.give_short_description}} *</label
+              >{{appLanguage?.give_short_description}} *</label
             >
             <textarea
               class="mb-0"
@@ -830,7 +830,7 @@
           class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
           (click)="UpdateFolder()"
         >
-        {{appLanguage.update}}
+        {{appLanguage?.update}}
         </button>
       </div>
     </div>
@@ -839,7 +839,7 @@
   <ng-template #fileTemplate>
     <div class="modal-header">
       <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-        {{appLanguage.update_file}}
+        {{appLanguage?.update_file}}
       </h5>
       <button
         type="button"
@@ -854,7 +854,7 @@
       <form>
         <div class="roastery-fields mb-4">
           <div class="farm-input col-12 col-md-5 px-0">
-            <label class="mb-0">{{appLanguage.name}}</label>
+            <label class="mb-0">{{appLanguage?.name}}</label>
             <input
               type="text"
               placeholder="Enter file name"
@@ -871,7 +871,7 @@
         <div class="roastery-fields mb-4">
           <div class="farm-input col-12 px-0">
             <label class="mb-0"
-              >{{appLanguage.give_short_description}} *</label
+              >{{appLanguage?.give_short_description}} *</label
             >
             <textarea
               class="mb-0"
@@ -892,7 +892,7 @@
           </div>
         </div>
         <div class="roastery-fields mb-4">
-          <label class="mb-1 mr-2 ">{{appLanguage.file_upload}} </label>
+          <label class="mb-1 mr-2 ">{{appLanguage?.file_upload}} </label>
           <label class="share-bor mr-3">
             <input
               class="file-inpt"
@@ -904,7 +904,7 @@
               src="assets/images/upload-icon.png"
               alt="farm"
             />
-            <span class="share-txt ml-2"> {{appLanguage.upload}} </span>
+            <span class="share-txt ml-2"> {{appLanguage?.upload}} </span>
           </label>
           <span class="value-name">{{ fileNameValue }}</span>
         </div>
@@ -915,7 +915,7 @@
           class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
           (click)="updateFile()"
         >
-        {{appLanguage.update}}
+        {{appLanguage?.update}}
         </button>
       </div>
     </div>
@@ -968,7 +968,7 @@
 <div >
     <div >
         <div class="modal-header">
-            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage.share}}</h5>
+            <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage?.share}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -979,7 +979,7 @@
                     <div class="roastery-fields mb-0">
                         <div class="farm-input col-12 px-0">
 
-                            <label>{{appLanguage.enter_name_email}}*</label>
+                            <label>{{appLanguage?.enter_name_email}}*</label>
                             <div
                             class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                             <input class="float-left px-0 form-control auto-complete-box" type="email" [(ngModel)]="selectedValue" name="name"
@@ -999,13 +999,13 @@
 
                                     <div class="Custom-select w-100 border-left66">
                                         <div class="Custom-select-input w-100  pr-3">
-                                            <input type="text" value="{{appLanguage.can_view}}" readonly>
+                                            <input type="text" value="{{appLanguage?.can_view}}" readonly>
                                             <span
-                                                class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="share_permission">{{appLanguage.can_view}}</span>
+                                                class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="share_permission">{{appLanguage?.can_view}}</span>
                                             <ul
                                                 class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                <li class="Custom-select-input-list__item">{{appLanguage.can_view}}</li>
-                                                <li class="Custom-select-input-list__item">{{appLanguage.can_edit}}</li>
+                                                <li class="Custom-select-input-list__item">{{appLanguage?.can_view}}</li>
+                                                <li class="Custom-select-input-list__item">{{appLanguage?.can_edit}}</li>
 
                                             </ul>
                                         </div>
@@ -1015,7 +1015,7 @@
                         </div>
                     </div>
                     <div class="mt-3 mt-lg-4" *ngIf="sharedUsers != 0">
-                        <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">{{appLanguage.existing_members}}
+                        <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">{{appLanguage?.existing_members}}
                         </h4>
                         <!--Existing Memebr-->
                         <ul class="existing-members-list">
@@ -1063,16 +1063,16 @@
                                     <div class="member__type float-right ml-auto">
                                         <div class="Custom-select w-100">
                                             <div class="Custom-select-input w-100">
-                                                <input type="text" value="{{appLanguage.can_view}}" readonly>
+                                                <input type="text" value="{{appLanguage?.can_view}}" readonly>
                                                 <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canEdit" *ngIf="item.permission == 'EDIT'">{{appLanguage.can_edit}}</span>
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canEdit" *ngIf="item.permission == 'EDIT'">{{appLanguage?.can_edit}}</span>
                                                         <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canView" *ngIf="item.permission == 'VIEW'">{{appLanguage.can_view}}</span>
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canView" *ngIf="item.permission == 'VIEW'">{{appLanguage?.can_view}}</span>
                                                 <ul
                                                     class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                    <li class="Custom-select-input-list__item" (click)="changePermissions('VIEW',item)">{{appLanguage.can_view}}</li>
-                                                    <li class="Custom-select-input-list__item" (click)="changePermissions('EDIT',item)">{{appLanguage.can_edit}}</li>
-                                                    <li class="Custom-select-input-list__item" (click)="removeAccess(item)">{{appLanguage.remove}}</li>
+                                                    <li class="Custom-select-input-list__item" (click)="changePermissions('VIEW',item)">{{appLanguage?.can_view}}</li>
+                                                    <li class="Custom-select-input-list__item" (click)="changePermissions('EDIT',item)">{{appLanguage?.can_edit}}</li>
+                                                    <li class="Custom-select-input-list__item" (click)="removeAccess(item)">{{appLanguage?.remove}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1087,8 +1087,8 @@
         <div class="modal-footer justify-content-between mx-3 mb-2">
             <p
                 class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0">
-                {{appLanguage.admin_notice_text}}</p>
-            <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()">{{appLanguage.share}}
+                {{appLanguage?.admin_notice_text}}</p>
+            <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()">{{appLanguage?.share}}
             </button>
         </div>
     </div>
@@ -1101,8 +1101,8 @@
 	   <!-- <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div> -->
 	   <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
 	   <div class="mt-4">
-			<button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage.cancel}}</button>
-			<button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteFolder(this.deleteFolderId)">{{appLanguage.delete}}</button>
+			<button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage?.cancel}}</button>
+			<button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteFolder(this.deleteFolderId)">{{appLanguage?.delete}}</button>
 	   </div>
 	</div>
 </ng-template>
@@ -1112,8 +1112,8 @@
 	   <!-- <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div> -->
 	   <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
 	   <div class="mt-4">
-			<button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage.cancel}}</button>
-			<button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteFile(this.deleteFileId)">{{appLanguage.delete}}</button>
+			<button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage?.cancel}}</button>
+			<button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteFile(this.deleteFileId)">{{appLanguage?.delete}}</button>
 	   </div>
 	</div>
 </ng-template>

@@ -21,7 +21,7 @@ export class ResetPasswordComponent implements OnInit {
   updateButtonValue: string;
   result: string;
   showBackButton : boolean =true;
-  appLanguage: any;
+  appLanguage?: any;
   resetActive:any =0;
 
   constructor(

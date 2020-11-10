@@ -10,7 +10,7 @@ import { GlobalsService } from 'src/services/globals.service';
     styleUrls: ['./grade-info.component.css']
 })
 export class GradeInfoComponent implements OnInit {
-	appLanguage: any;
+	appLanguage?: any;
 	gradeSampleActive:any =0;
 
     constructor(public sampleService: OrderSampleService,

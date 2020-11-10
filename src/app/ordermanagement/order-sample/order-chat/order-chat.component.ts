@@ -9,7 +9,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./order-chat.component.css']
 })
 export class OrderChatComponent implements OnInit {
-	appLanguage: any;
+	appLanguage?: any;
 	ChatSampleActive:any =0;
 	greenIconShow: boolean = false;
 
@@ -35,7 +35,7 @@ export class OrderChatComponent implements OnInit {
 	 
 	const messages = document.querySelector('.conversatio-body__messages');
 	let img;
-		$('body').on('input', '.dispute-order .files', function (e) {
+		$('body').on('input', '.share-ur-knowledge-main__submit .files', function (e) {
 			if (e.target.files) {
 				var reader = new FileReader();
 				reader.readAsDataURL(e.target.files[0]);
@@ -45,9 +45,9 @@ export class OrderChatComponent implements OnInit {
 
 					img = '<img src=' + event.target.result +'>';
 					setTimeout(function(){
-						$('.dispute-order').find('.img-container').append(img);
-						$('.dispute-order').find('.img-container').show();
-						// $(this).parents('.dispute-order').find('.img-container').find('img').not(':first').remove();
+						$('.share-ur-knowledge-main__submit').find('.img-container').append(img);
+						$('.share-ur-knowledge-main__submit').find('.img-container').show();
+						// $(this).parents('.share-ur-knowledge-main__submit').find('.img-container').find('img').not(':first').remove();
 						
 					 }, 100);
 				
@@ -85,14 +85,15 @@ export class OrderChatComponent implements OnInit {
 	let HideWords = ['fuck', 'suck']
    
 
-    //Send Message
+	//Send Message
+	
     // Send Messages
-	$('body').on('click', '.dispute-order .send-message__btn', function () {
+	$('body').on('click', '.share-ur-knowledge-main__submit .submit', function () {
 	
 	
-		var ChatText = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val();
+		var ChatText = $(this).parents('.share-ur-knowledge-main__submit').find('.q-a-forum-input').find('.chat-inputs__text').val();
 
-		var ChatImg =  $(this).parents('.dispute-order').find('.chat-inputs').find('.files').val();
+		var ChatImg =  $(this).parents('.share-ur-knowledge-main__submit').find('.q-a-forum-input').find('.files').val();
 	
 		let strTime;
 		function formatAMPM(date) {
@@ -129,10 +130,10 @@ export class OrderChatComponent implements OnInit {
 			var message = '<div class="main-message message-to"><div class="main-message__profile clearfix"><div class="float-left img"><img src="assets/images/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"> <div class="message-info__img">'+img+'</div><p class="message-text">' + ChatText + '</p></div><span class="live-time">' + strTime + '</span></div></div>'
 
 
-            var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
-            var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
+            var mesbdy = $(this).parents('.share-ur-knowledge-main__submit').find('.conversatio-body__messages').append(message)
+            var clrInput = $(this).parents('.share-ur-knowledge-main__submit').find('.q-a-forum-input').find('.chat-inputs__text').val('');
 
-			$('.dispute-order .files').val('');
+			$('.share-ur-knowledge-main__submit .files').val('');
 		}
 
 
@@ -140,10 +141,10 @@ export class OrderChatComponent implements OnInit {
             var message = '<div class="main-message message-to"><div class="main-message__profile clearfix"><div class="float-left img"><img src="assets/images/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><p class="message-text px-2">' + ChatText + '</p></div><span class="live-time">' + strTime + '</span></div></div>'
 
 
-            var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
-            var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
+            var mesbdy = $(this).parents('.share-ur-knowledge-main__submit').find('.conversatio-body__messages').append(message)
+            var clrInput = $(this).parents('.share-ur-knowledge-main__submit').find('.q-a-forum-input').find('.chat-inputs__text').val('');
 
-			$('.dispute-order .files').val('');
+			$('.share-ur-knowledge-main__submit .files').val('');
 		
 
 		}
@@ -153,9 +154,9 @@ export class OrderChatComponent implements OnInit {
             var message = '<div class="main-message message-from"><div class="main-message__profile clearfix"><div class="float-left img"><img src="assets/images/profile.png"></div><div class="profile-name"><div class="float-left"><h4 class="name">Finca La Pampa</h4><span class="status">Facilitator</span></div></div></div><div class="message-info"><div class="message-info__body position-relative"><div class="message-info__img">' + img + '</div><span class="live-time">' + strTime + '</span></div></div></div>'
 
 
-            var mesbdy = $(this).parents('.dispute-order').find('.conversatio-body__messages').append(message)
-            var clrInput = $(this).parents('.dispute-order').find('.chat-inputs').find('.chat-inputs__text').val('');
-            $('.dispute-order .files').val('');
+            var mesbdy = $(this).parents('.share-ur-knowledge-main__submit').find('.conversatio-body__messages').append(message)
+            var clrInput = $(this).parents('.share-ur-knowledge-main__submit').find('.q-a-forum-input').find('.chat-inputs__text').val('');
+            $('.share-ur-knowledge-main__submit .files').val('');
            
 
 		}
@@ -190,13 +191,13 @@ export class OrderChatComponent implements OnInit {
 	$('body').bind('keypress', function (e) {
 		if (e.keyCode == 13) {
 			
-			$('.send-message__btn').trigger('click');
+			$('.submit').trigger('click');
 		}
 		e.stopImmediatePropagation();
 	});
 	
 	$('body').on('click', '.order-ticket-list__item', function () {
-        $(this).parents('.dispute-order').find('.dispute-order__conversation').addClass('open')
+        $(this).parents('.share-ur-knowledge-main__submit').find('.dispute-order__conversation').addClass('open')
 	});
 	
 	function scrollToBottom() {

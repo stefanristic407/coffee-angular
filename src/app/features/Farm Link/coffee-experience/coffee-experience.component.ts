@@ -57,13 +57,13 @@ export class CoffeeExperienceComponent implements OnInit {
 		{  name: 'Gesha',origin:'Colombia',date: '19/09/19', orderid:'#71716' },
 		
   ];
-	appLanguage: any;
+	appLanguage?: any;
 	coffeeExpActive:any = 0;
 
   constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
-		private globals: GlobalsService) {
+		public globals: GlobalsService) {
 			this.data = {};
 			this.data = 
 				[{ 
@@ -90,6 +90,10 @@ export class CoffeeExperienceComponent implements OnInit {
 
 
      ngOnInit(): void {
+		if(!this.globals.permissions['coffee-management'] && !this.globals.permissions['coffee-list']){
+			this.router.navigate(["/people/permission-error"]);
+		  }
+
 		this.language();
 		// this.appLanguage = this.globals.languageJson;
       //Toggle Esstate active

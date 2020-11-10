@@ -77,7 +77,7 @@ export class ProductsTableComponent implements OnInit {
   termOrigin: any;
   termType: any;
   roasterId: any;
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(public router: Router,
     public cookieService: CookieService,

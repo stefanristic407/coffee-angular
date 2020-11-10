@@ -141,7 +141,7 @@ hr {
     color: #232334;
 }
 
-.space{
+.space {
     position: relative;
     bottom: 3px;
     padding-left: 2.25rem;
@@ -155,33 +155,39 @@ hr {
         padding-top: 2.5rem;
     }
 }
-.track{
+
+.track {
     color: #30855c;
     font-family: Muli;
     font-weight: bold;
     font-size: 14px;
 }
-.track-btn{
+
+.track-btn {
     border: 1px solid #30855c;
     background-color: #ffffff;
     border-radius: 4px;
 }
-.track-btn:hover{
+
+.track-btn:hover {
     background-color: #30855c;
 }
-.track-btn:hover .track{
+
+.track-btn:hover .track {
     color: #ffffff;
 }
-.view-detail{
+
+.view-detail {
     font-family: Muli;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.57;
-  color: #80460b !important;
-  cursor: pointer !important;
-  text-decoration: underline !important;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.57;
+    color: #80460b !important;
+    cursor: pointer !important;
+    text-decoration: underline !important;
 }
-.position-rel{
+
+.position-rel {
     position: relative;
     top: 1rem;
 }

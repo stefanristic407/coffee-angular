@@ -18,7 +18,7 @@ export class PrivacySettingsComponent implements OnInit {
   agree_terms : boolean = false;
   result: string;
   value: string;
-  appLanguage: any;
+  appLanguage?: any;
   privacyActive:any=0;
   constructor(public userService : UserserviceService, public toastrService : ToastrService, 
               private route : ActivatedRoute, private router : Router,

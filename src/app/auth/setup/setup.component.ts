@@ -81,7 +81,7 @@ export class SetupComponent implements OnInit {
   numb: string;
   user_id: string;
   file_id: any;
-  appLanguage: any;
+  appLanguage?: any;
   tokenData: string;
 
   constructor(

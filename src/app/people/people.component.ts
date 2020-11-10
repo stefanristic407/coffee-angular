@@ -52,7 +52,7 @@ export class PeopleComponent implements OnInit {
   supportLanguages = ["en", "es"];
   lag: any;
   languages: any;
-  appLanguage: any;
+  appLanguage?: any;
   isActive:any=0;
 	slug_list: any;
 	access_list: string;

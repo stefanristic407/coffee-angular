@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(private globals: GlobalsService) { }
 

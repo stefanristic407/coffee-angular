@@ -57,7 +57,7 @@ export class DocumentFileComponent implements OnInit {
 
   
   selectedValue: string;
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(public router: Router,
               public roasterService : RoasterserviceService,

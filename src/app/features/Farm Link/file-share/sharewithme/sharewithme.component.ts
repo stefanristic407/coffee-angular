@@ -45,7 +45,7 @@ export class SharewithmeComponent implements OnInit {
   fileNameError: string;
   filedescriptionError: string;
   files: any;
-  appLanguage: any;
+  appLanguage?: any;
   shareMe:any =0;
 
   constructor(public router: Router,

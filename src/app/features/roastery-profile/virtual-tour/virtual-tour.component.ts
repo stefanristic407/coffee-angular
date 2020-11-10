@@ -8,7 +8,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./virtual-tour.component.css']
 })
 export class VirtualTourComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(public roasteryProfileService : RoasteryProfileService,private globals: GlobalsService) { }
 

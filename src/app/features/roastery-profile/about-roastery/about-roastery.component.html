@@ -13,9 +13,9 @@
                         <div class="border-class p-4">
                             <div class="row  mt-3 no-margin">
                                 <div class="form-group col-md-6  no-margin">
-                                    <label *ngIf="roasteryProfileService.savemode" for="owner_name">{{appLanguage.owner_name}}<span class="star">*</span></label>
+                                    <label *ngIf="roasteryProfileService.savemode" for="owner_name">{{appLanguage?.owner_name}}<span class="star">*</span></label>
                                     <input *ngIf="roasteryProfileService.savemode" class="form-control owner_name rectangle" id="owner_name" type="text" (keyup)="onKeyPress($event)" name="owner_name" [(ngModel)]="roasteryProfileService.name" placeholder="Please enter owner name" />
-                                    <label *ngIf="roasteryProfileService.editmode" for="owner_name" class="mob-view">{{appLanguage.owner_name}}</label>
+                                    <label *ngIf="roasteryProfileService.editmode" for="owner_name" class="mob-view">{{appLanguage?.owner_name}}</label>
                                     <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.name}}</p>
                                     <div class="ownerNameError" *ngIf="ownerNameError != ''">
                                         {{ ownerNameError }}
@@ -23,7 +23,7 @@
 
                                 </div>
                                 <div class="form-group col-md-6  no-margin">
-                                    <label *ngIf="roasteryProfileService.savemode" for="founded_in">{{appLanguage.founded_in}}<span class="star">*</span></label
+                                    <label *ngIf="roasteryProfileService.savemode" for="founded_in">{{appLanguage?.founded_in}}<span class="star">*</span></label
                             >
                             <input
                             *ngIf="roasteryProfileService.savemode"
@@ -36,7 +36,7 @@
                               placeholder="Please enter founded year"
                             />
                             <label *ngIf="roasteryProfileService.editmode" for="founded_in" class="mob-view"
-                            >{{appLanguage.founded_in}}</label>
+                            >{{appLanguage?.founded_in}}</label>
                                     <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.founded_in}}</p>
                                     <div class="foundedInError" *ngIf="foundedInError != ''">
                                         {{ foundedInError }}
@@ -47,12 +47,12 @@
 
                             <div class="row">
                                 <div class="form-group col-md-12 mt-md-3" *ngIf="roasteryProfileService.savemode">
-                                    <label for="summary">{{appLanguage.roastery_summary}}</label>
+                                    <label for="summary">{{appLanguage?.roastery_summary}}</label>
                                     <textarea *ngIf="roasteryProfileService.savemode" class="form-control summary" id="summary" name="summary" rows="5" [(ngModel)]="roasteryProfileService.summary" placeholder="Tell us and to our users about who you are as a company!">
                               </textarea>
                                 </div>
                                 <div class="form-group col-md-12 mt-md-3 mob-border" *ngIf="roasteryProfileService.editmode">
-                                    <label for="summary" class="mob-label">{{appLanguage.roastery_summary}}</label>
+                                    <label for="summary" class="mob-label">{{appLanguage?.roastery_summary}}</label>
                                     <p class="info-content mob-info-content" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.summary}}</p>
 
                                 </div>
@@ -60,19 +60,19 @@
 
                             <hr class="d-none d-lg-block">
                             <div class="row p-3 mt-md-5 mp-3" *ngIf="roasteryProfileService.savemode">
-                                <p class="sub-header">{{appLanguage.employee_details}}</p>
-                                <p class="header-descr">{{appLanguage.give_overview_text}}.</p>
+                                <p class="sub-header">{{appLanguage?.employee_details}}</p>
+                                <p class="header-descr">{{appLanguage?.give_overview_text}}.</p>
                             </div>
                             <div class="row mb-md-3" *ngIf="roasteryProfileService.savemode">
                                 <div class="form-group col-md-6">
-                                    <label for="employee_nos">{{appLanguage.total_number_employees}}<span class="star">*</span></label>
+                                    <label for="employee_nos">{{appLanguage?.total_number_employees}}<span class="star">*</span></label>
                                     <input class="form-control employee_nos rectangle" id="employee_nos" type="number" (keyup)="onKeyPress($event)" name="employee_nos" [(ngModel)]="roasteryProfileService.employee_nos" placeholder="Please enter no. of employees" />
                                     <div class="employeeNoError" *ngIf="employeeNoError != ''">
                                         {{ employeeNoError }}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 ">
-                                    <label for="employee_avg">{{appLanguage.average_employee_age}}<span class="star">*</span></label
+                                    <label for="employee_avg">{{appLanguage?.average_employee_age}}<span class="star">*</span></label
                                 >
                                 <input
                                   class="form-control rectangle employee_avg"
@@ -89,17 +89,17 @@
                               </div>
                               
                       </div>
-                      <span class="text-data"  *ngIf="roasteryProfileService.savemode">{{appLanguage.gender_distribution}}<span class="star">*</span></span>
+                      <span class="text-data"  *ngIf="roasteryProfileService.savemode">{{appLanguage?.gender_distribution}}<span class="star">*</span></span>
                       <div class="row"  *ngIf="roasteryProfileService.savemode">
                             <div class="form-group col-md-6">
-                              <label for="female_num">{{appLanguage.total_number_female_employees}}<span class="star">*</span></label>
+                              <label for="female_num">{{appLanguage?.total_number_female_employees}}<span class="star">*</span></label>
                                     <input class="form-control female_num rectangle" id="female_num" type="number" (keyup)="onKeyPress($event)" name="female_num" [(ngModel)]="roasteryProfileService.female_num" placeholder="Please enter the number of female employees" />
                                     <div class="femaleNumError" *ngIf="femaleNumError != ''">
                                         {{ femaleNumError }}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 ">
-                                    <label for="male_num">{{appLanguage.total_number_male_employees}}<span class="star">*</span></label
+                                    <label for="male_num">{{appLanguage?.total_number_male_employees}}<span class="star">*</span></label
                                     >
                                     <input
                                       class="form-control rectangle male_num"
@@ -118,14 +118,14 @@
                           </div>
                           <hr class="d-none d-md-block"  *ngIf="roasteryProfileService.savemode">
                           <div class="row p-3 mt-md-5 mp-3">
-                                <p class="sub-header">{{appLanguage.roastery_capabilities}}</p>
-                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{appLanguage.tell_us_capability_text}}.</p>
-                                <p class="header-descr" *ngIf="roasteryProfileService.editmode">{{appLanguage.our_roastery_capabilities_storage}}.</p>
+                                <p class="sub-header">{{appLanguage?.roastery_capabilities}}</p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{appLanguage?.tell_us_capability_text}}.</p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.editmode">{{appLanguage?.our_roastery_capabilities_storage}}.</p>
                           </div>
 
                           <div class="row"  *ngIf="roasteryProfileService.savemode">
                                 <div class="form-group col-md-4 col-6">
-                                  <label for="capacity">{{appLanguage.roaster_capacity}}<span class="star">*</span></label>
+                                  <label for="capacity">{{appLanguage?.roaster_capacity}}<span class="star">*</span></label>
                                     <input class="form-control capacity rectangle" id="capacity" type="number" (keyup)="onKeyPress($event)" name="capacity" [(ngModel)]="roasteryProfileService.capacity" placeholder="Enter capacity" />
                                     <div class="capacityError" *ngIf="capacityError != ''">
                                         {{ capacityError }}
@@ -147,7 +147,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6 ">
-                                    <label for="capabilities">{{appLanguage.capabilities}}<span class="star">*</span></label
+                                    <label for="capabilities">{{appLanguage?.capabilities}}<span class="star">*</span></label
                                         >
                                         <input
                                           class="form-control rectangle capabilities"
@@ -168,7 +168,7 @@
                               <div class="row about-web" *ngIf="roasteryProfileService.editmode">
                                 <div class="col-lg-11 border-total">
                                   <div class="col-lg-4 capabilitiesDiv">
-                                    <label class="capacity-header">{{appLanguage.roaster_capacity}}</label>
+                                    <label class="capacity-header">{{appLanguage?.roaster_capacity}}</label>
                                     <p class="weight">{{roasteryProfileService.capacity}} Kgs </p>
                                 </div>
                                 <div class="col-lg-11 capabilitiesdescrDiv">
@@ -180,7 +180,7 @@
                         </div>
                         <div class="about-mobile d-flex border-capacity" *ngIf="roasteryProfileService.editmode">
                             <div class="capacity-text">
-                                <label class="capacity-header">{{appLanguage.roaster_capacity}}</label>
+                                <label class="capacity-header">{{appLanguage?.roaster_capacity}}</label>
                                 <h6 class="weight">{{roasteryProfileService.capacity}} Kgs</h6>
                             </div>
                             <div class="capacity-text-1">
@@ -191,20 +191,20 @@
                         <hr>
 
                         <div class="row p-3 mt-md-5 mt-4">
-                            <p class="sub-header mt-2 mt-md-0">{{appLanguage.brands}}</p>
-                            <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{appLanguage.list_down_brands}}.</p>
+                            <p class="sub-header mt-2 mt-md-0">{{appLanguage?.brands}}</p>
+                            <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{appLanguage?.list_down_brands}}.</p>
                         </div>
                         <div *ngIf="roasteryProfileService.savemode">
                             <div class="row mt-3">
                                 <div class="form-group col-md-3">
-                                    <label for="brand_name">{{appLanguage.brand_logo}}<span class="star">*</span></label>
+                                    <label for="brand_name">{{appLanguage?.brand_logo}}<span class="star">*</span></label>
                                     <img src="assets/images/profile.svg" class="brand-pic">
                                     <a class="show_modal">
                                         <img src="assets/images/camera.svg" class="camera-pic">
                                     </a>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="brand_name">{{appLanguage.brand_name}}<span class="star">*</span></label>
+                                    <label for="brand_name">{{appLanguage?.brand_name}}<span class="star">*</span></label>
                                     <input class="form-control brand_name rectangle" id="brand_name" type="text" (keyup)="onKeyPress($event)" name="brand_name" [(ngModel)]="brand_name" placeholder="Please enter brand name" />
                                     <div class="brandNameError" *ngIf="brandNameError != ''">
                                         {{ brandNameError }}
@@ -225,7 +225,7 @@
 
                             <div class="row">
                                 <div class="form-group col-md-12 mt-3">
-                                    <label for="short_descr">{{appLanguage.short_description_brand}}<span class="star">*</span></label>
+                                    <label for="short_descr">{{appLanguage?.short_description_brand}}<span class="star">*</span></label>
                                     <textarea class="form-control short_descr" id="short_descr" name="short_descr" rows="5" [(ngModel)]="short_descr" placeholder="Tell us a bit about your brand">
                                               </textarea>
                                     <div class="shortDescError" *ngIf="shortDescError != ''">
@@ -237,7 +237,7 @@
                             <div class="add-brand-div">
                                 <a class="brand-tag">
                                     <img class="add-field" src="assets/images/add-field.svg">
-                                    <span class="add-text">{{appLanguage.add_another_brand}}</span>
+                                    <span class="add-text">{{appLanguage?.add_another_brand}}</span>
                                 </a>
                             </div>
                         </div>
@@ -261,8 +261,8 @@
                         <hr>
                         <div class="" *ngIf="roasteryProfileService.savemode">
                             <div class="row p-3 mt-5">
-                                <p class="sub-header">{{appLanguage.contacts}}<span class="star">*</span></p>
-                                <p class="header-descr">{{appLanguage.list_contacts}}!</p>
+                                <p class="sub-header">{{appLanguage?.contacts}}<span class="star">*</span></p>
+                                <p class="header-descr">{{appLanguage?.list_contacts}}!</p>
                             </div>
 
                             <div class="row">
@@ -282,9 +282,9 @@
                                           </div>
                                         </div> -->
                                 <div class="form-group col-md-6">
-                                    <label for="emp_name">{{appLanguage.select_employee}}</label>
+                                    <label for="emp_name">{{appLanguage?.select_employee}}</label>
                                     <select class="form-control kgs rectangle role_edit" id="emp_name" name="emp_name" [(ngModel)]="roasteryProfileService.emp_name"> 
-                                                   <option selected disabled value="">{{appLanguage.please_select_employee_name}}</option>
+                                                   <option selected disabled value="">{{appLanguage?.please_select_employee_name}}</option>
                                                    <option *ngFor="let data of roasteryProfileService.roasterUsers" value="{{data.id}}">{{data.firstname}} {{data.lastname}}</option>
                                                 
         
@@ -298,14 +298,14 @@
                             <div class="add-brand-div">
                                 <a class="brand-tag">
                                     <img class="add-field" src="assets/images/add-field.svg">
-                                    <span class="add-text">{{appLanguage.add_another_contact}}</span>
+                                    <span class="add-text">{{appLanguage?.add_another_contact}}</span>
                                 </a>
                             </div>
                         </div>
 
                         <div class="mob-view" *ngIf="roasteryProfileService.editmode">
                             <div class="employer mt-4 d-none d-md-block">
-                                <h2>{{appLanguage.contacts}}</h2>
+                                <h2>{{appLanguage?.contacts}}</h2>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2" *ngFor="let contact of roasteryProfileService.roasterContacts">
                                         <div class="employ-profile">
@@ -319,7 +319,7 @@
                                             </div>
                                             <div class="msg-chat mt-2">
                                                 <img src="assets/images/message-icon.svg" class="d-inline-block">
-                                                <p class="pl-1 d-inline-block">{{appLanguage.message}}</p>
+                                                <p class="pl-1 d-inline-block">{{appLanguage?.message}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -357,7 +357,7 @@
                             </div>
                         </div>
                         <div class="about-mobile" *ngIf="roasteryProfileService.editmode">
-                            <p class="sub-header mt-2 mt-md-0">{{appLanguage.contacts}}</p>
+                            <p class="sub-header mt-2 mt-md-0">{{appLanguage?.contacts}}</p>
                             <div class="row mt-3 mx-0 border-div">
                                 <div class="p-0">
                                     <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
@@ -422,7 +422,7 @@
 
                 <div class=" col-lg-4">
                     <div class="border-class mdevice-border">
-                        <div class="header m-1">{{appLanguage.awards_and_certificates}}</div>
+                        <div class="header m-1">{{appLanguage?.awards_and_certificates}}</div>
                         <div class="row mt-3 border-div certificate-hover" *ngFor="let certificate of certificatesArray">
                             <div class="p-0">
                                 <img class="img-estate" src="assets/images/certificate.svg" alt="User"></div>
@@ -441,8 +441,8 @@
                                 <ng-template #listTemplate id="{{certificate.id}}">
                                     <div id="popover-mobile-content">
                                         <ul class="list-data custom-popover">
-                                            <li class="list-item"> <a class="pointer-item" (click)="editCertificate($event,certificate);pop1.hide();">{{appLanguage.edit}} </a></li>
-                                            <li class="list-item"><a class="pointer-item" (click)="deleteCertificate(certificate.id);pop1.hide();">{{appLanguage.delete}}</a></li>
+                                            <li class="list-item"> <a class="pointer-item" (click)="editCertificate($event,certificate);pop1.hide();">{{appLanguage?.edit}} </a></li>
+                                            <li class="list-item"><a class="pointer-item" (click)="deleteCertificate(certificate.id);pop1.hide();">{{appLanguage?.delete}}</a></li>
                                         </ul>
                                     </div>
                                 </ng-template>
@@ -466,29 +466,29 @@
                         <div class="add-brand-div p-4">
                             <a class="brand-tag" routerLink="/features/license">
                                 <img class="add-field" src="assets/images/add-field.svg">
-                                <span class="add-text">{{appLanguage.add_another_certificate}}</span>
+                                <span class="add-text">{{appLanguage?.add_another_certificate}}</span>
                             </a>
                         </div>
 
 
                     </div>
                     <div class="border-class mt-3 mdevice-border">
-                        <div class="header m-1">{{appLanguage.employee_details}}</div>
+                        <div class="header m-1">{{appLanguage?.employee_details}}</div>
                         <div class="row">
                             <div class="form-group col-md-6 emp_count_div px-4 py-2 col-6 mb-0">
                                 <p class="emp_count mb-0">{{roasteryProfileService.employee_nos}}</p>
-                                <label class="emp_text">{{appLanguage.total_employees}}</label>
+                                <label class="emp_text">{{appLanguage?.total_employees}}</label>
                             </div>
 
                             <div class="form-group col-md-6 avg_count_div px-4 py-2 col-6 mb-0">
                                 <p class="avg_count mb-0">{{roasteryProfileService.employee_avg}}</p>
-                                <label class="emp_text">{{appLanguage.average_age}}</label>
+                                <label class="emp_text">{{appLanguage?.average_age}}</label>
                             </div>
                         </div>
                         <div class="row mt-3 ">
                             <div class="col-md-12 chart-div">
                                 <div class="oval text-center mx-auto" *ngIf="this.roasteryProfileService.male_num == null && this.roasteryProfileService.female_num == null">
-                                    <p class="note">{{appLanguage.no_data_display}}</p>
+                                    <p class="note">{{appLanguage?.no_data_display}}</p>
                                 </div>
                                 <div class=" text-center mx-auto pie-chart-div">
                                     <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="roasteryProfileService.single" [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)"

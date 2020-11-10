@@ -27,7 +27,7 @@ zipError:string;
 cityError:string;
 service: string = "Import & Delivery service";
 serviceAmount: number = 4500;
-appLanguage: any;
+appLanguage?: any;
 orderConfirmActive:any=0;
 
   constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public global: GlobalsService) { }

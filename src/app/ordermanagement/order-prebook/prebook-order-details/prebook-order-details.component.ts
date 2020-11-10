@@ -13,7 +13,7 @@ export class PrebookOrderDetailsComponent implements OnInit {
   files: FileList;
   receiptShow: boolean = false;
   uploadShow: boolean = true;
-  appLanguage :any;
+  appLanguage? :any;
   constructor(public prebookService: OrderPrebookService,public global: GlobalsService) { }
 
   ngOnInit(): void {

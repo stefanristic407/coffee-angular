@@ -12,7 +12,7 @@ import { GlobalsService } from 'src/services/globals.service';
 export class OrderDetailsComponent implements OnInit {
  
   files: FileList;
-	appLanguage: any;
+	appLanguage?: any;
   SampleOrderActive:any =0;
 
   constructor(public sampleService: OrderSampleService,

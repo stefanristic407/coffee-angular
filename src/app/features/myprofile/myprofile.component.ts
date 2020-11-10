@@ -12,7 +12,7 @@ import { GlobalsService } from 'src/services/globals.service';
 export class MyprofileComponent implements OnInit {
   roaster_id: string;
   profileDetails : any =[];
-  appLanguage : any;
+  appLanguage? : any;
 
   constructor(private userService : UserserviceService, private cookieService : CookieService,
                private router : Router, private globals : GlobalsService ) { 

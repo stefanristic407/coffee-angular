@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./lot-sale.component.css']
 })
 export class LotSaleComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
   lotSaleActive:any =0;
 
   constructor(private globals: GlobalsService) { }

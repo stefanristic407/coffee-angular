@@ -20,11 +20,11 @@
                     <th scope="col">Status</th>
                     <th scope="col">Active Users</th>
                     <th scope="col">Action</th> -->
-                    <th>{{appLanguage.name_customer}}</th>
-                    <th scope="col"> {{appLanguage.created_on}}</th>
-                    <th scope="col">{{appLanguage.status}}</th>
-                    <th scope="col">{{appLanguage.active_users}}</th>
-                    <th scope="col">{{appLanguage.actions}}</th>
+                    <th>{{appLanguage?.name_customer}}</th>
+                    <th scope="col"> {{appLanguage?.created_on}}</th>
+                    <th scope="col">{{appLanguage?.status}}</th>
+                    <th scope="col">{{appLanguage?.active_users}}</th>
+                    <th scope="col">{{appLanguage?.actions}}</th>
 
                     <th></th>
                 </tr>
@@ -57,6 +57,7 @@
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();stimulatedLogin(item);">Stimulated login</a></li>
                                 </ul>
                             </div>
                         </ng-template>

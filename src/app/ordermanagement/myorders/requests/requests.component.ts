@@ -47,7 +47,7 @@ export class RequestsComponent implements OnInit {
 	showStatusMob:boolean = true;
 	estatetermStatusMob: string;
 	estatetermTypeMob: string;
-	appLanguage:any;
+	appLanguage?:any;
 
 	constructor(public router: Router,
 		public cookieService: CookieService,

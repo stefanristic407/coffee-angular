@@ -56,7 +56,7 @@ export class AgreementComponent implements OnInit {
 // 		{  name: 'The Steam Hotel',origin:'Västerås',date: '19/09/19', orderid:'#717167',file:'Santa Rosa agreement' },
 //   ];
 	roasterId: string;
-	appLanguage: any;
+	appLanguage?: any;
 	customer_type: string;
 	files: any;
 	fileEvent: any;
@@ -84,7 +84,7 @@ export class AgreementComponent implements OnInit {
 		public toastrService : ToastrService,
 		public roasteryProfileService : RoasteryProfileService,
 		private modalService: BsModalService,
-		private globals: GlobalsService) {
+		public globals: GlobalsService) {
 		this.roasterId = this.cookieService.get('roaster_id');
 	}
 
@@ -112,7 +112,12 @@ export class AgreementComponent implements OnInit {
       //Auth checking
       if (this.cookieService.get("Auth") == "") {
         this.router.navigate(["/auth/login"]);
-      }
+	  }
+	  
+	//   if(!this.globals.permissions['certificate-management'] && !this.globals.permissions['certificate-list']){
+	// 	this.router.navigate(["/people/permission-error"]);
+	//   }
+
 	  this.language();
 	//   this.appLanguage = this.globals.languageJson;
 		// rowCallback: (row: Node, data: any, index: number) => {
@@ -139,7 +144,6 @@ export class AgreementComponent implements OnInit {
 			res => {
 				if(res['success'] == true){
 					this.horecaList = res['result'];
-					
 				}
 				else{
 					this.toastrService.error("Error while getting HoReCa list");

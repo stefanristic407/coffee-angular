@@ -125,7 +125,7 @@
 }
 
 .order-tracking.completed:before {
-    border: dashed 0.5px #d6d6d6;
+    border: dashed 0px #d6d6d6;
 }
 
 .transit-scoll {

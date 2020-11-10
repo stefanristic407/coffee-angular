@@ -45,7 +45,7 @@ export class OrderBookedComponent implements OnInit {
   cancelShow: boolean = false;
   totalstar = 5;
   newvalue: any = 4;
-  appLanguage:any;
+  appLanguage?:any;
   constructor(public bookedService: OrderBookedService, private route: ActivatedRoute,
     public router: Router,public cookieService : CookieService,public global: GlobalsService) { }
 

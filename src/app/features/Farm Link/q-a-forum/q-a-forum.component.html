@@ -1,0 +1,157 @@
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                        <span id="title-breadcrumb-1" class="sr-only"></span>
+                        <ul class="bread-nav">
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum">
+                                <a class="b-cum">Farm link</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+
+                            <li class="b-cum c-pink">Q/A Forum</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row pt-4">
+                <div class="col-md-10 col-12">
+                    <p class="fnt-18 fnt-muli fnt-700 txt-clr334 m-0">Q/A Forum</p>
+                    <p class="fnt-14 fnt-muli fnt-400 text-clr588">End-users post their coffee questions on the Q/A forum and are to be answered by experts </p>
+                </div>
+
+                <div class="q-a-forum-banner position-relative">
+                    <div class="q-a-forum-banner__info col-md-6 col-12">
+                        <h3 class="fnt-32 fnt-play fnt-700 text-white"> Q/A Forum </h3>
+                        <p class="fnt-14 fnt-muli fnt-700 text-white"> End-users post their coffee questions on the Q/A forum and are to be answered by experts. The questions will be assigned to a expert by the Admin, and each expert is expected to answer at least 2-3 questions each month and share
+                            their knowledge with others to build a very transparent and caring coffee community! </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row pt-4">
+
+
+                <div class="sourcing-panel col-12">
+                    <section id="tabs">
+                        <div class="source-cont">
+                            <div class="row">
+                                <div class="col-lg-12 ">
+                                    <div class="filter-sort">
+                                        <div class="d-inline border-grade col-sm-6 mr-2 web-farm" id="sort_id">
+                                            <p class="d-inline filter-text" *ngIf="sort == ''">Sort by&nbsp;</p>
+                                            <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body" #pop10="bs-popover">
+                                                <p class="d-inline filter" *ngIf="sort == ''" (click)="toggleSort()">
+                                                    &nbsp; <img src="{{ showSort ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                                </p>
+                                            </a>
+                                            <a class="pointer-item" [popover]="sortTemplate" placement="bottom" container="body" #pop9="bs-popover">
+                                                <p class="d-inline filter" *ngIf="sort != ''" (click)="toggleSort()">
+                                                    {{ sort }}&nbsp;<img src="{{ showSort ? 'assets/images/active-user.png' : 'assets/images/user-down.svg'}}" />
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn-switch remove-toggle">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10">
+                                            <path fill="#FFF"
+                                                d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z" />
+                                        </svg>
+
+                                            </a>
+                                            <div class="btn-group">
+                                                <a class="btn-switch activate-toggle active">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+                                                <path fill="#232334"
+                                                    d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z" />
+                                            </svg>
+
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <nav>
+                                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="nav-assigned-tab" data-toggle="tab" href="#assigned" role="tab" aria-controls="nav-assigned" aria-selected="true"> Assigned </a>
+                                            <a class="nav-item nav-link" id="nav-forum-tab" data-toggle="tab" href="#forum" role="tab" aria-controls="nav-forum" aria-selected="false"> Forum </a>
+                                            <a class="nav-item nav-link" id="nav-myanswer-tab" data-toggle="tab" href="#myanswer" role="tab" aria-controls="nav-myanswer" aria-selected="false"> My answers </a>
+
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content py-4 px-3 px-sm-0" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="assigned" role="tabpanel" aria-labelledby="nav-assigned-tab">
+                                            <div class="cardpanel-detail">
+                                                <div class="row">
+                                                    <div class="tab-overflow-auto col-12">
+                                                        <app-assigned></app-assigned>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-details">
+                                                <div class="table-responsive border-sourcetable">
+                                                    document-table
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="forum" role="tabpanel" aria-labelledby="nav-forum-tab">
+                                            <div class="tab-pane fade show active" id="nav-forum" role="tabpanel" aria-labelledby="nav-forum-tab">
+                                                <div class="cardpanel-detail">
+                                                    <div class="row">
+                                                        <div class="tab-overflow-auto col-12">
+                                                            <app-forum></app-forum>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-details">
+                                                    <div class="table-responsive border-coffeetable">
+                                                        video-table
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="myanswer" role="tabpanel" aria-labelledby="nav-myanswer-tab">
+                                            <div class="tab-pane fade show active" id="nav-myanswer" role="tabpanel" aria-labelledby="nav-myanswer-tab">
+                                                <div class="cardpanel-detail">
+                                                    <div class="row">
+                                                        <div class="tab-overflow-auto col-12">
+                                                            <app-my-answers></app-my-answers>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-details">
+                                                    <div class="table-responsive border-coffeetable">
+                                                        myanswer-table
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<ng-template #sortTemplate>
+    <div>
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Name (A-Z)'); pop10.hide(); pop9.hide();toggleSort()">Name (A-Z)</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setSort('Recently added'); pop10.hide(); pop9.hide();toggleSort()">Recently added</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>

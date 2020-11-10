@@ -7,7 +7,7 @@ import {GlobalsService} from 'src/services/globals.service';
   styleUrls: ['./land-lots.component.css']
 })
 export class LandLotsComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
   landLotsActive:any=0;
 
   public lots: any[] = [

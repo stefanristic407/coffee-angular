@@ -12,7 +12,7 @@ import { GlobalsService } from 'src/services/globals.service';
 export class SocialMediaPostsComponent implements OnInit {
   modalRef: BsModalRef;
   blogResult: string;
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(private modalService: BsModalService, private route : ActivatedRoute,
 		private globals: GlobalsService) { }

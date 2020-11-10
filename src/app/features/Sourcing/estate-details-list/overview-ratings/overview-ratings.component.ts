@@ -12,7 +12,7 @@ export class OverviewRatingsComponent implements OnInit {
   reviewvalue: any = 4;
   termStatus: any;
   showRelavant:boolean=true;
-  appLanguage: any;
+  appLanguage?: any;
   estateRatingActive:any=0;
   
   constructor(private globals: GlobalsService) { 

@@ -15,7 +15,7 @@
 
                             <div class="back-to cursor-pointer">
                                 <a class="back-href fnt-500" routerLink="/ordermanagement/order-sample">
-                                    <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg"> {{appLanguage.return_to_order}} </a>
+                                    <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg"> {{appLanguage?.return_to_order}} </a>
 
                             </div>
 
@@ -39,9 +39,9 @@
 
                                         </div>
                                         <div>
-                                            <span>{{appLanguage.order}}&nbsp;</span>
+                                            <span>{{appLanguage?.order}}&nbsp;</span>
                                             <span>#12416</span>
-                                            <p class="type-of-order-mobile mb-0">{{appLanguage.sample}}}</p>
+                                            <p class="type-of-order-mobile mb-0">{{appLanguage?.sample}}}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center">
@@ -70,15 +70,15 @@
                                 <div class="conversation-head__items clearfix float-left">
                                     <div class="dispute-order__type">
                                         <div class="type-of-order">
-                                            <h6 class="conversation-textgray type-of-order__head">{{appLanguage.type_of_order}}</h6>
-                                            <span class="conversation-textBlack14 type-of-order__type">{{appLanguage.sample}}</span>
+                                            <h6 class="conversation-textgray type-of-order__head">{{appLanguage?.type_of_order}}</h6>
+                                            <span class="conversation-textBlack14 type-of-order__type">{{appLanguage?.sample}}</span>
                                         </div>
                                     </div>
 
                                 </div>
 
                                 <div class="conversation-head__items conversation-head__items--problem float-right ml-lg-auto">
-                                    <a class="have-proble-order" href="#">{{appLanguage.have_a_problem}}</a>
+                                    <a class="have-proble-order" href="#">{{appLanguage?.have_a_problem}}</a>
                                 </div>
                             </div>
 
@@ -96,14 +96,14 @@
                                         <div class="d-flex justify-content-between flex-column flex-lg-row">
                                             <div>
                                                 <div class="col-12 col-md-10 col-lg-7 px-0">
-                                                    <h6 class="fnt-mb-14 fnt-700 fnt-muli text-black334 mb-1">{{appLanguage.dispute_raised}} :
+                                                    <h6 class="fnt-mb-14 fnt-700 fnt-muli text-black334 mb-1">{{appLanguage?.dispute_raised}} :
                                                     </h6>
                                                     <p class="fnt-mb-14 fnt-600 fnt-muli text-gray588 mb-1 mb-md-2 mb-lg-1">Roaster ABC has raised dispute on the purchase of GC. Please take appropriate action.</p>
                                                 </div>
                                             </div>
                                             <div class="company-message__btn col-lg-4 px-0">
                                                 <button class="fnt-14 fnt-muli fnt-700">
-                                                {{appLanguage.escalate}}
+                                                {{appLanguage?.escalate}}
                                             </button>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
                                             </div>
                                             <div class="company-message__btn col-lg-4 px-0">
                                                 <button class="fnt-14 fnt-muli fnt-700">
-                                                {{appLanguage.view_dispute}}
+                                                {{appLanguage?.view_dispute}}
                                             </button>
                                             </div>
                                         </div>
@@ -168,7 +168,7 @@
                                                                 <div class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
                                                                     <img class="message-icon img-location " *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
                                                                     <img class="message-icon img-location " *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
-                                                                    <span class="estate-message pl-1" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">{{appLanguage.message}}</span>
+                                                                    <span class="estate-message pl-1" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">{{appLanguage?.message}}</span>
                                                                 </div>
                                                                 <div class="ml-3">
                                                                     <button class="view-chat-profile"> View Profile </button>
@@ -291,7 +291,7 @@
                                             <input type="file" class="files">
 
                                         </label>
-                                            <textarea type="text" rows="1" class="chat-inputs__text" placeholder={{appLanguage.type_something}}..></textarea>
+                                            <textarea type="text" rows="1" class="chat-inputs__text" placeholder={{appLanguage?.type_something}}..></textarea>
                                             <div class="send-message">
                                                 <button type="button" class="send-message__btn">
 
@@ -308,14 +308,14 @@
 
                         <div class="dispute-order__status open float-md-left">
                             <div class="order-status">
-                                <span class="conversation-textgray">{{appLanguage.order_status}} :&nbsp;</span>
-                                <span class="conversation-textBlack14">{{appLanguage.shipped}}</span>
+                                <span class="conversation-textgray">{{appLanguage?.order_status}} :&nbsp;</span>
+                                <span class="conversation-textBlack14">{{appLanguage?.shipped}}</span>
                                 <!-- <span class="order-status-list-close">Close</span> -->
                             </div>
 
                             <div class="search-messages">
                                 <img src="assets/images/dm-search.svg">
-                                <input class="search-messages__input fadout-search" type="search" placeholder={{appLanguage.search_messages}}>
+                                <input class="search-messages__input fadout-search" type="search" placeholder={{appLanguage?.search_messages}}>
                             </div>
 
                             <ul class="order-ticket-list">
@@ -324,9 +324,9 @@
                                         <div class="ticket__head clearfix">
                                             <div class="ticket-num">
                                                 <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                    {{appLanguage.order}} #12416
+                                                    {{appLanguage?.order}} #12416
                                                 </h4>
-                                                <span class="ticket-num__typeOrder">{{appLanguage.pre_booked}} {{appLanguage.order}}</span>
+                                                <span class="ticket-num__typeOrder">{{appLanguage?.pre_booked}} {{appLanguage?.order}}</span>
                                             </div>
                                             <span class="ticket-num__time">07:44 am</span>
                                             <!-- <span class="ticket-num__status">open</span> -->
@@ -344,7 +344,7 @@
                                         <div class="ticket__head clearfix">
                                             <div class="ticket-num">
                                                 <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                    {{appLanguage.ticket}} #154
+                                                    {{appLanguage?.ticket}} #154
                                                 </h4>
                                                 <span class="ticket-num__typeOrder">Buying Coffee</span>
                                             </div>
@@ -363,7 +363,7 @@
                                         <div class="ticket__head clearfix">
                                             <div class="ticket-num">
                                                 <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                    {{appLanguage.ticket}} #154
+                                                    {{appLanguage?.ticket}} #154
                                                 </h4>
                                                 <span class="ticket-num__typeOrder">Buying Coffee</span>
                                             </div>
@@ -382,7 +382,7 @@
                                         <div class="ticket__head clearfix">
                                             <div class="ticket-num">
                                                 <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                    {{appLanguage.ticket}} #154
+                                                    {{appLanguage?.ticket}} #154
                                                 </h4>
                                                 <span class="ticket-num__typeOrder">Buying Coffee</span>
                                             </div>
@@ -401,7 +401,7 @@
                                         <div class="ticket__head clearfix">
                                             <div class="ticket-num">
                                                 <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                    {{appLanguage.ticket}} #154
+                                                    {{appLanguage?.ticket}} #154
                                                 </h4>
                                                 <span class="ticket-num__typeOrder">Buying Coffee</span>
                                             </div>
@@ -421,7 +421,7 @@
                                         <div class="ticket__head clearfix">
                                             <div class="ticket-num">
                                                 <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                    {{appLanguage.ticket}} #154
+                                                    {{appLanguage?.ticket}} #154
                                                 </h4>
                                                 <span class="ticket-num__typeOrder">Buying Coffee</span>
                                             </div>

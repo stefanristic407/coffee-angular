@@ -11,7 +11,7 @@ export class ReviewRatingsComponent implements OnInit {
   reviewvalue: any = 4;
   termStatus: any;
   showRelavant:boolean=true;
-	appLanguage: any;
+	appLanguage?: any;
 
   constructor(public global: GlobalsService) { 
 

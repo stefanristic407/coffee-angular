@@ -8,7 +8,7 @@ import {GlobalsService} from 'src/services/globals.service';
   styleUrls: ['./sourcing-order-chat.component.css']
 })
 export class SourcingOrderChatComponent implements OnInit {
-	appLanguage: any;
+	appLanguage?: any;
 	sourcingChatActive:any=0;
 	greenIconShow: boolean = false;
 

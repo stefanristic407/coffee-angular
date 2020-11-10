@@ -14,7 +14,7 @@ export class NewRoastedBatchComponent implements OnInit {
   langChips : any = [];
   selectable = true;
   removable = true;
-  appLanguage: any;
+  appLanguage?: any;
   greenIconShow: boolean = false;
 
 

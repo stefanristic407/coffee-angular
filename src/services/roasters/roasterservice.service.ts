@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import {environment} from 'src/environments/environment';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -606,5 +607,47 @@ export class RoasterserviceService {
   //   data['token'] = this.cookieService.get('Auth');
   //   return this.http.post(this.url, data);
   // } 
+  encryptData(data) {
+    try {
+      return CryptoJS.AES.encrypt(JSON.stringify(data), environment.encryptionKey).toString();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  decryptData(data) {
+    try {
+      const bytes = CryptoJS.AES.decrypt(data, environment.encryptionKey);
+      console.log(bytes);
+      if (bytes.toString()) {
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      }
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  navigate(href, newTab) {
+    const a = document.createElement('a');
+    a.href = href;
+    if (newTab) {
+       a.setAttribute('target', '_blank');
+    }
+    a.click();
+    a.remove();
+ }
+  getMicroRoasterStimulatedLogin(id: any, roasterId: any) {
+    const data = {};
+    data['api_call'] = "/ro/" + roasterId + "/micro-roasters/" + id + "/support-login";
+    data['method'] = 'POST';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  getHorecaStimulatedLogin(id: any, roasterId: any) {
+    const data = {};
+    data['api_call'] = "/ro/" + roasterId + "/hrc/" + id + "/support-login";
+    data['method'] = 'POST';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
 }
 

@@ -9,7 +9,7 @@ import {GlobalsService} from 'src/services/globals.service';
   styleUrls: ['./welcome-aboard.component.css']
 })
 export class WelcomeAboardComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
   welcomeActive:any =0;
 
   constructor(private router: Router,

@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./discount-edit.component.css']
 })
 export class DiscountEditComponent implements OnInit {
-	appLanguage: any;
+	appLanguage?: any;
 
   constructor(private globals: GlobalsService) { }
 

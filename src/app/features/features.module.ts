@@ -129,6 +129,14 @@ import { MarkedSaleComponent } from './green-inventory/green-coffee-inventory/ma
 import { CoffeeProcuredTabComponent } from './green-inventory/green-coffee-inventory/coffee-procured-tab/coffee-procured-tab.component';
 import { InviteFriendsComponent } from './invite-friends/invite-friends.component';
 import { InviteSucessComponent } from './invite-friends/invite-sucess/invite-sucess.component';
+import { VatManagementComponent } from './vat-management/vat-management.component';
+import { VatMicroRoasterComponent } from './vat-management/vat-micro-roaster/vat-micro-roaster.component';
+import { VatB2bComponent } from './vat-management/vat-b2b/vat-b2b.component';
+import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
+import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.component';
+import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
+import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
+
 
 
 @NgModule({
@@ -227,6 +235,14 @@ import { InviteSucessComponent } from './invite-friends/invite-sucess/invite-suc
     CoffeeProcuredTabComponent,
     InviteFriendsComponent,
     InviteSucessComponent,
+    VatManagementComponent,
+    VatMicroRoasterComponent,
+    VatB2bComponent,
+    QAForumComponent,
+    AssignedComponent,
+    ForumComponent,
+    MyAnswersComponent,
+  
  
   ],
   imports: [

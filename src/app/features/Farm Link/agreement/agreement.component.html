@@ -12,22 +12,22 @@
                         <span id="title-breadcrumb-1" class="sr-only"></span>
                         <ul class="bread-nav">
                             <li class="b-cum">
-                                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                             </li>
                             <li class="b-cum">
-                                <a class="b-cum">{{appLanguage.marketing_arena}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                <a class="b-cum">{{appLanguage?.marketing_arena}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                             </li>
-                            <li class="b-cum c-pink">{{appLanguage.agreements}}</li>
+                            <li class="b-cum c-pink">{{appLanguage?.agreements}}</li>
                         </ul>
                     </nav>
                     <div class="file-share-search col-12 col-md-3 ml-md-auto mb-3 mr-5 d-none d-md-flex align-items-center">
                         <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-                        <input class="fadout-search" type="search" placeholder="{{appLanguage.search_files}}" [(ngModel)]="searchTerm" name="filesTerm">
+                        <input class="fadout-search" type="search" placeholder="{{appLanguage?.search_files}}" [(ngModel)]="searchTerm" name="filesTerm">
                     </div>
                 </div>
 
                 <section class="estate-orders-heading">
-                    <h5 class="estate-order-title pt-3">{{appLanguage.agreements}}</h5>
+                    <h5 class="estate-order-title pt-3">{{appLanguage?.agreements}}</h5>
                 </section>
 
                 <section class="estate-orders">
@@ -59,7 +59,7 @@
 
                                 <div class="d-inline display_div">
                                     <div class="float-right upload-order top-space" data-toggle="modal" data-target="#uploadfolder">
-                                        <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage.upload}} </span> </label>
+                                        <label class="share-bor">  <img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage?.upload}} </span> </label>
                                     </div>
                                 </div>
 
@@ -106,11 +106,11 @@
                                         <span class="checkmark head-check"></span>
                                     </label>
                                         </th>
-                                        <th>{{appLanguage.files}}</th>
+                                        <th>{{appLanguage?.files}}</th>
 
-                                        <th scope="col">{{appLanguage.added_on}}</th>
-                                        <th scope="col">{{appLanguage.customer_name}}</th>
-                                        <th scope="col">{{appLanguage.origin}}</th>
+                                        <th scope="col">{{appLanguage?.added_on}}</th>
+                                        <th scope="col">{{appLanguage?.customer_name}}</th>
+                                        <th scope="col">{{appLanguage?.origin}}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -139,8 +139,8 @@
                                             <ng-template #poplistTemplate id="{{item.id}}">
                                                 <div id="popover-mobile-content">
                                                     <ul class="list-group custom-popover">
-                                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();openFileModal(updateAgreementTemplate,item.id)">{{appLanguage.update}}</a></li>
-                                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide(); openDeleteModal(deleteTemplate,item.id)">{{appLanguage.delete}}</a></li>
+                                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();openFileModal(updateAgreementTemplate,item.id)">{{appLanguage?.update}}</a></li>
+                                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide(); openDeleteModal(deleteTemplate,item.id)">{{appLanguage?.delete}}</a></li>
                                                     </ul>
                                                 </div>
                                             </ng-template>
@@ -302,7 +302,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage.upload_new_agreement}}</h5>
+                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage?.upload_new_agreement}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -314,7 +314,7 @@
                             <div class="invite-to">
 
                                 <div class="roastery-fields mb-3 mb-lg-4">
-                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage.select_customer}} <span class="star-mark">*</span></h4>
+                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage?.select_customer}} <span class="star-mark">*</span></h4>
                                     <!-- <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
                                     your files to the order helps you and your custoemrs to find files faster</span>
 
@@ -337,16 +337,16 @@
                                     <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="notify" value="" [(ngModel)]="notify"/>
                                                 <span class="checkmark head-check"></span>
-                                            </label><span class="notify-text">{{appLanguage.notify_customer}}</span>
+                                            </label><span class="notify-text">{{appLanguage?.notify_customer}}</span>
                                             
                                 </div> -->
                             </div>
 
                                 <div class="roastery-fields mb-0">
                                     <div class="farm-input col-12 col-md-8 px-0">
-                                        <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage.upload}}</h4>
-                                        <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{appLanguage.please_upload_document}}</span>
-                                        <label class="share-bor w-30 d-inline-block">  <input class="file-inpt" accept="application/pdf" type="file"  (change)="uploadFile($event)"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage.upload}} </span> </label>
+                                        <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage?.upload}}</h4>
+                                        <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{appLanguage?.please_upload_document}}</span>
+                                        <label class="share-bor w-30 d-inline-block">  <input class="file-inpt" accept="application/pdf" type="file"  (change)="uploadFile($event)"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage?.upload}} </span> </label>
                                         <span class="value-name pl-3">{{ fileNameValue }}</span>
                                     </div>
 
@@ -357,7 +357,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="uploadAgreement()">{{appLanguage.upload_agreement}}
+                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="uploadAgreement()">{{appLanguage?.upload_agreement}}
                 </button>
                 </div>
             </div>
@@ -369,7 +369,7 @@
    <ng-template #updateAgreementTemplate>
        <div class="p-3">
                 <div class="modal-header" >
-                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage.update}}</h5>
+                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage?.update}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -380,7 +380,7 @@
                             <div class="invite-to">
 
                                 <div class="roastery-fields mb-3 mb-lg-4">
-                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage.select_customer}} <span class="star-mark">*</span></h4>
+                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage?.select_customer}} <span class="star-mark">*</span></h4>
                                     <!-- <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">Linking
                                     your files to the order helps you and your custoemrs to find files faster</span>
 
@@ -403,16 +403,16 @@
                                     <label class="customcheckbox">
                                                 <input type="checkbox" class="listCheckbox"  name="notify" value="" [(ngModel)]="notify"/>
                                                 <span class="checkmark head-check"></span>
-                                            </label><span class="notify-text">{{appLanguage.notify_customer}}</span>
+                                            </label><span class="notify-text">{{appLanguage?.notify_customer}}</span>
                                             
                                 </div> -->
                             </div>
 
                                 <div class="roastery-fields mb-0">
                                     <div class="farm-input col-12 col-md-8 px-0">
-                                        <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage.upload}}</h4>
-                                        <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{appLanguage.please_upload_document}}</span>
-                                        <label class="share-bor  d-inline-block">  <input class="file-inpt" accept="application/pdf" type="file"  (change)="reUploadFile($event)"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage.upload}} </span> </label>
+                                        <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage?.upload}}</h4>
+                                        <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{appLanguage?.please_upload_document}}</span>
+                                        <label class="share-bor  d-inline-block">  <input class="file-inpt" accept="application/pdf" type="file"  (change)="reUploadFile($event)"><img class="dwnd-img" src="assets/images/upload-icon.png" alt="upload-icon">  <span class="share-txt"> {{appLanguage?.upload}} </span> </label>
                                         <span class="value-name pl-3">{{ re_fileNameValue }}</span>
                                     </div>
 
@@ -423,7 +423,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="updateAgreement()">{{appLanguage.update}}
+                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="updateAgreement()">{{appLanguage?.update}}
                 </button>
                 </div>
             </div>
@@ -436,8 +436,8 @@
 	   <!-- <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div> -->
 	   <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
 	   <div class="mt-4">
-			<button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage.cancel}}</button>
-			<button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteAgreement(deleteAgreementId)">{{appLanguage.delete}}</button>
+			<button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage?.cancel}}</button>
+			<button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteAgreement(deleteAgreementId)">{{appLanguage?.delete}}</button>
 	   </div>
 	</div>
 </ng-template>

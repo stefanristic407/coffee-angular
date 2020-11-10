@@ -472,4 +472,35 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl,data);
   }
 
+  getAvailableGreenCoffee(roaster_id : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/availability/gc";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+
+  getAvailableGreenCoffeeDetail(roaster_id : any, harvest_id : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/availability/gc/" + harvest_id;
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+
+  getRoasterLots(roaster_id : any, estate_id : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/estates/" + estate_id + "/lots";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+
+  getRoasterLotDetails(roaster_id : any, estate_id : any, lot_id : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/estates/" + estate_id + "/lots/" + lot_id ;
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
 }

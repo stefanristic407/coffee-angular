@@ -3,25 +3,25 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 cursor-pointer d-md-block d-none" routerLink="/ordermanagement/estate-orders">
                 <img src="/assets/images/backarrow.png" alt="">
-                <span class="back-order pl-2">{{appLanguage.return_to_order}}</span>
+                <span class="back-order pl-2">{{appLanguage?.return_to_order}}</span>
             </div>
             <div class="float-right ml-auto save-padding d-md-block d-none">
-                <button type="button" class="btn save-button" (click)="submitRating()">{{appLanguage.submit}}</button>
+                <button type="button" class="btn save-button" (click)="submitRating()">{{appLanguage?.submit}}</button>
             </div>
         </div>
         <div class="cursor-pointer pl-2 pl-md-0 d-block d-md-none" routerLink="/ordermanagement/estate-orders">
             <img src="/assets/images/back-arrow-review.svg" alt="">
-            <span class="back-order pl-2">{{appLanguage.return_to_order}}</span>
+            <span class="back-order pl-2">{{appLanguage?.return_to_order}}</span>
         </div>
-        <div class="user-name d-md-block d-none">{{appLanguage.finca_la_pampa}}</div>
+        <div class="user-name d-md-block d-none">{{appLanguage?.finca_la_pampa}}</div>
         <div class="feedback-total mt-3">
-            <h1 class="leave-text">{{appLanguage.leave_a_feedback}}</h1>
+            <h1 class="leave-text">{{appLanguage?.leave_a_feedback}}</h1>
             <div class="give-rating d-md-block d-none">
-                {{appLanguage.give_us_experience}}.
+                {{appLanguage?.give_us_experience}}.
             </div>
-            <div class="rating-subtext d-md-block d-none">{{appLanguage.by_giving_feedback}}
+            <div class="rating-subtext d-md-block d-none">{{appLanguage?.by_giving_feedback}}
             </div>
-            <div class="give-rating d-md-none d-block">{{appLanguage.give_your_feedback}}</div>
+            <div class="give-rating d-md-none d-block">{{appLanguage?.give_your_feedback}}</div>
         </div>
 
         <div class="rating-total mt-3">
@@ -33,8 +33,8 @@
                         <div class="col-10 pl-0 d-md-block d-none">
                             <ul class="details-lists p-0 ">
                                 <li class="d-flex">
-                                    <span class="person-name">{{appLanguage.roaster}}</span>
-                                    <span class="last-seen-time">{{appLanguage.last_seen}} 4:30pm </span>
+                                    <span class="person-name">{{appLanguage?.roaster}}</span>
+                                    <span class="last-seen-time">{{appLanguage?.last_seen}} 4:30pm </span>
                                 </li>
                                 <li class="roaster">
                                     Roaster
@@ -55,13 +55,13 @@
                         <div class="col-10 d-md-none d-block pl-2 pr-0">
                             <ul class="details-lists">
                                     <li class="">
-                                        <span class="person-name">{{appLanguage.finca_la_pampa}}</span>                                   
+                                        <span class="person-name">{{appLanguage?.finca_la_pampa}}</span>                                   
                                      </li>
                                     <li class="roaster">
-                                        {{appLanguage.roaster}}
+                                        {{appLanguage?.roaster}}
                                     </li>
                                     <li>
-                                     <span class="last-seen-time">{{appLanguage.last_seen}} 4:30pm </span>
+                                     <span class="last-seen-time">{{appLanguage?.last_seen}} 4:30pm </span>
 
                                     </li>
                                     <li class="d-flex rating-space">
@@ -72,8 +72,8 @@
                                     </li>
                                     <li>
                                             <span class="location pr-3"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                            {{appLanguage.belgium}}</span>
-                                            <span class="details pl-3">{{appLanguage.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
+                                            {{appLanguage?.belgium}}</span>
+                                            <span class="details pl-3">{{appLanguage?.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
                                         </li>
                                      <!--<li class="d-flex">
                                         <span class="location width-mob pr-2"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
@@ -84,15 +84,15 @@
                         </div>
                     </div>
                     <div class="rate-experience">
-                        {{appLanguage.rate_your_experience}}
+                        {{appLanguage?.rate_your_experience}}
                     </div>
 
                 </div>
                 <div class="col-lg-7 col-md-12 col-12 pl-md-3 m-over-8">
                     <div class="row experience-padding">
                         <div class="col-lg-5 col-md-12 col-12">
-                            <span class="over-exp d-md-block d-none">{{appLanguage.overall_experience}}</span>
-                            <div class="over-exp d-md-none d-block ">{{appLanguage.overall_experience}}<span class="required-star">*</span></div>
+                            <span class="over-exp d-md-block d-none">{{appLanguage?.overall_experience}}</span>
+                            <div class="over-exp d-md-none d-block ">{{appLanguage?.overall_experience}}<span class="required-star">*</span></div>
 
                             <span>
                             <!-- <star-rating value="0" totalstars={{totalstar}}  (rate)="onRate($event)" id="experienceId" checkedcolor="#ffa001" uncheckedcolor="#d6d6d6" size="36px"  ></star-rating>
@@ -113,7 +113,7 @@
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
                                         <input type='checkbox' value="5" >
                                     </label>
-                                    <p class="experienceError rating-error mb-0 pt-1">{{appLanguage.tap_start_rate}}</p>
+                                    <p class="experienceError rating-error mb-0 pt-1">{{appLanguage?.tap_start_rate}}</p>
                                 </div>
         
                         </span>
@@ -121,8 +121,8 @@
 
                         </div>
                         <div class="col-lg-5 col-md-12 col-12">
-                            <span class="over-exp  d-md-block d-none">{{appLanguage.communication}}</span>
-                            <div class="over-exp d-md-none d-block ">{{appLanguage.grading_abilities}}<span class="required-star">*</span></div>
+                            <span class="over-exp  d-md-block d-none">{{appLanguage?.communication}}</span>
+                            <div class="over-exp d-md-none d-block ">{{appLanguage?.grading_abilities}}<span class="required-star">*</span></div>
 
                             <span>
                             <!-- <star-rating value="0" totalstars={{totalstar}} (rate)="onCommunication($event)" id="communicationId" checkedcolor="#ffa001" uncheckedcolor="#d6d6d6" size="36px"></star-rating>
@@ -143,7 +143,7 @@
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
                                         <input type='checkbox' value="5" >
                                     </label>
-                                    <p class="experienceError rating-error pt-1 mb-0">{{appLanguage.tap_start_rate}}</p>
+                                    <p class="experienceError rating-error pt-1 mb-0">{{appLanguage?.tap_start_rate}}</p>
                                 </div>
         
                         </span>
@@ -153,8 +153,8 @@
                     </div>
                     <div class="row experience-padding">
                         <div class="form-group col-lg-11 col-md-12 mb-0 mt-4">
-                            <label class="review-label">{{appLanguage.write_a_review}}</label>
-                            <textarea class="form-control area-border" placeholder={{appLanguage.short_description}} [(ngModel)]="review" name="review" id="reviewId" rows="4" cols="50" (keyup)="onKeyPress($event)"></textarea>
+                            <label class="review-label">{{appLanguage?.write_a_review}}</label>
+                            <textarea class="form-control area-border" placeholder={{appLanguage?.short_description}} [(ngModel)]="review" name="review" id="reviewId" rows="4" cols="50" (keyup)="onKeyPress($event)"></textarea>
                             <div class="reviewError" *ngIf="reviewError != ''">{{reviewError}}</div>
 
                         </div>
@@ -175,11 +175,11 @@
                         <div class="col-10 pl-0 d-md-block d-none">
                             <ul class="details-lists p-0">
                                 <li class="person-name">
-                                    {{appLanguage.kevil_baliey}}
-                                    <span class="last-seen">{{appLanguage.online}}</span>
+                                    {{appLanguage?.kevil_baliey}}
+                                    <span class="last-seen">{{appLanguage?.online}}</span>
                                 </li>
                                 <li class="roaster">
-                                    {{appLanguage.facilitator}}
+                                    {{appLanguage?.facilitator}}
                                 </li>
                                 <li class="d-flex rating-space">
 
@@ -188,8 +188,8 @@
                                 </li>
                                 <li>
                                     <span class="location pr-2"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                    {{appLanguage.belgium}}</span>
-                                    <span class="details pl-2">{{appLanguage.contact_details}} <img class="top-image" src="/assets/images/group.png" alt=""></span>
+                                    {{appLanguage?.belgium}}</span>
+                                    <span class="details pl-2">{{appLanguage?.contact_details}} <img class="top-image" src="/assets/images/group.png" alt=""></span>
                                 </li>
                             </ul>
                         </div>
@@ -198,13 +198,13 @@
                         <div class="col-10 d-md-none d-block pl-2 pr-0">
                                 <ul class="details-lists">
                                         <li class="">
-                                            <span class="person-name">{{appLanguage.kevil_baliey}}</span>                                   
+                                            <span class="person-name">{{appLanguage?.kevil_baliey}}</span>                                   
                                          </li>
                                         <li class="roaster">
-                                                {{appLanguage.facilitator}}
+                                                {{appLanguage?.facilitator}}
                                         </li>
                                         <li>
-                                         <span class="last-seen-time">{{appLanguage.online}}</span>
+                                         <span class="last-seen-time">{{appLanguage?.online}}</span>
     
                                         </li>
                                         <li class="d-flex rating-space">
@@ -215,8 +215,8 @@
                                         </li>
                                         <li>
                                                 <span class="location pr-3"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                                {{appLanguage.belgium}}</span>
-                                                <span class="details pl-3">{{appLanguage.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
+                                                {{appLanguage?.belgium}}</span>
+                                                <span class="details pl-3">{{appLanguage?.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
                                             </li>
                                          <!--<li class="d-flex">
                                             <span class="location width-mob pr-2"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
@@ -229,15 +229,15 @@
 
                     </div>
                     <div class="rate-experience">
-                        {{appLanguage.rate_your_experience}}
+                        {{appLanguage?.rate_your_experience}}
                     </div>
 
                 </div>
                 <div class="col-lg-7 col-md-12 col-12 pl-md-3 m-over-8">
                     <div class="row experience-padding">
                         <div class="col-lg-5 col-md-12 col-12">
-                            <span class="over-exp d-md-block d-none">{{appLanguage.overall_experience}}</span>
-                            <div class="over-exp d-md-none d-block ">{{appLanguage.overall_experience}}<span class="required-star">*</span></div>
+                            <span class="over-exp d-md-block d-none">{{appLanguage?.overall_experience}}</span>
+                            <div class="over-exp d-md-none d-block ">{{appLanguage?.overall_experience}}<span class="required-star">*</span></div>
                             <span>
                             <!-- <p-rating [(ngModel)]="val3" [cancel]="false" size="36px"></p-rating> -->
 
@@ -259,14 +259,14 @@
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
                                         <input type='checkbox' value="5" >
                                     </label>
-                                    <p class="experienceError rating-error pt-1 mb-0">{{appLanguage.tap_start_rate}}</p>
+                                    <p class="experienceError rating-error pt-1 mb-0">{{appLanguage?.tap_start_rate}}</p>
                                 </div>
         
                         </span>
                         </div>
                         <div class="col-lg-5 col-md-12 col-12">
-                                <span class="over-exp  d-md-block d-none">{{appLanguage.communication}}</span>
-                                <div class="over-exp d-md-none d-block ">{{appLanguage.grading_abilities}}<span class="required-star">*</span></div>                            <span>
+                                <span class="over-exp  d-md-block d-none">{{appLanguage?.communication}}</span>
+                                <div class="over-exp d-md-none d-block ">{{appLanguage?.grading_abilities}}<span class="required-star">*</span></div>                            <span>
                             <!-- <star-rating value="0" totalstars={{totalstar}} checkedcolor="#ffa001" (rate)="onCommunicationUser($event)" uncheckedcolor="#d6d6d6" size="36px"></star-rating>
                             <div class="communicationUserError" *ngIf="communicationUserError != ''">{{communicationUserError}}</div> -->
                             <div class="rating d-flex clearfix pt-2 flex-wrap">
@@ -285,7 +285,7 @@
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
                                         <input type='checkbox' value="5" >
                                     </label>
-                                    <p class="experienceError rating-error pt-1 mb-0">{{appLanguage.tap_start_rate}}</p>
+                                    <p class="experienceError rating-error pt-1 mb-0">{{appLanguage?.tap_start_rate}}</p>
                                 </div>
         
                         </span>
@@ -294,8 +294,8 @@
                     </div>
                     <div class="row experience-padding">
                         <div class="form-group col-lg-11 col-md-12 mb-0 mt-4">
-                            <label class="review-label">{{appLanguage.write_a_review}}</label>
-                            <textarea class="form-control area-border" placeholder={{appLanguage.short_description}} rows="4" cols="50" [(ngModel)]="reviewUser" name="reviewUser" id="reviewUserId" (keyup)="onKeyPress($event)"></textarea>
+                            <label class="review-label">{{appLanguage?.write_a_review}}</label>
+                            <textarea class="form-control area-border" placeholder={{appLanguage?.short_description}} rows="4" cols="50" [(ngModel)]="reviewUser" name="reviewUser" id="reviewUserId" (keyup)="onKeyPress($event)"></textarea>
                             <div class="reviewUserError" *ngIf="reviewUserError != ''">{{reviewUserError}}</div>
 
                         </div>
@@ -305,7 +305,7 @@
         </div>
 
         <div class="d-md-none d-block farm-stricky col-12">
-                <button type="button" class="submit-mob-butn" (click)="submitMobRating()"> {{appLanguage.submit}} </button>
+                <button type="button" class="submit-mob-butn" (click)="submitMobRating()"> {{appLanguage?.submit}} </button>
             </div>
     </section>
 </div>

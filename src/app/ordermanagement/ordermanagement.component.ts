@@ -51,7 +51,7 @@ export class OrdermanagementComponent implements OnInit {
   supportLanguages = ["en", "es"];
   lag: any;
   languages: any;
-  appLanguage: any;
+  appLanguage?: any;
   orderActive:any=0;
 
 

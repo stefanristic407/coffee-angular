@@ -214,7 +214,33 @@ export class LoginComponent implements OnInit {
             console.log("Login Successfully with user_id : " + data['result'].user_id);
             this.cookieService.set('user_id', data['result'].user_id);
             this.cookieService.set('Auth', data['Authorization']);
-            this.cookieService.set('roaster_id', data['result'].roaster_ids[0]);
+			this.cookieService.set('roaster_id', data['result'].roaster_ids[0]);
+			
+			this.userService.getUserPermissions(data['result'].roaster_ids[0]).subscribe(
+				result => {
+					// alert(1);
+					if(result['success'] == true){
+						this.permissionList=result['result'];
+						// var slugData = result['result'];
+						// slugData.forEach(element => {
+						//   var tempList = {};
+						//   tempList['slugList'] = element.slug;
+						//   tempList['accessList'] = element.access_type;
+						//   this.permissionSlugData.push(tempList);
+						// for (var i = 0; i < this.permissionList.length; i++) {
+						// 	this.slugList= this.permissionList[i];
+						// 	this.accesslist=this.permissionList[i]['access_type'];
+						// 	this.permissionSlugData.push(this.slugList);
+						// 	this.accessData.push(this.accesslist);
+						// }	
+						// this.cookieService.set('permissionSlug', this.permissionSlugData);
+						// this.cookieService.set('permissionAccess',this.accessData);
+					// });
+					this.cookieService.set('permissionSlug',JSON.stringify(this.permissionList));
+
+				}
+				
+			});
             //this.toastrService.success("Logged in Successfully");
             //        this.router.navigate(["/features/welcome-aboard"]);
             this.userService.getRoasterAccount(data['result'].roaster_ids[0]).subscribe(
@@ -251,31 +277,7 @@ export class LoginComponent implements OnInit {
                 }
               }
             )
-			this.userService.getUserPermissions(data['result'].roaster_ids[0]).subscribe(
-				result => {
-					// alert(1);
-					if(result['success'] == true){
-						this.permissionList=result['result'];
-						// var slugData = result['result'];
-						// slugData.forEach(element => {
-						//   var tempList = {};
-						//   tempList['slugList'] = element.slug;
-						//   tempList['accessList'] = element.access_type;
-						//   this.permissionSlugData.push(tempList);
-						// for (var i = 0; i < this.permissionList.length; i++) {
-						// 	this.slugList= this.permissionList[i];
-						// 	this.accesslist=this.permissionList[i]['access_type'];
-						// 	this.permissionSlugData.push(this.slugList);
-						// 	this.accessData.push(this.accesslist);
-						// }	
-						// this.cookieService.set('permissionSlug', this.permissionSlugData);
-						// this.cookieService.set('permissionAccess',this.accessData);
-					// });
-					this.cookieService.set('permissionSlug',JSON.stringify(this.permissionList));
-
-				}
-				
-			});
+			
 				
 			
           }

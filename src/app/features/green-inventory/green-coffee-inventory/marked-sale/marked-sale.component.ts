@@ -13,7 +13,7 @@ export class MarkedSaleComponent implements OnInit {
   
   display:any;
   showDisplay:boolean = true;
-  appLanguage: any;
+  appLanguage?: any;
 
   mainData:any[] = [
     { product_Name: 'Origanic washed Micro-lot', availability_Name: 'Finca La Pampa', origin: 'Brazil', variety: 'Bourborn',available: '87 bags', cup_Score: '84.5',status:'Instock', Actions: 'View' },

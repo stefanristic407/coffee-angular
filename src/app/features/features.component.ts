@@ -54,7 +54,7 @@ export class FeaturesComponent implements OnInit {
   supportLanguages = ["en", "es"];
   lag: any;
   languages: any;
-  appLanguage: any;
+  appLanguage?: any;
 
 
   constructor(private elementRef: ElementRef,

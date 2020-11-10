@@ -9,7 +9,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./myorders.component.css']
 })
 export class MyordersComponent implements OnInit {
-  appLanguage:any;  
+  appLanguage?:any;  
   myOrdersActive:any =0;
 
 

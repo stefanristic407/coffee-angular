@@ -15,7 +15,7 @@ export class RoasterQuickSetupComponent implements OnInit {
   add_member_name:any;
   add_member_email:any;
   add_member_type: any = "";
-  appLanguage: any;
+  appLanguage?: any;
   roaster_id: any;
   inviteActive:any=0;
   headerValue: string;
@@ -96,7 +96,7 @@ export class RoasterQuickSetupComponent implements OnInit {
             };
             this.userService.sendUrlToEmail(body).subscribe(
               res => {
-                if(res['200 OK'] == true){
+                if(res['status'] == "200 OK"){
                   this.toastrService.success("Email has been sent successfully");
                 }
                 else{

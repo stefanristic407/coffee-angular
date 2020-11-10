@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
   settingsActive:any =0;
 
   constructor(public globals : GlobalsService) { }

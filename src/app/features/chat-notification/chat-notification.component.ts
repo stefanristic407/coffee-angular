@@ -24,7 +24,7 @@ export class ChatNotificationComponent implements OnInit {
   farmSize : string;
   quantity: string;
   roasterId: string;
-  appLanguage: any;
+  appLanguage?: any;
   preferActive:any=0;
   constructor(public userService : UserserviceService,
               public router : Router,

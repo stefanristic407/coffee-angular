@@ -27,7 +27,7 @@ export class CreateRoleComponent implements OnInit {
   permissionList: TreeNode[];
   loginButtonValue: any;
   updateButtonValue: any;
-  appLanguage: any;
+  appLanguage?: any;
   createActive:any=0;
 
   constructor(private router: Router,

@@ -30,7 +30,7 @@ export class ProfileLicenseComponent implements OnInit {
 
   showRelavant:boolean=true;
   userId: string;
-  appLanguage: any;
+  appLanguage?: any;
   licenseActive:any=0;
   certificationTypeError: string;
   certificateTypeArray: any;

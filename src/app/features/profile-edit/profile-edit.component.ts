@@ -43,7 +43,7 @@ export class ProfileEditComponent implements OnInit {
   address1: any;
   address2: any;
   gender: any;
-  appLanguage: any;
+  appLanguage?: any;
   profileEditActive:any =0;
 
   constructor(public profilePicService: ProfilePicService, 

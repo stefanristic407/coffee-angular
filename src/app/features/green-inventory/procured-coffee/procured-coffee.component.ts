@@ -9,7 +9,7 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class ProcuredCoffeeComponent implements OnInit {
 	items: GalleryItem[];
-	appLanguage: any;
+	appLanguage?: any;
 	procuredActive:any =0;
 
 	public data = [

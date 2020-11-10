@@ -38,7 +38,7 @@ export class EstateOrdersComponent implements OnInit {
 
 	@ViewChild('calendar')
 	calendar: any;
-	appLanguage: any;
+	appLanguage?: any;
 
 	//dtInstance:DataTables.Api;
 

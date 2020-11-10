@@ -34,7 +34,7 @@ export class DirectMessagingComponent implements OnInit {
 	searchResult: any;
 	keyword: string;
 	threadLastMessages : any;
-	appLanguage: any;
+	appLanguage?: any;
 	messagingActive:any =0;
 
 	constructor(

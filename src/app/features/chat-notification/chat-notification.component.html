@@ -1,14 +1,14 @@
 <div class="total-loader" *ngIf="preferActive !=2">
-        <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-        <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
-            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
-        </div>
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
     </div>
-    <div *ngIf="preferActive == 2">
-<section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff">
-            <!-- <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-3">
+</div>
+<div *ngIf="preferActive == 2">
+    <section>
+        <div class="container sewn-container section-head-pad">
+            <div class="bg-fff">
+                <!-- <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-3">
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
@@ -24,141 +24,149 @@
             </div>
         </ul>
     </nav> -->
-            <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-                <div class="row desk-view">
-                    <div class="col-md-6 col-lg-6">
-                        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 mr-auto text-left">
-                            <span id="title-breadcrumb-1" class="sr-only"></span>
-                            <ul class="bread-nav">
-                                <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                </li>
-                                <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/account-settings">{{appLanguage.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                </li>
-                                <li class="b-cum c-pink">{{appLanguage.preferences}}</li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="ml-auto text-right prefer-space">
-                        <button type="submit" class="btn btn-succes save-butn" (click)="updatePreferences()">{{appLanguage.save_changes}}</button>
-                    </div>
-                </div>
-                <div class="row mobile-view">
-                    <span class="cursor-pointer" routerLink="/features/account-settings">
+                <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+                    <div class="row desk-view">
+                        <div class="col-md-6 col-lg-6">
+                            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 mr-auto text-left">
+                                <span id="title-breadcrumb-1" class="sr-only"></span>
+                                <ul class="bread-nav">
+                                    <li class="b-cum">
+                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                    </li>
+                                    <li class="b-cum">
+                                        <a class="b-cum" routerLink="/features/account-settings">{{appLanguage?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                    </li>
+                                    <li class="b-cum c-pink">{{appLanguage?.preferences}}</li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="ml-auto text-right prefer-space">
+                            <button type="submit" class="btn btn-succes save-butn" (click)="updatePreferences()">{{appLanguage?.save_changes}}</button>
+                        </div>
+                        <div class="row mobile-view">
+                            <span class="cursor-pointer" routerLink="/features/account-settings">
                     <img src="/assets/images/back-arrow1.png" alt="">
-                    <span class="back-ticket pl-3">{{appLanguage.back}}</span>
-                    </span>
-                </div>
-            </section>
+                    <span class="back-ticket pl-3">{{appLanguage?.back}}</span>
+                            </span>
+                        </div>
+                    </div>
+                </section>
 
-            <section class="chat-notify">
-                <h1 class="preferences fnt-play">{{appLanguage.preferences}}</h1>
-                <p class="custom-text">{{appLanguage.preferences_text}}</p>
+                <section class="chat-notify">
+                    <h1 class="preferences fnt-play">{{appLanguage?.preferences}}</h1>
+                    <p class="custom-text">{{appLanguage?.preferences_text}}</p>
 
-                <!-- <div class="float-right ml-auto save-padding">
+                    <!-- <div class="float-right ml-auto save-padding">
             <button type="button" class="btn save-butn">SAVE CHANGES </button>
         </div> -->
-                <div class="border-chat pb-5">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-10 col-sm-12 col-xs-12">
-                            <h2 class="units-header">{{appLanguage.measurement_units}}</h2>
-                            <div class="pt-4">
-                                <span class="farm-size">{{appLanguage.farm_size}}</span>
-                                <div class="chat-content">
-                                    <span class="hectares-data  text-left mr-auto">{{appLanguage.hectares}}</span>
-                                    <span class="float-right ml-auto top-space"><input type="radio" name="farmSize" value="hectares" [(ngModel)]="farmSize"></span>
+                    <div class="border-chat pb-5">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-10 col-sm-12 col-xs-12">
+                                <h2 class="units-header">{{appLanguage?.measurement_units}}</h2>
+                                <div class="pt-4">
+                                    <span class="farm-size">{{appLanguage?.farm_size}}</span>
+                                    <div class="chat-content">
+                                        <span class="hectares-data  text-left mr-auto">{{appLanguage?.hectares}}</span>
+                                        <span class="float-right ml-auto top-space"><input type="radio" name="farmSize" value="hectares" [(ngModel)]="farmSize"></span>
+                                    </div>
+                                    <div class="chat-content">
+                                        <span class="acres-data text-left mr-auto">{{appLanguage?.acres}}</span>
+                                        <span class="float-right ml-auto top-space"><input type="radio" name="farmSize" value="acres" [(ngModel)]="farmSize"></span>
+                                    </div>
                                 </div>
-                                <div class="chat-content">
-                                    <span class="acres-data text-left mr-auto">{{appLanguage.acres}}</span>
-                                    <span class="float-right ml-auto top-space"><input type="radio" name="farmSize" value="acres" [(ngModel)]="farmSize"></span>
+                                <div class="pt-4 pb-2">
+                                    <span class="quantity-size">{{appLanguage?.quantity}}</span>
+                                    <div class="chat-content">
+                                        <span class="pounds-data  text-left mr-auto">{{appLanguage?.pounds}} (lb)</span>
+                                        <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="lb" [(ngModel)]="quantity"></span>
+                                    </div>
+                                    <div class="chat-content">
+                                        <span class="kilograms-data text-left mr-auto">{{appLanguage?.kilograms}} (Kg)</span>
+                                        <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="kg" [(ngModel)]="quantity"></span>
+                                    </div>
+                                    <div class="chat-content">
+                                        <span class="kilograms-data text-left mr-auto">{{appLanguage?.tonnes}} (ton)</span>
+                                        <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="ton" [(ngModel)]="quantity"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="pt-4 pb-2">
-                                <span class="quantity-size">{{appLanguage.quantity}}</span>
+                                <h2 class="chat-header pt-4 pb-2">{{appLanguage?.chat}}</h2>
                                 <div class="chat-content">
-                                    <span class="pounds-data  text-left mr-auto">{{appLanguage.pounds}} (lb)</span>
-                                    <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="lb" [(ngModel)]="quantity"></span>
-                                </div>
-                                <div class="chat-content">
-                                    <span class="kilograms-data text-left mr-auto">{{appLanguage.kilograms}} (Kg)</span>
-                                    <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="kg" [(ngModel)]="quantity"></span>
-                                </div>
-                                <div class="chat-content">
-                                    <span class="kilograms-data text-left mr-auto">{{appLanguage.tonnes}} (ton)</span>
-                                    <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="ton" [(ngModel)]="quantity"></span>
-                                </div>
-                            </div>
-                            <h2 class="chat-header pt-4 pb-2">{{appLanguage.chat}}</h2>
-                            <div class="chat-content">
-                                <span class="receipt-data text-left mr-auto">{{appLanguage.read_recipient}}</span>
-                                <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="receipt"></p-inputSwitch></span>
-                                <div class="text-left mr-auto read-text pt-1">{{appLanguage.see_read_text}}</div>
+                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.read_recipient}}</span>
+                                    <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="receipt"></p-inputSwitch></span>
+                                    <div class="text-left mr-auto read-text pt-1">{{appLanguage?.see_read_text}}</div>
 
-                            </div>
-                            <div class="chat-content">
-                                <span class="receipt-data text-left mr-auto">{{appLanguage.enable_emoticons}}</span>
-                                <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="keyboard"></p-inputSwitch></span>
-                                <div class="text-left mr-auto read-text pt-1">{{appLanguage.enable_emoticons_text}}</div>
+                                </div>
+                                <div class="chat-content">
+                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.enable_emoticons}}</span>
+                                    <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="keyboard"></p-inputSwitch></span>
+                                    <div class="text-left mr-auto read-text pt-1">{{appLanguage?.enable_emoticons_text}}</div>
 
-                            </div>
-                            <div class="chat-content">
-                                <span class="receipt-data text-left mr-auto">{{appLanguage.chat_text_size}}</span>
-                                <span>
+                                </div>
+                                <div class="chat-content">
+                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.chat_text_size}}</span>
+                                    <span>
                                 <a class="pointer-item float-right ml-auto" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
                                         <span class="d-inline filter float-right ml-auto normal-txt" *ngIf="termStatus != ''" (click)="toggleRelavant();">
                                             {{ termStatus | titlecase }}&nbsp; <img src="{{ showRelavant ? 'assets/images/active.png' : 'assets/images/user-down.svg'}}" />
                                         </span>
-                                </a>
-                                </span>
-                            </div>
-
-                            <h2 class="chat-header pt-4 pb-2">{{appLanguage.notifications}}</h2>
-                            <div class="chat-content">
-                                <span class="receipt-data text-left mr-auto">{{appLanguage.enable_notifications}}</span>
-                                <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="notify"></p-inputSwitch></span>
-
-                            </div>
-                            <div class="chat-content">
-                                <span class="receipt-data text-left mr-auto">{{appLanguage.order_related_updates}}</span>
-                                <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="updates"></p-inputSwitch></span>
-                                <div class="text-left mr-auto read-text pt-1 web-display">{{appLanguage.order_related_subtext}}
-                                </div>
-                                <div class="text-left mr-auto read-text pt-1 mob-display">{{appLanguage.order_related_subtext}}
+                                    </a>
+                                    </span>
                                 </div>
 
-                            </div>
-                            <div class="chat-content">
-                                <span class="receipt-data text-left mr-auto">{{appLanguage.new_chat}}</span>
-                                <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="chat"></p-inputSwitch></span>
-                                <div class="text-left mr-auto read-text pt-1">{{appLanguage.push_notification_subtext}}</div>
+                                <h2 class="chat-header pt-4 pb-2">{{appLanguage?.notifications}}</h2>
+                                <div class="chat-content">
+                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.enable_notifications}}</span>
+                                    <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="notify"></p-inputSwitch></span>
 
-                            </div>
-                            <div class="chat-content1">
-                                <span class="receipt-data text-left mr-auto">{{appLanguage.notification_sound}}</span>
-                                <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="sound"></p-inputSwitch></span>
-                                <div class="text-left mr-auto read-text pt-1">{{appLanguage.notification_sound_subtext}}</div>
+                                </div>
+                                <div class="chat-content">
+                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.order_related_updates}}</span>
+                                    <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="updates"></p-inputSwitch></span>
+                                    <div class="text-left mr-auto read-text pt-1 web-display">{{appLanguage?.order_related_subtext}}
+                                    </div>
+                                    <div class="text-left mr-auto read-text pt-1 mob-display">{{appLanguage?.order_related_subtext}}
+                                    </div>
+                                    <div class="chat-content">
+                                        <span class="receipt-data text-left mr-auto">{{appLanguage.order_related_updates}}</span>
+                                        <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="updates"></p-inputSwitch></span>
+                                        <div class="text-left mr-auto read-text pt-1 web-display">{{appLanguage.order_related_subtext}}
+                                        </div>
+                                        <div class="text-left mr-auto read-text pt-1 mob-display">{{appLanguage.order_related_subtext}}
+                                        </div>
 
+                                    </div>
+                                    <div class="chat-content">
+                                        <span class="receipt-data text-left mr-auto">{{appLanguage?.new_chat}}</span>
+                                        <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="chat"></p-inputSwitch></span>
+                                        <div class="text-left mr-auto read-text pt-1">{{appLanguage?.push_notification_subtext}}</div>
+
+                                    </div>
+                                    <div class="chat-content1">
+                                        <span class="receipt-data text-left mr-auto">{{appLanguage?.notification_sound}}</span>
+                                        <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="sound"></p-inputSwitch></span>
+                                        <div class="text-left mr-auto read-text pt-1">{{appLanguage?.notification_sound_subtext}}</div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="mobile-farm col-12">
-                    <button type="button" class="btn btn-success save-butn" (click)="updatePreferences()"> {{appLanguage.save_changes}} </button>
-                </div>
-            </section>
+                    <div class="mobile-farm col-12">
+                        <button type="button" class="btn btn-success save-butn" (click)="updatePreferences()"> {{appLanguage?.save_changes}} </button>
+                    </div>
+                </section>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 
 
-<ng-template #allTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('small');toggleRelavant();pop.hide()">Small</a
+    <ng-template #allTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setStatus('small');toggleRelavant();pop.hide()">Small</a
                   >
                 </li>
                 <li class="list-group-item item-color">
@@ -179,4 +187,5 @@
               </ul>
             </div>
           </ng-template>
-       </div>   
+          
+       </div>

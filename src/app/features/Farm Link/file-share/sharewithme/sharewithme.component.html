@@ -17,11 +17,11 @@
                                 <span class="checkmark head-check"></span>
                             </label>
                         </th>
-                        <th>{{appLanguage.files}}</th>
-                        <th scope="col">{{appLanguage.order_id}}</th>
-                        <th scope="col">{{appLanguage.modified}}</th>
-                        <th scope="col">{{appLanguage.owner}}</th>
-                        <th scope="col">{{appLanguage.type}}</th>
+                        <th>{{appLanguage?.files}}</th>
+                        <th scope="col">{{appLanguage?.order_id}}</th>
+                        <th scope="col">{{appLanguage?.modified}}</th>
+                        <th scope="col">{{appLanguage?.owner}}</th>
+                        <th scope="col">{{appLanguage?.type}}</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -64,7 +64,7 @@
                                       </td>
                                       <td class="share_icon"> <div class="edit"><label class="share-bor mr-3"> <input class="file-inpt" type="file"> <img
                                         class="share-img" src="assets/images/share-img.png" alt="farm"> <span
-                                        class="share-txt ml-2"> {{appLanguage.share}} </span> </label></div>  
+                                        class="share-txt ml-2"> {{appLanguage?.share}} </span> </label></div>  
                                       </td>
                         <td>
                             <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
@@ -74,13 +74,13 @@
                                     <div id="popover-mobile-content">
                                       <ul class="list-group custom-popover">
                                         <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
-                                          <a class="pointer-item" (click)="pop.hide();downloadFile(item)">{{appLanguage.download}} </a>
+                                          <a class="pointer-item" (click)="pop.hide();downloadFile(item)">{{appLanguage?.download}} </a>
                                         </li>
                                         <li class="list-group-item">
                                           <a
                                             class="pointer-item"
                                             (click)="pop.hide(); pinFileorFolder(item.id)"
-                                            >{{appLanguage.pin}}</a
+                                            >{{appLanguage?.pin}}</a
                                           >
                                         </li>
                                         <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
@@ -95,31 +95,31 @@
                                               );
                                               pop.hide()
                                             "
-                                            >{{appLanguage.rename}}</a
+                                            >{{appLanguage?.rename}}</a
                                           >
                                         </li>
                                         <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
                                           <a
                                             class="pointer-item"
                                             (click)="openFileModal(fileTemplate, item.id); pop.hide()"
-                                            >{{appLanguage.rename}}</a
+                                            >{{appLanguage?.rename}}</a
                                           >
                                         </li>
                                         <li class="list-group-item">
-                                          <a class="pointer-item" (click)="pop.hide()">{{appLanguage.comment}}</a>
+                                          <a class="pointer-item" (click)="pop.hide()">{{appLanguage?.comment}}</a>
                                         </li>
                                         <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
                                           <a
                                             class="pointer-item"
                                             (click)="pop.hide(); deleteFolder(item.id)"
-                                            >{{appLanguage.delete}}</a
+                                            >{{appLanguage?.delete}}</a
                                           >
                                         </li>
                                         <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
                                           <a
                                             class="pointer-item"
                                             (click)="pop.hide(); deleteFile(item.id)"
-                                            >{{appLanguage.delete}}</a
+                                            >{{appLanguage?.delete}}</a
                                           >
                                         </li>
                                       </ul>
@@ -278,7 +278,7 @@
                                                     *ngIf="item.type != 'FOLDER'"
                                                   >
                                                     <a class="pointer-item" (click)="pop1.hide();downloadFile(item)"
-                                                      >{{appLanguage.download}}
+                                                      >{{appLanguage?.download}}
                                                     </a>
                                                   </li>
                                                   <li class="list-group-item">
@@ -287,7 +287,7 @@
                                                       (click)="
                                                         pop1.hide(); pinFileorFolder(item.id)
                                                       "
-                                                      >{{appLanguage.pin}}</a
+                                                      >{{appLanguage?.pin}}</a
                                                     >
                                                   </li>
                                                   <li
@@ -305,7 +305,7 @@
                                                         );
                                                         pop1.hide()
                                                       "
-                                                      >{{appLanguage.rename}}</a
+                                                      >{{appLanguage?.rename}}</a
                                                     >
                                                   </li>
                                                   <li
@@ -318,12 +318,12 @@
                                                         openFileModal(fileTemplate, item.id);
                                                         pop1.hide()
                                                       "
-                                                      >{{appLanguage.rename}}</a
+                                                      >{{appLanguage?.rename}}</a
                                                     >
                                                   </li>
                                                   <li class="list-group-item">
                                                     <a class="pointer-item" (click)="pop1.hide()"
-                                                      >{{appLanguage.comment}}</a
+                                                      >{{appLanguage?.comment}}</a
                                                     >
                                                   </li>
                                                   <li
@@ -333,7 +333,7 @@
                                                     <a
                                                       class="pointer-item"
                                                       (click)="pop1.hide(); deleteFolder(item.id)"
-                                                      >{{appLanguage.delete}}</a
+                                                      >{{appLanguage?.delete}}</a
                                                     >
                                                   </li>
                                                   <li
@@ -343,7 +343,7 @@
                                                     <a
                                                       class="pointer-item"
                                                       (click)="pop1.hide(); deleteFile(item.id)"
-                                                      >{{appLanguage.delete}}</a
+                                                      >{{appLanguage?.delete}}</a
                                                     >
                                                   </li>
                                                 </ul>
@@ -467,7 +467,7 @@
                                                           *ngIf="item.type != 'FOLDER'"
                                                         >
                                                           <a class="pointer-item" (click)="pop2.hide();downloadFile(item)"
-                                                            >{{appLanguage.download}}
+                                                            >{{appLanguage?.download}}
                                                           </a>
                                                         </li>
                                                         <li class="list-group-item">
@@ -476,7 +476,7 @@
                                                             (click)="
                                                               pop2.hide(); pinFileorFolder(item.id)
                                                             "
-                                                            >{{appLanguage.pin}}</a
+                                                            >{{appLanguage?.pin}}</a
                                                           >
                                                         </li>
                                                         <li
@@ -494,7 +494,7 @@
                                                               );
                                                               pop2.hide()
                                                             "
-                                                            >{{appLanguage.rename}}</a
+                                                            >{{appLanguage?.rename}}</a
                                                           >
                                                         </li>
                                                         <li
@@ -507,12 +507,12 @@
                                                               openFileModal(fileTemplate, item.id);
                                                               pop2.hide()
                                                             "
-                                                            >{{appLanguage.rename}}</a
+                                                            >{{appLanguage?.rename}}</a
                                                           >
                                                         </li>
                                                         <li class="list-group-item">
                                                           <a class="pointer-item" (click)="pop2.hide()"
-                                                            >{{appLanguage.comment}}</a
+                                                            >{{appLanguage?.comment}}</a
                                                           >
                                                         </li>
                                                         <li
@@ -522,7 +522,7 @@
                                                           <a
                                                             class="pointer-item"
                                                             (click)="pop2.hide(); deleteFolder(item.id)"
-                                                            >{{appLanguage.delete}}</a
+                                                            >{{appLanguage?.delete}}</a
                                                           >
                                                         </li>
                                                         <li
@@ -532,7 +532,7 @@
                                                           <a
                                                             class="pointer-item"
                                                             (click)="pop2.hide(); deleteFile(item.id)"
-                                                            >{{appLanguage.delete}}</a
+                                                            >{{appLanguage?.delete}}</a
                                                           >
                                                         </li>
                                                       </ul>
@@ -661,7 +661,7 @@
     <ng-template #template>
             <div class="modal-header">
               <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-                {{appLanguage.update_folder}}
+                {{appLanguage?.update_folder}}
               </h5>
               <button
                 type="button"
@@ -676,7 +676,7 @@
               <form>
                 <div class="roastery-fields mb-4">
                   <div class="farm-input col-12 col-md-5 px-0">
-                    <label class="mb-0">{{appLanguage.name}}</label>
+                    <label class="mb-0">{{appLanguage?.name}}</label>
                     <input
                       type="hidden"
                       [(ngModel)]="folderItemId"
@@ -699,7 +699,7 @@
                 <div class="roastery-fields mb-4">
                   <div class="farm-input col-12 px-0">
                     <label class="mb-0"
-                      >{{appLanguage.give_short_description}} *</label
+                      >{{appLanguage?.give_short_description}} *</label
                     >
                     <textarea
                       class="mb-0"
@@ -723,7 +723,7 @@
                   class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
                   (click)="UpdateFolder()"
                 >
-                {{appLanguage.update}}
+                {{appLanguage?.update}}
                 </button>
               </div>
             </div>
@@ -732,7 +732,7 @@
           <ng-template #fileTemplate>
             <div class="modal-header">
               <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
-                {{appLanguage.update_file}}
+                {{appLanguage?.update_file}}
               </h5>
               <button
                 type="button"
@@ -747,7 +747,7 @@
               <form>
                 <div class="roastery-fields mb-4">
                   <div class="farm-input col-12 col-md-5 px-0">
-                    <label class="mb-0">{{appLanguage.name}}</label>
+                    <label class="mb-0">{{appLanguage?.name}}</label>
                     <input
                       type="text"
                       placeholder="Enter file name"
@@ -764,7 +764,7 @@
                 <div class="roastery-fields mb-4">
                   <div class="farm-input col-12 px-0">
                     <label class="mb-0"
-                      >{{appLanguage.give_short_description}}*</label
+                      >{{appLanguage?.give_short_description}}*</label
                     >
                     <textarea
                       class="mb-0"
@@ -785,7 +785,7 @@
                   </div>
                 </div>
                 <div class="roastery-fields mb-4">
-                  <label class="mb-1 mr-2 ">{{appLanguage.file_upload}}</label>
+                  <label class="mb-1 mr-2 ">{{appLanguage?.file_upload}}</label>
                   <label class="share-bor mr-3">
                     <input
                       class="file-inpt"
@@ -797,7 +797,7 @@
                       src="assets/images/upload-icon.png"
                       alt="farm"
                     />
-                    <span class="share-txt ml-2"> {{appLanguage.upload}} </span>
+                    <span class="share-txt ml-2"> {{appLanguage?.upload}} </span>
                   </label>
                   <span class="value-name">{{ fileNameValue }}</span>
                 </div>
@@ -808,7 +808,7 @@
                   class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
                   (click)="updateFile()"
                 >
-                {{appLanguage.update}}
+                {{appLanguage?.update}}
                 </button>
               </div>
             </div>

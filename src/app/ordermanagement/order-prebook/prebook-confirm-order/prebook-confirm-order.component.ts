@@ -25,7 +25,7 @@ export class PrebookConfirmOrderComponent implements OnInit {
   cityError:string;
   service: string = "Import & Delivery service";
   serviceAmount: number = 4500;
-  appLanguage:any;
+  appLanguage?:any;
   constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public global: GlobalsService) { }
   @ViewChild('confirmtemplate') private confirmtemplate: any;
 

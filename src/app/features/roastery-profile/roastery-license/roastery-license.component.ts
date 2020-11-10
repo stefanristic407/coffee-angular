@@ -29,7 +29,7 @@ export class RoasteryLicenseComponent implements OnInit {
 
   showRelavant:boolean=true;
   userId: any;
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor(
     private _cokkieService: CookieService,

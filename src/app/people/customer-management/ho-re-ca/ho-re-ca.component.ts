@@ -8,6 +8,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {GlobalsService} from 'src/services/globals.service';
+import {environment} from 'src/environments/environment';
 
 @Component({
   selector: 'app-ho-re-ca',
@@ -21,7 +22,7 @@ export class HoReCaComponent implements OnInit {
   estateId: any;
   roasterId: any;
   odd : boolean = false ;
-  appLanguage: any;
+  appLanguage?: any;
   horecaActive:any=0;
 
 
@@ -111,7 +112,21 @@ export class HoReCaComponent implements OnInit {
       }
     )
   }
-
+  stimulatedLogin(item) {
+    this.roasterService.getHorecaStimulatedLogin(item.id, this.roasterId).subscribe(res => {
+      if (res['success']) {
+        const data = res['result'];
+        data['horeca_id'] = item['id'];
+        const encryptedCode = this.roasterService.encryptData(data);
+        // const decryptedCode = this.roasterService.decryptData(encryptedCode);
+        // console.log(decryptedCode);
+        const redirectUrl = environment.horecaWeb + '/#/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
+        this.roasterService.navigate(redirectUrl, true);
+      }
+    }, err => {
+      console.log(err);
+    });
+  }
 
 
 }

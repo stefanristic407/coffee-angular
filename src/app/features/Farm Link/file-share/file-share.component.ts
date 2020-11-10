@@ -50,7 +50,7 @@ descriptionError: string;
   
   typedValue: any;
   usersList: any[]=[];
-  appLanguage: any;
+  appLanguage?: any;
 	shareMainActive:any=0;
 	unPinId: any;
 	loadId: any;

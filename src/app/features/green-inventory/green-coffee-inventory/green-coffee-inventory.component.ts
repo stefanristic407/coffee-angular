@@ -8,7 +8,7 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class GreenCoffeeInventoryComponent implements OnInit {
 
-  appLanguage: any ={};
+  appLanguage?: any ={};
   greenActive:any =0;
   loader:boolean;
  

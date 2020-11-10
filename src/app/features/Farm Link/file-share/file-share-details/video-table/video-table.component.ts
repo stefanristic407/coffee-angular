@@ -51,7 +51,7 @@ export class VideoTableComponent implements OnInit {
   sharedUsers: any;
   shareFileId: any;
   share_permission: any;
-  appLanguage: any;
+  appLanguage?: any;
   // videoTable:any=0;
   
   constructor(public router: Router,

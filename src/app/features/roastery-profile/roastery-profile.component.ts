@@ -12,7 +12,7 @@ import {GlobalsService} from 'src/services/globals.service';
 })
 export class RoasteryProfileComponent implements OnInit {
   @ViewChild("image") image;
-  appLanguage: any;
+  appLanguage?: any;
   roasteryActive:any =0;
 
   constructor(  private router : Router, 

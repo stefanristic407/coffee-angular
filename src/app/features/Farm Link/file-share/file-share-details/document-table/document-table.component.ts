@@ -65,7 +65,7 @@ export class DocumentTableComponent implements OnInit {
 
   
   selectedValue: string;
-  appLanguage: any;
+  appLanguage?: any;
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,

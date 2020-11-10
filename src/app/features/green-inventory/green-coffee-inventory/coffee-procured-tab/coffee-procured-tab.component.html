@@ -2,7 +2,7 @@
     <div class="title-header">
         <div class="hover-filters d-inline-block">
             <div class="d-inline border-total col-sm-6" id="status_id" [outsideClick]="true" (onShown)="toggleStatus();" (onHidden)="toggleStatus();" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
-                <p class="d-inline filter-text" *ngIf="termStatus == ''">{{appLanguage.status}}&nbsp;</p>
+                <p class="d-inline filter-text" *ngIf="termStatus == ''">{{appLanguage?.status}}&nbsp;</p>
                 <a class="pointer-item" >
                     <p class="d-inline filter" *ngIf="termStatus == ''" >
                         &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -17,7 +17,7 @@
         </div>
 
         <!-- <div class="d-inline border-total role-div col-sm-6" id="display_id">
-            <p class="d-inline filter-text" >{{appLanguage.display}}<span class="brand-dot">  </span></p>
+            <p class="d-inline filter-text" >{{appLanguage?.display}}<span class="brand-dot">  </span></p>
             <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop9="bs-popover">
                 <p class="d-inline filter" *ngIf="display == '-1'" (click)="toggleDisplay()">
                     &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -59,7 +59,7 @@
                                         <span class="checkmark"></span>
                                     </label>
                     </th>
-                    <th scope="col">{{appLanguage.order_id}}</th>
+                    <th scope="col">{{appLanguage?.order_id}}</th>
                     <th scope="col">Availibility Name</th>
                     <th scope="col">
                         Estate Name
@@ -68,10 +68,10 @@
                         Origin
                     </th>
                     <th scope="col">Variety</th>
-                    <th scope="col">{{appLanguage.quantity}}</th>
+                    <th scope="col">{{appLanguage?.quantity}}</th>
                     <th scope="col">Cup score</th>
                     <th scope="col"></th>
-                    <th scope="col">{{appLanguage.actions}}</th>
+                    <th scope="col">{{appLanguage?.actions}}</th>
                 </tr>
             </thead>
             <tbody class="customtable">

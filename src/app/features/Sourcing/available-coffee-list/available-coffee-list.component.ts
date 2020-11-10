@@ -12,7 +12,7 @@ import {GlobalsService} from 'src/services/globals.service';
 })
 export class AvailableCoffeeListComponent implements OnInit {
 	items: GalleryItem[];
-	appLanguage: any;
+	appLanguage?: any;
 	availableCoffeeActive:any=0;
 
 

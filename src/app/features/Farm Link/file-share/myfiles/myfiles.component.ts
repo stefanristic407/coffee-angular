@@ -66,7 +66,7 @@ export class MyfilesComponent implements OnInit {
   shareFileId: any;
   myFiles:any=0;
   selectedValue: string;
-  appLanguage: any;
+  appLanguage?: any;
 	deleteFolderId: any;
 	deleteFileId: any;
   constructor(public router: Router,

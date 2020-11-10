@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./booked-documents.component.css']
 })
 export class BookedDocumentsComponent implements OnInit {
-  appLanguage:any;
+  appLanguage?:any;
   constructor(public global: GlobalsService) { }
 
   ngOnInit(): void {

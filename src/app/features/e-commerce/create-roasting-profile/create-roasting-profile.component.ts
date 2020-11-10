@@ -7,7 +7,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./create-roasting-profile.component.css']
 })
 export class CreateRoastingProfileComponent implements OnInit {
-  appLanguage: any;
+  appLanguage?: any;
 
   constructor( private globals: GlobalsService) { }
 

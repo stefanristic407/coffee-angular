@@ -10,7 +10,7 @@ import { GlobalsService } from 'src/services/globals.service';
   styleUrls: ['./booked-grade-info.component.css']
 })
 export class BookedGradeInfoComponent implements OnInit {
-  appLanguage:any;
+  appLanguage?:any;
   constructor(public bookedService: OrderBookedService,public global: GlobalsService) { }
 
   ngOnInit(): void {

@@ -59,7 +59,7 @@ descriptionError: string;
   share_permission: any;
   sharedUserslists: any = [];
   sharedUsers: any;
-  appLanguage: any;
+  appLanguage?: any;
 
 
   constructor(public cookieService : CookieService,

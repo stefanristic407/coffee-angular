@@ -12,7 +12,7 @@ export class LoginSecurityComponent implements OnInit {
   passwordData:any;
   display: boolean = false;
   modalRef: BsModalRef;
-  appLanguage: any;
+  appLanguage?: any;
   securityActive:any =0;
 
   constructor(private modalService: BsModalService,

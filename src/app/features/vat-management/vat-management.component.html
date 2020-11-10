@@ -1,0 +1,120 @@
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                        <span id="title-breadcrumb-1" class="sr-only"></span>
+                        <ul class="bread-nav">
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum">
+                                <a class="b-cum">Inventory</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+
+                            <li class="b-cum c-pink">Order settings</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col-md-10 col-12">
+                    <p class="fnt-18 fnt-muli fnt-700 txt-clr334 m-0">Order settings</p>
+                    <p class="fnt-14 fnt-muli fnt-400 text-clr588">Set-up your billing details, terms and conditions of use, privacy and cookie policies here </p>
+                </div>
+                <div class="col-md-2 col-12">
+                    <button type="button" class="fnt-14 fnt-muli fnt-700 cancel mr-3" href="javascript:void(0);"> Cancel</button>
+                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites" href="javascript:void(0);"> Save </button>
+                </div>
+            </div>
+            <div class="row pt-4">
+
+
+                <div class="col-md-3 col-12">
+                    <div class="nav flex-column nav-pills sample_info" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link vat-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <div class="info_heading d-flex">
+                                <div class="pull-left sample_info_head"> Vat Management </div>
+                                <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
+                            </div>
+                        </a>
+                        <a class="nav-link vat-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                            <div class="info_heading dry-milling d-flex">
+                                <div class="pull-left sample_info_head"> Shipping details </div>
+                                <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="col-md-9 col-12">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            <div class="mixups-tabs  pr-3 col-lg-12 col-md-12">
+                                <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="pills-procured-tab" data-toggle="pill" href="#pills-procured" role="tab" aria-controls="pills-home" aria-selected="true"> Micro roaster </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="pills-marked-tab" data-toggle="pill" href="#pills-marked" role="tab" aria-controls="pills-profile" aria-selected="false"> B2B e-commerce </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content mt-md-4" id="pills-tabContent">
+
+                                    <div class="tab-pane fade show active spacing-order" id="pills-procured" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <app-vat-micro-roaster> </app-vat-micro-roaster>
+                                    </div>
+
+                                    <div class="tab-pane fade spacing-order" id="pills-marked" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                        <app-vat-b2b> </app-vat-b2b>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                            <div class="row">
+
+                                <div class="pls-note">
+                                    <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0"> The shipping price & estimated delivery time you set will be applicable to all green coffee and roasted coffee you sell on the platform. </p>
+                                </div>
+
+                                <div class="col-md-12 Onboard-rows pt-5">
+                                    <div class="Onboard-rows__inputs">
+                                        <div class="row">
+
+                                            <div class="col-12 col-md-4 Onboard-input">
+                                                <label class="w-100">Shipping Price *</label>
+                                                <input class="w-100" type="number" placeholder="Please enter shipping amount">
+                                            </div>
+
+                                            <div class="col-12 col-md-4 Onboard-input">
+                                                <label class="w-100">Estimated delivery time *</label>
+                                                <input class="w-100" type="number" placeholder="days">
+                                            </div>
+
+                                            <div class="col-12 col-md-4 Onboard-input">
+                                                <label class="w-100">Estimated delivery time *</label>
+                                                <input class="w-100" type="number" placeholder="days">
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
