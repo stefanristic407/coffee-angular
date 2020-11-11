@@ -503,4 +503,34 @@ export class UserserviceService {
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterUrl,data);
   }
+
+    //API Function Name : Green Coffee availability Detail Page
+  //API Description: This API call helps details of green coffee availability.
+  getGreenCoffeeDetails(roaster_id:any,harvest_id:any) {
+    var data = {};
+    data["api_call"] = "/ro/"+roaster_id+"/availability/gc/"+harvest_id;
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl, data);
+  }
+
+   //API Function Name :  Estate Land lots
+  //API Description: This API call helps to list land lots of an estate.
+  getavailableLots(roaster_id:any,estate_id:any) {
+    var data = {};
+    data["api_call"] = "/ro/"+roaster_id+"/estates/"+estate_id+"/lots";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  //API Function Name :  Flavour Profile
+  //API Description: This API call helps get list of flavour profile.
+  getFlavourProfile() {
+    var data = {};
+    data["api_call"] = "/general/flavour-profile";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl, data);
+  }
 }

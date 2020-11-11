@@ -12,7 +12,7 @@
                 <div class="detail-descript">
                     <div class="stit">
                         
-                        <h2 class="">Finca la pampa</h2>
+                        <h2 class="">{{sourcing.name}}</h2>
                         <div class="s-cert d-md-none">
                             <ul class="flex">
                                 <li><img src="/assets/images/group-certificate.png"></li>
@@ -22,8 +22,7 @@
                         </div>
                         <h6 class="d-block d-md-none area-location">Columbia</h6>
                         <h5 class="d-block d-md-none mt-3 m-orgin">The Origin</h5>
-                        <p>Finca La Pampa is the operator of washing stations in Yirgacheffe district and Guji district. We have integrated supply chains with our farmer out-growers in both districts and are organically certified, maintaining traceability
-                            throughout the supply chain to ensure the best quality.</p>
+                        <p>{{sourcing.description}}</p>
                     </div>
                 
                     <div class="row mt-4 mt-md-0">
@@ -31,14 +30,16 @@
                             <div class="real-estate">
                                 <img src="assets/images/orgin.svg">
                                 <h6>{{appLanguage?.origin}}</h6>
-                                <h3>Columbia</h3>
+                                <h3 *ngIf="sourcing.countryName==''">NA</h3>
+                                <h3 *ngIf="sourcing.countryName!=''">{{sourcing.countryName}}</h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                             <div class="real-estate">
                                 <img src="assets/images/estate.svg">
                                 <h6>{{appLanguage?.estate_size}}</h6>
-                                <h3>4000 acres</h3>
+                                <h3 *ngIf="sourcing.total_area!=''">{{sourcing.total_area}} acres</h3>
+                                <h3 *ngIf="sourcing.total_area==''">NA</h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
@@ -46,21 +47,24 @@
                                 <img src="assets/images/altitute.svg">
 
                                 <h6>{{appLanguage?.altitude_range}}</h6>
-                                <h3>1000 - 1600 m</h3>
+                                <h3 *ngIf="sourcing.altitude_start!='' && sourcing.altitude_end!=''">{{sourcing.altitude_start}} - {{sourcing.altitude_end}}  m</h3>
+                                <h3 *ngIf="sourcing.altitude_start=='' && sourcing.altitude_end==''">NA</h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                             <div class="real-estate">
                                 <img src="assets/images/harveaster.svg">
                                 <h6>{{appLanguage?.harvested_season}}</h6>
-                                <h3>March - June</h3>
+                                <h3 *ngIf="sourcing.crop_year_start!='' && sourcing.crop_year_end!=''">{{GetMonthName(sourcing.crop_year_start)}} - {{GetMonthName(sourcing.crop_year_end)}}</h3>
+                                <h3 *ngIf="sourcing.crop_year_start=='' && sourcing.crop_year_end==''">NA</h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                             <div class="real-estate">
                                 <img src="assets/images/grad-range.svg">
                                 <h6>{{appLanguage?.grade_range}}</h6>
-                                <h3>83 - 89</h3>
+                                <h3 *ngIf="sourcing.grade_range!=''">{{sourcing.grade_range}}</h3>
+                                <h3 *ngIf="sourcing.grade_range==''">NA</h3>
                             </div>
                         </div>
                     </div>
@@ -72,31 +76,40 @@
                                 <h3>{{appLanguage?.estate_facts}}</h3>
                                 <ul class="clearfix">
                                     <li><label>{{appLanguage?.location}} :</label>
-                                        <p>Toquian Grande & Pavencul, Soconusco Region</p>
+                                        <p *ngIf="sourcing.location !=''">{{sourcing.location}}</p>
+                                        <p *ngIf="sourcing.location ==''">NA</p>
                                     </li>
                                     <li><label>{{appLanguage?.region}} :</label>
-                                        <p>Chiapas</p>
+                                        <p *ngIf="sourcing.city!=''">{{sourcing.city}}</p>
+                                        <p *ngIf="sourcing.city==''">NA</p>
                                     </li>
                                     <li><label>{{appLanguage?.average_annual_prodcution_crops}} :</label>
-                                        <p>1400 tons</p>
+                                        <p *ngIf="sourcing.annual_prod !=''">{{sourcing.annual_prod}} tons</p>
+                                        <p *ngIf="sourcing.annual_prod ==''">NA</p>
                                     </li>
                                     <li><label>{{appLanguage?.average_annual_production_coffee}} :</label>
-                                        <p>1022 tones</p>
+                                        <p *ngIf="sourcing.coffee_production !=''">{{sourcing.coffee_production}} tons</p>
+                                        <p *ngIf="sourcing.coffee_production ==''">NA</p>  
                                     </li>
                                     <li><label>{{appLanguage?.access_to_agronomist}} :</label>
-                                        <p>Yes</p>
+                                        <p *ngIf="sourcing.agronomist_access !=''">{{sourcing.agronomist_access}}</p>
+                                        <p *ngIf="sourcing.agronomist_access ==''">NA</p>
                                     </li>
                                     <li><label>{{appLanguage?.total_number_trees}} :</label>
-                                        <p>14,000</p>
+                                        <p *ngIf="sourcing.number_of_trees !=''">{{sourcing.number_of_trees}}</p>
+                                        <p *ngIf="sourcing.number_of_trees ==''">NA</p>
                                     </li>
                                     <li><label>{{appLanguage?.packaging}} :</label>
-                                        <p>Biodegradeable</p>
+                                        <p *ngIf="sourcing.packaging !=''">{{sourcing.packaging}}</p>
+                                        <p *ngIf="sourcing.packaging ==''">NA</p>
                                     </li>
                                     <li><label>{{appLanguage?.other_crops}} :</label>
-                                        <p>Rice, pepper, Vanilla</p>
+                                        <p *ngIf="sourcing.other_crops !=''">{{sourcing.other_crops}}</p>
+                                        <p *ngIf="sourcing.other_crops ==''">NA</p>
                                     </li>
                                     <li><label>{{appLanguage?.wildlife}} :</label>
-                                        <p>Variety of birds, wild boar, deer, cheetah, buffalo, lion, porcupine, rabbit, and other species</p>
+                                        <p *ngIf="sourcing.wild_animals !=''">{{sourcing.wild_animals}}</p>
+                                        <p *ngIf="sourcing.wild_animals ==''">NA</p>
                                     </li>
                                 </ul>
                             </div>
@@ -115,7 +128,14 @@
                             <li><img src="/assets/images/utz-certificate.png"></li>
                             <li><img src="/assets/images/certified.png"></li>
                         </ul>
-                        <img src="assets/images/map.PNG" class="w-100">
+                        <div *ngIf="sourcing.gps_coordinates==''">
+                            <img src="assets/images/map.PNG" class="w-100">
+                        </div>
+                        <div *ngIf="sourcing.gps_coordinates!=''">
+                            <agm-map [latitude]="sourcing.latitude" [longitude]="sourcing.longitude">
+                                <agm-marker  [latitude]="sourcing.latitude"  [longitude]="sourcing.longitude"></agm-marker>
+                            </agm-map>
+                        </div>
                     </div>
                     <div class="prodcoffee mt-0 mt-md-3">
                         <h4>Our Coffee procurement is traceable & 100% transparent</h4>

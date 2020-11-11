@@ -478,7 +478,7 @@ export class UpdatePasswordComponent implements OnInit {
           );
           //  console.log("Password has been updated successfully. Please login again to continue.")
           this.cookieService.deleteAll();
-          this.router.navigate(["/privacy-policy"]);
+          this.router.navigate(["/login"]);
         } else {
           if (response["messages"]["current_password"] !== undefined) {
             // console.log("Error: Current password is "+response['messages'].current_password[0] +"!");

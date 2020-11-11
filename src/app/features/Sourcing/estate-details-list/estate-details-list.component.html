@@ -25,9 +25,10 @@
                                             <img src="assets/images/tit-logo.PNG">
                                         </div>
                                         <div class="det-tit d-inline-block mt-3 mt-md-0">
-                                            <h2 routerLink="/features/roastery-profile">Finca la pampa</h2>
+                                            <h2 *ngIf="sourcing.name!=''" routerLink="/features/roastery-profile">{{sourcing.name}}</h2>
+                                            <h2 *ngIf="sourcing.name==''">NA</h2>
                                             <!-- <h6 class="star-rate"><span class="fa fa-star checked"></span> 4.95</h6> -->
-                                            <span class="fa fa-star checked"></span><span class="star-rate pl-1">4.95</span>
+                                            <span class="fa fa-star checked"></span><span class="star-rate pl-1">{{sourcing.rating}}</span>
                                         </div>
                                     </div>
                                     <div class="source-knowmore pull-right mt-4 mt-md-0">
@@ -90,14 +91,15 @@
                                                                 <div class="real-estate">
                                                                     <img src="assets/images/harveaster.svg">
                                                                     <h6>{{appLanguage?.year_founded_in}}</h6>
-                                                                    <h3>1921</h3>
+                                                                    <h3>{{sourcing.founded_on}}</h3>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
                                                                 <div class="real-estate">
                                                                     <img src="assets/images/stakeholder2.png">
                                                                     <h6>{{appLanguage?.estate_owner}}</h6>
-                                                                    <h3>Kristine cox</h3>
+                                                                    <h3 *ngIf="sourcing.owner_name !=''">{{sourcing.owner_name}}</h3>
+                                                                    <h3 *ngIf="sourcing.owner_name ==''">NA</h3>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -174,8 +176,14 @@
                                                                 <li><img src="assets/images/utz-certificate.png"></li>
                                                                 <li><img src="assets/images/certified.png"></li>
                                                             </ul>
-                                                            <img src="assets/images/map.PNG" class="w-100">
-                                                        </div>
+                                                            <div *ngIf="sourcing.gps_coordinates==''">
+                                                                <img src="assets/images/map.PNG" class="w-100">
+                                                            </div>
+                                                            <div *ngIf="sourcing.gps_coordinates!=''">
+                                                                <agm-map [latitude]="sourcing.latitude" [longitude]="sourcing.longitude">
+                                                                    <agm-marker  [latitude]="sourcing.latitude"  [longitude]="sourcing.longitude"></agm-marker>
+                                                                </agm-map>
+                                                            </div>                                                        </div>
                                                         <div class="prodcoffee mt-md-3">
                                                             <h4>Our Coffee procurement is traceable & 100% transparent</h4>
                                                             <div class="video-part">

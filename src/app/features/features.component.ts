@@ -55,6 +55,7 @@ export class FeaturesComponent implements OnInit {
   lag: any;
   languages: any;
   appLanguage?: any;
+	slug_list: any;
 
 
   constructor(private elementRef: ElementRef,
@@ -73,7 +74,9 @@ export class FeaturesComponent implements OnInit {
         this.translateService.use(browserlang);
         localStorage.setItem("locale", "en");
       }
-      console.log(this.screenwidth);
+      // console.log(this.screenwidth);
+	  this.slug_list=JSON.parse(this.cookieService.get('permissionSlug'));
+
      }
 
   ngOnInit(): void {
@@ -146,6 +149,7 @@ export class FeaturesComponent implements OnInit {
   // Function Name : User Value
   //Description: This function helps to get the details of the logged in user and show the username in header
   getUserValue() {
+    this.globals.permissionMethod();
     this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
       response => {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];

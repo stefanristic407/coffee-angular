@@ -23190,3 +23190,36 @@ li.select-list__item {
 .request-table #DataTables_Table_1_filter {
     display: none !important;
 }
+
+
+/* invite member css start */
+
+.Onboard-input input {
+    height: 46px !important;
+}
+
+.member-delete-rows {
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 22px;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .member-delete-rows {
+        font-size: 14px;
+        line-height: 24px;
+        position: absolute;
+        bottom: 50%;
+        right: -4%;
+        display: inline-block;
+        transform: translate(100%, 50%);
+    }
+}
+
+
+/* invite member css ends */

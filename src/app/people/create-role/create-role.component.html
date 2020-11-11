@@ -70,4 +70,12 @@
     </div>
 
 </section>
+
+
+<p-dialog [(visible)]="displayModal" [modal]="true"  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        <div class="text-center">
+        <p class="fnt-muli black-semibold p-4"> {{appLanguage?.please_login_text}}! </p>
+        <button class="btn logout-btn create-role-btn mb-3" type="button" (click)="userLogout()">{{appLanguage?.logout}}</button>
+      </div>
+    </p-dialog>
 </div>

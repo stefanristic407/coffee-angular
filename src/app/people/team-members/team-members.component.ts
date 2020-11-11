@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import {GlobalsService} from 'src/services/globals.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { DatePipe } from '@angular/common';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-team-members',
@@ -23,52 +26,71 @@ export class TeamMembersComponent implements OnInit {
   appLanguage?: any;
   teamActive:any=0;
 
-  mainData:any[] = [
-    {
-      name: 'Luis Stanley',
-      lastLogin: '24/09/2019 11.45 am',
-      Email: 'louis.s@roaster.com',
-      status:'Active',
-      roles:'support-admin'
-    },
-    {
-      name: 'Lillian Duncan',
-      lastLogin: '4/09/2019 7.45 am',
-      Email: 'lillian.s@roaster.com',
-      status:'Disabled',
-      roles:'Marketing'
-    },
-    {
-      name: 'Lillian Duncan',
-      lastLogin: '14/11/2019 10.45 am',
-      Email: 'samein.s@roaster.com',
-      status:'Disabled',
-      roles:'support-admin'
-    },
-    {
-      name: 'Javin Duan',
-      lastLogin: '24/09/2019 11.45 am',
-      Email: 'javin.s@roaster.com',
-      status:'Active',
-      roles:'Marketing'
-    },
-    {
-      name: 'Lillian Duncan',
-      lastLogin: '5/12/2019 4.30 pm',
-      Email: 'lillian.s@roaster.com',
-      status:'Disabled',
-      roles:'Accountant'
-    }
-  ]
+  // mainData:any[] = [
+  //   {
+  //     name: 'Luis Stanley',
+  //     lastLogin: '24/09/2019 11.45 am',
+  //     Email: 'louis.s@roaster.com',
+  //     status:'Active',
+  //     roles:'support-admin'
+  //   },
+  //   {
+  //     name: 'Lillian Duncan',
+  //     lastLogin: '4/09/2019 7.45 am',
+  //     Email: 'lillian.s@roaster.com',
+  //     status:'Disabled',
+  //     roles:'Marketing'
+  //   },
+  //   {
+  //     name: 'Lillian Duncan',
+  //     lastLogin: '14/11/2019 10.45 am',
+  //     Email: 'samein.s@roaster.com',
+  //     status:'Disabled',
+  //     roles:'support-admin'
+  //   },
+  //   {
+  //     name: 'Javin Duan',
+  //     lastLogin: '24/09/2019 11.45 am',
+  //     Email: 'javin.s@roaster.com',
+  //     status:'Active',
+  //     roles:'Marketing'
+  //   },
+  //   {
+  //     name: 'Lillian Duncan',
+  //     lastLogin: '5/12/2019 4.30 pm',
+  //     Email: 'lillian.s@roaster.com',
+  //     status:'Disabled',
+  //     roles:'Accountant'
+  //   }
+  // ]
   roleData: string;
   roleID: string;
+  userfilterDat: any = [];
+  loginValue: any;
+  deleteUserId: any;
+  modalRef: BsModalRef;
+  loginId: string;
 
   
-  constructor(public roasterService:RoasterserviceService,public cookieService: CookieService,private router: Router,public route: ActivatedRoute,private globals: GlobalsService) { 
+  constructor(public roasterService:RoasterserviceService,
+    public cookieService: CookieService,
+    private router: Router,
+    public route: ActivatedRoute,
+    public globals: GlobalsService,
+    private toastrService : ToastrService,
+    private userService : UserserviceService,
+    private modalService: BsModalService,) { 
     this.roaster_id = this.cookieService.get('roaster_id');
     this.termStatus = '';
-	this.termRole = '';
+  this.termRole = '';
+  
+	this.loginId = this.cookieService.get('user_id');
   }
+
+  openDeleteModal(template1:TemplateRef<any>,deleteId:any){
+    this.modalRef = this.modalService.show(template1);
+    this.deleteUserId = deleteId;
+    }
 
   ngOnInit(): void {
       //Auth checking
@@ -77,7 +99,14 @@ export class TeamMembersComponent implements OnInit {
       }
       this.listRoles();
       this.language();
+      this.getRoasterUsers();
+         // console.log(this.globals.permissions['user-management']);
+	if(!this.globals.permissions['user-management']){
+		this.router.navigate(["/people/permission-error"]);
   }
+  }
+
+  
   listRoles() {
     this.roasterService.getRoles(this.roaster_id).subscribe(
       response => {
@@ -96,6 +125,70 @@ export class TeamMembersComponent implements OnInit {
       }
     )
   }
+
+
+
+   // Function Name : Roaster
+  // Description: This function helps to get the Role Id from user management page 
+
+  getRoasterUsers() {
+    this.roasterService.getRoasterUsers(this.roaster_id).subscribe(
+      result => {
+        if (result['success'] == true) {
+          console.log(JSON.stringify(result['result'][0].id));
+          var userData = result['result'];
+          userData.forEach(element => {
+            var tempData = {};
+            tempData['id'] = element.id;
+            tempData['name'] = element.firstname + " " + element.lastname;
+              if(element.id == this.cookieService.get('user_id')){
+            	this.userService.userLastlogin().subscribe(
+            	  loginResponse => {
+                  console.log(loginResponse);
+							let sample = loginResponse['result'];
+							let latest_date = sample.map(function (e) { return e.logged_in_at; }).sort().reverse()[0];
+							this.loginValue = new DatePipe('en-Us').transform(latest_date, 'dd/MM/yyyy h:mma', 'GMT+5:30');
+							tempData["lastLogin"] = this.loginValue;
+            	  }
+            	);
+              } else {
+            	tempData['lastLogin'] = "";
+              }
+            tempData['email'] = element.email;
+            tempData['status'] = element.status;
+            this.roasterService.getUserBasedRoles(this.roaster_id, tempData['id']).subscribe(
+              roleResponse => {
+                console.log(roleResponse);
+                if (roleResponse['success'] == true) {
+                  tempData['roles'] = roleResponse['result'];
+                } else {
+                  tempData['roles'] = "";
+                }
+              }
+            );
+            tempData['roles'] = "";
+            console.log(tempData)
+            this.userfilterDat.push(tempData)
+          });
+        //   this.userActive++;          
+        }
+        else {
+          this.toastrService.error("Unable to fetch users data");
+        }
+
+        //   this.roasterService.getUserBasedRoles(this.roaster_id,result['result'][0].id).subscribe(
+        //     data =>{
+        //      this.user_role = data['result'][0].name;
+        //       console.log("user role ");
+        //       console.log(JSON.stringify(data));
+        //     }
+        //   )
+        //   this.userfilterDat = result['result'];
+        console.log("Users are :")
+        console.log(this.userfilterDat);
+      });
+  }
+
   language(){
     this.appLanguage = this.globals.languageJson;
     this.teamActive++;
@@ -142,13 +235,13 @@ export class TeamMembersComponent implements OnInit {
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
+    this.userfilterDat.forEach(x => x.state = ev.target.checked)
   }
 
   // Function Name : IsAllchecked
   // Description: This function helps to check single role.
   isAllChecked() {
-    return this.mainData.every(_ => _.state);
+    return this.userfilterDat.every(_ => _.state);
   } 
 
   inviteNewMembers() {
@@ -160,5 +253,30 @@ export class TeamMembersComponent implements OnInit {
       }
     }
     this.router.navigate(['/people/invite-member'], navigationExtras);
+  }
+
+   // Function Name : Delete user
+  // Description: This function helps to delete the selected user.
+
+  deleteRoasterUser(userID: any) {
+    // if (confirm("Please confirm! you want to delete?") == true) {
+
+      this.roasterService.deleteRoasterUser(this.roaster_id, userID).subscribe(
+        response => {
+          console.log(response);
+          if (response['success'] == true) {
+			this.toastrService.success("User Deleted successfully!");
+			this.userfilterDat=[];
+            this.getRoasterUsers();
+            // window.location.reload();
+          }
+          else {
+            this.toastrService.error("Unable to delete the user.");
+
+          }
+          // this.userActive++;
+        }
+      )
+    // }
   }
 }

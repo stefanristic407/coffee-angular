@@ -400,6 +400,7 @@
     color: #232334;
 }
 ngx-charts-line-chart{overflow:auto}
+agm-map {height: 150px;width: 100%;}
 @media (max-width:991px) {
     /*Detail Page*/
     .des-content article {

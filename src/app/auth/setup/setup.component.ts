@@ -83,6 +83,10 @@ export class SetupComponent implements OnInit {
   file_id: any;
   appLanguage?: any;
   tokenData: string;
+  company_id: any;
+  companyIdError: string;
+  vatError: string;
+  vat: string;
 
   constructor(
     public profileImageService: ProfileImageService,
@@ -118,7 +122,8 @@ export class SetupComponent implements OnInit {
     this.shortDescrError = "";
     this.facebookError = "";
     this.instagramError = "";
-
+    this.vatError = "";
+    this.companyIdError = "";
   
   
   }
@@ -708,7 +713,7 @@ export class SetupComponent implements OnInit {
     console.log(this.numb)
     console.log("The final value of phone no: ", this.numb);
     if( this.roaster_name == "" && this.roaster_email == "" && this.roaster_phone == "" && this.country == "" 
-      && this.address1 == "" && this.city == "" && this.founded_year == "" && this.short_descr == ""){
+      && this.address1 == "" && this.city == "" && this.founded_year == "" && this.short_descr == "" && this.vat == "" && this.company_id == ""){
         $(".myAlert-top").show();
         this.roasterNameError  = "Please fill the mandatory details";
         this.roasterEmailError = "Please fill the mandatory details";
@@ -718,6 +723,8 @@ export class SetupComponent implements OnInit {
         this.address1Error = "Please fill the mandatory details";
         this.foundedYearError = "Please fill the mandatory details";
         this.shortDescrError = "Please fill the mandatory details";
+        this.vatError = "Please fill the mandatory details";
+        this.companyIdError = "Please fill the mandatory details";
         document.getElementById("roaster_name").style.border =
           "1px solid #D50000";
           document.getElementById("roaster_email").style.border =
@@ -734,6 +741,10 @@ export class SetupComponent implements OnInit {
           "1px solid #D50000";
           document.getElementById("short_descr").style.border =
           "1px solid #D50000";
+          document.getElementById("vat").style.border =
+          "1px solid #D50000";
+          document.getElementById("company_id").style.border =
+          "1px solid #D50000";
         setTimeout(() => {
           this.roasterNameError = "";
           this.roasterEmailError = "";
@@ -743,6 +754,8 @@ export class SetupComponent implements OnInit {
           this.cityError = "";
           this.foundedYearError = "";
           this.shortDescrError = "";
+          this.companyIdError = "";
+          this.vatError = "";
         }, 3000);
     }
     else if (
@@ -898,22 +911,22 @@ export class SetupComponent implements OnInit {
         this.shortDescrError = "";
       }, 3000);
     }
-    // else if(this.facebook_url == "" || this.facebook_url == null || this.facebook_url == undefined){
-    //   $(".myAlert-top").show();
-    //   this.facebookError="Facebook url is required ";
-    //   document.getElementById('facebook_url').style.border="1px solid #FD4545";
-    //   setTimeout(() => {
-    //     this.facebookError="";
-    //   },3000);
-    // }
-    // else if(this.instagram_url == "" || this.instagram_url == null || this.instagram_url == undefined){
-    //   $(".myAlert-top").show();
-    //   this.instagramError="Instagram url is required ";
-    //   document.getElementById('instagram_url').style.border="1px solid #FD4545";
-    //   setTimeout(() => {
-    //     this.instagramError="";
-    //   },3000);
-    // }
+    else if(this.vat == "" || this.vat == null || this.vat == undefined){
+      $(".myAlert-top").show();
+      this.vatError="Vat number is required";
+      document.getElementById('vat').style.border="1px solid #FD4545";
+      setTimeout(() => {
+        this.vatError="";
+      },3000);
+    }
+    else if(this.company_id == "" || this.company_id == null || this.company_id == undefined){
+      $(".myAlert-top").show();
+      this.companyIdError="Company Id  is required ";
+      document.getElementById('company_id').style.border="1px solid #FD4545";
+      setTimeout(() => {
+        this.companyIdError="";
+      },3000);
+    }
     else {
       $(".myAlert-top").hide();
       this.secondButtonValue = "Loading";
@@ -930,6 +943,9 @@ export class SetupComponent implements OnInit {
         founded_on: parseInt(this.founded_year),
         website: this.website,
         description: this.short_descr,
+        vat_number : this.vat,
+        registration_id : this.company_id,
+        is_company_details_public : true,
         fb_profile: "facebook.com/" + this.facebook_url,
         ig_profile: "instagram.com/" + this.instagram_url,
         admin_id: parseInt(this.cookieService.get("setupUserId")),

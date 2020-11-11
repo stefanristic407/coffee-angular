@@ -21,21 +21,25 @@
                 </tr>
             </thead>
             <tbody class="customtable">
-                <tr class="ticket-boby-txt" *ngFor="let item of lots">
-                    <td>{{ item.lotname }}</td>
-                    <td>{{ item.lotsize }}</td>
-                    <td>{{ item.score }}</td>
-                    <td>{{item.altitude}}</td>
+                <tr class="ticket-boby-txt" *ngFor="let item of sourcing.lots">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.total_area }}acres</td>
+                    <td>{{ item.avg_cup_score }}</td>
+                    <td>{{item.min_altitude}} - {{item.max_altitude}}m</td>
                     <td>{{ item.variety }} </td>
                     <td>{{item.species}}</td>
 
                     <td>
                         <div class="flavor-coffee mb-2">
-                            <span>Honey</span><span>Dark Chocolate</span><span>Spices</span>
+                            <p *ngFor="let flavour of item.flavours"> 
+                                <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                            </p>
+                           
+                            <!-- <span>Dark Chocolate</span><span>Spices</span> -->
                         </div>
-                        <div class="flavor-coffee">
+                        <!-- <div class="flavor-coffee">
                             <span>Red Fruit</span><span>Black tea</span>
-                        </div>
+                        </div> -->
                     </td>
                     <td class="view-lot">{{appLanguage?.view_lot}}</td>
                 </tr>
@@ -54,26 +58,26 @@
 </div>
 <div class="row">
 <div class="col-lg-12 m-padding-8">
-    <div class=" d-block d-md-none" *ngFor="let lot of lots">
+    <div class=" d-block d-md-none" *ngFor="let lot of sourcing.lots">
         <div class="mdevics">
-    <h6 class="d-block d-md-none tit-cont">{{lot.lotname}}</h6>
+    <h6 class="d-block d-md-none tit-cont">{{lot.name}}</h6>
     <div class="row mt-4 mt-md-0">
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div class="real-estate">
                 <h6>{{appLanguage?.lot_size}}</h6>
-                <h3>{{ lot.lotsize }}</h3>
+                <h3>{{ lot.total_area }}</h3>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div class="real-estate">
                 <h6>{{appLanguage?.av_score}}</h6>
-                <h3>{{ lot.score }}</h3>
+                <h3>{{ lot.avg_cup_score }}</h3>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div class="real-estate">
                 <h6>{{appLanguage?.altitude}}</h6>
-                <h3>{{lot.altitude}}</h3>
+                <h3>{{lot.min_altitude}} - {{lot.max_altitude}}m</h3>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
@@ -92,9 +96,12 @@
             <div class="real-estate">
                 <h6>{{appLanguage?.flavour}}</h6>
         <ul class="sugar-prod">
-            <li>Honey</li>
+            <li *ngFor="let flavour of lot.flavours"> 
+                <span class="mb-2">{{getFlavourName(flavour)}}</span>
+            </li>
+            <!-- <li>Honey</li>
             <li>Dark chocalte</li>
-            <li>Spices</li>
+            <li>Spices</li> -->
         </ul>
         </div>
         </div>

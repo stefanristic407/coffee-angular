@@ -218,9 +218,9 @@ export class LoginComponent implements OnInit {
 			
 			this.userService.getUserPermissions(data['result'].roaster_ids[0]).subscribe(
 				result => {
-					// alert(1);
 					if(result['success'] == true){
-						this.permissionList=result['result'];
+            this.permissionList=result['result'];
+            console.log(this.permissionList);
 						// var slugData = result['result'];
 						// slugData.forEach(element => {
 						//   var tempList = {};
@@ -237,7 +237,7 @@ export class LoginComponent implements OnInit {
 						// this.cookieService.set('permissionAccess',this.accessData);
 					// });
 					this.cookieService.set('permissionSlug',JSON.stringify(this.permissionList));
-
+            		console.log(JSON.stringify(this.permissionList));
 				}
 				
 			});
@@ -248,7 +248,16 @@ export class LoginComponent implements OnInit {
                 if (result['success'] == true) {
                   this.loginButtonValue = "Logging in";
                   this.cookieService.set('name', result['result'].name);
+                  
                   if (result['result'].status == "ACTIVE") {
+                    
+                  this.userService.getRoasterUserData(data['result'].roaster_ids[0], data['result'].user_id).subscribe( res => {
+                    if(res['success'] == false){
+                      this.loginButtonValue = "Login";
+                      this.myAlertPermission();
+                    }else{
+
+                  
                     this.userService.getPrivacyTerms().subscribe(
                       response => {
                         if(response['result'].access_account == false){ 
@@ -258,7 +267,7 @@ export class LoginComponent implements OnInit {
                             "data": encodeURIComponent(this.value),
                           }
                         }
-                        this.router.navigate(['/features/privacy-settings'], navigationExtras);
+                        this.router.navigate(['/auth/privacy-policy'], navigationExtras);
 						this.loginButtonValue = "Login";
 						
                         }
@@ -268,6 +277,8 @@ export class LoginComponent implements OnInit {
                           this.loginButtonValue = "Login";
                         }
                       });
+                    }
+                  });
                   } else if (result['result'].status == "INACTIVE") {
                     this.myAlertStatus();
                     // this.toastrService.error("Your Account has been disabled , Contact your Admin")

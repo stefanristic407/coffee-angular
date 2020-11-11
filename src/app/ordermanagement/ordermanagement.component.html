@@ -63,7 +63,7 @@
                                         <ng-template #popTemplate>
                                             <div id="popover-mobile-content">
                                                 <ul class="list-group">
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/roastery-profile" (click)="pop2.hide()">{{appLanguage?.roastery_profile}}</a></li>
+                                                    <li class="list-group-item" *ngIf="this.globals.checkItem('settings-management')"><a class="cursor-dots" routerLink="/features/roastery-profile" (click)="pop2.hide()">{{appLanguage?.roastery_profile}}</a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" routerLink="/features/myprofile" (click)="pop2.hide()">{{appLanguage?.my_profile}}  </a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings" (click)="pop2.hide()">{{appLanguage?.account_settings}}</a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">{{appLanguage?.logout}} </a></li>
@@ -108,15 +108,13 @@
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage?.order_management}}
                             </a>
                                     <ul class="nav-dropdown fnt-600">
-                                        <li>
+                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list')">
                                             <a class="router-link" routerLink="../ordermanagement/estate-orders">{{appLanguage?.estate_orders}}</a>
                                         </li>
-                                        <li>
-                                            <<<<<<< HEAD <a class="router-link" routerLink="../ordermanagement/mr-orders">{{appLanguage.microroaster_orders}}</a>
-                                                =======
-                                                <a class="router-link" routerLink="../ordermanagement/microroaster-orders">{{appLanguage?.microroaster_orders}}</a> >>>>>>> 59901c57aa8f2f22eff58c6c7687872d6f34eb60
+                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list')">  
+                                            <a class="router-link" routerLink="../ordermanagement/microroaster-orders">{{appLanguage?.microroaster_orders}}</a>
                                         </li>
-                                        <li>
+                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list')">
                                             <a class="router-link">{{appLanguage?.horeca_orders}}</a>
                                         </li>
                                     </ul>
@@ -134,7 +132,7 @@
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage?.farm_link}}
                             </a>
                                     <ul class="nav-dropdown fnt-600">
-                                        <li>
+                                        <li *ngIf="this.globals.checkItem('brand-profile-management')">
                                             <a class="router-link" routerLink="../features/brand-profile">{{appLanguage?.brand_profile}}</a>
                                         </li>
                                         <li *ngIf="this.globals.checkItem('coffee-management','coffee-list')">
@@ -166,7 +164,7 @@
                                         <li *ngIf="this.globals.checkItem('acl-management','acl-list')">
                                             <a class="router-link" routerLink="../people/manage-role">{{appLanguage?.manage_roles}}</a>
                                         </li>
-                                        <li *ngIf="this.globals.checkItem('user-management')">
+                                        <li *ngIf="this.globals.checkItem('user-management','user-reports')">
                                             <a class="router-link" routerLink="../people/user-management">{{appLanguage?.user_management}}</a>
                                         </li>
                                         <li>

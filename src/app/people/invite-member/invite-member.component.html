@@ -4,38 +4,38 @@
         <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
     </div>
 </div>
-<div  *ngIf="inviteActive == 2">
-<nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-    <span id="title-breadcrumb-1" class="sr-only"></span>
-    <ul class="bread-nav">
-        <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
-        </li>
-        <li class="b-cum">
-            <a class="b-cum">{{appLanguage?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
-        </li>
+<div *ngIf="inviteActive == 2">
+    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+        <span id="title-breadcrumb-1" class="sr-only"></span>
+        <ul class="bread-nav">
+            <li class="b-cum">
+                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            </li>
+            <li class="b-cum">
+                <a class="b-cum">{{appLanguage?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            </li>
 
-        <li class="b-cum c-pink">{{appLanguage?.manage_roles}}
-        </li>
-        <div class="pull-right">
-            <button type="submit" class="btn btn-succes cancel_member" routerLink="/people/team-members">{{appLanguage?.cancel}}</button>
-        </div>
-    </ul>
-</nav>
-<section class="team__total d-md-block d-none">
-    <div class="row">
-        <div class="col-12">
-            <div class="add-team">{{appLanguage?.new_members_to}}
-                <span class="d-inline select_title" (click)="op.toggle($event)">
+            <li class="b-cum c-pink">{{appLanguage?.manage_roles}}
+            </li>
+            <div class="pull-right">
+                <button type="submit" class="btn btn-succes cancel_member" routerLink="/people/manage-role">{{appLanguage?.cancel}}</button>
+            </div>
+        </ul>
+    </nav>
+    <section class="team__total d-md-block d-none">
+        <div class="row">
+            <div class="col-12">
+                <div class="add-team">{{appLanguage?.new_members_to}}
+                    <span class="d-inline select_title" (click)="op.toggle($event)">
                         {{this.teamRole}} 
                 <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
-            </div>   
-        </div>   
-    </div>
-    <div class="row">
-        <div class="col-lg-12 mt-4 mt-md-0 source-cont">
-            <form class="form-container">
-                <div class="row">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 mt-4 mt-md-0 source-cont">
+                <form class="form-container">
+                    <!-- <div class="row">
                     <div class="form-group col-md-4 mt-md-1">
                         <label for="add_member_name">{{appLanguage?.name}}<span class="star">*</span></label>
                         <input class="form-control rectangle_username" id="add_member_name" placeholder="Enter your Full Name"  [(ngModel)]="add_member_name" name="add_member_name" type="text" />
@@ -58,19 +58,64 @@
                     <div class="col-12">
                         <button type="submit" class="btn send-invites mt-5 mb-5" (click)="sendInvites()">{{appLanguage.send_invites}}</button>
                     </div>
-                </div>
-            </form>     
-        </div>
-    </div>
-</section> 
+                </div> -->
 
-<p-overlayPanel #op [dismissable]="true" appendTo="body">
-    <div class="overflow-popover">
-        <ul class="custom-popover">
-            <li class="content_list" *ngFor="let role of roles" (click)="setTeamRole(role.name,role.id);op.hide();">{{role.name}}</li>
-        </ul>
-        <button class="btn addrole_button" routerLink="/people/create-role">{{appLanguage?.add_role}}
+                    <div class="row pt-2">
+                        <div class="col-md-10 col-lg-8 Onboard-memberinvite">
+                            <div class="Onboard-memberinvite__inputs" *ngFor="let add of addUser;let i = index">
+                                <div class="row">
+
+                                    <div class="col-12 col-md-6 Onboard-input">
+                                        <label for="add_member_name">{{appLanguage?.name}}<span class="star">*</span></label>
+                                        <input class="form-control rectangle_username"  placeholder="Enter your Full Name" [(ngModel)]="add.firstname" [ngModelOptions]="{standalone: true}"  type="text" />
+                                        <div class="nameError" *ngIf="nameError != ''">
+                                            {{ nameError }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 Onboard-input">
+                                        <label for="add_member_email">{{appLanguage?.enter_yoru_work_email}}<span class="star">*</span></label>
+                                        <input class="form-control rectangle_useremail" type="email"  placeholder="you@example.com" [(ngModel)]="add.email" [ngModelOptions]="{standalone: true}"/>
+                                        <div class="emailError" *ngIf="emailError != ''">
+                                            {{ emailError }}
+                                        </div>
+                                        <span class="member-delete-rows fnt-muli fnt-700 txt-clr60b" *ngIf="i != 0" (click)="deleteRow(i)">
+                                            Delete row
+                                         </span>
+                                    </div>
+                                    <!-- <div class="col-12 col-md-3 Onboard-input">
+                                    <span class="member-delete-rows fnt-muli fnt-700 txt-clr60b" *ngIf="i != 0" (click)="deleteRow(i)">
+                                        		Delete row
+                                             </span>
+                                            </div> -->
+                                </div>
+
+                            </div>
+                            <div class="add-partner d-inline-flex align-items-center">
+                                <img src="assets/images/add-partner.svg">
+                                <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer "  (click)="addNewRow()"> {{appLanguage?.add_another_member}} </span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn send-invites mt-5 mb-5" (click)="sendInvites()">{{appLanguage.send_invites}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <p-overlayPanel #op [dismissable]="true" appendTo="body">
+        <div class="overflow-popover">
+            <ul class="custom-popover">
+                <li class="content_list" *ngFor="let role of roles" (click)="setTeamRole(role.name,role.id);op.hide();">{{role.name}}</li>
+            </ul>
+            <button class="btn addrole_button" routerLink="/people/create-role">{{appLanguage?.add_role}}
         </button>
-    </div>
-</p-overlayPanel>
+        </div>
+    </p-overlayPanel>
 </div>

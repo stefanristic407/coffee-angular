@@ -1,12 +1,13 @@
 import { Component, OnInit, TemplateRef , Renderer2 } from '@angular/core';
 import { SourcingService } from '../sourcing.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { Router } from "@angular/router";
+import { Router, NavigationExtras } from "@angular/router";
 import {GlobalsService} from 'src/services/globals.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { throttleTime } from 'rxjs/operators';
+import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 
 @Component({
   selector: 'app-sourcing',
@@ -50,13 +51,17 @@ export class SourcingComponent implements OnInit {
   activeTab = this.sourcingService.currentView;
   roasterId: any;
   estateData: any;
+  countryValue: any;
+  monthName: any;
+  listData: any;
 
   constructor(public sourcingService:SourcingService,
     private modalService: BsModalService,private router: Router,
     private globals: GlobalsService,private renderer: Renderer2,
     private userService : UserserviceService,
     private cookieService : CookieService,
-    private toastrService : ToastrService) {
+    private toastrService : ToastrService,
+    public profile:RoasteryProfileService) {
       // this.renderer.listen('window', 'click',(e:Event)=>{ 
       //   if()
       //   this.modalRef.hide()
@@ -392,6 +397,18 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   }
 
   
+  // redirectToLots(){
+    
+  //   this.listData = data.estate_id;
+  //   console.log(this.listData);
+  //   let navigationExtras: NavigationExtras = {
+  //     queryParams: {
+  //       "listData": this.listData,
+  //     }
+  //   }
+  //   this.router.navigate(["/features/estate-details"], navigationExtras);
+  //   this.sourcingService.activeLandlots = "land-lots"; //making lots tab active
+  // }
 
   search(activeTab){
     this.activeTab = activeTab;
@@ -466,13 +483,73 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		
 		}
   }
-  estateList(){
-    this.router.navigate(["/features/estate-details"]);
+  estateList(data : any){
+    this.listData = data.estate_id;
+    console.log(this.listData);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "listData": this.listData,
+      }
+    }
+    this.router.navigate(["/features/estate-details"], navigationExtras);
     this.sourcingService.currentView = "search" ;
   }
   availableCoffeeList(){
     this.router.navigate(["/features/available-coffee-list"]);
     this.sourcingService.currentView = "result" ;
 
+  }
+  GetMonthName(month:number){
+    switch(month){
+      case 1:
+        this.monthName = "Jan";
+        break;
+    
+    case 2:
+        this.monthName = "Feb";
+        break;
+    
+    case 3:
+        this.monthName = "Mar";
+        break;
+    
+    case 4:
+        this.monthName = "Apr";
+        break;
+    case 5:
+        this.monthName = "May";
+        break;
+    case 6:
+        this.monthName = "Jun";
+        break;
+    case 7:
+        this.monthName = "Jul";
+        break;
+    case 8:
+        this.monthName = "Aug";
+        break;
+    case 9:
+        this.monthName = "Sept";
+        break;
+    case 10:
+        this.monthName = "Oct";
+        break;
+    case 11:
+        this.monthName = "Nov";
+        break;
+    case 12:
+        this.monthName = "Dec";
+        break;
+    default:
+      this.monthName = '';
+      break;    
+    }
+    return this.monthName;
+  }
+  GetCountry(data:any){
+    // console.log(data.toUpperCase());
+    this.countryValue=this.profile.countryList.find(con =>con.isoCode == data.toUpperCase());
+    return this.countryValue.name;
+    // console.log(this.countryValue.name);
   }
 }

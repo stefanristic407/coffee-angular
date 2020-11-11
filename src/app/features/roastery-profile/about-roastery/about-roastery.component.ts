@@ -66,11 +66,10 @@ export class AboutRoasteryComponent implements OnInit {
               public userService : UserserviceService,
               private cookieService : CookieService,
               private toastrService : ToastrService,
-              private globals: GlobalsService) { 
+              public globals: GlobalsService) { 
                 this.roasterId = this.cookieService.get('roaster_id');
                 this.userId = this.cookieService.get('user_id');
               
-               console.log()
                 // Object.assign(this.single);
               }
 

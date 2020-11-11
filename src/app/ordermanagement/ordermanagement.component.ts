@@ -53,6 +53,7 @@ export class OrdermanagementComponent implements OnInit {
   languages: any;
   appLanguage?: any;
   orderActive:any=0;
+  slug_list: any;
 
 
   constructor(private elementRef: ElementRef,
@@ -62,7 +63,11 @@ export class OrdermanagementComponent implements OnInit {
     private _bottomSheet: MatBottomSheet,
     private toastrService: ToastrService,
     private translateService:TranslateService,
-    public globals:GlobalsService) { }
+    public globals:GlobalsService) { 
+      // this.globals.permissionMethod();
+      this.slug_list=JSON.parse(this.cookieService.get('permissionSlug'));
+
+    }
 
     ngOnInit(): void {
 
@@ -70,6 +75,8 @@ export class OrdermanagementComponent implements OnInit {
     this.user_id = this.cookieService.get('user_id');
     this.getUserValue();
       this.getRoasterProfile();
+      this.globals.permissionMethod();
+
 
    //Open side nav
    $('body').on('click', '.sidenav-hamberg', function(event) {
@@ -114,6 +121,7 @@ export class OrdermanagementComponent implements OnInit {
   // Description: This function helps to get the details of the logged in user and show the username in header
 
   getUserValue() {
+    this.globals.permissionMethod();
     this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
       response => {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];

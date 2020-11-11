@@ -20,48 +20,48 @@
         <div class="col-1 first_column">
         </div>
         <div class="col-10 middle_column">
-            <div class="mob-privacy policy-title fnt-play">Our Privacy Policy</div>
+            <div class="mob-privacy policy-title fnt-play">Our privacy policy</div>
 
             <div class="container">
                 <div class="row justify-content-center">
-                    <h3 class="policy-title fnt-play web-privacy">Our Privacy Policy</h3>
+                    <h3 class="policy-title fnt-play web-privacy">Our privacy policy</h3>
                     <div class="col-12 text-center privacy-text mt-3">We care about your privacy!</div>
                     <div class="col-12 text-center agree-text mt-1">By agreeing to the following, you are giving permission to SEWN for</div>
                 </div>
                 <div class="main_spacing">
                     <div class="col-xl-5 col-lg-6 col-md-7 col-sm-10 mx-auto">
                         <div class="custom-control custom-checkbox mb-1 top-spacing box_mobile">
-                            <input type="checkbox" class="custom-control-input" id="custom_check1" name="example1">
+                            <input type="checkbox" class="custom-control-input" id="custom_check1" name="example1" [(ngModel)]="access_details">
                             <label class="custom-control-label text_checkbox" for="custom_check1"><span class="remeber-left">Accessing my account and it’s details</span></label>
                         </div>
                         <div class="custom-control custom-checkbox mb-1 mt-4 box_mobile">
-                            <input type="checkbox" class="custom-control-input" id="custom_check2" name="example2">
+                            <input type="checkbox" class="custom-control-input" id="custom_check2" name="example2" [(ngModel)]="access_data">
                             <label class="custom-control-label text_checkbox" for="custom_check2"><span class="remeber-left">Collecting my data</span></label>
                         </div>
                         <div class="custom-control custom-checkbox mb-1 mt-4 box_mobile">
-                            <input type="checkbox" class="custom-control-input" id="custom_check3" name="example3">
+                            <input type="checkbox" class="custom-control-input" id="custom_check3" name="example3" [(ngModel)]="access_chat">
                             <label class="custom-control-label text_checkbox" for="custom_check3"><span class="remeber-left">Accessing my chat</span></label>
                         </div>
                         <div class="line_spacing mt-3"></div>
 
                         <div class="custom-control custom-checkbox mb-1 mt-4 box_mobile">
-                            <input type="checkbox" class="custom-control-input" id="custom_policy" name="example4">
+                            <input type="checkbox" class="custom-control-input" id="custom_policy" name="example4"  [(ngModel)]="agree_policy">
                             <label class="custom-control-label policy_checkbox" for="custom_policy"><span class="remeber-left">I have read and agree to the <span class="policy_color">Privacy Policy</span></span></label>
                         </div>
                         <div class="custom-control custom-checkbox mb-1 mt-4 box_mobile">
-                            <input type="checkbox" class="custom-control-input" id="custom_terms" name="example5">
+                            <input type="checkbox" class="custom-control-input" id="custom_terms" name="example5"  [(ngModel)]="agree_terms">
                             <label class="custom-control-label policy_checkbox" for="custom_terms"><span class="remeber-left">I have read and agree to the <span class="policy_color">Terms and Conditions</span></span></label>
                         </div>
                     </div>
                 </div>
                 <div class="text-center policy-spacing web-privacy">
-                    <button type="submit" class="col-3 col-sm-2 col-md-2 col-lg-1 next-button btn" routerLink="../login"><span class="next-text">Next</span>
+                    <button type="submit" class="col-3 col-sm-2 col-md-2 col-lg-1 next-button btn" (click)="next()"><span class="next-text">Next</span>
                   </button>
                 </div>
 
                 <div class="form-group row mt-4 policy-spacing mob-privacy">
                     <div class="text-center">
-                        <button type="button" routerLink="../login" class="btn btn-info login-butn">Next</button>
+                        <button type="button"  class="btn btn-info login-butn" (click)="next()">Next</button>
                     </div>
 
                 </div>

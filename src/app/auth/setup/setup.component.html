@@ -514,6 +514,38 @@
                     </div>
                     <div class="form-group row pt-2">
                       <div class="form-group col-md-5">
+                        <label class="role-name">VAT number<span class="star">*</span></label>
+                        <input
+                          type="text"
+                          class="form-control rectangle_name"
+                          placeholder="City"
+                          (keyup)="onKeyPress($event)"
+                          [(ngModel)]="vat"
+                          name="vat"
+                          id="vat"
+                          required=""
+                        />
+                        <div class="shortDescrError" *ngIf="vatError != ''">
+                          {{ vatError }}
+                        </div>
+                      </div>
+                      <div class="form-group col-md-5">
+                        <label class="role-name">Customer ID<span class="star">*</span></label>
+                        <input
+                          type="text"
+                          class="form-control rectangle_name"
+                          placeholder="Enter your unique company id"
+                          [(ngModel)]="company_id"
+                          name="company_id"
+                          id="company_id"
+                        />
+                        <div class="shortDescrError" *ngIf="companyIdError != ''">
+                          {{ companyIdError }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row pt-2">
+                      <div class="form-group col-md-5">
                         <label class="role-name">Facebook link (Add URL)</label>
                                 <input type="text" class="form-control rectangle_name" placeholder="Add facebook URL" [(ngModel)]="facebook_url" name="facebook_url" id="facebook_url" />
                                 <!-- <div class="facebookError" *ngIf="facebookError != ''">{{facebookError}}</div> -->

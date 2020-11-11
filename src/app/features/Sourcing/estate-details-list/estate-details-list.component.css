@@ -631,7 +631,7 @@ ul li {
     color: #80460b;
     text-decoration: underline;
 }
-
+agm-map {height: 150px;width: 100%;}
 @media (max-width:991px) {
     .des-content article {
         width: 100%;

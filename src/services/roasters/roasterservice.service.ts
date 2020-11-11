@@ -17,7 +17,8 @@ export class RoasterserviceService {
   private putUrl = environment.apiURL+"/ro/putapi";
   private fileuploadUrl = environment.apiURL+"/ro/filesfolders" ;
   private putfileuploadUrl = environment.apiURL+"/ro/putfilesfolders" ;
-  private encryptionKey: 'sewen_secrete_key';
+  private encryptionKey = 'sewen_secrete_key';
+
   // private url = "https://qa-fed-api.sewnstaging.com/ro/api";
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
   // private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";

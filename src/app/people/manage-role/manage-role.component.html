@@ -56,7 +56,7 @@
     </section>
 
     <div class="table-container desk_view_user">
-        <div class="table-responsive" *ngIf="this.globals.permissions['acl-list'].view || this.globals.permissions['acl-list'].manage">
+        <div class="table-responsive" *ngIf="globals.permissions['acl-list'] || globals.permissions['acl-management']">
             <table class="table">
                 <thead class="table-header">
                     <tr class="header-row">

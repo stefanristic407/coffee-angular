@@ -419,9 +419,9 @@
 
                     </div>
                 </div>
-
-                <div class=" col-lg-4">
-                    <div class="border-class mdevice-border">
+                <!-- (this.globals.permissions['certificate-list'].view || this.globals.permissions['certificate-list'].manage) -->
+                <div class=" col-lg-4"> 
+                    <div class="border-class mdevice-border" *ngIf="this.globals.permissions['certificate-list'] || this.globals.permissions['certificate-management']">
                         <div class="header m-1">{{appLanguage?.awards_and_certificates}}</div>
                         <div class="row mt-3 border-div certificate-hover" *ngFor="let certificate of certificatesArray">
                             <div class="p-0">
@@ -441,8 +441,8 @@
                                 <ng-template #listTemplate id="{{certificate.id}}">
                                     <div id="popover-mobile-content">
                                         <ul class="list-data custom-popover">
-                                            <li class="list-item"> <a class="pointer-item" (click)="editCertificate($event,certificate);pop1.hide();">{{appLanguage?.edit}} </a></li>
-                                            <li class="list-item"><a class="pointer-item" (click)="deleteCertificate(certificate.id);pop1.hide();">{{appLanguage?.delete}}</a></li>
+                                            <li class="list-item" *ngIf="this.globals.permissions['certificate-management'] && this.globals.permissions['certificate-management'].manage"> <a class="pointer-item" (click)="editCertificate($event,certificate);pop1.hide();">{{appLanguage?.edit}} </a></li>
+                                            <li class="list-item" *ngIf="this.globals.permissions['certificate-management'] && this.globals.permissions['certificate-management'].manage"><a class="pointer-item" (click)="deleteCertificate(certificate.id);pop1.hide();">{{appLanguage?.delete}}</a></li>
                                         </ul>
                                     </div>
                                 </ng-template>
@@ -463,7 +463,7 @@
                               <img class="message-icon" src="assets/images/more-opns-file.png" alt="Message">
                             </div>
                         </div> -->
-                        <div class="add-brand-div p-4">
+                        <div class="add-brand-div p-4" *ngIf="this.globals.permissions['certificate-management'] && this.globals.permissions['certificate-management'].manage">
                             <a class="brand-tag" routerLink="/features/license">
                                 <img class="add-field" src="assets/images/add-field.svg">
                                 <span class="add-text">{{appLanguage?.add_another_certificate}}</span>

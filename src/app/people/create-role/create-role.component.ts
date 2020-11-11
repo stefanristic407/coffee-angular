@@ -8,6 +8,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
 
 @Component({
   selector: 'app-create-role',
@@ -29,13 +30,19 @@ export class CreateRoleComponent implements OnInit {
   updateButtonValue: any;
   appLanguage?: any;
   createActive:any=0;
+	loggedRoles: any;
+	loggedUserId: string;
+	flagTrue: any;
+	displayModal: boolean;
 
   constructor(private router: Router,
     private roasterService: RoasterserviceService,
     private cookieService: CookieService,
     private activeRoute: ActivatedRoute,
     private toastrService: ToastrService,
-    private globals: GlobalsService) {
+	private globals: GlobalsService,
+	private userService: UserserviceService
+	) {
     this.roaster_id = this.cookieService.get('roaster_id');
     this.activeRoute.params.subscribe(params => {
       if (params.id != undefined) {
@@ -194,8 +201,30 @@ export class CreateRoleComponent implements OnInit {
               this.roasterService.assignRolePermissions(body, this.roleId, this.roaster_id).subscribe(
                 permissionResult => {
                   if (permissionResult['success'] == true) {
-                    this.toastrService.success("Permission Updated successfully for Edited role.");
-                    this.router.navigate(["/people/manage-role"]);
+					this.toastrService.success("Permission Updated successfully for Edited role.");
+					this.globals.permissionMethod();
+					// this.router.navigate(["/people/manage-role"]);
+					this.loggedUserId= this.cookieService.get('user_id');
+					this.roasterService.getUserBasedRoles(this.roaster_id, this.loggedUserId).subscribe(
+						result => {
+						  console.log(result);
+						  if (result['success'] == true) {
+							this.loggedRoles=result['result'];
+							if(this.loggedRoles){
+								const flagTrue = this.loggedRoles.some(role => role.id == this.roleId);
+								console.log(flagTrue);
+								if(flagTrue){
+									this.showModalDialog();
+								}
+								else{
+									this.router.navigate(["/people/manage-role"]);
+								}
+							}
+
+						  }
+						});
+						
+						
                   }
                 }
               );
@@ -206,15 +235,19 @@ export class CreateRoleComponent implements OnInit {
             this.updateButtonValue = "Update Role";
           }
         )
-
       }
-
-
     }
 
   }
 
-
+//   permissionMethod(){
+//   this.userService.getUserPermissions(this.roaster_id).subscribe(
+// 	result => {
+// 		if(result['success'] == true){
+// 			this.permissionList=result['result'];
+// 		}			
+// 	});
+// 	}
   // Function Name : Get Role Name
   // Description: This function helps to get name of the Selected role. 
 
@@ -228,5 +261,28 @@ export class CreateRoleComponent implements OnInit {
 		
       });
   }
+  showModalDialog() {
+    this.displayModal = true;
+}
 
+   // Function Name : Logout
+  //Description: This function helps to logout the user from the session.
+
+  userLogout() {
+    this.userService.logOut().subscribe(
+      res => {
+        if (res['success'] == true) {
+          this.cookieService.deleteAll();
+          this.router.navigate(['/login']);
+
+          console.log("Logout successfully !");
+          this.toastrService.success("Logout successfully !");
+        }
+        else {
+          console.log("Error while Logout!");
+          this.toastrService.error("Error while Logout!");
+        }
+      }
+    )
+  }
 }

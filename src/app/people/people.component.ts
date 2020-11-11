@@ -76,13 +76,18 @@ export class PeopleComponent implements OnInit {
       this.translateService.use(browserlang);
       localStorage.setItem("locale", "en");
     }
+    // this.globals.permissionMethod();
+    this.slug_list=JSON.parse(this.cookieService.get('permissionSlug'));
+
      }
     ngOnInit(): void {
 
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get("user_id");
     this.getUserValue();
-	this.getRoasterProfile();
+  this.getRoasterProfile();
+  this.globals.permissionMethod();
+
 	this.slug_list=JSON.parse(this.cookieService.get('permissionSlug'));
 	// var slugData = result['result'];
 						// slugData.forEach(element => {
@@ -149,6 +154,7 @@ export class PeopleComponent implements OnInit {
   // Description: This function helps to get the details of the logged in user and show the username in header
 
   getUserValue() {
+    this.globals.permissionMethod();
     this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
       response => {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];
@@ -164,6 +170,7 @@ export class PeopleComponent implements OnInit {
           }
         )
       }
+      
     );
   }
 

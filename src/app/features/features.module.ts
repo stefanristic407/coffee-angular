@@ -136,6 +136,7 @@ import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.component';
 import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
+import {AgmCoreModule} from '@agm/core';
 
 
 
@@ -277,6 +278,10 @@ import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU'
+      // libraries: ['places']
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalsService} from 'src/services/globals.service';
+import { SourcingService } from '../../sourcing.service';
 
 @Component({
   selector: 'app-overview',
@@ -166,15 +167,67 @@ overviewActive:any=0;
   
     // line, area
     autoScale = true;
+	monthName: string;
       
-  constructor(private globals: GlobalsService) { }
+  constructor(private globals: GlobalsService, public sourcing : SourcingService) { }
 
   ngOnInit(): void {
-    this.language();
+	this.language();
+	
+	window.scroll(0, 0);
+	this.sourcing.estateDetailList();
   }
   language(){
     this.appLanguage = this.globals.languageJson;
     this.overviewActive++;
 	}
+
+	GetMonthName(month:number){
+		switch(month){
+		  case 1:
+			this.monthName = "Jan";
+			break;
+		
+		case 2:
+			this.monthName = "Feb";
+			break;
+		
+		case 3:
+			this.monthName = "Mar";
+			break;
+		
+		case 4:
+			this.monthName = "Apr";
+			break;
+		case 5:
+			this.monthName = "May";
+			break;
+		case 6:
+			this.monthName = "Jun";
+			break;
+		case 7:
+			this.monthName = "Jul";
+			break;
+		case 8:
+			this.monthName = "Aug";
+			break;
+		case 9:
+			this.monthName = "Sept";
+			break;
+		case 10:
+			this.monthName = "Oct";
+			break;
+		case 11:
+			this.monthName = "Nov";
+			break;
+		case 12:
+			this.monthName = "Dec";
+			break;
+		default:
+		  this.monthName = '';
+		  break;    
+		}
+		return this.monthName;
+	  }
 
 }

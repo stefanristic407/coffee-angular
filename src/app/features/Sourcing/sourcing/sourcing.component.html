@@ -178,18 +178,20 @@
                                             <div class="d-md-block d-none">
                                                 <div class="cardpanel-detail ">
                                                     <div class="row">
-                                                        <div class="col-lg-4 col-md-6" *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
+                                                        <div class="col-lg-4 col-md-6" *ngFor="let sample of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch">
                                                             <div class="source-card card-border">
-                                                                <div class="s-gal">
-                                                                    <img [src]="sample.image" alt="">
+                                                                <div class="s-gal" (click)="estateList(sample)">
+                                                                    <img *ngIf="sample.company_image_thumbnail_url!=''" [src]="sample.company_image_thumbnail_url" alt="">
+                                                                    <img *ngIf="sample.company_image_thumbnail_url==''" src="assets/images/dummy-profile.png" alt="">
                                                                 </div>
-                                                                <div class="s-details">
+                                                                <div class="s-details" (click)="estateList(sample)">
                                                                     <div class="flex m-flex">
                                                                         <div class=" s-tit">
-                                                                            <h3>{{sample.estatename}}</h3>
+                                                                            <h3>{{sample.name}}</h3>
                                                                             <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6>
+                                                                            <!-- <h6  *ngIf="sample.rating== 0"><span class="fa fa-star checked"></span>{{sam}} </h6> -->
                                                                         </div>
-                                                                        <div class="s-cert">
+                                                                        <div class="s-cert" (click)="estateList(sample)">
                                                                             <ul class="flex">
                                                                                 <li><img src="/assets/images/group-certificate.png"></li>
                                                                                 <li><img src="/assets/images/group-utz.png"></li>
@@ -198,30 +200,41 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="source-lets flex">
-                                                                        <div class="orgin-att">
-                                                                            <label>{{appLanguage?.origin}}</label>
-                                                                            <h6>{{sample.origin}}</h6>
+                                                                        <div class="orgin-att" (click)="estateList(sample)">
+                                                                            <label>{{appLanguage.origin}}</label>
+                                                                            <!-- <h6>NA</h6> -->
+                                                                            <h6 *ngIf="sample['country'] !=''">{{GetCountry(sample['country'])}}</h6>
                                                                         </div>
-                                                                        <div class="orgin-att">
-                                                                            <label>{{appLanguage?.altitude}}</label>
-                                                                            <h6>{{sample.range}}</h6>
+                                                                        <div class="orgin-att" (click)="estateList(sample)">
+                                                                            <label>{{appLanguage.altitude}}</label>
+                                                                            <h6 *ngIf="sample['altitude']['lte'] == 0 && sample['altitude']['lte'] == 0">NA</h6>
+                                                                            <h6 *ngIf="sample['altitude']['lte'] != 0 && sample['altitude']['lte'] != 0">{{sample['altitude']['gte']}}-{{sample['altitude']['lte']}}m</h6>
                                                                         </div>
-                                                                        <div class="orgin-att">
-                                                                            <label>{{appLanguage?.crop_year}}</label>
-                                                                            <h6>{{sample.cropyear}}</h6>
+                                                                        <div class="orgin-att" (click)="estateList(sample)">
+                                                                            <label>{{appLanguage.crop_year}}</label>
+                                                                            <!-- <h6>{{sample.crop_year_start | date: "MMM"}}-{{sample.crop_year_end | date: 'MMM'}}</h6> -->
+                                                                            <h6 *ngIf="sample['crop_year']['gte'] != 0 && sample['crop_year']['lte'] != 0">{{GetMonthName(sample['crop_year']['gte'])}} - {{GetMonthName(sample['crop_year']['lte'])}}</h6>
+                                                                            <h6 *ngIf="sample['crop_year']['gte'] == 0 && sample['crop_year']['lte'] == 0">NA</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="top-lots">
-                                                                        <label>{{appLanguage?.top_lots}}</label>
-                                                                        <a>Dilema</a>
-                                                                        <a>Shaya</a>
-                                                                        <a>Gayni</a>
-                                                                        <a>+5more</a>
+                                                                        <label (click)="estateList(sample)">{{appLanguage.top_lots}}</label>
+                                                                        <span *ngIf="sample.lots== null" (click)="estateList(sample)">
+                                                                                <a>NA</a>
+                                                                            </span>
+                                                                        <span *ngIf="sample.lots!= null" >
+                                                                                <a *ngFor="let lotdata of sample.lots" >
+                                                                                    {{lotdata.name}}
+                                                                                </a>
+                                                                            </span>
+        
+                                                                        <!-- <a>Dilema</a>
+                                                                            <a>Shaya</a>
+                                                                            <a>Gayni</a>
+                                                                            <a>+5more</a> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-
                                                         </div>
                                                     </div>
 
@@ -233,16 +246,20 @@
                                                 <div class="pagination-content d-block">
                                                     <div class="cardpanel-detail mb-5">
                                                         <div class="row pagination-content-list">
-                                                            <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let sample of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
+                                                            <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let sample of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList(sample)">
                                                                 <div class="source-card card-border">
                                                                     <div class="s-gal">
-                                                                        <img [src]="sample.image" alt="">
+                                                                        <!-- <img [src]="sample.image" alt=""> -->
+                                                                        <img *ngIf="sample.company_image_url!=''" [src]="sample.company_image_url" alt="">
+                                                                        <img *ngIf="sample.company_image_url==''" src="assets/images/dummy-profile.png" alt="">
                                                                     </div>
                                                                     <div class="s-details">
                                                                         <div class="flex m-flex">
                                                                             <div class=" s-tit">
-                                                                                <h3>{{sample.estatename}}</h3>
-                                                                                <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6>
+                                                                                <h3>{{sample.name}}</h3>
+                                                                                <!-- <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6> -->
+                                                                                <!-- <h6 *ngIf="sample.rating!=''"><span class="fa fa-star checked"></span> {{ sample.rating }}</h6> -->
+                                                                                <h6><span class="fa fa-star checked"></span> NA</h6>
                                                                             </div>
                                                                             <div class="s-cert">
                                                                                 <ul class="flex">
@@ -254,20 +271,23 @@
                                                                         </div>
                                                                         <div class="source-lets flex">
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage?.origin}}</label>
-                                                                                <h6>{{sample.origin}}</h6>
+                                                                                <label>{{appLanguage.origin}}</label>
+                                                                                <h6>NA</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage?.altitude}}</label>
-                                                                                <h6>{{sample.range}}</h6>
+                                                                                <label>{{appLanguage.altitude}}</label>
+                                                                                <!-- <h6>{{sample.range}}</h6> -->
+                                                                                <h6 *ngIf="sample.altitude_start == 0 && sample.altitude_end == 0">NA</h6>
+                                                                                <h6 *ngIf="sample.altitude_start != 0 && sample.altitude_end != 0">{{sample.altitude_start}}-{{sample.altitude_end}}m</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage?.crop_year}}</label>
-                                                                                <h6>{{sample.cropyear}}</h6>
+                                                                                <label>{{appLanguage.crop_year}}</label>
+                                                                                <h6 *ngIf="sample.crop_year_start != '' && sample.crop_year_end != ''">{{GetMonthName(sample.crop_year_start)}} - {{GetMonthName(sample.crop_year_end)}}</h6>
+                                                                                <h6 *ngIf="sample.crop_year_start == '' && sample.crop_year_end == ''">NA</h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="top-lots">
-                                                                            <label>{{appLanguage?.top_lots}}</label>
+                                                                            <label>{{appLanguage.top_lots}}</label>
                                                                             <a>Dilema</a>
                                                                             <a>Shaya</a>
                                                                             <a>Gayni</a>
@@ -275,8 +295,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-
                                                             </div>
                                                         </div>
                                                         <div class="responsive-pagination clearfix">
@@ -314,25 +332,37 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="customtable">
-                                                                <tr class="ticket-boby-txt cursor-item" *ngFor="let estate of data | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList()">
+                                                                <tr class="ticket-boby-txt cursor-item" *ngFor="let estate of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList(estate)">
 
-                                                                    <td>{{ estate.estatename }}</td>
-                                                                    <td><span class="fa fa-star checked pr-2"></span>{{ estate.rating }}</td>
+                                                                    <td>{{ estate.name }}</td>
                                                                     <td>
-                                                                        {{ estate.origin }}
+                                                                        <!-- <span class="fa fa-star checked pr-2" *ngIf="sample.rating!=''">{{ estate.rating }}</span> -->
+                                                                        <span class="fa fa-star checked pr-2"></span>{{estate.rating}}
                                                                     </td>
-                                                                    <td>{{estate.range}}</td>
-                                                                    <td>{{ estate.cropyear }} </td>
+        
+                                                                    <td>
+                                                                        <!-- {{ estate.origin }} -->NA
+                                                                    </td>
+                                                                    <td>
+                                                                        <span *ngIf="estate['altitude']['lte'] == 0 && estate['altitude']['lte'] == 0">NA</span>
+                                                                        <span *ngIf="estate['altitude']['lte'] != 0 && estate['altitude']['lte'] != 0">{{estate['altitude']['gte']}}-{{estate['altitude']['lte']}}m</span>
+                                                                        <!-- {{estate.range}} -->
+                                                                    </td>
+                                                                    <td>
+                                                                        <span *ngIf="estate['crop_year']['gte'] == 0 && estate['crop_year']['lte'] == 0">NA</span>
+                                                                        <span *ngIf="estate['crop_year']['gte'] != 0 && estate['crop_year']['lte'] != 0">{{GetMonthName(estate['crop_year']['gte'])}}-{{GetMonthName(estate['crop_year']['lte'])}}</span>
+                                                                        <!-- {{ estate.cropyear }}  -->
+                                                                    </td>
                                                                     <td>
                                                                         <div><a class="lot-class pr-3">Dilema</a><a class="lot-class">Shaya</a></div>
                                                                         <div><a class="lot-class pr-3">Gayni</a><a class="lot-class">+5more</a></div>
                                                                     </td>
                                                                     <td>
-                                                                        <span *ngIf="estate.certificates==3">
-                                                                    <img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"><img src="/assets/images/group-certified.png">
-                                                                </span>
-                                                                        <span *ngIf="estate.certificates==2"><img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"></span>
-                                                                        <span *ngIf="estate.certificates==1"><img class="pr-2" src="/assets/images/group-utz.png"></span>
+                                                                        <span>
+                                                                            <img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"><img src="/assets/images/group-certified.png">
+                                                                        </span>
+                                                                        <!-- <span *ngIf="estate.certificates==2"><img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"></span>
+                                                                    <span *ngIf="estate.certificates==1"><img class="pr-2" src="/assets/images/group-utz.png"></span> -->
                                                                     </td>
                                                                 </tr>
                                                             </tbody>

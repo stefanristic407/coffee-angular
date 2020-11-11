@@ -16,7 +16,7 @@ export class BrandProfileComponent implements OnInit {
   appLanguage?: any;
 	brandProfileActive:any=0;
   constructor(
-		private globals: GlobalsService) { }
+		public globals: GlobalsService) { }
 
 ngOnInit(): void {
     this.language();
