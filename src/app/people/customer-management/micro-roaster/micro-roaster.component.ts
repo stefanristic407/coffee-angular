@@ -24,7 +24,7 @@ export class MicroRoasterComponent implements OnInit {
   odd: boolean = false ;
   appLanguage?: any;
   microActive:any=0;
-  microRoasterWeb = 'https://qa-micro-roaster.sewnstaging.com';
+  microRoasterWeb : string = 'https://qa-micro-roaster.sewnstaging.com';
   constructor(public router: Router,
     public cookieService: CookieService,
     public dashboard: DashboardserviceService,

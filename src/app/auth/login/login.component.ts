@@ -288,9 +288,6 @@ export class LoginComponent implements OnInit {
                 }
               }
             )
-			
-				
-			
           }
           else if (data['messages'] == null) {
             this.myAlertTop();
