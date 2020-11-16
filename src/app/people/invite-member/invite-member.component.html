@@ -101,7 +101,8 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn send-invites mt-5 mb-5" (click)="sendInvites()">{{appLanguage.send_invites}}</button>
+                            <button type="submit" class="btn send-invites mt-5 mb-5" (click)="sendInvites()"[disabled]="resetButtonValue==='Sending'">
+                                {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Sending'" src="assets/images/orange-loader.gif"/></button>
                         </div>
                     </div>
                 </form>

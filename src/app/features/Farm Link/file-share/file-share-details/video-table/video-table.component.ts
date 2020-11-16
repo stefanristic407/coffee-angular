@@ -53,7 +53,7 @@ export class VideoTableComponent implements OnInit {
   share_permission: any;
   appLanguage?: any;
   // videoTable:any=0;
-  
+  resetButtonValue : any = "Share";
   constructor(public router: Router,
 		public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -317,6 +317,7 @@ export class VideoTableComponent implements OnInit {
 
 
   shareFileAndFolder(){
+    this.resetButtonValue = "Sharing";
     var file_id = this.shareFileId;
     var share_permission = document.getElementById('share_permission').innerHTML;
     if(share_permission == "Can view"){
@@ -334,10 +335,12 @@ export class VideoTableComponent implements OnInit {
     this.roasterService.shareFolder(this.roasterId,file_id,shareData).subscribe(
       res => {
         if(res['success']==true){
+          this.resetButtonValue = "Share";
           this.sharedUsersLists();
           this.toastrService.success("The folder has been shared to the User sucessfully!")
         }
         else{
+          this.resetButtonValue = "Share";
           this.toastrService.error("Error while sharing the folder to the user!");
         }
       

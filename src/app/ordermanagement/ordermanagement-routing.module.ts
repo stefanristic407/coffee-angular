@@ -56,7 +56,7 @@ children: [
   },
   {
     path: 'microroaster-orders',
-    component: RoasterOrdersComponent
+    component: MrOrdersComponent
   },
   {
     path: 'facilitator-orders',

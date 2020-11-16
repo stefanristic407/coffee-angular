@@ -11,7 +11,9 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 // import * as $ from 'jquery';
 declare var $: any;
 import { TranslateService } from "@ngx-translate/core";
-import {GlobalsService} from 'src/services/globals.service';
+import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+
 
 @Component({
   selector: 'app-features',
@@ -23,9 +25,12 @@ export class FeaturesComponent implements OnInit {
   selected: string;
   roaster_id: any;
   user_id: any;
-  featureActive:any=0;
-  screenwidth:any= true;
-  
+  featureActive: any = 0;
+  screenwidth: any = true;
+  searchString: string;
+  text: string;
+  results: string[];
+
 
   states: string[] = [
     'alabama@gmail.com',
@@ -55,89 +60,91 @@ export class FeaturesComponent implements OnInit {
   lag: any;
   languages: any;
   appLanguage?: any;
-	slug_list: any;
+  slug_list: any;
+  rolename: any;
 
 
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
     private userService: UserserviceService,
+    private roasterService : RoasterserviceService,
     private router: Router,
     private toastrService: ToastrService,
-    private translateService:TranslateService,
-    public globals:GlobalsService) {
-      this.translateService.addLangs(this.supportLanguages);
-      if (localStorage.getItem("locale")) {
-        const browserLang = localStorage.getItem("locale");
-        this.translateService.use(browserLang);
-      } else {
-        const browserlang = this.translateService.getBrowserLang();
-        this.translateService.use(browserlang);
-        localStorage.setItem("locale", "en");
-      }
-      // console.log(this.screenwidth);
-	  this.slug_list=JSON.parse(this.cookieService.get('permissionSlug'));
+    private translateService: TranslateService,
+    public globals: GlobalsService) {
+    this.translateService.addLangs(this.supportLanguages);
+    if (localStorage.getItem("locale")) {
+      const browserLang = localStorage.getItem("locale");
+      this.translateService.use(browserLang);
+    } else {
+      const browserlang = this.translateService.getBrowserLang();
+      this.translateService.use(browserlang);
+      localStorage.setItem("locale", "en");
+    }
+    // console.log(this.screenwidth);
 
-     }
+  }
 
   ngOnInit(): void {
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get('user_id');
     this.getUserValue();
     this.getRoasterProfile();
+    this.getLoggedInUserRoles();
 
-    $(window).scroll(function() {
-      if($(window).scrollTop() + $(window).height() == $(document).height()) {
-          $('.sectin-footer-mb').css({
-            "opacity": "0",
-            "pointer-events": "none"
-          })
+    $(window).scroll(function () {
+      if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+        $('.sectin-footer-mb').css({
+          "opacity": "0",
+          "pointer-events": "none"
+        })
       }
-  
+
       else {
         $('.sectin-footer-mb').css({
           "opacity": "1",
           "pointer-events": "all"
         })
       }
-   });
+    });
 
-   var pt = $('header').outerHeight() + "px";
+    var pt = $('header').outerHeight() + "px";
     $('.router-design').css({
-   "padding-top": pt
+      "padding-top": pt
     })
 
-    
+
     //Open side nav
-    $('body').on('click', '.sidenav-hamberg', function(event) {
+    $('body').on('click', '.sidenav-hamberg', function (event) {
       $('.sidenav-mb').addClass('open');
       $('.sidenav-mb__content').addClass('open')
       event.stopImmediatePropagation();
     });
 
-    $('body').on('click', '.sidenav-mb__close', function(event) {
-     
+    $('body').on('click', '.sidenav-mb__close', function (event) {
+
       $('.sidenav-mb__content').removeClass('open')
-      setTimeout(function(){
+      setTimeout(function () {
         $('.sidenav-mb').removeClass('open');
-       }, 800);
+      }, 800);
       event.stopImmediatePropagation();
     });
 
-    $('body').on('click', '.sidenav-mb__hide', function(event) {
-     
+    $('body').on('click', '.sidenav-mb__hide', function (event) {
+
       $('.sidenav-mb__content').removeClass('open')
-      setTimeout(function(){
+      setTimeout(function () {
         $('.sidenav-mb').removeClass('open');
-       }, 800);
+      }, 800);
       event.stopImmediatePropagation();
     });
 
 
     $('.nav-links__item .router-link').on('click', function (event) {
       $('.sidenav-mb__content').removeClass('open')
-      setTimeout(function(){
+      setTimeout(function () {
         $('.sidenav-mb').removeClass('open');
-       }, 800);
+      }, 800);
       event.stopImmediatePropagation();
     });
 
@@ -150,11 +157,11 @@ export class FeaturesComponent implements OnInit {
   //Description: This function helps to get the details of the logged in user and show the username in header
   getUserValue() {
     this.globals.permissionMethod();
-    this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
+    this.userService.getRoasterProfile(this.roaster_id).subscribe(
       response => {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];
-		this.profilePic = response['result']['profile_image_thumb_url'];
-		var language = (response['result']['language'] == "") ? "en" : response['result']['language'];
+        this.profilePic = response['result']['profile_image_thumb_url'];
+        var language = (response['result']['language'] == "") ? "en" : response['result']['language'];
         this.userService.getUserLanguageStrings(language).subscribe(
           resultLanguage => {
             // this.featureActive=1;
@@ -162,14 +169,26 @@ export class FeaturesComponent implements OnInit {
             this.globals.languageJson = resultLanguage;
             console.log(this.globals.languageJson);
             this.appLanguage = this.globals.languageJson;
-           this.featureActive++;
+            this.featureActive++;
           }
         )
       }
     );
   }
 
-  
+  getLoggedInUserRoles(){
+    this.roasterService.getLoggedinUserRoles(this.roaster_id).subscribe(
+      result => {
+       if(result['success']==true){
+         this.rolename = result['result'][0].name;
+        // this.featureActive++;
+       }
+        
+      }
+    );
+  }
+
+
   // Function Name : Roaster Profile
   //Description: This function helps to get the details of the Roaster Profile 
   getRoasterProfile() {
@@ -177,11 +196,13 @@ export class FeaturesComponent implements OnInit {
       result => {
         this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
         this.featureActive++;
-    }
+      }
     );
   }
 
   
+
+
   // Function Name : Logout
   //Description: This function helps to logout the user from the session.
 
@@ -205,7 +226,7 @@ export class FeaturesComponent implements OnInit {
 
   ngAfterViewInit() {
     $('.nav-links__item').on('click', function () {
-    
+
 
       if ($(window).width() < 768) {
         $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
@@ -218,7 +239,7 @@ export class FeaturesComponent implements OnInit {
         $('.nav-links__item').not(this).removeClass('active');
         $(this).addClass('active')
       }
-      
+
     });
 
     $('.nav-dropdown li').on('click', function () {
@@ -231,20 +252,39 @@ export class FeaturesComponent implements OnInit {
     });
 
     // Footer links
-  
-$('body').on('click', '.footer-links__item', function () {
-  $(this).parents('.footer-links').find('.footer-links__item').not(this).removeClass('active');
-  $(this).addClass('active');
-  $('.footer-links__item').find('.ft-dropdown').not(this).removeClass('active')
 
-  $(this).find('.ft-dropdown').addClass('active')
+    $('body').on('click', '.footer-links__item', function () {
+      $(this).parents('.footer-links').find('.footer-links__item').not(this).removeClass('active');
+      $(this).addClass('active');
+      $('.footer-links__item').find('.ft-dropdown').not(this).removeClass('active')
 
-  setTimeout(function(){
-    $('.ft-dropdown').removeClass('active');
-   }, 3500);
-});
+      $(this).find('.ft-dropdown').addClass('active')
+
+      setTimeout(function () {
+        $('.ft-dropdown').removeClass('active');
+      }, 3500);
+    });
   }
 
+  search(event: any) {
+    let searchArray = Object.keys(this.globals.menuSearch);
+    console.log(searchArray);
+    
+    let localArray = [];
+    let string = event.query.toLowerCase();
+    for(let i = 0; i < searchArray.length ; i++){
+      if(searchArray[i].toLowerCase().indexOf(event.query.toLowerCase()) != -1){
+        localArray.push(searchArray[i])
+      } 
+    }
+    this.results = localArray;
+    console.log(this.text);
+  }
 
+  redirect(event: any){
+    console.log("Triggered");
+    console.log(event);
+    this.router.navigate([this.globals.menuSearch[event]]);
+  }
 
 }

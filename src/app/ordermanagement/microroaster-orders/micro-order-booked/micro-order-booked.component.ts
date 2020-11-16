@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { from } from 'rxjs';
 import {MicroOrderBookedService } from '../micro-order-booked/micro-order-booked.service';
+import { GlobalsService } from 'src/services/globals.service';
 @Component({
   selector: 'app-micro-order-booked',
   templateUrl: './micro-order-booked.component.html',
@@ -34,7 +35,8 @@ export class MicroOrderBookedComponent implements OnInit {
 	editmode : boolean = false;
   constructor(private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
-		public horecaDetailService : MicroOrderBookedService) { }
+		public horecaDetailService : MicroOrderBookedService,
+		public globals: GlobalsService) { }
 
   ngOnInit(): void {
 	//Auth checking

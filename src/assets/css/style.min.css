@@ -17589,6 +17589,10 @@ ul {
     color: #2c2b46;
 }
 
+.text-clr-e5a {
+    color: #ff1e5a;
+}
+
 .text-clr60b {
     color: #80460b;
 }
@@ -23223,3 +23227,22 @@ li.select-list__item {
 
 
 /* invite member css ends */
+
+
+/* auto complete */
+
+.search-on-site body .ui-autocomplete-panel {
+    top: 36px !important;
+    left: -126px !important;
+}
+
+.auto-comlte-search .search-on-site>.search-on-site__input input {
+    width: 148% !important;
+    position: relative !important;
+    top: -7px !important;
+    height: 36px !important;
+    left: -75% !important;
+}
+
+
+/* auto complete ends*/

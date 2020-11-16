@@ -22,7 +22,7 @@ export class RoasterQuickSetupComponent implements OnInit {
   email: any;
   name: any;
   type: any;
- 
+  resetButtonValue : any = "Send Invites";
 
   constructor(public roasterService:RoasterserviceService,
     public cookieService: CookieService,
@@ -51,6 +51,7 @@ export class RoasterQuickSetupComponent implements OnInit {
     //   this.inviteActive++;
     // }
     sendInvite(){
+      this.resetButtonValue = "Sending";
       console.log(this.add_member_email)
       if (this.headerValue == "Micro-Roaster") {
         this.userService.sendMicroRoasterInvite(this.roaster_id,this.add_member_email,this.add_member_name).subscribe(data=>{
@@ -68,16 +69,19 @@ export class RoasterQuickSetupComponent implements OnInit {
             this.userService.sendUrlToEmail(body).subscribe(
               res => {
                 if(res['status'] == "200 OK"){
+                  this.resetButtonValue = "Send Invites";
                   this.toastrService.success("Email has been sent successfully");
                 }
                 else{
                   
+                  this.resetButtonValue = "Send Invites";
                   this.toastrService.error("Error while sending email to the User");
                 }
               }
             )
           }else{
             console.log(data);
+            this.resetButtonValue = "Send Invites";
             this.toastrService.error("Error while sending email to the User");
           }
         })
@@ -97,16 +101,19 @@ export class RoasterQuickSetupComponent implements OnInit {
             this.userService.sendUrlToEmail(body).subscribe(
               res => {
                 if(res['status'] == "200 OK"){
+                  this.resetButtonValue = "Send Invites";
                   this.toastrService.success("Email has been sent successfully");
                 }
                 else{
                   
+                  this.resetButtonValue = "Send Invites";
                   this.toastrService.error("Error while sending email to the User");
                 }
               }
             )
           }else{
             console.log(data);
+            this.resetButtonValue = "Send Invites";
             this.toastrService.error("Error while sending email to the User");
           }
         })

@@ -58,3 +58,14 @@
         display: block !important;
     }
 }
+
+:host>>>.ui-autocomplete .ui-autocomplete-input {
+    padding: 0.429em;
+    position: relative !important;
+    top: -5px !important;
+    left: -75% !important;
+}
+
+:host>>>.ui-autocomplete .ui-autocomplete-panel {
+    left: -75% !important;
+}

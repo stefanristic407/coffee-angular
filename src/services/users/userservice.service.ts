@@ -533,4 +533,12 @@ export class UserserviceService {
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterUrl, data);
   }
+  updateLearnDetails(roaster_id : any , body : any, slug : any){
+    var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/brand-profile/"+ slug;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "PUT";
+    data['data'] = body;
+    return this.http.put(this.putUrl, data);
+  }
 }

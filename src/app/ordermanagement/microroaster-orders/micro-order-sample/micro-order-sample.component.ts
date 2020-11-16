@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MicroOrderSampleService } from './micro-order-sample.service';
+import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
   selector: 'app-micro-order-sample',
@@ -34,7 +35,8 @@ export class MicroOrderSampleComponent implements OnInit {
 	editmode : boolean = false;
   constructor(private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
-		public horecaDetailService : MicroOrderSampleService) { }
+		public horecaDetailService : MicroOrderSampleService,
+		public globals: GlobalsService) { }
 
   ngOnInit(): void {
 	//Auth checking

@@ -81,7 +81,10 @@ export class AboutRoasteryComponent implements OnInit {
 	this.appLanguage = this.globals.languageJson;
    	this.aboutActive++;
   }
+
+  
 	getCertificates(){
+		if(this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')){
 	this.userService.getCompanyCertificates(this.roasterId).subscribe(
 		result => {
 			if(result['success'] == true){
@@ -90,9 +93,11 @@ export class AboutRoasteryComponent implements OnInit {
 			}else{
 			this.toastrService.error("Error in loading Roaster Certificates");
 			}
-			this.aboutActive++;
+			// this.aboutActive++;
 	});
 	}
+	}
+
   
   onKeyPress(event: any) {
     if (event.target.value == "") {

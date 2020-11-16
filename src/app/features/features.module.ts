@@ -137,6 +137,11 @@ import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.compo
 import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
 import {AgmCoreModule} from '@agm/core';
+import { AboutUsComponent } from './Farm Link/brand-profile/about-us/about-us.component';
+import { SustainabilityComponent } from './Farm Link/brand-profile/sustainability/sustainability.component';
+import { VisitUsComponent } from './Farm Link/brand-profile/visit-us/visit-us.component';
+import { HomePageComponent } from './Farm Link/brand-profile/home-page/home-page.component';
+import { LearnComponent } from './Farm Link/brand-profile/learn/learn.component';
 
 
 
@@ -243,6 +248,11 @@ import {AgmCoreModule} from '@agm/core';
     AssignedComponent,
     ForumComponent,
     MyAnswersComponent,
+    AboutUsComponent,
+    SustainabilityComponent,
+    VisitUsComponent,
+    HomePageComponent,
+    LearnComponent,
   
  
   ],

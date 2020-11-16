@@ -38,6 +38,7 @@ export class LanguageRegionComponent implements OnInit {
   languageCode:any=[];
   languages:any;
   langName:any;
+  resetButtonValue: any = "Save changes";
 
   languageCodeArray : Array<any> = [
     {
@@ -1088,6 +1089,7 @@ getUserConverse(){
 }
 
   saveLanguage(){
+    this.resetButtonValue = "Saving";
     if (this.lang == "" || this.lang == null || this.lang == undefined) {
       this.languageError = "Please Select your Language";
       document.getElementById('lang').style.border = "1px solid #D50000";
@@ -1126,6 +1128,7 @@ getUserConverse(){
           }
 			this.userService.addConverseLanguage(dataLang).subscribe(result=>{
 				if(result['success'] == true){
+          this.resetButtonValue = "Save changes";
 					this.toastrService.success("Added converse languages successfully.");
 				}
 				else{

@@ -35,14 +35,13 @@
             </ul>
 
             <div class="tab-content mt-md-4" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
+                <div class="tab-pane fade show active" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab" *ngIf="globals.permissions['cart-list'] || globals.permissions['cart-management']">
                     <app-orders-table></app-orders-table>
                 </div>
 
-                <div class="tab-pane fade" id="pills-videos" role="tabpanel" aria-labelledby="pills-videos-tab">
+                <div class="tab-pane fade" id="pills-videos" role="tabpanel" aria-labelledby="pills-videos-tab" *ngIf="globals.permissions['cart-list'] || globals.permissions['cart-management']">
                     <app-requests-table></app-requests-table>
                 </div>
-
             </div>
         </div>
     </div>

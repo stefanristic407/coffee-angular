@@ -77,6 +77,8 @@ export class AgreementComponent implements OnInit {
 	item_id: any;
 	deleteAgreementId: any;
 
+	resetButtonValue: string = "Upload Agreement";
+	updateValue: any = "Update";
   constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
@@ -270,6 +272,7 @@ export class AgreementComponent implements OnInit {
 	
 
 	  uploadAgreement(){
+		  this.resetButtonValue = "Uploading";
 		if (
 			this.customer_id == "" ||
 			this.customer_id == null ||
@@ -310,15 +313,18 @@ export class AgreementComponent implements OnInit {
 					this.roasterService.uploadAgreements(this.roasterId,this.customer_type,data).subscribe(
 						res => {
 							if(res['success'] == true){
+								this.resetButtonValue = "Upload Agreement";
 								this.toastrService.success('The Agreement has been uploaded successfully');
 							this.getAgreements();
 							}
 							else{
+								this.resetButtonValue = "Upload Agreement";
 								this.toastrService.error("Error while uploading Agreegement");
 							}
 						}
 					)
 				  }else{
+					this.resetButtonValue = "Upload Agreement";
 					this.toastrService.error("Error while uploading the file");
 				  }
 				}
@@ -337,6 +343,7 @@ export class AgreementComponent implements OnInit {
 	
 
 	  updateAgreement(){
+		this.updateValue = "Updating";
 			let fileList: FileList = this.re_fileEvent;
 			// var parent_id = 0;
 			if (fileList.length > 0) {
@@ -361,17 +368,20 @@ export class AgreementComponent implements OnInit {
 					  this.roasterService.updateAgreements(this.roasterId,this.customer_type,this.item_id,data).subscribe(
 						  res => {
 							  if(res['success'] == true){
+								this.updateValue = "Update";
 								this.getAgreements();
 								this.toastrService.success("The Agreement updated successfully");
 		
 							  }
 							  else{
+								this.updateValue = "Updating";
 								  this.toastrService.error("Error while updating the agreement details");
 							  }
 						  }
 					  )
 					this.toastrService.success("The file "+this.re_fileNameValue+" uploaded successfully");
 				  }else{
+					this.updateValue = "Updating";
 					this.toastrService.error("Error while uploading the agreement");
 				  }
 				}

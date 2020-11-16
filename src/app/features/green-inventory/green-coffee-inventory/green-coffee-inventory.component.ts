@@ -20,7 +20,7 @@ export class GreenCoffeeInventoryComponent implements OnInit {
   showOrigin: boolean = true;
   showDisplay:boolean =true;
   showStatus: boolean = true;
-  constructor(private globals: GlobalsService) { 
+  constructor(public globals: GlobalsService) { 
 // 	  this.data = 
 //     [
 //     { id: '65837', availibility_Name: 'Origanic washed Micro-lot', estate_Name: 'Finca La Pampa', origin: 'Brazil', variety: 'Bourborn',quandity: '278 Bags', cup_Score: '84.5', Actions: 'View' },

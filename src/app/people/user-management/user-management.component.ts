@@ -97,7 +97,7 @@ export class UserManagementComponent implements OnInit {
     }
   
     // console.log(this.globals.permissions['user-management']);
-	if(!this.globals.permissions['user-management']){
+	if(!this.globals.checkItem('user-management') && !this.globals.checkItem('user-reports')){
 		this.router.navigate(["/people/permission-error"]);
   }
   

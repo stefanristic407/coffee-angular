@@ -39,6 +39,7 @@ import { TeamMembersComponent } from './team-members/team-members.component';
 import { InviteMemberComponent } from './invite-member/invite-member.component';
 import { ErrorModuleModule } from '../error-module/error-module.module';
 import { PermissionErrorComponent } from './permission-error/permission-error.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 @NgModule({
   declarations: [
     PeopleComponent,
@@ -76,6 +77,7 @@ import { PermissionErrorComponent } from './permission-error/permission-error.co
     MatBottomSheetModule,
     MatSidenavModule,
     ErrorModuleModule,
+    AutoCompleteModule,
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),

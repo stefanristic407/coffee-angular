@@ -23,10 +23,11 @@
                     </div>
                     <div class="d-inline-block header-searach">
                         <form>
-                            <div class="search-on-site">
+                            <div class="search-on-site auto-comlte-search">
                                 <div class="search-on-site__input fnt-muli">
                                     <img class="img d-inline-block" src="assets/images/search.svg">
-                                    <input type="search" placeholder="Search.." class="float-right fadout-search pt-1">
+                                    <!-- <input type="search" placeholder="Search.." class="float-right fadout-search pt-1"> -->
+                                    <p-autoComplete [(ngModel)]="text" [suggestions]="results" (onSelect)="redirect($event)" (completeMethod)="search($event)" class="float-right fadout-search pt-1"></p-autoComplete>
                                 </div>
                             </div>
                         </form>
@@ -58,7 +59,7 @@
                                     <div>
                                         <a class="profile-name" role="button" [popover]="popTemplate" #pop2="bs-popover" placement="bottom" container="body" [outsideClick]="true">
                                             <h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont">{{userName}} <span class="pl-1"><img src="assets/images/triangle.svg"> </span></h6>
-                                            <span class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2" style="transform: translateY(-10px);">{{appLanguage?.admin}}</span>
+                                            <span class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2" style="transform: translateY(-10px);">{{rolename | titlecase}}</span>
                                         </a>
                                         <ng-template #popTemplate>
                                             <div id="popover-mobile-content">
@@ -104,22 +105,22 @@
                             </a>
                                 </li>
 
-                                <li class="nav-links__item arrow d-inline-block position-relative active">
+                                <li class="nav-links__item arrow d-inline-block position-relative active" *ngIf="globals.checkItem('cart-management') || globals.checkItem('cart-list')">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage?.order_management}}
                             </a>
                                     <ul class="nav-dropdown fnt-600">
-                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list')">
+                                        <li *ngIf="globals.checkItem('cart-management','cart-list') || globals.checkItem('cart-list','cart-management')">
                                             <a class="router-link" routerLink="../ordermanagement/estate-orders">{{appLanguage?.estate_orders}}</a>
                                         </li>
-                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list')">  
+                                        <li *ngIf="globals.checkItem('cart-management','cart-list') || globals.checkItem('cart-list','cart-management')">
                                             <a class="router-link" routerLink="../ordermanagement/microroaster-orders">{{appLanguage?.microroaster_orders}}</a>
                                         </li>
-                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list')">
+                                        <li *ngIf="globals.checkItem('cart-management','cart-list') || globals.checkItem('cart-list','cart-management')">
                                             <a class="router-link">{{appLanguage?.horeca_orders}}</a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-links__item d-md-inline-block position-relative">
+                                <li class="nav-links__item d-md-inline-block position-relative" *ngIf="globals.checkItem('coffee-management') || globals.checkItem('coffee-list')">
                                     <a class="d-inline-block fnt-600" routerLink="../features/green-coffee-inventory">{{appLanguage?.inventory}}
                                     </a>
                                 </li>
@@ -150,7 +151,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-links__item arrow d-inline-block position-relative">
+                                <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="globals.checkItem('acl-management') || globals.checkItem('acl-list') || globals.checkItem('user-management') || globals.checkItem('user-reports')">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{appLanguage?.people}}
                             </a>
                                     <ul class="nav-dropdown fnt-600">
@@ -161,10 +162,10 @@
                                         <li *ngIf="this.globals.checkItem('user-management')=='manage' || this.globals.checkItem('user-management') =='view'">
                                             <a class="router-link" routerLink="../people/user-management">{{appLanguage?.user_management}}</a>
                                         </li> -->
-                                        <li *ngIf="this.globals.checkItem('acl-management','acl-list')">
+                                        <li *ngIf="globals.checkItem('acl-management','acl-list') || globals.checkItem('acl-list','acl-management')">
                                             <a class="router-link" routerLink="../people/manage-role">{{appLanguage?.manage_roles}}</a>
                                         </li>
-                                        <li *ngIf="this.globals.checkItem('user-management','user-reports')">
+                                        <li *ngIf="globals.checkItem('user-management','user-reports') || globals.checkItem('user-reports','user-management')">
                                             <a class="router-link" routerLink="../people/user-management">{{appLanguage?.user_management}}</a>
                                         </li>
                                         <li>

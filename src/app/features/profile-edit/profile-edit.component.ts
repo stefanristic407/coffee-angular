@@ -6,7 +6,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from 'src/services/globals.service';
-
+declare var $ : any;
 
 @Component({
   selector: 'app-profile-edit',
@@ -45,7 +45,7 @@ export class ProfileEditComponent implements OnInit {
   gender: any;
   appLanguage?: any;
   profileEditActive:any =0;
-
+  resetButtonValue: string = "Save";
   constructor(public profilePicService: ProfilePicService, 
     private router : Router, 
     private toastrService: ToastrService,
@@ -62,46 +62,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-         // Select optons
-         let selectedVal = "+91";
-         let EnteredNum;
-         let optionText = ['IND 91', 'USA 1', 'AUS 61', 'ITA 39', 'Ban 880', 'SWE 46','AFG 93', 'UK 44','UAE 971', 'CHE 41','SAU 966','PRT 351', 'PO 48', 'NOR 47', 'NZL 64','GER 49', 'FRA 33', 'DNK 45','CHN 86','PAK 92' ]
-    // Phone Number selection
-    let optionLen = $('.phone-number').find('.select-list');
-            
-    for(let i=0; i<optionText.length; i++) {
-        let optionVal = '<li class="select-list__item">'+optionText[i]+'</li>'
-        optionLen.append(optionVal)
-    }
-    
-        $('.entered-number').on('input', function() {
-          EnteredNum = $(this).val();
-          let Num = '+' + parseInt( selectedVal+ EnteredNum);
-          $(this).parents('.phone-number').find('.hidden-phone-num').val(Num);
-          let s =$(this).parents('.phone-number').find('.hidden-phone-num').val();
-          
-          });
-          
-          $('body').on('click', '.select-list li', function() {
-              let $thisVal = $(this).text();
-              selectedVal = $thisVal.replace(/[^0-9]/gi,'');
-              console.log(selectedVal)
-              $(this).parents('.phone-number').find('.Selected-ISD').text('+' +  selectedVal)
-              let Num = '+' + parseInt( selectedVal+EnteredNum);
-          $(this).parents('.phone-number').find('.hidden-phone-num').val(Num);
-              let s =$(this).parents('.phone-number').find('.hidden-phone-num').val()
-              $(this).parents('.phone-number').find('.select-list').toggleClass('active');
-              $('.Selected-ISD').toggleClass('active');
-              
-              // this.numb = String(Num);
-              // console.log(this.numb)
-          });
-      
-          $('.Selected-ISD').on('click', function() {
-              $(this).toggleClass('active');
-              $(this).parents('.phone-number').find('.select-list').toggleClass('active');
-          });
-          
+        
        
 
           this.userService.getRoasterProfile(this.roaster_id).subscribe(
@@ -144,6 +105,49 @@ export class ProfileEditComponent implements OnInit {
             }
 		  )
 		     this.languageConversion();
+      
+  }
+
+  ngAfterViewInit(){
+     // Select optons
+     let selectedVal = "+91";
+     let EnteredNum;
+     let optionText = ['IND 91', 'USA 1', 'AUS 61', 'ITA 39', 'Ban 880', 'SWE 46','AFG 93', 'UK 44','UAE 971', 'CHE 41','SAU 966','PRT 351', 'PO 48', 'NOR 47', 'NZL 64','GER 49', 'FRA 33', 'DNK 45','CHN 86','PAK 92' ];
+// Phone Number selection
+let optionLen = $('.phone-number').find('.select-list');
+        
+for(let i=0; i<optionText.length; i++) {
+    let optionVal = '<li class="select-list__item">'+optionText[i]+'</li>'
+    optionLen.append(optionVal)
+}
+
+    $('.entered-number').on('input', function() {
+      EnteredNum = $(this).val();
+      let Num = '+' + parseInt( selectedVal+ EnteredNum);
+      $(this).parents('.phone-number').find('.hidden-phone-num').val(Num);
+      let s =$(this).parents('.phone-number').find('.hidden-phone-num').val();
+      
+      });
+      
+      $('body').on('click', '.select-list li', function() {
+          let $thisVal = $(this).text();
+          selectedVal = $thisVal.replace(/[^0-9]/gi,'');
+          console.log(selectedVal)
+          $(this).parents('.phone-number').find('.Selected-ISD').text('+' +  selectedVal)
+          let Num = '+' + parseInt( selectedVal+EnteredNum);
+      $(this).parents('.phone-number').find('.hidden-phone-num').val(Num);
+          let s =$(this).parents('.phone-number').find('.hidden-phone-num').val()
+          $(this).parents('.phone-number').find('.select-list').toggleClass('active');
+          $('.Selected-ISD').toggleClass('active');
+          
+          // this.numb = String(Num);
+          // console.log(this.numb)
+      });
+  
+      $('.Selected-ISD').on('click', function() {
+          $(this).toggleClass('active');
+          $(this).parents('.phone-number').find('.select-list').toggleClass('active');
+      });
       
   }
 
@@ -218,6 +222,7 @@ export class ProfileEditComponent implements OnInit {
     }
   }
   profileSave() {
+    this.resetButtonValue = "Saving";
     this.numb = document.getElementById('finalNumber').innerHTML +"-"+ this.phoneno;
     console.log(this.numb);
 
@@ -343,11 +348,13 @@ export class ProfileEditComponent implements OnInit {
               result => {
                 console.log(result)
                 if(result['success']== true){
+                  this.resetButtonValue = "Save";
                 this.toastrService.success("Profile details updated successfully");
                 this.router.navigate(['/features/myprofile']);
                 }
                 else{
                   console.log(result);
+                  this.resetButtonValue = "Save";
                   this.toastrService.error("Error while updating details, please try again.")
                 }
               }
@@ -355,6 +362,7 @@ export class ProfileEditComponent implements OnInit {
           }
            }
            else{
+            this.resetButtonValue = "Save";
              this.toastrService.error("Error while updating details, please try again.")
            }
          }

@@ -25,7 +25,8 @@
                         </nav>
                     </div>
                     <div class="ml-auto text-right raise-ticket">
-                        <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="privacyTerms()">{{appLanguage?.save_changes}}</button>
+                        <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="privacyTerms()" [disabled]="resetButtonValue==='Saving'">
+                            {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
                     </div>
                 </div>
                 <div class="row mobile-view">
@@ -80,7 +81,8 @@
                     </div>
                 </div>
                 <div class="mobile-farm col-12">
-                    <button type="button" class="btn btn-succes create-role-btn" (click)="privacyTerms()">{{appLanguage?.save_changes}}</button>
+                    <button type="button" class="btn btn-succes create-role-btn" (click)="privacyTerms()" [disabled]="resetButtonValue==='Saving'">
+                        {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
                 </div>
             </section>
         </div>

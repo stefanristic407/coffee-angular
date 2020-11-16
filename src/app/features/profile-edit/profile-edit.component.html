@@ -26,7 +26,8 @@
                         </div>
                         <div class="float-right ml-auto butn-mt">
                             <button type="button" class="btn cancel-butn" routerLink="/features/welcome-aboard"> {{appLanguage?.cancel}} </button>
-                            <button type="button" class="btn save-btn" (click)=profileSave();> {{appLanguage?.save}} </button>
+                            <button type="button" class="btn save-btn" (click)=profileSave();  [disabled]="resetButtonValue==='Saving'">
+                                {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
                         </div>
                     </div>
                     <div class="row mobile-view">
@@ -148,7 +149,8 @@
                     </div>
 
                 <div class="mobile-farm  col-12">
-                    <button type="button" class="btn btn-succes save-btn" (click)=profileSave();> {{appLanguage?.save_changes}} </button>
+                    <button type="button" class="btn btn-succes save-btn" (click)=profileSave(); [disabled]="resetButtonValue==='Saving'">
+                        {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
                 </div>
 
                 </section>

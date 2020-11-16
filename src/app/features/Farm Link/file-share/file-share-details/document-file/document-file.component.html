@@ -362,7 +362,8 @@
                 <div class="modal-footer justify-content-between mx-3 mb-2">
                     <p class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0">
                         {{appLanguage?.admin_notice_text}}</p>
-                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()">{{appLanguage?.share}}
+                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()"  [disabled]="resetButtonValue==='Sharing'">
+                        {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Sharing'" src="assets/images/orange-loader.gif"/>
               </button>
                 </div>
             </div>

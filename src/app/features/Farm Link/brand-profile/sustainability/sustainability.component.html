@@ -1,0 +1,165 @@
+<section>
+    <div class="container sewn-container section-head-pad">
+        <div class="bg-fff mb-4">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                        <span id="title-breadcrumb-1" class="sr-only"></span>
+                        <ul class="bread-nav">
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum">
+                                <a class="b-cum">{{appLanguage?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/brand-profile">{{appLanguage?.brand_profile}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum c-pink">Sustainability</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec px-0">
+
+                <div class="row mb-4">
+                    <div class="col-md-6 col-12">
+                        <p class="brand-profile"> Sustainability</p>
+                        <p class="brand-para">Add details about your estate to give yours a view.</p>
+                    </div>
+                    <div class="col-md-6 col-12 web-farm">
+                        <button type="button" class="save ml-3 pull-right" >Save </button>
+                        <button type="button" class="preview" >Preview </button>
+                    </div>
+                </div>
+
+                <div class="row px-3">
+                    <div class="col-lg-8 col-md-12 col-sm-12  border p-4">
+                        <p class="header-text fnt-muli">Banner<span class="star">*</span></p>
+                        <label class="w-100 sub-header-text fnt-muli">Image/Video banner<span class="star">*</span></label>
+                        <p class="sub-text fnt-muli">Size - 1440 x 465 px</p>
+                        <label class="mt-3 cursor-pointer">
+                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 1440, 465, 'Banner')">
+                            <span class="save"> Upload </span>
+                        </label>
+                        <!-- <button class="save " type="button">Upload</button> -->
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Banner Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(banner_title,10)}}/10 words</span></label>
+                        <input type="text" class="form-control banner-title" name="banner-title" id="banner-title" maxlength="{{getTheMaxLength(banner_title,10)}}"  [(ngModel)]="banner_title">
+                    </div>
+                </div>
+
+                <div class="row mt-4 px-3">
+                    <div class="col-lg-8 col-md-12 col-sm-12  border p-4">
+                        <p class="header-text fnt-muli">Intro</p>
+                        <p class="sub-header-text  fnt-muli">Give  a small intro!</p>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(intro_title,15)}}/15 words</span></label>
+                        <input type="text" class="form-control banner-title" name="intro-title" id="intro-title"   maxlength="{{getTheMaxLength(intro_title,15)}}"  [(ngModel)]="intro_title">
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(answer,100)}}/100 words</span></label>
+                        <textarea id="answer-intro" name="answer" rows="6" class="form-control"   maxlength="{{getTheMaxLength(answer,100)}}"  [(ngModel)]="answer"></textarea>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Images<span class="star">*</span></label>
+                        <p class="sub-text fnt-muli">Please upload an image : Size - 500 x 540 px</p>
+                        <!-- <button class="save " type="button">Upload</button> -->
+                        <label class="mt-3 cursor-pointer">
+                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 500, 540, 'Intro')">
+                            <span class="save"> Upload </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row mt-4 px-3">
+                    <div class="col-lg-8 col-md-12 col-sm-12 border p-4">
+                        <p class="header-text fnt-muli">About your work</p>
+                        <p class="sub-header-text  fnt-muli">A detailed section of your work</p>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_title,10)}}/15 words</span></label>
+                        <input type="text" class="form-control banner-title" name="intro-title"    maxlength="{{getTheMaxLength(section_title,40)}}"  [(ngModel)]="section_title">
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_answer,100)}}/100 words</span></label>
+                        <textarea id="answer" name="answer" rows="6" class="form-control"   maxlength="{{getTheMaxLength(section_answer,100)}}"  [(ngModel)]="section_answer"></textarea>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Images<span class="star">*</span></label>
+                        <p class="sub-text fnt-muli">Please upload an image : Size - 600 x 500 px</p>
+                        <!-- <button class="save " type="button">Upload</button> -->
+                        <label class="mt-3 cursor-pointer">
+                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 600, 500, 'Section')">
+                            <span class="save"> Upload </span>
+                        </label>
+
+                        <hr class="dashed my-4">
+
+                        <p class="header-text fnt-muli mt-2">Section 1</p>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_title1,15)}}/15 words</span></label>
+                        <input type="text" class="form-control banner-title" name="intro-title"   maxlength="{{getTheMaxLength(section_title1,40)}}"  [(ngModel)]="section_title1">
+                        <label class="w-100 sub-header-text fnt-muli mt-2">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_answer1,100)}}/100 words</span></label>
+                        <textarea id="answer1" name="answer" rows="6" class="form-control"   maxlength="{{getTheMaxLength(section_answer1,100)}}"  [(ngModel)]="section_answer1"></textarea>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
+                        <p class="sub-text fnt-muli">Please upload an image : Size - 389 x 417 px</p>
+                        <!-- <button class="save " type="button">Upload</button> -->
+                        <label class="mt-3 cursor-pointer">
+                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 389, 417, 'Section1')">
+                            <span class="save"> Upload </span>
+                        </label>
+
+                        <hr class="dashed my-4">
+
+                        <p class="header-text fnt-muli mt-2">Section 2</p>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_title2,15)}}/15 words</span></label>
+                        <input type="text" class="form-control banner-title" name="intro-title"   maxlength="{{getTheMaxLength(section_title2,15)}}"  [(ngModel)]="section_title2">
+                        <label class="w-100 sub-header-text fnt-muli mt-2">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_answer2,100)}}/100 words</span></label>
+                        <textarea id="answer2" name="answer" rows="6" class="form-control"   maxlength="{{getTheMaxLength(section_answer2,100)}}"  [(ngModel)]="section_answer2"></textarea>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
+                        <p class="sub-text fnt-muli">Please upload an image : Size - 601 x 395 px</p>
+                        <!-- <button class="save " type="button">Upload</button> -->
+                        <label class="mt-3 cursor-pointer">
+                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 601, 395, 'Section2')">
+                            <span class="save"> Upload </span>
+                        </label>
+
+                        <hr class="dashed my-4">
+
+                        <p class="header-text fnt-muli mt-2">Section 3</p>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_title3,15)}}/15 words</span></label>
+                        <input type="text" class="form-control banner-title" name="intro-title"   maxlength="{{getTheMaxLength(section_title3,15)}}"  [(ngModel)]="section_title3">
+                        <label class="w-100 sub-header-text fnt-muli mt-2">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_answer3,100)}}/100 words</span></label>
+                        <textarea id="answer3" name="answer" rows="6" class="form-control"   maxlength="{{getTheMaxLength(section_answer3,100)}}"  [(ngModel)]="section_answer3"></textarea>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
+                        <p class="sub-text fnt-muli">Please upload an image : Size - 601 x 395 px</p>
+                        <!-- <button class="save " type="button">Upload</button> -->
+                        <label class="mt-3 cursor-pointer">
+                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 601, 395, 'Section3')">
+                            <span class="save"> Upload </span>
+                        </label>
+
+                        <hr class="dashed my-4">
+
+                        <p class="header-text fnt-muli mt-2">Section 4</p>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_title4,15)}}/15 words</span></label>
+                        <input type="text" class="form-control banner-title" name="intro-title"   maxlength="{{getTheMaxLength(section_title4,15)}}"  [(ngModel)]="section_title4">
+                        <label class="w-100 sub-header-text fnt-muli mt-2">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_answer4,100)}}/100 words</span></label>
+                        <textarea id="answer4" name="answer" rows="6" class="form-control"   maxlength="{{getTheMaxLength(section_answer4,100)}}"  [(ngModel)]="section_answer4"></textarea>
+                        <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
+                        <p class="sub-text fnt-muli">Please upload an image : Size - 601 x 395 px</p>
+                        <!-- <button class="save " type="button">Upload</button> -->
+                        <label class="mt-3 cursor-pointer">
+                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 601, 395, 'Section4')">
+                            <span class="save"> Upload </span>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="row mt-4 px-3">
+                    <div class="col-lg-8 col-md-12 col-sm-12 border p-4">
+                        <p class="header-text fnt-muli mt-2">Product Labels</p>
+                        <label class="w-100 sub-header-text fnt-muli mt-2">A short description<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(description,40)}}/40 words</span></label>
+                        <textarea id="description" name="description" rows="6" class="form-control"  maxlength="{{getTheMaxLength(description,40)}}"  [(ngModel)]="description"></textarea>
+                    </div>
+                </div>
+
+                <div class="pb-5 pt-4 ">
+                    <button class="cancel pull-left mr-auto fnt-muli" type="button">Cancel</button>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+</section>    

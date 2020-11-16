@@ -23,7 +23,7 @@ export class MarkedSaleComponent implements OnInit {
     {  product_Name: 'FTO Semi washed', availability_Name: 'Cafe Directo', origin: 'Sweden', variety: 'Bourborn',available: '110 bags', cup_Score: '82',status:'Sold', Actions: 'View' },
     {  product_Name: 'Blend', availability_Name: 'La Isabela', origin: 'Vietnam', variety: 'Bourborn',available: '90 bags', cup_Score: '84',status:'Hidden', Actions: 'View' },
   ]
-  constructor(private globals: GlobalsService) {
+  constructor(public globals: GlobalsService) {
     this.termStatus = '';
     this.display = '10';
    }

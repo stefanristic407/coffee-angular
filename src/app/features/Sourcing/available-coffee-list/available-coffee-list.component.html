@@ -49,7 +49,7 @@
                                         </div>
                                     </div>
                                     <div class="source-knowmore-avail pull-right">
-                                        <a class="contact-us-avail" routerLink="/features/available-confirm-order">{{appLanguage?.buy_now}}</a>
+                                        <a class="contact-us-avail" routerLink="/features/available-confirm-order" *ngIf="this.globals.checkItem('coffee-management') && this.globals.permissions['coffee-management'].manage">{{appLanguage?.buy_now}}</a>
                                         <a class="know-more-avail">{{appLanguage?.order_sample}}</a>
                                     </div>
                                 </div>

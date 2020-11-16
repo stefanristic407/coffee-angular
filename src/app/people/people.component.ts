@@ -11,7 +11,8 @@ import { runInThisContext } from 'vm';
 // import * as $ from 'jquery';
 declare var $: any;
 import { TranslateService } from "@ngx-translate/core";
-import {GlobalsService} from 'src/services/globals.service';
+import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 
 
 @Component({
@@ -53,21 +54,25 @@ export class PeopleComponent implements OnInit {
   lag: any;
   languages: any;
   appLanguage?: any;
-  isActive:any=0;
-	slug_list: any;
-	access_list: string;
-	slugType: any;
-	accessType: any;
-
+  isActive: any = 0;
+  slug_list: any;
+  access_list: string;
+  slugType: any;
+  accessType: any;
+  results: any[];
+  text: any;
+  rolename: any;
+  
   constructor(private elementRef: ElementRef,
     private cookieService: CookieService,
     private userService: UserserviceService,
+    private roasterService  : RoasterserviceService,
     private router: Router,
     private toastrService: ToastrService,
-    private translateService:TranslateService,
-    public globals:GlobalsService) {
+    private translateService: TranslateService,
+    public globals: GlobalsService) {
 
-      this.translateService.addLangs(this.supportLanguages);
+    this.translateService.addLangs(this.supportLanguages);
     if (localStorage.getItem("locale")) {
       const browserLang = localStorage.getItem("locale");
       this.translateService.use(browserLang);
@@ -77,48 +82,47 @@ export class PeopleComponent implements OnInit {
       localStorage.setItem("locale", "en");
     }
     // this.globals.permissionMethod();
-    this.slug_list=JSON.parse(this.cookieService.get('permissionSlug'));
 
-     }
-    ngOnInit(): void {
+  }
+  ngOnInit(): void {
 
     this.roaster_id = this.cookieService.get("roaster_id");
     this.user_id = this.cookieService.get("user_id");
     this.getUserValue();
-  this.getRoasterProfile();
-  this.globals.permissionMethod();
+    this.getRoasterProfile();
+    this.getLoggedInUserRoles();
 
-	this.slug_list=JSON.parse(this.cookieService.get('permissionSlug'));
-	// var slugData = result['result'];
-						// slugData.forEach(element => {
-						//   var tempList = {};
-						//   tempList['slugList'] = element.slug;
-						//   tempList['accessList'] = element.access_type;
-						//   this.permissionSlugData.push(tempList);
-	
+    this.slug_list = JSON.parse(this.cookieService.get('permissionSlug'));
+    // var slugData = result['result'];
+    // slugData.forEach(element => {
+    //   var tempList = {};
+    //   tempList['slugList'] = element.slug;
+    //   tempList['accessList'] = element.access_type;
+    //   this.permissionSlugData.push(tempList);
+
 
     //Open side nav
-    $('body').on('click', '.sidenav-hamberg', function(event) {
+    $('body').on('click', '.sidenav-hamberg', function (event) {
       $('.sidenav-mb').addClass('open');
       $('.sidenav-mb__content').addClass('open')
       event.stopImmediatePropagation();
     });
 
-    $('body').on('click', '.sidenav-mb__close', function(event) {
-     
+    $('body').on('click', '.sidenav-mb__close', function (event) {
+
       $('.sidenav-mb__content').removeClass('open')
-      setTimeout(function(){
+      setTimeout(function () {
         $('.sidenav-mb').removeClass('open');
-       }, 800);
+      }, 800);
       event.stopImmediatePropagation();
     });
 
-    $('body').on('click', '.sidenav-mb__hide', function(event) {
-     
+    $('body').on('click', '.sidenav-mb__hide', function (event) {
+
       $('.sidenav-mb__content').removeClass('open')
-      setTimeout(function(){
+      setTimeout(function () {
         $('.sidenav-mb').removeClass('open');
-       }, 800);
+      }, 800);
       event.stopImmediatePropagation();
     });
 
@@ -126,28 +130,28 @@ export class PeopleComponent implements OnInit {
 
     $('.nav-links__item .router-link').on('click', function (event) {
       $('.sidenav-mb__content').removeClass('open')
-      setTimeout(function(){
+      setTimeout(function () {
         $('.sidenav-mb').removeClass('open');
-       }, 800);
+      }, 800);
       event.stopImmediatePropagation();
     });
 
 
 
-    }
+  }
 
-	// checkItem(data){
-	// 	console.log(data);
-	// 	var slugType='';
-	// 	console.log(this.slug_list);
-	// 	for (var i = 0; i < this.slug_list.length; i++) {
-	// 		if(this.slug_list[i].slug == data){
-	// 		slugType =  this.slug_list[i].access_type;
-	// 		// console.log(slugType);
-	// 		return slugType;
-	// 		}
-	// 	}	
-	// }
+  // checkItem(data){
+  // 	console.log(data);
+  // 	var slugType='';
+  // 	console.log(this.slug_list);
+  // 	for (var i = 0; i < this.slug_list.length; i++) {
+  // 		if(this.slug_list[i].slug == data){
+  // 		slugType =  this.slug_list[i].access_type;
+  // 		// console.log(slugType);
+  // 		return slugType;
+  // 		}
+  // 	}	
+  // }
 
 
   // Function Name : User Value
@@ -155,7 +159,7 @@ export class PeopleComponent implements OnInit {
 
   getUserValue() {
     this.globals.permissionMethod();
-    this.userService.getRoasterUserData(this.roaster_id, this.user_id).subscribe(
+    this.userService.getRoasterProfile(this.roaster_id).subscribe(
       response => {
         this.userName = response['result']['firstname'] + " " + response['result']['lastname'];
         this.profilePic = response['result']['profile_image_thumb_url'];
@@ -170,12 +174,12 @@ export class PeopleComponent implements OnInit {
           }
         )
       }
-      
+
     );
   }
 
-  
-    
+
+
   // Function Name : Roaster Profile
   //Description: This function helps to get the details of the Roaster Profile 
   getRoasterProfile() {
@@ -183,10 +187,23 @@ export class PeopleComponent implements OnInit {
       result => {
         this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
         this.isActive++;
-    }
+      }
     );
   }
-  
+
+
+  getLoggedInUserRoles(){
+    this.roasterService.getLoggedinUserRoles(this.roaster_id).subscribe(
+      result => {
+       if(result['success']==true){
+         this.rolename = result['result'][0].name;
+        // this.isActive++;
+       }
+        
+      }
+    );
+  }
+
 
 
   // Function Name : Logout
@@ -210,72 +227,91 @@ export class PeopleComponent implements OnInit {
     )
   }
 
- 
+
 
   ngAfterViewInit() {
-  //   $('.nav-links__item').on('click', function() {
-  //     $('.nav-links__item').not(this).removeClass('active');
-  //     $(this).addClass('active')
-  // });
+    //   $('.nav-links__item').on('click', function() {
+    //     $('.nav-links__item').not(this).removeClass('active');
+    //     $(this).addClass('active')
+    // });
 
-  // $('.nav-dropdown li').on('click', function() {
-  //     $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
-  //     $(this).parents('.nav-links__item').addClass('active')
-  // });
-  $(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+    // $('.nav-dropdown li').on('click', function() {
+    //     $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
+    //     $(this).parents('.nav-links__item').addClass('active')
+    // });
+    $(window).scroll(function () {
+      if ($(window).scrollTop() + $(window).height() == $(document).height()) {
         $('.sectin-footer-mb').css({
           "opacity": "0",
           "pointer-events": "none"
         })
-    }
+      }
 
-    else {
-      $('.sectin-footer-mb').css({
-        "opacity": "1",
-        "pointer-events": "all"
-      })
-    }
- });
+      else {
+        $('.sectin-footer-mb').css({
+          "opacity": "1",
+          "pointer-events": "all"
+        })
+      }
+    });
 
-  $(document).ready(function() {
-    if ($(window).width() < 768) {
-      $('.nav-links__item').removeClass('active');
-    }
-  });
+    $(document).ready(function () {
+      if ($(window).width() < 768) {
+        $('.nav-links__item').removeClass('active');
+      }
+    });
 
-  $('.nav-links__item').on('click', function () { 
+    $('.nav-links__item').on('click', function () {
 
-    if ($(window).width() < 768) {
-      $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
-      $(this).find('.nav-dropdown').slideToggle();
-      $('.nav-links__item').not(this).removeClass('active');
-      $(this).toggleClass('active')
-    }
-
-    
-  });
+      if ($(window).width() < 768) {
+        $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
+        $(this).find('.nav-dropdown').slideToggle();
+        $('.nav-links__item').not(this).removeClass('active');
+        $(this).toggleClass('active')
+      }
 
 
-  $(window).on('load', function () {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-  });
+    });
 
-  // Footer links
-  
-  $('body').on('click', '.footer-links__item', function () {
-    $(this).parents('.footer-links').find('.footer-links__item').not(this).removeClass('active');
-    $(this).addClass('active');
-    $('.footer-links__item').find('.ft-dropdown').not(this).removeClass('active')
 
-    $(this).find('.ft-dropdown').addClass('active')
+    $(window).on('load', function () {
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+    });
 
-    setTimeout(function(){
-      $('.ft-dropdown').removeClass('active');
-     }, 3500);
-  });
+    // Footer links
+
+    $('body').on('click', '.footer-links__item', function () {
+      $(this).parents('.footer-links').find('.footer-links__item').not(this).removeClass('active');
+      $(this).addClass('active');
+      $('.footer-links__item').find('.ft-dropdown').not(this).removeClass('active')
+
+      $(this).find('.ft-dropdown').addClass('active')
+
+      setTimeout(function () {
+        $('.ft-dropdown').removeClass('active');
+      }, 3500);
+    });
 
   }
 
-  
+  search(event: any) {
+    let searchArray = Object.keys(this.globals.menuSearch);
+    console.log(searchArray);
+    
+    let localArray = [];
+    let string = event.query.toLowerCase();
+    for(let i = 0; i < searchArray.length ; i++){
+      if(searchArray[i].indexOf(event.query) != -1){
+        localArray.push(searchArray[i])
+      } 
+    }
+    this.results = localArray;
+  }
+
+  redirect(event: any){
+    console.log("Triggered");
+    console.log(event);
+    this.router.navigate([this.globals.menuSearch[event]]);
+  }
+
 }

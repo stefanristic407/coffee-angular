@@ -60,7 +60,7 @@ descriptionError: string;
   sharedUserslists: any = [];
   sharedUsers: any;
   appLanguage?: any;
-
+  resetButtonValue : string = "Share"; 
 
   constructor(public cookieService : CookieService,
               public toastrService : ToastrService,
@@ -662,6 +662,7 @@ getUsersList(e :any){
   }
 
   shareFileAndFolder(){
+    this.resetButtonValue = "Sharing";
     var file_id = this.filedetailsService.folderId;
     var share_permission = document.getElementById('share_permission').innerHTML;
     if(share_permission == "Can view"){
@@ -679,10 +680,12 @@ getUsersList(e :any){
     this.roasterService.shareFolder(this.roasterId,file_id,shareData).subscribe(
       res => {
         if(res['success']==true){
+          this.resetButtonValue = "Share";
           this.sharedUsersLists();
           this.toastrService.success("The folder has been shared to the User sucessfully!")
         }
         else{
+          this.resetButtonValue = "Share";
           this.toastrService.error("Error while sharing the folder to the user!");
         }
       

@@ -26,6 +26,7 @@ export class ChatNotificationComponent implements OnInit {
   roasterId: string;
   appLanguage?: any;
   preferActive:any=0;
+  resetButtonValue : string = "Save changes";
   constructor(public userService : UserserviceService,
               public router : Router,
               public toastrService : ToastrService,
@@ -81,6 +82,7 @@ export class ChatNotificationComponent implements OnInit {
 
 
   updatePreferences(){
+    this.resetButtonValue = "Saving";
     var data = {
       'farm_size_unit' : this.farmSize,
       'quantity_unit' : this.quantity,
@@ -96,6 +98,7 @@ export class ChatNotificationComponent implements OnInit {
     this.userService.updatePreferences(this.roasterId,data).subscribe(
       result => {
         if(result['success'] == true){
+          this.resetButtonValue = "Save changes";
           this.toastrService.success("Preferences updated successfully!");
           this.router.navigate(['/features/account-settings']);
         }else{

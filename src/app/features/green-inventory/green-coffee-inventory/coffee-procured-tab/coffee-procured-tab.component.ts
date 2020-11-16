@@ -22,7 +22,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     { id: '23238', availibility_Name: 'FTO Semi washed', estate_Name: 'Cafe Directo', origin: 'Sweden', variety: 'Bourborn',quandity: '110 bags', cup_Score: '82', Actions: 'View' },
     { id: '14842', availibility_Name: 'Blend', estate_Name: 'La Isabela', origin: 'Vietnam', variety: 'Bourborn',quandity: '450 bags', cup_Score: '84', Actions: 'View' },
   ]
-  constructor(private globals: GlobalsService) { 
+  constructor(public globals: GlobalsService) { 
     this.termStatus = '';
     this.display = '10';
   }

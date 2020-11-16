@@ -74,6 +74,11 @@ import { InviteFriendsComponent} from './invite-friends/invite-friends.component
 import { InviteSucessComponent} from './invite-friends/invite-sucess/invite-sucess.component';
 import { VatManagementComponent} from './vat-management/vat-management.component';
 import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
+import { VisitUsComponent } from './Farm Link/brand-profile/visit-us/visit-us.component';
+import { HomePageComponent } from './Farm Link/brand-profile/home-page/home-page.component';
+import { AboutUsComponent } from './Farm Link/brand-profile/about-us/about-us.component';
+import { SustainabilityComponent } from './Farm Link/brand-profile/sustainability/sustainability.component';
+import { LearnComponent } from './Farm Link/brand-profile/learn/learn.component';
 
 
 const routes: Routes = [
@@ -337,6 +342,26 @@ const routes: Routes = [
         {
           path:'q-a-forum',
           component: QAForumComponent
+        },
+        {
+          path:'visit-us',
+          component: VisitUsComponent
+        },
+        {
+          path:'home-page',
+          component: HomePageComponent
+        },
+        {
+          path:'about-us',
+          component: AboutUsComponent
+        },
+        {
+          path:'sustainability',
+          component: SustainabilityComponent
+        },
+        {
+          path:'learn',
+          component: LearnComponent
         },
       {
         path: '',

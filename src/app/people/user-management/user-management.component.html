@@ -124,7 +124,7 @@
                     </tr>
 				</thead>
 				<!-- *ngIf="this.globals.checkItem('user-management')=='manage' || this.globals.checkItem('user-management')=='view'" -->
-                <tbody class="customtable" *ngIf="globals.permissions['user-management'] || globals.permissions['user-reports']">
+                <tbody class="customtable" *ngIf="this.globals.checkItem('user-reports') || this.globals.checkItem('user-management')">
                     <tr *ngFor="
             let user of userfilterDat
               | filter: term
@@ -166,8 +166,9 @@
                                 <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
                             </a>
                             <ng-template #popTemplate>
-									<!-- *ngIf="this.globals.checkItem('user-management')=='manage'" -->
-                                <div id="popover-mobile-content" *ngIf="globals.permissions['user-management'] && globals.permissions['user-management'].manage">
+                  <!-- *ngIf="this.globals.checkItem('user-management')=='manage'" -->
+                              <span *ngIf="globals.checkItem('user-management') && globals.permissions['user-management'].manage">
+                                <div id="popover-mobile-content" >
                                     <ul class="list-group custom-popover">
                                         <li class="list-group-item" >
                                             <a class="pointer-item" (click)="editMember(user.id); pop12.hide()">{{appLanguage?.edit_member}}</a
@@ -219,6 +220,7 @@
                                         </li>
                                     </ul>
                                 </div>
+                              </span>  
                             </ng-template>
                         </td>
                     </tr>

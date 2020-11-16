@@ -20,6 +20,7 @@ export class PrivacySettingsComponent implements OnInit {
   value: string;
   appLanguage?: any;
   privacyActive:any=0;
+  resetButtonValue : string = "Save changes";
   constructor(public userService : UserserviceService, public toastrService : ToastrService, 
               private route : ActivatedRoute, private router : Router,
               private globals : GlobalsService) { }
@@ -51,6 +52,7 @@ export class PrivacySettingsComponent implements OnInit {
   }
 
   privacyTerms(){
+    this.resetButtonValue = "Saving";
     var data = {
       'access_account' : this.access_account,
       'access_data' : this.access_data,
@@ -64,6 +66,8 @@ export class PrivacySettingsComponent implements OnInit {
         console.log(response);
 
         if(response['success'] == true){
+          
+        this.resetButtonValue = "Save changes";
           this.result = decodeURIComponent(this.route.snapshot.queryParams['data']);
           if(this.result == "login" || this.result == "reset-password"){
           this.toastrService.success("Privacy terms setting has been updated successfully");
@@ -76,10 +80,12 @@ export class PrivacySettingsComponent implements OnInit {
         this.router.navigate(['/features/reset-password'], navigationExtras);
         
           }else{
+            this.resetButtonValue = "Save changes";
             this.toastrService.success("Privacy terms setting has been updated successfully");
           this.router.navigate(['/features/account-settings']);
           }
-        }else {
+        }else { 
+          this.resetButtonValue = "Save changes";
          this.toastrService.error("Please enable all the Privacy policy settings");
           
         }

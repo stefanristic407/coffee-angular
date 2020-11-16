@@ -23,7 +23,7 @@
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                     </li>
                                     <li class="b-cum">
-                                        <a class="b-cum" routerLink="/ordermanagement/microroaster-orders">{{appLanguage?.micro_roaster_orders}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
+                                        <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
                                     <li class="b-cum c-pink">{{appLanguage?.order}} #12416
@@ -49,7 +49,7 @@
 
                                     <!-- <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div> -->
                                 </div>
-                                <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
+                                <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                                     <button type="submit" class="btn  pull-right ord-invoice-butn"> {{appLanguage?.order_invoice}} </button>
                                 </div>
                             </div>
@@ -67,45 +67,39 @@
                                                     <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                         <p class="order-status  mt-md-2 mb-1" (click)="orderPlaceSample()" #orderPlacedSample style="color: #232334;font-weight: bold;">
                                                             {{appLanguage?.order_placed_text}}</p>
-                                                        <p class="order-date mb-0 table_ellipsis"  matTooltip="Estate + facilitator Notified"
-                                                        matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
+                                                        <p class="order-date mb-0 table_ellipsis" matTooltip="Estate + facilitator Notified" matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking completed" id="confirmDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status  mt-md-2 table_ellipsis" (click)="orderConfirmSample()" #orderConfirmedSample  matTooltip="{{appLanguage?.order_confirmed}}"
-                                                        matTooltipClass="tooltiptext">{{appLanguage?.order_confirmed}}</p>
+                                                        <p class="order-status  mt-md-2 table_ellipsis" (click)="orderConfirmSample()" #orderConfirmedSample matTooltip="{{appLanguage?.order_confirmed}}" matTooltipClass="tooltiptext">{{appLanguage?.order_confirmed}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking  completed" id="paymentDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status mt-md-2 table_ellipsis" (click)="paySample()" #paymentSample  matTooltip="Payment"
-                                                        matTooltipClass="tooltiptext">Payment</p>
+                                                        <p class="order-status mt-md-2 table_ellipsis" (click)="paySample()" #paymentSample matTooltip="Payment" matTooltipClass="tooltiptext">Payment</p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking  completed" id="shippmentDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status mt-md-2 mb-1 table_ellipsis" (click)="shipmentStatusSample()" #shippmentSample matTooltip="Shipped"
-                                                        matTooltipClass="tooltiptext">Shipped</p>
+                                                        <p class="order-status mt-md-2 mb-1 table_ellipsis" (click)="shipmentStatusSample()" #shippmentSample matTooltip="Shipped" matTooltipClass="tooltiptext">Shipped</p>
                                                         <p class="order-date mb-0" *ngIf="shippmentReport">20 Feb 2020</p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking completed" id="receivedDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status mt-md-2 mb-1 table_ellipsis" (click)="receivedStatusSample()" #receivedSample matTooltip="Recieved"
-                                                        matTooltipClass="tooltiptext">Recieved</p>
+                                                        <p class="order-status mt-md-2 mb-1 table_ellipsis" (click)="receivedStatusSample()" #receivedSample matTooltip="Recieved" matTooltipClass="tooltiptext">Recieved</p>
                                                         <p class="order-date mb-0" *ngIf="receivedReport">1 March 2020</p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking completed" id="gradedDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status  mt-md-2 mb-0 table_ellipsis" (click)="gradedStatusSample()" #gradedSample matTooltip="Graded by Roaster"
-                                                        matTooltipClass="tooltiptext">Graded by Roaster</p>
+                                                        <p class="order-status  mt-md-2 mb-0 table_ellipsis" (click)="gradedStatusSample()" #gradedSample matTooltip="Graded by Roaster" matTooltipClass="tooltiptext">Graded by Roaster</p>
                                                         <label class="order-datecolor mb-0" *ngIf="uploadReportSample" (click)="upload.click()">Upload report</label>
                                                         <input hidden type="file" #upload />
                                                         <p class="order-datecolor mb-0" *ngIf="gradedReportSample">View report
@@ -181,10 +175,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{appLanguage?.grade_info}}</a>
                             </li>
-                            <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage?.have_a_problem}}</button>
+                            <li class="pull-right ml-auto problem-text" id="have-a-problem-web" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage?.have_a_problem}}</button>
                             </li>
                         </ul>
-                        <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
+                        <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                             <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage?.have_a_problem}}</button>
                         </div>
 
@@ -289,7 +283,7 @@
                                             </span>
 
                                         </li>
-                                        <li class="mt-4">
+                                        <li class="mt-4" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                                             <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
  
                                                 <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
@@ -374,7 +368,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="pull-right ml-auto">
+                                <div class="pull-right ml-auto" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                                     <div class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
                                         <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
                                         <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
@@ -470,7 +464,7 @@
                             <!-- <div class="pull-right ml-auto list-time d-none d-md-inline-block">1:30pm</div> -->
 
                         </div>
-                        <div class="w-100 mt-4 mb-2 d-block d-md-none">
+                        <div class="w-100 mt-4 mb-2 d-block d-md-none" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                             <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center" (click)="cancelOrder()">{{appLanguage?.cancel_order}}</button>
                         </div>
                     </div>
@@ -481,7 +475,7 @@
                 </div>
 
 
-                <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
+                <div class="w-100 mt-5 pb-5 d-none d-md-inline-block" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                     <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{appLanguage?.cancel_order}}</button>
                 </div>
                 <div class="w-100 chat-div">

@@ -223,15 +223,12 @@
                                                                                 <a>NA</a>
                                                                             </span>
                                                                         <span *ngIf="sample.lots!= null" >
-                                                                                <a *ngFor="let lotdata of sample.lots" >
+                                                                                <a *ngFor="let lotdata of sample.lots | slice:0:3" >
                                                                                     {{lotdata.name}}
                                                                                 </a>
+                                                                                <a *ngIf="sample.lots.length>3">+{{(sample.lots.length)-3}}more</a>
+
                                                                             </span>
-        
-                                                                        <!-- <a>Dilema</a>
-                                                                            <a>Shaya</a>
-                                                                            <a>Gayni</a>
-                                                                            <a>+5more</a> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -287,11 +284,17 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="top-lots">
-                                                                            <label>{{appLanguage.top_lots}}</label>
-                                                                            <a>Dilema</a>
-                                                                            <a>Shaya</a>
-                                                                            <a>Gayni</a>
-                                                                            <a>+5more</a>
+                                                                            <label (click)="estateList(sample)">{{appLanguage.top_lots}}</label>
+                                                                        <span *ngIf="sample.lots== null" (click)="estateList(sample)">
+                                                                                <a>NA</a>
+                                                                            </span>
+                                                                        <span *ngIf="sample.lots!= null" >
+                                                                                <a *ngFor="let lotdata of sample.lots | slice:0:3" >
+                                                                                    {{lotdata.name}}
+                                                                                </a>
+                                                                                <a *ngIf="sample.lots.length>3">+{{(sample.lots.length)-3}}more</a>
+
+                                                                            </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -353,9 +356,12 @@
                                                                         <span *ngIf="estate['crop_year']['gte'] != 0 && estate['crop_year']['lte'] != 0">{{GetMonthName(estate['crop_year']['gte'])}}-{{GetMonthName(estate['crop_year']['lte'])}}</span>
                                                                         <!-- {{ estate.cropyear }}  -->
                                                                     </td>
-                                                                    <td>
-                                                                        <div><a class="lot-class pr-3">Dilema</a><a class="lot-class">Shaya</a></div>
-                                                                        <div><a class="lot-class pr-3">Gayni</a><a class="lot-class">+5more</a></div>
+                                                                    <td class="lots-space">
+                                                                        <div *ngIf="estate.lots!= null" (click)="estateList(estate)">
+                                                                            <a class="lot-class pr-3 mb-2" *ngFor="let lotdata of estate.lots | slice:0:3">{{lotdata.name}}</a>
+                                                                            <a class="lot-class mb-2" *ngIf="estate.lots.length>3">+{{(estate.lots.length)-3}}more</a>
+                                                                        </div>
+                                                                        <div *ngIf="estate.lots== null">NA</div>
                                                                     </td>
                                                                     <td>
                                                                         <span>

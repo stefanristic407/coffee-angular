@@ -200,7 +200,7 @@ export class AvailableCoffeeListComponent implements OnInit {
   
     // line chart
     autoScale = true;
-  constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox,private globals: GlobalsService) { }
+  constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox,public globals: GlobalsService) { }
 
   ngOnInit(): void {
 	this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));

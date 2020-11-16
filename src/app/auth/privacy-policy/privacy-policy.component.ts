@@ -15,6 +15,8 @@ export class PrivacyPolicyComponent implements OnInit {
   access_chat : boolean = false;
   access_data : boolean = false;
   access_details : boolean = false;
+
+  resetButtonValue: string = "Next";
   constructor(private cookieService: CookieService, private router: Router,
     public toastrService  : ToastrService, private userService : UserserviceService) {}
 
@@ -24,6 +26,7 @@ export class PrivacyPolicyComponent implements OnInit {
   }
 
   public next(){
+    this.resetButtonValue = "Updating";
     if(this.access_details == false || this.access_chat == false || this.access_data == false || this.agree_policy == false || this.agree_terms == false){
       this.toastrService.error("Please accept the terms and conditions");
       }
@@ -38,14 +41,17 @@ export class PrivacyPolicyComponent implements OnInit {
         this.userService.privacyTerms(data).subscribe(
           res => {
             if(res['success'] == true){
+              this.resetButtonValue = "Next";
               this.toastrService.success("Privacy terms accepted.");
               this.router.navigate(['/auth/update-password']);
             }
             else{
+              this.resetButtonValue = "Next";
               this.toastrService.error("Error in accepting privacy terms. Please try again");
             }
           }
         )
+        this.resetButtonValue = "Next";
       } 
       
   }

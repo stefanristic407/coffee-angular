@@ -46,7 +46,7 @@ export class ManageRoleComponent implements OnInit {
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
-    if(!this.globals.permissions['acl-management'] && !this.globals.permissions['acl-list']){
+    if(!this.globals.checkItem('acl-management') && !this.globals.checkItem('acl-list')){
       this.router.navigate(["/people/permission-error"]);
     }
     $(document).ready(function () {

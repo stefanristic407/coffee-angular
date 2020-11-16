@@ -25,7 +25,7 @@ export class InviteMemberComponent implements OnInit {
   emailError : string;
   nameError  :string;
   password: string = 'Ro@Sewn1234';
- 
+  resetButtonValue: string = 'Send Invite(s)';
   addUser = [
     {
       firstname : '',
@@ -150,6 +150,7 @@ export class InviteMemberComponent implements OnInit {
 
 
   public sendInvites(){
+    this.resetButtonValue = "Sending";
     let flag = true;
     var input = this.addUser;
   console.log(input);
@@ -164,6 +165,8 @@ export class InviteMemberComponent implements OnInit {
             this.roasterService.assignUserBasedUserRoles(this.roaster_id, this.role_id, data['result']['user_id']).subscribe(
               data => {
                 if (data['success'] == true) {
+
+                  // this.resetButtonValue = "Send Invite(s)";
                   this.toastrService.success("Role has been assgined to " + element.firstname );
                   
                     var body = {
@@ -181,6 +184,8 @@ export class InviteMemberComponent implements OnInit {
                     this.userService.sendUrlToEmail(body).subscribe(
                       res => {
                         if(res['status'] == "200 OK"){
+                          this.resetButtonValue = "Send Invite(s)";
+                          this.router.navigate(['/people/user-management']);
                           this.toastrService.success("Email has been sent successfully");
                         }
                         else{
@@ -222,6 +227,7 @@ export class InviteMemberComponent implements OnInit {
     //   }
     // ]
     } else {
+      this.resetButtonValue = "Send Invite(s)";
       this.toastrService.error('Fields should not be empty.');
     }
   }

@@ -171,7 +171,7 @@
                     </div>
                 </div>
             </div>
-            <div class="estate-table pt-2">
+            <div class="estate-table pt-2" *ngIf="global.permissions['cart-list'] || global.permissions['cart-management']">
                 <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
                     <!-- <thead>
                     <tr class="estate-title">

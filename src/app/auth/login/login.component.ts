@@ -251,7 +251,7 @@ export class LoginComponent implements OnInit {
                   
                   if (result['result'].status == "ACTIVE") {
                     
-                  this.userService.getRoasterUserData(data['result'].roaster_ids[0], data['result'].user_id).subscribe( res => {
+                  this.userService.getRoasterProfile(data['result'].roaster_ids[0]).subscribe( res => {
                     if(res['success'] == false){
                       this.loginButtonValue = "Login";
                       this.myAlertPermission();

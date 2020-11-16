@@ -62,7 +62,7 @@ export class DocumentTableComponent implements OnInit {
   share_permission: any;
   documentTable:any=0;
 
-
+  resetButtonValue : any = "Share";
   
   selectedValue: string;
   appLanguage?: any;
@@ -474,6 +474,7 @@ this.roasterService.getUsersList(this.typedValue).subscribe(
   // }
 
   shareFileAndFolder(){
+    this.resetButtonValue = "Sharing";
     var file_id = this.shareFileId;
     var share_permission = document.getElementById('share_permission').innerHTML;
     if(share_permission == "Can view"){
@@ -491,10 +492,12 @@ this.roasterService.getUsersList(this.typedValue).subscribe(
     this.roasterService.shareFolder(this.roasterId,file_id,shareData).subscribe(
       res => {
         if(res['success']==true){
+          this.resetButtonValue = "Share";
           this.sharedUsersLists();
           this.toastrService.success("The folder has been shared to the User sucessfully!")
         }
         else{
+          this.resetButtonValue = "Share";
           this.toastrService.error("Error while sharing the folder to the user!");
         }
       

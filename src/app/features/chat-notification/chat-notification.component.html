@@ -41,7 +41,8 @@
                             </nav>
                         </div>
                         <div class="ml-auto text-right prefer-space">
-                            <button type="submit" class="btn btn-succes save-butn" (click)="updatePreferences()">{{appLanguage?.save_changes}}</button>
+                            <button type="submit" class="btn btn-succes save-butn" (click)="updatePreferences()"  [disabled]="resetButtonValue==='Saving'">
+                                {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
                         </div>
                         <div class="row mobile-view">
                             <span class="cursor-pointer" routerLink="/features/account-settings">
@@ -120,12 +121,12 @@
 
                                 </div>
                                 <div class="chat-content">
-                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.order_related_updates}}</span>
+                                    <!-- <span class="receipt-data text-left mr-auto">{{appLanguage?.order_related_updates}}</span>
                                     <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="updates"></p-inputSwitch></span>
                                     <div class="text-left mr-auto read-text pt-1 web-display">{{appLanguage?.order_related_subtext}}
                                     </div>
                                     <div class="text-left mr-auto read-text pt-1 mob-display">{{appLanguage?.order_related_subtext}}
-                                    </div>
+                                    </div> -->
                                     <div class="chat-content">
                                         <span class="receipt-data text-left mr-auto">{{appLanguage.order_related_updates}}</span>
                                         <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="updates"></p-inputSwitch></span>
@@ -152,7 +153,8 @@
                         </div>
                     </div>
                     <div class="mobile-farm col-12">
-                        <button type="button" class="btn btn-success save-butn" (click)="updatePreferences()"> {{appLanguage?.save_changes}} </button>
+                        <button type="button" class="btn btn-success save-butn" (click)="updatePreferences()" [disabled]="resetButtonValue==='Saving'">
+                            {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
                     </div>
                 </section>
             </div>

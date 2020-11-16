@@ -246,6 +246,14 @@ button.toast-close-button {
   }
 }
 
+/* common css responsive for login reset change password */
+
+.loader {
+  height: 17px;
+  width: 17px;
+  margin-left: 4px;
+  margin-top: -4px;
+}
 
 
    

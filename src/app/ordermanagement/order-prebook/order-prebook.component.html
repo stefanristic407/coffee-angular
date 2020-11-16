@@ -19,9 +19,8 @@
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li>
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage?.estate_orders}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
-                                            src="/assets/images/arrow-1.png" alt="">
-                                    </span>
+                                    <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
+                                        src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
                                 <li class="b-cum c-pink">{{appLanguage?.order}} 12416
                                 </li>
@@ -46,7 +45,7 @@
 
                             <div class="pt-2 note-prebooked"><span class="bold-note">{{appLanguage?.note}} :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div>
                         </div>
-                        <div class="btn-div col-md-6 d-none d-md-inline-block pr-0">
+                        <div class="btn-div col-md-6 d-none d-md-inline-block pr-0" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                             <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none"> {{appLanguage?.order_invoice}}
                             </button>
                         </div>
@@ -106,7 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="btn-div col-12 d-inline-block d-md-none mb-2">
+                                <div class="btn-div col-12 d-inline-block d-md-none mb-2" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                                     <button type="submit" class="btn w-100 text-center pull-right ord-invoice-butn">
                                         {{appLanguage?.order_invoice}}
                                     </button>
@@ -172,7 +171,7 @@
                         <li class="nav-item">
                             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{appLanguage?.grade_info}}</a>
                         </li>
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage?.have_a_problem}}</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage?.have_a_problem}}</button>
                         </li>
                     </ul>
                     <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
@@ -278,7 +277,7 @@
                                     </span>
 
                                 </li>
-                                <li class="mt-4">
+                                <li class="mt-4" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                                     <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
  
                                         <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
@@ -322,7 +321,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="pull-right ml-auto">
+                        <div class="pull-right ml-auto" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                             <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
  
                                 <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
@@ -340,7 +339,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="pull-right ml-auto">
+                        <div class="pull-right ml-auto" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                             <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
  
                                 <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
@@ -687,7 +686,7 @@
                     </div>
 
 
-                    <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
+                    <div class="w-100 mt-5 pb-5 d-none d-md-inline-block" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
                         <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{appLanguage?.cancel_order}}</button>
                     </div>
                     <div class="w-100 chat-div">

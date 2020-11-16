@@ -76,7 +76,7 @@ import { OrdersTableComponent } from './microroaster-orders/mr-orders/orders-tab
 import { RequestsTableComponent } from './microroaster-orders/mr-orders/requests-table/requests-table.component';
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 // import { EmptyTableComponent } from '../error-module/empty-table/empty-table.component';
-
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 
 @NgModule({
@@ -157,6 +157,7 @@ import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-deta
     AutocompleteLibModule,
     ErrorModuleModule,
     MatTooltipModule,
+    AutoCompleteModule,
     // EmptyTableComponent,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})

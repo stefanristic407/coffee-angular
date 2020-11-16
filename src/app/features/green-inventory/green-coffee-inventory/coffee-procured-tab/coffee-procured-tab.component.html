@@ -49,7 +49,7 @@
     </div>
 </div>
 <div class="table-container mb-2 mt-4">
-    <div class="table-responsive">
+    <div class="table-responsive" *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
         <table class="table">
             <thead class="table-header">
                 <tr class="header-row">
@@ -103,12 +103,12 @@
                             <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
                         </a>
                         <ng-template #poplistTemplate>
-                            <div id="popover-mobile-content">
+                            <div id="popover-mobile-content" >
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Message roaster </a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Message estate</a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Simulate login as roaster</a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Simulate login as estate</a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"> <a class="pointer-item" (click)="pop.hide();">Message roaster </a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Message estate</a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Simulate login as roaster</a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Simulate login as estate</a></li>
                                 </ul>
                             </div>
                         </ng-template>

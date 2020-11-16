@@ -6,77 +6,77 @@
 </div>
 
 <div *ngIf="greenActive == 1">
-<section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff coffee-exp">
+    <section>
+        <div class="container sewn-container section-head-pad">
+            <div class="bg-fff coffee-exp">
 
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                <span class="sr-only"></span>
-                <ul class="bread-nav">
-                    <li class="b-cum">
-                        <a class="b-cum">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                    </li>
-                    <li class="b-cum">
-                        <a class="b-cum">{{appLanguage?.inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                    </li>
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                    <span class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/green-coffee-inventory">{{appLanguage?.inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
 
-                    <li class="b-cum c-pink">{{appLanguage?.green_coffee_inventory}}</li>
-                    <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
+                        <li class="b-cum c-pink">{{appLanguage?.green_coffee_inventory}}</li>
+                        <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
 
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
 
-            <section class="estate-orders-heading">
-                <h5 class="estate-order-title pt-3">{{appLanguage?.green_coffee_inventory}}</h5>
-                <p class="Give-your-end-users">Manage your procured coffee and mark coffee for sale</p>
-            
-                <div class="row">
-                    <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
-                        <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="pills-procured-tab" data-toggle="pill" href="#pills-procured" role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage?.procured_coffee}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-marked-tab" data-toggle="pill" href="#pills-marked" role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage?.marked_sale}}</a>
-                            </li>
-						</ul>
-						<div class="tab-content mt-md-4" id="pills-tabContent">
-							<div class="tab-pane fade show active spacing-order" id="pills-procured" role="tabpanel" aria-labelledby="pills-home-tab">
-							<app-coffee-procured-tab></app-coffee-procured-tab>
-							</div>
-							<div class="tab-pane fade spacing-order" id="pills-marked" role="tabpanel" aria-labelledby="pills-profile-tab">
-							<app-marked-sale></app-marked-sale>
-							</div>
-						</div>
+                <section class="estate-orders-heading">
+                    <h5 class="estate-order-title pt-3">{{appLanguage?.green_coffee_inventory}}</h5>
+                    <p class="Give-your-end-users">Manage your procured coffee and mark coffee for sale</p>
+
+                    <div class="row">
+                        <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                            <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-procured-tab" data-toggle="pill" href="#pills-procured" role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage?.procured_coffee}}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-marked-tab" data-toggle="pill" href="#pills-marked" role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage?.marked_sale}}</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content mt-md-4" id="pills-tabContent">
+                                <div class="tab-pane fade show active spacing-order" id="pills-procured" role="tabpanel" aria-labelledby="pills-home-tab" *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
+                                    <app-coffee-procured-tab></app-coffee-procured-tab>
+                                </div>
+                                <div class="tab-pane fade spacing-order" id="pills-marked" role="tabpanel" aria-labelledby="pills-profile-tab" *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-managementt'].manage">
+                                    <app-marked-sale></app-marked-sale>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-<ng-template #originTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Colombia</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Ethopia</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
+    <ng-template #originTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">All</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Colombia</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Ethopia</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
 
-<ng-template #allTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item">All</a
+    <ng-template #allTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">All</a
                   >
                 </li>
                 <li class="list-group-item item-color">
@@ -99,81 +99,81 @@
                       </li>
                       <li class="list-group-item item-color">
                             <a class="pointer-item">Harvest Ready</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Received</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-<ng-template #typeTemplate>
-    <div>
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item">All</a
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Received</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template #typeTemplate>
+        <div>
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">All</a
                               >
                             </li>
                             <li class="list-group-item item-color"><a class="pointer-item" >Sample</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item">Booked</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item">Pre-Booked</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item">Booked</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item">Pre-Booked</a></li>
 
 
-        </ul>
-    </div>
+            </ul>
+        </div>
 
-</ng-template>
+    </ng-template>
 
-<ng-template #displayTemplate>
-    <div>
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item">All</a>
-            </li>
-            <li class="list-group-item item-color"><a class="pointer-item">10</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item">25</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item">50</a></li>
-            <li class="list-group-item item-color"><a class="pointer-item">100</a></li>
+    <ng-template #displayTemplate>
+        <div>
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">All</a>
+                </li>
+                <li class="list-group-item item-color"><a class="pointer-item">10</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item">25</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item">50</a></li>
+                <li class="list-group-item item-color"><a class="pointer-item">100</a></li>
 
 
-        </ul>
-    </div>
+            </ul>
+        </div>
 
-</ng-template>
+    </ng-template>
 
-<ng-template #originTemplateMob>
-    <div id="origin-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Colombia</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Ethiopia</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Brazil</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-<ng-template #statusTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Instock</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Sold</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item">Hidden</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
+    <ng-template #originTemplateMob>
+        <div id="origin-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">All</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Colombia</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Ethiopia</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Brazil</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template #statusTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">All</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Instock</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Sold</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Hidden</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
 </div>

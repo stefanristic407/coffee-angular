@@ -56,7 +56,7 @@
     </section>
 
     <div class="table-container desk_view_user">
-        <div class="table-responsive" *ngIf="globals.permissions['acl-list'] || globals.permissions['acl-management']">
+        <div class="table-responsive" *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')">
             <table class="table">
                 <thead class="table-header">
                     <tr class="header-row">
@@ -109,14 +109,14 @@
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Duplicate role</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Manage Permissions</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">Delete</a></li> -->
-                                        <li class="list-group-item" *ngIf="this.globals.permissions['acl-management'] && this.globals.permissions['acl-management'].manage" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">{{appLanguage?.add_members}} </a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.permissions['acl-management'].manage || this.globals.permissions['acl-management'].view" ><a class="pointer-item" (click)="viewMembers(data);pop.hide();">{{appLanguage?.view_members}} </a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.permissions['acl-management'] && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{appLanguage?.update_role}}</a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.permissions['acl-management'] && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="pop.hide();">{{appLanguage?.rename}}</a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.permissions['acl-management'] && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="pop.hide();">{{appLanguage?.duplicate_role}} </a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.permissions['acl-management'] && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{appLanguage?.manage_permissions}}</a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">{{appLanguage?.add_members}} </a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">{{appLanguage?.view_members}} </a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{appLanguage?.update_role}}</a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="pop.hide();">{{appLanguage?.rename}}</a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="pop.hide();">{{appLanguage?.duplicate_role}} </a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{appLanguage?.manage_permissions}}</a></li>
                                         <!-- <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">{{appLanguage?.delete_role}}</a></li> -->
-                                        <li class="list-group-item" *ngIf="this.globals.permissions['acl-management'] && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,data.id);pop.hide();">{{appLanguage?.delete_role}}</a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,data.id);pop.hide();">{{appLanguage?.delete_role}}</a></li>
                                     </ul>
                                 </div>
                             </ng-template>
