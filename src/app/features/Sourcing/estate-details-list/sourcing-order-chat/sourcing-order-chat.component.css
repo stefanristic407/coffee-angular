@@ -80,3 +80,7 @@
     border-radius: 4px;
     background-color: #30855c;
 }
+
+.view-chat-profile:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}

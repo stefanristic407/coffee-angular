@@ -20429,6 +20429,10 @@ button:focus {
     cursor: pointer;
 }
 
+.send-message__btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .send-message__btn span {
     font-size: 14px;
     color: #ffffff;
@@ -21009,6 +21013,10 @@ button:focus {
     font-size: 12px;
 }
 
+.copy-link button:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .download-qr-link {
     margin-top: 25px;
 }
@@ -21330,6 +21338,10 @@ button:focus {
     text-align: center;
     font-size: 14px;
     background-color: #30855c;
+}
+
+.save:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .butn-prev-save {
@@ -22266,6 +22278,10 @@ li.select-list__item {
     color: #ffffff;
     cursor: pointer;
     text-decoration: none;
+}
+
+.source-knowmore-avail .contact-us-avail:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .source-knowmore-avail .know-more-avail {
@@ -23246,3 +23262,11 @@ li.select-list__item {
 
 
 /* auto complete ends*/
+
+
+.avail-ellipses{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 132px;
+
+}

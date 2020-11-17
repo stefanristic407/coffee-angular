@@ -145,6 +145,10 @@ li.nav-item {
     height: 46px;
 }
 
+.continue-order:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .select_cancel {
     border-radius: 4px;
     border: solid 1px #30855c;
@@ -264,6 +268,7 @@ table.dataTable thead th {
     border: solid 1px #d6d6d6;
     padding: 6px 4px;
 }
+
 .tooltiptext {
     /* visibility: hidden; */
     /* width: auto; */
@@ -275,7 +280,7 @@ table.dataTable thead th {
     background-color: #ffffff !important;
     line-height: 1.43 !important;
     letter-spacing: normal !important;
-    color: #747588 !important ;
+    color: #747588 !important;
     font-size: 14px !important;
     text-align: center !important;
     padding: 15px 20px 15px 20px!important;
@@ -287,8 +292,9 @@ table.dataTable thead th {
     /* position: absolute !important; */
     /* z-index: 1 !important; */
     /* left: 15%; */
-  }
-  .tooltiptext::after {
+}
+
+.tooltiptext::after {
     content: "" !important;
     position: absolute !important;
     bottom: 100% !important;
@@ -297,22 +303,22 @@ table.dataTable thead th {
     border-width: 8px !important;
     border-style: solid !important;
     border-color: transparent transparent #ffffff transparent !important;
-  }
-  
- /* .table_ellipsis:hover .tooltiptext {
+}
+
+
+/* .table_ellipsis:hover .tooltiptext {
     visibility: visible;
   } */
-  .table_ellipsis {
+
+.table_ellipsis {
     max-width: 72px!important;
     width: 54px !important;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
-
     /* position: relative; */
-  }
-
+}
 
 @media (max-width:991px) {
     .estate-table {

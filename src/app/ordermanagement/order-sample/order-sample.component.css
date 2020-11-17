@@ -510,6 +510,10 @@ li.nav-item {
     padding: .5rem 1rem;
 }
 
+.problem-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 
 /********************* css for confirm order**************************/
 
@@ -547,6 +551,10 @@ li.nav-item {
     color: #ffffff;
     padding-top: 9px;
     padding-bottom: 8px;
+}
+
+.yes-order:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .cancel-order {

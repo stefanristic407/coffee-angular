@@ -47,6 +47,10 @@
     border: #30855c;
 }
 
+.update-now:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .bg-msg {
     border-radius: 2px;
     border: solid 1px #747588;

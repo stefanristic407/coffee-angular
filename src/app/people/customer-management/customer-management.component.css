@@ -92,3 +92,7 @@ li.nav-item {
     color: #fff;
     border: #30855c;
 }
+
+.butn-availability:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}

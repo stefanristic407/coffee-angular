@@ -1,16 +1,20 @@
-.order__id,.delivery__addr,.customer__details{
+.order__id,
+.delivery__addr,
+.customer__details {
     font-family: Muli;
     font-size: 18px;
     font-weight: bold;
     color: #232334;
 }
-.standard__delivery{
+
+.standard__delivery {
     border-radius: 25px;
     background-color: #f8f8f8;
     padding: 12px;
     margin-left: 12px;
 }
-.standard__delivery span{
+
+.standard__delivery span {
     font-size: 14px;
     font-weight: bold;
     color: #232334;
@@ -123,7 +127,8 @@
     padding-right: 1.5rem;
 }
 
-.order-status,.order-date {
+.order-status,
+.order-date {
     /* margin-left: -0.8rem; */
     font-family: Muli;
     font-size: 13px;
@@ -137,12 +142,15 @@
     font-weight: normal;
     color: #020202;
 }
-.customer__amount{
+
+.customer__amount {
     padding: 12px 3rem 12px 3rem;
     border-radius: 4px;
     background-color: #f8f8f8;
 }
-.payment__recieved,.payment__after__delivery{
+
+.payment__recieved,
+.payment__after__delivery {
     border-radius: 4px;
     border: solid 1px #232334;
     background-color: #f8f8f8;
@@ -151,6 +159,7 @@
     font-weight: 600;
     color: #232334;
 }
+
 .nav-pills {
     border-bottom: 1px solid #d6d6d6;
 }
@@ -266,17 +275,24 @@ li.nav-item {
     color: #ffffff;
     padding: .5rem 1rem;
 }
-.img-logo{
+
+.problem-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.img-logo {
     width: 100%;
     height: 134px;
 }
-.customer-name{
+
+.customer-name {
     font-family: Muli;
     font-size: 16px;
     font-weight: 600;
     color: #232334;
 }
-.customer-message{
+
+.customer-message {
     font-family: Muli;
     font-size: 14px;
     font-weight: 500;
@@ -292,7 +308,8 @@ li.nav-item {
     color: #30855c;
     padding: 1% 2%;
 }
-.cancel-order-btn:hover{
+
+.cancel-order-btn:hover {
     background-color: #30855c;
     color: #ffffff;
 }
@@ -328,14 +345,16 @@ li.nav-item {
 .chat-div {
     width: 98%!important;
 }
-.text-data{
+
+.text-data {
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     line-height: 1.29;
     color: #232334;
 }
-.save-btn{
+
+.save-btn {
     height: 50px;
     border-radius: 4px;
     background-color: #30855c;
@@ -349,23 +368,29 @@ li.nav-item {
     position: relative;
     bottom: 2px;
 }
-.track-link{
+
+.save-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.track-link {
     width: 240px;
     height: 50px;
     border-radius: 4px;
     border: solid 1px #d6d6d6;
-    background-color: #ffffff;  
+    background-color: #ffffff;
     padding: 10px;
 }
-.year{
+
+.year {
     width: 240px;
     height: 50px;
     border-radius: 4px;
     /* border: solid 1px #d6d6d6; */
     background-color: #ffffff;
-  
 }
-:host ::ng-deep .ui-inputtext{
+
+:host ::ng-deep .ui-inputtext {
     height: 50px !important;
     width: 240px !important;
     border: 1px solid #d6d6d6 !important;
@@ -373,42 +398,50 @@ li.nav-item {
     background-color: #ffffff !important;
     cursor: pointer;
 }
-.recent-title{
+
+.recent-title {
     font-size: 28px;
     font-weight: normal;
 }
-.activity-date{
+
+.activity-date {
     color: #5d5d5d;
     font-size: 14px;
 }
-.list-name{
+
+.list-name {
     font-family: Muli;
     font-size: 16px;
     font-weight: 600;
     line-height: 1.38;
     color: #232334;
 }
-.list-user{
+
+.list-user {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #747588;
 }
-.list-time{
+
+.list-time {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #747588;
 }
-.confirmation-status{
+
+.confirmation-status {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #232334;
 }
-.border-div{
+
+.border-div {
     border-bottom: 1px solid #d6d6d6;
 }
-.border-div:last-child{
+
+.border-div:last-child {
     border-bottom: none;
 }

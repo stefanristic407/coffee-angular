@@ -201,29 +201,34 @@ a.b-cum:hover {
     padding-top: 4%;
     padding-bottom: 4%;
 }
-.mobile-view{
+
+.raise-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.mobile-view {
     display: none;
 }
 
 @media all and (max-width: 425px) {
-    .mobile-view{
+    .mobile-view {
         display: block !important;
         padding: 1rem;
         margin-bottom: 4rem;
     }
-    .desk-view{
+    .desk-view {
         display: none;
     }
-    .raise-ticket{
+    .raise-ticket {
         display: none;
     }
-    .bg-fff{
+    .bg-fff {
         padding: 0rem !important;
     }
-    .border-clr{
+    .border-clr {
         padding: .5rem !important;
     }
-    .breadcrumb1{
+    .breadcrumb1 {
         padding: 1rem !important;
     }
     .help-div {
@@ -232,7 +237,7 @@ a.b-cum:hover {
         padding-top: 5%;
         border-radius: 2px;
     }
-    .header-value{
+    .header-value {
         font-size: 16px;
         margin-top: .5rem;
     }
@@ -246,53 +251,54 @@ a.b-cum:hover {
         color: #232334;
         font-weight: bold;
     }
-    .content{
+    .content {
         padding-right: 5% !important;
     }
-    
-.accordion .card h2 {
-    background: url(../../../../assets/images/arrow-up.svg) no-repeat calc(94% - -15px) center;
-    padding-left: .5rem;
-    background-size: 15px;
-    cursor: pointer;
-    font-size: 14px;
-    padding-right: 2rem;
-}
-.card {
-    border: none;
-    margin-bottom: 0 !important;
-    border-bottom: 1px dashed #ebebeb !important;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-}
-.content{
-    font-size: 12px;
-}
-.yes-btn{
-    text-align: center;
-    width: 45%;
-}
-.raise-btn{
-    text-align: center;
-    width: 50%;
-}
-.create-role-btn{
-    font-size: 14px;
-    width: 100%;
-    font-weight: 600;
+    .accordion .card h2 {
+        background: url(../../../../assets/images/arrow-up.svg) no-repeat calc(94% - -15px) center;
+        padding-left: .5rem;
+        background-size: 15px;
+        cursor: pointer;
+        font-size: 14px;
+        padding-right: 2rem;
+    }
+    .card {
+        border: none;
+        margin-bottom: 0 !important;
+        border-bottom: 1px dashed #ebebeb !important;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+    .content {
+        font-size: 12px;
+    }
+    .yes-btn {
+        text-align: center;
+        width: 45%;
+    }
+    .raise-btn {
+        text-align: center;
+        width: 50%;
+    }
+    .create-role-btn {
+        font-size: 14px;
+        width: 100%;
+        font-weight: 600;
+    }
 }
 
-}
 @media all and (max-width: 768px) {
-    .content{
+    .content {
         padding-right: 20%;
     }
 }
+
 @media all and (max-width: 1024px) {
-    .content{
+    .content {
         padding-right: 25%;
     }
 }
+
 .breadcrumb1 {
     padding: 1rem;
 }
@@ -326,8 +332,8 @@ a.b-cum:hover {
     z-index: 99;
     background-color: #fff;
     padding: 10px 30px;
-
 }
-.mobile-farm{
+
+.mobile-farm {
     margin-bottom: 4rem;
 }

@@ -45,6 +45,10 @@
     padding: 0.7rem;
 }
 
+.save-change:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .login-text,
 .login-history,
 .deactivate-account {
@@ -168,6 +172,10 @@
     padding: 0.6rem 0.9rem;
 }
 
+.deactivate-button:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .main-spacing {
     padding: 0.5rem 2.7rem 2.5rem 2.6rem
 }
@@ -219,6 +227,10 @@
     padding: 7px 1.2rem;
 }
 
+.yes-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 ::ng-deep .modal-content {
     top: 3rem;
 }
@@ -227,14 +239,15 @@
     margin-bottom: 4px;
 }
 
-.mobile-view{
-    display:none;
+.mobile-view {
+    display: none;
 }
+
 
 /*********Media Queries***************/
 
 @media screen and (max-width: 575px) {
-    .top-padding{
+    .top-padding {
         padding: 0%;
     }
     .main-spacing {
@@ -246,65 +259,61 @@
     .logout {
         font-size: 12px;
     }
-    .border-total{
+    .border-total {
         border: none;
         padding: 0%;
     }
-    .desk-view{
+    .desk-view {
         display: none;
     }
-    .mobile-view{
+    .mobile-view {
         display: block;
-        padding: 1rem 1rem 1rem 2rem ;
+        padding: 1rem 1rem 1rem 2rem;
     }
     .login-text,
-.login-history,
-.deactivate-account {
-    font-size: 16px;
-}
-.header-login{
-    font-size: 16px;
-}
-
-.change-password-btn{
-    color: #ffffff !important;
-    background-color: #30855c !important;
+    .login-history,
+    .deactivate-account {
+        font-size: 16px;
     }
-    
-    .change-password-btn:hover{
+    .header-login {
+        font-size: 16px;
+    }
+    .change-password-btn {
+        color: #ffffff !important;
+        background-color: #30855c !important;
+    }
+    .change-password-btn:hover {
         box-shadow: 0 0 10px 4px rgba(27, 27, 27, 0.3) !important;
     }
-
     .deactivate-button {
         color: #30855c !important;
         background-color: #ffffff !important;
         border: 1px solid #30855c !important;
     }
-    .deactivate-button:hover{
+    .deactivate-button:hover {
         background-color: #30855c !important;
         color: #ffffff !important;
     }
-    .desk{
+    .desk {
         display: none;
     }
-    .mob{
+    .mob {
         display: block !important;
         margin-top: 0.5rem;
     }
-    .session{
+    .session {
         font-size: 14px;
     }
-    .back-ticket{
+    .back-ticket {
         font-family: Muli;
         font-size: 16px;
         font-weight: 600;
         color: #80460b;
         cursor: pointer;
     }
-    .save-change{
+    .save-change {
         width: 100% !important;
     }
-
 }
 
 @media only screen and (max-width: 991px) and (min-width: 768px) {
@@ -328,24 +337,25 @@
     background-color: #fff;
     padding: 10px 30px;
 }
-.mobile-farm{
+
+.mobile-farm {
     margin-bottom: 2rem;
 }
 
-.change-password-btn{
-padding: 0.5rem 1rem;
-color: #30855c;
-border: 1px solid #30855c;
-background-color: #ffffff;
-border-radius: 4px;
-font-family: Muli;
+.change-password-btn {
+    padding: 0.5rem 1rem;
+    color: #30855c;
+    border: 1px solid #30855c;
+    background-color: #ffffff;
+    border-radius: 4px;
+    font-family: Muli;
 }
 
-.change-password-btn:hover{
-background-color: #30855c;
-color: #ffffff;
+.change-password-btn:hover {
+    background-color: #30855c;
+    color: #ffffff;
 }
 
-.mob{
+.mob {
     display: none;
 }

@@ -88,6 +88,10 @@
     padding: 12px 22px;
 }
 
+.add-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .no-btun {
     font-family: Muli;
     font-size: 14px;

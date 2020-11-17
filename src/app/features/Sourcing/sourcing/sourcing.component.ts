@@ -29,15 +29,23 @@ export class SourcingComponent implements OnInit {
   variety:any;
   appLanguage?: any;
   sourcingActive:any=0;
-
-  public data: any[] = [
-		{  estatename: 'Finca La Pampa', rating: '4.45',origin:'Colombia', range: '980-1100m', cropyear: 'March - June',certificates:'3','image':'/assets/images/sourcing-image1.jpg' },
-		{  estatename: 'Gesha', rating: '4.45',origin:'Colombia', range: '1500-1700m', cropyear: 'Jan - March',certificates:'2','image':'/assets/images/sourcing-image2.jpg' },
-		{  estatename: 'Finca La Toboba', rating: '4.2',origin:'Ethopia', range: '1300-1400m', cropyear: 'August - Dec',certificates:'1','image':'/assets/images/sourcing-image3.jpg' },
-		{  estatename: 'Asoproaaa', rating: '4.9', origin:'Brazil',range: '1000-1250m', cropyear: 'March - June',certificates:'1','image':'/assets/images/sourcing-image4.jpg' },
-		{  estatename: 'Cafe Directo', rating: '4.6', origin:'Ethopia',range: '1500-1700m', cropyear: 'August - Dec',certificates:'2','image':'/assets/images/sourcing-image5.jpg' },
-		{  estatename: 'La Isabela', rating: '4.1',origin:'Colombia', range: '980-1100m', cropyear: 'Jan - March',certificates:'3','image':'/assets/images/sourcing-image6.jpg' }
-  ];
+  filterGrade:'';
+  filterCrop:'';
+  filterOrigin:any=[];
+  filterVariety:any=[];
+  filterWeight:'';
+  filterSearch:'';
+  showOrigin:boolean = true;
+  showVariety:boolean = true;
+  
+  // public data: any[] = [
+	// 	{  estatename: 'Finca La Pampa', rating: '4.45',origin:'Colombia', range: '980-1100m', cropyear: 'March - June',certificates:'3','image':'/assets/images/sourcing-image1.jpg' },
+	// 	{  estatename: 'Gesha', rating: '4.45',origin:'Colombia', range: '1500-1700m', cropyear: 'Jan - March',certificates:'2','image':'/assets/images/sourcing-image2.jpg' },
+	// 	{  estatename: 'Finca La Toboba', rating: '4.2',origin:'Ethopia', range: '1300-1400m', cropyear: 'August - Dec',certificates:'1','image':'/assets/images/sourcing-image3.jpg' },
+	// 	{  estatename: 'Asoproaaa', rating: '4.9', origin:'Brazil',range: '1000-1250m', cropyear: 'March - June',certificates:'1','image':'/assets/images/sourcing-image4.jpg' },
+	// 	{  estatename: 'Cafe Directo', rating: '4.6', origin:'Ethopia',range: '1500-1700m', cropyear: 'August - Dec',certificates:'2','image':'/assets/images/sourcing-image5.jpg' },
+	// 	{  estatename: 'La Isabela', rating: '4.1',origin:'Colombia', range: '980-1100m', cropyear: 'Jan - March',certificates:'3','image':'/assets/images/sourcing-image6.jpg' }
+  // ];
   
   public coffeedata: any[] = [
 		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '7.4 USD',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
@@ -54,6 +62,7 @@ export class SourcingComponent implements OnInit {
   countryValue: any;
   monthName: any;
   listData: any;
+	backValue: boolean;
 
   constructor(public sourcingService:SourcingService,
     private modalService: BsModalService,private router: Router,
@@ -397,18 +406,26 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   }
 
   
-  // redirectToLots(){
-    
-  //   this.listData = data.estate_id;
-  //   console.log(this.listData);
-  //   let navigationExtras: NavigationExtras = {
-  //     queryParams: {
-  //       "listData": this.listData,
-  //     }
-  //   }
-  //   this.router.navigate(["/features/estate-details"], navigationExtras);
-  //   this.sourcingService.activeLandlots = "land-lots"; //making lots tab active
-  // }
+  redirectToLots(){
+	
+	this.backValue = true;
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "dataLots": encodeURIComponent(this.backValue),
+      }
+    }
+
+    this.router.navigate(['/features/estate-details'], navigationExtras);
+    // this.listData = data.estate_id;
+    // console.log(this.listData);
+    // let navigationExtras: NavigationExtras = {
+    //   queryParams: {
+    //     "listData": this.listData,
+    //   }
+    // }
+    // this.router.navigate(["/features/estate-details"], navigationExtras);
+    // this.sourcingService.activeLandlots = "land-lots"; //making lots tab active
+  }
 
   search(activeTab){
     this.activeTab = activeTab;
@@ -453,36 +470,55 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 //     this.appLanguage = this.globals.languageJson;
 //        this.sourcingActive++;
 //     }
-  toggleCrop(){
-    this.showCrop=!this.showCrop;
-    if(this.showCrop==false){
+	toggleCrop(){
+		this.showCrop=!this.showCrop;
+		if(this.showCrop==false){
 			document.getElementById('crop_id').style.border="1px solid #30855c";
 		}
 		else{
 			document.getElementById('crop_id').style.border="1px solid #d6d6d6";
 		
 		}
-  }
-  toggleSort(){
-    this.showSort=!this.showSort;
-    if(this.showSort==false){
+	}
+  	toggleSort(){
+    	this.showSort=!this.showSort;
+		if(this.showSort==false){
 			document.getElementById('sort_id').style.border="1px solid #30855c";
 		}
 		else{
 			document.getElementById('sort_id').style.border="1px solid #d6d6d6";
-		
 		}
-  }
-  toggleWeight(){
-    this.showWeight = !this.showWeight;
-    if(this.showWeight==false){
-			document.getElementById('weight_id').style.border="1px solid #30855c";
-		}
+ 	 }
+  	toggleWeight(){
+		this.showWeight = !this.showWeight;
+		if(this.showWeight==false){
+				document.getElementById('weight_id').style.border="1px solid #30855c";
+			}
 		else{
 			document.getElementById('weight_id').style.border="1px solid #d6d6d6";
-		
 		}
-  }
+	  }
+	toggleOrigin(){
+		this.showOrigin = !this.showOrigin;
+		if(this.showOrigin==false){
+				document.getElementById('origin_id').style.border="1px solid #30855c";
+			}
+		else{
+			document.getElementById('origin_id').style.border="initial";
+			document.getElementById('origin_id').style.borderRight="1px solid #d6d6d6";
+		}
+	}
+	toggleVariety(){
+		this.showVariety = !this.showVariety;
+		if(this.showVariety==false){
+				document.getElementById('variety_id').style.border="1px solid #30855c";
+			}
+		else{
+			document.getElementById('variety_id').style.border="initial";
+			document.getElementById('variety_id').style.borderRight="1px solid #d6d6d6";
+		}
+  	}
+	  
   estateList(data : any){
     this.listData = data.estate_id;
     console.log(this.listData);
@@ -552,4 +588,92 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
     return this.countryValue.name;
     // console.log(this.countryValue.name);
   }
+  setFilterValue(name:any,value:any){
+    let filterValue=[];
+    switch(name){
+		case 'grade':
+			this.filterGrade=value;
+			console.log(this.filterGrade);
+
+			break;
+		case 'weight':
+			this.filterWeight=value;
+			console.log(this.filterWeight);
+
+			break;
+		case 'crop':
+			this.filterCrop=value;
+			console.log(this.filterCrop);
+
+			break;
+	}
+	this.filterCall();
+  }
+  filterCall(){
+	  const filterParams = [];
+	  if(this.filterVariety.length){
+		filterParams.push(`variety=${this.filterVariety}`)
+	  } if( this.filterCrop){
+		filterParams.push(`crop_year=${this.filterCrop}`)
+	  } if(this.filterOrigin.length){
+		filterParams.push(`origin=${this.filterOrigin}`)
+	  } if( this.filterSearch){
+		filterParams.push(`name=${this.filterSearch}`)
+	  }
+	  if(filterParams.length){
+		const queryParams = '?' + filterParams.join('&');
+		console.log(queryParams);
+		this.userService.getAvailableEstates(this.roasterId,queryParams).subscribe(
+			data => {
+				if(data['success'] == true){
+					console.log(data['result']);
+					this.estateData = data['result'];
+				}else{
+					this.toastrService.error("Error while getting estates");
+				}
+			}
+		)
+	  }
+  }
+
+  selectVariety(event,value){
+	  if(event.target.checked){
+		if(!this.filterVariety.includes(value)){
+			this.filterVariety.push(value);
+		}
+	  }
+	  else{
+		if(this.filterVariety.includes(value)){
+			const index= this.filterVariety.indexOf(value);
+			this.filterVariety.splice(index,1);
+			
+		}
+	  }
+  }
+
+  selectOrigin(event,value){
+	  console.log(event);
+	if(event.target.checked){
+		if(!this.filterOrigin.includes(value)){
+			this.filterOrigin.push(value);
+		}
+	  }
+	  else{
+		if(this.filterOrigin.includes(value)){
+			const index= this.filterOrigin.indexOf(value);
+			this.filterOrigin.splice(index,1);
+			
+		}
+	  }
+  }
+  clearFilter(){
+	//   for(let i =0;i < this.filterVariety.length;i++){
+	// 	this.filterVariety[i].isChecked = val;
+	//   }
+	this.filterOrigin=[];
+	this.filterVariety=[];
+	this.getAvailableEstates();
+	// this.getAvailableGreenCoffee();
+  }
+  
 }

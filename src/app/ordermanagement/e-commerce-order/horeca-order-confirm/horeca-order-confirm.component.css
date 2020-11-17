@@ -1,50 +1,66 @@
-.details__head h1,.order__id{
+.details__head h1,
+.order__id {
     font-family: Muli;
     font-size: 18px;
     font-weight: bold;
     color: #232334;
 }
-.express__delivery{
+
+.express__delivery {
     border-radius: 4px;
     border: 1px solid #d6d6d6;
     padding: 5px;
 }
-.delivery__head{
+
+.delivery__head {
     border-radius: 4px;
     background-color: #f8f8f8;
     padding: 12px 10px;
 }
-.delivery__head .express_text,.delivery_text{
+
+.delivery__head .express_text,
+.delivery_text {
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     color: #232334;
 }
-.delivery__body{
+
+.delivery__body {
     padding: 24px 16px 24px 24px;
 }
-.list_delivery li:first-child,.details_delivery li:first-child{
+
+.list_delivery li:first-child,
+.details_delivery li:first-child {
     width: 15%;
 }
-.list_delivery li:nth-child(2),.details_delivery li:nth-child(2){
+
+.list_delivery li:nth-child(2),
+.details_delivery li:nth-child(2) {
     width: 70%;
 }
-.list_delivery li:nth-child(3),.details_delivery li:nth-child(3){
-    width:15%;
+
+.list_delivery li:nth-child(3),
+.details_delivery li:nth-child(3) {
+    width: 15%;
 }
-.list_delivery{
+
+.list_delivery {
     border-bottom: solid 1px #dddddd;
     padding-bottom: 24px;
 }
-.list_delivery_1{
+
+.list_delivery_1 {
     border-bottom: none;
 }
-.confirm__order__total{
+
+.confirm__order__total {
     border-radius: 4px;
     background-color: #faf8f4;
     padding: 1.5rem;
 }
-.accept__order{
+
+.accept__order {
     color: #ffffff;
     border-radius: 4px;
     border: solid 1px #30855c;
@@ -55,7 +71,12 @@
     font-weight: bold;
     margin-right: 12px;
 }
-.reject__order{
+
+.accept__order:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.reject__order {
     font-family: Muli;
     text-align: center;
     border-radius: 4px;
@@ -66,83 +87,101 @@
     color: #30855c;
     background-color: #ffffff;
 }
-.reject__order:hover{
+
+.reject__order:hover {
     background-color: #30855c;
     color: #ffffff;
 }
-.ft_image{
+
+.ft_image {
     width: 70px;
     height: 70px;
 }
-.message__total{
+
+.message__total {
     border-radius: 2px;
     border: solid 1px #747588;
     color: #747588;
     padding: 4px 8px;
 }
-.dimello-siena{
+
+.dimello-siena {
     font-size: 20px;
     font-weight: bold;
     color: #232334;
 }
-.whole_bean,.confirm__order__total p,.delivery__number,.delivery__receiver{
+
+.whole_bean,
+.confirm__order__total p,
+.delivery__number,
+.delivery__receiver {
     font-size: 14px;
     font-weight: 600;
     color: #747588;
 }
-.total_amount,.confirm__order__total h1{
+
+.total_amount,
+.confirm__order__total h1 {
     font-size: 18px;
     font-weight: bold;
     color: #747588;
 }
-.view_text{
+
+.view_text {
     font-size: 14px;
     font-weight: bold;
     color: #80460b;
     text-decoration: underline;
 }
-.delivery__name{
+
+.delivery__name {
     font-size: 16px;
     font-weight: bold;
     color: #232334;
 }
-.delivery__receiver span{
+
+.delivery__receiver span {
     font-weight: bold;
     color: #232334;
 }
-.star__total span{
+
+.star__total span {
     font-size: 12px;
     font-weight: 600;
     color: #232334;
 }
-.message__total span{
+
+.message__total span {
     font-size: 14px;
     font-weight: 500;
     color: #232334;
 }
-.address_text{
+
+.address_text {
     font-size: 14px;
     font-weight: 500;
     color: #747588;
 }
-.address_text div{
+
+.address_text div {
     margin-top: 12px;
 }
 
-@media (max-width:991px){
-.details_delivery li:first-child,.list_delivery li:first-child{
-    width: 25%;
-}
-.details_delivery li:nth-child(2){
-    width: 44%;
-}
-.list_delivery li:nth-child(2){
-    width: 56%;
-}
-.details_delivery li:nth-child(3){
-    width: 31%;
-}
-.list_delivery li:nth-child(3){
-    width: 19%;
-}
+@media (max-width:991px) {
+    .details_delivery li:first-child,
+    .list_delivery li:first-child {
+        width: 25%;
+    }
+    .details_delivery li:nth-child(2) {
+        width: 44%;
+    }
+    .list_delivery li:nth-child(2) {
+        width: 56%;
+    }
+    .details_delivery li:nth-child(3) {
+        width: 31%;
+    }
+    .list_delivery li:nth-child(3) {
+        width: 19%;
+    }
 }

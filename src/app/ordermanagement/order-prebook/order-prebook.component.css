@@ -413,6 +413,10 @@ li.nav-item {
     padding: .5rem 1rem;
 }
 
+.problem-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .chat-btn {
     border-radius: 8px 8px 0px 0px !important;
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);

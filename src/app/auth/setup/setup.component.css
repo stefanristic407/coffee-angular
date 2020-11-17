@@ -21,6 +21,10 @@
     margin-top: 4%;
 }
 
+.next-button:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .next-text {
     font-family: Muli;
     font-size: 14px;
@@ -123,6 +127,7 @@ html.codepen body {
     text-indent: -200000px;
 }
 
+
 /*Cureent nav text color */
 
 .form-nav-list__item.active .step .step__info {
@@ -144,7 +149,7 @@ html.codepen body {
     border-radius: 50%;
     background-color: #ffffff;
     border: 1px solid #747588;
-    opacity:1;
+    opacity: 1;
     position: relative;
     padding: 2px 0px;
     font-size: 16px;
@@ -176,7 +181,7 @@ html.codepen body {
 }
 
 .form-nav-list__item .step .step__info {
-    color:#747588;
+    color: #747588;
     font-size: 14px;
     font-weight: 600;
     padding-top: 3%;
@@ -193,6 +198,7 @@ html.codepen body {
     margin-left: 4px;
     margin-top: -4px;
 }
+
 
 /*  forms inputs */
 
@@ -374,13 +380,16 @@ input[type="number"]::-webkit-outer-spin-button {
     color: #747588;
 }
 
+
 /* ==FOOTER SECTION CSS== */
-.footer-que-text{
+
+.footer-que-text {
     font-family: Muli;
     font-size: 16px;
     font-weight: bold;
     color: #232334;
 }
+
 .footer-text {
     font-family: Muli;
     font-size: 14px;
@@ -417,30 +426,32 @@ hr {
     text-decoration: underline;
 }
 
-
-
 .admin-mobile-div {
     display: none;
 }
 
-.star{
+.star {
     color: #ff1e5a;
 }
 
-:host ::ng-deep  .ui-dialog-mask.ui-widget-overlay.ui-dialog-visible.ui-dialog-mask-scrollblocker{
+:host ::ng-deep .ui-dialog-mask.ui-widget-overlay.ui-dialog-visible.ui-dialog-mask-scrollblocker {
     background-color: rgba(0, 0, 0, 0.8) !important;
 }
-.word-center{
+
+.word-center {
     position: relative;
     right: 12px;
 }
-:host ::ng-deep .ui-dialog .ui-dialog-footer{
+
+:host ::ng-deep .ui-dialog .ui-dialog-footer {
     border: 1px solid #fff !important;
     padding: 1.25rem 1rem !important;
-  }
-  :host ::ng-deep .overlay{
-  outline: var(--cropper-overlay-color,#919191) solid 100vw !important;
 }
+
+ :host ::ng-deep .overlay {
+    outline: var(--cropper-overlay-color, #919191) solid 100vw !important;
+}
+
 
 /* ==== Changes ==== */
 
@@ -471,12 +482,14 @@ hr {
     color: #d50000;
 }
 
+
 /* ======= MODAL ======= */
 
 :host ::ng-deep .ui-button {
     margin: 0.5em 0.5em 0.5em 0;
     width: 140px;
 }
+
 
 /* ============ALERT CSS BOX=========== */
 
@@ -552,11 +565,12 @@ hr {
     font-weight: 600;
 }
 
-.mail-id{
+.mail-id {
     font-size: 18px;
     font-weight: bold;
     color: #232334;
 }
+
 
 /* ======== MEDIA QUERIES ======= */
 
@@ -624,15 +638,15 @@ hr {
 }
 
 @media screen and (max-width: 425px) {
-    .login-butn{
+    .login-butn {
         width: 100%;
         height: 46px;
     }
-    .cancel-butn{
+    .cancel-butn {
         width: 100%;
         height: 46px;
     }
-    .form_content{
+    .form_content {
         left: 0%;
     }
     .container {
@@ -647,7 +661,7 @@ hr {
         margin-bottom: 0% !important;
     }
     .profile-div {
-       margin-left: 0rem;
+        margin-left: 0rem;
         border: none;
         width: 100%;
     }
@@ -665,7 +679,7 @@ hr {
     .roaster_content_div {
         margin-left: 0%;
     }
-    .profile-img-div{
+    .profile-img-div {
         margin: 0% !important;
     }
     .form_para_text {
@@ -692,10 +706,10 @@ hr {
     .profile-pic {
         margin-left: 33% !important;
     }
-   .step_focus{
-    border: 1px solid #55912d !important;
-    color: #55912d !important;
-   }
+    .step_focus {
+        border: 1px solid #55912d !important;
+        color: #55912d !important;
+    }
     .sewn_heading {
         padding: 2rem 2rem;
         text-align: center;
@@ -739,15 +753,14 @@ hr {
         margin-right: 1rem;
     }
     .add-btn {
-       
         width: 100%;
     }
     .add-text {
         padding-left: 5px;
     }
-   .mail-id{
-       font-size: 16px;
-   }
+    .mail-id {
+        font-size: 16px;
+    }
     .successful-text {
         font-family: PlayfairDisplay !important;
         font-size: 32px !important;
@@ -768,17 +781,16 @@ hr {
     .admin-mobile-div {
         display: block;
     }
-  
-.desk-view{
-    display: none;
-}
-    .mob-view{
+    .desk-view {
+        display: none;
+    }
+    .mob-view {
         display: block !important;
     }
-    .show_modal{
+    .show_modal {
         right: 9%;
-    position: relative;
-    top: 14%;
+        position: relative;
+        top: 14%;
     }
 }
 
@@ -787,9 +799,11 @@ hr {
         left: 70% !important;
     }
 }
-.mob-view{
+
+.mob-view {
     display: none;
 }
+
 .profile-pic {
     height: 100px !important;
     width: 100px !important;

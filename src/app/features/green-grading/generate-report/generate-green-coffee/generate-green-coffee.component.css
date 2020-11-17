@@ -175,6 +175,10 @@ span.checkmark {
     color: #fff;
 }
 
+.next_butn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .clear_butn {
     border-radius: 4px;
     border: 1px solid #30855c;
@@ -246,10 +250,15 @@ span.checkmark {
 .pointer-item {
     cursor: pointer;
 }
+
 @media (max-width: 767px) {
-.green_coffee_total{
-    padding: 16px;
-}
-.green_coffee_total h1 {font-size: 20px;}
-.evaluator_list ul li { padding: 10px 0px;}
+    .green_coffee_total {
+        padding: 16px;
+    }
+    .green_coffee_total h1 {
+        font-size: 20px;
+    }
+    .evaluator_list ul li {
+        padding: 10px 0px;
+    }
 }

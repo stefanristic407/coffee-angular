@@ -115,6 +115,10 @@
     padding: 12px 24px;
 }
 
+.send-invites:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .rectangle_username,
 .rectangle_useremail {
     border-radius: 4px;
@@ -131,10 +135,12 @@
 .add-partner {
     cursor: pointer;
 }
-.member-delete-rows{
-    bottom: 33% !important; 
+
+.member-delete-rows {
+    bottom: 33% !important;
     right: 0% !important;
 }
+
 .loader {
     height: 17px;
     width: 17px;

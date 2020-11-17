@@ -220,6 +220,10 @@ li.nav-item {
     height: 46px;
 }
 
+.continue-order:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .select_cancel {
     border-radius: 4px;
     border: solid 1px #30855c;

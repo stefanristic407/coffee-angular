@@ -1,6 +1,7 @@
 .bg-fff {
     padding: 3rem;
 }
+
 .back-ticket {
     font-family: Muli;
     font-size: 16px;
@@ -9,6 +10,7 @@
     cursor: pointer;
     padding-left: 12px;
 }
+
 .send-btn {
     height: 46px;
     border-radius: 4px;
@@ -19,8 +21,12 @@
     font-family: Muli;
     padding: 12px 24px;
 }
-label {
 
+.send-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+label {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -30,12 +36,15 @@ label {
     letter-spacing: normal;
     color: #747589;
 }
-.quantity{
+
+.quantity {
     max-width: 97.4%;
 }
+
 label span {
     color: #ff1e5a;
 }
+
 .select {
     font-family: Muli;
     font-size: 14px;
@@ -46,30 +55,37 @@ label span {
     letter-spacing: normal;
     color: #747588;
 }
+
 .no-padding-LR-large {
     padding-right: 0px;
     padding-left: 0px;
 }
+
 .margin-top {
     margin-top: 32px;
 }
+
 .margin-top-40 {
     margin-top: 40px!important;
 }
+
 .margin-top-16 {
     margin-top: 16px;
 }
+
 .bg-ff {
     padding: 32px;
     border-radius: 4px;
     background-color: #ffffff;
 }
+
 .farm-input input {
     font-size: 14px;
     line-height: 24px;
     padding: 16px;
     height: 46px;
 }
+
 .cancel-btn {
     height: 46px;
     border-radius: 4px;
@@ -80,9 +96,11 @@ label span {
     font-family: Muli;
     border: 1px solid #30855c;
 }
+
 .branding-cancle-button {
     display: block;
 }
+
 .col-xs-15,
 .col-sm-15,
 .col-md-15,
@@ -93,6 +111,7 @@ label span {
     padding: 16px;
     /* padding-left: 10px; */
 }
+
 .col-xs-7,
 .col-sm-7,
 .col-md-7,
@@ -106,17 +125,20 @@ label span {
     padding: 16px;
     /* padding-left: 10px; */
 }
+
 .form-control {
     font-size: 14px;
     font-weight: 600 !important;
 }
-.small-black-text{
+
+.small-black-text {
     font-size: 14px;
     font-weight: 600 !important;
     font-size: 14px;
     font-weight: 600;
     color: #232334;
 }
+
 .farm-input textarea {
     padding: 16px;
     min-height: 107px;
@@ -124,50 +146,63 @@ label span {
     font-size: 14px !important;
     font-weight: 600;
 }
+
 .mr-24 {
-    margin-right:24px;
+    margin-right: 24px;
 }
+
 .mt-24 {
     margin-top: 24px;
 }
+
 .mt-32 {
     margin-top: 32px;
 }
+
 .mb-10 {
     margin-bottom: 10px;
 }
+
 .mb-16 {
     margin-bottom: 16px;
 }
+
 .mb-48 {
     margin-bottom: 48px;
 }
+
 .ml-33 {
     margin-left: 32px;
 }
+
 .no-padding-LR-large {
     padding-right: 0px;
     padding-left: 0px;
 }
+
 .sub-header-text {
     font-size: 16px;
-    margin-top:32px;
+    margin-top: 32px;
     /* margin-bottom: 16px; */
     font-weight: bold;
     color: #232334;
 }
+
 .col-lg-15 {
     width: 17%;
     float: left;
 }
+
 .col-lg-7 {
     width: 36%;
     float: left;
 }
+
 .col-lg-10 {
     width: 53%;
     float: left;
 }
+
 .idd {
     padding: 40px;
     border-radius: 2px;
@@ -175,23 +210,27 @@ label span {
     border: 1px dashed #979797;
     margin-top: 48px;
 }
+
 .text-brown {
     font-size: 14px;
     font-weight: bold;
     line-height: 1.57;
     letter-spacing: normal;
     text-align: right;
-    color: #80460b;  
+    color: #80460b;
     text-decoration: underline;
 }
+
 .border-top-dashed {
     border-top: 1px dashed #979797;
 }
+
 .no-margin-LR {
     margin-left: 0px;
     margin-right: 0px;
 }
-.equal-operators{
+
+.equal-operators {
     font-size: 14px;
     font-weight: 600;
     color: #454545;
@@ -202,12 +241,14 @@ label span {
     padding: 24px 7px;
     margin-top: 30px;
 }
+
 ::-webkit-resizer {
     width: 24px;
     height: 24px;
     object-fit: contain;
     background-image: url(../../../../assets/images/resizer.png);
 }
+
 .checkmark {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
@@ -216,18 +257,21 @@ label span {
     padding-right: 12px;
     /* position: relative; */
 }
+
 @media (min-width: 768px) {
-.col-sm-15 {
+    .col-sm-15 {
         width: 17%;
         float: left;
     }
 }
+
 @media (min-width: 992px) {
     .col-md-15 {
         width: 17%;
         float: left;
     }
 }
+
 @media (min-width: 1200px) {
     .col-lg-15 {
         width: 17%;

@@ -65,6 +65,10 @@
     border-radius: 2px;
 }
 
+.services-status a:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .view-lot {
     padding: 8px 16px;
     border-radius: 2px;
@@ -84,6 +88,10 @@
     padding: 8px 16px;
     border-radius: 2px;
     background-color: #30855c;
+}
+
+.save:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .card-header h2 .btn {

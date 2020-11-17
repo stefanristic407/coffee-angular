@@ -206,9 +206,11 @@ label {
     font-size: 14px;
     line-height: 24px;
 }
-.disabledDiv{
+
+.disabledDiv {
     pointer-events: none;
 }
+
 
 /******************Media Query for Edit Member *********************/
 

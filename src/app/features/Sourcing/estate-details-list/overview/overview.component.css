@@ -155,6 +155,10 @@
     cursor: pointer;
 }
 
+.prebook .more-text:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .prebook .prebook-estate {
     width: 100%;
     font-family: Muli;
@@ -325,20 +329,23 @@
     color: #000000;
 }
 
-.live-text{
+.live-text {
     font-family: Muli;
     font-size: 16px;
     font-weight: normal;
     color: #5d5d5d;
 }
-.add-variety{
+
+.add-variety {
     font-size: 14px;
-  font-weight: 600;
-  color: #747588;
+    font-weight: 600;
+    color: #747588;
 }
+
 ::ng-deep .gridline-path-vertical {
     display: none;
 }
+
 ::ng-deep .ngx-charts {
     height: 280px;
 }
@@ -393,14 +400,23 @@
     padding: 24px 24px 0 24px;
     border: 1px solid #ebebeb;
 }
-.legend-text{
+
+.legend-text {
     font-family: Muli;
     font-size: 16px;
     font-weight: 500;
     color: #232334;
 }
-ngx-charts-line-chart{overflow:auto}
-agm-map {height: 150px;width: 100%;}
+
+ngx-charts-line-chart {
+    overflow: auto
+}
+
+agm-map {
+    height: 150px;
+    width: 100%;
+}
+
 @media (max-width:991px) {
     /*Detail Page*/
     .des-content article {
@@ -423,33 +439,102 @@ agm-map {height: 150px;width: 100%;}
     .estate-focus ul li p {
         width: 50%;
     }
-    .m-padding-8{padding: 0 8px;}
-    .des-content article{padding: 16px;}
-    .stit h2{width:65%; display: inline-block; font-size: 16px;}
-    .s-cert{width: 35%; display: inline-block; float: right;}
-    .s-cert ul li{margin-right: 10px;}
-    .s-cert ul li:last-child{margin-right: 0;}
-    .s-cert li img{width: 23px;}
-    .area-location, .stit p, .real-estate h6{color: #747588; font-size: 12px; }
-    .m-orgin{font-size: 14px; color: #242424;     font-weight: bold;}  
-    .real-estate img{width: 24px;}
-    .stit p:last-child{    margin-bottom: 0px;}
-    .des-content aside{    padding: 0px;     margin-top: 1rem;}
-    .prebook a{padding: 10px 0 !important;}
-    .prodcoffee h4{font-size: 14px;}
-    .employer{padding-left: 15px; padding-right: 15px;}
-    
+    .m-padding-8 {
+        padding: 0 8px;
+    }
+    .des-content article {
+        padding: 16px;
+    }
+    .stit h2 {
+        width: 65%;
+        display: inline-block;
+        font-size: 16px;
+    }
+    .s-cert {
+        width: 35%;
+        display: inline-block;
+        float: right;
+    }
+    .s-cert ul li {
+        margin-right: 10px;
+    }
+    .s-cert ul li:last-child {
+        margin-right: 0;
+    }
+    .s-cert li img {
+        width: 23px;
+    }
+    .area-location,
+    .stit p,
+    .real-estate h6 {
+        color: #747588;
+        font-size: 12px;
+    }
+    .m-orgin {
+        font-size: 14px;
+        color: #242424;
+        font-weight: bold;
+    }
+    .real-estate img {
+        width: 24px;
+    }
+    .stit p:last-child {
+        margin-bottom: 0px;
+    }
+    .des-content aside {
+        padding: 0px;
+        margin-top: 1rem;
+    }
+    .prebook a {
+        padding: 10px 0 !important;
+    }
+    .prodcoffee h4 {
+        font-size: 14px;
+    }
+    .employer {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
     /*chart*/
-    #nav-tabContent .d-inline.col-sm-6{width:auto; float: left; padding-left: 0;}
-    #nav-tabContent .border-total{width: auto !important; margin-top: 1rem; clear: left; padding-left: 10px !important;    font-size: 14px;}
-    .nav-tabs.nav-fill a{font-size: 14px !important; padding-left:12px ; padding-right: 12px;}
-    .chart-details{padding-left: 12px; padding-right: 12px;}
-    #nav-tabContent{ padding-top: 10px !important;}
-    ngx-charts-line-chart{overflow: scroll;}
-    text{font-size: 12px;}
-    .legend-text{font-size: 12px;}
-     /*End chart*/
+    #nav-tabContent .d-inline.col-sm-6 {
+        width: auto;
+        float: left;
+        padding-left: 0;
+    }
+    #nav-tabContent .border-total {
+        width: auto !important;
+        margin-top: 1rem;
+        clear: left;
+        padding-left: 10px !important;
+        font-size: 14px;
+    }
+    .nav-tabs.nav-fill a {
+        font-size: 14px !important;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .chart-details {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    #nav-tabContent {
+        padding-top: 10px !important;
+    }
+    ngx-charts-line-chart {
+        overflow: scroll;
+    }
+    text {
+        font-size: 12px;
+    }
+    .legend-text {
+        font-size: 12px;
+    }
+    /*End chart*/
 }
+
 @media (max-width:340px) {
-    .nav-tabs.nav-fill a{ padding-left:9px ; padding-right: 9px;}
+    .nav-tabs.nav-fill a {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
 }

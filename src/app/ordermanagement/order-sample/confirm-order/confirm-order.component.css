@@ -98,6 +98,7 @@ td {
     background-color: #ffffff;
     -webkit-appearence: none !important;
 }
+
 .main-bag {
     position: absolute;
     right: 10px;
@@ -184,6 +185,11 @@ td {
     height: 46px;
 }
 
+.place-order:hover,
+.save-address:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .ord_cancel {
     border-radius: 4px;
     border: solid 1px #30855c;
@@ -237,6 +243,10 @@ td {
     background-color: #30855c;
     padding: 0px 1rem;
     height: 46px;
+}
+
+.add-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .done_order {
@@ -294,6 +304,7 @@ label {
     cursor: pointer;
     font-size: 14px !important;
 }
+
 .checkmark {
     top: 2px !important;
     left: 2px !important;
@@ -337,7 +348,10 @@ span.checkmark {
     color: #D50000;
     font-size: 14px;
 }
+
+
 /****************************    Media Queries   ****************************/
+
 @media screen and (max-width:480px) {
     .create-role {
         margin-left: 0.9rem;
@@ -459,7 +473,7 @@ span.checkmark {
     }
 }
 
-.rectangle_dropdown{
+.rectangle_dropdown {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
@@ -472,7 +486,8 @@ span.checkmark {
     height: 46px !important;
     cursor: pointer;
 }
-.seviceProvider{
+
+.seviceProvider {
     border: #d6d6d6;
     padding: 5px;
     color: #232334;

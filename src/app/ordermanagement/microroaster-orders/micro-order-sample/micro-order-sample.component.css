@@ -276,6 +276,10 @@ li.nav-item {
     padding: .5rem 1rem;
 }
 
+.problem-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .img-logo {
     width: 100%;
     height: 134px;
@@ -363,6 +367,10 @@ li.nav-item {
     padding: .91rem 1.75rem;
     position: relative;
     bottom: 2px;
+}
+
+.save-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .track-link {

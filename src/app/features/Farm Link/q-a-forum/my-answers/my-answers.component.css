@@ -75,6 +75,10 @@
     padding: 9px;
 }
 
+.submit:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 #more,
 #more_two {
     display: none;

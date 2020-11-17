@@ -27,6 +27,10 @@
         padding: 8px 18px;
     }
     
+    .save-button:hover {
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    }
+    
     .save-padding {
         margin-right: 1%;
     }
@@ -188,20 +192,26 @@
         background-color: #649a2b;
     }
     
-.farm-stricky {
-    padding: 5px 5px;
-}
-.submit-mob-butn {
-    border-radius: 4px;
-    color: #fff;
-    padding: 12px 16px;
-    text-align: center;
-    font-size: 14px;
-    width: 100%;
-    border: 1px solid #30855c;
-    background-color: #30855c;
-    margin-bottom: 4rem;
-}
+    .farm-stricky {
+        padding: 5px 5px;
+    }
+    
+    .submit-mob-butn {
+        border-radius: 4px;
+        color: #fff;
+        padding: 12px 16px;
+        text-align: center;
+        font-size: 14px;
+        width: 100%;
+        border: 1px solid #30855c;
+        background-color: #30855c;
+        margin-bottom: 4rem;
+    }
+    
+    .submit-mob-butn:hover {
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    }
+    
     @media only screen and (max-width:991px) and (min-width:768px) {
         .rating-top {
             padding: 1.5rem 1rem 1rem 1rem;
@@ -210,6 +220,7 @@
             padding-left: 0;
         }
     }
+    
     @media only screen and (max-width: 540px) {
         .rating-top {
             padding: 1rem 0.5rem 1rem 0.5rem;
@@ -224,17 +235,49 @@
         .details-lists {
             margin-left: 0rem;
         }
-        .back-order{ font-size: 16px;font-weight: 600;color: #80460b;}
-        .feedback-total{padding: 16px 12px;}
-        .rating-total{padding: 16px 12px 8px;}
+        .back-order {
+            font-size: 16px;
+            font-weight: 600;
+            color: #80460b;
+        }
+        .feedback-total {
+            padding: 16px 12px;
+        }
+        .rating-total {
+            padding: 16px 12px 8px;
+        }
         /* .width-mob{width: 50%;display: inline-block;} */
-        .last-seen-time{padding-left: 0px;font-size: 12px;}
-        .person-name{font-size: 14px;}
-        .roaster{ font-size: 12px;font-weight: 600;padding-bottom: 4px;}
-        .over-exp{font-size: 14px;}
-        .required-star{color:#d50000}
-        .m-over-8{padding-left: 10px;padding-right: 10px;}
-        .mob-margin{margin-bottom: 1rem;}
-        .online-rating{top: -2px;left: 2.6rem;}
-        .experienceError{margin-top: 0px;width: 100%;}
+        .last-seen-time {
+            padding-left: 0px;
+            font-size: 12px;
+        }
+        .person-name {
+            font-size: 14px;
+        }
+        .roaster {
+            font-size: 12px;
+            font-weight: 600;
+            padding-bottom: 4px;
+        }
+        .over-exp {
+            font-size: 14px;
+        }
+        .required-star {
+            color: #d50000
+        }
+        .m-over-8 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .mob-margin {
+            margin-bottom: 1rem;
+        }
+        .online-rating {
+            top: -2px;
+            left: 2.6rem;
+        }
+        .experienceError {
+            margin-top: 0px;
+            width: 100%;
+        }
     }

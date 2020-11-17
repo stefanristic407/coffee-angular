@@ -45,6 +45,10 @@
     padding: 0.7rem;
 }
 
+.save-butn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .save-padding {
     margin-right: 2%;
 }
@@ -160,9 +164,10 @@ input[type='radio']:checked:before {
     display: none;
 }
 
-.mobile-view{
+.mobile-view {
     display: none;
 }
+
 
 /*********Media Queries***************/
 
@@ -187,7 +192,8 @@ input[type='radio']:checked:before {
     .receipt-data {
         font-size: 14px;
     }
-    .farm-size, .quantity-size{
+    .farm-size,
+    .quantity-size {
         font-size: 12px;
     }
     .units-header,
@@ -200,14 +206,14 @@ input[type='radio']:checked:before {
     .web-display {
         display: none;
     }
-    .border-chat{
+    .border-chat {
         border: none;
         padding: 0%;
     }
-    .desk-view{
+    .desk-view {
         display: none;
     }
-    .mobile-view{
+    .mobile-view {
         display: block;
         padding: 1rem 1rem 1rem 2rem;
     }
@@ -218,13 +224,12 @@ input[type='radio']:checked:before {
         color: #80460b;
         cursor: pointer;
     }
-    .top-padding{
+    .top-padding {
         padding: 0rem;
     }
-    .save-butn{
+    .save-butn {
         width: 100% !important;
     }
-
 }
 
 .farm-stricky {
@@ -237,10 +242,9 @@ input[type='radio']:checked:before {
     padding: 10px 30px;
 }
 
-.mobile-farm{
+.mobile-farm {
     margin-bottom: 2rem;
 }
-
 
 .list-group-item {
     border: none;
@@ -260,7 +264,6 @@ input[type='radio']:checked:before {
     background-color: #f8f8f8;
 }
 
-
 ::ng-deep .popover-body {
     padding: .25rem .25rem !important;
 }
@@ -279,6 +282,7 @@ input[type='radio']:checked:before {
 .pointer-item {
     cursor: pointer;
 }
+
 .filter {
     font-family: Muli;
     font-size: 14px;

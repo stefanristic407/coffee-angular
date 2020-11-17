@@ -1,6 +1,7 @@
 .bg-fff {
     padding: 3rem;
 }
+
 .back-ticket {
     font-family: Muli;
     font-size: 16px;
@@ -9,6 +10,7 @@
     cursor: pointer;
     padding-left: 12px;
 }
+
 .send-btn {
     height: 46px;
     border-radius: 4px;
@@ -19,6 +21,11 @@
     font-family: Muli;
     padding: 12px 24px;
 }
+
+.send-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 label {
     font-family: Muli;
     font-size: 14px;
@@ -30,6 +37,7 @@ label {
     color: #232334;
     width: 100%;
 }
+
 .select {
     font-family: Muli;
     font-size: 14px;
@@ -40,31 +48,38 @@ label {
     letter-spacing: normal;
     color: #747588;
 }
+
 .no-padding-LR-large {
     padding-right: 0px;
     padding-left: 0px;
 }
+
 .margin-top {
     margin-top: 32px;
 }
+
 .margin-top-40 {
     margin-top: 40px!important;
 }
+
 .margin-top-16 {
     margin-top: 16px;
 }
+
 .bg-ff {
     padding: 32px;
     max-height: 644px;
     border-radius: 4px;
     background-color: #ffffff;
 }
+
 .farm-input input {
     font-size: 14px;
     line-height: 24px;
     padding: 16px;
     height: 46px;
 }
+
 .cancel-btn {
     height: 46px;
     border-radius: 4px;
@@ -75,6 +90,7 @@ label {
     font-family: Muli;
     border: 1px solid #30855c;
 }
+
 .branding-cancle-button {
     display: block;
 }

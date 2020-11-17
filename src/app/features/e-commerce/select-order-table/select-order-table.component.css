@@ -102,6 +102,7 @@ li.nav-item {
 ::ng-deep .popover-body {
     padding: .25rem .25rem !important;
 }
+
 ::ng-deep .popover {
     border: none !important;
     border-radius: 5px !important;
@@ -141,6 +142,10 @@ li.nav-item {
     color: #ffffff;
     padding: 0px 15px;
     height: 46px;
+}
+
+.continue-order:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .select_cancel {
@@ -443,7 +448,6 @@ li.nav-item {
 }
 
 
-
 /**********popover*******/
 
 .list-group-item {
@@ -510,6 +514,10 @@ li.nav-item {
     color: #ffffff;
     padding: 0px 15px;
     height: 46px;
+}
+
+.continue-order:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .select_cancel {
@@ -628,5 +636,3 @@ table.dataTable thead th {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
 }
-
-

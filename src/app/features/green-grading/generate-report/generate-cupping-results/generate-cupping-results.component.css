@@ -118,6 +118,10 @@ tr:last-child {
     color: #fff;
 }
 
+.generate_report:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .regrade_sample {
     border-radius: 4px;
     border: 1px solid #30855c;
@@ -220,6 +224,10 @@ tr:last-child {
     border-radius: 4px;
     background-color: #30855c;
     padding: 11px 18px;
+}
+
+.add-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .no-btn {

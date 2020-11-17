@@ -13,11 +13,11 @@
 }
 
 .farmlink-container .farm-input .label::after {
-   position: absolute;
-   content: "*";
-   top: 0;
-   color: #ff1e5a;
-   z-index: 1;
+    position: absolute;
+    content: "*";
+    top: 0;
+    color: #ff1e5a;
+    z-index: 1;
 }
 
 .pad-details {
@@ -184,7 +184,6 @@
     cursor: pointer;
 }
 
-
 .input-head--uplaod input[type="file"] {
     opacity: 0;
     visibility: hidden;
@@ -266,6 +265,10 @@
     padding: 5px 10px;
     color: #ffffff;
     font-size: 12px;
+}
+
+.copy-link button {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .download-qr-link {
@@ -591,11 +594,13 @@
     background-color: #30855c;
 }
 
+.save:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .butn-prev-save {
     padding-left: 6rem;
 }
-
-
 
 .select-region {
     font-size: 14px !important;

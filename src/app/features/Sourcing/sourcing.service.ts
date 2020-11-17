@@ -43,7 +43,9 @@ export class SourcingService {
   number_of_trees: any;
   city: any;
 	lots: any;
-	flavourList: any;
+  flavourList: any;
+  activeLandlots:any;
+  
   constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
               private toastrService : ToastrService,public profileservice:RoasteryProfileService) {
                 this.roaster_id = this.cookieService.get('roaster_id');

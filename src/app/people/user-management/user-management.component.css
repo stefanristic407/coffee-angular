@@ -132,6 +132,7 @@
 ::ng-deep .bs-popover-bottom .arrow:after {
     top: 0px !important;
 }
+
 ::ng-deep .tooltiptext {
     visibility: hidden;
     width: auto;
@@ -147,15 +148,16 @@
     text-align: center;
     padding: 15px 20px 15px 20px;
     left: 22%;
-    display:inline;
+    display: inline;
     margin-top: 2%;
     margin-left: 1.5%;
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
     left: 15%;
-  }
-  ::ng-deep .tooltiptext::after {
+}
+
+ ::ng-deep .tooltiptext::after {
     content: "";
     position: absolute;
     bottom: 100%;
@@ -164,12 +166,13 @@
     border-width: 8px;
     border-style: solid;
     border-color: transparent transparent #ffffff transparent;
-  }
-  
-  ::ng-deep td:hover .tooltiptext {
+}
+
+ ::ng-deep td:hover .tooltiptext {
     visibility: visible;
-  }
-  ::ng-deep .table_ellipsis {
+}
+
+ ::ng-deep .table_ellipsis {
     max-width: 45px;
     /* width: 54px; */
     text-overflow: ellipsis;
@@ -177,7 +180,8 @@
     overflow: hidden;
     width: 10%;
     /* position: relative; */
-  }
+}
+
 .pointer-item {
     cursor: pointer;
 }
@@ -289,34 +293,47 @@ table td {
     padding: 10px 12px;
     cursor: pointer;
 }
-.oh__text{  
+
+.oh__text {
     color: #020202;
 }
-.delete__text{
+
+.delete__text {
     color: #5d5d5d;
 }
-.cancel-btn{
+
+.cancel-btn {
     color: #30855c;
     border-radius: 4px;
     border: 1px solid #30855c;
-    background-color:#fff;
+    background-color: #fff;
     cursor: pointer;
 }
-.cancel-btn:hover{
-    background-color:#30855c;
+
+.cancel-btn:hover {
+    background-color: #30855c;
     color: #fff;
 }
-.delete-btn{
+
+.delete-btn {
     color: #fff;
     border-radius: 4px;
     background-color: #30855c;
 }
-.cancel-btn,.delete-btn{
+
+.delete-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.cancel-btn,
+.delete-btn {
     font-family: Muli;
     font-size: 14px;
     font-weight: 700;
     padding: 11px 30px;
 }
+
+
 /* .border-total.current {
     border-radius: 20px;
     border: solid 1px red;
@@ -538,6 +555,10 @@ option {
     font-weight: 600;
     font-size: 14px;
     padding: 2% 10%;
+}
+
+.chn-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
 
 .main_button {

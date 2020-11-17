@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SourcingService } from '../sourcing.service';
 import { CookieService } from 'ngx-cookie-service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-
+declare var $:any;
 @Component({
   selector: 'app-estate-details-list',
   templateUrl: './estate-details-list.component.html',
@@ -24,6 +24,7 @@ export class EstateDetailsListComponent implements OnInit {
 		// {  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84' }
   ];
   roaster_id: string;
+  blogResult: string;
   constructor(private modalService:BsModalService,private globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService) {
     this.route.queryParams.subscribe(params => {
       this.sourcing.detailList = params['listData'];
@@ -38,7 +39,16 @@ export class EstateDetailsListComponent implements OnInit {
   }
   ngOnInit(): void {
     this.language();
+    this.blogResult = decodeURIComponent(this.route.snapshot.queryParams['dataLots']);
+  
+    
   }
+  ngAfterViewInit(){
+    if(this.blogResult == "true"){
+      $('#nav-profile-tab3')[0].click();
+      }
+  }
+
   language(){
     this.appLanguage = this.globals.languageJson;
     this.estateDetailsActive++;

@@ -16,3 +16,7 @@
     background-color: #30855c;
     padding: 8px 16px;
 }
+
+.send-invites:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}

@@ -119,18 +119,66 @@ tr:last-child {
 }
 
 @media screen and (max-width: 991px) and (min-width: 768px) {
-    .map-lots img{width: 100%;}
+    .map-lots img {
+        width: 100%;
+    }
 }
 
 @media (max-width:767px) {
-   
-.tit-cont{color: #242424; font-size: 16px; font-weight: bold;}
-.real-estate h6{color: #747588; font-size: 12px; }
-.real-estate h3{font-size: 14px; font-weight: bold; color: #232334;}
-.sugar-prod li{float: left;  font-size: 12px; margin-bottom: 5px; padding: 3px 9px 1px 15px; font-weight: 600; margin-right: 5px; color: #747588; position: relative; border-radius: 11.5px;    border: solid 0.5px #747588;}
-.sugar-prod  li:before{    content: ''; width: 4px; height: 4px;background: #747588; border-radius: 50%; position: absolute;left: 6px; top: 43%;}
-.landlots a{background-color: #30855c; color: #fff; display: block;text-align: center;padding: 10px;
-    border-radius: 4px}
-.mdevics {padding: 15px;border:1px solid #ebebeb;border-radius: 4px;margin-bottom: 1rem;}
-.m-padding-8{padding: 0 8px;}
+    .tit-cont {
+        color: #242424;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .real-estate h6 {
+        color: #747588;
+        font-size: 12px;
+    }
+    .real-estate h3 {
+        font-size: 14px;
+        font-weight: bold;
+        color: #232334;
+    }
+    .sugar-prod li {
+        float: left;
+        font-size: 12px;
+        margin-bottom: 5px;
+        padding: 3px 9px 1px 15px;
+        font-weight: 600;
+        margin-right: 5px;
+        color: #747588;
+        position: relative;
+        border-radius: 11.5px;
+        border: solid 0.5px #747588;
+    }
+    .sugar-prod li:before {
+        content: '';
+        width: 4px;
+        height: 4px;
+        background: #747588;
+        border-radius: 50%;
+        position: absolute;
+        left: 6px;
+        top: 43%;
+    }
+    .landlots a {
+        background-color: #30855c;
+        color: #fff;
+        display: block;
+        text-align: center;
+        padding: 10px;
+        border-radius: 4px
+    }
+    .landlots a:hover {
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    }
+    .mdevics {
+        padding: 15px;
+        border: 1px solid #ebebeb;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+    }
+    .m-padding-8 {
+        padding: 0 8px;
+    }
 }

@@ -97,9 +97,11 @@ td {
     background-color: #ffffff;
     width: 130px;
 }
-.search:focus{
+
+.search:focus {
     box-shadow: none !important;
 }
+
 .main-bag {
     /* position: absolute;
     right: 10px;
@@ -186,6 +188,11 @@ td {
     height: 46px;
 }
 
+.place-order:hover,
+.save-address:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .ord_cancel {
     border-radius: 4px;
     border: solid 1px #30855c;
@@ -240,7 +247,11 @@ td {
     padding: 11px 18px;
 }
 
-.no-btn{
+.add-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.no-btn {
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
@@ -251,10 +262,12 @@ td {
     cursor: pointer;
     padding: 11px 18px;
 }
-.no-btn:hover{
+
+.no-btn:hover {
     background-color: #30855c;
     color: #fff;
 }
+
 ::ng-deep .modal-content {
     top: 3rem;
 }
@@ -302,6 +315,7 @@ label {
     cursor: pointer;
     font-size: 14px !important;
 }
+
 .checkmark {
     top: 2px !important;
     left: 2px !important;
@@ -324,12 +338,14 @@ span.checkmark {
 .customcheckbox input:checked~.checkmark {
     background-color: #232334 !important;
 }
-.box-border{
+
+.box-border {
     border: 1px solid #d6d6d6;
     border-radius: 4px;
     margin-left: 15px;
     padding: 0 10px;
 }
+
 .web-sec {
     display: block;
 }
@@ -337,6 +353,8 @@ span.checkmark {
 .mob-sec {
     display: none;
 }
+
+
 /* 
 .search:focus {
     box-shadow: 0 0 0 0.035rem green !important;
@@ -350,12 +368,16 @@ span.checkmark {
     color: #D50000;
     font-size: 14px;
 }
-.termError{
+
+.termError {
     color: #D50000;
     font-size: 14px;
     margin-left: 10px;
 }
+
+
 /****************************    Media Queries   ****************************/
+
 @media screen and (max-width:768px) {
     .create-role {
         margin-left: 0.9rem;
@@ -477,7 +499,7 @@ span.checkmark {
     }
 }
 
-.rectangle_dropdown{
+.rectangle_dropdown {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
@@ -490,7 +512,8 @@ span.checkmark {
     height: 46px !important;
     cursor: pointer;
 }
-.seviceProvider{
+
+.seviceProvider {
     border: #d6d6d6;
     padding: 5px;
     color: #232334;

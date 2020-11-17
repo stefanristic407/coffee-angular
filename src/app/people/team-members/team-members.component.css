@@ -1,19 +1,22 @@
-.bread-nav{
+.bread-nav {
     padding-top: 2rem;
     padding-left: 3rem;
 }
-.team__total{
+
+.team__total {
     padding-left: 3rem;
     padding-top: 1rem;
     padding-right: 3rem;
 }
-.add-team{
+
+.add-team {
     font-family: Muli;
     font-size: 18px;
     font-weight: bold;
     color: #232334;
     margin-bottom: 2.2rem;
 }
+
 .select_title {
     color: #30855c !important;
     padding: 5px;
@@ -22,6 +25,7 @@
     -webkit-appearance: none;
     cursor: pointer;
 }
+
 .custom-popover li {
     list-style: none;
     padding-right: 4.5rem;
@@ -36,7 +40,8 @@
     padding: 10px 0px 8px 3px;
     cursor: pointer;
 }
-.content_list:hover{
+
+.content_list:hover {
     color: #232334;
     background-color: #f8f8f8;
 }
@@ -73,15 +78,16 @@
     text-align: center;
     padding: 15px 20px 15px 20px;
     left: 22%;
-    display:inline;
+    display: inline;
     margin-top: 2%;
     margin-left: 1.5%;
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
     left: 15%;
-  }
-  ::ng-deep .tooltiptext::after {
+}
+
+ ::ng-deep .tooltiptext::after {
     content: "";
     position: absolute;
     bottom: 100%;
@@ -90,12 +96,13 @@
     border-width: 8px;
     border-style: solid;
     border-color: transparent transparent #ffffff transparent;
-  }
-  
-  ::ng-deep td:hover .tooltiptext {
+}
+
+ ::ng-deep td:hover .tooltiptext {
     visibility: visible;
-  }
-  ::ng-deep .table_ellipsis {
+}
+
+ ::ng-deep .table_ellipsis {
     max-width: 45px;
     /* width: 54px; */
     text-overflow: ellipsis;
@@ -103,7 +110,7 @@
     overflow: hidden;
     width: 10%;
     /* position: relative; */
-  }
+}
 
 .addrole_button {
     border-radius: 4px;
@@ -122,7 +129,8 @@
     background-color: #2f845b;
     color: #ffffff;
 }
-.invite_members{
+
+.invite_members {
     padding: 12px 16px;
     font-family: Muli;
     font-size: 14px;
@@ -135,18 +143,25 @@
     color: #ffffff !important;
     cursor: pointer;
 }
-.select-members{
+
+.invite_members:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.select-members {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #747588;
 }
+
 .filter {
     font-family: 'Muli';
     font-weight: 600;
     color: #232334;
     font-size: 14px;
 }
+
 .border-total {
     border-radius: 20px;
     border: solid 1px #d6d6d6;
@@ -170,7 +185,8 @@
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
 }
-.search-div{
+
+.search-div {
     margin-top: -10px;
 }
 
@@ -250,7 +266,6 @@ span.checkmark {
 
 .customcheckbox input:checked~.checkmark {
     background-color: #30855c !important;
-    
 }
 
 .table-container {
@@ -278,12 +293,14 @@ span.checkmark {
     margin-bottom: 0;
     font-weight: bold;
 }
+
 .status-disabled {
     margin-bottom: 0;
     font-weight: bold;
     color: #979797;
 }
-.cancel_member{
+
+.cancel_member {
     border-radius: 4px;
     border: 1px solid #30855c;
     font-family: Muli;
@@ -292,7 +309,8 @@ span.checkmark {
     color: #30855c;
     padding: 12px 24px;
 }
-.cancel_member:hover{
+
+.cancel_member:hover {
     color: #fff;
     background-color: #30855c;
 }
@@ -304,6 +322,7 @@ span.checkmark {
     background: none;
     outline: none !important;
 }
+
 .delete_name_txt {
     font-family: 'Muli';
     font-size: 14px;
@@ -330,30 +349,39 @@ span.checkmark {
     }
 }
 
-
-.oh__text{  
+.oh__text {
     color: #020202;
 }
-.delete__text{
+
+.delete__text {
     color: #5d5d5d;
 }
-.cancel-btn{
+
+.cancel-btn {
     color: #30855c;
     border-radius: 4px;
     border: 1px solid #30855c;
-    background-color:#fff;
+    background-color: #fff;
     cursor: pointer;
 }
-.cancel-btn:hover{
-    background-color:#30855c;
+
+.cancel-btn:hover {
+    background-color: #30855c;
     color: #fff;
 }
-.delete-btn{
+
+.delete-btn {
     color: #fff;
     border-radius: 4px;
     background-color: #30855c;
 }
-.cancel-btn,.delete-btn{
+
+.delete-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.cancel-btn,
+.delete-btn {
     font-family: Muli;
     font-size: 14px;
     font-weight: 700;

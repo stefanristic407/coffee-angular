@@ -448,10 +448,9 @@ export class UserserviceService {
     var data = body;
     return this.http.post(this.sendEmailURL, data);
   }
-
-  getAvailableEstates(roasterId : any){
+  getAvailableEstates(roasterId : any,queryParams=''){
     var data = {};
-    data["api_call"] = "/ro/" + roasterId + "/estates/availability";
+    data["api_call"] = `/ro/${roasterId}/estates/availability${queryParams}`;
     data["method"] = "GET";
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterUrl,data);

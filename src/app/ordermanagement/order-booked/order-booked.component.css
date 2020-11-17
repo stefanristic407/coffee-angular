@@ -470,6 +470,10 @@ li.nav-item {
     padding: .5rem 1rem;
 }
 
+.problem-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .chat-btn {
     border-radius: 8px 8px 0px 0px !important;
     box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
@@ -604,7 +608,7 @@ li.nav-item {
     background-color: #ffffff !important;
     line-height: 1.43 !important;
     letter-spacing: normal !important;
-    color: #747588 !important ;
+    color: #747588 !important;
     font-size: 14px !important;
     text-align: center !important;
     padding: 15px 20px 15px 20px!important;
@@ -616,7 +620,8 @@ li.nav-item {
     /* position: absolute !important; */
     /* z-index: 1 !important; */
     /* left: 15%; */
-  }
+}
+
 .tooltiptext::after {
     content: "" !important;
     position: absolute !important;
@@ -626,9 +631,9 @@ li.nav-item {
     border-width: 8px !important;
     border-style: solid !important;
     border-color: transparent transparent #ffffff transparent !important;
-  }
+}
 
-  .table_ellipsis {
+.table_ellipsis {
     max-width: 72px!important;
     width: 54px !important;
     text-overflow: ellipsis;
@@ -636,7 +641,9 @@ li.nav-item {
     overflow: hidden;
     cursor: pointer;
     /* position: relative; */
-  }
+}
+
+
 /***************Images**********************/
 
 .edit-icon,

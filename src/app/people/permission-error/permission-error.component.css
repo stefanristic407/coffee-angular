@@ -1,17 +1,20 @@
 .welcome-sec {
     border-radius: 4px;
-    background-color: #ffffff;   
-    width:85%;
+    background-color: #ffffff;
+    width: 85%;
     margin: auto;
-    margin:32px 100px 32px 100px;
+    margin: 32px 100px 32px 100px;
 }
+
 .pink {
     padding-bottom: 184px;
-} 
+}
+
 .error-image {
-    margin-top:109px;
+    margin-top: 109px;
     margin-bottom: 40.1px;
 }
+
 .add-tem-butn {
     border-radius: 4px;
     background-color: #30855c;
@@ -20,11 +23,17 @@
     cursor: pointer;
     padding: 12px 24px;
 }
-.page-not-found { 
+
+.add-tem-butn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.page-not-found {
     height: 100%;
-    width:100%;
+    width: 100%;
     background-color: #f1f1f1;
 }
+
 .error-header {
     font-family: Muli;
     font-size: 32px;
@@ -32,6 +41,7 @@
     color: #232334;
     margin-bottom: 12px;
 }
+
 .error-sub-text {
     font-family: Muli;
     font-size: 20px;
