@@ -33,28 +33,28 @@
         </nav>
     </div>
 
-    <section class="edit__spacing">
-        <div class="col-lg-12 col-sm-12">
-            <div class="row">
-                <div class="col-lg-8 pl-md-0" p-0>
-                    <div class="edit__total">
-                        <div class="row">
-                            <h4 class="edit_heading col-lg-6">{{appLanguage?.edit}}</h4>
-                            <div class="btn-group btn-toggle ml-auto pull-right active__main">
-                                <div class="btn active_default btn-group__item">{{appLanguage?.active}}</div>
-                                <div class="btn disable_default btn-group__item">{{appLanguage?.disable}}</div>
-                            </div>
+<section class="edit__spacing">
+    <div class="col-lg-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-8 pl-md-0" p-0>
+                <div class="edit__total">
+                    <div class="row">
+                        <h4 class="edit_heading col-lg-6">{{appLanguage?.edit}}</h4>
+                        <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()" [attr.disabled]="editmode? true : null" >
+                            <div class="btn btn-group__item" [ngClass] = "btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus" >Active</div>
+                            <div class="btn btn-group__item" [ngClass] = "!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus" >Disable</div>
                         </div>
-                        <p class="account_activation">{{appLanguage?.account_activated}} <span class="activation__bold">12th Jan 2020, 8:30pm</span></p>
-                        <form class="form-container Onboard-rows">
-                            <div class="Onboard-rows__inputs">
-                                <div class="row">
-                                    <div class="form-group col-md-6 mt-md-3">
-                                        <label for="member_name">{{appLanguage?.name}}</label>
-                                        <input *ngIf="savemode" class="form-control rectangle_username" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
-                                        <input *ngIf="editmode" class="form-control rectangle_username" [ngClass]="{disabledDiv: activeFlag}" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
+                    </div>
+                    <p class="account_activation">{{appLanguage?.account_activated}} <span class="activation__bold">{{created_at | date: 'd MMM , y, h:mm a'}}</span></p>
+                    <form class="form-container Onboard-rows">
+                        <div class="Onboard-rows__inputs">
+                            <div class="row">
+                                <div class="form-group col-md-6 mt-md-3">
+                                    <label for="member_name">{{appLanguage?.name}}</label>
+                                    <input *ngIf="savemode"  class="form-control rectangle_username" id="member_name"  placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
+                                    <input  *ngIf="editmode" class="form-control rectangle_username" [ngClass]="{disabledDiv: activeFlag}" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
 
-                                        <!-- <div class="addressError" *ngIf="addressError != ''">
+                                    <!-- <div class="addressError" *ngIf="addressError != ''">
                                     {{ addressError }}
                                 </div> -->
                                     </div>
@@ -70,6 +70,18 @@
                                         <input *ngIf="savemode" class="form-control rectangle_username" type="text" id="member_role" (keyup)="onKeyPress($event)" [(ngModel)]="member_role" name="status" />
                                         <input *ngIf="editmode" class="form-control rectangle_username" type="text" id="member_role" [ngClass]="{disabledDiv: activeFlag}" (keyup)="onKeyPress($event)" [(ngModel)]="member_role" name="status" />
 
+                                        <div class="new-row position-relative">
+                                            <div class="row mt-3">
+                                                <div class="col-12 d-inline">
+                                                    <select id="member_role" class="form-control rectangle_editdropdowns" name="status">
+                                                        <option value="" selected disabled>Select role</option>
+                                                        <option *ngFor="let roles of assignedRoles" value="{{roles.id}}">{{roles.name}}</option>
+                                                       
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn assign_member_role d-inline">Assign</button>
+                                            </div>
+                                        </div>
                                         <!-- <div class="addressError" *ngIf="addressError != ''">
                                     {{ addressError }}
                                 </div> -->
@@ -83,24 +95,25 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-4 pr-md-0 p-0">
-                    <div class="recovery_account h-100">
-                        <p class="recovery_email mb-1">{{appLanguage?.recovery_email}}</p>
-                        <span class="email_text">{{appLanguage?.recovery_link_desription}}. </span>
-                        <div>
-                            <button type="button" class="btn send_email web_edit mt-4">
-                        {{appLanguage?.send}}
-                    </button>
-                        </div>
-                        <div class="form-group row m-0 pt-3 mob_edit">
-                            <div class="text-center w-100">
-                                <button type="button" class="btn btn-info login-butn w-100">{{appLanguage?.send}}</button>
-                            </div>
+            
+            <div class="col-lg-4 pr-md-0 p-0">
+                <div class="recovery_account h-100">
+                    <p class="recovery_email mb-1">{{appLanguage?.recovery_email}}</p>
+                    <span class="email_text">{{appLanguage?.recovery_link_desription}}. </span>
+                    <div>
+                        <button type="button" class="btn send_email web_edit mt-4"  (click)="sendMail()" [disabled]="resetButtonValue==='Sending'">
+                            {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Sending'" src="assets/images/orange-loader.gif"/></button>
+                    </div>
+                    <div class="form-group row m-0 pt-3 mob_edit">
+                        <div class="text-center w-100">
+                            <button type="button" class="btn btn-info login-butn w-100" (click)="sendMail()" [disabled]="resetButtonValue==='Sending'">
+                                {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Sending'" src="assets/images/orange-loader.gif"/></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </section>
 </div>
 

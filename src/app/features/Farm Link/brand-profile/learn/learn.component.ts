@@ -109,7 +109,8 @@ export class LearnComponent implements OnInit {
   onFileChange(event : any, width : any, height : any, FieldValue : any) {
     var files = event.target.files;
     // this.fileEvent = this.files;
-    console.log(files)
+    console.log(FieldValue)
+    
     if (files.length > 0) { 
       
             // const max_height = 15200;
@@ -167,38 +168,29 @@ export class LearnComponent implements OnInit {
               data => {
                 if(data['success'] == true){
                   this.toastrService.success("File uploaded successfully");
-                  switch (FieldValue) {
-                    case "Banner":
-                      {
-                        this.banner_id = data['result'].file_id;
-                        break;
-                      }
-                      case "Intro": 
-                      {
-                        this.intro_id = data['result'].file_id;
-                        break;
-                      }
-                      case "Step1": 
-                      {
-                        this.step1_id = data['result'].file_id;
-                        break;
-                      }
-                      case "Step2": 
-                      {
-                        this.step2_id = data['result'].file_id;
-                        break;
-                      }
-                      case "Step3": 
-                      {
-                        this.step3_id = data['result'].file_id;
-                        break;
-                      }
-                      case "Step4": 
-                      {
-                        this.step4_id = data['result'].file_id;
-                        break;
-                      }
-                      
+                  if(FieldValue == "Banner"){
+                    this.banner_id = data['result'].id;
+                    this.banner_image_name = files[0].name;
+                  }
+                  else if(FieldValue == "Intro"){
+                    this.intro_id = data['result'].id;
+                    this.intro_image_name = files[0].name;
+                  }
+                  else if(FieldValue == "Step1"){
+                    this.step1_id = data['result'].id;
+                    this.step1_image_name = files[0].name;
+                  }
+                  else if(FieldValue == "Step2"){
+                    this.step2_id = data['result'].id;
+                    this.step2_image_name = files[0].name;
+                  }
+                  else if(FieldValue == "Step3"){
+                    this.step3_id = data['result'].id;
+                    this.step3_image_name = files[0].name;
+                  }
+                  else if(FieldValue == "Step4"){
+                    this.step4_id = data['result'].id;
+                    this.step4_image_name = files[0].name;
                   }
                 }
                 else{
@@ -229,44 +221,29 @@ this.roasterService.uploadFiles(formData).subscribe(
   data => {
     if(data['success'] == true){
       this.toastrService.success("File uploaded successfully");
-      switch (FieldValue) {
-        case "Banner":
-          {
-            this.banner_id = data['result'].file_id;
-            this.banner_image_name = files[0].name;
-            break;
-          }
-          case "Intro": 
-          {
-            this.intro_id = data['result'].file_id;
-            this.intro_image_name = files[0].name;
-            break;
-          }
-          case "Step1": 
-          {
-            this.step1_id = data['result'].file_id;
-            this.step1_image_name = files[0].name;
-            break;
-          }
-          case "Step2": 
-          {
-            this.step2_id = data['result'].file_id;
-            this.step2_image_name = files[0].name;
-            break;
-          }
-          case "Step3": 
-          {
-            this.step3_id = data['result'].file_id;
-            this.step3_image_name = files[0].name;
-            break;
-          }
-          case "Step4": 
-          {
-            this.step4_id = data['result'].file_id;
-            this.step4_image_name = files[0].name;
-            break;
-          }
-          
+      if(FieldValue == "Banner"){
+        this.banner_id = data['result'].id;
+        this.banner_image_name = files[0].name;
+      }
+      else if(FieldValue == "Intro"){
+        this.intro_id = data['result'].id;
+        this.intro_image_name = files[0].name;
+      }
+      else if(FieldValue == "Step1"){
+        this.step1_id = data['result'].id;
+        this.step1_image_name = files[0].name;
+      }
+      else if(FieldValue == "Step2"){
+        this.step2_id = data['result'].id;
+        this.step2_image_name = files[0].name;
+      }
+      else if(FieldValue == "Step3"){
+        this.step3_id = data['result'].id;
+        this.step3_image_name = files[0].name;
+      }
+      else if(FieldValue == "Step4"){
+        this.step4_id = data['result'].id;
+        this.step4_image_name = files[0].name;
       }
     }
     else{

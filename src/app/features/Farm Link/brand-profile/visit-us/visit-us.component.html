@@ -29,8 +29,8 @@
                         <p class="brand-para">Add details according to respective sections to create your brand profile website</p>
                     </div>
                     <div class="col-md-6 col-12 web-farm">
-                        <button type="button" class="save ml-3 pull-right" >Save </button>
-                        <button type="button" class="preview" >Preview </button>
+                        <button type="button" class="save ml-3 pull-right">Save </button>
+                        <button type="button" class="preview">Preview </button>
                     </div>
                 </div>
 
@@ -45,37 +45,128 @@
                         </label>
                         <!-- <button class="save " type="button">Upload</button> -->
                         <label class="w-100 sub-header-text fnt-muli mt-3">Banner Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/10 words</span></label>
-                        <input type="text" class="form-control banner-title" name="banner-title" id="banner-title" >
+                        <input type="text" class="form-control banner-title" name="banner-title" id="banner-title">
                     </div>
                 </div>
 
                 <div class="row px-3 pt-4">
-                    <div class="col-lg-8 col-md-12 col-sm-12  border p-4">
+                    <div class="col-lg-8 col-md-12 col-sm-12 p-4 border">
+
                         <p class="header-text fnt-muli">Contact Info</p>
                         <p class="w-100 sub-header-text fnt-muli">Your details to get in touch!</p>
                         <p class="header-text fnt-muli">Address<span class="star">*</span></p>
+
                         <div class="row">
-                           <div class="col-lg-6 col-md-6 col-sm-12">
-                                <label class="w-100 sub-header-text fnt-muli mt-3">Address<span class="star">*</span> </label>
-                                <input type="text" class="form-control banner-title" name="line1" id="line1"  placeholder="Line 1">
-                           </div>
-                           <div class="col-lg-6 col-md-6 col-sm-12">
-                            <label class="w-100 sub-header-text fnt-muli mt-3">&nbsp;</label>
-                            <input type="text" class="form-control banner-title" name="line2" id="line2" placeholder="Line 2" >
-                         </div>
+                            <div class="roastery-fields col-md-6 col-12">
+                                <div class="farm-input col-12  px-0">
+                                    <label class="label pl-1">Country<span class="star">*</span></label>
+                                    <select name="Year" required="" class="form-control select-region">
+                                            <option  value="" selected="" disabled="" > Please select your country</option>
+                                            <option  value="India"> India </option>
+                                            <option  value="Australia"> Australia</option>
+                                            <option  value="Bangladesh" >Bangladesh </option>
+                                            <option  value="France"> France</option>
+                                            <option  value="Ireland" >Ireland </option>
+                                        </select>
+                                </div>
+                            </div>
+
+                            <div class="roastery-fields col-12 col-md-6">
+                                <div class="farm-input col-12 px-0">
+                                    <label class="label pl-1">State<span class="star">*</span></label>
+                                    <select name="Year" required="" class="form-control select-region">
+                                            <option  value="" selected="" disabled="" > Please select your State</option>
+                                            <option  value="Andhra Pradesh">Andhra Pradesh </option>
+                                            <option  value="Maharashtra"> Maharashtra </option>
+                                            <option  value="Tamil Nadu"> Tamil Nadu </option>
+                                            <option  value="Telangana"> Telangana </option>
+                                            <option  value="Rena Gonzales" > Rena Gonzales </option>
+                                        </select>
+                                </div>
+                            </div>
                         </div>
-                            <div class="row">
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <label class="w-100 sub-header-text fnt-muli mt-3">Address<span class="star">*</span> </label>
+                                <input type="text" class="form-control banner-title" name="line1" id="line1" placeholder="Line 1">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <label class="w-100 sub-header-text fnt-muli mt-3">&nbsp;</label>
+                                <input type="text" class="form-control banner-title" name="line2" id="line2" placeholder="Line 2">
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-6">
-                                 <label class="w-100 sub-header-text fnt-muli mt-3">City<span class="star">*</span> </label>
-                                 <input type="text" class="form-control banner-title" name="city" id="city"  placeholder="city">
+                                <label class="w-100 sub-header-text fnt-muli mt-3">City<span class="star">*</span> </label>
+                                <input type="text" class="form-control banner-title" name="city" id="city" placeholder="city">
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6">
-                             <label class="w-100 sub-header-text fnt-muli mt-3">Zipcode</label>
-                             <input type="text" class="form-control banner-title" name="zipcode" id="zipcode" >
+                                <label class="w-100 sub-header-text fnt-muli mt-3">Zipcode</label>
+                                <input type="text" class="form-control banner-title" name="zipcode" id="zipcode">
+                            </div>
+
                         </div>
-                    
-                         </div>
+
+                        <p class="bor-top mt-4"> </p>
+                        <p class="header-text fnt-muli">Contact details<span class="star">*</span></p>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <label class="w-100 sub-header-text fnt-muli mt-3">Email Address<span class="star">*</span> </label>
+                                <input type="email" class="form-control banner-title" name="Email" id="email" placeholder="Roastery email">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <label class="w-100 sub-header-text fnt-muli mt-3">Phone Number<span class="star">*</span> </label>
+                                <input type="number" class="form-control banner-title" name="Phone" id="Phone" placeholder="+46">
+                            </div>
+                        </div>
+
+
                     </div>
+
+
+                    <div class="col-lg-8 col-md-12 col-sm-12 p-4 border mt-3">
+                        <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">FAQs</h4>
+                        <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Help your users solves questions faster</p>
+
+
+
+                        <div class="roastery-fields">
+                            <div class="farm-input col-12 col-md-10 px-0">
+                                <label class="label"></label>
+                                <select name="Year" required="" class="form-control select-region">
+                                        <option value="" selected="" disabled=""> Do you offer a trial purchase?</option>
+                                        <option value="Bow"> Bow </option>
+                                        <option value="Lucile French"> Lucile French </option>
+                                        <option value="Rena Gonzales"> Rena Gonzales </option>
+                                    </select>
+                            </div>
+                        </div>
+
+                        <div class="roastery-fields">
+                            <div class="farm-input col-12 col-md-12 px-0">
+                                <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Question<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/15 words</span></label>
+                                <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
+                            </div>
+                        </div>
+
+                        <div class="roastery-fields">
+                            <div class="farm-input col-12 col-md-12 px-0">
+                                <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/100 words</span></label>
+                                <textarea id="description" class="form-control" rows="5" cols="50"> </textarea>
+                            </div>
+                        </div>
+
+                        <div class="add-partner d-inline-flex align-items-center">
+                            <img src="assets/images/add-partner.svg">
+                            <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer"> Add new question  </span>
+
+                        </div>
+
+                    </div>
+
+
                 </div>
 
                 <div class="pb-5 pt-4 ">
@@ -83,9 +174,9 @@
                 </div>
 
 
-                </section>
+            </section>
 
 
-            </div>
         </div>
+    </div>
 </section>

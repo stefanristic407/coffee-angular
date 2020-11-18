@@ -105,7 +105,7 @@
                             <tr class="ticket-boby-txt" *ngFor="let user of userfilterDat | filter:term | filter: termRole | filter: termStatus | filter: roleData">
                                 <td>
                                     <label class="customcheckbox">
-                                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{user.id}}" [(ngModel)]="user.state"/>
+                                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{user.id}}"   [(ngModel)]="user.state"/>
                                             <span class="checkmark head-check"></span>
                                         </label>
                                 </td>
