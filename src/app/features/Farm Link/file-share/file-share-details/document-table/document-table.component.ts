@@ -75,7 +75,7 @@ export class DocumentTableComponent implements OnInit {
     private modalService: BsModalService,
     public fileService : FileShareService,
     public filedetailsService : FileShareDetailsService,
-    private globals: GlobalsService
+    public globals: GlobalsService
 
     ) {
       this.folderNameError = '';

@@ -58,7 +58,7 @@ export class VideoFileComponent implements OnInit {
     public route : ActivatedRoute,
     private modalService: BsModalService,
     public filedetailsService : FileShareDetailsService,
-    private globals: GlobalsService
+    public globals: GlobalsService
     ) {
       this.roasterId = this.cookieService.get('roaster_id');
       // this.filedetailsService.parentId = decodeURIComponent(this.route.snapshot.queryParams['folderId']);

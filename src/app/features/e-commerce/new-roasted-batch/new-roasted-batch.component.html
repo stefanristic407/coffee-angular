@@ -6,14 +6,14 @@
                 <span id="title-breadcrumb-1" class="sr-only"></span>
                 <ul class="bread-nav">
                     <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                     </li>
                     <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{appLanguage?.roasted_coffee}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{globals.languageJson?.roasted_coffee}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                     </li>
 
-                    <li class="b-cum c-pink">{{appLanguage?.new_roasted_batch}}</li>
-                    <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{appLanguage?.save}}</button>
+                    <li class="b-cum c-pink">{{globals.languageJson?.new_roasted_batch}}</li>
+                    <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{globals.languageJson?.save}}</button>
 
                 </ul>
             </nav>
@@ -21,7 +21,7 @@
             <section class="new-roasted-batch">
                 <div class="row">
                     <div class="col-md-8 col-12">
-                        <p class="fnt-18 fnt-muli fnt-700 black">{{appLanguage?.create_roasted_batch}}</p>
+                        <p class="fnt-18 fnt-muli fnt-700 black">{{globals.languageJson?.create_roasted_batch}}</p>
 
                         <div class="row pt-3">
 
@@ -35,7 +35,7 @@
 
                         </div>
 
-                        <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{appLanguage?.order_id}}* </p>
+                        <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{globals.languageJson?.order_id}}* </p>
 
                         <div class="row pt-3 pb-3">
                             <div class="col-12 col-md-6 float-md-left">
@@ -93,7 +93,7 @@
 
                     </div>
                     <div class="col-md-4 ">
-                        <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{appLanguage?.order_details}} </p>
+                        <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{globals.languageJson?.order_details}} </p>
 
                         <div class=" order-details-clr">
                             <div class="row mt-3">
@@ -116,7 +116,7 @@
                                         <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
                                 <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
                                 <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
-                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">{{appLanguage?.message}}</span>
+                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">{{globals.languageJson?.message}}</span>
                                         </span>
                                     </p>
                                 </div>
@@ -164,7 +164,7 @@
 
 
 
-                <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{appLanguage?.tasting_notes}} </p>
+                <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{globals.languageJson?.tasting_notes}} </p>
 
                 <div class="row pt-3 pb-3">
 
@@ -238,7 +238,7 @@
                     </div>
                 </div>
 
-                <button class="cancel mt-2 mb-5"> {{appLanguage?.cancel}} </button>
+                <button class="cancel mt-2 mb-5"> {{globals.languageJson?.cancel}} </button>
 
 
 

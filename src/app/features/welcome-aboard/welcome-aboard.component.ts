@@ -14,7 +14,7 @@ export class WelcomeAboardComponent implements OnInit {
 
   constructor(private router: Router,
     private cookieService:CookieService,
-    private globals: GlobalsService
+    public globals: GlobalsService
     ) { }
 
   ngOnInit(): void {

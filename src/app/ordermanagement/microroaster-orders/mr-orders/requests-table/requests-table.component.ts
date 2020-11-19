@@ -53,7 +53,7 @@ export class RequestsTableComponent implements OnInit {
 	constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
-		public global: GlobalsService) {
+		public globals: GlobalsService) {
 		this.data = {};
 		this.data =
 			[{
@@ -89,7 +89,7 @@ export class RequestsTableComponent implements OnInit {
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		}
-		this.appLanguage = this.global.languageJson;
+		this.appLanguage = this.globals.languageJson;
 		// var editIcon = function ( data, type, row ) {
 		// 	if ( type === 'display' ) {
 		// 		return data + ' <span class="tooltiptext">Tooltip text</span>';
@@ -106,7 +106,7 @@ export class RequestsTableComponent implements OnInit {
 			autoWidth: false,
 			language: {
 				search: "",
-				emptyTable: this.appLanguage.no_table_data
+				emptyTable: this.globals.languageJson.no_table_data
 			},
 			columns: [
 				// {title: '<input type="checkbox" value="">' , data: null, className: "select-checkbox", defaultContent:'<input type="checkbox" value="">'},
@@ -116,31 +116,31 @@ export class RequestsTableComponent implements OnInit {
 					defaultContent: '<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>',
 				},
 			 {
-					title: this.appLanguage.roaster_name,
+					title: this.globals.languageJson.roaster_name,
 					data: 'requestedby',
 				
 				}, {
-					title: this.appLanguage.date_ordered,
+					title: this.globals.languageJson.date_ordered,
 					data: 'daterequested'
 				},
 				{
-					title: this.appLanguage.origin,
+					title: this.globals.languageJson.origin,
 					data: 'origin',
 
         },
         {
-					title: this.appLanguage.estate,
+					title: this.globals.languageJson.estate,
 					data: 'estate'
 				}, 
 				{
-					title: this.appLanguage.species,
+					title: this.globals.languageJson.species,
 					data: 'varierty',
 
 				},
 			
 
 				{
-					title: this.appLanguage.action,
+					title: this.globals.languageJson.action,
 					defaultContent: "View order",
 					className: "view-order"
 				}

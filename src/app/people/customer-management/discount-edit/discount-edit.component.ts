@@ -9,7 +9,7 @@ import { GlobalsService } from 'src/services/globals.service';
 export class DiscountEditComponent implements OnInit {
 	appLanguage?: any;
 
-  constructor(private globals: GlobalsService) { }
+  constructor(public globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;

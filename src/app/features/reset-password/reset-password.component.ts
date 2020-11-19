@@ -30,7 +30,7 @@ export class ResetPasswordComponent implements OnInit {
     private cookieService: CookieService,
     private toastrService: ToastrService,
     private route : ActivatedRoute ,
-    private globals : GlobalsService
+    public globals : GlobalsService
   ) {}
 
   ngOnInit(): void {

@@ -17,64 +17,79 @@ import { TeamMembersComponent } from './team-members/team-members.component';
 import { InviteMemberComponent } from './invite-member/invite-member.component';
 import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import {PermissionErrorComponent} from '../people/permission-error/permission-error.component';
+import { AuthGuard } from '../guards/auth.guard';
 const routes: Routes = [{
    path: '', 
    component: PeopleComponent,
    children: [
      {
       path: 'create-role',
-      component:CreateRoleComponent
+      component:CreateRoleComponent,
+      canActivate : [AuthGuard]
      },
      { path: 'create-role/:id',
-     component:CreateRoleComponent
+     component:CreateRoleComponent,
+     canActivate : [AuthGuard]
     },
      {
       path: 'add-members',
-      component:AddMembersComponent
+      component:AddMembersComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'edit-members',
-      component:EditMembersComponent
+      component:EditMembersComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'user-management',
-      component:UserManagementComponent
+      component:UserManagementComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'manage-role',
-      component:ManageRoleComponent
+      component:ManageRoleComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'p-direct-messaging',
-      component:PDirectMessagingComponent
+      component:PDirectMessagingComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'customer-management',
-      component:CustomerManagementComponent
+      component:CustomerManagementComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'micro-roaster-details',
-      component:MicroRoasterDetailsComponent
+      component:MicroRoasterDetailsComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'horeca-details',
-      component:HorecaDetailsComponent
+      component:HorecaDetailsComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'discount-edit',
-      component:DiscountEditComponent
+      component:DiscountEditComponent,
+      canActivate : [AuthGuard]
      },
      {
       path: 'team-members',
-      component:TeamMembersComponent
+      component:TeamMembersComponent,
+      canActivate : [AuthGuard]
      },
      {
        path:'invite-member',
-       component:InviteMemberComponent
+       component:InviteMemberComponent,
+       canActivate : [AuthGuard]
      },
      {
        path:'permission-error',
-       component:PermissionErrorComponent
+       component:PermissionErrorComponent,
+       canActivate : [AuthGuard]
      }
      ,
      {

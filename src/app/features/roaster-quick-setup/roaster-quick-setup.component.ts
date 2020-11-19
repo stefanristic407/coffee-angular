@@ -30,7 +30,7 @@ export class RoasterQuickSetupComponent implements OnInit {
     private toastrService : ToastrService,
     public route: ActivatedRoute, 
     public userService : UserserviceService, 
-     private globals: GlobalsService) {
+     public globals: GlobalsService) {
     this.roaster_id = this.cookieService.get('roaster_id');
 
    }

@@ -68,7 +68,7 @@ descriptionError: string;
               public fileService : FileShareService,
               private route : ActivatedRoute,
               public filedetailsService : FileShareDetailsService,
-              private globals: GlobalsService) { 
+              public globals: GlobalsService) { 
                 this.roasterId = this.cookieService.get('roaster_id');
                 // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
                   // if(this.route.snapshot.queryParams['folderId']){

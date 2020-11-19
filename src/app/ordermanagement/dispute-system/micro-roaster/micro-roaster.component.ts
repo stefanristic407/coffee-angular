@@ -88,7 +88,7 @@ export class MicroRoasterComponent implements OnInit {
 					render: function ( data, type, row ) {
 						// if ( type === 'display' ) {
 							return data ;
-							// '<span class="tooltiptext"  matTooltip="{{appLanguage?.order_confirmed}}"
+							// '<span class="tooltiptext"  matTooltip="{{globals.languageJson?.order_confirmed}}"
 							// matTooltipClass="tooltiptext" ></span>';
 						// }
 						// return data;

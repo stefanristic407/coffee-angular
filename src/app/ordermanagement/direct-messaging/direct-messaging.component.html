@@ -28,7 +28,7 @@
             <div class="chat-box clearfix">
                 <div class="chat-accounts position-relative">
                     <div class="chat-accounts__head clearfix">
-                        <h4 class="chat-title">{{appLanguage?.messaging}}</h4>
+                        <h4 class="chat-title">{{globals.languageJson?.messaging}}</h4>
 
                         <!--Chat control-->
                         <div class="chat-control">
@@ -59,7 +59,7 @@
                                     <div class="chat-profile__name chat-img-name d-inline-block">
                                         <h5 class="name">{{activeThreadName}}</h5>
                                         <!-- <span class="status">Coffee Estate</span> -->
-                                        <span class="status last-seen">{{appLanguage?.last_seen}} 4:30pm </span>
+                                        <span class="status last-seen">{{globals.languageJson?.last_seen}} 4:30pm </span>
                                     </div>
                                 </div>
 
@@ -70,11 +70,11 @@
 
                                     <div class="chat-seeting__items">
                                         <ul class="list-group custom-popover chat-seeting__content">
-                                            <li class="list-group-item"> <a class="pointer-item">{{appLanguage?.mute}} </a></li>
-                                            <li class="list-group-item"><a class="pointer-item">{{appLanguage?.mark_unread}}</a></li>
-                                            <li class="list-group-item"><a class="pointer-item">{{appLanguage?.archive}}</a></li>
-                                            <li class="list-group-item"><a class="pointer-item" (click)=" reportChat();">{{appLanguage?.report}}</a></li>
-                                            <li class="list-group-item"><a class="pointer-item" (click)="deleteChat();">{{appLanguage?.delete_conversation}}</a></li>
+                                            <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.mute}} </a></li>
+                                            <li class="list-group-item"><a class="pointer-item">{{globals.languageJson?.mark_unread}}</a></li>
+                                            <li class="list-group-item"><a class="pointer-item">{{globals.languageJson?.archive}}</a></li>
+                                            <li class="list-group-item"><a class="pointer-item" (click)=" reportChat();">{{globals.languageJson?.report}}</a></li>
+                                            <li class="list-group-item"><a class="pointer-item" (click)="deleteChat();">{{globals.languageJson?.delete_conversation}}</a></li>
                                         </ul>
                                     </div>
 
@@ -118,7 +118,7 @@
                             <form class="messag-form position-relative">
 
                                 <div class="offensive-lang">
-                                    <span>{{appLanguage?.language_prohibited}}...</span>
+                                    <span>{{globals.languageJson?.language_prohibited}}...</span>
                                 </div>
                                 <div class="img-container">
                                     <span class="img-container__remove">&#10008;</span>
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="send-message">
                                     <button type="button" class="send-message__btn" (click) = "sendMessage()">
-                                        <span>{{appLanguage?.send}}</span>
+                                        <span>{{globals.languageJson?.send}}</span>
                                         <img src="assets/images/dm-send.svg">
                                     </button>
                                 </div>
@@ -156,7 +156,7 @@
                         <div class="account-setting__back">
                             <div class="back-to-conversation">
                                 <img src="assets/images/dm-back-arrow.svg">
-                                <span>{{appLanguage?.back_conversation}}</span>
+                                <span>{{globals.languageJson?.back_conversation}}</span>
                             </div>
 
                             <div class="account-setting__profile clearfix">
@@ -175,13 +175,13 @@
 
                                 <!--Search in conversion-->
                                 <div class="account-setting-option__item">
-                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">{{appLanguage?.serach_conversation}}</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
+                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">{{globals.languageJson?.serach_conversation}}</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
                                 </div>
 
 
                                 <!--Clear Conversion-->
                                 <div class="account-setting-option__item d-flex justify-content-between align-items-center">
-                                    <span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">{{appLanguage?.notifications}}</span>
+                                    <span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">{{globals.languageJson?.notifications}}</span>
                                     <div class="notification-control ml-auto">
                                         <input type="radio" name="notification" value="off">
                                         <input type="radio" name="notification" value="on">
@@ -191,12 +191,12 @@
 
                                 <!--Clear Conversion-->
                                 <div class="account-setting-option__item">
-                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">{{appLanguage?.clear_conversation}}</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
+                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">{{globals.languageJson?.clear_conversation}}</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
                                 </div>
 
                                 <!--Report User-->
                                 <div class="account-setting-option__item">
-                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">{{appLanguage?.report_user}}</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
+                                    <a class="d-flex justify-content-between align-items-center" href="#"><span class="fnt-16 fnt-muli fnt-600 text-black334 d-inline-block">{{globals.languageJson?.report_user}}</span><img class="ml-auto" src="assets/images/setting-arrow.svg"></a>
                                 </div>
                             </div>
                         </div>

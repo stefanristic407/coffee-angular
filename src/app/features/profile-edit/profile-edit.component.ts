@@ -52,7 +52,7 @@ export class ProfileEditComponent implements OnInit {
     private userService : UserserviceService,
     private roasterService : RoasterserviceService,
     private cookieService : CookieService,
-    private globals : GlobalsService) {
+    public globals : GlobalsService) {
     this.roleError = '';
     this.phonenoError = '';
     this.emailError = '';

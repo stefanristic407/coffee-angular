@@ -85,7 +85,7 @@ export class ProductsTableComponent implements OnInit {
     private roasterService: RoasterserviceService,
     private toastrService: ToastrService,
     public modalService: BsModalService,
-    private globals: GlobalsService) {
+    public globals: GlobalsService) {
     this.termStatus = '';
     this.termRole = '';
     this.termOrigin = '';

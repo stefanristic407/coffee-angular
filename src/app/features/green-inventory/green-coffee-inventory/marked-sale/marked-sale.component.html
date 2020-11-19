@@ -2,7 +2,7 @@
     <div class="title-header">
         <div class="hover-filters d-inline-block">
             <div class="d-inline border-total col-sm-6" id="status_id">
-                <p class="d-inline filter-text" *ngIf="termStatus == ''">{{appLanguage?.status}}&nbsp;</p>
+                <p class="d-inline filter-text" *ngIf="termStatus == ''">{{globals.languageJson?.status}}&nbsp;</p>
                 <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
                     <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
                         &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -16,7 +16,7 @@
             </div>
         </div>
         <!-- <div class="d-inline border-total role-div col-sm-6" id="display_id">
-            <p class="d-inline filter-text" >{{appLanguage?.display}}<span class="brand-dot">  </span></p>
+            <p class="d-inline filter-text" >{{globals.languageJson?.display}}<span class="brand-dot">  </span></p>
             <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop9="bs-popover">
                 <p class="d-inline filter" *ngIf="display == '-1'" (click)="toggleDisplay()">
                     &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -67,7 +67,7 @@
                     <th scope="col">Available</th>
                     <th scope="col">Cup score</th>
                     <th scope="col">Status</th>
-                    <th scope="col">{{appLanguage?.actions}}</th>
+                    <th scope="col">{{globals.languageJson?.actions}}</th>
                     <th scope="col"></th>
 
                 </tr>

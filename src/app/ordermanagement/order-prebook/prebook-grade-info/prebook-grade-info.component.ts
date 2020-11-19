@@ -12,10 +12,10 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class PrebookGradeInfoComponent implements OnInit {
   appLanguage? :any;
-  constructor(public prebookService: OrderPrebookService,public global: GlobalsService) { }
+  constructor(public prebookService: OrderPrebookService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
   }
   // Function Name : Grade Info Timeline
   // Description: This function helps to fill the grade info timeline if graded by Facilitator is selected of order pre-book .

@@ -13,9 +13,9 @@
                 <span id="title-breadcrumb-1" class="sr-only"></span>
                 <ul class="bread-nav">
                     <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                     </li>
-                    <li class="b-cum c-pink">{{appLanguage?.account_settings}}</li>
+                    <li class="b-cum c-pink">{{globals.languageJson?.account_settings}}</li>
                 </ul>
             </nav>
 
@@ -26,13 +26,13 @@
                         <button class="btn dashboard-button " routerLink="/features/profile-edit"><img class="logo-img " src="assets/images/profile-settings.svg"><p class="btn-name">Profile settings</p><p class="btn-content  word-wrap text-center">SEWN cares about your privacy. Choose what data you want to share with us.</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
                     </div> -->
                     <div class="col-sm-12 col-md-6 col-lg-4 mb-3 text-center">
-                        <button class="btn  dashboard-button text-center " routerLink="/features/privacy-settings"><img class="logo-img " src="assets/images/privacy-policy.svg"><p class="btn-name">{{appLanguage?.privacy_settings}}</p> <p class="btn-content word-wrap text-center">{{appLanguage?.privacy_text}}</p><img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
+                        <button class="btn  dashboard-button text-center " routerLink="/features/privacy-settings"><img class="logo-img " src="assets/images/privacy-policy.svg"><p class="btn-name">{{globals.languageJson?.privacy_settings}}</p> <p class="btn-content word-wrap text-center">{{globals.languageJson?.privacy_text}}</p><img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-                        <button class="btn  dashboard-button" routerLink="/features/login-security"><img class="logo-img" src="assets/images/security.svg"><p class="btn-name">{{appLanguage?.login_security}}</p><p class="btn-content">{{appLanguage?.login_security_text}}</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"></button>
+                        <button class="btn  dashboard-button" routerLink="/features/login-security"><img class="logo-img" src="assets/images/security.svg"><p class="btn-name">{{globals.languageJson?.login_security}}</p><p class="btn-content">{{globals.languageJson?.login_security_text}}</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"></button>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-                        <button class="btn dashboard-button " routerLink="/features/preferences"><img class="logo-img " src="assets/images/settings.svg"><p class="btn-name">{{appLanguage?.preferences}}</p><p class="btn-content ">{{appLanguage?.preferences_text}}</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
+                        <button class="btn dashboard-button " routerLink="/features/preferences"><img class="logo-img " src="assets/images/settings.svg"><p class="btn-name">{{globals.languageJson?.preferences}}</p><p class="btn-content ">{{globals.languageJson?.preferences_text}}</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
                     </div>
 
                     <!-- <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
@@ -42,10 +42,10 @@
                 <div class="row mt-2">
 
                     <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-                        <button class="btn dashboard-button " routerLink="/features/language-region"><img class="logo-img " src="assets/images/language.svg"><p class="btn-name">{{appLanguage?.language_region}}</p> <p class="btn-content">{{appLanguage?.language_region_text}}</p><img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
+                        <button class="btn dashboard-button " routerLink="/features/language-region"><img class="logo-img " src="assets/images/language.svg"><p class="btn-name">{{globals.languageJson?.language_region}}</p> <p class="btn-content">{{globals.languageJson?.language_region_text}}</p><img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-                        <button class="btn dashboard-button " routerLink="/features/help"><img class="logo-img" src="assets/images/help.svg"><p class="btn-name">{{appLanguage?.help}}</p><p class="btn-content">{{appLanguage?.help_text}}</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
+                        <button class="btn dashboard-button " routerLink="/features/help"><img class="logo-img" src="assets/images/help.svg"><p class="btn-name">{{globals.languageJson?.help}}</p><p class="btn-content">{{globals.languageJson?.help_text}}</p> <img class="icon-img " src="assets/images/unfilled-arrow.png"> </button>
                     </div>
                 </div>
 
@@ -62,30 +62,30 @@
                 <div class="row p-3">
                     <span class="cursor-pointer" routerLink="/features/welcome-aboard">
                     <img src="/assets/images/back-arrow1.png" alt="">
-                    <span class="back-ticket pl-3">{{appLanguage?.back}}</span>
+                    <span class="back-ticket pl-3">{{globals.languageJson?.back}}</span>
                     </span>
 
                 </div>
 
-                <p class="mob-header">{{appLanguage?.account_settings}}</p>
+                <p class="mob-header">{{globals.languageJson?.account_settings}}</p>
                 <div class="row pad-bottom">
                     <!-- <div class="col-sm-12 mb-3">
                 <button class="btn dashboard-button " routerLink="/features/profile-edit"><img class="logo-img float-left" src="assets/images/profile-settings.svg"><span class="btn-name float-left">Profile settings</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
             </div> -->
                     <div class="col-sm-12 mb-3">
-                        <button class="btn  dashboard-button text-center " routerLink="/features/privacy-settings"><img class="logo-img  float-left" src="assets/images/privacy-policy.svg"><span class="btn-name float-left">{{appLanguage?.privacy_settings}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+                        <button class="btn  dashboard-button text-center " routerLink="/features/privacy-settings"><img class="logo-img  float-left" src="assets/images/privacy-policy.svg"><span class="btn-name float-left">{{globals.languageJson?.privacy_settings}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
                     </div>
                     <div class="col-sm-12 mb-3">
-                        <button class="btn  dashboard-button" routerLink="/features/login-security"><img class="logo-img float-left" src="assets/images/security.svg"><span class="btn-name float-left">{{appLanguage?.login_security}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"></button>
+                        <button class="btn  dashboard-button" routerLink="/features/login-security"><img class="logo-img float-left" src="assets/images/security.svg"><span class="btn-name float-left">{{globals.languageJson?.login_security}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"></button>
                     </div>
                     <div class="col-sm-12 mb-3">
-                        <button class="btn dashboard-button " routerLink="/features/preferences"><img class="logo-img  float-left" src="assets/images/settings.svg"><span class="btn-name float-left">{{appLanguage?.preferences}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+                        <button class="btn dashboard-button " routerLink="/features/preferences"><img class="logo-img  float-left" src="assets/images/settings.svg"><span class="btn-name float-left">{{globals.languageJson?.preferences}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
                     </div>
                     <div class="col-sm-12 mb-3">
-                        <button class="btn dashboard-button " routerLink="/features/language-region"><img class="logo-img  float-left" src="assets/images/language.svg"><span class="btn-name float-left">{{appLanguage?.language_region}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+                        <button class="btn dashboard-button " routerLink="/features/language-region"><img class="logo-img  float-left" src="assets/images/language.svg"><span class="btn-name float-left">{{globals.languageJson?.language_region}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
                     </div>
                     <div class="col-sm-12 mb-5">
-                        <button class="btn dashboard-button " routerLink="/features/help"><img class="logo-img float-left" src="assets/images/help.svg"><span class="btn-name float-left">{{appLanguage?.help}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
+                        <button class="btn dashboard-button " routerLink="/features/help"><img class="logo-img float-left" src="assets/images/help.svg"><span class="btn-name float-left">{{globals.languageJson?.help}}</span><img class="icon-img float-right" src="assets/images/arrow-1.png"> </button>
                     </div>
                 </div>
             </section>

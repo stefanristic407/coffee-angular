@@ -12,7 +12,7 @@ export class BlogDetailsComponent implements OnInit {
   appLanguage?: any;
 	blogDetailsActive:any = 0;
   constructor(private router : Router,
-    private globals: GlobalsService) { }
+    public globals: GlobalsService) { }
 
   ngOnInit(): void {
 	// this.appLanguage = this.globals.languageJson;

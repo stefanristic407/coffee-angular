@@ -15,7 +15,7 @@ export class MyprofileComponent implements OnInit {
   appLanguage? : any;
 
   constructor(private userService : UserserviceService, private cookieService : CookieService,
-               private router : Router, private globals : GlobalsService ) { 
+               private router : Router, public globals : GlobalsService ) { 
     this.roaster_id = this.cookieService.get('roaster_id');
   }
 

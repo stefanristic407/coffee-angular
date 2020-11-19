@@ -19,14 +19,14 @@
       >
       <span class="button-div pull-right">
         <button type="button" id="edit-btn" class="btn edit-btn">
-          <img src="assets/images/edit.png" class="edit-img" />{{appLanguage?.edit}}</button
+          <img src="assets/images/edit.png" class="edit-img" />{{globals.languageJson?.edit}}</button
         ><span class="name bar">|</span>
         <button type="button" id="del-btn" class="btn del-btn">
-          <img src="assets/images/delete.png" class="del-img" />{{appLanguage?.delete}}
+          <img src="assets/images/delete.png" class="del-img" />{{globals.languageJson?.delete}}
         </button>
         <span class="name bar">|</span>
         <button type="button" id="view-btn" class="btn view-btn">
-          {{appLanguage?.view}}
+          {{globals.languageJson?.view}}
         </button>
 
         <!-- click function remove edit and delete-->
@@ -210,7 +210,7 @@
             (click)="savecertificate(licensedata.id, $event)"
           ><span
               class="upload-text"
-              >{{appLanguage?.save}}</span
+              >{{globals.languageJson?.save}}</span
             >
           </button>
           <span class="v-line" *ngIf="i > 0">|</span>
@@ -223,7 +223,7 @@
           >
             <img src="assets/images/delete.png" class="upload-img" /><span
               class="upload-text"
-              >{{appLanguage?.delete}}</span
+              >{{globals.languageJson?.delete}}</span
             >
           </button>
         </div>

@@ -14,7 +14,7 @@
                     <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6">
                         <div class="sourcing-border sourcing-top-width d-md-flex">
                             <div class="d-inline filter-set space-width" id="origin_id" [outsideClick]="true" (onShown)="toggleOrigin();" (onHidden)="toggleOrigin();" [popover]="originTemplate" placement="bottom" container="body" #pop2="bs-popover">
-                                <p class="d-inline select-origin" *ngIf="origin == ''">{{appLanguage?.select_origin}}&nbsp;&nbsp;</p>
+                                <p class="d-inline select-origin" *ngIf="origin == ''">{{globals.languageJson?.select_origin}}&nbsp;&nbsp;</p>
                                 <a class="pointer-item arrow-spacing">
                                     <p class="d-inline filter" *ngIf="origin == ''">
                                         &nbsp; <img src="assets/images/active-user.png" />
@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="d-inline filter-set space-width" [outsideClick]="true" id="variety_id" (onShown)="toggleVariety();" (onHidden)="toggleVariety();" [popover]="VarietyTemplate" placement="bottom" container="body" #pop11="bs-popover">
-                                <p class="d-inline add-variety" *ngIf="variety == ''">{{appLanguage?.add_variety}}&nbsp;&nbsp;</p>
+                                <p class="d-inline add-variety" *ngIf="variety == ''">{{globals.languageJson?.add_variety}}&nbsp;&nbsp;</p>
                                 <a class="pointer-item arrow-spacing">
                                     <p class="d-inline filter" *ngIf="variety == ''">
                                         &nbsp; <img src="assets/images/active-user.png" />
@@ -51,7 +51,7 @@
                             </p>
                         </a>
                     </div> -->
-                            <input class="d-inline search-name filter-set fadout-search" type="text" name="sourcingName" id="sourcingName" [(ngModel)]="termSearch" placeholder="{{appLanguage?.search_by_name}}">
+                            <input class="d-inline search-name filter-set fadout-search" type="text" name="sourcingName" id="sourcingName" [(ngModel)]="termSearch" placeholder="{{globals.languageJson?.search_by_name}}">
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                     <div class="title-header">
                         <div class="hover-filters d-inline-block">
                             <div class="d-inline border-grade col-sm-6" id="grade_id" [outsideClick]="true" (onShown)="toggleGrade();" (onHidden)="toggleGrade();" [popover]="gradeTemplate" placement="bottom" container="body" #pop4="bs-popover">
-                                <p class="d-inline filter-text" *ngIf="grade == ''">{{appLanguage?.grade}}&nbsp;</p>
+                                <p class="d-inline filter-text" *ngIf="grade == ''">{{globals.languageJson?.grade}}&nbsp;</p>
                                 <a class="pointer-item">
                                     <p class="d-inline filter" *ngIf="grade == ''">
                                         &nbsp; <img src="{{ showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -74,7 +74,7 @@
                         </div>
                         <div class="hover-filters d-inline-block">
                             <div class="d-inline border-grade col-sm-6" id="crop_id" [outsideClick]="true" (onShown)="toggleCrop();" (onHidden)="toggleCrop();" [popover]="cropTemplate" placement="bottom" container="body" #pop6="bs-popover">
-                                <p class="d-inline filter-text" *ngIf="crop == ''">{{appLanguage?.crop_year}}&nbsp;</p>
+                                <p class="d-inline filter-text" *ngIf="crop == ''">{{globals.languageJson?.crop_year}}&nbsp;</p>
                                 <a class="pointer-item">
                                     <p class="d-inline filter" *ngIf="crop == ''">
                                         &nbsp; <img src="{{ showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -89,7 +89,7 @@
                         </div>
                         <div class="hover-filters d-inline-block">
                             <div class="d-inline border-grade col-sm-6" (click)="openModal(filterTemplate);">
-                                <p class="d-inline filter-text">{{appLanguage?.more_filters}}&nbsp;</p>
+                                <p class="d-inline filter-text">{{globals.languageJson?.more_filters}}&nbsp;</p>
                                 <a class="pointer-item">
                                     <p class="d-inline filter">
                                         &nbsp; <img src="assets/images/down-arrow.svg" />
@@ -100,7 +100,7 @@
                         </div>
                         <div class="hover-filters d-inline-block">
                             <div class="d-inline border-grade col-sm-6">
-                                <p class="d-inline filter-text">{{appLanguage?.advanced_search}}&nbsp;</p>
+                                <p class="d-inline filter-text">{{globals.languageJson?.advanced_search}}&nbsp;</p>
                                 <a class="pointer-item">
                                     <p class="d-inline filter">
                                         &nbsp; <img src="assets/images/down-arrow.svg" />
@@ -135,7 +135,7 @@
                                     <div class="filter-sort">
                                         <div class="hover-filters d-inline-block">
                                             <div class="d-inline border-grade col-12 col-md-6 mr-md-2 mr-3" id="sort_id" [outsideClick]="true" (onShown)="toggleSort();" (onHidden)="toggleSort();" [popover]="sortTemplate" placement="bottom" container="body" #pop10="bs-popover">
-                                                <p class="d-inline filter-text" *ngIf="sort == ''">{{appLanguage?.sort_by}}&nbsp;</p>
+                                                <p class="d-inline filter-text" *ngIf="sort == ''">{{globals.languageJson?.sort_by}}&nbsp;</p>
                                                 <a class="pointer-item">
                                                     <p class="d-inline filter" *ngIf="sort == ''">
                                                         &nbsp; <img src="{{ showSort ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -184,8 +184,8 @@
                                     </div>
                                     <nav>
                                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#estates" role="tab" aria-controls="nav-home" aria-selected="true" [ngClass]="{ 'active':activeTab==='search'}" (click)="search('search')">{{appLanguage?.estates}}</a>
-                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#green-coffee" role="tab" aria-controls="nav-profile" aria-selected="false" [ngClass]="{ 'active':activeTab==='result'}" (click)="result('result')">{{appLanguage?.available_green_coffee}}</a>
+                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#estates" role="tab" aria-controls="nav-home" aria-selected="true" [ngClass]="{ 'active':activeTab==='search'}" (click)="search('search')">{{globals.languageJson?.estates}}</a>
+                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#green-coffee" role="tab" aria-controls="nav-profile" aria-selected="false" [ngClass]="{ 'active':activeTab==='result'}" (click)="result('result')">{{globals.languageJson?.available_green_coffee}}</a>
                                         </div>
                                     </nav>
                                     <div class="tab-content py-md-4 px-md-3 px-sm-0" id="nav-tabContent">
@@ -216,24 +216,24 @@
                                                                     </div>
                                                                     <div class="source-lets flex">
                                                                         <div class="orgin-att" (click)="estateList(sample)">
-                                                                            <label>{{appLanguage.origin}}</label>
+                                                                            <label>{{globals.languageJson?.origin}}</label>
                                                                             <!-- <h6>NA</h6> -->
                                                                             <h6 *ngIf="sample['country'] !=''">{{GetCountry(sample['country'])}}</h6>
                                                                         </div>
                                                                         <div class="orgin-att" (click)="estateList(sample)">
-                                                                            <label>{{appLanguage.altitude}}</label>
+                                                                            <label>{{globals.languageJson?.altitude}}</label>
                                                                             <h6 *ngIf="sample['altitude']['lte'] == 0 && sample['altitude']['lte'] == 0">NA</h6>
                                                                             <h6 *ngIf="sample['altitude']['lte'] != 0 && sample['altitude']['lte'] != 0">{{sample['altitude']['gte']}}-{{sample['altitude']['lte']}}m</h6>
                                                                         </div>
                                                                         <div class="orgin-att" (click)="estateList(sample)">
-                                                                            <label>{{appLanguage.crop_year}}</label>
+                                                                            <label>{{globals.languageJson?.crop_year}}</label>
                                                                             <!-- <h6>{{sample.crop_year_start | date: "MMM"}}-{{sample.crop_year_end | date: 'MMM'}}</h6> -->
                                                                             <h6 *ngIf="sample['crop_year']['gte'] != 0 && sample['crop_year']['lte'] != 0">{{GetMonthName(sample['crop_year']['gte'])}} - {{GetMonthName(sample['crop_year']['lte'])}}</h6>
                                                                             <h6 *ngIf="sample['crop_year']['gte'] == 0 && sample['crop_year']['lte'] == 0">NA</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="top-lots">
-                                                                        <label>{{appLanguage.top_lots}}</label>
+                                                                        <label>{{globals.languageJson?.top_lots}}</label>
                                                                         <span *ngIf="sample.lots== null" (click)="estateList(sample)">
                                                                                 <a>NA</a>
                                                                             </span>
@@ -283,23 +283,23 @@
                                                                         </div>
                                                                         <div class="source-lets flex">
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage.origin}}</label>
+                                                                                <label>{{globals.languageJson?.origin}}</label>
                                                                                 <h6>NA</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage.altitude}}</label>
+                                                                                <label>{{globals.languageJson?.altitude}}</label>
                                                                                 <!-- <h6>{{sample.range}}</h6> -->
                                                                                 <h6 *ngIf="sample.altitude_start == 0 && sample.altitude_end == 0">NA</h6>
                                                                                 <h6 *ngIf="sample.altitude_start != 0 && sample.altitude_end != 0">{{sample.altitude_start}}-{{sample.altitude_end}}m</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage.crop_year}}</label>
+                                                                                <label>{{globals.languageJson?.crop_year}}</label>
                                                                                 <h6 *ngIf="sample.crop_year_start != '' && sample.crop_year_end != ''">{{GetMonthName(sample.crop_year_start)}} - {{GetMonthName(sample.crop_year_end)}}</h6>
                                                                                 <h6 *ngIf="sample.crop_year_start == '' && sample.crop_year_end == ''">NA</h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="top-lots">
-                                                                            <label (click)="estateList(sample)">{{appLanguage.top_lots}}</label>
+                                                                            <label (click)="estateList(sample)">{{globals.languageJson?.top_lots}}</label>
                                                                         <span *ngIf="sample.lots== null" (click)="estateList(sample)">
                                                                                 <a>NA</a>
                                                                             </span>
@@ -336,17 +336,17 @@
                                                         <table class="table">
                                                             <thead class="table-header">
                                                                 <tr class="header-row">
-                                                                    <th scope="col">{{appLanguage?.estate_name}}</th>
-                                                                    <th scope="col">{{appLanguage?.rating }}
+                                                                    <th scope="col">{{globals.languageJson?.estate_name}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.rating }}
                                                                         <!-- <img class="pl-2" src="assets/images/combined-shape.svg" /> -->
                                                                     </th>
-                                                                    <th scope="col">{{appLanguage?.origin}}</th>
-                                                                    <th scope="col">{{appLanguage?.altitude_range}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.origin}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.altitude_range}}</th>
                                                                     <th scope="col">
-                                                                        {{appLanguage?.crop_year}}
+                                                                        {{globals.languageJson?.crop_year}}
                                                                     </th>
-                                                                    <th scope="col">{{appLanguage?.lots}}</th>
-                                                                    <th scope="col">{{appLanguage?.certificates}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.lots}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.certificates}}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="customtable">
@@ -404,7 +404,7 @@
                                                                     <div class="s-gal">
                                                                         <img [src]="item.image" alt="">
                                                                         <div class="cupping">
-                                                                            <p>{{appLanguage?.cup_score}} {{item.score}}</p>
+                                                                            <p>{{globals.languageJson?.cup_score}} {{item.score}}</p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="s-details ">
@@ -417,15 +417,15 @@
                                                                         </div>
                                                                         <div class="source-lets flex">
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage?.origin}}</label>
+                                                                                <label>{{globals.languageJson?.origin}}</label>
                                                                                 <h6>{{item.origin}}</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage?.variety}}</label>
+                                                                                <label>{{globals.languageJson?.variety}}</label>
                                                                                 <h6>{{item.species}}</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
-                                                                                <label>{{appLanguage?.flavour}}</label>
+                                                                                <label>{{globals.languageJson?.flavour}}</label>
                                                                                 <ul class="flo-list">
                                                                                     <li>Citrus</li>
                                                                                     <li>Floral</li>
@@ -433,7 +433,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="top-lots">
-                                                                            <label>{{appLanguage?.available_quantity}} : <span> {{item.quantity}} of 60{{weight}} </span></label>
+                                                                            <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity}} of 60{{weight}} </span></label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -467,7 +467,7 @@
                                                                         <div class="s-gal">
                                                                             <img [src]="item.image" alt="">
                                                                             <div class="cupping">
-                                                                                <p>{{appLanguage?.cup_score}} {{item.score}}</p>
+                                                                                <p>{{globals.languageJson?.cup_score}} {{item.score}}</p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="s-details ">
@@ -480,15 +480,15 @@
                                                                             </div>
                                                                             <div class="source-lets flex">
                                                                                 <div class="orgin-att">
-                                                                                    <label>{{appLanguage?.origin}}</label>
+                                                                                    <label>{{globals.languageJson?.origin}}</label>
                                                                                     <h6>{{item.origin}}</h6>
                                                                                 </div>
                                                                                 <div class="orgin-att">
-                                                                                    <label>{{appLanguage?.variety}}</label>
+                                                                                    <label>{{globals.languageJson?.variety}}</label>
                                                                                     <h6>{{item.species}}</h6>
                                                                                 </div>
                                                                                 <div class="orgin-att">
-                                                                                    <label>{{appLanguage?.flavour}}</label>
+                                                                                    <label>{{globals.languageJson?.flavour}}</label>
                                                                                     <ul class="flo-list">
                                                                                         <li>Citrus</li>
                                                                                         <li>Floral</li>
@@ -496,7 +496,7 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="top-lots">
-                                                                                <label>{{appLanguage?.available_quantity}} : <span> {{item.quantity}} of 60{{weight}} </span></label>
+                                                                                <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity}} of 60{{weight}} </span></label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -523,15 +523,15 @@
                                                             <table class="table">
                                                                 <thead class="table-header">
                                                                     <tr class="header-row">
-                                                                        <th>{{appLanguage?.name}}</th>
-                                                                        <th scope="col">{{appLanguage?.estate_name}}</th>
-                                                                        <th scope="col">{{appLanguage?.origin}}</th>
-                                                                        <th scope="col">{{appLanguage?.variety}}</th>
-                                                                        <th scope="col">{{appLanguage?.price}}</th>
+                                                                        <th>{{globals.languageJson?.name}}</th>
+                                                                        <th scope="col">{{globals.languageJson?.estate_name}}</th>
+                                                                        <th scope="col">{{globals.languageJson?.origin}}</th>
+                                                                        <th scope="col">{{globals.languageJson?.variety}}</th>
+                                                                        <th scope="col">{{globals.languageJson?.price}}</th>
                                                                         <!-- <img class="pl-2" src="assets/images/combined-shape.svg" /> -->
-                                                                        <th scope="col">{{appLanguage?.quantity}}</th>
-                                                                        <th scope="col">{{appLanguage?.flavour_profile}}</th>
-                                                                        <th scope="col">{{appLanguage?.cup_score}}</th>
+                                                                        <th scope="col">{{globals.languageJson?.quantity}}</th>
+                                                                        <th scope="col">{{globals.languageJson?.flavour_profile}}</th>
+                                                                        <th scope="col">{{globals.languageJson?.cup_score}}</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="customtable">

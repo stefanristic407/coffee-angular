@@ -9,36 +9,36 @@
     <span id="title-breadcrumb-1" class="sr-only"></span>
     <ul class="bread-nav">
         <li class="b-cum">
-            <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
         <li class="b-cum">
-            <a class="b-cum">{{appLanguage?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+            <a class="b-cum">{{globals.languageJson?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
         </li>
 
-        <li class="b-cum c-pink">{{appLanguage?.manage_roles}}
+        <li class="b-cum c-pink">{{globals.languageJson?.manage_roles}}
         </li>
     </ul>
 </nav>
 
 <section class="team__total d-md-block d-none">
     <div class="row">
-        <div class="d-inline add-team col-lg-8">{{appLanguage?.add_team_members}}
+        <div class="d-inline add-team col-lg-8">{{globals.languageJson?.add_team_members}}
             <span class="d-inline select_title" (click)="op.toggle($event)">
                     {{this.teamRole}} 
             <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
-            <div class="select-members mt-1">{{appLanguage?.select_members_role}}</div>
+            <div class="select-members mt-1">{{globals.languageJson?.select_members_role}}</div>
 
         </div>
         <div class="col-lg-4">
             <button type="submit"  class="btn invite_members pull-right" (click)="inviteNewMembers();">
-                <span class="update_text">{{appLanguage.invite_new_members}}</span>
+                <span class="update_text">{{globals.languageJson?.invite_new_members}}</span>
             </button>
         </div>        
     </div>
     <div class="row">
         <div class="col-lg-8">
         <div class="d-inline border-total status-div col-sm-6" id="status_id">
-            <p class="d-inline filter-text" *ngIf="termStatus == ''">{{appLanguage?.status}}&nbsp;</p>
+            <p class="d-inline filter-text" *ngIf="termStatus == ''">{{globals.languageJson?.status}}&nbsp;</p>
             <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
                 <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
                     &nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -52,7 +52,7 @@
         </div>
         &nbsp;&nbsp;
         <div class="d-inline border-total role-div col-sm-6" id="role_id">
-            <p class="d-inline filter-text" *ngIf="termRole == ''">{{appLanguage?.role}}&nbsp;</p>
+            <p class="d-inline filter-text" *ngIf="termRole == ''">{{globals.languageJson?.role}}&nbsp;</p>
             <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
                 <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole();">
                     &nbsp; <img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -66,7 +66,7 @@
         </div>
     </div>
          <div class="col-md-6 col-lg-4 search-div ">
-            <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="term" placeholder="{{appLanguage?.search_name_role}}" />
+            <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="term" placeholder="{{globals.languageJson?.search_name_role}}" />
         </div>
     </div>
     <div class="table-container mb-2">
@@ -81,14 +81,14 @@
                                             <span class="checkmark head-check"></span>
                                         </label>
                                 </th>
-                                <th scope="col">{{appLanguage?.name}}</th>
+                                <th scope="col">{{globals.languageJson?.name}}</th>
                                 <th scope="col">
-                                    {{appLanguage?.last_login}}&nbsp; <img src="assets/images/combined-shape-user.png" />
+                                    {{globals.languageJson?.last_login}}&nbsp; <img src="assets/images/combined-shape-user.png" />
                                 </th>
-                                <th scope="col">{{appLanguage?.email}}</th>
-                                <th scope="col">{{appLanguage?.status}}</th>
+                                <th scope="col">{{globals.languageJson?.email}}</th>
+                                <th scope="col">{{globals.languageJson?.status}}</th>
                                 <th scope="col">
-                                    <p class="d-inline">{{appLanguage?.all_roles}}</p>
+                                    <p class="d-inline">{{globals.languageJson?.all_roles}}</p>
                                     <a class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body" #pop5="bs-popover">
                                         <p class="d-inline filter" *ngIf="termRole == ''">
                                             &nbsp; <img src="assets/images/down-arrow.svg" /></p>
@@ -98,14 +98,14 @@
                                             &nbsp;<img src="assets/images/down-arrow.svg" /></p>
                                     </a>
                                 </th>
-                                <th scope="col">{{appLanguage?.actions}}</th>
+                                <th scope="col">{{globals.languageJson?.actions}}</th>
                             </tr>
                         </thead>
                         <tbody class="customtable" *ngIf="this.globals.permissions['user-management'].view || this.globals.permissions['user-management'].manage">
                             <tr class="ticket-boby-txt" *ngFor="let user of userfilterDat | filter:term | filter: termRole | filter: termStatus | filter: roleData">
                                 <td>
                                     <label class="customcheckbox">
-                                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{user.id}}"   [(ngModel)]="user.state"/>
+                                            <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{user.id}}"  (change)="checkedValue($event,user.id);"  [(ngModel)]="user.state"/>
                                             <span class="checkmark head-check"></span>
                                         </label>
                                 </td>
@@ -142,7 +142,7 @@
                                                 <!-- <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
                                                 <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li> -->
                                                 <li class="list-group-item" *ngIf="user.id != loginId">
-                                                    <a class="pointer-item" (click)="openDeleteModal(deleteTemplate,user.id); pop.hide()">{{appLanguage?.delete}}</a>
+                                                    <a class="pointer-item" (click)="openDeleteModal(deleteTemplate,user.id); pop.hide()">{{globals.languageJson?.delete}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -154,8 +154,8 @@
         </div>
     </div> 
     <div class="mt-4">
-        <button type="button" class="btn cancel_member mt-4" routerLink="/people/manage-role">{{appLanguage?.cancel}}</button>
-        <button type="button" class="btn invite_members mt-4 pull-right ml-auto" >{{appLanguage?.assign}}</button>
+        <button type="button" class="btn cancel_member mt-4" routerLink="/people/manage-role">{{globals.languageJson?.cancel}}</button>
+        <button type="button" class="btn invite_members mt-4 pull-right ml-auto" >{{globals.languageJson?.assign}}</button>
     </div>                   
 </section>
 
@@ -165,7 +165,7 @@
                 <!-- <li class="content_list" (click) = "setRole('Sales and Marketing')">Sales and Marketing</li> -->
                 <li class="content_list" *ngFor="let role of roles" (click)="setTeamRole(role.name,role.id);op.hide();">{{role.name}}</li>
             </ul>
-            <button class="btn addrole_button" routerLink="/people/create-role">{{appLanguage?.add_role}}
+            <button class="btn addrole_button" routerLink="/people/create-role">{{globals.languageJson?.add_role}}
                   <!-- <span class="addrole_content">Add role</span> -->
             </button>
         </div>
@@ -230,8 +230,8 @@
        <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
        <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
        <div class="mt-4">
-            <button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage?.cancel}}</button>
-            <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRoasterUser(deleteUserId);">{{appLanguage?.delete}}</button>
+            <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+            <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRoasterUser(deleteUserId);">{{globals.languageJson?.delete}}</button>
        </div>
     </div>
 </ng-template>

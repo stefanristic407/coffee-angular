@@ -36,7 +36,7 @@ terms:boolean = false;
 termError:string;
 availableConfirmActive:any=0;
 
-constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public router:Router,private globals: GlobalsService) { }
+constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public router:Router,public globals: GlobalsService) { }
 @ViewChild('confirmtemplate') private confirmtemplate: any;
 
 openModal(template: TemplateRef<any>) {

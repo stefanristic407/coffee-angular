@@ -44,7 +44,7 @@ export class OrderSampleComponent implements OnInit {
 
 	constructor(private sampleService: OrderSampleService, private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
-		public global: GlobalsService) { }
+		public globals: GlobalsService) { }
 
 	ngOnInit(): void {
 		//Auth checking
@@ -132,7 +132,7 @@ export class OrderSampleComponent implements OnInit {
 
 		// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.global);
+		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.globals);
 		setTimeout(()=>{
 			uploadReceipt.uploadReceipt();
 		},500);
@@ -167,7 +167,7 @@ export class OrderSampleComponent implements OnInit {
 
 		// Calling the Grade info component by creating object of the component and accessing its methods
 
-		let callGradeInfo = new GradeInfoComponent(this.sampleService,this.global);
+		let callGradeInfo = new GradeInfoComponent(this.sampleService,this.globals);
 		callGradeInfo.gradeComplete();
 
 
@@ -182,7 +182,7 @@ export class OrderSampleComponent implements OnInit {
 	}
 
 	language(){
-		this.appLanguage = this.global.languageJson;
+		this.appLanguage = this.globals.languageJson;
 		this.orderSampleActive++;
 	}
 

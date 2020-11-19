@@ -31,7 +31,7 @@ cityError : string;
 appLanguage?: any;
 contactActive:any =0;
 
-  constructor(public roasteryProfileService : RoasteryProfileService,private globals: GlobalsService) { 
+  constructor(public roasteryProfileService : RoasteryProfileService,public globals: GlobalsService) { 
     this.nameError = '';
     this.emailError= '';
     this.phoneError = '';

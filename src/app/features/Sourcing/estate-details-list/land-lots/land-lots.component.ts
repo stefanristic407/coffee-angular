@@ -18,7 +18,7 @@ export class LandLotsComponent implements OnInit {
 	// 	{  lotname: 'Gayni', lotsize: '39 acres',score:'86', altitude: '1,963-2,038m', variety: 'Robusta',species:'Catimor, Typica',flavourprofile:'' },
 	// 	{  lotname: 'Agatha', lotsize: '5.4 acres', score:'79.4',altitude: '1,914-1,942m', variety: 'Arabica',species:'Bourbon, Castillo',flavourprofile:''}
   // ];
-  constructor(private globals: GlobalsService,public sourcing : SourcingService) { }
+  constructor(public globals: GlobalsService,public sourcing : SourcingService) { }
 
   ngOnInit(): void {
     this.language();  

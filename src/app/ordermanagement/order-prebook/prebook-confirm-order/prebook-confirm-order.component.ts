@@ -26,7 +26,7 @@ export class PrebookConfirmOrderComponent implements OnInit {
   service: string = "Import & Delivery service";
   serviceAmount: number = 4500;
   appLanguage?:any;
-  constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public global: GlobalsService) { }
+  constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public globals: GlobalsService) { }
   @ViewChild('confirmtemplate') private confirmtemplate: any;
 
   openModal(template: TemplateRef<any>) {
@@ -34,7 +34,7 @@ export class PrebookConfirmOrderComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
     this.quantity='';
 	this.confirmOrderError='';
 	this.countryError= "";

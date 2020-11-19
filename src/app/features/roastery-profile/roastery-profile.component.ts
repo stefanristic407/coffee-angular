@@ -19,7 +19,7 @@ export class RoasteryProfileComponent implements OnInit {
     private toastrService: ToastrService,
     public profilePhotoService : ProfilePhotoService,
     public roasteryProfileService : RoasteryProfileService,
-    private globals: GlobalsService) { }
+    public globals: GlobalsService) { }
 
   ngOnInit(): void {
 	this.language();

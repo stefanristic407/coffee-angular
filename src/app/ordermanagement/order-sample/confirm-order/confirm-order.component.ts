@@ -30,7 +30,7 @@ serviceAmount: number = 4500;
 appLanguage?: any;
 orderConfirmActive:any=0;
 
-  constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public global: GlobalsService) { }
+  constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public globals: GlobalsService) { }
   @ViewChild('confirmtemplate') private confirmtemplate: any;
 
   openModal(template: TemplateRef<any>) {
@@ -38,7 +38,7 @@ orderConfirmActive:any=0;
 
   }
   ngOnInit(): void {
-    // this.appLanguage = this.global.languageJson;
+    // this.appLanguage = this.globals.languageJson;
     this.quantity="";
     this.confirmOrderError="";
     this.countryError= "";
@@ -49,7 +49,7 @@ orderConfirmActive:any=0;
     this.language();  
   }
   language(){
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
     this.orderConfirmActive++;
     }
   

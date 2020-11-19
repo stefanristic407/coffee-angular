@@ -9,10 +9,10 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class PreOrderChatComponent implements OnInit {
 	appLanguage?:any;
-  constructor(public global: GlobalsService) { }
+  constructor(public globals: GlobalsService) { }
 
   ngOnInit(): void {
-	this.appLanguage = this.global.languageJson;
+	this.appLanguage = this.globals.languageJson;
   }
 
   ngAfterViewInit() {

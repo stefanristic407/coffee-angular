@@ -169,7 +169,7 @@ overviewActive:any=0;
     autoScale = true;
 	monthName: string;
       
-  constructor(private globals: GlobalsService, public sourcing : SourcingService) { }
+  constructor(public globals: GlobalsService, public sourcing : SourcingService) { }
 
   ngOnInit(): void {
 	this.language();

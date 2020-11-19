@@ -97,7 +97,7 @@ export class SetupComponent implements OnInit {
     private _roleService: RoasterserviceService,
     private toastrService: ToastrService,
     private router: Router,
-    private globals: GlobalsService,
+    public globals: GlobalsService,
     private route : ActivatedRoute
   ) {
     this.nameError = "";

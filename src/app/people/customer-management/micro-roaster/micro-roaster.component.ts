@@ -31,7 +31,7 @@ export class MicroRoasterComponent implements OnInit {
     private roasterService: RoasterserviceService,
     private toastrService: ToastrService,
     public modalService: BsModalService,
-    private globals: GlobalsService) {
+    public globals: GlobalsService) {
     this.estateId = this.cookieService.get('estate_id');
     this.roasterId = this.cookieService.get('roaster_id');
     // this.mainData = 

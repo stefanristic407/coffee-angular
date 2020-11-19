@@ -45,6 +45,7 @@ export class SourcingService {
 	lots: any;
   flavourList: any;
   activeLandlots:any;
+	greenList: any;
   
   constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
               private toastrService : ToastrService,public profileservice:RoasteryProfileService) {
@@ -142,5 +143,15 @@ export class SourcingService {
 				}
 			}
 		)
-	}	  
+	}	
+	greenCoffee(){
+		this.userService.getGreenCoffee(this.roaster_id,this.detailList).subscribe(
+		  result=>{
+			if(result['success']==true){
+			  this.greenList=result['result'];
+			  console.log("Green Coffee"+this.greenList);
+					}
+		  }
+		)
+	  }	    
 }

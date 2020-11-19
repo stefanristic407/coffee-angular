@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SourcingService } from '../sourcing.service';
 import { CookieService } from 'ngx-cookie-service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 declare var $:any;
 @Component({
   selector: 'app-estate-details-list',
@@ -25,12 +26,15 @@ export class EstateDetailsListComponent implements OnInit {
   ];
   roaster_id: string;
   blogResult: string;
-  constructor(private modalService:BsModalService,private globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService) {
+  countryValue: any;
+  flavourName: any;
+  constructor(private modalService:BsModalService,public globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService,public profile:RoasteryProfileService) {
     this.route.queryParams.subscribe(params => {
       this.sourcing.detailList = params['listData'];
       this.sourcing.estateDetailList();
 	  this.sourcing.lotsList();
-	  this.sourcing.flavourprofileList();
+    this.sourcing.flavourprofileList();
+    this.sourcing.greenCoffee();
   });
   this.roaster_id = this.cookieService.get('roaster_id');
    }
@@ -52,5 +56,18 @@ export class EstateDetailsListComponent implements OnInit {
   language(){
     this.appLanguage = this.globals.languageJson;
     this.estateDetailsActive++;
+  }
+  GetCountry(data:any){
+    // console.log(data.toUpperCase());
+    this.countryValue=this.profile.countryList.find(con =>con.isoCode == data.toUpperCase());
+    // console.log(this.countryValue);
+    return this.countryValue.name;
+    // console.log(this.countryValue.name);
+  }
+  getFlavourName(flavourid:any){
+		if(this.sourcing.flavourList){
+		this.flavourName = this.sourcing.flavourList.find(flavour => flavour.id == flavourid).name;
+		return this.flavourName;
+		}
 	}
 }

@@ -14,10 +14,10 @@ export class PrebookOrderDetailsComponent implements OnInit {
   receiptShow: boolean = false;
   uploadShow: boolean = true;
   appLanguage? :any;
-  constructor(public prebookService: OrderPrebookService,public global: GlobalsService) { }
+  constructor(public prebookService: OrderPrebookService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
   }
   // Function Name : Upload receipt
   // Description: This function helps to upload receipt in order details tab of order pre-book.

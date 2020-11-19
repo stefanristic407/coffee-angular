@@ -6,7 +6,7 @@
                     <div class="dispute-order__head clearfix">
                         <div class="back-to cursor-pointer" routerLink="/ordermanagement/order-sample">
                             <img src="assets/images/do-back-arrow.svg">
-                            <span class="ml-2">{{appLanguage?.return_to_order}}</span>
+                            <span class="ml-2">{{globals.languageJson?.return_to_order}}</span>
 
                         </div>
 
@@ -62,8 +62,8 @@
                             <div class="conversation-head__items clearfix float-left">
                                 <div class="dispute-order__type">
                                     <div class="type-of-order">
-                                        <h6 class="conversation-textgray type-of-order__head">{{appLanguage?.order_type}}</h6>
-                                        <span class="conversation-textBlack14 type-of-order__type">{{appLanguage?.sample}}</span>
+                                        <h6 class="conversation-textgray type-of-order__head">{{globals.languageJson?.order_type}}</h6>
+                                        <span class="conversation-textBlack14 type-of-order__type">{{globals.languageJson?.sample}}</span>
                                     </div>
                                 </div>
 
@@ -71,7 +71,7 @@
 
                             <div
                                 class="conversation-head__items conversation-head__items--problem float-right ml-lg-auto">
-                                <a class="have-proble-order" href="#">{{appLanguage?.have_a_problem}}</a>
+                                <a class="have-proble-order" href="#">{{globals.languageJson?.have_a_problem}}</a>
                             </div>
                         </div>
 
@@ -98,7 +98,7 @@
                                         </div>
                                         <div class="company-message__btn col-lg-4 px-0">
                                             <button class="fnt-14 fnt-muli fnt-700">
-                                                {{appLanguage?.escalate}}
+                                                {{globals.languageJson?.escalate}}
                                             </button>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                         </div>
                                         <div class="company-message__btn col-lg-4 px-0">
                                             <button class="fnt-14 fnt-muli fnt-700">
-                                                {{appLanguage?.view_dispute}}
+                                                {{globals.languageJson?.view_dispute}}
                                             </button>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@
 
                                         </label>
                                         <textarea type="text" rows="1" class="chat-inputs__text"
-                                            placeholder={{appLanguage?.type_something}}..></textarea>
+                                            placeholder={{globals.languageJson?.type_something}}..></textarea>
                                         <div class="send-message">
                                             <button type="button" class="send-message__btn">
 
@@ -229,7 +229,7 @@
 
                         <div class="search-messages">
                             <img src="assets/images/dm-search.svg">
-                            <input class="search-messages__input" type="search" placeholder={{appLanguage?.search_messages}}>
+                            <input class="search-messages__input" type="search" placeholder={{globals.languageJson?.search_messages}}>
                         </div>
 
                         <ul class="order-ticket-list">
@@ -238,7 +238,7 @@
                                     <div class="ticket__head clearfix">
                                         <div class="ticket-num">
                                             <h4 class="search-child ticket-num__value conversation-textBlack16">
-                                                {{appLanguage?.order}} #12416
+                                                {{globals.languageJson?.order}} #12416
                                             </h4>
                                             <span class="ticket-num__typeOrder">Pre-booked order</span>
                                         </div>

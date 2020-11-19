@@ -12,7 +12,7 @@ export class SourcingOrderChatComponent implements OnInit {
 	sourcingChatActive:any=0;
 	greenIconShow: boolean = false;
 
-  constructor(private globals: GlobalsService) { }
+  constructor(public globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.language();

@@ -40,7 +40,7 @@ export class CreateRoleComponent implements OnInit {
     private cookieService: CookieService,
     private activeRoute: ActivatedRoute,
     private toastrService: ToastrService,
-	private globals: GlobalsService,
+	public globals: GlobalsService,
 	private userService: UserserviceService
 	) {
     this.roaster_id = this.cookieService.get('roaster_id');

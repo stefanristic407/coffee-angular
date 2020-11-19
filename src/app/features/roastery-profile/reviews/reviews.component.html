@@ -11,14 +11,14 @@
                 <div class="col-lg-4 col-md-12 left-space">
     
                     <div class="review-sec">
-                        <h1 class="review"> {{appLanguage?.reviews}} </h1>
+                        <h1 class="review"> {{globals.languageJson?.reviews}} </h1>
                         <p class="rating-value1 rev-value mb-md-1 mb-0">{{this.reviewvalue.toFixed(1)}}</p>
                         <p class="estate-rate mb-md-1 mb-0"> out of 5</p>
                         <div class="d-flex rating-space">
                             <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="26px"></star-rating>
                         </div>
     
-                        <p class="cust-review pt-3">78 {{appLanguage?.customer_reviews}} </p>
+                        <p class="cust-review pt-3">78 {{globals.languageJson?.customer_reviews}} </p>
                         <table class="recent-time mob-width">
                             <tr>
                                 <td>
@@ -167,7 +167,7 @@
                             <div class="mt-md-4">
                                     <div class="row star-two">
                                         <div class="col-lg-3 col-md-4 col-6">
-                                            <p class="estate-number mb-1"> {{appLanguage?.overall_experience}} </p>
+                                            <p class="estate-number mb-1"> {{globals.languageJson?.overall_experience}} </p>
                                             <p class="state-txt"> <span class="star-estate1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
                                                     <g fill="none" fill-rule="evenodd">
@@ -178,7 +178,7 @@
                                             </span> 5.0</p>
                                         </div>
                                         <div class="col-lg-3 col-md-4 col-6">
-                                            <p class="estate-number mb-1"> {{appLanguage?.communication}} </p>
+                                            <p class="estate-number mb-1"> {{globals.languageJson?.communication}} </p>
                                             <p class="state-txt"> <span class="star-estate1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
                                                     <g fill="none" fill-rule="evenodd">
@@ -229,7 +229,7 @@
                                                         truer, ones. Other systems – religion,
                                                         <span id="dots"></span><span id="more">
                                                                 The refrigerated dairy aisle of your local grocery store can be a great source for tasty, convenient selections for your outdoor gatherings.</span></p>
-                                                    <span class="estate-read-more" id="read_id" (click)="moreMethod()"> {{appLanguage?.read_more}} <img src="/assets/images/active-review.svg" /></span>
+                                                    <span class="estate-read-more" id="read_id" (click)="moreMethod()"> {{globals.languageJson?.read_more}} <img src="/assets/images/active-review.svg" /></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -267,7 +267,7 @@
                                                         truer, ones. Other systems – religion,
                                                         <span id="dots_two"></span><span id="more_two">
                                                                     The refrigerated dairy aisle of your local grocery store can be a great source for tasty, convenient selections for your outdoor gatherings.</span></p>
-                                                    <span class="estate-read-more" id="read_id_two" (click)="moreLess()">{{appLanguage?.read_more}} <img src="/assets/images/active-review.svg" /></span>
+                                                    <span class="estate-read-more" id="read_id_two" (click)="moreLess()">{{globals.languageJson?.read_more}} <img src="/assets/images/active-review.svg" /></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -311,7 +311,7 @@
                                                         truer, ones. Other systems – religion,
                                                         <span id="dots_three"></span><span id="more_three">
                                                                     The refrigerated dairy aisle of your local grocery store can be a great source for tasty, convenient selections for your outdoor gatherings.</span></p>
-                                                    <span class="estate-read-more" id="read_id_three" (click)="lessMethod()">{{appLanguage?.read_more}} <img src="/assets/images/active-review.svg" /></span>
+                                                    <span class="estate-read-more" id="read_id_three" (click)="lessMethod()">{{globals.languageJson?.read_more}} <img src="/assets/images/active-review.svg" /></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -330,13 +330,13 @@
         <div id="status-content">
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color" (click)="setStatus('Most relevant'); pop2.hide(); pop3.hide();toggleRelavant()">
-                    <a class="pointer-item">{{appLanguage?.most_relevant}}</a>
+                    <a class="pointer-item">{{globals.languageJson?.most_relevant}}</a>
             </li>
             <li class="list-group-item item-color" (click)="setStatus('Recent reviews');  pop2.hide(); pop3.hide();toggleRelavant()">
-              <a class="pointer-item">{{appLanguage?.recent_reviews}}</a>
+              <a class="pointer-item">{{globals.languageJson?.recent_reviews}}</a>
             </li>
             <li class="list-group-item item-color"  (click)="setStatus('Based on rating');  pop2.hide(); pop3.hide();toggleRelavant()">
-              <a class="pointer-item">{{appLanguage?.based_on_rating}}</a>
+              <a class="pointer-item">{{globals.languageJson?.based_on_rating}}</a>
             </li>
           </ul>
         </div>

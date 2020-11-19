@@ -16,7 +16,7 @@ export class OrderDetailsComponent implements OnInit {
   SampleOrderActive:any =0;
 
   constructor(public sampleService: OrderSampleService,
-    public global: GlobalsService) { }
+    public globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.language();
@@ -35,7 +35,7 @@ export class OrderDetailsComponent implements OnInit {
     this.sampleService.receiptShow = true;
 }
 language(){
-  this.appLanguage = this.global.languageJson;
+  this.appLanguage = this.globals.languageJson;
      this.SampleOrderActive++;
   }
 }

@@ -16,7 +16,7 @@ export class LoginSecurityComponent implements OnInit {
   securityActive:any =0;
 
   constructor(private modalService: BsModalService,
-      private globals : GlobalsService
+      public globals : GlobalsService
     ) { }
 
     openModal(template: TemplateRef<any>) {

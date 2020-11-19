@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="back-page w-100">
-                                <a class="back-href fnt-500" routerLink="/features/sourcing"><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png"> {{appLanguage?.back}}</a>
+                                <a class="back-href fnt-500" routerLink="/features/sourcing"><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png"> {{globals.languageJson?.back}}</a>
                             </div>
                         </div>
                     </div>
@@ -32,8 +32,8 @@
                                         </div>
                                     </div>
                                     <div class="source-knowmore pull-right mt-4 mt-md-0">
-                                        <a class="contact-us">{{appLanguage?.contact_us}}</a>
-                                        <a class="know-more">{{appLanguage?.know_more}}</a>
+                                        <a class="contact-us">{{globals.languageJson?.contact_us}}</a>
+                                        <a class="know-more">{{globals.languageJson?.know_more}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -50,12 +50,12 @@
 
                             <nav class="source-tabs">
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#overview" role="tab" aria-controls="nav-home" aria-selected="true">{{appLanguage?.overview}}</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#about-farm" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage?.about_the_farm}}</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#land-lots" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage?.land_lots}}</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab4" data-toggle="tab" href="#green-coffee" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage?.green_coffee_avilability}}</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab5" data-toggle="tab" href="#gallery" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage?.gallery}}</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab6" data-toggle="tab" href="#whyus" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage?.why_us}}?</a>
+                                    <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#overview" role="tab" aria-controls="nav-home" aria-selected="true">{{globals.languageJson?.overview}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#about-farm" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.about_the_farm}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#land-lots" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.land_lots}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab4" data-toggle="tab" href="#green-coffee" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.green_coffee_avilability}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab5" data-toggle="tab" href="#gallery" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.gallery}}</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab6" data-toggle="tab" href="#whyus" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.why_us}}?</a>
 
                                 </div>
                             </nav>
@@ -82,7 +82,7 @@
                                                                 </ul>
                                                             </div>
                                                             <h6 class="d-block d-md-none area-location">Columbia</h6>
-                                                            <h5 class="d-block d-md-none mt-3 m-orgin">{{appLanguage?.the_origin}}</h5>
+                                                            <h5 class="d-block d-md-none mt-3 m-orgin">{{globals.languageJson?.the_origin}}</h5>
                                                             <p>Finca La Pampa is the operator of washing stations in Yirgacheffe district and Guji district. We have integrated supply chains with our farmer out-growers in both districts and are organically
                                                                 certified, maintaining traceability throughout the supply chain to ensure the best quality.</p>
                                                         </div>
@@ -90,21 +90,21 @@
                                                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
                                                                 <div class="real-estate">
                                                                     <img src="assets/images/harveaster.svg">
-                                                                    <h6>{{appLanguage?.year_founded_in}}</h6>
+                                                                    <h6>{{globals.languageJson?.year_founded_in}}</h6>
                                                                     <h3>{{sourcing.founded_on}}</h3>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
                                                                 <div class="real-estate">
                                                                     <img src="assets/images/stakeholder2.png">
-                                                                    <h6>{{appLanguage?.estate_owner}}</h6>
+                                                                    <h6>{{globals.languageJson?.estate_owner}}</h6>
                                                                     <h3 *ngIf="sourcing.owner_name !=''">{{sourcing.owner_name}}</h3>
                                                                     <h3 *ngIf="sourcing.owner_name ==''">NA</h3>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="stit mt-4">
-                                                            <h2>{{appLanguage?.who_we_are}}</h2>
+                                                            <h2>{{globals.languageJson?.who_we_are}}</h2>
                                                             <p>The 21st century is the golden age for surgical procedures, among them an increasingly popular method of corrective eye surgery known as LASIK. LASIK is an acronym for the surgery, which stands
                                                                 for Laser Assisted In Situ Keratomileusis. This procedure has become increasingly reliable, with unresolved complications reported in only 3 to 6 percent of patients. The risk of complications
                                                                 is still there, however, and can take several different forms.</p>
@@ -114,7 +114,7 @@
                                                                 in the preoperative procedures, the procedure itself, or after the operation either early on or later.</p>
                                                         </div>
                                                         <div class="employer mt-4 d-none d-md-block">
-                                                            <h2>{{appLanguage?.employees}}</h2>
+                                                            <h2>{{globals.languageJson?.employees}}</h2>
                                                             <div class="row">
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
                                                                     <div class="employ-profile">
@@ -127,7 +127,7 @@
                                                                         </div>
                                                                         <div class="msg-chat mt-2">
                                                                             <img src="assets/images/message-icon.svg" class="d-inline-block">
-                                                                            <p class="pl-1 d-inline-block">{{appLanguage?.message}}</p>
+                                                                            <p class="pl-1 d-inline-block">{{globals.languageJson?.message}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -142,7 +142,7 @@
                                                                         </div>
                                                                         <div class="msg-chat mt-2">
                                                                             <img src="assets/images/message-icon.svg" class="d-inline-block">
-                                                                            <p class="pl-1 d-inline-block">{{appLanguage?.message}}</p>
+                                                                            <p class="pl-1 d-inline-block">{{globals.languageJson?.message}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -157,7 +157,7 @@
                                                                         </div>
                                                                         <div class="msg-chat mt-2">
                                                                             <img src="assets/images/message-icon.svg" class="d-inline-block">
-                                                                            <p class="pl-1 d-inline-block">{{appLanguage?.message}}</p>
+                                                                            <p class="pl-1 d-inline-block">{{globals.languageJson?.message}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -168,7 +168,7 @@
                                                 <aside>
                                                     <div class="certificate-book">
                                                         <div class="stit  d-none d-md-block">
-                                                            <h2>{{appLanguage?.certificates}}</h2>
+                                                            <h2>{{globals.languageJson?.certificates}}</h2>
                                                         </div>
                                                         <div class="cetify-logo pt-3  d-none d-md-block">
                                                             <ul class="clearfix  mb-5">
@@ -192,7 +192,7 @@
                                                         </div>
 
                                                         <div class="employer mt-4 d-block d-md-none">
-                                                            <h2>{{appLanguage?.employees}}</h2>
+                                                            <h2>{{globals.languageJson?.employees}}</h2>
                                                             <div class="row">
                                                                 <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
                                                                     <div class="employ-profile">
@@ -205,7 +205,7 @@
                                                                         </div>
                                                                         <div class="msg-chat mt-2">
                                                                             <img src="assets/images/message-icon.svg" class="d-inline-block">
-                                                                            <p class="pl-1 d-inline-block">{{appLanguage?.message}}</p>
+                                                                            <p class="pl-1 d-inline-block">{{globals.languageJson?.message}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -220,7 +220,7 @@
                                                                         </div>
                                                                         <div class="msg-chat mt-2">
                                                                             <img src="assets/images/message-icon.svg" class="d-inline-block">
-                                                                            <p class="pl-1 d-inline-block">{{appLanguage?.message}}</p>
+                                                                            <p class="pl-1 d-inline-block">{{globals.languageJson?.message}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -235,7 +235,7 @@
                                                                         </div>
                                                                         <div class="msg-chat mt-2">
                                                                             <img src="assets/images/message-icon.svg" class="d-inline-block">
-                                                                            <p class="pl-1 d-inline-block">{{appLanguage?.message}}</p>
+                                                                            <p class="pl-1 d-inline-block">{{globals.languageJson?.message}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -243,8 +243,8 @@
                                                         </div>
                                                         <div class="d-none- d-md-block">
                                                             <div class="flex prebook mb-3 mb-md-0 mt-2 mt-md-4  pt-md-2">
-                                                                <a class="more-text"> {{appLanguage?.know_more}}</a>
-                                                                <a class="prebook-estate">{{appLanguage?.prebook_estate}}</a>
+                                                                <a class="more-text"> {{globals.languageJson?.know_more}}</a>
+                                                                <a class="prebook-estate">{{globals.languageJson?.prebook_estate}}</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -270,41 +270,53 @@
                                 <div class="tab-pane fade" id="green-coffee" role="tabpanel" aria-labelledby="nav-profile-tab">
                                     <div class="cardpanel-detail">
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-6 cursor-item" *ngFor="let item of coffeedata">
+                                            <div class="col-lg-4 col-md-6 cursor-item" *ngFor="let item of sourcing.greenList">
                                                 <div class="source-card card-border green-coffee-product">
                                                     <div class="s-gal">
-                                                        <img [src]="item.image" alt="">
+                                                        <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                        <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt=""> 
                                                         <div class="cupping">
-                                                            <p>{{appLanguage?.cup_score}} {{item.score}}</p>
+                                                            <!-- <p>Cup score {{item.score}}</p> -->
+                                                            <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
+                                                            <p *ngIf="item.cup_score==''">NA</p>
                                                         </div>
                                                     </div>
                                                     <div class="s-details ">
                                                         <div class="flex">
                                                             <div class="s-tit">
-                                                                <h3>{{item.name}}</h3>
-                                                                <h5>{{item.estatename}}</h5>
-                                                                <h6>{{item.price}}</h6>
+                                                                <h3 *ngIf="item.name!=''">{{item.name}}</h3>
+                                                                <h3 *ngIf="item.name==''">NA</h3>
+                                                                <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}</h5>
+                                                                <h5 *ngIf="item['estate']['name']==''">NA</h5>
+                                                                <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / kg</h6>
+                                                                <h6 *ngIf="item.price==''">NA</h6>
                                                             </div>
                                                         </div>
                                                         <div class="source-lets flex">
                                                             <div class="orgin-att">
-                                                                <label>{{appLanguage?.origin}}</label>
-                                                                <h6>{{item.origin}}</h6>
+                                                                <label>{{globals.languageJson?.origin}}</label>
+                                                                <h6 *ngIf="item['lot']['country']!=''">{{GetCountry(item['lot']['country'])}}</h6>
+                                                                <h6 *ngIf="item['lot']['country']==''">NA</h6>
                                                             </div>
                                                             <div class="orgin-att">
-                                                                <label>{{appLanguage?.variety}}</label>
-                                                                <h6>{{item.species}}</h6>
+                                                                <label>{{globals.languageJson?.variety}}</label>
+                                                                <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}</h6>
+                                                                <h6 *ngIf="item['lot']['variety']==''">NA</h6>
                                                             </div>
                                                             <div class="orgin-att">
-                                                                <label>{{appLanguage?.flavour}}</label>
-                                                                <ul class="flo-list">
-                                                                    <li>Citrus</li>
-                                                                    <li>Floral</li>
-                                                                </ul>
+                                                                <label>{{globals.languageJson?.flavour}}</label>
+                                                                <div  *ngIf="item.flavours!=null">
+                                                                    <ul class="flo-list">
+                                                                        <li *ngFor="let flavour of item.flavours">
+                                                                            <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div *ngIf="item.flavours==null">NA</div>
                                                             </div>
                                                         </div>
                                                         <div class="top-lots">
-                                                            <label>{{appLanguage?.available_quantity}} : <span> {{item.quantity}} of 60kg </span></label>
+                                                            <label>{{globals.languageJson?.available_quantity}} : <span>{{item.quantity_count}} {{item.quantity_type}} of {{item.total_quantity}}{{item.quantity_unit}}</span></label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -380,7 +392,7 @@
                                                 </div>
                                                 <div class="msg-chat whyus-zoom">
                                                     <img src="assets/images/zoom.svg" class="d-inline-block">
-                                                    <p class="d-inline-block">{{appLanguage?.view_our_license}}</p>
+                                                    <p class="d-inline-block">{{globals.languageJson?.view_our_license}}</p>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
@@ -397,11 +409,11 @@
                                                 <div class="marketing-gal">
                                                     <img src="assets/images/why-banner.png" class="w-100">
                                                     <div class="marklist">
-                                                        <h2 class="fnt-play">{{appLanguage?.unlimited}}
+                                                        <h2 class="fnt-play">{{globals.languageJson?.unlimited}}
                                                             <!-- Unlimited -->
-                                                            <span class="fnt-play">{{appLanguage?.marketing_materials}}.</span>
+                                                            <span class="fnt-play">{{globals.languageJson?.marketing_materials}}.</span>
                                                         </h2>
-                                                        <h5 class="fnt-muli">{{appLanguage?.high_unlimites_images_videos_promote_yourself}}</h5>
+                                                        <h5 class="fnt-muli">{{globals.languageJson?.high_unlimites_images_videos_promote_yourself}}</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -422,9 +434,9 @@
                                             </div>
                                             <div class="col-lg-4 col-sm-4 position-relative">
                                                 <div class="mark-brand">
-                                                    <h3 class="mb-md-4 mb-3 fnt-play">{{appLanguage?.make_our_brand_yours}}</h3>
-                                                    <p class="fnt-muli">{{appLanguage?.guidelines_instruction_included_marketing_coffee}}.</p>
-                                                    <p class="fnt-muli">{{appLanguage?.unlimited_sizes_quantity}}!</p>
+                                                    <h3 class="mb-md-4 mb-3 fnt-play">{{globals.languageJson?.make_our_brand_yours}}</h3>
+                                                    <p class="fnt-muli">{{globals.languageJson?.guidelines_instruction_included_marketing_coffee}}.</p>
+                                                    <p class="fnt-muli">{{globals.languageJson?.unlimited_sizes_quantity}}!</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -448,13 +460,13 @@
                                                     <p class="d-inline-block">View our license</p>
                                                 </div>
                                                 <div class="unlimited-text">
-                                                    <h2 class="fnt-play">{{appLanguage?.unlimited}}
-                                                        <span class="fnt-play">{{appLanguage?.marketing_materials}}.</span>
+                                                    <h2 class="fnt-play">{{globals.languageJson?.unlimited}}
+                                                        <span class="fnt-play">{{globals.languageJson?.marketing_materials}}.</span>
                                                     </h2>
-                                                    <h5 class="fnt-muli">{{appLanguage?.high_unlimites_images_videos_promote_yourself}}</h5>
+                                                    <h5 class="fnt-muli">{{globals.languageJson?.high_unlimites_images_videos_promote_yourself}}</h5>
                                                 </div>
                                                 <div class="brand-text mt-4">
-                                                    <h3 class="mb-md-4 mb-3 fnt-play">{{appLanguage?.make_our_brand_yours}}
+                                                    <h3 class="mb-md-4 mb-3 fnt-play">{{globals.languageJson?.make_our_brand_yours}}
                                                         <!-- Make our
                                             <span class="w-100 pt-1">brand yours</span> -->
                                                     </h3>
@@ -468,8 +480,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="guide-text">
-                                                    <p class="fnt-muli pt-3">{{appLanguage?.guidelines_instruction_included_marketing_coffee}}.</p>
-                                                    <p class="fnt-muli padd-top-6">{{appLanguage?.unlimited_sizes_quantity}}!</p>
+                                                    <p class="fnt-muli pt-3">{{globals.languageJson?.guidelines_instruction_included_marketing_coffee}}.</p>
+                                                    <p class="fnt-muli padd-top-6">{{globals.languageJson?.unlimited_sizes_quantity}}!</p>
                                                 </div>
 
                                             </div>

@@ -29,7 +29,7 @@
                                         <span class="d-inline-block step__circle step_focus" id="active1">1</span
                     >
                     <span id="font-title1" class="d-block step__info font_focus pt-1"
-                      >{{appLanguage?.personal_details}}</span
+                      >{{globals.languageJson?.personal_details}}</span
                     >
                   </div>
                 </li>
@@ -40,7 +40,7 @@
                       >2</span
                     >
                     <span id="font-title2" class="d-block step__info pt-1"
-                      >{{appLanguage?.roastery_details}}</span
+                      >{{globals.languageJson?.roastery_details}}</span
                     >
                   </div>
                 </li>
@@ -51,7 +51,7 @@
                       >3</span
                     >
                     <span id="font-title3" class="d-block step__info pt-1"
-                      >{{appLanguage?.license_certificates}}</span
+                      >{{globals.languageJson?.license_certificates}}</span
                     >
                   </div>
                 </li>
@@ -62,7 +62,7 @@
                       >4</span
                     >
                     <span id="font-title4" class="d-block step__info pt-1 word-center"
-                      >{{appLanguage?.confirmation}}</span
+                      >{{globals.languageJson?.confirmation}}</span
                     >
                   </div>
                 </li>
@@ -74,7 +74,7 @@
               <div class="row ">
                 <div class="col-lg-12 col-md-12">
                   <div class="text-center" class="mob-view">
-                    <h4 class="form_header">{{appLanguage?.details_personal}}</h4>
+                    <h4 class="form_header">{{globals.languageJson?.details_personal}}</h4>
                   </div>
                   <div class="form_content">
                     <div class="form-group row pt-2 profile-div">
@@ -96,12 +96,12 @@
                             <button class="btn btn-link add-btn p-0" (click)="profileImageService.deletePhoto();" *ngIf="profileImageService.deleteLogo">
                               <img src="assets/images/delete.png" /><span
                                 class="add-text"
-                                >{{appLanguage?.delete_photo}}</span
+                                >{{globals.languageJson?.delete_photo}}</span
                               >
                             </button>
                           </div>
                           <div class="col-md-8 profile_content-div">
-                            <p class="pic-head-text ">{{appLanguage?.upload_your_picture}}</p>
+                            <p class="pic-head-text ">{{globals.languageJson?.upload_your_picture}}</p>
                             <p class="form_para_text ">
                               You can upload a JPG or PNG file. Max file size
                               limit 2MB
@@ -236,7 +236,7 @@
 
                         <div class="float-right ml-auto ">
                             <button type="button" class="btn cancel-butn" routerLink="/auth/login">
-                        {{appLanguage?.cancel}}
+                        {{globals.languageJson?.cancel}}
                       </button>
                             <button type="button" class="btn login-butn" (click)="personalDetails()" [disabled]="firstButtonValue === 'Loading'">
                         {{ firstButtonValue
@@ -254,7 +254,7 @@
                     <div class="col-md-12 d-flex">
                         <div class="col-md-6">
                         <button type="button" class="btn cancel-butn" routerLink="/features/dashboard">
-                          {{appLanguage?.back}}
+                          {{globals.languageJson?.back}}
                         </button>
                       </div>
                       <div class="col-md-6">
@@ -276,7 +276,7 @@
             <div class="row ">
                 <div class="col-lg-12 col-md-12">
                     <div class="text-center" class="mob-view">
-                    <h4 class="form_header">{{appLanguage?.details_roastery}}</h4>
+                    <h4 class="form_header">{{globals.languageJson?.details_roastery}}</h4>
                    
                   </div>
                     <div class="form_content">
@@ -291,12 +291,12 @@
                                         <button class="btn btn-link add-btn p-0" (click)="roasterService.deletePhoto();" *ngIf="roasterService.deleteLogo">
                               <img src="assets/images/delete.png" /><span
                                 class="add-text"
-                                >{{appLanguage?.delete_photo}}</span
+                                >{{globals.languageJson?.delete_photo}}</span
                               >
                             </button>
                                     </div>
                                     <div class="col-md-8 roaster_content_div">
-                                        <p class="pic-head-text">{{appLanguage?.roastery_picture}}</p>
+                                        <p class="pic-head-text">{{globals.languageJson?.roastery_picture}}</p>
                                         <p class="form_para_text">
                                             You can upload a JPG or PNG file. Max file size limit 2MB
                                         </p>
@@ -569,7 +569,7 @@
                         />
                       </button>
                             <button type="button" class="previous btn  pull-left" (click)="goprevtab('first-tab')">
-                        {{appLanguage?.prev}}
+                        {{globals.languageJson?.prev}}
                       </button>
                         </div>
                     </div>
@@ -578,7 +578,7 @@
                         <div class="col-md-12 d-flex">
                             <div class="col-md-6">
                             <button type="button" class="btn cancel-butn" (click)="goprevtab('first-tab')">
-                              {{appLanguage?.previous}}
+                              {{globals.languageJson?.previous}}
                             </button>
                           </div>
                           <div class="col-md-6">
@@ -598,7 +598,7 @@
                         <div class="form-group row pt-4">
                             <div class="form-group col-md-3">
                                 <p class="word-break footer-que-text">
-                                   {{appLanguage?.having_trouble}}
+                                   {{globals.languageJson?.having_trouble}}
                                 </p>
                             </div>
                             <div class="form-group col-md-3 admin-div">
@@ -649,7 +649,7 @@
             <div class="row ">
                 <div class="col-lg-12 col-md-12">
                     <div class="text-center pb-5">
-                        <h4 class="form_header fnt-play">{{appLanguage?.license_certificates}}</h4>
+                        <h4 class="form_header fnt-play">{{globals.languageJson?.license_certificates}}</h4>
                         <p class="form_para">
                             Please uplaod your certificates, if any. This helps in your profile getting more noticed.
                         </p>
@@ -715,7 +715,7 @@
                               Send invite
                       </button>
                             <button type="button" class="previous btn pull-left" (click)="goprevtab('second-tab')">
-                        {{appLanguage?.prev}}
+                        {{globals.languageJson?.prev}}
                       </button>
                         </div>
                     </div>
@@ -723,7 +723,7 @@
                         <div class="col-md-12 d-flex">
                             <div class="col-md-6">
                             <button type="button" class="btn cancel-butn"  (click)="goprevtab('second-tab')">
-                              {{appLanguage?.previous}}
+                              {{globals.languageJson?.previous}}
                             </button>
                           </div>
                           <div class="col-md-6">
@@ -789,13 +789,13 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="text-center mail-box">
                         <img src="assets/images/mail.svg" alt="mail" />
-                        <h4 class="form_header successful-text fnt-play">{{appLanguage?.successful}}</h4>
+                        <h4 class="form_header successful-text fnt-play">{{globals.languageJson?.successful}}</h4>
                         <p class="form_para success-mail">
-                            {{appLanguage?.invitation_sent}}
+                            {{globals.languageJson?.invitation_sent}}
                             <span class="mail-id">{{new_user_email}}</span>
                         </p>
                         <button class="btn done-btn" id="done-btn" (click)="done()">
-                      <span class="done-text">{{appLanguage?.done}}</span>
+                      <span class="done-text">{{globals.languageJson?.done}}</span>
                     </button>
                     </div>
                 </div>
@@ -823,10 +823,10 @@
     <sewn-profile-image></sewn-profile-image>
     <p-footer>
         <button type="button" id="change-pic" class="previous btn " (click)="showModalDialog()">
-      {{appLanguage?.change_photo}}
+      {{globals.languageJson?.change_photo}}
     </button>
         <button type="button" id="save-pic" class="btn btn-info login-butn" (click)="profileImageService.saveProfilePic()">
-     {{appLanguage?.save_photo}}
+     {{globals.languageJson?.save_photo}}
     </button>
     </p-footer>
 </p-dialog>
@@ -845,10 +845,10 @@
     <sewn-roaster-profile></sewn-roaster-profile>
     <p-footer>
         <button type="button" id="change-pic" class="previous btn " (click)="showRoasterModal()">
-      {{appLanguage?.change_photo}}
+      {{globals.languageJson?.change_photo}}
     </button>
         <button type="button" id="save-pic" class="btn btn-info login-butn" (click)="roasterService.saveRoasterPic()">
-      {{appLanguage?.save_photo}}
+      {{globals.languageJson?.save_photo}}
     </button>
     </p-footer>
 </p-dialog>

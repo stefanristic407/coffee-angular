@@ -11,18 +11,18 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
                                             alt=""></span>
                                 </li>
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/">{{appLanguage?.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
+                                    <a class="b-cum" routerLink="/ordermanagement/">{{globals.languageJson?.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li>
                                 <li class="b-cum">
                                     <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                         src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
-                                <li class="b-cum c-pink">{{appLanguage?.order}} 12416
+                                <li class="b-cum c-pink">{{globals.languageJson?.order}} 12416
                                 </li>
                             </ul>
                         </nav>
@@ -30,7 +30,7 @@
 
                     <div class="col-lg-6 col-md-12 pull-right ml-auto pl-0 pr-0 d-none d-md-block">
                         <span class="pull-right ml-auto order-placed-text">
-                            {{appLanguage?.order_placed}} : <span class="date-text">1st Jan 2020</span>
+                            {{globals.languageJson?.order_placed}} : <span class="date-text">1st Jan 2020</span>
                         </span>
                     </div>
                 </div>
@@ -40,13 +40,13 @@
                     <div class="col-12 d-flex px-0">
 
                         <div class="col-md-6 pl-0">
-                            <div class="order-id d-flex align-items-center">{{appLanguage?.order}} #12416 <span class="booked booked--pre ml-2">Pre-Booked</span>
+                            <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}} #12416 <span class="booked booked--pre ml-2">Pre-Booked</span>
                             </div>
 
-                            <div class="pt-2 note-prebooked"><span class="bold-note">{{appLanguage?.note}} :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div>
+                            <div class="pt-2 note-prebooked"><span class="bold-note">{{globals.languageJson?.note}} :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div>
                         </div>
-                        <div class="btn-div col-md-6 d-none d-md-inline-block pr-0" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
-                            <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none"> {{appLanguage?.order_invoice}}
+                        <div class="btn-div col-md-6 d-none d-md-inline-block pr-0" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+                            <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none"> {{globals.languageJson?.order_invoice}}
                             </button>
                         </div>
 
@@ -63,14 +63,14 @@
                                             <div class="order-tracking">
                                                 <span class="is-complete "></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2 mb-1" (click)="orderPlace()" #orderPlaced style="color: #232334; font-weight: bold;">{{appLanguage?.order_placed}}</p>
+                                                    <p class="order-status  mt-2 mb-1" (click)="orderPlace()" #orderPlaced style="color: #232334; font-weight: bold;">{{globals.languageJson?.order_placed}}</p>
                                                     <p class="order-date mb-0 " matTooltip="Estate + facilitator Notified" matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="confirmDiv">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2" (click)="orderConfirm()" matTooltip="" matTooltipClass="tooltiptext" #orderConfirmed>{{appLanguage?.order_confirmed}}</p>
+                                                    <p class="order-status  mt-2" (click)="orderConfirm()" matTooltip="" matTooltipClass="tooltiptext" #orderConfirmed>{{globals.languageJson?.order_confirmed}}</p>
                                                 </div>
                                                 <!-- <p class="order-date">SMS & Email sent to you </p> -->
                                             </div>
@@ -78,7 +78,7 @@
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                     <p class="order-status mt-2" (click)="paymentStatus()" matTooltip="" matTooltipClass="tooltiptext" #payment>
-                                                        {{appLanguage?.payment}}</p>
+                                                        {{globals.languageJson?.payment}}</p>
                                                 </div>
                                                 <!-- <p class="order-view"> View Report ></p> -->
                                             </div>
@@ -89,7 +89,7 @@
                                             <div class="order-tracking completed" id="harvestDiv">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()" matTooltip="" matTooltipClass="tooltiptext" #harvestReady>Harvest {{appLanguage?.ready}}
+                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()" matTooltip="" matTooltipClass="tooltiptext" #harvestReady>Harvest {{globals.languageJson?.ready}}
                                                     </p>
                                                     <p class="order-harvest mb-0"> <a class="havestShow" (click)="showHarvest()">Follow your harvest </a></p>
                                                 </div>
@@ -105,9 +105,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="btn-div col-12 d-inline-block d-md-none mb-2" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
+                                <div class="btn-div col-12 d-inline-block d-md-none mb-2" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
                                     <button type="submit" class="btn w-100 text-center pull-right ord-invoice-butn">
-                                        {{appLanguage?.order_invoice}}
+                                        {{globals.languageJson?.order_invoice}}
                                     </button>
                                 </div>
                             </div>
@@ -118,15 +118,15 @@
                     <div class="in-order mt-5 cancel-predisplay" *ngIf="cancelShow">
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                <h4 class="order-txt fnt-play">{{appLanguage?.cancelled}}</h4>
+                                <h4 class="order-txt fnt-play">{{globals.languageJson?.cancelled}}</h4>
                                 <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the estate and facilitator to help us expand</div>
                                 <div class="confirm-grade">as a transparent community!</div>
                                 <button type="submit" class="yes-txt btn mt-3" (click)="buyIt()">Buy it</button>
                                 <button type="submit" class="cancel-order btn mt-3 ml-3">Browse other estates</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{appLanguage?.leave_a_feedback}}</button>
-                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">{{appLanguage?.have_a_problem}}<img
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}<img
                                         class="arrow-image1" src="assets/images/group.png" alt="arrow"></button>
                             </div>
                         </div>
@@ -137,14 +137,14 @@
                     <div class="in-order mt-5 confirm-predisplay" *ngIf="confirmOrderShow">
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                <h4 class="order-txt fnt-play">{{appLanguage?.confirm_order}}</h4>
+                                <h4 class="order-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4>
                                 <div class="confirm-grade">The harvest is ready! Please book the lot to confirm the order
                                 </div>
-                                <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">{{appLanguage?.leave_a_feedback}}</button>
+                                <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">{{appLanguage?.buy_the_order}}</button><br />
-                                <button type="submit" class="cancel-order btn mt-3">{{appLanguage?.order_sample}}</button>
+                                <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">{{globals.languageJson?.buy_the_order}}</button><br />
+                                <button type="submit" class="cancel-order btn mt-3">{{globals.languageJson?.order_sample}}</button>
                             </div>
                         </div>
                     </div>
@@ -163,19 +163,19 @@
                 <div class="border-ebebeb h-100">
                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage?.order_details}}</a>
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{globals.languageJson?.order_details}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage?.documents}}</a>
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">{{globals.languageJson?.documents}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{appLanguage?.grade_info}}</a>
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{globals.languageJson?.grade_info}}</a>
                         </li>
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage?.have_a_problem}}</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
                         </li>
                     </ul>
                     <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
-                        <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{appLanguage?.have_a_problem}}</button>
+                        <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
                     </div>
                     <div class="tab-content mt-md-5" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -239,7 +239,7 @@
             <div class="shipping-div col-lg-4 col-md-12 bg-shipping shipping-div--mbVesrion mb-15">
                 <div class="shipping-div__info ">
                     <div class="d-flex">
-                        <div class="pull-left shipping-addr">{{appLanguage?.delivery_address}}
+                        <div class="pull-left shipping-addr">{{globals.languageJson?.delivery_address}}
                         </div>
                         <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
                             alt="Edit"> Edit</div> -->
@@ -252,9 +252,9 @@
                 </div>
                 <div class="d-none d-md-block ">
                     <div class="d-flex mt-4">
-                        <div class="pull-left estate-details">{{appLanguage?.roaster_details}}
+                        <div class="pull-left estate-details">{{globals.languageJson?.roaster_details}}
                         </div>
-                        <div class="pull-right ml-auto view-details">{{appLanguage?.view_details}}</div>
+                        <div class="pull-right ml-auto view-details">{{globals.languageJson?.view_details}}</div>
                     </div>
 
                     <div class="d-flex mt-2 border-div">
@@ -277,7 +277,7 @@
                                     </span>
 
                                 </li>
-                                <li class="mt-4" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
+                                <li class="mt-4" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
                                     <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
  
                                         <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
@@ -300,7 +300,7 @@
 
                         </tr> -->
                         <tr>
-                            <td> <span class="list-que"> {{appLanguage?.address}}: </span></td>
+                            <td> <span class="list-que"> {{globals.languageJson?.address}}: </span></td>
                             <td> <span class="list-ans"> Manizales, Caldas, 46729 - Colombia </span> </td>
 
                         </tr>
@@ -308,7 +308,7 @@
                 </div>
                 <div class="Stakeholders-mbVersion col-12">
                     <div class="d-flex mt-md-4 mb-3">
-                        <div class="pull-left estate-details">{{appLanguage?.stakeholders}}
+                        <div class="pull-left estate-details">{{globals.languageJson?.stakeholders}}
                         </div>
                     </div>
                     <div class="d-flex mt-3 border-div">
@@ -321,7 +321,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="pull-right ml-auto" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
+                        <div class="pull-right ml-auto" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
                             <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
  
                                 <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
@@ -339,7 +339,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="pull-right ml-auto" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
+                        <div class="pull-right ml-auto" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
                             <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
  
                                 <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
@@ -361,15 +361,15 @@
             <div class="col-lg-12 col-md-12 chart-details chart-cont mt-2">
                 <div class="row">
                     <div class="live-estate col-lg-12 ">
-                        <h2>{{appLanguage?.follow_your_harvest}}</h2>
+                        <h2>{{globals.languageJson?.follow_your_harvest}}</h2>
                         <div class="mt-2 live-text">We bring you live updates of your lot with geo tracking!</div>
 
                         <nav class="mt-4">
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">{{appLanguage?.weather}}</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage?.soil}}</a>
+                                <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">{{globals.languageJson?.weather}}</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.soil}}</a>
                                 <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv" role="tab" aria-controls="nav-profile" aria-selected="false">UV</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">{{appLanguage?.images}}</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.images}}</a>
                             </div>
                         </nav>
 
@@ -676,7 +676,7 @@
 
                             </div>
                             <div class="w-100 mt-4 mb-2 d-block d-md-none">
-                                <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center" (click)="cancelOrder()">{{appLanguage?.cancel_order}}</button>
+                                <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
                             </div>
                         </div>
                         <div class="col-lg-6 col-12">
@@ -686,11 +686,11 @@
                     </div>
 
 
-                    <div class="w-100 mt-5 pb-5 d-none d-md-inline-block" *ngIf="this.global.permissions['cart-management'] && this.global.permissions['cart-management'].manage">
-                        <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{appLanguage?.cancel_order}}</button>
+                    <div class="w-100 mt-5 pb-5 d-none d-md-inline-block" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+                        <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
                     </div>
                     <div class="w-100 chat-div">
-                        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/order-chat">{{appLanguage?.order}} #12416 {{appLanguage?.chat}} <span class="chat-indicator">
+                        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/order-chat">{{globals.languageJson?.order}} #12416 {{globals.languageJson?.chat}} <span class="chat-indicator">
                                 &#x25CF;</span><img class="pull-right ml-auto"
                                 src="assets/images/back-arrow.png"></button>
 

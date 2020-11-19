@@ -14,12 +14,12 @@
             <div class="order-tracking completed mixups-track" id="gradedTimeline1">
                 <div class="is-complete tooltips">
                             <p class="cup-score">82.5</p>
-                            <p class="score-text">{{appLanguage?.cupping_score}}</p>
+                            <p class="score-text">{{globals.languageJson?.cupping_score}}</p>
 
                         </div>
                 <p class="order-date mt-3">19 DEC 2019</p>
-                <p class="order-status mt-2">{{appLanguage?.grade_by_facilitator}}</p>
-                <p class="order-view" data-toggle="collapse" data-target="#estate"> {{appLanguage?.view_report}} </p>
+                <p class="order-status mt-2">{{globals.languageJson?.grade_by_facilitator}}</p>
+                <p class="order-view" data-toggle="collapse" data-target="#estate"> {{globals.languageJson?.view_report}} </p>
                 <!-- <div id="estate" class="collapse">
                         <p class="order-date">Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score </p>
                         </div> -->
@@ -28,7 +28,7 @@
                 <div class="is-complete tooltips">
                             <div *ngIf="sampleService.afterGradeComplete">
                                 <p class="cup-score">82.5</p>
-                                <p class="score-text">{{appLanguage?.cupping_score}}</p>
+                                <p class="score-text">{{globals.languageJson?.cupping_score}}</p>
                             </div>
                         </div>
 
@@ -54,8 +54,8 @@
 
 <div class="row  know-more-content">
     <div class="">
-        <h4 class="transit-txt pb-2">{{appLanguage?.trying_best}} :)</h4>
-        <p class="delivery pb-3">{{appLanguage?.to_get_your_coffee}}.</p>
+        <h4 class="transit-txt pb-2">{{globals.languageJson?.trying_best}} :)</h4>
+        <p class="delivery pb-3">{{globals.languageJson?.to_get_your_coffee}}.</p>
         <!-- <p class="delivery"> SEWN follow a unique grade scale to ensure there is no confusion with grading.</p> -->
         <!-- <a href="javascript:void(0)"> <span class="order-view">Know More > </span></a> -->
         <!-- <button class="btn know-more" type="button">Know more</button> -->

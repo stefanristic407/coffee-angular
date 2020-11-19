@@ -9,7 +9,7 @@ import { GlobalsService } from 'src/services/globals.service';
 export class MicroRoasterDetailsComponent implements OnInit {
   appLanguage?: any;
 
-  constructor(private globals: GlobalsService) { }
+  constructor(public globals: GlobalsService) { }
 
   ngOnInit(): void {
     $('.btn-toggle').click(function () {

@@ -70,6 +70,7 @@ export class TeamMembersComponent implements OnInit {
   deleteUserId: any;
   modalRef: BsModalRef;
   loginId: string;
+  checkCondition: any;
 
   
   constructor(public roasterService:RoasterserviceService,
@@ -189,6 +190,10 @@ export class TeamMembersComponent implements OnInit {
       });
   }
 
+  // assignTheRole(){
+
+  // }
+
   language(){
     this.appLanguage = this.globals.languageJson;
     this.teamActive++;
@@ -235,7 +240,9 @@ export class TeamMembersComponent implements OnInit {
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.userfilterDat.forEach(x => x.state = ev.target.checked)
+    this.userfilterDat.forEach(x => {x.state = ev.target.checked
+      console.log(x.state);
+    })
   }
 
   // Function Name : IsAllchecked
@@ -253,6 +260,10 @@ export class TeamMembersComponent implements OnInit {
       }
     }
     this.router.navigate(['/people/invite-member'], navigationExtras);
+  }
+
+  checkedValue(ev : any, user_id : any){
+    this.checkCondition = ev.target.checked; 
   }
 
    // Function Name : Delete user

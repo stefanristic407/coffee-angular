@@ -47,14 +47,14 @@ export class OrderBookedComponent implements OnInit {
   newvalue: any = 4;
   appLanguage?:any;
   constructor(public bookedService: OrderBookedService, private route: ActivatedRoute,
-    public router: Router,public cookieService : CookieService,public global: GlobalsService) { }
+    public router: Router,public cookieService : CookieService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
      //Auth checking
      if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
 
     
     //Fills the time line based on the status selected in estate order.
@@ -139,7 +139,7 @@ export class OrderBookedComponent implements OnInit {
 
     	// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService,this.global);
+		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService,this.globals);
 		setTimeout(()=>{
 			uploadReceipt.uploadReceipt();
 		},500);
@@ -176,7 +176,7 @@ export class OrderBookedComponent implements OnInit {
 
     // Calling the Grade info component by creating object of the component and accessing its methods
 
-    let callGradeInfo = new BookedGradeInfoComponent(this.bookedService,this.global);
+    let callGradeInfo = new BookedGradeInfoComponent(this.bookedService,this.globals);
     callGradeInfo.gradedComplete();
 
 

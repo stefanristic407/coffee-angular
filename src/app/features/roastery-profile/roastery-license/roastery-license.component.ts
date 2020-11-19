@@ -35,7 +35,7 @@ export class RoasteryLicenseComponent implements OnInit {
     private _cokkieService: CookieService,
     private _userService: UserserviceService,
     private toastrService: ToastrService,
-    private globals: GlobalsService
+    public globals: GlobalsService
   ) { 
     this.termStatus = "Only me";
     this.licenseArray.push({

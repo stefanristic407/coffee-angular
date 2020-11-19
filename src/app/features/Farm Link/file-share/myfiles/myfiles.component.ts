@@ -77,7 +77,7 @@ export class MyfilesComponent implements OnInit {
     public toastrService : ToastrService,
     public fileService : FileShareService,
     private modalService: BsModalService,
-    private globals : GlobalsService
+    public globals : GlobalsService
     ) {
       this.roasterId = this.cookieService.get('roaster_id');
     

@@ -18,7 +18,7 @@ export class NewRoastedBatchComponent implements OnInit {
   greenIconShow: boolean = false;
 
 
-  constructor( private globals: GlobalsService) { }
+  constructor( public globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.cupping = '';

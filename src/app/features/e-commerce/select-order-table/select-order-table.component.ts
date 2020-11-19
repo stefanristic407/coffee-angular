@@ -50,7 +50,7 @@ export class SelectOrderTableComponent implements OnInit {
 		public dashboard: DashboardserviceService,
 		private roasterService: RoasterserviceService,
 		private toastrService: ToastrService,
-		private globals: GlobalsService) {
+		public globals: GlobalsService) {
 		this.roasterId = this.cookieService.get('roaster_id');
 		this.data = {};
 		// this.data = 
@@ -93,33 +93,33 @@ export class SelectOrderTableComponent implements OnInit {
 					defaultContent: '<input type="radio" name="optradio" class="radio-box">'
 				},
 				{
-					title: this.appLanguage.order_id,
+					title: this.globals.languageJson.order_id,
 					data: 'id'
 				}, {
-					title: this.appLanguage.estate_name,
+					title: this.globals.languageJson.estate_name,
 					data: 'estate_name'
 				}, {
-					title: this.appLanguage.date_ordered,
+					title: this.globals.languageJson.date_ordered,
 					data: 'created_at'
 				},
 				{
-					title: this.appLanguage.origin,
+					title: this.globals.languageJson.origin,
 					data: 'origin',
 
 				},
 				{
-					title:  this.appLanguage.species,
+					title:  this.globals.languageJson.species,
 					data: 'variety',
 
 				},
 
 				{
-					title: this.appLanguage.quantity,
+					title: this.globals.languageJson.quantity,
 					data: 'quantity'
 				},
 
 				{
-					title: this.appLanguage.cupping_score,
+					title: this.globals.languageJson.cupping_score,
 					data: "quantity_count",
 				}
 			],

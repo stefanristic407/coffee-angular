@@ -93,7 +93,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     public dashboard: DashboardserviceService,
     private roasterService: RoasterserviceService,
     private toastrService: ToastrService,
-    private globals: GlobalsService) {
+    public globals: GlobalsService) {
     this.termStatus = '';
     this.termRole = '';
     this.roasterId = this.cookieService.get('roaster_id');

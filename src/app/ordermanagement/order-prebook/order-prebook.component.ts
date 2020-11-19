@@ -196,14 +196,14 @@ export class OrderPrebookComponent implements OnInit {
     appLanguage? :any;
   constructor(public prebookService: OrderPrebookService, private route: ActivatedRoute,
     public router: Router,public cookieService : CookieService,
-    public global: GlobalsService) { }
+    public globals: GlobalsService) { }
 
   ngOnInit(): void {
      //Auth checking
      if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
 
     //Fills the time line based on the status selected in estate order.
     this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
@@ -292,7 +292,7 @@ export class OrderPrebookComponent implements OnInit {
 
     // Calling the Grade info component by creating object of the component and accessing its methods
 
-    let callGradeInfo = new PrebookGradeInfoComponent(this.prebookService,this.global);
+    let callGradeInfo = new PrebookGradeInfoComponent(this.prebookService,this.globals);
     callGradeInfo.gradeComplete();
 
 

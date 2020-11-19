@@ -9,6 +9,7 @@ import { ToastrService } from "ngx-toastr";
 import { GlobalsService } from "src/services/globals.service";
 import { RoasterserviceService } from "src/services/roasters/roasterservice.service";
 import { UserserviceService } from "src/services/users/userservice.service";
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: "app-edit-members",
@@ -38,14 +39,23 @@ export class EditMembersComponent implements OnInit {
   statusChange: string;
   roles = [
     {
-      rolename : ''
+      name : ''
     }
   ]
+
+  addBtn : boolean = true;
+  assignRow : boolean = false;
+  RoasterRoles: any;
+  selected_role : any = "";
+  showDelete : boolean = false;
+  roleValue: number;
+  assignButtonValue : string = "Assign";
+  saveButtonValue : string = "Save";
 
   constructor(
     private router: Router,
     private cookieService: CookieService,
-    private globals: GlobalsService,
+    public globals: GlobalsService,
     private userService: UserserviceService,
     private roasterService: RoasterserviceService,
     private route: ActivatedRoute,
@@ -76,7 +86,7 @@ export class EditMembersComponent implements OnInit {
 
     /*Edit start*/
     // $("body").on("click", ".add-partner", function () {
-    //   var NewRow = `<div class="new-row position-relative">
+    //   var NewRow = `<div class="new-row position-relative mt-3">
 		// 	<div class="row mt-3">
 		// 		<div class="col-12 col-md-6">
 		// 			<select id="member_role" class="form-control rectangle_editdropdowns"  [(ngModel)]="member_role" name="status">
@@ -85,8 +95,10 @@ export class EditMembersComponent implements OnInit {
 		// 				<option value="Active">Marketing</option>
 		// 				<option value="Disabled">Manager</option>
 		// 			</select>
-		// 		</div>
-		// 		<button type="submit" class="btn assign_member_role">Assign</button>
+    //     </div>
+    //     <div class="col-12 col-md-6">
+    //     <button type="submit" class="assign_member_role save">Assign</button>
+    //     </div>
 		// 	</div>`;
     //   $(this)
     //     .parents(".Onboard-rows")
@@ -116,7 +128,11 @@ export class EditMembersComponent implements OnInit {
     this.appLanguage = this.globals.languageJson;
     this.editActive++;
   }
-
+  showAssignRole(){
+    this.addBtn = false;
+    this.assignRow = true;
+    this.showDelete = true;
+  }
   getUserData() {
     this.userService
       .getRoasterUserData(this.roaster_id, this.userId)
@@ -130,56 +146,11 @@ export class EditMembersComponent implements OnInit {
         console.log(
           `${this.member_name} has ${this.member_email} is ${this.status}`
         );
-        this.roasterService
-        .getUserBasedRoles(this.roaster_id, this.userId)
-        .subscribe((response) => {
-          if (response["success"] == true) {
-            this.member_role = response["result"][0].name;
-          } else {
-            this.toastrService.error(
-              "Error while getting the roles of the user."
-            );
-          }
-        });
+        this.listAssignedRoles();
+ 
       });
   }
 
-  // update() {
-  //   if (this.member_name == "" || this.member_name == null || this.member_name == undefined) {
-  //     this.memberNameError = "Please enter your member name";
-  //     document.getElementById('member_name').style.border = "1px solid #FD4545";
-  //     setTimeout(() => {
-  //       this.memberNameError = "";
-  //     }, 4000);
-  //   }
-  //   else if (this.member_email == "" || this.member_email == null || this.member_email == undefined) {
-  //     this.memberEmailError = "Please enter your member email";
-  //     document.getElementById('member_email').style.border = "1px solid #FD4545";
-  //     setTimeout(() => {
-  //       this.memberEmailError = "";
-  //     }, 4000);
-  //   }
-  //   else if (this.member_role == "" || this.member_role == null || this.member_role == undefined) {
-  //     this.memberRoleError = "Please enter your member role";
-  //     document.getElementById('member_role').style.border = "1px solid #FD4545";
-  //     setTimeout(() => {
-  //       this.memberRoleError = "";
-  //     }, 3000);
-  //   }
-  //   else if (!(this.member_email.match(this.emailFormat))) {
-  //     this.memberEmailError = "Please enter valid email address";
-  //     document.getElementById('member_email').style.border = "1px solid #FD4545";
-  //     setTimeout(() => {
-  //       this.memberEmailError = "";
-  //     }, 4000);
-  //   }
-  //   else {
-  //     // this.router.navigate(['/features/add-members']);
-  //     console.log("New Password:" + this.member_email);
-  //     console.log("Confirm Password:" + this.member_role);
-
-  //   }
-  // }
 
   sendMail() {
     this.resetButtonValue = "Sending";
@@ -201,13 +172,37 @@ export class EditMembersComponent implements OnInit {
     });
   }
 
-  AssignRole(roleId: any) {
+  listAssignedRoles(){
     this.roasterService
-      .assignUserBasedUserRoles(this.roaster_id, this.userId, roleId)
+    .getUserBasedRoles(this.roaster_id, this.userId)
+    .subscribe((response) => {
+      if (response["success"] == true) {
+        this.roles = response["result"];
+        console.log(this.roles)
+      } else {
+        this.toastrService.error(
+          "Error while getting the roles of the user."
+        );
+      }
+    });
+  }
+
+  AssignRole() {
+    this.assignButtonValue = "Assigning"
+    this.roleValue = (parseInt(this.selected_role))
+    this.roasterService
+      .assignUserBasedUserRoles(this.roaster_id, this.roleValue, this.userId)
       .subscribe((result) => {
         if (result["success"] == true) {
+          this.assignButtonValue = "Assign"
           this.toastrService.success("Role has been assigned to the user.");
+          this.listAssignedRoles();
+          this.selected_role = "";
+          this.assignRow = false;
+          this.addBtn = true;
+          this.showDelete = true;
         } else {
+          this.assignButtonValue = "Assign"
           this.toastrService.error("Error while assigning the role");
         }
       });
@@ -215,10 +210,10 @@ export class EditMembersComponent implements OnInit {
 
   listRoles() {
     this.roasterService
-      .getUserBasedRoles(this.roaster_id, this.userId)
+      .getRoles(this.roaster_id)
       .subscribe((response) => {
         if (response["success"] == true) {
-          this.assignedRoles = response["result"];
+          this.RoasterRoles = response["result"];
         } else {
           this.toastrService.error(
             "Error while getting the roles of the user."
@@ -227,6 +222,7 @@ export class EditMembersComponent implements OnInit {
       });
   }
   saveMember() {
+    this.saveButtonValue = "Saving";
     console.log(this.status)
     if (this.member_name == "" || this.member_email == "") {
       this.memberNameError = "Please enter your member name";
@@ -275,10 +271,12 @@ export class EditMembersComponent implements OnInit {
           }
             this.savemode = false;
             this.editmode = true;
+            this.showDelete = false;
           } else {
             this.toastrService.error("Error while saving the roaster data!");
           }
         });
+        this.saveButtonValue = "Save"
     }
   }
   activeStatus() {
@@ -293,17 +291,26 @@ export class EditMembersComponent implements OnInit {
     }
   }
 
-  // ngAfterViewInit() {
-  //   // $('.btn-toggle').click(function () {
-  //   //   $(this).find('.btn').toggleClass('active');
-  //   //   $(this).find('.btn').toggleClass('active_default');
-  //   //   $(this).find('.btn').toggleClass('disable_default');
-  //   // });
-  // }
+
   editMember() {
     // this.contactInfo = false;
     // this.addMediaDiv = true;
     this.savemode = true;
     this.editmode = false;
   }
+
+  removeRole(role_id : any){
+    this.roasterService.deleteRoasterUserRole(this.roaster_id,role_id,this.userId).subscribe(
+      data => {
+        if(data['success'] == true ){
+          this.toastrService.success("The selected role has been removed successfully");
+          this.listAssignedRoles();
+        }
+        else{
+this.toastrService.error("Error while deleting the role");
+        }
+      }
+    )
+  }
+
 }

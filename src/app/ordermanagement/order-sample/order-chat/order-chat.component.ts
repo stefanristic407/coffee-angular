@@ -13,7 +13,7 @@ export class OrderChatComponent implements OnInit {
 	ChatSampleActive:any =0;
 	greenIconShow: boolean = false;
 
-  constructor(public global: GlobalsService) { }
+  constructor(public globals: GlobalsService) { }
 
   ngOnInit(): void {
 	this.language();
@@ -207,7 +207,7 @@ export class OrderChatComponent implements OnInit {
 	  scrollToBottom();
   }
   language(){
-	this.appLanguage = this.global.languageJson;
+	this.appLanguage = this.globals.languageJson;
 	   this.ChatSampleActive++;
 	}
 }

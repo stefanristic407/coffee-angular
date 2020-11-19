@@ -23263,10 +23263,12 @@ li.select-list__item {
 
 /* auto complete ends*/
 
-
-.avail-ellipses{
+.avail-ellipses {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 132px;
+}
 
+.rectangle_editdropdowns {
+    height: 50px !important;
 }

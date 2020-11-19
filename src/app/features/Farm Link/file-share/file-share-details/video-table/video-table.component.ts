@@ -63,7 +63,7 @@ export class VideoTableComponent implements OnInit {
     public fileService : FileShareService,
     private modalService: BsModalService,
     public filedetailsService : FileShareDetailsService,
-    private globals : GlobalsService
+    public globals : GlobalsService
     ) {
     //   this.mainVideoData = 
     //   [{ 

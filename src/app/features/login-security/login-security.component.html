@@ -28,39 +28,39 @@
                                 <span id="title-breadcrumb-1" class="sr-only"></span>
                                 <ul class="bread-nav">
                                     <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
                                     <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/account-settings">{{appLanguage?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                        <a class="b-cum" routerLink="/features/account-settings">{{globals.languageJson?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
-                                    <li class="b-cum c-pink">{{appLanguage?.login_security}}</li>
+                                    <li class="b-cum c-pink">{{globals.languageJson?.login_security}}</li>
                                 </ul>
                             </nav>
                         </div>
                         <div class="ml-auto text-right prefer-space">
-                            <button type="submit" class="btn btn-succes save-change web-btn" routerLink="/features/account-settings">{{appLanguage?.save_changes}}</button>
+                            <button type="submit" class="btn btn-succes save-change web-btn" routerLink="/features/account-settings">{{globals.languageJson?.save_changes}}</button>
                         </div>
                     </div>
                     <div class="row mobile-view">
                         <span class="cursor-pointer" routerLink="/features/account-settings">
                     <img src="/assets/images/back-arrow1.png" alt="">
-                    <span class="back-ticket pl-3">{{appLanguage?.back}}</span>
+                    <span class="back-ticket pl-3">{{globals.languageJson?.back}}</span>
                         </span>
                     </div>
                 </section>
 
                 <section class="main-spacing">
-                    <h3 class="header-login mb-3">{{appLanguage?.login_security}}</h3>
-                    <p class="sub-header">{{appLanguage?.login_security_text}}</p>
+                    <h3 class="header-login mb-3">{{globals.languageJson?.login_security}}</h3>
+                    <p class="sub-header">{{globals.languageJson?.login_security_text}}</p>
                     <div class="border-total pb-5">
                         <div class="row">
                             <div class="col-lg-6 col-md-8 col-sm-9 col-xs-12">
-                                <p class="login-text">{{appLanguage?.login}}</p>
+                                <p class="login-text">{{globals.languageJson?.login}}</p>
                                 <div class="row left-spacing">
                                     <div class="form-group col-md-8 col-sm-6 mob-padding">
-                                        <label class="pwd-label">{{appLanguage?.password}}<span class="star-color">*</span></label>
+                                        <label class="pwd-label">{{globals.languageJson?.password}}<span class="star-color">*</span></label>
                                         <div>
-                                            <button class="btn change-password-btn" routerLink="/features/reset-password">{{appLanguage?.change_password}}</button>
+                                            <button class="btn change-password-btn" routerLink="/features/reset-password">{{globals.languageJson?.change_password}}</button>
                                         </div>
                                         <!-- <input type="password" class="form-control pwd-box ord" placeholder="" [(ngModel)]="passwordData" name="password" id="newPassword" required=""> -->
                                         <!-- <div class="orderidError" *ngIf="orderidError != ''">{{orderidError}}</div> -->
@@ -87,7 +87,7 @@
                                 </div>
 
                                 <div class="pt-4">
-                                    <div class="login-history">{{appLanguage?.login_history}}</div>
+                                    <div class="login-history">{{globals.languageJson?.login_history}}</div>
                                     <div class="row mt-2 history-div border-login">
                                         <div class="p-0">
                                             <img class="img-estate" src="assets/images/sytem-login.svg" alt="User"></div>
@@ -153,10 +153,10 @@
                                 </div>
 
                                 <div class="pt-4">
-                                    <div class="deactivate-account pb-2">{{appLanguage?.deactivate_account}}</div>
-                                    <div class="sub-deactivate">{{appLanguage?.deactivate_subtext}}</div>
+                                    <div class="deactivate-account pb-2">{{globals.languageJson?.deactivate_account}}</div>
+                                    <div class="sub-deactivate">{{globals.languageJson?.deactivate_subtext}}</div>
                                     <div class="pt-3 account-top">
-                                        <button type="submit" class="btn deactivate-button" (click)="openModal(template);">{{appLanguage?.deactivate_button}}</button>
+                                        <button type="submit" class="btn deactivate-button" (click)="openModal(template);">{{globals.languageJson?.deactivate_button}}</button>
 
                                     </div>
 
@@ -165,7 +165,7 @@
                         </div>
                     </div>
                     <div class="mobile-farm col-12">
-                        <button type="button" class="btn btn-succes save-change" routerLink="/features/account-settings"> {{appLanguage?.save_changes}}</button>
+                        <button type="button" class="btn btn-succes save-change" routerLink="/features/account-settings"> {{globals.languageJson?.save_changes}}</button>
                     </div>
                 </section>
             </div>
@@ -180,11 +180,11 @@
         <div class="modal-body text-center mb-5">
             <img src="/assets/images/group-9.png" alt="">
             <div class="are-sure fnt-play mt-3">
-                {{appLanguage?.are_you_sure_text}}
+                {{globals.languageJson?.are_you_sure_text}}
             </div>
-            <div class="do-account pt-2">{{appLanguage?.deactivate_question}}</div>
+            <div class="do-account pt-2">{{globals.languageJson?.deactivate_question}}</div>
             <div class="pt-4">
-                <button class="btn yes-btn">{{appLanguage?.yes}}</button>
+                <button class="btn yes-btn">{{globals.languageJson?.yes}}</button>
                 <button class="btn no-btn ml-2" (click)="modalRef.hide();">No </button>
             </div>
 

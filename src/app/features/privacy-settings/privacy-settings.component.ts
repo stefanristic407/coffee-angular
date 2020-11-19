@@ -23,7 +23,7 @@ export class PrivacySettingsComponent implements OnInit {
   resetButtonValue : string = "Save changes";
   constructor(public userService : UserserviceService, public toastrService : ToastrService, 
               private route : ActivatedRoute, private router : Router,
-              private globals : GlobalsService) { }
+              public globals : GlobalsService) { }
 
   ngOnInit(): void {
     this.getPrivacyTerms();

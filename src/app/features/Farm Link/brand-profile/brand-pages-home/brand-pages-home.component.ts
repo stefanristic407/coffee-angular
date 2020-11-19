@@ -43,7 +43,7 @@ export class BrandPagesHomeComponent implements OnInit {
     private cookieService: CookieService,
     private toastrService: ToastrService,
     private route : ActivatedRoute ,
-    private globals : GlobalsService,
+    public globals : GlobalsService,
     private homeService: HomeService
   ) { }
 

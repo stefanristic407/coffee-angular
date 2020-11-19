@@ -10,7 +10,7 @@ export class CustomerManagementComponent implements OnInit {
   appLanguage?: any;
   customerActive:any=0;
 
-  constructor(private globals: GlobalsService) { }
+  constructor(public globals: GlobalsService) { }
 
   	ngOnInit(): void {
     	this.language();

@@ -15,7 +15,7 @@ export class SocialMediaPostsComponent implements OnInit {
   appLanguage?: any;
 
   constructor(private modalService: BsModalService, private route : ActivatedRoute,
-		private globals: GlobalsService) { }
+		public globals: GlobalsService) { }
   @ViewChild('imagetemplate') private imagetemplate: any;
   @ViewChild('videotemplate') private videotemplate: any;
 

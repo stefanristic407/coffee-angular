@@ -17,26 +17,26 @@
                                 <span id="title-breadcrumb-1" class="sr-only"></span>
                                 <ul class="bread-nav">
                                     <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt="">
+                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt="">
                             </span>
                                     </li>
                                     <li class="b-cum">
-                                        <a class="b-cum">{{appLanguage?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img
+                                        <a class="b-cum">{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img
                                     class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
 
-                                    <li class="b-cum c-pink">{{appLanguage?.file_share}}</li>
+                                    <li class="b-cum c-pink">{{globals.languageJson?.file_share}}</li>
                                 </ul>
                             </nav>
 
                             <div class="file-share-search col-12 col-md-4 ml-md-auto mb-3 d-none d-md-flex align-items-center">
                                 <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-                                <input class="fadout-search" type="search" placeholder="{{appLanguage?.share_files}}" [(ngModel)]="fileService.filesTerm" name="filesTerm">
+                                <input class="fadout-search" type="search" placeholder="{{globals.languageJson?.share_files}}" [(ngModel)]="fileService.filesTerm" name="filesTerm">
                             </div>
                         </div>
                         <div class="col-12">
-                            <h1 class="fnt-18 fnt-700 fnt-muli text-black334 mb-0 mb-lg-3">{{appLanguage?.file_share}}</h1>
-                            <span class="d-block mb-3 mb-lg-4 fnt-16 fnt-text fnt-muli text-gray588 ">{{appLanguage?.pinned_items}}</span>
+                            <h1 class="fnt-18 fnt-700 fnt-muli text-black334 mb-0 mb-lg-3">{{globals.languageJson?.file_share}}</h1>
+                            <span class="d-block mb-3 mb-lg-4 fnt-16 fnt-text fnt-muli text-gray588 ">{{globals.languageJson?.pinned_items}}</span>
 
 
                             <!--Quick pin files-->
@@ -47,7 +47,7 @@
                                 <!-- <input type="file"> -->
                                 <div class="pin-quiker-file__upload">
                                     <img class="mb-0 mb-md-3" src="assets/images/pin.PNG">
-                                    <p class="mb-0 fnt-16 fnt-500 pl-3 pl-md-0 fnt-muli text-black334">{{appLanguage?.pin_your_files}}</p>
+                                    <p class="mb-0 fnt-16 fnt-500 pl-3 pl-md-0 fnt-muli text-black334">{{globals.languageJson?.pin_your_files}}</p>
                                     <span class="remove-quiker-file d-inline-block" (click)="closeCard()"> <img class="close-file"
                                             src="assets/images/close.svg"></span>
                                 </div>
@@ -168,14 +168,14 @@
                                 <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
                                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="pills-myfiles-tab" data-toggle="pill" href="#pills-myfiles" role="tab" aria-controls="pills-home" aria-selected="true">{{appLanguage?.my_files}}</a>
+                                            <a class="nav-link active" id="pills-myfiles-tab" data-toggle="pill" href="#pills-myfiles" role="tab" aria-controls="pills-home" aria-selected="true">{{globals.languageJson?.my_files}}</a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="pills-sharedwithme-tab" data-toggle="pill" href="#pills-sharedwithme" role="tab" aria-controls="pills-profile" aria-selected="false">{{appLanguage?.shared_with_me}}</a>
+                                            <a class="nav-link" id="pills-sharedwithme-tab" data-toggle="pill" href="#pills-sharedwithme" role="tab" aria-controls="pills-profile" aria-selected="false">{{globals.languageJson?.shared_with_me}}</a>
                                         </li>
                                         <!-- <div class="pull-right ml-auto d-none d-md-inline-block">
-                                        <button type="button" class="btn preview preview--activity-history">{{appLanguage?.view_activity_history}}</button>
+                                        <button type="button" class="btn preview preview--activity-history">{{globals.languageJson?.view_activity_history}}</button>
                                     </div> -->
                                     </ul>
 
@@ -185,10 +185,10 @@
                                             <div class="share-dwn ">
                                                 <label class="share-bor mr-3"><input class="file-inpt" type="file" (change)="myFileUpload($event);"> <img
                                             class="share-img" src="assets/images/upload-icon.png" alt="farm"> <span
-                                            class="share-txt ml-2"> {{appLanguage?.upload}} </span> </label>
+                                            class="share-txt ml-2"> {{globals.languageJson?.upload}} </span> </label>
                                                 <span class="share-bor" data-toggle="modal" data-target="#createfolder"> <img
                                             class="dwnd-img" src="assets/images/region-plus.svg" alt="farm"> <span
-                                            class="share-txt ml-1"> {{appLanguage?.create_new_folder}} </span>
+                                            class="share-txt ml-1"> {{globals.languageJson?.create_new_folder}} </span>
                                                 </span>
                                             </div>
 
@@ -200,10 +200,10 @@
                                             <div class="share-dwn ">
                                                 <label class="share-bor mr-3"> <input class="file-inpt" type="file"> <img
                                             class="share-img" src="assets/images/upload-icon.png" alt="farm"> <span
-                                            class="share-txt ml-2"> {{appLanguage?.upload}} </span> </label>
+                                            class="share-txt ml-2"> {{globals.languageJson?.upload}} </span> </label>
                                                 <span class="share-bor" data-toggle="modal" data-target="#createfolder"> <img
                                             class="dwnd-img" src="assets/images/region-plus.svg" alt="farm"> <span
-                                            class="share-txt ml-1">  {{appLanguage?.create_new_folder}} </span>
+                                            class="share-txt ml-1">  {{globals.languageJson?.create_new_folder}} </span>
                                                 </span>
                                             </div>
                                             <app-sharewithme></app-sharewithme>
@@ -229,7 +229,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage?.create_folder}}</h5>
+                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{globals.languageJson?.create_folder}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -239,32 +239,32 @@
                         <form>
                             <div class="roastery-fields mb-4">
                                 <div class="farm-input col-12 col-md-5 px-0">
-                                    <label class="mb-0">{{appLanguage?.name}}</label>
+                                    <label class="mb-0">{{globals.languageJson?.name}}</label>
                                     <input type="text" placeholder="Enter folder name" name="folder_name" id="folder_name" [(ngModel)]="folder_name" required>
                                     <div class="folderNameError" *ngIf="folderNameError != ''">{{folderNameError}}</div>
                                 </div>
                             </div>
                             <div class="roastery-fields mb-4">
                                 <div class="farm-input col-12 px-0">
-                                    <label class="mb-0">{{appLanguage?.give_short_description}} *</label>
+                                    <label class="mb-0">{{globals.languageJson?.give_short_description}} *</label>
                                     <textarea class="mb-0" type="text" rows="5" placeholder="Give a short description to your folder (optional) " id="folder_descr" name="folder_descr" [(ngModel)]="folder_descr" required></textarea>
                                     <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
                                 </div>
                             </div>
                             <div class="roastery-fields mb-4">
-                                <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage?.sharing_access}}</h4>
+                                <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{globals.languageJson?.sharing_access}}</h4>
                                 <span class="fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">
-                                {{appLanguage?.invite_to_access}}</span>
+                                {{globals.languageJson?.invite_to_access}}</span>
                                 <div class="invite-radios mt-2  custom-radio-container clearfix d-flex align-items-center flex-wrap">
                                     <div class="float-left invite-radios__input">
-                                        <label class="custom-radio fnt-14 fnt-600 fnt-muli">{{appLanguage?.invite_people}}
+                                        <label class="custom-radio fnt-14 fnt-600 fnt-muli">{{globals.languageJson?.invite_people}}
                                         <input type="radio" checked="checked" name="invite" [(ngModel)]="invite" value="Invite people">
                                         <span class="checkmark-custom"></span>
                                     </label>
 
                                     </div>
                                     <div class="float-left invite-radios__input">
-                                        <label class="custom-radio fnt-14 fnt-600 fnt-muli">{{appLanguage?.only_me}}
+                                        <label class="custom-radio fnt-14 fnt-600 fnt-muli">{{globals.languageJson?.only_me}}
                                         <input type="radio" name="invite" [(ngModel)]="invite"  value="Only me">
                                         <span class="checkmark-custom"></span>
                                     </label>
@@ -276,12 +276,12 @@
                             <div class="invite-to">
 
                                 <div class="roastery-fields mb-4">
-                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{appLanguage?.select_an_order}}*</h4>
-                                    <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{appLanguage?.link_your_files}}</span>
+                                    <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">{{globals.languageJson?.select_an_order}}*</h4>
+                                    <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{globals.languageJson?.link_your_files}}</span>
 
                                     <a href="javascript:void(0)" class="d-inline-flex mt-2 view-order-file-share align-items-center">
                                         <img src='assets/images/view.png'>
-                                        <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">{{appLanguage?.view_orders}}</span>
+                                        <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">{{globals.languageJson?.view_orders}}</span>
                                     </a>
 
                                 </div>
@@ -289,7 +289,7 @@
                                 <div class="roastery-fields mb-0">
                                     <div class="farm-input col-12 col-lg-8 px-0">
 
-                                        <label>{{appLanguage?.enter_name_email}}*</label>
+                                        <label>{{globals.languageJson?.enter_name_email}}*</label>
                                         <div class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                                             <input class="float-left px-0 form-control auto-complete-box" type="email" [(ngModel)]="selectedValue" name="name" [typeahead]="usersList" typeaheadOptionField="firstname" typeaheadWaitMs="1000" [typeaheadItemTemplate]="customItemTemplate" (typeaheadOnSelect)="onSelect($event)"
                                                 (keyup)="getUsersList($event)" placeholder="Enter name or email" autocomplete="off">
@@ -306,11 +306,11 @@
 
                                                 <div class="Custom-select w-100 border-left66">
                                                     <div class="Custom-select-input w-100  pr-3">
-                                                        <input type="text" value="{{appLanguage?.can_view}}" readonly>
-                                                        <span class="Custom-select-input__selctedText fnt-600 fnt-muli text-black334" id="permission"> {{appLanguage?.can_view}}</span>
+                                                        <input type="text" value="{{globals.languageJson?.can_view}}" readonly>
+                                                        <span class="Custom-select-input__selctedText fnt-600 fnt-muli text-black334" id="permission"> {{globals.languageJson?.can_view}}</span>
                                                         <ul class="Custom-select-input-list fnt-600 fnt-muli text-black334">
-                                                            <li class="Custom-select-input-list__item">{{appLanguage?.can_view}}</li>
-                                                            <li class="Custom-select-input-list__item">{{appLanguage?.can_edit}}</li>
+                                                            <li class="Custom-select-input-list__item">{{globals.languageJson?.can_view}}</li>
+                                                            <li class="Custom-select-input-list__item">{{globals.languageJson?.can_edit}}</li>
 
                                                         </ul>
                                                     </div>
@@ -325,9 +325,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" *ngIf="invite != 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal">{{appLanguage?.create_share}}
+                    <button type="button" *ngIf="invite != 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal">{{globals.languageJson?.create_share}}
                 </button>
-                    <button type="button" *ngIf="invite == 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal">{{appLanguage?.create}}
+                    <button type="button" *ngIf="invite == 'Only me'" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="createFolder();" data-dismiss="modal">{{globals.languageJson?.create}}
                     </button>
                 </div>
             </div>
@@ -341,7 +341,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{appLanguage?.share}}</h5>
+                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{globals.languageJson?.share}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -352,18 +352,18 @@
                             <div class="roastery-fields mb-0">
                                 <div class="farm-input col-12 px-0">
 
-                                    <label>{{appLanguage?.enter_name_email}}*</label>
+                                    <label>{{globals.languageJson?.enter_name_email}}*</label>
                                     <div class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
                                         <input class="float-left px-0" type="email" placeholder="Enter name or email">
                                         <div class="ml-auto">
 
                                             <div class="Custom-select w-100 border-left66">
                                                 <div class="Custom-select-input w-100  pr-3">
-                                                    <input type="text" value="{{appLanguage?.can_view}}" readonly>
-                                                    <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334">{{appLanguage?.can_view}}</span>
+                                                    <input type="text" value="{{globals.languageJson?.can_view}}" readonly>
+                                                    <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334">{{globals.languageJson?.can_view}}</span>
                                                     <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                        <li class="Custom-select-input-list__item">{{appLanguage?.can_view}}</li>
-                                                        <li class="Custom-select-input-list__item">{{appLanguage?.can_edit}}</li>
+                                                        <li class="Custom-select-input-list__item">{{globals.languageJson?.can_view}}</li>
+                                                        <li class="Custom-select-input-list__item">{{globals.languageJson?.can_edit}}</li>
 
                                                     </ul>
                                                 </div>
@@ -373,7 +373,7 @@
                                 </div>
                             </div>
                             <div class="mt-3 mt-lg-4">
-                                <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">{{appLanguage?.existing_members}}
+                                <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">{{globals.languageJson?.existing_members}}
                                 </h4>
                                 <!--Existing Memebr-->
                                 <ul class="existing-members-list">
@@ -421,11 +421,11 @@
                                             <div class="member__type float-right ml-auto">
                                                 <div class="Custom-select w-100">
                                                     <div class="Custom-select-input w-100">
-                                                        <input type="text" value="{{appLanguage?.can_view}}" readonly>
-                                                        <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334">{{appLanguage?.can_view}}</span>
+                                                        <input type="text" value="{{globals.languageJson?.can_view}}" readonly>
+                                                        <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334">{{globals.languageJson?.can_view}}</span>
                                                         <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                            <li class="Custom-select-input-list__item">{{appLanguage?.can_view}}</li>
-                                                            <li class="Custom-select-input-list__item">{{appLanguage?.can_edit}}</li>
+                                                            <li class="Custom-select-input-list__item">{{globals.languageJson?.can_view}}</li>
+                                                            <li class="Custom-select-input-list__item">{{globals.languageJson?.can_edit}}</li>
 
                                                         </ul>
                                                     </div>
@@ -440,8 +440,8 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <p class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0">
-                        {{appLanguage?.admin_notice_text}}</p>
-                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">{{appLanguage?.share}}
+                        {{globals.languageJson?.admin_notice_text}}</p>
+                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">{{globals.languageJson?.share}}
                 </button>
                 </div>
             </div>
@@ -471,8 +471,8 @@
             <!-- <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div> -->
             <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to Unpin this?</div>
             <div class="mt-4">
-                <button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage?.cancel}}</button>
-                <button class="btn delete-btn ml-3" (click)="modalRef.hide();unpinFileorFolder(this.unPinId)">{{appLanguage?.unpin}}</button>
+                <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+                <button class="btn delete-btn ml-3" (click)="modalRef.hide();unpinFileorFolder(this.unPinId)">{{globals.languageJson?.unpin}}</button>
             </div>
         </div>
     </ng-template>

@@ -14,7 +14,7 @@ export class ReviewsComponent implements OnInit {
   showRelavant:boolean=true;
   appLanguage?: any;
 
-  constructor(private globals: GlobalsService) { 
+  constructor(public globals: GlobalsService) { 
 
     this.termStatus = "Most relevant";
     

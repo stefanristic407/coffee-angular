@@ -272,9 +272,15 @@ export class LoginComponent implements OnInit {
 						
                         }
                         else {
-						  this.toastrService.success("Logged in Successfully");
-                          this.router.navigate(["/features/welcome-aboard"]);
-                          this.loginButtonValue = "Login";
+              this.toastrService.success("Logged in Successfully");
+                if(localStorage.getItem('redirectUrl')){
+                  const url = localStorage.getItem('redirectUrl');
+                  localStorage.removeItem('redirectUrl');
+                  this.router.navigate([url]);
+                } else {
+                            this.router.navigate(["/features/welcome-aboard"]);
+                            this.loginButtonValue = "Login";
+                }
                         }
                       });
                     }

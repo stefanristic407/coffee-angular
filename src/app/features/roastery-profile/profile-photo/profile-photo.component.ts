@@ -20,7 +20,7 @@ export class ProfilePhotoComponent implements OnInit {
   transform: ImageTransform = {};
   appLanguage?: any;
 
-  constructor(public profilePhotoService : ProfilePhotoService,private globals: GlobalsService) {}
+  constructor(public profilePhotoService : ProfilePhotoService,public globals: GlobalsService) {}
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;

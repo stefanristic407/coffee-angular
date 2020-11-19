@@ -10,14 +10,14 @@
         <table class="table">
             <thead class="table-header">
                 <tr class="header-row">
-                    <th>{{appLanguage?.overview}}</th>
-                    <th scope="col">{{appLanguage?.lot_size}}</th>
-                    <th scope="col">{{appLanguage?.av_score}}</th>
-                    <th scope="col">{{appLanguage?.altitude}}</th>
-                    <th scope="col">{{appLanguage?.variety}}</th>
-                    <th scope="col">{{appLanguage?.species}}</th>
-                    <th scope="col">{{appLanguage?.flavour_profile}}</th>
-                    <th scope="col">{{appLanguage?.actions}}</th>
+                    <th>{{globals.languageJson?.overview}}</th>
+                    <th scope="col">{{globals.languageJson?.lot_size}}</th>
+                    <th scope="col">{{globals.languageJson?.av_score}}</th>
+                    <th scope="col">{{globals.languageJson?.altitude}}</th>
+                    <th scope="col">{{globals.languageJson?.variety}}</th>
+                    <th scope="col">{{globals.languageJson?.species}}</th>
+                    <th scope="col">{{globals.languageJson?.flavour_profile}}</th>
+                    <th scope="col">{{globals.languageJson?.actions}}</th>
                 </tr>
             </thead>
             <tbody class="customtable">
@@ -30,25 +30,23 @@
                     <td>{{item.species}}</td>
 
                     <td>
-                        <div class="flavor-coffee mb-2">
+                        <div class="flavor-coffee mb-2" *ngIf="item.flavours!=null">
                             <p *ngFor="let flavour of item.flavours"> 
                                 <span class="mb-2">{{getFlavourName(flavour)}}</span>
                             </p>
-                           
-                            <!-- <span>Dark Chocolate</span><span>Spices</span> -->
                         </div>
-                        <!-- <div class="flavor-coffee">
-                            <span>Red Fruit</span><span>Black tea</span>
-                        </div> -->
+                        <div *ngIf="item.flavours==null">
+                            NA
+                        </div>
                     </td>
-                    <td class="view-lot">{{appLanguage?.view_lot}}</td>
+                    <td class="view-lot">{{globals.languageJson?.view_lot}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
 <div class="mt-5 d-none d-md-block">
-    <div class="map-heading">{{appLanguage?.map_estate}}</div>
+    <div class="map-heading">{{globals.languageJson?.map_estate}}</div>
     <div class="text-center map-lots">
         <img src="assets/images/estate-map.jpg" alt="">
     </div>
@@ -64,51 +62,50 @@
     <div class="row mt-4 mt-md-0">
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div class="real-estate">
-                <h6>{{appLanguage?.lot_size}}</h6>
+                <h6>{{globals.languageJson?.lot_size}}</h6>
                 <h3>{{ lot.total_area }}</h3>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div class="real-estate">
-                <h6>{{appLanguage?.av_score}}</h6>
+                <h6>{{globals.languageJson?.av_score}}</h6>
                 <h3>{{ lot.avg_cup_score }}</h3>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div class="real-estate">
-                <h6>{{appLanguage?.altitude}}</h6>
+                <h6>{{globals.languageJson?.altitude}}</h6>
                 <h3>{{lot.min_altitude}} - {{lot.max_altitude}}m</h3>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div class="real-estate">
-                <h6>{{appLanguage?.variety}}</h6>
+                <h6>{{globals.languageJson?.variety}}</h6>
                 <h3>{{ lot.variety }}</h3>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div class="real-estate">
-                <h6>{{appLanguage?.species}}</h6>
+                <h6>{{globals.languageJson?.species}}</h6>
                 <h3>{{lot.species}}</h3>
             </div>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
             <div class="real-estate">
-                <h6>{{appLanguage?.flavour}}</h6>
-        <ul class="sugar-prod">
-            <li *ngFor="let flavour of lot.flavours"> 
-                <span class="mb-2">{{getFlavourName(flavour)}}</span>
-            </li>
-            <!-- <li>Honey</li>
-            <li>Dark chocalte</li>
-            <li>Spices</li> -->
-        </ul>
+                <h6>{{globals.languageJson?.flavour}}</h6>
+                <div *ngIf="lot.flavours!=null">
+                    <ul class="sugar-prod">
+                        <li *ngFor="let flavour of lot.flavours"> 
+                            <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                        </li>     
+                    </ul>
+                </div>
+                <div *ngIf="lot.flavours==null">NA</div>
+            </div>
         </div>
-        </div>
-
     </div>
     <div class="landlots mb-3">
-        <a >{{appLanguage?.buy_now}}</a>
+        <a >{{globals.languageJson?.buy_now}}</a>
     </div>
     </div>
     </div>

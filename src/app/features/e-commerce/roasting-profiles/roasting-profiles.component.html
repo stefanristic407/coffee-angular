@@ -5,17 +5,17 @@
                 <span id="title-breadcrumb-1" class="sr-only"></span>
                 <ul class="bread-nav mb-md-0">
                     <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
                     </li>
                     <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{appLanguage?.ecommerce}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                        <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{globals.languageJson?.ecommerce}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
                     </li>
                     <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{appLanguage?.roasted_coffee}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                        <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{globals.languageJson?.roasted_coffee}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
                     </li>
-                    <li class="b-cum c-pink">{{appLanguage?.roasting_profiles}}</li>
+                    <li class="b-cum c-pink">{{globals.languageJson?.roasting_profiles}}</li>
                     <div class="ml-auto pull-right batch-roasted mr-md-5">
-                        <button class="btn manage-profiles" routerLink="/features/create-roasting-profile">{{appLanguage?.create_new}}</button>
+                        <button class="btn manage-profiles" routerLink="/features/create-roasting-profile">{{globals.languageJson?.create_new}}</button>
                         <!-- <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by name, role.." /> -->
                     </div>
                 </ul>
@@ -23,7 +23,7 @@
             <section class="grading__total">
                 <div class="row w-100 ml-0">
                     <div class="green_grading_cont">
-                        <h1>{{appLanguage?.roasting_profiles}}</h1>
+                        <h1>{{globals.languageJson?.roasting_profiles}}</h1>
 
                     </div>
 
@@ -40,7 +40,7 @@
                 <div class="mt-4 pb-2">
                     <div class="">
                         <div class="d-inline border-total role-div col-sm-6" id="role_id">
-                            <p class="d-inline filter-text" *ngIf="termRole == ''">{{appLanguage?.roast_level}}&nbsp;</p>
+                            <p class="d-inline filter-text" *ngIf="termRole == ''">{{globals.languageJson?.roast_level}}&nbsp;</p>
                             <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
                                 <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole();">
                                     &nbsp; <img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -69,15 +69,15 @@
                                                     <span class="checkmark head-check"></span>
                                                 </label>
                                     </th>
-                                    <th scope="col">{{appLanguage?.roast_name}}</th>
-                                    <th scope="col">{{appLanguage?.roast_level}}&nbsp;</th>
+                                    <th scope="col">{{globals.languageJson?.roast_name}}</th>
+                                    <th scope="col">{{globals.languageJson?.roast_level}}&nbsp;</th>
                                     <th scope="col">
-                                        {{appLanguage?.temperature}}
+                                        {{globals.languageJson?.temperature}}
                                     </th>
                                     <th scope="col">
-                                        {{appLanguage?.duration}}
+                                        {{globals.languageJson?.duration}}
                                     </th>
-                                    <th scope="col">{{appLanguage?.actions}}</th>
+                                    <th scope="col">{{globals.languageJson?.actions}}</th>
                                 </tr>
                             </thead>
                             <tbody class="customtable">

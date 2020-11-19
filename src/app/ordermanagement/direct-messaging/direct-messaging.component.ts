@@ -43,7 +43,7 @@ export class DirectMessagingComponent implements OnInit {
 		private cookieService: CookieService,
 		private userSevice: UserserviceService,
 		private roasterService: RoasterserviceService,
-		private globals: GlobalsService
+		public globals: GlobalsService
 	) {
 		this.keyword = 'firstname'
 		this.wsURL = environment.wsEndpoint;

@@ -982,7 +982,7 @@ export class LanguageRegionComponent implements OnInit {
 
   constructor( public userService : UserserviceService, private cookieService : CookieService,
               private toastrService : ToastrService, private router : Router,
-              private globals : GlobalsService) { 
+              public globals : GlobalsService) { 
     this.languageError = '';
     this.timeZoneError = '';
   }

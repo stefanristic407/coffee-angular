@@ -13,14 +13,14 @@ export class ReviewRatingsComponent implements OnInit {
   showRelavant:boolean=true;
 	appLanguage?: any;
 
-  constructor(public global: GlobalsService) { 
+  constructor(public globals: GlobalsService) { 
 
     this.termStatus = "Most relevant";
     
   }
 
   ngOnInit(): void {
-		this.appLanguage = this.global.languageJson;
+		this.appLanguage = this.globals.languageJson;
   }
 
   

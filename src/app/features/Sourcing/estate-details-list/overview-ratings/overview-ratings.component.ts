@@ -15,7 +15,7 @@ export class OverviewRatingsComponent implements OnInit {
   appLanguage?: any;
   estateRatingActive:any=0;
   
-  constructor(private globals: GlobalsService) { 
+  constructor(public globals: GlobalsService) { 
     this.termStatus = "Most relevant";
   }
 

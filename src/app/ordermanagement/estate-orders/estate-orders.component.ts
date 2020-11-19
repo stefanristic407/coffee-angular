@@ -64,7 +64,7 @@ export class EstateOrdersComponent implements OnInit {
 		private roasterService: RoasterserviceService,
 		private toastrService: ToastrService,
 		public modalService: BsModalService,
-		public global: GlobalsService) {
+		public globals: GlobalsService) {
 		this.roasterId = this.cookieService.get('roaster_id');
 		this.data = {};
 		this.data =
@@ -105,7 +105,7 @@ export class EstateOrdersComponent implements OnInit {
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		}
-		// this.appLanguage = this.global.languageJson;
+		// this.appLanguage = this.globals.languageJson;
 		this.language();
 
 		this.dtOptions = {
@@ -116,10 +116,10 @@ export class EstateOrdersComponent implements OnInit {
 			lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
 			processing: false,
 			// placeholder: 'search here',
-			// searchPlaceholder : this.appLanguage.all,
+			// searchPlaceholder : this.globals.languageJson.all,
 			language: {
 				search: "",
-				emptyTable: this.appLanguage.no_table_data
+				emptyTable: this.globals.languageJson.no_table_data
 			},
 			columns: [
 				// {title: '<input type="checkbox" value="">' , data: null, className: "select-checkbox", defaultContent:'<input type="checkbox" value="">'},
@@ -129,44 +129,44 @@ export class EstateOrdersComponent implements OnInit {
 					defaultContent: '<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>',
 				},
 				{
-					title: this.appLanguage.order_id,
+					title: this.globals.languageJson.order_id,
 					data: 'id'
 				}, {
-					title: this.appLanguage.estate_name,
+					title: this.globals.languageJson.estate_name,
 					data: 'estate_name'
 				}, {
-					title: this.appLanguage.date_ordered,
+					title: this.globals.languageJson.date_ordered,
 					data: 'created_at'
 				},
 				{
-					title: this.appLanguage.origin,
+					title: this.globals.languageJson.origin,
 					data: 'origin',
 
 				},
 				{
-					title: this.appLanguage.species,
+					title: this.globals.languageJson.species,
 					data: 'species',
 
 				},
 				{
-					title: this.appLanguage.price,
+					title: this.globals.languageJson.price,
 					data: 'price'
 				},
 				{
-					title: this.appLanguage.quantity,
+					title: this.globals.languageJson.quantity,
 					data: 'quantity'
 				}, {
-					title: this.appLanguage.order_type,
+					title: this.globals.languageJson.order_type,
 					data: 'type',
 					className: 'typeoforderclass'
 				}, {
-					title: this.appLanguage.status,
+					title: this.globals.languageJson.status,
 					data: 'status',
 					className: 'status-es'
 				},
 
 				{
-					title: this.appLanguage.action,
+					title: this.globals.languageJson.action,
 					defaultContent: "View order",
 					className: "view-order"
 				}
@@ -511,7 +511,7 @@ export class EstateOrdersComponent implements OnInit {
 
 	}
 	language(){
-		this.appLanguage = this.global.languageJson;
+		this.appLanguage = this.globals.languageJson;
 		this.estateOrdersActive++;
 	}
 	//  Function Name : Check box function.
@@ -706,7 +706,7 @@ export class EstateOrdersComponent implements OnInit {
 					if (data['result'] == null || data['result'].length == 0) {
 						this.odd = true;							
 						this.hideTable = true ; 
-						// this.toastrService.error(this.appLanguage.no_table_data);
+						// this.toastrService.error(this.globals.languageJson.no_table_data);
 					}
 					else {
 						this.odd = false;
@@ -718,7 +718,7 @@ export class EstateOrdersComponent implements OnInit {
 				else {
 					this.estateOrdersActive++;
 					this.odd = true;
-					this.toastrService.error(this.appLanguage.error_message);
+					this.toastrService.error(this.globals.languageJson.error_message);
 				}
 			}
 		)

@@ -2,7 +2,7 @@
 // PAGE DESCRIPTION : This page contains all API calls for SEWN-Roaster users.
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import {environment} from 'src/environments/environment';
@@ -539,5 +539,14 @@ export class UserserviceService {
     data['method'] = "PUT";
     data['data'] = body;
     return this.http.put(this.putUrl, data);
+  }
+  getGreenCoffee(roaster_id: any,detailestateId : any) {
+    let params = new HttpParams();
+    params = params.append('estate_id', detailestateId);
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/availability/gc?" + params;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
   }
 }

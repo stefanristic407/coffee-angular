@@ -62,7 +62,7 @@ descriptionError: string;
                private roasterService : RoasterserviceService,
                public fileService : FileShareService,
                public modalService:BsModalService,
-               private globals : GlobalsService) { 
+               public globals : GlobalsService) { 
     this.folderNameError = "";
     this.descriptionError = "";
     this.roasterId = this.cookieService.get('roaster_id');

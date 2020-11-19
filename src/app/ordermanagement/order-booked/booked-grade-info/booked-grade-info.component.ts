@@ -11,10 +11,10 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class BookedGradeInfoComponent implements OnInit {
   appLanguage?:any;
-  constructor(public bookedService: OrderBookedService,public global: GlobalsService) { }
+  constructor(public bookedService: OrderBookedService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
   }
   // Function Name : Grade Info Timeline
   // Description: This function helps to fill the grade info timeline if graded by roaster is selected of order booked .

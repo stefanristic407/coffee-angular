@@ -30,22 +30,22 @@
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav mb-md-0">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/people/manage-role">{{appLanguage?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                <a class="b-cum" routerLink="/people/manage-role">{{globals.languageJson?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
             </li>
 
-            <li class="b-cum c-pink">{{appLanguage?.manage_roles}}</li>
+            <li class="b-cum c-pink">{{globals.languageJson?.manage_roles}}</li>
             <div class="pull-right desk_view_user p-role-butn">
-                <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn "> {{appLanguage?.create_new_role}}</button></a>
+                <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn "> {{globals.languageJson?.create_new_role}}</button></a>
             </div>
             <!-- <button type="submit" class="btn col-12 col-md-2 pull-right create-role-btn web-btn d-md-block d-none"> CREATE NEW ROLE </button> -->
 
         </ul>
     </nav>
     <section class="roles-heading d-none d-lg-block">
-        <h5 class="d-inline manage-title">{{appLanguage?.manage_roles}}</h5>
+        <h5 class="d-inline manage-title">{{globals.languageJson?.manage_roles}}</h5>
         <img src="assets/images/help-icon.svg" alt="" class="pointer-help pl-2" (click)="openModal(helpTemplate)">
         <!-- <i class="pi pi-question-circle help" pTooltip="Please Click to see help" tooltipPosition="bottom" (click)="showModalDialog()"></i> -->
         <!-- <p-dialog header="What is Lorem Ipsum?" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
@@ -71,10 +71,10 @@
                     <th scope="col">Roles</th>
                     <th scope="col"></th>
                     <th scope="col">Actions</th> -->
-                        <th>{{appLanguage?.number_of_members}}</th>
-                        <th scope="col">{{appLanguage?.roles}}</th>
+                        <th>{{globals.languageJson?.number_of_members}}</th>
+                        <th scope="col">{{globals.languageJson?.roles}}</th>
                         <th scope="col"></th>
-                        <th scope="col">{{appLanguage?.actions}}</th>
+                        <th scope="col">{{globals.languageJson?.actions}}</th>
                     </tr>
                 </thead>
                 <!-- *ngIf="this.globals.checkItem('acl-list')=='view' || this.globals.checkItem('acl-list')=='manage'" -->
@@ -90,8 +90,8 @@
                         <td>{{data.name}}</td>
                         <td>
                             <span class="show_btns">
-                            <button type="button"  class="btn view-btn"  (click)="viewMembers(data)" id="view-btn">{{appLanguage?.view_members}}</button>
-                            <button type="button"  (click)="addMembers($event,data)" class="btn add-btn" id="add-btn">{{appLanguage?.add_members}}</button>
+                            <button type="button"  class="btn view-btn"  (click)="viewMembers(data)" id="view-btn">{{globals.languageJson?.view_members}}</button>
+                            <button type="button"  (click)="addMembers($event,data)" class="btn add-btn" id="add-btn">{{globals.languageJson?.add_members}}</button>
                         </span>
                         </td>
                         <td>
@@ -109,14 +109,14 @@
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Duplicate role</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Manage Permissions</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">Delete</a></li> -->
-                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">{{appLanguage?.add_members}} </a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">{{appLanguage?.view_members}} </a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{appLanguage?.update_role}}</a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="pop.hide();">{{appLanguage?.rename}}</a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="pop.hide();">{{appLanguage?.duplicate_role}} </a></li>
-                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{appLanguage?.manage_permissions}}</a></li>
-                                        <!-- <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">{{appLanguage?.delete_role}}</a></li> -->
-                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,data.id);pop.hide();">{{appLanguage?.delete_role}}</a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">{{globals.languageJson?.add_members}} </a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">{{globals.languageJson?.view_members}} </a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{globals.languageJson?.update_role}}</a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="pop.hide();">{{globals.languageJson?.rename}}</a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="pop.hide();">{{globals.languageJson?.duplicate_role}} </a></li>
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="updateRole(data.id);pop.hide();">{{globals.languageJson?.manage_permissions}}</a></li>
+                                        <!-- <li class="list-group-item"><a class="pointer-item" (click)="deleteRole(data.id);pop.hide();">{{globals.languageJson?.delete_role}}</a></li> -->
+                                        <li class="list-group-item" *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,data.id);pop.hide();">{{globals.languageJson?.delete_role}}</a></li>
                                     </ul>
                                 </div>
                             </ng-template>
@@ -216,10 +216,10 @@
 
     <div class="mobile_view_user">
         <div class="ml-auto text-left pull-left">
-            <h4 class="mobile-manage">{{appLanguage?.manage_roles}}</h4>
+            <h4 class="mobile-manage">{{globals.languageJson?.manage_roles}}</h4>
         </div>
         <div class="ml-auto text-right pull-right pb-3">
-            <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn ">{{appLanguage?.create_new_role}}</button></a>
+            <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn ">{{globals.languageJson?.create_new_role}}</button></a>
         </div>
 
         <ul class="dyn-data d-flex" *ngFor="let role of sizes  let i = index" id="tr_{{role.id}}">
@@ -241,14 +241,14 @@
                 <ng-template #listTemplate id="{{role.id}}">
                     <div id="popover-mobile-content">
                         <ul class="list-data custom-popover">
-                            <li class="list-item"> <a class="pointer-item" (click)="addMembers($event,role);pop1.hide();">{{appLanguage?.add_members}} </a></li>
-                            <li class="list-item"><a class="pointer-item" (click)="viewMembers(role);pop1.hide();">{{appLanguage?.view_members}} </a></li>
-                            <li class="list-item"><a class="pointer-item" (click)="updateRole(role.id);pop1.hide();">{{appLanguage?.update_role}}</a></li>
-                            <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">{{appLanguage?.rename}}</a></li>
-                            <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">{{appLanguage?.duplicate_role}} </a></li>
-                            <li class="list-item"><a class="pointer-item" (click)="updateRole(role.id);pop1.hide();">{{appLanguage?.manage_permissions}}</a></li>
-                            <!-- <li class="list-item"><a class="pointer-item" (click)="deleteRole(role.id);pop1.hide();">{{appLanguage?.delete_role}}</a></li> -->
-                            <li class="list-item"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,role.id);pop1.hide();">{{appLanguage?.delete_role}}</a></li>
+                            <li class="list-item"> <a class="pointer-item" (click)="addMembers($event,role);pop1.hide();">{{globals.languageJson?.add_members}} </a></li>
+                            <li class="list-item"><a class="pointer-item" (click)="viewMembers(role);pop1.hide();">{{globals.languageJson?.view_members}} </a></li>
+                            <li class="list-item"><a class="pointer-item" (click)="updateRole(role.id);pop1.hide();">{{globals.languageJson?.update_role}}</a></li>
+                            <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">{{globals.languageJson?.rename}}</a></li>
+                            <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">{{globals.languageJson?.duplicate_role}} </a></li>
+                            <li class="list-item"><a class="pointer-item" (click)="updateRole(role.id);pop1.hide();">{{globals.languageJson?.manage_permissions}}</a></li>
+                            <!-- <li class="list-item"><a class="pointer-item" (click)="deleteRole(role.id);pop1.hide();">{{globals.languageJson?.delete_role}}</a></li> -->
+                            <li class="list-item"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,role.id);pop1.hide();">{{globals.languageJson?.delete_role}}</a></li>
                         </ul>
                     </div>
                 </ng-template>
@@ -311,8 +311,8 @@
                <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
                <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
                <div class="mt-4">
-                    <button class="cancel-btn" (click)="modalRef.hide();">{{appLanguage?.cancel}}</button>
-                    <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRole(this.deleteroleId)">{{appLanguage?.delete}}</button>
+                    <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+                    <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRole(this.deleteroleId)">{{globals.languageJson?.delete}}</button>
                </div>
             </div>
         </ng-template>

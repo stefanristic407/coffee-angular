@@ -26,7 +26,7 @@ export class RatingComponent implements OnInit {
   reviewUserError:any;
 	appLanguage?: any;
 
-  constructor(public global: GlobalsService) {
+  constructor(public globals: GlobalsService) {
     this.experienceError = "";
     this.communicationError = ""; 
     this.reviewError = "";
@@ -36,7 +36,7 @@ export class RatingComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
     //Ratings
     $('.rating__item input[type="checkbox"]').on('change', function () {
       var $this = $(this);

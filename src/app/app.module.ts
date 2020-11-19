@@ -22,6 +22,7 @@ import { ErrorModuleModule } from './error-module/error-module.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorIntercept } from './error-module/error.interceptor';
 import 'hammerjs'; 
+import { AuthGuard } from './guards/auth.guard';
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import 'hammerjs';
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorIntercept,
       multi: true
-    }],
+    }, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

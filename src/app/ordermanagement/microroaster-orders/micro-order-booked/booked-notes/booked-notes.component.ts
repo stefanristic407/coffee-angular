@@ -11,14 +11,14 @@ import {MicroOrderBookedService } from '../micro-order-booked.service';
 export class BookedNotesComponent implements OnInit {
   appLanguage: any;
   
-  constructor(public microbookedService: MicroOrderBookedService,public global: GlobalsService) { }
+  constructor(public microbookedService: MicroOrderBookedService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.language();
   }
 
   language(){
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
     }
   
       // Function Name : Grade Info Timeline

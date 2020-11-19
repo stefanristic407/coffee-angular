@@ -39,7 +39,7 @@ export class InviteMemberComponent implements OnInit {
   ]
   constructor(public roasterService:RoasterserviceService,
     public cookieService: CookieService,private router: Router, 
-       private globals: GlobalsService,
+       public globals: GlobalsService,
        public route : ActivatedRoute,
        public userService : UserserviceService,
        private toastrService : ToastrService

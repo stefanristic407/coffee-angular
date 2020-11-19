@@ -11,13 +11,13 @@ import { MicroOrderSampleService} from '../micro-order-sample.service';
 export class SampleNotesComponent implements OnInit {
   appLanguage: any;
 
-  constructor(public microsampleService: MicroOrderSampleService,public global: GlobalsService) { }
+  constructor(public microsampleService: MicroOrderSampleService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.language();
   }
   language(){
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
     }
   
       // Function Name : Grade Info Timeline

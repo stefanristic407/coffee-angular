@@ -12,10 +12,10 @@ import { GlobalsService } from 'src/services/globals.service';
 export class BookedOrderDetailsComponent implements OnInit {
   files: FileList;
   appLanguage?:any;
-  constructor(public bookedService: OrderBookedService,public global: GlobalsService) { }
+  constructor(public bookedService: OrderBookedService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
   }
   // Function Name : Upload receipt
   // Description: This function helps to upload receipt in order details tab of order booked .

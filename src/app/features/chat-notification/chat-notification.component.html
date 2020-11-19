@@ -31,12 +31,12 @@
                                 <span id="title-breadcrumb-1" class="sr-only"></span>
                                 <ul class="bread-nav">
                                     <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
                                     <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/account-settings">{{appLanguage?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                        <a class="b-cum" routerLink="/features/account-settings">{{globals.languageJson?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
-                                    <li class="b-cum c-pink">{{appLanguage?.preferences}}</li>
+                                    <li class="b-cum c-pink">{{globals.languageJson?.preferences}}</li>
                                 </ul>
                             </nav>
                         </div>
@@ -47,15 +47,15 @@
                         <div class="row mobile-view">
                             <span class="cursor-pointer" routerLink="/features/account-settings">
                     <img src="/assets/images/back-arrow1.png" alt="">
-                    <span class="back-ticket pl-3">{{appLanguage?.back}}</span>
+                    <span class="back-ticket pl-3">{{globals.languageJson?.back}}</span>
                             </span>
                         </div>
                     </div>
                 </section>
 
                 <section class="chat-notify">
-                    <h1 class="preferences fnt-play">{{appLanguage?.preferences}}</h1>
-                    <p class="custom-text">{{appLanguage?.preferences_text}}</p>
+                    <h1 class="preferences fnt-play">{{globals.languageJson?.preferences}}</h1>
+                    <p class="custom-text">{{globals.languageJson?.preferences_text}}</p>
 
                     <!-- <div class="float-right ml-auto save-padding">
             <button type="button" class="btn save-butn">SAVE CHANGES </button>
@@ -63,48 +63,48 @@
                     <div class="border-chat pb-5">
                         <div class="row">
                             <div class="col-lg-6 col-md-10 col-sm-12 col-xs-12">
-                                <h2 class="units-header">{{appLanguage?.measurement_units}}</h2>
+                                <h2 class="units-header">{{globals.languageJson?.measurement_units}}</h2>
                                 <div class="pt-4">
-                                    <span class="farm-size">{{appLanguage?.farm_size}}</span>
+                                    <span class="farm-size">{{globals.languageJson?.farm_size}}</span>
                                     <div class="chat-content">
-                                        <span class="hectares-data  text-left mr-auto">{{appLanguage?.hectares}}</span>
+                                        <span class="hectares-data  text-left mr-auto">{{globals.languageJson?.hectares}}</span>
                                         <span class="float-right ml-auto top-space"><input type="radio" name="farmSize" value="hectares" [(ngModel)]="farmSize"></span>
                                     </div>
                                     <div class="chat-content">
-                                        <span class="acres-data text-left mr-auto">{{appLanguage?.acres}}</span>
+                                        <span class="acres-data text-left mr-auto">{{globals.languageJson?.acres}}</span>
                                         <span class="float-right ml-auto top-space"><input type="radio" name="farmSize" value="acres" [(ngModel)]="farmSize"></span>
                                     </div>
                                 </div>
                                 <div class="pt-4 pb-2">
-                                    <span class="quantity-size">{{appLanguage?.quantity}}</span>
+                                    <span class="quantity-size">{{globals.languageJson?.quantity}}</span>
                                     <div class="chat-content">
-                                        <span class="pounds-data  text-left mr-auto">{{appLanguage?.pounds}} (lb)</span>
+                                        <span class="pounds-data  text-left mr-auto">{{globals.languageJson?.pounds}} (lb)</span>
                                         <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="lb" [(ngModel)]="quantity"></span>
                                     </div>
                                     <div class="chat-content">
-                                        <span class="kilograms-data text-left mr-auto">{{appLanguage?.kilograms}} (Kg)</span>
+                                        <span class="kilograms-data text-left mr-auto">{{globals.languageJson?.kilograms}} (Kg)</span>
                                         <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="kg" [(ngModel)]="quantity"></span>
                                     </div>
                                     <div class="chat-content">
-                                        <span class="kilograms-data text-left mr-auto">{{appLanguage?.tonnes}} (ton)</span>
+                                        <span class="kilograms-data text-left mr-auto">{{globals.languageJson?.tonnes}} (ton)</span>
                                         <span class="float-right ml-auto top-space"><input type="radio" name="quantity" value="ton" [(ngModel)]="quantity"></span>
                                     </div>
                                 </div>
-                                <h2 class="chat-header pt-4 pb-2">{{appLanguage?.chat}}</h2>
+                                <h2 class="chat-header pt-4 pb-2">{{globals.languageJson?.chat}}</h2>
                                 <div class="chat-content">
-                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.read_recipient}}</span>
+                                    <span class="receipt-data text-left mr-auto">{{globals.languageJson?.read_recipient}}</span>
                                     <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="receipt"></p-inputSwitch></span>
-                                    <div class="text-left mr-auto read-text pt-1">{{appLanguage?.see_read_text}}</div>
+                                    <div class="text-left mr-auto read-text pt-1">{{globals.languageJson?.see_read_text}}</div>
 
                                 </div>
                                 <div class="chat-content">
-                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.enable_emoticons}}</span>
+                                    <span class="receipt-data text-left mr-auto">{{globals.languageJson?.enable_emoticons}}</span>
                                     <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="keyboard"></p-inputSwitch></span>
-                                    <div class="text-left mr-auto read-text pt-1">{{appLanguage?.enable_emoticons_text}}</div>
+                                    <div class="text-left mr-auto read-text pt-1">{{globals.languageJson?.enable_emoticons_text}}</div>
 
                                 </div>
                                 <div class="chat-content">
-                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.chat_text_size}}</span>
+                                    <span class="receipt-data text-left mr-auto">{{globals.languageJson?.chat_text_size}}</span>
                                     <span>
                                 <a class="pointer-item float-right ml-auto" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
                                         <span class="d-inline filter float-right ml-auto normal-txt" *ngIf="termStatus != ''" (click)="toggleRelavant();">
@@ -114,38 +114,38 @@
                                     </span>
                                 </div>
 
-                                <h2 class="chat-header pt-4 pb-2">{{appLanguage?.notifications}}</h2>
+                                <h2 class="chat-header pt-4 pb-2">{{globals.languageJson?.notifications}}</h2>
                                 <div class="chat-content">
-                                    <span class="receipt-data text-left mr-auto">{{appLanguage?.enable_notifications}}</span>
+                                    <span class="receipt-data text-left mr-auto">{{globals.languageJson?.enable_notifications}}</span>
                                     <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="notify"></p-inputSwitch></span>
 
                                 </div>
                                 <div class="chat-content">
-                                    <!-- <span class="receipt-data text-left mr-auto">{{appLanguage?.order_related_updates}}</span>
+                                    <!-- <span class="receipt-data text-left mr-auto">{{globals.languageJson?.order_related_updates}}</span>
                                     <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="updates"></p-inputSwitch></span>
-                                    <div class="text-left mr-auto read-text pt-1 web-display">{{appLanguage?.order_related_subtext}}
+                                    <div class="text-left mr-auto read-text pt-1 web-display">{{globals.languageJson?.order_related_subtext}}
                                     </div>
-                                    <div class="text-left mr-auto read-text pt-1 mob-display">{{appLanguage?.order_related_subtext}}
+                                    <div class="text-left mr-auto read-text pt-1 mob-display">{{globals.languageJson?.order_related_subtext}}
                                     </div> -->
                                     <div class="chat-content">
-                                        <span class="receipt-data text-left mr-auto">{{appLanguage.order_related_updates}}</span>
+                                        <span class="receipt-data text-left mr-auto">{{globals.languageJson?.order_related_updates}}</span>
                                         <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="updates"></p-inputSwitch></span>
-                                        <div class="text-left mr-auto read-text pt-1 web-display">{{appLanguage.order_related_subtext}}
+                                        <div class="text-left mr-auto read-text pt-1 web-display">{{globals.languageJson?.order_related_subtext}}
                                         </div>
-                                        <div class="text-left mr-auto read-text pt-1 mob-display">{{appLanguage.order_related_subtext}}
+                                        <div class="text-left mr-auto read-text pt-1 mob-display">{{globals.languageJson?.order_related_subtext}}
                                         </div>
 
                                     </div>
                                     <div class="chat-content">
-                                        <span class="receipt-data text-left mr-auto">{{appLanguage?.new_chat}}</span>
+                                        <span class="receipt-data text-left mr-auto">{{globals.languageJson?.new_chat}}</span>
                                         <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="chat"></p-inputSwitch></span>
-                                        <div class="text-left mr-auto read-text pt-1">{{appLanguage?.push_notification_subtext}}</div>
+                                        <div class="text-left mr-auto read-text pt-1">{{globals.languageJson?.push_notification_subtext}}</div>
 
                                     </div>
                                     <div class="chat-content1">
-                                        <span class="receipt-data text-left mr-auto">{{appLanguage?.notification_sound}}</span>
+                                        <span class="receipt-data text-left mr-auto">{{globals.languageJson?.notification_sound}}</span>
                                         <span class="float-right ml-auto"><p-inputSwitch [(ngModel)]="sound"></p-inputSwitch></span>
-                                        <div class="text-left mr-auto read-text pt-1">{{appLanguage?.notification_sound_subtext}}</div>
+                                        <div class="text-left mr-auto read-text pt-1">{{globals.languageJson?.notification_sound_subtext}}</div>
 
                                     </div>
                                 </div>

@@ -4,6 +4,7 @@
     background-color: #ffffff;
     height: 40px;
     margin-right: 1rem;
+
 }
 
 .update_user {
@@ -11,6 +12,10 @@
     border-radius: 4px;
     background-color: #30855c;
     height: 40px;
+    padding: 0px 30px;
+    color: white;
+    font-family: Muli;
+    font-weight: bold;
 }
 
 .update_user:hover {
@@ -32,6 +37,10 @@
     font-weight: bold;
     color: #30855c;
     padding: 12px 11px;
+}
+
+.add-partner-mt {
+    margin-top: 2.2rem;
 }
 
 .edit_heading {
@@ -296,6 +305,7 @@ label {
 
 .add-partner {
     cursor: pointer;
+    padding-top: 1.4rem;
 }
 
 .add-partner span::after {

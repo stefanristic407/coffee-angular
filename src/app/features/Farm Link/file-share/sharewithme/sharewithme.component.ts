@@ -55,7 +55,7 @@ export class SharewithmeComponent implements OnInit {
     private toastrService : ToastrService,
     public fileService : FileShareService,
     public modalService:BsModalService,
-    private globals : GlobalsService) {
+    public globals : GlobalsService) {
       this.roasterId = this.cookieService.get('roaster_id');
 			// this.mainData = 
 			// 	[

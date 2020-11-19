@@ -10,7 +10,7 @@ import { GlobalsService } from 'src/services/globals.service';
 export class VirtualTourComponent implements OnInit {
   appLanguage?: any;
 
-  constructor(public roasteryProfileService : RoasteryProfileService,private globals: GlobalsService) { }
+  constructor(public roasteryProfileService : RoasteryProfileService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;

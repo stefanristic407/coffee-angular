@@ -51,7 +51,7 @@ export class OrdersComponent implements OnInit {
 	
 	constructor(public router: Router,
 		public cookieService: CookieService,
-		public dashboard: DashboardserviceService,public global: GlobalsService) {
+		public dashboard: DashboardserviceService,public globals: GlobalsService) {
 			this.data = {};
 			this.data = 
 				[{ 
@@ -91,7 +91,7 @@ export class OrdersComponent implements OnInit {
 			if (this.cookieService.get("Auth") == "") {
 				this.router.navigate(["/auth/login"]);
 			}
-			this.appLanguage = this.global.languageJson;
+			this.appLanguage = this.globals.languageJson;
 			this.dtOptions = {
 				//ajax: this.data,
 				data: this.data,
@@ -108,44 +108,44 @@ export class OrdersComponent implements OnInit {
 						defaultContent:'<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>' , 
 					},
 					{
-						title: this.appLanguage.order_id,
+						title: this.globals.languageJson.order_id,
 						data: 'id'
 					}, {
-						title: this.appLanguage.estate_name,
+						title: this.globals.languageJson.estate_name,
 						data: 'estatename'
 					}, {
-						title: this.appLanguage.date_ordered,
+						title: this.globals.languageJson.date_ordered,
 						data: 'dataordered'
 					},
 					{
-						title: this.appLanguage.origin,
+						title: this.globals.languageJson.origin,
 						data: 'origin',
 						
 					}, 
 					{
-						title: this.appLanguage.species,
+						title: this.globals.languageJson.species,
 						data: 'species',
 						
 					}, 
 					{
-						title: this.appLanguage.price,
+						title: this.globals.languageJson.price,
 						data: 'price'
 					},
 					{
-						title: this.appLanguage.quantity,
+						title: this.globals.languageJson.quantity,
 						data: 'quantity'
 					}, {
-						title: this.appLanguage.order_type,
+						title: this.globals.languageJson.order_type,
 						data: 'typeoforder',
 						className: 'typeoforderclass'
 					}, {
-						title: this.appLanguage.status,
+						title: this.globals.languageJson.status,
 						data: 'status',
 						className: 'status-es'
 					},
 					
 					{
-						title: this.appLanguage.action,
+						title: this.globals.languageJson.action,
 						defaultContent: "View order",
 						className: "view-order"
 					}

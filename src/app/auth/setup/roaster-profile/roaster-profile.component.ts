@@ -26,7 +26,7 @@ export class RoasterProfileComponent implements OnInit, AfterViewInit {
   transform: ImageTransform = {};
   appLanguage?: any;
 
-  constructor(public roasterService: RoasterProfileService,    private globals: GlobalsService
+  constructor(public roasterService: RoasterProfileService,    public globals: GlobalsService
     ) {}
 
   ngOnInit(): void {

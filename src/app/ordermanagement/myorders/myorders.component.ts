@@ -14,7 +14,7 @@ export class MyordersComponent implements OnInit {
 
 
   constructor(public router:Router,
-              public cookieService:CookieService,public global: GlobalsService) { }
+              public cookieService:CookieService,public globals: GlobalsService) { }
 
   ngOnInit(): void {
  //Auth checking
@@ -26,7 +26,7 @@ this.language();
 
   }
   language(){
-    this.appLanguage = this.global.languageJson;
+    this.appLanguage = this.globals.languageJson;
        this.myOrdersActive++;
     }
 

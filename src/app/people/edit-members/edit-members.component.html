@@ -13,107 +13,122 @@
             <span id="title-breadcrumb-1" class="sr-only"></span>
             <ul class="bread-nav">
                 <li class="b-cum">
-                    <a class="b-cum" routerLink="/features/welcome-aboard">{{appLanguage?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                    <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
                 </li>
                 <li class="b-cum">
-                    <a class="b-cum">{{appLanguage?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                    <a class="b-cum">{{globals.languageJson?.people}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
                 </li>
 
-                <li class="b-cum c-pink">{{appLanguage?.user_management}}
+                <li class="b-cum c-pink">{{globals.languageJson?.user_management}}
                 </li>
                 <div class="col-lg-6 pull-right web_edit p-0">
-                    <button type="submit" *ngIf="savemode" class="btn pull-right update_user" (click)="saveMember()"><span class="update_text">{{appLanguage?.save}}</span></button>
-                    <button type="submit" *ngIf="editmode" class="btn pull-right update_user" (click)="editMember()"><span class="update_text">{{appLanguage?.edit}}</span></button>
+                    <button type="submit" *ngIf="savemode" class="btn pull-right update_user" (click)="saveMember()" [disabled]="saveButtonValue==='Saving'">
+                        {{saveButtonValue}}<img class="loader" *ngIf="saveButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
+                    <button type="submit" *ngIf="editmode" class="btn pull-right update_user" (click)="editMember()"><span class="update_text">{{globals.languageJson?.edit}}</span></button>
 
                     <button type="submit" class="btn pull-right cancel_user" routerLink="/people/user-management">
-                <span class="cancel_text">{{appLanguage?.cancel}}</span>
+                <span class="cancel_text">{{globals.languageJson?.cancel}}</span>
                 </button>
                 </div>
             </ul>
         </nav>
     </div>
 
-<section class="edit__spacing">
-    <div class="col-lg-12 col-sm-12">
-        <div class="row">
-            <div class="col-lg-8 pl-md-0" p-0>
-                <div class="edit__total">
-                    <div class="row">
-                        <h4 class="edit_heading col-lg-6">{{appLanguage?.edit}}</h4>
-                        <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()" [attr.disabled]="editmode? true : null" >
-                            <div class="btn btn-group__item" [ngClass] = "btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus" >Active</div>
-                            <div class="btn btn-group__item" [ngClass] = "!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus" >Disable</div>
+    <section class="edit__spacing">
+        <div class="col-lg-12 col-sm-12">
+            <div class="row">
+                <div class="col-lg-8 pl-md-0" p-0>
+                    <div class="edit__total">
+                        <div class="row">
+                            <h4 class="edit_heading col-lg-6">{{globals.languageJson?.edit}}</h4>
+                            <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()" [ngClass]="editmode ? {disabledDiv: activeFlag} : ''">
+                                <div class="btn btn-group__item" [ngClass]="btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Active</div>
+                                <div class="btn btn-group__item" [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Disable</div>
+                            </div>
                         </div>
-                    </div>
-                    <p class="account_activation">{{appLanguage?.account_activated}} <span class="activation__bold">{{created_at | date: 'd MMM , y, h:mm a'}}</span></p>
-                    <form class="form-container Onboard-rows">
-                        <div class="Onboard-rows__inputs">
-                            <div class="row">
-                                <div class="form-group col-md-6 mt-md-3">
-                                    <label for="member_name">{{appLanguage?.name}}</label>
-                                    <input *ngIf="savemode"  class="form-control rectangle_username" id="member_name"  placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
-                                    <input  *ngIf="editmode" class="form-control rectangle_username" [ngClass]="{disabledDiv: activeFlag}" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
-
-                                    <!-- <div class="addressError" *ngIf="addressError != ''">
-                                    {{ addressError }}
-                                </div> -->
-                                    </div>
-                                    <div class="form-group col-md-6 mt-md-3">
-                                        <label for="member_email">{{appLanguage?.enter_yoru_work_email}}<span class="star">*</span></label>
-                                        <input *ngIf="savemode" class="form-control rectangle_useremail" type="email" id="member_email" placeholder="you@example.com" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email" />
-                                        <input *ngIf="editmode" class="form-control rectangle_useremail" type="email" [ngClass]="{disabledDiv: activeFlag}" id="member_email" placeholder="you@example.com" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email" />
-                                    </div>
-                                </div>
+                        <p class="account_activation">{{globals.languageJson?.account_activated}} <span class="activation__bold">{{created_at | date: 'd MMM , y, h:mm a'}}</span></p>
+                        <form class="form-container Onboard-rows">
+                            <div class="Onboard-rows__inputs">
                                 <div class="row">
-                                    <div class="form-group col-md-6 mt-md-3 mb-0">
-                                        <label for="member_role">{{appLanguage?.roles}}<span class="star">*</span></label>
-                                        <input *ngIf="savemode" class="form-control rectangle_username" type="text" id="member_role" (keyup)="onKeyPress($event)" [(ngModel)]="member_role" name="status" />
-                                        <input *ngIf="editmode" class="form-control rectangle_username" type="text" id="member_role" [ngClass]="{disabledDiv: activeFlag}" (keyup)="onKeyPress($event)" [(ngModel)]="member_role" name="status" />
+                                    <div class="form-group col-md-6 mt-md-3">
+                                        <label for="member_name">{{globals.languageJson?.name}}</label>
+                                        <input *ngIf="savemode" class="form-control rectangle_username" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
+                                        <input *ngIf="editmode" class="form-control rectangle_username" [ngClass]="{disabledDiv: activeFlag}" id="member_name" placeholder="Enter your Full Name" (keyup)="onKeyPress($event)" [(ngModel)]="member_name" name="member_name" type="text" />
 
-                                        <div class="new-row position-relative">
-                                            <div class="row mt-3">
-                                                <div class="col-12 d-inline">
-                                                    <select id="member_role" class="form-control rectangle_editdropdowns" name="status">
-                                                        <option value="" selected disabled>Select role</option>
-                                                        <option *ngFor="let roles of assignedRoles" value="{{roles.id}}">{{roles.name}}</option>
-                                                       
-                                                    </select>
-                                                </div>
-                                                <button type="submit" class="btn assign_member_role d-inline">Assign</button>
-                                            </div>
-                                        </div>
                                         <!-- <div class="addressError" *ngIf="addressError != ''">
                                     {{ addressError }}
                                 </div> -->
                                     </div>
+                                    <div class="form-group col-md-6 mt-md-3">
+                                        <label for="member_email">{{globals.languageJson?.enter_yoru_work_email}}<span class="star">*</span></label>
+                                        <input *ngIf="savemode" class="form-control rectangle_useremail" type="email" id="member_email" placeholder="you@example.com" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email" />
+                                        <input *ngIf="editmode" class="form-control rectangle_useremail" type="email" [ngClass]="{disabledDiv: activeFlag}" id="member_email" placeholder="you@example.com" (keyup)="onKeyPress($event)" [(ngModel)]="member_email" name="member_email" />
+                                    </div>
+                                </div>
+                                
+                                <label for="member_role">{{globals.languageJson?.roles}}<span class="star">*</span></label>
+
+                                <div class="row" *ngFor="let role of roles">
+                                    <div class="form-group col-md-6 mt-md-3 mb-0">
+                                        <input *ngIf="savemode" class="form-control rectangle_username" type="text"  (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}" />
+                                        <input *ngIf="editmode" class="form-control rectangle_username" type="text" [ngClass]="{disabledDiv: activeFlag}" (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}"/>
+                                    </div>
+                                    <div class="add-partner mt-3 col-md-6" *ngIf="showDelete">
+                                        <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="removeRole(role.id)">Remove role</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="add-partner align-items-center mt-3">
-                                <!-- <img src="assets/images/add-partner.svg"> -->
-                                <span class="ml-2 fnt-muli fnt-700 fnt-14">+ {{appLanguage?.assign_role}}</span>
+                            <div class="row mt-3"  *ngIf="assignRow">
+                                <div class="col-12 col-md-6">
+                                    <select id="selected_role" class="form-control rectangle_editdropdowns" [(ngModel)]="selected_role" name="status">
+                                        <option value="" selected disabled>Select role</option>
+                                        <option *ngFor="let roles of RoasterRoles" value="{{roles.id}}">{{roles.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <button type="submit" class="assign_member_role save" (click)="AssignRole();"  [disabled]="assignButtonValue==='Assigning'">
+                                        {{assignButtonValue}}<img class="loader" *ngIf="assignButtonValue==='Assigning'" src="assets/images/orange-loader.gif"/></button>
+                                </div>
                             </div>
+
+                            <div class="add-partner align-items-center mt-3" *ngIf="addBtn && savemode">
+                                <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="showAssignRole();">+ {{globals.languageJson?.assign_role}}</span>
+                            </div>
+
+                          
+<!-- 
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-6">
+                                    <input class="form-control rectangle_username" id="member_name" placeholder="Enter your Full Name" name="member_name" type="text" />
+                                </div>
+                                <div class="add-partner mt-3 col-md-6">
+                                    <span class="ml-2 fnt-muli fnt-700 fnt-14">delete</span>
+                                </div>
+                            </div> -->
+
                         </form>
                     </div>
                 </div>
-            
-            <div class="col-lg-4 pr-md-0 p-0">
-                <div class="recovery_account h-100">
-                    <p class="recovery_email mb-1">{{appLanguage?.recovery_email}}</p>
-                    <span class="email_text">{{appLanguage?.recovery_link_desription}}. </span>
-                    <div>
-                        <button type="button" class="btn send_email web_edit mt-4"  (click)="sendMail()" [disabled]="resetButtonValue==='Sending'">
+
+                <div class="col-lg-4 pr-md-0 p-0">
+                    <div class="recovery_account h-100"  [ngClass]="editmode ? {disabledDiv: activeFlag} : ''">
+                        <p class="recovery_email mb-1">{{globals.languageJson?.recovery_email}}</p>
+                        <span class="email_text">{{globals.languageJson?.recovery_link_desription}}. </span>
+                        <div>
+                            <button type="button" class="btn send_email web_edit mt-4" (click)="sendMail()" [disabled]="resetButtonValue==='Sending'">
                             {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Sending'" src="assets/images/orange-loader.gif"/></button>
-                    </div>
-                    <div class="form-group row m-0 pt-3 mob_edit">
-                        <div class="text-center w-100">
-                            <button type="button" class="btn btn-info login-butn w-100" (click)="sendMail()" [disabled]="resetButtonValue==='Sending'">
+                        </div>
+                        <div class="form-group row m-0 pt-3 mob_edit">
+                            <div class="text-center w-100">
+                                <button type="button" class="btn btn-info login-butn w-100" (click)="sendMail()" [disabled]="resetButtonValue==='Sending'">
                                 {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Sending'" src="assets/images/orange-loader.gif"/></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
     </section>
 </div>
 

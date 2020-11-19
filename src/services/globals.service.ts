@@ -7,7 +7,7 @@ import { UserserviceService } from './users/userservice.service';
   providedIn: 'root'
 })
 export class GlobalsService {
-  	public languageJson = {};
+  	public languageJson : any;
   	public slug_list: any;
 	public permissions:any={};
 	roaster_id: string;
