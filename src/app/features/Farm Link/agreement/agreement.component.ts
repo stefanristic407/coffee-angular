@@ -79,6 +79,7 @@ export class AgreementComponent implements OnInit {
 
 	resetButtonValue: string = "Upload Agreement";
 	updateValue: any = "Update";
+	newList: any =[];
   constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
@@ -146,6 +147,12 @@ export class AgreementComponent implements OnInit {
 			res => {
 				if(res['success'] == true){
 					this.horecaList = res['result'];
+					this.horecaList.forEach(element => {
+						if(element.id > 0){
+							this.newList.push(element);
+						}
+						
+					});
 				}
 				else{
 					this.toastrService.error("Error while getting HoReCa list");

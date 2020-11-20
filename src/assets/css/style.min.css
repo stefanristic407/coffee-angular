@@ -23272,3 +23272,7 @@ li.select-list__item {
 .rectangle_editdropdowns {
     height: 50px !important;
 }
+.p-photo img {
+    height: 46px;
+    width: 50px;
+}

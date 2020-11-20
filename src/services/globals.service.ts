@@ -83,4 +83,28 @@ export class GlobalsService {
 			}
 		});
 	}
+
+	countTheString(value : any, count : any){
+		let stringData = value;
+		stringData = stringData.replace(/(^\s*)|(\s*$)/gi,"");
+		stringData = stringData.replace(/[ ]{2,}/gi," ");
+		stringData = stringData.replace(/\n /,"\n");
+		if(stringData == ""){
+		  return 0;
+		}else{
+		  const outputLength = stringData.split(' ').length;
+		  if(outputLength > count){
+			value = stringData.split(' ').splice(outputLength - 1,1).join(" ");
+			return outputLength - 1;
+		  }
+		  return outputLength;
+		  
+		}
+		
+	  }
+	
+	  getTheMaxLength(value : any , countValue : any){
+		const getLength = this.countTheString(value,countValue);
+		return getLength == countValue ? value.length : "";
+	  }
 }

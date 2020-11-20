@@ -29,7 +29,7 @@
                         <p class="fnt-14 fnt-600 fnt-muli text-clr588">Add details according to respective sections to create your brand profile website </p>
                     </div>
                     <div class="col-md-6 col-12 web-farm">
-                        <button type="button" class="save ml-3 pull-right">Save </button>
+                        <button type="button" class="save ml-3 pull-right" (click)="saveAboutProfile()">Save </button>
                         <button type="button" class="preview">Preview </button>
                     </div>
                 </div>
@@ -42,12 +42,13 @@
                             <p class="fnt-14 fnt-600 fnt-muli text-clr588">Size - 1440 x 423 px</p>
 
                             <label class="mt-3">
-                                <input type="file" class="file-inpt">
+                                <input type="file" class="file-inpt" accept="video/*,image/*" (change)="onFileChange($event, 1440, 423, 'Banner')">
                                 <span class="save"> Upload </span>
                             </label>
+                            <span class="pl-3 sub-header-text fnt-muli">{{banner_image_name}}</span>
 
-                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Banner Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/10 words</span></label>
-                            <input type="text" class="form-control banner-title" name="banner-title" id="banner-title">
+                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Banner Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(banner_title,10)}}/10 words</span></label>
+                            <input type="text" class="form-control banner-title" name="banner-title" id="banner-title" [(ngModel)]="banner_title" maxlength="{{globals.getTheMaxLength(banner_title,10)}}">
                         </div>
 
 
@@ -55,20 +56,20 @@
                             <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Intro </h4>
                             <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Give yourself a small intro!</p>
 
-                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/10 words</span></label>
-                            <input type="text" class="form-control banner-title" name="title" id="title">
+                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(intro_title,10)}}/10 words</span></label>
+                            <input type="text" class="form-control banner-title" name="title" id="title" [(ngModel)]="intro_title" maxlength="{{globals.getTheMaxLength(intro_title,10)}}">
 
-                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">A short description<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/10 words</span></label>
-                            <textarea id="description" class="form-control" rows="5" cols="50"> </textarea>
+                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">A short description<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(intro_short_description,10)}}/10 words</span></label>
+                            <textarea id="description" class="form-control" rows="5" cols="50" [(ngModel)]="intro_short_description" maxlength="{{globals.getTheMaxLength(intro_short_description,10)}}"> </textarea>
 
                             <p class="fnt-14 fnt-600 fnt-muli txt-clr334 mt-3 mb-0">Upload 2 Images / Videos*<span class="star">*</span></p>
                             <p class="fnt-14 fnt-600 fnt-muli text-clr588">Size - 495 x 536 px</p>
 
                             <label class="mt-3">
-                                <input type="file" class="file-inpt">
+                                <input type="file" class="file-inpt" accept="video/*,image/*" multiple (change)="onFileChange($event, 495, 536, 'Intro')">
                                 <span class="save"> Upload </span>
                             </label>
-
+                            <span class="pl-3 sub-header-text fnt-muli">{{intro_image_name_1}}, {{intro_image_name_2}}</span>
                         </div>
 
 
@@ -76,19 +77,20 @@
                             <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Who we are </h4>
                             <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Your customers can personalise their coffee from this section.</p>
 
-                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/10 words</span></label>
-                            <input type="text" class="form-control banner-title" name="title" id="title">
+                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(title,10)}}/10 words</span></label>
+                            <input type="text" class="form-control banner-title" name="title" id="title" [(ngModel)]="title" maxlength="{{globals.getTheMaxLength(title,10)}}">
 
-                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">A short description<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/150 words</span></label>
-                            <textarea id="description" class="form-control" rows="5" cols="50"> </textarea>
+                            <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">A short description<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(short_description,150)}}/150 words</span></label>
+                            <textarea id="description" class="form-control" rows="5" cols="50" [(ngModel)]="short_description" maxlength="{{globals.getTheMaxLength(short_description,150)}}"> </textarea>
 
                             <p class="fnt-14 fnt-600 fnt-muli txt-clr334 mt-3 mb-0">Upload your pitch Image/ Video*<span class="star">*</span></p>
                             <p class="fnt-14 fnt-600 fnt-muli text-clr588">Size - 600 x 543 px</p>
 
                             <label class="mt-3">
-                                <input type="file" class="file-inpt">
+                                <input type="file" class="file-inpt" accept="video/*,image/*" (change)="onFileChange($event, 600, 543, 'File')">
                                 <span class="save"> Upload </span>
                             </label>
+                            <span class="pl-3 sub-header-text fnt-muli">{{file_image_name}}</span>
 
                         </div>
 
@@ -129,11 +131,70 @@
                             </div>
 
                         </div>
+
+                        <!-- accordion-->
+                        <div class="border mt-3 p-4">
+                            <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Your team members</h4>
+                            <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Select your emplyees to display on your website page.</p>
+
+
+                            <div class="visit-us-accordion-content  position-relative col-md-10 col-12">
+                                <div class="row ">
+
+                                    <div class="accordion  mb-3" id="accordionExample">
+                                        <div class="card">
+                                            <div class="card-head" id="headingOne">
+                                                <h2 class="mb-0 question" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    What happens if i change my mind after placing an order?
+                                                </h2>
+                                            </div>
+
+                                            <div id="collapseOne" class="collapse sourcing-collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                    <div class="roastery-fields">
+                                                        <div class="farm-input col-12 px-0">
+                                                            <label class="label"></label>
+                                                            <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-head" id="headingTwo">
+                                                <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    How much will the shipping and haulage cost?
+                                                </h2>
+                                            </div>
+
+                                            <div id="collapseTwo" class="collapse sourcing-collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                    <div class="roastery-fields">
+                                                        <div class="farm-input col-12 px-0">
+                                                            <label class="label"></label>
+                                                            <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr class="dashed my-4">
+
+                                <div class="add-partner d-inline-flex align-items-center">
+                                    <img src="assets/images/add-partner.svg">
+                                    <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer"> Add new question  </span>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="py-4 ">
-                    <button class="cancel pull-left mr-auto fnt-muli" type="button">Cancel</button>
+                    <button class="cancel pull-left mr-auto fnt-muli" type="button" routerLink="/features/brand-profile">Cancel</button>
                 </div>
 
             </section>

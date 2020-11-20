@@ -4,6 +4,7 @@ import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '
 import { Lightbox } from 'ng-gallery/lightbox';
 import { map } from 'rxjs/operators';
 import {GlobalsService} from 'src/services/globals.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-available-coffee-list',
@@ -200,7 +201,12 @@ export class AvailableCoffeeListComponent implements OnInit {
   
     // line chart
     autoScale = true;
-  constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox,public globals: GlobalsService) { }
+  constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox,public globals: GlobalsService,private route : ActivatedRoute,public sourcing:SourcingService) {
+	this.route.queryParams.subscribe(params => {
+		this.sourcing.harvestData = params['harvestData'];
+		this.sourcing.availableDetailList();
+	  });
+   }
 
   ngOnInit(): void {
 	this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));

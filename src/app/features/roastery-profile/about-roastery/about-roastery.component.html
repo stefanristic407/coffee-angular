@@ -116,16 +116,59 @@
                                   </div>
                                   
                           </div>
-                          <hr class="d-none d-md-block"  *ngIf="roasteryProfileService.savemode">
-                          <div class="row p-3 mt-md-5 mp-3">
+
+<!-- company details -->
+
+
+                            <hr class="d-none d-lg-block">
+                            <div class="row mt-md-5 p-3">
+                                <div class="col-md-8" > 
+                                    <p class="sub-header">Company details</p>
+                                    <p class="header-descr">Enter your VAT and customer ID for billing purposes</p>
+                                </div>
+                                <div class="float-right ml-auto"  *ngIf="roasteryProfileService.savemode">
+                                    <p class="header-descr pl-3">Private</p>
+                                    <p class="pl-3"><p-inputSwitch [(ngModel)]="roasteryProfileService.company_details_public"></p-inputSwitch></p>
+                                </div>
+                               
+                            </div>
+                            <div class="row mb-md-3">
+                                <div class="form-group col-md-6">
+                                    <label for="vat_nos">VAT number<span class="star">*</span></label>
+                                    <input class="form-control employee_nos rectangle" *ngIf="roasteryProfileService.savemode" id="vat_nos" type="text" (keyup)="onKeyPress($event)" name="vat_nos" [(ngModel)]="roasteryProfileService.vat_nos" placeholder="Please VAT Number" />
+                                    <!-- <label *ngIf="roasteryProfileService.editmode" for="vat_nos" class="mob-view">VAT number<span class="star">*</span></label> -->
+                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.vat_nos}}</p>
+                                    <div class="vatNoError" *ngIf="vatNoError != ''">
+                                        {{ vatNoError }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    <label for="cmpy_rid">Company registration ID<span class="star">*</span></label>
+                                    <input class="form-control rectangle employee_avg" *ngIf="roasteryProfileService.savemode" id="cmpy_rid" type="text" (keyup)="onKeyPress($event)" name="cmpy_rid" [(ngModel)]="roasteryProfileService.cmpy_rid" placeholder="Please enter employee avg. age"
+                                    />
+                                    <!-- <label *ngIf="roasteryProfileService.editmode" for="cmpy_rid" class="mob-view">Company registration ID<span class="star">*</span></label> -->
+                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.cmpy_rid}}</p>
+                                    <div class="cmpyRidError" *ngIf="cmpyRidError != ''">
+                                        {{ cmpyRidError }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <hr class="d-none d-md-block" *ngIf="roasteryProfileService.savemode">
+                            <div class="row p-3 mt-md-5 mp-3">
                                 <p class="sub-header">{{globals.languageJson?.roastery_capabilities}}</p>
                                 <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{globals.languageJson?.tell_us_capability_text}}.</p>
                                 <p class="header-descr" *ngIf="roasteryProfileService.editmode">{{globals.languageJson?.our_roastery_capabilities_storage}}.</p>
-                          </div>
+                            </div>
 
-                          <div class="row"  *ngIf="roasteryProfileService.savemode">
+                            <div class="row" *ngIf="roasteryProfileService.savemode">
                                 <div class="form-group col-md-4 col-6">
-                                  <label for="capacity">{{globals.languageJson?.roaster_capacity}}<span class="star">*</span></label>
+                                    <label for="capacity">{{globals.languageJson?.roaster_capacity}}<span class="star">*</span></label>
                                     <input class="form-control capacity rectangle" id="capacity" type="number" (keyup)="onKeyPress($event)" name="capacity" [(ngModel)]="roasteryProfileService.capacity" placeholder="Enter capacity" />
                                     <div class="capacityError" *ngIf="capacityError != ''">
                                         {{ capacityError }}
@@ -134,11 +177,9 @@
                                 <div class="form-group col-md-2 pl-0 col-6">
                                     <label for="kgs">&nbsp;</label>
                                     <select class="form-control kgs rectangle role_edit" id="kgs" name="kgs" [(ngModel)]="roasteryProfileService.kgs"> 
-                                           <option selected disabled value="">Kilograms</option>
-                                           <option value="Tons">Tons</option>
-                                           <option value="Kgs">Kgs</option>
-                                           <option value="Grams">Grams</option>
-                                    
+                                           <option selected disabled value="">Unit</option>
+                                           <option value="kg">kg</option>
+                                           <option value="lb">lb</option>
 
                                        </select>
                                     <div class="kilogramsError" *ngIf="kilogramsError != ''">
@@ -420,7 +461,7 @@
                     </div>
                 </div>
                 <!-- (this.globals.permissions['certificate-list'].view || this.globals.permissions['certificate-list'].manage)  *ngIf="this.globals.checkItem('settings-management')"-->
-                <div class=" col-lg-4"> 
+                <div class=" col-lg-4">
                     <div class="border-class mdevice-border" *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')">
                         <div class="header m-1">{{globals.languageJson?.awards_and_certificates}}</div>
                         <div class="row mt-3 border-div certificate-hover" *ngFor="let certificate of certificatesArray">

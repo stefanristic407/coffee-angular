@@ -29,7 +29,7 @@
 
                                 <div class="farm-input">
                                     <label class="label p-0">Roast batch name*</label>
-                                    <input type="text" placeholder="">
+                                    <input type="text" placeholder="" [(ngModel)]="roast_batch_name" [ngModelOptions]="{standalone : true}">
                                 </div>
                             </div>
 
@@ -92,10 +92,10 @@
                                 <div class="farm-input">
                                     <label class="label p-0">Quantity after roasted*</label>
                                     <div class="input-group">
-                                        <input type="text" placeholder="Enter quantity" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                        <input type="text" placeholder="Enter quantity" class="form-control input-group-right-border" aria-label="Text input with dropdown button" [(ngModel)]="quantity" [ngModelOptions]="{standalone : true}">
                                         <div class="input-group-append">
                                             <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
-                                            <select name="type" required="" class="form-control select-region select-form-group-dropdown select-region-local">
+                                            <select name="type" required="" class="form-control select-region select-form-group-dropdown select-region-local" [(ngModel)]="quantity_unit" [ngModelOptions]="{standalone : true}">
                                     <option value="kg">Kg</option>
                                     <option value="lb" >lb</option>
                                 </select>
@@ -107,7 +107,7 @@
                         </div>
 
                     </div>
-                    <div class="col-md-4 ">
+                    <div class="col-md-4 " *ngIf="showDetails">
                         <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{globals.languageJson?.order_details}} </p>
 
                         <div class=" order-details-clr">
@@ -187,21 +187,21 @@
 
                         <div class="farm-input">
                             <label class="label p-0">Aroma*</label>
-                            <input type="text" placeholder="Please select">
+                            <input type="text" placeholder="Please enter" [(ngModel)]="aroma" [ngModelOptions]="{standalone : true}">
                         </div>
                     </div>
                     <div class="col-12 col-md-3 float-md-left">
 
                         <div class="farm-input">
                             <label class="label p-0">Acidity*</label>
-                            <input type="text" placeholder="Please select">
+                            <input type="text" placeholder="Please enter" [(ngModel)]="acidity" [ngModelOptions]="{standalone : true}">
                         </div>
                     </div>
                     <div class="col-12 col-md-3 float-md-left">
 
                         <div class="farm-input">
                             <label class="label p-0">Processing*</label>
-                            <input type="text" placeholder="Please select">
+                            <input type="text" placeholder="Please enter" [(ngModel)]="processing" [ngModelOptions]="{standalone : true}">
                         </div>
                     </div>
 
@@ -213,7 +213,7 @@
 
                         <div class="farm-input">
                             <label class="label p-0">Body*</label>
-                            <input type="text" placeholder="Please select">
+                            <input type="text" placeholder="Please enter" [(ngModel)]="body" [ngModelOptions]="{standalone : true}">
                         </div>
                     </div>
 
@@ -221,7 +221,7 @@
 
                         <div class="farm-input">
                             <label class="label p-0">Flavour*</label>
-                            <input type="text" placeholder="Please select">
+                            <input type="text" placeholder="Please enter" [(ngModel)]="flavour" [ngModelOptions]="{standalone : true}">
                         </div>
                     </div>
 
@@ -248,7 +248,7 @@
 
                         <div class="farm-input">
                             <label class="label p-0"> Roaster Notes*</label>
-                            <textarea type="text" rows="4" cols="50"></textarea>
+                            <textarea type="text" rows="4" cols="50" [(ngModel)]="notes" [ngModelOptions]="{standalone: true}"></textarea>
                         </div>
                     </div>
                 </div>
@@ -266,11 +266,11 @@
 
 <ng-template #cuppingTemplate>
     <div>
-        <ul class="list-group custom-popover">
+        <ul class="list-group custom-popover flavour_popover" >
             <!-- <li class="list-group-item item-color" (click)="setCupping(''); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">All</a></li> -->
-            <li class="list-group-item item-color" (click)="setCupping('Non-Blinded Cupping'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Mild roast-467</a></li>
-            <li class="list-group-item item-color" (click)="setCupping('Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Light - medium 940</a></li>
-            <li class="list-group-item item-color" (click)="setCupping('Double-Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Light - medium 679</a></li>
+            <li class="list-group-item item-color" *ngFor="let profile of roastingProfile"  (click)="setCupping(profile.id); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">{{profile.roast_profile_name}}</a></li>
+            <!-- <li class="list-group-item item-color" (click)="setCupping('Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Light - medium 940</a></li>
+            <li class="list-group-item item-color" (click)="setCupping('Double-Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Light - medium 679</a></li> -->
         </ul>
     </div>
 </ng-template>
@@ -278,19 +278,19 @@
 
 <ng-template #allTemplate>
     <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="addLang('Plum');pop2.hide()">Plum</a
+        <ul class="list-group custom-popover" >
+            <li *ngFor="let flavours of roasterFlavourProfile" class="list-group-item item-color">
+                <a class="pointer-item" (click)="addLang(flavours.id);pop2.hide()">{{flavours.name}}</a
           >
         </li>
-        <li class="list-group-item item-color">
+        <!--<li class="list-group-item item-color">
           <a
             class="pointer-item"
             (click)="addLang('Pineapple');pop2.hide()"
             >Pineapple</a
           >
         </li>
-        <li class="list-group-item item-color">
+         <li class="list-group-item item-color">
           <a
             class="pointer-item"
             (click)=" addLang('Apple');pop2.hide()"
@@ -324,7 +324,7 @@
               (click)=" addLang('Grape');pop2.hide()"
               >Grape</a
             >
-          </li>
+          </li> -->
       </ul>
     </div>
   </ng-template>

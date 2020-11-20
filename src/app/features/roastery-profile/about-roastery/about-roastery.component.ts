@@ -41,6 +41,8 @@ export class AboutRoasteryComponent implements OnInit {
   brandNameError : string;
   brandLogoError : string;
   shortDescError : string;
+  vatNoError :string;
+  cmpyRidError :string;
   // empTitleError : string;
   empNameError : string;
   roasterId: any;

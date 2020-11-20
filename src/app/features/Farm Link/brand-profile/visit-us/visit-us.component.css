@@ -104,3 +104,111 @@
     border-top: 2px dashed #d6d6d6;
     padding: 5px 0px;
 }
+
+
+/* Accordian css */
+
+.accordion .card {
+    border: none;
+    margin-bottom: 20px;
+}
+
+.accordion .card-body {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sourcing {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Muli;
+    color: #333333;
+    margin-top: 3px;
+    margin-left: 5px
+}
+
+.content {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.71;
+    color: #232334;
+    padding-right: 3rem;
+}
+
+@media (min-width: 992px) {
+    .content {
+        padding-right: 7rem;
+    }
+}
+
+.question {
+    font-family: Muli;
+    font-size: 22px;
+    font-weight: 600;
+    color: #232334;
+    ;
+}
+
+.card {
+    border: none;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #ebebeb !important;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.card-body {
+    padding-bottom: 0;
+}
+
+.card:last-child {
+    border-bottom: none!important;
+}
+
+.help-div {
+    border-radius: 0px;
+    background-color: #faf8f4;
+    height: 82px;
+}
+
+@media all and (max-width: 425px) {
+    .content {
+        padding-right: 5% !important;
+    }
+    .card {
+        border: none;
+        margin-bottom: 0 !important;
+        border-bottom: 1px solid #ebebeb !important;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+    .content {
+        font-size: 12px;
+    }
+}
+
+.accordion .card h2.collapsed {
+    background-image: url(/assets/images/arrow-down.svg);
+    background-position: right;
+}
+
+.accordion .card h2 {
+    background: url(/assets/images/arrow-up.svg) no-repeat calc(0% - -15px) center;
+    padding-right: 3rem;
+    background-size: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    background-position: right;
+}
+
+@media all and (max-width: 425px) {
+    .accordion .card h2 {
+        background: url(/assets/images/arrow-up.svg) no-repeat calc(94% - -15px) center;
+        /* padding-left: .5rem; */
+        background-size: 15px;
+        cursor: pointer;
+        font-size: 14px;
+        padding-right: 2rem;
+    }
+}

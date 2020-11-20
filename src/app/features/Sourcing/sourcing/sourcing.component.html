@@ -399,7 +399,7 @@
                                                 <div class="d-md-block d-none">
                                                     <div class="cardpanel-detail">
                                                         <div class="row">
-                                                            <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
+                                                            <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList(item)">
                                                                 <div class="source-card card-border green-coffee-product">
                                                                     <div class="s-gal">
                                                                         <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
@@ -473,7 +473,7 @@
                                                     <div class="pagination-content d-block">
                                                         <div class="cardpanel-detail mb-5">
                                                             <div class="row pagination-content-list">
-                                                                <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
+                                                                <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList(item)">
                                                                     <div class="source-card card-border green-coffee-product">
                                                                         <div class="s-gal">
                                                                             <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
@@ -557,7 +557,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="customtable">
-                                                                    <tr class="ticket-boby-txt cursor-item" *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
+                                                                    <tr class="ticket-boby-txt cursor-item" *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList(coffeeitem)">
                                                                         <td>
                                                                             <span *ngIf="coffeeitem.name!=''">{{coffeeitem.name}}</span>
                                                                             <span *ngIf="coffeeitem.name==''">NA</span>

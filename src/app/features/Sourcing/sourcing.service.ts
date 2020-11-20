@@ -4,6 +4,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { RoasteryProfileService } from '../roastery-profile/roastery-profile.service';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,44 @@ export class SourcingService {
   activeLandlots:any;
 	greenList: any;
   
+	harvestData: any;
+
+	available_name: any;
+  available_estate_name: any;
+  lot_id: any;
+  region: any;
+  about: any;
+  price: any;
+  price_unit: any;
+  quantity_count: any;
+  quantity_type: any;
+  quantity: any;
+  quantity_unit: any;
+  cup_score: any;
+  cupped_at: any;
+  evaluator_dp_thumb: any;
+  evaluator_name: any;
+  harvest_date: any;
+  flavours: any;
+  max_altitude_coffee: any;
+  min_altitude_coffee: any;
+  shipping_to: any;
+	availabilty_variety: any;
+	availability_species: any;
+	ico_number: any;
+	initial_quantity: any;
+	state: any;
+	type: any;
+	listing_status: any;
+	wet_fermentation: any;
+	wet_process: any;
+	dry_period: any;
+	dry_process: any;
+	dry_water_activity: any;
+	dry_moisture_content: any;
+  date_cupped: string;
+	estate_rating: any;
+ 
   constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
               private toastrService : ToastrService,public profileservice:RoasteryProfileService) {
                 this.roaster_id = this.cookieService.get('roaster_id');
@@ -108,14 +147,50 @@ export class SourcingService {
       result=>{
         console.log(result);
       if(result['success']==true){
-        this.location=result['result']['location'];
-  
+        this.available_name=result['result']['name'];
+		  this.available_estate_name=result['result']['estate_name'];
+		  this.lot_id=result['result']['lot_id'];
+		  this.region=result['result']['region'];
+		  this.about=result['result']['about'];
+		  this.price=result['result']['price'];
+		  this.price_unit=result['result']['price_unit'];
+		  this.quantity_count=result['result']['quantity_count'];
+		  this.quantity_type=result['result']['quantity_type'];
+		  this.quantity=result['result']['quantity'];
+		  this.quantity_unit=result['result']['quantity_unit'];
+		  this.cup_score=result['result']['cupping']['cup_score'];
+		  this.cupped_at=result['result']['cupping']['cupped_at'];
+		  this.date_cupped = new DatePipe('en-Us').transform(this.cupped_at, 'MMM d, y', 'GMT+5:30');
+	
+		  this.evaluator_dp_thumb=result['result']['cupping']['evaluator_dp_thumb'];
+		  this.availabilty_variety=result['result']['variety'];
+		  this.availability_species=result['result']['species'];
+		  this.evaluator_name=result['result']['cupping']['evaluator_name'];
+		  this.harvest_date=result['result']['harvest_date'];
+		  this.flavours=result['result']['flavours'];
+		  this.max_altitude_coffee=result['result']['max_altitude'];
+		  this.min_altitude_coffee=result['result']['min_altitude'];
+		  this.shipping_to=result['result']['shipping_to'];
+		  this.ico_number=result['result']['incoterm'];
+		  this.initial_quantity=result['result']['initial_quantity'];
+		  this.state=result['result']['state'];
+		  this.type=result['result']['type'];
+		  this.listing_status=result['result']['listing_status'];	  
+		  this.wet_process=result['result']['wet_milling']['process'];
+		  this.wet_fermentation=result['result']['wet_milling']['fermentation'];
+		  this.dry_period=result['result']['dry_milling']['drying_period'];
+		  this.dry_process=result['result']['dry_milling']['process'];
+		  this.dry_water_activity=result['result']['dry_milling']['water_activity'];
+		  this.dry_moisture_content=result['result']['dry_milling']['moisture_content'];	
+		  this.packaging=result['result']['packaging'];
+		  this.estate_rating=result['result']['estate_rating'];
       }
     })
-    }
-  harvestData(roaster_id: string, harvestData: any) {
-    throw new Error("Method not implemented.");
-  }
+	}
+	
+//   harvestData(roaster_id: string, harvestData: any) {
+//     throw new Error("Method not implemented.");
+//   }
 
    getImages() {
     return this.http.get<any>('assets/photos.json')

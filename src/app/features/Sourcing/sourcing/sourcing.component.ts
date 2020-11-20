@@ -65,6 +65,7 @@ export class SourcingComponent implements OnInit {
 	backValue: boolean;
 	flavourName: any;
 	coffeedata: any;
+	harvestData: any;
 
   constructor(public sourcingService:SourcingService,
     private modalService: BsModalService,private router: Router,
@@ -519,9 +520,16 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
     this.router.navigate(["/features/estate-details"], navigationExtras);
     this.sourcingService.currentView = "search" ;
   }
-  availableCoffeeList(){
-    this.router.navigate(["/features/available-coffee-list"]);
-    this.sourcingService.currentView = "result" ;
+  availableCoffeeList(item:any){
+	this.harvestData = item.harvest_id;
+    console.log(this.harvestData);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "harvestData": this.harvestData,
+      }
+    }
+	this.router.navigate(["/features/available-coffee-list"],navigationExtras);    
+	// this.sourcingService.currentView = "result" ;
   }
 
   GetMonthName(month:number){

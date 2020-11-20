@@ -249,7 +249,7 @@
                 <li class="list-group-item item-color">
                     <a class="pointer-item" (click)="setOrigin(''); pop4.hide(); pop5.hide();toggleOrigin()">All</a>
                 </li>
-                <li class="list-group-item item-color" *ngFor="let customer of horecaList">
+                <li class="list-group-item item-color" *ngFor="let customer of newList">
                     <a class="pointer-item" (click)="setOrigin(customer.name); pop4.hide(); pop5.hide();toggleOrigin()">{{customer.name}}</a>
                 </li>
                 <!-- <li class="list-group-item item-color">
@@ -277,7 +277,7 @@
                 <li class="list-group-item item-color">
                     <a class="pointer-item" (click)="setUser(''); pop9.hide(); pop10.hide();toggleCustomerMob()">All</a>
                 </li>
-                <li class="list-group-item item-color" *ngFor="let customer of horecaList">
+                <li class="list-group-item item-color" *ngFor="let customer of newList">
                     <a class="pointer-item" (click)="setUser(customer.name); pop9.hide(); pop10.hide();toggleCustomerMob()">{{customer.name}}</a>
                 </li>
                 <!-- <li class="list-group-item item-color">
@@ -325,7 +325,7 @@
                                 </a> -->
                                     <select [(ngModel)]="customer_id" class="customer px-2" name="customer" id="customer">
                                     <option value="">Please select customer</option>
-                                    <option *ngFor="let horeca of horecaList"   value="{{horeca.id}}">{{horeca.name}}</option>
+                                    <option *ngFor="let horeca of newList"   value="{{horeca.id}}">{{horeca.name}}</option>
                                     <!-- <option value="2">Vijay</option>
                                     <option value="3">Sindhuja</option>
                                     <option value="4">Dinesh</option> -->
@@ -392,7 +392,7 @@
                                 </a> -->
                                 <select [(ngModel)]="customer_id_value" class="customer px-2" name="customer" id="customer_id_value" disabled>
                                     <option value="">Please select customer</option>
-                                    <option *ngFor="let horeca of horecaList"   value="{{horeca.id}}">{{horeca.name}}</option>
+                                    <option *ngFor="let horeca of newList"   value="{{horeca.id}}">{{horeca.name}}</option>
                                     <!-- <option value="2">Vijay</option>
                                     <option value="3">Sindhuja</option>
                                     <option value="4">Dinesh</option> -->

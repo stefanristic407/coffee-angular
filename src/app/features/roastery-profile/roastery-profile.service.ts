@@ -5582,6 +5582,9 @@ export class RoasteryProfileService {
   emp_name : any = '';
   roasterContacts: any = [];
   single: { "name": string; "value": any; }[];
+  vat_nos: any;
+  cmpy_rid: any;
+  company_details_public: any=false;
   constructor(public userService : UserserviceService,
               public cookieService : CookieService,
               public roasterService : RoasterserviceService,
@@ -5619,13 +5622,16 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
     this.instagram = result['result']['ig_profile'];
     this.address1 = result['result']['address_line1'];
     this.address2 = result['result']['address_line2'];
-    this.kgs = this.kgs;
+    this.kgs = result['result']['capacity_unit'];
     this.male_num = result['result']['male_employee_count'];
     this.female_num =  result['result']['female_employee_count'];
     this.capacity = result['result']['capacity'];
     this.capabilities = result['result']['capabilities'];
     this.employee_nos = result['result']['total_employees'];
     this.employee_avg = result['result']['avg_employee_age'];
+    this.vat_nos = result['result']['vat_number'];
+    this.cmpy_rid = result['result']['registration_id'];
+    this.company_details_public = result['result']['is_company_details_public'];
     this.changeCountry(this.country);
   }
   })
@@ -5712,7 +5718,11 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
       'total_employees' : this.employee_nos,
       'avg_employee_age' : this.employee_avg,
       'female_employee_count' : this.female_num,
-      'male_employee_count' : this.male_num
+      'male_employee_count' : this.male_num,
+      'vat_number' : this.vat_nos,
+      'registration_id': this.cmpy_rid,
+      'capacity_unit':this.kgs,
+      'is_company_details_public': this.company_details_public
     }
     this.userService.updateRoasterAccount(this.roasterId,data).subscribe(
       response =>{

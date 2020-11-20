@@ -578,3 +578,24 @@ input[type=number]::-webkit-inner-spin-button {
     box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
     cursor: pointer;
 }
+
+:host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider:before {
+    background-color: #24be46 !important;
+}
+
+ :host ::ng-deep .ui-inputswitch .ui-inputswitch-slider:before {
+    background-color: #999999 !important;
+}
+
+ :host ::ng-deep .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider {
+    background-color: #D3F2DA !important;
+}
+
+ :host ::ng-deep .ui-inputswitch .ui-inputswitch-slider {
+    background-color: #dddddd !important;
+}
+
+ :host ::ng-deep .ui-inputswitch .ui-inputswitch-focus {
+    box-shadow: none !important;
+    outline: none !important;
+}

@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import {environment} from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -551,6 +552,14 @@ export class UserserviceService {
     return this.http.put(this.putUrl, data);
   }
 
+  updateHomeDetails(roaster_id : any , body : any, slug : any){
+    var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/brand-profile/"+ slug;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "PUT";
+    data['data'] = body;
+    return this.http.put(this.putUrl, data);
+  }
   addRoastingProfile(roaster_id : any,body : any){
     var data = {};
     data['api_call'] = `/ro/${roaster_id}/roasting-profile`;
@@ -590,5 +599,39 @@ export class UserserviceService {
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
+  }
+
+  addRoastedBatches(roaster_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/roasted-batches`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "POST";
+    return this.http.post(this.roasterUrl, data);
+  }
+  getRoasterFlavourProfile(roaster_id : any){
+    var data = {};
+    data["api_call"] = `/ro/${roaster_id}/flavour-profile`;
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  getPageDetails(roaster_id: any,slug : any) {
+    // let params = new HttpParams();
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/brand-profile/" + slug;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  getFileDetails(roaster_id: any,file_id : any) {
+    // let params = new HttpParams();
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/files/" + file_id;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data).pipe(map(response => response['result']));
   }
 }

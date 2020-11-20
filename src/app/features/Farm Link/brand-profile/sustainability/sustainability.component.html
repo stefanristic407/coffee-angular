@@ -29,7 +29,7 @@
                         <p class="brand-para">Add details about your estate to give yours a view.</p>
                     </div>
                     <div class="col-md-6 col-12 web-farm">
-                        <button type="button" class="save ml-3 pull-right" >Save </button>
+                        <button type="button" class="save ml-3 pull-right" (click)="saveBrandProfile()">Save </button>
                         <button type="button" class="preview" >Preview </button>
                     </div>
                 </div>
@@ -43,6 +43,7 @@
                             <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 1440, 465, 'Banner')">
                             <span class="save"> Upload </span>
                         </label>
+                        <span class="pl-3 sub-header-text fnt-muli">{{banner_image}}</span>
                         <!-- <button class="save " type="button">Upload</button> -->
                         <label class="w-100 sub-header-text fnt-muli mt-3">Banner Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(banner_title,10)}}/10 words</span></label>
                         <input type="text" class="form-control banner-title" name="banner-title" id="banner-title" maxlength="{{getTheMaxLength(banner_title,10)}}"  [(ngModel)]="banner_title">
@@ -64,6 +65,7 @@
                             <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 500, 540, 'Intro')">
                             <span class="save"> Upload </span>
                         </label>
+                        <span class="pl-3 sub-header-text fnt-muli">{{intro_image}}</span>
                     </div>
                 </div>
 
@@ -82,7 +84,7 @@
                             <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 600, 500, 'Section')">
                             <span class="save"> Upload </span>
                         </label>
-
+                        <span class="pl-3 sub-header-text fnt-muli">{{section_file_image}}</span>
                         <hr class="dashed my-4">
 
                         <p class="header-text fnt-muli mt-2">Section 1</p>
@@ -97,6 +99,7 @@
                             <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 389, 417, 'Section1')">
                             <span class="save"> Upload </span>
                         </label>
+                        <span class="pl-3 sub-header-text fnt-muli">{{section_file1_image}}</span>
 
                         <hr class="dashed my-4">
 
@@ -112,6 +115,7 @@
                             <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 601, 395, 'Section2')">
                             <span class="save"> Upload </span>
                         </label>
+                        <span class="pl-3 sub-header-text fnt-muli">{{section_file2_image}}</span>
 
                         <hr class="dashed my-4">
 
@@ -121,12 +125,13 @@
                         <label class="w-100 sub-header-text fnt-muli mt-2">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_answer3,100)}}/100 words</span></label>
                         <textarea id="answer3" name="answer" rows="6" class="form-control"   maxlength="{{getTheMaxLength(section_answer3,100)}}"  [(ngModel)]="section_answer3"></textarea>
                         <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
-                        <p class="sub-text fnt-muli">Please upload an image : Size - 601 x 395 px</p>
+                        <p class="sub-text fnt-muli">Please upload 2 image : Size - 601 x 395 px</p>
                         <!-- <button class="save " type="button">Upload</button> -->
                         <label class="mt-3 cursor-pointer">
-                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 601, 395, 'Section3')">
+                            <input type="file" class="file-inpt" multiple accept="video/*,image/*" multiple (change)="onFileChange($event, 601, 395, 'Section3')">
                             <span class="save"> Upload </span>
                         </label>
+                        <span class="pl-3 sub-header-text fnt-muli">{{section_file3_image_1}} {{section_file3_image_2}}</span>
 
                         <hr class="dashed my-4">
 
@@ -136,13 +141,13 @@
                         <label class="w-100 sub-header-text fnt-muli mt-2">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{countTheString(section_answer4,100)}}/100 words</span></label>
                         <textarea id="answer4" name="answer" rows="6" class="form-control"   maxlength="{{getTheMaxLength(section_answer4,100)}}"  [(ngModel)]="section_answer4"></textarea>
                         <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
-                        <p class="sub-text fnt-muli">Please upload an image : Size - 601 x 395 px</p>
+                        <p class="sub-text fnt-muli">Please upload 2 image : Size - 601 x 395 px</p>
                         <!-- <button class="save " type="button">Upload</button> -->
                         <label class="mt-3 cursor-pointer">
-                            <input type="file" class="file-inpt"  accept="video/*,image/*" (change)="onFileChange($event, 601, 395, 'Section4')">
+                            <input type="file" class="file-inpt" multiple accept="video/*,image/*" (change)="onFileChange($event, 601, 395, 'Section4')">
                             <span class="save"> Upload </span>
                         </label>
-
+                        <span class="pl-3 sub-header-text fnt-muli">{{section_file4_image_1}} {{section_file4_image_2}}</span>
                     </div>
                 </div>
 
@@ -155,7 +160,7 @@
                 </div>
 
                 <div class="pb-5 pt-4 ">
-                    <button class="cancel pull-left mr-auto fnt-muli" type="button">Cancel</button>
+                    <button class="cancel pull-left mr-auto fnt-muli" type="button" routerLink="/features/brand-profile">Cancel</button>
                 </div>
 
             </section>

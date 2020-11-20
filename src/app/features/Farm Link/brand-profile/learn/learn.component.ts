@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { Router } from '@angular/router';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-learn',
   templateUrl: './learn.component.html',
@@ -50,11 +51,39 @@ export class LearnComponent implements OnInit {
 
   ngOnInit(): void {
     this.language();
+    this.getLearnDetails();
   }
 
   language(){
     this.appLanguage = this.globals.languageJson;
     this.brandProfileActive++;
+  }
+
+async getLearnDetails() {
+    this.userService.getPageDetails(this.roaster_id,'learn').subscribe(async (data) =>{
+      if(data['result']  != {}) {
+        this.banner_title = data['result'].banner_title;
+        this.intro_title = data['result'].intro_title;
+        // this.answer = data['result'].banner_title;
+        this.answer2 = data['result'].step2_short_description;
+        this.answer3 = data['result'].step3_short_description;
+        this.answer4 = data['result'].step4_short_description;
+        this.title = data['result'].title;
+        this.answer1 = data['result'].step1_short_description;
+        this.banner_id = data['result'].banner_file;
+        this.intro_id = data['result'].intro_file;
+        this.step1_id = data['result'].step1_file;
+        this.step2_id = data['result'].step2_file;
+        this.step3_id = data['result'].step3_file;
+        this.step4_id = data['result'].step4_file;
+        this.banner_image_name = await this.userService.getFileDetails(this.roaster_id,this.banner_id).pipe(map(response => response['name'])).toPromise();
+        this.intro_image_name = await this.userService.getFileDetails(this.roaster_id,this.intro_id).pipe(map(response => response['name'])).toPromise();
+        this.step1_image_name = await this.userService.getFileDetails(this.roaster_id,this.step1_id).pipe(map(response => response['name'])).toPromise();
+        this.step2_image_name = await this.userService.getFileDetails(this.roaster_id,this.step2_id).pipe(map(response => response['name'])).toPromise();
+        this.step3_image_name = await this.userService.getFileDetails(this.roaster_id,this.step3_id).pipe(map(response => response['name'])).toPromise();
+        this.step4_image_name = await this.userService.getFileDetails(this.roaster_id,this.step4_id).pipe(map(response => response['name'])).toPromise();
+      }
+    })
   }
 
   countTheString(value : any, count : any){

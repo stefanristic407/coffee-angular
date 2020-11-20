@@ -18,8 +18,8 @@
                                 <img src="assets/images/mob-tit-logo.jpg">
                             </div>
                             <div class="det-tit d-inline-block">
-                                <h2>Organic Washed Micro-lot</h2>
-                                <span class="mob-name fnt-muli fnt-600 fnt-14">Finca La Pampa</span>
+                                <h2>{{sourcing.available_name}}</h2>
+                                <span class="mob-name fnt-muli fnt-600 fnt-14">{{sourcing.available_estate_name}}</span>
                             </div>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                                             <img src="assets/images/tit-logo.PNG">
                                         </div>
                                         <div class="det-tit d-inline-block">
-                                            <h2>Finca la pampa</h2>
-                                            <h6><span class="fa fa-star checked"></span> 4.95</h6>
+                                                <h2>{{sourcing.available_estate_name}}</h2>
+                                                <h6><span class="fa fa-star checked"></span>{{sourcing.estate_rating}}</h6>
                                         </div>
                                     </div>
                                     <div class="source-knowmore-avail pull-right">
@@ -65,8 +65,8 @@
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="product-description">
-                                    <h2 class="available__lot mb-4 mob-id">{{globals.languageJson?.lot_id}} - 9639</h2>
-                                    <h2 class="p-h2 mb-2 lot-size">Organic washed micro-lot</h2>
+                                        <h2 class="available__lot mb-4 mob-id">{{globals.languageJson?.lot_id}} - {{sourcing.lot_id}}</h2>
+                                        <h2 class="p-h2 mb-2 lot-size">{{sourcing.available_name}}</h2>
                                     <div class="s-certified d-md-none">
                                         <ul class="flex">
                                             <li><img src="/assets/images/group-certificate.png"></li>
@@ -74,40 +74,42 @@
                                             <li><img src="/assets/images/group-certified.png"></li>
                                         </ul>
                                     </div>
-                                    <h6 class="p-h6 mb-4"><img class="mob-img" src="assets/images/location-rating.png" alt=""> Columbia</h6>
-                                    <p class="avaialble-web farm-desc">This farm has a love story behind it: Among the first generation of coffee growers in this area was Jose Isidro Pereira, a dentist-turned–coffee producer who inherited Fazenda Sertão from his mother when she passed
-                                        away—an incident that ended his dentistry career but put him on a path to coffee farming. In 1949, Jose Isidro met the "love of his life," Nazareth, who continues to run the farm her husband left in her care.
+                                    <h6 class="p-h6 mb-4"><img class="mob-img" src="assets/images/location-rating.png" alt=""> {{sourcing.region}}</h6>
+                                    <p class="avaialble-web farm-desc">{{sourcing.about}}
+                                        <!-- This farm has a love story behind it: Among the first generation of coffee growers in this area was Jose Isidro Pereira, a dentist-turned–coffee producer who inherited Fazenda Sertão from his mother when she passed
+                                        away—an incident that ended his dentistry career but put him on a path to coffee farming. In 1949, Jose Isidro met the "love of his life," Nazareth, who continues to run the farm her husband left in her care. -->
                                     </p>
-                                    <p class="avaialble-mob mb-0 fnt-14 mob-farm-desc fnt-muli">The 21st century is the golden age for surgical procedures, among them an increasingly popular method of corrective eye surgery known as LASIK. LASIK is an acronym for the surgery, which stands for Laser Assisted In
+                                    <p class="avaialble-mob mb-0 fnt-14 mob-farm-desc fnt-muli">{{sourcing.about}}
+                                        <!-- The 21st century is the golden age for surgical procedures, among them an increasingly popular method of corrective eye surgery known as LASIK. LASIK is an acronym for the surgery, which stands for Laser Assisted In
                                         Situ Keratomileusis. This procedure has become increasingly reliable, with unresolved complications reported in only 3 to 6 percent of patients. The risk of complications is still there, however, and can take several
-                                        different forms.
+                                        different forms. -->
                                     </p>
 
                                     <div class="row mt-md-4 mt-2">
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                             <div class="real-estate p-prices">
                                                 <h6>{{globals.languageJson?.price}} :</h6>
-                                                <h3>$7.451 USD / kg</h3>
+                                                <h3>{{sourcing.price_unit}}{{sourcing.price}} USD / kg</h3>
                                             </div>
                                         </div>
                                         <div class="col-lg-2 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                             <div class="real-estate">
-                                                <h6>{{globals.languageJson?.inco}} :</h6>
-                                                <h3>FOB</h3>
+                                                <h6>Inco :</h6>
+                                                <h3>{{sourcing.ico_number}}</h3>
 
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                             <div class="real-estate">
                                                 <h6>{{globals.languageJson?.available_quantity}} :</h6>
-                                                <h3>260 bags of 60kg</h3>
+                                                <h3>{{sourcing.quantity_count}} {{sourcing.quantity_type}} of {{sourcing.quantity}}{{sourcing.quantity_unit}}</h3>
 
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                             <div class="real-estate">
                                                 <h6>{{globals.languageJson?.minimum_quantity}} :</h6>
-                                                <h3>110 bags</h3>
+                                                <h3>{{sourcing.initial_quantity}}{{sourcing.quantity_type}}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -116,17 +118,18 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate p-date">
                                                     <h6>12 Feb, 2020</h6>
-                                                    <h3> {{globals.languageJson?.cup_score}} : 87.0</h3>
+                                                    <h3> {{globals.languageJson?.cup_score}} : {{sourcing.cup_score}}</h3>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate">
-                                                    <div class="p-photo">
-                                                        <img src="assets/images/profile-coffee.jpg">
-                                                    </div>
-
-                                                    <h3>Kristine cox</h3>
-                                                    <h6>{{globals.languageJson?.estate_owner}}</h6>
+                                                        <div class="p-photo">
+                                                                <img *ngIf="sourcing.evaluator_dp_thumb!=''" [src]="sourcing.evaluator_dp_thumb" alt="">
+                                                                <img *ngIf="sourcing.evaluator_dp_thumb==''" src="assets/images/profile-coffee.jpg">
+                                                            </div>
+                    
+                                                            <h3>{{sourcing.evaluator_name}}</h3>
+                                                            <h6>{{globals.languageJson?.estate_owner}}</h6>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-6 v-report">
@@ -138,144 +141,113 @@
                                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
                                             <div class="real-estate">
                                                 <img src="assets/images/varient.svg">
-                                                <h6>{{globals.languageJson?.variety}}</h6>
-                                                <h3>Arabica</h3>
+                                                <h6>{{globals.languageJson?.species}}</h6>
+                                                <h3>{{sourcing.availability_species}}</h3>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
                                             <div class="real-estate">
                                                 <img src="assets/images/estate.svg">
-                                                <h6>{{globals.languageJson?.species}}</h6>
-                                                <h3>Castillo</h3>
+                                                <h6>{{globals.languageJson?.variety}}</h6>
+                                                <h3>{{sourcing.availabilty_variety}}</h3>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
                                             <div class="real-estate">
                                                 <img src="assets/images/harveaster.svg">
 
-                                                <h6>{{globals.languageJson?.crop_year}}</h6>
-                                                <h3>January, 2020</h3>
+                                                
+                                    <!-- <h6>{{globals.languageJson?.crop_year}}</h6>
+                                    <h3>January, 2020</h3> -->
+                                    <h6>Harvest Month</h6>
+                                    <h3>{{ sourcing.harvest_date  | date : 'MMMM ,y' }}</h3>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
+                                        <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
                                             <div class="real-estate">
                                                 <img src="assets/images/processing.svg">
                                                 <h6>{{globals.languageJson?.processing}}</h6>
                                                 <h3>Natural/Sun Dried</h3>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
+                                    <div class="row mt-md-5 mt-3 mb-md-5 mb-0">
+                                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3  mr-md-5 mr-0 pr-0">
+                                                <div class="real-estate">
+                                                    <img src="assets/images/flavour-image.svg">
+                                                    <h6>{{globals.languageJson?.flavour_profile}}</h6>
+                                                    <!-- <div class="flavor-coffee">
+                                                        <span class="mb-2">Honey</span><span class="mb-2">Spices</span>
+                                                    </div>
+                                                    <div class="flavor-coffee">
+                                                        <span>Citrus</span>
+                                                    </div> -->
+                                                    <h3 *ngIf="sourcing.flavours!=null">{{sourcing.flavours}}
+                                                    <!-- Fruity, Jasmine, 
+                                                        High sweetness, 
+                                                        Jammy -->
+                                                    </h3>
+                                                    <h3 *ngIf="sourcing.flavours==null">NA</h3>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
+                                                <div class="real-estate">
+                                                    <img src="assets/images/processing.svg">
+                                                    <h6>{{globals.languageJson?.processing}}</h6>
+                                                    <h3>Natural/Sun Dried</h3>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
+                                                <div class="real-estate">
+                                                    <img src="assets/images/altitute.svg">
+                                                    <h6>Altitude range</h6>
+                                                    <h3>{{sourcing.min_altitude_coffee}}-{{sourcing.max_altitude_coffee}} m</h3>
+                                                </div>
+                                            </div>
+                                        </div>    
+                
                                     <div class="row avaialble-web">
                                         <div class="col-lg-12">
                                             <div class="estate-focus">
                                                 <h3>{{globals.languageJson?.estate_details}}</h3>
                                                 <ul class="clearfix">
-                                                    <!-- <li><label>Moisture :</label>
-                                            <p>12.5%</p>
-                                        </li>
-                                        <li><label>Location :</label>
-                                            <p>Tapachula</p>
-                                        </li>
-                                        <li><label>Region :</label>
-                                            <p>Chiapas</p>
-                                        </li>
-                                        <li><label>Bean Location :</label>
-                                            <p>At warehouse</p>
-                                        </li>
-                                        <li><label>Mill :</label>
-                                            <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p>
-                                        </li>
-                                        <li><label>Altitude :</label>
-                                            <p>1,000 - 1,600 meters above sea level</p>
-                                        </li>
-                                        <li><label>Flavour Profile :</label>
-                                            <ul class="sugar-prod">
-                                                <li>Honey</li>
-                                                <li>Dark chocalte</li>
-                                                <li>spices</li>
-                                            </ul>
-                                        </li>
-                                        <li><label>Weather activity :</label>
-                                            <p>0.233</p>
-                                        </li>
-                                        <li><label>Packaging :</label>
-                                            <p>Biodegradeable</p>
-                                        </li>
-                                        <li><label>Shippingto :</label>
-                                            <p>Brazil, Europe, America</p>
-                                        </li>
-                                        <li><label>Dry mil :</label>
-                                            <p>Estoda</p>
-                                        </li>
-                                        <li><label>Dry milling process :</label>
-                                            <p>Sun dried</p>
-                                        </li>
-                                        <li><label>Dry mill description :</label>
-                                            <p>involves drying of beans with the heat and energy of the sun. The dry process is the most simple, effective and natural way to drythe beans.</p>
-                                        </li>
-                                        <li><label>Wet mil :</label>
-                                            <p>Finca Taiopla</p>
-                                        </li>
-                                        <li><label>Wet mill Process :</label>
-                                            <p>Washed</p>
-                                        </li>
-                                        <li><label>Wet mil description :</label>
-                                            <p>Wet processed (washed) coffees are dried without the cherry. Washed coffee's are de-pulped then usually fermented to promote the separation of any remaining pectin still stuck to the bean and parchment, then
-                                                washed clean prior to drying.</p>
-                                        </li> -->
-                                                    <li><label>{{globals.languageJson?.location}} :</label>
-                                                        <p>Tapachula</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.region}} :</label>
-                                                        <p>Chiapas</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.type}} :</label>
-                                                        <p>Single Origin</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.listing_status}} :</label>
-                                                        <p> warehouse</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.wet_mill_processing}} :</label>
-                                                        <!-- <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p> -->
-                                                        <p>Washed</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.fermentation_hr}}  :</label>
-                                                        <p>12hr</p>
-                                                    </li>
-                                                    <!-- <li><label>Flavour Profile :</label>
-                                            <ul class="sugar-prod">
-                                                <li>Honey</li>
-                                                <li>Dark chocalte</li>
-                                                <li>spices</li>
-                                            </ul>
-                                        </li>
-                                        <li><label>Weather activity :</label>
-                                            <p>0.233</p>
-                                        </li>
-                                        <li><label>Packaging :</label>
-                                            <p>Biodegradeable</p>
-                                        </li> -->
-
-                                                    <li><label>{{globals.languageJson?.dry_mill_processing}} :</label>
-                                                        <p>Sun dried</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.drying_period}} :</label>
-                                                        <p>24hr</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.water_activity}} :</label>
-                                                        <p>0.62aw</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.moisture}} :</label>
-                                                        <p>12.5%</p>
-                                                    </li>
-                                                    <li><label>{{globals.languageJson?.packaging}} :</label>
-                                                        <p>Biodegradeable</p>
-                                                    </li>
-                                                    <li>
-                                                        <p class="know__listing">{{globals.languageJson?.know_more_listing}}</p>
-                                                    </li>
-                                                </ul>
+                                                  
+                                                        <li><label>Location :</label>
+                                                            <p>{{sourcing.state}}</p>
+                                                        </li>
+                                                        <li><label>Region :</label>
+                                                            <p>{{sourcing.region}}</p>
+                                                        </li>
+                                                        <li><label>Type :</label>
+                                                            <p>{{sourcing.type}}</p>
+                                                        </li>
+                                                        <li><label>Listing Status :</label>
+                                                            <p>{{sourcing.listing_status}}</p>
+                                                            <!-- <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p> -->
+                                                        </li>
+                                                        <li><label>Wet Mill processing :</label>
+                                                            <p>{{sourcing.wet_process}}</p>
+                                                        </li>
+                                                        <li><label>Fermentation/hr  :</label>
+                                                            <p>{{sourcing.wet_fermentation}}</p>
+                                                        </li>
+                                                        <li><label>Dry milling process :</label>
+                                                            <p>{{sourcing.dry_process}}</p>
+                                                        </li>
+                                                        <li><label>Drying period :</label>
+                                                            <p>{{sourcing.dry_period}}</p>
+                                                        </li>
+                                                        <li><label>Water activity :</label>
+                                                            <p>{{sourcing.dry_water_activity}}</p>
+                                                        </li>
+                                                       
+                                                        <li><label>Moisture :</label>
+                                                            <p>{{sourcing.dry_moisture_content}}</p>
+                                                        </li>
+                                                        <li><label>Packaging :</label>
+                                                            <p>{{sourcing.packaging}}</p>
+                                                        </li>                                                </ul>
                                             </div>
                                         </div>
                                     </div>
