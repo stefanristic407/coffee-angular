@@ -369,6 +369,16 @@ export class UserserviceService {
   getUserLanguageStrings(language: any){
       return this.http.post(this.languageURL, {"lang" : language});
   }
+  async getLanguageStrings(language: any){
+    if (localStorage.getItem('languageStrings')){
+      return JSON.parse(decodeURIComponent(localStorage.getItem('languageStrings')));
+    } else {
+     const languageJSON = await this.getUserLanguageStrings(language).pipe(res => res).toPromise();
+     localStorage.setItem('languageStrings', encodeURIComponent(JSON.stringify(languageJSON)));
+     return languageJSON;
+    }
+  }
+
   attachRoasterImage(userId : any, fileId : any, token){
     var data = {};
     data["api_call"] = "/ro/users/"+userId+"/attach-image/"+ fileId;
@@ -540,6 +550,38 @@ export class UserserviceService {
     data['data'] = body;
     return this.http.put(this.putUrl, data);
   }
+
+  addRoastingProfile(roaster_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/roasting-profile`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "POST";
+    return this.http.post(this.roasterUrl, data);
+  }
+  getRoastingProfileDetail(roaster_id : any, id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/roasting-profile/${id}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.roasterUrl, data);
+  }
+  updateRoastingProfileDetail(roaster_id : any, id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/roasting-profile/${id}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "PUT";
+    return this.http.put(this.putUrl, data);
+  }
+  deleteRoastingProfile(roaster_id : any, id : any){
+    var data = {};
+    data["api_call"] = `/ro/${roaster_id}/roasting-profile/${id}`;
+    data["method"] = "DELETE";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterDeleteUrl, data);
+  }
+
   getGreenCoffee(roaster_id: any,detailestateId : any) {
     let params = new HttpParams();
     params = params.append('estate_id', detailestateId);

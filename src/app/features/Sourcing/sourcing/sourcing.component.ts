@@ -47,14 +47,14 @@ export class SourcingComponent implements OnInit {
 	// 	{  estatename: 'La Isabela', rating: '4.1',origin:'Colombia', range: '980-1100m', cropyear: 'Jan - March',certificates:'3','image':'/assets/images/sourcing-image6.jpg' }
   // ];
   
-  public coffeedata: any[] = [
-		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '7.4 USD',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
-		{  estatename: 'Gesha', name: 'Blend washed',origin:'Colombia',species: 'Castillo', price: '5.53',quantity:'297 bags','image':'/assets/images/sourcing-image3.jpg',score:'88.0' },
-		{  estatename: 'Finca La Toboba', name: 'FTO blend',origin:'Ethopia', species: 'Bourbon', price: '8.92',quantity:'567 bags','image':'/assets/images/sourcing-image7.jpg',score:'81.5' },
-		{  estatename: 'Asoproaaa', name: 'Mebratu', origin:'Brazil',species: 'Castillo', price: '7.4',quantity:'953 bags','image':'/assets/images/sourcing-image5.jpg',score:'85.4' },
-		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '5.6',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82.0' },
-		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '8.92',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84.0' }
-  ];
+//   public coffeedata: any[] = [
+// 		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '7.4 USD',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
+// 		{  estatename: 'Gesha', name: 'Blend washed',origin:'Colombia',species: 'Castillo', price: '5.53',quantity:'297 bags','image':'/assets/images/sourcing-image3.jpg',score:'88.0' },
+// 		{  estatename: 'Finca La Toboba', name: 'FTO blend',origin:'Ethopia', species: 'Bourbon', price: '8.92',quantity:'567 bags','image':'/assets/images/sourcing-image7.jpg',score:'81.5' },
+// 		{  estatename: 'Asoproaaa', name: 'Mebratu', origin:'Brazil',species: 'Castillo', price: '7.4',quantity:'953 bags','image':'/assets/images/sourcing-image5.jpg',score:'85.4' },
+// 		{  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '5.6',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82.0' },
+// 		{  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '8.92',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84.0' }
+//   ];
   // appLanguage?: any;
   activeTab = this.sourcingService.currentView;
   roasterId: any;
@@ -63,6 +63,8 @@ export class SourcingComponent implements OnInit {
   monthName: any;
   listData: any;
 	backValue: boolean;
+	flavourName: any;
+	coffeedata: any;
 
   constructor(public sourcingService:SourcingService,
     private modalService: BsModalService,private router: Router,
@@ -70,7 +72,8 @@ export class SourcingComponent implements OnInit {
     private userService : UserserviceService,
     private cookieService : CookieService,
     private toastrService : ToastrService,
-    public profile:RoasteryProfileService) {
+	public profile:RoasteryProfileService,
+	public sourcing:SourcingService) {
       // this.renderer.listen('window', 'click',(e:Event)=>{ 
       //   if()
       //   this.modalRef.hide()
@@ -227,23 +230,14 @@ $('body').on('click', '.responsive-pagination__next', function () {
     }
     
   }
-
-
   else {
     step.removeClass('active');
     stepNext.addClass('active')
-
-
     if (stepNext.is(':last-child')) {
       $(this).addClass('disable');
 
     }
-
   }
-
-
-  
-
 });
 
 
@@ -269,9 +263,7 @@ $('body').on('click', '.responsive-pagination__prev', function () {
     if (index >= elements.length) {
       index = 0;
     }
-
     elements.hide().slice(index, index + 4).show();
-
   }
 
 
@@ -390,6 +382,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 
 // this.language();
   this.getAvailableEstates();
+  this.getAvailableCoffee();
   }
 
   getAvailableEstates(){
@@ -407,7 +400,6 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 
   
   redirectToLots(){
-	
 	this.backValue = true;
     let navigationExtras: NavigationExtras = {
       queryParams: {
@@ -448,7 +440,6 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   setOrigin(origindata:any){
     this.origin=origindata;
     console.log(this.origin)
-
   }
   setWeight(weightdata:any){
     this.weight=weightdata;
@@ -463,7 +454,6 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		}
 		else{
 			document.getElementById('grade_id').style.border="1px solid #d6d6d6";
-		
 		}
   	}
 //   language(){
@@ -477,7 +467,6 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		}
 		else{
 			document.getElementById('crop_id').style.border="1px solid #d6d6d6";
-		
 		}
 	}
   	toggleSort(){
@@ -497,7 +486,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		else{
 			document.getElementById('weight_id').style.border="1px solid #d6d6d6";
 		}
-	  }
+	}
 	toggleOrigin(){
 		this.showOrigin = !this.showOrigin;
 		if(this.showOrigin==false){
@@ -533,14 +522,13 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   availableCoffeeList(){
     this.router.navigate(["/features/available-coffee-list"]);
     this.sourcingService.currentView = "result" ;
-
   }
+
   GetMonthName(month:number){
     switch(month){
       case 1:
         this.monthName = "Jan";
         break;
-    
     case 2:
         this.monthName = "Feb";
         break;
@@ -675,5 +663,20 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 	this.getAvailableEstates();
 	// this.getAvailableGreenCoffee();
   }
-  
+  getAvailableCoffee(){
+	this.userService.getAvailableGreenCoffee(this.roasterId).subscribe(
+		result=>{
+			if(result['success']==true){
+				this.coffeedata = result['result'];
+				console.log(this.coffeedata);
+			}
+		}
+	)
+  }
+  getFlavourName(flavourid:any){
+    if(this.sourcing.flavourList){
+      this.flavourName = this.sourcing.flavourList.find(flavour => flavour.id == flavourid).name;
+      return this.flavourName;
+      }
+    }
 }

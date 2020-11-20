@@ -77,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 float-md-left">
+                            <!-- <div class="col-12 col-md-6 float-md-left">
                                 <div class="farm-input ">
                                     <label class="label p-0">Quantity after roasted*</label>
                                     <select name="Year" required="" class="form-control select-region">
@@ -87,6 +87,21 @@
                                 </select>
                                 </div>
 
+                            </div> -->
+                            <div class="col-12 col-md-6 float-md-left">
+                                <div class="farm-input">
+                                    <label class="label p-0">Quantity after roasted*</label>
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Enter quantity" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                        <div class="input-group-append">
+                                            <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
+                                            <select name="type" required="" class="form-control select-region select-form-group-dropdown select-region-local">
+                                    <option value="kg">Kg</option>
+                                    <option value="lb" >lb</option>
+                                </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

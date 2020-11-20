@@ -264,6 +264,7 @@ export class TeamMembersComponent implements OnInit {
 
   checkedValue(ev : any, user_id : any){
     this.checkCondition = ev.target.checked; 
+    
   }
 
    // Function Name : Delete user

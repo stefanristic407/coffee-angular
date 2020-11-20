@@ -129,11 +129,10 @@ export class SourcingService {
 		  resultList=>{
 			if(resultList['success']==true){
 				this.lots=resultList['result'];
-				// console.log("Lots:"+ this.lots);
 			}
 		  }
 		);
-	  }
+	}
 
 	flavourprofileList(){
 		this.userService.getFlavourProfile().subscribe(
@@ -150,8 +149,7 @@ export class SourcingService {
 			if(result['success']==true){
 			  this.greenList=result['result'];
 			  console.log("Green Coffee"+this.greenList);
-					}
-		  }
-		)
-	  }	    
+			}
+		})
+	}	    
 }

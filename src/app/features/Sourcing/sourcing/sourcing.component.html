@@ -402,38 +402,49 @@
                                                             <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
                                                                 <div class="source-card card-border green-coffee-product">
                                                                     <div class="s-gal">
-                                                                        <img [src]="item.image" alt="">
+                                                                        <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                                        <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">                                                                   
                                                                         <div class="cupping">
-                                                                            <p>{{globals.languageJson?.cup_score}} {{item.score}}</p>
+                                                                            <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
+                                                                            <p *ngIf="item.cup_score==''">NA</p>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="s-details ">
+                                                                    <div class="s-details">
                                                                         <div class="flex">
                                                                             <div class="s-tit">
-                                                                                <h3>{{item.name}}</h3>
-                                                                                <h5>{{item.estatename}}</h5>
-                                                                                <h6>${{item.price}} USD / {{weight}}</h6>
+                                                                                <h3 *ngIf="item.name!=''">{{item.name}}</h3>
+                                                                                <h3 *ngIf="item.name==''">NA</h3>
+                                                                                <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}</h5>
+                                                                                <h5 *ngIf="item['estate']['name']==''">NA</h5>
+                                                                                <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / {{weight}}</h6>
+                                                                                <h6 *ngIf="item.price==''">NA</h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="source-lets flex">
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.origin}}</label>
-                                                                                <h6>{{item.origin}}</h6>
+                                                                                <h6 *ngIf="item['lot']['country']!=''">{{GetCountry(item['lot']['country'])}}</h6>
+                                                                                <h6 *ngIf="item['lot']['country']==''">NA</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.variety}}</label>
-                                                                                <h6>{{item.species}}</h6>
+                                                                                <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}</h6>
+                                                                                <h6 *ngIf="item['lot']['variety']==''">NA</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.flavour}}</label>
-                                                                                <ul class="flo-list">
-                                                                                    <li>Citrus</li>
-                                                                                    <li>Floral</li>
-                                                                                </ul>
+                                                                                <div  *ngIf="item.flavours!=null">
+                                                                                    <ul class="flo-list-roaster">
+                                                                                        <li *ngFor="let flavour of item.flavours">
+                                                                                            <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div *ngIf="item.flavours==null">NA</div>  
                                                                             </div>
                                                                         </div>
                                                                         <div class="top-lots">
-                                                                            <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity}} of 60{{weight}} </span></label>
+                                                                            <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity_count}} {{item.quantity_type}} of {{item.total_quantity}}{{item.quantity_unit}} </span></label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -465,38 +476,49 @@
                                                                 <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
                                                                     <div class="source-card card-border green-coffee-product">
                                                                         <div class="s-gal">
-                                                                            <img [src]="item.image" alt="">
-                                                                            <div class="cupping">
-                                                                                <p>{{globals.languageJson?.cup_score}} {{item.score}}</p>
-                                                                            </div>
+                                                                            <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                                        <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt=""> 
+                                                                        <div class="cupping">
+                                                                            <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
+                                                                        <p *ngIf="item.cup_score==''">NA</p>
+                                                                        </div>
                                                                         </div>
                                                                         <div class="s-details ">
                                                                             <div class="flex">
                                                                                 <div class="s-tit">
-                                                                                    <h3>{{item.name}}</h3>
-                                                                                    <h5>{{item.estatename}}</h5>
-                                                                                    <h6>${{item.price}} USD / {{weight}}</h6>
+                                                                                    <h3 *ngIf="item.name!=''">{{item.name}}</h3>
+                                                                                    <h3 *ngIf="item.name==''">NA</h3>
+                                                                                    <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}</h5>
+                                                                                    <h5 *ngIf="item['estate']['name']==''">NA</h5>
+                                                                                    <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / {{weight}}</h6>
+                                                                                    <h6 *ngIf="item.price==''">NA</h6>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="source-lets flex">
                                                                                 <div class="orgin-att">
                                                                                     <label>{{globals.languageJson?.origin}}</label>
-                                                                                    <h6>{{item.origin}}</h6>
+                                                                                    <h6 *ngIf="item['lot']['country']!=''">{{GetCountry(item['lot']['country'])}}</h6>
+                                                                                    <h6 *ngIf="item['lot']['country']==''">NA</h6>
                                                                                 </div>
                                                                                 <div class="orgin-att">
                                                                                     <label>{{globals.languageJson?.variety}}</label>
-                                                                                    <h6>{{item.species}}</h6>
+                                                                                    <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}</h6>
+                                                                                    <h6 *ngIf="item['lot']['variety']==''">NA</h6>
                                                                                 </div>
                                                                                 <div class="orgin-att">
                                                                                     <label>{{globals.languageJson?.flavour}}</label>
-                                                                                    <ul class="flo-list">
-                                                                                        <li>Citrus</li>
-                                                                                        <li>Floral</li>
-                                                                                    </ul>
+                                                                                    <div  *ngIf="item.flavours!=null">
+                                                                                        <ul class="flo-list-roaster">
+                                                                                            <li *ngFor="let flavour of item.flavours">
+                                                                                                <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <div *ngIf="item.flavours==null">NA</div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="top-lots">
-                                                                                <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity}} of 60{{weight}} </span></label>
+                                                                                <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity_count}} {{item.quantity_type}} of {{item.total_quantity}}{{item.quantity_unit}} </span></label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -536,16 +558,33 @@
                                                                 </thead>
                                                                 <tbody class="customtable">
                                                                     <tr class="ticket-boby-txt cursor-item" *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList()">
-                                                                        <td>{{ coffeeitem.name }}</td>
-                                                                        <td>{{ coffeeitem.estatename }}</td>
-                                                                        <td>{{ coffeeitem.origin }}</td>
-                                                                        <td>{{coffeeitem.species}}</td>
-                                                                        <td>${{coffeeitem.price}} USD / {{weight}} </td>
-                                                                        <td>{{coffeeitem.quantity}}</td>
-                                                                        <td class="flavor-coffee">
-                                                                            <span>Citrus</span><span>Floral</span>
+                                                                        <td>
+                                                                            <span *ngIf="coffeeitem.name!=''">{{coffeeitem.name}}</span>
+                                                                            <span *ngIf="coffeeitem.name==''">NA</span>
                                                                         </td>
-                                                                        <td>{{coffeeitem.score}}</td>
+                                                                        <td> <span *ngIf="coffeeitem['estate']['name']!=''">{{coffeeitem['estate']['name']}}</span>
+                                                                            <span *ngIf="coffeeitem['estate']['name']==''">NA</span>
+                                                                        </td>
+                                                                        <td>{{ coffeeitem.origin }}
+                                                                            <span *ngIf="coffeeitem['lot']['country']!=''">{{GetCountry(coffeeitem['lot']['country'])}}</span>
+                                                                            <span *ngIf="coffeeitem['lot']['country']==''">NA</span>
+                                                                        </td>
+                                                                        <td>  <span *ngIf="coffeeitem['lot']['variety']!=''">{{coffeeitem['lot']['variety']}}</span>
+                                                                            <span *ngIf="coffeeitem['lot']['variety']==''">NA</span>
+                                                                        </td>
+                                                                        <td> <span *ngIf="coffeeitem.price!=''">{{coffeeitem.price_unit}}{{coffeeitem.price}} USD / {{weight}}</span>
+                                                                            <span *ngIf="coffeeitem.price==''">NA</span> 
+                                                                        </td>
+                                                                        <td>{{coffeeitem.quantity_count}} {{coffeeitem.quantity_type}}</td>
+                                                                        <td >
+                                                                            <p class="flavor-coffee">
+                                                                                <span *ngIf="coffeeitem.flavours!=null" class="pr-1">{{coffeeitem.flavours}}</span>
+                                                                            </p>
+                                                                            <p *ngIf="coffeeitem.flavours==null">NA</p>
+                                                                            <!-- <span class="pr-1">Citrus,</span> -->
+                                                                            <!-- <span class="pl-1">Floral</span> -->
+                                                                        </td>
+                                                                        <td>{{coffeeitem.cup_score}}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

@@ -94,3 +94,6 @@ label {
 .branding-cancle-button {
     display: block;
 }
+.error-message{
+    color: #d50000;
+}

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { UserserviceService } from 'src/services/users/userservice.service';
 
 @Component({
   selector: 'app-roasting-profiles',
@@ -63,17 +65,27 @@ export class RoastingProfilesComponent implements OnInit {
   roasterId: any ;
   odd: boolean = false ;
   appLanguage?: any;
-
+  profileID: any;
+  modalRef: BsModalRef;
+  deleteProfileId: any;
   constructor(
     public router: Router,
     public cookieService: CookieService,
     private roasterService : RoasterserviceService,
     private toastrService : ToastrService,
-    public globals: GlobalsService) {
+    public globals: GlobalsService,
+    private modalService: BsModalService,
+    public userService : UserserviceService) {
     this.termStatus = '';
     this.termRole = '';
     this.roasterId = this.cookieService.get('roaster_id');
    }
+
+   openDeleteModal(template1:TemplateRef<any>,deleteId:any){
+    this.modalRef = this.modalService.show(template1);
+    this.deleteProfileId = deleteId;
+    }
+
 
   ngOnInit(): void {
     this.getRoastingProfile();
@@ -152,5 +164,30 @@ export class RoastingProfilesComponent implements OnInit {
 				}
 			}
 		)
-	}
+  }
+  
+  redirectToEdit(item){
+    this.profileID = item;
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "profileID": encodeURIComponent(this.profileID),
+      }
+    }
+
+    this.router.navigate(['/features/create-roasting-profile'], navigationExtras);
+  }
+
+  deleteRoastingProfile(deleteId : any){
+    this.userService.deleteRoastingProfile(this.roasterId,deleteId).subscribe(
+      data => {
+        if(data['success'] = true){
+          this.toastrService.success("Roasting profile deleted successfully");
+          this.getRoastingProfile();
+        }
+        else{
+          this.toastrService.error("Error while deletign the roasting profile");
+        }
+      }
+    )
+  }
 }
