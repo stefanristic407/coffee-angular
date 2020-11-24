@@ -144,6 +144,8 @@ import { HomePageComponent } from './Farm Link/brand-profile/home-page/home-page
 import { LearnComponent } from './Farm Link/brand-profile/learn/learn.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
+import { HorecaAgreementsComponent } from './Farm Link/agreement/horeca-agreements/horeca-agreements.component';
+import { MicroRoasterAgreementsComponent } from './Farm Link/agreement/micro-roaster-agreements/micro-roaster-agreements.component';
 
 
 
@@ -257,6 +259,8 @@ import { SuccessfulPageComponent } from './successful-page/successful-page.compo
     LearnComponent,
     BatchSelectAnOrderComponent,
     SuccessfulPageComponent,
+    HorecaAgreementsComponent,
+    MicroRoasterAgreementsComponent,
   
  
   ],

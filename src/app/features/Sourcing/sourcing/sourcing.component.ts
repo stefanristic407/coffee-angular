@@ -521,7 +521,8 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
       queryParams: {
 		"listData": this.listData,
 		certificate:JSON.stringify(this.certificate)
-      }
+      },
+      skipLocationChange: true
     }
     this.router.navigate(["/features/estate-details"], navigationExtras);
     this.sourcingService.currentView = "search" ;
@@ -536,7 +537,8 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
       queryParams: {
         "harvestData": this.harvestData,
         certificateHarvest:JSON.stringify(this.harvestCertify)
-      }
+      },
+      // skipLocationChange: true
     }
 	this.router.navigate(["/features/available-coffee-list"],navigationExtras);    
 	// this.sourcingService.currentView = "result" ;

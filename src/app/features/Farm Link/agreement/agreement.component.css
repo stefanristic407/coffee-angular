@@ -7,280 +7,65 @@
 }
 
 
-/* 
-table.dataTable thead .sorting_asc,
-table.dataTable thead .sorting,
-table.dataTable thead .sorting_desc {
-    background-image: unset !important;
-}
+/*=======   Tabs  =======*/
 
-.estate-orders {
-    position: relative;
-}
-
-.estate-orders-heading {
-    margin: 1rem 3.1rem;
-} */
-
-.orders-border {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6 !important;
-}
-
-.agreements {
-    padding: 2rem 0rem;
-}
-
-.row {
-    color: #232334 !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    font-family: 'Muli' !important;
-    border-bottom: none !important;
-}
-
-.ticket-boby-txt:hover {
-    box-shadow: 0 12px 34px 0 rgba(0, 0, 0, 0.1);
-}
-
-.estate-order-title {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-}
-
-.border-order {
-    border-radius: 20px;
-    border: solid 1px #d6d6d6;
+.mixups-tabs {
     background-color: #ffffff;
-    padding: 10px 12px;
+    overflow: hidden;
 }
 
-.border-order:focus {
-    outline-color: 1px solid #30855c;
-}
-
-.title-header {
-    margin: 1.3rem 4rem;
-}
-
-.estate-table {
-    margin: 1rem 3.1rem;
-}
-
-.filter-text {
-    font-family: Muli;
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #232334;
     font-size: 14px;
     font-weight: 600;
-    color: #747588;
+    background-color: unset !important;
+    border-radius: unset;
 }
 
-.filter {
-    font-family: 'Muli';
-    font-weight: 600;
-    color: #232334;
-    font-size: 14px;
-}
-
-.search {
-    font-family: 'Muli';
-    height: 36px;
-    border-radius: 8px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding-left: 45px;
-}
-
-span.checkmark {
-    background-color: white;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
-.customcheckbox input:checked~.checkmark {
-    background-color: #30855c !important;
-}
-
-.customcheckbox .checkmark:after {
-    left: 6px !important;
-    top: 3px !important;
-    border-width: 0 2px 2px 0 !important;
-}
-
-.estate-title .checkmark {
-    top: 3px !important;
-}
-
-.border-lots {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 6px 4px;
-    margin-top: 0.7rem;
-}
-
-.table-container {
-    margin: 2% 4.5% 0 4.5%;
-}
-
-.table-header {
-    border-radius: 4px;
-    background-color: #f8f8f8;
-}
-
-table th,
-table td,
-.header-row {
-    border: none !important;
-}
-
-tr {
-    border-bottom: 1px dashed #d6d6d6;
-}
-
-tr:last-child {
-    border-bottom-style: none;
-    border-bottom-color: none;
-}
-
-.table .table-header th {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: bold;
-    color: #232334;
-    padding: 14px 15px;
-}
-
-.table td {
-    padding: 18px 15px;
-}
-
-.ticket-boby-txt {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: 600;
-    color: #232334;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    /* cursor: pointer; */
-}
-
-.estate-orders {
-    /* margin: 1rem 3.1rem; */
+.nav-pills .nav-link.active {
     position: relative;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
-.estate-orders-heading {
-    margin: 1rem 3.1rem;
-}
-
-.add-role-butn {
-    border-radius: 4px;
+.nav-pills .nav-link.active:before {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 80%;
+    transform: translate(-50%);
+    border-radius: 1.5px;
     background-color: #30855c;
-    padding: 10px 0px;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #ffffff;
-    margin-right: 3rem;
 }
 
-.add-role-butn:hover {
-    background-color: #3d8462;
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+.nav-pills {
+    border-bottom: 1px solid #dddddd;
 }
 
-.row {
-    color: #232334 !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    font-family: 'Muli' !important;
-    border-bottom: none !important;
+li.nav-item {
+    margin-right: 7%;
+    position: relative;
+    top: .25rem;
 }
 
-.estate-order-title {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-}
-
-.border-order {
-    border-radius: 20px;
-    border: solid 1px #d6d6d6;
-    background-color: #ffffff;
-    padding: 10px 12px;
-}
-
-.border-order:focus {
-    outline-color: 1px solid #30855c;
-}
-
-.title-header {
-    margin: 1.3rem 4rem;
-}
-
-.filter-text {
+.nav-pills .nav-link {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
-    color: #747588;
+    color: #232334;
 }
 
-.filter {
-    font-family: 'Muli';
-    font-weight: 600;
-    color: #232334;
+.nav-pills .nav-link.active {
+    font-family: Muli;
     font-size: 14px;
-}
-
-.search {
-    /*width: 255px;*/
-    font-family: 'Muli';
-    height: 36px;
-    border-radius: 8px;
-    border: solid 1px #cccccc;
-    background-color: #ffffff;
-    /* background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px; */
-    padding-left: 45px;
-}
-
-span.checkmark {
-    background-color: white;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
-.customcheckbox input:checked~.checkmark {
-    background-color: #232334;
-}
-
-
-/* 
-
-.text-filters,
-#dataTables_filter input {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-} */
-
-.customer {
-    height: 46px;
-    width: 50%;
-    /* padding: 2%; */
-    -webkit-appearance: none;
-    background: url('../../../../assets/images/role-down.svg') right 16px top 16px no-repeat;
-    border: solid 2px rgba(116, 117, 136, 0.6);
-    font-size: 16px;
-    font-family: Muli;
-    font-weight: 500;
-    cursor: pointer;
+    font-weight: 600;
+    color: #30855c;
 }
 
 .file-share-search input[type="search"] {
@@ -309,479 +94,28 @@ span.checkmark {
     padding: 5px 10px;
 }
 
-.notify-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.43;
-    letter-spacing: normal;
-    color: #747588;
-    padding-left: 5%;
+.bread-nav {
+    padding-left: 3.1rem;
 }
 
-
-/**********popover*******/
-
-.list-group-item {
-    border: none;
-    font-family: 'Muli';
-    font-size: 12px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #747588;
-}
-
-.list-group-item:hover {
-    color: #232334;
-    font-weight: 600;
-    background-color: #f8f8f8;
-}
-
-.menu-arrow {
-    cursor: pointer;
-}
-
-::ng-deep .popover-body {
-    padding: 0 !important;
-}
-
-::ng-deep .popover {
-    border: none !important;
-    border-radius: 5px !important;
-    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
-    background-color: #ffffff;
-    top: 4px !important;
-}
-
-::ng-deep .bs-popover-bottom .arrow:after {
-    top: 0px !important;
-}
-
-.pointer-item {
-    cursor: pointer;
-}
-
-.customerIdError,
-.notifyError,
-.uploadError {
-    color: #d50000;
-}
-
-
-/******Date Range Css*********/
-
-:host ::ng-deep .ui-inputtext {
-    display: none !important;
-}
-
-:host ::ng-deep .ui-button-icon-only .ui-button-icon-left {
-    color: #3d8462;
-}
-
-@media (max-width:1024px) {
-    .estate-table {
-        overflow: scroll;
-    }
-    .estate-table table {
-        width: 1024px;
-    }
-}
-
-@media (max-width:480px) {
-    .estate-orders {
-        margin: 1rem 0px;
-    }
-}
-
-
-/* The container */
-
-.bestate-check {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    margin-left: 1rem;
-}
-
-
-/* Hide the browser's default checkbox */
-
-.bestate-check input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-
-/* Create a custom checkbox */
-
-.estatecheckmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 17px;
-    width: 17px;
-    background-color: #fff;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
-.first_t {
-    top: -5px !important;
-}
-
-
-/* On mouse-over, add a grey background color */
-
-.bestate-check:hover input~.estatecheckmark {
-    background-color: #fff;
-}
-
-
-/* When the checkbox is checked, add a blue background */
-
-.bestate-check input:checked~.estatecheckmark {
-    background-color: #30855c;
-}
-
-
-/* Create the checkmark/indicator (hidden when not checked) */
-
-.estatecheckmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-
-/* Show the checkmark when checked */
-
-.bestate-check input:checked~.estatecheckmark:after {
-    display: block;
-}
-
-
-/* .customcheckbox:hover input ~ .checkmark{
-    background-color: #ffffff !important;
-} */
-
-
-/* Style the checkmark/indicator */
-
-.bestate-check .estatecheckmark:after {
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: 1px solid #d6d6d6;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.create-role-section {
-    padding: 0px 40px;
-}
-
-.spacing-order {
-    padding: 1rem 0.6rem !important;
-}
-
-.display_div {
-    position: absolute;
-    right: 3.2rem;
-    top: -0.3rem;
-}
-
-.Give-your-end-users {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: normal;
-    color: #747588;
-    width: 48%;
-    padding: 5px 0px;
-}
-
-.share-txt {
-    font-family: Muli;
-    font-size: 13px;
-    font-weight: 500;
-    color: #232334;
-}
-
-.share-img {
-    width: 17px;
-    height: 17px;
-}
-
-.dwnd-img {
-    width: 15px;
-    height: 15px;
-    position: relative;
-    right: 6%;
-}
-
-
-/* .file-icon{
-height: 32px;
-width: 32px;
-} */
-
-.share-bor {
-    border-radius: 2px;
-    border: solid 2px rgba(116, 117, 136, 0.6);
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
-.upload-order {
-    background-color: #ffffff;
-    padding: 8px 12px;
-}
-
-.file-inpt {
-    opacity: 0;
-    visibility: hidden;
-    display: none;
-}
-
-
-/* MOdal popup css */
-
-.create-share {
+.orders-border {
     border-radius: 4px;
-    background-color: #30855c;
-    outline: 0;
-    border: 0;
-    color: #ffffff;
-    opacity: 0.9;
+    border: solid 1px #d6d6d6 !important;
 }
 
-.create-share:hover {
-    background-color: #30855c;
-    opacity: 1;
+.agreements {
+    padding: 2rem 0rem;
 }
 
-.create-share:focus {
-    box-shadow: none !important;
-    outline: 0 !important;
-    border: 0 !important;
-    background-color: #30855c !important;
+.estate-orders-heading {
+    margin: 1rem 3.1rem;
 }
-
-.file-inpt {
-    opacity: 0;
-    visibility: hidden;
-    display: none;
-}
-
-.w-30 {
-    width: 20%;
-}
-
-.star-mark {
-    color: #d50000;
-}
-
-.modal-content {
-    padding: 15px !important;
-}
-
-.modal-header {
-    padding: 0 0 15px 0 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.modal-content .close {
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-.modal-content .close span {
-    font-size: 35px;
-    line-height: 0;
-}
-
-.modal-content .close:focus {
-    box-shadow: none !important;
-    outline: 0;
-    border: 0;
-}
-
-.modal-body {
-    padding: 15px 0 0 0 !important;
-}
-
-.modal-backdrop {
-    background-color: rgb(0, 0, 0) !important;
-}
-
-.modal-backdrop.show {
-    opacity: 0.8 !important;
-}
-
-.modal-footer {
-    border: 0 !important;
-    padding: 15px 0 0 0 !important;
-}
-
-@media (min-width: 768px) {
-    .modal-content {
-        padding: 20px !important;
-    }
-    .modal-header {
-        padding: 0 0 20px 0 !important;
-    }
-    .modal-body {
-        padding: 20px 0 0 0 !important;
-    }
-    .modal-footer {
-        padding: 20px 0 0 0 !important;
-    }
-}
-
-@media (min-width: 992px) {
-    .modal-header {
-        padding: 0 0 25px 0 !important;
-    }
-    .modal-body {
-        padding: 25px 0 0 0 !important;
-    }
-    .modal-dialog {
-        max-width: 740px !important;
-    }
-    .modal-footer {
-        padding: 25px 0 0 0 !important;
-        border: 0 !important;
-    }
-    .modal-content {
-        padding: 25px !important;
-    }
-    .file-share-search input[type="search"]::placeholder {
-        font-size: 14px;
-    }
-    .file-share-search input[type="search"] {
-        font-size: 14px;
-    }
-}
-
-
-/*  media query Fram Link */
 
 @media (max-width:767px) {
     .bg-fff {
         padding: 1rem .7rem;
     }
-    .bread-nav {
-        padding-left: 0rem;
-    }
     .estate-orders-heading {
         margin: .2rem;
     }
-    .title-header {
-        margin: 1.3rem 1rem;
-    }
-    .estate-table {
-        margin: 1rem 0rem;
-    }
-    .mobile-ce p {
-        margin-bottom: .5rem !important;
-    }
-    .bor-d6d6 {
-        border-top: 2px dashed #d6d6d6;
-        padding-bottom: 5px;
-    }
-    .agreements {
-        padding: 1rem;
-    }
-    .display_div {
-        position: absolute;
-        right: -0.9rem;
-        top: -.5rem;
-    }
-    .upload-order {
-        padding: 8px 10px;
-    }
-    .agreement-top {
-        margin-top: 2rem;
-    }
-    .w-30 {
-        width: 25%;
-    }
-    .top-padd {
-        top: 8px;
-    }
-    .customer {
-        height: 45px !important;
-        width: 100%;
-    }
-    .notify-text {
-        padding-left: 8%;
-    }
-}
-
-@media (max-width: 480px) {
-    .w-30 {
-        width: 30%;
-    }
-}
-
-@media (max-width: 360px) {
-    .w-30 {
-        width: 34%;
-    }
-}
-
-.oh__text {
-    color: #020202;
-}
-
-.delete__text {
-    color: #5d5d5d;
-}
-
-.cancel-btn {
-    color: #30855c;
-    border-radius: 4px;
-    border: 1px solid #30855c;
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.cancel-btn:hover {
-    background-color: #30855c;
-    color: #fff;
-}
-
-.delete-btn {
-    color: #fff;
-    border-radius: 4px;
-    background-color: #30855c;
-}
-
-.delete-btn:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.cancel-btn,
-.delete-btn {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 11px 30px;
 }

@@ -110,7 +110,6 @@ export class RoasterQuickSetupComponent implements OnInit {
       let flag = true;
       var input = this.addUser;
     console.log(input);
-    debugger
       flag = this.validateInput(input);
 
       console.log(this.add_member_email)
@@ -123,13 +122,13 @@ export class RoasterQuickSetupComponent implements OnInit {
             
             // this.inviteSent = 1;
             console.log(data);
-            console.log("https://qa-micro-roaster.sewnstaging.com/#/auth/setup?token=" + data['result'].token);
+            console.log("https://qa-micro-roaster.sewnstaging.com/auth/setup?token=" + data['result'].token);
             var body = {
               "name" : element.name,
               "portal" : this.headerValue,
               "content_type" : "invite_with_url",
               "senders" : [element.email],
-              "url" : "https://qa-micro-roaster.sewnstaging.com/#/auth/setup?token=" + data['result'].token
+              "url" : "https://qa-micro-roaster.sewnstaging.com/auth/setup?token=" + data['result'].token
             };
             this.userService.sendUrlToEmail(body).subscribe(
               res => {
@@ -160,13 +159,13 @@ export class RoasterQuickSetupComponent implements OnInit {
         this.userService.sendHorecaInvite(this.roaster_id,element.email,element.name,element.type).subscribe(data=>{
           if(data['success']==true){
             console.log(data);
-            console.log("https://qa-client-horeca.sewnstaging.com/#/auth/horeca-setup?token=" + data['result'].token);
+            console.log("https://qa-client-horeca.sewnstaging.com/auth/horeca-setup?token=" + data['result'].token);
             var body = {
               "name" : element.name,
               "portal" : this.headerValue,
               "content_type" : "invite_with_url",
               "senders" : [element.email],
-              "url" : "https://qa-client-horeca.sewnstaging.com/#/auth/horeca-setup?token=" + data['result'].token
+              "url" : "https://qa-client-horeca.sewnstaging.com/auth/horeca-setup?token=" + data['result'].token
             };
             this.userService.sendUrlToEmail(body).subscribe(
               res => {

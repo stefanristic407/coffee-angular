@@ -22275,9 +22275,9 @@ li.select-list__item {
     border-radius: 4px;
     background-color: #30855c;
     display: inline-block;
-    color: #ffffff;
+    color: #ffffff !important;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .source-knowmore-avail .contact-us-avail:hover {
@@ -23272,6 +23272,7 @@ li.select-list__item {
 .rectangle_editdropdowns {
     height: 50px !important;
 }
+
 .p-photo img {
     height: 46px;
     width: 50px;

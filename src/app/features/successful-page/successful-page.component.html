@@ -8,7 +8,7 @@
             <h4 class="form_header successful-text fnt-play">{{globals.languageJson?.successful}}</h4>
             <p class="form_para success-mail">
                 {{globals.languageJson?.invitation_sent}}
-                <span class="mail-id"  *ngFor="let userEmail of globals.userInvitesArray">{{userEmail || ""}}</span>
+                <span class="mail-id"  *ngFor="let userEmail of globals.userInvitesArray">"{{userEmail || ""}}" &nbsp;&nbsp;</span>
                 <!-- <span class="mail-id" >email@emai.com</span> -->
             </p>
             <button class="btn done-btn" id="done-btn" routerLink="/features/dashboard">

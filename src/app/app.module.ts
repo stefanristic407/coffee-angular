@@ -1,4 +1,3 @@
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -51,7 +50,7 @@ import { AuthGuard } from './guards/auth.guard';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorIntercept,

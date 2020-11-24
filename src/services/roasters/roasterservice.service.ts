@@ -551,6 +551,17 @@ export class RoasterserviceService {
     // console.log(data);
     return this.http.post(this.url, data);
   } 
+  
+  getMicroRoastersList(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/micro-roasters";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    // console.log(data);
+    return this.http.post(this.url, data);
+  }
+
   getRoastingProfile(roaster_id: any) {
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/roasting-profile";
@@ -656,6 +667,14 @@ export class RoasterserviceService {
     data['api_call'] = "/ro/" + roaster_id + "/users/roles";
     data['token'] = this.cookieService.get('Auth');
     data['method'] = "GET";
+    return this.http.post(this.url, data);
+  }
+  placeOrder(roaster_id : any,harvest_id : any,body : any){
+    const data = {};
+    data['api_call'] = `/ro/${roaster_id}/availability/${harvest_id}/gc`;
+    data['method'] = 'POST';
+    data['data'] = body;
+    data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
  

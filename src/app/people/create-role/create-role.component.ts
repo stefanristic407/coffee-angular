@@ -223,11 +223,17 @@ export class CreateRoleComponent implements OnInit {
 
 						  }
 						});
-						
-						
-                  }
-                }
-              );
+					  }
+					  else{
+						console.log(permissionResult);
+						if(permissionResult['success'] == false){
+							this.toastrService.error("System role permissions cannot be altered");
+							setTimeout(()=>{
+								this.router.navigate(["/people/manage-role"]);
+							},2000)
+						}
+					}
+                });
             }
             else {
               this.toastrService.error("Error while adding roles and permissions");

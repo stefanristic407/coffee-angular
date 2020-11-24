@@ -4,7 +4,7 @@ import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '
 import { Lightbox } from 'ng-gallery/lightbox';
 import { map } from 'rxjs/operators';
 import {GlobalsService} from 'src/services/globals.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-available-coffee-list',
@@ -200,7 +200,13 @@ export class AvailableCoffeeListComponent implements OnInit {
 	availableCertify: any;
 	certiImage: any;
 	certify: any;
-  constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox,public globals: GlobalsService,private route : ActivatedRoute,public sourcing:SourcingService) {
+  constructor(
+	public gallery: Gallery, 
+	public lightbox: Lightbox,
+	public globals: GlobalsService,
+	private route : ActivatedRoute,
+	public sourcing:SourcingService,
+	private router : Router) {
 	this.route.queryParams.subscribe(params => {
 		this.sourcing.harvestData = params['harvestData'];
 		this.availableCertify = params['certificateHarvest']; 
@@ -232,5 +238,15 @@ export class AvailableCoffeeListComponent implements OnInit {
 			return this.certiImage[0].image_url;
 		}
 	}
+}
+
+orderPlace(id : any){
+	let navigationExtras: NavigationExtras = {
+		queryParams: {
+		  "gc_id": encodeURIComponent(id),
+		}
+	  }
+  
+	  this.router.navigate(['/features/available-confirm-order'], navigationExtras);
 }
 }

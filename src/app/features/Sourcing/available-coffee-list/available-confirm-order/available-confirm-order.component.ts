@@ -1,8 +1,12 @@
 import { Component, OnInit,TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { RoasteryProfileService } from '../../../roastery-profile/roastery-profile.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {GlobalsService} from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { SourcingService } from '../../sourcing.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -35,8 +39,30 @@ available_bags:number = 266;
 terms:boolean = false;
 termError:string;
 availableConfirmActive:any=0;
+  gc_id: any;
+  roaster_id: string;
+  shippingAddress_id: any;
+  billingAddress_id: any;
 
-constructor(private modalService: BsModalService,public confirmOrderService : RoasteryProfileService,public router:Router,public globals: GlobalsService) { }
+constructor(private modalService: BsModalService,
+  public confirmOrderService : RoasteryProfileService,
+  public router:Router,
+  public globals: GlobalsService,
+  private route : ActivatedRoute,
+  public sourcing : SourcingService,
+  private cookieService : CookieService,
+  private toastrService : ToastrService,
+  private roasterService : RoasterserviceService,
+  ) {
+    this.roaster_id = this.cookieService.get('roaster_id');
+
+    this.route.queryParams.subscribe(params => {
+      this.sourcing.harvestData = params['gc_id'];
+
+      this.sourcing.availableDetailList();
+     
+      });
+   }
 @ViewChild('confirmtemplate') private confirmtemplate: any;
 
 openModal(template: TemplateRef<any>) {
@@ -159,7 +185,33 @@ onKeyPress(event: any) {
     document.getElementById(event.target.id).style.border = "1px solid #d6d6d6";
   }
 }
+getBooleanService(){
+  if(this.service == "Import & Delivery service"){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 done(){
-  this.router.navigate(["/features/order-placed"]);
+  var data = {
+    'quantity_count' : this.quantity,
+    'shipping_address_id' : this.shippingAddress_id,
+    'billing_address_id' : this.billingAddress_id,
+    'is_fully_serviced_delivery' : this.getBooleanService()
+  }
+this.roasterService.placeOrder(this.roaster_id,this.sourcing.harvestData,data).subscribe(
+data => {
+  if(data['success'] == true ){
+    this.toastrService.success("Order has been placed Successfully");
+
+    this.router.navigate(["/features/order-placed"]);
+  }
+  else{
+    this.toastrService.error("Error while Placing the order");
+    
+  }
+}
+)
 }
 }

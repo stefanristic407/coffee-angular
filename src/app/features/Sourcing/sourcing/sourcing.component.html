@@ -412,8 +412,13 @@
                                                             <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList(item)">
                                                                 <div class="source-card card-border green-coffee-product">
                                                                     <div class="s-gal">
-                                                                        <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
-                                                                        <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">                                                                   
+                                                                        <span *ngIf="item.images">
+                                                                            <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                                            <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">
+                                                                        </span>
+                                                                        <span *ngIf="!item.images">
+                                                                            <img  src="assets/images/dummy-profile.png" alt="">
+                                                                        </span>
                                                                         <div class="cupping">
                                                                             <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
                                                                             <p *ngIf="item.cup_score==''">NA</p>
@@ -486,8 +491,13 @@
                                                                 <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList(item)">
                                                                     <div class="source-card card-border green-coffee-product">
                                                                         <div class="s-gal">
-                                                                            <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
-                                                                        <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt=""> 
+                                                                            <span *ngIf="item.images">
+                                                                                <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                                                <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">
+                                                                            </span>
+                                                                            <span *ngIf="!item.images">
+                                                                                <img  src="assets/images/dummy-profile.png" alt="">
+                                                                            </span>
                                                                         <div class="cupping">
                                                                             <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
                                                                         <p *ngIf="item.cup_score==''">NA</p>
