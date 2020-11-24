@@ -207,10 +207,13 @@
                                                                             <!-- <h6  *ngIf="sample.rating== 0"><span class="fa fa-star checked"></span>{{sam}} </h6> -->
                                                                         </div>
                                                                         <div class="s-cert" (click)="estateList(sample)">
-                                                                            <ul class="flex">
-                                                                                <li><img src="/assets/images/group-certificate.png"></li>
-                                                                                <li><img src="/assets/images/group-utz.png"></li>
-                                                                                <li><img src="/assets/images/group-certified.png"></li>
+                                                                            <ul class="flex" >
+                                                                                <li *ngFor="let cert of sample.certificates | slice:0:3">
+                                                                                    <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
+                                                                                    <img *ngIf="getCertificateData(cert)==''" src="" alt="">
+                                                                                </li>
+                                                                                <!-- <li><img src="/assets/images/group-utz.png"></li>
+                                                                                <li><img src="/assets/images/group-certified.png"></li> -->
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -275,9 +278,13 @@
                                                                             </div>
                                                                             <div class="s-cert">
                                                                                 <ul class="flex">
-                                                                                    <li><img src="/assets/images/group-certificate.png"></li>
+                                                                                    <!-- <li><img src="/assets/images/group-certificate.png"></li>
                                                                                     <li><img src="/assets/images/group-utz.png"></li>
-                                                                                    <li><img src="/assets/images/group-certified.png"></li>
+                                                                                    <li><img src="/assets/images/group-certified.png"></li> -->
+                                                                                    <li *ngFor="let cert of sample.certificates | slice:0:3">
+                                                                                        <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
+                                                                                        <img *ngIf="getCertificateData(cert)==''" src="" alt="">
+                                                                                    </li>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
@@ -379,9 +386,12 @@
                                                                         <div *ngIf="estate.lots== null">NA</div>
                                                                     </td>
                                                                     <td>
-                                                                        <span>
-                                                                            <img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"><img src="/assets/images/group-certified.png">
-                                                                        </span>
+                                                                        <span *ngIf="estate.certificates!= null">
+                                                                        <span *ngFor="let cert of estate.certificates | slice:0:3">
+                                                                                <img class="list-img" *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
+                                                                            <!-- <img class="pr-2" src="/assets/images/group-certificate.png"/> <img class="pr-2" src="/assets/images/group-utz.png"><img src="/assets/images/group-certified.png"> -->
+                                                                        </span></span>
+                                                                        <span *ngIf="estate.certificates==null">NA</span>
                                                                         <!-- <span *ngIf="estate.certificates==2"><img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"></span>
                                                                     <span *ngIf="estate.certificates==1"><img class="pr-2" src="/assets/images/group-utz.png"></span> -->
                                                                     </td>

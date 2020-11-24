@@ -85,10 +85,20 @@ export class SourcingService {
 	dry_moisture_content: any;
   date_cupped: string;
 	estate_rating: any;
- 
-  constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
+  estateContacts:any =[];
+  images: any;
+	estateCertificates: any;
+	resultArray: any;
+	mapped: { type: string; value: any; }[];
+	valueList: any;
+	finalCertify: any=[];
+	overviewCertify:any;
+
+
+  			constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
               private toastrService : ToastrService,public profileservice:RoasteryProfileService) {
-                this.roaster_id = this.cookieService.get('roaster_id');
+				this.roaster_id = this.cookieService.get('roaster_id');
+				this.certificateList();
    }
 
    estateDetailList(){
@@ -183,7 +193,8 @@ export class SourcingService {
 		  this.dry_water_activity=result['result']['dry_milling']['water_activity'];
 		  this.dry_moisture_content=result['result']['dry_milling']['moisture_content'];	
 		  this.packaging=result['result']['packaging'];
-		  this.estate_rating=result['result']['estate_rating'];
+      this.estate_rating=result['result']['estate_rating'];
+      this.images=result['result']['images'];
       }
     })
 	}
@@ -226,5 +237,28 @@ export class SourcingService {
 			  console.log("Green Coffee"+this.greenList);
 			}
 		})
-	}	    
+  }	    
+  estateEmployees(){
+    this.userService.getEstateContacts(this.detailList).subscribe(res =>{
+      if(res['success']==true){
+        this.estateContacts = res['result'];
+        console.log(this.estateContacts)
+      }
+    })
+  }
+  certificateList(){
+	this.userService.getEstateCertificates().subscribe(res =>{
+		if(res['success']==true){
+		  this.estateCertificates = res['result'];
+		   this.mapped = Object.keys(this.estateCertificates).map(key => ({type: key, value: this.estateCertificates[key]}));
+		   console.log(this.mapped);
+		   this.mapped.forEach(item=>{
+			//    this.finalCertify=[]
+			   this.valueList=item.value;
+			   this.finalCertify.push(this.valueList);
+		   });
+		  console.log(this.finalCertify);
+		}
+	})
+  }
 }

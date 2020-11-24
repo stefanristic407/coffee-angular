@@ -29,10 +29,6 @@ export class AvailableCoffeeListComponent implements OnInit {
 		{
 		  srcUrl: 'assets/images/galleria-3.png',
 		  previewUrl: 'assets/images/thumbnail-3.jpg'
-		},
-		{
-		  srcUrl: 'assets/images/galleria-4.png',
-		  previewUrl: 'assets/images/thumbnail-1.jpg'
 		}
 	  ];
 	  imageData = this.data;
@@ -201,9 +197,14 @@ export class AvailableCoffeeListComponent implements OnInit {
   
     // line chart
     autoScale = true;
+	availableCertify: any;
+	certiImage: any;
+	certify: any;
   constructor(private sourcingService:SourcingService, public gallery: Gallery, public lightbox: Lightbox,public globals: GlobalsService,private route : ActivatedRoute,public sourcing:SourcingService) {
 	this.route.queryParams.subscribe(params => {
 		this.sourcing.harvestData = params['harvestData'];
+		this.availableCertify = params['certificateHarvest']; 
+		this.certify=JSON.parse(this.availableCertify)
 		this.sourcing.availableDetailList();
 	  });
    }
@@ -223,4 +224,13 @@ export class AvailableCoffeeListComponent implements OnInit {
 	this.appLanguage = this.globals.languageJson;
 	this.availableCoffeeActive++;
   }
+  getCertificateData(data:any){
+	//   console.log(data);
+	if(data.type_id > 0){
+		this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.type_id);
+		if(this.certiImage !=''){
+			return this.certiImage[0].image_url;
+		}
+	}
+}
 }

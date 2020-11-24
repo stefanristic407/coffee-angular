@@ -28,22 +28,22 @@
     <div class="row">
         <div class="col-lg-12 mt-4 mt-md-0 source-cont">
             <form class="form-container">
-                <div class="row">
+                <div class="row"  *ngFor="let add of addUser;let i = index">
                     <div class="form-group col-md-4 mt-md-1">
                         <label for="add_member_name">{{globals.languageJson?.name}}<span class="star">*</span></label>
-                        <input class="form-control rectangle_username" id="add_member_name" placeholder="Enter your Full Name"  [(ngModel)]="add_member_name" name="add_member_name" type="text" />
+                        <input class="form-control rectangle_username"  placeholder="Enter your Full Name"  [(ngModel)]="add.name"  type="text"  [ngModelOptions]="{ standalone : true }" />
                         <!-- <div class="addressError" *ngIf="addressError != ''">
                             {{ addressError }}
                         </div> -->
                     </div>
                     <div class="form-group col-md-4 mt-md-1">
                         <label for="add_member_email">{{globals.languageJson?.enter_yoru_work_email}}<span class="star">*</span></label>
-                        <input class="form-control rectangle_useremail" type="email" id="add_member_email" placeholder="you@example.com"  [(ngModel)]="add_member_email" name="add_member_email"  />
+                        <input class="form-control rectangle_useremail" type="email" i placeholder="you@example.com"  [(ngModel)]="add.email"  [ngModelOptions]="{ standalone : true }" />
                     </div>
                     <div class="form-group col-md-3 mt-md-1" *ngIf=" this.headerValue == 'HoReCa' ">
                         <label for="add_member_type">{{globals.languageJson?.enter_yoru_work_type}}<span class="star">*</span></label>
                         <!-- <input class="form-control rectangle_useremail" type="text" id="add_member_type" placeholder="Enter your work type"  [(ngModel)]="add_member_type" name="add_member_type"  /> -->
-                        <select class="form-control rectangle_name role_edit"  [(ngModel)]="add_member_type" name="add_member_type" id="add_member_type" required="">
+                        <select class="form-control rectangle_name role_edit"  [(ngModel)]="add.type" [ngModelOptions]="{ standalone : true }" required="">
                             <option value="" selected disabled>
                               Company type</option
                             >
@@ -51,17 +51,16 @@
                             <option value="Cafe">Cafe</option>
                             <option value="Restaurant">Restaurant</option>
                             <option value="Bar">Bar</option>
-                           
                           </select>
                     </div>
 
-                    <div>
+                    <div   *ngIf="i != 0" (click)="deleteRow(i)">
                         <label for="add_member_email"></label>
-                        <div class="mt-4 delete-link">Delete</div>
+                        <div class="mt-4 delete-link cursor-pointer">Delete</div>
                     </div>
                 </div>
                 <div class="add-partner align-items-center">
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14">+ Add another email</span>
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14"   (click)="addNewRow()">+ Add another email</span>
                 </div>
                 <div class="row">
                     <div class="col-12">

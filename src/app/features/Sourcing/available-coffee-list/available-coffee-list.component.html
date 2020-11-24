@@ -62,6 +62,17 @@
                                 <div class="prodect-gal">
                                     <gallery id="basic-test" [items]="items" gallerize></gallery>
                                 </div>
+                                <div class="certify-green mt-5">
+                                        <h5>Certificates</h5>
+                                        <div class="cetify-logo pt-3 d-none d-md-block">
+                                            <ul class="clearfix mb-5">
+                                                    <li class="mb-3" *ngFor="let cert of certify">
+                                                            <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
+                                                            <img *ngIf="getCertificateData(cert)==''" src="" alt="">
+                                                        </li>
+                                            </ul>
+                                        </div>        
+                                    </div>
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="product-description">
@@ -69,9 +80,13 @@
                                         <h2 class="p-h2 mb-2 lot-size">{{sourcing.available_name}}</h2>
                                     <div class="s-certified d-md-none">
                                         <ul class="flex">
-                                            <li><img src="/assets/images/group-certificate.png"></li>
+                                            <!-- <li><img src="/assets/images/group-certificate.png"></li>
                                             <li><img src="/assets/images/group-utz.png"></li>
-                                            <li><img src="/assets/images/group-certified.png"></li>
+                                            <li><img src="/assets/images/group-certified.png"></li> -->
+                                            <li class="mb-3" *ngFor="let cert of certify">
+                                                <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
+                                                <img *ngIf="getCertificateData(cert)==''" src="" alt="">
+                                            </li>
                                         </ul>
                                     </div>
                                     <h6 class="p-h6 mb-4"><img class="mob-img" src="assets/images/location-rating.png" alt=""> {{sourcing.region}}</h6>

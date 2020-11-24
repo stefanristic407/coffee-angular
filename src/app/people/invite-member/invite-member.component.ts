@@ -52,6 +52,7 @@ export class InviteMemberComponent implements OnInit {
 	if (this.cookieService.get("Auth") == "") {
     this.router.navigate(["/auth/login"]);
     }
+    
     this.emailError = "";
     this.nameError = "";
     this.listRoles();

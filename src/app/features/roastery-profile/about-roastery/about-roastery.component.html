@@ -58,7 +58,7 @@
                                 </div>
                             </div>
 
-                            <hr class="d-none d-lg-block">
+                            <hr class="d-none d-lg-block" *ngIf="roasteryProfileService.savemode">
                             <div class="row p-3 mt-md-5 mp-3" *ngIf="roasteryProfileService.savemode">
                                 <p class="sub-header">{{globals.languageJson?.employee_details}}</p>
                                 <p class="header-descr">{{globals.languageJson?.give_overview_text}}.</p>
@@ -119,16 +119,15 @@
 
 <!-- company details -->
 
-
                             <hr class="d-none d-lg-block">
-                            <div class="row mt-md-5 p-3">
-                                <div class="col-md-8" > 
+                            <div class="row mt-md-5">
+                                <div class="col-md-9" > 
                                     <p class="sub-header">Company details</p>
                                     <p class="header-descr">Enter your VAT and customer ID for billing purposes</p>
                                 </div>
-                                <div class="float-right ml-auto"  *ngIf="roasteryProfileService.savemode">
-                                    <p class="header-descr pl-3">Private</p>
-                                    <p class="pl-3"><p-inputSwitch [(ngModel)]="roasteryProfileService.company_details_public"></p-inputSwitch></p>
+                                <div class="col-md-3"  *ngIf="roasteryProfileService.savemode">
+                                    <p class="header-descr private-pad-7">Private</p>
+                                    <p class="float-right ml-auto"><p-inputSwitch [(ngModel)]="roasteryProfileService.company_details_public"></p-inputSwitch></p>
                                 </div>
                                
                             </div>
@@ -157,9 +156,7 @@
 
 
 
-
-
-                            <hr class="d-none d-md-block" *ngIf="roasteryProfileService.savemode">
+                            <hr class="d-none d-md-block">
                             <div class="row p-3 mt-md-5 mp-3">
                                 <p class="sub-header">{{globals.languageJson?.roastery_capabilities}}</p>
                                 <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{globals.languageJson?.tell_us_capability_text}}.</p>

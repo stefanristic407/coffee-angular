@@ -3,7 +3,7 @@ import {GlobalsService} from 'src/services/globals.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -34,6 +34,10 @@ export class NewRoastedBatchComponent implements OnInit {
   quantity : any;
   quantity_unit : any = 'kg';
   roast_batch_name: any;
+  editFlag: boolean = false;
+  batchId: string;
+  flavour_profile_array: any =  [];
+  orderId: string;
 
 
   constructor(  public globals: GlobalsService,
@@ -41,6 +45,7 @@ export class NewRoastedBatchComponent implements OnInit {
                 public roasterService : RoasterserviceService,
                 public toastrService : ToastrService,
                 public router : Router,
+                public route : ActivatedRoute,
                 public cookieService : CookieService) {
                   this.roaster_id = this.cookieService.get('roaster_id');
                  }
@@ -50,6 +55,13 @@ export class NewRoastedBatchComponent implements OnInit {
     this.appLanguage = this.globals.languageJson;
     this.getRoastingProfiles();
     this.getRoasterFlavourProfile();
+
+    
+    if (this.route.snapshot.queryParams['BatchID']) {
+      this.editFlag = true;
+      this.batchId = decodeURIComponent(this.route.snapshot.queryParams['BatchID']);
+      this.getRoastedBatch();
+    }
   }
   setCupping(cuppdata:any){
     this.cupping=cuppdata;
@@ -66,13 +78,16 @@ export class NewRoastedBatchComponent implements OnInit {
   }
 
   addLang(value:any) {
-    // const input = event.input;
-    // const value = event.value;
+    const id = value.id;
+    const name = value.name;
   
     // Add our fruit
-    if ((value || '').trim()) {
-      this.langChips.push(value.trim());
+    if ((name || '').trim()) {
+      this.langChips.push(value);
+      this.flavour_profile_array.push(id);
     }
+    
+    console.log(this.flavour_profile_array)
   
     // // Reset the input value
     // if (input) {
@@ -81,12 +96,29 @@ export class NewRoastedBatchComponent implements OnInit {
   
   }
   
-  remove(lang: string): void {
+  remove(lang: any): void {
     const index = this.langChips.indexOf(lang);
+    // this.langChips.slice(lang);
   
+    
+    
+    console.log(this.flavour_profile_array)
     if (index >= 0) {
       this.langChips.splice(index, 1);
+      this.flavour_profile_array.splice(index, 1);
     }
+  }
+
+  
+  getRoastedBatch(){
+    this.userService.getRoastedBatchDetail(this.roaster_id,this.batchId).subscribe(
+      data => {
+        if(data['success'] == true){
+          this.roast_batch_name = data['result'].roast_batch_name;
+        
+        }
+      }
+    )
   }
 
   getRoastingProfiles(){
@@ -112,5 +144,59 @@ export class NewRoastedBatchComponent implements OnInit {
       }
     )
   }
+
+  
+  addRoastingProfile(){
+    // this.loginButtonValue = "Saving";
+    // if (this.profile_name == "" || this.roast_level == '' || this.roast_duration == '' || this.machine_type == '' || this.temperature == '') {
+    //   this.toastrService.error("Please fill up the details");
+    // }
+    // else{
+      
+      var data = {
+        "roast_batch_name": this.roast_batch_name,
+        "order_id": parseInt(this.orderId),
+        "roasting_profile_id": parseInt(this.cupping),
+        "roasting_profile_quantity": parseInt(this.quantity),
+        "roasting_profile_unit": this.quantity_unit,
+        "flavour_profile": this.flavour_profile_array,
+        "aroma": parseInt(this.aroma),
+        "body": parseInt(this.body),
+        "flavour": parseInt(this.flavour),
+        "acidity": parseInt(this.acidity),
+        "processing": this.processing,
+        "roaster_notes": this.notes
+      
+      }
+      if(this.editFlag == true){
+        this.userService.updateRoastedBatchDetail(this.roaster_id,this.batchId,data).subscribe(
+          res => {
+            if(res['success'] == true){
+              // this.loginButtonValue = "Save";
+            this.toastrService.success("The Roasted Batch has been Updated.");
+            this.router.navigate(['/features/roasted-batch']);
+            }
+            else{
+              // this.loginButtonValue = "Save";
+              this.toastrService.error("Error while updating the Roasted Batch");
+            }
+          }
+        )
+      }else{
+      this.userService.addRoastedBatches(this.roaster_id,data).subscribe(
+        response => {
+          if(response['success'] == true){
+            // this.loginButtonValue = "Save";
+            this.toastrService.success("The Roasted Batch has been added.");
+            this.router.navigate(['/features/roasted-batch']);
+          }
+          else{
+            // this.loginButtonValue = "Save";
+            this.toastrService.error("Error while adding the Roasted Batch");
+          }
+        }
+      )}
+    }
+  // }
 
 }

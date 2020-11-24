@@ -1,0 +1,27 @@
+
+.mail-id {
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}
+@media screen and (width : 425px){
+    .mail-box {
+        margin-top: 15% !important;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+    .successful-text {
+        font-family: PlayfairDisplay !important;
+        font-size: 32px !important;
+        color: #232334 !important;
+        margin-bottom: 4% !important;
+        font-weight: normal !important;
+    }
+
+
+
+.done-btn:hover {
+    background-color: #30855c;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}

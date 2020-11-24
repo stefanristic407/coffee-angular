@@ -68,12 +68,12 @@
                                 
                                 <label for="member_role">{{globals.languageJson?.roles}}<span class="star">*</span></label>
 
-                                <div class="row" *ngFor="let role of roles">
+                                <div class="row" *ngFor="let role of roles;let i = index">
                                     <div class="form-group col-md-6 mt-md-3 mb-0">
                                         <input *ngIf="savemode" class="form-control rectangle_username" type="text"  (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}" />
                                         <input *ngIf="editmode" class="form-control rectangle_username" type="text" [ngClass]="{disabledDiv: activeFlag}" (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}"/>
                                     </div>
-                                    <div class="add-partner mt-3 col-md-6" *ngIf="showDelete">
+                                    <div class="add-partner mt-3 col-md-6" *ngIf="showDelete && i > 0">
                                         <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="removeRole(role.id)">Remove role</span>
                                     </div>
                                 </div>

@@ -23,6 +23,7 @@ export class UserserviceService {
   private languageURL = environment.apiURL+"/language";
   private sendEmailURL = environment.apiURL+"/sendemail";
   private inviteUrl = environment.apiURL+"/ro/inviteusers";
+  private estateUrl = environment.apiURL+'/es/api';
 
   // private roasterUrl = "/ro/api";
   // private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
@@ -598,6 +599,33 @@ export class UserserviceService {
     data['api_call'] = "/ro/" + roaster_id + "/availability/gc?" + params;
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  getEstateContacts(estate_id: any) {
+    var data = {};
+    data['api_call'] = "/general/es/" + estate_id + "/users/top-contacts";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
+  getEstateCertificates(){
+    var data = {};
+    data['api_call'] = "/general/certificate-types/";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
+  updateRoastedBatchDetail(roaster_id : any, id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/roasted-batches/${id}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "PUT";
+    return this.http.put(this.putUrl, data);
+  }
+  getRoastedBatchDetail(roaster_id : any, id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/roasted-batches/${id}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
     return this.http.post(this.roasterUrl, data);
   }
 

@@ -142,6 +142,8 @@ import { SustainabilityComponent } from './Farm Link/brand-profile/sustainabilit
 import { VisitUsComponent } from './Farm Link/brand-profile/visit-us/visit-us.component';
 import { HomePageComponent } from './Farm Link/brand-profile/home-page/home-page.component';
 import { LearnComponent } from './Farm Link/brand-profile/learn/learn.component';
+import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
+import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 
 
 
@@ -253,6 +255,8 @@ import { LearnComponent } from './Farm Link/brand-profile/learn/learn.component'
     VisitUsComponent,
     HomePageComponent,
     LearnComponent,
+    BatchSelectAnOrderComponent,
+    SuccessfulPageComponent,
   
  
   ],

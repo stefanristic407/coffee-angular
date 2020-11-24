@@ -5,6 +5,7 @@ import { SourcingService } from '../sourcing.service';
 import { CookieService } from 'ngx-cookie-service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
 declare var $:any;
 @Component({
   selector: 'app-estate-details-list',
@@ -28,13 +29,23 @@ export class EstateDetailsListComponent implements OnInit {
   blogResult: string;
   countryValue: any;
   flavourName: any;
-  constructor(private modalService:BsModalService,public globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService,public profile:RoasteryProfileService) {
+	certiImage: any;
+	estateData: any;
+	estateCetificateData: any;
+	certifyEstate: any;
+  constructor(private modalService:BsModalService,public globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService,public profile:RoasteryProfileService,    private userService : UserserviceService,
+	) {
     this.route.queryParams.subscribe(params => {
-      this.sourcing.detailList = params['listData'];
+	  this.sourcing.detailList = params['listData'];
+	  this.certifyEstate =JSON.parse(params['certificate']);
+	  this.sourcing.overviewCertify=this.certifyEstate;
       this.sourcing.estateDetailList();
 	  this.sourcing.lotsList();
     this.sourcing.flavourprofileList();
     this.sourcing.greenCoffee();
+	this.sourcing.estateEmployees();
+	// this.getAvailableEstates();
+    // this.sourcing.certificateList();
   });
   this.roaster_id = this.cookieService.get('roaster_id');
    }
@@ -65,9 +76,38 @@ export class EstateDetailsListComponent implements OnInit {
     // console.log(this.countryValue.name);
   }
   getFlavourName(flavourid:any){
-		if(this.sourcing.flavourList){
-		this.flavourName = this.sourcing.flavourList.find(flavour => flavour.id == flavourid).name;
-		return this.flavourName;
+	if(this.sourcing.flavourList){
+	this.flavourName = this.sourcing.flavourList.find(flavour => flavour.id == flavourid).name;
+	return this.flavourName;
+	}
+  }
+  	getCertificateData(data:any){
+		//   console.log(data);
+		if(data.type_id > 0){
+			this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.type_id);
+			if(this.certiImage !=''){
+				return this.certiImage[0].image_url;
+			}
 		}
 	}
+	// getAvailableEstates(){
+	// 	alert(this.sourcing.detailList);
+	// 	this.userService.getAvailableEstates(this.roaster_id).subscribe(
+	// 	  data => {
+	// 		if(data['success'] == true){
+	// 		//   console.log(data['result']);
+	// 		  this.estateCetificateData = data['result'];
+
+	// 		  for(var i=0;i<this.estateCetificateData.length;i++){
+	// 			  console.log(this.estateCetificateData[i].estate_id==this.sourcing.detailList);
+	// 				if(this.estateCetificateData[i].estate_id==this.sourcing.detailList)
+	// 				{
+	// 					this.certifyEstate=this.estateCetificateData[i].certificates;
+	// 				}
+	// 				console.log("certify"+this.certifyEstate);
+	// 		  }
+	// 		}
+	// 	  }
+	// 	)
+	//   }
 }

@@ -168,6 +168,7 @@ overviewActive:any=0;
     // line, area
     autoScale = true;
 	monthName: string;
+	certiImage: any;
       
   constructor(public globals: GlobalsService, public sourcing : SourcingService) { }
 
@@ -176,6 +177,7 @@ overviewActive:any=0;
 	
 	window.scroll(0, 0);
 	this.sourcing.estateDetailList();
+	// console.log(this.sourcing.overviewCertify);
   }
   language(){
     this.appLanguage = this.globals.languageJson;
@@ -229,5 +231,12 @@ overviewActive:any=0;
 		}
 		return this.monthName;
 	  }
-
+	  getCertificateData(data:any){
+	  if(data.type_id > 0){
+		  this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.type_id);
+		  if(this.certiImage !=''){
+			  return this.certiImage[0].image_url;
+		  }
+	  }
+  }
 }

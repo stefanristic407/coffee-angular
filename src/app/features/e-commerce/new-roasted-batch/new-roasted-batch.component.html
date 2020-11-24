@@ -234,13 +234,12 @@
                         </a>
                         <div class="chips">
                             <mat-chip-list #chipList aria-label="language" class="desk-chips">
-                                <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language}}
+                                <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language.name}}
                                     <img *ngIf="removable" class="cross-icon" src="assets/images/cross-white.svg" (click)="remove(language)">
                                 </mat-chip>
                             </mat-chip-list>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="row pt-3 pb-3">
@@ -252,11 +251,7 @@
                         </div>
                     </div>
                 </div>
-
                 <button class="cancel mt-2 mb-5"> {{globals.languageJson?.cancel}} </button>
-
-
-
             </section>
 
         </div>
@@ -280,7 +275,7 @@
     <div id="status-content">
         <ul class="list-group custom-popover" >
             <li *ngFor="let flavours of roasterFlavourProfile" class="list-group-item item-color">
-                <a class="pointer-item" (click)="addLang(flavours.id);pop2.hide()">{{flavours.name}}</a
+                <a class="pointer-item" (click)="addLang(flavours);pop2.hide()">{{flavours.name}}</a
           >
         </li>
         <!--<li class="list-group-item item-color">

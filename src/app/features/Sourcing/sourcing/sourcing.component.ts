@@ -66,6 +66,9 @@ export class SourcingComponent implements OnInit {
 	flavourName: any;
 	coffeedata: any;
 	harvestData: any;
+	certiImage: any;
+	certificate: any;
+  harvestCertify: any;
 
   constructor(public sourcingService:SourcingService,
     private modalService: BsModalService,private router: Router,
@@ -384,6 +387,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 // this.language();
   this.getAvailableEstates();
   this.getAvailableCoffee();
+//   this.sourcing.certificateList();
   }
 
   getAvailableEstates(){
@@ -510,22 +514,28 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   	}
 	  
   estateList(data : any){
-    this.listData = data.estate_id;
-    console.log(this.listData);
+	this.listData = data.estate_id;
+	this.certificate=data.certificates;
+    console.log(this.certificate);
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "listData": this.listData,
+		"listData": this.listData,
+		certificate:JSON.stringify(this.certificate)
       }
     }
     this.router.navigate(["/features/estate-details"], navigationExtras);
     this.sourcingService.currentView = "search" ;
   }
+  
   availableCoffeeList(item:any){
 	this.harvestData = item.harvest_id;
-    console.log(this.harvestData);
+    // console.log(this.harvestData);
+    this.harvestCertify=item['estate']['certificates'];
+    console.log(this.harvestCertify);
     let navigationExtras: NavigationExtras = {
       queryParams: {
         "harvestData": this.harvestData,
+        certificateHarvest:JSON.stringify(this.harvestCertify)
       }
     }
 	this.router.navigate(["/features/available-coffee-list"],navigationExtras);    
@@ -686,5 +696,19 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
       this.flavourName = this.sourcing.flavourList.find(flavour => flavour.id == flavourid).name;
       return this.flavourName;
       }
+    }
+    getCertificateData(data:any){
+		// this.sourcing.estateCertificates.forEach(element => {
+		// 	if(element.id== data.type_id){
+		// 		return '<img src='+element.image_url;
+		// 	}
+		if(data.type_id > 0){
+			this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.type_id);
+			// return this.certiImage;
+			if(this.certiImage !=''){
+				// console.log(this.certiImage[0].image_url); 
+				return this.certiImage[0].image_url;
+			}
+		}
     }
 }

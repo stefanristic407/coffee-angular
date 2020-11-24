@@ -72,6 +72,8 @@ import { SourcingOrderChatComponent } from "./Sourcing/estate-details-list/sourc
 import { SourcingComponent } from "./Sourcing/sourcing/sourcing.component";
 import { VatManagementComponent } from "./vat-management/vat-management.component";
 import { WelcomeAboardComponent } from "./welcome-aboard/welcome-aboard.component";
+import { BatchSelectAnOrderComponent} from "./batch-select-an-order/batch-select-an-order.component";
+import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 
 const routes: Routes = [
   {
@@ -426,6 +428,16 @@ const routes: Routes = [
       {
         path: "learn",
         component: LearnComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "batch-select-an-order",
+        component: BatchSelectAnOrderComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "success-mail",
+        component: SuccessfulPageComponent,
         canActivate: [AuthGuard],
       },
       {

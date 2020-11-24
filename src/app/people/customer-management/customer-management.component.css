@@ -96,3 +96,98 @@ li.nav-item {
 .butn-availability:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
+
+
+
+.search-raised {
+    width: 70%;
+    height: 38px;
+    background-color: #fff;
+    background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
+    background-size: 16px 16px;
+    padding-left: 41px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #232334;
+    margin-left: 4.7rem;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+}
+
+.search-div {
+    margin-top: -10px;
+}
+
+::ng-deep .popover-body {
+    padding: 0.25rem 0.25rem !important;
+}
+
+::ng-deep .popover {
+    border: none !important;
+    border-radius: 5px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+    background-color: #ffffff;
+    top: 4px !important;
+}
+
+::ng-deep .bs-popover-bottom .arrow:after {
+    top: 0px !important;
+}
+
+.pointer-item {
+    cursor: pointer;
+}
+
+.list-group-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 12px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+
+.list-group-item:hover {
+    color: #232334;
+    font-weight: 600 !important;
+    background-color: #f8f8f8;
+}
+
+.cancel_member{
+    height: 46px;
+    padding: 0px 24px;
+    border-radius: 4px;
+    background-color: #30855c;
+    font-family: Muli;
+    font-weight: bold;
+    line-height: 1.57;
+    text-align: right;
+    color: #ffffff;
+}
+
+
+.filter {
+    font-family: 'Muli';
+    font-weight: 600;
+    color: #232334;
+    font-size: 14px;
+}
+
+.border-total {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.header{
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+}

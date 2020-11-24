@@ -16,12 +16,36 @@
                 </li>
 
                 <li class="b-cum c-pink">{{globals.languageJson?.customer_management}}</li>
-
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-succes cancel_member" routerLink="/features/dashboard">Invite new customer</button>
+                </div>
             </ul>
         </nav>
 
         <section class="social-media">
             <div class="col-lg-12 col-md-12 col-12">
+                <h6 class="header my-4">Customer Management</h6>
+                <div class="row">
+                    <div class="col-lg-8">
+                    <div class="d-inline border-total status-div col-sm-6" id="status_id">
+                        <p class="d-inline filter-text" *ngIf="termStatus == ''">{{globals.languageJson?.status}}&nbsp;</p>
+                        <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                            <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
+                                &nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                            </p>
+                        </a>
+                        <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+                            <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleStatus()">
+                                {{ termStatus }}&nbsp; <img src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                            </p>
+                        </a>
+                    </div>
+                   
+                </div>
+                     <div class="col-md-6 col-lg-4 search-div ">
+                        <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="term" placeholder="{{globals.languageJson?.search_name_role}}" />
+                    </div>
+                </div>
                 <div class="row">
                     <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
                         <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
@@ -58,4 +82,35 @@
             </div>
         </section>
     </div>
+    
+
+<ng-template #allTemplate>
+    <div id="status-content">
+      <ul class="list-group">
+        <li class="list-group-item item-color">
+          <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide();toggleStatus()"
+            >All</a>
+        </li>
+        <li class="list-group-item item-color">
+          <a
+            class="pointer-item"
+            (click)="setStatus('Active'); pop.hide(); pop2.hide();toggleStatus()"
+            >Active</a>
+        </li>
+        <li class="list-group-item item-color">
+          <a
+            class="pointer-item"
+            (click)="setStatus('Inactive'); pop.hide(); pop2.hide();toggleStatus()"
+            >Inactive</a>
+        </li>
+        <li class="list-group-item item-color">
+            <a
+              class="pointer-item"
+              (click)="setStatus('Pending'); pop.hide(); pop2.hide();toggleStatus()"
+              >Pending</a>
+          </li>
+      </ul>
+    </div>
+  </ng-template> 
 </div>
+
