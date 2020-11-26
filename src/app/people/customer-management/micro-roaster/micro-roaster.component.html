@@ -32,7 +32,7 @@
                 <tbody class="customtable">
                     <tr class="ticket-boby-txt" *ngFor="let item of mainData">
                         <td>
-                            <label class="customcheckbox" (click)="shareDetails(item);">
+                            <label class="customcheckbox">
                                 <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
                                 <span class="checkmark head-check"></span>
                             </label>
@@ -44,7 +44,7 @@
                         <td>{{ item.status }} </td>
                         <td>{{item.total_employees}}</td>
                         <!-- <td class="view-listing">{{item.action}}</td> -->
-                        <td class="view-listing">View Details</td>
+                        <td class="view-listing" (click)="shareDetails(item);">View Details</td>
                         <td>
                             <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                                 <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
@@ -52,12 +52,12 @@
                             <ng-template #poplistTemplate id="{{item.id}}">
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
-                                        <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                        <!-- <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
                                         <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
                                         <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
-                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li> -->
                                         <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
-                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();stimulatedLogin(item);">Stimulated login</a></li>
+                                        <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();customer.stimulatedLogin(item.id);">Simulated login</a></li>
                                     </ul>
                                 </div>
                             </ng-template>
@@ -79,7 +79,6 @@
                 <div class="source-cont">
                     <div class="row">
                         <div class="col-lg-12 ">
-
                             <nav>
                                 <div class="nav nav-tabs nav-fill pt-md-4" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#documents" role="tab" aria-controls="nav-home" aria-selected="true"></a>

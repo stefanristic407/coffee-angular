@@ -5,6 +5,7 @@ import { Lightbox } from 'ng-gallery/lightbox';
 import { map } from 'rxjs/operators';
 import {GlobalsService} from 'src/services/globals.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { UserserviceService } from 'src/services/users/userservice.service';
 
 @Component({
   selector: 'app-available-coffee-list',
@@ -206,12 +207,14 @@ export class AvailableCoffeeListComponent implements OnInit {
 	public globals: GlobalsService,
 	private route : ActivatedRoute,
 	public sourcing:SourcingService,
-	private router : Router) {
+	private router : Router,
+	public userService : UserserviceService) {
 	this.route.queryParams.subscribe(params => {
 		this.sourcing.harvestData = params['harvestData'];
 		this.availableCertify = params['certificateHarvest']; 
 		this.certify=JSON.parse(this.availableCertify)
 		this.sourcing.availableDetailList();
+		this.sourcing.otherAvailableCoffee();
 	  });
    }
 
@@ -249,4 +252,5 @@ orderPlace(id : any){
   
 	  this.router.navigate(['/features/available-confirm-order'], navigationExtras);
 }
+
 }

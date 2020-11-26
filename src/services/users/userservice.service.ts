@@ -662,4 +662,87 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data).pipe(map(response => response['result']));
   }
+  getMicroDetails(roaster_id: any,micro_roaster_id : any) {
+    // let params = new HttpParams();
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/micro-roasters/" + micro_roaster_id;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  getHorecaDetails(roaster_id: any,hrc_id : any){
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/hrc/" + hrc_id;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  updateMicroDiscount(roaster_id: any,micro_roaster_id : any,body : any){
+	var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/micro-roasters/"+ micro_roaster_id+"/discounts";
+	data['token'] = this.cookieService.get('Auth');
+	data["method"] = "PUT";
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+  updateHorecaDiscount(roaster_id: any,hrc_id : any,body : any){
+	var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/hrc/"+ hrc_id+"/discounts";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data["method"] = "PUT";
+    return this.http.post(this.roasterUrl, data);
+  }
+  updateHorecaEnable(roaster_id: any,hrc_id : any){
+	var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/hrc/"+ hrc_id+"/enable";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.put(this.putUrl, data);
+  }
+  updateHorecaDisable(roaster_id: any,hrc_id : any){
+	var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/hrc/"+ hrc_id+"/disable";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.put(this.putUrl, data);
+  }
+  updateMicroRoasterEnable(roaster_id: any,micro_roaster_id : any){
+	var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/micro-roasters/"+ micro_roaster_id+"/enable";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.put(this.putUrl, data);
+  }
+  updateMicroRoasterDisable(roaster_id: any,micro_roaster_id : any){
+	var data = {};
+    data['api_call'] = "/ro/"+ roaster_id+"/micro-roasters/"+ micro_roaster_id+"/disable";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.put(this.putUrl, data);
+  }
+  deleteMicroRoaster(roaster_id: any,micro_roaster_id : any){
+  	var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/micro-roasters/"+ micro_roaster_id;
+    data["method"] = "DELETE";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterDeleteUrl, data);
+  }
+  getMicroroasterCertificates(micro_roaster_id:any){
+	var data = {};
+    data['api_call'] = "/general/"+ "/mr/" + micro_roaster_id + "/certificates";
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  getMicroroasterContacts(micro_roaster_id:any){
+	var data = {};
+    data['api_call'] = "/general/"+ "/mr/" + micro_roaster_id + "/users/top-contacts";
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  getHorecaContacts(hrc_id:any){
+	var data = {};
+    data['api_call'] = "/general/"+ "/hrc/" + hrc_id + "/users/top-contacts";
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
 }

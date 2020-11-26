@@ -176,6 +176,18 @@
     color: #979797;
     font-family: Muli;
 }
+.search {
+    height: 44px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    -webkit-appearence: none !important;
+}
+.main-bag {
+    position: absolute;
+    top: 70%;
+    right: 53%;
+}
 
 @media (max-width:767px) {
     .ft-roastry-profile {
@@ -234,4 +246,7 @@
     padding: 4px 13px 6px;
     float: left;
     border-radius: 2px;
+}
+.pointer-hand:hover {
+    text-decoration: underline;
 }

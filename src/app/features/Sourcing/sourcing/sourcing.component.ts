@@ -522,7 +522,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		"listData": this.listData,
 		certificate:JSON.stringify(this.certificate)
       },
-      skipLocationChange: true
+      // skipLocationChange: true
     }
     this.router.navigate(["/features/estate-details"], navigationExtras);
     this.sourcingService.currentView = "search" ;

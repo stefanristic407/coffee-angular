@@ -23,18 +23,18 @@
             <tbody class="customtable">
                 <tr class="ticket-boby-txt" *ngFor="let item of mainData">
                     <td>
-                        <label class="customcheckbox" (click)="shareDetails(item);">
+                        <label class="customcheckbox" >
                                 <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
                                 <span class="checkmark head-check"></span>
                             </label>
                     </td>
                     <td>
-                        {{ item.microname }}
+                        {{ item.name }}
                     </td>
-                    <td>{{ item.createdon }}</td>
+                    <td>{{ item.created_at | date: 'dd-MM-yyyy HH:mm' }}</td>
                     <td>{{ item.status }} </td>
-                    <td>{{item.activeuser}}</td>
-                    <td class="view-listing">{{item.action}}</td>
+                    <td>{{item.active_users}}</td>
+                    <td class="view-listing" (click)="shareDetails(item);">View Details</td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
@@ -42,10 +42,10 @@
                         <ng-template #poplistTemplate id="{{item.id}}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
+                                    <!-- <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li> -->
                                     <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
                                 </ul>
                             </div>

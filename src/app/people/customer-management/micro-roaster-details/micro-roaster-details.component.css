@@ -173,6 +173,21 @@
 .sim-pad {
     padding-left: 5.6rem;
 }
+.search {
+    height: 44px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    -webkit-appearence: none !important;
+}
+.main-bag {
+    position: absolute;
+    top: 70%;
+    right: 53%;
+}
+.pointer{
+    cursor: pointer;
+}
 
 @media (max-width:767px) {
     .ft-roastry-profile {

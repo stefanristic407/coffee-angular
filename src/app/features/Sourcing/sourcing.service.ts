@@ -93,6 +93,8 @@ export class SourcingService {
 	valueList: any;
 	finalCertify: any=[];
 	overviewCertify:any;
+	estate_id: any;
+	otherGreenList: any;
 
 
   			constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
@@ -157,44 +159,44 @@ export class SourcingService {
       result=>{
         console.log(result);
       if(result['success']==true){
-        this.available_name=result['result']['name'];
-		  this.available_estate_name=result['result']['estate_name'];
-		  this.lot_id=result['result']['lot_id'];
-		  this.region=result['result']['region'];
-		  this.about=result['result']['about'];
-		  this.price=result['result']['price'];
-		  this.price_unit=result['result']['price_unit'];
-		  this.quantity_count=result['result']['quantity_count'];
-		  this.quantity_type=result['result']['quantity_type'];
-		  this.quantity=result['result']['quantity'];
-		  this.quantity_unit=result['result']['quantity_unit'];
-		  this.cup_score=result['result']['cupping']['cup_score'];
-		  this.cupped_at=result['result']['cupping']['cupped_at'];
-		  this.date_cupped = new DatePipe('en-Us').transform(this.cupped_at, 'MMM d, y', 'GMT+5:30');
-	
-		  this.evaluator_dp_thumb=result['result']['cupping']['evaluator_dp_thumb'];
-		  this.availabilty_variety=result['result']['variety'];
-		  this.availability_species=result['result']['species'];
-		  this.evaluator_name=result['result']['cupping']['evaluator_name'];
-		  this.harvest_date=result['result']['harvest_date'];
-		  this.flavours=result['result']['flavours'];
-		  this.max_altitude_coffee=result['result']['max_altitude'];
-		  this.min_altitude_coffee=result['result']['min_altitude'];
-		  this.shipping_to=result['result']['shipping_to'];
-		  this.ico_number=result['result']['incoterm'];
-		  this.initial_quantity=result['result']['initial_quantity'];
-		  this.state=result['result']['state'];
-		  this.type=result['result']['type'];
-		  this.listing_status=result['result']['listing_status'];	  
-		  this.wet_process=result['result']['wet_milling']['process'];
-		  this.wet_fermentation=result['result']['wet_milling']['fermentation'];
-		  this.dry_period=result['result']['dry_milling']['drying_period'];
-		  this.dry_process=result['result']['dry_milling']['process'];
-		  this.dry_water_activity=result['result']['dry_milling']['water_activity'];
-		  this.dry_moisture_content=result['result']['dry_milling']['moisture_content'];	
-		  this.packaging=result['result']['packaging'];
-      this.estate_rating=result['result']['estate_rating'];
-      this.images=result['result']['images'];
+			this.available_name=result['result']['name'];
+			this.available_estate_name=result['result']['estate_name'];
+			this.lot_id=result['result']['lot_id'];
+			this.region=result['result']['region'];
+			this.about=result['result']['about'];
+			this.price=result['result']['price'];
+			this.price_unit=result['result']['price_unit'];
+			this.quantity_count=result['result']['quantity_count'];
+			this.quantity_type=result['result']['quantity_type'];
+			this.quantity=result['result']['quantity'];
+			this.quantity_unit=result['result']['quantity_unit'];
+			this.cup_score=result['result']['cupping']['cup_score'];
+			this.cupped_at=result['result']['cupping']['cupped_at'];
+			this.date_cupped = new DatePipe('en-Us').transform(this.cupped_at, 'MMM d, y', 'GMT+5:30');
+			this.evaluator_dp_thumb=result['result']['cupping']['evaluator_dp_thumb'];
+			this.availabilty_variety=result['result']['variety'];
+			this.availability_species=result['result']['species'];
+			this.evaluator_name=result['result']['cupping']['evaluator_name'];
+			this.harvest_date=result['result']['harvest_date'];
+			this.flavours=result['result']['flavours'];
+			this.max_altitude_coffee=result['result']['max_altitude'];
+			this.min_altitude_coffee=result['result']['min_altitude'];
+			this.shipping_to=result['result']['shipping_to'];
+			this.ico_number=result['result']['incoterm'];
+			this.initial_quantity=result['result']['initial_quantity'];
+			this.state=result['result']['state'];
+			this.type=result['result']['type'];
+			this.listing_status=result['result']['listing_status'];	  
+			this.wet_process=result['result']['wet_milling']['process'];
+			this.wet_fermentation=result['result']['wet_milling']['fermentation'];
+			this.dry_period=result['result']['dry_milling']['drying_period'];
+			this.dry_process=result['result']['dry_milling']['process'];
+			this.dry_water_activity=result['result']['dry_milling']['water_activity'];
+			this.dry_moisture_content=result['result']['dry_milling']['moisture_content'];	
+			this.packaging=result['result']['packaging'];
+			this.estate_rating=result['result']['estate_rating'];
+			this.images=result['result']['images'];
+			this.estate_id=result['result']['estate_id'];
       }
     })
 	}
@@ -260,5 +262,15 @@ export class SourcingService {
 		  console.log(this.finalCertify);
 		}
 	})
+  }
+
+  otherAvailableCoffee(){
+	this.userService.getGreenCoffee(this.roaster_id,this.estate_id).subscribe(
+		result=>{
+		  if(result['success']==true){
+			this.otherGreenList=result['result'];
+			console.log("Green Coffee"+JSON.stringify(this.otherGreenList));
+		  }
+	  })
   }
 }

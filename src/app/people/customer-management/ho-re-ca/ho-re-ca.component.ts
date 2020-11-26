@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {GlobalsService} from 'src/services/globals.service';
 import {environment} from 'src/environments/environment';
+import { CustomerServiceService } from '../customer-service.service';
 
 @Component({
   selector: 'app-ho-re-ca',
@@ -17,14 +18,13 @@ import {environment} from 'src/environments/environment';
 })
 export class HoReCaComponent implements OnInit {
 
-  public mainData: any[];
-  folderId: any;
+  public mainData: any[] = [];
   estateId: any;
   roasterId: any;
   odd : boolean = false ;
   appLanguage?: any;
   horecaActive:any=0;
-  horecaWeb:string =  'https://qa-client-horeca.sewnstaging.com/';
+  itemId: any;
 
   constructor(public router: Router,
     public cookieService: CookieService,
@@ -32,19 +32,12 @@ export class HoReCaComponent implements OnInit {
     private roasterService: RoasterserviceService,
     private toastrService: ToastrService,
 	public modalService: BsModalService,
-	public globals: GlobalsService) {
+  public globals: GlobalsService,
+  public customerService : CustomerServiceService ) {
     this.estateId = this.cookieService.get('estate_id');
     this.roasterId = this.cookieService.get('roaster_id');
-    this.mainData =
-      [
-        // { microname: 'Ritz Carlton', createdon: '24/09/2019  11:45am', status: 'Active', activeuser: '5', action: 'View details' },
-        // { microname: 'Starbucks Coffee', createdon: '24/09/2019  1:00pm', status: 'Disabled', activeuser: '3', action: 'View details' },
-        // { microname: 'Café Coffee day', createdon: '13/09/2019  5:00pm', status: 'Active', activeuser: '7', action: 'View details' },
-        // { microname: 'Radisson Blu', createdon: '02/09/ 2019 10:07am', status: 'Disabled', activeuser: '1', action: 'View details' },
-        // { microname: 'Sun and Sand', createdon: '02/01/2020  7:23 am ', status: 'Active', activeuser: '2', action: 'View details' },
-        // { microname: 'Taj Hotels', createdon: '19/08/ 2019  9:16pm', status: 'Disabled', activeuser: '10', action: 'View details' }
+ 
 
-      ];
   }
 
 
@@ -79,14 +72,19 @@ export class HoReCaComponent implements OnInit {
   }
 
   shareDetails(size: any) {
-    this.folderId = size.id;
+    if(size.id > 0){
+    this.itemId = size.id;
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "folderId": encodeURIComponent(this.folderId),
+        "itemId": encodeURIComponent(this.itemId),
       }
     }
 
     this.router.navigate(['/people/horeca-details'], navigationExtras);
+  }
+  else{
+    console.log(size);
+  }
   }
 
 
@@ -111,21 +109,6 @@ export class HoReCaComponent implements OnInit {
         // this.horecaActive++;
       }
     )
-  }
-  stimulatedLogin(item) {
-    this.roasterService.getHorecaStimulatedLogin(item.id, this.roasterId).subscribe(res => {
-      if (res['success']) {
-        const data = res['result'];
-        data['horeca_id'] = item['id'];
-        const encryptedCode = this.roasterService.encryptData(data);
-        // const decryptedCode = this.roasterService.decryptData(encryptedCode);
-        // console.log(decryptedCode);
-        const redirectUrl = this.horecaWeb + '/#/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
-        this.roasterService.navigate(redirectUrl, true);
-      }
-    }, err => {
-      console.log(err);
-    });
   }
 
 

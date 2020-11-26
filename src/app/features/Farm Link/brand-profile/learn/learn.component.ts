@@ -313,6 +313,7 @@ else{
               banner_title : this.banner_title,
               intro_title : this.intro_title,
               intro_file : this.intro_id,
+              intro_short_description : this.answer,
               title: this.title,
               step1_short_description : this.answer1,
               step1_file: this.step1_id,

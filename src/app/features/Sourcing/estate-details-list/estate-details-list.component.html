@@ -279,8 +279,15 @@
                                             <div class="col-lg-4 col-md-6 cursor-item" *ngFor="let item of sourcing.greenList">
                                                 <div class="source-card card-border green-coffee-product">
                                                     <div class="s-gal">
-                                                        <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
-                                                        <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt=""> 
+                                                        <span *ngIf="item.images">
+                                                            <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                            <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">
+                                                        </span>
+                                                        <span *ngIf="!item.images">
+                                                            <img  src="assets/images/dummy-profile.png" alt="">
+                                                        </span> 
+                                                        <!-- <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                        <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">  -->
                                                         <div class="cupping">
                                                             <!-- <p>Cup score {{item.score}}</p> -->
                                                             <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>

@@ -11,13 +11,14 @@
             <div class="col-md-8 col-12">
                 <div class="row">
                     <div class="col-md-2 col-3">
-                        <img class="ft-roastry-profile" src="assets/images/ft-roastry-profile.png" />
+                        <img class="ft-roastry-profile" *ngIf="customer.company_image_url == ''" src="assets/images/ft-roastry-profile.png" />
+                        <img class="ft-roastry-profile" *ngIf="customer.company_image_url != ''" src="{{customer.company_image_url}}" />
                     </div>
 
                     <div class="col-9">
-                        <p class="m-0"> <span class="fnt-18 fnt-muli fnt-700 black"> Royal coffee roasters company</span> </p>
-                        <p class="fnt-18 fnt-600 fnt-muli text-clr588 m-0"> <span> Owned by Markel </span> <span> .Founded in 1994</span></p>
-                        <p class=" fnt-18 fnt-700 fnt-muli txt-clr55c"> <span> Admin: </span> <span>Molly Jennings </span></p>
+                        <p class="m-0"> <span class="fnt-18 fnt-muli fnt-700 black"> {{customer.name}}</span> </p>
+                        <p class="fnt-18 fnt-600 fnt-muli text-clr588 m-0"> <span> Owned by  {{customer.owner_name}} </span> <span> .Founded in  {{customer.founded_on}}</span></p>
+                        <p class=" fnt-18 fnt-700 fnt-muli txt-clr55c"> <span> Admin: </span> <span> {{customer.owner_name}} </span></p>
                     </div>
 
                 </div>
@@ -30,7 +31,7 @@
                         <img src="assets/images/message-icon.svg" alt="Message" class="message-icon">
                         <span  class="estate-message pl-1">Message</span></span>
 
-                    <button class="fnt-14 fnt-muli fnt-normal update-now"> Simulated Login </button>
+                    <button class="fnt-14 fnt-muli fnt-normal update-now" (click)="customer.stimulatedLogin(customer.microId)"> Simulated Login </button>
 
                 </div>
 
@@ -45,8 +46,7 @@
 
         <div class="col-12">
             <div class="row">
-
-                <div class="col-md-6 col-12 discount-border">
+                <div class="col-md-6 col-12 discount-border" id="edit-discount">
                     <div class="row">
 
                         <div class="col-9">
@@ -56,14 +56,22 @@
                         </div>
 
                         <div class="col-3">
-                            <p class="fnt-40 fnt-bold fnt-muli black m-0"> 28% </p>
+                            <p class="fnt-40 fnt-bold fnt-muli black m-0">{{customer.discount_percentage}}% </p>
                             <p class="fnt-18 fnt-600 fnt-muli text-clr588 m-0"> Discount </p>
-                            <p routerLink="/people/discount-edit" class="cursor-pointer"> <span><img src="assets/images/edit-horeca.svg" alt="edit-horeca" class="edit-horeca"> </span> <span class="fnt-14 fnt-700 fnt-muli txt-clr55c"> Edit </span> </p>
+                            <p class="cursor-pointer" (click)="editDiscount();"> <span><img src="assets/images/edit-horeca.svg" alt="edit-horeca" class="edit-horeca"> </span> <span class="fnt-14 fnt-700 fnt-muli txt-clr55c"> Edit </span> </p>
 
                         </div>
                     </div>
-
                 </div>
+                <div class="col-md-6 col-12 discount-border" id="save-discount">
+                    <div class="row">
+                        <div class="col-9">
+                            <p class="fnt-18 fnt-700 fnt-muli black"> Please enter the discount % you would be provident this customer. </p>
+                            <input type="text" name="search" class="col-6 search" placeholder="Eg:28"  [(ngModel)]="customer.discount_percentage"/>
+                            <span class="main-bag fnt-14 fnt-700 fnt-muli black">%</span> <span class="ml-3"> <button class="fnt-14 fnt-muli fnt-normal update-now" (click)="saveDiscount()"> Save </button></span>
+                        </div>
+                    </div>
+                </div>            
 
                 <div class="col-md-6 col-12 discount-border customer-status-width">
 
@@ -76,9 +84,9 @@
                         </div>
 
                         <div class="col-4">
-                            <div class="btn-group btn-toggle ml-auto pull-right active__main">
-                                <div class="btn active_default">Active</div>
-                                <div class="btn disable_default">Disable</div>
+                            <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="customer.activeStatus('micro-roaster')" >
+                                <div class="btn btn-group__item" [ngClass]="customer.btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Active</div>
+                                <div class="btn btn-group__item" [ngClass]="!customer.btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Disable</div>
                             </div>
                         </div>
                     </div>
@@ -96,7 +104,7 @@
             <div class="col-md-3 col-12 border-micro-roaster">
                 <div class="emp">
                     <p class="fnt-18 fnt-600 fnt-muli text-clr588"> No. of employees</p>
-                    <p class="fnt-40 fnt-muli fnt-700 black"> 134 </p>
+                    <p class="fnt-40 fnt-muli fnt-700 black"> {{customer.total_employees}} </p>
                 </div>
             </div>
 
@@ -106,7 +114,7 @@
 
                         <div class="roster-cap">
                             <p class="fnt-18 fnt-600 fnt-muli text-clr588"> Roastery Capacity</p>
-                            <p class="fnt-40 fnt-muli fnt-700 black"> 230 Kg </p>
+                            <p class="fnt-40 fnt-muli fnt-700 black"> {{customer.capacity}}&nbsp;{{customer.capacity_unit}} </p>
                         </div>
 
                     </div>
@@ -138,15 +146,15 @@
 
         <p class="fnt-18 fnt-700 fnt-muli black"> Certificates & Awards </p>
 
-        <div class="col-12 certificates-inner mb-3">
-            <p class="fnt-14 fnt-muli fnt-700 black pull-left m-0"> <span> Women’s Barista Championship </span> <span> 2014</span></p>
-            <p class="pull-right m-0"> <span><img src="assets/images/view-certificate.svg" > </span> <span class="txt-clr60b fnt-muli fnt-14 fnt-600"> View Certificate </span></p>
+        <div class="col-12 certificates-inner mb-3" *ngFor="let certify of listData">
+            <p class="fnt-14 fnt-muli fnt-700 black pull-left m-0"> <span> {{certify.name}} </span> <span> {{certify.year}}</span></p>
+            <p class="pull-right m-0"> <span><img src="assets/images/view-certificate.svg" > </span> <span class="txt-clr60b fnt-muli fnt-14 fnt-600 pointer" (click)="viewCertificate(certify)"> View Certificate </span></p>
         </div>
 
-        <div class="col-12 certificates-inner">
+        <!-- <div class="col-12 certificates-inner">
             <p class="fnt-14 fnt-muli fnt-700 black pull-left m-0"> <span> Women’s Barista Championship </span> <span> 2014</span></p>
             <p class="pull-right m-0"> <span><img src="assets/images/view-certificate.svg" > </span> <span class="txt-clr60b fnt-muli fnt-14 fnt-600"> View Certificate </span></p>
-        </div>
+        </div> -->
 
     </section>
 
@@ -154,19 +162,22 @@
 
     <section class="imp-contact">
 
-        <p class="fnt-18 fnt-700 fnt-muli black"> Important Contacts </p>
+        <p class="fnt-18 fnt-700 fnt-muli black" *ngIf="mrContacts!= null"> Important Contacts </p>
         <div class="row meet-our-team-list">
 
-            <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item">
-                <div class="team-img"><img src="assets/images/team-1.png" class="team-images"></div>
+            <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item" *ngFor="let contact of mrContacts">
+                <div class="team-img">
+                    <img *ngIf="contact.profile_image_url == ''" src="assets/images/team-1.png" class="team-images">
+                    <img *ngIf="contact.profile_image_url != ''" src="{{contact.profile_image_url}}" class="team-images">
+                </div>
                 <div class="team-des">
-                    <p class="fnt-muli fnt-16 fnt-700 text-black334 m-0">Hannah morris</p>
-                    <p class="fnt-muli fnt-mb-14 fnt-500 text-clr00 m-0">Cupping manager</p>
+                    <p class="fnt-muli fnt-16 fnt-700 text-black334 m-0">{{contact.name | titlecase}}</p>
+                    <p class="fnt-muli fnt-mb-14 fnt-500 text-clr00 m-0">{{contact.roles[0]}}</p>
                 </div>
                 <div class="msg-team mt-2"><img src="assets/images/message-icon.svg" class="d-inline-block"><span class="pl-1 d-inline-block fnt-muli fnt-mb-14 fnt-500 text-black334">Message</span></div>
             </div>
-
-            <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item">
+          
+            <!-- <div class="col-12 col-md-4 col-lg-2 meet-our-team-list__item">
                 <div class="team-img"><img src="assets/images/team-2.png" class="team-images"></div>
                 <div class="team-des">
                     <p class="fnt-muli fnt-16 fnt-700 text-black334 m-0">Hannah morris</p>
@@ -182,7 +193,7 @@
                     <p class="fnt-muli fnt-mb-14 fnt-500 text-clr00 m-0">Cupping manager</p>
                 </div>
                 <div class="msg-team mt-2"><img src="assets/images/message-icon.svg" class="d-inline-block"><span class="pl-1 d-inline-block fnt-muli fnt-mb-14 fnt-500 text-black334">Message</span></div>
-            </div>
+            </div> -->
 
         </div>
 

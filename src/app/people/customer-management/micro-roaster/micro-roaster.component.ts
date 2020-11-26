@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {GlobalsService} from 'src/services/globals.service';
 import {environment} from 'src/environments/environment';
+import { CustomerServiceService } from '../customer-service.service';
 
 @Component({
   selector: 'app-micro-roaster',
@@ -19,7 +20,6 @@ export class MicroRoasterComponent implements OnInit {
 
   public mainData: any[];
   folderId: any;
-  estateId: any;
   roasterId: any;
   odd: boolean = false ;
   appLanguage?: any;
@@ -31,9 +31,11 @@ export class MicroRoasterComponent implements OnInit {
     private roasterService: RoasterserviceService,
     private toastrService: ToastrService,
     public modalService: BsModalService,
-    public globals: GlobalsService) {
-    this.estateId = this.cookieService.get('estate_id');
-    this.roasterId = this.cookieService.get('roaster_id');
+	public globals: GlobalsService,
+	public customer:CustomerServiceService) {
+	this.roasterId = this.cookieService.get('roaster_id');
+	
+	
     // this.mainData = 
     // 	[
     // 	{ microname:  'Ritz Carlton', createdon: '24/09/2019  11:45am', status: 'Active', activeuser: '5', action: 'View details'},
@@ -61,31 +63,23 @@ export class MicroRoasterComponent implements OnInit {
     this.appLanguage = this.globals.languageJson;
     this.microActive++;
   }
-  // Function Name : CheckAll
-  // Description: This function helps to check all roles of the role list.
-  checkAll(ev: any) {
-    if(this.odd!){
-    this.mainData.forEach(x => x.state = ev.target.checked)
-    }
-  }
-
-  // Function Name : IsAllchecked
-  // Description: This function helps to check single role.
-  isAllChecked() {
-    if(this.odd!){
-    // return this.mainData.every(_ => _.state);
-    }
-  }
+  
 
   shareDetails(size: any) {
-    this.folderId = size.id;
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        "folderId": encodeURIComponent(this.folderId),
-      }
-    }
+	if(size.status == 'PENDING')  {
 
-    this.router.navigate(['/people/micro-roaster-details'], navigationExtras);
+	}
+	else{
+		this.folderId = size.id;
+		let navigationExtras: NavigationExtras = {
+		  queryParams: {
+			"folderId": encodeURIComponent(this.folderId),
+		  }
+		}
+	
+		this.router.navigate(['/people/micro-roaster-details'], navigationExtras);
+	}
+
   }
 
   getMicroRoaster() {
@@ -110,21 +104,21 @@ export class MicroRoasterComponent implements OnInit {
       }
     )
   }
-  stimulatedLogin(item) {
-    console.log(item);
-    this.roasterService.getMicroRoasterStimulatedLogin(item.id, this.roasterId).subscribe(res => {
-      if (res['success']) {
-        const data = res['result'];
-        data['micro_roaster_id'] = item['id'];
-        const encryptedCode = this.roasterService.encryptData(data);
-        // const decryptedCode = this.roasterService.decryptData(encryptedCode);
-        // console.log(decryptedCode);
-        const redirectUrl = this.microRoasterWeb + '/#/auth/login?simulated_token=' + encodeURIComponent(encryptedCode);
-        this.roasterService.navigate(redirectUrl, true);
-      }
-    }, err => {
-      console.log(err);
-    });
+ 
+// Function Name : CheckAll
+  // Description: This function helps to check all roles of the role list.
+  checkAll(ev: any) {
+    // if(this.odd!){
+    this.mainData.forEach(x => x.state = ev.target.checked)
+    // }
+  }
+
+  // Function Name : IsAllchecked
+  // Description: This function helps to check single role.
+  isAllChecked() {
+    // if(this.odd!){
+    return this.mainData.every(_ => _.state);
+    // }
   }
 
 }

@@ -216,12 +216,12 @@
                                 <span class="main-bag">kg</span>
                             </div>
 
-                            <div class="d-inline  price-tag">X<span class="pl-2"></span>${{this.price}}</div>
+                            <div class="d-inline  price-tag">X<span class="pl-2"></span>${{sourcing.price}}</div>
 
                         </div>
 
                         <div class="pull-right ml-auto price-total" *ngIf="quantity==''">$0</div>
-                        <div class="pull-right ml-auto price-total" *ngIf="quantity!=''">${{price*quantity}}</div>
+                        <div class="pull-right ml-auto price-total" *ngIf="quantity!=''">${{sourcing.price*quantity}}</div>
                     </div>
                     <div class="">
                         <div class="confirm-ordererror" *ngIf="confirmOrderError != ''">{{confirmOrderError}}</div>

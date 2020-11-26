@@ -595,12 +595,7 @@ export class RoasterserviceService {
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   } 
-  getHorecaTable(roaster_id: any) {
-    var data = {};
-    data['api_call'] = "/ro/" + roaster_id + "/products";
-    data['token'] = this.cookieService.get('Auth');
-    return this.http.post(this.url, data);
-  } 
+
   getEstateOrders(roaster_id: any) {
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/orders";
@@ -677,6 +672,13 @@ export class RoasterserviceService {
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
+  getHorecaTable(roaster_id: any,hrc_id) {
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/hrc/${hrc_id}/partners`;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url, data);
+  } 
  
 }
 
