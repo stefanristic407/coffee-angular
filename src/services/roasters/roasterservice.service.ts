@@ -201,16 +201,27 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
-    //API Function Name : Enable Admin User
-  //API Description: This API calls helps to Enable the selected user.
+    //API Function Name : Add Contacts
+  //API Description: This API calls helps to add contacts of the Roaster.
 
-  updateRoasterContacts(roaster_id: any,body:any) {
+  addRoasterContacts(roaster_id: any,body:any) {
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/users/top-contacts";
     data['method'] = "POST";
     data['token'] = this.cookieService.get('Auth');
     data['data'] = body;
     return this.http.post(this.url, data);
+  }
+  
+    //API Function Name : Delete Contacts
+  //API Description: This API calls helps to add contacts of the Roaster.
+
+  deleteRoasterContacts(roaster_id: any,contact_id:any){
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/users/top-contacts/"+contact_id;
+    // data['method'] = "DELETE";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.deleteUrl, data);
   }
   
     //API Function Name : Get Brands

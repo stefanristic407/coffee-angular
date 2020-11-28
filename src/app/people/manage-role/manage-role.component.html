@@ -38,7 +38,7 @@
 
             <li class="b-cum c-pink">{{globals.languageJson?.manage_roles}}</li>
             <div class="pull-right desk_view_user p-role-butn">
-                <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn "> {{globals.languageJson?.create_new_role}}</button></a>
+                <a routerLink="/people/create-role"> <button type="submit" class="btn btn-succes create-role-btn web-btn "> Create new role</button></a>
             </div>
             <!-- <button type="submit" class="btn col-12 col-md-2 pull-right create-role-btn web-btn d-md-block d-none"> CREATE NEW ROLE </button> -->
 
@@ -78,8 +78,8 @@
                     </tr>
                 </thead>
                 <!-- *ngIf="this.globals.checkItem('acl-list')=='view' || this.globals.checkItem('acl-list')=='manage'" -->
-                <tbody class="customtable" >
-                    <tr *ngFor="let data of sizes; let i = index" id="tr_{{data.id}}" >
+                <tbody class="customtable">
+                    <tr *ngFor="let data of sizes; let i = index" id="tr_{{data.id}}">
                         <th>
                             <label class="customcheckbox">
                             <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{data.id}}" [(ngModel)]="data.state"/>
@@ -99,8 +99,8 @@
                                 <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt=""></p>
                             </a>
                             <ng-template #poplistTemplate id="{{data.id}}">
-                                    <!-- *ngIf="this.globals.checkItem('acl-management')=='manage'" -->
-                                <div id="popover-mobile-content" >
+                                <!-- *ngIf="this.globals.checkItem('acl-management')=='manage'" -->
+                                <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
                                         <!-- <li class="list-group-item" routerLink="/people/team-members"> <a class="pointer-item" (click)="addMembers($event,data);pop.hide();">Add Members </a></li>
                                     <li class="list-group-item"><a class="pointer-item" (click)="viewMembers(data);pop.hide();">View Members</a></li>
@@ -295,27 +295,26 @@
               </button>
         </div>
         <div class="modal-body mb-5 body-roles fnt-muli">
-            Set up roles within your organisation by giving them permissionaccess to their certain areas within the platform. 
-            Once the roles are setup you can begin adding and inviting your team to these respective roles
+            Set up roles within your organisation by giving them permissionaccess to their certain areas within the platform. Once the roles are setup you can begin adding and inviting your team to these respective roles
         </div>
     </ng-template>
     <ng-template #deleteTemplate>
-            <!-- <div class="modal-header border-header">
+        <!-- <div class="modal-header border-header">
                 <h1 class="fnt-play head-roles">Manage roles</h1>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                     <span aria-hidden="true">&times;</span>
                   </button>
             </div> -->
-            <div class="modal-body mt-5 mb-5 text-center fnt-muli">
-               <div><img src="assets/images/delete-role.svg" alt=""></div>
-               <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
-               <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
-               <div class="mt-4">
-                    <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
-                    <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRole(this.deleteroleId)">{{globals.languageJson?.delete}}</button>
-               </div>
+        <div class="modal-body mt-5 mb-5 text-center fnt-muli">
+            <div><img src="assets/images/delete-role.svg" alt=""></div>
+            <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
+            <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
+            <div class="mt-4">
+                <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+                <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRole(this.deleteroleId)">{{globals.languageJson?.delete}}</button>
             </div>
-        </ng-template>
+        </div>
+    </ng-template>
 </div>
 
 <div class="blue manage-box">
@@ -335,4 +334,3 @@
 
 <div class="red manage-box">You have <strong>red checkbox</strong> so i am here</div>
 <div class="green manage-box">You have <strong>green checkbox</strong> so i am here</div>
-

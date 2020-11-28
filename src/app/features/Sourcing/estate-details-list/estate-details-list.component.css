@@ -291,14 +291,14 @@
 
 .marklist {
     position: absolute;
-    bottom: 0;
+    right: 0;
     z-index: 9;
-    background: #c69c6c;
+    background: #232334;
     color: #fff;
-    height: 90%;
-    left: 32px;
-    width: 540px;
-    padding: 5% 2% 0 4%;
+    height: 100%;
+    width: 510px;
+    padding: 3rem;
+    bottom: 0;
 }
 
 .marklist h2 {
@@ -496,11 +496,12 @@ ul li {
 }
 
 .s-details h3 {
-    height: 23px;
     font-family: Muli;
     font-size: 18px;
+    line-height: 28px;
     font-weight: bold;
     white-space: nowrap;
+    text-transform: capitalize;
     color: #242424;
 }
 
@@ -515,6 +516,8 @@ ul li {
 
 .s-gal img {
     width: 100%;
+    object-fit: cover;
+    height: 208px;
 }
 
 .s-tit {

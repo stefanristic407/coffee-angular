@@ -244,6 +244,7 @@ td {
     color: #ffffff;
     border-radius: 4px;
     background-color: #30855c;
+    border: 1px solid #30855c;
     padding: 11px 18px;
 }
 

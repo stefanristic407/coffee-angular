@@ -5657,13 +5657,16 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
     }
   });
   
-  this.roasterService.getRoasterContacts(this.roasterId).subscribe(res =>{
-    if(res['success']==true){
-      this.roasterContacts = res['result'];
-      console.log(this.roasterContacts)
-    }
-  })
-  
+  this.getcontactList();
+  }
+
+  getcontactList(){
+	this.roasterService.getRoasterContacts(this.roasterId).subscribe(res =>{
+		if(res['success']==true){
+		this.roasterContacts = res['result'];
+		console.log(this.roasterContacts)
+		}
+	})
   }
 
   //  Function Name :Change Country.
@@ -5752,21 +5755,21 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
           var  contactData = {
             user_id : parseInt(this.emp_name)
           }
-          this.roasterService.updateRoasterContacts(this.roasterId,contactData).subscribe(
-            res =>{
-              console.log(res);
-              if(res['success']== true){
-            this.toastrService.success("Roaster profile details updated successfully");
-            this.contactInfo = true;
-            this.addMediaDiv = false;
-            this.savemode = false;
-            this.editmode = true;
-            this.emp_name = "";
-            this.roasterProfile();
-            }else{
-              this.toastrService.error("Error while updating contacts")
-            }
-          })
+          // this.roasterService.addRoasterContacts(this.roasterId,contactData).subscribe(
+          //   res =>{
+          //     console.log(res);
+          //     if(res['success']== true){
+          //   this.toastrService.success("Roaster profile details updated successfully");
+          //   this.contactInfo = true;
+          //   this.addMediaDiv = false;
+          //   this.savemode = false;
+          //   this.editmode = true;
+          //   this.emp_name = "";
+          //   this.roasterProfile();
+          //   }else{
+          //     this.toastrService.error("Error while updating contacts")
+          //   }
+          // })
             }
           }else{
             console.log("entering here")
@@ -5800,25 +5803,26 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
               this.editmode = true;
               this.emp_name = "";
               this.roasterProfile();
-                }else{
-                  var  contactData = {
-                    user_id : parseInt(this.emp_name)
-                  }
-                  this.roasterService.updateRoasterContacts(this.roasterId,contactData).subscribe(
-                    res =>{
-                      console.log(res);
-                      if(res['success']== true){
-                    this.toastrService.success("Roaster profile details updated successfully");
-                    this.contactInfo = true;
-                    this.addMediaDiv = false;
-                    this.savemode = false;
-                    this.editmode = true;
-                    this.emp_name = "";
-                    this.roasterProfile();
-                    }else{
-                      this.toastrService.error("Error while updating contacts")
-                    }
-                  })
+                }
+                else{
+                  // var  contactData = {
+                  //   user_id : parseInt(this.emp_name)
+                  // }
+                  // this.roasterService.updateRoasterContacts(this.roasterId,contactData).subscribe(
+                  //   res =>{
+                  //     console.log(res);
+                  //     if(res['success']== true){
+                  //   this.toastrService.success("Roaster profile details updated successfully");
+                  //   this.contactInfo = true;
+                  //   this.addMediaDiv = false;
+                  //   this.savemode = false;
+                  //   this.editmode = true;
+                  //   this.emp_name = "";
+                  //   this.roasterProfile();
+                  //   }else{
+                  //     this.toastrService.error("Error while updating contacts")
+                  //   }
+                  // })
                 }
               
               }

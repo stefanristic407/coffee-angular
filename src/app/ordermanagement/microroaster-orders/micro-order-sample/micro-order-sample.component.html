@@ -42,7 +42,8 @@
                                     </span> -->
                                 </div>
                             </div>
-                            <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+                            <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
+                            <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
                                 <button type="submit" class="btn  pull-right ord-invoice-butn"> Order
                                     Invoice </button>
                             </div>
@@ -149,8 +150,9 @@
             <div class="w-100 clearfix">
                 <div class="pull-left pt-3 text-data">When you receive the due amount from the customer, mark as payment done here.</div>
                 <div class="pull-right">
-                    <button class="btn payment__recieved fnt-muli mr-2" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">Payment Received</button>
-                    <button class="btn payment__after__delivery fnt-muli ml-1" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">Payment after delivery</button>
+                    <button class="btn payment__recieved fnt-muli mr-2">Payment Received</button>
+                    <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
+                    <button class="btn payment__after__delivery fnt-muli ml-1">Payment after delivery</button>
                 </div>
             </div>
         </div>
@@ -186,8 +188,9 @@
                         <li class="nav-item">
                             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Estate Info</a>
                         </li>
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a
-										problem?</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a
+                                        problem?</button>
+                                        <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                         </li>
                     </ul>
                     <!-- <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
@@ -246,7 +249,8 @@
                                         </span>
 
                                     </li>
-                                    <li class="mt-4" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+                                    <li class="mt-4">
+                                            <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                                         <span class="bg-msg"> <img class="message-icon"
 															src="assets/images/message-icon.svg" alt="Message"><span
 															class="customer-message pl-2">Message</span> </span>
@@ -325,7 +329,8 @@
                         <div class="pull-right ml-auto list-time d-none d-md-inline-block">1:30pm</div>
 
                     </div>
-                    <div class="w-100 mt-4 mb-2 d-block d-md-none" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+                    <div class="w-100 mt-4 mb-2 d-block d-md-none">
+                            <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                         <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center">Cancel order</button>
                     </div>
                 </div>
@@ -336,7 +341,8 @@
             </div>
 
 
-            <div class="w-100 mt-5 pb-5 d-none d-md-inline-block" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+            <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
+                    <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                 <button type="button" class="btn cancel-order-btn">Cancel order</button>
             </div>
             <div class="w-100 chat-div">

@@ -71,7 +71,7 @@ export class ProfileLicenseComponent implements OnInit {
   }
   language(){
     this.appLanguage = this.globals.languageJson;
-       this.licenseActive++;
+      //  this.licenseActive++;
     }
   onKeyPress(event: any) {
     if (event.target.value == "") {
@@ -90,7 +90,7 @@ export class ProfileLicenseComponent implements OnInit {
           
           this.showsaveddatadiv = true;
           this.savedcertificatesArray = data['result'];
-          this.licenseActive++;
+          // this.licenseActive++;
 
           console.log(this.savedcertificatesArray);
         }

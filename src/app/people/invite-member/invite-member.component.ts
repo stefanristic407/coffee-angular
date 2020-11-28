@@ -25,7 +25,7 @@ export class InviteMemberComponent implements OnInit {
   emailError : string;
   nameError  :string;
   password: string = 'Ro@Sewn1234';
-  resetButtonValue: string = 'Send Invite(s)';
+  resetButtonValue: string = 'Send invite';
   addUser = [
     {
       firstname : '',
@@ -151,17 +151,18 @@ export class InviteMemberComponent implements OnInit {
 
 
   public sendInvites(){
-    this.resetButtonValue = "Sending";
     let flag = true;
     var input = this.addUser;
   console.log(input);
     flag = this.validateInput(input);
   
     if (flag){
+      this.resetButtonValue = "Sending";
       this.addUser.forEach(element => {
       this.userService.addUserRoaster(element).subscribe(
         data => {
           if(data['success'] == true){
+            this.resetButtonValue = "Send invites"
             this.toastrService.success("New Roaster details Fetched and assigning role to new user.");
             this.roasterService.assignUserBasedUserRoles(this.roaster_id, this.role_id, data['result']['user_id']).subscribe(
               data => {
@@ -192,6 +193,7 @@ export class InviteMemberComponent implements OnInit {
                         else{
                           
                           this.toastrService.error("Error while sending email to the User");
+                          this.resetButtonValue = "Send invites"
                         }
                       }
                     )
@@ -200,16 +202,22 @@ export class InviteMemberComponent implements OnInit {
              
                 }else{
                   this.toastrService.error("Error while assigning role");
+                  this.resetButtonValue = "Send invites"
                 }
               }
             )
           }else{
+            this. resetButtonValue = "Sending"
+
             if (data['messages']['email'] !== undefined) {
               this.toastrService.error("Error: Email Already Exists");
+              this. resetButtonValue = "Send invites"
             } else if (data['messages']['password'] !== undefined) {
               this.toastrService.error("Error: Password did not meet our policies");
+              this. resetButtonValue = "Send invites"
             } else {
               this.toastrService.error("There is something went wrong! Please try again later");
+              this. resetButtonValue = "Send invites"
             }
           }
         }
@@ -228,7 +236,7 @@ export class InviteMemberComponent implements OnInit {
     //   }
     // ]
     } else {
-      this.resetButtonValue = "Send Invite(s)";
+      this.resetButtonValue = "Send invite";
       this.toastrService.error('Fields should not be empty.');
     }
   }

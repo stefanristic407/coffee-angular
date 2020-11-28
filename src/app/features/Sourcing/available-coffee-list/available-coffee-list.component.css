@@ -531,10 +531,11 @@ ul li {
 }
 
 .s-details h3 {
-    height: 23px;
     font-family: Muli;
     font-size: 18px;
+    line-height: 28px;
     font-weight: bold;
+    text-transform: capitalize;
     white-space: nowrap;
     color: #242424;
 }
@@ -550,6 +551,8 @@ ul li {
 
 .s-gal img {
     width: 100%;
+    object-fit: cover;
+    height: 208px;
 }
 
 .s-tit {

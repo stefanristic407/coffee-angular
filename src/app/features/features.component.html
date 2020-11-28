@@ -17,7 +17,7 @@
                     </div>
                     <div class="company-logo pad-logo">
                         <a class="company-logo__img d-inline-block" routerLink="../features/welcome-aboard">
-                            <img src="assets/images/Sewn-logo.png" alt="Comany-Logo">
+                            <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo">
                         </a>
                     </div>
                     <div class="d-inline-block header-searach">
@@ -46,7 +46,7 @@
                                 <img class="img" src="assets/images/notification.svg ">
                             </a>
                         </li>
-                        <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
+                        <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2 ">
                             <div class="profile-link d-flex align-items-center">
                                 <div class="profile-link__img d-inline-block mr-md-2">
                                     <img *ngIf="profilePic !=''" class="profile-pic" src="{{profilePic}}">
@@ -102,18 +102,18 @@
                                 </a>
                                 </li>
                                 <!-- *ngIf="globals.permissions['cart-management'] || globals.permissions['cart-list']" -->
-                                <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="globals.checkItem('cart-management') || globals.checkItem('cart-list')">
+                                <li class="nav-links__item arrow d-inline-block position-relative">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{globals.languageJson?.order_management}}
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
-                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list') || globals.checkItem('cart-list','cart-management')">
+                                        <li>
                                             <a class="router-link" routerLink="../ordermanagement/estate-orders">{{globals.languageJson?.estate_orders}}
                                                 </a>
                                         </li>
-                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list') || globals.checkItem('cart-list','cart-management')">
+                                        <li>
                                             <a class="router-link" routerLink="../ordermanagement/microroaster-orders">{{globals.languageJson?.microroaster_orders}}</a>
                                         </li>
-                                        <li *ngIf="this.globals.checkItem('cart-management','cart-list') || globals.checkItem('cart-list','cart-management')">
+                                        <li>
                                             <a class="router-link">{{globals.languageJson?.horeca_orders}}</a>
                                         </li>
                                     </ul>

@@ -1,6 +1,6 @@
 <header>
-  <div class="sewn_heading">
-      <!-- <svg class="logo_sewn" xmlns="http://www.w3.org/2000/svg" width="90" height="27" viewBox="0 0 115 27">
+    <div class="sewn_heading">
+        <!-- <svg class="logo_sewn" xmlns="http://www.w3.org/2000/svg" width="90" height="27" viewBox="0 0 115 27">
               <g fill="none" fill-rule="evenodd">
                   <g stroke="#000" stroke-width="1.5">
                       <path d="M1.448 9.926L10 18.416l8.552-8.49L10 1.437l-8.552 8.49z" transform="translate(0 -4) translate(0 4)"/>
@@ -12,21 +12,21 @@
               </g>
           </svg> -->
 
-      <img class="logo_sewn" src="assets/images/Sewn-logo.png" alt="image">
-  </div>
+        <img class="logo_sewn" src="assets/images/Sewn-logo.svg" alt="image">
+    </div>
 </header>
 <!-- <div class="container-fluid"> -->
-    <div class="row">
-        <!-- <div class="col-1 first_column"></div> -->
-        <div class="col-12 middle_column">
-            <div class="container bg-fff">
-                <div class="row">
-                    <div class="col-md-12 mt-5 mb-5 signup-fill-tracker">
-                        <div class="form-nav w-100">
-                            <ul class="form-nav-list p-0 mx-auto d-flex justify-content-center">
-                                <li class="form-nav-list__item float-left" id="border-color1">
-                                    <div class="step">
-                                        <span class="d-inline-block step__circle step_focus" id="active1">1</span
+<div class="row">
+    <!-- <div class="col-1 first_column"></div> -->
+    <div class="col-12 middle_column">
+        <div class="container bg-fff">
+            <div class="row">
+                <div class="col-md-12 mt-5 mb-5 signup-fill-tracker">
+                    <div class="form-nav w-100">
+                        <ul class="form-nav-list p-0 mx-auto d-flex justify-content-center">
+                            <li class="form-nav-list__item float-left" id="border-color1">
+                                <div class="step">
+                                    <span class="d-inline-block step__circle step_focus" id="active1">1</span
                     >
                     <span id="font-title1" class="d-block step__info font_focus pt-1"
                       >{{globals.languageJson?.personal_details}}</span
@@ -128,13 +128,13 @@
                     <div class="form-group row pt-2">
                       <div class="form-group col-md-5">
                         <label class="role-name">Name<span class="star">*</span></label>
-                                        <input type="text" class="form-control rectangle_name" placeholder="Please enter your name" (keyup)="onKeyPress($event)" [(ngModel)]="firstname" name="firstname" id="firstname" required="" />
-                                        <div class="nameError" *ngIf="firstnameError != ''">
-                                            {{ firstnameError }}
-                                        </div>
+                                    <input type="text" class="form-control rectangle_name" placeholder="Please enter your name" (keyup)="onKeyPress($event)" [(ngModel)]="firstname" name="firstname" id="firstname" required="" />
+                                    <div class="nameError" *ngIf="firstnameError != ''">
+                                        {{ firstnameError }}
                                     </div>
+                                </div>
 
-                                    <!-- <div class="form-group col-md-5">
+                                <!-- <div class="form-group col-md-5">
                           <label class="role-name">LAST NAME*</label>
                           <input
                             type="text"
@@ -144,81 +144,81 @@
                                   <div class="nameError" *ngIf="lastnameError != ''">{{lastnameError}}</div>
                         </div> -->
 
-                                    <div class="col-md-5 alert_box">
-                                        <h5 class="invalid-combination myAlert-top alert text-center">
-                                            Please fill the mandatory fields
-                                        </h5>
-                                    </div>
-                        </div>
-
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Email address<span class="star">*</span></label>
-                                <input type="email" class="form-control rectangle_name" placeholder="Please enter your work email" (keyup)="onKeyPress($event)" [(ngModel)]="email" name="email" id="email" required="" />
-                                <div class="emailError" *ngIf="emailError != ''">
-                                    {{ emailError }}
+                                <div class="col-md-5 alert_box">
+                                    <h5 class="invalid-combination myAlert-top alert text-center">
+                                        Please fill the mandatory fields
+                                    </h5>
                                 </div>
+                    </div>
+
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Email address<span class="star">*</span></label>
+                            <input type="email" class="form-control rectangle_name" placeholder="Please enter your work email" (keyup)="onKeyPress($event)" [(ngModel)]="email" name="email" id="email" required="" />
+                            <div class="emailError" *ngIf="emailError != ''">
+                                {{ emailError }}
                             </div>
-                            <div class="form-group col-md-5 phone-number">
-                                <input hidden class="hidden-phone-num"  type="text" value="+91">
-                                <label class="role-name">Phone number </label>
-                                <div class="phone-nmber__select" id="phone">
-                                    <span class="Selected-ISD" id="finalNumber">+91</span>
-                                      <ul class="select-list">
-                                        
-                                              </ul>
-                                    <span>
+                        </div>
+                        <div class="form-group col-md-5 phone-number">
+                            <input hidden class="hidden-phone-num" type="text" value="+91">
+                            <label class="role-name">Phone number </label>
+                            <div class="phone-nmber__select" id="phone">
+                                <span class="Selected-ISD" id="finalNumber">+91</span>
+                                <ul class="select-list">
+
+                                </ul>
+                                <span>
                                 <input type="text" pattern="^\d{10}$" class="entered-number" placeholder="Enter your phone number" [(ngModel)]="phoneNo" name="phoneNo" id="phoneNo" required="" />
                                 </span>
-                                </div>
-                                <div class="phoneNoError" *ngIf="phoneNoError != ''">
-                                    {{ phoneNoError }}
-                                </div>
                             </div>
-                            <!-- <div class="col-md-5 alert_box">
+                            <div class="phoneNoError" *ngIf="phoneNoError != ''">
+                                {{ phoneNoError }}
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-5 alert_box">
                         <h5
                           class="invalid-combination myAlert-top alert text-center"
                         >
                           Please fill the mandatory fields
                         </h5>
                       </div> -->
-                        </div>
+                    </div>
 
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Password<span class="star">*</span></label>
-                                <input type="password" class="form-control rectangle_name" placeholder="Enter a password" (keyup)="onKeyPress($event)" [(ngModel)]="password" name="password" id="password" required="" (keyup.enter)="personalDetails()" />
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Password<span class="star">*</span></label>
+                            <input type="password" class="form-control rectangle_name" placeholder="Enter a password" (keyup)="onKeyPress($event)" [(ngModel)]="password" name="password" id="password" required="" (keyup.enter)="personalDetails()" />
 
-                                <div id="pwd_strength_wrap">
-                                    <div id="passwordDescription">
-                                        Password not entered
-                                    </div>
-                                    <div id="passwordStrength" class="strength0"></div>
-                                    <div id="pswd_info">
-                                        <strong>Strong Password Tips:</strong>
-                                        <ul>
-                                            <li class="invalid" id="length">
-                                                At least 6 characters
-                                            </li>
-                                            <li class="invalid" id="pnum">
-                                                At least one number
-                                            </li>
-                                            <li class="invalid" id="capital">
-                                                At least one lowercase &amp; one uppercase letter
-                                            </li>
-                                            <li class="invalid" id="spchar">
-                                                At least one special character
-                                            </li>
-                                        </ul>
-                                    </div>
+                            <div id="pwd_strength_wrap">
+                                <div id="passwordDescription">
+                                    Password not entered
                                 </div>
-                                <!-- END pwd_strength_wrap -->
-                                <div class="passwordError" *ngIf="passwordError != ''">
-                                    {{ passwordError }}
+                                <div id="passwordStrength" class="strength0"></div>
+                                <div id="pswd_info">
+                                    <strong>Strong Password Tips:</strong>
+                                    <ul>
+                                        <li class="invalid" id="length">
+                                            At least 6 characters
+                                        </li>
+                                        <li class="invalid" id="pnum">
+                                            At least one number
+                                        </li>
+                                        <li class="invalid" id="capital">
+                                            At least one lowercase &amp; one uppercase letter
+                                        </li>
+                                        <li class="invalid" id="spchar">
+                                            At least one special character
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+                            <!-- END pwd_strength_wrap -->
+                            <div class="passwordError" *ngIf="passwordError != ''">
+                                {{ passwordError }}
+                            </div>
+                        </div>
 
-                            <!-- <div class="form-group col-md-5">
+                        <!-- <div class="form-group col-md-5">
                           <label class="role-name">ASSIGN YOURSELF A ROLE</label>
                           <select
                             id="role_edit"
@@ -229,16 +229,16 @@
                           </select>
                           <div class="roleError" *ngIf="roleError != ''">{{roleError}}</div>
                         </div> -->
-                        </div>
                     </div>
-                    <hr/>
-                    <div class="form-group row w-100 pt-2 btn-div desk-view">
+                </div>
+                <hr/>
+                <div class="form-group row w-100 pt-2 btn-div desk-view">
 
-                        <div class="float-right ml-auto ">
-                            <button type="button" class="btn cancel-butn" routerLink="/auth/login">
+                    <div class="float-right ml-auto ">
+                        <button type="button" class="btn cancel-butn" routerLink="/auth/login">
                         {{globals.languageJson?.cancel}}
                       </button>
-                            <button type="button" class="btn login-butn" (click)="personalDetails()" [disabled]="firstButtonValue === 'Loading'">
+                        <button type="button" class="btn login-butn" (click)="personalDetails()" [disabled]="firstButtonValue === 'Loading'">
                         {{ firstButtonValue
                         }}<img
                           class="career-loader"
@@ -246,19 +246,19 @@
                           src="assets/images/orange-loader.gif"
                         />
                       </button>
-                        </div>
-
-                     
                     </div>
-                    <div class="row mob-view" >
+
+
+                </div>
+                <div class="row mob-view">
                     <div class="col-md-12 d-flex">
                         <div class="col-md-6">
-                        <button type="button" class="btn cancel-butn" routerLink="/features/dashboard">
+                            <button type="button" class="btn cancel-butn" routerLink="/features/dashboard">
                           {{globals.languageJson?.back}}
                         </button>
-                      </div>
-                      <div class="col-md-6">
-                              <button type="button" class="btn login-butn" (click)="personalDetails()" [disabled]="firstButtonValue === 'Loading'">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn login-butn" (click)="personalDetails()" [disabled]="firstButtonValue === 'Loading'">
                           {{ firstButtonValue
                           }}<img
                             class="career-loader"
@@ -266,105 +266,105 @@
                             src="assets/images/orange-loader.gif"
                           />
                         </button>
-                      </div>
-                      </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-section" id="second-tab">
-            <div class="row ">
-                <div class="col-lg-12 col-md-12">
-                    <div class="text-center" class="mob-view">
+    </div>
+    <div class="form-section" id="second-tab">
+        <div class="row ">
+            <div class="col-lg-12 col-md-12">
+                <div class="text-center" class="mob-view">
                     <h4 class="form_header">{{globals.languageJson?.details_roastery}}</h4>
-                   
-                  </div>
-                    <div class="form_content">
-                        <div class="form-group row pt-2 profile-div">
-                            <div class="form-group col-md-12 m-4 profile-img-div">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img [src]="roasterService.croppedImage" alt="profile" class="roaster-profile" />
-                                        <a class="show_modal" (click)="showRoasterModal()">
-                                            <img src="assets/images/camera.svg" alt="add_pic" class="add-pic" />
-                                        </a>
-                                        <button class="btn btn-link add-btn p-0" (click)="roasterService.deletePhoto();" *ngIf="roasterService.deleteLogo">
+
+                </div>
+                <div class="form_content">
+                    <div class="form-group row pt-2 profile-div">
+                        <div class="form-group col-md-12 m-4 profile-img-div">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img [src]="roasterService.croppedImage" alt="profile" class="roaster-profile" />
+                                    <a class="show_modal" (click)="showRoasterModal()">
+                                        <img src="assets/images/camera.svg" alt="add_pic" class="add-pic" />
+                                    </a>
+                                    <button class="btn btn-link add-btn p-0" (click)="roasterService.deletePhoto();" *ngIf="roasterService.deleteLogo">
                               <img src="assets/images/delete.png" /><span
                                 class="add-text"
                                 >{{globals.languageJson?.delete_photo}}</span
                               >
                             </button>
-                                    </div>
-                                    <div class="col-md-8 roaster_content_div">
-                                        <p class="pic-head-text">{{globals.languageJson?.roastery_picture}}</p>
-                                        <p class="form_para_text">
-                                            You can upload a JPG or PNG file. Max file size limit 2MB
-                                        </p>
-                                        <!-- <button class="btn btn-link add-btn p-0">
+                                </div>
+                                <div class="col-md-8 roaster_content_div">
+                                    <p class="pic-head-text">{{globals.languageJson?.roastery_picture}}</p>
+                                    <p class="form_para_text">
+                                        You can upload a JPG or PNG file. Max file size limit 2MB
+                                    </p>
+                                    <!-- <button class="btn btn-link add-btn p-0">
                               <img src="assets/images/upload.svg" /><span
                                 class="add-text"
                                 >Upload Logo</span
                               >
                             </button> -->
-                                        <div>
-                                            <input type="file" accept="image/png, image/jpeg" style="visibility: hidden;" #roasterImage (change)="handleRoasterFile($event)" />
-                                        </div>
+                                    <div>
+                                        <input type="file" accept="image/png, image/jpeg" style="visibility: hidden;" #roasterImage (change)="handleRoasterFile($event)" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Name<span class="star">*</span></label>
-                                <input type="text" class="form-control rectangle_name" placeholder="Please enter the roastery name" (keyup)="onKeyPress($event)" [(ngModel)]="roaster_name" name="roaster_name" id="roaster_name" required="" />
-                                <div class="roasterNameError" *ngIf="roasterNameError != ''">
-                                    {{ roasterNameError }}
-                                </div>
-                            </div>
-                            <div class="col-md-5 alert_box">
-                                <h5 class="invalid-combination myAlert-top alert text-center">
-                                    Please fill the mandatory fields
-                                </h5>
+                    </div>
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Name<span class="star">*</span></label>
+                            <input type="text" class="form-control rectangle_name" placeholder="Please enter the roastery name" (keyup)="onKeyPress($event)" [(ngModel)]="roaster_name" name="roaster_name" id="roaster_name" required="" />
+                            <div class="roasterNameError" *ngIf="roasterNameError != ''">
+                                {{ roasterNameError }}
                             </div>
                         </div>
+                        <div class="col-md-5 alert_box">
+                            <h5 class="invalid-combination myAlert-top alert text-center">
+                                Please fill the mandatory fields
+                            </h5>
+                        </div>
+                    </div>
 
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Email address<span class="star">*</span></label>
-                                <input type="email" class="form-control rectangle_name" placeholder="rostery@email.com" (keyup)="onKeyPress($event)" [(ngModel)]="roaster_email" name="roaster_email" id="roaster_email" required="" />
-                                <div class="roasterEmailError" *ngIf="roasterEmailError != ''">
-                                    {{ roasterEmailError }}
-                                </div>
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Email address<span class="star">*</span></label>
+                            <input type="email" class="form-control rectangle_name" placeholder="rostery@email.com" (keyup)="onKeyPress($event)" [(ngModel)]="roaster_email" name="roaster_email" id="roaster_email" required="" />
+                            <div class="roasterEmailError" *ngIf="roasterEmailError != ''">
+                                {{ roasterEmailError }}
                             </div>
-                            <div class="form-group col-md-5 phone-number">
-                                <input hidden class="hidden-phone-num"  type="text" value="+91">
-                                <label class="role-name">Phone number<span class="star">*</span></label>
-                                <div class="phone-nmber__select" id="roaster_phoneNo">
-                                    <span class="Selected-ISD" id="finalNumber_roaster">+91</span>
-                                      <ul class="select-list">
-                                        
-                                              </ul>
-                                    <span>
+                        </div>
+                        <div class="form-group col-md-5 phone-number">
+                            <input hidden class="hidden-phone-num" type="text" value="+91">
+                            <label class="role-name">Phone number<span class="star">*</span></label>
+                            <div class="phone-nmber__select" id="roaster_phoneNo">
+                                <span class="Selected-ISD" id="finalNumber_roaster">+91</span>
+                                <ul class="select-list">
+
+                                </ul>
+                                <span>
                                 <input type="text" class="entered-number" placeholder="Enter phone number" (keyup)="onKeyPress($event)" [(ngModel)]="roaster_phone" name="roaster_phone" id="roaster_phone" required="" />
                               </span>
                             </div>
-                                <div class="roasterPhoneError" *ngIf="roasterPhoneError != ''">
-                                    {{ roasterPhoneError }}
-                                </div>
+                            <div class="roasterPhoneError" *ngIf="roasterPhoneError != ''">
+                                {{ roasterPhoneError }}
                             </div>
-                            <!-- <div class="col-md-5 alert_box">
+                        </div>
+                        <!-- <div class="col-md-5 alert_box">
                         <h5
                           class="invalid-combination myAlert-top alert text-center"
                         >
                           Please fill the mandatory fields
                         </h5>
                       </div> -->
-                        </div>
+                    </div>
 
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Country<span class="star">*</span></label>
-                                <select id="country" class="form-control rectangle_name role_edit" (keyup)="onKeyPress($event)" [(ngModel)]="country" name="country" required="" (change)="changeCountry()">
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Country<span class="star">*</span></label>
+                            <select id="country" class="form-control rectangle_name role_edit" (keyup)="onKeyPress($event)" [(ngModel)]="country" name="country" required="" (change)="changeCountry()">
                           <option   value="" selected disabled>
                             Please select your country</option
                           >
@@ -377,13 +377,13 @@
                             <option value="England">England</option>
                             <option value="New York">New York</option> -->
                         </select>
-                                <div class="countryError" *ngIf="countryError != ''">
-                                    {{ countryError }}
-                                </div>
+                            <div class="countryError" *ngIf="countryError != ''">
+                                {{ countryError }}
                             </div>
-                            <div class="form-group col-md-5">
-                                <label class="role-name">State</label>
-                                <select id="state" class="form-control rectangle_name role_edit" [(ngModel)]="state" name="state" required="">
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label class="role-name">State</label>
+                            <select id="state" class="form-control rectangle_name role_edit" [(ngModel)]="state" name="state" required="">
                           <option value="" selected disabled>
                             Please select your state</option
                           >
@@ -394,44 +394,44 @@
                             <option value="Bangalore">Bangalore</option>
                             <option value="Kerala">Kerala</option> -->
                         </select>
-                                <div class="stateError" *ngIf="stateError != ''">
-                                    {{ stateError }}
-                                </div>
+                            <div class="stateError" *ngIf="stateError != ''">
+                                {{ stateError }}
                             </div>
                         </div>
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Address<span class="star">*</span></label>
-                                <input type="text" class="form-control rectangle_name" placeholder="Line 1" (keyup)="onKeyPress($event)" [(ngModel)]="address1" name="address1" id="address1" required="" />
-                                <div class="address1Error" *ngIf="address1Error != ''">
-                                    {{ address1Error }}
-                                </div>
-                            </div>
-                            <div class="form-group col-md-5 ">
-                                <label class="role-name">&nbsp;</label>
-                                <input type="text" class="form-control rectangle_name" placeholder="Line 2" [(ngModel)]="address2" name="address2" id="address2" required="" />
-                                <div class="address2Error" *ngIf="address2Error != ''">
-                                    {{ address2Error }}
-                                </div>
+                    </div>
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Address<span class="star">*</span></label>
+                            <input type="text" class="form-control rectangle_name" placeholder="Line 1" (keyup)="onKeyPress($event)" [(ngModel)]="address1" name="address1" id="address1" required="" />
+                            <div class="address1Error" *ngIf="address1Error != ''">
+                                {{ address1Error }}
                             </div>
                         </div>
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-5">
-                                <label class="role-name">City<span class="star">*</span></label>
-                                <input type="text" class="form-control rectangle_name" placeholder="City" (keyup)="onKeyPress($event)" [(ngModel)]="city" name="city" id="city" required="" />
-                                <div class="cityError" *ngIf="cityError != ''">
-                                    {{ cityError }}
-                                </div>
-                            </div>
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Zipcode</label>
-                                <input type="text" class="form-control rectangle_name" placeholder="eg: 22313" [(ngModel)]="zip_code" name="zip_code" id="zip_code" />
+                        <div class="form-group col-md-5 ">
+                            <label class="role-name">&nbsp;</label>
+                            <input type="text" class="form-control rectangle_name" placeholder="Line 2" [(ngModel)]="address2" name="address2" id="address2" required="" />
+                            <div class="address2Error" *ngIf="address2Error != ''">
+                                {{ address2Error }}
                             </div>
                         </div>
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Year founded in<span class="star">*</span></label>
-                                <select class="form-control rectangle_name role_edit" (keyup)="onKeyPress($event)" [(ngModel)]="founded_year" name="founded_year" id="founded_year" required="">
+                    </div>
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-5">
+                            <label class="role-name">City<span class="star">*</span></label>
+                            <input type="text" class="form-control rectangle_name" placeholder="City" (keyup)="onKeyPress($event)" [(ngModel)]="city" name="city" id="city" required="" />
+                            <div class="cityError" *ngIf="cityError != ''">
+                                {{ cityError }}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Zipcode</label>
+                            <input type="text" class="form-control rectangle_name" placeholder="eg: 22313" [(ngModel)]="zip_code" name="zip_code" id="zip_code" />
+                        </div>
+                    </div>
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Year founded in<span class="star">*</span></label>
+                            <select class="form-control rectangle_name role_edit" (keyup)="onKeyPress($event)" [(ngModel)]="founded_year" name="founded_year" id="founded_year" required="">
                           <option value="" selected disabled>
                             Year</option
                           >
@@ -479,21 +479,21 @@
                           <option value="1981">1981</option>
                           <option value="1980">1980</option>
                         </select>
-                                <div class="foundedYearError" *ngIf="foundedYearError != ''">
-                                    {{ foundedYearError }}
-                                </div>
-                            </div>
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Roastery website</label>
-                                <input type="text" class="form-control rectangle_name" placeholder="www.roaster.com" (keyup)="onKeyPress($event)" [(ngModel)]="website" name="website" id="website" required="" />
-                                <div class="websiteError" *ngIf="websiteError != ''">
-                                    {{ websiteError }}
-                                </div>
+                            <div class="foundedYearError" *ngIf="foundedYearError != ''">
+                                {{ foundedYearError }}
                             </div>
                         </div>
-                        <div class="form-group row pt-2">
-                            <div class="form-group col-md-10">
-                                <label class="role-name">A short description about roastery<span class="star">*</span></label
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Roastery website</label>
+                            <input type="text" class="form-control rectangle_name" placeholder="www.roaster.com" (keyup)="onKeyPress($event)" [(ngModel)]="website" name="website" id="website" required="" />
+                            <div class="websiteError" *ngIf="websiteError != ''">
+                                {{ websiteError }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row pt-2">
+                        <div class="form-group col-md-10">
+                            <label class="role-name">A short description about roastery<span class="star">*</span></label
                         >
                         <textarea
                           class="form-control rectangle_name text-area"
@@ -515,52 +515,36 @@
                     <div class="form-group row pt-2">
                       <div class="form-group col-md-5">
                         <label class="role-name">VAT number<span class="star">*</span></label>
-                        <input
-                          type="text"
-                          class="form-control rectangle_name"
-                          placeholder="City"
-                          (keyup)="onKeyPress($event)"
-                          [(ngModel)]="vat"
-                          name="vat"
-                          id="vat"
-                          required=""
-                        />
-                        <div class="shortDescrError" *ngIf="vatError != ''">
-                          {{ vatError }}
+                            <input type="text" class="form-control rectangle_name" placeholder="City" (keyup)="onKeyPress($event)" [(ngModel)]="vat" name="vat" id="vat" required="" />
+                            <div class="shortDescrError" *ngIf="vatError != ''">
+                                {{ vatError }}
+                            </div>
                         </div>
-                      </div>
-                      <div class="form-group col-md-5">
-                        <label class="role-name">Customer ID<span class="star">*</span></label>
-                        <input
-                          type="text"
-                          class="form-control rectangle_name"
-                          placeholder="Enter your unique company id"
-                          [(ngModel)]="company_id"
-                          name="company_id"
-                          id="company_id"
-                        />
-                        <div class="shortDescrError" *ngIf="companyIdError != ''">
-                          {{ companyIdError }}
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Customer ID<span class="star">*</span></label>
+                            <input type="text" class="form-control rectangle_name" placeholder="Enter your unique company id" [(ngModel)]="company_id" name="company_id" id="company_id" />
+                            <div class="shortDescrError" *ngIf="companyIdError != ''">
+                                {{ companyIdError }}
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <div class="form-group row pt-2">
-                      <div class="form-group col-md-5">
-                        <label class="role-name">Facebook link (Add URL)</label>
-                                <input type="text" class="form-control rectangle_name" placeholder="Add facebook URL" [(ngModel)]="facebook_url" name="facebook_url" id="facebook_url" />
-                                <!-- <div class="facebookError" *ngIf="facebookError != ''">{{facebookError}}</div> -->
-                            </div>
-                            <div class="form-group col-md-5">
-                                <label class="role-name">Instagram (Add URL)</label>
-                                <input type="text" class="form-control rectangle_name" placeholder="Add instagram URL" [(ngModel)]="instagram_url" name="instagram_url" id="instagram_url" />
-                                <!-- <div class="instagramError" *ngIf="instagramError != ''">{{instagramError}}</div> -->
-                            </div>
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Facebook link (Add URL)</label>
+                            <input type="text" class="form-control rectangle_name" placeholder="Add facebook URL" [(ngModel)]="facebook_url" name="facebook_url" id="facebook_url" />
+                            <!-- <div class="facebookError" *ngIf="facebookError != ''">{{facebookError}}</div> -->
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label class="role-name">Instagram (Add URL)</label>
+                            <input type="text" class="form-control rectangle_name" placeholder="Add instagram URL" [(ngModel)]="instagram_url" name="instagram_url" id="instagram_url" />
+                            <!-- <div class="instagramError" *ngIf="instagramError != ''">{{instagramError}}</div> -->
                         </div>
                     </div>
-                    <hr />
-                    <div class="form-group row pt-2 prev-div desk-view">
-                        <div class="float-right ml-auto">
-                            <button type="button" class="btn login-butn" (click)="roasteryDetails()" [disabled]="secondButtonValue === 'Loading'">
+                </div>
+                <hr />
+                <div class="form-group row pt-2 prev-div desk-view">
+                    <div class="float-right ml-auto">
+                        <button type="button" class="btn login-butn" (click)="roasteryDetails()" [disabled]="secondButtonValue === 'Loading'">
                         {{ secondButtonValue
                         }}<img
                           class="career-loader"
@@ -568,21 +552,21 @@
                           src="assets/images/orange-loader.gif"
                         />
                       </button>
-                            <button type="button" class="previous btn  pull-left" (click)="goprevtab('first-tab')">
+                        <button type="button" class="previous btn  pull-left" (click)="goprevtab('first-tab')">
                         {{globals.languageJson?.prev}}
                       </button>
-                        </div>
                     </div>
+                </div>
 
-                    <div class="row mob-view" >
-                        <div class="col-md-12 d-flex">
-                            <div class="col-md-6">
+                <div class="row mob-view">
+                    <div class="col-md-12 d-flex">
+                        <div class="col-md-6">
                             <button type="button" class="btn cancel-butn" (click)="goprevtab('first-tab')">
                               {{globals.languageJson?.previous}}
                             </button>
-                          </div>
-                          <div class="col-md-6">
-                                  <button type="button" class="btn login-butn" (click)="roasteryDetails()" [disabled]="secondButtonValue === 'Loading'">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn login-butn" (click)="roasteryDetails()" [disabled]="secondButtonValue === 'Loading'">
                               {{ secondButtonValue
                               }}<img
                                 class="career-loader"
@@ -590,72 +574,72 @@
                                 src="assets/images/orange-loader.gif"
                               />
                             </button>
-                          </div>
-                          </div>
                         </div>
-                    <hr />
-                    <div class="form_content">
-                        <div class="form-group row pt-4">
-                            <div class="form-group col-md-3">
-                                <p class="word-break footer-que-text">
-                                   {{globals.languageJson?.having_trouble}}
-                                </p>
-                            </div>
-                            <div class="form-group col-md-3 admin-div">
-                                <p class="footer-text">Admin</p>
-                                <p class="sub-text">Lucinda Parker</p>
-                                <p class="sub-text">lucy.P@Sewn.com</p>
-                                <p class="sub-text">527-163-7463</p>
-                            </div>
-                            <div class="form-group col-sm-10 admin-mobile-div">
-                                <p class="footer-text">Admin</p>
-                                <p class="sub-text">
-                                    Lucinda Parker, lucy.P@Sewn.com, 527-163-7463
-                                </p>
-                            </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="form_content">
+                    <div class="form-group row pt-4">
+                        <div class="form-group col-md-3">
+                            <p class="word-break footer-que-text">
+                                {{globals.languageJson?.having_trouble}}
+                            </p>
+                        </div>
+                        <div class="form-group col-md-3 admin-div">
+                            <p class="footer-text">Admin</p>
+                            <p class="sub-text">Lucinda Parker</p>
+                            <p class="sub-text">lucy.P@Sewn.com</p>
+                            <p class="sub-text">527-163-7463</p>
+                        </div>
+                        <div class="form-group col-sm-10 admin-mobile-div">
+                            <p class="footer-text">Admin</p>
+                            <p class="sub-text">
+                                Lucinda Parker, lucy.P@Sewn.com, 527-163-7463
+                            </p>
+                        </div>
 
-                            <div class="form-group col-md-2 bill-div">
-                                <p class="word-break footer-text">Billing</p>
-                                <p class="sub-text">Ray Copeland</p>
-                                <p class="sub-text">ray@Sewn.com</p>
-                                <p class="sub-text">146-311-6973</p>
-                            </div>
-                            <div class="form-group col-sm-10 admin-mobile-div">
-                                <p class="footer-text">Billing</p>
-                                <p class="sub-text">
-                                    Ray Copeland, ray@Sewn.com, 146-311-6973
-                                </p>
-                            </div>
-                            <div class="form-group col-md-4 bill-div">
-                                <p class=" footer-text">Tech Help</p>
-                                <p class=" sub-text">ada.or@Sewn.com</p>
-                                <p class=" sub-text">720-033-2862</p>
-                                <p class=" sub-text">Ada Ortega</p>
-                            </div>
-                            <div class="form-group col-sm-10 admin-mobile-div">
-                                <p class="footer-text">Tech Help</p>
-                                <p class="sub-text">
-                                    Ada Ortega,ada.or@Sewn.com,720-033-2862
-                                </p>
-                            </div>
+                        <div class="form-group col-md-2 bill-div">
+                            <p class="word-break footer-text">Billing</p>
+                            <p class="sub-text">Ray Copeland</p>
+                            <p class="sub-text">ray@Sewn.com</p>
+                            <p class="sub-text">146-311-6973</p>
+                        </div>
+                        <div class="form-group col-sm-10 admin-mobile-div">
+                            <p class="footer-text">Billing</p>
+                            <p class="sub-text">
+                                Ray Copeland, ray@Sewn.com, 146-311-6973
+                            </p>
+                        </div>
+                        <div class="form-group col-md-4 bill-div">
+                            <p class=" footer-text">Tech Help</p>
+                            <p class=" sub-text">ada.or@Sewn.com</p>
+                            <p class=" sub-text">720-033-2862</p>
+                            <p class=" sub-text">Ada Ortega</p>
+                        </div>
+                        <div class="form-group col-sm-10 admin-mobile-div">
+                            <p class="footer-text">Tech Help</p>
+                            <p class="sub-text">
+                                Ada Ortega,ada.or@Sewn.com,720-033-2862
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="form-section " id="third-tab">
-            <!-- <sewn-license></sewn-license> -->
-            <div class="row ">
-                <div class="col-lg-12 col-md-12">
-                    <div class="text-center pb-5">
-                        <h4 class="form_header fnt-play">{{globals.languageJson?.license_certificates}}</h4>
-                        <p class="form_para">
-                            Please uplaod your certificates, if any. This helps in your profile getting more noticed.
-                        </p>
-                    </div>
-                    <sewn-license></sewn-license>
-                    <!-- <div class="form_content">
+    <div class="form-section " id="third-tab">
+        <!-- <sewn-license></sewn-license> -->
+        <div class="row ">
+            <div class="col-lg-12 col-md-12">
+                <div class="text-center pb-5">
+                    <h4 class="form_header fnt-play">{{globals.languageJson?.license_certificates}}</h4>
+                    <p class="form_para">
+                        Please uplaod your certificates, if any. This helps in your profile getting more noticed.
+                    </p>
+                </div>
+                <sewn-license></sewn-license>
+                <!-- <div class="form_content">
                       <div class="form-group row pt-5">
                         <div class="form-group col-md-5">
                           <label class="role-name">CERTIFICATION NAME*</label>
@@ -708,32 +692,32 @@
                             </div>
                         </div>
                     </div> -->
-                    <hr />
-                    <div class="form-group row pt-2 prev-div desk-view">
-                        <div class="float-right ml-auto">
-                            <button type="button" class="btn login-butn" (click)="licenseDetails()">
+                <hr />
+                <div class="form-group row pt-2 prev-div desk-view">
+                    <div class="float-right ml-auto">
+                        <button type="button" class="btn login-butn" (click)="licenseDetails()">
                               Send invite
                       </button>
-                            <button type="button" class="previous btn pull-left" (click)="goprevtab('second-tab')">
+                        <button type="button" class="previous btn pull-left" (click)="goprevtab('second-tab')">
                         {{globals.languageJson?.prev}}
                       </button>
-                        </div>
                     </div>
-                    <div class="row mob-view" >
-                        <div class="col-md-12 d-flex">
-                            <div class="col-md-6">
-                            <button type="button" class="btn cancel-butn"  (click)="goprevtab('second-tab')">
+                </div>
+                <div class="row mob-view">
+                    <div class="col-md-12 d-flex">
+                        <div class="col-md-6">
+                            <button type="button" class="btn cancel-butn" (click)="goprevtab('second-tab')">
                               {{globals.languageJson?.previous}}
                             </button>
-                          </div>
-                          <div class="col-md-6">
-                                  <button type="button" class="btn login-butn" (click)="licenseDetails()">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn login-butn" (click)="licenseDetails()">
                              Send invite
                             </button>
-                          </div>
-                          </div>
                         </div>
-                    <!-- <hr />
+                    </div>
+                </div>
+                <!-- <hr />
                   <div class="form_content">
                     <div class="form-group row pt-4">
                       <div class="form-group col-md-3">
@@ -780,29 +764,29 @@
                       </div>
                     </div>
                   </div> -->
-                </div>
             </div>
         </div>
+    </div>
 
-        <div class="form-section" id="fourth-tab">
-            <div class="row ">
-                <div class="col-lg-12 col-md-12">
-                    <div class="text-center mail-box">
-                        <img src="assets/images/mail.svg" alt="mail" />
-                        <h4 class="form_header successful-text fnt-play">{{globals.languageJson?.successful}}</h4>
-                        <p class="form_para success-mail">
-                            {{globals.languageJson?.invitation_sent}}
-                            <span class="mail-id">{{new_user_email}}</span>
-                        </p>
-                        <button class="btn done-btn" id="done-btn" (click)="done()">
+    <div class="form-section" id="fourth-tab">
+        <div class="row ">
+            <div class="col-lg-12 col-md-12">
+                <div class="text-center mail-box">
+                    <img src="assets/images/mail.svg" alt="mail" />
+                    <h4 class="form_header successful-text fnt-play">{{globals.languageJson?.successful}}</h4>
+                    <p class="form_para success-mail">
+                        {{globals.languageJson?.invitation_sent}}
+                        <span class="mail-id">{{new_user_email}}</span>
+                    </p>
+                    <button class="btn done-btn" id="done-btn" (click)="done()">
                       <span class="done-text">{{globals.languageJson?.done}}</span>
                     </button>
-                    </div>
                 </div>
             </div>
         </div>
-        </form>
     </div>
+    </form>
+</div>
 </div>
 </div>
 <!-- <div class="col-1 last_column"></div> -->

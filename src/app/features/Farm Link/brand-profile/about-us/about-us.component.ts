@@ -29,6 +29,10 @@ export class AboutUsComponent implements OnInit {
   intro_image_name_1: string = '';
   intro_image_name_2: string = '';
   file_image_name: any;
+  teamList: [] =[];
+  select_user = '';
+  new_users = '';
+  selectedMembers: []=[];
 
   constructor(public globals: GlobalsService,
     private toastrService: ToastrService,
@@ -43,6 +47,7 @@ export class AboutUsComponent implements OnInit {
   ngOnInit(): void {
     this.language();
     this.getAboutDetails();
+    this.getMembers();
   }
 
   language() {
@@ -219,5 +224,30 @@ export class AboutUsComponent implements OnInit {
     }
   }
 
+  selectUser(value) {
+    this.new_users = value.firstname;
+    // console.log(value)
+  }
+
+  getMembers() {
+    this.userService.getTeamMembers(this.roaster_id, 'top-contacts').subscribe((data) =>{
+      this.teamList = data['result']
+    })
+  }
+
+  addMember(val) {
+    // return;
+    const payload = {
+      user_id: +val
+    }
+    this.userService.addteamMember(this.roaster_id, payload).subscribe((data) =>{
+      // this.teamList = data['result'];
+      // console.log(data)
+      // this.selectedMembers
+      this.toastrService.success("Team Member added successfully");
+    },(err)=>{
+      this.toastrService.error("Error while updating details");
+    });
+  }
 
 }

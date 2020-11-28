@@ -78,7 +78,7 @@ export class ProfileEditComponent implements OnInit {
                 this.timezone = response['result']['timezone'];
                 this.address1 = response['result']['address1'];
                 this.address2 = response['result']['address2'];
-                this.description = response['result']['description'];
+                this.description = response['result']['about_me'];
                 this.gender = response['result']['gender'];
                 this.numberValue =  response['result']['phone'].split("-");
                 this.phoneno = this.numberValue[1];
@@ -299,7 +299,7 @@ for(let i=0; i<optionText.length; i++) {
         'lastname' : this.lastname ,
         'phone' : this.numb,
         'date_of_birth' : dateValue,
-        'description' : this.description,
+        'about_me' : this.description,
         'state' : this.state,
         'language' : this.language,
         'timezone' : this.timezone,
@@ -308,7 +308,6 @@ for(let i=0; i<optionText.length; i++) {
         'address1' : this.address1,
         'address2' : this.address2,
         'gender' : this.gender
-
        };
        console.log(data)
        this.userService.updateRoasterProfile(this.roaster_id,data).subscribe(

@@ -108,11 +108,10 @@
                             <div class="roastery-fields">
                                 <div class="farm-input col-12 col-md-10 px-0">
                                     <label class="label"></label>
-                                    <select name="Year" required="" class="form-control select-region">
-                                        <option value="" selected="" disabled=""> Select your employees</option>
-                                        <option value="Bow"> Bow </option>
-                                        <option value="Lucile French"> Lucile French </option>
-                                        <option value="Rena Gonzales"> Rena Gonzales </option>
+                                    <select name="Year" required="" class="form-control select-region" [(ngModel)]="select_user" (change)="addMember($event.target.value)">
+                                        <option value="" selected="" disabled="">Select your employees</option>
+                                        <option *ngFor="let member of teamList" value={{member.id}}>{{ member.name }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -141,12 +140,16 @@
                             <div class="visit-us-accordion-content  position-relative col-md-10 col-12">
                                 <div class="row ">
 
-                                    <div class="accordion  mb-3" id="accordionExample">
+                                    <div class="accordion col-12  mb-3" id="accordionExample">
                                         <div class="card">
                                             <div class="card-head" id="headingOne">
-                                                <h2 class="mb-0 question" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <h2 class="mb-0 question float-left w-80" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                     What happens if i change my mind after placing an order?
                                                 </h2>
+
+                                                <div class="d-flex float-right">
+                                                    <span>Edit</span> &nbsp; <span>Delete</span>
+                                                </div>
                                             </div>
 
                                             <div id="collapseOne" class="collapse sourcing-collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -162,9 +165,12 @@
                                         </div>
                                         <div class="card">
                                             <div class="card-head" id="headingTwo">
-                                                <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                <h2 class="mb-0 collapsed question float-left w-80" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                     How much will the shipping and haulage cost?
                                                 </h2>
+                                                <div class="d-flex float-right">
+                                                    <span>Edit</span> &nbsp; <span>Delete</span>
+                                                </div>
                                             </div>
 
                                             <div id="collapseTwo" class="collapse sourcing-collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">

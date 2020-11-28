@@ -12,7 +12,7 @@
                 </g>
             </svg> -->
 
-        <img class="logo_sewn" src="assets/images/Sewn-logo.png" alt="image">
+        <img class="logo_sewn" src="assets/images/Sewn-logo.svg" alt="image">
     </div>
 </header>
 <div class="container-fluid position-total">
@@ -45,11 +45,11 @@
                         <div class="line_spacing mt-3"></div>
 
                         <div class="custom-control custom-checkbox mb-1 mt-4 box_mobile">
-                            <input type="checkbox" class="custom-control-input" id="custom_policy" name="example4"  [(ngModel)]="agree_policy">
+                            <input type="checkbox" class="custom-control-input" id="custom_policy" name="example4" [(ngModel)]="agree_policy">
                             <label class="custom-control-label policy_checkbox" for="custom_policy"><span class="remeber-left">I have read and agree to the <span class="policy_color">Privacy Policy</span></span></label>
                         </div>
                         <div class="custom-control custom-checkbox mb-1 mt-4 box_mobile">
-                            <input type="checkbox" class="custom-control-input" id="custom_terms" name="example5"  [(ngModel)]="agree_terms">
+                            <input type="checkbox" class="custom-control-input" id="custom_terms" name="example5" [(ngModel)]="agree_terms">
                             <label class="custom-control-label policy_checkbox" for="custom_terms"><span class="remeber-left">I have read and agree to the <span class="policy_color">Terms and Conditions</span></span></label>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
 
                 <div class="form-group row mt-4 policy-spacing mob-privacy">
                     <div class="text-center">
-                        <button type="button"  class="btn btn-info login-butn" (click)="next()"  [disabled]="resetButtonValue==='Updating'">
+                        <button type="button" class="btn btn-info login-butn" (click)="next()" [disabled]="resetButtonValue==='Updating'">
                             {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Updating'" src="assets/images/orange-loader.gif"/></button>
                     </div>
 

@@ -22831,7 +22831,11 @@ li.select-list__item {
 
 /* table tr hover */
 
-.table tr:hover,
+.table tr:hover {
+    cursor: pointer;
+}
+
+.customtable tr:hover,
 .odd:hover {
     box-shadow: 0 12px 34px 0 rgba(0, 0, 0, 0.1);
     cursor: pointer;
@@ -23276,4 +23280,51 @@ li.select-list__item {
 .p-photo img {
     height: 46px;
     width: 50px;
+}
+
+/* Why Us Section  */
+
+.gmt-marklist {
+    position: absolute;
+    bottom: 0;
+    z-index: 9;
+    background: #c69c6c;
+    color: #fff;
+    height: 90%;
+    left: 32px;
+    width: 480px;
+    padding: 3rem 2.5rem 0rem 3rem;
+}
+
+.gmt-marklist h2 {
+    font-size: 38px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.download_gtm {
+    border-radius: 4px;
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    color: #fff;
+    cursor: pointer;
+    padding: 12px 24px;
+}
+
+.download_gtm:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+.read-art:hover {
+    text-decoration: underline;
+}
+
+.back {
+    position: relative;
+    top: 1px;
+}
+
+.back-arrow-butn {
+    display: inline-flex;
+    position: relative;
+    top: -1px;
 }

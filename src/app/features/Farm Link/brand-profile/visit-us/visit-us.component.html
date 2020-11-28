@@ -63,11 +63,6 @@
                                     <label class="label pl-1">Country<span class="star">*</span></label>
                                     <select name="Year" required="" class="form-control select-region" [(ngModel)]="country" (change)="changeCountry()">
                                             <option  value="" selected="" disabled="" > Please select your country</option>
-                                            <!-- <option  value="India"> India </option>
-                                            <option  value="Australia"> Australia</option>
-                                            <option  value="Bangladesh" >Bangladesh </option>
-                                            <option  value="France"> France</option>
-                                            <option  value="Ireland" >Ireland </option> -->
                                             <option
                                             *ngFor="let count of roasterProfileService.countryList"
                                             value="{{ count.isoCode }}"
@@ -82,14 +77,9 @@
                                     <label class="label pl-1">State<span class="star">*</span></label>
                                     <select name="Year" required="" class="form-control select-region" [(ngModel)]="state">
                                             <option  value="" selected="" disabled="" > Please select your State</option>
-                                            <option *ngFor="let city of roasterProfileService.cities"
+                                            <option *ngFor="let city of roasterProfileService.cities" value={{state}}
                                             >{{ city }}
                                             </option>
-                                            <!-- <option  value="Andhra Pradesh">Andhra Pradesh </option>
-                                            <option  value="Maharashtra"> Maharashtra </option>
-                                            <option  value="Tamil Nadu"> Tamil Nadu </option>
-                                            <option  value="Telangana"> Telangana </option>
-                                            <option  value="Rena Gonzales" > Rena Gonzales </option> -->
                                         </select>
                                 </div>
                             </div>
@@ -140,11 +130,6 @@
                         <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Help your users solves questions faster</p>
 
 
-                        <div cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="">
-                            <div class="form-group col-md-12 px-3 example-box" *ngFor="let saveddata of savedFaqArray; let y = index" cdkDrag>
-
-                            </div>
-                        </div>
                         <div *ngFor="let questiondata of questionArray; let i = index">
                             <div class="roastery-fields">
                                 <div class="farm-input col-12 col-md-10 px-0">
@@ -161,15 +146,18 @@
 
                             <div class="roastery-fields">
                                 <div class="farm-input col-12 col-md-12 px-0">
-                                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Question<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/15 words</span></label>
-                                    <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title" [(ngModel)]="questiondata.question">
+                                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Question<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(questiondata.question,15)}}/15 words</span></label>
+                                    <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="question" [(ngModel)]="questiondata.question" maxlength="{{globals.getTheMaxLength(questiondata.question,15)}}">
+                                </div>
+                                <div class="questionError" *ngIf="questionError != ''">
+                                    {{ questionError }}
                                 </div>
                             </div>
 
                             <div class="roastery-fields">
                                 <div class="farm-input col-12 col-md-12 px-0">
-                                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/100 words</span></label>
-                                    <textarea id="question_answer" class="form-control" rows="5" cols="50" [(ngModel)]="questiondata.answer"> </textarea>
+                                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(questiondata.answer,100)}}/100 words</span></label>
+                                    <textarea id="question_answer" class="form-control" rows="5" cols="50" [(ngModel)]="questiondata.answer" maxlength="{{globals.getTheMaxLength(questiondata.answer,100)}}"> </textarea>
                                 </div>
                             </div>
                             <div class="questionAnswerError" *ngIf="questionAnswerError != ''">
@@ -204,20 +192,25 @@
                         <div class="visit-us-accordion-content  position-relative col-md-10 col-12">
                             <div class="row ">
 
-                                <div class="accordion  mb-3" id="accordionExample">
-                                    <div class="card">
-                                        <div class="card-head" id="headingOne">
-                                            <h2 class="mb-0 question" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                What happens if i change my mind after placing an order?
+                                <div class="accordion col-12  mb-3" id="accordionExample">
+                                    <div class="card" *ngFor="let saveddata of savedFaqArray; let i = index">
+                                        <div class="card-head" [id]="'heading'+i">
+                                            <h2 class="mb-0 question float-left w-80" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+                                                {{saveddata.question}}
                                             </h2>
+                                            <div class="d-flex float-right">
+                                                <span (click)="editFAQ(saveddata)">Edit</span> &nbsp; <span (click)="deleteFAQ(saveddata)">Delete</span>
+                                            </div>
+                                            <!-- <span>Edit</span> &nbsp; <span>Delete</span> -->
+
                                         </div>
 
-                                        <div id="collapseOne" class="collapse sourcing-collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div [id]="'collapse'+i" class="collapse sourcing-collapse show" [attr.aria-labelledby]="'heading'+i" data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <div class="roastery-fields">
                                                     <div class="farm-input col-12 px-0">
-                                                        <label class="label"></label>
-                                                        <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
+                                                        <label class="label"></label> {{saveddata.answer}}
+                                                        <!-- <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title"> -->
                                                     </div>
                                                 </div>
                                             </div>

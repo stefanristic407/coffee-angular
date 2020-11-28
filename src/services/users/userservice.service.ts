@@ -665,7 +665,15 @@ export class UserserviceService {
   getMicroDetails(roaster_id: any,micro_roaster_id : any) {
     // let params = new HttpParams();
     var data = {};
-    data['api_call'] = "/ro/" + roaster_id + "/micro-roasters/" + micro_roaster_id;
+    data['api_call'] = "/ro/" + roaster_id + "/micro-roasters/" + micro_roaster_id; 
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  getFAQList(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/faq";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
@@ -738,11 +746,54 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
   }
+  
+  deleteFAQ(roaster_id : any,faq_id : any) {
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/faq/"+ faq_id;
+    data["method"] = "DELETE";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterDeleteUrl, data);
+  }
+
+  addFAQ(roaster_id:any, body: any) {
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/faq`;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  updateFAQ(roaster_id : any, faq_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/faq/${faq_id}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "PUT";
+    return this.http.put(this.putUrl, data);
+  }
+
+  getTeamMembers(roaster_id: any, group) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/users/"+group;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
   getHorecaContacts(hrc_id:any){
 	var data = {};
     data['api_call'] = "/general/"+ "/hrc/" + hrc_id + "/users/top-contacts";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+
+  }
+  addteamMember(roaster_id:any, body: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/users/top-contacts";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
     return this.http.post(this.roasterUrl, data);
   }
 }

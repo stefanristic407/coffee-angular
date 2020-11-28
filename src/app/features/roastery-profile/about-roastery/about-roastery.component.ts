@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {GlobalsService} from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 
 @Component({
   selector: 'sewn-about-roastery',
@@ -63,20 +64,29 @@ export class AboutRoasteryComponent implements OnInit {
  colorScheme = {
    domain: ['#747588','#f8f8f8']
  };
+ contacts = [
+  {
+    contactid : ''
+  }
+]
+addBtn : boolean = true;
+assignRow : boolean = false;
+showDelete : boolean = false;
+assignButtonValue : string = "Add Contact";
 
-  constructor(public roasteryProfileService : RoasteryProfileService,
-              public userService : UserserviceService,
-              private cookieService : CookieService,
-              private toastrService : ToastrService,
-              public globals: GlobalsService) { 
-                this.roasterId = this.cookieService.get('roaster_id');
-                this.userId = this.cookieService.get('user_id');
-              
-                // Object.assign(this.single);
-              }
+  	constructor(public roasteryProfileService : RoasteryProfileService,
+		public userService : UserserviceService,
+		private cookieService : CookieService,
+		private toastrService : ToastrService,
+		public globals: GlobalsService,
+		public roasterService : RoasterserviceService) { 
+		this.roasterId = this.cookieService.get('roaster_id');
+		this.userId = this.cookieService.get('user_id');
+	}
 
   ngOnInit(): void {
 	this.getCertificates();
+	this.roasteryProfileService.getcontactList();
 	this.language();
   }
   language(){
@@ -96,7 +106,7 @@ export class AboutRoasteryComponent implements OnInit {
 			this.toastrService.error("Error in loading Roaster Certificates");
 			}
 			// this.aboutActive++;
-	});
+		});
 	}
 	}
 
@@ -140,5 +150,48 @@ onActivate(data): void {
 onDeactivate(data): void {
   console.log('Deactivate', JSON.parse(JSON.stringify(data)));
 }
+addContact(){
+	var  contactData = {
+		user_id : parseInt(this.roasteryProfileService.emp_name)
+	  }
+		this.assignButtonValue = "Adding"
+		this.roasterService
+		  .addRoasterContacts(this.roasterId,contactData)
+		  .subscribe((result) => {
+			if (result["success"] == true) {
+			  this.assignButtonValue = "Add Contact"
+			  this.toastrService.success("Contact has been added.");
+			  this.roasteryProfileService.getcontactList();
+			  this.roasteryProfileService.emp_name = "";
+			  this.assignRow = false;
+			  this.addBtn = true;
+			  this.showDelete = true;
+			} else {
+			  this.assignButtonValue = "Add Contact"
+			  this.toastrService.error("Error while assigning the role");
+			}
+		  });
+
+}
+
+showContact(){
+    this.addBtn = false;
+    this.assignRow = true;
+    this.showDelete = true;
+  }
+
+  removeContact(contactId : any){
+    this.roasterService.deleteRoasterContacts(this.roasterId,contactId).subscribe(
+      data => {
+        if(data['success'] == true ){
+          this.toastrService.success("The selected contact has been removed successfully");
+          this.roasteryProfileService.getcontactList();
+        }
+        else{
+			this.toastrService.error("Error while deleting the contact");
+        }
+      }
+    )
+  }
 
 }

@@ -1,91 +1,91 @@
 <div class="total-loader" *ngIf="langActive !=1">
-	<!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-	<div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
-		<img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
-	</div>
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
 </div>
 <div *ngIf="langActive == 1">
-<section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff">
-            <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-                <div class="row desk-view">
-                    <div class="col-md-6 col-lg-6">
-                        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-                            <span id="title-breadcrumb-1" class="sr-only"></span>
-                            <ul class="bread-nav">
-                                <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                </li>
-                                <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/account-settings">{{globals.languageJson?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                </li>
-                                <li class="b-cum c-pink">{{globals.languageJson?.language_region}}</li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="ml-auto text-right raise-ticket">
-                        <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="saveLanguage()" [disabled]="resetButtonValue==='Saving'">
+    <section>
+        <div class="container sewn-container section-head-pad">
+            <div class="bg-fff">
+                <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+                    <div class="row desk-view">
+                        <div class="col-md-6 col-lg-6">
+                            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                                <span id="title-breadcrumb-1" class="sr-only"></span>
+                                <ul class="bread-nav">
+                                    <li class="b-cum">
+                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                    </li>
+                                    <li class="b-cum">
+                                        <a class="b-cum" routerLink="/features/account-settings">{{globals.languageJson?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                    </li>
+                                    <li class="b-cum c-pink">{{globals.languageJson?.language_region}}</li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="ml-auto text-right raise-ticket">
+                            <button type="submit" class="btn btn-succes create-role-btn web-btn" (click)="saveLanguage()" [disabled]="resetButtonValue==='Saving'">
                           {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
+                        </div>
                     </div>
-                </div>
-                <div class="row mobile-view">
-                    <span class="cursor-pointer" routerLink="/features/account-settings">
+                    <div class="row mobile-view">
+                        <span class="cursor-pointer" routerLink="/features/account-settings">
                 <img src="/assets/images/back-arrow1.png" alt="">
                 <span class="back-ticket pl-3">{{globals.languageJson?.back}}</span>
-                    </span>
-                </div>
-            </section>
-            <section class="col-sm-12 col-md-12 col-lg-12 language-spacing">
-                <div class="row">
-                    <div class="col-md-6 col-lg-6">
-                        <p class="header-value mr-auto text-left">{{globals.languageJson?.language_region}}</p>
-                        <p class="sub-text">{{globals.languageJson?.language_subtext}}</p>
+                        </span>
                     </div>
-
-                </div>
-                <div class="border-clr">
+                </section>
+                <section class="col-sm-12 col-md-12 col-lg-12 language-spacing">
                     <div class="row">
-                        <div class="col-md-8 col-lg-5 col-sm-12 mb-5">
-                            <form class="form-container">
-                                <div class="form-group mb-4 mob-space">
-                                    <label for="lang">{{globals.languageJson?.language}}</label>
-                                    <select id="lang" class="form-control select-region" name="lang" required="" [(ngModel)]="lang" (keyup)="onKeyPress($event)">
+                        <div class="col-md-6 col-lg-6">
+                            <p class="header-value mr-auto text-left">{{globals.languageJson?.language_region}}</p>
+                            <p class="sub-text">{{globals.languageJson?.language_subtext}}</p>
+                        </div>
+
+                    </div>
+                    <div class="border-clr">
+                        <div class="row">
+                            <div class="col-md-8 col-lg-5 col-sm-12 mb-5">
+                                <form class="form-container">
+                                    <div class="form-group mb-4 mob-space">
+                                        <label for="lang">{{globals.languageJson?.language}}</label>
+                                        <select id="lang" class="form-control select-region" name="lang" required="" [(ngModel)]="lang" (keyup)="onKeyPress($event)">
               <option value="" selected disabled> Select any language</option>
               <option value="en"> English </option>
               <option value="es"> Spanish </option>
             </select>
 
-                                    <p class="description mt-1">{{globals.languageJson?.choose_language}}</p>
-                                    <div class="languageError" *ngIf="languageError != ''">
-                                        {{ languageError }}
+                                        <p class="description mt-1">{{globals.languageJson?.choose_language}}</p>
+                                        <div class="languageError" *ngIf="languageError != ''">
+                                            {{ languageError }}
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group mt-5 mob-space">
-                                    <label for="add-language">{{globals.languageJson?.add_language_label}}</label>
+                                    <div class="form-group mt-5 mob-space">
+                                        <label for="add-language">{{globals.languageJson?.add_language_label}}</label>
 
-                                    <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-6 add-language mb-1">
-                                        <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
-											<img class="plus-symbol" src="assets/images/region-plus.svg">Add language </a>
+                                        <div id="add-language" class="form-control col-lg-5 col-md-5 col-sm-6 add-language mb-1">
+                                            <a class="pointer-item" [popover]="allTemplate" placement="bottom" [outsideClick]="true" container="body" #pop2="bs-popover">
+                                                <img class="plus-symbol" src="assets/images/region-plus.svg">Add language </a>
+                                        </div>
+                                        <mat-chip-list #chipList aria-label="language" class="desk-chips">
+                                            <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language}}
+                                                <img *ngIf="removable" class="cross-icon" src="assets/images/cross.svg" (click)="remove(language)">
+                                            </mat-chip>
+                                        </mat-chip-list>
+                                        <!-- </a> -->
+                                        <p class="description mt-2">{{globals.languageJson?.add_language_subtext}}</p>
+                                        <mat-chip-list #chipList aria-label="language" class="mob-chips">
+                                            <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language}}
+                                                <img *ngIf="removable" class="cross-icon" src="assets/images/cross.svg" (click)="remove(language)">
+                                            </mat-chip>
+                                        </mat-chip-list>
                                     </div>
-                                    <mat-chip-list #chipList aria-label="language" class="desk-chips">
-                                        <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language}}
-                                            <img *ngIf="removable" class="cross-icon" src="assets/images/cross.svg" (click)="remove(language)">
-                                        </mat-chip>
-                                    </mat-chip-list>
-                                    <!-- </a> -->
-                                    <p class="description mt-2">{{globals.languageJson?.add_language_subtext}}</p>
-                                    <mat-chip-list #chipList aria-label="language" class="mob-chips">
-                                        <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language}}
-                                            <img *ngIf="removable" class="cross-icon" src="assets/images/cross.svg" (click)="remove(language)">
-                                        </mat-chip>
-                                    </mat-chip-list>
-                                </div>
 
-                                <div class="form-group mt-5 mob-space">
-                                    <label for="timezone">{{globals.languageJson?.timezone}}</label>
-                                    <select id="timezone" class="form-control  select-region" name="timezone" required="" [(ngModel)]="timezone" (keyup)="onKeyPress($event)">
+                                    <div class="form-group mt-5 mob-space">
+                                        <label for="timezone">Time zone</label>
+                                        <select id="timezone" class="form-control  select-region" name="timezone" required="" [(ngModel)]="timezone" (keyup)="onKeyPress($event)">
               <option value="" selected disabled> Select Timezone</option>
               <optgroup label="US (Common)">	
                 <option value="America/Puerto_Rico">Puerto Rico (Atlantic)</option>
@@ -582,31 +582,31 @@
                 <option value="Arctic/Longyearbyen">Longyearbyen</option>
               </optgroup>
             </select>
-                                    <div class="timeZoneError" *ngIf="timeZoneError != ''">
-                                        {{ timeZoneError }}
+                                        <div class="timeZoneError" *ngIf="timeZoneError != ''">
+                                            {{ timeZoneError }}
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mobile-farm col-12">
-                    <button type="button" class="btn btn-succes create-role-btn" (click)="saveLanguage()" [disabled]="resetButtonValue==='Saving'">
+                    <div class="mobile-farm col-12">
+                        <button type="button" class="btn btn-succes create-role-btn" (click)="saveLanguage()" [disabled]="resetButtonValue==='Saving'">
                       {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
-                </div>
-            </section>
+                    </div>
+                </section>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<ng-template #allTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover lang-total">
-            <li class="list-group-item item-color pointer-item" *ngFor="let language of languageCodeArray" (click)="addLang(language.name,language.code); pop2.hide()">
-					<!-- <li class="list-group-item item-color" (click)="setCrop(''); pop6.hide(); "><a class="pointer-item">All</a></li> -->
-            	<a class="pointer-item">{{language.name}}</a>
-        	</li>
-        <!-- <li class="list-group-item item-color">
+    <ng-template #allTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover lang-total">
+                <li class="list-group-item item-color pointer-item" *ngFor="let language of languageCodeArray" (click)="addLang(language.name,language.code); pop2.hide()">
+                    <!-- <li class="list-group-item item-color" (click)="setCrop(''); pop6.hide(); "><a class="pointer-item">All</a></li> -->
+                    <a class="pointer-item">{{language.name}}</a>
+                </li>
+                <!-- <li class="list-group-item item-color">
           <a
             class="pointer-item"
             (click)="addLang('English');pop2.hide()"
@@ -648,14 +648,14 @@
               >Malayalam</a
             >
           </li> -->
-      </ul>
-    </div>
-  </ng-template>
+            </ul>
+        </div>
+    </ng-template>
 
-  <p-dialog [(visible)]="displayModal" [modal]="true"  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-    <div class="text-center">
-    <p class="fnt-muli black-semibold p-4"> {{globals.languageJson?.please_login_text}}! </p>
-    <button class="btn logout-btn create-role-btn mb-3" type="button" (click)="userLogout()">{{globals.languageJson?.logout}}</button>
-  </div>
-</p-dialog>
+    <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+        <div class="text-center">
+            <p class="fnt-muli black-semibold p-4"> {{globals.languageJson?.please_login_text}}! </p>
+            <button class="btn logout-btn create-role-btn mb-3" type="button" (click)="userLogout()">{{globals.languageJson?.logout}}</button>
+        </div>
+    </p-dialog>
 </div>

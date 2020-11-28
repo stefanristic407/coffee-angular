@@ -202,6 +202,10 @@
     background-position: right;
 }
 
+.w-80 {
+    width: 80%;
+}
+
 @media all and (max-width: 425px) {
     .accordion .card h2 {
         background: url(/assets/images/arrow-up.svg) no-repeat calc(94% - -15px) center;

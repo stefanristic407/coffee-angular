@@ -34,6 +34,7 @@ export class VisitUsComponent implements OnInit {
   public addanotherrow: number;
   questionTypeError: string;
   questionAnswerError: string;
+  questionError: string;
 
   constructor(public globals: GlobalsService,
     private toastrService: ToastrService,
@@ -50,12 +51,14 @@ export class VisitUsComponent implements OnInit {
       type:''
     });
     this.questionTypeError = "";
+    this.questionError = "";
     this.questionAnswerError = "";
-    this.addanotherrow = this.questionArray.length;
+    // this.addanotherrow = this.questionArray.length;
   }
   ngOnInit(): void {
     this.language();
     this.getVisitDetails();
+    this.getFAQList();
   }
 
   language(){
@@ -71,11 +74,14 @@ export class VisitUsComponent implements OnInit {
   saveQuestion(rowcount, event) {
     for (let j = 0; j < this.questionArray.length; j++) {
       if (
-        this.questionArray[j].type == "" &&  this.questionArray[j].answer == ""){
+        this.questionArray[j].question == "" &&  this.questionArray[j].answer == ""){
           $(".myAlert-top").show();
           this.questionTypeError = "Please Fill the mandatory Fields";
           this.questionAnswerError = "Please Fill the mandatory Fields";
+          this.questionError = "Please Fill the mandatory Fields";
           document.getElementById("question_answer").style.border =
+            "1px solid #d50000";
+            document.getElementById("question").style.border =
             "1px solid #d50000";
             // document.getElementById("certification_year").style.border =
             // "1px solid #d50000";
@@ -84,21 +90,23 @@ export class VisitUsComponent implements OnInit {
           setTimeout(() => {
             this.questionTypeError = "";
             this.questionAnswerError = "";
+            this.questionError = "";
           }, 3000);
         }
+      // else if (
+      //   this.questionArray[j].type == "" ||
+      //   this.questionArray[j].type == null ||
+      //   this.questionArray[j].type == undefined
+      // ) {
+      //   $(".myAlert-top").show();
+      //   this.questionTypeError = "Please enter type";
+      //   document.getElementById("question_type").style.border =
+      //     "1px solid #d50000";
+      //   setTimeout(() => {
+      //     this.questionTypeError = "";
+      //   }, 3000);
+      // } 
       else if (
-        this.questionArray[j].type == "" ||
-        this.questionArray[j].type == null ||
-        this.questionArray[j].type == undefined
-      ) {
-        $(".myAlert-top").show();
-        this.questionTypeError = "Please enter type";
-        document.getElementById("question_type").style.border =
-          "1px solid #d50000";
-        setTimeout(() => {
-          this.questionTypeError = "";
-        }, 3000);
-      } else if (
         this.questionArray[j].answer == "" ||
         this.questionArray[j].answer == null ||
         this.questionArray[j].answer == undefined
@@ -111,27 +119,42 @@ export class VisitUsComponent implements OnInit {
           this.questionAnswerError = "";
         }, 3000);
       }
-      // else if (
-      //   this.licenseArray[j].type == 0 ||
-      //   this.licenseArray[j].type == null ||
-      //   this.licenseArray[j].type == undefined
-      // ) {
-      //   $(".myAlert-top").show();
-      //   this.certificationYearError = "Please select certification Type";
-      //   document.getElementById("certification_type").style.border =
-      //     "1px solid #d50000";
-      //   setTimeout(() => {
-      //     this.certificationTypeError = "";
-      //   }, 3000);
-      // }
+      else if (
+        this.questionArray[j].question == '' ||
+        this.questionArray[j].question == null ||
+        this.questionArray[j].question == undefined
+      ) {
+        $(".myAlert-top").show();
+        this.questionError = "Please enter question";
+        document.getElementById("question").style.border =
+          "1px solid #d50000";
+        setTimeout(() => {
+          this.questionError = "";
+        }, 3000);
+      }
      
       else {
-        this.savedFaqArray.push({
-          id: this.questionArray[j].id,
+        const payload = {
           question: this.questionArray[j].question,
-          type: this.questionArray[j].type,
+          faq_type: 'DISPUTE',
           answer: this.questionArray[j].answer,
-         });
+          status:'ENABLED'
+        }
+        this.userService.addFAQ(this.roaster_id, payload).subscribe((data)=> {
+          // console.log(data)
+          this.savedFaqArray.push({
+            id: this.questionArray[j].id,
+            question: this.questionArray[j].question,
+            type: this.questionArray[j].type,
+            answer: this.questionArray[j].answer,
+           });
+           this.questionArray = [];
+           this.getFAQList();
+          this.toastrService.success("FAQ added successfully");
+        },(err) => {
+          this.toastrService.error("Error while adding");
+        })
+
       }
     }
     if (this.questionArray.length == 0) {
@@ -307,11 +330,15 @@ export class VisitUsComponent implements OnInit {
         this.email = data['result'].email,
         this.phoneNumber = data['result'].phone,
         this.banner_image_name = await this.userService.getFileDetails(this.roaster_id,this.banner_id).pipe(map(response => response['name'])).toPromise();
+        this.roasterProfileService.changeCountry(this.country);
       }
     })
   }
 
-  addnewrow() {
+  addnewrow() { 
+    if(this.questionArray.length == 1) {
+      return;
+    }
     var newrowc = this.addanotherrow + 1;
     this.addanotherrow = newrowc;
     this.questionArray.push({
@@ -321,6 +348,32 @@ export class VisitUsComponent implements OnInit {
       id: 1
     });
     //this.licenseArray.push(this.licenseArray.length);
+  }
+
+  getFAQList() {
+    this.userService.getFAQList(this.roaster_id).subscribe((data) =>{
+    this.savedFaqArray = data['result'];
+    });
+  }
+
+  deleteFAQ(faq) {
+    if (confirm("Please confirm! you want to delete?") == true){
+      this.userService.deleteFAQ(this.roaster_id,faq.id).subscribe(
+        response => {
+          if(response['success']==true){
+            this.toastrService.success("The selected FAQ has been deleted successfully");
+            this.getFAQList();
+          }
+          else{
+            this.toastrService.error("Something went wrong while deleting the FAQ");
+          }
+        }
+      )
+    }
+  }
+
+  editFAQ(faq) {
+
   }
 
 }

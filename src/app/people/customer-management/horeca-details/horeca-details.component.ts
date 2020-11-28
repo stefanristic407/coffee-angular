@@ -68,6 +68,9 @@ export class HorecaDetailsComponent implements OnInit {
 			this.hrContacts = res['result'];
 			console.log(this.hrContacts);
 		  }
+		  else{
+			  
+		  }
 		})
 	  }
     ngAfterViewInit(){
