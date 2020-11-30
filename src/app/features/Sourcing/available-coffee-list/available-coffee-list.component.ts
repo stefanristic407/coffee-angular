@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import {GlobalsService} from 'src/services/globals.service';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 
 @Component({
   selector: 'app-available-coffee-list',
@@ -201,6 +203,15 @@ export class AvailableCoffeeListComponent implements OnInit {
 	availableCertify: any;
 	certiImage: any;
 	certify: any;
+	countryValue: any;
+	flavourName: any;
+	brandProfileEstateWeb: string= "https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee";
+	temperature:any;
+	showTemperature: boolean = true;
+	hourly:any;
+	showHourly: boolean = true;
+
+
   constructor(
 	public gallery: Gallery, 
 	public lightbox: Lightbox,
@@ -208,13 +219,16 @@ export class AvailableCoffeeListComponent implements OnInit {
 	private route : ActivatedRoute,
 	public sourcing:SourcingService,
 	private router : Router,
-	public userService : UserserviceService) {
+	public userService : UserserviceService,
+	public profile:RoasteryProfileService,
+	private roasterService: RoasterserviceService) {
 	this.route.queryParams.subscribe(params => {
 		this.sourcing.harvestData = params['harvestData'];
-		this.availableCertify = params['certificateHarvest']; 
-		this.certify=JSON.parse(this.availableCertify)
+		// this.availableCertify = params['certificateHarvest']; 
+		// this.certify=JSON.parse(this.availableCertify)
 		this.sourcing.availableDetailList();
 		this.sourcing.otherAvailableCoffee();
+		this.sourcing.getEachGreenCertify();
 	  });
    }
 
@@ -228,20 +242,15 @@ export class AvailableCoffeeListComponent implements OnInit {
 	  lightboxRef.load(this.items);
 
 	  this.language();  
+	  this.temperature = '';
+	  this.hourly = '';
+
   }
   language(){
 	this.appLanguage = this.globals.languageJson;
 	this.availableCoffeeActive++;
   }
-  getCertificateData(data:any){
-	//   console.log(data);
-	if(data.type_id > 0){
-		this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.type_id);
-		if(this.certiImage !=''){
-			return this.certiImage[0].image_url;
-		}
-	}
-}
+
 
 orderPlace(id : any){
 	let navigationExtras: NavigationExtras = {
@@ -252,5 +261,54 @@ orderPlace(id : any){
   
 	  this.router.navigate(['/features/available-confirm-order'], navigationExtras);
 }
-
+GetCountry(data:any){
+    // console.log(data.toUpperCase());
+    this.countryValue=this.profile.countryList.find(con =>con.isoCode == data.toUpperCase());
+    // console.log(this.countryValue);
+    return this.countryValue.name;
+    // console.log(this.countryValue.name);
+  }
+  getFlavourName(flavourid:any){
+	if(this.sourcing.flavourList){
+	this.flavourName = this.sourcing.flavourList.find(flavour => flavour.id == flavourid).name;
+	return this.flavourName;
+	}
+  }
+  brandProfileSite(){
+	const redirectUrl = this.brandProfileEstateWeb;
+		this.roasterService.navigate(redirectUrl, true);
+}
+	toggleTemperature(){
+		this.showTemperature=!this.showTemperature;
+		if(this.showTemperature==false){
+				document.getElementById('temperature_id').style.border="1px solid #30855c";
+			}
+			else{
+				document.getElementById('temperature_id').style.border="1px solid #d6d6d6";
+			}
+	  }
+	  setTemperature(data:any){
+		this.temperature=data;
+	  }
+	  toggleHourly(){
+		this.showHourly=!this.showHourly;
+		if(this.showHourly==false){
+				document.getElementById('hourly_id').style.border="1px solid #30855c";
+			}
+			else{
+				document.getElementById('hourly_id').style.border="1px solid #d6d6d6";
+			}
+		}
+		setHourly(data:any){
+		this.hourly=data;
+		}
+		getCertificateData(data:any){
+			//   console.log(data);
+			if(data.certificate_type_id > 0){
+				this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.certificate_type_id);
+				if(this.certiImage !=''){
+					return this.certiImage[0].image_url;
+				}
+			}
+		}
 }

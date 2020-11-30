@@ -272,8 +272,6 @@ span.checkmark {
     margin-top: -10px;
 }
 
-
-
 ::ng-deep .ui-overlaypanel {
     border: none !important;
     border-radius: 6px !important;
@@ -339,7 +337,6 @@ span.checkmark {
     width: 10%;
     /* position: relative; */
 }
-
 
 .oh__text {
     color: #020202;

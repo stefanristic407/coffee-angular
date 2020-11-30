@@ -519,9 +519,9 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
     console.log(this.certificate);
     let navigationExtras: NavigationExtras = {
       queryParams: {
-		"listData": this.listData,
-		certificate:JSON.stringify(this.certificate)
-      },
+		"listData": this.listData
+		// certificate:JSON.stringify(this.certificate)
+      }
       // skipLocationChange: true
     }
     this.router.navigate(["/features/estate-details"], navigationExtras);
@@ -535,9 +535,9 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
     console.log(this.harvestCertify);
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "harvestData": this.harvestData,
-        certificateHarvest:JSON.stringify(this.harvestCertify)
-      },
+        "harvestData": this.harvestData
+        // certificateHarvest:JSON.stringify(this.harvestCertify)
+      }
       // skipLocationChange: true
     }
 	this.router.navigate(["/features/available-coffee-list"],navigationExtras);    

@@ -47,83 +47,85 @@
                         <td>{{ticket.dispute_type}}</td>
                         <td>{{ ticket.dispute_status }} </td>
                         <td>
-                            <div type="submit" class="go-to-ticket"  (click)="continueTicket();">Go to ticket</div>
+                            <div type="submit" class="go-to-ticket" (click)="continueTicket();">Go to ticket</div>
                         </td>
 
                     </tr>
-                    <tr class="odd" *ngIf="odd"><td valign="top" colspan="11" class="dataTables_empty">No data available in table</td></tr>
+                    <tr class="odd" *ngIf="odd">
+                        <td valign="top" colspan="11" class="dataTables_empty">No data available in table</td>
+                    </tr>
                 </tbody>
 
             </table>
         </div>
-<div class="d-block d-lg-none">
-    <div class="raised-mobile">
-        <div class="row  pt-md-4 pb-md-4">
-            <div class="col-12">
-            <div class="title-header">
-                <div class="mb-3">
-                <input class="d-inline search-name filter-set" type="text" name="sourcingName" id="sourcingName" placeholder="Search by name">
-                </div>
-                <div class="d-inline border-grade col-sm-6">
-                    <p class="d-inline filter-text">orgin&nbsp;</p>
-                    <a class="pointer-item">
-                        <p class="d-inline filter">
-                            &nbsp; <img src="assets/images/active-user.png" />
-                        </p>
-                    </a>
-
-                </div>
-                <div class="d-inline border-grade col-sm-6">
-                    <p class="d-inline filter-text">Type of order&nbsp;</p>
-                    <a class="pointer-item">
-                        <p class="d-inline filter">
-                            &nbsp; <img src="assets/images/active-user.png" />
-                        </p>
-                    </a>
-
-                </div>
-                <div class="d-inline border-grade col-sm-6">
-                    <p class="d-inline filter-text">Status&nbsp;</p>
-                    <a class="pointer-item">
-                        <p class="d-inline filter">
-                            &nbsp; <img src="assets/images/active-user.png" />
-                        </p>
-                    </a>
-
-                </div>
-                <div class="d-inline border-grade col-sm-6">
-                    <p class="d-inline filter-text">Date&nbsp;</p>
-                    <a class="pointer-item">
-                        <p class="d-inline filter">
-                            &nbsp; <img src="assets/images/active-user.png" />
-                        </p>
-                    </a>
-
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                    <div class="pagination-content">
-                <div class="raised-list mt-5 mb-5">
-                    <ul class="cleafix pagination-content-list" >
-                        <li class="order-raised pagination-content-list__item" *ngFor="let role of data">
-                            <div class="raised-detils d-inline-block  pb-3"  (click)="ticketDetails($event,role);">
-                                <div class="raised-tit">
-                                    <h4 class="col-8">{{role.status}}</h4>
-                                    <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
-                                </div>
-                                <div class="raised-ticket">
-                                    <h4 class="col-8 mt-3 pull-left">{{role.orderid}}</h4>
-                                    <h6  class="col-4 mt-3 pull-right text-right">{{role.dateraised}}</h6>
-                                    <h3 class="col-11 d-inline-block pb-4 pl-0 pr-0 ml-3 mr-3">{{role.estatename}}  l  Colombia</h3>
-                                    <label class="ml-3 mt-2 pull-left">{{role.disputetype}}</label>
-                                   <a  class="col-4 mt-3 pull-right text-right">Go to ticket </a>
-                                </div>
+        <div class="d-block d-lg-none">
+            <div class="raised-mobile">
+                <div class="row  pt-md-4 pb-md-4">
+                    <div class="col-12">
+                        <div class="title-header">
+                            <div class="mb-3">
+                                <input class="d-inline search-name filter-set" type="text" name="sourcingName" id="sourcingName" placeholder="Search by name">
                             </div>
-                        </li>
-                        <!-- <li class="order-raised">
+                            <div class="d-inline border-grade col-sm-6">
+                                <p class="d-inline filter-text">orgin&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.svg" />
+                                    </p>
+                                </a>
+
+                            </div>
+                            <div class="d-inline border-grade col-sm-6">
+                                <p class="d-inline filter-text">Type of order&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.svg" />
+                                    </p>
+                                </a>
+
+                            </div>
+                            <div class="d-inline border-grade col-sm-6">
+                                <p class="d-inline filter-text">Status&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.svg" />
+                                    </p>
+                                </a>
+
+                            </div>
+                            <div class="d-inline border-grade col-sm-6">
+                                <p class="d-inline filter-text">Date&nbsp;</p>
+                                <a class="pointer-item">
+                                    <p class="d-inline filter">
+                                        &nbsp; <img src="assets/images/active-user.svg" />
+                                    </p>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pagination-content">
+                            <div class="raised-list mt-5 mb-5">
+                                <ul class="cleafix pagination-content-list">
+                                    <li class="order-raised pagination-content-list__item" *ngFor="let role of data">
+                                        <div class="raised-detils d-inline-block  pb-3" (click)="ticketDetails($event,role);">
+                                            <div class="raised-tit">
+                                                <h4 class="col-8">{{role.status}}</h4>
+                                                <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
+                                            </div>
+                                            <div class="raised-ticket">
+                                                <h4 class="col-8 mt-3 pull-left">{{role.orderid}}</h4>
+                                                <h6 class="col-4 mt-3 pull-right text-right">{{role.dateraised}}</h6>
+                                                <h3 class="col-11 d-inline-block pb-4 pl-0 pr-0 ml-3 mr-3">{{role.estatename}} l Colombia</h3>
+                                                <label class="ml-3 mt-2 pull-left">{{role.disputetype}}</label>
+                                                <a class="col-4 mt-3 pull-right text-right">Go to ticket </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li class="order-raised">
                             <div class="raised-detils d-inline-block pb-3">
                                 <div class="raised-tit">
                                     <h4 class="col-8">Open</h4>
@@ -138,27 +140,27 @@
                                 </div>
                             </div>
                         </li>-->
-                    </ul>
-                    <div class="responsive-pagination clearfix">
-                            <span class="responsive-pagination__prev float-left disable"></span>
-                            <ul class="responsive-pagination-list d-flex float-left mb-0">
-                                <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                                </ul>
+                                <div class="responsive-pagination clearfix">
+                                    <span class="responsive-pagination__prev float-left disable"></span>
+                                    <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                        <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
                             <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
                             <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
                             <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
                             <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
-                            </ul>
-                            <span class="responsive-pagination__next float-left"></span>
+                                    </ul>
+                                    <span class="responsive-pagination__next float-left"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="select-cont">
+                    <a (click)="continueTicket()">Continue</a>
+                </div>
             </div>
         </div>
-        <div class="select-cont">
-            <a (click)="continueTicket()">Continue</a>
-        </div>
-    </div>
-</div>
 
     </div>
 </div>

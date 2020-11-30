@@ -734,14 +734,14 @@ export class UserserviceService {
   }
   getMicroroasterCertificates(micro_roaster_id:any){
 	var data = {};
-    data['api_call'] = "/general/"+ "/mr/" + micro_roaster_id + "/certificates";
+    data['api_call'] = "/general/mr/" + micro_roaster_id + "/certificates";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
   }
   getMicroroasterContacts(micro_roaster_id:any){
 	var data = {};
-    data['api_call'] = "/general/"+ "/mr/" + micro_roaster_id + "/users/top-contacts";
+    data['api_call'] = "/general/mr/" + micro_roaster_id + "/users/top-contacts";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
@@ -782,7 +782,7 @@ export class UserserviceService {
   }
   getHorecaContacts(hrc_id:any){
 	var data = {};
-    data['api_call'] = "/general/"+ "/hrc/" + hrc_id + "/users/top-contacts";
+    data['api_call'] = "/general/hrc/" + hrc_id + "/users/top-contacts";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
@@ -794,6 +794,13 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');
     data['method'] = "POST";
     data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+  getEachEsateCertificates(estate_id:any){
+	var data = {};
+    data['api_call'] = "/general/es/" + estate_id + "/certificates";
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
   }
 }

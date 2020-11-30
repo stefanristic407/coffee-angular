@@ -245,10 +245,12 @@ ul li {
     margin-bottom: 26px;
     border-radius: 4px;
     cursor: pointer;
+    transform: scale(1);
 }
 
 .card-border:hover {
-    box-shadow: 0px 0px 24px -2px #979797;
+    transform: scale(1.03);
+    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
 }
 
 .filter-sort {

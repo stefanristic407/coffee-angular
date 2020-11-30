@@ -127,6 +127,7 @@ table.dataTable thead th {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
 }
+
 .status-Shipped {
     font-size: 12px;
     font-weight: 500;
@@ -313,14 +314,17 @@ span.checkmark {
     cursor: pointer;
 }
 
+
 /******Date Range Css*********/
 
 :host ::ng-deep .ui-inputtext {
     display: none !important;
 }
+
 :host ::ng-deep .ui-button-icon-only .ui-button-icon-left {
     color: #3d8462;
 }
+
 .mixups-tabs {
     /* padding: 0rem 2rem 2rem 0rem; */
     /* background-color: #ffffff; */
@@ -342,6 +346,8 @@ span.checkmark {
     padding-right: 0;
     padding-left: 0;
 }
+
+
 /* 
 .spacing-order {
     margin-top: 2rem;
@@ -403,7 +409,6 @@ li.nav-item {
 .top-space {
     margin-top: -12px;
 }
-
 
 @media (max-width:1024px) {
     .estate-table {
@@ -515,6 +520,8 @@ li.nav-item {
 .create-role-section {
     padding: 0px 40px;
 }
+
+
 /* 
 .spacing-order {
     padding: 1rem 0.6rem !important;
@@ -526,12 +533,15 @@ li.nav-item {
     right: 3.2rem;
     top: -0.3rem;
 }
-.desk_view_user{
+
+.desk_view_user {
     display: block;
 }
-.mob_view_user{
+
+.mob_view_user {
     display: none;
 }
+
 @media (max-width:991px) {
     .source-cont {
         padding: 0;
@@ -567,7 +577,7 @@ li.nav-item {
     .border-grade {
         width: auto !important;
         margin-bottom: 10px;
-        float:left;
+        float: left;
         margin-right: 10px;
         border-radius: 20px;
         border: solid 1px #d6d6d6;
@@ -580,56 +590,178 @@ li.nav-item {
     .filter-sort {
         top: 56px;
     }
-
     /*End filter List*/
-  .mobile-tab{padding-left: 16px; padding-right: 16px;}
-    .raised-mobile .select-cont, .selok{display: none;}
-    .raised-mobile.active .select-cont,  .highlight .selok{display: block;} 
-    .selok{right: 10px; color: #fff;  background-color: #649a2b; border-radius: 50%; float: right; position: absolute; top: 8px;}
-   
-    .raised-list li{    border: 1px solid #ebebeb; margin-bottom: 20px;}
-    .raised-detils{position: relative; width: 100%;}
-    .raised-tit{    background: #f8f8f8; padding: 10px 9px 4px 0px;     border: 5px solid #fff;
-        border-radius: 5px;}
-    .raised-tit h4{font-size: 16px; font-weight: bold;}
-    .raised-ticket h3{font-size: 14px; font-weight: bold;width: 100%;}
-    .raised-ticket h4{ font-size: 16px; font-weight: bold;}
-    .raised-ticket h6 {color: #747588; font-size: 12px;}
-    .raised-ticket label{position:relative ;  border-radius: 30px; padding: 4px 10px 4px 15px;}
-    .raised-ticket label:before{content: ""; position: absolute; top: 11px; left: 0px; width: 6px; height:6px; background: #747588 ; border-radius: 50%;}  
-    .raised-ticket a{ color:#80460b; font-size: 12px; font-weight: bold; }
-    .select-cont{ margin-bottom: 3rem;width: 100%; left: 0;  bottom:3rem; height: 80px; background: #fff; padding: 20px 9%;}    .select-cont a{background: #30855c;  border-radius: 4px; color: #fff; display: block; text-align: center; padding: 12px 0; font-size:12px;}
-   .highlight .raised-detils{border: 10px solid #ebebeb; border-radius: 6px;}
-   .search-name{
-    background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
-    padding-left: 45px !important;
-    font-family: Muli; 
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-    margin-left: 0px;
-    height: 42px;
-    width: 100%;
-}
-.filter-set{
-    width: 100%;
-    padding: 10px 10px 10px 19px;
-    margin: 0 2px 0 0;
-    border-right: 1px solid #d6d6d6;
-    margin-top: 10px;
-}
-.table-container{padding-top: 20px;}
-.ticket-heading{margin-bottom: 0;}
-.title-header{margin: 0;}
-.bread-nav{padding-left: 16px;}
-.estate-orders-headin{margin: 0; padding-left: 16px; padding-right: 16px;}
-.estate-order{border-bottom: 2px dotted #ebebeb; margin-left: 16px; margin-right: 16px;}
-.status-booked{color: #649a2b;}
-.status-prebook{color: #7c6be8;}
-.status-sample{color: #f19634;}
-.status-booked, .status-prebook, .status-sample{display: inline-block; position: relative;  padding-bottom: 20px; padding-top: 2px; width: 100%;}
-.status-booked:before, .status-prebook:before, .status-sample:before{content: ""; position: absolute; top: 11px; left: 0px; width: 6px; height:6px; border-radius: 50%;}
-.estate-orders-heading{margin: 0; padding-left: 16px;}
-.desk_view_user{display: none;}
-.mob_view_user{display: block;}
+    .mobile-tab {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .raised-mobile .select-cont,
+    .selok {
+        display: none;
+    }
+    .raised-mobile.active .select-cont,
+    .highlight .selok {
+        display: block;
+    }
+    .selok {
+        right: 10px;
+        color: #fff;
+        background-color: #649a2b;
+        border-radius: 50%;
+        float: right;
+        position: absolute;
+        top: 8px;
+    }
+    .raised-list li {
+        border: 1px solid #ebebeb;
+        margin-bottom: 20px;
+    }
+    .raised-detils {
+        position: relative;
+        width: 100%;
+    }
+    .raised-tit {
+        background: #f8f8f8;
+        padding: 10px 9px 4px 0px;
+        border: 5px solid #fff;
+        border-radius: 5px;
+    }
+    .raised-tit h4 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .raised-ticket h3 {
+        font-size: 14px;
+        font-weight: bold;
+        width: 100%;
+    }
+    .raised-ticket h4 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .raised-ticket h6 {
+        color: #747588;
+        font-size: 12px;
+    }
+    .raised-ticket label {
+        position: relative;
+        border-radius: 30px;
+        padding: 4px 10px 4px 15px;
+    }
+    .raised-ticket label:before {
+        content: "";
+        position: absolute;
+        top: 11px;
+        left: 0px;
+        width: 6px;
+        height: 6px;
+        background: #747588;
+        border-radius: 50%;
+    }
+    .raised-ticket a {
+        color: #80460b;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .select-cont {
+        margin-bottom: 3rem;
+        width: 100%;
+        left: 0;
+        bottom: 3rem;
+        height: 80px;
+        background: #fff;
+        padding: 20px 9%;
+    }
+    .select-cont a {
+        background: #30855c;
+        border-radius: 4px;
+        color: #fff;
+        display: block;
+        text-align: center;
+        padding: 12px 0;
+        font-size: 12px;
+    }
+    .highlight .raised-detils {
+        border: 10px solid #ebebeb;
+        border-radius: 6px;
+    }
+    .search-name {
+        background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
+        padding-left: 45px !important;
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600;
+        color: #747588;
+        margin-left: 0px;
+        height: 42px;
+        width: 100%;
+    }
+    .filter-set {
+        width: 100%;
+        padding: 10px 10px 10px 19px;
+        margin: 0 2px 0 0;
+        border-right: 1px solid #d6d6d6;
+        margin-top: 10px;
+    }
+    .table-container {
+        padding-top: 20px;
+    }
+    .ticket-heading {
+        margin-bottom: 0;
+    }
+    .title-header {
+        margin: 0;
+    }
+    .bread-nav {
+        padding-left: 16px;
+    }
+    .estate-orders-headin {
+        margin: 0;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .estate-order {
+        border-bottom: 2px dotted #ebebeb;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+    .status-booked {
+        color: #649a2b;
+    }
+    .status-prebook {
+        color: #7c6be8;
+    }
+    .status-sample {
+        color: #f19634;
+    }
+    .status-booked,
+    .status-prebook,
+    .status-sample {
+        display: inline-block;
+        position: relative;
+        padding-bottom: 20px;
+        padding-top: 2px;
+        width: 100%;
+    }
+    .status-booked:before,
+    .status-prebook:before,
+    .status-sample:before {
+        content: "";
+        position: absolute;
+        top: 11px;
+        left: 0px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+    }
+    .estate-orders-heading {
+        margin: 0;
+        padding-left: 16px;
+    }
+    .desk_view_user {
+        display: none;
+    }
+    .mob_view_user {
+        display: block;
+    }
 }

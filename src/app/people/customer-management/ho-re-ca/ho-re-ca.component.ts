@@ -72,19 +72,17 @@ export class HoReCaComponent implements OnInit {
   }
 
   shareDetails(size: any) {
-    if(size.id > 0){
-    this.itemId = size.id;
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        "itemId": encodeURIComponent(this.itemId),
-      }
-    }
-
-    this.router.navigate(['/people/horeca-details'], navigationExtras);
-  }
-  else{
-    console.log(size);
-  }
+    if(size.status== 'PENDING'){
+        this.router.navigate(['/people/pending-details']);
+  	}
+	else{
+		this.itemId = size.id;
+		let navigationExtras: NavigationExtras = {
+		queryParams: {
+			"itemId": encodeURIComponent(this.itemId),
+		}
+	}
+    this.router.navigate(['/people/horeca-details'], navigationExtras);  }
   }
 
 

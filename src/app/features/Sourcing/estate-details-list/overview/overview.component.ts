@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalsService} from 'src/services/globals.service';
 import { SourcingService } from '../../sourcing.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 
 @Component({
   selector: 'app-overview',
@@ -169,8 +170,9 @@ overviewActive:any=0;
     autoScale = true;
 	monthName: string;
 	certiImage: any;
-      
-  constructor(public globals: GlobalsService, public sourcing : SourcingService) { }
+	brandProfileEstateWeb: string= "https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee";
+
+  constructor(public globals: GlobalsService, public sourcing : SourcingService,private roasterService: RoasterserviceService) { }
 
   ngOnInit(): void {
 	this.language();
@@ -232,11 +234,15 @@ overviewActive:any=0;
 		return this.monthName;
 	  }
 	  getCertificateData(data:any){
-	  if(data.type_id > 0){
-		  this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.type_id);
+	  if(data.certificate_type_id > 0){
+		  this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.certificate_type_id);
 		  if(this.certiImage !=''){
 			  return this.certiImage[0].image_url;
 		  }
 	  }
   }
+  brandProfileSite(){
+	const redirectUrl = this.brandProfileEstateWeb;
+		this.roasterService.navigate(redirectUrl, true);
+}
 }

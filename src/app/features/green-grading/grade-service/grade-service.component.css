@@ -1,18 +1,20 @@
-.bread-nav{
+.bread-nav {
     padding-top: 2rem;
     padding-left: 3rem;
 }
-.grading__total{
+
+.grading__total {
     padding: 40px 48px;
 }
 
-.green_grading_cont h1{
+.green_grading_cont h1 {
     font-family: Muli;
     font-size: 18px;
     font-weight: bold;
     color: #232334;
 }
-.green_grading_cont h3{
+
+.green_grading_cont h3 {
     font-family: Muli;
     font-size: 14px;
     font-weight: normal;
@@ -20,33 +22,38 @@
     margin-top: 4px;
 }
 
-.text-data{
+.text-data {
     font-family: Muli;
     font-size: 16px;
     font-weight: bold;
     color: #232334;
 }
-.star{
+
+.star {
     color: #d50000;
 }
-label{
+
+label {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #232334;
     position: relative;
-    bottom: 5px; 
+    bottom: 5px;
 }
-.id-text{
+
+.id-text {
     font-family: Muli;
     font-size: 11px;
     font-weight: 600;
-    color: #747588;  
+    color: #747588;
 }
-.form-control{
+
+.form-control {
     height: 46px;
 }
-.next{
+
+.next {
     background-color: #30855c;
     border-radius: 4px;
     border: 1px solid #30855c;
@@ -56,11 +63,13 @@ label{
     line-height: 1.57;
     color: #ffffff;
     margin-left: 1rem;
-    padding:12px 16px;
+    padding: 12px 16px;
 }
-.next:hover{
+
+.next:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
+
 .search-raised {
     width: 70%;
     height: 38px;
@@ -77,6 +86,8 @@ label{
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
 }
+
+
 /* Popover css */
 
 ::ng-deep .popover-body {
@@ -123,19 +134,23 @@ label{
     background-color: #ffffff;
     padding: 10px 12px;
 }
+
 .filter {
     font-family: 'Muli';
     font-weight: 600;
     color: #232334;
     font-size: 14px;
 }
-.search-div{
+
+.search-div {
     margin-top: 2rem;
 }
-.green_grading_cont{
+
+.green_grading_cont {
     margin-top: 2%;
 }
-.select-title{
+
+.select-title {
     font-family: Muli;
     font-weight: bold;
     color: #232334;
@@ -143,7 +158,6 @@ label{
     margin-top: 2rem;
     margin-bottom: 0;
 }
-
 
 .table-header {
     border-radius: 4px;
@@ -163,6 +177,7 @@ tr {
     border-bottom: 1px dashed #d6d6d6;
 }
 
+
 /* tr:last-child {
     border-bottom-style: none;
     border-bottom-color: none;
@@ -174,6 +189,7 @@ tr {
     font-weight: bold;
     font-family: 'Muli';
 }
+
 .table tbody tr {
     color: #232334;
     font-size: 14px;
@@ -189,7 +205,6 @@ span.checkmark {
 
 .customcheckbox input:checked~.checkmark {
     background-color: #30855c !important;
-    
 }
 
 .table-container {
@@ -211,20 +226,24 @@ span.checkmark {
     top: 1px !important;
     border-width: 0 2px 2px 0 !important;
 }
-.edit-div{
+
+.edit-div {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #747588;
 }
-.v-line{
+
+.v-line {
     color: #d6d6d6;
 }
-.edit-pic{
+
+.edit-pic {
     padding-right: 3%;
     position: relative;
     bottom: 2px;
 }
-.cursor-pointer:hover{
-text-decoration: underline !important;
+
+.cursor-pointer:hover {
+    text-decoration: underline !important;
 }

@@ -20,6 +20,9 @@
     cursor: pointer;
     padding: 12px 24px;
 }
+.add-tem-butn:hover{
+    box-shadow: 0 0 7px 1px rgba(67,146,108,.5);
+}
 .page-not-found { 
     height: 100%;
     width:100%;

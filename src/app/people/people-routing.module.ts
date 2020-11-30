@@ -72,7 +72,7 @@ const routes: Routes = [{
       canActivate : [AuthGuard]
      },
      {
-      path: 'discount-edit',
+      path: 'pending-details',
       component:DiscountEditComponent,
       canActivate : [AuthGuard]
      },

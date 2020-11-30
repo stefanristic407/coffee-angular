@@ -118,6 +118,10 @@ tr:last-child {
     width: 23%;
 }
 
+.no-data-sec {
+    margin: 4rem 0rem;
+}
+
 @media screen and (max-width: 991px) and (min-width: 768px) {
     .map-lots img {
         width: 100%;

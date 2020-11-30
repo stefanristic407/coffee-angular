@@ -10,6 +10,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {GlobalsService} from 'src/services/globals.service';
 import {environment} from 'src/environments/environment';
 import { CustomerServiceService } from '../customer-service.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
 
 @Component({
   selector: 'app-micro-roaster',
@@ -32,7 +33,8 @@ export class MicroRoasterComponent implements OnInit {
     private toastrService: ToastrService,
     public modalService: BsModalService,
 	public globals: GlobalsService,
-	public customer:CustomerServiceService) {
+  public customer:CustomerServiceService,
+  public userService:UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
 	
 	
@@ -67,7 +69,7 @@ export class MicroRoasterComponent implements OnInit {
 
   shareDetails(size: any) {
 	if(size.status == 'PENDING')  {
-
+    this.router.navigate(['/people/pending-details']);
 	}
 	else{
 		this.folderId = size.id;
@@ -120,5 +122,17 @@ export class MicroRoasterComponent implements OnInit {
     return this.mainData.every(_ => _.state);
     // }
   }
-
+  deleteMicroRoaster(itemId:any){
+    this.userService.deleteMicroRoaster(this.roasterId,itemId).subscribe(
+      data => {
+        if ( data['success'] == true ) {
+          this.toastrService.success("Customer deleted sucessfully!");
+          this.getMicroRoaster();
+        }
+        else{
+          this.toastrService.error("Error while deleting customer");
+        }
+      }
+    );
+  }
 }

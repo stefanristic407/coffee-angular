@@ -18163,7 +18163,7 @@ ul {
         position: absolute;
         top: 100%;
         left: 0;
-        width: calc(100% + 50px);
+        width: calc(100% + 80px);
         /* border-radius: 4px; */
         box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
         /* border: solid 0.2px #ebebeb; */
@@ -23065,13 +23065,18 @@ li.select-list__item {
 
 /* filiters hover  */
 
-.hover-filters {
+
+/* .hover-filters {
     transition: 0.3s ease-in-out;
     cursor: pointer;
 }
 
 .hover-filters:hover {
     transform: scale(1.05);
+} */
+
+.border-grade:hover {
+    border: solid 1px #30855c !important;
 }
 
 
@@ -23282,6 +23287,7 @@ li.select-list__item {
     width: 50px;
 }
 
+
 /* Why Us Section  */
 
 .gmt-marklist {
@@ -23314,6 +23320,7 @@ li.select-list__item {
 .download_gtm:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
+
 .read-art:hover {
     text-decoration: underline;
 }

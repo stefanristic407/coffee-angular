@@ -318,6 +318,8 @@ span.checkmark {
 .pointer-item {
     cursor: pointer;
 }
+
+
 /******Date Range Css*********/
 
 :host ::ng-deep .ui-inputtext {
@@ -609,10 +611,10 @@ ul li {
         border-top: 2px dashed #d6d6d6;
         padding-bottom: 5px;
     }
-    .search-name{
+    .search-name {
         background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
         padding-left: 45px !important;
-        font-family: Muli; 
+        font-family: Muli;
         font-size: 14px;
         font-weight: 600;
         color: #747588;
@@ -620,7 +622,7 @@ ul li {
         height: 42px;
         border: 1px solid #d6d6d6 !important;
     }
-    .filter-set{
+    .filter-set {
         width: 100%;
         padding: 10px 10px 10px 19px;
         margin: 0 2px 0 0;
@@ -630,7 +632,7 @@ ul li {
     .border-grade {
         width: auto !important;
         margin-bottom: 10px;
-        float:left;
+        float: left;
         margin-right: 10px;
         border-radius: 20px;
         border: solid 1px #d6d6d6;

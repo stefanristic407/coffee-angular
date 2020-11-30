@@ -271,6 +271,7 @@
 
 .gals img {
     width: 100%;
+    border-radius: 4px;
 }
 
 .whyus-zoom img {
@@ -359,6 +360,7 @@
     top: 0;
     width: 100%;
     height: 100%;
+    border-radius: 4px;
 }
 
 .prodcoffee .video-btn {
@@ -646,6 +648,10 @@ ul li {
 agm-map {
     height: 150px;
     width: 100%;
+}
+
+.no-data-sec {
+    margin: 4rem 0rem;
 }
 
 @media (max-width:991px) {

@@ -95,6 +95,7 @@ export class SourcingService {
 	overviewCertify:any;
 	estate_id: any;
 	otherGreenList: any;
+	availableCertify: any;
 
 
   			constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
@@ -272,5 +273,15 @@ export class SourcingService {
 			console.log("Green Coffee"+JSON.stringify(this.otherGreenList));
 		  }
 	  })
-  }
+	} 
+	
+	getEachGreenCertify(){
+		this.userService.getEachEsateCertificates(this.estate_id).subscribe(
+			data => {
+			console.log(data);
+			if(data['success'] == true){
+				this.availableCertify=data['result'];
+			}
+		});
+	}
 }

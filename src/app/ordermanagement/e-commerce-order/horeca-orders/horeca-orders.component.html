@@ -105,32 +105,32 @@
 
         <!-- <div class="row">
             <div class="mt-md-3 col-lg-12 col-md-12"> -->
-                <div class="estate-table">
-                <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Orders</a>
-                    </li>
+        <div class="estate-table">
+            <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Orders</a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Subscriptions</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Subscriptions</a>
+                </li>
 
-                </ul>
+            </ul>
 
-                <div class="tab-content mt-md-4" id="pills-tabContent">
-                    <div class="tab-pane fade show active spacing-order" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
-                        </table>
-                    </div>
-                    <div class="tab-pane fade spacing-order" id="pills-contact" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <table class="estate-boby-txt" datatable [dtOptions]="dtRequestOptions">
-                        </table>
-                    </div>
+            <div class="tab-content mt-md-4" id="pills-tabContent">
+                <div class="tab-pane fade show active spacing-order" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
+                    </table>
                 </div>
-                <!-- </div>
+                <div class="tab-pane fade spacing-order" id="pills-contact" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <table class="estate-boby-txt" datatable [dtOptions]="dtRequestOptions">
+                    </table>
+                </div>
+            </div>
+            <!-- </div>
             </div> -->
         </div>
-<!-- 
+        <!-- 
         <div class="estate-table pt-2">
                 <table class="estate-boby-txt" datatable [dtOptions1]="dtOptions1">
 
@@ -139,16 +139,16 @@
         </div> -->
 
     </section>
-<section class="mobile-tab">
-    <div class="d-block d-lg-none">
-        <div class="raised-mobile">
-            <div class="row  pt-md-4 pb-md-4">
-                <div class="col-12">
-                <div class="title-header">
-                    <div class="mb-3">
-                    <input class="d-inline search-name filter-set" type="text" name="sourcingName" [(ngModel)]="searchTerm" id="sourcingName" placeholder="Search by name">
-                    </div>
-                    <!-- <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
+    <section class="mobile-tab">
+        <div class="d-block d-lg-none">
+            <div class="raised-mobile">
+                <div class="row  pt-md-4 pb-md-4">
+                    <div class="col-12">
+                        <div class="title-header">
+                            <div class="mb-3">
+                                <input class="d-inline search-name filter-set" type="text" name="sourcingName" [(ngModel)]="searchTerm" id="sourcingName" placeholder="Search by name">
+                            </div>
+                            <!-- <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
                         <p class="d-inline filter-text" *ngIf="estatetermOriginMob == ''">Origin&nbsp;</p>
                         <a class="pointer-item" [popover]="originTemplateMob" placement="bottom" container="body" #pop9="bs-popover">
                             <p class="d-inline filter" *ngIf="estatetermOriginMob == ''" (click)="toggleOriginMob()">
@@ -176,77 +176,77 @@
                         </a>
     
                     </div> -->
-                    <div class="d-inline border-grade col-sm-6" id="status_id_Mob">
-                        <p class="d-inline filter-text" *ngIf="estatetermStatusMob == ''">Status&nbsp;</p>
-                        <a class="pointer-item" [popover]="allTemplateMob" placement="bottom" container="body" #pop13="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermStatusMob == ''" (click)="toggleStatusMob()">
-                                &nbsp; <img src="{{ showStatusMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                        <a class="pointer-item" [popover]="allTemplateMob" placement="bottom" container="body" #pop14="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermStatusMob != ''" (click)="toggleStatusMob()">
-                                {{ estatetermStatusMob }}&nbsp; <img src="{{ showStatusMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                    </div>
-                    <div class="d-inline border-grade col-sm-6">
-                            <p class="d-inline filter-text">Date &nbsp;
+                            <div class="d-inline border-grade col-sm-6" id="status_id_Mob">
+                                <p class="d-inline filter-text" *ngIf="estatetermStatusMob == ''">Status&nbsp;</p>
+                                <a class="pointer-item" [popover]="allTemplateMob" placement="bottom" container="body" #pop13="bs-popover">
+                                    <p class="d-inline filter" *ngIf="estatetermStatusMob == ''" (click)="toggleStatusMob()">
+                                        &nbsp; <img src="{{ showStatusMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    </p>
+                                </a>
+                                <a class="pointer-item" [popover]="allTemplateMob" placement="bottom" container="body" #pop14="bs-popover">
+                                    <p class="d-inline filter" *ngIf="estatetermStatusMob != ''" (click)="toggleStatusMob()">
+                                        {{ estatetermStatusMob }}&nbsp; <img src="{{ showStatusMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="d-inline border-grade col-sm-6">
+                                <p class="d-inline filter-text">Date &nbsp;
                                     <span *ngIf="showDateRange != ''"></span>
                                 </p>
-        
+
                                 <a class="pointer-item">
-        
+
                                     <p class="d-inline filter">
-                                        <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" ></p-calendar>
+                                        <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true"></p-calendar>
                                         &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
                                         <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                         </p-calendar> -->
                                     </p>
                                 </a>
-        
-                        <!-- <p class="d-inline filter-text">Date&nbsp;</p>
+
+                                <!-- <p class="d-inline filter-text">Date&nbsp;</p>
                         <a class="pointer-item">
                             <p class="d-inline filter">
-                                &nbsp; <img src="assets/images/active-user.png" />
+                                &nbsp; <img src="assets/images/active-user.svg" />
                             </p>
                         </a> -->
-    
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
                         <div class="pagination-content">
-                    <div class="raised-list mt-5 mb-5">
-                        <ul class="cleafix pagination-content-list" >
-                            <li class="order-raised pagination-content-list__item" *ngFor="let role of data | filter: estatetermStatusMob | filter:searchTerm">
-                                <div class="raised-detils d-inline-block  pb-3" (click)="OrderDetails($event,role);">
-                                    <div class="raised-tit">
-                                        <h4 class="col-8">{{role.status}}</h4>
-                                        <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
-                                    </div>
-                                    <div class="raised-ticket">
-                                        <h4 class="col-8 mt-3 pull-left">{{role.id}}</h4>
-                                        <h6  class="col-4 mt-3 pull-right text-right">{{role.dataordered}}</h6>
-                                        <div class="estate-order clearfix">
-                                        <h3 class="d-inline-block pl-0 pr-0 mr-3">{{role.estatename}}  l  {{role.origin}}</h3>
-                                        <!-- <label class="ml-3 pull-left">{{role.typeoforder}}</label> -->
-                                        <span class="status-booked" *ngIf="role.typeoforder == 'Booked'">&#9679; {{role.typeoforder}}</span>
-                                        <span class="status-prebook" *ngIf="role.typeoforder == 'Pre-Booked'">
+                            <div class="raised-list mt-5 mb-5">
+                                <ul class="cleafix pagination-content-list">
+                                    <li class="order-raised pagination-content-list__item" *ngFor="let role of data | filter: estatetermStatusMob | filter:searchTerm">
+                                        <div class="raised-detils d-inline-block  pb-3" (click)="OrderDetails($event,role);">
+                                            <div class="raised-tit">
+                                                <h4 class="col-8">{{role.status}}</h4>
+                                                <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
+                                            </div>
+                                            <div class="raised-ticket">
+                                                <h4 class="col-8 mt-3 pull-left">{{role.id}}</h4>
+                                                <h6 class="col-4 mt-3 pull-right text-right">{{role.dataordered}}</h6>
+                                                <div class="estate-order clearfix">
+                                                    <h3 class="d-inline-block pl-0 pr-0 mr-3">{{role.estatename}} l {{role.origin}}</h3>
+                                                    <!-- <label class="ml-3 pull-left">{{role.typeoforder}}</label> -->
+                                                    <span class="status-booked" *ngIf="role.typeoforder == 'Booked'">&#9679; {{role.typeoforder}}</span>
+                                                    <span class="status-prebook" *ngIf="role.typeoforder == 'Pre-Booked'">
                                                &#9679; {{role.typeoforder}}
                                         </span>
-                                        <span class="status-sample" *ngIf="role.typeoforder == 'Sample'">
+                                                    <span class="status-sample" *ngIf="role.typeoforder == 'Sample'">
                                             &#9679; {{role.typeoforder}}
                                      </span>
-                       
-                                    </div>
-                                       
-                                       <a  class="col-5 mt-3 pull-right text-right">See details <img class="pl-1" src="assets/images/estate-arrow.svg" alt=""></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- <li class="order-raised">
+
+                                                </div>
+
+                                                <a class="col-5 mt-3 pull-right text-right">See details <img class="pl-1" src="assets/images/estate-arrow.svg" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li class="order-raised">
                                 <div class="raised-detils d-inline-block pb-3">
                                     <div class="raised-tit">
                                         <h4 class="col-8">Open</h4>
@@ -292,28 +292,28 @@
                                     </div>
                                 </div>
                             </li> -->
-                        </ul>
-                        <div class="responsive-pagination clearfix">
-                                <span class="responsive-pagination__prev float-left disable"></span>
-                                <ul class="responsive-pagination-list d-flex float-left mb-0">
-                                    <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                                </ul>
+                                <div class="responsive-pagination clearfix">
+                                    <span class="responsive-pagination__prev float-left disable"></span>
+                                    <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                        <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
                                 <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
                                 <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
                                 <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
                                 <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
-                                </ul>
-                                <span class="responsive-pagination__next float-left"></span>
+                                    </ul>
+                                    <span class="responsive-pagination__next float-left"></span>
+                                </div>
                             </div>
-                    </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- <div class="select-cont">
+                <!-- <div class="select-cont">
                 <a >Continue</a>
             </div> -->
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 </div>
 
@@ -453,18 +453,18 @@
 </ng-template>
 <ng-template #typeTemplate>
     <div>
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setTypeMob(''); pop3.hide(); pop2.hide();toggleType()">All</a
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setTypeMob(''); pop3.hide(); pop2.hide();toggleType()">All</a
                   >
                 </li>
                 <li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Sample'); pop3.hide(); pop2.hide();toggleType()">Sample</a></li>
-<li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Booked'); pop3.hide(); pop2.hide();toggleType()">Booked</a></li>
-<li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Pre-Booked'); pop3.hide(); pop2.hide();toggleType()">Pre-Booked</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Booked'); pop3.hide(); pop2.hide();toggleType()">Booked</a></li>
+            <li class="list-group-item item-color"><a class="pointer-item" (click)="setTypeMob('Pre-Booked'); pop3.hide(); pop2.hide();toggleType()">Pre-Booked</a></li>
 
 
-</ul>
-</div>
+        </ul>
+    </div>
 
 </ng-template> -->
 
@@ -483,4 +483,4 @@
         </ul>
     </div>
 
-</ng-template>    
+</ng-template>

@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 declare var $:any;
 @Component({
   selector: 'app-estate-details-list',
@@ -15,6 +16,7 @@ declare var $:any;
 export class EstateDetailsListComponent implements OnInit {
   appLanguage?: any;
   estateDetailsActive:any=0;
+  brandProfileEstateWeb: string= "https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee";
 
   modalRef: BsModalRef;
   public coffeedata: any[] = [
@@ -33,17 +35,17 @@ export class EstateDetailsListComponent implements OnInit {
 	estateData: any;
 	estateCetificateData: any;
 	certifyEstate: any;
-  constructor(private modalService:BsModalService,public globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService,public profile:RoasteryProfileService,    private userService : UserserviceService,
+  constructor(private modalService:BsModalService,public globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService,public profile:RoasteryProfileService,    private userService : UserserviceService,private roasterService: RoasterserviceService
 	) {
     this.route.queryParams.subscribe(params => {
 	  this.sourcing.detailList = params['listData'];
-	  this.certifyEstate =JSON.parse(params['certificate']);
-	  this.sourcing.overviewCertify=this.certifyEstate;
+	//   this.certifyEstate =JSON.parse(params['certificate']);
       this.sourcing.estateDetailList();
 	  this.sourcing.lotsList();
     this.sourcing.flavourprofileList();
     this.sourcing.greenCoffee();
 	this.sourcing.estateEmployees();
+	this.getEachEstateCertify();
 	// this.getAvailableEstates();
     // this.sourcing.certificateList();
   });
@@ -81,10 +83,23 @@ export class EstateDetailsListComponent implements OnInit {
 	return this.flavourName;
 	}
   }
+  
+	getEachEstateCertify(){
+		this.userService.getEachEsateCertificates(this.sourcing.detailList).subscribe(
+			data => {
+			console.log(data);
+			if(data['success'] == true){
+				this.certifyEstate=data['result'];
+				this.sourcing.overviewCertify=this.certifyEstate;
+				console.log(this.certifyEstate);
+			}
+		});
+	}
   	getCertificateData(data:any){
-		//   console.log(data);
-		if(data.type_id > 0){
-			this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.type_id);
+		  console.log(data);
+		if(data.certificate_type_id > 0){
+			this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.certificate_type_id);
+			console.log(this.certiImage);
 			if(this.certiImage !=''){
 				return this.certiImage[0].image_url;
 			}
@@ -110,4 +125,10 @@ export class EstateDetailsListComponent implements OnInit {
 	// 	  }
 	// 	)
 	//   }
+
+	brandProfileSite(){
+		const redirectUrl = this.brandProfileEstateWeb;
+			this.roasterService.navigate(redirectUrl, true);
+	}
+
 }
