@@ -21357,7 +21357,7 @@ button:focus {
     color: #232334 !important;
     font-family: Muli;
     cursor: pointer;
-    background: url(/assets/images/active-region.svg) right 16px top 14px no-repeat;
+    background: url(/assets/images/active-region.svg) right 16px top 11px no-repeat;
     -webkit-appearance: none;
 }
 
@@ -23334,4 +23334,15 @@ li.select-list__item {
     display: inline-flex;
     position: relative;
     top: -1px;
+}
+
+[type=button],
+[type=reset],
+[type=submit],
+button {
+    font-weight: 700 !important;
+}
+
+.ticket-num__status::before {
+    background-color: #30855c !important;
 }

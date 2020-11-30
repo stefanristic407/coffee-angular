@@ -25,7 +25,7 @@
 
                         <div class="row pt-3">
 
-                            <div class="col-12 col-md-4 float-md-left">
+                            <div class="col-12 col-md-6 float-md-left">
 
                                 <div class="farm-input">
                                     <label class="label p-0">Roast batch name*</label>
@@ -38,7 +38,7 @@
                         <p class="fnt-18 fnt-muli fnt-700 black pt-2 pt-md-4">{{globals.languageJson?.order_id}}* </p>
 
                         <div class="row pt-3 pb-3">
-                            <div class="col-12 col-md-6 float-md-left">
+                            <!-- <div class="col-12 col-md-6 float-md-left">
                                 <div class="farm-input ">
                                     <label class="label p-0">Select the order through which the green coffee</label>
                                     <select name="Year" required="" class="form-control select-region">
@@ -50,8 +50,17 @@
                                 </select>
                                 </div>
 
-                            </div>
+                            </div> -->
 
+                            <div class="col-12 col-md-6 float-md-left">
+                                <p class="fbt-14 fnt-muli fnt-400 txt-clr334">Select the order through which the green coffee</p>
+                                <div class="sample_info ">
+                                    <div class="info_heading d-flex cursor-pointer">
+                                        <div class="pull-left sample_info_head">Select the order</div>
+                                        <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -261,9 +270,9 @@
 
 <ng-template #cuppingTemplate>
     <div>
-        <ul class="list-group custom-popover flavour_popover" >
+        <ul class="list-group custom-popover flavour_popover">
             <!-- <li class="list-group-item item-color" (click)="setCupping(''); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">All</a></li> -->
-            <li class="list-group-item item-color" *ngFor="let profile of roastingProfile"  (click)="setCupping(profile.id); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">{{profile.roast_profile_name}}</a></li>
+            <li class="list-group-item item-color" *ngFor="let profile of roastingProfile" (click)="setCupping(profile.id); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">{{profile.roast_profile_name}}</a></li>
             <!-- <li class="list-group-item item-color" (click)="setCupping('Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Light - medium 940</a></li>
             <li class="list-group-item item-color" (click)="setCupping('Double-Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Light - medium 679</a></li> -->
         </ul>
@@ -273,7 +282,7 @@
 
 <ng-template #allTemplate>
     <div id="status-content">
-        <ul class="list-group custom-popover" >
+        <ul class="list-group custom-popover">
             <li *ngFor="let flavours of roasterFlavourProfile" class="list-group-item item-color">
                 <a class="pointer-item" (click)="addLang(flavours);pop2.hide()">{{flavours.name}}</a
           >
