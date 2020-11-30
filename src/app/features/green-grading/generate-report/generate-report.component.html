@@ -7,11 +7,8 @@
                         <span class="fnt-16 fnt-muli fnt-700 text-clr588">Samples </span>
                     </a-->
 
-                    <a class="nav-link nav-item__link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-                        <p class="fnt-14 fnt-muli fnt-700 black m-0"> SID : 74572</p>
-                        <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Colombia</p>
-                    </a>
-                    <a class="nav-link nav-item__link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+
+                    <a class="nav-link nav-item__link active" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
                         <p class="fnt-14 fnt-muli fnt-700 black m-0"> SID : 74527</p>
                         <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Colombia</p>
                     </a>
@@ -27,6 +24,10 @@
                         <p class="fnt-14 fnt-muli fnt-700 black m-0"> SID : 29999</p>
                         <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Colombia</p>
                     </a>
+                    <a class="nav-link nav-item__link " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <p class="fnt-14 fnt-muli fnt-700 black m-0"> SID : 74572</p>
+                        <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Colombia</p>
+                    </a>
                     <a class="nav-link nav-item__link" id="v-pills-cupping-tab" data-toggle="pill" href="#v-pills-cupping" role="tab" aria-controls="v-pills-cupping" aria-selected="false">
                         <p class="fnt-14 fnt-muli fnt-700 black m-0"> CID : 79898</p>
                         <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Brazil</p>
@@ -40,7 +41,25 @@
 
 
                     </div>
-                    <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+
+                    <div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                        <app-generate-coffee-grading> </app-generate-coffee-grading>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                        <app-generate-green-coffee> </app-generate-green-coffee>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-evaluator" role="tabpanel" aria-labelledby="v-pills-evaluator-tab">
+                        <app-generate-my-sample> </app-generate-my-sample>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-sample" role="tabpanel" aria-labelledby="v-pills-sample-tab">
+                        <app-generate-cupping-results></app-generate-cupping-results>
+                    </div>
+
+                    <div class="tab-pane fade " id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                         <section class="grade_source_total">
                             <p class="fnt-24 fnt-play fnt-400 black"> Generate Report</p>
                             <p class="fnt-14 fnt-muli fnt-400 text-clr588"> Select the details of the report you want to generate</p>
@@ -142,22 +161,6 @@
                             </div>
 
                         </section>
-                    </div>
-
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <app-generate-coffee-grading> </app-generate-coffee-grading>
-                    </div>
-
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                        <app-generate-green-coffee> </app-generate-green-coffee>
-                    </div>
-
-                    <div class="tab-pane fade" id="v-pills-evaluator" role="tabpanel" aria-labelledby="v-pills-evaluator-tab">
-                        <app-generate-my-sample> </app-generate-my-sample>
-                    </div>
-
-                    <div class="tab-pane fade" id="v-pills-sample" role="tabpanel" aria-labelledby="v-pills-sample-tab">
-                        <app-generate-cupping-results></app-generate-cupping-results>
                     </div>
                     <div class="tab-pane fade" id="v-pills-cupping" role="tabpanel" aria-labelledby="v-pills-cupping-tab">
                         <app-generate-cupping-report></app-generate-cupping-report>

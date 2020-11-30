@@ -158,7 +158,7 @@
                                                         <div class="stit  d-none d-md-block" *ngIf="certifyEstate!=''">
                                                             <h2>{{globals.languageJson?.certificates}}</h2>
                                                         </div>
-                                                        <div class="cetify-logo pt-3  d-none d-md-block">
+                                                        <div class="cetify-logo pt-3  d-none d-md-block" *ngIf="certifyEstate!=''">
                                                             <ul class="clearfix  mb-5">
                                                                 <li class="mb-3" *ngFor="let cert of certifyEstate">
                                                                     <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">

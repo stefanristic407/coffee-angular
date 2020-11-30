@@ -96,6 +96,7 @@ export class SourcingService {
 	estate_id: any;
 	otherGreenList: any;
 	availableCertify: any;
+	estateNumber: any;
 
 
   			constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
@@ -276,7 +277,7 @@ export class SourcingService {
 	} 
 	
 	getEachGreenCertify(){
-		this.userService.getEachEsateCertificates(this.estate_id).subscribe(
+		this.userService.getEachEsateCertificates(this.estateNumber).subscribe(
 			data => {
 			console.log(data);
 			if(data['success'] == true){

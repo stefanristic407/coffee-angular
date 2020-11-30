@@ -16,11 +16,11 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 3px;
+    width: 6px;
     height: 0;
     background-color: #30855c;
-    -webkit-transition: 0.4s ease-in-out;
-    transition: 0.5s ease-in-out;
+    -webkit-transition: none !important;
+    transition: none !important;
     z-index: 1;
 }
 
@@ -32,6 +32,17 @@
     height: 100%;
     opacity: 1;
     color: #232334 !important;
+}
+
+.nav-pills .nav-link:hover::before {
+    width: 100%;
+    content: '';
+    opacity: 1;
+}
+
+.nav-pills .nav-link.active:before {
+    opacity: 1;
+    width: 6px !important;
 }
 
 .tab-titles,

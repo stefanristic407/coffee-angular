@@ -224,6 +224,7 @@ export class AvailableCoffeeListComponent implements OnInit {
 	private roasterService: RoasterserviceService) {
 	this.route.queryParams.subscribe(params => {
 		this.sourcing.harvestData = params['harvestData'];
+		this.sourcing.estateNumber = params['estateId'];
 		// this.availableCertify = params['certificateHarvest']; 
 		// this.certify=JSON.parse(this.availableCertify)
 		this.sourcing.availableDetailList();

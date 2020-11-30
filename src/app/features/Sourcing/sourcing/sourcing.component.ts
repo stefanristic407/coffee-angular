@@ -69,6 +69,7 @@ export class SourcingComponent implements OnInit {
 	certiImage: any;
 	certificate: any;
   harvestCertify: any;
+  estateValue: any;
 
   constructor(public sourcingService:SourcingService,
     private modalService: BsModalService,private router: Router,
@@ -532,10 +533,12 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 	this.harvestData = item.harvest_id;
     // console.log(this.harvestData);
     this.harvestCertify=item['estate']['certificates'];
+    this.estateValue=item['estate'].id;
     console.log(this.harvestCertify);
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "harvestData": this.harvestData
+        "harvestData": this.harvestData,
+        "estateId":this.estateValue
         // certificateHarvest:JSON.stringify(this.harvestCertify)
       }
       // skipLocationChange: true

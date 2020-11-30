@@ -1937,7 +1937,7 @@ pre code {
 .table {
     width: 100%;
     max-width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem !important;
     background-color: transparent
 }
 
@@ -21043,7 +21043,7 @@ button:focus {
     left: -15px;
     width: calc(100% + 30px);
     height: 1px;
-    background: #d6d6d6;
+    background: #ebebeb !important;
 }
 
 .contact-for-help__text {
@@ -21200,7 +21200,7 @@ button:focus {
         left: -20px;
         width: calc(100% + 40px);
         height: 1px;
-        background: #d6d6d6;
+        background: #ebebeb !important;
     }
     .contact-for-help__text {
         padding-top: 20px;
@@ -21308,7 +21308,7 @@ button:focus {
         left: -25px;
         width: calc(100% + 50px);
         height: 1px;
-        background: #d6d6d6;
+        background: #ebebeb !important;
     }
     .contact-for-help__text {
         padding-top: 25px;
