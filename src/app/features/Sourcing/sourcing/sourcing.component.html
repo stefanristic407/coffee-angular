@@ -204,6 +204,15 @@
                                                                         <div class=" s-tit">
                                                                             <!-- <h3 class="avail-ellipses">{{sample.name}}</h3> -->
                                                                             <h3 class="">{{sample.name}}</h3>
+                                                                            <!-- <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6> -->
+                                                                            <!-- <h6  *ngIf="sample.rating== 0"><span class="fa fa-star checked"></span>{{sam}} </h6> -->
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="flex m-flex">
+                                                                        <div class=" s-tit">
+                                                                            <!-- <h3 class="avail-ellipses">{{sample.name}}</h3> -->
+                                                                            <!-- <h3 class="">{{sample.name}}</h3> -->
                                                                             <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6>
                                                                             <!-- <h6  *ngIf="sample.rating== 0"><span class="fa fa-star checked"></span>{{sam}} </h6> -->
                                                                         </div>
@@ -214,10 +223,11 @@
                                                                                     <img *ngIf="getCertificateData(cert)==''" src="" alt="">
                                                                                 </li>
                                                                                 <!-- <li><img src="/assets/images/group-utz.png"></li>
-                                                                                <li><img src="/assets/images/group-certified.png"></li> -->
+                                                                            <li><img src="/assets/images/group-certified.png"></li> -->
                                                                             </ul>
                                                                         </div>
                                                                     </div>
+
                                                                     <div class="source-lets flex">
                                                                         <div class="orgin-att" (click)="estateList(sample)">
                                                                             <label>{{globals.languageJson?.origin}}</label>

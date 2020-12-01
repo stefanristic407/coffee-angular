@@ -37,6 +37,7 @@
     color: #242424;
     font-family: Muli;
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 .pro-logo {

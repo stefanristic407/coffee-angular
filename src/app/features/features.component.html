@@ -102,7 +102,7 @@
                                 </a>
                                 </li>
                                 <!-- *ngIf="globals.permissions['cart-management'] || globals.permissions['cart-list']" -->
-                                <li class="nav-links__item arrow d-inline-block position-relative">
+                                <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="this.globals.checkItem('sourcing-management')">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">{{globals.languageJson?.order_management}}
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
@@ -118,12 +118,35 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-links__item d-md-inline-block position-relative" *ngIf="globals.checkItem('coffee-management') || globals.checkItem('coffee-list')">
+
+                                <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="globals.checkItem('coffee-management') || globals.checkItem('coffee-list')">
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{globals.languageJson?.inventory}}
+                                    </a>
+                                    <ul class="nav-dropdown fnt-600">
+                                        <li>
+                                            <a class="router-link" routerLink="../features/green-coffee-inventory">Green coffee management
+                                                </a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" routerLink="../features/roasted-coffee-batch">Roasted coffee batch</a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" routerLink="../features/products-list">E-comm catatlog management</a>
+                                        </li>
+
+                                        <li>
+                                            <a class="router-link" routerLink="../features/vat-management">Order settings</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+                                <!-- <li class="nav-links__item d-md-inline-block position-relative" *ngIf="globals.checkItem('coffee-management') || globals.checkItem('coffee-list')">
                                     <a class="d-inline-block fnt-600" routerLink="../features/green-coffee-inventory">{{globals.languageJson?.inventory}}
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-links__item d-md-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" routerLink="../features/roasted-coffee-batch">{{globals.languageJson?.ecommerce}}
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{globals.languageJson?.ecommerce}}
                                     </a>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative">

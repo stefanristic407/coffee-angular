@@ -17,6 +17,7 @@ export class EstateDetailsListComponent implements OnInit {
   appLanguage?: any;
   estateDetailsActive:any=0;
   brandProfileEstateWeb: string= "https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee";
+  estateProfile: string= "https://qa-estates-portal.sewnstaging.com/features/estate-profile";
 
   modalRef: BsModalRef;
   public coffeedata: any[] = [
@@ -128,6 +129,11 @@ export class EstateDetailsListComponent implements OnInit {
 
 	brandProfileSite(){
 		const redirectUrl = this.brandProfileEstateWeb;
+			this.roasterService.navigate(redirectUrl, true);
+	}
+
+	estateProfileSite(){
+		const redirectUrl = this.estateProfile;
 			this.roasterService.navigate(redirectUrl, true);
 	}
 

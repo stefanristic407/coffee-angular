@@ -6,8 +6,6 @@
                     <!--a class="nav-link">
                         <span class="fnt-16 fnt-muli fnt-700 text-clr588">Samples </span>
                     </a-->
-
-
                     <a class="nav-link nav-item__link active" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
                         <p class="fnt-14 fnt-muli fnt-700 black m-0"> SID : 74527</p>
                         <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Colombia</p>
@@ -36,31 +34,27 @@
             </div>
 
             <div class="col-lg-10 col-12 mt-md-0  tab-pad-report ">
-                <div class="tab-content  tab-contents" id="v-pills-tabContent">
-                    <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="">
 
-
+                    <div>
+                        <app-generate-coffee-grading *ngIf="currentScreen== 'screen1'" (next)="goNext($event)"> </app-generate-coffee-grading>
                     </div>
 
-
-                    <div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <app-generate-coffee-grading> </app-generate-coffee-grading>
+                    <div>
+                        <app-generate-green-coffee *ngIf="currentScreen=='screen2'" (next)="goNext($event)"> </app-generate-green-coffee>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                        <app-generate-green-coffee> </app-generate-green-coffee>
+                    <div>
+                        <app-generate-my-sample *ngIf="currentScreen=='screen3'" (next)="goNext($event)"> </app-generate-my-sample>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-evaluator" role="tabpanel" aria-labelledby="v-pills-evaluator-tab">
-                        <app-generate-my-sample> </app-generate-my-sample>
+                    <div>
+                        <app-generate-cupping-results *ngIf="currentScreen=='screen4'" (next)="goNext($event)"></app-generate-cupping-results>
                     </div>
 
-                    <div class="tab-pane fade" id="v-pills-sample" role="tabpanel" aria-labelledby="v-pills-sample-tab">
-                        <app-generate-cupping-results></app-generate-cupping-results>
-                    </div>
-
-                    <div class="tab-pane fade " id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <section class="grade_source_total">
+                    <!-- Without Accordian 30/11/2020 -->
+                    <!-- <div>
+                        <section class="grade_source_total" *ngIf="currentScreen=='screen5'">
                             <p class="fnt-24 fnt-play fnt-400 black"> Generate Report</p>
                             <p class="fnt-14 fnt-muli fnt-400 text-clr588"> Select the details of the report you want to generate</p>
                             <div class="row mt-4">
@@ -110,7 +104,7 @@
                                 </div>
                             </div>
 
-                            <!-- Cupping Report 2.0 -->
+                            Cupping Report 2.0
 
                             <div class="cupping-report">
                                 <div class="row w-100">
@@ -138,7 +132,7 @@
 
                                 </div>
                             </div>
-                            <!-- Re-grade sample -->
+                            Re-grade sample
 
                             <div class="w-100 mt-3 mb-5">
                                 <div class="pull-left mdev-100">
@@ -161,9 +155,10 @@
                             </div>
 
                         </section>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-cupping" role="tabpanel" aria-labelledby="v-pills-cupping-tab">
-                        <app-generate-cupping-report></app-generate-cupping-report>
+                    </div> -->
+
+                    <div>
+                        <app-generate-cupping-report *ngIf="currentScreen=='screen5'" (next)="goNext($event)"></app-generate-cupping-report>
                     </div>
 
                 </div>

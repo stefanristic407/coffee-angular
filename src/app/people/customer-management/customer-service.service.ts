@@ -200,5 +200,17 @@ export class CustomerServiceService {
 		}
 		
 	  }
+	// activeStatus() {
+	// 	this.btnToggle = !this.btnToggle;
+	// 	if(this.btnToggle == true){
+	// 	  this.statusChange = "ACTIVE";
+	// 	  console.log(this.statusChange)
+	// 	}
+	// 	else{
+	// 	  this.statusChange = "INACTIVE";
+	// 	  console.log(this.statusChange)
+	// 	}
+	//   }
+	
 
 }

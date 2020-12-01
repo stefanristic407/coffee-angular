@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-generate-my-sample',
@@ -11,6 +11,8 @@ export class GenerateMySampleComponent implements OnInit {
   langChips : any = [];
   selectable = true;
   removable = true;
+  @Output() next = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -54,4 +56,7 @@ remove(lang: string): void {
     this.langChips.splice(index, 1);
   }
 }
+  goNext(){
+    this.next.emit('screen4');
+  }
 }

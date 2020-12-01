@@ -16792,12 +16792,13 @@ table.dataTable thead .sorting_desc:before {
 
 .view-order:hover {
     color: #80460b;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
-.view-order:hover::after {
+
+/* .view-order:hover::after {
     width: 77%;
-}
+} */
 
 .estate-boby-txt thead tr th {
     font-family: Muli;
@@ -17519,6 +17520,16 @@ ul {
 
 /* Mobile screens */
 
+.fnt-10 {
+    font-size: 10px;
+    line-height: 20px;
+}
+
+.fnt-9 {
+    font-size: 9px;
+    line-height: 20px;
+}
+
 .fnt-12 {
     font-size: 12px;
 }
@@ -18163,7 +18174,7 @@ ul {
         position: absolute;
         top: 100%;
         left: 0;
-        width: calc(100% + 80px);
+        width: calc(100% + 100px);
         /* border-radius: 4px; */
         box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
         /* border: solid 0.2px #ebebeb; */
@@ -22483,6 +22494,82 @@ li.select-list__item {
     display: none;
 }
 
+.roast-border {
+    border-bottom: dashed 1px #d6d6d6;
+    padding: 1rem 0rem;
+}
+
+.comment-label {
+    font-size: 14px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    position: relative;
+}
+
+.comment-input {
+    outline: 0;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Muli', sans-serif;
+    color: #232334;
+    padding: 13px 16px;
+    display: block;
+    width: 100%;
+}
+
+.btn-save-cancel {
+    padding: 1rem 0rem 2rem 0rem;
+}
+
+.grade-cancel {
+    text-align: center;
+    color: #30855c;
+    background-color: #ffffff;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    border: solid 1px #30855c;
+    padding: 8px 18px;
+}
+
+.grade-save {
+    border-radius: 4px;
+    background-color: #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 8px 18px;
+    border: solid 1px #30855c;
+}
+
+.grade-save:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.fragrance {
+    border: 1px solid #d6d6d6;
+    padding: 10px;
+}
+
+.table-final-score {
+    overflow: auto;
+    display: flex;
+}
+
+.fragrance-border {
+    border-bottom: 1px dashed #d6d6d6;
+    padding-bottom: 5px;
+}
+
+.custom-width {
+    max-width: 100% !important;
+    padding: 0 !important;
+}
+
 body .ui-widget {
     font-family: 'Muli', sans-serif !important;
     font-size: 13px !important;
@@ -23345,4 +23432,8 @@ button {
 
 .ticket-num__status::before {
     background-color: #30855c !important;
+}
+
+.tab-pad-report {
+    background-color: #fff;
 }

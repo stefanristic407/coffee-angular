@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-generate-cupping-report',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./generate-cupping-report.component.css']
 })
 export class GenerateCuppingReportComponent implements OnInit {
-
+  @Output() next = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  goNext(){
+    this.next.emit('screen3');
   }
 
 }

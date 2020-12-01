@@ -25,7 +25,7 @@
                                             <img src="assets/images/tit-logo.PNG">
                                         </div>
                                         <div class="det-tit d-inline-block mt-3 mt-md-0">
-                                            <h2 *ngIf="sourcing.name!=''" routerLink="/features/roastery-profile">{{sourcing.name}}</h2>
+                                            <h2 *ngIf="sourcing.name!=''" (click)="estateProfileSite()">{{sourcing.name}}</h2>
                                             <h2 *ngIf="sourcing.name==''">NA</h2>
                                             <!-- <h6 class="star-rate"><span class="fa fa-star checked"></span> 4.95</h6> -->
                                             <span class="fa fa-star checked"></span><span class="star-rate pl-1">{{sourcing.rating}}</span>
@@ -55,7 +55,7 @@
                                     <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#land-lots" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.land_lots}}</a>
                                     <a class="nav-item nav-link" id="nav-profile-tab4" data-toggle="tab" href="#green-coffee-available" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.green_coffee_avilability}}</a>
                                     <a class="nav-item nav-link" id="nav-profile-tab5" data-toggle="tab" href="#gallery" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.gallery}}</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab6" data-toggle="tab" href="#whyus" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.why_us}}?</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab6" data-toggle="tab" href="#whyus" role="tab" aria-controls="nav-profile" aria-selected="false">Go to market opportunities</a>
 
                                 </div>
                             </nav>
@@ -163,7 +163,7 @@
                                                                 <li class="mb-3" *ngFor="let cert of certifyEstate">
                                                                     <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
                                                                     <img *ngIf="getCertificateData(cert)==''" src="" alt="">
-                                                                    
+
                                                                 </li>
                                                             </ul>
                                                             <div *ngIf="sourcing.gps_coordinates==''">

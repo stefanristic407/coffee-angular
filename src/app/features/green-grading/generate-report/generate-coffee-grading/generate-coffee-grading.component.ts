@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-generate-coffee-grading',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./generate-coffee-grading.component.css']
 })
 export class GenerateCoffeeGradingComponent implements OnInit {
+  @Output() next = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  goNext(){
+    console.log("coming here");
+    this.next.emit('screen2');
+    
   }
 
 }

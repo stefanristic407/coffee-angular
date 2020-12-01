@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Output, EventEmitter } from '@angular/core';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 @Component({
@@ -7,6 +7,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./generate-cupping-results.component.css']
 })
 export class GenerateCuppingResultsComponent implements OnInit {
+
+  @Output() next = new EventEmitter<any>();
+
   modalRef: BsModalRef;
   type:boolean;
   
@@ -328,5 +331,9 @@ openModal(template: TemplateRef<any>) {
   }
 submit(){
   this.openModal(this.confirmtemplate);
+}
+
+goNext(){
+  this.next.emit('screen5');
 }
 }

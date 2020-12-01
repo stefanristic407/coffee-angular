@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-generate-green-coffee',
@@ -9,6 +9,8 @@ export class GenerateGreenCoffeeComponent implements OnInit {
   cupping_type:any='';
   cupping:any;
   showCupping:boolean = true;
+  @Output() next = new EventEmitter<any>();
+
 
   constructor() { }
 
@@ -28,6 +30,9 @@ export class GenerateGreenCoffeeComponent implements OnInit {
 			document.getElementById('cupping_id').style.border="1px solid #d6d6d6";
 		
 		}
+  }
+  goNext(){
+    this.next.emit('screen3');
   }
 
 }
