@@ -62,7 +62,7 @@ table.dataTable thead .sorting_desc {
 }
 
 .title-header {
-    margin: 1.3rem 4rem;
+    margin: 1.3rem 1rem;
 }
 
 .estate-table {
@@ -216,35 +216,6 @@ tr:last-child {
     outline-color: 1px solid #30855c;
 }
 
-.title-header {
-    margin: 1.3rem 4rem;
-}
-
-.filter-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.filter {
-    font-family: 'Muli';
-    font-weight: 600;
-    color: #232334;
-    font-size: 14px;
-}
-
-.search {
-    /*width: 255px;*/
-    font-family: 'Muli';
-    height: 36px;
-    border-radius: 8px;
-    border: solid 1px #cccccc;
-    background-color: #ffffff;
-    /* background: url(../../../assets/images/grey.png) no-repeat scroll 12px 5px; */
-    padding-left: 45px;
-}
-
 span.checkmark {
     background-color: white;
     border: 1px solid #d6d6d6;
@@ -254,21 +225,6 @@ span.checkmark {
 .customcheckbox input:checked~.checkmark {
     background-color: #232334;
 }
-
-
-/* 
-
-.text-filters,
-#dataTables_filter input {
-    font-family: Muli;
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-} */
 
 .customer {
     height: 46px;
@@ -478,7 +434,7 @@ span.checkmark {
 
 .display_div {
     position: absolute;
-    right: 3.2rem;
+    right: 1.2rem;
     top: -0.3rem;
 }
 

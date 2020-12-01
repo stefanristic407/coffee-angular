@@ -14,10 +14,10 @@
                                     <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
                                             alt=""></span>
                                 </li>
-                                <li class="b-cum">
+                                <!-- <li class="b-cum">
                                     <a class="b-cum" routerLink="/ordermanagement/">{{globals.languageJson?.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""></span>
-                                </li>
+                                </li> -->
                                 <li class="b-cum">
                                     <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                         src="/assets/images/arrow-1.png" alt=""> </span>
@@ -98,7 +98,7 @@
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                     <p class="order-status  mt-2" (click)="gradedStatus()" matTooltip=" Graded by Facilitator" matTooltipClass="tooltiptext" #graded>
-                                                        Graded by Facilitator
+                                                            Graded
                                                     </p>
                                                 </div>
                                             </div>
@@ -118,16 +118,18 @@
                     <div class="in-order mt-5 cancel-predisplay" *ngIf="cancelShow">
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                <h4 class="order-txt fnt-play">{{globals.languageJson?.cancelled}}</h4>
+                                <h4 class="order-txt fnt-play">Cancelled</h4>
                                 <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the estate and facilitator to help us expand</div>
                                 <div class="confirm-grade">as a transparent community!</div>
-                                <button type="submit" class="yes-txt btn mt-3" (click)="buyIt()">Buy it</button>
-                                <button type="submit" class="cancel-order btn mt-3 ml-3">Browse other estates</button>
+                                <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
+
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
+                                    <button type="submit" class="yes-order btn mt-3 buy-order" (click)="buyIt()">Buy it</button><br />
+                                    <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/estate-orders">Browse other estates</button>
+                                <!-- <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
                                 <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}<img
-                                        class="arrow-image1" src="assets/images/group.png" alt="arrow"></button>
+                                        class="arrow-image1" src="assets/images/group.png" alt="arrow"></button> -->
                             </div>
                         </div>
                     </div>
@@ -143,8 +145,8 @@
                                 <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">{{globals.languageJson?.buy_the_order}}</button><br />
-                                <button type="submit" class="cancel-order btn mt-3">{{globals.languageJson?.order_sample}}</button>
+                                <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">Buy it</button><br />
+                                <button type="submit" class="cancel-order btn mt-3" (click)="cancelOrder()">No I don’t want to buy it</button>
                             </div>
                         </div>
                     </div>
@@ -183,9 +185,9 @@
                             <sewn-prebook-order-details></sewn-prebook-order-details>
 
                         </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <!-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <sewn-prebook-documents></sewn-prebook-documents>
-                        </div>
+                        </div> -->
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <div class="row">
 
@@ -252,7 +254,7 @@
                 </div>
                 <div class="d-none d-md-block ">
                     <div class="d-flex mt-4">
-                        <div class="pull-left estate-details">{{globals.languageJson?.roaster_details}}
+                        <div class="pull-left estate-details">Estate details
                         </div>
                         <div class="pull-right ml-auto view-details">{{globals.languageJson?.view_details}}</div>
                     </div>
@@ -675,9 +677,9 @@
                                 <!-- <div class="pull-right ml-auto list-time d-none d-md-inline-block">1:30pm</div> -->
 
                             </div>
-                            <div class="w-100 mt-4 mb-2 d-block d-md-none">
+                            <!-- <div class="w-100 mt-4 mb-2 d-block d-md-none">
                                 <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-lg-6 col-12">
 
@@ -686,9 +688,9 @@
                     </div>
 
 
-                    <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
+                    <!-- <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
                         <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
-                    </div>
+                    </div> -->
                     <div class="w-100 chat-div">
                         <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/order-chat">{{globals.languageJson?.order}} #12416 {{globals.languageJson?.chat}} <span class="chat-indicator">
                                 &#x25CF;</span><img class="pull-right ml-auto"

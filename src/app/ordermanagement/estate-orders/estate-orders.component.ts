@@ -81,23 +81,23 @@ export class EstateOrdersComponent implements OnInit {
 			},
 			{ id: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Booked', status: 'Shipped', species: 'Bourbon', price: '-' },
 			{ id: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia', quantity: '29kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$1,480' },
-			{ id: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '-' },
+			{ id: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$2600' },
 			{ id: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Payment', species: 'Bourbon', price: '$1,480' },
-			{ id: '1005', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '-' },
-			{ id: '1006', estatename: 'La Isabela', dataordered: '13 Oct 2020', origin: 'Colombia', quantity: '397kg', typeoforder: 'Sample', status: 'Order confirmed', species: 'Bourbon', price: '$6,560' },
+			{ id: '1005', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '$840' },
+			{ id: '1006', estatename: 'La Isabela', dataordered: '13 Oct 2020', origin: 'Colombia', quantity: '397kg', typeoforder: 'Sample', status: 'Order confirmed', species: 'Bourbon', price: '-' },
 			{ id: '1007', estatename: 'Cafe Directo', dataordered: '13 Dec 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Sample', status: 'Shipped', species: 'Bourbon', price: '-' },
-			{ id: '1008', estatename: 'Asoproaaa', dataordered: '13 Jan 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Harvest Ready', species: 'Bourbon', price: '-' },
+			{ id: '1008', estatename: 'Asoproaaa', dataordered: '13 Jan 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Harvest Ready', species: 'Bourbon', price: '$500' },
 			{ id: '1009', estatename: 'Finca La Toboba', dataordered: '14 Feb 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Payment', species: 'Bourbon', price: '$3,200' },
-			{ id: '1010', estatename: 'Gesha', dataordered: '14 Jun 2019', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '-' },
+			{ id: '1010', estatename: 'Gesha', dataordered: '14 Jun 2019', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '$1900' },
 			{ id: '1011', estatename: 'Finca La Pampa', dataordered: '13 Jul 2019', origin: 'Ethopia', quantity: '197kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$2,377' },
-			{ id: '1012', estatename: 'Finca La Pampa', dataordered: '13 Mar 2018', origin: 'Colombia', quantity: '257kg', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '-' },
+			{ id: '1012', estatename: 'Finca La Pampa', dataordered: '13 Mar 2018', origin: 'Colombia', quantity: '257kg', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3000' },
 			{ id: '1013', estatename: 'Gesha', dataordered: '13 May 2018', origin: 'Colombia', quantity: '277kg', typeoforder: 'Booked', status: 'Received', species: 'Bourbon', price: '$2,377' },
 			{ id: '1014', estatename: 'Finca La Toboba', dataordered: '17 Aug 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$6,560' },
-			{ id: '1015', estatename: 'Asoproaaa', dataordered: '13 Oct 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Sample', status: 'Received', species: 'Bourbon', price: '$3,200' },
+			{ id: '1015', estatename: 'Asoproaaa', dataordered: '13 Oct 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Sample', status: 'Received', species: 'Bourbon', price: '-' },
 			{ id: '1016', estatename: 'Finca La Toboba', dataordered: '19 Oct 2018', origin: 'Colombia', quantity: '297kg', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', price: '-' },
 			{ id: '1017', estatename: 'Finca La Pampa', dataordered: '23 Nov 2018', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3,200' },
 			];
-		// this.mainData = this.data;
+		this.mainData = this.data;
 	}
 
 	ngOnInit(): void {
@@ -133,10 +133,11 @@ export class EstateOrdersComponent implements OnInit {
 					data: 'id'
 				}, {
 					title: this.globals.languageJson.estate_name,
-					data: 'estate_name'
-				}, {
+					data: 'estatename'
+				},
+				 {
 					title: this.globals.languageJson.date_ordered,
-					data: 'created_at'
+					data: 'dataordered'
 				},
 				{
 					title: this.globals.languageJson.origin,
@@ -157,7 +158,7 @@ export class EstateOrdersComponent implements OnInit {
 					data: 'quantity'
 				}, {
 					title: this.globals.languageJson.order_type,
-					data: 'type',
+					data: 'typeoforder',
 					className: 'typeoforderclass'
 				}, {
 					title: this.globals.languageJson.status,
@@ -507,7 +508,8 @@ export class EstateOrdersComponent implements OnInit {
 		});
 
 		/* pagination ends */
-		this.getEstateOrdersData();//get table data
+		// this.getEstateOrdersData();
+		//get table data
 
 	}
 	language(){
@@ -699,28 +701,28 @@ export class EstateOrdersComponent implements OnInit {
 		}
 
 	}
-	getEstateOrdersData() {
-		this.roasterService.getEstateOrders(this.roasterId).subscribe(
-			data => {
-				if (data['success'] == true) {
-					if (data['result'] == null || data['result'].length == 0) {
-						this.odd = true;							
-						this.hideTable = true ; 
-						// this.toastrService.error(this.globals.languageJson.no_table_data);
-					}
-					else {
-						this.odd = false;
-						this.hideTable = false ; 
-						this.mainData = data['result'];
-					}
-					this.estateOrdersActive++;
-				}
-				else {
-					this.estateOrdersActive++;
-					this.odd = true;
-					this.toastrService.error(this.globals.languageJson.error_message);
-				}
-			}
-		)
-	}
+	// getEstateOrdersData() {
+	// 	this.roasterService.getEstateOrders(this.roasterId).subscribe(
+	// 		data => {
+	// 			if (data['success'] == true) {
+	// 				if (data['result'] == null || data['result'].length == 0) {
+	// 					this.odd = true;							
+	// 					this.hideTable = true ; 
+	// 					// this.toastrService.error(this.globals.languageJson.no_table_data);
+	// 				}
+	// 				else {
+	// 					this.odd = false;
+	// 					this.hideTable = false ; 
+	// 					this.mainData = data['result'];
+	// 				}
+	// 				this.estateOrdersActive++;
+	// 			}
+	// 			else {
+	// 				this.estateOrdersActive++;
+	// 				this.odd = true;
+	// 				this.toastrService.error(this.globals.languageJson.error_message);
+	// 			}
+	// 		}
+	// 	)
+	// }
 }

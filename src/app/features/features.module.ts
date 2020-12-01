@@ -146,6 +146,10 @@ import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-selec
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { HorecaAgreementsComponent } from './Farm Link/agreement/horeca-agreements/horeca-agreements.component';
 import { MicroRoasterAgreementsComponent } from './Farm Link/agreement/micro-roaster-agreements/micro-roaster-agreements.component';
+import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orders/estate-orders.component';
+import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
+import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
+import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
 
 
 
@@ -261,6 +265,10 @@ import { MicroRoasterAgreementsComponent } from './Farm Link/agreement/micro-roa
     SuccessfulPageComponent,
     HorecaAgreementsComponent,
     MicroRoasterAgreementsComponent,
+    EstateOrdersComponent,
+    MicroRoasterOrdersComponent,
+    HorecaOrdersComponent,
+    DefaultSettingComponent,
   
  
   ],

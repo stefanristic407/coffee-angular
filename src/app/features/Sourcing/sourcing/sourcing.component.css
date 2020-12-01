@@ -162,7 +162,7 @@ ul li {
     font-family: Muli;
     font-size: 18px;
     line-height: 28px;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: capitalize;
     white-space: nowrap;
     color: #242424;
@@ -170,11 +170,12 @@ ul li {
 
 .s-details h6 {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 28px;
 }
 
 .s-details {
-    padding: 22px;
+    padding: 16px;
 }
 
 .s-gal img {
@@ -196,12 +197,12 @@ ul li {
 
 .orgin-att h6 {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .orgin-att {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
     border-right: 1px solid #ebebeb;
 }
 
@@ -215,9 +216,9 @@ ul li {
 }
 
 .source-lets {
-    padding-bottom: 40px;
+    padding-bottom: 16px;
     border-bottom: 1px solid #ebebeb;
-    padding-top: 32px;
+    padding-top: 24px;
     margin-bottom: 16px;
 }
 
@@ -225,14 +226,14 @@ ul li {
     width: 100%;
     font-size: 14px;
     color: #747588;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .top-lots a {
     color: #80460b;
     padding-right: 16px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: underline;
 }
 
@@ -250,7 +251,8 @@ ul li {
 
 .card-border:hover {
     transform: scale(1.03);
-    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 50px 5px rgba(0, 0, 0, 0.08);
+    border: 0px solid #ebebeb;
 }
 
 .filter-sort {
@@ -369,7 +371,7 @@ ul li {
     padding: 8px 12px;
     border-radius: 17px;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 
@@ -410,7 +412,7 @@ tr:last-child {
 .table .table-header th {
     font-family: Muli;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     color: #232334;
     /* padding-left: 2rem; */
     padding: 14px 15px;
@@ -433,7 +435,7 @@ tr:last-child {
 .lot-class {
     color: #80460b !important;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: underline !important;
 }
 
@@ -454,7 +456,7 @@ tr:last-child {
 .more-heading {
     font-family: Muli;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     color: #242424;
 }
 
@@ -503,7 +505,7 @@ tr:last-child {
 .certificates {
     font-family: Muli;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: normal;
     letter-spacing: normal;
     color: #232334;
@@ -549,7 +551,7 @@ span.checkmark {
 .load-more {
     font-family: Muli;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     color: #80460b;
     text-decoration: underline;
 }

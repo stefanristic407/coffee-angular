@@ -147,10 +147,10 @@
 .order-tracking:first-child:before {
     display: none;
 }
-
+/* 
 .order-tracking.completed:before {
     border: dashed 0.5px #d6d6d6;
-}
+} */
 
 .transit-scoll {
     width: 100%;
@@ -632,7 +632,7 @@ li.nav-item {
     border-style: solid !important;
     border-color: transparent transparent #ffffff transparent !important;
 }
-
+/* 
 .table_ellipsis {
     max-width: 72px!important;
     width: 54px !important;
@@ -640,8 +640,8 @@ li.nav-item {
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
-    /* position: relative; */
-}
+    position: relative;
+} */
 
 
 /***************Images**********************/

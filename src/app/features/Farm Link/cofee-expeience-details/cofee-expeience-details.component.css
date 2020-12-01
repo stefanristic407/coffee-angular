@@ -262,14 +262,15 @@
     border: 0;
     border-radius: 4px;
     background-color: #30855c;
-    padding: 5px 10px;
+    padding: 8px 10px;
     color: #ffffff;
     font-size: 12px;
 }
 
-.copy-link button {
+
+/* .copy-link button {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
+} */
 
 .download-qr-link {
     margin-top: 25px;
@@ -616,7 +617,7 @@
 }
 
 ::ng-deep body .ui-inputtext {
-    height: 46px !important;
+    /* height: 46px !important; */
     border: 1px solid #d6d6d6;
 }
 

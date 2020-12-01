@@ -18,15 +18,15 @@
                                         <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
                                             alt=""></span>
                                     </li>
-                                    <li class="b-cum">
+                                    <!-- <li class="b-cum">
                                         <a class="b-cum" routerLink="/ordermanagement/myorders">{{globals.languageJson?.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""></span>
-                                    </li>
+                                    </li> -->
                                     <li class="b-cum">
                                         <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
-                                    <li class="b-cum c-pink">{{globals.languageJson?.order}} #12416
+                                    <li class="b-cum c-pink">Order placed : 1st Jan 2020
                                     </li>
                                 </ul>
                             </nav>
@@ -67,39 +67,39 @@
                                                     <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                         <p class="order-status  mt-md-2 mb-1" (click)="orderPlaceSample()" #orderPlacedSample style="color: #232334;font-weight: bold;">
                                                             {{globals.languageJson?.order_placed_text}}</p>
-                                                        <p class="order-date mb-0 table_ellipsis" matTooltip="Estate + facilitator Notified" matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
+                                                        <p class="order-date mb-0" matTooltip="Estate + facilitator Notified" matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking completed" id="confirmDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status  mt-md-2 table_ellipsis" (click)="orderConfirmSample()" #orderConfirmedSample matTooltip="{{globals.languageJson?.order_confirmed}}" matTooltipClass="tooltiptext">{{globals.languageJson?.order_confirmed}}</p>
+                                                        <p class="order-status  mt-md-2" (click)="orderConfirmSample()" #orderConfirmedSample matTooltip="{{globals.languageJson?.order_confirmed}}" matTooltipClass="tooltiptext">{{globals.languageJson?.order_confirmed}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking  completed" id="paymentDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status mt-md-2 table_ellipsis" (click)="paySample()" #paymentSample matTooltip="Payment" matTooltipClass="tooltiptext">Payment</p>
+                                                        <p class="order-status mt-md-2" (click)="paySample()" #paymentSample matTooltip="Payment" matTooltipClass="tooltiptext">Payment</p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking  completed" id="shippmentDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status mt-md-2 mb-1 table_ellipsis" (click)="shipmentStatusSample()" #shippmentSample matTooltip="Shipped" matTooltipClass="tooltiptext">Shipped</p>
+                                                        <p class="order-status mt-md-2 mb-1" (click)="shipmentStatusSample()" #shippmentSample matTooltip="Shipped" matTooltipClass="tooltiptext">Shipped</p>
                                                         <p class="order-date mb-0" *ngIf="shippmentReport">20 Feb 2020</p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking completed" id="receivedDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status mt-md-2 mb-1 table_ellipsis" (click)="receivedStatusSample()" #receivedSample matTooltip="Recieved" matTooltipClass="tooltiptext">Recieved</p>
+                                                        <p class="order-status mt-md-2 mb-1" (click)="receivedStatusSample()" #receivedSample matTooltip="Recieved" matTooltipClass="tooltiptext">Recieved</p>
                                                         <p class="order-date mb-0" *ngIf="receivedReport">1 March 2020</p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking completed" id="gradedDivSample">
                                                     <span class="is-complete"></span>
                                                     <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                        <p class="order-status  mt-md-2 mb-0 table_ellipsis" (click)="gradedStatusSample()" #gradedSample matTooltip="Graded by Roaster" matTooltipClass="tooltiptext">Graded by Roaster</p>
+                                                        <p class="order-status  mt-md-2 mb-0" (click)="gradedStatusSample()" #gradedSample matTooltip="Graded by Roaster" matTooltipClass="tooltiptext">Graded by Roaster</p>
                                                         <label class="order-datecolor mb-0" *ngIf="uploadReportSample" (click)="upload.click()">Upload report</label>
                                                         <input hidden type="file" #upload />
                                                         <p class="order-datecolor mb-0" *ngIf="gradedReportSample">View report
@@ -122,16 +122,16 @@
                         <div class="in-order mt-5 confirm-display" *ngIf="confirmShow">
                             <div class="row">
                                 <div class="col-md-9 pt-2">
-                                    <h4 class="order-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4>
+                                    <h4 class="order-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4> 
                                     <div class="confirm-grade">
-                                        <p class="confirm-order-sample">Your sample has been recieved and graded. </p>
-                                        <p class="confirm-order-sample"> Please confirm to order the complete shipment</p>
+                                        <p class="confirm-order-sample">Please confirm if you have recieved the shipment you have ordered.</p>
+                                        <p class="confirm-order-sample"> order will be marked as complete then</p>
                                     </div>
                                     <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback </button>
                                 </div>
                                 <div class="col-md-3 pl-md-5 pl-0">
-                                    <button type="submit" class="yes-order btn mt-3" routerLink="/ordermanagement/confirm-order">Yes, I want to order</button>
-                                    <button type="submit" class="cancel-order btn mt-3">No, cancel my order</button>
+                                    <button type="submit" class="yes-order btn mt-3" routerLink="/ordermanagement/confirm-order">Yes I have</button>
+                                    <button type="submit" class="cancel-order btn mt-3">No I haven’t</button>
                                 </div>
                             </div>
                         </div>
@@ -257,7 +257,7 @@
                         </div>
                         <div class="d-none d-md-block">
                             <div class="d-flex mt-4">
-                                <div class="pull-left estate-details">{{globals.languageJson?.roaster_details}}
+                                <div class="pull-left estate-details">Estate details
                                 </div>
                                 <div class="pull-right ml-auto view-details">{{globals.languageJson?.view_details}}</div>
                             </div>
@@ -464,9 +464,9 @@
                             <!-- <div class="pull-right ml-auto list-time d-none d-md-inline-block">1:30pm</div> -->
 
                         </div>
-                        <div class="w-100 mt-4 mb-2 d-block d-md-none"  >
+                        <!-- <div class="w-100 mt-4 mb-2 d-block d-md-none"  >
                             <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-lg-6 col-12">
 
@@ -474,10 +474,10 @@
 
                 </div>
 
-
+<!-- 
                 <div class="w-100 mt-5 pb-5 d-none d-md-inline-block"  >
                     <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
-                </div>
+                </div> -->
                 <div class="w-100 chat-div">
                     <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/order-chat">{{globals.languageJson?.order}} #12416 {{globals.languageJson?.chat}} <span class="chat-indicator">
                         &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>

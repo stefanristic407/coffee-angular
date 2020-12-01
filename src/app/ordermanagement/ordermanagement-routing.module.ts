@@ -187,12 +187,12 @@ children: [
     canActivate : [AuthGuard]
   },
   {
-	  path:'microroaster-booked',
+	  path:'mr-booked',
 	  component:MicroOrderBookedComponent,
     canActivate : [AuthGuard]
   },
   {
-	  path:'microroaster-sample',
+	  path:'mr-sample',
 	  component:MicroOrderSampleComponent,
     canActivate : [AuthGuard]
   },

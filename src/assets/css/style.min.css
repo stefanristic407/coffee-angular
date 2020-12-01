@@ -11172,7 +11172,7 @@ ul.list-style-none li a:hover {
 
 .label {
     padding: 3px 10px;
-    line-height: 13px;
+    line-height: 24px;
     color: #fff;
     font-weight: 400;
     border-radius: 2px;
@@ -22650,7 +22650,7 @@ body .ui-widget {
     font-size: 14px !important;
     font-weight: 600 !important;
     color: #30855c !important;
-    border: 1px solid #30855c !important;
+    /* border: 1px solid #30855c !important; */
     margin-right: 1rem !important;
     font-family: Muli !important;
 }
@@ -22924,7 +22924,7 @@ li.select-list__item {
 
 .customtable tr:hover,
 .odd:hover {
-    box-shadow: 0 12px 34px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 26px 2px rgba(0, 0, 0, 0.05);
     cursor: pointer;
 }
 
@@ -23436,4 +23436,25 @@ button {
 
 .tab-pad-report {
     background-color: #fff;
+}
+
+
+/* sourcing cards new design css */
+
+.s-cert {
+    min-height: 40px;
+    max-height: 40px;
+}
+
+.s-cert li img {
+    width: 32px !important;
+    height: 32px;
+    object-fit: contain;
+}
+
+
+/* sourcing cards ends */
+
+.mr-orders .dataTables_filter {
+    display: none !important;
 }

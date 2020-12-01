@@ -74,6 +74,7 @@ import { VatManagementComponent } from "./vat-management/vat-management.componen
 import { WelcomeAboardComponent } from "./welcome-aboard/welcome-aboard.component";
 import { BatchSelectAnOrderComponent} from "./batch-select-an-order/batch-select-an-order.component";
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
+import { DefaultSettingComponent} from './Farm Link/coffee-experience/default-setting/default-setting.component';
 
 const routes: Routes = [
   {
@@ -438,6 +439,11 @@ const routes: Routes = [
       {
         path: "success-mail",
         component: SuccessfulPageComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "default-setting",
+        component: DefaultSettingComponent,
         canActivate: [AuthGuard],
       },
       {

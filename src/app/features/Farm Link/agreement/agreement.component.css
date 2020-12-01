@@ -12,6 +12,7 @@
 .mixups-tabs {
     background-color: #ffffff;
     overflow: hidden;
+    padding: 1rem 2rem;
 }
 
 .nav-pills .nav-link.active,
@@ -108,7 +109,7 @@ li.nav-item {
 }
 
 .estate-orders-heading {
-    margin: 1rem 3.1rem;
+    margin: 1rem 2.1rem;
 }
 
 @media (max-width:767px) {

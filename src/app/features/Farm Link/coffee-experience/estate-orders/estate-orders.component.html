@@ -1,0 +1,153 @@
+<div class="row">
+    <div class="title-header">
+        <div class="hover-filters d-inline-block">
+            <div class="d-inline border-total col-sm-6" id="status_id">
+                <p class="d-inline filter-text" *ngIf="termStatus == ''">{{globals.languageJson?.origin}}&nbsp;</p>
+                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                    <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
+                        &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+                    <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleStatus()">
+                        {{ termStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+        </div>
+        <!-- <div class="d-inline border-total role-div col-sm-6" id="display_id">
+            <p class="d-inline filter-text" >{{globals.languageJson?.display}}<span class="brand-dot">  </span></p>
+            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop9="bs-popover">
+                <p class="d-inline filter" *ngIf="display == '-1'" (click)="toggleDisplay()">
+                    &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                </p>
+            </a>
+            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop10="bs-popover">
+                <p class="d-inline filter" *ngIf="display != '-1'" (click)="toggleDisplay()">
+                    {{ display }} &nbsp;<img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                </p>
+            </a>
+        </div> -->
+        <div class="d-inline display_div">
+            <div class="hover-filters d-inline-block">
+                <div class="float-right border-order top-space" id="display_id">
+                    <p class="d-inline filter-text">Display &#9679;</p>
+                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop9="bs-popover">
+                        <p class="d-inline filter" *ngIf="display == '-1'" (click)="toggleDisplay()">
+                            &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                        </p>
+                    </a>
+                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop10="bs-popover">
+                        <p class="d-inline filter" *ngIf="display != '-1'" (click)="toggleDisplay()">
+                            {{ display }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-container mb-2 mt-4">
+    <div class="table-responsive" *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
+        <table class="table">
+            <thead class="table-header">
+                <tr class="header-row">
+                   
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Estate Name</th>
+                    <th scope="col">
+                        Origin
+                    </th>
+                    <th scope="col">Date ordered</th>
+                    <th scope="col">Date recieved</th>
+                    
+                    <th scope="col">Variety</th>
+                    
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Cupping score</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+            </thead>
+            <tbody class="customtable">
+                <tr class="ticket-boby-txt cursor-pointer" *ngFor="let item of mainData">
+                   
+                    <td>
+                        {{ item.order_id }}
+                    </td>
+                    <td>{{ item.estate_name }}</td>
+                    <td>{{ item.origin }} </td>
+                    <td>{{ item.date_ordered }}</td>
+                    <td>{{ item.date_recieved }} </td>
+                    <td>{{ item.variety }}</td>
+                    <td>{{ item.quantity }} </td>
+                    <td>
+                        {{item.cup_Score}}
+                    </td>
+
+                    
+                    <td class="view-order" routerLink="/features/coffee-details">View details</td>
+                    <!-- <td>
+                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                            <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
+                        </a>
+                        <ng-template #poplistTemplate>
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"> <a class="pointer-item" (click)="pop.hide();">Message roaster </a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Message estate</a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Simulate login as roaster</a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Simulate login as estate</a></li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<ng-template #allTemplate>
+    <div id="status-content">
+        <ul class="list-group">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide();toggleStatus()">All</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus('Colombia'); pop.hide(); pop2.hide();toggleStatus()">Colombia</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus('Brazil'); pop.hide(); pop2.hide();toggleStatus()">Brazil</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus('Ethiopia'); pop.hide(); pop2.hide();toggleStatus()">Ethiopia</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+
+
+
+<ng-template #displayTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setDisplay('');pop9.hide();pop10.hide();toggleDisplay()">All</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setDisplay('10');pop9.hide();pop10.hide();toggleDisplay()">10</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setDisplay('20');pop9.hide();pop10.hide();toggleDisplay()">20</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setDisplay('25');pop9.hide();pop10.hide();toggleDisplay()">25</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setDisplay('50');pop9.hide();pop10.hide();toggleDisplay()">50</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>

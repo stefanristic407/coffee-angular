@@ -134,10 +134,10 @@
 .order-tracking:first-child:before {
     display: none;
 }
-
+/* 
 .order-tracking.completed:before {
     border: dashed 0.5px #d6d6d6;
-}
+} */
 
 .transit-scoll {
     width: 100%;
@@ -824,7 +824,7 @@ ngx-charts-line-chart {
 }
 
 .buy-order {
-    padding: 9px 16px 8px 25px !important;
+    padding: 12px 70px !important;
 }
 
 .booked {

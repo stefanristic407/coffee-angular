@@ -57,29 +57,29 @@ export class RequestsTableComponent implements OnInit {
 		this.data = {};
 		this.data =
 			[{
-				"requestedby": "Finca La Pampa",
+				"requestedby": "Third wave coffee r..",
 				"daterequested": "24 Jan 2020",
 				"origin": "Colombia",
-				"estate": "-",
+				"estate": "Gesha",
 				"varierty": "Bourbon"
 			},
-			{  requestedby: 'Gesha', daterequested: '21 Jan 2020', origin: 'Ethopia', estate: '297kg', varierty: 'Bourbon'},
-			{  requestedby: 'Finca La Toboba', daterequested: '22 Apr 2020', origin: 'Ethopia', estate: '29kg', varierty: 'Bourbon'},
-			{  requestedby: 'Asoproaaa', daterequested: '24 Apr 2020', origin: 'Ethopia', estate: '-',  varierty: 'Bourbon'},
-			{  requestedby: 'Cafe Directo', daterequested: '25 May 2020', origin: 'Colombia', estate: '-', varierty: 'Bourbon'},
-			{  requestedby: 'La Isabela', daterequested: '26 May 2020', origin: 'Colombia', estate: '-', varierty: 'Bourbon'},
-			{  requestedby: 'La Isabela', daterequested: '13 Oct 2020', origin: 'Colombia', estate: '397kg', varierty: 'Bourbon' },
-			{  requestedby: 'Cafe Directo', daterequested: '13 Dec 2020', origin: 'Ethopia', estate: '297kg', varierty: 'Bourbon'},
-			{  requestedby: 'Asoproaaa', daterequested: '13 Jan 2019', origin: 'Colombia', estate: '-', varierty: 'Bourbon'},
-			{  requestedby: 'Finca La Toboba', daterequested: '14 Feb 2019', origin: 'Colombia', estate: '-',  varierty: 'Bourbon'},
-			{  requestedby: 'Gesha', daterequested: '14 Jun 2019', origin: 'Ethopia', estate: '297kg', varierty: 'Bourbon'},
-			{  requestedby: 'Finca La Pampa', daterequested: '13 Jul 2019', origin: 'Ethopia', estate: '197kg', varierty: 'Bourbon'},
-			{  requestedby: 'Finca La Pampa', daterequested: '13 Mar 2018', origin: 'Colombia', estate: '257kg',  varierty: 'Bourbon'},
-			{  requestedby: 'Gesha', daterequested: '13 May 2018', origin: 'Colombia', estate: '277kg', varierty: 'Bourbon'},
-			{  requestedby: 'Finca La Toboba', daterequested: '17 Aug 2018', origin: 'Ethopia', estate: '-', varierty: 'Bourbon'},
-			{  requestedby: 'Asoproaaa', daterequested: '13 Oct 2018', origin: 'Ethopia', estate: '-', varierty: 'Bourbon'},
-			{  requestedby: 'Finca La Toboba', daterequested: '19 Oct 2018', origin: 'Colombia', estate: '297kg', varierty: 'Bourbon'},
-			{  requestedby: 'Finca La Pampa', daterequested: '23 Nov 2018', origin: 'Colombia', estate: '-', varierty: 'Bourbon'},
+			{  requestedby: 'Home brew coffee', daterequested: '21 Jan 2020', origin: 'Ethopia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+			{  requestedby: 'Blue Tokai roasters', daterequested: '22 Apr 2020', origin: 'Ethopia', estate: 'Gesha', varierty: 'Bourbon'},
+			{  requestedby: 'Third wave coffee r..', daterequested: '24 Apr 2020', origin: 'Ethopia', estate: 'Finca la toboba',  varierty: 'Bourbon'},
+			{  requestedby: 'La Barista', daterequested: '25 May 2020', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+			{  requestedby: 'Home brew coffee', daterequested: '26 May 2020', origin: 'Colombia', estate: 'Asoproaaa', varierty: 'Bourbon'},
+			{  requestedby: 'Third wave coffee r..', daterequested: '13 Oct 2020', origin: 'Colombia', estate: 'Cafe directo', varierty: 'Bourbon' },
+			{  requestedby: 'Cafe Directo', daterequested: '13 Dec 2020', origin: 'Ethopia', estate: 'Finca la toboba', varierty: 'Bourbon'},
+			{  requestedby: 'La Barista', daterequested: '13 Jan 2019', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+			{  requestedby: 'Blue Tokai roasters', daterequested: '14 Feb 2019', origin: 'Colombia', estate: 'Asoproaaa',  varierty: 'Bourbon'},
+			{  requestedby: 'Third wave coffee r..', daterequested: '14 Jun 2019', origin: 'Ethopia', estate: 'Cafe directo', varierty: 'Bourbon'},
+			{  requestedby: 'Home brew coffee', daterequested: '13 Jul 2019', origin: 'Ethopia', estate: 'Finca la toboba', varierty: 'Bourbon'},
+			{  requestedby: 'La Barista', daterequested: '13 Mar 2018', origin: 'Colombia', estate: 'Cafe directo',  varierty: 'Bourbon'},
+			{  requestedby: 'Gesha', daterequested: '13 May 2018', origin: 'Colombia', estate: 'Asoproaaa', varierty: 'Bourbon'},
+			{  requestedby: 'Home brew coffee', daterequested: '17 Aug 2018', origin: 'Ethopia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+			{  requestedby: 'Asoproaaa', daterequested: '13 Oct 2018', origin: 'Ethopia', estate: 'Asoproaaa', varierty: 'Bourbon'},
+			{  requestedby: 'Blue Tokai roasters', daterequested: '19 Oct 2018', origin: 'Colombia', estate: 'Finca la toboba', varierty: 'Bourbon'},
+			{  requestedby: 'La Barista', daterequested: '23 Nov 2018', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
 			];
 		this.mainData = this.data;
 	}
@@ -116,11 +116,11 @@ export class RequestsTableComponent implements OnInit {
 					defaultContent: '<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>',
 				},
 			 {
-					title: this.globals.languageJson.roaster_name,
+					title: 'Requested by',
 					data: 'requestedby',
 				
 				}, {
-					title: this.globals.languageJson.date_ordered,
+					title: 'Date requested',
 					data: 'daterequested'
 				},
 				{
@@ -133,7 +133,7 @@ export class RequestsTableComponent implements OnInit {
 					data: 'estate'
 				}, 
 				{
-					title: this.globals.languageJson.species,
+					title: 'Varity',
 					data: 'varierty',
 
 				},
@@ -141,7 +141,7 @@ export class RequestsTableComponent implements OnInit {
 
 				{
 					title: this.globals.languageJson.action,
-					defaultContent: "View order",
+					defaultContent: "View details",
 					className: "view-order"
 				}
 			],
