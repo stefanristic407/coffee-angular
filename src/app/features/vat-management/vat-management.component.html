@@ -88,12 +88,20 @@
                                 <div class="col-md-12 Onboard-rows pt-5">
                                     <div class="Onboard-rows__inputs">
                                         <div class="row">
+                                            <div class="col-12 col-md-4 Onboard-input">
+                                                <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Shipping type *</label>
+                                                <input class="w-100" type="text" placeholder="Please enter shipping name" name="transcation_type">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
 
                                             <div class="col-12 col-md-4 Onboard-input ">
                                                 <div class="form-input">
-                                                    <label>Country<span>*</span>(in USD)</label>
+                                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Shipping Price<span>*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" placeholder="Enter the selling price" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <input type="text" placeholder="Please enter shipping amount" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
                                                         <div class="input-group-append">
                                                             <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
                                                                 <option value="USD">USD</option>
@@ -108,15 +116,14 @@
 
                                             <div class="col-12 col-md-4 Onboard-input ">
                                                 <div class="form-input">
-                                                    <label>Estimated delivery time<span>*</span></label>
+                                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Estimated delivery time<span>*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" placeholder="Estimated delivery time" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
                                                         <div class="input-group-append">
-                                                            <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                            <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
                                                                 <option value="USD">days</option>
-                                                                <!-- <option value="USD" ng-reflect-value="Yes">USD</option> -->
-                                                                <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
-                                                            </select>
+                                                               
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -124,15 +131,14 @@
 
                                             <div class="col-12 col-md-4 Onboard-input ">
                                                 <div class="form-input">
-                                                    <label>Estimated delivery time<span>*</span></label>
+                                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Estimated delivery time<span>*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" placeholder="Estimated delivery time" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
                                                         <div class="input-group-append">
-                                                            <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                            <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
                                                                 <option value="USD">days</option>
-                                                                <!-- <option value="USD" ng-reflect-value="Yes">USD</option> -->
-                                                                <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
-                                                            </select>
+                                                               
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,11 +148,56 @@
 
                                         </div>
 
+                                        <div class="col-12">
+                                            <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right"> Save </button>
+
+                                        </div>
+
                                     </div>
 
                                 </div>
 
                             </div>
+
+                            <!-- after save -->
+
+                            <div class="row">
+
+                                <div class="pls-note">
+                                    <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0"> This information will be used for all orders placed on the platform by the Roasters and Micro roasters. </p>
+                                </div>
+                                <div class="shipping-border col-12 mt-4">
+
+                                    <table class="shipping-time col-12">
+
+                                        <tr>
+                                            <td> <span class="list-que"> Shipping name :  </span></td>
+                                            <td> <span class="list-ans"> Standard Delivery </span> </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td> <span class="list-que"> Shipping price : </span></td>
+                                            <td> <span class="list-ans">  $ 25 </span> </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td> <span class="list-que"> Estimated delivery time : </span></td>
+                                            <td> <span class="list-ans">  10 -14 days </span> </td>
+
+                                        </tr>
+                                    </table>
+
+                                </div>
+
+                                <div class="col-12 mt-3">
+                                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right"> Edit </button>
+
+                                </div>
+
+
+                            </div>
+
+
 
                         </div>
 

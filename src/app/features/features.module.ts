@@ -40,6 +40,8 @@ import {MatVideoModule} from 'mat-video';
 import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
 import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
@@ -309,6 +311,7 @@ import { GeneratedKeysComponent } from './api-requests/api-requests-table/genera
     LightboxModule,
     MatVideoModule,
     ErrorModuleModule,
+    MatProgressBarModule,
     TypeaheadModule.forRoot(),
     CarouselModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),

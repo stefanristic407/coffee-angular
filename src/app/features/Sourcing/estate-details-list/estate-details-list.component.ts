@@ -49,6 +49,8 @@ export class EstateDetailsListComponent implements OnInit {
 	this.sourcing.estateEmployees();
 	this.getEachEstateCertify();
 	this.estateGalleryFiles();
+	this.sourcing.getEstateReviews();
+	this.sourcing.getEstateSummary();
 	// this.getAvailableEstates();
     // this.sourcing.certificateList();
   });

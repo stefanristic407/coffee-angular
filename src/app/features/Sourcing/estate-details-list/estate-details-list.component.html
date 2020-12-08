@@ -331,7 +331,7 @@
                                                 <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
                                                 <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
                                                 <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                                                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
+                                                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/sourcing']">Browse availabilities</button>
 
                                             </div>
                                         </div>
@@ -357,12 +357,12 @@
                                                 </div>
 
                                             </div> -->
-                                                <div class="col-lg-4 col-md-6 col-6 gals" *ngFor="let image of galleryImages">
-                                                    <!-- <img src="assets/images/gal6.png" alt=""> -->
-                                                    <img *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="Image">
-                                                    <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
-                                                </div>
-                                            
+                                            <div class="col-lg-4 col-md-6 col-6 gals" *ngFor="let image of galleryImages">
+                                                <!-- <img src="assets/images/gal6.png" alt=""> -->
+                                                <img *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="Image">
+                                                <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
+                                            </div>
+
                                             <!-- <div class="col-lg-4 col-md-6 col-6 gals">
                                                 <img src="assets/images/gal2.png" alt="">
                                             </div>
@@ -397,8 +397,8 @@
                                                 <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
                                                 <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
                                                 <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                                                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
-                                
+                                                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/sourcing']">Browse availabilities</button>
+
                                             </div>
                                         </div>
                                     </div>

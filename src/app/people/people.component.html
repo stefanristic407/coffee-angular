@@ -19,7 +19,7 @@
                         <span class="sidenav-hamberg__line"></span>
                     </div>
                     <div class="company-logo pad-logo">
-                        <a class="company-logo__img d-inline-block" routerLink="../features/welcome-aboard">
+                        <a class="company-logo__img d-inline-block" [routerLink]="['features/welcome-aboard']">
                             <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo">
                         </a>
                     </div>
@@ -36,7 +36,7 @@
                     </div>
                     <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                         <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                            <a routerLink="../people/team-members" class="d-inline-block image-card">
+                            <a [routerLink]="['/people/team-members']" class="d-inline-block image-card">
                                 <img class="img" src="assets/images/add.svg">
                             </a>
                         </li>
@@ -67,9 +67,9 @@
                                         <ng-template #popTemplate>
                                             <div id="popover-mobile-content">
                                                 <ul class="list-group">
-                                                    <li class="list-group-item" *ngIf="this.globals.checkItem('settings-management')"><a class="cursor-dots" routerLink="/features/roastery-profile" (click)="pop2.hide()">{{globals.languageJson?.roastery_profile}} </a></li>
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/myprofile" (click)="pop2.hide()">{{globals.languageJson?.my_profile}} </a></li>
-                                                    <li class="list-group-item"><a class="cursor-dots" routerLink="/features/account-settings" (click)="pop2.hide()">{{globals.languageJson?.account_settings}}</a></li>
+                                                    <li class="list-group-item" *ngIf="this.globals.checkItem('settings-management')"><a class="cursor-dots" [routerLink]="['/features/roastery-profile']" (click)="pop2.hide()">{{globals.languageJson?.roastery_profile}} </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" [routerLink]="['/features/myprofile']" (click)="pop2.hide()">{{globals.languageJson?.my_profile}} </a></li>
+                                                    <li class="list-group-item"><a class="cursor-dots" [routerLink]="['/features/account-settings']" (click)="pop2.hide()">{{globals.languageJson?.account_settings}}</a></li>
                                                     <li class="list-group-item"><a class="cursor-dots" (click)="userLogout()">{{globals.languageJson?.logout}} </a></li>
                                                 </ul>
                                             </div>
@@ -97,13 +97,13 @@
                             <ul class="nav-links fnt-muli pad-5">
 
                                 <li class="nav-links__item d-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600 router-link" routerLink="../features/welcome-aboard">{{globals.languageJson?.dashboard}}
+                                    <a class="d-inline-block fnt-600 router-link" [routerLink]="['/features/welcome-aboard']">{{globals.languageJson?.dashboard}}
                             </a>
                                 </li>
 
                                 <li class="nav-links__item d-inline-block position-relative" *ngIf="this.globals.checkItem('sourcing-management')">
 
-                                    <a class="d-inline-block fnt-600 router-link" routerLink="../features/sourcing">{{globals.languageJson?.sourcing_module}}
+                                    <a class="d-inline-block fnt-600 router-link" [routerLink]="['/features/sourcing']">{{globals.languageJson?.sourcing_module}}
                             </a>
                                 </li>
 
@@ -112,11 +112,11 @@
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li>
-                                            <a class="router-link" routerLink="../ordermanagement/estate-orders">{{globals.languageJson?.estate_orders}}
+                                            <a class="router-link" [routerLink]="['/ordermanagement/estate-orders']">{{globals.languageJson?.estate_orders}}
                                                 </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../ordermanagement/microroaster-orders">{{globals.languageJson?.microroaster_orders}}</a>
+                                            <a class="router-link" [routerLink]="['/ordermanagement/microroaster-orders']">{{globals.languageJson?.microroaster_orders}}</a>
                                         </li>
                                         <li>
                                             <a class="router-link">{{globals.languageJson?.horeca_orders}}</a>
@@ -128,18 +128,18 @@
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li>
-                                            <a class="router-link" routerLink="../features/green-coffee-inventory">Green coffee management
+                                            <a class="router-link" [routerLink]="['/features/green-coffee-inventory']">Green coffee management
                                                 </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../features/roasted-coffee-batch">Roasted coffee batch</a>
+                                            <a class="router-link" [routerLink]="['/features/roasted-coffee-batch']">Roasted coffee batch</a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../features/products-list">E-comm catatlog management</a>
+                                            <a class="router-link" [routerLink]="['/features/products-list']">E-comm catatlog management</a>
                                         </li>
 
                                         <li>
-                                            <a class="router-link" routerLink="../features/vat-management">Order settings</a>
+                                            <a class="router-link" [routerLink]="['/features/vat-management']">Order settings</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -148,49 +148,79 @@
                             </a>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" routerLink="../features/green-grading">Green grading
+                                    <a class="d-inline-block fnt-600" [routerLink]="['/features/green-grading']">Green grading
                                     </a>
                                 </li>
                                 <li class="nav-links__item arrow d-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{globals.languageJson?.farm_link}}
-                            </a>
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">
+                                        <!-- {{globals.languageJson?.farm_link}} -->
+                                        Brand & Experience
+                                    </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li *ngIf="this.globals.checkItem('brand-profile-management')">
-                                            <a class="router-link" routerLink="../features/brand-profile">{{globals.languageJson?.brand_profile}}</a>
+                                            <a class="router-link" [routerLink]="['/features/brand-profile']">
+                                                <!-- {{globals.languageJson?.brand_profile}} -->
+                                                Brand Profile Management
+                                            </a>
                                         </li>
                                         <li *ngIf="this.globals.checkItem('coffee-management','coffee-list')">
-                                            <a class="router-link" routerLink="../features/coffee-experience">{{globals.languageJson?.coffee_experience}}</a>
+                                            <a class="router-link" [routerLink]="['/features/coffee-experience']">
+                                                <!-- {{globals.languageJson?.coffee_experience}} -->
+                                                End-User Experience
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../features/file-share">{{globals.languageJson?.file_share}}</a> </li>
-                                        <li>
-                                            <a class="router-link" routerLink="../features/agreement">{{globals.languageJson?.agreement}}</a> </li>
-                                        <li>
-                                            <a class="router-link" routerLink="../features/q-a-forum">{{globals.languageJson?.qa_forum}}</a>
+                                            <a class="router-link" [routerLink]="['/features/file-share']">
+                                                <!-- {{globals.languageJson?.file_share}} -->
+                                                Education & Collaboration
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../features/social-media">{{globals.languageJson?.social_media_posts}}</a>
+                                            <a class="router-link" [routerLink]="['/features/agreement']">
+                                                <!-- {{globals.languageJson?.agreement}} -->
+                                                Sales Contracts
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/features/q-a-forum']">
+                                                <!-- {{globals.languageJson?.qa_forum}} -->
+                                                The Coffee Lab
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/features/social-media']">
+                                                <!-- {{globals.languageJson?.social_media_posts}} -->
+                                                Social PR
+                                            </a>
                                         </li>
 
                                     </ul>
                                 </li>
                                 <li class="nav-links__item arrow d-inline-block position-relative active" *ngIf="globals.checkItem('acl-management') || globals.checkItem('acl-list') || globals.checkItem('user-management') || globals.checkItem('user-reports')">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{globals.languageJson?.people}}
-                            </a>
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">
+                                        <!-- {{globals.languageJson?.people}} -->
+                                        User Management
+                                    </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li *ngIf="globals.checkItem('acl-management','acl-list') || globals.checkItem('acl-list','acl-management')">
-                                            <a class="router-link" routerLink="../people/manage-role">{{globals.languageJson?.manage_roles}}</a>
+                                            <a class="router-link" [routerLink]="['/people/manage-role']">
+                                                <!-- {{globals.languageJson?.manage_roles}} -->
+                                                Role Settings
+                                            </a>
                                         </li>
                                         <li *ngIf="globals.checkItem('user-management','user-reports') || globals.checkItem('user-reports','user-management')">
-                                            <a class="router-link" routerLink="../people/user-management">{{globals.languageJson?.user_management}}</a>
+                                            <a class="router-link" [routerLink]="['/people/user-management']">
+                                                <!-- {{globals.languageJson?.user_management}} -->
+                                                User Settings
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" routerLink="../people/customer-management">{{globals.languageJson?.customer_management}} </a>
+                                            <a class="router-link" [routerLink]="['/people/customer-management']">{{globals.languageJson?.customer_management}} </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5">
-                                    <a class="d-inline-block fnt-600" routerLink="../features/account-settings">{{globals.languageJson?.account_settings}}
+                                    <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']">{{globals.languageJson?.account_settings}}
                             </a>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
@@ -217,7 +247,7 @@
                 <div class="col-12 px-0">
                     <ul class="footer-links d-flex flex-wrap mb-0 align-items-center justify-content-between">
                         <li class="footer-links__item active">
-                            <a routerLink="../features/welcome-aboard" class="d-inline-block">
+                            <a [routerLink]="['/features/welcome-aboard']" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg">
                                     <img class="active
@@ -237,7 +267,7 @@
                             </a>
                         </li>
                         <li class="footer-links__item">
-                            <a routerLink="../features/notification" class="d-inline-block">
+                            <a [routerLink]="['/features/notification']" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/notification.svg">
                                     <img class="active
@@ -267,7 +297,7 @@
                                         </div>
                                         <span class="text-capitalize">{{globals.languageJson?.my_profile}}</span>
                                     </a>
-                                    <a routerLink="../features/roastery-profile" class="ft-dropdown__link active d-flex clearfix align-items-center ">
+                                    <a [routerLink]="['/features/roastery-profile']" class="ft-dropdown__link active d-flex clearfix align-items-center ">
                                         <div class="img float-left mr-2">
                                             <img class="profile-pic" src="{{roasterProfilePic}}">
                                         </div>

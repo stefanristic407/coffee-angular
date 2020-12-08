@@ -172,13 +172,17 @@ overviewActive:any=0;
 	certiImage: any;
 	brandProfileEstateWeb: string= "https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee";
 
-  constructor(public globals: GlobalsService, public sourcing : SourcingService,private roasterService: RoasterserviceService) { }
+  constructor(public globals: GlobalsService, public sourcing : SourcingService,private roasterService: RoasterserviceService) { 
+
+  }
 
   ngOnInit(): void {
 	this.language();
 	
 	window.scroll(0, 0);
 	this.sourcing.estateDetailList();
+	// this.sourcing.getEstateReviews();
+	// this.sourcing.getEstateSummary();
 	// console.log(this.sourcing.overviewCertify);
   }
   language(){

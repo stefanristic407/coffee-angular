@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalsService} from 'src/services/globals.service';
+import { SourcingService } from '../../sourcing.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
 
 @Component({
   selector: 'app-overview-ratings',
@@ -14,13 +17,17 @@ export class OverviewRatingsComponent implements OnInit {
   showRelavant:boolean=true;
   appLanguage?: any;
   estateRatingActive:any=0;
-  
-  constructor(public globals: GlobalsService) { 
-    this.termStatus = "Most relevant";
+  reviewsList: any;
+	summaryList: any;
+	overall: any;
+
+  constructor(public globals: GlobalsService, public sourcing : SourcingService,private roasterService: RoasterserviceService,private userService : UserserviceService) { 
+	this.termStatus = "Most relevant";
+
   }
 
   ngOnInit(): void {
-    this.language();
+	this.language();
   }
   language(){
     this.appLanguage = this.globals.languageJson;
@@ -137,5 +144,25 @@ export class OverviewRatingsComponent implements OnInit {
     this.showRelavant = !this.showRelavant;
 
   }
-
+//   getEstateReviews(){
+// 	this.userService.getEachEsateReviews(this.sourcing.detailList).subscribe(
+// 		res=>{
+// 			if(res['sucess']==true){
+// 				this.reviewsList=res['result'];
+// 				console.log(this.reviewsList);
+// 			}
+// 		}
+// 	)
+// }
+// getEstateSummary(){
+// 	this.userService.getEachEsateReviewsSummary(this.sourcing.detailList).subscribe(
+// 		res=>{
+// 			if(res['sucess']==true){
+// 				this.summaryList=res['result'];
+// 				console.log(this.summaryList);
+// 				this.overall=this.summaryList['average']['overall_experience'];
+// 			}
+// 		}
+// 	)
+// }
 }

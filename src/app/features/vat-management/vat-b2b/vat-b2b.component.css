@@ -9,15 +9,6 @@
     list-style: 26px;
 }
 
-.header-row {
-    border: none !important;
-}
-
-table th,
-table td {
-    border: none !important;
-}
-
 .table-container {
     margin: .5rem 0;
     border-radius: 4px;
@@ -28,4 +19,28 @@ table td {
 .table-header {
     border-radius: 4px;
     background-color: #f8f8f8;
+}
+
+.header-row {
+    border: none !important;
+}
+
+table th,
+table td {
+    border: none !important;
+}
+
+.add-vat {
+    color: #ffffff;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #30855c;
+    padding: 8px 16px;
+}
+
+.loader {
+    height: 17px;
+    width: 17px;
+    margin-left: 4px;
+    margin-top: -4px;
 }

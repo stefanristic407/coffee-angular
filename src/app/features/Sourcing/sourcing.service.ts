@@ -97,6 +97,18 @@ export class SourcingService {
 	otherGreenList: any;
 	availableCertify: any;
 	estateNumber: any;
+	reviewsList: any;
+	summaryList: any;
+	overall: any;
+	communication: any;
+	green_coffee: any;
+	rate_rating: any;
+	total_review: any;
+	five_star: any;
+	four_star: any;
+	three_star: any;
+	two_star: any;
+	one_star: any;
 
 
   			constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
@@ -284,5 +296,35 @@ export class SourcingService {
 				this.availableCertify=data['result'];
 			}
 		});
+	}
+	getEstateReviews(){
+		this.userService.getEachEsateReviews(this.detailList).subscribe(
+			res=>{
+				if(res['success']==true){
+					this.reviewsList=res['result'];
+					console.log(this.reviewsList);
+				}
+			}
+		)
+	}
+	getEstateSummary(){
+		this.userService.getEachEsateReviewsSummary(this.detailList).subscribe(
+			res=>{
+				if(res['success']==true){
+					this.summaryList=res['result'];
+					console.log(this.summaryList);
+					this.overall=this.summaryList['average']['overall_experience'];
+					this.communication=this.summaryList['average']['communication'];
+					this.green_coffee=this.summaryList['average']['green_coffee'];
+					this.rate_rating=this.summaryList['summary']['rating'];
+					this.total_review=this.summaryList['summary']['total_review'];
+					this.five_star=this.summaryList['summary']['5_star'];
+					this.four_star=this.summaryList['summary']['4_star'];
+					this.three_star=this.summaryList['summary']['3_star'];
+					this.two_star=this.summaryList['summary']['2_star'];
+					this.one_star=this.summaryList['summary']['1_star'];
+				}
+			}
+		)
 	}
 }
