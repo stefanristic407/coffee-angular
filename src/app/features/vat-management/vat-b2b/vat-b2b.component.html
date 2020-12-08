@@ -5,18 +5,16 @@
             <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0"> <span class="fnt-700">Please note  : </span> Edit VAT rate only when you are sure of a change in the rates. A slight mistake can lead to a penalty from the authorities. </p>
         </div>
 
-        <div class="col-md-12 Onboard-vatb pt-5">
+        <div class="col-md-12 Onboard-vatb pt-5" *ngIf="vatService.savemode">
             <div class="Onboard-vatb__inputs">
                 <div class="row">
 
                     <div class="col-12 col-md-4 Onboard-input">
                         <label class="w-100">Country *</label>
-                        <select name="Year" class="form-control select-region">
-                                <option  value="" selected="" disabled=""> Select a Country</option>
-                                <option  value="Sweden"> Sweden </option>
-                                <option  value="Australia"> Australia </option>
-                                <option  value="India"> India </option>
-                            </select>
+                        <select id="ecommerceCountry" name="Year" class="form-control select-region" (keyup)="onKeyPress($event)" [(ngModel)]="vatService.ecommerceCountry" name="ecommerceCountry" required="" (change)="changeCountry()">
+                            <option  value="" selected="" disabled=""> Select a Country</option>
+                            <option  *ngFor="let count of roasteryProfileService.countryList" value="{{ count.isoCode }}" >{{ count.name }}</option>
+                        </select>
                     </div>
 
                     <div class="col-12 col-md-4 Onboard-input">
@@ -38,7 +36,26 @@
 
             </div>
         </div>
-
+        <div class="table-container mb-2 mt-4 col-12" *ngIf="vatService.editmode">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-header">
+                        <tr class="header-row">
+                            <th scope="col"> Country </th>
+                            <th scope="col"> Transaction </th>
+                            <th scope="col"> VAT Rate </th>
+                        </tr>
+                    </thead>
+                    <tbody class="customtable">
+                        <tr *ngFor="let item of this.vatService.b2bEcommerceList">
+                            <td>{{getCountryName(item.country | uppercase)}}</td>
+                            <td> {{item.transaction_type}} </td>
+                            <td> {{item.vat_percentage}}% </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
     </div>

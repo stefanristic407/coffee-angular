@@ -75,6 +75,9 @@ import { WelcomeAboardComponent } from "./welcome-aboard/welcome-aboard.componen
 import { BatchSelectAnOrderComponent} from "./batch-select-an-order/batch-select-an-order.component";
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent} from './Farm Link/coffee-experience/default-setting/default-setting.component';
+import { GreenCoffeeForSaleDetailsComponent} from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component'
+import { from } from 'rxjs';
+import {ApiRequestsTableComponent} from './api-requests/api-requests-table/api-requests-table.component';
 
 const routes: Routes = [
   {
@@ -312,6 +315,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: "green-coffee-for-sale-details",
+        component: GreenCoffeeForSaleDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
         path: "coffee-sale",
         component: CoffeeSaleComponent,
         canActivate: [AuthGuard],
@@ -444,6 +452,11 @@ const routes: Routes = [
       {
         path: "default-setting",
         component: DefaultSettingComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path:"api-requests-list",
+        component:ApiRequestsTableComponent,
         canActivate: [AuthGuard],
       },
       {

@@ -7,6 +7,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { SourcingService } from '../../sourcing.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { UserserviceService } from 'src/services/users/userservice.service';
 
 
 @Component({
@@ -43,6 +44,7 @@ availableConfirmActive:any=0;
   roaster_id: string;
   shippingAddress_id: any;
   billingAddress_id: any;
+  estate_id: any;
 
 constructor(private modalService: BsModalService,
   public confirmOrderService : RoasteryProfileService,
@@ -53,6 +55,7 @@ constructor(private modalService: BsModalService,
   private cookieService : CookieService,
   private toastrService : ToastrService,
   private roasterService : RoasterserviceService,
+  private userService : UserserviceService
   ) {
     this.roaster_id = this.cookieService.get('roaster_id');
 
@@ -185,21 +188,22 @@ onKeyPress(event: any) {
     document.getElementById(event.target.id).style.border = "1px solid #d6d6d6";
   }
 }
-getBooleanService(){
-  if(this.service == "Import & Delivery service"){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
+
 
 done(){
+
+  if(this.service == "Import & Delivery service"){
+    this.userService.getShippingInfo(this.roaster_id,this.estate_id).subscribe(
+      response => {
+        
+      }
+    )
+  }
   var data = {
     'quantity_count' : this.quantity,
     'shipping_address_id' : this.shippingAddress_id,
     'billing_address_id' : this.billingAddress_id,
-    'is_fully_serviced_delivery' : this.getBooleanService()
+    'is_fully_serviced_delivery' : this.service == "Import & Delivery service" ? true : false
   }
 this.roasterService.placeOrder(this.roaster_id,this.sourcing.harvestData,data).subscribe(
 data => {

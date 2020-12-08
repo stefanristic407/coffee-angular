@@ -18,6 +18,7 @@ export class AvailableCoffeeListComponent implements OnInit {
 	items: GalleryItem[];
 	appLanguage?: any;
 	availableCoffeeActive:any=0;
+	brandProfileEstateWeb: string= "https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee";
 
 
 	public data = [
@@ -205,7 +206,6 @@ export class AvailableCoffeeListComponent implements OnInit {
 	certify: any;
 	countryValue: any;
 	flavourName: any;
-	brandProfileEstateWeb: string= "https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee";
 	temperature:any;
 	showTemperature: boolean = true;
 	hourly:any;
@@ -312,4 +312,5 @@ GetCountry(data:any){
 				}
 			}
 		}
+	
 }

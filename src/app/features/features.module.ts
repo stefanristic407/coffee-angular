@@ -150,6 +150,10 @@ import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orde
 import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
 import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
+import { GreenCoffeeForSaleDetailsComponent } from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component';
+import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
+import { ApiKeyRequestsComponent } from './api-requests/api-requests-table/api-key-requests/api-key-requests.component';
+import { GeneratedKeysComponent } from './api-requests/api-requests-table/generated-keys/generated-keys.component';
 
 
 
@@ -269,6 +273,10 @@ import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-s
     MicroRoasterOrdersComponent,
     HorecaOrdersComponent,
     DefaultSettingComponent,
+    GreenCoffeeForSaleDetailsComponent,
+    ApiRequestsTableComponent,
+    ApiKeyRequestsComponent,
+    GeneratedKeysComponent,
   
  
   ],

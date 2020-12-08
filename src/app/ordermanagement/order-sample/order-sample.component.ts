@@ -41,6 +41,8 @@ export class OrderSampleComponent implements OnInit {
 	newvalue: any = 2;
 	appLanguage?: any;
 	orderSampleActive:any =0;
+	recievedShow: boolean = false;
+	shippmentShow :boolean = false;
 
 	constructor(private sampleService: OrderSampleService, private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
@@ -55,7 +57,7 @@ export class OrderSampleComponent implements OnInit {
 		//Fills the time line based on the status selected in estate order.
 		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
 		console.log("the data from table trigger is  : " + this.dataFromTable);
-		if (this.dataFromTable == "Order Confirmed") {
+		if (this.dataFromTable == "Order confirmed") {
 			this.sampleValueToShow = "Order Confirmed";
 			setTimeout(() => {
 				this.orderConfirmSample();
@@ -178,9 +180,24 @@ export class OrderSampleComponent implements OnInit {
 	cancelOrder() {
 		this.orderSampleTimeline = false;
 		this.confirmShow = false;
+		this.recievedShow=false;
+		this.shippmentShow =false;
 		this.cancelShow = true;
 	}
-
+	receivedDate(){
+		this.orderSampleTimeline = false;
+		this.confirmShow = false;
+		this.cancelShow = false;
+		this.shippmentShow =false;
+		this.recievedShow=true;
+	}
+	wrongShippment(){
+		this.orderSampleTimeline = false;
+		this.confirmShow = false;
+		this.cancelShow = false;
+		this.recievedShow =false;
+		this.shippmentShow=true;
+	}
 	language(){
 		this.appLanguage = this.globals.languageJson;
 		this.orderSampleActive++;

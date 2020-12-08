@@ -211,12 +211,11 @@ export class LoginComponent implements OnInit {
           else if (data['success'] == true) {
             // this.loginButtonValue = "Login";
             this.loginButtonValue = "Logging in";
-            console.log("Login Successfully with user_id : " + data['result'].user_id);
             this.cookieService.set('user_id', data['result'].user_id);
             this.cookieService.set('Auth', data['Authorization']);
-			this.cookieService.set('roaster_id', data['result'].roaster_ids[0]);
+			this.cookieService.set('roaster_id', data['result'].roasters.id);
 			
-			this.userService.getUserPermissions(data['result'].roaster_ids[0]).subscribe(
+			this.userService.getUserPermissions(data['result'].roasters.id).subscribe(
 				result => {
 					if(result['success'] == true){
             this.permissionList=result['result'];
@@ -243,44 +242,39 @@ export class LoginComponent implements OnInit {
 			});
             //this.toastrService.success("Logged in Successfully");
             //        this.router.navigate(["/features/welcome-aboard"]);
-            this.userService.getRoasterAccount(data['result'].roaster_ids[0]).subscribe(
+            this.userService.getRoasterAccount(data['result'].roasters.id).subscribe(
               result => {
                 if (result['success'] == true) {
                   this.loginButtonValue = "Logging in";
                   this.cookieService.set('name', result['result'].name);
-                  
                   if (result['result'].status == "ACTIVE") {
-                    
-                  this.userService.getRoasterProfile(data['result'].roaster_ids[0]).subscribe( res => {
+                  this.userService.getRoasterProfile(data['result'].roasters.id).subscribe( res => {
                     if(res['success'] == false){
                       this.loginButtonValue = "Login";
                       this.myAlertPermission();
                     }else{
-
-                  
+                      this.cookieService.set('referral_code',res['result'].referral_code);
                     this.userService.getPrivacyTerms().subscribe(
                       response => {
                         if(response['result'].access_account == false){ 
                           this.value = "login";
                           let navigationExtras: NavigationExtras = {
-                          queryParams: {
-                            "data": encodeURIComponent(this.value),
+                            queryParams: {
+                              "data": encodeURIComponent(this.value),
+                            }
                           }
-                        }
-                        this.router.navigate(['/auth/privacy-policy'], navigationExtras);
-						this.loginButtonValue = "Login";
-						
-                        }
-                        else {
-              this.toastrService.success("Logged in Successfully");
-                if(localStorage.getItem('redirectUrl')){
-                  const url = localStorage.getItem('redirectUrl');
-                  localStorage.removeItem('redirectUrl');
-                  this.router.navigate([url]);
-                } else {
-                            this.router.navigate(["/features/welcome-aboard"]);
-                            this.loginButtonValue = "Login";
-                }
+                          this.router.navigate(['/auth/privacy-policy'], navigationExtras);
+                          this.loginButtonValue = "Login";
+                        } else {
+                          this.toastrService.success("Logged in Successfully");
+                          if(localStorage.getItem('redirectUrl')){
+                            const url = localStorage.getItem('redirectUrl');
+                            localStorage.removeItem('redirectUrl');
+                            this.router.navigate([url]);
+                          } else {
+                                      this.router.navigate(["/features/welcome-aboard"]);
+                                      this.loginButtonValue = "Login";
+                          }
                         }
                       });
                     }

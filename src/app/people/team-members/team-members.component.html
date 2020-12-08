@@ -98,7 +98,7 @@
                                             &nbsp;<img src="assets/images/down-arrow.svg" /></p>
                                     </a>
                                 </th>
-                                <th scope="col">{{globals.languageJson?.actions}}</th>
+                                <!-- <th scope="col">{{globals.languageJson?.actions}}</th> -->
                             </tr>
                         </thead>
                         <tbody class="customtable" *ngIf="this.globals.permissions['user-management'].view || this.globals.permissions['user-management'].manage">
@@ -130,24 +130,20 @@
                                     </div>
                                 </td>
                                
-                                <td>
+                                <!-- <td>
                                     <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                                         <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
                                     </a>
                                     <ng-template #poplistTemplate id="{{user.id}}">
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
-                                                <!-- <li class="list-group-item"> <a class="pointer-item" (click)="pop.hide();">Download </a></li>
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Pin</a></li> -->
-                                                <!-- <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Rename</a></li>
-                                                <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">Comment</a></li> -->
                                                 <li class="list-group-item" *ngIf="user.id != loginId">
                                                     <a class="pointer-item" (click)="openDeleteModal(deleteTemplate,user.id); pop.hide()">{{globals.languageJson?.delete}}</a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </ng-template>
-                                </td>
+                                </td> -->
                             </tr>
                         </tbody>
             </table>

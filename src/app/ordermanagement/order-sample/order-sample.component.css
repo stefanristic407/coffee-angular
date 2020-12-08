@@ -642,19 +642,12 @@ li.nav-item {
     border-style: solid !important;
     border-color: transparent transparent #ffffff transparent !important;
 }
-
-/* .table_ellipsis {
-    max-width: 72px!important;
-    width: 54px !important;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    cursor: pointer;
-} */
-
-
-/* tooltiptext ends*/
-
+.have-sample{padding: 12px 50px 12px 50px !important}
+.havent-sample {padding: 12px 44px 12px 44px !important;}
+.feedback-sample{padding: 12px 42px !important;}
+.raise-sample{padding: 12px 54px !important;}
+.buy-sample{padding: 12px 68px !important;}
+.browse-sample-received{padding: 12px 24px !important;}
 
 /********************* media query css  **************************/
 

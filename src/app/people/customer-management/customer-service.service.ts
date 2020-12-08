@@ -34,6 +34,16 @@ export class CustomerServiceService {
 	total_employees: any;
 	capacity: any;
 	capacity_unit: any;
+	emailId:any;
+	pendingList: any;
+	pendingHorecaList: any;
+	admin_name: any;
+	pendingCompany: any;
+	pendingEmail: any;
+	pendingStatus: any;
+	headerValue:any;
+	pendingType: any;
+
   constructor( private roasterService: RoasterserviceService,
 	public cookieService: CookieService,
 	private userService:UserserviceService,
@@ -84,6 +94,7 @@ export class CustomerServiceService {
 				if(result['success']==true){
 					this.name = result['result'].name;
 					this.company_name = result['result'].company_name;
+					this.admin_name=result['result'].admin_name;
 					this.owner_name = result['result'].owner_name;
 					this.company_image_url = result['result'].company_image_url;
 					this.country = result['result'].country;
@@ -114,6 +125,7 @@ export class CustomerServiceService {
 					this.name = result['result'].name;
 					this.company_name = result['result'].company_name;
 					this.owner_name = result['result'].owner_name;
+					this.admin_name=result['result'].admin_name;
 					this.company_image_url = result['result'].company_image_url;
 					this.country = result['result'].country;
 					this.description = result['result'].description;
@@ -125,7 +137,6 @@ export class CustomerServiceService {
 					this.discount_percentage = result['result'].discount_percentage;
 					this.email = result['result'].email;
 					this.website = result['result'].website;
-					
 				}
 				else{
 					this.toastrService.error(" Error while getting the details");
@@ -164,8 +175,7 @@ export class CustomerServiceService {
 						this.toastrService.error("Error while disabling the company account");
 					}
 				}
-			  )
-			}
+			)}
 		}
 		else{
 			this.btnToggle = !this.btnToggle;
@@ -212,5 +222,32 @@ export class CustomerServiceService {
 	// 	}
 	//   }
 	
-
+	pendingMrDetails(){
+		this.userService.getMrCustomerPendingDetails(this.roasterId,this.emailId).subscribe(
+			res => {
+				if(res['success'] == true){
+					this.pendingList=res['result'][0];
+					this.pendingCompany=this.pendingList.name;
+					this.pendingEmail=this.pendingList.email;
+					this.pendingStatus=this.pendingList.status;
+					this.headerValue="Micro-Roaster";
+					console.log(this.pendingList);
+			}			
+		});			
+	}
+	pendingHorecaDetails(){
+		this.userService.getCustomerPendingDetails(this.roasterId,this.emailId).subscribe(
+			res => {
+				if(res['success'] == true){
+					this.pendingHorecaList=res['result'][0];
+					this.pendingCompany=this.pendingHorecaList.name;
+					this.pendingEmail=this.pendingHorecaList.email;
+					this.pendingStatus=this.pendingHorecaList.status;
+					this.pendingType=this.pendingHorecaList.type;
+					this.headerValue="HoReCa";
+					console.log(this.pendingHorecaList);
+				}			
+			}
+		);			
+	}
 }

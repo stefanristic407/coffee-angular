@@ -153,9 +153,9 @@
                         </td>
                         <td>
                             <div *ngFor="let value of user.roles" id="{{ value.id }}_{{ user.id }}">
-                                <button type="submit" id="delete_row" class=" delete_row" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openAssignRoleModal(deleteAssignTemplate,value.id, user.id)" name="action" value="DELETE">
-				<!-- <i class="fa fa-trash"></i> --> <img src="assets/images/delete.png" alt="">
-				</button>
+                                <!-- <button type="submit" id="delete_row" class=" delete_row" data-toggle="tooltip" data-placement="top" title="Delete" (click)="openAssignRoleModal(deleteAssignTemplate,value.id, user.id)" name="action" value="DELETE">
+				 <img src="assets/images/delete.png" alt="">
+				</button> -->
                                 <span class="delete_name_txt"> {{ value.name }} </span> <br />
                             </div>
                         </td>
@@ -182,11 +182,11 @@
                   <li class="list-group-item">
                     <a class="pointer-item">{{globals.languageJson?.send_recovery_email}}</a>
                                         </li>
-                                        <li class="list-group-item">
+                                        <!-- <li class="list-group-item">
                                             <a class="pointer-item" (click)="
                         openModal(template, user.id, user.name); pop12.hide()">{{globals.languageJson?.assign_role}}</a
                     >
-                  </li>
+                  </li> -->
                   <li
                     class="list-group-item"
                     *ngIf="user.status == 'ACTIVE' && user.id != loginId"

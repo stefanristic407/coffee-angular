@@ -100,39 +100,49 @@
 
                             <div class="roastery-fields">
                                 <div class="farm-input col-12 col-md-10 px-0">
-                                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Select your employees<span class="star">*</span> <span class="sub-text fnt-muli pull-right">0/10 words</span></label>
-                                    <input type="text" class="form-control banner-title" placeholder="Katie Patterson" name="title" id="title">
+                                    <ng-container *ngFor="let member of teamList">
+                                        <input type="text" class="form-control banner-title" placeholder="Katie Patterson" name="title" id="title" [(ngModel)]="member.name"> 
+                                        <span class="mt-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer" (click)="removeUser(member.id)">Remove</span>
+                                    </ng-container>
                                 </div>
                             </div>
 
-                            <div class="roastery-fields">
+                            <div class="roastery-fields"  *ngIf="!showAddEmp">
                                 <div class="farm-input col-12 col-md-10 px-0">
                                     <label class="label"></label>
-                                    <select name="Year" required="" class="form-control select-region" [(ngModel)]="select_user" (change)="addMember($event.target.value)">
+                                    <select name="Year" required="" class="form-control select-region" [(ngModel)]="addUserId">
                                         <option value="" selected="" disabled="">Select your employees</option>
-                                        <option *ngFor="let member of teamList" value={{member.id}}>{{ member.name }}
+                                        <option *ngFor="let member of roasterUsers" value={{member.id}}>{{ member.firstname }} {{member.lastname}}
                                         </option>
                                     </select>
+
+                                    <div class="col-12 col-md-12 mt-4 p-0" >
+                                        <button type="submit" class="assign_member_role save"  (click)="addMember();"  >
+                                                Add Contact<img *ngIf="assignButtonValue==='Adding'" class="loader" src="assets/images/orange-loader.gif"/></button>
+                                        <button type="submit" class="btn cancel_assign"(click)="cancelAssign();">
+                                            <span class="cancel_text" (click)="showAddEmp = true">Cancel</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="roastery-fields">
+                            <!-- <div class="roastery-fields">
                                 <div class="farm-input col-12 col-md-10 px-0">
                                     <label class="label"></label>
                                     <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="add-partner d-inline-flex align-items-center">
+                            <div class="add-partner d-inline-flex align-items-center" *ngIf="showAddEmp">
                                 <img src="assets/images/add-partner.svg">
-                                <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer"> Add employee  </span>
+                                <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer" (click)="showAddEmp = false;"> Add employee  </span>
 
                             </div>
 
                         </div>
 
                         <!-- accordion-->
-                        <div class="border mt-3 p-4">
+                        <!-- <div class="border mt-3 p-4">
                             <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Your team members</h4>
                             <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Select your emplyees to display on your website page.</p>
 
@@ -195,7 +205,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

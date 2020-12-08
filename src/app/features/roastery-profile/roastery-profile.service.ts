@@ -5585,6 +5585,8 @@ export class RoasteryProfileService {
   vat_nos: any;
   cmpy_rid: any;
   company_details_public: any=false;
+  showDelete : boolean = false;
+
   constructor(public userService : UserserviceService,
               public cookieService : CookieService,
               public roasterService : RoasterserviceService,
@@ -5850,6 +5852,7 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
     this.contactInfo = false;
     this.addMediaDiv = true;
     this.savemode = true;
+    this.showDelete = true;
     this.editmode = false;
   }
   preview(){

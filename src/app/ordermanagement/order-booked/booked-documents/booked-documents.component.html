@@ -1,1 +1,93 @@
-<p>booked-documents works!</p>
+<div class="col-12">
+    <!--  -->
+    <div class="w-100 ">
+        <div class="hover-filters d-inline-block pull-left">
+            <div class="d-inline border-total col-sm-6" id="status_id" [outsideClick]="true" (onShown)="toggleStatus();" (onHidden)="toggleStatus();" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
+                <p class="d-inline filter-text" *ngIf="termStatus == ''">Added by &nbsp;</p>
+                <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="termStatus == ''">
+                        &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item" >
+                    <p class="d-inline filter" *ngIf="termStatus != ''">
+                        {{ termStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="share-dwn pull-right">
+
+            <span data-toggle="modal" data-target="#createfolder" class="share-bor">
+            <img  src="assets/images/dwnd.png" alt="farm" class="dwnd-img" /><span  class="share-txt ml-1"> Download all </span>
+            </span>
+        </div>
+    </div>
+
+    <div class="estate-table web-farm pt-md-5">
+
+        <div class="table-responsive border-lots">
+            <table class="table">
+                <thead class="table-header">
+                    <tr class="header-row">
+                        <th>
+                            <label class="b-check first-t">
+                                            <input type="checkbox" checked="checked"  name="all" [checked]="isAllChecked()" (change)="checkAll($event)" >
+                                            <span class="checkmark"></span>
+                                        </label>
+                        </th>
+
+                        <th scope="col">Document name</th>
+                        <th scope="col">Date added</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody class="customtable">
+                    <tr class="ticket-boby-txt" *ngFor="let item of mainData">
+                        <td>
+                            <label class="b-check">
+                                            <input type="checkbox" name="sizecb[]" value="{{ item.id }}"  [(ngModel)]="item.state"/>
+                                            <span class="checkmark"></span>
+                                        </label>
+                        </td>
+
+                        <td>{{ item.documentdate}} </td>
+                        <td>{{ item.date}} </td>
+                        <td>{{ item.owner}}
+                            <p class="fnt-14 fnt-muli text-clr588 fnt-600"> Facilitator </p>
+                        </td>
+                        <td class="showcurser">
+                            <span><img class=" pr-2" src="assets/images/file-fld.png" alt="upload-icon"/></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="procedure text-center mt-3"> Load more </p>
+
+        </div>
+    </div>
+</div>
+
+
+<ng-template #allTemplate>
+    <div id="status-content">
+        <ul class="list-group">
+            <li class="list-group-item item-color" (click)="setStatus(''); pop2.hide()">
+                <a class="pointer-item" >All</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Kevin Bailey'); pop2.hide()">
+                <a class="pointer-item">Kevin Bailey</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Finca La Pampa');pop2.hide()">
+                <a class="pointer-item">Finca La Pampa</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Guadalupe Zajú'); pop2.hide()">
+                <a class="pointer-item">Guadalupe Zajú</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>

@@ -13,12 +13,12 @@
 
             <tbody>
                 <tr>
-                    <th>Estate</th>
+                    <th>Product name</th>
                     <td>Finca Guadalupe Zajú, Columbia
                     </td>
                 </tr>
                 <tr>
-                    <th>Total</th>
+                    <th>Lot ID</th>
                     <td>22345
                         <p class="view-detail">View details</p>
                     </td>
@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th>Bulk Ordered</th>
-                    <td>Sample</td>
+                    <td>booked</td>
                 </tr>
                 <tr>
                     <th>Rate per bag</th>
@@ -38,18 +38,6 @@
                 </tr>
 
             </tbody>
-            <!-- <tbody>
-                <tr>
-                    
-                    <td>Columbia</td>
-                    <td>Bourbon,Cautai</td>
-                    <td>Sample
-                     <p class="lot-link">View lot details &#x0003E;</p> 
-                    </td>
-                    <td>$450/bag</td>
-                    <td>$100</td>
-                </tr>
-            </tbody> -->
 
         </table>
     </div>
@@ -118,17 +106,15 @@
 
             <!-- <p class="status_paid" *ngIf="microroasterBookedService.statusPaid"> <img src="assets/images/statusPaid.svg"> PAID</p> -->
             <p class="status_paid" *ngIf="microroasterBookedService.statusPaid"> PAID</p>
-            <div *ngIf="microroasterBookedService.uploadShow"><button type="submit" class="btn receipt-btn mb-2" (click)="fileUpload.click()"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button></div>
-            <div *ngIf="microroasterBookedService.receiptShow"> <button type="button" class="btn receipt-btn mb-2"><img src=" assets/images/view.png " class="pr-2 ">View receipt</button></div>
+            <!-- <div *ngIf="microroasterBookedService.uploadShow"><button type="submit" class="btn receipt-btn mb-2" (click)="fileUpload.click()"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button></div> -->
+            <div *ngIf="microroasterBookedService.statusPaid"> <button type="button" class="btn receipt-btn mb-2"><img src=" assets/images/view.png " class="pr-2 ">View receipt</button></div>
             <p class="pb-md-2 mb-0 mt-3 mt-md-0"><a class="procedure mt-2 ">View payment procedure </a></p>
             <hr/>
-            <div class="track-info mt-4 pt-2 " *ngIf="microroasterBookedService.statusPaid ">
+            <!-- <div class="track-info mt-4 pt-2 " *ngIf="microroasterBookedService.statusPaid ">
                 <p class="track-info-title ">Tracking ID
-                    <!-- <img class="space ml-1" src="assets/images/open-icon.png " alt=" "> -->
                 </p>
-                <!-- <p class="track-id ">9274972094-29ei43</p> -->
                 <button class="btn track-btn"><span class="track">Track shipment</span></button>
-            </div>
+            </div> -->
             <!-- <div class="shipment-info mt-4 " *ngIf="microroasterBookedService.shipmentDone ">
                 <p class="shipment-title ">Shipment ID <img class="space " src="assets/images/open-icon.png " alt=" "></p>
                 <p class="shipment-id ">9274972094-29ei43</p>

@@ -20,7 +20,7 @@ export class PrebookGradeInfoComponent implements OnInit {
   // Function Name : Grade Info Timeline
   // Description: This function helps to fill the grade info timeline if graded by Facilitator is selected of order pre-book .
   gradeComplete() {
-    const completeClass = document.getElementById('gradedTimeline2');
+    const completeClass = document.getElementById('gradedTimeline1');
     completeClass.classList.add('completed');
     this.prebookService.afterGradeComplete = true;
     this.prebookService.beforeGradeComplete = false;

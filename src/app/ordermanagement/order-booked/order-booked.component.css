@@ -147,6 +147,8 @@
 .order-tracking:first-child:before {
     display: none;
 }
+
+
 /* 
 .order-tracking.completed:before {
     border: dashed 0.5px #d6d6d6;
@@ -343,8 +345,8 @@ li.nav-item {
 
 .nav-pills .nav-link.active {
     position: relative;
-    padding-right: 2rem;
-    padding-left: 2rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
     display: inline-block;
 }
 
@@ -632,6 +634,8 @@ li.nav-item {
     border-style: solid !important;
     border-color: transparent transparent #ffffff transparent !important;
 }
+
+
 /* 
 .table_ellipsis {
     max-width: 72px!important;
@@ -642,6 +646,14 @@ li.nav-item {
     cursor: pointer;
     position: relative;
 } */
+
+.no-havent-booked {
+    padding: 9px 32px 8px 32px !important;
+}
+
+.leave-feedback-booked {
+    padding: 9px 26px 8px 26px !important;
+}
 
 
 /***************Images**********************/

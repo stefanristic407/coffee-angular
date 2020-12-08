@@ -9,23 +9,31 @@
     <section>
         <div class="container sewn-container section-head-pad">
             <div class="bg-fff coffee-exp">
+                <div class=" row">
+                    <div class="col-lg-9 col-md-6">
+                        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                            <span class="sr-only"></span>
+                            <ul class="bread-nav">
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                </li>
 
-                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                    <span class="sr-only"></span>
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
+                                <li class="b-cum c-pink">{{globals.languageJson?.green_coffee_inventory}}</li>
+                                <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
 
-                        <li class="b-cum c-pink">{{globals.languageJson?.green_coffee_inventory}}</li>
-                        <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
-
-                    </ul>
-                </nav>
-
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="file-share-search">
+                            <img class="mr-1 mr-md-2" src="assets/images/search.svg">
+                            <input class="fadout-search" type="search" placeholder="Search by order id" name="filesTerm">
+                        </div>
+                    </div>
+                </div>
                 <section class="estate-orders-heading">
                     <h5 class="estate-order-title pt-3">{{globals.languageJson?.green_coffee_inventory}}</h5>
                     <p class="Give-your-end-users">Manage your procured coffee and mark coffee for sale</p>

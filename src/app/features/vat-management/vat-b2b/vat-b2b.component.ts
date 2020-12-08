@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { VatserviceService } from '../vatservice.service';
+import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 @Component({
   selector: 'app-vat-b2b',
   templateUrl: './vat-b2b.component.html',
@@ -7,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VatB2bComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, 
+    private toastrService: ToastrService,
+    public vatService:VatserviceService,
+    public roasteryProfileService : RoasteryProfileService,) { }
 
  
   ngOnInit(): void {
@@ -54,5 +60,18 @@ export class VatB2bComponent implements OnInit {
     });
     /*Onboarding end */
   }
-
+  getCountryName(code : any){
+    return this.roasteryProfileService.countryList.find(con => con.isoCode == code).name;	
+  }
+  changeCountry() {
+    // console.log("the selected country is : " + this.country);
+    this.roasteryProfileService.changeCountry(this.roasteryProfileService.country);
+  }
+  onKeyPress(event: any) {
+    if (event.target.value == "") {
+      document.getElementById(event.target.id).style.border = "1px solid #D50000";
+    } else {
+      document.getElementById(event.target.id).style.border = "1px solid #d6d6d6";
+    }
+  }
 }

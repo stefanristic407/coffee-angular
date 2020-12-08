@@ -453,6 +453,7 @@ export class UserserviceService {
       'horeca_name' : name,
       'horeca_type' : type
     };
+  
     return this.http.post(this.roasterUrl, data);
   }
 
@@ -803,4 +804,93 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
   }
+  getRoasterVatDetails(roaster_id:any,vat_data:any){
+    var data = {};
+    let params = new HttpParams();
+    params = params.append('vat_type', vat_data);
+    data['api_call'] = "/ro/" + roaster_id + "/vat-settings?"+params;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  addVatDetails(roaster_id:any, body: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/vat-settings";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+  getCustomerPendingDetails(roaster_id:any,email_id:any){
+    var data = {};
+    let params = new HttpParams();
+    params = params.append('email', email_id);
+    data['api_call'] = "/ro/" + roaster_id + "/hrc?"+params;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  getDefaultCoffeeExperience(roaster_id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/coffee-experience`;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  getMrCustomerPendingDetails(roaster_id:any,email_id:any){
+    var data = {};
+    let params = new HttpParams();
+    params = params.append('email', email_id);
+    data['api_call'] = "/ro/" + roaster_id + "/micro-roasters?"+params;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  getEstateGallery(estateId:any){
+    var data = {};
+    data['api_call'] =`/general/es/${estateId}/file-manager/all-files?file_module=Gallery`;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }  
+
+  getShippingInfo(roaster_id : any,estate_id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/estates/${estate_id}/shipping-info`;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  getAddresses(roaster_id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/addresses`;
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data)
+  }
+
+  addAddresses(roaster_id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/addresses`;
+    data["method"] = "POST";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data)
+  }
+  getUserSessions(): Observable<any> {
+    const data       = {};
+    data['api_call'] = `/users/sessions`;
+    data['token']    = this.cookieService.get('Auth');
+    data['method']   = 'GET';
+    const url = `${environment.apiURL}/es/api`;
+    return this.http.post(url, data).pipe(map(res => res));
+  }
+  deactivateAccount(): Observable<any> {
+    const data       = {};
+    data['api_call'] = `/co/users/deactivate`;
+    data['token']    = this.cookieService.get('Auth');
+    data['method']   = 'PUT';
+    return this.http.put(this.putUrl, data).pipe(map(res => res));
+  }
+
 }

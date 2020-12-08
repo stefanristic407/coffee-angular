@@ -3,7 +3,7 @@
         <div class="bg-fff">
 
             <div class="back-page mob-left w-100">
-                <a class="back-href fnt-500" routerLink="/features/sourcing"><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png"> Return to dashboard </a>
+                <a class="back-href fnt-500" routerLink="/features/dashboard"><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png"> Return to dashboard </a>
             </div>
 
             <div class="row pt-4">
@@ -18,12 +18,15 @@
             </div>
             <div class="row pt-4">
                 <div class="col-md-10 col-lg-8 Onboard-invite">
-                    <div class="Onboard-invite__inputs">
+                    <div class="Onboard-invite__inputs" *ngFor="let add of addUser;let i = index">
                         <div class="row">
 
-                            <div class="col-12 col-md-6 Onboard-input">
+                            <div class="col-12 col-md-10 Onboard-input">
                                 <label class="w-100">Enter e-mail address *</label>
-                                <input class="w-100" type="email" placeholder="Please enter your e-mail address">
+                                <input class="w-100" type="email" placeholder="Please enter your e-mail address" [(ngModel)]="add.email"  [ngModelOptions]="{standalone: true}"  >
+                                <span class="member-delete-rows fnt-muli fnt-700 txt-clr60b" *ngIf="i != 0" (click)="deleteRow(i)">
+                                    Delete
+                                 </span>
                             </div>
 
                         </div>
@@ -31,14 +34,10 @@
                     </div>
                     <div class="add-partner d-inline-flex align-items-center">
                         <img src="assets/images/add-partner.svg">
-                        <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer "> Add another friend/colleague </span>
-
+                        <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer " (click)="addNewRow()"> Add another friend/colleague </span>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </section>

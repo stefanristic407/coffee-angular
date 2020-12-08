@@ -1,0 +1,64 @@
+<section>
+    <div class="container sewn-container section-head-pad">
+<div class="bg-fff">
+        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
+            <span id="title-breadcrumb-1" class="sr-only"></span>
+            <div class="row">
+                <div class="col-lg-8 col-md-6">
+            <ul class="bread-nav">
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                </li>
+                <!-- <li class="b-cum">
+                    <a class="b-cum" routerLink="/ordermanagement/myorders">Order management</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt="">
+                    </span>
+                </li> -->
+    
+                <li class="b-cum c-pink">API Requests</li>
+    
+    
+            </ul>
+        </div>
+        <!-- <div class="col-lg-4 col-md-6">
+            <div class="file-share-search">
+                    <img class="mr-1 mr-md-2" src="assets/images/search.svg">
+                    <input class="fadout-search" type="search" placeholder="Search by order id"  name="filesTerm">
+                </div>
+            <button type="submit" class="btn add-role-butn">Export</button>
+        </div> -->
+        </div>
+        </nav>
+    
+        <section class="estate-orders-heading">
+            <h5 class="estate-order-title">API Requests</h5>
+            <p>Accept, reject API key requests by customers and generate API keys.</p>
+        </section>
+    
+    
+        <div class="row">
+            <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-images-tab" data-toggle="pill" href="#pills-images" role="tab" aria-controls="pills-home" aria-selected="true">API Key Requests</a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-videos-tab" data-toggle="pill" href="#pills-videos" role="tab" aria-controls="pills-profile" aria-selected="false">Generated Keys</a>
+                    </li>
+                </ul>
+    
+                <div class="tab-content mt-md-4" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
+                        <app-api-key-requests></app-api-key-requests>
+                    </div>
+    
+                    <div class="tab-pane fade" id="pills-videos" role="tabpanel" aria-labelledby="pills-videos-tab">
+                        <app-generated-keys></app-generated-keys>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    </div>
+</section>    

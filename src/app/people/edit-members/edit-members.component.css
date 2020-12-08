@@ -326,3 +326,6 @@ label {
 .add-partner span:hover::after {
     width: 100%;
 }
+.cancel_assign:hover{
+    text-decoration: underline;
+}

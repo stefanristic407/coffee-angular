@@ -488,3 +488,8 @@ li.nav-item {
         top: 6.5rem;
     }
 }
+.cover-image{
+    height: 158px;
+    width: 100%;
+    object-fit: cover;
+}

@@ -33,6 +33,10 @@ export class AboutUsComponent implements OnInit {
   select_user = '';
   new_users = '';
   selectedMembers: []=[];
+  roasterUsers: any[]=[];
+  showAddEmp = true;
+  addUserId: any = '';
+  assignButtonValue = '';
 
   constructor(public globals: GlobalsService,
     private toastrService: ToastrService,
@@ -48,6 +52,7 @@ export class AboutUsComponent implements OnInit {
     this.language();
     this.getAboutDetails();
     this.getMembers();
+    this.getRoasterUsers();
   }
 
   language() {
@@ -229,25 +234,51 @@ export class AboutUsComponent implements OnInit {
     // console.log(value)
   }
 
-  getMembers() {
-    this.userService.getTeamMembers(this.roaster_id, 'top-contacts').subscribe((data) =>{
-      this.teamList = data['result']
+  getRoasterUsers() {
+    this.roasterService.getRoasterUsers(this.roaster_id).subscribe((data)=>{
+      if(data['success'] == true) {
+        this.roasterUsers = data['result'];
+      }
     })
   }
 
-  addMember(val) {
+  getMembers() {
+    this.userService.getTeamMembers(this.roaster_id, 'top-contacts').subscribe((data) =>{
+      this.teamList = data['result'];
+      console.log(data);
+    })
+  }
+
+  addMember() {
     // return;
     const payload = {
-      user_id: +val
+      user_id: +this.addUserId
     }
-    this.userService.addteamMember(this.roaster_id, payload).subscribe((data) =>{
-      // this.teamList = data['result'];
-      // console.log(data)
-      // this.selectedMembers
-      this.toastrService.success("Team Member added successfully");
+    this.roasterService.addRoasterContacts(this.roaster_id, payload).subscribe((data) =>{
+      if(data['success'] == true ) {
+      this.toastrService.success("Contact added successfully");
+      this.showAddEmp = true;
+      this.getMembers();
+      }
     },(err)=>{
       this.toastrService.error("Error while updating details");
     });
+  }
+
+  removeUser(id) {
+    this.roasterService.deleteRoasterContacts(this.roaster_id,id).subscribe((data)=>{
+      if(data['success'] == true ) {
+        this.toastrService.success("Contact removed successfully");
+        this.showAddEmp = true;
+        this.getMembers();
+      }
+    },(err)=> {
+      this.toastrService.success("Error while updating");
+    })
+  }
+
+  cancelAssign() {
+    this.showAddEmp = true;
   }
 
 }

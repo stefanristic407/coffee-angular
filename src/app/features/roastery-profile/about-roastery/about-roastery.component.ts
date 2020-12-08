@@ -71,7 +71,7 @@ export class AboutRoasteryComponent implements OnInit {
 ]
 addBtn : boolean = true;
 assignRow : boolean = false;
-showDelete : boolean = false;
+// showDelete : boolean = false;
 assignButtonValue : string = "Add Contact";
 
   	constructor(public roasteryProfileService : RoasteryProfileService,
@@ -165,7 +165,7 @@ addContact(){
 			  this.roasteryProfileService.emp_name = "";
 			  this.assignRow = false;
 			  this.addBtn = true;
-			  this.showDelete = true;
+			  this.roasteryProfileService.showDelete = true;
 			} else {
 			  this.assignButtonValue = "Add Contact"
 			  this.toastrService.error("Error while assigning the role");
@@ -177,9 +177,12 @@ addContact(){
 showContact(){
     this.addBtn = false;
     this.assignRow = true;
-    this.showDelete = true;
+    // this.showDelete = true;
   }
-
+  cancelAssign(){
+    this.addBtn = true;
+    this.assignRow = false;
+  }
   removeContact(contactId : any){
     this.roasterService.deleteRoasterContacts(this.roasterId,contactId).subscribe(
       data => {

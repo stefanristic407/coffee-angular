@@ -405,11 +405,13 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   }
 
   
-  redirectToLots(){
-	this.backValue = true;
+  redirectToLots(data:any){
+  this.backValue = true;
+  this.listData = data.estate_id;
     let navigationExtras: NavigationExtras = {
       queryParams: {
         "dataLots": encodeURIComponent(this.backValue),
+        "listData": this.listData
       }
     }
 

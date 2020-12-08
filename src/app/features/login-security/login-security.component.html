@@ -88,68 +88,24 @@
 
                                 <div class="pt-4">
                                     <div class="login-history">{{globals.languageJson?.login_history}}</div>
-                                    <div class="row mt-2 history-div border-login">
+                                    <div class="row mt-2 history-div border-login" *ngFor="let session of sessions">
                                         <div class="p-0">
-                                            <img class="img-estate" src="assets/images/sytem-login.svg" alt="User"></div>
+                                            <img class="img-estate" src="assets/images/sytem-login.svg" alt="User">
+                                        </div>
                                         <div class="pull-left">
                                             <ul class="session-list p-0 ml-2">
-                                                <li class="session">Session <span class="current-session ml-1">&#9679;&nbsp;Current Session</span></li>
+                                                <li class="session">Session <span *ngIf="session.current_session" class="current-session ml-1">&#9679;&nbsp;Current Session</span></li>
                                                 <li class="session-details">
-                                                    April 16, 2020 at 4:19 pm </li>
-                                                <li class="logout-current fnt-muli mob">Log out</li>
+                                                    {{session.logged_in_at | date:'medium'}} </li>
+                                                <li class="logout-current fnt-muli mob cursor-pointer" *ngIf="session.current_session" (click)="userLogout()">Log out</li>
+                                                <li class="logout fnt-muli mob" *ngIf="!session.current_session">Active</li>
                                             </ul>
                                         </div>
                                         <div class="pull-right ml-auto desk">
-                                            <span class="logout-current pl-1 fnt-muli ">Log out</span>
+                                            <span class="logout-current pl-1 fnt-muli cursor-pointer" *ngIf="session.current_session" (click)="userLogout()">Log out</span>
+                                            <span class="logout pl-1 fnt-muli " *ngIf="!session.current_session">Active</span>
                                         </div>
                                     </div>
-                                    <div class="row mt-2 history-div border-login">
-                                        <div class="p-0">
-                                            <img class="img-estate" src="assets/images/sytem-login.svg" alt="User"></div>
-                                        <div class="pull-left">
-                                            <ul class="session-list p-0 ml-2">
-                                                <li class="session">Session
-                                                </li>
-                                                <li class="session-details">
-                                                    April 16, 2020 at 4:19 pm </li>
-                                                <li class="logout fnt-muli mob">Logged out</li>
-                                            </ul>
-                                        </div>
-                                        <div class="pull-right ml-auto desk">
-                                            <span class="logout pl-1 fnt-muli ">Logged out</span>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2 history-div border-login">
-                                        <div class="p-0">
-                                            <img class="img-estate" src="assets/images/sytem-login.svg" alt="User"></div>
-                                        <div class="pull-left">
-                                            <ul class="session-list p-0 ml-2">
-                                                <li class="session">Session </li>
-                                                <li class="session-details">
-                                                    April 16, 2020 at 4:19 pm </li>
-                                                <li class="logout fnt-muli mob">Logged out</li>
-                                            </ul>
-                                        </div>
-                                        <div class="pull-right ml-auto desk">
-                                            <span class="logout fnt-muli pl-1">Logged out</span>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2 history-div border-login">
-                                        <div class="p-0">
-                                            <img class="img-estate" src="assets/images/sytem-login.svg" alt="User"></div>
-                                        <div class="pull-left">
-                                            <ul class="session-list p-0 ml-2">
-                                                <li class="session">Session</li>
-                                                <li class="session-details">
-                                                    April 16, 2020 at 4:19 pm </li>
-                                                <li class="logout fnt-muli mob">Logged out</li>
-                                            </ul>
-                                        </div>
-                                        <div class="pull-right ml-auto desk">
-                                            <span class="logout fnt-muli pl-1">Logged out</span>
-                                        </div>
-                                    </div>
-
                                 </div>
 
                                 <div class="pt-4">
@@ -184,11 +140,9 @@
             </div>
             <div class="do-account pt-2">{{globals.languageJson?.deactivate_question}}</div>
             <div class="pt-4">
-                <button class="btn yes-btn">{{globals.languageJson?.yes}}</button>
+                <button class="btn yes-btn" (click)="deactivateAccount()">{{globals.languageJson?.yes}}</button>
                 <button class="btn no-btn ml-2" (click)="modalRef.hide();">No </button>
             </div>
-
-
         </div>
     </ng-template>
 </div>

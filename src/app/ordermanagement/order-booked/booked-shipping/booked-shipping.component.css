@@ -1,0 +1,44 @@
+.list-que {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+
+.list-ans {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: #ebebeb;
+}
+
+.bulk-details-content {
+    padding-right: 2rem;
+    /* border-right: 1px solid #dddddd; */
+}
+
+.sub-title {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    padding-bottom: 0.5rem;
+}

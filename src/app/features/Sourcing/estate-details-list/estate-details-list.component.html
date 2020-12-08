@@ -32,7 +32,7 @@
                                         </div>
                                     </div>
                                     <div class="source-knowmore pull-right mt-4 mt-md-0">
-                                        <a class="contact-us">{{globals.languageJson?.contact_us}}</a>
+                                        <a class="contact-us" routerLink="/features/sourcing-chat">{{globals.languageJson?.contact_us}}</a>
                                         <a class="know-more" (click)="brandProfileSite()">{{globals.languageJson?.know_more}}</a>
                                     </div>
                                 </div>
@@ -346,9 +346,9 @@
                                 <!-- End Green coffee-->
                                 <!-- gallery-->
                                 <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="nav-profile-tab5">
-                                    <div class="cardpanel-detail">
+                                    <div class="cardpanel-detail" *ngIf="galleryImages != null">
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-6 col-6 gals">
+                                            <!-- <div class="col-lg-4 col-md-6 col-6 gals">
                                                 <div class="position-relative">
                                                     <img src="assets/images/gal1.png" alt="">
                                                     <div class="video-part">
@@ -356,11 +356,14 @@
                                                     </div>
                                                 </div>
 
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 col-6 gals">
-                                                <img src="assets/images/gal6.png" alt="">
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 col-6 gals">
+                                            </div> -->
+                                                <div class="col-lg-4 col-md-6 col-6 gals" *ngFor="let image of galleryImages">
+                                                    <!-- <img src="assets/images/gal6.png" alt=""> -->
+                                                    <img *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="Image">
+                                                    <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
+                                                </div>
+                                            
+                                            <!-- <div class="col-lg-4 col-md-6 col-6 gals">
                                                 <img src="assets/images/gal2.png" alt="">
                                             </div>
                                             <div class="col-lg-8 col-md-6 col-6 gals">
@@ -382,9 +385,20 @@
                                             </div>
                                             <div class="col-lg-4 col-md-6 col-6 gals">
                                                 <img src="assets/images/gal5.png" alt="">
-                                            </div>
+                                            </div> -->
                                             <div class="w-100 chat-div d-md-block d-none">
                                                 <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="galleryImages == ''">
+                                        <div class="col-lg-12 col-md-12 no-data-sec">
+                                            <div class="text-center ">
+                                                <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                                                <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
+                                                <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                                                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
+                                
                                             </div>
                                         </div>
                                     </div>

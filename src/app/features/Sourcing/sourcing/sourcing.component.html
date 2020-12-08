@@ -98,7 +98,7 @@
 
                             </div>
                         </div>
-                        <div class="hover-filters d-inline-block">
+                        <!-- <div class="hover-filters d-inline-block">
                             <div class="d-inline border-grade col-sm-6">
                                 <p class="d-inline filter-text">{{globals.languageJson?.advanced_search}}&nbsp;</p>
                                 <a class="pointer-item">
@@ -108,7 +108,7 @@
                                 </a>
 
                             </div>
-                        </div>
+                        </div> -->
                         <div class="hover-filters d-inline-block">
                             <div class="d-inline border-grade col-sm-6" id="weight_id">
                                 <!-- <p class="d-inline filter-text" *ngIf="weight == ''">KG&nbsp;</p>
@@ -215,7 +215,7 @@
                                                                         </div>
                                                                         <div class="s-cert" (click)="estateList(sample)">
                                                                             <ul class="flex">
-                                                                                <li *ngFor="let cert of sample.certificates | slice:0:3">
+                                                                                <li *ngFor="let cert of sample.certificates | slice:0:2">
                                                                                     <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
                                                                                     <img *ngIf="getCertificateData(cert)==''" src="" alt="">
                                                                                 </li>
@@ -248,7 +248,7 @@
                                                                         <span *ngIf="sample.lots== null" (click)="estateList(sample)">
                                                                                 <a>NA</a>
                                                                             </span>
-                                                                        <span *ngIf="sample.lots!= null" (click)="redirectToLots()">
+                                                                        <span *ngIf="sample.lots!= null" (click)="redirectToLots(sample)">
                                                                                 <a *ngFor="let lotdata of sample.lots | slice:0:3" >
                                                                                     {{lotdata.name}}
                                                                                 </a>
@@ -289,7 +289,7 @@
                                                                                     <!-- <li><img src="/assets/images/group-certificate.png"></li>
                                                                                     <li><img src="/assets/images/group-utz.png"></li>
                                                                                     <li><img src="/assets/images/group-certified.png"></li> -->
-                                                                                    <li *ngFor="let cert of sample.certificates | slice:0:3">
+                                                                                    <li *ngFor="let cert of sample.certificates | slice:0:2">
                                                                                         <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
                                                                                         <img *ngIf="getCertificateData(cert)==''" src="" alt="">
                                                                                     </li>
@@ -387,7 +387,7 @@
                                                                         <!-- {{ estate.cropyear }}  -->
                                                                     </td>
                                                                     <td class="lots-space">
-                                                                        <div *ngIf="estate.lots!= null" (click)="estateList(estate)">
+                                                                        <div *ngIf="estate.lots!= null" (click)="redirectToLots(estate)">
                                                                             <a class="lot-class pr-3 mb-2" *ngFor="let lotdata of estate.lots | slice:0:3">{{lotdata.name}}</a>
                                                                             <a class="lot-class mb-2" *ngIf="estate.lots.length>3">+{{(estate.lots.length)-3}}more</a>
                                                                         </div>
@@ -395,7 +395,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <span *ngIf="estate.certificates!= null">
-                                                                        <span *ngFor="let cert of estate.certificates | slice:0:3">
+                                                                        <span *ngFor="let cert of estate.certificates | slice:0:2">
                                                                                 <img class="list-img" *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
                                                                             <!-- <img class="pr-2" src="/assets/images/group-certificate.png"/> <img class="pr-2" src="/assets/images/group-utz.png"><img src="/assets/images/group-certified.png"> -->
                                                                         </span></span>

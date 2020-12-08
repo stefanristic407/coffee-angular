@@ -32,16 +32,11 @@ export class HoReCaComponent implements OnInit {
     private roasterService: RoasterserviceService,
     private toastrService: ToastrService,
 	public modalService: BsModalService,
-  public globals: GlobalsService,
-  public customerService : CustomerServiceService ) {
+	public globals: GlobalsService,
+	public customerService : CustomerServiceService ) {
     this.estateId = this.cookieService.get('estate_id');
     this.roasterId = this.cookieService.get('roaster_id');
- 
-
   }
-
-
-
   ngOnInit(): void {
     //Auth checking
     if (this.cookieService.get("Auth") == "") {
@@ -73,7 +68,10 @@ export class HoReCaComponent implements OnInit {
 
   shareDetails(size: any) {
     if(size.status== 'PENDING'){
-        this.router.navigate(['/people/pending-details']);
+      this.customerService.emailId=size.email;
+      // this.customerService.headerValue="HoReCa";
+      this.customerService.pendingHorecaDetails();
+      this.router.navigate(['/people/pending-details']);
   	}
 	else{
 		this.itemId = size.id;

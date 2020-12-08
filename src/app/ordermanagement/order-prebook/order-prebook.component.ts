@@ -207,7 +207,7 @@ export class OrderPrebookComponent implements OnInit {
 
     //Fills the time line based on the status selected in estate order.
     this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
-    if (this.dataFromTable == "Order Confirmed") {
+    if (this.dataFromTable == "Order confirmed") {
       this.valueToShow = "Order Confirmed";
       setTimeout(() => {
         this.orderConfirm();
@@ -313,10 +313,10 @@ export class OrderPrebookComponent implements OnInit {
   }
   // Function Name : Order Pre-Book Buy the order
   // Description: This function helps to buy the order and redirects to order-confirm page.
-  buyIt() {
-    this.orderTimeline = true;
-    this.cancelShow = false;
-  }
+  // buyIt() {
+  //   this.orderTimeline = true;
+  //   this.cancelShow = false;
+  // }
 
   //Click on harvest button scrolls to harvest div
 

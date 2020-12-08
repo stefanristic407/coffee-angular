@@ -108,8 +108,8 @@
 }
 
 .estate-focus ul li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+    /* border-bottom: none;
+    padding-bottom: 0; */
 }
 
 .estate-focus ul li label {
@@ -741,7 +741,7 @@ ul li {
 ngx-charts-line-chart {
     overflow: auto
 }
-
+.know-listing{color: #80460b;cursor: pointer;text-decoration: underline;padding-top: 20px;}
 @media (max-width:640px) {
     .source-cont-available {
         padding: 24px 8px;

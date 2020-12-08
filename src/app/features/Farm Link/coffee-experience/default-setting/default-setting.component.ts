@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-default-setting',
@@ -12,7 +14,10 @@ export class DefaultSettingComponent implements OnInit {
   appLanguage?: any;
 	coffeeDetailsActive:any = 0;
 
-  constructor(public globals: GlobalsService) { }
+  constructor(public globals: GlobalsService , 
+              private userService : UserserviceService,
+              private toastrService : ToastrService,
+              ) { }
 
   ngOnInit(): void {
     this.language();

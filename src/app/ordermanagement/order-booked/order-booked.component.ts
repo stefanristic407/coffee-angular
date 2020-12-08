@@ -184,6 +184,8 @@ export class OrderBookedComponent implements OnInit {
 
   //Confirm Shippment shows and timeline hides
   receivedShippment() {
+    this.orderBookedTimeline = false;
+    this.cancelShow = false;
     this.shippmentShow = false;
     this.receivedOrderShow = true;
   }

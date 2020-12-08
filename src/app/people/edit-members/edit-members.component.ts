@@ -131,7 +131,6 @@ export class EditMembersComponent implements OnInit {
   showAssignRole(){
     this.addBtn = false;
     this.assignRow = true;
-    this.showDelete = true;
   }
   getUserData() {
     this.userService
@@ -297,6 +296,13 @@ export class EditMembersComponent implements OnInit {
     // this.addMediaDiv = true;
     this.savemode = true;
     this.editmode = false;
+    this.showDelete = true;
+
+  }
+
+  cancelAssign(){
+    this.addBtn = true;
+    this.assignRow = false;
   }
 
   removeRole(role_id : any){

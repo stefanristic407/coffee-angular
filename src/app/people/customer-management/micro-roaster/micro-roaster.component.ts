@@ -26,6 +26,7 @@ export class MicroRoasterComponent implements OnInit {
   appLanguage?: any;
   microActive:any=0;
   microRoasterWeb : string = 'https://qa-micro-roaster.sewnstaging.com';
+	emailId: any;
   constructor(public router: Router,
     public cookieService: CookieService,
     public dashboard: DashboardserviceService,
@@ -69,7 +70,10 @@ export class MicroRoasterComponent implements OnInit {
 
   shareDetails(size: any) {
 	if(size.status == 'PENDING')  {
-    this.router.navigate(['/people/pending-details']);
+    this.customer.emailId=size.email;
+    // this.customer.headerValue="Micro-Roaster";
+		this.customer.pendingMrDetails();
+    	this.router.navigate(['/people/pending-details']);
 	}
 	else{
 		this.folderId = size.id;

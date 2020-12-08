@@ -15,19 +15,7 @@
                 </a>
             </div>
         </div>
-        <!-- <div class="d-inline border-total role-div col-sm-6" id="display_id">
-            <p class="d-inline filter-text" >{{globals.languageJson?.display}}<span class="brand-dot">  </span></p>
-            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop9="bs-popover">
-                <p class="d-inline filter" *ngIf="display == '-1'" (click)="toggleDisplay()">
-                    &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                </p>
-            </a>
-            <a class="pointer-item" [popover]="displayTemplate" placement="bottom" container="body" #pop10="bs-popover">
-                <p class="d-inline filter" *ngIf="display != '-1'" (click)="toggleDisplay()">
-                    {{ display }} &nbsp;<img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                </p>
-            </a>
-        </div> -->
+
         <div class="d-inline display_div">
             <div class="hover-filters d-inline-block">
                 <div class="float-right border-order top-space" id="display_id">
@@ -52,12 +40,12 @@
         <table class="table">
             <thead class="table-header">
                 <tr class="header-row">
-                    <th>
+                    <!-- <th>
                         <label class="b-check first-t check-top-header">
                                         <input type="checkbox" checked="checked"  name="all" [checked]="isAllChecked()" (change)="checkAll($event)" >
                                         <span class="checkmark"></span>
                                     </label>
-                    </th>
+                    </th> -->
                     <th scope="col">Product Name</th>
                     <th scope="col">Availibility Name</th>
                     <th scope="col">
@@ -74,12 +62,12 @@
             </thead>
             <tbody class="customtable">
                 <tr class="ticket-boby-txt cursor-pointer" *ngFor="let item of mainData">
-                    <td>
+                    <!-- <td>
                         <label class="b-check check-middle-header">
                                         <input type="checkbox" name="sizecb[]" value="{{ item.id }}"  [(ngModel)]="item.state"/>
                                         <span class="checkmark"></span>
                                     </label>
-                    </td>
+                    </td> -->
                     <td>
                         {{ item.product_Name }}
                     </td>
@@ -94,7 +82,7 @@
                     <td>
                         {{item.status}}
                     </td>
-                    <td class="view-order">view</td>
+                    <td class="view-order" routerLink="/features/green-coffee-for-sale-details">view</td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
@@ -124,10 +112,13 @@
                 <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide();toggleStatus()">All</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Active'); pop.hide(); pop2.hide();toggleStatus()">Active</a>
+                <a class="pointer-item" (click)="setStatus('Instock'); pop.hide(); pop2.hide();toggleStatus()">Instock</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Disabled'); pop.hide(); pop2.hide();toggleStatus()">Disabled</a>
+                <a class="pointer-item" (click)="setStatus('Hidden'); pop.hide(); pop2.hide();toggleStatus()">Hidden</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus('Sold'); pop.hide(); pop2.hide();toggleStatus()">Sold</a>
             </li>
         </ul>
     </div>

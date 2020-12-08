@@ -116,7 +116,6 @@
                     <!-- Recieved Block -->
                     <div class="in-order mt-5 confirm-shippment" *ngIf="receivedOrderShow">
                         <div class="row">
-
                             <div class="col-lg-9 col-md-8 col-sm-12 d-flex">
                                 <div class="col-md-1 main pl-4">
                                     <span class="circle-image">
@@ -124,11 +123,10 @@
 									</span>
                                 </div>
                                 <div class="col-md-11 pl-0">
-                                    <h4 class="order-txt fnt-play">Order Received by Customer</h4>
-                                    <div class="confirm-grade pt-2">Wohoo! You have successfully recieved the bulk you ordered.
-                                    </div>
-                                    <div class="confirm-grade">
-                                        Please Rate and Review the customer to help us expand as a transparent community!</div>
+                                    <h4 class="order-txt fnt-play">Recieved by the Customer</h4>
+                                    <div class="confirm-grade order-mr pt-2">The order has been marked as recieved by the mirco roaster!</div>
+                                    <!-- <div class="confirm-grade">
+                                        Please Rate and Review the customer to help us expand as a transparent community!</div> -->
                                     <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback!</button>
 
                                 </div>
@@ -136,6 +134,23 @@
 									<button type="submit" class="yes-order btn mt-3">Buy it again </button>
 									<button type="submit" class="cancel-order btn mt-3">Browse other estates </button>
 								</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Waiting for Confirmation -->
+                    <div class="in-order mt-5 confirm-shippment" *ngIf="waitingConfirmShow">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-8 col-sm-12 d-flex">
+                                <!-- <div class="col-md-1 main pl-4">
+                                    <span class="circle-image">
+                                        <img src="assets/images/cricle-active.png">
+                                    </span>
+                                </div> -->
+                                <div class="col-md-11 pl-0">
+                                    <h4 class="order-txt fnt-play">Waiting for a confirmation from Micro-Roaster</h4>
+                                    <div class="confirm-grade order-mr pt-2">The micro-roaster will review the order received and confirm the order.</div>
+                                    <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback!</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -162,7 +177,7 @@
     <div class="col-lg-12">
         <div class="customer__amount">
             <div class="w-100 clearfix">
-                <div class="pull-left pt-3 text-data">When the order is ready to be shipped, please update the tracking link</div>
+                <div class="pull-left pt-3 text-data">When the order is ready to be shipped , please update the tracking link and the shipping date for the customers to keep a track. </div>
                 <div class="pull-right">
                     <input type="text" class="track-link mr-2" id="track-link" placeholder="Enter tracking link">
                     <p-calendar class="year mr-2" [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" inputId="navigators" placeholder="Estimated arrival date"></p-calendar>
@@ -190,7 +205,7 @@
                         </li>
                         <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a
                                         problem?</button>
-                                        <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
+                            <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                         </li>
                     </ul>
                     <!-- <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
@@ -228,36 +243,53 @@
                     </div>
                     <div class="d-none d-md-block">
                         <div class="d-flex mt-4">
-                            <div class="pull-left customer__details">Customer Details
+                            <div class="pull-left customer__details">Micro-roastery Details
                             </div>
                             <div class="pull-right ml-auto view-details">view details</div>
                         </div>
 
-                        <div class="d-flex mt-2 border-div flex-column flex-md-row">
-                            <div class="p-0"><img class="img-estate" src="assets/images/estate-details.png" alt="User">
-                            </div>
-                            <div>
-                                <ul class="details-list p-0 ml-3">
-                                    <li class="customer-name">Ritz Carlton</li>
-
-                                    <li class="d-flex rating-space">
-
+                        <div class="d-flex mt-3 border-div">
+                            <div class="p-0">
+                                <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                            <div class="pull-left">
+                                <ul class="details-list p-0 ml-2 ml-md-3">
+                                    <li class="estate-name">Toffee roasters</li>
+                                    <li class="estate-number pt-1">
                                         <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
-															class="" src="assets/images/star-1.png" alt="User"> <span
-															class="star-no pl-1">
-															4.95</span>
+                                            class="" src="assets/images/star-1.png" alt="User"> <span
+                                            class="star-no pl-1">
+                                            4.95</span>
                                         </span>
-
-                                    </li>
-                                    <li class="mt-4">
-                                            <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
-                                        <span class="bg-msg"> <img class="message-icon"
-															src="assets/images/message-icon.svg" alt="Message"><span
-															class="customer-message pl-2">Message</span> </span>
                                     </li>
                                 </ul>
                             </div>
+                            <div class="pull-right ml-auto">
+                                <div class="">
+                                    <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
+                                    <span class="bg-msg"> <img class="message-icon"
+                                                    src="assets/images/message-icon.svg" alt="Message"><span
+                                                    class="customer-message pl-2">Message</span> </span>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- note-->
+                <div class="shipping-div shipping-div--mbVesrion bg-shipping mt-4">
+                    <div class="shipping-div__info">
+
+                        <p class="delivery__addr">Notes</p>
+
+                        <p class="addr-text">Add special instructions or comments about the order for your team members </p>
+
+                        <div class="farm-input">
+                            <input type="text" placeholder="Add a comment">
+                        </div>
+
+                        <button class="note-btn mt-3"> Add a note </button>
+
+
                     </div>
                 </div>
             </div>
@@ -330,7 +362,7 @@
 
                     </div>
                     <div class="w-100 mt-4 mb-2 d-block d-md-none">
-                            <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
+                        <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                         <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center">Cancel order</button>
                     </div>
                 </div>
@@ -342,7 +374,7 @@
 
 
             <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
-                    <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
+                <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                 <button type="button" class="btn cancel-order-btn">Cancel order</button>
             </div>
             <div class="w-100 chat-div">

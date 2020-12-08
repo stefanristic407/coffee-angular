@@ -2,9 +2,6 @@
     <div class="row">
         <div class="col-12">
             <div class="d-md-flex flex-column order-fff w-100">
-
-
-
                 <div class="col-12 px-md-0 page-breadcrumb__nav">
                     <div class="col-lg-6 col-md-12 pull-left mr-auto pl-0 pr-0">
                         <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-2">
@@ -43,7 +40,7 @@
                             <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}} #12416 <span class="booked booked--pre ml-2">Pre-Booked</span>
                             </div>
 
-                            <div class="pt-2 note-prebooked"><span class="bold-note">{{globals.languageJson?.note}} :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div>
+                            <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div>
                         </div>
                         <div class="btn-div col-md-6 d-none d-md-inline-block pr-0">
                             <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none"> {{globals.languageJson?.order_invoice}}
@@ -98,7 +95,7 @@
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                     <p class="order-status  mt-2" (click)="gradedStatus()" matTooltip=" Graded by Facilitator" matTooltipClass="tooltiptext" #graded>
-                                                            Graded
+                                                        Graded
                                                     </p>
                                                 </div>
                                             </div>
@@ -125,8 +122,8 @@
 
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                    <button type="submit" class="yes-order btn mt-3 buy-order" (click)="buyIt()">Buy it</button><br />
-                                    <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/estate-orders">Browse other estates</button>
+                                <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">Buy it</button><br />
+                                <button type="submit" class="cancel-order browse-estates-prebook btn mt-3" routerLink="/ordermanagement/estate-orders">Browse other estates</button>
                                 <!-- <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
                                 <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}<img
                                         class="arrow-image1" src="assets/images/group.png" alt="arrow"></button> -->
@@ -167,9 +164,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{globals.languageJson?.order_details}}</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">{{globals.languageJson?.documents}}</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{globals.languageJson?.grade_info}}</a>
                         </li>
@@ -259,36 +256,30 @@
                         <div class="pull-right ml-auto view-details">{{globals.languageJson?.view_details}}</div>
                     </div>
 
-                    <div class="d-flex mt-2 border-div">
-                        <div class="p-0"><img class="img-estate" src="assets/images/estate-details.png" alt="User">
-                        </div>
-                        <div>
-                            <ul class="details-list p-0 ml-3">
-                                <li class="estate-name">Finca Guadalupe Zajú</li>
-                                <!-- <li>
-                                    <span class="estate-number pr-2">+420 6365719</span> <span class="vr-line">|</span>
-                                    <span class="pl-2 estate-mail">info@guadalupezaju.com</span>
-                                </li> -->
-                                <li class="d-flex rating-space">
-                                    <!-- <star-rating value="3" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true" (rate)="onRateBooked($event)"></star-rating>  -->
-                                    <!-- <star-rating value="4" totalstars={{totalstar}} checkedcolor="#deaf81" uncheckedcolor="#979797" size="19px" readonly="true"></star-rating>
-                        <p class="rating-value">{{this.newvalue.toFixed(1)}}</p> -->
+                    <div class="d-flex mt-3 border-div">
+                        <div class="p-0">
+                            <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                        <div class="pull-left">
+                            <ul class="details-list p-0 ml-2 ml-md-3">
+                                <li class="estate-name">Finca La Pampa</li>
+                                <li class="estate-number pt-1">
                                     <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
-                                            class="" src="assets/images/star-1.png" alt="User"> <span
-                                            class="star-no pl-1"> 4.95</span>
+                                        class="" src="assets/images/star-1.png" alt="User"> <span
+                                        class="star-no pl-1">
+                                        4.95</span>
                                     </span>
-
-                                </li>
-                                <li class="mt-4">
-                                    <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
- 
-                                        <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
-                                        <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
-                                        <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
                                 </li>
                             </ul>
                         </div>
+                        <div class="pull-right ml-auto">
+                            <div class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
+                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
+                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
+                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span>
+                            </div>
+                        </div>
                     </div>
+
                     <table class="recent-time">
 
                         <!-- <tr>

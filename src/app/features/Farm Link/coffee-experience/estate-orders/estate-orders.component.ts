@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-estate-orders',
@@ -15,7 +17,8 @@ export class EstateOrdersComponent implements OnInit {
   showDisplay:boolean = true;
   appLanguage?: any;
 
-  mainData:any[] = [
+  mainData:any[] = 
+  [
     { order_id: '12174', estate_name: 'Finca La Pampa', origin: 'Colombia', date_ordered: '24 Jan 2020',   date_recieved: '24 Jan 2020',  variety: 'Bourborn',quantity : '120kg', cup_Score: '84.5' },
     { order_id: '56076', estate_name: 'Gesha', origin: 'Colombia', date_ordered: '12 Jan 2020',date_recieved: '24 Jan 2020', variety: 'Bourborn',quantity : '120kg', cup_Score: '88'},
     {  order_id: '46930', estate_name: 'Finca La Toboba', origin: 'Ethiopia', date_ordered: '13 Oct 2018',date_recieved: '24 Jan 2020', variety: 'Bourborn',quantity : '120kg', cup_Score: '81.5' },
@@ -23,7 +26,10 @@ export class EstateOrdersComponent implements OnInit {
     { order_id: '12416', estate_name: 'Cafe Directo', origin: 'Ethiopia',  date_ordered: '03 Oct 2018',date_recieved: '24 Jan 2020', variety: 'Bourborn',quantity : '120kg', cup_Score: '82' },
     {  order_id: '71716', estate_name: 'La Isabela', origin: 'Colombia',  date_ordered: '19 Sep 2019',date_recieved: '24 Jan 2020', variety: 'Bourborn',quantity : '120kg', cup_Score: '84'},
   ]
-  constructor(public globals: GlobalsService) {
+  constructor(public globals: GlobalsService,
+              public userService : UserserviceService,
+              public toastrService : ToastrService) {
+                
     this.termStatus = '';
     this.display = '10';
    }
@@ -71,5 +77,7 @@ export class EstateOrdersComponent implements OnInit {
   isAllChecked() {
     return this.mainData.every(_ => _.state);
   } 
+
+
 
 }

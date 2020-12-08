@@ -24,45 +24,7 @@ export class TeamMembersComponent implements OnInit {
   showRole:boolean = true;
   term:any;
   appLanguage?: any;
-  teamActive:any=0;
-
-  // mainData:any[] = [
-  //   {
-  //     name: 'Luis Stanley',
-  //     lastLogin: '24/09/2019 11.45 am',
-  //     Email: 'louis.s@roaster.com',
-  //     status:'Active',
-  //     roles:'support-admin'
-  //   },
-  //   {
-  //     name: 'Lillian Duncan',
-  //     lastLogin: '4/09/2019 7.45 am',
-  //     Email: 'lillian.s@roaster.com',
-  //     status:'Disabled',
-  //     roles:'Marketing'
-  //   },
-  //   {
-  //     name: 'Lillian Duncan',
-  //     lastLogin: '14/11/2019 10.45 am',
-  //     Email: 'samein.s@roaster.com',
-  //     status:'Disabled',
-  //     roles:'support-admin'
-  //   },
-  //   {
-  //     name: 'Javin Duan',
-  //     lastLogin: '24/09/2019 11.45 am',
-  //     Email: 'javin.s@roaster.com',
-  //     status:'Active',
-  //     roles:'Marketing'
-  //   },
-  //   {
-  //     name: 'Lillian Duncan',
-  //     lastLogin: '5/12/2019 4.30 pm',
-  //     Email: 'lillian.s@roaster.com',
-  //     status:'Disabled',
-  //     roles:'Accountant'
-  //   }
-  // ]
+  teamActive:any = 0;
   roleData: string;
   roleID: string;
   userfilterDat: any = [];
@@ -83,7 +45,7 @@ export class TeamMembersComponent implements OnInit {
     private modalService: BsModalService,) { 
     this.roaster_id = this.cookieService.get('roaster_id');
     this.termStatus = '';
-  this.termRole = '';
+    this.termRole = '';
   
 	this.loginId = this.cookieService.get('user_id');
   }

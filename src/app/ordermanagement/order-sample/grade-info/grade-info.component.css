@@ -164,6 +164,7 @@
     /* left: calc(-90%); */
     z-index: 0;
     left: 1%;
+    border:none !important;
 }
 
 .mixups-tabs .order-tracking::before {

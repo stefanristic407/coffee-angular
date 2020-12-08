@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MicroOrderBookedService {
-  uploadShow: boolean = true;
+  	uploadShow: boolean = true;
 	statusPending : boolean = true;
 	statusPaid : boolean = false;
 	receiptShow : boolean = false;

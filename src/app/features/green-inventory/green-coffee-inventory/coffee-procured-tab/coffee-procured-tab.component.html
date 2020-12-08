@@ -2,7 +2,7 @@
     <div class="title-header">
         <div class="hover-filters d-inline-block">
             <div class="d-inline border-total col-sm-6" id="status_id" [outsideClick]="true" (onShown)="toggleStatus();" (onHidden)="toggleStatus();" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
-                <p class="d-inline filter-text" *ngIf="termStatus == ''">{{globals.languageJson?.status}}&nbsp;</p>
+                <p class="d-inline filter-text" *ngIf="termStatus == ''">All origins&nbsp;</p>
                 <a class="pointer-item">
                     <p class="d-inline filter" *ngIf="termStatus == ''">
                         &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
@@ -70,8 +70,8 @@
                     <th scope="col">Variety</th>
                     <th scope="col">{{globals.languageJson?.quantity}}</th>
                     <th scope="col">Cup score</th>
-                    <th scope="col"></th>
                     <th scope="col">{{globals.languageJson?.actions}}</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody class="customtable">
@@ -97,7 +97,7 @@
                     <td>
                         {{item.cup_Score}}
                     </td>
-                    <td class="view-order">view</td>
+                    <td class="view-order" routerLink="/features/procured-coffee">view</td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
@@ -126,11 +126,20 @@
             <li class="list-group-item item-color" (click)="setStatus(''); pop.hide();">
                 <a class="pointer-item">All</a>
             </li>
-            <li class="list-group-item item-color" (click)="setStatus('Active'); pop.hide();">
-                <a class="pointer-item">Active</a>
+            <li class="list-group-item item-color" (click)="setStatus('Brazil'); pop.hide();">
+                <a class="pointer-item">Brazil</a>
             </li>
-            <li class="list-group-item item-color" (click)="setStatus('Disabled'); pop.hide();">
-                <a class="pointer-item">Disabled</a>
+            <li class="list-group-item item-color" (click)="setStatus('Guatemala'); pop.hide();">
+                <a class="pointer-item">Guatemala</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Spain'); pop.hide();">
+                <a class="pointer-item">Spain</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Sweden'); pop.hide();">
+                <a class="pointer-item">Sweden</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Vietnam'); pop.hide();">
+                <a class="pointer-item">Vietnam</a>
             </li>
         </ul>
     </div>

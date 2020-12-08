@@ -173,12 +173,12 @@
 }
 
  ::ng-deep .table_ellipsis {
-    max-width: 45px;
+    max-width: 17%;
     /* width: 54px; */
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width: 10%;
+    width: 17%;
     /* position: relative; */
 }
 

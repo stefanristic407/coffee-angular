@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { VatserviceService } from './vatservice.service';
 
 @Component({
   selector: 'app-vat-management',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VatManagementComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router, 
+    private toastrService: ToastrService,
+    public vatService:VatserviceService) { }
 
   ngOnInit(): void {
   }

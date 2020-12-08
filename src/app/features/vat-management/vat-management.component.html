@@ -23,9 +23,13 @@
                     <p class="fnt-18 fnt-muli fnt-700 txt-clr334 m-0">Order settings</p>
                     <p class="fnt-14 fnt-muli fnt-400 text-clr588">Set-up your billing details, terms and conditions of use, privacy and cookie policies here </p>
                 </div>
-                <div class="col-md-2 col-12">
+                <div class="col-md-2 col-12" *ngIf="vatService.savemode">
                     <button type="button" class="fnt-14 fnt-muli fnt-700 cancel mr-3" href="javascript:void(0);"> Cancel</button>
-                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites" href="javascript:void(0);"> Save </button>
+                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites" (click)="vatService.saveVatData()"> Save </button>
+                </div>
+                <div class="col-md-2 col-12" *ngIf="vatService.editmode">
+                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="vatService.editVatData()"> Edit </button>
+
                 </div>
             </div>
             <div class="row pt-4">
@@ -85,20 +89,56 @@
                                     <div class="Onboard-rows__inputs">
                                         <div class="row">
 
-                                            <div class="col-12 col-md-4 Onboard-input">
-                                                <label class="w-100">Shipping Price *</label>
-                                                <input class="w-100" type="number" placeholder="Please enter shipping amount">
+                                            <div class="col-12 col-md-4 Onboard-input ">
+                                                <div class="form-input">
+                                                    <label>Country<span>*</span>(in USD)</label>
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Enter the selling price" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <div class="input-group-append">
+                                                            <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
+                                                                <option value="USD">USD</option>
+                                                                <option value="USD" ng-reflect-value="Yes">USD</option>
+                                                                <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <div class="col-12 col-md-4 Onboard-input">
-                                                <label class="w-100">Estimated delivery time *</label>
-                                                <input class="w-100" type="number" placeholder="days">
+
+                                            <div class="col-12 col-md-4 Onboard-input ">
+                                                <div class="form-input">
+                                                    <label>Estimated delivery time<span>*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Estimated delivery time" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <div class="input-group-append">
+                                                            <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                                <option value="USD">days</option>
+                                                                <!-- <option value="USD" ng-reflect-value="Yes">USD</option> -->
+                                                                <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <div class="col-12 col-md-4 Onboard-input">
-                                                <label class="w-100">Estimated delivery time *</label>
-                                                <input class="w-100" type="number" placeholder="days">
+                                            <div class="col-12 col-md-4 Onboard-input ">
+                                                <div class="form-input">
+                                                    <label>Estimated delivery time<span>*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder="Estimated delivery time" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <div class="input-group-append">
+                                                            <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                                <option value="USD">days</option>
+                                                                <!-- <option value="USD" ng-reflect-value="Yes">USD</option> -->
+                                                                <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+
+
 
                                         </div>
 

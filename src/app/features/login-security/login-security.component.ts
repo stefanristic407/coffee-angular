@@ -1,6 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
 declare var $: any;
 
 @Component({
@@ -14,17 +18,22 @@ export class LoginSecurityComponent implements OnInit {
   modalRef: BsModalRef;
   appLanguage?: any;
   securityActive:any =0;
+  sessions: any;
 
-  constructor(private modalService: BsModalService,
-      public globals : GlobalsService
-    ) { }
+  constructor(
+    private modalService: BsModalService,
+    public globals : GlobalsService,
+    private toastrService: ToastrService,
+    private router: Router,
+    private cookieService: CookieService,
+    private userService: UserserviceService
+  ) { }
 
-    openModal(template: TemplateRef<any>) {
-      this.modalRef = this.modalService.show(template);
-
-    }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
   ngOnInit(): void {
-
+    this.getUserSessions();
     // Function Name : Passowrd Indicator
     // Description: This function helps to indicate the entering meeting the newPassword policy.
 
@@ -211,5 +220,35 @@ export class LoginSecurityComponent implements OnInit {
     }
   showDialog() {
     this.display = true;
-}
+  }
+  async getUserSessions(){
+    const res = await this.userService.getUserSessions().toPromise();
+    if(res.success){
+      this.sessions = res.result.reverse();
+    }
+  }
+  userLogout() {
+    this.userService.logOut().subscribe(
+      res => {
+        if (res['success'] == true) {
+          this.cookieService.deleteAll();
+          localStorage.clear();
+          this.router.navigate(['/login']);
+          console.log('Logout successfully !');
+          this.toastrService.success('Logout successfully !');
+        }
+        else {
+          console.log('Error while Logout!');
+          this.toastrService.error('Error while Logout!');
+        }
+      }
+    );
+  }
+  async deactivateAccount(){
+    const res = await this.userService.deactivateAccount().toPromise();
+    if(res.success){
+      this.toastrService.success('Account has been deactivated successfully.');
+      this.userLogout();
+    }
+  }
 }

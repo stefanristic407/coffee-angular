@@ -1,0 +1,195 @@
+<div class="total-loader" *ngIf="procuredActive !=1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<div *ngIf="procuredActive == 1">
+    <section>
+        <div class="container sewn-container section-head-pad">
+            <div class="bg-fff">
+                <div class="avaialble-mob">
+                    <div class="back-page mob-left w-100">
+                        <a routerLink="/features/sourcing"><img src="assets/images/back-arrow-1.png"> {{globals.languageJson?.back}}</a>
+                    </div>
+                    <div class="row mob-left pt-0 pb-0">
+                        <div class="col-12">
+                            <div class="prodect-gal">
+                                <gallery id="basic-test" [items]="items" gallerize></gallery>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="source-cont-available">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sourcing-details avaialble-web">
+                                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 row web-sec">
+                                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                                    <div class="col-lg-8">
+                                        <ul class="bread-nav ">
+                                            <li class="b-cum">
+                                                <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                            </li>
+
+                                            <li class="b-cum">
+                                                <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.green_coffee_inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                            </li>
+                                            <li class="b-cum">
+                                                <a class="b-cum">Green Coffee for Sale</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                            </li>
+                                            <li class="b-cum c-pink">Organic washed Micro-lot</li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                                <div class="w-100 mt-3 clearfix">
+                                    <div class="source-det-tit pull-left">
+                                        <div class="det-tit d-inline-block">
+                                            <h2>Organic washed Micro-lot</h2>
+                                            <!-- <h2 class="p-h2 mb-2">Manage your green coffee</h2> -->
+                                        </div>
+                                    </div>
+                                    <div class="source-knowmore-avail pull-right">
+                                        <a class="contact-us-avail" routerLink="/features/lot-sale">{{globals.languageJson?.edit}}</a>
+                                        <!-- <a class="know-more-avail">Know more</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prodect-details mt-md-4">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-6 avaialble-web">
+                                <div class="prodect-gal">
+                                    <gallery id="basic-test" [items]="items" gallerize></gallery>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                                <div class="product-description">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="estate-focus">
+                                                <ul class="clearfix">
+                                                    <li><label>Quantity marked for sale</label>
+                                                        <p>Total 360 bags</p>
+                                                    </li>
+                                                    <li><label>Buying price</label>
+                                                        <p>$ 7.60/kg</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="estate-focus">
+                                                <h3>{{globals.languageJson?.selling_details}}</h3>
+                                                <ul class="clearfix">
+                                                    <li><label>Product Name</label>
+                                                        <p>Thogarihunkal</p>
+                                                    </li>
+                                                    <li><label>For Sale</label>
+                                                        <p>160 bags, 60kg each</p>
+                                                    </li>
+                                                    <li><label>Available Coffee</label>
+                                                        <p>123 bags (37 bags sold so far)</p>
+                                                    </li>
+                                                    <li><label>Minimum quantity for sale</label>
+                                                        <p>2 bags</p>
+                                                    </li>
+                                                    <li><label>Selling Price</label>
+                                                        <p>$ 9.6 / kg</p>
+                                                    </li>
+                                                    <li><label>VAT</label>
+                                                        <p>12%</p>
+                                                    </li>
+                                                    <li><label>Standard delivery</label>
+                                                        <p>Free (3-7 days)</p>
+                                                    </li>
+                                                    <li><label>One day delivery</label>
+                                                        <p>$ 30 Available in Stockholm (2-8hrs)</p>
+                                                    </li>
+                                                    <li><label>Express delivery</label>
+                                                        <p>-NA-</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="estate-focus">
+                                                <h3>{{globals.languageJson?.green_coffee_details}}</h3>
+                                                <ul class="clearfix">
+                                                    <li><label>Estate</label>
+                                                        <p>Finca Guadalupe Zajú</p>
+                                                    </li>
+                                                    <li><label>Origin</label>
+                                                        <p>Colombia</p>
+                                                    </li>
+                                                    <li><label>Lot ID</label>
+                                                        <p>123</p>
+                                                    </li>
+                                                    <li><label>Availability Name</label>
+                                                        <p>Organic washed Micro-lot</p>
+                                                    </li>
+                                                    <li><label>Species</label>
+                                                        <p>Arabica</p>
+                                                    </li>
+                                                    <li><label>Variety</label>
+                                                        <p>Bourbon</p>
+                                                    </li>
+                                                    <li><label>Crop year</label>
+                                                        <p>January, 2020</p>
+                                                    </li>
+                                                    <li><label>Altitude</label>
+                                                        <p>1,000 - 1,600 meters above sea level</p>
+                                                    </li>
+                                                    <li><label>Flavour Profile</label>
+                                                        <p>Fruity, Jasmine, High sweetness, Jammy</p>
+                                                    </li>
+                                                    <li><label>Mill</label>
+                                                        <p>Tapachu Mill</p>
+                                                    </li>
+                                                    <li><label>Processing</label>
+                                                        <p>Natural/Sun Dried</p>
+                                                    </li>
+                                                    <li><label>Moisture</label>
+                                                        <p>12.5%</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="produect-pro mt-4">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                                <div class="real-estate p-date">
+                                                    <h6>12 Feb, 2020</h6>
+                                                    <h3><span class="gray-text">Cup Score :</span> 87.0</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                <div class="real-estate">
+                                                    <div class="p-photo">
+                                                        <img src="assets/images/profile-coffee.jpg">
+                                                    </div>
+
+                                                    <h3>Kristine cox</h3>
+                                                    <h6>Estate owner</h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-6 v-report">
+                                                <a class="view-report">View report </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

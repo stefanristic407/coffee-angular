@@ -17146,7 +17146,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .ship-pl {
-    padding-left: 3rem;
+    padding-left: 5.6rem !important;
 }
 
 .booked {
@@ -17342,10 +17342,15 @@ body::-webkit-scrollbar-thumb {
 
 .problem-btn:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    color: #ffffff !important;
 }
 
 .yes-order:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.chat-btn:hover {
+    color: #ffffff !important;
 }
 
 
@@ -23369,10 +23374,11 @@ li.select-list__item {
     height: 50px !important;
 }
 
-.p-photo img {
+
+/* .p-photo img {
     height: 46px;
     width: 50px;
-}
+} */
 
 
 /* Why Us Section  */
@@ -23457,4 +23463,29 @@ button {
 
 .mr-orders .dataTables_filter {
     display: none !important;
+}
+
+.note-btn {
+    color: #30855c;
+    font-family: Muli;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #ffffff;
+    border: 1px solid #30855c;
+}
+
+.note-btn:hover {
+    color: #ffffff;
+    background-color: #30855c;
+    border: 1px solid #30855c;
+}
+
+.view-report {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.57;
+    color: #80460b;
 }

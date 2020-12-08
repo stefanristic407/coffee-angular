@@ -16,9 +16,10 @@
                     </div>
 
                     <div class="col-9">
-                        <p class="m-0"> <span class="fnt-18 fnt-muli fnt-700 black"> {{customerService.name}}</span> </p>
+                        <p class="m-0"> <span class="fnt-18 fnt-muli fnt-700 black" *ngIf="customerService.company_name!=''"> {{customerService.company_name}}</span> </p>
+                        <p class="m-0"> <span class="fnt-18 fnt-muli fnt-700 black" *ngIf="customerService.company_name==''"> -</span> </p>
                         <p class="fnt-18 fnt-600 fnt-muli text-clr588 m-0"> <span> Owned by {{customerService.owner_name}} </span> <span> .Founded in {{customerService.founded_on}}</span></p>
-                        <p class=" fnt-18 fnt-700 fnt-muli txt-clr55c"> <span> Admin: </span> <span>{{customerService.owner_name}} </span></p>
+                        <p class=" fnt-18 fnt-700 fnt-muli txt-clr55c"> <span> Admin: </span> <span>{{customerService.admin_name}} </span></p>
                     </div>
 
                 </div>

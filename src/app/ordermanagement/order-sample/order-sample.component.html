@@ -26,7 +26,7 @@
                                         <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""> </span>
                                     </li>
-                                    <li class="b-cum c-pink">Order placed : 1st Jan 2020
+                                    <li class="b-cum c-pink">Order 12416
                                     </li>
                                 </ul>
                             </nav>
@@ -34,7 +34,7 @@
 
                         <div class="col-lg-6 col-md-12 pull-right ml-auto d-none d-md-block pl-0 pr-0">
                             <span class="pull-right ml-auto order-placed-text">
-                           {{globals.languageJson?.order_placed_text}} : <span class="date-text">1st Jan 2020</span>
+                                    Order placed :<span class="date-text">1st Jan 2020</span>
                             </span>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
                                                     <span class="is-complete "></span>
                                                     <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
                                                         <p class="order-status  mt-md-2 mb-1" (click)="orderPlaceSample()" #orderPlacedSample style="color: #232334;font-weight: bold;">
-                                                            {{globals.languageJson?.order_placed_text}}</p>
-                                                        <p class="order-date mb-0" matTooltip="Estate + facilitator Notified" matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
+                                                            Order placed</p>
+                                                        <p class="order-date mb-0" matTooltip="Estate Notified" matTooltipClass="tooltiptext">Estate Notified </p>
                                                     </div>
                                                 </div>
                                                 <div class="order-tracking completed" id="confirmDivSample">
@@ -122,7 +122,7 @@
                         <div class="in-order mt-5 confirm-display" *ngIf="confirmShow">
                             <div class="row">
                                 <div class="col-md-9 pt-2">
-                                    <h4 class="order-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4> 
+                                    <h4 class="order-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4>
                                     <div class="confirm-grade">
                                         <p class="confirm-order-sample">Please confirm if you have recieved the shipment you have ordered.</p>
                                         <p class="confirm-order-sample"> order will be marked as complete then</p>
@@ -130,8 +130,48 @@
                                     <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback </button>
                                 </div>
                                 <div class="col-md-3 pl-md-5 pl-0">
-                                    <button type="submit" class="yes-order btn mt-3" routerLink="/ordermanagement/confirm-order">Yes I have</button>
-                                    <button type="submit" class="cancel-order btn mt-3">No I haven’t</button>
+                                    <button type="submit" class="yes-order have-sample btn mt-3" (click)="receivedDate()">Yes I have</button><br />
+                                    <button type="submit" class="cancel-order havent-sample btn mt-3" (click)="wrongShippment()">No I haven’t</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Block -->
+                        <div class="in-order mt-5 confirm-display" *ngIf="shippmentShow">
+                            <div class="row">
+                                <div class="col-md-9 pt-2">
+                                    <h4 class="order-txt fnt-play">Sorry for the wrong shipment!</h4>
+                                    <div class="confirm-grade">
+                                        <p class="confirm-order-sample">Please confirm if you have recieved the shipment you have ordered.</p>
+                                        <p class="confirm-order-sample"> order will be marked as complete then</p>
+                                    </div>
+                                    <!-- <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback </button> -->
+                                </div>
+                                <div class="col-md-3 pl-md-5 pl-0">
+                                    <button type="submit" class="yes-order btn mt-3 raise-sample" routerLink="/ordermanagement/raise-ticket-form">Raise a ticket</button><br />
+                                    <button type="submit" class="cancel-order feedback-sample btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Received Block -->
+                        <div class="in-order mt-5 confirm-display" *ngIf="recievedShow">
+                            <div class="row">
+                                <div class="pt-2 pl-3">
+                                    <img src="assets/images/recieved-active.svg" alt="">
+                                </div>
+                                <div class="col-md-8 pt-2">
+                                    <h4 class="order-txt fnt-play">Received on 6th March</h4>
+                                    <div class="confirm-grade">
+                                        <p class="confirm-order-sample">Wohoo! You have successfully recieved the bulk you ordered.</p>
+                                        <p class="confirm-order-sample">Please Rate and Review the estate and facilitator to help us expand as a transparent community!
+                                        </p>
+                                    </div>
+                                    <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback </button>
+                                </div>
+                                <div class="col-md-3 pl-md-5 pl-0">
+                                    <button type="submit" class="yes-order btn mt-3 buy-sample" routerLink="/ordermanagement/confirm-order">Buy it </button><br />
+                                    <button type="submit" class="cancel-order btn mt-3 browse-sample-received" routerLink="/features/sourcing">Browse other estates</button>
                                 </div>
                             </div>
                         </div>
@@ -175,10 +215,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{globals.languageJson?.grade_info}}</a>
                             </li>
-                            <li class="pull-right ml-auto problem-text" id="have-a-problem-web"  ><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
+                            <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
                             </li>
                         </ul>
-                        <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile"  >
+                        <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
                             <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
                         </div>
 
@@ -262,36 +302,29 @@
                                 <div class="pull-right ml-auto view-details">{{globals.languageJson?.view_details}}</div>
                             </div>
 
-                            <div class="d-flex mt-2 border-div flex-column flex-md-row">
-                                <div class="p-0"><img class="img-estate" src="assets/images/estate-details.png" alt="User">
-                                </div>
-                                <div>
-                                    <ul class="details-list p-0 ml-3">
-                                        <li class="estate-name">Finca Guadalupe Zajú</li>
-                                        <!-- <li>
-                                        <span class="estate-number">+420 6365719</span> <span class="vr-line">|</span>
-                                        <span class="pl-3 estate-mail">info@guadalupezaju.com</span>
-                                    </li> -->
-                                        <li class="d-flex rating-space">
-                                            <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#deaf81" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating> -->
-                                            <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#deaf81" readonly="true" uncheckedcolor="#979797" size="19px"></star-rating>
-                        <p class="rating-value">{{this.newvalue.toFixed(1)}}</p> -->
+
+
+                            <div class="d-flex mt-3 border-div">
+                                <div class="p-0">
+                                    <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                                <div class="pull-left">
+                                    <ul class="details-list p-0 ml-2 ml-md-3">
+                                        <li class="estate-name">Finca La Pampa</li>
+                                        <li class="estate-number pt-1">
                                             <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
                                                 class="" src="assets/images/star-1.png" alt="User"> <span
                                                 class="star-no pl-1">
                                                 4.95</span>
                                             </span>
-
-                                        </li>
-                                        <li class="mt-4"  >
-                                            <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
- 
-                                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
-                                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
-                                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span>
-                                            </span>
                                         </li>
                                     </ul>
+                                </div>
+                                <div class="pull-right ml-auto">
+                                    <div class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
+                                        <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
+                                        <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
+                                        <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -368,7 +401,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="pull-right ml-auto"  >
+                                <div class="pull-right ml-auto">
                                     <div class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
                                         <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
                                         <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
@@ -474,7 +507,7 @@
 
                 </div>
 
-<!-- 
+                <!-- 
                 <div class="w-100 mt-5 pb-5 d-none d-md-inline-block"  >
                     <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
                 </div> -->

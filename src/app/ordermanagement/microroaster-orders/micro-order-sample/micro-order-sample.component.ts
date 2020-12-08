@@ -30,9 +30,11 @@ export class MicroOrderSampleComponent implements OnInit {
 	receivedOrderShow : boolean = false;
 	paymentStatusDiv : boolean = true;
 	paymentCompletedDiv : boolean = false;
+	waitingConfirmShow : boolean = false;
 	date6: Date;
 	savemode : boolean = true;
 	editmode : boolean = false;
+	dataFromTable: string;
   constructor(private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
 		public horecaDetailService : MicroOrderSampleService,
@@ -43,8 +45,44 @@ export class MicroOrderSampleComponent implements OnInit {
 	if (this.cookieService.get("Auth") == "") {
 		this.router.navigate(["/auth/login"]);
 	}
-	this.sampleValueToShow = "Order Placed";
-	this.paymentStatusDiv = true;
+	// this.sampleValueToShow = "Order Placed";
+	// this.paymentStatusDiv = true;
+
+	//Fills the time line based on the status selected in estate order.
+    this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
+	if (this.dataFromTable == "Order confirmed") {
+		this.sampleValueToShow = "Order Confirmed";
+		setTimeout(() => {
+			this.orderConfirmSample();
+		}, 500);
+	}
+	else if (this.dataFromTable == "Payment") {
+		this.sampleValueToShow = "Payment";
+		setTimeout(() => {
+			this.paySample();
+		}, 500);
+
+	}
+	else if (this.dataFromTable == "Shipped") {
+		this.sampleValueToShow = "Shipped";
+		setTimeout(() => {
+			this.shipmentStatusSample();
+		}, 500);
+
+	}
+	else if (this.dataFromTable == "Received") {
+		this.sampleValueToShow = "Received";
+		setTimeout(() => {
+			this.receivedStatusSample();
+		}, 500);
+	}
+	else if (this.dataFromTable == "Graded") {
+		this.sampleValueToShow = "Graded";
+		setTimeout(() => {
+			this.gradedStatusSample();
+		}, 500);
+	}
+
 
   }
   
@@ -97,7 +135,7 @@ export class MicroOrderSampleComponent implements OnInit {
 		this.horecaDetailService.receiptShow = true;
 		this.horecaDetailService.statusPaid = true;
 		this.horecaDetailService.statusPending = false;
-		this.horecaDetailService.shipment_status = true;
+		// this.horecaDetailService.shipment_status = true;
 		// this.sampleService.shipmentDone = true;
 
 		// Calling the Order Details component by creating object of the component and accessing its methods
@@ -117,7 +155,8 @@ export class MicroOrderSampleComponent implements OnInit {
 		const completedProcess = document.getElementById('receivedDivSample');
 		completedProcess.classList.remove('completed');
 		this.receivedReport = true;
-		this.receivedOrderShow = true;
+		this.receivedOrderShow = false;
+		this.waitingConfirmShow = true;
 		this.orderSampleTimeline = false;
 		this.paymentStatusDiv = false;
 		this.paymentCompletedDiv = false;
@@ -125,6 +164,7 @@ export class MicroOrderSampleComponent implements OnInit {
 		this.horecaDetailService.receiptShow = true;
 		this.horecaDetailService.statusPaid = true;
 		this.horecaDetailService.statusPending = false;
+		// this.horecaDetailService.shipment_status = true;
 	}
 	// Function Name : Order Booked Graded
 	// Description: This function shows order is graded and grade info tab timeline is filled.

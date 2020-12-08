@@ -77,6 +77,7 @@ import { RequestsTableComponent } from './microroaster-orders/mr-orders/requests
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 // import { EmptyTableComponent } from '../error-module/empty-table/empty-table.component';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { BookedShippingComponent } from './order-booked/booked-shipping/booked-shipping.component';
 
 
 @NgModule({
@@ -139,7 +140,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     MrOrdersComponent,
     OrdersTableComponent,
     RequestsTableComponent,
-    MrRequestDetailsComponent
+    MrRequestDetailsComponent,
+    BookedShippingComponent
   ],
   imports: [
     // BrowserAnimationsModule,

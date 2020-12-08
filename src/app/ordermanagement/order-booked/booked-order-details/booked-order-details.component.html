@@ -21,16 +21,19 @@
                     <td>Bourbon,Cautai</td>
                 </tr>
                 <tr>
-                    <th>{{globals.languageJson?.bulk_ordered}}</th>
-                    <td>Sample</td>
+                    <th>Quantity </th>
+                    <td>2500 kg
+                        <p class="procedure"> View lot details </p>
+
+                    </td>
                 </tr>
                 <tr>
                     <th>{{globals.languageJson?.rate_per_kg}}</th>
-                    <td>$450/KG</td>
+                    <td>$3.45USD/lb</td>
                 </tr>
                 <tr>
                     <th>{{globals.languageJson?.total}}</th>
-                    <td>$100</td>
+                    <td>$112,000</td>
                 </tr>
             </tbody>
             <!-- <tbody>
@@ -52,16 +55,16 @@
 <hr>
 <div class="row pb-md-7">
     <div class="col-lg-7 col-md-7 col-sm-12 bulk-details-content">
-        <h4 class="sub-title">{{globals.languageJson?.bulk_details}}</h4>
+        <h4 class="sub-title">Availability details</h4>
         <table class="recent-time">
 
             <tr>
-                <td> <span class="list-que"> {{globals.languageJson?.taste_profile}}: </span></td>
-                <td> <span class="list-ans"> Strawberry </span> </td>
+                <td> <span class="list-que"> Flavour profile :  </span></td>
+                <td> <span class="list-ans"> Strawberry, Nutty </span> </td>
 
             </tr>
             <tr>
-                <td> <span class="list-que">  {{globals.languageJson?.listing_status}}: </span></td>
+                <td> <span class="list-que">  Listing Status : </span></td>
                 <td> <span class="list-ans">  Warehouse </span> </td>
 
             </tr>
@@ -85,24 +88,30 @@
 
             <tr>
                 <td> <span class="list-que">   {{globals.languageJson?.quality}}: </span></td>
-                <td> <span class="list-ans">  High </span> </td>
+                <td> <span class="list-ans">  AA </span> </td>
 
             </tr>
 
             <tr>
-                <td> <span class="list-que">    {{globals.languageJson?.flavours}}: </span></td>
-                <td> <span class="list-ans">  Chocolate </span> </td>
+                <td> <span class="list-que"> Packaging : </span></td>
+                <td> <span class="list-ans">  Biodegradeable </span> </td>
 
             </tr>
 
             <tr>
-                <td> <span class="list-que">   {{globals.languageJson?.other}}: </span></td>
-                <td> <span class="list-ans">  Decaf </span> </td>
+                <td> <span class="list-que"> Water activity : </span></td>
+                <td> <span class="list-ans">  0.67 </span> </td>
+
+            </tr>
+
+            <tr>
+                <td> <span class="list-que">ICO : </span></td>
+                <td> <span class="list-ans"> 0303 123 1113</span> </td>
 
             </tr>
 
         </table>
-
+        <p class="procedure text-center mt-3"> View availability details </p>
 
     </div>
     <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content mb-15">
@@ -110,12 +119,12 @@
         <div class="w-100 mt-2 mt-md-3">
             <p class="status_paid" *ngIf="bookedService.statusPending">PENDING</p>
             <p class="status_paid" *ngIf="bookedService.statusPaid"> PAID</p>
-            <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="bookedService.uploadShow"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
-            <button type="button" class="btn receipt-btn mb-2" *ngIf="bookedService.receiptShow"><img src="assets/images/view.png" class="pr-2">View receipt</button>
+            <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="bookedService.uploadShow && bookedService.statusPending"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
+            <button type="button" class="btn receipt-btn mb-2" *ngIf="bookedService.statusPaid"><img src="assets/images/view.png" class="pr-2">View receipt</button>
             <p class="pb-md-2 mb-0 mt-3 mt-md-0"><a class="procedure mt-2">View payment procedure </a></p>
-            <hr/>
+
             <div class="track-info mt-4 pt-2" *ngIf="bookedService.shipmentDone">
-                <p class="track-info-title">Tracking ID 
+                <p class="track-info-title">Tracking ID
                     <!-- <img class="space ml-1" src="assets/images/open-icon.png" alt=""> -->
                 </p>
                 <!-- <p class="track-id">9274972094-29ei43</p> -->

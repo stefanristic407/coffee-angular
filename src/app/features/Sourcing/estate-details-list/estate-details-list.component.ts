@@ -36,6 +36,7 @@ export class EstateDetailsListComponent implements OnInit {
 	estateData: any;
 	estateCetificateData: any;
 	certifyEstate: any;
+	galleryImages: any;
   constructor(private modalService:BsModalService,public globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService,public profile:RoasteryProfileService,    private userService : UserserviceService,private roasterService: RoasterserviceService
 	) {
     this.route.queryParams.subscribe(params => {
@@ -47,6 +48,7 @@ export class EstateDetailsListComponent implements OnInit {
     this.sourcing.greenCoffee();
 	this.sourcing.estateEmployees();
 	this.getEachEstateCertify();
+	this.estateGalleryFiles();
 	// this.getAvailableEstates();
     // this.sourcing.certificateList();
   });
@@ -88,19 +90,19 @@ export class EstateDetailsListComponent implements OnInit {
 	getEachEstateCertify(){
 		this.userService.getEachEsateCertificates(this.sourcing.detailList).subscribe(
 			data => {
-			console.log(data);
+			// console.log(data);
 			if(data['success'] == true){
 				this.certifyEstate=data['result'];
 				this.sourcing.overviewCertify=this.certifyEstate;
-				console.log(this.certifyEstate);
+				// console.log(this.certifyEstate);
 			}
 		});
 	}
   	getCertificateData(data:any){
-		  console.log(data);
+		//   console.log(data);
 		if(data.certificate_type_id > 0){
 			this.certiImage=this.sourcing.finalCertify.filter(certify=>certify.id == data.certificate_type_id);
-			console.log(this.certiImage);
+			// console.log(this.certiImage);
 			if(this.certiImage !=''){
 				return this.certiImage[0].image_url;
 			}
@@ -136,5 +138,13 @@ export class EstateDetailsListComponent implements OnInit {
 		const redirectUrl = this.estateProfile;
 			this.roasterService.navigate(redirectUrl, true);
 	}
-
+	estateGalleryFiles(){
+		this.userService.getEstateGallery(this.sourcing.detailList).subscribe( res => {
+			console.log(res);
+			if (res['success'] == true){
+			  this.galleryImages = res['result'];
+			  console.log(this.galleryImages);
+			}
+		  });
+	}
 }

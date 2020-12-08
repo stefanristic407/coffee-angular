@@ -21,18 +21,19 @@
                     <td>Bourbon,Cautai</td>
                 </tr>
                 <tr>
-                    <th>{{globals.languageJson?.bulk_ordered}}</th>
-                    <td>Sample</td>
+                    <th>Quantity ordered</th>
+                    <td>-</td>
                 </tr>
                 <tr>
                     <th>{{globals.languageJson?.rate_per_kg}}</th>
-                    <td>$450/kg</td>
+                    <td>-</td>
                 </tr>
                 <tr>
                     <th>{{globals.languageJson?.total}}</th>
-                    <td>$100</td>
+                    <td>$300</td>
                 </tr>
             </tbody>
+
             <!-- <tbody>
                 <tr>
                     
@@ -103,14 +104,18 @@
 
         </table>
 
+        <p class="text-center mt-3">
+            <a class="procedure" > View lot details </a>
+        </p>
+
     </div>
     <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content mb-15">
         <h4 class="sub-title">{{globals.languageJson?.payment_status}}</h4>
         <div class="w-100 mt-3">
             <p class="status_paid" *ngIf="prebookService.statusPending">TOKEN PENDING</p>
             <p class="status_paid" *ngIf="prebookService.statusPaid"> TOKEN PAID</p>
-            <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="uploadShow"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
-            <button type="button" class="btn receipt-btn mb-2" *ngIf="receiptShow"><img src="assets/images/view.png" class="pr-2">View receipt</button>
+            <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="uploadShow && prebookService.statusPending"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
+            <button type="button" class="btn receipt-btn mb-2" *ngIf="prebookService.statusPaid"><img src="assets/images/view.png" class="pr-2">View receipt</button>
             <p class="note mt-2" *ngIf="prebookService.statusPending"><strong>Note : </strong>The lot has been pre-booked, once the beans are ready, you will be notified.</p>
             <p><a class="procedure">View payment procedure </a></p>
             <input type="file" hidden #fileUpload (change)="openFile($event)">
