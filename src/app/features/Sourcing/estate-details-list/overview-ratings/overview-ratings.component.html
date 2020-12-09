@@ -5,7 +5,7 @@
     </div>
 </div>
 <div *ngIf="estateRatingActive == 1">
-    <div class="bg-fff">
+    <div class="row bg-fff">
         <div class="col-lg-12 col-md-12 col-sm-12 main-space">
             <div class="ret-order">
                 <!-- <span class="cursor-pointer" routerLink="/ordermanagement/estate-orders">
@@ -19,10 +19,10 @@
 
                     <div class="review-sec">
                         <h1 class="review"> {{globals.languageJson?.reviews}} </h1>
-                        <p class="rating-value1 rev-value mb-md-1 mb-0">{{sourcing.rate_rating.toFixed(1)}}</p>
+                        <p class="rating-value1 rev-value mb-md-1 mb-0">{{sourcing.rate_rating}}</p>
                         <p class="estate-number mb-md-1 mb-0"> out of 5</p>
-                        <div class="d-flex rating-space">
-                            <star-rating value="{{sourcing.rate_rating}}" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="26px"></star-rating>
+                        <div class="d-flex rating-space" *ngIf="sourcing.rate_rating_star">
+                            <star-rating value="{{changeDecimalStar(sourcing.rate_rating_star)}}" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="26px"></star-rating>
                         </div>
 
                         <p class="cust-review pt-3">{{sourcing.total_review}} {{globals.languageJson?.customer_reviews}} </p>
@@ -40,7 +40,9 @@
                                 </td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
+                                        <!-- <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:{{4/20*100}}%"> -->
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
+
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                         <!-- <mat-progress-bar  class="progress-color"  value="10"></mat-progress-bar> -->
@@ -229,11 +231,11 @@
                                                 <span class="estate-number" *ngIf="review.reviewed_by_type=='fc'">Facilitator</span>
 
                                             </li>
-                                            <li class="d-flex rating-space">
+                                            <li class="d-flex rating-space" *ngIf="review.total_rating">
 
                                                 <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                                <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
+                                                <star-rating value="{{changeDecimal(review.total_rating)}}" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
+                                                <p class="rating-value">{{review.total_rating}}</p>
 
                                             </li>
                                         </ul>
@@ -247,10 +249,9 @@
                                     <div class="p-0 review-web"></div>
                                     <div class="col-md-11 col-12 data-space">
                                         <div class="message-space">
-                                            <div class="border-div">{{review.comment}}
-                                                <!-- <p class="estate-message">There are many kinds of narratives and organizing principles. Science is driven by evidence gathered in experiments, and by the falsification of extant theories and their replacement with newer, asymptotically
-                                                    truer, ones. Other systems – religion,</p> -->
-                                                <!-- <span id="dots"></span><span id="more">
+                                            <div class="border-div">
+                                                <p class="estate-message">{{review.comment}}</p>
+                                                    <!-- <span id="dots"></span><span id="more">
                                                             The refrigerated dairy aisle of your local grocery store can be a great source for tasty, convenient selections for your outdoor gatherings.</span></p>
                                                 <span class="estate-read-more" id="read_id" (click)="moreMethod()"> {{globals.languageJson?.read_more}} <img src="/assets/images/active-review.svg" /></span> -->
                                             </div>

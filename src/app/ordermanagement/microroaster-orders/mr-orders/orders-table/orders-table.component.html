@@ -5,7 +5,7 @@
         <input type="text" name="search" class="col-12 col-md-4 search" [(ngModel)]="estateterm" placeholder="Search by Name,role..">
     </div>
 </div> -->
-    <div class="row ">
+    <div class="row" >
         <div class="d-inline table-w pt-2">
             <div class="title-header d-inline desk_view_user">
                 <div class="d-inline border-order role-div col-sm-6" id="origin_id" [outsideClick]="true" (onShown)="toggleOrigin();" (onHidden)="toggleOrigin();" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
@@ -84,8 +84,57 @@
             </div>
         </div>
     </div>
-    <div class="estate-table pt-2">
-        <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
+    <div class="estate-table pt-2" *ngIf="this.data != null">
+            <table class="estate-boby-txt table">
+                    <thead>
+                        <tr class="estate-title">
+                            <th>
+                                <label class="b-check first-t">
+                                <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
+                                <!-- <span class="checkmark"></span> -->
+                            </label>
+                            </th>
+                            <th>Order ID </th>
+                            <th>Product name </th>
+                            <th>Ordered by</th>
+                            <th>Date ordered </th>
+                            <th>Orgin</th>
+                            <th>Variety</th>
+                            <th>Quantity </th>
+                            <th>Type of Order </th>
+                            <th>Status </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let group of data" class="estate-boby-txt">
+                            <td class="spacing-order" style="width: 40px;">
+                                <label class="b-check">
+                                <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
+                                <!-- <span class="checkmark"></span> -->
+                              </label>
+                            </td>
+    
+                            <td>{{group.id}}</td>
+                            <td>{{group.product_name}}</td>
+                            <td>{{group.micro_roaster_name}}</td>
+                            <td>{{group.created_at | date:'dd-MM-yyyy'}}</td>
+                            <td>{{group.origin}}</td>
+                            <td>{{group.variety}}</td>
+                            <td>{{group.quantity}} {{group.quantity_type}}</td>
+                            <td>
+                                <p class="typeoforder-Sample" *ngIf="group.type == 'Sample'">&#9679; Sample</p>
+                                <!-- <p class="typeoforder-Booked" *ngIf="group.type == 'Booked'">&#9679; {{group.type}}</p> -->
+                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'Pre-Booked'">&#9679; Pre-Booked</p>
+                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
+                            </td>
+                            <td>{{group.status}}
+                            </td>
+                            <td class="view-order" (click)="OrderDetails($event,group)">View order</td>
+                        </tr>
+                    </tbody>
+                </table>
+        <!-- <table class="estate-boby-txt" datatable [dtOptions]="dtOptions"> -->
             <!-- <thead>
                 <tr class="estate-title">
                     <th>
@@ -134,8 +183,93 @@
                     <td class="view-order" (click)="displayData($event,group)">View order</td>
                 </tr>
             </tbody> -->
-        </table>
+        <!-- </table> -->
     </div>
+    <div class="row pt-5" *ngIf="this.data == null">
+        <div class="col-lg-12 col-md-12 no-data-sec">
+            <div class="text-center ">
+                <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
+                <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
+            </div>
+        </div>
+    </div>
+
+        
+<ng-template #originTemplate >
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color" (click)="setOrigin('');">
+                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setOrigin('Colombia'); pop4.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.colombia}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setOrigin('Ethopia'); pop4.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.ethopia}}</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    
+    <ng-template #allTemplate>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color" (click)="setStatus(''); pop.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Shipped'); pop.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.shipped}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Order Confirmed'); pop.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.order_confirmed}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Payment'); pop.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.payment}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Harvest Ready'); pop.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.harvest_ready}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatus('Received'); pop.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.Received}}</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template #typeTemplate>
+        <div>
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color" (click)="setType(''); pop3.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setType('Sample'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.sample}}</a></li>
+                <li class="list-group-item item-color" (click)="setType('Booked'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.booked}}</a></li>
+                <li class="list-group-item item-color" (click)="setType('Pre-Booked'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.pre_booked}}</a>
+                </li>
+    
+    
+            </ul>
+        </div>
+    
+    </ng-template>
+    
+    <ng-template #displayTemplate>
+        <div>
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color" (click)="setDisplay('-1'); pop6.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setDisplay('10'); pop6.hide();"><a class="pointer-item">10</a></li>
+                <li class="list-group-item item-color" (click)="setDisplay('25'); pop6.hide();"><a class="pointer-item">25</a></li>
+                <li class="list-group-item item-color" (click)="setDisplay('50'); pop6.hide();"><a class="pointer-item">50</a></li>
+                <li class="list-group-item item-color" (click)="setDisplay('100'); pop6.hide();"><a class="pointer-item">100</a></li>
+    
+    
+            </ul>
+        </div>
+    
+    </ng-template>
 
 </section>
 
@@ -271,139 +405,65 @@
             </div> -->
         </div>
     </div>
+    
+    
+    
+    <ng-template #originTemplateMob>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color" (click)="setOriginMob(''); pop9.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setOriginMob('Colombia'); pop9.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.colombia}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setOriginMob('Ethopia'); pop9.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.ethopia}}</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    
+    <ng-template #allTemplateMob>
+        <div id="status-content">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color" (click)="setStatus('');pop14.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatusMob('Shipped');pop14.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.shipped}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatusMob('Order Confirmed');pop14.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.order_confirmed}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatusMob('Payment');pop14.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.payment}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatusMob('Harvest Ready');pop14.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.harvest_ready}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setStatusMob('Received');pop14.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.received}}</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template #typeTemplateMob>
+        <div>
+            <ul class="list-group custom-popover">
+                <li class="list-group-item item-color" (click)="setTypeMob(''); pop11.hide();">
+                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setTypeMob('Sample'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.sample}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setTypeMob('Booked'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.booked}}</a>
+                </li>
+                <li class="list-group-item item-color" (click)="setTypeMob('Pre-Booked'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.pre_booked}}</a>
+                </li>
+    
+    
+            </ul>
+        </div>
+    
+    </ng-template>
 </section>
-
-
-<ng-template #originTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setOrigin('');">
-                <a class="pointer-item">{{globals.languageJson?.all}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setOrigin('Colombia'); pop4.hide();">
-                <a class="pointer-item">{{globals.languageJson?.colombia}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setOrigin('Ethopia'); pop4.hide();">
-                <a class="pointer-item">{{globals.languageJson?.ethopia}}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-
-<ng-template #allTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setStatus(''); pop.hide();">
-                <a class="pointer-item">{{globals.languageJson?.all}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatus('Shipped'); pop.hide();">
-                <a class="pointer-item">{{globals.languageJson?.shipped}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatus('Order Confirmed'); pop.hide();">
-                <a class="pointer-item">{{globals.languageJson?.order_confirmed}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatus('Payment'); pop.hide();">
-                <a class="pointer-item">{{globals.languageJson?.payment}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatus('Harvest Ready'); pop.hide();">
-                <a class="pointer-item">{{globals.languageJson?.harvest_ready}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatus('Received'); pop.hide();">
-                <a class="pointer-item">{{globals.languageJson?.Received}}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-<ng-template #typeTemplate>
-    <div>
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setType(''); pop3.hide();">
-                <a class="pointer-item">{{globals.languageJson?.all}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setType('Sample'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.sample}}</a></li>
-            <li class="list-group-item item-color" (click)="setType('Booked'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.booked}}</a></li>
-            <li class="list-group-item item-color" (click)="setType('Pre-Booked'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.pre_booked}}</a>
-            </li>
-
-
-        </ul>
-    </div>
-
-</ng-template>
-
-<ng-template #displayTemplate>
-    <div>
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setDisplay('-1'); pop6.hide();">
-                <a class="pointer-item">{{globals.languageJson?.all}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setDisplay('10'); pop6.hide();"><a class="pointer-item">10</a></li>
-            <li class="list-group-item item-color" (click)="setDisplay('25'); pop6.hide();"><a class="pointer-item">25</a></li>
-            <li class="list-group-item item-color" (click)="setDisplay('50'); pop6.hide();"><a class="pointer-item">50</a></li>
-            <li class="list-group-item item-color" (click)="setDisplay('100'); pop6.hide();"><a class="pointer-item">100</a></li>
-
-
-        </ul>
-    </div>
-
-</ng-template>
-
-
-<ng-template #originTemplateMob>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setOriginMob(''); pop9.hide();">
-                <a class="pointer-item">{{globals.languageJson?.all}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setOriginMob('Colombia'); pop9.hide();">
-                <a class="pointer-item">{{globals.languageJson?.colombia}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setOriginMob('Ethopia'); pop9.hide();">
-                <a class="pointer-item">{{globals.languageJson?.ethopia}}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-
-<ng-template #allTemplateMob>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setStatus('');pop14.hide();">
-                <a class="pointer-item">{{globals.languageJson?.all}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatusMob('Shipped');pop14.hide();">
-                <a class="pointer-item">{{globals.languageJson?.shipped}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatusMob('Order Confirmed');pop14.hide();">
-                <a class="pointer-item">{{globals.languageJson?.order_confirmed}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatusMob('Payment');pop14.hide();">
-                <a class="pointer-item">{{globals.languageJson?.payment}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatusMob('Harvest Ready');pop14.hide();">
-                <a class="pointer-item">{{globals.languageJson?.harvest_ready}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setStatusMob('Received');pop14.hide();">
-                <a class="pointer-item">{{globals.languageJson?.received}}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-<ng-template #typeTemplateMob>
-    <div>
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setTypeMob(''); pop11.hide();">
-                <a class="pointer-item">{{globals.languageJson?.all}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setTypeMob('Sample'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.sample}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setTypeMob('Booked'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.booked}}</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setTypeMob('Pre-Booked'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.pre_booked}}</a>
-            </li>
-
-
-        </ul>
-    </div>
-
-</ng-template>

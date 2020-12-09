@@ -109,6 +109,7 @@ export class SourcingService {
 	three_star: any;
 	two_star: any;
 	one_star: any;
+	rate_rating_star: any;
 
 
   			constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
@@ -316,7 +317,8 @@ export class SourcingService {
 					this.overall=this.summaryList['average']['overall_experience'];
 					this.communication=this.summaryList['average']['communication'];
 					this.green_coffee=this.summaryList['average']['green_coffee'];
-					this.rate_rating=this.summaryList['summary']['rating'];
+					this.rate_rating=parseFloat(this.summaryList['summary']['rating']).toFixed(1);
+					this.rate_rating_star= this.summaryList['summary']['rating'];
 					this.total_review=this.summaryList['summary']['total_review'];
 					this.five_star=this.summaryList['summary']['5_star'];
 					this.four_star=this.summaryList['summary']['4_star'];

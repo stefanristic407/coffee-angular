@@ -870,11 +870,12 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data)
   }
 
-  addAddresses(roaster_id : any){
+  addAddresses(roaster_id : any,body : any){
     var data = {};
     data['api_call'] = `/ro/${roaster_id}/addresses`;
     data["method"] = "POST";
-    data['token'] = this.cookieService.get('Auth');    
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;    
     return this.http.post(this.roasterUrl, data)
   }
   getUserSessions(): Observable<any> {
@@ -906,4 +907,28 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
   }
+  addRoasterShippingDetails(roaster_id:any,body:any){
+    var data = {};
+    data['api_call'] = "/ro/"+roaster_id+"/shipping-types";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+  getRoasterShippingTypes(roaster_id:any){
+  var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/shipping-types";
+    data["method"] = "GET";
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+  updateRoasterShippingTypes(roaster_id : any, shipping_id : any,body : any){
+    var data = {};
+    data['api_call'] = "/ro/"+roaster_id+"/shipping-types/"+shipping_id;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "PUT";
+    return this.http.put(this.putUrl, data);
+  }
+  
 }

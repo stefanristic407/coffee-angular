@@ -96,10 +96,19 @@
                                     </a>
                                 </li>
 
-                                <li class="nav-links__item d-inline-block position-relative" *ngIf="this.globals.checkItem('sourcing-management')">
+                                <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="this.globals.checkItem('sourcing-management')">
 
-                                    <a class="d-inline-block fnt-600 router-link" [routerLink]="['/features/sourcing']">{{globals.languageJson?.sourcing_module}}
-                                </a>
+                                    <a class="d-inline-block fnt-600 router-link" [routerLink]="['/features/sourcing']">
+                                        <!-- {{globals.languageJson?.sourcing_module}} -->
+                                        Sourcing Management
+                                    </a>
+                                    <ul class="nav-dropdown fnt-600">
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/features/green-grading']">
+                                                Quality Control
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <!-- *ngIf="globals.permissions['cart-management'] || globals.permissions['cart-list']" -->
                                 <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="this.globals.checkItem('sourcing-management')">
@@ -107,35 +116,49 @@
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li>
-                                            <a class="router-link" [routerLink]="['/ordermanagement/estate-orders']">{{globals.languageJson?.estate_orders}}
-                                                </a>
+                                            <a class="router-link" [routerLink]="['/ordermanagement/estate-orders']">
+                                                <!-- {{globals.languageJson?.estate_orders}} -->
+                                                Purchase Orders Estates
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" [routerLink]="['/ordermanagement/microroaster-orders']">{{globals.languageJson?.microroaster_orders}}</a>
+                                            <a class="router-link" [routerLink]="['/ordermanagement/microroaster-orders']">
+                                                <!-- {{globals.languageJson?.microroaster_orders}} -->
+                                                Orders & Requests by Micro Roasters
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="router-link">{{globals.languageJson?.horeca_orders}}</a>
+                                            <a class="router-link">
+                                                <!-- {{globals.languageJson?.horeca_orders}} -->
+                                                Customer Sales Orders
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
 
                                 <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="globals.checkItem('coffee-management') || globals.checkItem('coffee-list')">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{globals.languageJson?.inventory}}
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">
+                                        <!-- {{globals.languageJson?.inventory}} -->
+                                        Inventory Management
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li>
-                                            <a class="router-link" [routerLink]="['/features/green-coffee-inventory']">Green coffee management
-                                                </a>
+                                            <a class="router-link" [routerLink]="['/features/green-coffee-inventory']">
+                                                <!-- Green coffee management -->
+                                                Green Coffee Inventory
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" [routerLink]="['/features/roasted-coffee-batch']">Roasted coffee batch</a>
+                                            <a class="router-link" [routerLink]="['/features/roasted-coffee-batch']">
+                                                <!-- Roasted coffee batch -->
+                                                Roasted Coffee Inventory
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" [routerLink]="['/features/products-list']">E-comm catatlog management</a>
-                                        </li>
-
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/vat-management']">Order settings</a>
+                                            <a class="router-link" [routerLink]="['/features/vat-management']">
+                                                <!-- Order settings -->
+                                                Product Settings
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -145,13 +168,30 @@
                                     <a class="d-inline-block fnt-600" [routerLink]="['/features/green-coffee-inventory']">{{globals.languageJson?.inventory}}
                                     </a>
                                 </li> -->
-                                <li class="nav-links__item d-md-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">{{globals.languageJson?.ecommerce}}
+                                <li class="nav-links__item arrow d-inline-block position-relative">
+                                    <a class="d-inline-block fnt-600" href="javascript:void(0)">
+                                        <!-- {{globals.languageJson?.ecommerce}} -->
+                                        Sales Management
                                     </a>
-                                </li>
-                                <li class="nav-links__item d-md-inline-block position-relative">
-                                    <a class="d-inline-block fnt-600" [routerLink]="['/features/green-grading']">Green grading
-                                    </a>
+                                    <ul class="nav-dropdown fnt-600">
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/features/products-list']">
+                                                <!-- E-comm catatlog management -->
+                                                Product Management
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/features/agreement']">
+                                                <!-- {{globals.languageJson?.agreement}} -->
+                                                Sales Contracts
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/people/customer-management']">
+                                                {{globals.languageJson?.customer_management}}
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="nav-links__item arrow d-inline-block position-relative">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">
@@ -175,12 +215,6 @@
                                             <a class="router-link" [routerLink]="['/features/file-share']">
                                                 <!-- {{globals.languageJson?.file_share}} -->
                                                 Education & Collaboration
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/agreement']">
-                                                <!-- {{globals.languageJson?.agreement}} -->
-                                                Sales Contracts
                                             </a>
                                         </li>
                                         <li>
@@ -216,13 +250,6 @@
                                                 User Settings
                                             </a>
                                         </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/people/customer-management']">
-                                                {{globals.languageJson?.customer_management}}
-                                            </a>
-                                        </li>
-
-
                                     </ul>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5">

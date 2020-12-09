@@ -5,6 +5,8 @@ import { DashboardserviceService } from 'src/services/dashboard/dashboardservice
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-requests-table',
@@ -49,38 +51,41 @@ export class RequestsTableComponent implements OnInit {
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
 	};
+	roasterId: any;
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
-		public globals: GlobalsService) {
-		this.data = {};
-		this.data =
-			[{
-				"requestedby": "Third wave coffee r..",
-				"daterequested": "24 Jan 2020",
-				"origin": "Colombia",
-				"estate": "Gesha",
-				"varierty": "Bourbon"
-			},
-			{  requestedby: 'Home brew coffee', daterequested: '21 Jan 2020', origin: 'Ethopia', estate: 'Finca la pampa', varierty: 'Bourbon'},
-			{  requestedby: 'Blue Tokai roasters', daterequested: '22 Apr 2020', origin: 'Ethopia', estate: 'Gesha', varierty: 'Bourbon'},
-			{  requestedby: 'Third wave coffee r..', daterequested: '24 Apr 2020', origin: 'Ethopia', estate: 'Finca la toboba',  varierty: 'Bourbon'},
-			{  requestedby: 'La Barista', daterequested: '25 May 2020', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
-			{  requestedby: 'Home brew coffee', daterequested: '26 May 2020', origin: 'Colombia', estate: 'Asoproaaa', varierty: 'Bourbon'},
-			{  requestedby: 'Third wave coffee r..', daterequested: '13 Oct 2020', origin: 'Colombia', estate: 'Cafe directo', varierty: 'Bourbon' },
-			{  requestedby: 'Cafe Directo', daterequested: '13 Dec 2020', origin: 'Ethopia', estate: 'Finca la toboba', varierty: 'Bourbon'},
-			{  requestedby: 'La Barista', daterequested: '13 Jan 2019', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
-			{  requestedby: 'Blue Tokai roasters', daterequested: '14 Feb 2019', origin: 'Colombia', estate: 'Asoproaaa',  varierty: 'Bourbon'},
-			{  requestedby: 'Third wave coffee r..', daterequested: '14 Jun 2019', origin: 'Ethopia', estate: 'Cafe directo', varierty: 'Bourbon'},
-			{  requestedby: 'Home brew coffee', daterequested: '13 Jul 2019', origin: 'Ethopia', estate: 'Finca la toboba', varierty: 'Bourbon'},
-			{  requestedby: 'La Barista', daterequested: '13 Mar 2018', origin: 'Colombia', estate: 'Cafe directo',  varierty: 'Bourbon'},
-			{  requestedby: 'Gesha', daterequested: '13 May 2018', origin: 'Colombia', estate: 'Asoproaaa', varierty: 'Bourbon'},
-			{  requestedby: 'Home brew coffee', daterequested: '17 Aug 2018', origin: 'Ethopia', estate: 'Finca la pampa', varierty: 'Bourbon'},
-			{  requestedby: 'Asoproaaa', daterequested: '13 Oct 2018', origin: 'Ethopia', estate: 'Asoproaaa', varierty: 'Bourbon'},
-			{  requestedby: 'Blue Tokai roasters', daterequested: '19 Oct 2018', origin: 'Colombia', estate: 'Finca la toboba', varierty: 'Bourbon'},
-			{  requestedby: 'La Barista', daterequested: '23 Nov 2018', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
-			];
+		public globals: GlobalsService, public roasterService:RoasterserviceService,private toastrService: ToastrService) {
+			this.roasterId = this.cookieService.get('roaster_id');
+
+		// this.data = {};
+		// this.data =
+		// 	[{
+		// 		"requestedby": "Third wave coffee r..",
+		// 		"daterequested": "24 Jan 2020",
+		// 		"origin": "Colombia",
+		// 		"estate": "Gesha",
+		// 		"varierty": "Bourbon"
+		// 	},
+		// 	{  requestedby: 'Home brew coffee', daterequested: '21 Jan 2020', origin: 'Ethopia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Blue Tokai roasters', daterequested: '22 Apr 2020', origin: 'Ethopia', estate: 'Gesha', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Third wave coffee r..', daterequested: '24 Apr 2020', origin: 'Ethopia', estate: 'Finca la toboba',  varierty: 'Bourbon'},
+		// 	{  requestedby: 'La Barista', daterequested: '25 May 2020', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Home brew coffee', daterequested: '26 May 2020', origin: 'Colombia', estate: 'Asoproaaa', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Third wave coffee r..', daterequested: '13 Oct 2020', origin: 'Colombia', estate: 'Cafe directo', varierty: 'Bourbon' },
+		// 	{  requestedby: 'Cafe Directo', daterequested: '13 Dec 2020', origin: 'Ethopia', estate: 'Finca la toboba', varierty: 'Bourbon'},
+		// 	{  requestedby: 'La Barista', daterequested: '13 Jan 2019', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Blue Tokai roasters', daterequested: '14 Feb 2019', origin: 'Colombia', estate: 'Asoproaaa',  varierty: 'Bourbon'},
+		// 	{  requestedby: 'Third wave coffee r..', daterequested: '14 Jun 2019', origin: 'Ethopia', estate: 'Cafe directo', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Home brew coffee', daterequested: '13 Jul 2019', origin: 'Ethopia', estate: 'Finca la toboba', varierty: 'Bourbon'},
+		// 	{  requestedby: 'La Barista', daterequested: '13 Mar 2018', origin: 'Colombia', estate: 'Cafe directo',  varierty: 'Bourbon'},
+		// 	{  requestedby: 'Gesha', daterequested: '13 May 2018', origin: 'Colombia', estate: 'Asoproaaa', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Home brew coffee', daterequested: '17 Aug 2018', origin: 'Ethopia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Asoproaaa', daterequested: '13 Oct 2018', origin: 'Ethopia', estate: 'Asoproaaa', varierty: 'Bourbon'},
+		// 	{  requestedby: 'Blue Tokai roasters', daterequested: '19 Oct 2018', origin: 'Colombia', estate: 'Finca la toboba', varierty: 'Bourbon'},
+		// 	{  requestedby: 'La Barista', daterequested: '23 Nov 2018', origin: 'Colombia', estate: 'Finca la pampa', varierty: 'Bourbon'},
+		// 	];
 		this.mainData = this.data;
 	}
 
@@ -89,6 +94,7 @@ export class RequestsTableComponent implements OnInit {
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		}
+		this.getMrRequestsData();
 		this.appLanguage = this.globals.languageJson;
 		// var editIcon = function ( data, type, row ) {
 		// 	if ( type === 'display' ) {
@@ -462,17 +468,7 @@ export class RequestsTableComponent implements OnInit {
 
 	}
 
-	//  Function Name : Check box function.
-	//  Description   : This function helps to Check all the rows of the Users list.
-	checkAllRoaster(ev) {
-		this.data.forEach(x => (x.state = ev.target.checked));
-	}
-
-	//  Function Name : Single Check box function.
-	//  Description   : This function helps to Check that single row isChecked.
-	isAllCheckedRoaster() {
-		return this.data.every(_ => _.state);
-	}
+	
 	setStatus(term: any) {
 		this.roastertermStatus = term;
 		this.datatableElement.dtInstance.then(table => {
@@ -582,8 +578,29 @@ export class RequestsTableComponent implements OnInit {
 
 		}
 	}
+	getMrRequestsData() {
+		this.roasterService.getMrOrders(this.roasterId).subscribe(
+			data => {
+				console.log(data);
+				if (data['success'] == true) {
+					// if (data['result'] == null || data['result'].length == 0) {
+					// 	// this.hideTable = true ; 
+					// }
+					// else {
+						// this.hideTable = false; 
+						this.data = data['result'];
+					// }
+					// this.estateOrdersActive++;
+				}
+				else {
+					// this.estateOrdersActive++;
+					this.toastrService.error(this.globals.languageJson.error_message);
+				}
+			}
+		)
+	}
 	OrderDetails($event, group) {
-		console.log("the incoming data  are " + group.typeoforder + "..." + group.status);
+		// console.log("the incoming data  are " + group.typeoforder + "..." + group.status);
 
 
 		let navigationExtras: NavigationExtras = {
@@ -591,15 +608,7 @@ export class RequestsTableComponent implements OnInit {
 				"data": encodeURIComponent(group.status),
 			}
 		}
-		if (group.typeoforder == "Booked") {
-			this.router.navigate(["/ordermanagement/order-booked"], navigationExtras);
-		}
-		else if (group.typeoforder == "Sample") {
-			this.router.navigate(["/ordermanagement/order-sample"], navigationExtras);
-		}
-		// else if (group.typeoforder == "Pre-Booked") {
-		//   this.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
-		// }
+		this.router.navigate(["/ordermanagement/mr-request-details"], navigationExtras);
 
 	}
 	setOriginMob(term: any) {
@@ -644,5 +653,19 @@ export class RequestsTableComponent implements OnInit {
 
 		}
 	}
+	//  Function Name : Check box function.
+	//  Description   : This function helps to Check all the rows of the Users list.
+	checkAllEstate(ev) {
+		if(ev){
+			this.data.forEach(x => (x.state = ev.target.checked));
+		}	
+	}
 
+	//  Function Name : Single Check box function.
+	//  Description   : This function helps to Check that single row isChecked.
+	isAllCheckedEstate() {
+		if(data){
+			// return this.data.every(_ => _.state);
+		}
+	}
 }

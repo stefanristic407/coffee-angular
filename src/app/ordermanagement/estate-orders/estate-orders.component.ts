@@ -44,7 +44,7 @@ export class EstateOrdersComponent implements OnInit {
 
 	// Static Estate Orders Data List
 	public data: any;
-	public mainData: any[];
+	public mainData: any;
 	title = 'angulardatatables';
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
@@ -57,6 +57,7 @@ export class EstateOrdersComponent implements OnInit {
 	estatetermTypeMob: string;
 	roasterId: any;
 	estateOrdersActive:any =0;
+	
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
@@ -66,41 +67,42 @@ export class EstateOrdersComponent implements OnInit {
 		public modalService: BsModalService,
 		public globals: GlobalsService) {
 		this.roasterId = this.cookieService.get('roaster_id');
-		this.data = {};
-		this.data =
-			[{
-				"id": "1000",
-				"estatename": "Finca La Pampa",
-				"dataordered": "24 Jan 2020",
-				"origin": "Colombia",
-				"quantity": "-",
-				"typeoforder": "Sample",
-				"status": "Shipped",
-				"species": "Bourbon",
-				"price": "-"
-			},
-			{ id: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Booked', status: 'Shipped', species: 'Bourbon', price: '-' },
-			{ id: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia', quantity: '29kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$1,480' },
-			{ id: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$2600' },
-			{ id: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Payment', species: 'Bourbon', price: '$1,480' },
-			{ id: '1005', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '$840' },
-			{ id: '1006', estatename: 'La Isabela', dataordered: '13 Oct 2020', origin: 'Colombia', quantity: '397kg', typeoforder: 'Sample', status: 'Order confirmed', species: 'Bourbon', price: '-' },
-			{ id: '1007', estatename: 'Cafe Directo', dataordered: '13 Dec 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Sample', status: 'Shipped', species: 'Bourbon', price: '-' },
-			{ id: '1008', estatename: 'Asoproaaa', dataordered: '13 Jan 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Harvest Ready', species: 'Bourbon', price: '$500' },
-			{ id: '1009', estatename: 'Finca La Toboba', dataordered: '14 Feb 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Payment', species: 'Bourbon', price: '$3,200' },
-			{ id: '1010', estatename: 'Gesha', dataordered: '14 Jun 2019', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '$1900' },
-			{ id: '1011', estatename: 'Finca La Pampa', dataordered: '13 Jul 2019', origin: 'Ethopia', quantity: '197kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$2,377' },
-			{ id: '1012', estatename: 'Finca La Pampa', dataordered: '13 Mar 2018', origin: 'Colombia', quantity: '257kg', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3000' },
-			{ id: '1013', estatename: 'Gesha', dataordered: '13 May 2018', origin: 'Colombia', quantity: '277kg', typeoforder: 'Booked', status: 'Received', species: 'Bourbon', price: '$2,377' },
-			{ id: '1014', estatename: 'Finca La Toboba', dataordered: '17 Aug 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$6,560' },
-			{ id: '1015', estatename: 'Asoproaaa', dataordered: '13 Oct 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Sample', status: 'Received', species: 'Bourbon', price: '-' },
-			{ id: '1016', estatename: 'Finca La Toboba', dataordered: '19 Oct 2018', origin: 'Colombia', quantity: '297kg', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', price: '-' },
-			{ id: '1017', estatename: 'Finca La Pampa', dataordered: '23 Nov 2018', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3,200' },
-			];
+		// this.data = {};
+		// this.data =
+		// 	[{
+		// 		"id": "1000",
+		// 		"estatename": "Finca La Pampa",
+		// 		"dataordered": "24 Jan 2020",
+		// 		"origin": "Colombia",
+		// 		"quantity": "-",
+		// 		"typeoforder": "Sample",
+		// 		"status": "Shipped",
+		// 		"species": "Bourbon",
+		// 		"price": "-"
+		// 	},
+		// 	{ id: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Booked', status: 'Shipped', species: 'Bourbon', price: '-' },
+		// 	{ id: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia', quantity: '29kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$1,480' },
+		// 	{ id: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$2600' },
+		// 	{ id: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Payment', species: 'Bourbon', price: '$1,480' },
+		// 	{ id: '1005', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '$840' },
+		// 	{ id: '1006', estatename: 'La Isabela', dataordered: '13 Oct 2020', origin: 'Colombia', quantity: '397kg', typeoforder: 'Sample', status: 'Order confirmed', species: 'Bourbon', price: '-' },
+		// 	{ id: '1007', estatename: 'Cafe Directo', dataordered: '13 Dec 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Sample', status: 'Shipped', species: 'Bourbon', price: '-' },
+		// 	{ id: '1008', estatename: 'Asoproaaa', dataordered: '13 Jan 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Harvest Ready', species: 'Bourbon', price: '$500' },
+		// 	{ id: '1009', estatename: 'Finca La Toboba', dataordered: '14 Feb 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Payment', species: 'Bourbon', price: '$3,200' },
+		// 	{ id: '1010', estatename: 'Gesha', dataordered: '14 Jun 2019', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '$1900' },
+		// 	{ id: '1011', estatename: 'Finca La Pampa', dataordered: '13 Jul 2019', origin: 'Ethopia', quantity: '197kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$2,377' },
+		// 	{ id: '1012', estatename: 'Finca La Pampa', dataordered: '13 Mar 2018', origin: 'Colombia', quantity: '257kg', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3000' },
+		// 	{ id: '1013', estatename: 'Gesha', dataordered: '13 May 2018', origin: 'Colombia', quantity: '277kg', typeoforder: 'Booked', status: 'Received', species: 'Bourbon', price: '$2,377' },
+		// 	{ id: '1014', estatename: 'Finca La Toboba', dataordered: '17 Aug 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$6,560' },
+		// 	{ id: '1015', estatename: 'Asoproaaa', dataordered: '13 Oct 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Sample', status: 'Received', species: 'Bourbon', price: '-' },
+		// 	{ id: '1016', estatename: 'Finca La Toboba', dataordered: '19 Oct 2018', origin: 'Colombia', quantity: '297kg', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', price: '-' },
+		// 	{ id: '1017', estatename: 'Finca La Pampa', dataordered: '23 Nov 2018', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3,200' },
+		// 	];
 		this.mainData = this.data;
 	}
 
 	ngOnInit(): void {
+		this.getEstateOrdersData();
 		//Auth checking
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
@@ -133,11 +135,11 @@ export class EstateOrdersComponent implements OnInit {
 					data: 'id'
 				}, {
 					title: this.globals.languageJson.estate_name,
-					data: 'estatename'
+					data: 'estate_name'
 				},
 				 {
 					title: this.globals.languageJson.date_ordered,
-					data: 'dataordered'
+					data: 'created_at'
 				},
 				{
 					title: this.globals.languageJson.origin,
@@ -155,17 +157,16 @@ export class EstateOrdersComponent implements OnInit {
 				},
 				{
 					title: this.globals.languageJson.quantity,
-					data: 'quantity'
+					data: 'quantity' + 'quantity_type'
 				}, {
 					title: this.globals.languageJson.order_type,
-					data: 'typeoforder',
+					data: 'type',
 					className: 'typeoforderclass'
 				}, {
 					title: this.globals.languageJson.status,
 					data: 'status',
 					className: 'status-es'
 				},
-
 				{
 					title: this.globals.languageJson.action,
 					defaultContent: "View order",
@@ -508,7 +509,7 @@ export class EstateOrdersComponent implements OnInit {
 		});
 
 		/* pagination ends */
-		// this.getEstateOrdersData();
+		this.getEstateOrdersData();
 		//get table data
 
 	}
@@ -516,17 +517,7 @@ export class EstateOrdersComponent implements OnInit {
 		this.appLanguage = this.globals.languageJson;
 		this.estateOrdersActive++;
 	}
-	//  Function Name : Check box function.
-	//  Description   : This function helps to Check all the rows of the Users list.
-	checkAllEstate(ev) {
-		this.data.forEach(x => (x.state = ev.target.checked));
-	}
 
-	//  Function Name : Single Check box function.
-	//  Description   : This function helps to Check that single row isChecked.
-	isAllCheckedEstate() {
-		return this.data.every(_ => _.state);
-	}
 	setStatus(term: any) {
 		this.estatetermStatus = term;
 		this.datatableElement.dtInstance.then(table => {
@@ -681,8 +672,8 @@ export class EstateOrdersComponent implements OnInit {
 		}
 	}
 
-	OrderDetails($event, group) {
-		console.log("the incoming data  are " + group.typeoforder + "..." + group.status);
+	displayData($event, group) {
+		console.log("the incoming data  are " + group.type + "..." + group.status);
 
 
 		let navigationExtras: NavigationExtras = {
@@ -690,39 +681,51 @@ export class EstateOrdersComponent implements OnInit {
 				"data": encodeURIComponent(group.status),
 			}
 		}
-		if (group.typeoforder == "Booked") {
+		if (group.type == "GC_ORDER") {
 			this.router.navigate(["/ordermanagement/order-booked"], navigationExtras);
 		}
-		else if (group.typeoforder == "Sample") {
+		else if (group.type == "Sample") {
 			this.router.navigate(["/ordermanagement/order-sample"], navigationExtras);
 		}
-		else if (group.typeoforder == "Pre-Booked") {
+		else if (group.type == "Pre-Booked") {
 			this.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
 		}
 
 	}
-	// getEstateOrdersData() {
-	// 	this.roasterService.getEstateOrders(this.roasterId).subscribe(
-	// 		data => {
-	// 			if (data['success'] == true) {
-	// 				if (data['result'] == null || data['result'].length == 0) {
-	// 					this.odd = true;							
-	// 					this.hideTable = true ; 
-	// 					// this.toastrService.error(this.globals.languageJson.no_table_data);
-	// 				}
-	// 				else {
-	// 					this.odd = false;
-	// 					this.hideTable = false ; 
-	// 					this.mainData = data['result'];
-	// 				}
-	// 				this.estateOrdersActive++;
-	// 			}
-	// 			else {
-	// 				this.estateOrdersActive++;
-	// 				this.odd = true;
-	// 				this.toastrService.error(this.globals.languageJson.error_message);
-	// 			}
-	// 		}
-	// 	)
-	// }
+	getEstateOrdersData() {
+		this.roasterService.getEstateOrders(this.roasterId).subscribe(
+			data => {
+				console.log(data);
+				if (data['success'] == true) {
+					// if (data['result'] == null || data['result'].length == 0) {
+					// 	this.hideTable = true ; 
+					// }
+					// else {
+					// 	this.hideTable = false; 
+						this.data = data['result'];
+					// }
+					// this.estateOrdersActive++;
+				}
+				else {
+					// this.estateOrdersActive++;
+					this.toastrService.error(this.globals.languageJson.error_message);
+				}
+			}
+		)
+	}
+	//  Function Name : Check box function.
+	//  Description   : This function helps to Check all the rows of the Users list.
+	checkAllEstate(ev) {
+		if(ev){
+			this.data.forEach(x => (x.state = ev.target.checked));
+		}	
+	}
+
+	//  Function Name : Single Check box function.
+	//  Description   : This function helps to Check that single row isChecked.
+	isAllCheckedEstate() {
+		if(data){
+			// return this.data.every(_ => _.state);
+		}
+	}
 }

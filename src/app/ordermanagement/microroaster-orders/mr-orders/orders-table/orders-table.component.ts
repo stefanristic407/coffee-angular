@@ -5,6 +5,8 @@ import { DashboardserviceService } from 'src/services/dashboard/dashboardservice
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-orders-table',
@@ -37,6 +39,7 @@ export class OrdersTableComponent implements OnInit {
 	@ViewChild(DataTableDirective, { static: false })
 	datatableElement: DataTableDirective;
 	showDateRange: any;
+	hideTable : any  ; 
 
 	@ViewChild('calendar')
 	calendar: any;
@@ -49,42 +52,45 @@ export class OrdersTableComponent implements OnInit {
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
 	};
+	roasterId: any;
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
-		public globals: GlobalsService) {
-		this.data = {};
-		this.data =
-			[{
-				"id": "1000",
-				"productname": "Finca La Pampa",
-				"dataordered": "24 Jan 2020",
-				"origin": "Colombia",
-				"quantity": "-",
-				"typeoforder": "Sample",
-				"status": "Shipped",
-				"species": "Bourbon",
-				"orderedby": "La Barista"
-			},
-			{ id: '1001',  productname: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Booked', status: 'Shipped', species: 'Bourbon', orderedby: 'Third wave coffee r..' },
-			{ id: '1002',  productname: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia', quantity: '29kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', orderedby: 'Home brew coffee' },
-			{ id: '1003',  productname: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', orderedby: 'La Barista' },
-			{ id: '1004',  productname: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Payment', species: 'Bourbon', orderedby: 'Third wave coffee r..' },
-			{ id: '1005',  productname: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Sample', status: 'In transit', species: 'Bourbon', orderedby: 'BRU coffee roastes' },
-			{ id: '1006',  productname: 'La Isabela', dataordered: '13 Oct 2020', origin: 'Colombia', quantity: '397kg', typeoforder: 'Sample', status: 'Order confirmed', species: 'Bourbon', orderedby: 'Home brew coffee' },
-			{ id: '1007',  productname: 'Cafe Directo', dataordered: '13 Dec 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Sample', status: 'Shipped', species: 'Bourbon', orderedby: 'Blue Tokai roasters' },
-			{ id: '1008',  productname: 'Asoproaaa', dataordered: '13 Jan 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Harvest Ready', species: 'Bourbon', orderedby: 'BRU coffee roastes' },
-			{ id: '1009',  productname: 'Finca La Toboba', dataordered: '14 Feb 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', orderedby: 'Third wave coffee r..' },
-			{ id: '1010',  productname: 'Gesha', dataordered: '14 Jun 2019', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Sample', status: 'In transit', species: 'Bourbon', orderedby: 'La Barista' },
-			{ id: '1011',  productname: 'Finca La Pampa', dataordered: '13 Jul 2019', origin: 'Ethopia', quantity: '197kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', orderedby: '$2,377' },
-			{ id: '1012',  productname: 'Finca La Pampa', dataordered: '13 Mar 2018', origin: 'Colombia', quantity: '257kg', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', orderedby: 'BRU coffee roastes' },
-			{ id: '1013',  productname: 'Gesha', dataordered: '13 May 2018', origin: 'Colombia', quantity: '277kg', typeoforder: 'Booked', status: 'Received', species: 'Bourbon', orderedby: 'Home brew coffee' },
-			{ id: '1014',  productname: 'Finca La Toboba', dataordered: '17 Aug 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', orderedby: 'Third wave coffee r..' },
-			{ id: '1015',  productname: 'Asoproaaa', dataordered: '13 Oct 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Sample', status: 'Received', species: 'Bourbon', orderedby: 'La Barista' },
-			{ id: '1016',  productname: 'Finca La Toboba', dataordered: '19 Oct 2018', origin: 'Colombia', quantity: '297kg', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', orderedby: 'Home brew coffee' },
-			{ id: '1017',  productname: 'Finca La Pampa', dataordered: '23 Nov 2018', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', orderedby: 'Blue Tokai roasters' },
-			];
+		public globals: GlobalsService, public roasterService:RoasterserviceService,private toastrService: ToastrService
+		) {
+		this.roasterId = this.cookieService.get('roaster_id');
+		// this.data = {};
+		// this.data =
+		// 	[{
+		// 		"id": "1000",
+		// 		"productname": "Finca La Pampa",
+		// 		"dataordered": "24 Jan 2020",
+		// 		"origin": "Colombia",
+		// 		"quantity": "-",
+		// 		"typeoforder": "Sample",
+		// 		"status": "Shipped",
+		// 		"species": "Bourbon",
+		// 		"orderedby": "La Barista"
+		// 	},
+		// 	{ id: '1001',  productname: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Booked', status: 'Shipped', species: 'Bourbon', orderedby: 'Third wave coffee r..' },
+		// 	{ id: '1002',  productname: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia', quantity: '29kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', orderedby: 'Home brew coffee' },
+		// 	{ id: '1003',  productname: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', orderedby: 'La Barista' },
+		// 	{ id: '1004',  productname: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Payment', species: 'Bourbon', orderedby: 'Third wave coffee r..' },
+		// 	{ id: '1005',  productname: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Sample', status: 'In transit', species: 'Bourbon', orderedby: 'BRU coffee roastes' },
+		// 	{ id: '1006',  productname: 'La Isabela', dataordered: '13 Oct 2020', origin: 'Colombia', quantity: '397kg', typeoforder: 'Sample', status: 'Order confirmed', species: 'Bourbon', orderedby: 'Home brew coffee' },
+		// 	{ id: '1007',  productname: 'Cafe Directo', dataordered: '13 Dec 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Sample', status: 'Shipped', species: 'Bourbon', orderedby: 'Blue Tokai roasters' },
+		// 	{ id: '1008',  productname: 'Asoproaaa', dataordered: '13 Jan 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Harvest Ready', species: 'Bourbon', orderedby: 'BRU coffee roastes' },
+		// 	{ id: '1009',  productname: 'Finca La Toboba', dataordered: '14 Feb 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', orderedby: 'Third wave coffee r..' },
+		// 	{ id: '1010',  productname: 'Gesha', dataordered: '14 Jun 2019', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Sample', status: 'In transit', species: 'Bourbon', orderedby: 'La Barista' },
+		// 	{ id: '1011',  productname: 'Finca La Pampa', dataordered: '13 Jul 2019', origin: 'Ethopia', quantity: '197kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', orderedby: '$2,377' },
+		// 	{ id: '1012',  productname: 'Finca La Pampa', dataordered: '13 Mar 2018', origin: 'Colombia', quantity: '257kg', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', orderedby: 'BRU coffee roastes' },
+		// 	{ id: '1013',  productname: 'Gesha', dataordered: '13 May 2018', origin: 'Colombia', quantity: '277kg', typeoforder: 'Booked', status: 'Received', species: 'Bourbon', orderedby: 'Home brew coffee' },
+		// 	{ id: '1014',  productname: 'Finca La Toboba', dataordered: '17 Aug 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', orderedby: 'Third wave coffee r..' },
+		// 	{ id: '1015',  productname: 'Asoproaaa', dataordered: '13 Oct 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Sample', status: 'Received', species: 'Bourbon', orderedby: 'La Barista' },
+		// 	{ id: '1016',  productname: 'Finca La Toboba', dataordered: '19 Oct 2018', origin: 'Colombia', quantity: '297kg', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', orderedby: 'Home brew coffee' },
+		// 	{ id: '1017',  productname: 'Finca La Pampa', dataordered: '23 Nov 2018', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', orderedby: 'Blue Tokai roasters' },
+		// 	];
 		this.mainData = this.data;
 	}
 
@@ -94,6 +100,7 @@ export class OrdersTableComponent implements OnInit {
 			this.router.navigate(["/auth/login"]);
 		}
 		this.appLanguage = this.globals.languageJson;
+		this.getEstateOrdersData();
 		// var editIcon = function ( data, type, row ) {
 		// 	if ( type === 'display' ) {
 		// 		return data + ' <span class="tooltiptext">Tooltip text</span>';
@@ -507,18 +514,6 @@ export class OrdersTableComponent implements OnInit {
 
 
 	}
-
-	//  Function Name : Check box function.
-	//  Description   : This function helps to Check all the rows of the Users list.
-	checkAllRoaster(ev) {
-		this.data.forEach(x => (x.state = ev.target.checked));
-	}
-
-	//  Function Name : Single Check box function.
-	//  Description   : This function helps to Check that single row isChecked.
-	isAllCheckedRoaster() {
-		return this.data.every(_ => _.state);
-	}
 	setStatus(term: any) {
 		this.roastertermStatus = term;
 		this.datatableElement.dtInstance.then(table => {
@@ -628,8 +623,30 @@ export class OrdersTableComponent implements OnInit {
 
 		}
 	}
+	getEstateOrdersData() {
+		this.roasterService.getMrOrders(this.roasterId).subscribe(
+			data => {
+				console.log(data);
+				if (data['success'] == true) {
+					// if (data['result'] == null || data['result'].length == 0) {
+					// 	// this.hideTable = true ; 
+					// }
+					// else {
+						// this.hideTable = false; 
+						this.data = data['result'];
+					// }
+					// this.estateOrdersActive++;
+				}
+				else {
+					// this.estateOrdersActive++;
+					this.toastrService.error(this.globals.languageJson.error_message);
+				}
+			}
+		)
+	}
+
 	OrderDetails($event, group) {
-		console.log("the incoming data  are " + group.typeoforder + "..." + group.status);
+		// console.log("the incoming data  are " + group.type + "..." + group.status);
 
 
 		let navigationExtras: NavigationExtras = {
@@ -637,10 +654,10 @@ export class OrdersTableComponent implements OnInit {
 				"data": encodeURIComponent(group.status),
 			}
 		}
-		if (group.typeoforder == "Booked") {
+		if (group.type == "GC_ORDER") {
 			this.router.navigate(["/ordermanagement/mr-booked"], navigationExtras);
 		}
-		else if (group.typeoforder == "Sample") {
+		else if (group.type == "Sample") {
 			this.router.navigate(["/ordermanagement/mr-sample"], navigationExtras);
 		}
 		// else if (group.typeoforder == "Pre-Booked") {
@@ -690,5 +707,19 @@ export class OrdersTableComponent implements OnInit {
 
 		}
 	}
+	//  Function Name : Check box function.
+	//  Description   : This function helps to Check all the rows of the Users list.
+	checkAllEstate(ev) {
+		if(ev){
+			this.data.forEach(x => (x.state = ev.target.checked));
+		}	
+	}
 
+	//  Function Name : Single Check box function.
+	//  Description   : This function helps to Check that single row isChecked.
+	isAllCheckedEstate() {
+		if(data){
+			// return this.data.every(_ => _.state);
+		}
+	}
 }

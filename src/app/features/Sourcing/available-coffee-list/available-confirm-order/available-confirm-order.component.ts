@@ -45,6 +45,9 @@ availableConfirmActive:any=0;
   shippingAddress_id: any;
   billingAddress_id: any;
   estate_id: any;
+  addressArray: any ;
+  ship_unit_price: any;
+  min_quantity: any;
 
 constructor(private modalService: BsModalService,
   public confirmOrderService : RoasteryProfileService,
@@ -55,7 +58,8 @@ constructor(private modalService: BsModalService,
   private cookieService : CookieService,
   private toastrService : ToastrService,
   private roasterService : RoasterserviceService,
-  private userService : UserserviceService
+  private userService : UserserviceService,
+  public  profileservice  : RoasteryProfileService
   ) {
     this.roaster_id = this.cookieService.get('roaster_id');
 
@@ -169,6 +173,27 @@ saveAddress(){
     }, 3000);
   }
   else{
+
+    var data = {
+      "type": "shipping",
+      "address_line1": this.address1,
+      "address_line2": this.address2,
+      "city": this.city,
+      "state": this.state,
+      "country": this.country,
+      "zipcode": this.zipcode
+    }
+    this.userService.addAddresses(this.roaster_id,data).subscribe(
+      response => {
+        if(response['success']==true){
+          this.shippingAddress_id = response['result'].id;
+          this.toastrService.success("Address has been added")
+        }
+        else{
+          this.toastrService.error("Error while adding the address")
+        }
+      }
+    )
     document.getElementById("edit-shipping").style.display = "block";
     document.getElementById("form-address").style.display = "none";
   }
@@ -192,17 +217,11 @@ onKeyPress(event: any) {
 
 done(){
 
-  if(this.service == "Import & Delivery service"){
-    this.userService.getShippingInfo(this.roaster_id,this.estate_id).subscribe(
-      response => {
-        
-      }
-    )
-  }
+ 
   var data = {
     'quantity_count' : this.quantity,
     'shipping_address_id' : this.shippingAddress_id,
-    'billing_address_id' : this.billingAddress_id,
+    'billing_address_id' : this.shippingAddress_id,
     'is_fully_serviced_delivery' : this.service == "Import & Delivery service" ? true : false
   }
 this.roasterService.placeOrder(this.roaster_id,this.sourcing.harvestData,data).subscribe(
@@ -218,6 +237,40 @@ data => {
   }
 }
 )
+}
+
+ngAfterViewInit(){
+  if(this.service == "Import & Delivery service"){
+    this.userService.getShippingInfo(this.roaster_id,this.sourcing.estate_id).subscribe(
+      response => {
+        console.log(response);
+        this.addressArray = response['result']['warehouse_address'];
+        console.log(this.addressArray);
+        this.address1 = this.addressArray.address_line1;
+        this.address2 = this.addressArray.address_line2;
+        this.city = this.addressArray.city;
+        this.country = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase()).name;
+        this.state = this.addressArray.state;
+        this.zipcode = this.addressArray.zipcode;
+        this.ship_unit_price = response['result'].unit_price;
+        this.min_quantity = response['result'].minimum_quantity;
+        
+      }
+    )
+  }
+  else{
+    this.userService.getAddresses(this.roaster_id).subscribe(
+      response => {
+        this.addressArray = response['result'][0];
+        this.address1 = this.addressArray.address_line1;
+        this.address2 = this.addressArray.address_line2;
+        this.city = this.addressArray.city;
+        this.country = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase()).name;
+        this.state = this.addressArray.state;
+        this.zipcode = this.addressArray.zipcode;
+      }
+    )
+  }
 }
 
 

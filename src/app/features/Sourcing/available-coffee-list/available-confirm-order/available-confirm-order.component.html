@@ -36,9 +36,9 @@
                         <li class="b-cum">
                             <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                         </li>
-                        <li class="b-cum">
+                        <!-- <li class="b-cum">
                             <a class="b-cum" routerLink="/features/sourcing">{{globals.languageJson?.sourcing_module}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
+                        </li> -->
                         <li class="b-cum">
                             <a class="b-cum" routerLink="/features/sourcing">Finca La Pmapa</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                         </li>
@@ -262,8 +262,8 @@
                         </div>
                         <div class="row mt-2 address-bar">
                             <div class="col-12 col-md-4 col-lg-5 add-text">
-                                Löfbergs Lila AB, Box 1501, 651 21 - Karlstad
-                                <div>Sweden</div>
+                                {{address1}},{{address2}},{{city}},{{state}}-{{zipcode}}
+                                <div>{{country}}</div>
                             </div>
                             <div class="col-md-1 col-lg-4"></div>
                             <div class="col-12 col-md-4 col-lg-3 details pl-lg-0">

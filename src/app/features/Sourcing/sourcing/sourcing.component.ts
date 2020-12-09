@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { throttleTime } from 'rxjs/operators';
 import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
-
+declare var $:any;
 @Component({
   selector: 'app-sourcing',
   templateUrl: './sourcing.component.html',

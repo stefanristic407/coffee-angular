@@ -9,28 +9,28 @@
                             <li class="b-cum">
                                 <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                             </li>
-                            <li class="b-cum">
+                            <!-- <li class="b-cum">
                                 <a class="b-cum">Inventory</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                            </li>
+                            </li> -->
 
-                            <li class="b-cum c-pink">Order settings</li>
+                            <li class="b-cum c-pink">Product Settings</li>
                         </ul>
                     </nav>
                 </div>
             </div>
             <div class="row pt-4">
                 <div class="col-md-10 col-12">
-                    <p class="fnt-18 fnt-muli fnt-700 txt-clr334 m-0">Order settings</p>
+                    <p class="fnt-18 fnt-muli fnt-700 txt-clr334 m-0">Product Settings</p>
                     <p class="fnt-14 fnt-muli fnt-400 text-clr588">Set-up your billing details, terms and conditions of use, privacy and cookie policies here </p>
                 </div>
-                <div class="col-md-2 col-12" *ngIf="vatService.savemode">
+                <!-- <div class="col-md-2 col-12" *ngIf="vatService.savemode">
                     <button type="button" class="fnt-14 fnt-muli fnt-700 cancel mr-3" href="javascript:void(0);"> Cancel</button>
                     <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites" (click)="vatService.saveVatData()"> Save </button>
                 </div>
                 <div class="col-md-2 col-12" *ngIf="vatService.editmode">
                     <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="vatService.editVatData()"> Edit </button>
 
-                </div>
+                </div> -->
             </div>
             <div class="row pt-4">
 
@@ -86,11 +86,11 @@
                                 </div>
 
                                 <div class="col-md-12 Onboard-rows pt-5">
-                                    <div class="Onboard-rows__inputs">
+                                    <div class="Onboard-rows__inputs" *ngIf="saveshippingmode">
                                         <div class="row">
                                             <div class="col-12 col-md-4 Onboard-input">
                                                 <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Shipping type *</label>
-                                                <input class="w-100" type="text" placeholder="Please enter shipping name" name="transcation_type">
+                                                <input class="w-100" type="text" placeholder="Please enter shipping name" name="transcation_type" [(ngModel)]="shippingName" name="this.shippingName">
                                             </div>
                                         </div>
 
@@ -101,7 +101,7 @@
                                                 <div class="form-input">
                                                     <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Shipping Price<span>*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" placeholder="Please enter shipping amount" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <input type="text" placeholder="Please enter shipping amount" class="form-control input-group-right-border" aria-label="Text input with dropdown button"  name="shippingPrice" [(ngModel)]="this.shippingPrice">
                                                         <div class="input-group-append">
                                                             <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
                                                                 <option value="USD">USD</option>
@@ -118,7 +118,7 @@
                                                 <div class="form-input">
                                                     <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Estimated delivery time<span>*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="dayMin" [(ngModel)]="this.dayMin">
                                                         <div class="input-group-append">
                                                             <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
                                                                 <option value="USD">days</option>
@@ -133,7 +133,8 @@
                                                 <div class="form-input">
                                                     <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Estimated delivery time<span>*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                                        <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="dayMax
+                                                        " [(ngModel)]="this.dayMax">
                                                         <div class="input-group-append">
                                                             <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
                                                                 <option value="USD">days</option>
@@ -149,7 +150,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right"> Save </button>
+                                            <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="saveShippingInfo()"> Save </button>
 
                                         </div>
 
@@ -161,7 +162,7 @@
 
                             <!-- after save -->
 
-                            <div class="row">
+                            <div class="row" *ngIf="editshippingmode">
 
                                 <div class="pls-note">
                                     <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0"> This information will be used for all orders placed on the platform by the Roasters and Micro roasters. </p>
@@ -172,17 +173,17 @@
 
                                         <tr>
                                             <td> <span class="list-que"> Shipping name :  </span></td>
-                                            <td> <span class="list-ans"> Standard Delivery </span> </td>
+                                            <td> <span class="list-ans"> {{this.shippingName}} </span> </td>
 
                                         </tr>
                                         <tr>
                                             <td> <span class="list-que"> Shipping price : </span></td>
-                                            <td> <span class="list-ans">  $ 25 </span> </td>
+                                            <td> <span class="list-ans">  $ {{this.shippingPrice}} </span> </td>
 
                                         </tr>
                                         <tr>
                                             <td> <span class="list-que"> Estimated delivery time : </span></td>
-                                            <td> <span class="list-ans">  10 -14 days </span> </td>
+                                            <td> <span class="list-ans">  {{this.dayMin}} - {{this.dayMax}} days </span> </td>
 
                                         </tr>
                                     </table>
@@ -190,7 +191,7 @@
                                 </div>
 
                                 <div class="col-12 mt-3">
-                                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right"> Edit </button>
+                                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="editShippingInfo();"> Edit </button>
 
                                 </div>
 

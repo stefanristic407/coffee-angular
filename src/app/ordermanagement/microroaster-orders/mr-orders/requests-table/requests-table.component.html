@@ -84,59 +84,56 @@
             </div>
         </div>
     </div>
-    <div class="estate-table pt-2">
-        <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
-            <!-- <thead>
+    <div class="estate-table pt-2"  *ngIf="this.data != null">
+        <!-- <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
+        </table> -->
+        <table class="estate-boby-txt table">
+            <thead>
                 <tr class="estate-title">
                     <th>
                         <label class="b-check first-t">
                         <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
-                        <span class="checkmark"></span>
+                        <!-- <span class="checkmark"></span> -->
                     </label>
                     </th>
-                    <th>Order ID </th>
-                    <th>Estate name </th>
-                    <th>Date ordered </th>
-                    <th>Orgin </th>
-                    <th>Species</th>
-                    <th>Price</th>
-                    <th>Quantity </th>
-                    <th>Type of Order </th>
-                    <th>Status </th>
+                    <th>Requested by</th>
+                    <th>Date requested</th>
+                    <th>Orgin</th>
+                    <th>Estate</th>
+                    <th>Varierty</th>
                     <th>Action</th>
                 </tr>
-            </thead> 
+            </thead>
             <tbody>
                 <tr *ngFor="let group of data" class="estate-boby-txt">
                     <td class="spacing-order" style="width: 40px;">
                         <label class="b-check">
                         <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
-                        <span class="checkmark"></span>
-                      </label>
+                        <!-- <span class="checkmark"></span> -->
+                        </label>
                     </td>
 
-                    <td>{{group.id}}</td>
-                    <td>{{group.estatename}}</td>
-                    <td>{{group.dataordered}}</td>
+                    <td>{{group.micro_roaster_name}}</td>
+                    <td>{{group.created_at | date:'dd-MM-yyyy'}}</td>
                     <td>{{group.origin}}</td>
-                    <td>{{group.species}}</td>
-                    <td>{{group.price}}</td>
-                    <td>{{group.quantity}}</td>
-                    <td>
-
-                        <p class="typeoforder-Sample" *ngIf="group.typeoforder == 'Sample'">&#9679; {{group.typeoforder}}</p>
-                        <p class="typeoforder-Booked" *ngIf="group.typeoforder == 'Booked'">&#9679; {{group.typeoforder}}</p>
-                        <p class="typeoforder-Pre-Booked" *ngIf="group.typeoforder == 'Pre-Booked'">&#9679; {{group.typeoforder}}</p>
-
-                    </td>
-                    <td>{{group.status}}
-                    </td>
-                    <td class="view-order" (click)="displayData($event,group)">View order</td>
+                    <td>{{group.estate_name}}</td>
+                    <td>{{group.origin}}</td>
+                    <td>{{group.variety}}</td>
+                    <td class="view-order" (click)="OrderDetails($event,group)">View order</td>
                 </tr>
-            </tbody> -->
+            </tbody>
         </table>
     </div>
-
+    <div class="row pt-5" *ngIf="this.data == null">
+        <div class="col-lg-12 col-md-12 no-data-sec">
+            <div class="text-center ">
+                <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
+                <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
+            </div>
+        </div>
+    </div>
 </section>
 
 

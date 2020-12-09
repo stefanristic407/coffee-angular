@@ -47,14 +47,20 @@
                     </span>
                 </li> -->
 
-                <li class="b-cum c-pink">{{globals.languageJson?.estate_orders}}</li>
+                <li class="b-cum c-pink">
+                    <!-- {{globals.languageJson?.estate_orders}} -->
+                    Purchase Orders Estates
+                </li>
                 <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{globals.languageJson?.export}}</button>
 
             </ul>
         </nav>
 
         <section class="estate-orders-heading">
-            <h5 class="estate-order-title">{{globals.languageJson?.estate_orders}}</h5>
+            <h5 class="estate-order-title">
+                <!-- {{globals.languageJson?.estate_orders}} -->
+                Purchase Orders Estates
+            </h5>
         </section>
 
 
@@ -147,8 +153,59 @@
                     </div>
                 </div>
             </div>
-            <div class="estate-table pt-2">
-                <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
+            <div class="estate-table pt-2" *ngIf="this.data != null">
+                <!-- <table class="estate-boby-txt" datatable [dtOptions]="dtOptions"> -->
+
+
+                        <table class="estate-boby-txt table">
+                                <thead>
+                                    <tr class="estate-title">
+                                        <th>
+                                            <label class="b-check first-t">
+                                            <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
+                                            <!-- <span class="checkmark"></span> -->
+                                        </label>
+                                        </th>
+                                        <th>Order ID </th>
+                                        <th>Estate name </th>
+                                        <th>Date ordered </th>
+                                        <th>Orgin </th>
+                                        <th>Species</th>
+                                        <th>Price</th>
+                                        <th>Quantity </th>
+                                        <th>Type of Order </th>
+                                        <th>Status </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let group of data" class="estate-boby-txt">
+                                        <td class="spacing-order" style="width: 40px;">
+                                            <label class="b-check">
+                                            <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
+                                            <!-- <span class="checkmark"></span> -->
+                                          </label>
+                                        </td>
+                
+                                        <td>{{group.id}}</td>
+                                        <td>{{group.estate_name}}</td>
+                                        <td>{{group.created_at | date:'dd-MM-yyyy'}}</td>
+                                        <td>{{group.origin}}</td>
+                                        <td>{{group.species}}</td>
+                                        <td>{{group.price}}</td>
+                                        <td>{{group.quantity}}</td>
+                                        <td>
+                                            <p class="typeoforder-Sample" *ngIf="group.type == 'Sample'">&#9679; Sample</p>
+                                            <!-- <p class="typeoforder-Booked" *ngIf="group.type == 'Booked'">&#9679; {{group.type}}</p> -->
+                                            <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'Pre-Booked'">&#9679; Pre-Booked</p>
+                                            <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
+                                        </td>
+                                        <td>{{group.status}}
+                                        </td>
+                                        <td class="view-order" (click)="displayData($event,group)">View order </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                     <!-- <thead>
                     <tr class="estate-title">
                         <th>
@@ -197,8 +254,21 @@
                         <td class="view-order" (click)="displayData($event,group)">View order</td>
                     </tr>
                 </tbody> -->
-                </table>
+                <!-- </table> -->
             </div>
+              <!-- no-data for Land lots Starts -->
+            <div class="row pt-5" *ngIf="this.data == null">
+                <div class="col-lg-12 col-md-12 no-data-sec">
+                    <div class="text-center ">
+                        <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                        <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
+                        <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                        <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
+        
+                    </div>
+                </div>
+            </div>
+        <!-- no-data for Land lots Ends -->
 
         </section>
         <section class="mobile-tab">
@@ -285,7 +355,7 @@
                                 <div class="raised-list mt-5 mb-5">
                                     <ul class="cleafix pagination-content-list">
                                         <li class="order-raised pagination-content-list__item" *ngFor="let role of data  | filter:estatetermOriginMob | filter:estatetermTypeMob | filter: estatetermStatusMob | filter:searchTerm">
-                                            <div class="raised-detils d-inline-block  pb-3" (click)="OrderDetails($event,role);">
+                                            <div class="raised-detils d-inline-block  pb-3" (click)="displayData($event,role);">
                                                 <div class="raised-tit">
                                                     <h4 class="col-8">{{role.status}}</h4>
                                                     <label class="selok"><img src="assets/images/cricle-active.png"
