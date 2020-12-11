@@ -5663,13 +5663,14 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
   }
 
   getcontactList(){
-	this.roasterService.getRoasterContacts(this.roasterId).subscribe(res =>{
-		if(res['success']==true){
-		this.roasterContacts = res['result'];
-		console.log(this.roasterContacts)
-		}
-	})
+    this.roasterService.getRoasterContacts(this.roasterId).subscribe(res =>{
+      if(res['success']==true){
+      this.roasterContacts = res['result'];
+      console.log(this.roasterContacts)
+      }
+    })
   }
+    
 
   //  Function Name :Change Country.
   //Description: This function helps to get the values of cities according to selcted country.
