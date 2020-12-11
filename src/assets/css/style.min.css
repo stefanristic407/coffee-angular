@@ -23492,3 +23492,29 @@ button {
 .delete-vat-section{
     top: -10px !important;
 }
+.upload {
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    padding: 12px 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #30855c;
+    width: 97px !important;
+    height: 46px;
+}
+
+.upload-txt {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.brand-mb {
+    font-family: Muli;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}

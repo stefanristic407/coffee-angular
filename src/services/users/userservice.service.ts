@@ -152,7 +152,7 @@ export class UserserviceService {
 
   getRoasterAccount(id: any) {
     var data = {};
-    data['api_call'] = "/ro/" + id + "/profile/";
+    data['api_call'] = "/ro/" + id + "/profile";
     data['token'] = this.cookieService.get('Auth');
     data["method"] = "GET";
     return this.http.post(this.roasterUrl, data);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RoasteryProfileService } from '../roastery-profile.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -69,10 +69,25 @@ export class AboutRoasteryComponent implements OnInit {
     contactid : ''
   }
 ]
+
+brandProfile = [
+  {
+    name : '',
+    logo : '',
+    short_descr : ""
+  }
+]
+brand = {
+  name: '',
+  description: ''
+}
+
 addBtn : boolean = true;
 assignRow : boolean = false;
 // showDelete : boolean = false;
 assignButtonValue : string = "Add Contact";
+  brands: any;
+  @ViewChild("roasterImage") roasterImage;
 
   	constructor(public roasteryProfileService : RoasteryProfileService,
 		public userService : UserserviceService,
@@ -85,16 +100,52 @@ assignButtonValue : string = "Add Contact";
 	}
 
   ngOnInit(): void {
-	this.getCertificates();
-	this.roasteryProfileService.getcontactList();
-	this.language();
+    this.getCertificates();
+    this.roasteryProfileService.getcontactList();
+    this.getBrands();
+    this.language();
   }
   language(){
-	this.appLanguage = this.globals.languageJson;
+	  this.appLanguage = this.globals.languageJson;
    	this.aboutActive++;
   }
 
-  
+  addNewBrand(file,brand){
+    const data: FormData = new FormData();
+    data.append('name',brand.name);
+    data.append('description',brand.short_descr);
+    data.append('file',file);
+    data.append('api_call',`/ro/${this.roasterId}/brands`);
+    data.append('token',this.cookieService.get('Auth'));
+    this.roasterService.addRoasterBrand(data).subscribe( res => {
+      this.getBrands();
+    });
+  }
+  getBrands(){
+    this.roasterService.getRoasterBrands(this.roasterId).subscribe( res => {
+      this.brands = res.success ? res.result: [];
+    });
+  }
+  handleRoasterFile(e,brand) {
+    if(!brand.name || !brand.short_descr){
+      this.toastrService.error('Please add brand details');
+      e.target.file = '';
+      return;
+    }
+    if (e.target.files.length > 0) {
+			for (let i = 0; i <= e.target.files.length - 1; i++) {
+				const fsize = e.target.files.item(i).size;
+				const file = Math.round((fsize / 1024));
+				// The size of the file.
+        if (file >= 2048) {
+          this.toastrService.error("File too big, please select a file smaller than 2mb");
+        }else{
+          console.log('Coming here');
+          this.addNewBrand(e.target.files[0],brand);
+        }
+      }
+    }
+  }
 	getCertificates(){
 		if(this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')){
 	this.userService.getCompanyCertificates(this.roasterId).subscribe(
@@ -195,6 +246,19 @@ showContact(){
         }
       }
     )
+  }
+
+  public addBrandProfile(){
+    this.brandProfile.push({ 
+    name : '',
+    logo : '',
+    short_descr : ""
+
+    });
+}
+
+public deleteRow( index){
+    this.brandProfile.splice(index, 1);
   }
 
 }

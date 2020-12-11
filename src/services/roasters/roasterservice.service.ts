@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import {environment} from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class RoasterserviceService {
   private fileuploadUrl = environment.apiURL+"/ro/filesfolders" ;
   private putfileuploadUrl = environment.apiURL+"/ro/putfilesfolders" ;
   private encryptionKey = 'sewen_secrete_key';
+  private uploadBrandsUrl =  environment.apiURL+'/ro/uploadBrands';
 
   // private url = "https://qa-fed-api.sewnstaging.com/ro/api";
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
@@ -227,11 +229,15 @@ export class RoasterserviceService {
     //API Function Name : Get Brands
   //API Description: This API calls helps to get the Brands of the Roaster.
 
-  getRoasterBrands(roaster_id: any) {
+  getRoasterBrands(roaster_id: any):Observable<any> {
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/brands";
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
+  }
+
+  addRoasterBrand(data: any):Observable<any> {
+    return this.http.post(this.uploadBrandsUrl, data);
   }
 
      //API Function Name : Get Brands
