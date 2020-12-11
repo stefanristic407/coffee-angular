@@ -50,6 +50,7 @@ export class VatMicroRoasterComponent implements OnInit {
 		this.vatService.getVatDetails();
 	}
 	public addNewTranscation(){
+		
 		this.addMr.push({ 
 			country : '',
 			transaction_type : '',
