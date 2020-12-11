@@ -930,5 +930,19 @@ export class UserserviceService {
     data['method'] = "PUT";
     return this.http.put(this.putUrl, data);
   }
-  
+  updateMrVat(roaster_id : any, body : any,vat_id : any){
+    var data = {};
+    data['api_call'] = "/ro/"+roaster_id+"/vat-settings/"+vat_id;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "PUT";
+    return this.http.put(this.putUrl, data);
+  }
+  deleteMrVat(roaster_id : any,vat_id:any) {
+	var data = {};
+	data["api_call"] = "/ro/" + roaster_id + "/vat-settings/" +vat_id;
+	data["method"] = "DELETE";
+	data["token"] = this.cookieService.get("Auth");
+	return this.http.post(this.roasterDeleteUrl, data);
+	}
 }

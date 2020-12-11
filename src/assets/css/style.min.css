@@ -23489,3 +23489,6 @@ button {
     line-height: 1.57;
     color: #80460b;
 }
+.delete-vat-section{
+    top: -10px !important;
+}
