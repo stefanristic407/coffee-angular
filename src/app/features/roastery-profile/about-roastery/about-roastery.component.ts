@@ -69,6 +69,15 @@ export class AboutRoasteryComponent implements OnInit {
     contactid : ''
   }
 ]
+
+brandProfile = [
+  {
+    name : '',
+    logo : '',
+    short_descr : ""
+  }
+]
+
 addBtn : boolean = true;
 assignRow : boolean = false;
 // showDelete : boolean = false;
@@ -195,6 +204,19 @@ showContact(){
         }
       }
     )
+  }
+
+  public addBrandProfile(){
+    this.brandProfile.push({ 
+    name : '',
+    logo : '',
+    short_descr : ""
+
+    });
+}
+
+public deleteRow( index){
+    this.brandProfile.splice(index, 1);
   }
 
 }
