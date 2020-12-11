@@ -23489,7 +23489,9 @@ button {
     line-height: 1.57;
     color: #80460b;
 }
-
+.delete-vat-section{
+    top: -10px !important;
+}
 .upload {
     border-radius: 4px;
     border: solid 1px #30855c;
