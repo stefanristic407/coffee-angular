@@ -240,6 +240,13 @@ export class RoasterserviceService {
     return this.http.post(this.uploadBrandsUrl, data);
   }
 
+  getRoasterReviews(roaster_id: any):Observable<any> {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/your-reviews";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
      //API Function Name : Get Brands
   //API Description: This API calls helps to create the folder .
 

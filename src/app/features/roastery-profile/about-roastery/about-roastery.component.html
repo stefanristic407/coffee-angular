@@ -305,7 +305,7 @@
                                     <input class="form-control rectangle_username" type="text" (keyup)="onKeyPress($event)" [(ngModel)]="role.name" [ngModelOptions]="{standalone: true}" />
                                     <!-- <input *ngIf="editmode" class="form-control rectangle_username" type="text" [ngClass]="{disabledDiv: activeFlag}" (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}"/> -->
                                 </div>
-                                <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete && i > 0">
+                                <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete">
                                     <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="removeContact(role.id)">Remove Contact</span>
                                 </div>
                             </div>
@@ -348,7 +348,7 @@
                                             </div>
                                             <div class="profile-des">
                                                 <h4>{{contact.name | titlecase}}</h4>
-                                                <h6>{{contact.roles[0]}}</h6>
+                                                <h6>{{contact.roles[0] || '-'}}</h6>
                                             </div>
                                             <div class="msg-chat mt-2">
                                                 <img src="assets/images/message-icon.svg" class="d-inline-block">
