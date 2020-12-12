@@ -14,7 +14,7 @@
             </span>
             <h4 class="Finca-la-pampa pt-3"> Finca la pampa</h4> -->
             </div>
-            <div class="row">
+            <div class="row" *ngIf="sourcing.reviewsList != null">
                 <div class="col-lg-4 col-md-12 left-space">
 
                     <div class="review-sec">
@@ -341,6 +341,16 @@
 
                 </div>
 
+            </div>
+            <div class="row" *ngIf="sourcing.reviewsList == null">
+                <div class="col-lg-12 col-md-12 no-data-sec">
+                    <div class="text-center ">
+                        <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                        <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No reviews data available</h1>
+                        <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                        <!-- <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/sourcing']">Browse availabilities</button> -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
