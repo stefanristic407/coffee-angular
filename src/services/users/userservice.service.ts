@@ -930,5 +930,32 @@ export class UserserviceService {
     data['method'] = "PUT";
     return this.http.put(this.putUrl, data);
   }
+  getSocialMediaPosts(type_in : any){
+		let params = new HttpParams();
+		params = params.append('file_module', 'Social-Media');
+		params = params.append('type_in',type_in);
+		var data = {};
+		data['api_call'] = `/general/file-manager/all-files?${params}`;
+		data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data)
+  }
   
+  postDefaultCoffeeExperienceDetail(roaster_id : any,body : any){
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/coffee-experience";
+    data["method"] = "POST";
+    data['data'] = body;
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  getGeneralRoasterCertificates(roaster_id : any){
+    var data = {};
+    data['api_call'] = `/general/ro/${roaster_id}/certificates`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data)
+  }
+
 }
