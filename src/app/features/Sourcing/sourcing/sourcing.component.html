@@ -374,7 +374,8 @@
                                                                     </td>
 
                                                                     <td>
-                                                                        <!-- {{ estate.origin }} -->NA
+                                                                        <span *ngIf="estate['country']">{{GetCountry(estate.country)}}</span>
+                                                                        <span *ngIf="estate['country'] == ''">NA</span>
                                                                     </td>
                                                                     <td>
                                                                         <span *ngIf="estate['altitude']['lte'] == 0 && estate['altitude']['lte'] == 0">NA</span>

@@ -1,63 +1,9 @@
 <section>
     <div class="row">
-
         <div class="pls-note">
             <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0"> <span class="fnt-700">Please note  : </span> Edit VAT rate only when you are sure of a change in the rates. A slight mistake can lead to a penalty from the authorities. </p>
         </div>
-
-        <div class="col-md-12 Onboard-vatmr pt-2" *ngIf="vatService.savemode">
-
-            <div *ngIf="vatService.showadddatadiv">
-                <div class="Onboard-vatmr__inputs">
-                    <div class="row">
-                        <div class="table-container mb-2 col-12">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class="table-header">
-                                        <tr class="header-row">
-                                            <th scope="col"> Country </th>
-                                            <th scope="col"> Transaction </th>
-                                            <th scope="col"> VAT Rate </th>
-                                            <th scope="col"> Action </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="customtable">
-                                        <!-- <tr *ngFor="let item of this.vatService.mrList"> -->
-                                        <tr>
-                                            <td>
-                                                Sweden
-                                            </td>
-                                            <td>
-                                                Green coffee
-                                            </td>
-                                            <td>
-                                                12%
-
-                                            </td>
-                                            <td class=" view-order">
-                                                Edit
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="add-partner d-inline-flex align-items-center mt-3">
-                <img src="assets/images/add-partner.svg">
-                <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer" (click)="addNewTranscation()">Add new transaction </span>
-
-            </div>
-        </div>
-
-        <div class="table-container mb-2 mt-4 col-12" *ngIf="vatService.editmode">
+        <div class="table-container mb-2 mt-4 col-12">
             <div class="table-responsive">
                 <table class="table">
                     <thead class="table-header">
@@ -66,15 +12,15 @@
                             <th scope="col"> Transaction </th>
                             <th scope="col"> VAT Rate </th>
                             <th scope="col"> Action </th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody class="customtable">
-                        <!-- <tr *ngFor="let item of this.vatService.mrList"> -->
-                        <tr>
+                    <ng-container  *ngIf="vatService.savemode"> 
+                        <tr *ngFor="let add of addMr;let i = index">
                             <td>
                                 <div class="Onboard-input">
-                                    <!-- <label class="w-100">Country *</label> -->
-                                    <select id="country" name="Year" class="form-control select-region" (keyup)="onKeyPress($event)" [(ngModel)]="addUser.country" name="country" required="" (change)="changeCountry()">
+                                    <select id="country" name="Year" class="form-control select-region" (keyup)="onKeyPress($event)" [(ngModel)]="add.country" name="country" required="" (change)="changeCountry()">
                                         <option  value="" selected="" disabled=""> Select a Country</option>
                                         <option  *ngFor="let count of roasteryProfileService.countryList" value="{{ count.isoCode }}">{{ count.name }}</option>
                                     </select>
@@ -82,48 +28,74 @@
                             </td>
                             <td>
                                 <div class="Onboard-input">
-                                    <!-- <label class="w-100">Transaction type *</label> -->
-                                    <input class="w-100" type="text" placeholder="Please enter your type" name="transcation_type" [(ngModel)]="addUser.transaction_type">
+                                    <input class="w-100" type="text" placeholder="Please enter your type" name="transcation_type" [(ngModel)]="add.transaction_type">
                                 </div>
                             </td>
                             <td>
-
                                 <div class="Onboard-input">
-                                    <!-- <label class="w-100">Vat percentage *</label> -->
-                                    <input class="w-100" type="number" placeholder="Enter percentage" name="vat_percentage" [(ngModel)]="addUser.vat_percentage">
+                                    <input class="w-100" type="number" placeholder="Enter percentage" name="vat_percentage" [(ngModel)]="add.vat_percentage">
                                 </div>
-
                             </td>
                             <td>
                                 <div class="Onboard-input">
 
-                                    <button type="button" class="fnt-14 fnt-muli fnt-700 add-vat"> Save </button>
-
+                                    <button type="button" class="fnt-14 fnt-muli fnt-700 add-vat" (click)="saveMrVat()" [disabled]="resetButtonValue==='Saving'">
+                                        {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
+   
                                 </div>
-
                             </td>
+                            <td>
+                                <span class="view-order delete-vat-section mt-5 cursor-pointer" (click)="deleteRow(i)">
+                                        Delete
+                            </span>  
+                        </td>
                         </tr>
-
-                        <tr>
-                            <td>
-                                Sweden
-                            </td>
-                            <td>
-                                Green coffee
-                            </td>
-                            <td>
-                                12%
-
-                            </td>
-                            <td class=" view-order">
-                                Edit
-                            </td>
-                        </tr>
+                    </ng-container>      
+                    <ng-container >
+                        <tr *ngFor="let item of vatService.mrList; let j=index">
+                                <td>
+                                   <p *ngIf="vatService.editmode && eachId!=item.id">{{item.country}}</p>
+                                   <p *ngIf="vatService.editmode && eachId==item.id && updateVatmode">{{item.country}}</p>
+                                   <div class="Onboard-input" *ngIf="editTableRow && eachId==item.id">
+                                        <select id="country" name="Year" class="form-control select-region" (keyup)="onKeyPress($event)" [(ngModel)]="eachCountry" name="country" required="" (change)="changeCountry()">
+                                            <option  value="" selected="" disabled=""> Select a Country</option>
+                                            <option  *ngFor="let count of roasteryProfileService.countryList" value="{{ count.isoCode }}">{{ count.name }}</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p *ngIf="vatService.editmode && eachId!=item.id">{{item.transaction_type}}</p>
+                                    <p *ngIf="vatService.editmode && eachId==item.id && updateVatmode">{{item.transaction_type}}</p>
+                                    <div class="Onboard-input"  *ngIf="editTableRow && eachId==item.id">
+                                        <input class="w-100" type="text" placeholder="Please enter your type" name="transcation_type" [(ngModel)]="eachTransactionType">
+                                    </div>
+                                </td>
+                                <td>
+                                    <p *ngIf="vatService.editmode && eachId!=item.id">{{item.vat_percentage}}%</p>
+                                    <p *ngIf="vatService.editmode && eachId==item.id && updateVatmode">{{item.vat_percentage}}%</p>
+                                    <div class="Onboard-input"  *ngIf="editTableRow && eachId==item.id">
+                                        <input class="w-100" type="number" placeholder="Enter percentage" name="vat_percentage" [(ngModel)]="eachVatPercentage">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="vatService.editmode && eachId!=item.id" class=" view-order" (click)="updateEachVat(item);">Edit</div>
+                                    <div *ngIf="vatService.editmode && eachId==item.id && updateVatmode" class=" view-order" (click)="updateEachVat(item);">Edit</div>
+                                    <div class="Onboard-input" *ngIf="editTableRow && eachId==item.id">
+                                        <button type="button" class="fnt-14 fnt-muli fnt-700 add-vat" (click)="saveEachMrVat(eachId)">Save</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span *ngIf="editTableRow && eachId==item.id" class="view-order delete-vat-section mt-5 cursor-pointer" (click)="deleteEachVat(eachId)">Delete</span>
+                                </td>
+                            </tr>    
+                        </ng-container>
                     </tbody>
                 </table>
             </div>
         </div>
-
-
+        <div class="add-partner d-inline-flex align-items-center mt-3">
+            <img src="assets/images/add-partner.svg">
+            <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer" (click)="addNewTranscation()">Add new transaction </span>
+        </div>
     </div>
 </section>

@@ -199,9 +199,8 @@
                                         <div class="capabilitiesError" *ngIf="capabilitiesError != ''">
                                           {{ capabilitiesError }}
                                         </div>
-                                      </div>
-                                      
-                              </div>
+                                    </div>
+                                </div>
 
                               <div class="row about-web" *ngIf="roasteryProfileService.editmode">
                                 <div class="col-lg-11 border-total">
@@ -228,71 +227,70 @@
 
                         <hr>
 
+                        <!-- Brand Profile -->
+
                         <div class="row p-3 mt-md-5 mt-4">
                             <p class="sub-header mt-2 mt-md-0">{{globals.languageJson?.brands}}</p>
                             <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{globals.languageJson?.list_down_brands}}.</p>
                         </div>
                         <div *ngIf="roasteryProfileService.savemode">
-                            <div class="row mt-3">
-                                <div class="form-group col-md-3">
-                                    <label for="brand_name">{{globals.languageJson?.brand_logo}}<span class="star">*</span></label>
-                                    <img src="assets/images/profile.svg" class="brand-pic">
-                                    <a class="show_modal">
-                                        <img src="assets/images/camera.svg" class="camera-pic">
-                                    </a>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="brand_name">{{globals.languageJson?.brand_name}}<span class="star">*</span></label>
-                                    <input class="form-control brand_name rectangle" id="brand_name" type="text" (keyup)="onKeyPress($event)" name="brand_name" [(ngModel)]="brand_name" placeholder="Please enter brand name" />
-                                    <div class="brandNameError" *ngIf="brandNameError != ''">
-                                        {{ brandNameError }}
+                            <div class="mt-2" *ngFor="let brand of brandProfile; let i = index">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="brand_name">{{globals.languageJson?.brand_name}}<span class="star">*</span></label>
+                                        <input class="form-control brand_name rectangle" type="text" (keyup)="onKeyPress($event)" [(ngModel)]="brand.name" [ngModelOptions]="{standalone : true}" placeholder="Please enter brand name" />
+                                        <div class="brandNameError" *ngIf="brandNameError != ''">
+                                            {{ brandNameError }}
+                                        </div>
                                     </div>
+
+                                    <div class="form-group col-md-4">
+                                        <p class="brand-mb">Brand Logo<span class="star">*</span></p>
+                                        <label class="upload">
+                                            <input type="file" class="file-inpt" #roasterImage (change)="handleRoasterFile($event,brand)">
+                                            <span class="upload-txt ml-1"> Upload </span>
+                                        </label> <span class="view-order mt-5 cursor-pointer ml-3" *ngIf="i != 0" (click)="deleteRow(i)">Delete</span>
+                                    </div>
+
                                 </div>
-                                <!-- <div class="form-group col-md-6 ">
-                                            <label for="b_logo"
-                                              >Brand logo<span class="star">*</span></label
-                                            >
-                                           <button class="btn logo-btn" type="button">Upload</button>
-                                            <div class="brandLogoError" *ngIf="brandLogoError != ''">
-                                              {{ brandLogoError }}
-                                            </div>
-                                            <span class="d-block d-md-none file-attach-label mt-2">You can upload a JPG or PNG, file. Max file size limit 2MB</span>
-                                          </div> -->
 
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-12 mt-3">
-                                    <label for="short_descr">{{globals.languageJson?.short_description_brand}}<span class="star">*</span></label>
-                                    <textarea class="form-control short_descr" id="short_descr" name="short_descr" rows="5" [(ngModel)]="short_descr" placeholder="Tell us a bit about your brand">
-                                              </textarea>
-                                    <div class="shortDescError" *ngIf="shortDescError != ''">
-                                        {{ shortDescError }}
+                                <div class="row">
+                                    <div class="form-group col-md-12 mt-3">
+                                        <label for="short_descr">{{globals.languageJson?.short_description_brand}}<span class="star">*</span></label>
+                                        <textarea class="form-control short_descr" rows="5" [(ngModel)]="brand.short_descr" [ngModelOptions]="{standalone : true}" placeholder="Tell us a bit about your brand">
+                                                </textarea>
+                                        <div class="shortDescError" *ngIf="shortDescError != ''">
+                                            {{ shortDescError }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="add-brand-div">
+                            <!-- <div class="add-brand-div">
                                 <a class="brand-tag">
                                     <img class="add-field" src="assets/images/add-field.svg">
-                                    <span class="add-text">{{globals.languageJson?.add_another_brand}}</span>
+                                    <span class="add-text" (click)="addBrandProfile()">{{globals.languageJson?.add_another_brand}}</span>
                                 </a>
-                            </div>
+                            </div> -->
+
                         </div>
 
-                        <div class="border-capacity web-border" *ngIf="roasteryProfileService.editmode">
+                        <div class="border-capacity web-border" *ngFor="let brand of brands">
                             <div class="row p-3 d-flex">
                                 <div class="col-lg-2 brand-image-div">
-                                    <img src="assets/images/ft-roastry-profile.png" class="brand-image">
+                                    <img [src]="brand.url" class="brand-image">
                                 </div>
                                 <div class="col-lg-10 brand-content-div">
                                     <p class="brand-title ">
-                                        Blue tokai
+                                        {{brand.name}}
                                     </p>
                                     <p class="brand-content">
-                                        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna."
+                                        {{brand.description}}
                                     </p>
                                 </div>
+                            </div>
+                            <div *ngIf="!brands?.length" class="text-center p-2">
+                                <span> No brands found.</span>
                             </div>
                         </div>
 
@@ -304,10 +302,10 @@
                             </div>
                             <div class="row" *ngFor="let role of roasteryProfileService.roasterContacts;let i = index">
                                 <div class="form-group col-md-6 mt-md-3 mb-0">
-                                    <input class="form-control rectangle_username" type="text"  (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}" />
+                                    <input class="form-control rectangle_username" type="text" (keyup)="onKeyPress($event)" [(ngModel)]="role.name" [ngModelOptions]="{standalone: true}" />
                                     <!-- <input *ngIf="editmode" class="form-control rectangle_username" type="text" [ngClass]="{disabledDiv: activeFlag}" (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}"/> -->
                                 </div>
-                                <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete && i > 0">
+                                <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete">
                                     <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="removeContact(role.id)">Remove Contact</span>
                                 </div>
                             </div>
@@ -318,24 +316,24 @@
                                         <option selected disabled value="">{{globals.languageJson?.please_select_employee_name}}</option>
                                         <option *ngFor="let data of roasteryProfileService.roasterUsers" value="{{data.id}}">{{data.firstname}} {{data.lastname}}</option>
                                     </select>
-                                </div>           
+                                </div>
                                 <div class="col-12 col-md-6 mt-4 pt-1">
-                                    <button type="submit" class="assign_member_role save"  [disabled]="assignButtonValue==='Adding'" (click)="addContact();"  >
+                                    <button type="submit" class="assign_member_role save" [disabled]="assignButtonValue==='Adding'" (click)="addContact();">
                                             {{assignButtonValue}}<img *ngIf="assignButtonValue==='Adding'" class="loader" src="assets/images/orange-loader.gif"/></button>
-                                            <button type="submit" class="btn cancel_assign"(click)="cancelAssign();">
+                                    <button type="submit" class="btn cancel_assign" (click)="cancelAssign();">
                                                     <span class="cancel_text">{{globals.languageJson?.cancel}}</span>
                                                     </button>
                                 </div>
-                                
+
                             </div>
-                                <div class="add-brand-div mt-3">
-                                    <a class="brand-tag" (click)="showContact()">
-                                        <img class="add-field" src="assets/images/add-field.svg">
-                                        <span class="add-text">{{globals.languageJson?.add_another_contact}}</span>
-                                    </a>
-                                </div>
+                            <div class="add-brand-div mt-3">
+                                <a class="brand-tag" (click)="showContact()">
+                                    <img class="add-field" src="assets/images/add-field.svg">
+                                    <span class="add-text">{{globals.languageJson?.add_another_contact}}</span>
+                                </a>
                             </div>
-                           
+                        </div>
+
                         <!-- </div> -->
 
                         <div class="mob-view" *ngIf="roasteryProfileService.editmode">
@@ -350,7 +348,7 @@
                                             </div>
                                             <div class="profile-des">
                                                 <h4>{{contact.name | titlecase}}</h4>
-                                                <h6>{{contact.roles[0]}}</h6>
+                                                <h6>{{contact.roles[0] || '-'}}</h6>
                                             </div>
                                             <div class="msg-chat mt-2">
                                                 <img src="assets/images/message-icon.svg" class="d-inline-block">

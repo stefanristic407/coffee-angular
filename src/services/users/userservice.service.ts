@@ -152,7 +152,7 @@ export class UserserviceService {
 
   getRoasterAccount(id: any) {
     var data = {};
-    data['api_call'] = "/ro/" + id + "/profile/";
+    data['api_call'] = "/ro/" + id + "/profile";
     data['token'] = this.cookieService.get('Auth');
     data["method"] = "GET";
     return this.http.post(this.roasterUrl, data);
@@ -895,14 +895,14 @@ export class UserserviceService {
   }
   getEachEsateReviews(estate_id:any){
 	var data = {};
-    data['api_call'] = "/general/estates/" + estate_id + "/reviews";
+    data['api_call'] = "/general/es/" + estate_id + "/reviews";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
   }
   getEachEsateReviewsSummary(estate_id:any){
 	var data = {};
-    data['api_call'] = "/general/estates/" + estate_id + "/reviews-summary";
+    data['api_call'] = "/general/es/" + estate_id + "/reviews-summary";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
@@ -958,4 +958,19 @@ export class UserserviceService {
 		return this.http.post(this.roasterUrl, data)
   }
 
+  updateMrVat(roaster_id : any, body : any,vat_id : any){
+    var data = {};
+    data['api_call'] = "/ro/"+roaster_id+"/vat-settings/"+vat_id;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "PUT";
+    return this.http.put(this.putUrl, data);
+  }
+  deleteMrVat(roaster_id : any,vat_id:any) {
+	var data = {};
+	data["api_call"] = "/ro/" + roaster_id + "/vat-settings/" +vat_id;
+	data["method"] = "DELETE";
+	data["token"] = this.cookieService.get("Auth");
+	return this.http.post(this.roasterDeleteUrl, data);
+	}
 }

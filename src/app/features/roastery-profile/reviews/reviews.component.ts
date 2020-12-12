@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 
 @Component({
   selector: 'sewn-reviews',
@@ -13,15 +15,25 @@ export class ReviewsComponent implements OnInit {
   termStatus: any;
   showRelavant:boolean=true;
   appLanguage?: any;
+  roasterId: any;
+  reviews: any = [];
 
-  constructor(public globals: GlobalsService) { 
-
+  constructor(
+    public globals: GlobalsService,
+    private roasterService: RoasterserviceService,
+    private cookieService: CookieService
+  ) {
     this.termStatus = "Most relevant";
-    
   }
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;
+    this.roasterId = this.cookieService.get('roaster_id');
+    this.roasterService.getRoasterReviews(this.roasterId).subscribe( res => {
+      if(res.success){
+        this.reviews = res.result ? res.result: [];
+      }
+    })
   }
 
   setStatus(term: any) {

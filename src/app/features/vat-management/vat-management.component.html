@@ -95,8 +95,6 @@
                                         </div>
 
                                         <div class="row">
-
-
                                             <div class="col-12 col-md-4 Onboard-input ">
                                                 <div class="form-input">
                                                     <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Shipping Price<span>*</span></label>
@@ -150,7 +148,8 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="saveShippingInfo()"> Save </button>
+                                            <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="saveShippingInfo()"[disabled]="resetButtonValue==='Saving'">
+                                                    {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
 
                                         </div>
 
@@ -162,7 +161,7 @@
 
                             <!-- after save -->
 
-                            <div class="row" *ngIf="editshippingmode">
+                            <div class="row" *ngIf="editshippingmode && shippData != null">
 
                                 <div class="pls-note">
                                     <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0"> This information will be used for all orders placed on the platform by the Roasters and Micro roasters. </p>
@@ -194,12 +193,7 @@
                                     <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="editShippingInfo();"> Edit </button>
 
                                 </div>
-
-
                             </div>
-
-
-
                         </div>
 
                     </div>

@@ -17,16 +17,23 @@ export class VatMicroRoasterComponent implements OnInit {
 	vat_percentage:any;
 	mraddtranscation:boolean = false;
 	mradd : boolean =true;
-	addUser = 
+	editTableRow :boolean =false;
+	updateVatmode:boolean =false;
+	addMr = [
 		{
 			country : '',
 			transaction_type : '',
 			vat_percentage: ''
 		}
+	]
 	
 	roasterId: any;
 	showpostdiv:boolean=true;
-	resetButtonValue: string ='Add';
+	resetButtonValue: string ='Save';
+	eachCountry: any;
+	eachTransactionType: any;
+	eachVatPercentage: any;
+	eachId: any;
 
   constructor(private router : Router, 
 	private toastrService: ToastrService,
@@ -36,123 +43,135 @@ export class VatMicroRoasterComponent implements OnInit {
 	public userService : UserserviceService
     ) { 
 		this.roasterId = this.cookieService.get('roaster_id');
-
 	}
 
-  ngOnInit(): void {
-	this.vatService.showadddatadiv = false;
-    this.vatService.getVatDetails();
-    /*Onboarding start*/
-    // $('body').on('click', '.add-partner', function () {
-
-    //   var NewRow = `<div class="new-row position-relative">
-    //   <div class="row">
-      
-    //   <div class="col-12 col-md-4 Onboard-input">
-    //       <label class="w-100">Country *</label>
-    //       <select  name="Year" class="form-control select-region">
-    //           <option  value="" selected="" disabled=""> Select a Country</option>
-    //           <option  value="Sweden"> Sweden </option>
-    //           <option  value="Australia"> Australia </option>
-    //           <option  value="India"> India </option>
-    //       </select>
-    //   </div>
-			
-    //   <div class="col-12 col-md-4 Onboard-input">
-    //     <label class="w-100">Transaction type *</label>
-    //     <input class="w-100" type="text" placeholder="Please enter your type">
-    //   </div>
-
-    //   <div class="col-12 col-md-4 Onboard-input">
-    //     <label class="w-100">Vat percentage *</label>
-    //     <input class="w-100" type="number" placeholder="Enter percentage">
-    //   </div>
-
-    //     <span class="delete-rows fnt-muli fnt-700 txt-clr60b delete-b2b">
-	// 			Delete row
-	// 		</span>
-	// 		</div>
+	ngOnInit(): void {
+		// this.vatService.showadddatadiv = false;
+		this.vatService.getVatDetails();
+	}
+	public addNewTranscation(){
 		
-	// 	</div>`
-    //   $(this).parents('.Onboard-vatmr').find('.Onboard-vatmr__inputs:last').append(NewRow);
-    // });
-
-    // $('body').on('click', '.delete-rows', function () {
-
-
-    //   $(this).parents('.new-row').remove();
-    // });
-    /*Onboarding end */
-  }
-  public addNewTranscation(){
-	  this.showpostdiv=true;
-    this.mradd=true;
-    this.mraddtranscation=false;
-	}
+		this.addMr.push({ 
+			country : '',
+			transaction_type : '',
+			vat_percentage: ''
+		});
+		this.vatService.editmode= true;
+		this.vatService.savemode =true;
+	}	
 	private validateInput(data){
 		let flag = true;
-		// if (data && data.length){
-		//   data.forEach( ele => {
-			if (data.country === '' || data.transaction_type === '' || data.vat_percentage === '' ){
+		if (data && data.length){
+		  data.forEach( ele => {
+			if (ele.country === '' || ele.transaction_type === '' || ele.vat_percentage === '' ){
 			  flag = false;
 			}
-		//   });
-		// }
+		  });
+		}
 		return flag;
 	}
+	public deleteRow( index){
+		this.addMr.splice(index, 1);
+	}
 
-  getCountryName(code : any){
-	return this.roasteryProfileService.countryList.find(con => con.isoCode == code).name;	
-}
-  changeCountry() {
-    // console.log("the selected country is : " + this.country);
-    this.roasteryProfileService.changeCountry(this.roasteryProfileService.country);
-  }
-  onKeyPress(event: any) {
-    if (event.target.value == "") {
-      document.getElementById(event.target.id).style.border = "1px solid #D50000";
-    } else {
-      document.getElementById(event.target.id).style.border = "1px solid #d6d6d6";
-    }
-  }
-
-	addVat(){
+	getCountryName(code : any){
+		return this.roasteryProfileService.countryList.find(con => con.isoCode == code).name;	
+	}
+	changeCountry() {
+		// console.log("the selected country is : " + this.country);
+		this.roasteryProfileService.changeCountry(this.roasteryProfileService.country);
+	}
+	onKeyPress(event: any) {
+		if (event.target.value == "") {
+		document.getElementById(event.target.id).style.border = "1px solid #D50000";
+		} else {
+		document.getElementById(event.target.id).style.border = "1px solid #d6d6d6";
+		}
+	}
+	saveMrVat(){
 		let flag = true;
-		var input = this.addUser;
+		var input = this.addMr;
 	  	console.log(input);
 		flag = this.validateInput(input);
 		console.log("flag"+ flag);
 		if (flag){
-			this.resetButtonValue = "Adding";
+			this.resetButtonValue = "Saving";
+			this.addMr.forEach(element => {
+
 			var body = {
-			"country" : this.addUser.country,
-			"transaction_type" : this.addUser.transaction_type,
-			"vat_percentage" : this.addUser.vat_percentage,
+			"country" : element.country,
+			"transaction_type" : element.transaction_type,
+			"vat_percentage" : element.vat_percentage,
 			"vat_type": "mr"
 			}
 			this.userService.addVatDetails(this.roasterId,body).subscribe(
 			result=>{
 				if(result['success']==true){
-					this.resetButtonValue = "Add"
+					this.resetButtonValue = "Save"
 					this.toastrService.success("Micro roaster VAT Details added successfully");
 					this.vatService.getVatDetails();
-					this.showpostdiv=false;
-					this.mradd=false;
-					this.mraddtranscation=true;
-					this.addUser.country='';
-					this.addUser.transaction_type='';
-					this.addUser.vat_percentage='';
+					this.addMr=[];
+					
+					this.vatService.editmode= true;
+					this.vatService.savemode =false;
 				}
 				else{
 					this.toastrService.error("Error while adding VAT details");
-					this. resetButtonValue = "Add"
+					this. resetButtonValue = "Save"
 				}
 			}
 			)
+		});
 		}
 		else {
-			this.resetButtonValue = "Add";
+			this.resetButtonValue = "Save";
 			this.toastrService.error('Fields should not be empty.');
 		  }
+	}
+	updateEachVat(vatItem:any){
+		this.updateVatmode=false;
+		this.editTableRow=true;
+		this.eachCountry=vatItem.country;
+		this.eachTransactionType=vatItem.transaction_type;
+		this.eachVatPercentage=vatItem.vat_percentage;
+		this.eachId=vatItem.id;
+	}
+
+	saveEachMrVat(val:any){
+		var updateData = {
+			"country" : this.eachCountry,
+			"transaction_type" : this.eachTransactionType,
+			"vat_percentage" : this.eachVatPercentage,
+			"vat_type": "mr"
+		}
+		this.userService.updateMrVat(this.roasterId,updateData,val).subscribe(
+			result=>{
+				if(result['success']==true){
+					this.toastrService.success("Micro roaster VAT Details updated successfully");
+					this.vatService.getVatDetails();
+					this.updateVatmode=true;
+					this.editTableRow=false;
+				}
+				else{
+					this.toastrService.error("Error while adding VAT details");
+				}
+			}
+		);			
+	}
+	deleteEachVat(deleteId:any){
+		this.userService.deleteMrVat(this.roasterId,deleteId).subscribe(
+			result=>{
+				if(result['success']==true){
+					this.toastrService.success("Micro roaster VAT deleted successfully");
+					setTimeout(()=>{
+						this.vatService.getVatDetails();
+					},2000)
+					this.vatService.editmode=true;
+				}
+				else{
+					this.toastrService.error("Error while deleting VAT details");
+				}
+			}
+		);			
 	}
 }

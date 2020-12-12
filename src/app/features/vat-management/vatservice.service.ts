@@ -10,8 +10,12 @@ import { Router } from '@angular/router';
 })
 export class VatserviceService {
 	roasterId: string;
-	savemode : boolean = false;
-	editmode : boolean = true;
+	savemode : boolean = true;
+	editmode : boolean = false;
+
+	saveB2Bmode : boolean = true;
+	editB2Bmode : boolean = false;
+
 	mrList: any;
 	b2bEcommerceList: any;
 	mrCountry: any='';
@@ -26,28 +30,43 @@ export class VatserviceService {
 	  this.roasterId = this.cookieService.get('roaster_id');
 	  this.getVatDetails();
 	 }
-	 
-	saveVatData() {
-		this.savemode = false;
-		this.editmode = true;
-	}
-	editVatData(){
-		this.savemode = true;
-		this.editmode = false;
-	}
 	getVatDetails(){
 		this.userService.getRoasterVatDetails(this.roasterId,'mr').subscribe(
 			data=>{
 				this.mrList=data['result'];
-				this.showadddatadiv=true;
+				this.firstMrLoadMode();
+				// this.showadddatadiv=true;
 				console.log("mr"+this.mrList);
 			}
 		)
+	}
+	getB2bDetails(){
 		this.userService.getRoasterVatDetails(this.roasterId,'b2b_ecommerce').subscribe(
 			result=>{
 				this.b2bEcommerceList=result['result'];
+				this.firstB2BLoadMode();
 				console.log("b2b"+this.b2bEcommerceList);
 			}
 		)
+	}
+	firstMrLoadMode(){
+		if(this.mrList.length != 0){
+			this.editmode=true;
+			this.savemode=false;
+		}
+		else{
+			this.editmode=false;
+			this.savemode=true;
+		}
+	}
+	firstB2BLoadMode(){
+		if(this.b2bEcommerceList.length != 0){
+			this.editB2Bmode=true;
+			this.saveB2Bmode=false;
+		}
+		else{
+			this.editB2Bmode=false;
+			this.saveB2Bmode=true;
+		}
 	}
 }
