@@ -340,6 +340,21 @@
                     </div>
 
                 </div>
+                <ng-template #allTemplate>
+                    <div id="status-content">
+                        <ul class="list-group custom-popover">
+                            <li class="list-group-item item-color" (click)="setStatus('Most relevant'); pop2.hide(); pop3.hide();toggleRelavant()">
+                                <a class="pointer-item">{{globals.languageJson?.most_relevant}}</a>
+                            </li>
+                            <li class="list-group-item item-color" (click)="setStatus('Recent reviews');  pop2.hide(); pop3.hide();toggleRelavant()">
+                                <a class="pointer-item">{{globals.languageJson?.recent_reviews}}</a>
+                            </li>
+                            <li class="list-group-item item-color" (click)="setStatus('Based on rating');  pop2.hide(); pop3.hide();toggleRelavant()">
+                                <a class="pointer-item">{{globals.languageJson?.based_on_rating}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </ng-template>
 
             </div>
             <div class="row" *ngIf="sourcing.reviewsList == null">
@@ -355,19 +370,5 @@
         </div>
     </div>
 
-    <ng-template #allTemplate>
-        <div id="status-content">
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color" (click)="setStatus('Most relevant'); pop2.hide(); pop3.hide();toggleRelavant()">
-                    <a class="pointer-item">{{globals.languageJson?.most_relevant}}</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Recent reviews');  pop2.hide(); pop3.hide();toggleRelavant()">
-                    <a class="pointer-item">{{globals.languageJson?.recent_reviews}}</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Based on rating');  pop2.hide(); pop3.hide();toggleRelavant()">
-                    <a class="pointer-item">{{globals.languageJson?.based_on_rating}}</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
+   
 </div>
