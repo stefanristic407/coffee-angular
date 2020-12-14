@@ -43,11 +43,11 @@ export class VatMicroRoasterComponent implements OnInit {
 	public userService : UserserviceService
     ) { 
 		this.roasterId = this.cookieService.get('roaster_id');
+		this.vatService.getVatDetails();
 	}
 
 	ngOnInit(): void {
 		// this.vatService.showadddatadiv = false;
-		this.vatService.getVatDetails();
 	}
 	public addNewTranscation(){
 		

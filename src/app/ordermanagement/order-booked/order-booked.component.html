@@ -19,7 +19,7 @@
                                     <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                         src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
-                                <li class="b-cum c-pink">{{globals.languageJson?.order}} #46930
+                                <li class="b-cum c-pink">{{globals.languageJson?.order}} #{{bookedService.bookId}}
                                 </li>
                             </ul>
                         </nav>
@@ -27,7 +27,8 @@
 
                     <div class="col-lg-6 col-md-12 pull-right ml-auto pl-0 pr-0 d-none d-md-block">
                         <span class="pull-right ml-auto order-placed-text">
-                            {{globals.languageJson?.order_placed}} : <span class="date-text">1st Jan 2020</span>
+                            {{globals.languageJson?.order_placed}} : <span class="date-text">{{bookedService.created_at | date:"d MMM, y"}}</span> 
+                            <!-- 1st Jan 2020 -->
                         </span>
                     </div>
                 </div>
@@ -36,7 +37,7 @@
                     <div class=" col-lg-12 col-md-12 col-sm-12 pr-0">
                         <div class="row ">
                             <div class="col-md-6 pl-0 pr-0">
-                                <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}} #12416 <span class="booked booked--green ml-2">{{globals.languageJson?.booked}}</span></div>
+                                <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}} #{{bookedService.bookId}} <span class="booked booked--green ml-2">{{globals.languageJson?.booked}}</span></div>
 
                                 <!-- <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div> -->
                             </div>
@@ -272,7 +273,7 @@
                         <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
                             alt="Edit"> Edit</div> -->
                     </div>
-                    <div class=" d-flex mt-1 addr-text">Löfbergs Lila AB, Box 1501, 651 21 - Karlstad, Sweden</div>
+                    <div class=" d-flex mt-1 addr-text">{{bookedService['shipping_address']['address_line1']}}, {{bookedService['shipping_address']['address_line2']}}, {{bookedService['shipping_address']['zipcode']}} - {{bookedService['shipping_address']['state']}}, {{bookedService['shipping_address']['country']}}</div>
                     <div class="d-flex mt-3">
                         <img class="img-logo" src="assets/images/google-image.png" alt="Map">
 
@@ -332,12 +333,12 @@
                         </div>
                     </div>
                     <div class="d-flex mt-3 border-div">
-                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                        <div class="p-0"><img class="img-estate" [src]="bookedService.estate_thumbnail_url" alt="User"></div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">Finca La Pampa</li>
+                                <li class="estate-name">{{bookedService.estate_name}}</li>
                                 <li class="estate-number pt-1">
-                                    Coffee Estate
+                                    {{bookedService.estate_owner}}
                                 </li>
                             </ul>
                         </div>
@@ -351,12 +352,12 @@
                         </div>
                     </div>
                     <div class="d-flex mt-3">
-                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder2.png" alt="User"></div>
+                        <div class="p-0"><img class="img-estate" [src]="bookedService.roaster_thumbnail_url" alt="User"></div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">Kevin Bailey</li>
+                                <li class="estate-name">{{bookedService.roaster_name}}</li>
                                 <li class="estate-number pt-1">
-                                    Facilitator
+                                    {{bookedService.roaster_owner}}
                                 </li>
                             </ul>
                         </div>

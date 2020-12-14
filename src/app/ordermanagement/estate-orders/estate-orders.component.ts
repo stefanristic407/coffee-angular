@@ -679,6 +679,7 @@ export class EstateOrdersComponent implements OnInit {
 		let navigationExtras: NavigationExtras = {
 			queryParams: {
 				"data": encodeURIComponent(group.status),
+				"id": encodeURIComponent(group.id)
 			}
 		}
 		if (group.type == "GC_ORDER") {
