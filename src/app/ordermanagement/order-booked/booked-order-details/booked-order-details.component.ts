@@ -3,6 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderBookedService } from '../order-booked.service';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 @Component({
   selector: 'app-booked-order-details',
@@ -12,7 +13,8 @@ import { GlobalsService } from 'src/services/globals.service';
 export class BookedOrderDetailsComponent implements OnInit {
   files: FileList;
   appLanguage?:any;
-  constructor(public bookedService: OrderBookedService,public globals: GlobalsService) {
+  countryValue: any;
+  constructor(public bookedService: OrderBookedService,public globals: GlobalsService,public profileservice:RoasteryProfileService) {
 	// this.bookedService.viewAvailability();
 
    }
@@ -32,5 +34,19 @@ export class BookedOrderDetailsComponent implements OnInit {
     this.bookedService.uploadShow = false;
     this.bookedService.receiptShow = true;
 }
+getPrice(){
+	if(this.bookedService.price){
+		return this.bookedService.price*this.bookedService.quantity;
+	}
+}
 
+GetCountry(data:any){
+  // console.log(data.toUpperCase());
+  if(data){
+    this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
+    if(this.countryValue){
+    return this.countryValue.name;
+    }
+  }
+}
 }

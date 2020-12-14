@@ -10,20 +10,20 @@
                 <span class="back-ticket pl-2">{{globals.languageJson?.return_to_order}}</span>
                 </span>
 
-            <h4 class="Finca-la-pampa pt-3 d-md-block d-none">{{globals.languageJson?.your_reviews}}}</h4>
+            <h4 class="Finca-la-pampa pt-3 d-md-block d-none">{{globals.languageJson?.your_reviews}}</h4>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="bookedService.reviewsList != null">
                 <div class="col-lg-4 col-md-12 left-space">
     
                     <div class="review-sec">
                         <h1 class="review">{{globals.languageJson?.reviews}}</h1>
-                        <p class="rating-value1 rev-value mb-md-1 mb-0">{{this.reviewvalue.toFixed(1)}}</p>
+                        <p class="rating-value1 rev-value mb-md-1 mb-0">{{bookedService.rate_rating}}</p>
                         <p class="estate-rate mb-md-1 mb-0"> {{globals.languageJson?.out_of}} 5</p>
-                        <div class="d-flex rating-space">
-                            <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="26px"></star-rating>
+                        <div class="d-flex rating-space" *ngIf="bookedService.rate_rating_star">
+                            <star-rating value="{{changeDecimalStar(bookedService.rate_rating_star)}}" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="26px"></star-rating>
                         </div>
     
-                        <p class="cust-review pt-3">78 {{globals.languageJson?.customer_reviews}} </p>
+                        <p class="cust-review pt-3">{{bookedService.total_review}} {{globals.languageJson?.customer_reviews}} </p>
                         <table class="recent-time mob-width">
                             <tr>
                                 <td>
@@ -44,7 +44,7 @@
                                     </div>
     
                                 </td>
-                                <td> <span class="state-txt1"> (54) </span> </td>
+                                <td> <span class="state-txt1"> ({{bookedService.five_star}}) </span> </td>
     
                             </tr>
                             <tr>
@@ -66,7 +66,7 @@
                                     </div>
                                 </td>
     
-                                <td> <span class="state-txt1"> (11) </span> </td>
+                                <td> <span class="state-txt1"> ({{bookedService.four_star}}) </span> </td>
     
                             </tr>
                             <tr>
@@ -88,7 +88,7 @@
                                     </div>
                                 </td>
     
-                                <td> <span class="list-ans"> (10) </span> </td>
+                                <td> <span class="list-ans"> ({{bookedService.three_star}}) </span> </td>
     
                             </tr>
                             <tr>
@@ -110,7 +110,7 @@
                                     </div>
                                 </td>
     
-                                <td> <span class="list-ans"> (3) </span> </td>
+                                <td> <span class="list-ans"> ({{bookedService.two_star}}) </span> </td>
     
                             </tr>
                             <tr>
@@ -132,7 +132,7 @@
                                     </div>
                                 </td>
     
-                                <td> <span class="list-ans"> (0) </span> </td>
+                                <td> <span class="list-ans"> ({{bookedService.one_star}}) </span> </td>
     
                             </tr>
     
@@ -180,7 +180,7 @@
                                                         <path fill="#979797" d="M13.978 6.073c-.046-.148-.175-.243-.335-.258L9.41 5.55 7.84 1.733c-.052-.133-.197-.199-.342-.206-.152 0-.305.066-.365.206L5.564 5.55l-4.204.265c-.16.015-.29.11-.343.258-.045.14 0 .302.122.398l3.238 2.623-1.052 3.978c-.038.14.023.295.145.383.13.089.297.096.427.015l3.602-2.188 3.572 2.188c.137.081.305.074.434-.015.122-.088.183-.235.145-.383l-1.051-3.978 3.265-2.623c.122-.096.167-.258.114-.398z"/>
                                                     </g>
                                                 </svg>
-                                            </span> 5.0</p>
+                                            </span>  {{bookedService.overall}}</p>
                                         </div>
                                         <div class="col-lg-3 col-md-4 col-6">
                                             <p class="estate-number mb-1"> {{globals.languageJson?.communication}} </p>
@@ -191,7 +191,7 @@
                                                         <path fill="#979797" d="M13.978 6.073c-.046-.148-.175-.243-.335-.258L9.41 5.55 7.84 1.733c-.052-.133-.197-.199-.342-.206-.152 0-.305.066-.365.206L5.564 5.55l-4.204.265c-.16.015-.29.11-.343.258-.045.14 0 .302.122.398l3.238 2.623-1.052 3.978c-.038.14.023.295.145.383.13.089.297.096.427.015l3.602-2.188 3.572 2.188c.137.081.305.074.434-.015.122-.088.183-.235.145-.383l-1.051-3.978 3.265-2.623c.122-.096.167-.258.114-.398z"/>
                                                     </g>
                                                 </svg>
-                                            </span> 4.5</p>
+                                            </span> {{bookedService.communication}}</p>
                                         </div>
                                     </div>
                                             <div class="problem-text review-mobile">
@@ -203,117 +203,39 @@
                                                 </div>
                         
     
-                                    <div class="row pt-4 m-0">
-                                        <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
+                                    <div class="row pt-4 m-0" *ngFor="let review of bookedService.reviewsList">
+                                        <div class="p-0 "><img class="img-estate" [src]="review.reviewed_by_image" alt="User"></div>
                                         <div class="col-sm-9 col-8">
                                             <ul class="details-list p-0">
                                                 <li class="estate-name">{{globals.languageJson?.finca_la_pampa}}</li>
                                                 <li>
-                                                    <span class="estate-roaster">{{globals.languageJson?.roaster}}</span>
+                                                    <span class="estate-number" *ngIf="review.reviewed_by_type=='ro'">Roaster</span>
+                                                    <span class="estate-number" *ngIf="review.reviewed_by_type=='fc'">Facilitator</span>
                                                 </li>
                                                 <li class="d-flex rating-space">
     
                                                     <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                    <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
+                                                    <star-rating value="2" totalstars={{changeDecimal(review.total_rating)}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
                                                     <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
     
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="col-sm-2 col-2 review-web">
-                                            <p class="date-estate"> {{globals.languageJson?.feb}} 2020</p>
+                                            <p class="date-estate">{{review.created_at | date:"MMM, y"}}</p>
                                         </div>
                                         <div class="mob-feb review-mobile">
-                                            <p class="date-estate"> {{globals.languageJson?.feb}} 2020</p>
+                                            <p class="date-estate"> {{review.created_at | date:"MMM, y"}}</p>
                                         </div>
                                         <div class="p-0 review-web"></div>
                                         <div class="col-md-11 col-12 data-space">
                                             <div class="message-space">
                                                 <div class="border-div">
-                                                    <p class="estate-message">{{globals.languageJson?.there_are_many}}
+                                                    <p class="estate-message">{{review.comment}}</p>
+                                                        <!-- {{globals.languageJson?.there_are_many}}
                                                         <span id="dots"></span><span id="more">
-                                                                {{globals.languageJson?.refigerated}}</span></p>
-                                                    <span class="estate-read-more" id="read_id" (click)="moreMethod()">{{globals.languageJson?.read_more}}<img src="/assets/images/active-review.svg" /></span>
-                                                </div>
-                                            </div>
-                                        </div>
-    
-    
-                                    </div>
-    
-                                    <div class="row pt-4 m-0">
-                                        <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
-                                        <div class="col-sm-9 col-8">
-                                            <ul class="details-list p-0">
-                                                <li class="estate-name">{{globals.languageJson?.polly_gonzales}}</li>
-                                                <li>
-                                                    <span class="estate-roaster">{{globals.languageJson?.roaster}}</span>
-                                                </li>
-                                                <li class="d-flex rating-space">
-                                                    <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                                    <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
-    
-                                                </li>
-        
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-2 col-2 review-web">
-                                            <p class="date-estate">{{globals.languageJson?.feb}} 2020</p>
-                                        </div>
-                                        <div class="mob-feb review-mobile">
-                                            <p class="date-estate"> {{globals.languageJson?.feb}} 2020</p>
-                                        </div>
-                                        <div class="p-0 review-web"></div>
-                                        <div class="col-md-11 col-12 data-space">
-                                            <div class="message-space">
-                                                <div class="border-div">
-                                                    <p class="estate-message">{{globals.languageJson?.there_are_many}}
-                                                        <span id="dots_two"></span><span id="more_two">
-                                                            {{globals.languageJson?.refigerated}}</span></p>
-                                                    <span class="estate-read-more" id="read_id_two" (click)="moreLess()"> {{globals.languageJson?.read_more}} <img src="/assets/images/active-review.svg" /></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row pt-4 m-0">
-    
-                                        <div class="p-0 "><img class="img-estate" src="assets/images/estate-details.png" alt="User"></div>
-                                        <div class="col-sm-9 col-8">
-                                            <ul class="details-list p-0">
-                                                <li class="estate-name">{{globals.languageJson?.asiya_wolff}}</li>
-                                                <li>
-                                                    <span class="estate-roaster">{{globals.languageJson?.roaster}}</span>
-                                                </li>
-                                                <li class="d-flex rating-space">
-                                                    <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                                    <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                                    <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
-    
-                                                </li>
-    
-    
-                                                <!-- <div id="estate1" class="collapse">
-                                                        <p class="estate-number">
-                                                            Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score
-                                                        </p>
-                                                    </div> -->
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-2 col-2 review-web">
-                                            <p class="date-estate"> {{globals.languageJson?.feb}} 2020</p>
-                                        </div>
-                                        <div class="mob-feb review-mobile">
-                                            <p class="date-estate"> {{globals.languageJson?.feb}} 2020</p>
-                                        </div>
-                                        <div class="p-0 review-web"></div>
-                                        <div class="col-md-11 col-12 data-space">
-                                            <div class="message-space">
-                                                <div class="pb-3">
-                                                    <p class="estate-message">{{globals.languageJson?.there_are_many}}
-                                                        <span id="dots_three"></span><span id="more_three">
-                                                            {{globals.languageJson?.refigerated}}</span></p>
-                                                    <span class="estate-read-more" id="read_id_three" (click)="lessMethod()"> {{globals.languageJson?.read_more}}<img src="/assets/images/active-review.svg" /></span>
+                                                                {{globals.languageJson?.refigerated}}</span></p> -->
+                                                    <!-- <span class="estate-read-more" id="read_id" (click)="moreMethod()">{{globals.languageJson?.read_more}}<img src="/assets/images/active-review.svg" /></span> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -322,22 +244,32 @@
                         </div>
                     </div>
                 </div>
+                <ng-template #allTemplate>
+                    <div id="status-content">
+                        <ul class="list-group custom-popover">
+                            <li class="list-group-item item-color" (click)="setStatus('Most relevant'); pop2.hide(); pop3.hide();toggleRelavant()">
+                                <a class="pointer-item">{{globals.languageJson?.most_relevant}}</a>
+                        </li>
+                        <li class="list-group-item item-color" (click)="setStatus('Recent reviews');  pop2.hide(); pop3.hide();toggleRelavant()">
+                            <a class="pointer-item">{{globals.languageJson?.recent_reviews}}</a>
+                        </li>
+                        <li class="list-group-item item-color"  (click)="setStatus('Based on rating');  pop2.hide(); pop3.hide();toggleRelavant()">
+                            <a class="pointer-item">{{globals.languageJson?.based_on_rating}}</a>
+                        </li>
+                        </ul>
+                    </div>
+                </ng-template>
             </div>
+            <div class="row" *ngIf="bookedService.reviewsList == null">
+                <div class="col-lg-12 col-md-12 no-data-sec">
+                    <div class="text-center ">
+                        <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                        <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No reviews data available</h1>
+                        <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                        <!-- <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/sourcing']">Browse availabilities</button> -->
+                    </div>
+                </div>
+            </div>    
+        </div>
     </div>
-</div>
 
-<ng-template #allTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setStatus('Most relevant'); pop2.hide(); pop3.hide();toggleRelavant()">
-                <a class="pointer-item">{{globals.languageJson?.most_relevant}}</a>
-        </li>
-        <li class="list-group-item item-color" (click)="setStatus('Recent reviews');  pop2.hide(); pop3.hide();toggleRelavant()">
-          <a class="pointer-item">{{globals.languageJson?.recent_reviews}}</a>
-        </li>
-        <li class="list-group-item item-color"  (click)="setStatus('Based on rating');  pop2.hide(); pop3.hide();toggleRelavant()">
-          <a class="pointer-item">{{globals.languageJson?.based_on_rating}}</a>
-        </li>
-      </ul>
-    </div>
-  </ng-template>

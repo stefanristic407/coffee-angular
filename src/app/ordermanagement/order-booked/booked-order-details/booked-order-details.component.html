@@ -14,7 +14,7 @@
             <tbody>
                 <tr>
                     <th>{{globals.languageJson?.origin}}</th>
-                    <td *ngIf="bookedService.origin">{{bookedService.origin}}</td>
+                    <td *ngIf="bookedService.origin">{{GetCountry(bookedService.origin)}}</td>
                 </tr>
                 <tr>
                     <th>{{globals.languageJson?.variety}}</th>
@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <th>{{globals.languageJson?.total}}</th>
-                    <td>$112,000</td>
+                    <td>${{getPrice()}}</td>
                     <!-- <td>$112,000</td> -->
                 </tr>
             </tbody>
@@ -90,7 +90,7 @@
 
             <tr>
                 <td> <span class="list-que">   {{globals.languageJson?.quality}}: </span></td>
-                <td> <span class="list-ans">  NA </span> </td>
+                <td> <span class="list-ans">  - </span> </td>
 
             </tr>
 

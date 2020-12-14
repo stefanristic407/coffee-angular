@@ -273,7 +273,7 @@
                         <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
                             alt="Edit"> Edit</div> -->
                     </div>
-                    <div class=" d-flex mt-1 addr-text">{{bookedService['shipping_address']['address_line1']}}, {{bookedService['shipping_address']['address_line2']}}, {{bookedService['shipping_address']['zipcode']}} - {{bookedService['shipping_address']['state']}}, {{bookedService['shipping_address']['country']}}</div>
+                    <div class=" d-flex mt-1 addr-text" *ngIf="bookedService.shipping_address">{{bookedService['shipping_address']['address_line1']}}, {{bookedService['shipping_address']['address_line2']}}, {{bookedService['shipping_address']['zipcode']}} - {{bookedService['shipping_address']['state']}}, {{GetCountry(bookedService['shipping_address']['country'])}}</div>
                     <div class="d-flex mt-3">
                         <img class="img-logo" src="assets/images/google-image.png" alt="Map">
 
@@ -287,14 +287,14 @@
                     </div>
 
                     <div class="d-flex mt-3 border-div">
-                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                        <div class="p-0"><img class="img-estate" [src]="bookedService.company_image_thumbnail_url" alt="User"></div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">Finca La Pampa</li>
+                                <li class="estate-name">{{bookedService.owner_name}}</li>
                                 <li class="estate-number pt-1">
                                     <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
                                         class="" src="assets/images/star-1.png" alt="User"> <span
-                                        class="star-no pl-1"> 4.95</span>
+                                        class="star-no pl-1">{{bookedService.rating}}</span>
                                     </span>
                                 </li>
                             </ul>
@@ -322,7 +322,7 @@
                     </tr> -->
                         <tr>
                             <td> <span class="list-que"> Address: </span></td>
-                            <td> <span class="list-ans"> Manizales, Caldas, 46729 - Colombia </span> </td>
+                            <td> <span class="list-ans"> {{bookedService.address_line1}}, {{bookedService.address_line2}}, {{bookedService.zipcode}} - {{bookedService.city}} </span> </td>
 
                         </tr>
                     </table>

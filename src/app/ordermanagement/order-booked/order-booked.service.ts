@@ -45,6 +45,27 @@ export class OrderBookedService {
 	roaster_thumbnail_url: any;
 	roaster_owner: any;
 	roaster_name: any;
+	company_image_thumbnail_url: any;
+	owner_name: any;
+	address_line1: any;
+	address_line2: any;
+	zipcode: any;
+	city: any;
+	rating: any;
+	reviewsList: any;
+	summaryList: any;
+	overall: any;
+	communication: any;
+	green_coffee: any;
+	rate_rating: any;
+	total_review: any;
+	five_star: any;
+	four_star: any;
+	three_star: any;
+	two_star: any;
+	one_star: any;
+	rate_rating_star: any;
+	countryValue: any;
 
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
@@ -79,6 +100,8 @@ export class OrderBookedService {
 					this.estate_id=res['result']['estate_id'];
 					this.viewAvailability();
 					this.viewEstateDetails();
+					this.getEstateReviews(this.estate_id);
+					this.getEstateSummary(this.estate_id);
 				}	
 			}
 		)
@@ -105,10 +128,46 @@ export class OrderBookedService {
 		this.userService.getAvailableEstateList(this.roasterId,this.estate_id).subscribe(
 			res=>{
 				if(res['success'] == true){
-					console.log(res);
+					this.company_image_thumbnail_url=res['result']['company_image_thumbnail_url'];
+					this.owner_name=res['result']['owner_name'];
+					this.address_line1=res['result']['address_line1'];
+					this.address_line2=res['result']['address_line2'];
+					this.city=res['result']['city'];
+					this.zipcode=res['result']['zipcode'];
+					this.rating=res['result']['rating'];
 				}	
 			}
 		)
 	}
-
+	getEstateReviews(data:any){
+		this.userService.getEachEsateReviews(data).subscribe(
+		res=>{
+			if(res['success']==true){
+			this.reviewsList=res['result'];
+			console.log(this.reviewsList);
+			}
+		}
+		)
+	}
+	getEstateSummary(data:any){
+		this.userService.getEachEsateReviewsSummary(data).subscribe(
+		res=>{
+			if(res['success']==true){
+			this.summaryList=res['result'];
+			console.log(this.summaryList);
+			this.overall=this.summaryList['average']['overall_experience'];
+			this.communication=this.summaryList['average']['communication'];
+			this.green_coffee=this.summaryList['average']['green_coffee'];
+			this.rate_rating=parseFloat(this.summaryList['summary']['rating']).toFixed(1);
+			this.rate_rating_star= this.summaryList['summary']['rating'];
+			this.total_review=this.summaryList['summary']['total_review'];
+			this.five_star=this.summaryList['summary']['5_star'];
+			this.four_star=this.summaryList['summary']['4_star'];
+			this.three_star=this.summaryList['summary']['3_star'];
+			this.two_star=this.summaryList['summary']['2_star'];
+			this.one_star=this.summaryList['summary']['1_star'];
+			}
+		}
+		)
+	}	
 }
