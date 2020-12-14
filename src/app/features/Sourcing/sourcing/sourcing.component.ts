@@ -70,6 +70,9 @@ export class SourcingComponent implements OnInit {
 	certificate: any;
   harvestCertify: any;
   estateValue: any;
+  showCoffee: boolean = true;
+  filterCoffee: any = null;
+  a_coffee: any;
 
   constructor(public sourcingService:SourcingService,
     private modalService: BsModalService,private router: Router,
@@ -97,6 +100,7 @@ export class SourcingComponent implements OnInit {
     this.origin = '';
     this.weight = 'kg';
     this.variety='';
+    this.a_coffee = null;
     this.appLanguage = this.globals.languageJson;
     // this.sourcingService.currentView =  "search";
 
@@ -476,6 +480,15 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 		else{
 			document.getElementById('crop_id').style.border="1px solid #d6d6d6";
 		}
+  }
+  toggleCoffee(){
+		this.showCoffee=!this.showCoffee;
+		if(this.showCoffee==false){
+			document.getElementById('coffee_id').style.border="1px solid #30855c";
+		}
+		else{
+			document.getElementById('coffee_id').style.border="1px solid #d6d6d6";
+		}
 	}
   	toggleSort(){
     	this.showSort=!this.showSort;
@@ -598,41 +611,42 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   GetCountry(data:any){
     // console.log(data.toUpperCase());
     this.countryValue=this.profile.countryList.find(con =>con.isoCode == data.toUpperCase());
-    return this.countryValue.name;
+    return this.countryValue? this.countryValue.name:'';
     // console.log(this.countryValue.name);
   }
   setFilterValue(name:any,value:any){
     let filterValue=[];
     switch(name){
-		case 'grade':
-			this.filterGrade=value;
-			console.log(this.filterGrade);
-
-			break;
-		case 'weight':
-			this.filterWeight=value;
-			console.log(this.filterWeight);
-
-			break;
-		case 'crop':
-			this.filterCrop=value;
-			console.log(this.filterCrop);
-
-			break;
-	}
-	this.filterCall();
+      case 'grade':
+        this.filterGrade=value;
+        break;
+      case 'weight':
+        this.filterWeight=value;
+        break;
+      case 'crop':
+        this.filterCrop=value;
+        this.crop = value;
+        break;
+      case 'coffee':
+        this.filterCoffee=value;
+        this.a_coffee = value;
+        break;
+    }
+	  this.filterCall();
   }
   filterCall(){
 	  const filterParams = [];
 	  if(this.filterVariety.length){
-		filterParams.push(`variety=${this.filterVariety}`)
+		  filterParams.push(`variety=${this.filterVariety}`);
 	  } if( this.filterCrop){
-		filterParams.push(`crop_year=${this.filterCrop}`)
+		  filterParams.push(`crop_year=${this.filterCrop}`);
 	  } if(this.filterOrigin.length){
-		filterParams.push(`origin=${this.filterOrigin}`)
+		  filterParams.push(`origin=${this.filterOrigin}`);
 	  } if( this.filterSearch){
-		filterParams.push(`name=${this.filterSearch}`)
-	  }
+		  filterParams.push(`name=${this.filterSearch}`);
+	  } if(this.filterCoffee != null){
+      filterParams.push(`available_coffee=${this.filterCoffee}`);
+    }
 	  if(filterParams.length){
 		const queryParams = '?' + filterParams.join('&');
 		console.log(queryParams);
@@ -717,5 +731,19 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
 				return this.certiImage[0].image_url;
 			}
 		}
+  }
+  getUniqueVarities(lots){
+    const varities =  [];
+    if(lots && lots.length){
+      lots.forEach(ele => {
+        if(ele.variety){
+          varities.push(ele.variety);
+        }
+      });
+      const unique = varities.filter((v, i, a) => a.indexOf(v) === i);
+      return unique.join(', ');
+    } else {
+      return 'NA';
     }
+  }
 }

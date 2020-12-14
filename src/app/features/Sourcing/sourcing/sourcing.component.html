@@ -98,17 +98,21 @@
 
                             </div>
                         </div>
-                        <!-- <div class="hover-filters d-inline-block">
-                            <div class="d-inline border-grade col-sm-6">
-                                <p class="d-inline filter-text">{{globals.languageJson?.advanced_search}}&nbsp;</p>
+                        <div class="hover-filters d-inline-block">
+                            <div class="d-inline border-grade col-sm-6" id="coffee_id" [outsideClick]="true" (onShown)="toggleCoffee();" (onHidden)="toggleCoffee();" [popover]="coffeeTemplate" placement="bottom" container="body" #pop13="bs-popover">
+                                <p class="d-inline filter-text" *ngIf="a_coffee == null">Available Coffee&nbsp;</p>
                                 <a class="pointer-item">
-                                    <p class="d-inline filter">
-                                        &nbsp; <img src="assets/images/down-arrow.svg" />
+                                    <p class="d-inline filter" *ngIf="a_coffee == null">
+                                        &nbsp; <img src="{{ showCoffee ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
-
+                                <a class="pointer-item">
+                                    <p class="d-inline filter" *ngIf="a_coffee != null">
+                                        {{ a_coffee?'Yes':'No' }} &nbsp;<img src="{{ showCoffee ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    </p>
+                                </a>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="hover-filters d-inline-block">
                             <div class="d-inline border-grade col-sm-6" id="weight_id">
                                 <!-- <p class="d-inline filter-text" *ngIf="weight == ''">KG&nbsp;</p>
@@ -232,15 +236,21 @@
                                                                             <h6 *ngIf="sample['country'] !=''">{{GetCountry(sample['country'])}}</h6>
                                                                         </div>
                                                                         <div class="orgin-att" (click)="estateList(sample)">
-                                                                            <label>{{globals.languageJson?.altitude}}</label>
-                                                                            <h6 *ngIf="sample['altitude']['lte'] == 0 && sample['altitude']['lte'] == 0">NA</h6>
-                                                                            <h6 *ngIf="sample['altitude']['lte'] != 0 && sample['altitude']['lte'] != 0">{{sample['altitude']['gte']}}-{{sample['altitude']['lte']}}m</h6>
+                                                                            <label>{{globals.languageJson?.region}}</label>
+                                                                            <!-- <h6>NA</h6> -->
+                                                                            <h6>{{sample['region'] || 'NA'}}</h6>
                                                                         </div>
                                                                         <div class="orgin-att" (click)="estateList(sample)">
-                                                                            <label>{{globals.languageJson?.crop_year}}</label>
-                                                                            <!-- <h6>{{sample.crop_year_start | date: "MMM"}}-{{sample.crop_year_end | date: 'MMM'}}</h6> -->
-                                                                            <h6 *ngIf="sample['crop_year']['gte'] != 0 && sample['crop_year']['lte'] != 0">{{GetMonthName(sample['crop_year']['gte'])}} - {{GetMonthName(sample['crop_year']['lte'])}}</h6>
-                                                                            <h6 *ngIf="sample['crop_year']['gte'] == 0 && sample['crop_year']['lte'] == 0">NA</h6>
+                                                                            <label>{{globals.languageJson?.altitude}}</label>
+                                                                            <h6 *ngIf="sample['altitude']['lte'] == 0 || sample['altitude']['lte'] == 0">NA</h6>
+                                                                            <h6 *ngIf="sample['altitude']['lte'] != 0 && sample['altitude']['lte'] != 0">{{sample['altitude']['gte']}}-{{sample['altitude']['lte']}}m</h6>
+                                                                        </div>
+                                                                        <div class="orgin-att pl-0 mt-2" (click)="estateList(sample)">
+                                                                            <label>{{globals.languageJson?.variety}}</label>
+                                                                            <!-- <h6>NA</h6> -->
+                                                                            <h6 class="flex">
+                                                                                {{getUniqueVarities(sample.lots)}}
+                                                                            </h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="top-lots">
@@ -299,7 +309,7 @@
                                                                         <div class="source-lets flex">
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.origin}}</label>
-                                                                                <h6>NA</h6>
+                                                                                <h6>{{sample['country'] ? GetCountry(sample['country']):'NA'}}</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.altitude}}</label>
@@ -360,6 +370,9 @@
                                                                     <th scope="col">
                                                                         {{globals.languageJson?.crop_year}}
                                                                     </th>
+                                                                    <th scope="col">
+                                                                        {{globals.languageJson?.variety}}
+                                                                    </th>
                                                                     <th scope="col">{{globals.languageJson?.lots}}</th>
                                                                     <th scope="col">{{globals.languageJson?.certificates}}</th>
                                                                 </tr>
@@ -374,7 +387,7 @@
                                                                     </td>
 
                                                                     <td>
-                                                                        <!-- {{ estate.origin }} -->NA
+                                                                        {{estate['country'] ? GetCountry(estate['country']):'NA'}}
                                                                     </td>
                                                                     <td>
                                                                         <span *ngIf="estate['altitude']['lte'] == 0 && estate['altitude']['lte'] == 0">NA</span>
@@ -385,6 +398,9 @@
                                                                         <span *ngIf="estate['crop_year']['gte'] == 0 && estate['crop_year']['lte'] == 0">NA</span>
                                                                         <span *ngIf="estate['crop_year']['gte'] != 0 && estate['crop_year']['lte'] != 0">{{GetMonthName(estate['crop_year']['gte'])}}-{{GetMonthName(estate['crop_year']['lte'])}}</span>
                                                                         <!-- {{ estate.cropyear }}  -->
+                                                                    </td>
+                                                                    <td>
+                                                                        {{getUniqueVarities(estate.lots)}}
                                                                     </td>
                                                                     <td class="lots-space">
                                                                         <div *ngIf="estate.lots!= null" (click)="redirectToLots(estate)">
@@ -450,11 +466,18 @@
                                                                             <h6 *ngIf="item['lot']['country']==''">NA</h6>
                                                                         </div>
                                                                         <div class="orgin-att">
-                                                                            <label>{{globals.languageJson?.variety}}</label>
-                                                                            <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}</h6>
-                                                                            <h6 *ngIf="item['lot']['variety']==''">NA</h6>
+                                                                            <label>{{globals.languageJson?.region}}</label>
+                                                                            <h6>{{item['region'] || 'NA'}}</h6>
                                                                         </div>
                                                                         <div class="orgin-att">
+                                                                            <label>{{globals.languageJson?.variety}}</label>
+                                                                            <h6>{{item['lot']['variety'] || 'NA'}}</h6>
+                                                                        </div>
+                                                                        <div class="orgin-att pl-0 mt-2">
+                                                                            <label>Processing</label>
+                                                                            <h6>{{item['wetmilling_process_name'] || 'NA'}}</h6>
+                                                                        </div>
+                                                                        <div class="orgin-att mt-2">
                                                                             <label>{{globals.languageJson?.flavour}}</label>
                                                                             <div *ngIf="item.flavours!=null">
                                                                                 <ul class="flo-list-roaster">
@@ -735,7 +758,14 @@
         </ul>
     </div>
 </ng-template>
-
+<ng-template #coffeeTemplate>
+    <div>
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color" (click)="setFilterValue('coffee',1); pop13.hide(); "><a class="pointer-item">Yes</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('coffee',0); pop13.hide(); "><a class="pointer-item">No</a></li>
+        </ul>
+    </div>
+</ng-template>
 <!-- <ng-template #VarietyTemplate>
     <div>
         <ul class="list-group custom-popover">
