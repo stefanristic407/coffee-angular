@@ -299,3 +299,38 @@ li.nav-item {
         padding: 0rem 1rem 1rem 2rem;
     }
 }
+
+/* Video model popup */
+
+::ng-deep .mat-slider-horizontal .mat-slider-wrapper{
+    top: 4px !important;
+}
+::ng-deep .controls .progress{
+    height: 8px !important;
+}
+::ng-deep .mat-slider{
+    position: unset !important;
+}
+::ng-deep .modal-content.video-content{
+    padding: 0 !important;
+    background: none !important;
+}
+.video-close {
+    background: #00b3ff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 700;
+    margin: 0 0 0 auto;
+    transform: translate(50%, -50%);
+    position: absolute;
+    z-index: 99;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    pointer-events: all;
+}

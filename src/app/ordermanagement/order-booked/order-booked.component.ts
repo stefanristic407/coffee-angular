@@ -9,6 +9,9 @@ import {Router} from '@angular/router';
 import { BookedOrderDetailsComponent } from './booked-order-details/booked-order-details.component';
 declare var $: any;
 import { GlobalsService } from 'src/services/globals.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 
 @Component({
@@ -46,21 +49,28 @@ export class OrderBookedComponent implements OnInit {
   totalstar = 5;
   newvalue: any = 4;
   appLanguage?:any;
+	roasterId: any;
+	orderBookId: any;
+  countryValue: any;
   constructor(public bookedService: OrderBookedService, private route: ActivatedRoute,
-    public router: Router,public cookieService : CookieService,public globals: GlobalsService) { }
+    public router: Router,public cookieService : CookieService,public globals: GlobalsService,private userService : UserserviceService,private roasterService: RoasterserviceService,public profileservice:RoasteryProfileService) {
+		this.roasterId = this.cookieService.get('roaster_id');
+		//Fills the time line based on the status selected in estate order.
+		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
+		this.orderBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
+		this.bookedService.orderId=this.orderBookId;
+		this.bookedService.viewOrderDetails();
+	}
 
   ngOnInit(): void {
      //Auth checking
      if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
-    this.appLanguage = this.globals.languageJson;
+    this.appLanguage = this.globals.languageJson
 
-    
-    //Fills the time line based on the status selected in estate order.
-    this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
-    console.log("the data from table trigger is  : " + this.dataFromTable);
-    if (this.dataFromTable == "Order confirmed") {
+    console.log("the data from table trigger is  : " + this.bookedService.orderId);
+    if (this.dataFromTable == "CONFIRMED") {
       this.bookedValueToShow = "Order Confirmed";
       setTimeout(() => {
         this.orderConfirmBooked();
@@ -139,7 +149,7 @@ export class OrderBookedComponent implements OnInit {
 
     	// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService,this.globals);
+		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService,this.globals,this.profileservice);
 		setTimeout(()=>{
 			uploadReceipt.uploadReceipt();
 		},500);
@@ -250,16 +260,15 @@ export class OrderBookedComponent implements OnInit {
       this.myForm.nativeElement.reset();
     });
     
+	}
+	GetCountry(data:any){
+    // console.log(data.toUpperCase());
+    if(data){
+      this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
+      if(this.countryValue){
+      return this.countryValue.name;
       }
-      // onRate($event:{ newValue:number}) {
-    
-      //   this.newvalue=$event.newValue;
-      //  console.log(this.newvalue);
-      // }
+    }
   }
-  // onRateBooked($event:{ newValue:number}) {
-
-  //   this.newvalue=$event.newValue;
-  //  console.log(this.newvalue);
-  // }
-
+}
+  

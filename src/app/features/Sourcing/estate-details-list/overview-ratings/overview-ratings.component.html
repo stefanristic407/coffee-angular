@@ -14,7 +14,7 @@
             </span>
             <h4 class="Finca-la-pampa pt-3"> Finca la pampa</h4> -->
             </div>
-            <div class="row">
+            <div class="row" *ngIf="sourcing.reviewsList != null">
                 <div class="col-lg-4 col-md-12 left-space">
 
                     <div class="review-sec">
@@ -241,10 +241,10 @@
                                         </ul>
                                     </div>
                                     <div class="col-sm-2 col-2 review-web">
-                                        <p class="date-estate"> Feb 2020</p>
+                                        <p class="date-estate">{{review.created_at | date:"MMM, y"}}</p>
                                     </div>
                                     <div class="mob-feb review-mobile">
-                                        <p class="date-estate"> Feb 2020</p>
+                                        <p class="date-estate">{{review.created_at | date:"MMM, y"}}</p>
                                     </div>
                                     <div class="p-0 review-web"></div>
                                     <div class="col-md-11 col-12 data-space">
@@ -340,24 +340,35 @@
                     </div>
 
                 </div>
+                <ng-template #allTemplate>
+                    <div id="status-content">
+                        <ul class="list-group custom-popover">
+                            <li class="list-group-item item-color" (click)="setStatus('Most relevant'); pop2.hide(); pop3.hide();toggleRelavant()">
+                                <a class="pointer-item">{{globals.languageJson?.most_relevant}}</a>
+                            </li>
+                            <li class="list-group-item item-color" (click)="setStatus('Recent reviews');  pop2.hide(); pop3.hide();toggleRelavant()">
+                                <a class="pointer-item">{{globals.languageJson?.recent_reviews}}</a>
+                            </li>
+                            <li class="list-group-item item-color" (click)="setStatus('Based on rating');  pop2.hide(); pop3.hide();toggleRelavant()">
+                                <a class="pointer-item">{{globals.languageJson?.based_on_rating}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </ng-template>
 
+            </div>
+            <div class="row" *ngIf="sourcing.reviewsList == null">
+                <div class="col-lg-12 col-md-12 no-data-sec">
+                    <div class="text-center ">
+                        <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                        <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No reviews data available</h1>
+                        <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                        <!-- <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/sourcing']">Browse availabilities</button> -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <ng-template #allTemplate>
-        <div id="status-content">
-            <ul class="list-group custom-popover">
-                <li class="list-group-item item-color" (click)="setStatus('Most relevant'); pop2.hide(); pop3.hide();toggleRelavant()">
-                    <a class="pointer-item">{{globals.languageJson?.most_relevant}}</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Recent reviews');  pop2.hide(); pop3.hide();toggleRelavant()">
-                    <a class="pointer-item">{{globals.languageJson?.recent_reviews}}</a>
-                </li>
-                <li class="list-group-item item-color" (click)="setStatus('Based on rating');  pop2.hide(); pop3.hide();toggleRelavant()">
-                    <a class="pointer-item">{{globals.languageJson?.based_on_rating}}</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
+   
 </div>

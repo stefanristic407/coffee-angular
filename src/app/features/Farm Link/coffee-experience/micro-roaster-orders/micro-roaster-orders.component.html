@@ -94,7 +94,7 @@
                     <!-- <td>
                         {{item.status}}
                     </td> -->
-                    <td class="view-order" routerLink="/features/coffee-details">Update details</td>
+                    <td class="view-order" (click)="reRouteTo(item)">Update details</td>
                     <!-- <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>

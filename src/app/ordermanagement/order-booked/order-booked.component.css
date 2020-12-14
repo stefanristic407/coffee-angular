@@ -207,6 +207,7 @@
 .img-estate {
     width: 32px;
     height: 32px;
+    border-radius: 100%;
 }
 
 .details-list {
@@ -259,7 +260,6 @@
     font-weight: normal;
     color: #232334;
 }
-
 
 /*shipping css */
 

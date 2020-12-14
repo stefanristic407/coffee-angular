@@ -895,14 +895,14 @@ export class UserserviceService {
   }
   getEachEsateReviews(estate_id:any){
 	var data = {};
-    data['api_call'] = "/general/estates/" + estate_id + "/reviews";
+    data['api_call'] = "/general/es/" + estate_id + "/reviews";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
   }
   getEachEsateReviewsSummary(estate_id:any){
 	var data = {};
-    data['api_call'] = "/general/estates/" + estate_id + "/reviews-summary";
+    data['api_call'] = "/general/es/" + estate_id + "/reviews-summary";
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
@@ -930,6 +930,34 @@ export class UserserviceService {
     data['method'] = "PUT";
     return this.http.put(this.putUrl, data);
   }
+  getSocialMediaPosts(type_in : any){
+		let params = new HttpParams();
+		params = params.append('file_module', 'Social-Media');
+		params = params.append('type_in',type_in);
+		var data = {};
+		data['api_call'] = `/general/file-manager/all-files?${params}`;
+		data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data)
+  }
+  
+  postDefaultCoffeeExperienceDetail(roaster_id : any,body : any){
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/coffee-experience";
+    data["method"] = "POST";
+    data['data'] = body;
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  getGeneralRoasterCertificates(roaster_id : any){
+    var data = {};
+    data['api_call'] = `/general/ro/${roaster_id}/certificates`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data)
+  }
+
   updateMrVat(roaster_id : any, body : any,vat_id : any){
     var data = {};
     data['api_call'] = "/ro/"+roaster_id+"/vat-settings/"+vat_id;
@@ -944,5 +972,44 @@ export class UserserviceService {
 	data["method"] = "DELETE";
 	data["token"] = this.cookieService.get("Auth");
 	return this.http.post(this.roasterDeleteUrl, data);
-	}
+  }
+  getMrOrdersCoffeeExperience(roaster_id: any,order_id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/mr-orders/${order_id}/coffee-experience`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+  postMrOrdersCoffeeExperience(roaster_id: any,order_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/mr-orders/${order_id}/coffee-experience`;
+    data["method"] = "POST";
+    data['data'] = body;
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+  getHrcOrdersCoffeeExperience(roaster_id: any,order_id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/hr-orders/${order_id}/coffee-experience`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+  postHrcOrdersCoffeeExperience(roaster_id: any,order_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/hrc-orders/${order_id}/coffee-experience`;
+    data["method"] = "POST";
+    data['data'] = body;
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+
+  getMarketingMaterials(roaster_id: any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/marketing-materials`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+
 }

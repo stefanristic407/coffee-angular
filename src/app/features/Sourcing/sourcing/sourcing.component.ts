@@ -609,10 +609,10 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
     return this.monthName;
   }
   GetCountry(data:any){
-    // console.log(data.toUpperCase());
-    this.countryValue=this.profile.countryList.find(con =>con.isoCode == data.toUpperCase());
-    return this.countryValue? this.countryValue.name:'';
-    // console.log(this.countryValue.name);
+    if(data){
+      this.countryValue=this.profile.countryList.find(con =>con.isoCode == data.toUpperCase());
+      return this.countryValue ? this.countryValue.name: 'NA';
+    }
   }
   setFilterValue(name:any,value:any){
     let filterValue=[];

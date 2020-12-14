@@ -23489,9 +23489,11 @@ button {
     line-height: 1.57;
     color: #80460b;
 }
-.delete-vat-section{
+
+.delete-vat-section {
     top: -10px !important;
 }
+
 .upload {
     border-radius: 4px;
     border: solid 1px #30855c;
@@ -23517,4 +23519,41 @@ button {
     font-size: 13px;
     font-weight: 700;
     margin-bottom: 7px;
+}
+
+.add-a-service {
+    color: #ffffff;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #30855c;
+    padding: 8px 16px;
+}
+
+.add-a-service:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.cover-image-profile-banner {
+    height: 158px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.replace-img {
+    position: absolute;
+    bottom: 20px;
+    right: 12%;
+    cursor: pointer;
+}
+
+.delete-img {
+    position: absolute;
+    bottom: 30px;
+    right: 5%;
+    cursor: pointer;
+}
+
+.del-prf-cover {
+    width: 16px;
+    height: 16px;
 }

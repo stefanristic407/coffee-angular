@@ -46,13 +46,13 @@
                             <div class="tab-content mt-md-4" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
                                     <div class="row cursor-pointer social-post-farmlink ">
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3" (click)="imagesModal()">
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3" *ngFor="let images of imagesListArray" (click)="imagesModal(imagetemplate,images)">
                                             <div class="social-post-farmlink__item position-relative">
-                                                <img class="social-images" src="assets/images/farm-1.png" alt="farm">
-                                                <p class="mb-0 post-info">Next week we will serve coffee from xxxxx here at customer X @sewn” </p>
+                                                <img class="social-images" src="{{images.url}}" alt="farm">
+                                                <p class="mb-0 post-info">{{images.description}} &nbsp; @ {{images.owner_name}} </p>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 ">
+                                        <!-- <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 ">
                                             <div class="social-post-farmlink__item position-relative">
                                                 <img class="social-images" src="assets/images/farm-2.png" alt="farm">
                                                 <p class="mb-0 post-info">Next week we will serve coffee from xxxxx here at customer X @sewn” </p>
@@ -99,22 +99,22 @@
                                                 <img class="social-images" src="assets/images/farm-9.png" alt="farm">
                                                 <p class="mb-0 post-info">Next week we will serve coffee from xxxxx here at customer X @sewn” </p>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
                                 <div class="tab-pane fade" id="pills-videos" role="tabpanel" aria-labelledby="pills-videos-tab">
                                     <div class="row cursor-pointer">
 
-                                        <a href="javascript:void(0);" class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 " (click)="videosModal()">
+                                        <a  class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 " *ngFor="let videos of videosListArray" (click)="videosModal(videotemplate,videos)">
                                             <div class="social-post-farmlink__item position-relative">
                                                 <img class="social-images" src="assets/images/farm-1.png" alt="farm">
                                                 <img class="video-play" src="assets/images/play-button.png" alt="farm">
-                                                <p class="mb-0 post-info">Different coffee brewing styles</p>
+                                                <p class="mb-0 post-info">{{videos.description}}</p>
                                             </div>
                                         </a>
 
-                                        <a href="javascript:void(0);" class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 ">
+                                        <!-- <a href="javascript:void(0);" class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 ">
                                             <div class="social-post-farmlink__item position-relative">
                                                 <img class="social-images" src="assets/images/farm-2.png" alt="farm">
                                                 <img class="video-play" src="assets/images/play-button.png" alt="farm">
@@ -170,7 +170,7 @@
                                                 <img class="video-play" src="assets/images/play-button.png" alt="farm">
                                                 <p class="mb-0 post-info">Different coffee brewing styles</p>
                                             </div>
-                                        </a>
+                                        </a> -->
                                     </div>
                                 </div>
 
@@ -313,7 +313,7 @@
 
 <ng-template #imagetemplate>
     <div class="modal-header">
-        <span class="fnt-18 fnt-muli fnt-700 text-black334"> Different coffee brewing styles </span>
+        <!-- <span class="fnt-18 fnt-muli fnt-700 text-black334"> Different coffee brewing styles </span> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true"><img class="" src="assets/images/farm-close.svg" alt="farm"></span>
           </button>
@@ -322,17 +322,17 @@
         <div class="row">
 
             <div class="col-lg-5 col-md-5 col-sm-12 col-12 pb-3">
-                <img class="w-100 fram-img" src="assets/images/farm-1.png" alt="farm">
+                <img class="w-100 fram-img" src="{{imageUrl}}" alt="farm">
             </div>
 
             <div class="col-lg-7 col-md-7 col-sm-12 col-12 pb-3 txt-l mt-4">
-                <h4 class="img-open-title"> Next week we will serve coffee from xxxxx here at customer X @sewn” </h4>
+                <h4 class="img-open-title"> {{imageDescription}} &nbsp; @ {{imageOwner}} </h4>
                 <p class="img-open-para">#coffee #specialitycoffee #sewn</p>
                 <div class="share-dwn">
                     <span class="share-bor mr-3">  <a  class="underline" href="javascript:void(0);" download><img class="share-img" src="assets/images/share-img.png" alt="farm"> <span class="share-txt"> {{globals.languageJson?.share}} </span> </a>
                     </span>
 
-                    <span class="share-bor">  <a  class="underline" href="assets/images/farm-1.png" download> <img class="dwnd-img" src="assets/images/dwnd.png" alt="farm">  <span class="share-txt"> {{globals.languageJson?.download_image}} </span> </a>
+                    <span class="share-bor">  <a  class="underline" href="{{imageUrl}}" target="_blank" download> <img class="dwnd-img" src="assets/images/dwnd.png" alt="farm">  <span class="share-txt"> {{globals.languageJson?.download_image}} </span> </a>
                     </span>
                 </div>
             </div>
@@ -344,7 +344,7 @@
 
 <ng-template #videotemplate>
     <div class="modal-header">
-        <span class="fnt-18 fnt-muli fnt-700 text-black334"> Different coffee brewing styles </span>
+        <!-- <span class="fnt-18 fnt-muli fnt-700 text-black334"> Different coffee brewing styles </span> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true"><img class="" src="assets/images/farm-close.svg" alt="farm"></span>
           </button>
@@ -352,25 +352,44 @@
     <div class="modal-body text-center mb-1">
         <div class="row">
 
-            <div class="col-lg-5 col-md-5 col-sm-12 col-12 pb-3">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-12 pb-3" (click)="videoPopup(popTemplate);"> 
                 <img class="w-100 fram-img" src="assets/images/farm-1.png" alt="farm">
-                <img class="video-play" src="assets/images/play-button.png" alt="farm">
+                <img class="video-play cursor-pointer" src="assets/images/play-button.png" alt="farm">
 
             </div>
 
             <div class="col-lg-7 col-md-7 col-sm-12 col-12 pb-3 txt-l mt-4">
-                <h4 class="img-open-title"> Next week we will serve coffee from xxxxx here at customer X @sewn” </h4>
+                <h4 class="img-open-title">{{videoDescription}} &nbsp; @ {{videoOwner}}</h4>
                 <p class="img-open-para">#coffee #specialitycoffee #sewn</p>
                 <div class="">
                     <span class="share-bor mr-3">  <a  class="underline" href="javascript:void(0);" download><img class="share-img" src="assets/images/share-img.png" alt="farm"> <span class="share-txt"> {{globals.languageJson?.share}} </span> </a>
                     </span>
 
 
-                    <span class="share-bor">  <a  class="underline" href="assets/images/farm-1.png" download> <img class="dwnd-img" src="assets/images/dwnd.png" alt="farm">  <span class="share-txt"> {{globals.languageJson?.download_image}} </span> </a>
+                    <span class="share-bor">  <a  class="underline" href="{{videoUrl}}" target="_blank" download> <img class="dwnd-img" src="assets/images/dwnd.png" alt="farm">  <span class="share-txt"> {{globals.languageJson?.download_image}} </span> </a>
                     </span>
                 </div>
             </div>
 
         </div>
     </div>
+</ng-template>
+
+
+<ng-template #popTemplate >
+    <div class="popup-video">
+            <div class="video-close" (click)="closePopup()">
+                    <span>&#x2715;</span>
+                </div>
+    <div class="modal-body video-section-modal p-0">
+            <div>
+                <!-- <mat-video src="{{url}}"></mat-video> -->
+                
+<video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+    <source src="{{videoUrl}}" type="video/mp4" />
+  
+  </video>
+            </div>
+    </div>
+</div>    
 </ng-template>
