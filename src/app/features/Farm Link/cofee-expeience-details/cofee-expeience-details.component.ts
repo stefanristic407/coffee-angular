@@ -35,6 +35,12 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
   onSave:boolean = false;
   order_type: string;
   order_id: any;
+  imageFileName: any;
+  videoFileName: any;
+  onResponse : boolean = false;
+  onRequest : boolean = true;
+  videoOnRequest: boolean = true;
+  videoOnResponse: boolean = false;
   constructor(public globals: GlobalsService,
               private userService : UserserviceService,
               private toastrService : ToastrService,
@@ -150,14 +156,14 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
     this.files = event.target.files;
     this.fileEvent = this.files;
     console.log(this.fileEvent);
-    this.fileName = this.files[0].name;
+    this.imageFileName = this.files[0].name;
     let fileList: FileList = this.fileEvent;
     // var parent_id = 0;
     if (fileList.length > 0) {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append("file", file, file.name);
-      formData.append('name',this.fileName);
+      formData.append('name',this.imageFileName);
       formData.append('file_module','Coffee-Story');
       formData.append('parent_id','0');
       // this.roasterId = this.cookieService.get("roaster_id");
@@ -169,10 +175,12 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
       this.roasterService.uploadFiles(formData).subscribe(
         result =>{
           if(result['success']==true){
-            this.toastrService.success("The file "+this.fileName+" uploaded successfully");
+            this.toastrService.success("The file "+this.imageFileName+" uploaded successfully");
             this.imageFileData = result['result'];
             this.image_id = result['result'].id; 
             this.image_url = result['result'].url;
+            this.onResponse = true;
+            this.onRequest = false;
           }else{
             this.toastrService.error("Error while uploading the file");
           }
@@ -185,14 +193,14 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
     this.files = event.target.files;
     this.fileEvent = this.files;
     console.log(this.fileEvent);
-    this.fileName = this.files[0].name;
+    this.videoFileName = this.files[0].name;
     let fileList: FileList = this.fileEvent;
     // var parent_id = 0;
     if (fileList.length > 0) {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append("file", file, file.name);
-      formData.append('name',this.fileName);
+      formData.append('name',this.videoFileName);
       formData.append('file_module','Coffee-Story');
       formData.append('parent_id','0');
       // this.roasterId = this.cookieService.get("roaster_id");
@@ -204,10 +212,12 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
       this.roasterService.uploadFiles(formData).subscribe(
         result =>{
           if(result['success']==true){
-            this.toastrService.success("The file "+this.fileName+" uploaded successfully");
+            this.toastrService.success("The file "+this.videoFileName+" uploaded successfully");
             this.videoFileData = result['result'];
             this.video_id = result['result'].id;
             this.video_url = result['result'].url;
+            this.videoOnResponse = true;
+            this.videoOnRequest = false;
           }else{
             this.toastrService.error("Error while uploading the file");
           }
