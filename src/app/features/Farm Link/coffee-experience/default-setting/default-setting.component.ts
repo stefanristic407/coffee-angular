@@ -29,6 +29,12 @@ export class DefaultSettingComponent implements OnInit {
   fileName: any;
   imageFileData: any;
   videoFileData: any;
+  imageFileName: any;
+  videoFileName: any;
+  onResponse : boolean = false;
+  onRequest : boolean = true;
+  videoOnRequest: boolean = true;
+  videoOnResponse: boolean = false;
 
   constructor(public globals: GlobalsService , 
               private userService : UserserviceService,
@@ -123,14 +129,15 @@ export class DefaultSettingComponent implements OnInit {
     this.files = event.target.files;
     this.fileEvent = this.files;
     console.log(this.fileEvent);
-    this.fileName = this.files[0].name;
+    this.imageFileName = this.files[0].name;
+    // this.imageFileName = this.fileName;
     let fileList: FileList = this.fileEvent;
     // var parent_id = 0;
     if (fileList.length > 0) {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append("file", file, file.name);
-      formData.append('name',this.fileName);
+      formData.append('name',this.imageFileName);
       formData.append('file_module','Coffee-Story');
       formData.append('parent_id','0');
       // this.roasterId = this.cookieService.get("roaster_id");
@@ -139,6 +146,7 @@ export class DefaultSettingComponent implements OnInit {
         "/ro/" + this.roaster_id + "/file-manager/files"
       );
       formData.append("token", this.cookieService.get("Auth"));
+
       this.roasterService.uploadFiles(formData).subscribe(
         result =>{
           if(result['success']==true){
@@ -146,6 +154,8 @@ export class DefaultSettingComponent implements OnInit {
             this.imageFileData = result['result'];
             this.image_id = result['result'].id; 
             this.image_url = result['result'].url;
+            this.onResponse = true;
+            this.onRequest = false;
           }else{
             this.toastrService.error("Error while uploading the file");
           }
@@ -153,18 +163,20 @@ export class DefaultSettingComponent implements OnInit {
       )
     }
   }
+
+
   uploadVideo(event : any){
     this.files = event.target.files;
     this.fileEvent = this.files;
     console.log(this.fileEvent);
-    this.fileName = this.files[0].name;
+    this.videoFileName = this.files[0].name;
     let fileList: FileList = this.fileEvent;
     // var parent_id = 0;
     if (fileList.length > 0) {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append("file", file, file.name);
-      formData.append('name',this.fileName);
+      formData.append('name',this.videoFileName);
       formData.append('file_module','Coffee-Story');
       formData.append('parent_id','0');
       // this.roasterId = this.cookieService.get("roaster_id");
@@ -180,6 +192,8 @@ export class DefaultSettingComponent implements OnInit {
             this.videoFileData = result['result'];
             this.video_id = result['result'].id;
             this.video_url = result['result'].url;
+            this.videoOnResponse = true;
+            this.videoOnRequest = false;
           }else{
             this.toastrService.error("Error while uploading the file");
           }

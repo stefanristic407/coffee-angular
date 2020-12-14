@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-micro-roaster-orders',
@@ -23,7 +24,9 @@ export class MicroRoasterOrdersComponent implements OnInit {
     { order_id: '12416', customer_name: 'Cafe Directo', origin: 'Ethiopia',  date_ordered: '03 Oct 2018', variety: 'Bourborn',quantity : '120kg', cup_Score: '82' },
     {  order_id: '71716', customer_name: 'La Isabela', origin: 'Colombia',  date_ordered: '19 Sep 2019', variety: 'Bourborn',quantity : '120kg', cup_Score: '84'},
   ]
-  constructor(public globals: GlobalsService) {
+  order_id: any;
+  constructor(public globals: GlobalsService,
+            private router : Router) {
     this.termStatus = '';
     this.display = '10';
    }
@@ -71,5 +74,15 @@ export class MicroRoasterOrdersComponent implements OnInit {
   isAllChecked() {
     return this.mainData.every(_ => _.state);
   } 
+  reRouteTo(item : any) {
+    this.order_id = item.id;
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "id": encodeURIComponent(this.order_id),
+        "type":encodeURIComponent("hrc"),
+      }
+    }
+    this.router.navigate(['/features/coffee-details'], navigationExtras);
+  }
 
 }

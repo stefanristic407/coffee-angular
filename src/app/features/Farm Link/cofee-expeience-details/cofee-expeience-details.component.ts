@@ -4,6 +4,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -29,18 +30,39 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
   fileName: any;
   imageFileData: any;
   videoFileData: any;
+
+  onEdit:boolean = true;
+  onSave:boolean = false;
+  order_type: string;
+  order_id: any;
   constructor(public globals: GlobalsService,
               private userService : UserserviceService,
               private toastrService : ToastrService,
               private cookieService : CookieService,
-              private roasterService : RoasterserviceService
+              private roasterService : RoasterserviceService,
+              private route : ActivatedRoute,
+              private router : Router
               ) {
                 this.roaster_id = this.cookieService.get('roaster_id');
+                if (this.route.snapshot.queryParams['type'] != undefined && this.route.snapshot.queryParams['id'] != undefined) {
+                  this.order_type = decodeURIComponent(this.route.snapshot.queryParams['type']);
+                  this.order_id = parseInt(decodeURIComponent(this.route.snapshot.queryParams['id']));
+                  console.log("Data : ", this.order_type);
+                }
+                else {
+                 this.router.navigate(['/features/coffee-experience']);
+                 this.toastrService.error('Order Type is not available.')
+                }
               }
 
   ngOnInit(): void {
     this.language();
-    this.getDefaultSetting();
+    if(this.order_type == "mr"){
+      this.getMrOrdersCoffeeExperience();
+    }
+    else if(this.order_type == 'hrc'){
+      this.getHrcOrdersCoffeeExperience();
+    }
     this.getGeneralRoasterCertificates();
     $("body").on("change", ".custom-label__inputs", function () {
       var $this = $(this);
@@ -70,8 +92,8 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
     this.coffeeDetailsActive++;
   }
 
-  getDefaultSetting(){
-    this.userService.getDefaultCoffeeExperience(this.roaster_id).subscribe(
+  getMrOrdersCoffeeExperience(){
+    this.userService.getMrOrdersCoffeeExperience(this.roaster_id,this.order_id).subscribe(
       response => {
         if(response['success'] == true){
           this.website = response['result'].website;
@@ -83,7 +105,27 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
           this.tagsArray = response['result'].tags; 
         }
         else{
-          this.toastrService.error("Error while getting the Default settings of the Roaster");
+          this.toastrService.error("Error while getting the Micro order details of the Roaster");
+        }
+      }
+    )
+  }
+
+  
+  getHrcOrdersCoffeeExperience(){
+    this.userService.getHrcOrdersCoffeeExperience(this.roaster_id,this.order_id).subscribe(
+      response => {
+        if(response['success'] == true){
+          this.website = response['result'].website;
+          this.description = response['result'].description;
+          this.image_id =  response['result'].image_id;
+          this.image_url = response['result'].image_url;
+          this.video_id = response['result'].video_id;
+          this.video_url = response['result'].video_url;
+          this.tagsArray = response['result'].tags; 
+        }
+        else{
+          this.toastrService.error("Error while getting the Horeca order details of the Roaster");
         }
       }
     )
@@ -103,18 +145,6 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
     )
   }
 
-  deleteCertificate(item : any){
-    this.userService.deleteCompanyCertificate(this.roaster_id, item.id).subscribe(
-      response => {
-        if(response['success'] == true){
-          this.toastrService.success("The Certificate is deleted successfully");
-        }
-        else{
-          this.toastrService.error("Error while deleting the Certificate");
-        }
-      }
-    )
-  }
 
   uploadImage(event:any){
     this.files = event.target.files;
@@ -150,6 +180,7 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
       )
     }
   }
+
   uploadVideo(event : any){
     this.files = event.target.files;
     this.fileEvent = this.files;
@@ -197,20 +228,58 @@ export class CofeeExpeienceDetailsComponent implements OnInit {
         "image_id": this.image_id,
         "video_id": this.video_id
       }
-      this.userService.postDefaultCoffeeExperienceDetail(this.roaster_id,data).subscribe(
+      if(this.order_type == "mr"){
+      this.userService.postMrOrdersCoffeeExperience(this.roaster_id,this.order_id,data).subscribe(
         response => {
           if(response['success'] == true){
-            this.toastrService.success("The Default settings updated Successfully")
+            this.toastrService.success("The Horeca order details updated Successfully")
+            this.getMrOrdersCoffeeExperience();
+            this.onSave = false;
+            this.onEdit = true;
           }
           else{
             this.toastrService.error("Error while Updating.")
           }
         }
       )
+      }
+      if(this.order_type == "hrc"){
+        this.userService.postHrcOrdersCoffeeExperience(this.roaster_id,this.order_id,data).subscribe(
+          response => {
+            if(response['success'] == true){
+              this.toastrService.success("The Horeca order details updated Successfully")
+              this.getHrcOrdersCoffeeExperience();
+              this.onSave = false;
+              this.onEdit = true;
+            }
+            else{
+              this.toastrService.error("Error while Updating.")
+            }
+          }
+        )
+        }
+      else{
+        this.userService.postDefaultCoffeeExperienceDetail(this.roaster_id,data).subscribe(
+          response => {
+            if(response['success'] == true){
+              this.toastrService.success("The Default settings updated Successfully")
+              this.onSave = false;
+              this.onEdit = true;
+            }
+            else{
+              this.toastrService.error("Error while Updating.")
+            }
+          }
+        )
+      }
     }
   }
 
   getTagValue(event : any){
     console.log(event.target.value)
+  }
+  edit(){
+    this.onEdit = false;
+    this.onSave = true;
   }
 }

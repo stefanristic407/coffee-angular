@@ -231,7 +231,7 @@
 
 .upload-file-results__item button:first-of-type::after {
     position: absolute;
-    content: "";
+    content: none !important;
     top: 50%;
     right: 0;
     transform: translateY(-50%);

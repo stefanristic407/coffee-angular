@@ -41,10 +41,14 @@
                                     <p class="fnt-14 fnt-muli text-gray588 pr-md-5">{{globals.languageJson?.coffee_experience_text}}</p>
                                 </div>
 
-                                <div class="col-12 col-md-3 butn-prev-save butn-prev-save--desktop">
+                                <div class="col-12 col-md-3 butn-prev-save butn-prev-save--desktop" *ngIf="onSave">
                                     <button type="button" class="preview" routerLink="/features/coffee-experience"> Cancel </button>&nbsp;&nbsp;&nbsp;
                                     <button type="button" class="save" > {{globals.languageJson?.save}} </button>
                                 </div>
+                                <div class="col-12 col-md-3 butn-prev-save butn-prev-save--desktop" *ngIf="onEdit">
+                                    <button type="button" class="save pull-right" (click)="edit()"> {{globals.languageJson?.edit}} </button>
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-8">
@@ -52,14 +56,16 @@
                                         <div class="roastery-fields">
                                             <div class="farm-input col-12 col-md-5 px-0">
                                                 <label class="label pl-1">Roastery website</label>
-                                                <input type="text" placeholder="www.sewn.se/lofbergs"  [(ngModel)]="website"[ngModelOptions]="{standalone: true}">
+                                                <input type="text" *ngIf="onSave" placeholder="www.sewn.se/lofbergs"  [(ngModel)]="website" [ngModelOptions]="{standalone: true}" disabled>
+                                                <p *ngIf="onEdit"> {{website}}</p>
                                             </div>
                                         </div>
 
                                         <div class="roastery-fields">
                                             <div class="farm-input col-12 px-0">
                                                 <label class="label pl-1">{{globals.languageJson?.short_description}}</label>
-                                                <textarea type="text" rows="5" cols="50" placeholder="A short description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}"></textarea>
+                                                <textarea type="text" *ngIf="onSave" rows="5" cols="50" placeholder="A short description" [(ngModel)]="description" [ngModelOptions]="{standalone: true}" disabled></textarea>
+                                                <p *ngIf="onEdit"> {{description}}</p>
                                             </div>
                                         </div>
 
@@ -68,53 +74,56 @@
                                                 <div class="farm-input col-12 px-0">
                                                     <label>{{globals.languageJson?.select_tags}}(max
                                             5)</label>
-                                                    <div class="roastery-tags__checkboxes">
+                                                    <div class="roastery-tags__checkboxes"  *ngIf="onSave">
                                                         <label class="active custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Investing locally" checked (change)="getTagValue($event)">
+                                                    value="Investing locally" checked (change)="getTagValue($event)" disabled>
                                                 <span class="custom-raotary-tags">Investing locally</span>
                                             </label>
 
                                                         <label class="custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Waste management">
+                                                    value="Waste management"  disabled>
                                                 <span class="custom-raotary-tags">Waste management</span>
                                             </label>
                                                         <label class="custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Happy employees">
+                                                    value="Happy employees" disabled>
                                                 <span class="custom-raotary-tags">Happy employees</span>
                                             </label>
                                                         <label class="custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Circular economy">
+                                                    value="Circular economy" disabled>
                                                 <span class="custom-raotary-tags">Circular economy</span>
                                             </label>
                                                         <label class="custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Fossile free energy">
+                                                    value="Fossile free energy" disabled>
                                                 <span class="custom-raotary-tags">Fossile free energy</span>
                                             </label>
                                                         <label class="custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Sustainability">
+                                                    value="Sustainability" disabled>
                                                 <span class="custom-raotary-tags">Sustainability</span>
                                             </label>
                                                         <label class="custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Agroforestry">
+                                                    value="Agroforestry" disabled>
                                                 <span class="custom-raotary-tags">Agroforestry</span>
                                             </label>
                                                         <label class="custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Reforestation">
+                                                    value="Reforestation" disabled>
                                                 <span class="custom-raotary-tags">Reforestation</span>
                                             </label>
                                                         <label class="custom-label">
                                                 <input class="custom-label__inputs" type="checkbox"
-                                                    value="Pocket friendly">
+                                                    value="Pocket friendly" disabled>
                                                 <span class="custom-raotary-tags">Pocket friendly</span>
                                             </label>
+                                                    </div>
+                                                    <div *ngIf="onEdit">
+                                                        <span *ngFor="let tags of tagsArray" class="tags-onEdit">&#8901; &nbsp;&nbsp;{{tags}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,10 +199,10 @@
                                     <div class="form-section__inputs form-section__inputs--withHead">
                                         <div class="input-head input-head--uplaod d-flex align-items-center justify-content-between">
                                             <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">{{globals.languageJson?.certificates}}</h5>
-                                            <label class="mb-0">
-                                    <!-- <input type="file"> -->
+                                            <!-- <label class="mb-0">
+                                    <input type="file">
                                     <span class="fnt-muli fnt-700 d-inline-block">+</span>
-                                </label>
+                                </label> -->
                                         </div>
                                         <div class="input-body">
                                             <div class="upload-file-results">
@@ -207,9 +216,9 @@
                                                             <a href="{{certificate.public_url}}" target="_blank" download>{{globals.languageJson?.view}}</a> 
                                             </button>
 
-                                                        <button class="fnt-muli fnt-14 fnt-700"  (click)="deleteCertificate(certificate)">
+                                                        <!-- <button class="fnt-muli fnt-14 fnt-700"  (click)="deleteCertificate(certificate)">
                                                 {{globals.languageJson?.delete}}
-                                            </button>
+                                            </button> -->
                                                     </div>
                                                 </div>
 
