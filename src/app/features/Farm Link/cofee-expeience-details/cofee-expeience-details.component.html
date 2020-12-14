@@ -43,7 +43,7 @@
 
                                 <div class="col-12 col-md-3 butn-prev-save butn-prev-save--desktop" *ngIf="onSave">
                                     <button type="button" class="preview" routerLink="/features/coffee-experience"> Cancel </button>&nbsp;&nbsp;&nbsp;
-                                    <button type="button" class="save" > {{globals.languageJson?.save}} </button>
+                                    <button type="button" class="save" (click)="saveDefaultSetting()"> {{globals.languageJson?.save}} </button>
                                 </div>
                                 <div class="col-12 col-md-3 butn-prev-save butn-prev-save--desktop" *ngIf="onEdit">
                                     <button type="button" class="save pull-right" (click)="edit()"> {{globals.languageJson?.edit}} </button>
