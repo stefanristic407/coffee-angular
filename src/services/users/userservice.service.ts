@@ -1004,4 +1004,12 @@ export class UserserviceService {
 		return this.http.post(this.roasterUrl, data);
   }
 
+  getMarketingMaterials(roaster_id: any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/marketing-materials`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+
 }
