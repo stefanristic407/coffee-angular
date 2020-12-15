@@ -66,6 +66,7 @@ export class OrderBookedService {
 	one_star: any;
 	rate_rating_star: any;
 	countryValue: any;
+	country: any;
 
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
@@ -135,6 +136,7 @@ export class OrderBookedService {
 					this.city=res['result']['city'];
 					this.zipcode=res['result']['zipcode'];
 					this.rating=res['result']['rating'];
+					this.country=res['result']['country']
 				}	
 			}
 		)

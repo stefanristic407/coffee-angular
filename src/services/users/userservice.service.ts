@@ -1020,4 +1020,13 @@ export class UserserviceService {
 		data['token'] = this.cookieService.get('Auth');    
 		return this.http.post(this.roasterUrl, data);
   }
+  addReviewOrder(roaster_id:any,orderId:any,body:any){
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/orders/"+ orderId +"/reviews";
+    data["method"] = "POST";
+    data['data'] = body;
+    data['token'] = this.cookieService.get('Auth');    
+    return this.http.post(this.roasterUrl, data);
+  }
+
 }

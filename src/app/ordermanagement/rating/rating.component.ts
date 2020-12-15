@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { OrderBookedService } from '../order-booked/order-booked.service';
+import { ToastrService } from 'ngx-toastr';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 @Component({
   selector: 'app-rating',
@@ -25,14 +30,19 @@ export class RatingComponent implements OnInit {
   communicationUserError:any;
   reviewUserError:any;
 	appLanguage?: any;
+	roasterId: any;
+	greenCoffee: any;
+	resetButtonValue: string ='Submit';
+	countryValue: any;
 
-  constructor(public globals: GlobalsService) {
+  constructor(public globals: GlobalsService,public userService : UserserviceService,public cookieService : CookieService,public bookedService : OrderBookedService,private toastrService: ToastrService,public profile:RoasteryProfileService) {
     this.experienceError = "";
     this.communicationError = ""; 
     this.reviewError = "";
     this.experienceUserError = ""; 
     this.communicationUserError = "";
-    this.reviewUserError = ""; 
+	this.reviewUserError = ""; 
+	this.roasterId = this.cookieService.get('roaster_id');
    }
 
   ngOnInit(): void {
@@ -61,25 +71,37 @@ export class RatingComponent implements OnInit {
   });
   }
 
-  onRate(event){
-    this.experience=event.newValue;
-    console.log(this.experience)
+//   onRate(event){
+//     this.experience=event.newValue;
+//     console.log(this.experience)
+//   }
+//   onCommunication(event){
+//     this.communication=event.newValue;
+//     console.log(this.communication)
+//   }
+//   onRateUser(event){
+//     this.experienceuser=event.newValue
+//   }
+//   onCommunicationUser(event){
+//     this.communicationUser=event.newValue
+//   }
+  onCheckboxChange(e){
+	  console.log("star"+ e.target.value);
+	  this.greenCoffee=e.target.value;
   }
-  onCommunication(event){
-    this.communication=event.newValue;
-    console.log(this.communication)
+  onCheckboxChangeFirst(data)
+  {
+	console.log("star"+ data.target.value);
+	this.experience=data.target.value;
   }
-  onRateUser(event){
-    this.experienceuser=event.newValue
+  onCheckboxChangeSecond(item){
+	console.log("star"+ item.target.value);
+	this.communication=item.target.value;
   }
-  onCommunicationUser(event){
-    this.communicationUser=event.newValue
-  }
-
   submitRating(){
     var $rating=$('.rating').find('.checked');
 
-    if((this.review == "") &&  (this.reviewUser == "") && ($rating)){
+    if((this.review == "")  && ($rating)){
       this.reviewError = "please write your review";
       this.reviewUserError = "please write your review";
       $('.rating').addClass('rating-required');
@@ -88,7 +110,6 @@ export class RatingComponent implements OnInit {
       document.getElementById('reviewUserId').style.border = "1px solid #D50000";
       setTimeout(() => {
         this.reviewError = "";
-        this.reviewUserError = "";
       }, 7000);
     }
     else if (this.review == "" || this.review == null || this.review == undefined) {
@@ -98,15 +119,30 @@ export class RatingComponent implements OnInit {
         this.reviewError = "";
       }, 3000);
     }
-    else if (this.reviewUser == "" || this.reviewUser == null || this.reviewUser == undefined) {
-      this.reviewUserError = "please write your review";
-      document.getElementById('reviewUserId').style.border = "1px solid #D50000";
-      setTimeout(() => {
-        this.reviewUserError = "";
-      }, 3000);
-    }
     else{
+		this.resetButtonValue = "Submitting";
+		var data={
+			"overall_experience" : parseInt(this.experience),
+			"communication" : parseInt(this.communication),
+			"green_coffee" : parseInt(this.greenCoffee),
+			"review": this.review
+		}
+		this.userService.addReviewOrder(this.roasterId,this.bookedService.orderId,data).subscribe(
+			res=>{
+				if(res['success']==true){
+					this.resetButtonValue = "Submit"
+					this.toastrService.success("Rate and Review of order submitted successfully");
+				}
+				// else if(res['success']==false){
 
+				// }	
+				else{
+					this.toastrService.error("Error while submitting details");
+					this.resetButtonValue = "Submit"
+
+				}
+			}
+		)
     }
   }
   submitMobRating(){
@@ -126,4 +162,17 @@ export class RatingComponent implements OnInit {
       document.getElementById(event.target.id).style.border = "1px solid #d6d6d6";
     }
   }
+	GetCountry(data:any){
+		// console.log(data.toUpperCase());
+		if(data){
+		this.countryValue=this.profile.countryList.find(con =>con.isoCode == data.toUpperCase());
+		if(this.countryValue)
+			return this.countryValue.name;
+		}
+	}
+	changeDecimal(val:any){
+		if(val){
+			return parseFloat(val).toFixed(1);
+		}
+	}
 }

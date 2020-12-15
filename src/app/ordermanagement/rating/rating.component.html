@@ -26,28 +26,27 @@
 
         <div class="rating-total mt-3">
             <div class="row">
-                <div class="col-lg-5 col-md-12 col-12">
-                    <div class="row m-0">
-                        <div class="d-md-block d-none"><img class="img-estate" src="assets/images/rating-profile.png" alt="User"></div>
-                        <div class="d-block d-md-none"><img class="img-estate" src="assets/images/rating-profile-mob.jpg" alt="User"></div>
+                <div class="col-lg-4 col-md-12 col-12">
+                    <div class="d-flex m-0">
+                        <div class="d-md-block d-none"><img class="img-review-estate" *ngIf="bookedService.estate_thumbnail_url" [src]="bookedService.estate_thumbnail_url" alt="User"></div>
+                        <div class="d-block d-md-none"><img class="img-review-estate" src="assets/images/rating-profile-mob.jpg" alt="User"></div>
                         <div class="col-10 pl-0 d-md-block d-none">
                             <ul class="details-lists p-0 ">
                                 <li class="d-flex">
-                                    <span class="person-name">{{globals.languageJson?.roaster}}</span>
-                                    <span class="last-seen-time">{{globals.languageJson?.last_seen}} 4:30pm </span>
+                                    <span class="person-name">{{bookedService.estate_owner}}</span>
+                                    <!-- <span class="last-seen-time">{{globals.languageJson?.last_seen}} 4:30pm </span> -->
                                 </li>
                                 <li class="roaster">
-                                    Roaster
+                                    {{bookedService.estate_name}}
                                 </li>
                                 <li class="d-flex rating-space">
 
-                                    <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                    <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
-
+                                    <star-rating value="{{changeDecimal(bookedService.rating)}}" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
+                                    <p class="rating-value">{{bookedService.rating}}
                                 </li>
                                 <li>
                                     <span class="location pr-2"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                    Belgium</span>
+                                    {{GetCountry(bookedService.country)}}</span>
                                     <span class="details pl-2">Contact details <img class="top-image" src="/assets/images/group.png" alt=""></span>
                                 </li>
                             </ul>
@@ -75,11 +74,7 @@
                                             {{globals.languageJson?.belgium}}</span>
                                             <span class="details pl-3">{{globals.languageJson?.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
                                         </li>
-                                     <!--<li class="d-flex">
-                                        <span class="location width-mob pr-2"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                        Belgium</span>
-                                        <span class="details width-mob pl-2">Contact details <img class="top-image" src="/assets/images/group.png" alt=""></span>
-                                    </li> -->
+                                   
                                 </ul>
                         </div>
                     </div>
@@ -88,9 +83,9 @@
                     </div>
 
                 </div>
-                <div class="col-lg-7 col-md-12 col-12 pl-md-3 m-over-8">
+                <div class="col-lg-8 col-md-12 col-12 pl-md-3 m-over-8">
                     <div class="row experience-padding">
-                        <div class="col-lg-5 col-md-12 col-12">
+                        <div class="col-lg-4 col-md-12 col-12">
                             <span class="over-exp d-md-block d-none">{{globals.languageJson?.overall_experience}}</span>
                             <div class="over-exp d-md-none d-block ">{{globals.languageJson?.overall_experience}}<span class="required-star">*</span></div>
 
@@ -99,28 +94,27 @@
                             <div class="experienceError" *ngIf="experienceError != ''">{{experienceError}}</div> -->
                             <div class="rating d-flex clearfix pt-2  pb-3 pb-lg-0 flex-wrap">
                                     <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="1"  >
+                                        <input type='checkbox' value="1"  (change)="onCheckboxChangeFirst($event)">
                                     </label>
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="2"  >
+                                        <input type='checkbox' value="2" (change)="onCheckboxChangeFirst($event)" >
                                     </label>
                                     <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="3"  >
+                                        <input type='checkbox' value="3"  (change)="onCheckboxChangeFirst($event)">
                                     </label>
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="4" >
+                                        <input type='checkbox' value="4" (change)="onCheckboxChangeFirst($event)">
                                     </label>
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="5" >
+                                        <input type='checkbox' value="5" (change)="onCheckboxChangeFirst($event)">
                                     </label>
                                     <p class="experienceError rating-error mb-0 pt-1">{{globals.languageJson?.tap_start_rate}}</p>
                                 </div>
-        
-                        </span>
+                            </span>
 
 
                         </div>
-                        <div class="col-lg-5 col-md-12 col-12">
+                        <div class="col-lg-4 col-md-12 col-12">
                             <span class="over-exp  d-md-block d-none">{{globals.languageJson?.communication}}</span>
                             <div class="over-exp d-md-none d-block ">{{globals.languageJson?.grading_abilities}}<span class="required-star">*</span></div>
 
@@ -129,27 +123,48 @@
                             <div class="communicationError" *ngIf="communicationError != ''">{{communicationError}}</div> -->
                             <div class="rating d-flex clearfix pt-2 flex-wrap">
                                     <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="1"  >
+                                        <input type='checkbox' value="1"  (change)="onCheckboxChangeSecond($event)">
                                     </label>
                                     <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="2"  >
+                                        <input type='checkbox' value="2"  (change)="onCheckboxChangeSecond($event)">
                                     </label>
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="3"  >
+                                        <input type='checkbox' value="3"  (change)="onCheckboxChangeSecond($event)">
                                     </label>
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="4" >
+                                        <input type='checkbox' value="4" (change)="onCheckboxChangeSecond($event)">
                                     </label>
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="5" >
+                                        <input type='checkbox' value="5" (change)="onCheckboxChangeSecond($event)">
                                     </label>
                                     <p class="experienceError rating-error pt-1 mb-0">{{globals.languageJson?.tap_start_rate}}</p>
                                 </div>
-        
-                        </span>
-
+                            </span>
                         </div>
-
+                        <div class="col-lg-4 col-md-12 col-12">
+                            <span class="over-exp  d-md-block d-none">Green coffee</span>
+                            <div class="over-exp d-md-none d-block ">Green coffee<span class="required-star">*</span></div>
+                            <span>
+                            <div class="rating d-flex clearfix pt-2 flex-wrap">
+                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
+                                        <input type='checkbox' value="1" (change)="onCheckboxChange($event)">
+                                    </label>
+                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
+                                        <input type='checkbox' value="2"  (change)="onCheckboxChange($event)">
+                                    </label>
+                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
+                                        <input type='checkbox' value="3"  (change)="onCheckboxChange($event)">
+                                    </label>
+                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
+                                        <input type='checkbox' value="4" (change)="onCheckboxChange($event)">
+                                    </label>
+                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
+                                        <input type='checkbox' value="5" (change)="onCheckboxChange($event)">
+                                    </label>
+                                    <p class="experienceError rating-error pt-1 mb-0">{{globals.languageJson?.tap_start_rate}}</p>
+                                </div>
+                            </span>
+                        </div>
                     </div>
                     <div class="row experience-padding">
                         <div class="form-group col-lg-11 col-md-12 mb-0 mt-4">
@@ -163,7 +178,7 @@
             </div>
         </div>
 
-        <div class="rating-total mt-3 mob-margin">
+        <!-- <div class="rating-total mt-3 mob-margin">
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-12">
                     <div class="row m-0">
@@ -218,11 +233,7 @@
                                                 {{globals.languageJson?.belgium}}</span>
                                                 <span class="details pl-3">{{globals.languageJson?.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
                                             </li>
-                                         <!--<li class="d-flex">
-                                            <span class="location width-mob pr-2"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                            Belgium</span>
-                                            <span class="details width-mob pl-2">Contact details <img class="top-image" src="/assets/images/group.png" alt=""></span>
-                                        </li> -->
+                                         
                                     </ul>
                             </div>
 
@@ -232,17 +243,14 @@
                         {{globals.languageJson?.rate_your_experience}}
                     </div>
 
-                </div>
-                <div class="col-lg-7 col-md-12 col-12 pl-md-3 m-over-8">
+                </div> -->
+                <!-- <div class="col-lg-7 col-md-12 col-12 pl-md-3 m-over-8">
                     <div class="row experience-padding">
                         <div class="col-lg-5 col-md-12 col-12">
                             <span class="over-exp d-md-block d-none">{{globals.languageJson?.overall_experience}}</span>
                             <div class="over-exp d-md-none d-block ">{{globals.languageJson?.overall_experience}}<span class="required-star">*</span></div>
                             <span>
-                            <!-- <p-rating [(ngModel)]="val3" [cancel]="false" size="36px"></p-rating> -->
-
-                            <!-- <star-rating value="0" totalstars={{totalstar}} checkedcolor="#ffa001" (rate)="onRateUser($event)" uncheckedcolor="#d6d6d6" size="36px"></star-rating>
-                            <div class="experienceUserError" *ngIf="experienceUserError != ''">{{experienceUserError}}</div> -->
+                           
                             <div class="rating d-flex clearfix pt-2  pb-3 pb-lg-0 flex-wrap">
                                     <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
                                         <input type='checkbox' value="1"  >
@@ -267,8 +275,7 @@
                         <div class="col-lg-5 col-md-12 col-12">
                                 <span class="over-exp  d-md-block d-none">{{globals.languageJson?.communication}}</span>
                                 <div class="over-exp d-md-none d-block ">{{globals.languageJson?.grading_abilities}}<span class="required-star">*</span></div>                            <span>
-                            <!-- <star-rating value="0" totalstars={{totalstar}} checkedcolor="#ffa001" (rate)="onCommunicationUser($event)" uncheckedcolor="#d6d6d6" size="36px"></star-rating>
-                            <div class="communicationUserError" *ngIf="communicationUserError != ''">{{communicationUserError}}</div> -->
+                            
                             <div class="rating d-flex clearfix pt-2 flex-wrap">
                                     <label class="rating__item float-left d-inline-block  " style="width: 24px;height: 24px;">
                                         <input type='checkbox' value="1"  >
@@ -300,12 +307,13 @@
 
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div> -->
+            <!-- </div>
+        </div> -->
 
         <div class="d-md-none d-block farm-stricky col-12">
-                <button type="button" class="submit-mob-butn" (click)="submitMobRating()"> {{globals.languageJson?.submit}} </button>
+                <button type="button" class="submit-mob-butn" (click)="submitMobRating()"[disabled]="resetButtonValue==='Submitting'">
+                        {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Submitting'" src="assets/images/orange-loader.gif"/></button>
             </div>
     </section>
 </div>
