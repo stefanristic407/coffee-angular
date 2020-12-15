@@ -123,22 +123,25 @@
 <ng-template #roleTemplate>
     <div>
         <ul class="list-group">
+
             <li class="list-group-item item-color pointer-item" (click)="setRole(''); pop3.hide(); ">
                 <a class="">All</a>
-            </li>
-            <li class="list-group-item item-color pointer-item" (click)="setRole('Medium');  pop3.hide();  ">
-                <a class="pointer-item">Medium</a>
-            </li>
-            <li class="list-group-item item-color pointer-item" (click)="setRole('Light - medium');  pop3.hide(); ">
-                <a class="pointer-item">Light - medium</a>
-            </li>
-            <li class="list-group-item item-color pointer-item" (click)="setRole('Dark');  pop3.hide();  ">
-                <a class="pointer-item">Dark</a>
             </li>
             <li class="list-group-item item-color pointer-item" (click)="setRole('Light');  pop3.hide();  ">
                 <a class="pointer-item">Light</a>
             </li>
-
+            <li class="list-group-item item-color pointer-item" (click)="setRole('Light Medium');  pop3.hide(); ">
+                <a class="pointer-item">Light Medium</a>
+            </li>
+            <li class="list-group-item item-color pointer-item" (click)="setRole('Medium');  pop3.hide();  ">
+                <a class="pointer-item">Medium</a>
+            </li>
+            <li class="list-group-item item-color pointer-item" (click)="setRole('Medium Dark');  pop3.hide();  ">
+                <a class="pointer-item">Medium Dark</a>
+            </li>
+            <li class="list-group-item item-color pointer-item" (click)="setRole('Dark');  pop3.hide();  ">
+                <a class="pointer-item">Dark</a>
+            </li>
         </ul>
     </div>
 </ng-template>

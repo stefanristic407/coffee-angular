@@ -22,44 +22,7 @@ export class RoastingProfilesComponent implements OnInit {
   showRole:boolean = true;
   term:any;
 
-  mainData:any[] = [
-  //   {
-	// 	roastname: 'Mild roast-467',
-	// 	roastlevel: 'Medium',
-	// 	temperature: '600°C',
-	// 	duration:'6 min'
-  //   },
-  //   {
-	// 	roastname: 'Light - medium 940',
-	// 	roastlevel: 'Light - medium',
-	// 	temperature: '400°C',
-	// 	duration:'3 min'
-  //   },
-  //   {
-	// 	roastname: 'Medium458',
-	// 	roastlevel: 'Medium',
-	// 	temperature: '670°C',
-	// 	duration:'5.5 min'
-  //   },
-  //   {
-	// 	roastname: '2879- dark',
-	// 	roastlevel: 'Dark',
-	// 	temperature: '800°C',
-	// 	duration:'-'
-  //   },
-  //   {
-	// 	roastname: 'Light - medium 940',
-	// 	roastlevel: 'Light',
-	// 	temperature: '670°C',
-	// 	duration:'5 min'
-	// },
-	// {
-	// 	roastname: 'Medium458',
-	// 	roastlevel: 'Dark',
-	// 	temperature: '900°C',
-	// 	duration:'9 min'
-	// }
-  ]
+  mainData:any[] = []
   roleData: string;
   roleID: string;
   roasterId: any ;
@@ -68,6 +31,13 @@ export class RoastingProfilesComponent implements OnInit {
   profileID: any;
   modalRef: BsModalRef;
   deleteProfileId: any;
+  roasterLevels = {
+    1: 'Light',
+    2: 'Light Medium',
+    3: 'Medium',
+    4: 'Medium Dark',
+    5: 'Dark',
+  }
   constructor(
     public router: Router,
     public cookieService: CookieService,
@@ -157,7 +127,10 @@ export class RoastingProfilesComponent implements OnInit {
           else {
             this.odd = false ;
             this.mainData = data['result'];
-          }				
+            this.mainData.forEach(ele => {
+              ele.roast_level_name = this.roasterLevels[ele.roast_level];
+            })
+          }
         }else{
           this.odd = true ;
 					this.toastrService.error("Error while getting the agreement list!");

@@ -29,11 +29,11 @@
                                 <label class="label p-0">Roast level<span>*</span></label>
                                 <select class="form-control select-region" name="Year" required="" [(ngModel)]="roast_level">
                                         <option value="Please select" selected disabled>Please select</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
+                                        <option value="1">Light</option>
+                                        <option value="2">Light Medium</option>
+                                        <option value="3">Medium</option>
+                                        <option value="4">Medium Dark</option>
+                                        <option value="5">Dark</option>
                                 </select>
                                 <div class="error-message" *ngIf="roastLevelErrorMessage != ''">{{roastLevelErrorMessage}}</div>
                             </div>
