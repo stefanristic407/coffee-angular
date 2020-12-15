@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import { OrderDetailsComponent } from '../order-sample/order-details/order-details.component';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 @Component({
 	selector: 'app-order-sample',
@@ -43,10 +44,17 @@ export class OrderSampleComponent implements OnInit {
 	orderSampleActive:any =0;
 	recievedShow: boolean = false;
 	shippmentShow :boolean = false;
+	orderSampleId: any;
+	countryValue: any;
 
-	constructor(private sampleService: OrderSampleService, private route: ActivatedRoute,
+	constructor(public sampleService: OrderSampleService, private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
-		public globals: GlobalsService) { }
+		public globals: GlobalsService,public profileservice:RoasteryProfileService) { 
+			this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
+			this.orderSampleId = decodeURIComponent(this.route.snapshot.queryParams['id']);
+			this.sampleService.orderSampleId=this.orderSampleId;
+			this.sampleService.viewSampleOrderDetails();
+		}
 
 	ngOnInit(): void {
 		//Auth checking
@@ -55,9 +63,8 @@ export class OrderSampleComponent implements OnInit {
 		  }
 		  this.language();
 		//Fills the time line based on the status selected in estate order.
-		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
 		console.log("the data from table trigger is  : " + this.dataFromTable);
-		if (this.dataFromTable == "Order confirmed") {
+		if (this.dataFromTable == "CONFIRMED") {
 			this.sampleValueToShow = "Order Confirmed";
 			setTimeout(() => {
 				this.orderConfirmSample();
@@ -134,7 +141,7 @@ export class OrderSampleComponent implements OnInit {
 
 		// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.globals);
+		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.globals,this.profileservice);
 		setTimeout(()=>{
 			uploadReceipt.uploadReceipt();
 		},500);
@@ -260,5 +267,13 @@ chatboxForm.addEventListener("submit", e => {
 	//   this.newvalue=$event.newValue;
 	//  console.log(this.newvalue);
 	// }
-
+	GetCountry(data:any){
+        // console.log(data.toUpperCase());
+        if(data){
+          this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
+          if(this.countryValue){
+          return this.countryValue.name;
+          }
+        }
+      }
 }

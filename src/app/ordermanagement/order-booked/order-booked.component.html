@@ -41,7 +41,7 @@
 
                                 <!-- <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div> -->
                             </div>
-                            <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+                            <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
                                 <button type="submit" class="btn  pull-right ord-invoice-butn"> {{globals.languageJson?.order_invoice}}</button>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
 
                     </ul>
 
-                    <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+                    <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
                         <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
                     </div>
                     <div class="tab-content mt-md-5" id="pills-tabContent">
@@ -471,7 +471,7 @@
             </div>
 
 
-            <div class="w-100 mt-5 pb-5 d-none d-md-inline-block" *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage">
+            <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
                 <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
             </div>
             <div class="w-100 chat-div">

@@ -19,7 +19,7 @@
                                     <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                         src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
-                                <li class="b-cum c-pink">{{globals.languageJson?.order}} 12416
+                                <li class="b-cum c-pink">{{globals.languageJson?.order}} {{prebookService.preId}}
                                 </li>
                             </ul>
                         </nav>
@@ -27,7 +27,7 @@
 
                     <div class="col-lg-6 col-md-12 pull-right ml-auto pl-0 pr-0 d-none d-md-block">
                         <span class="pull-right ml-auto order-placed-text">
-                            {{globals.languageJson?.order_placed}} : <span class="date-text">1st Jan 2020</span>
+                            {{globals.languageJson?.order_placed}} : <span class="date-text">{{prebookService.created_at | date:"d MMM, y"}}</span>
                         </span>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="col-12 d-flex px-0">
 
                         <div class="col-md-6 pl-0">
-                            <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}} #12416 <span class="booked booked--pre ml-2">Pre-Booked</span>
+                            <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}} #{{prebookService.preId}} <span class="booked booked--pre ml-2">Pre-Booked</span>
                             </div>
 
                             <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div>
@@ -243,10 +243,10 @@
                         <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
                             alt="Edit"> Edit</div> -->
                     </div>
-                    <div class=" d-flex mt-1 addr-text">Löfbergs Lila AB, Box 1501, 651 21 - Karlstad, Sweden</div>
+                    <div class=" d-flex mt-1 addr-text" *ngIf="prebookService.shipping_address">{{prebookService['shipping_address']['address_line1']}}, {{prebookService['shipping_address']['address_line2']}}, {{prebookService['shipping_address']['zipcode']}} - {{prebookService['shipping_address']['state']}}, {{GetCountry(prebookService['shipping_address']['country'])}}</div>
+                    <div class=" d-flex mt-1 addr-text" *ngIf="prebookService.shipping_address == ''">NA</div>
                     <div class="d-flex mt-3">
                         <img class="img-logo" src="assets/images/google-image.png" alt="Map">
-
                     </div>
                 </div>
                 <div class="d-none d-md-block ">
@@ -258,15 +258,17 @@
 
                     <div class="d-flex mt-3 border-div">
                         <div class="p-0">
-                            <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                            <img  class="img-estate" [src]="prebookService.company_image_thumbnail_url" alt="">
+                            <!-- <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div> -->
+                        </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">Finca La Pampa</li>
+                                <li class="estate-name">{{prebookService.owner_name}}</li>
                                 <li class="estate-number pt-1">
                                     <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
                                         class="" src="assets/images/star-1.png" alt="User"> <span
                                         class="star-no pl-1">
-                                        4.95</span>
+                                        {{prebookService.rating}}</span>
                                     </span>
                                 </li>
                             </ul>
@@ -294,7 +296,7 @@
                         </tr> -->
                         <tr>
                             <td> <span class="list-que"> {{globals.languageJson?.address}}: </span></td>
-                            <td> <span class="list-ans"> Manizales, Caldas, 46729 - Colombia </span> </td>
+                            <td> <span class="list-ans" *ngIf="prebookService.address_line1"> {{prebookService.address_line1}}, {{prebookService.address_line2}}, {{prebookService.zipcode}} - {{prebookService.city}} </span> </td>
 
                         </tr>
                     </table>
@@ -305,12 +307,12 @@
                         </div>
                     </div>
                     <div class="d-flex mt-3 border-div">
-                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                        <div class="p-0"><img class="img-estate" [src]="prebookService.estate_thumbnail_url" alt=""></div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">Finca La Pampa</li>
+                                <li class="estate-name">{{prebookService.estate_name}}</li>
                                 <li class="estate-number pt-1">
-                                    Coffee Estate
+                                        {{prebookService.estate_owner}}
                                 </li>
                             </ul>
                         </div>
@@ -323,12 +325,12 @@
                         </div>
                     </div>
                     <div class="d-flex mt-3">
-                        <div class="p-0"><img class="img-estate" src="assets/images/stakeholder2.png" alt="User"></div>
+                        <div class="p-0"><img class="img-estate" [src]="prebookService.roaster_thumbnail_url" alt=""></div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">Kevin Bailey</li>
+                                <li class="estate-name">{{prebookService.roaster_name}}</li>
                                 <li class="estate-number pt-1">
-                                    Facilitator
+                                        {{prebookService.roaster_owner}}
                                 </li>
                             </ul>
                         </div>

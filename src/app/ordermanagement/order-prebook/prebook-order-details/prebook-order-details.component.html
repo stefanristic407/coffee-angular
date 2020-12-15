@@ -14,11 +14,11 @@
             <tbody>
                 <tr>
                     <th>{{globals.languageJson?.origin}}</th>
-                    <td>Columbia</td>
+                    <td>{{prebookService.origin}}</td>
                 </tr>
                 <tr>
                     <th>{{globals.languageJson?.variety}}</th>
-                    <td>Bourbon,Cautai</td>
+                    <td>{{prebookService.variety}}</td>
                 </tr>
                 <tr>
                     <th>Quantity ordered</th>
@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <th>{{globals.languageJson?.total}}</th>
-                    <td>$300</td>
+                    <td>-</td>
                 </tr>
             </tbody>
 
@@ -63,42 +63,45 @@
             </tr>
             <tr>
                 <td> <span class="list-que"> Flavour profile :  </span></td>
-                <td> <span class="list-ans">  Strawberry, Citrus </span> </td>
+                <td> <span class="list-ans" >
+                        <span *ngFor="let item of prebookService.flavours">{{item }}</span>
+                    </span>
+                </td>
 
             </tr>
             <tr>
                 <td> <span class="list-que">Soil Footprint :</span></td>
-                <td> <span class="list-ans">  60 </span> </td>
+                <td> <span class="list-ans">  {{prebookService.soil_footprint}} </span> </td>
 
             </tr>
 
             <tr>
                 <td> <span class="list-que">Species : </span></td>
-                <td> <span class="list-ans"> Arabica </span> </td>
+                <td> <span class="list-ans"> {{prebookService.species}} </span> </td>
 
             </tr>
 
             <tr>
                 <td> <span class="list-que">Average grade : </span></td>
-                <td> <span class="list-ans">  80 - 85 </span> </td>
+                <td> <span class="list-ans">  {{prebookService.avg_cup_score}} </span> </td>
 
             </tr>
 
             <tr>
                 <td> <span class="list-que">  Average production :</span></td>
-                <td> <span class="list-ans">  1500 kg </span> </td>
+                <td> <span class="list-ans"> {{prebookService.annual_production}} kg </span> </td>
 
             </tr>
 
             <tr>
                 <td> <span class="list-que"> Water source :</span></td>
-                <td> <span class="list-ans">  1500 kg </span> </td>
+                <td> <span class="list-ans">  {{prebookService.water_analysis}}</span> </td>
 
             </tr>
 
             <tr>
                 <td> <span class="list-que"> Other crops :</span></td>
-                <td> <span class="list-ans">  Rice, Avacado </span> </td>
+                <td> <span class="list-ans"> {{prebookService.crop}} </span> </td>
 
             </tr>
 

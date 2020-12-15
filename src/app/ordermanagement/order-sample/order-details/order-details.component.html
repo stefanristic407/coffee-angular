@@ -1,10 +1,10 @@
-<div class="total-loader" *ngIf="SampleOrderActive !=1">
-    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+<!-- <div class="total-loader" *ngIf="SampleOrderActive !=1">
+    <img class="loader-gif-sub" src="/assets/images/loader.gif">
     <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
         <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
-    </div>
-</div>
-<div *ngIf="SampleOrderActive == 1">
+    </div> -->
+<!-- </div>
+<div *ngIf="SampleOrderActive == 1"> -->
     <div class="row">
         <div class="col-md-12 lot-content lot-content--mb table-responsive mb-15">
             <table class="lot-table lot-table--vertical">
@@ -21,25 +21,25 @@
                 <tbody>
                     <tr>
                         <th>{{globals.languageJson?.origin}}</th>
-                        <td>Columbia</td>
+                        <td *ngIf="sampleService.origin">{{GetCountry(sampleService.origin)}}</td>
                     </tr>
                     <tr>
                         <th>{{globals.languageJson?.variety}}</th>
-                        <td>Bourbon,Cautai</td>
+                        <td>{{sampleService.variety}}</td>
                     </tr>
                     <tr>
                         <th>Quantity </th>
-                        <td>Sample
+                        <td>{{sampleService.quantity}} {{sampleService.quantity_type}}
                             <p class="procedure"> View lot details </p>
                         </td>
                     </tr>
                     <tr>
                         <th>{{globals.languageJson?.rate_per_kg}}</th>
-                        <td>$450/kg</td>
+                        <td *ngIf="sampleService.price">${{sampleService.price}}/kg</td>
                     </tr>
                     <tr>
                         <th>{{globals.languageJson?.total}}</th>
-                        <td>$100</td>
+                        <td *ngIf="sampleService.price">${{getPrice()}}</td>
                     </tr>
                 </tbody>
                 <!-- <tbody>
@@ -67,53 +67,53 @@
 
                 <tr>
                     <td> <span class="list-que"> Flavour profile :  </span></td>
-                    <td> <span class="list-ans"> Strawberry, Nutty </span> </td>
+                    <td> <span class="list-ans"> {{sampleService.flavours}} </span> </td>
 
                 </tr>
                 <tr>
                     <td> <span class="list-que"> Listing Status : </span></td>
-                    <td> <span class="list-ans">  Warehouse </span> </td>
+                    <td> <span class="list-ans">   {{sampleService.listing_status}} </span> </td>
 
                 </tr>
                 <tr>
                     <td> <span class="list-que">  Processing: </span></td>
-                    <td> <span class="list-ans">  Unwashed </span> </td>
+                    <td> <span class="list-ans">  {{sampleService.processing_types}} </span> </td>
 
                 </tr>
 
                 <tr>
                     <td> <span class="list-que">  Type: </span></td>
-                    <td> <span class="list-ans">  Single origin </span> </td>
+                    <td> <span class="list-ans"> {{sampleService.type}} </span> </td>
 
                 </tr>
 
                 <tr>
                     <td> <span class="list-que">  Species: </span></td>
-                    <td> <span class="list-ans">  Coffee Arabica </span> </td>
+                    <td> <span class="list-ans">  {{sampleService.species}} </span> </td>
 
                 </tr>
 
                 <tr>
                     <td> <span class="list-que">   Quality: </span></td>
-                    <td> <span class="list-ans">  AA </span> </td>
+                    <td> <span class="list-ans">  - </span> </td>
 
                 </tr>
 
                 <tr>
                     <td> <span class="list-que">    Packaging : </span></td>
-                    <td> <span class="list-ans">  Biodegradeable </span> </td>
+                    <td> <span class="list-ans">   {{sampleService.packaging}} </span> </td>
 
                 </tr>
 
                 <tr>
                     <td> <span class="list-que"> Water activity : </span></td>
-                    <td> <span class="list-ans">  0.67 </span> </td>
+                    <td> <span class="list-ans"> {{sampleService.water_activity}} </span> </td>
 
                 </tr>
 
                 <tr>
                     <td> <span class="list-que"> ICO : </span></td>
-                    <td> <span class="list-ans">  0303 123 1113 </span> </td>
+                    <td> <span class="list-ans">  {{sampleService.ico_number}} </span> </td>
 
                 </tr>
 
@@ -149,4 +149,4 @@
 
         </div>
     </div>
-</div>
+<!-- </div> -->

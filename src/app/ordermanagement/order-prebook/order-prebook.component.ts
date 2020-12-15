@@ -7,6 +7,7 @@ import { PrebookGradeInfoComponent } from './prebook-grade-info/prebook-grade-in
 import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 declare var $: any;
 @Component({
@@ -195,9 +196,10 @@ export class OrderPrebookComponent implements OnInit {
     autoScale = true;
     appLanguage? :any;
     orderPreBookId: any;
+  countryValue: any;
   constructor(public prebookService: OrderPrebookService, private route: ActivatedRoute,
     public router: Router,public cookieService : CookieService,
-    public globals: GlobalsService) {
+    public globals: GlobalsService,public profileservice:RoasteryProfileService) {
       this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
       this.orderPreBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
       this.prebookService.orderPreId=this.orderPreBookId;
@@ -391,7 +393,15 @@ export class OrderPrebookComponent implements OnInit {
       //  console.log(this.newvalue);
       // }
 
-
+      GetCountry(data:any){
+        // console.log(data.toUpperCase());
+        if(data){
+          this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
+          if(this.countryValue){
+          return this.countryValue.name;
+          }
+        }
+      }
     
   }
 
