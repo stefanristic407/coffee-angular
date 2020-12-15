@@ -1012,4 +1012,12 @@ export class UserserviceService {
 		return this.http.post(this.roasterUrl, data);
   }
 
+  paymentReceiptUpload(roaster_id : any,order_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/orders/${order_id}/payment`;
+    data["method"] = "POST";
+    data['data'] = body;
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
 }

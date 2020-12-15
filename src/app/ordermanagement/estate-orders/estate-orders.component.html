@@ -32,7 +32,7 @@
         </div>
     </div>
 </div> -->
-<div>  
+<div>
     <!-- *ngIf="estateOrdersActive == 1 && !hideTable" -->
     <div class="bg-fff">
         <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
@@ -157,56 +157,56 @@
                 <!-- <table class="estate-boby-txt" datatable [dtOptions]="dtOptions"> -->
 
 
-                        <table class="estate-boby-txt table">
-                                <thead>
-                                    <tr class="estate-title">
-                                        <th>
-                                            <label class="b-check first-t">
+                <table class="estate-boby-txt table">
+                    <thead>
+                        <tr class="estate-title">
+                            <th>
+                                <label class="b-check first-t">
                                             <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
                                             <!-- <span class="checkmark"></span> -->
                                         </label>
-                                        </th>
-                                        <th>Order ID </th>
-                                        <th>Estate name </th>
-                                        <th>Date ordered </th>
-                                        <th>Orgin </th>
-                                        <th>Species</th>
-                                        <th>Price</th>
-                                        <th>Quantity </th>
-                                        <th>Type of Order </th>
-                                        <th>Status </th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let group of data" class="estate-boby-txt">
-                                        <td class="spacing-order" style="width: 40px;">
-                                            <label class="b-check">
+                            </th>
+                            <th>Order ID </th>
+                            <th>Estate name </th>
+                            <th>Date ordered </th>
+                            <th>Orgin </th>
+                            <th>Species</th>
+                            <th>Price</th>
+                            <th>Quantity </th>
+                            <th>Type of Order </th>
+                            <th>Status </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let group of data" class="estate-boby-txt">
+                            <td class="spacing-order" style="width: 40px;">
+                                <label class="b-check">
                                             <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
                                             <!-- <span class="checkmark"></span> -->
                                           </label>
-                                        </td>
-                
-                                        <td>{{group.id}}</td>
-                                        <td>{{group.estate_name}}</td>
-                                        <td>{{group.created_at | date:'dd-MM-yyyy'}}</td>
-                                        <td>{{group.origin}}</td>
-                                        <td>{{group.species}}</td>
-                                        <td>{{group.price}}</td>
-                                        <td>{{group.quantity}}</td>
-                                        <td>
-                                            <p class="typeoforder-Sample" *ngIf="group.type == 'Sample'">&#9679; Sample</p>
-                                            <!-- <p class="typeoforder-Booked" *ngIf="group.type == 'Booked'">&#9679; {{group.type}}</p> -->
-                                            <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'Pre-Booked'">&#9679; Pre-Booked</p>
-                                            <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
-                                        </td>
-                                        <td>{{group.status | titlecase}}
-                                        </td>
-                                        <td class="view-order" (click)="displayData($event,group)">View order </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                    <!-- <thead>
+                            </td>
+
+                            <td>{{group.id}}</td>
+                            <td>{{group.estate_name}}</td>
+                            <td>{{group.created_at | date:'dd-MM-yyyy'}}</td>
+                            <td>{{group.origin}}</td>
+                            <td>{{group.species}}</td>
+                            <td>{{group.price}}</td>
+                            <td>{{group.quantity}}</td>
+                            <td>
+                                <p class="typeoforder-Sample" *ngIf="group.type == 'Sample'">&#9679; Sample</p>
+                                <!-- <p class="typeoforder-Booked" *ngIf="group.type == 'Booked'">&#9679; {{group.type}}</p> -->
+                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'Pre-Booked'">&#9679; Pre-Booked</p>
+                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
+                            </td>
+                            <td>{{group.status | titlecase}}
+                            </td>
+                            <td class="view-order" (click)="displayData($event,group)">View order </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <thead>
                     <tr class="estate-title">
                         <th>
                             <label class="b-check first-t">
@@ -256,7 +256,7 @@
                 </tbody> -->
                 <!-- </table> -->
             </div>
-              <!-- no-data for Land lots Starts -->
+            <!-- no-data for Land lots Starts -->
             <div class="row pt-5" *ngIf="this.data == null">
                 <div class="col-lg-12 col-md-12 no-data-sec">
                     <div class="text-center ">
@@ -264,11 +264,11 @@
                         <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
                         <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
                         <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
-        
+
                     </div>
                 </div>
             </div>
-        <!-- no-data for Land lots Ends -->
+            <!-- no-data for Land lots Ends -->
 
         </section>
         <section class="mobile-tab">

@@ -237,7 +237,7 @@
     outline: 0;
     border: 1px solid #d6d6d6;
     border-radius: 2px;
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Muli', sans-serif;
     color: #232334;
     padding: 10px 2px;
@@ -398,7 +398,7 @@
     text-align: center;
     color: #30855c;
     background-color: #ffffff;
-    padding: 8px;
+    padding: 5px;
     border-radius: 2px;
     border: solid 1px #30855c;
 }

@@ -256,3 +256,24 @@ tr:last-child {
         padding: 16px;
     }
 }
+
+.customcheckbox .checkmark:after {
+    left: 7px !important;
+    top: 3px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #30855c !important;
+}
+
+.color-text {
+    position: relative;
+    top: -7px;
+}

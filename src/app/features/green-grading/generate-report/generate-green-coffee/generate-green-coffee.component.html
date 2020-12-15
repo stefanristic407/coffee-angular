@@ -1,5 +1,5 @@
 <section class="green_coffee_total">
-    <h1 class="fnt-play">Green coffee grading</h1>
+    <h1 class="fnt-play">Green coffee cupping</h1>
     <div class="row mt-3">
         <div class="col-lg-3 col-12 ">
             <div class="sample_info">
@@ -44,7 +44,7 @@
     </div>
     <div class="row mt-4">
         <div class="col-md-6 col-lg-4">
-
+            <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Select type of cupping</label>
             <div class="cupping-total" id="cupping_id">
                 <p class="d-inline filter-text" *ngIf="cupping == ''">Select type of cupping&nbsp;</p>
                 <a class="pointer-item arrow__spacing" [popover]="cuppingTemplate" placement="bottom" container="body" #pop6="bs-popover">
@@ -59,6 +59,11 @@
                     </p>
                 </a>
             </div>
+        </div>
+
+        <div class="col-12 col-md-4 Onboard-input">
+            <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Sample Size *</label>
+            <input class="w-100" type="text" placeholder="Enter sample size" name="transcation_type">
         </div>
     </div>
     <div class="row mt-4">
@@ -77,7 +82,8 @@
                             <span class="checkmark head-check"></span>
                             1. Leon Joseph (You)
                         </label>
-                                <p>Cupping Manager</p>
+                                <p>Cupping Manager</p> <span class="text-clrfff fnt-14 fnt-muli fnt-700 delete-cupping-img "> <img class="del-prf-cover" src="assets/images/delete.svg ">  Delete  </span>
+
                             </li>
                             <li class="pt-3">
                                 <img src="assets/images/add-icon.svg" alt=""> <span class="add-invite">Add and invite evaluators</span>
