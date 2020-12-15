@@ -12,6 +12,7 @@ import { GlobalsService } from 'src/services/globals.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class OrderBookedComponent implements OnInit {
 	orderBookId: any;
   countryValue: any;
   constructor(public bookedService: OrderBookedService, private route: ActivatedRoute,
-    public router: Router,public cookieService : CookieService,public globals: GlobalsService,private userService : UserserviceService,private roasterService: RoasterserviceService,public profileservice:RoasteryProfileService) {
+    public router: Router,public cookieService : CookieService,public globals: GlobalsService,private userService : UserserviceService,    private toastrService : ToastrService,    private roasterService: RoasterserviceService,public profileservice:RoasteryProfileService) {
 		this.roasterId = this.cookieService.get('roaster_id');
 		//Fills the time line based on the status selected in estate order.
 		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
@@ -149,7 +150,7 @@ export class OrderBookedComponent implements OnInit {
 
     	// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService,this.globals,this.profileservice);
+		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService,this.globals,this.cookieService,this.toastrService,this.userService,this.roasterService,this.profileservice);
 		setTimeout(()=>{
 			uploadReceipt.uploadReceipt();
 		},500);

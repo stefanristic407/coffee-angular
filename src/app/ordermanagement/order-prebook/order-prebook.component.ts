@@ -194,9 +194,15 @@ export class OrderPrebookComponent implements OnInit {
     // line, area
     autoScale = true;
     appLanguage? :any;
+    orderPreBookId: any;
   constructor(public prebookService: OrderPrebookService, private route: ActivatedRoute,
     public router: Router,public cookieService : CookieService,
-    public globals: GlobalsService) { }
+    public globals: GlobalsService) {
+      this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
+      this.orderPreBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
+      this.prebookService.orderPreId=this.orderPreBookId;
+      this.prebookService.viewPrebookOrderDetails();
+     }
 
   ngOnInit(): void {
      //Auth checking
@@ -206,8 +212,7 @@ export class OrderPrebookComponent implements OnInit {
     this.appLanguage = this.globals.languageJson;
 
     //Fills the time line based on the status selected in estate order.
-    this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
-    if (this.dataFromTable == "Order confirmed") {
+    if (this.dataFromTable == "CONFIRMED") {
       this.valueToShow = "Order Confirmed";
       setTimeout(() => {
         this.orderConfirm();
