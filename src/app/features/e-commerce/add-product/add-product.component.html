@@ -1,236 +1,449 @@
 <section>
-    <div class="container sewn-container section-head-pad no-padding-LR-large">
+    <div class="container sewn-container section-head-pad ">
         <div class="bg-ff">
-            <div class="row col-md-12 col-lg-12 pb-3 back-page">
-                <ul _ngcontent-wft-c307="" class="bread-nav mb-md-0 col-lg-9 no-padding-LR-large">
+            <div class="row  pb-2">
+                <ul class="bread-nav mb-md-0 col-lg-9 ">
                     <li class="b-cum"><a routerlink="/features/welcome-aboard" class="b-cum">{{globals.languageJson?.home}}</a>
                         <span aria-hidden="true" class="padl-r"><img src="/assets/images/arrow-1.png" alt=""
                                 class="group-img"></span></li>
-                    <li class="b-cum c-pink">Add Product</li>
+                    <li class="b-cum c-pink">Tres Santos</li>
                 </ul>
                 <span class="col-lg-3 pull-right">
                     <button type="button" routerlink="/features/your-services"
-                        class="btn send-btn pull-right">{{globals.languageJson?.save}}</button>
+                        class="btn send-btn pull-right">Save</button>
                 </span>
             </div>
-            <div class="d-flex mt-3 brand-discription-section">
-                <div class="w-100">
-                    <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
-                        <p class="fnt-18 fnt-muli fnt-700 black m-0">{{globals.languageJson?.add_new_product}}</p>
-                        <div class="row mb-3 farm-input margin-top ">
-                            <div class="select col-lg-12">
+
+            <div class="add-new-product">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="fnt-18 fnt-muli fnt-700 black">Tres Santos</p>
+
+                        <div class="row">
+                            <div class="farm-input col-8">
                                 <label>Product Name<span class="star">*</span></label>
-                                <input type="text" name="name" class="form-control col-lg-7" placeholder="" />
+                                <input type="text" value="Tres Santos" name="name" class="form-control" placeholder="" />
                             </div>
-                        </div>
-                    </div>
-                    <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="farm-input no-padding-LR-large col-lg-15">
-                            <label class="label p-0">Product available for<span>*</span></label>
-                            <select class="form-control select-region " name="Year" required="">
-                                <option value="Both" selected>Both</option>
-                                <option value="Yes">1</option>
-                                <option value="No">2</option>
-                            </select>
-                        </div>
-                        <div class="farm-input no-padding-LR-large col-lg-15">
-                            <label class="label p-0">Eligible for discount<span>*</span></label>
-                            <select class="form-control select-region" name="Year" required="">
-                                <option value="yes" selected>yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div class="farm-input no-padding-LR-large col-lg-15">
-                            <label class="label p-0">Discount amount<span>*</span></label>
-                            <select class="form-control select-region" name="Year" required="">
-                                <option value="5" selected>5</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="sub-header-text mb-16">{{globals.languageJson?.variants}}</div>
 
-                        <div><label class="customcheckbox">
-                                <input type="checkbox" /><span class="checkmark head-check"></span>
-                            </label>
-                            <span class="small-black-text ml-33">If this product has options like roasted coffee batch,
-                                flavour profile, availability etc.</span>
-                        </div>
-                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
-                            <div class="farm-input no-padding-LR-large col-lg-7 mr-24">
-                                <label class="label p-0">Select roasted coffee batch<span>*</span></label>
-                                <select class="form-control select-region" name="Year" required="">
-                                    <option value="Cambucha" selected>Cambucha</option>
-                                    <option value="1">Cambucha</option>
-                                    <option value="2">Cambucha</option>
+                            <div class="farm-input col-4">
+                                <label class="label p-0">Product eligible for<span>*</span></label>
+                                <select class="form-control select-region " name="Subscription" required="">
+                                    <option value="Both" selected>Subscription</option>
+                                    <option value="Subscription">Subscription</option>
+                                    <option value="Subscription">Subscription</option>
                                 </select>
                             </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Roasting profile</label>
-                                <input type="text" value="Medium479" name="name" class="form-control" placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Roast level</label>
-                                <input type="text" value="Medium Roast" name="name" class="form-control"
-                                    placeholder="" />
-                            </div>
+
                         </div>
+
+
                     </div>
-                    <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="sub-header-text">{{globals.languageJson?.estate_details}}</div>
-                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Estate name</label>
-                                <input type="text" value="Finca La Pampa" name="Finca La Pampa" class="form-control"
-                                    placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Origin</label>
-                                <input type="text" value="Mexico" name="name" class="form-control" placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Region</label>
-                                <input type="text" value="Chipas" name="name" class="form-control" placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Harvest year</label>
-                                <input type="text" value="March 2020" name="name" class="form-control" placeholder="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="sub-header-text">{{globals.languageJson?.tasting_notes}}</div>
-                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>body</label>
-                                <input type="text" value="5" name="Finca La Pampa" class="form-control"
-                                    placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Acidity</label>
-                                <input type="text" value="4" name="name" class="form-control" placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Aroma</label>
-                                <input type="text" value="5" name="name" class="form-control" placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Flavour</label>
-                                <input type="text" value="4" name="name" class="form-control" placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Processing</label>
-                                <input type="text" value="Fully Washed" name="name" class="form-control"
-                                    placeholder="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pull-left no-padding-LR-large col-lg-12">
-                        <div class="sub-header-text">{{globals.languageJson?.tasting_notes}}</div>
-                        <div class="farm-input no-padding-LR-large col-lg-10 ">
-                            <label> Roaster Notes</label>
-                            <textarea class="form-control descr" rows="4"
-                                placeholder="">The beauty of astronomy is that anybody can do it. From the tiniest baby to the most advanced astrophysicist, there is something for anyone who wants to enjoy astronomy. In fact, it is a science that is so accessible that virtually anybody can do it virtually anywhere they are. All they have to know how to do is to look up.</textarea>
-                        </div>
-                    </div>
-                    <div class="idd pull-left no-padding-LR-large col-lg-12">
-                        <div class="farm-input no-padding-LR-large col-lg-15">
-                            <label class="label p-0">Weight<span>*</span></label>
-                            <select class="form-control select-region" name="Year" required="">
-                                <option value="16" selected>16</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div class="farm-input no-padding-LR-large col-lg-15">
-                            <label class="label p-0">Status<span>*</span></label>
-                            <select class="form-control select-region" name="Year" required="">
-                                <option value="Instock" selected>Instock</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div class="pull-left no-padding-LR-large col-lg-12">
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Price (USD)<span>*</span></label>
-                                <input type="text" value="22.00" name="name" class="form-control" placeholder="" />
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label class="label p-0">Grind<span>*</span></label>
-                                <select class="form-control select-region" name="Year" required="">
-                                    <option value="Whole beans" selected>Whole beans</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label class="label p-0">Stock available<span>*</span></label>
-                                <select class="form-control select-region" name="Year" required="">
-                                    <option value="300" selected>300</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>SKU number<span>*</span></label>
-                                <input type="text" value="29738730-02" name="name" class="form-control"
-                                    placeholder="" />
-                            </div>
-                        </div>
-                        <div class="pull-left text-brown"><a>Add a grind variant ></a></div>
-                        <div class="pull-left no-padding-LR-large col-lg-12">
-                            <div class="sub-header-text">Add Images</div>
-                            <button class="btn cancel-btn mt-32">Update</button>
-                        </div>
-                    </div>
-                    <div class="pull-left text-brown mt-24 mb-48"><a>Add a weight variant ></a></div>
-                    <div class="pull-left no-padding-LR-large col-lg-12 border-top-dashed">
-                        <div class="sub-header-text mb-10">Crate details</div>
-                        <div class="small-black-text">Add values per crate to let your customer know</div>
-                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12 mb-48">
-                            <div class="farm-input no-padding-LR-large no-margin-LR col-lg-15">
-                                <label>Crate value</label>
-                                <input type="text" value="" name="Finca La Pampa" class="form-control"
-                                    placeholder="1 crate" />
-                            </div>
-                            <div class="equal-operators no-padding-LR-large no-margin-LR">=</div>
-                            <div class="farm-input no-padding-LR-large no-margin-LR col-lg-15">
-                                <label>Weight</label>
-                                <input type="text" value="16 lb" name="name" class="form-control" placeholder="" />
-                            </div>
-                            <div class="equal-operators no-padding-LR-large no-margin-LR">x</div>
-                            <div class="farm-input no-padding-LR-large no-margin-LR col-lg-15">
-                                <label>Number of bags</label>
-                                <input type="text" value="30" name="name" class="form-control" placeholder="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pull-left no-padding-LR-large col-lg-12 border-top-dashed">
-                        <div class="sub-header-text">VAT Details</div>
-                        <div class="pull-left no-padding-LR-large col-xs-12 col-sm-12">
-                            <div class="farm-input no-padding-LR-large col-lg-15">
-                                <label>Vat percentage*<span></span></label>
-                                <input type="text" value="12 %" name="Finca La Pampa" class="form-control"
-                                    placeholder="" />
-                            </div>
-                            <div class="no-padding-LR-large no-margin-LR col-lg-7">
-                                <label>Is the product price inclusive of VAT*<span></span></label>
-                                <div class="col-lg-12 no-padding-LR-large">
-                                    <div><label class="customcheckbox">
-                                        <input type="checkbox" /><span class="checkmark head-check"></span>
-                                    </label>
-                                    <span class="small-black-text ml-33">The price is inclusive of VAT</span>
-                                    </div>
-                                    <!-- <div class="small-black-text">The price is inclusive of VAT</div> -->
+                    <div class="col-4">
+                        <p class="fnt-18 fnt-muli fnt-700 black">Product visibility :
+                            <span>
+                                <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
+                                    <div class="btn btn-group__item" [ngClass]="btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Public</div>
+                                    <div class="btn btn-group__item" [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Private</div>
                                 </div>
-                            </div>
+                        </span> </p>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="varient mt-5">
+                <p class="fnt-18 fnt-muli fnt-700 black">Variants</p>
+                <label class="container-request fnt-14 fnt-muli fnt-600 txt-clr334">If this product has options like roasted coffee batch, flavour profile, availability etc.
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+
+            </div>
+
+            <!-- nav tabs  -->
+
+            <div class="row">
+                <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                    <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill" href="#pills-land-lots" role="tab" aria-controls="pills-home" aria-selected="true">varient 1</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill" href="#pills-batch-status" role="tab" aria-controls="pills-profile" aria-selected="false">varient 2</a>
+                        </li>
+
+                        <!-- <li class="share-bor pull-right ml-auto">
+                            <img src="assets/images/region-plus.svg" alt="farm" class="dwnd-img">
+                            <span class="share-txt ml-1"> Add weight variant </span>
+                        </li> -->
+
+                    </ul>
+
+                    <div class="tab-content mt-md-4" id="pills-tabContent">
+
+                        <div class="tab-pane fade show active" id="pills-land-lots" role="tabpanel" aria-labelledby="pills-land-lots-tab">
+
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-batch-status" role="tabpanel" aria-labelledby="pills-batch-status-tab">
+
                         </div>
                     </div>
-                    <div class="pull-left no-padding-LR-large col-lg-12 border-top-dashed">
+                </div>
+            </div>
 
-                    <button class="btn cancel-btn mt-32">Cancel</button>
+            <!-- select roasted coffee batch-->
+            <div class="select-roasted-coffee-batch-sec mt-5">
+                <div class="row">
+                    <div class="farm-input col-6">
+                        <label class="label p-0">Select roasted coffee batch<span>*</span></label>
+                        <select class="form-control select-region " name="coffee" required="">
+                            <option value="Cambucha" selected>Cambucha</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="farm-input col-3">
+                        <label>Roasting profile<span class="star">*</span></label>
+                        <input type="text" value="Medium479" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                    <div class="farm-input col-3">
+                        <label>Roast level<span class="star">*</span></label>
+                        <input type="text" value="Medium Roast" name="name" class="form-control" placeholder="" />
                     </div>
                 </div>
 
             </div>
+
+
+            <div class="estate-details-sec mt-5">
+                <p class="fnt-18 fnt-muli fnt-700 black">Estate Details</p>
+
+                <div class="row">
+                    <div class="farm-input col-3">
+                        <label>Estate name<span class="star">*</span></label>
+                        <input type="text" value="Finca La Pampa" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                    <div class="farm-input col-3">
+                        <label>Origin<span class="star">*</span></label>
+                        <input type="text" value="Mexico" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                    <div class="farm-input col-3">
+                        <label>Region<span class="star">*</span></label>
+                        <input type="text" value="Chipas" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                    <div class="farm-input col-3">
+                        <label>Harvest year<span class="star">*</span></label>
+                        <input type="text" value="March 2020" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="estate-details-sec mt-5">
+                <p class="fnt-18 fnt-muli fnt-700 black">Tasting notes</p>
+
+                <div class="row">
+                    <div class="farm-input w-m-19">
+                        <label>Body<span class="star">*</span></label>
+                        <input type="number" value="5" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                    <div class="farm-input w-m-19">
+                        <label>Acidity<span class="star">*</span></label>
+                        <input type="number" value="5" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                    <div class="farm-input w-m-19">
+                        <label>Aroma<span class="star">*</span></label>
+                        <input type="number" value="4" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                    <div class="farm-input w-m-19">
+                        <label>Flavour<span class="star">*</span></label>
+                        <input type="number" value="5" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                    <div class="farm-input w-m-19">
+                        <label>Processing<span class="star">*</span></label>
+                        <input type="text" value="Fully Washed" name="name" class="form-control" placeholder="" />
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="estate-details-sec mt-5">
+
+                <div class="row">
+                    <div class="farm-input col-5">
+                        <label> Flavour profile</label>
+                        <textarea class="form-control descr" rows="4" cols="50" placeholder="">
+                          
+                        </textarea>
+                        <!-- <span><ul class="flo-list">
+                            <li >Citrus</li>
+                            <li >Floral</li>
+                        </ul> </span> -->
+                    </div>
+
+                    <div class="farm-input col-7">
+                        <label>  Roaster Recommendation</label>
+                        <textarea class="form-control descr" rows="4" cols="50" placeholder="">The beauty of astronomy is that anybody can do it. From the tiniest baby to the most advanced astrophysicist, there is something for anyone who wants to enjoy astronomy. In fact, it is a science that is so accessible that virtually anybody can do it virtually anywhere they are. All they have to know how to do is to look up.</textarea>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="select-roasted-coffee-batch-sec mt-5">
+                <p class="fnt-18 fnt-muli fnt-700 black"> Recommended brewing method</p>
+
+                <div class="row">
+                    <div class="farm-input col-3">
+                        <label class="label p-0">Select a brewing method<span>*</span></label>
+                        <select class="form-control select-region " name="coffee" required="">
+                            <option value="Cambucha" selected>Aeropress</option>
+                            <option value="Aeropress">Aeropress</option>
+                        </select>
+                    </div>
+
+                    <div class="farm-input col-5">
+                        <label>Roasting profile<span class="star">*</span><span class="sub-text fnt-muli pull-right">0/10 words</span></label>
+                        <input type="text" value="The beauty of astronomy is that anybody can do it." name="name" class="form-control" placeholder="" />
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- Product Weights-->
+
+            <div class="product-weights mt-5">
+
+                <p class="fnt-18 fnt-muli fnt-700 black"> Product Weights</p>
+
+                <div class="row pt-4">
+
+
+                    <div class="col-md-3 col-12">
+                        <div class="nav flex-column nav-pills sample_info" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link vat-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                <div class="info_heading d-flex">
+                                    <div class="pull-left sample_info_head"> Weight - 16 lb </div>
+                                    <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
+                                </div>
+                            </a>
+                            <a class="nav-link vat-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                <div class="info_heading dry-milling d-flex">
+                                    <div class="pull-left sample_info_head"> Weight - 25 lb </div>
+                                    <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                        <span class="share-bor mt-3">
+                            <img  src="assets/images/region-plus.svg" alt="farm" class="dwnd-img">
+                            <span  class="share-txt ml-1"> Add weight variant </span>
+                        </span>
+
+                    </div>
+
+                    <div class="col-md-9 col-12">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                                <div class="row">
+
+                                    <div class="form-input col-3">
+                                        <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Weight<span>*</span></label>
+                                        <div class="input-group">
+                                            <input type="text" value="25" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                            <div class="input-group-append">
+                                                <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
+                                                        <option value="Lb">Lb</option>
+                                                        <option value="Kg" ng-reflect-value="Yes">Kg</option>
+                                                        <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="farm-input col-3">
+                                        <label class="label p-0">Status<span>*</span></label>
+                                        <select class="form-control select-region " name="Status" required="">
+                                            <option value="Instock" selected>Instock</option>
+                                            <option value="Outstock">Outstock</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3 mt-5">
+                                        <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr">Hide product
+                                            <input type="checkbox" >
+                                            <span class="checkmark"></span>
+                                          </label>
+                                    </div>
+
+                                    <div class="col-3 mt-5">
+                                        <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr">Set as default product
+                                            <input type="checkbox" >
+                                            <span class="checkmark"></span>
+                                          </label>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4" *ngFor="let product of grindVariant; let i = index">
+
+                                    <div class="form-input col-3">
+                                        <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Price (USD)<span>*</span></label>
+                                        <div class="input-group">
+                                            <div class="left-rs-append">
+                                                <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                                        <option value="$">$</option>
+                                                </span>
+                                            </div>
+                                            <input type="number" value="22.00" placeholder="" class="form-control  right-rs-append" aria-label="Text input with dropdown button" [(ngModel)]="product.price" name="price">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="farm-input col-3">
+                                        <label class="label p-0">Grind<span>*</span></label>
+                                        <select class="form-control select-region " name="beans" required="" [(ngModel)]="product.grind">
+                                            <option value="Whole beans" selected>Whole beans</option>
+                                            <option value="Whole beans">Whole beans</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-input col-3">
+                                        <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Stock available<span>*</span></label>
+                                        <div class="input-group">
+                                            <input type="text" value="25" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" [(ngModel)]="product.stock" name="stock">
+                                            <div class="input-group-append crates-width">
+                                                <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
+                                                        <option value="crates">crates</option>
+                                                        <option value="crates" ng-reflect-value="crates">Kg</option>
+                                                        <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="farm-input col-2">
+                                        <label>SKU number<span class="star">*</span></label>
+                                        <input type="text" value="29738730" name="name" class="form-control" placeholder="" [(ngModel)]="product.skunumber" />
+                                    </div> <span class="view-order mt-5 cursor-pointer" *ngIf="i != 0" (click)="deleteRow(i)">Delete</span>
+
+                                </div>
+
+                                <p class="view-order mt-5 cursor-pointer" (click)="addNewVariant()"> Add a grind variant</p>
+
+
+
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- image -->
+            <div class="add-images mt-3">
+                <div class="row">
+                    <div class="col-3">
+
+                    </div>
+                    <div class="col-9">
+                        <p class="fnt-18 fnt-muli fnt-700 black">Add Images</p>
+                        <p class="fnt-14 fnt-muli fnt-600 black m-0"> Upload Feature Image</p>
+                        <div class="form-section__inputs roastery-upload-files col-3 border-img">
+                            <div class="roastery-fields">
+                                <div class="roastery-uploads">
+                                    <div class="roastery-uploads__image d-flex align-items-center justify-content-center">
+                                        <label class="mb-0">
+                                                <input type="file">
+                                                <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                                    <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text">Drag and drop an image here or browse</span>
+                                                </div>
+                                            </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crate details-->
+
+            <div class="crate-details mt-3">
+                <p class="fnt-18 fnt-muli fnt-700 black">Crate details</p>
+                <p class="fnt-14 fnt-muli fnt-600 black"> Add values per crate to let your customer know</p>
+
+                <div class="row">
+                    <div class="farm-input col-lg-3">
+                        <label>Crate value</label>
+                        <input type="text" value="" name="Finca La Pampa" class="form-control" placeholder="1 crate" />
+                    </div>
+                    <div class="equal-operators">=</div>
+                    <div class="farm-input col-lg-3">
+                        <label>Weight</label>
+                        <input type="text" value="16 lb" name="name" class="form-control" placeholder="" />
+                    </div>
+                    <div class="equal-operators">x</div>
+                    <div class="farm-input col-lg-3">
+                        <label>Number of bags</label>
+                        <input type="text" value="30" name="name" class="form-control" placeholder="" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vat details -->
+
+            <div class="vat-details mt-5">
+                <p class="fnt-18 fnt-muli fnt-700 black">VAT Details</p>
+                <div class="row">
+                    <div class="farm-input col-3">
+                        <label class="label p-0">Select VAT trasaction type<span>*</span></label>
+                        <select class="form-control select-region " name="coffee" required="">
+                            <option value="12 % Roasted coffee" selected>12 % Roasted coffee</option>
+                            <option value="14 % Roasted coffee">14 % Roasted coffee</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <p class="fnt-14 fnt-muli text-clr588 fnt-600"> Is the product price inclusive of VAT*</p>
+                        <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr">The price is inclusive of VAT
+                            <input type="checkbox" >
+                            <span class="checkmark"></span>
+                          </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <button class="cancel-btn mr-3">Cancel </button>
+                <button class="send-btn">Save </button>
+            </div>
+
+
+
         </div>
     </div>
 </section>
