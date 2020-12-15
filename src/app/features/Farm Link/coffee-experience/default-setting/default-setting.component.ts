@@ -29,6 +29,18 @@ export class DefaultSettingComponent implements OnInit {
   fileName: any;
   imageFileData: any;
   videoFileData: any;
+  imageFileName: any;
+  videoFileName: any;
+  onResponse : boolean = false;
+  onRequest : boolean = true;
+  videoOnRequest: boolean = true;
+  videoOnResponse: boolean = false;
+  materialFileName: any;
+  materialFileData: any;
+  material_id: any;
+  material_url: any;
+  materialOnResponse: boolean = false;
+  materialOnRequest: boolean = true;
 
   constructor(public globals: GlobalsService , 
               private userService : UserserviceService,
@@ -66,7 +78,7 @@ export class DefaultSettingComponent implements OnInit {
 
   this.getDefaultSetting();
   this.getGeneralRoasterCertificates();
-
+  this.getMarketingMaterial();
   }
 
   language(){
@@ -105,6 +117,24 @@ export class DefaultSettingComponent implements OnInit {
       }
     )
   }
+  getMarketingMaterial(){
+    this.userService.getMarketingMaterials(this.roaster_id).subscribe(
+      response => {
+        if(response['success'] == true){
+          this.material_url = response['result'].url;
+          this.materialFileName = response['result'].name;
+          this.materialOnRequest = false;
+          this.materialOnResponse= true;
+        }
+        else{
+          // this.toastrService.error("Error while getting Marketing materials");
+          this.materialOnRequest = true;
+          this.materialOnResponse= false;
+        }
+      }
+    )
+  }
+
 
   deleteCertificate(item : any){
     this.userService.deleteCompanyCertificate(this.roaster_id, item.id).subscribe(
@@ -123,14 +153,15 @@ export class DefaultSettingComponent implements OnInit {
     this.files = event.target.files;
     this.fileEvent = this.files;
     console.log(this.fileEvent);
-    this.fileName = this.files[0].name;
+    this.imageFileName = this.files[0].name;
+    // this.imageFileName = this.fileName;
     let fileList: FileList = this.fileEvent;
     // var parent_id = 0;
     if (fileList.length > 0) {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append("file", file, file.name);
-      formData.append('name',this.fileName);
+      formData.append('name',this.imageFileName);
       formData.append('file_module','Coffee-Story');
       formData.append('parent_id','0');
       // this.roasterId = this.cookieService.get("roaster_id");
@@ -139,6 +170,7 @@ export class DefaultSettingComponent implements OnInit {
         "/ro/" + this.roaster_id + "/file-manager/files"
       );
       formData.append("token", this.cookieService.get("Auth"));
+
       this.roasterService.uploadFiles(formData).subscribe(
         result =>{
           if(result['success']==true){
@@ -146,6 +178,8 @@ export class DefaultSettingComponent implements OnInit {
             this.imageFileData = result['result'];
             this.image_id = result['result'].id; 
             this.image_url = result['result'].url;
+            this.onResponse = true;
+            this.onRequest = false;
           }else{
             this.toastrService.error("Error while uploading the file");
           }
@@ -153,18 +187,20 @@ export class DefaultSettingComponent implements OnInit {
       )
     }
   }
+
+
   uploadVideo(event : any){
     this.files = event.target.files;
     this.fileEvent = this.files;
     console.log(this.fileEvent);
-    this.fileName = this.files[0].name;
+    this.videoFileName = this.files[0].name;
     let fileList: FileList = this.fileEvent;
     // var parent_id = 0;
     if (fileList.length > 0) {
       let file: File = fileList[0];
       let formData: FormData = new FormData();
       formData.append("file", file, file.name);
-      formData.append('name',this.fileName);
+      formData.append('name',this.videoFileName);
       formData.append('file_module','Coffee-Story');
       formData.append('parent_id','0');
       // this.roasterId = this.cookieService.get("roaster_id");
@@ -180,6 +216,45 @@ export class DefaultSettingComponent implements OnInit {
             this.videoFileData = result['result'];
             this.video_id = result['result'].id;
             this.video_url = result['result'].url;
+            this.videoOnResponse = true;
+            this.videoOnRequest = false;
+          }else{
+            this.toastrService.error("Error while uploading the file");
+          }
+        }
+      )
+    }
+  }
+
+  uploadMarketingMaterial(event : any){
+    this.files = event.target.files;
+    this.fileEvent = this.files;
+    console.log(this.fileEvent);
+    this.materialFileName = this.files[0].name;
+    let fileList: FileList = this.fileEvent;
+    // var parent_id = 0;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append("file", file, file.name);
+      formData.append('name',this.materialFileName);
+      formData.append('file_module','marketing-materials');
+      formData.append('parent_id','0');
+      // this.roasterId = this.cookieService.get("roaster_id");
+      formData.append(
+        "api_call",
+        "/ro/" + this.roaster_id + "/file-manager/files"
+      );
+      formData.append("token", this.cookieService.get("Auth"));
+      this.roasterService.uploadFiles(formData).subscribe(
+        result =>{
+          if(result['success']==true){
+            this.toastrService.success("The file "+this.materialFileName+" uploaded successfully");
+            this.materialFileData = result['result'];
+            this.material_id = result['result'].id;
+            this.material_url = result['result'].url;
+            this.materialOnResponse = true;
+            this.materialOnRequest = false;
           }else{
             this.toastrService.error("Error while uploading the file");
           }

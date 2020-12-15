@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { OrderBookedService } from '../order-booked.service';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { GlobalsService } from 'src/services/globals.service';
 })
 export class BookedShippingComponent implements OnInit {
   appLanguage?:any;
-  constructor(public globals: GlobalsService) { }
+  constructor(public globals: GlobalsService,public bookedService: OrderBookedService) { }
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;

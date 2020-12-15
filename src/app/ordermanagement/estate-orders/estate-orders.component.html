@@ -200,7 +200,7 @@
                                 <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'Pre-Booked'">&#9679; Pre-Booked</p>
                                 <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
                             </td>
-                            <td>{{group.status}}
+                            <td>{{group.status | titlecase}}
                             </td>
                             <td class="view-order" (click)="displayData($event,group)">View order </td>
                         </tr>

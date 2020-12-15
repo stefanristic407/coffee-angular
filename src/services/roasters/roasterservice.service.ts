@@ -713,6 +713,13 @@ export class RoasterserviceService {
 		data['api_call'] = "/ro/" + roaster_id + "/availability-requests";
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
+  }
+  getViewOrderDetails(roaster_id:any,order_id:any){
+		var data = {};
+		data['api_call'] = "/ro/" + roaster_id + "/orders/"+order_id;
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
 	}
+
 }
 

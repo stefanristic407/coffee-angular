@@ -35,11 +35,11 @@
                     <div class="mixups-tabs mt-3 col-lg-12 col-md-12">
                         <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill" href="#pills-land-lots" role="tab" aria-controls="pills-home" aria-selected="true"> {{globals.languageJson?.horeca}}</a>
+                                <a class="nav-link active" id="pills-land-lots-tab" data-toggle="pill" href="#pills-land-lots" role="tab" aria-controls="pills-home" aria-selected="true" (click)="searchTerm = ''"> {{globals.languageJson?.horeca}}</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill" href="#pills-batch-status" role="tab" aria-controls="pills-profile" aria-selected="false">{{globals.languageJson?.micro_roasters}}</a>
+                                <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill" href="#pills-batch-status" role="tab" aria-controls="pills-profile" aria-selected="false" (click)="searchTerm = ''">{{globals.languageJson?.micro_roasters}}</a>
                             </li>
 
 
@@ -49,13 +49,13 @@
 
                             <div class="tab-pane fade show active" id="pills-land-lots" role="tabpanel" aria-labelledby="pills-land-lots-tab">
 
-                                <app-horeca-agreements></app-horeca-agreements>
+                                <app-horeca-agreements [searchTerm]="searchTerm"></app-horeca-agreements>
 
                             </div>
 
                             <div class="tab-pane fade" id="pills-batch-status" role="tabpanel" aria-labelledby="pills-batch-status-tab">
 
-                                <app-micro-roaster-agreements></app-micro-roaster-agreements>
+                                <app-micro-roaster-agreements [searchTerm]="searchTerm"></app-micro-roaster-agreements>
 
                             </div>
 

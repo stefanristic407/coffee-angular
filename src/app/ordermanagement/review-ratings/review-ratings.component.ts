@@ -1,5 +1,6 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { OrderBookedService } from '../order-booked/order-booked.service';
 @Component({
   selector: 'app-review-ratings',
   templateUrl: './review-ratings.component.html',
@@ -13,7 +14,7 @@ export class ReviewRatingsComponent implements OnInit {
   showRelavant:boolean=true;
 	appLanguage?: any;
 
-  constructor(public globals: GlobalsService) { 
+  constructor(public globals: GlobalsService,public bookedService: OrderBookedService) { 
 
     this.termStatus = "Most relevant";
     
@@ -135,5 +136,14 @@ export class ReviewRatingsComponent implements OnInit {
 
   }
 
-    
+  changeDecimal(val:any){
+		if(val){
+			return parseFloat(val).toFixed(1);
+		}
+	}
+	changeDecimalStar(data:any){
+		if(data){
+			return data.toFixed(2);
+    }
+  }  
 }

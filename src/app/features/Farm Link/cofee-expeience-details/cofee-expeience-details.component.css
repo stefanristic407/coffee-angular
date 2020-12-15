@@ -624,3 +624,8 @@
 ::ng-deep body .ui-inputtext:hover {
     border: 1px solid #d6d6d6;
 }
+.tags-onEdit{
+    border: 1px solid #30855c;
+    color: #30855c;
+    border-radius: 20%;
+}

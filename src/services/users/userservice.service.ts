@@ -972,5 +972,52 @@ export class UserserviceService {
 	data["method"] = "DELETE";
 	data["token"] = this.cookieService.get("Auth");
 	return this.http.post(this.roasterDeleteUrl, data);
-	}
+  }
+  getMrOrdersCoffeeExperience(roaster_id: any,order_id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/mr-orders/${order_id}/coffee-experience`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+  postMrOrdersCoffeeExperience(roaster_id: any,order_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/mr-orders/${order_id}/coffee-experience`;
+    data["method"] = "POST";
+    data['data'] = body;
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+  getHrcOrdersCoffeeExperience(roaster_id: any,order_id : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/hr-orders/${order_id}/coffee-experience`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+  postHrcOrdersCoffeeExperience(roaster_id: any,order_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/hrc-orders/${order_id}/coffee-experience`;
+    data["method"] = "POST";
+    data['data'] = body;
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+
+  getMarketingMaterials(roaster_id: any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/marketing-materials`;
+    data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
+
+  paymentReceiptUpload(roaster_id : any,order_id : any,body : any){
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/orders/${order_id}/payment`;
+    data["method"] = "POST";
+    data['data'] = body;
+		data['token'] = this.cookieService.get('Auth');    
+		return this.http.post(this.roasterUrl, data);
+  }
 }

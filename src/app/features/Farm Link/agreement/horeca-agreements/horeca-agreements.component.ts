@@ -1,7 +1,7 @@
 // AUTHOR : Vijaysimhareddy
 // PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
 
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
@@ -21,7 +21,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class HorecaAgreementsComponent implements OnInit {
 
-  estateterm: any;
+    estateterm: any;
 	estatetermStatus: any;
 	estatetermType: any;
 	estatetermOrigin: any;
@@ -29,14 +29,14 @@ export class HorecaAgreementsComponent implements OnInit {
 	selected: Date[];
 	rangeDates: any;
 	showOrigin: boolean = true;
-  showType:boolean = true;
-  showStatus:boolean = true;
-  showDisplay:boolean =true;
-  customerMob:any;
-  showCustomerMob:boolean = true;
-  customer_id:any = "";
-  searchTerm:any ;
-//   notify : boolean 
+	showType:boolean = true;
+	showStatus:boolean = true;
+	showDisplay:boolean =true;
+	customerMob:any;
+	showCustomerMob:boolean = true;
+	customer_id:any = "";
+	@Input() searchTerm:any ='';
+    //   notify : boolean
 	agreementsActive:any=0;
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;

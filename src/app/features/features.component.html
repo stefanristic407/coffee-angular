@@ -98,11 +98,16 @@
 
                                 <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="this.globals.checkItem('sourcing-management')">
 
-                                    <a class="d-inline-block fnt-600 router-link" [routerLink]="['/features/sourcing']">
+                                    <a class="d-inline-block fnt-600 router-link">
                                         <!-- {{globals.languageJson?.sourcing_module}} -->
-                                        Sourcing Management
+                                        Sourcing
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/features/sourcing']">
+                                                Green Coffee Sourcing
+                                            </a>
+                                        </li>
                                         <li>
                                             <a class="router-link" [routerLink]="['/features/green-grading']">
                                                 Quality Control
@@ -139,7 +144,7 @@
                                 <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="globals.checkItem('coffee-management') || globals.checkItem('coffee-list')">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">
                                         <!-- {{globals.languageJson?.inventory}} -->
-                                        Inventory Management
+                                        Inventory
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li>
@@ -152,6 +157,12 @@
                                             <a class="router-link" [routerLink]="['/features/roasted-coffee-batch']">
                                                 <!-- Roasted coffee batch -->
                                                 Roasted Coffee Inventory
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/features/products-list']">
+                                                <!-- E-comm catatlog management -->
+                                                E-commerce Product Management
                                             </a>
                                         </li>
                                         <li>
@@ -175,9 +186,8 @@
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
                                         <li>
-                                            <a class="router-link" [routerLink]="['/features/products-list']">
-                                                <!-- E-comm catatlog management -->
-                                                Product Management
+                                            <a class="router-link" [routerLink]="['./']">
+                                                Sales
                                             </a>
                                         </li>
                                         <li>
@@ -187,8 +197,13 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="router-link" [routerLink]="['/people/customer-management']">
-                                                {{globals.languageJson?.customer_management}}
+                                            <a class="router-link" [routerLink]="['./']">
+                                                Sales Tool
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" [routerLink]="['./']">
+                                                API Requests
                                             </a>
                                         </li>
                                     </ul>
@@ -234,20 +249,25 @@
                                 <li class="nav-links__item arrow d-inline-block position-relative" *ngIf="globals.checkItem('acl-management') || globals.checkItem('acl-list') || globals.checkItem('user-management') || globals.checkItem('user-reports')">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">
                                         <!-- {{globals.languageJson?.people}} -->
-                                        User Management
+                                        Team Management
                                     </a>
                                     <ul class="nav-dropdown fnt-600">
 
                                         <li *ngIf="globals.checkItem('acl-management','acl-list') || globals.checkItem('acl-list','acl-management')">
                                             <a class="router-link" [routerLink]="['/people/manage-role']">
                                                 <!-- {{globals.languageJson?.manage_roles}} -->
-                                                Role Settings
+                                                Roles
                                             </a>
                                         </li>
                                         <li *ngIf="globals.checkItem('user-management','user-reports') || globals.checkItem('user-reports','user-management')">
                                             <a class="router-link" [routerLink]="['/people/user-management']">
                                                 <!-- {{globals.languageJson?.user_management}} -->
                                                 User Settings
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="router-link" [routerLink]="['/people/customer-management']">
+                                                {{globals.languageJson?.customer_management}}
                                             </a>
                                         </li>
                                     </ul>

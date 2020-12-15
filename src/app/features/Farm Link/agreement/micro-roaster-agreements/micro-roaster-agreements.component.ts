@@ -1,7 +1,7 @@
 // AUTHOR : Vijaysimhareddy
 // PAGE DESCRIPTION : This page contains functions of  Orders List,Search and Filters.
 
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
@@ -35,7 +35,7 @@ export class MicroRoasterAgreementsComponent implements OnInit {
   customerMob:any;
   showCustomerMob:boolean = true;
   customer_id:any = "";
-  searchTerm:any ;
+  @Input() searchTerm:any = '';
 //   notify : boolean 
 	agreementsActive:any=0;
 	@ViewChild(DataTableDirective, {static: false})
