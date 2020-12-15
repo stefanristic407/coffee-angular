@@ -41,9 +41,23 @@
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                                 <div class="real-estate">
                                     <img src="assets/images/estate.svg">
+                                    <h6>{{globals.languageJson?.region}}</h6>
+                                    <h3>{{sourcing.estate_region || 'NA'}}</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
+                                <div class="real-estate">
+                                    <img src="assets/images/estate.svg">
                                     <h6>{{globals.languageJson?.estate_size}}</h6>
                                     <h3 *ngIf="sourcing.total_area!=''">{{sourcing.total_area}} acres</h3>
                                     <h3 *ngIf="sourcing.total_area==''">NA</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
+                                <div class="real-estate">
+                                    <img src="assets/images/estate.svg">
+                                    <h6>Farm Yield/Ha</h6>
+                                    <h3>{{sourcing.farm_yield || 'NA'}}</h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
@@ -83,13 +97,9 @@
                                             <p *ngIf="sourcing.location !=''">{{sourcing.location}}</p>
                                             <p *ngIf="sourcing.location ==''">NA</p>
                                         </li>
-                                        <li><label>{{globals.languageJson?.region}} :</label>
-                                            <p *ngIf="sourcing.city!=''">{{sourcing.city}}</p>
-                                            <p *ngIf="sourcing.city==''">NA</p>
-                                        </li>
-                                        <li><label>{{globals.languageJson?.average_annual_prodcution_crops}} :</label>
-                                            <p *ngIf="sourcing.annual_prod !=''">{{sourcing.annual_prod}} tons</p>
-                                            <p *ngIf="sourcing.annual_prod ==''">NA</p>
+                                        <li><label>Varieties :</label>
+                                            <p *ngIf="sourcing.varieties!=''">{{sourcing.varieties}}</p>
+                                            <p *ngIf="sourcing.varieties==''">NA</p>
                                         </li>
                                         <li><label>{{globals.languageJson?.average_annual_production_coffee}} :</label>
                                             <p *ngIf="sourcing.coffee_production !=''">{{sourcing.coffee_production}} tons</p>
@@ -103,7 +113,8 @@
                                             <p *ngIf="sourcing.number_of_trees !=''">{{sourcing.number_of_trees}}</p>
                                             <p *ngIf="sourcing.number_of_trees ==''">NA</p>
                                         </li>
-                                        <li><label>{{globals.languageJson?.packaging}} :</label>
+                                        <li>
+                                            <label>Packaging Material :</label>
                                             <p *ngIf="sourcing.packaging !=''">{{sourcing.packaging}}</p>
                                             <p *ngIf="sourcing.packaging ==''">NA</p>
                                         </li>
@@ -114,6 +125,10 @@
                                         <li><label>{{globals.languageJson?.wildlife}} :</label>
                                             <p *ngIf="sourcing.wild_animals !=''">{{sourcing.wild_animals}}</p>
                                             <p *ngIf="sourcing.wild_animals ==''">NA</p>
+                                        </li>
+                                        <li><label>{{globals.languageJson?.average_annual_prodcution_crops}} :</label>
+                                            <p *ngIf="sourcing.annual_prod !=''">{{sourcing.annual_prod}} tons</p>
+                                            <p *ngIf="sourcing.annual_prod ==''">NA</p>
                                         </li>
                                     </ul>
                                 </div>

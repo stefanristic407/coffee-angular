@@ -36,21 +36,20 @@ export class SourcingService {
   longitude: number;
   emptyCoord: any;
   countryName: any;
-  detailList: any;
+  estateId: any;
   owner_name: any;
   grade_range: any;
   rating: any;
   agronomist_access: any;
   number_of_trees: any;
   city: any;
-	lots: any;
+  lots: any;
+  varieties:any;
   flavourList: any;
   activeLandlots:any;
-	greenList: any;
-  
-	harvestData: any;
-
-	available_name: any;
+  greenList: any;
+  harvestData: any;
+  available_name: any;
   available_estate_name: any;
   lot_id: any;
   region: any;
@@ -110,6 +109,9 @@ export class SourcingService {
 	two_star: any;
 	one_star: any;
 	rate_rating_star: any;
+	estate_origin: any;
+	estate_region: any;
+	farm_yield: any;
 
 
   			constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
@@ -119,7 +121,7 @@ export class SourcingService {
    }
 
    estateDetailList(){
-    this.userService.getAvailableEstateList(this.roaster_id,this.detailList).subscribe(
+    this.userService.getAvailableEstateList(this.roaster_id,this.estateId).subscribe(
       result=>{
       if(result['success']==true){
         this.name=result['result']['name'];
@@ -139,41 +141,41 @@ export class SourcingService {
         this.gps_coordinates=result['result']['gps_coordinates'];
 		this.founded_on=result['result']['founded_on'];
     	this.annual_prod=result['result']['total_production'];
-    this.coffee_production=result['result']['coffee_production'];
-    this.owner_name=result['result']['owner_name'];
-	this.grade_range=result['result']['grade_range'];
-	this.rating=result['result']['rating'];
-	this.agronomist_access=result['result']['agronomist_access'];
-	this.number_of_trees=result['result']['number_of_trees'];
-	this.city=result['result']['state'];
-    this.country=result['result']['country'];
-    if(this.gps_coordinates!=''){
-      this.coordinates=this.gps_coordinates.split(',');
-      this.latitude=parseFloat(this.coordinates[0].slice(0,-3));
-      this.longitude=parseFloat(this.coordinates[1].slice(0,-3));
-    //  this.latCoord=this.coordinates[0].split(' ')[0];
-    //  this.longCoord=this.coordinates[1].split(' ')[1];
-    //   this.latitude=parseFloat(this.latCoord.slice(0,-1));
-    //   this.longitude=parseFloat(this.longCoord.slice(0,-1));
-    //   console.log(this.latitude);
-    //   console.log(this.longitude);
+		this.coffee_production=result['result']['coffee_production'];
+		this.owner_name=result['result']['owner_name'];
+		this.grade_range=result['result']['grade_range'];
+		this.rating=result['result']['rating'];
+		this.agronomist_access=result['result']['agronomist_access'];
+		this.number_of_trees=result['result']['number_of_trees'];
+		this.city=result['result']['state'];
+		this.country  = result['result']['country'];
+		this.varieties = result['result']['varieties'];
+		this.estate_region = result['result']['region'];
+		this.farm_yield    = result['result']['farm_yield'];
+		if(this.gps_coordinates!=''){
+		this.coordinates=this.gps_coordinates.split(',');
+		this.latitude=parseFloat(this.coordinates[0].slice(0,-3));
+		this.longitude=parseFloat(this.coordinates[1].slice(0,-3));
+		//  this.latCoord=this.coordinates[0].split(' ')[0];
+		//  this.longCoord=this.coordinates[1].split(' ')[1];
+		//   this.latitude=parseFloat(this.latCoord.slice(0,-1));
+		//   this.longitude=parseFloat(this.longCoord.slice(0,-1));
+		//   console.log(this.latitude);
+		//   console.log(this.longitude);
+		}
+		else{
+			this.emptyCoord = this.gps_coordinates;
+		}
+		const country = this.profileservice.countryList.find(con => con.isoCode == this.country.toUpperCase());
+		this.countryName = country ? country.name: this.country.toUpperCase();
       }
-      else{
-        this.emptyCoord = this.gps_coordinates;
-      }
-		this.countryName = this.profileservice.countryList.find(con => con.isoCode == this.country.toUpperCase()).name;
-		console.log(this.countryName);
-		
-        }
-      }
-    )
+    })
   }
 
   availableDetailList(){
     this.userService.getGreenCoffeeDetails(this.roaster_id,this.harvestData).subscribe(
       result=>{
-        console.log(result);
-      if(result['success']==true){
+        if(result['success']==true){
 			this.available_name=result['result']['name'];
 			this.available_estate_name=result['result']['estate_name'];
 			this.lot_id=result['result']['lot_id'];
@@ -212,8 +214,8 @@ export class SourcingService {
 			this.estate_rating=result['result']['estate_rating'];
 			this.images=result['result']['images'];
 			this.estate_id=result['result']['estate_id'];
-      }
-    })
+        }
+      })
 	}
 	
 //   harvestData(roaster_id: string, harvestData: any) {
@@ -228,7 +230,7 @@ export class SourcingService {
 	}
 	
 	lotsList(){
-		this.userService.getavailableLots(this.roaster_id,this.detailList).subscribe(
+		this.userService.getavailableLots(this.roaster_id,this.estateId).subscribe(
 		  resultList=>{
 			if(resultList['success']==true){
 				this.lots=resultList['result'];
@@ -247,7 +249,7 @@ export class SourcingService {
 		)
 	}	
 	greenCoffee(){
-		this.userService.getGreenCoffee(this.roaster_id,this.detailList).subscribe(
+		this.userService.getGreenCoffee(this.roaster_id,this.estateId).subscribe(
 		  result=>{
 			if(result['success']==true){
 			  this.greenList=result['result'];
@@ -256,7 +258,7 @@ export class SourcingService {
 		})
   }	    
   estateEmployees(){
-    this.userService.getEstateContacts(this.detailList).subscribe(res =>{
+    this.userService.getEstateContacts(this.estateId).subscribe(res =>{
       if(res['success']==true){
         this.estateContacts = res['result'];
         console.log(this.estateContacts)
@@ -280,15 +282,13 @@ export class SourcingService {
   }
 
   otherAvailableCoffee(){
-	this.userService.getGreenCoffee(this.roaster_id,this.estate_id).subscribe(
+	this.userService.getGreenCoffee(this.roaster_id,this.estateNumber).subscribe(
 		result=>{
 		  if(result['success']==true){
 			this.otherGreenList=result['result'];
-			console.log("Green Coffee"+JSON.stringify(this.otherGreenList));
 		  }
 	  })
-	} 
-	
+	}
 	getEachGreenCertify(){
 		this.userService.getEachEsateCertificates(this.estateNumber).subscribe(
 			data => {
@@ -299,7 +299,7 @@ export class SourcingService {
 		});
 	}
 	getEstateReviews(){
-		this.userService.getEachEsateReviews(this.detailList).subscribe(
+		this.userService.getEachEsateReviews(this.estateId).subscribe(
 			res=>{
 				if(res['success']==true){
 					this.reviewsList=res['result'];
@@ -309,7 +309,7 @@ export class SourcingService {
 		)
 	}
 	getEstateSummary(){
-		this.userService.getEachEsateReviewsSummary(this.detailList).subscribe(
+		this.userService.getEachEsateReviewsSummary(this.estateId).subscribe(
 			res=>{
 				if(res['success']==true){
 					this.summaryList=res['result'];

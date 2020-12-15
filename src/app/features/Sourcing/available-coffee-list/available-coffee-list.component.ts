@@ -222,11 +222,10 @@ export class AvailableCoffeeListComponent implements OnInit {
 	public userService : UserserviceService,
 	public profile:RoasteryProfileService,
 	private roasterService: RoasterserviceService) {
-	this.route.queryParams.subscribe(params => {
-		this.sourcing.harvestData = params['harvestData'];
+	this.route.params.subscribe(params => {
+		this.sourcing.harvestData = params['harvestId'];
 		this.sourcing.estateNumber = params['estateId'];
-		// this.availableCertify = params['certificateHarvest']; 
-		// this.certify=JSON.parse(this.availableCertify)
+		this.brandProfileEstateWeb = `https://qa-brand-profile.sewnstaging.com/estate/estate-${params['estateId']}/estatebrandprofile/green-coffee`;
 		this.sourcing.availableDetailList();
 		this.sourcing.otherAvailableCoffee();
 		this.sourcing.getEachGreenCertify();
@@ -277,8 +276,11 @@ GetCountry(data:any){
   }
   brandProfileSite(){
 	const redirectUrl = this.brandProfileEstateWeb;
-		this.roasterService.navigate(redirectUrl, true);
-}
+	this.roasterService.navigate(redirectUrl, true);
+  }
+  lotDetails(item){
+	  this.router.navigate([`/features/available-coffee-list/${this.sourcing.estateNumber}/${item.harvest_id}`])
+  }
 	toggleTemperature(){
 		this.showTemperature=!this.showTemperature;
 		if(this.showTemperature==false){

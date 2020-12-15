@@ -34,8 +34,13 @@ export class LandLotsComponent implements OnInit {
     }
     getFlavourName(flavourid:any){
 		if(this.sourcing.flavourList){
-			this.flavourName = this.sourcing.flavourList.find(flavour => flavour.id == flavourid).name;
-			return this.flavourName;
+      const flavour = this.sourcing.flavourList.find(flavour => flavour.id == flavourid);
+      if(flavour){
+        this.flavourName = flavour.name;
+        return this.flavourName;
+      } else {
+        return '';
+      }
 		}
 		//  this.sourcing.flavourList.forEach(element=>{
 		// 	 element.id == flavourid;

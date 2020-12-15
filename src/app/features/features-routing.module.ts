@@ -205,7 +205,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: "estate-details",
+        path: "estate-details/:id",
         component: EstateDetailsListComponent,
         canActivate: [AuthGuard],
       },
@@ -235,7 +235,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: "available-coffee-list",
+        path: "available-coffee-list/:estateId/:harvestId",
         component: AvailableCoffeeListComponent,
         canActivate: [AuthGuard],
       },

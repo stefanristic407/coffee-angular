@@ -414,12 +414,11 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
   this.listData = data.estate_id;
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "dataLots": encodeURIComponent(this.backValue),
-        "listData": this.listData
+        "dataLots": encodeURIComponent(this.backValue)
       }
     }
 
-    this.router.navigate(['/features/estate-details'], navigationExtras);
+    this.router.navigate([`/features/estate-details/${this.listData}`], navigationExtras);
     // this.listData = data.estate_id;
     // console.log(this.listData);
     // let navigationExtras: NavigationExtras = {
@@ -540,7 +539,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
       }
       // skipLocationChange: true
     }
-    this.router.navigate(["/features/estate-details"], navigationExtras);
+    this.router.navigate([`/features/estate-details/${this.listData}`]);
     this.sourcingService.currentView = "search" ;
   }
   
@@ -558,7 +557,7 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
       }
       // skipLocationChange: true
     }
-	this.router.navigate(["/features/available-coffee-list"],navigationExtras);    
+	this.router.navigate(["/features/available-coffee-list/"+this.estateValue+'/'+this.harvestData]);
 	// this.sourcingService.currentView = "result" ;
   }
 

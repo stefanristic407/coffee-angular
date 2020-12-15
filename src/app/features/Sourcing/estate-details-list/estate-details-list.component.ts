@@ -39,8 +39,8 @@ export class EstateDetailsListComponent implements OnInit {
 	galleryImages: any;
   constructor(private modalService:BsModalService,public globals: GlobalsService, private route : ActivatedRoute , public sourcing : SourcingService, public cookieService : CookieService,public profile:RoasteryProfileService,    private userService : UserserviceService,private roasterService: RoasterserviceService
 	) {
-    this.route.queryParams.subscribe(params => {
-	  this.sourcing.detailList = params['listData'];
+    this.route.params.subscribe(params => {
+	  this.sourcing.estateId = params['id'];
 	//   this.certifyEstate =JSON.parse(params['certificate']);
       this.sourcing.estateDetailList();
 	  this.sourcing.lotsList();
@@ -90,7 +90,7 @@ export class EstateDetailsListComponent implements OnInit {
   }
   
 	getEachEstateCertify(){
-		this.userService.getEachEsateCertificates(this.sourcing.detailList).subscribe(
+		this.userService.getEachEsateCertificates(this.sourcing.estateId).subscribe(
 			data => {
 			// console.log(data);
 			if(data['success'] == true){
@@ -141,11 +141,9 @@ export class EstateDetailsListComponent implements OnInit {
 			this.roasterService.navigate(redirectUrl, true);
 	}
 	estateGalleryFiles(){
-		this.userService.getEstateGallery(this.sourcing.detailList).subscribe( res => {
-			console.log(res);
+		this.userService.getEstateGallery(this.sourcing.estateId).subscribe( res => {
 			if (res['success'] == true){
 			  this.galleryImages = res['result'];
-			  console.log(this.galleryImages);
 			}
 		  });
 	}

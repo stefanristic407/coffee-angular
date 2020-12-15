@@ -49,8 +49,8 @@
                                         </div>
                                     </div>
                                     <div class="source-knowmore-avail pull-right">
+                                        <a class="know-more-avail mr-2">{{globals.languageJson?.order_sample}}</a>
                                         <a class="contact-us-avail" (click)="orderPlace(sourcing.harvestData)" *ngIf="this.globals.checkItem('coffee-management') && this.globals.permissions['coffee-management'].manage">{{globals.languageJson?.buy_now}}</a>
-                                        <a class="know-more-avail">{{globals.languageJson?.order_sample}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -526,161 +526,164 @@
                     <div class="heading-other">{{globals.languageJson?.estates_other_green_coffee}}</div>
                     <div class="cardpanel-detail avaialble-web" *ngIf="sourcing.otherGreenList!=null">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-12 cursor-item" *ngFor="let item of sourcing.otherGreenList" (click)="brandProfileSite()">
-                                <div class="source-card card-border green-coffee-product">
-                                    <div class="s-gal">
-                                        <span *ngIf="item.images">
-                                            <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
-                                            <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">
-                                         </span>
-                                        <span *ngIf="!item.images">
-                                            <img  src="assets/images/dummy-profile.png" alt="">
-                                        </span> 
-                                        <div class="cupping">
-                                            <!-- <p>Cup score {{item.score}}</p> -->
-                                            <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
-                                            <p *ngIf="item.cup_score==''">NA</p>
+                            <span *ngFor="let item of sourcing.otherGreenList">
+                                <div class="col-lg-4 col-md-6 col-12 cursor-item" *ngIf="item.harvest_id != sourcing.harvestData" (click)="lotDetails(item)">
+                                    <div class="source-card card-border green-coffee-product">
+                                        <div class="s-gal">
+                                            <span *ngIf="item.images">
+                                                <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">
+                                            </span>
+                            <span *ngIf="!item.images">
+                                                <img  src="assets/images/dummy-profile.png" alt="">
+                                            </span>
+                            <div class="cupping">
+                                <!-- <p>Cup score {{item.score}}</p> -->
+                                <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
+                                <p *ngIf="item.cup_score==''">NA</p>
+                            </div>
+                        </div>
+                        <div class="s-details ">
+                            <div class="flex">
+                                <div class="s-tit">
+                                    <h3 *ngIf="item.name!=''">{{item.name}}</h3>
+                                    <h3 *ngIf="item.name==''">NA</h3>
+                                    <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}</h5>
+                                    <h5 *ngIf="item['estate']['name']==''">NA</h5>
+                                    <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / kg</h6>
+                                    <h6 *ngIf="item.price==''">NA</h6>
+                                </div>
+                            </div>
+                            <div class="source-lets flex">
+                                <div class="orgin-att">
+                                    <label>{{globals.languageJson?.origin}}</label>
+                                    <h6 *ngIf="item['lot']['country']!=''">{{GetCountry(item['lot']['country'])}}</h6>
+                                    <h6 *ngIf="item['lot']['country']==''">NA</h6>
+                                </div>
+                                <div class="orgin-att">
+                                    <label>{{globals.languageJson?.variety}}</label>
+                                    <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}</h6>
+                                    <h6 *ngIf="item['lot']['variety']==''">NA</h6>
+                                </div>
+                                <div class="orgin-att">
+                                    <label>{{globals.languageJson?.flavour}}</label>
+                                    <div *ngIf="item.flavours!=null">
+                                        <ul class="flo-list">
+                                            <li *ngFor="let flavour of item.flavours">
+                                                <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div *ngIf="item.flavours==null">NA</div>
+                                </div>
+                            </div>
+                            <div class="top-lots">
+                                <label>{{globals.languageJson?.available_quantity}} : <span>{{item.quantity_count}} {{item.quantity_type}} of {{item.total_quantity}}{{item.quantity_unit}}</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </span>
+            </div>
+        </div>
+        <!-- no-data for Green Coffee availbility Starts -->
+        <div class="row" *ngIf="sourcing.otherGreenList==null">
+            <div class="col-lg-12 col-md-12 no-data-sec">
+                <div class="text-center ">
+                    <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                    <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
+                    <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                    <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
+
+                </div>
+            </div>
+        </div>
+        <!-- no-data for  Green Coffee availbility Ends -->
+        <!-- Mobile Carousel -->
+        <div class="cardpanel-detail avaialble-mob">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 cursor-item">
+                    <carousel [showIndicators]="true">
+                        <slide class="animated fadeIn" *ngFor="let item of coffeedata">
+
+                            <div class="source-card card-border green-coffee-product">
+                                <div class="s-gal">
+                                    <img [src]="item.image" alt="">
+                                    <div class="cupping">
+                                        <p>{{globals.languageJson?.cup_score}} {{item.score}}</p>
+                                    </div>
+                                </div>
+                                <div class="s-details ">
+                                    <div class="flex">
+                                        <div class="s-tit">
+                                            <h3>{{item.name}}</h3>
+                                            <h5>{{item.estatename}}</h5>
+                                            <h6>{{item.price}}</h6>
                                         </div>
                                     </div>
-                                    <div class="s-details ">
-                                        <div class="flex">
-                                            <div class="s-tit">
-                                                <h3 *ngIf="item.name!=''">{{item.name}}</h3>
-                                                <h3 *ngIf="item.name==''">NA</h3>
-                                                <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}</h5>
-                                                <h5 *ngIf="item['estate']['name']==''">NA</h5>
-                                                <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / kg</h6>
-                                                <h6 *ngIf="item.price==''">NA</h6>
-                                            </div>
+                                    <div class="source-lets flex">
+                                        <div class="orgin-att">
+                                            <label>{{globals.languageJson?.origin}}</label>
+                                            <h6>{{item.origin}}</h6>
                                         </div>
-                                        <div class="source-lets flex">
-                                            <div class="orgin-att">
-                                                <label>{{globals.languageJson?.origin}}</label>
-                                                <h6 *ngIf="item['lot']['country']!=''">{{GetCountry(item['lot']['country'])}}</h6>
-                                                <h6 *ngIf="item['lot']['country']==''">NA</h6>                                            </div>
-                                            <div class="orgin-att">
-                                                <label>{{globals.languageJson?.variety}}</label>
-                                                <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}</h6>
-                                                <h6 *ngIf="item['lot']['variety']==''">NA</h6>
-                                            </div>
-                                            <div class="orgin-att">
-                                                <label>{{globals.languageJson?.flavour}}</label>
-                                                <div  *ngIf="item.flavours!=null">
-                                                    <ul class="flo-list">
-                                                        <li *ngFor="let flavour of item.flavours">
-                                                            <span class="mb-2">{{getFlavourName(flavour)}}</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div *ngIf="item.flavours==null">NA</div>
-                                            </div>
+                                        <div class="orgin-att">
+                                            <label>{{globals.languageJson?.variety}}</label>
+                                            <h6>{{item.species}}</h6>
                                         </div>
-                                        <div class="top-lots">
-                                            <label>{{globals.languageJson?.available_quantity}} : <span>{{item.quantity_count}} {{item.quantity_type}} of {{item.total_quantity}}{{item.quantity_unit}}</span></label>
+                                        <div class="orgin-att">
+                                            <label>{{globals.languageJson?.flavour}}</label>
+                                            <ul class="flo-list">
+                                                <li>Citrus</li>
+                                                <li>Floral</li>
+                                            </ul>
                                         </div>
+                                    </div>
+                                    <div class="top-lots">
+                                        <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity}} of 60kg </span></label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- no-data for Green Coffee availbility Starts -->
-                    <div class="row" *ngIf="sourcing.otherGreenList==null">
-                        <div class="col-lg-12 col-md-12 no-data-sec">
-                            <div class="text-center ">
-                                <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
-                                <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
-                                <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
-                    
-                            </div>
-                        </div>
-                    </div>
-                    <!-- no-data for  Green Coffee availbility Ends -->
-                    <!-- Mobile Carousel -->
-                    <div class="cardpanel-detail avaialble-mob">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-12 cursor-item">
-                                <carousel [showIndicators]="true">
-                                    <slide class="animated fadeIn" *ngFor="let item of coffeedata">
 
-                                        <div class="source-card card-border green-coffee-product">
-                                            <div class="s-gal">
-                                                <img [src]="item.image" alt="">
-                                                <div class="cupping">
-                                                    <p>{{globals.languageJson?.cup_score}} {{item.score}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="s-details ">
-                                                <div class="flex">
-                                                    <div class="s-tit">
-                                                        <h3>{{item.name}}</h3>
-                                                        <h5>{{item.estatename}}</h5>
-                                                        <h6>{{item.price}}</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="source-lets flex">
-                                                    <div class="orgin-att">
-                                                        <label>{{globals.languageJson?.origin}}</label>
-                                                        <h6>{{item.origin}}</h6>
-                                                    </div>
-                                                    <div class="orgin-att">
-                                                        <label>{{globals.languageJson?.variety}}</label>
-                                                        <h6>{{item.species}}</h6>
-                                                    </div>
-                                                    <div class="orgin-att">
-                                                        <label>{{globals.languageJson?.flavour}}</label>
-                                                        <ul class="flo-list">
-                                                            <li>Citrus</li>
-                                                            <li>Floral</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="top-lots">
-                                                    <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity}} of 60kg </span></label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </slide>
-                                </carousel>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
+                        </slide>
+                    </carousel>
 
                 </div>
-
             </div>
         </div>
-        <ng-template #temperatureTemplate>
-                <div id="status-content">
-                    <ul class="list-group custom-popover">
-                        <!-- <li class="list-group-item item-color" (click)="setFilterValue('grade',''); pop4.hide(); "><a class="pointer-item">All</a></li>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+<ng-template #temperatureTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <!-- <li class="list-group-item item-color" (click)="setFilterValue('grade',''); pop4.hide(); "><a class="pointer-item">All</a></li>
                             <li class="list-group-item item-color" (click)="setFilterValue('grade','81.0 - 83.0'); pop4.hide();  "><a class="pointer-item">81.0 - 83.0</a></li>
                             <li class="list-group-item item-color" (click)="setFilterValue('grade','84.0 - 86.0'); pop4.hide();  "><a class="pointer-item">84.0 - 86.0</a></li>
                             <li class="list-group-item item-color" (click)="setFilterValue('grade','87.0 - 89.0'); pop4.hide();  "><a class="pointer-item">87.0 - 89.0</a></li> -->
-                        <li class="list-group-item item-color" (click)="setTemperature(''); pop12.hide(); "><a class="pointer-items">All</a></li>
-                        <li class="list-group-item item-color" (click)="setTemperature('5'); pop12.hide();  "><a class="pointer-items">5</a></li>
-                        <li class="list-group-item item-color" (click)="setTemperature('20'); pop12.hide();  "><a class="pointer-items">20</a></li>
-                        <li class="list-group-item item-color" (click)="setTemperature('30'); pop12.hide();  "><a class="pointer-items">30</a></li>
-                    </ul>
-                </div>
-            </ng-template>
-            <ng-template #hourTemplate>
-                    <div id="status-content">
-                        <ul class="list-group custom-popover">
-                            <li class="list-group-item item-color" (click)="setHourly(''); pop13.hide(); "><a class="pointer-items">All</a></li>
-                            <li class="list-group-item item-color" (click)="setHourly('1'); pop13.hide();  "><a class="pointer-items">1</a></li>
-                            <li class="list-group-item item-color" (click)="setHourly('2'); pop13.hide();  "><a class="pointer-items">2</a></li>
-                            <li class="list-group-item item-color" (click)="setHourly('3'); pop13.hide();  "><a class="pointer-items">3</a></li>
-                        </ul>
-                    </div>
-                </ng-template>    
-    </section>
+            <li class="list-group-item item-color" (click)="setTemperature(''); pop12.hide(); "><a class="pointer-items">All</a></li>
+            <li class="list-group-item item-color" (click)="setTemperature('5'); pop12.hide();  "><a class="pointer-items">5</a></li>
+            <li class="list-group-item item-color" (click)="setTemperature('20'); pop12.hide();  "><a class="pointer-items">20</a></li>
+            <li class="list-group-item item-color" (click)="setTemperature('30'); pop12.hide();  "><a class="pointer-items">30</a></li>
+        </ul>
+    </div>
+</ng-template>
+<ng-template #hourTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color" (click)="setHourly(''); pop13.hide(); "><a class="pointer-items">All</a></li>
+            <li class="list-group-item item-color" (click)="setHourly('1'); pop13.hide();  "><a class="pointer-items">1</a></li>
+            <li class="list-group-item item-color" (click)="setHourly('2'); pop13.hide();  "><a class="pointer-items">2</a></li>
+            <li class="list-group-item item-color" (click)="setHourly('3'); pop13.hide();  "><a class="pointer-items">3</a></li>
+        </ul>
+    </div>
+</ng-template>
+</section>
 </div>
 <!-- <carousel> -->
 <!-- <slide>
@@ -693,6 +696,3 @@
           <img src="assets/images/thumbnail-1.jpg" alt="third slide" style="display: block; width: 100%;">
         </slide>
       </carousel> -->
-
-
-      
