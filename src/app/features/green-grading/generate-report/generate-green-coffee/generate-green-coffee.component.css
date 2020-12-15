@@ -262,3 +262,13 @@ span.checkmark {
         padding: 10px 0px;
     }
 }
+
+.Onboard-input input {
+    height: 53px !important;
+}
+
+.delete-cupping-img {
+    position: relative;
+    top: -20px;
+    float: right;
+}

@@ -243,3 +243,46 @@ span.checkmark {
         width: 18px;
     }
 }
+
+.select-form-group-dropdown {
+    background-color: #f8f8f8;
+    border: 0px;
+    /* border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px; */
+    border-radius: 4px;
+}
+
+.select-region-local {
+    height: 38px!important;
+    font-size: 14px !important;
+    color: #000000 !important;
+}
+
+.input-group-right-border {
+    border-right: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    height: 46px !important;
+}
+
+.input-group-append {
+    width: 32%;
+    border: solid 1px #d6d6d6;
+    padding: 3px;
+    border-radius: 4px;
+    border-left: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+::placeholder {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588 !important;
+}
+
+.select-arrow-no {
+    background: unset !important;
+    padding: 8px 66px !important;
+}
