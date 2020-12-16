@@ -229,3 +229,6 @@ label span {
     font-weight: bold;
     color: #232334;
 }
+.profile-pic{
+    border-radius: 100%;
+}

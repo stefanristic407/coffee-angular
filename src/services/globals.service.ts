@@ -13,6 +13,7 @@ export class GlobalsService {
 	roaster_id: string;
 	permissionList: any;
 	menuSearch: any;
+	public selected_order_id : any;
 	public userInvitesArray : any = [];
 
   	constructor(private cookieService: CookieService,	private userService: UserserviceService) {

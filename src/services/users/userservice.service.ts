@@ -1028,5 +1028,6 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);
   }
+  
 
 }

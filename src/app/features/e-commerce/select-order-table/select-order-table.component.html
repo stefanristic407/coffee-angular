@@ -10,39 +10,15 @@
                     </div>
 
                     <button type="button" class="select_cancel float-right btn btn-link mr-2">{{globals.languageJson?.cancel}}</button>
-                    <button type="submit" class="continue-order float-right btn">{{globals.languageJson?.continue}}</button>
+                    <button type="submit" class="continue-order float-right btn" (click)="continue()">{{globals.languageJson?.continue}}</button>
                 </div>
 
                 <h5 class="select-order-title pt-1">{{globals.languageJson?.select_an_order}}</h5>
-                <div class="please-select pt-1">Please select one ongoing order to raise a ticket for</div>
+                <div class="please-select pt-1">Please select an estate order to create a roaster coffee batch for</div>
 
                 <div class="row">
                     <div class="mixups-tabs mt-3 pt-3 col-lg-12 col-md-12">
-                        <!-- <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Estate</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Micro-roaster</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">HoReCa</a>
-                    </li>
-                </ul>
-
-                <div class="tab-content mt-md-4" id="pills-tabContent">
-                    <div class="tab-pane fade show active spacing-order" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <app-estate></app-estate>
-                    </div>
-                    <div class="tab-pane fade spacing-order" id="pills-contact" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <app-micro-roaster></app-micro-roaster>
-                    </div>
-                    <div class="tab-pane fade spacing-order" id="pills-profile" role="tabpanel" aria-labelledby="pills-contact-tab">
-                        <app-horeca></app-horeca>
-                    </div>
-                </div> -->
-
+                     
                         <div class="title-header d-inline desk_view_user">
                             <div class="d-inline border-order role-div col-sm-6" id="origin_id">
                                 <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
@@ -58,32 +34,7 @@
                                     </p>
                                 </a>
                             </div>&nbsp;&nbsp;
-                            <!-- <div class="d-inline border-order type-div col-sm-6" id="type_id">
-                        <p class="d-inline filter-text" *ngIf="estatetermType == ''">Type of order&nbsp;</p>
-                        <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #pop2="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermType == ''" (click)="toggleType()">
-                                &nbsp; <img src="{{ showType ? 'assets/images/active-user.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                        <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" #pop3="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermType != ''" (click)="toggleType()">
-                                {{ estatetermType }}&nbsp; <img src="{{ showType ? 'assets/images/active-user.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                    </div>&nbsp;&nbsp;
-                    <div class="d-inline border-order status-div col-sm-6" id="status_id">
-                        <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">Status&nbsp;</p>
-                        <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermStatus == ''" (click)="toggleStatus()">
-                                &nbsp; <img src="{{ showStatus ? 'assets/images/active-user.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                        <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop1="bs-popover">
-                            <p class="d-inline filter" *ngIf="estatetermStatus != ''" (click)="toggleStatus()">
-                                {{ estatetermStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/active-user.svg' : 'assets/images/user-down.svg'}}" />
-                            </p>
-                        </a>
-                    </div> &nbsp;&nbsp; -->
+                           
 
                             <div class="d-inline border-order date-div col-sm-6">
                                 <p class="d-inline filter-text">{{globals.languageJson?.date_range}} &nbsp;
@@ -121,14 +72,54 @@
                         <!-- Table -->
 
                         <div class="table-container estate-table mt-4">
-                            <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
-                            </table>
+                            <!-- <table class="estate-boby-txt" datatable [dtOptions]="dtOptions">
+                            </table> -->
 
+                            <table class="estate-boby-txt table">
+                                <thead>
+                                    <tr class="estate-title">
+                                        <th>
+                                            <!-- <label class="b-check first-t">
+                                                        <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
+                                                    </label> -->
+                                        </th>
+                                        <th>Order ID </th>
+                                        <th>Estate name </th>
+                                        <th>Date ordered </th>
+                                        <th>Orgin </th>
+                                        <th>Variety</th>
+                                        <!-- <th>Price</th> -->
+                                        <th>Quantity </th>
+                                        <!-- <th>Type of Order </th> -->
+                                        <th>Cupping Score </th>
+                                        <!-- <th>Action</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let group of data; let i = index" class="estate-boby-txt">
+                                        <td class="spacing-order" style="width: 40px;">
+                                            <label class="b-check">
+                                                        <input type="radio" name="sizecb[]" [value]="group.id" [checked]="i === 0" [(ngModel)]="group.state" (change)="onSelectionChange(group)" />
+                                                        <!-- <span class="checkmark"></span> -->
+                                                      </label>
+                                        </td>
+            
+                                        <td>{{group.id}}</td>
+                                        <td>{{group.estate_name | titlecase}}</td>
+                                        <td>{{group.created_at | date:'dd-MM-yyyy'}}</td>
+                                        <td>{{group.origin | titlecase}}</td>
+                                        <td>{{group.variety | titlecase}}</td>
+                                        <!-- <td>{{group.price}}</td> -->
+                                        <td>{{group.quantity}}</td>
+    
+                                        <td>{{group.cup_score | titlecase}}
+                                        </td>
+                                        <!-- <td class="view-order" (click)="displayData($event,group)">View order </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <!-- <div class="row pb-5">
-                    <div class="col-12 mt-4">
                       
-                </div> -->
 
                         <ng-template #originTemplate>
                             <div id="status-content">
