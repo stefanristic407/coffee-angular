@@ -155,7 +155,7 @@
                                 <agm-map [latitude]="sourcing.latitude" [longitude]="sourcing.longitude">
                                     <agm-marker [latitude]="sourcing.latitude" [longitude]="sourcing.longitude"></agm-marker>
                                 </agm-map>
-                                <label class="mt-1">{{sourcing.latitude.toFixed(4)}}<sup>o</sup>N, {{sourcing.longitude.toFixed(4)}}<sup>o</sup>E </label>
+                                <label class="mt-1">{{sourcing.latitude?.toFixed(4)}}<sup>o</sup>N, {{sourcing.longitude?.toFixed(4)}}<sup>o</sup>E </label>
                             </div>
                         </div>
                         <div class="prodcoffee mt-0 mt-md-3">

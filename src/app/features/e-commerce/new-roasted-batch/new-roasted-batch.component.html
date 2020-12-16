@@ -13,7 +13,7 @@
                     </li>
 
                     <li class="b-cum c-pink">{{globals.languageJson?.new_roasted_batch}}</li>
-                    <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">{{globals.languageJson?.save}}</button>
+                    <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none" (click)="addRoastingProfile()"> {{globals.languageJson?.save}}</button>
 
                 </ul>
             </nav>
@@ -55,7 +55,7 @@
                             <div class="col-12 col-md-6 float-md-left">
                                 <p class="fbt-14 fnt-muli fnt-400 txt-clr334">Select the order through which the green coffee</p>
                                 <div class="sample_info ">
-                                    <div class="info_heading d-flex cursor-pointer">
+                                    <div class="info_heading d-flex cursor-pointer" routerLink="/features/select-order-list">
                                         <div class="pull-left sample_info_head">Select the order</div>
                                         <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
                                     </div>
@@ -122,18 +122,19 @@
                         <div class=" order-details-clr">
                             <div class="row mt-3">
                                 <div class="p-0">
-                                    <img src="assets/images/stakeholder2.png" alt="User" class="img-estate">
+                                    <img *ngIf="orderDetails.estate_profile_image_thumbnail_url == ''" src="assets/images/profile.svg" alt="User" class="img-estate profile-pic">
+                                    <img *ngIf="orderDetails.estate_profile_image_thumbnail_url != ''" src="{{orderDetails.estate_profile_image_thumbnail_url}}" alt="User" class="img-estate profile-pic">
                                 </div>
                                 <div class="pull-left">
                                     <ul class="details-list p-0 ml-2 ml-md-3">
-                                        <li class="estate-name">Kevin Bailey</li>
-                                        <li class="estate-number pt-1"> Facilitator </li>
+                                        <li class="estate-name">{{orderDetails.estate_owner}}</li>
+                                        <li class="estate-number pt-1"> Coffee Estate </li>
                                     </ul>
                                 </div>
                                 <div class="pull-right ml-auto">
                                     <p> <span class="cursor-pointer">
                                 <img  src="assets/images/star-1.png" alt="User">
-                                <span  class="star-no pl-1"> 4.95</span>
+                                <span  class="star-no pl-1"> {{rating}}</span>
                                         </span>
                                     </p>
                                     <p>
@@ -152,29 +153,29 @@
 
                                     <tr>
                                         <td> <span class="list-que"> Origin : </span></td>
-                                        <td> <span class="list-ans"> Colombia </span> </td>
+                                        <td> <span class="list-ans"> {{countryName(orderDetails.origin) | titlecase}} </span> </td>
 
                                     </tr>
                                     <tr>
                                         <td> <span class="list-que">  Variety : </span></td>
-                                        <td> <span class="list-ans">  Bourbon, cautai </span> </td>
+                                        <td> <span class="list-ans">  {{orderDetails.variety | titlecase}} </span> </td>
 
                                     </tr>
                                     <tr>
                                         <td> <span class="list-que">  Price : </span></td>
-                                        <td> <span class="list-ans">  $7.45 USD/kg </span> </td>
+                                        <td> <span class="list-ans">  ${{orderDetails.price}} USD/kg </span> </td>
 
                                     </tr>
 
                                     <tr>
                                         <td> <span class="list-que">  Quantity : </span></td>
-                                        <td> <span class="list-ans">  500 Kg </span> </td>
+                                        <td> <span class="list-ans">  {{orderDetails.quantity}} Kg </span> </td>
 
                                     </tr>
 
                                     <tr>
                                         <td> <span class="list-que">  Date recieved:  </span></td>
-                                        <td> <span class="list-ans">  26 June 2020 </span> </td>
+                                        <td> <span class="list-ans">  {{orderDetails.created_at | date : "d MMM y"}} </span> </td>
 
                                     </tr>
 

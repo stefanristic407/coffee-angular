@@ -104,8 +104,21 @@
                                     <td>
                                         {{item.roasting_profile_name}}
                                     </td>
-                                    <td class="view__details">
-                                        {{globals.languageJson?.view_details}}
+                                    <td >
+                                        <span class="view__details d-inline" (click)="redirectToEdit(item);">View details</span>
+                                        <span class="d-inline"> 
+                                            <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                                <img class="ellipse-image pl-3" src="assets/images/more-opns-file.png" alt="">
+                                            </a>
+                                            <ng-template #poplistTemplate id="{{item.id}}">
+                                                <div id="popover-mobile-content">
+                                                    <ul class="list-group custom-popover">
+                                                        <li class="list-group-item" >
+                                                            <a class="pointer-item" (click)="openDeleteModal(deleteTemplate,item.id); pop.hide()">{{globals.languageJson?.delete}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </ng-template> </span>
                                     </td>
                                 </tr>
                                 <tr class="odd" *ngIf="odd">
@@ -167,3 +180,21 @@
           </ul>
         </div>
       </ng-template>   -->
+
+      <ng-template #deleteTemplate>
+        <!-- <div class="modal-header border-header">
+            <h1 class="fnt-play head-roles">Manage roles</h1>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div> -->
+        <div class="modal-body mt-5 mb-5 text-center fnt-muli">
+            <div><img src="assets/images/delete-role.svg" alt=""></div>
+            <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
+            <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
+            <div class="mt-4">
+                <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+                <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRoastedBatch(deleteBatchId);">{{globals.languageJson?.delete}}</button>
+            </div>
+        </div>
+    </ng-template>

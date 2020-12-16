@@ -44,6 +44,7 @@ export class SelectOrderTableComponent implements OnInit {
 		language: { "search": '' }
 	};
 	appLanguage?: any;
+	selectedEntry: any;
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
@@ -152,7 +153,7 @@ export class SelectOrderTableComponent implements OnInit {
 			});
 		});
 
-		this.estateSelectAnOrderTableData(); //calling estate table data onload 
+		this.getEstateOrdersData(); //calling estate table data onload 
 	}
 
 	//  Function Name : Check box function.
@@ -276,26 +277,38 @@ export class SelectOrderTableComponent implements OnInit {
 
 		}
 	}
+	onSelectionChange(value : any){
+		this.selectedEntry = value;
+		console.log(this.selectedEntry)
+	}
+	continue(){
+		this.globals.selected_order_id = this.selectedEntry.id;
+		console.log(this.globals.selected_order_id);
+		this.router.navigate(['/features/new-roasted-batch']);
+	}
 
 	//select order table data 
-	estateSelectAnOrderTableData() {
+	getEstateOrdersData() {
 		this.roasterService.getEstateOrders(this.roasterId).subscribe(
 			data => {
-				if ( data['success'] == true ) {
-				  if ( data['result'] == null || data['result'].length == 0) {
-					this.odd = true ;
-					this.toastrService.error("Table Data is empty");
-				  }
-				  else {
-					this.odd = false ;
-					this.data = data['result'];
-				  }
-				} 
-				else {
-				  this.odd = true ;
-				  this.toastrService.error("Error while getting the agreement list!");
+				console.log(data);
+				if (data['success'] == true) {
+					// if (data['result'] == null || data['result'].length == 0) {
+					// 	this.hideTable = true ; 
+					// }
+					// else {
+					// 	this.hideTable = false; 
+						this.data = data['result'];
+						console.log(this.data)
+						// this.mainData = this.data
+					// }
+					// this.estateOrdersActive++;
 				}
-			  }
+				else {
+					// this.estateOrdersActive++;
+					this.toastrService.error(this.globals.languageJson.error_message);
+				}
+			}
 		)
 	}
 }

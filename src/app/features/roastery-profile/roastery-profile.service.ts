@@ -5614,7 +5614,8 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
     this.name = result['result']['name'];
     this.phoneno = result['result']['phone'];
     this.country = result['result']['country'];
-    this.countryName = this.countryList.find(con => con.isoCode == this.country).name;
+     const country = this.countryList.find(con => con.isoCode == this.country);
+     this.countryName = country? country.name : '';
     this.state = result['result']['state'];
     this.city = result['result']['city'];
     this.zipcode = result['result']['zipcode'];
@@ -5639,15 +5640,14 @@ this.userService.getRoasterAccount(this.roasterId).subscribe(result => {
   })
 
   setTimeout(()=>{
-    console.log(this.female_num)
     this.single =  [
       {
      "name": "Female",
-     "value": this.female_num
+     "value": this.female_num ? this.female_num:0
     },
     {
      "name": "Male",
-     "value": this.male_num
+     "value": this.male_num ? this.male_num:0
     }
     ];
   },5000);

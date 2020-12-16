@@ -5,6 +5,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 
 @Component({
   selector: 'app-new-roasted-batch',
@@ -38,6 +39,8 @@ export class NewRoastedBatchComponent implements OnInit {
   batchId: string;
   flavour_profile_array: any =  [];
   orderId: string;
+  orderDetails: any = {};
+  rating: any;
 
 
   constructor(  public globals: GlobalsService,
@@ -46,6 +49,7 @@ export class NewRoastedBatchComponent implements OnInit {
                 public toastrService : ToastrService,
                 public router : Router,
                 public route : ActivatedRoute,
+                public roasteryProfileService : RoasteryProfileService,
                 public cookieService : CookieService) {
                   this.roaster_id = this.cookieService.get('roaster_id');
                  }
@@ -57,10 +61,16 @@ export class NewRoastedBatchComponent implements OnInit {
     this.getRoasterFlavourProfile();
 
     
-    if (this.route.snapshot.queryParams['BatchID']) {
+    if (this.route.snapshot.queryParams['batchId']) {
       this.editFlag = true;
-      this.batchId = decodeURIComponent(this.route.snapshot.queryParams['BatchID']);
+      this.batchId = decodeURIComponent(this.route.snapshot.queryParams['batchId']);
       this.getRoastedBatch();
+    }
+    if(this.globals.selected_order_id == undefined){
+      this.showDetails = false;
+    }else{
+      this.showDetails = true;
+      this.getOrderDetails();
     }
   }
   setCupping(cuppdata:any){
@@ -145,6 +155,37 @@ export class NewRoastedBatchComponent implements OnInit {
     )
   }
 
+  getOrderDetails(){
+    this.orderId = this.globals.selected_order_id;
+    this.roasterService.getViewOrderDetails(this.roaster_id,this.orderId).subscribe(
+      response => {
+        if(response['success'] == true){
+          this.orderDetails = response['result'];
+          console.log(this.orderDetails)
+          this.getRatingData(this.orderDetails.estate_id);
+        } 
+        else{
+          this.toastrService.error("Error while getting the order list");
+        }
+      }
+    )
+  }
+  getRatingData(value : any){
+    this.userService.getAvailableEstateList(this.roaster_id,value).subscribe(
+      data => {
+        if(data['success'] == true){
+          this.rating = data['result'].rating; 
+        }
+        else{
+          this.rating = 0.0;
+        }
+      }
+    )
+  }
+
+  countryName(value : any){
+   return this.roasteryProfileService.countryList.find(con => con.isoCode == value).name;
+  }
   
   addRoastingProfile(){
     // this.loginButtonValue = "Saving";
@@ -152,7 +193,8 @@ export class NewRoastedBatchComponent implements OnInit {
     //   this.toastrService.error("Please fill up the details");
     // }
     // else{
-      
+      console.log(this.orderId)
+      debugger
       var data = {
         "roast_batch_name": this.roast_batch_name,
         "order_id": parseInt(this.orderId),
