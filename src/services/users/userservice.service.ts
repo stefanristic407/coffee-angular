@@ -893,9 +893,10 @@ export class UserserviceService {
     data['method']   = 'PUT';
     return this.http.put(this.putUrl, data).pipe(map(res => res));
   }
-  getEachEsateReviews(estate_id:any){
+  getEachEsateReviews(estate_id:any,params=''){
 	var data = {};
-    data['api_call'] = "/general/es/" + estate_id + "/reviews";
+    // data['api_call'] = "/general/es/" + estate_id + "/reviews";
+    data['api_call'] =   `/general/es/${estate_id}/reviews/?${params}`;
     data["method"] = "GET";
     data['token'] = this.cookieService.get('Auth');    
     return this.http.post(this.roasterUrl, data);

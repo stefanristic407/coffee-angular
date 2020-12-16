@@ -207,7 +207,7 @@
                                         <div class="p-0 "><img class="img-estate" [src]="review.reviewed_by_image" alt="User"></div>
                                         <div class="col-sm-9 col-8">
                                             <ul class="details-list p-0">
-                                                <li class="estate-name">{{globals.languageJson?.finca_la_pampa}}</li>
+                                                <li class="estate-name">{{review.reviewed_by_name}}</li>
                                                 <li>
                                                     <span class="estate-number" *ngIf="review.reviewed_by_type=='ro'">Roaster</span>
                                                     <span class="estate-number" *ngIf="review.reviewed_by_type=='fc'">Facilitator</span>

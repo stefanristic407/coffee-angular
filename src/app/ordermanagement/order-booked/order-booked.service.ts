@@ -142,7 +142,7 @@ export class OrderBookedService {
 		)
 	}
 	getEstateReviews(data:any){
-		this.userService.getEachEsateReviews(data).subscribe(
+		this.userService.getEachEsateReviews(data,this.orderId).subscribe(
 		res=>{
 			if(res['success']==true){
 			this.reviewsList=res['result'];
