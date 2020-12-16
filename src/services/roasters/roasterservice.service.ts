@@ -726,12 +726,6 @@ export class RoasterserviceService {
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.deleteUrl, data);
   }
-  getRoasterCoffeeBatchDetails(roaster_id : any, batch_id : any){
-    var data = {};
-		data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-  }
- 
+
 }
 

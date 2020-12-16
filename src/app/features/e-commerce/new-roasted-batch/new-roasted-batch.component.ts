@@ -41,6 +41,7 @@ export class NewRoastedBatchComponent implements OnInit {
   orderId: string;
   orderDetails: any = {};
   rating: any;
+  roasting_profile_name: any;
 
 
   constructor(  public globals: GlobalsService,
@@ -125,7 +126,18 @@ export class NewRoastedBatchComponent implements OnInit {
       data => {
         if(data['success'] == true){
           this.roast_batch_name = data['result'].roast_batch_name;
-        
+          this.flavour = data['result'].flavour;
+          this.notes = data['result'].roaster_notes;
+          this.acidity = data['result'].acidity;
+          this.aroma = data['result'].aroma;
+          this.body = data['result'].body;
+          this.processing = data['result'].processing;
+          this.quantity_unit = data['result'].roasting_profile_unit;
+          this.quantity = data['result'].roasting_profile_quantity;
+          this.flavour_profile_array = data['result'].flavour_profile;
+          this.cupping = data['result'].roasting_profile_id;
+          this.roasting_profile_name = data['result'].roasting_profile_name;
+          
         }
       }
     )
@@ -187,7 +199,7 @@ export class NewRoastedBatchComponent implements OnInit {
    return this.roasteryProfileService.countryList.find(con => con.isoCode == value).name;
   }
   
-  addRoastingProfile(){
+  addRoastedCoffeeBatch(){
     // this.loginButtonValue = "Saving";
     // if (this.profile_name == "" || this.roast_level == '' || this.roast_duration == '' || this.machine_type == '' || this.temperature == '') {
     //   this.toastrService.error("Please fill up the details");
