@@ -1031,4 +1031,28 @@ export class UserserviceService {
   }
   
 
+  getRecentActivity(roasterId : any, orderId : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roasterId + "/orders/" + orderId+"/events";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+
+  getCuppingInviteList(roasterId : any){
+    var data = {};
+    data["api_call"] = "/ro/" + roasterId + "/cupping-invite-list";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+
+  getProcessDetails(roasterId: any,harvest_id: any){
+    var data = {};
+    data['api_call'] = "/ro/"+roasterId+"/harvests/"+harvest_id+"/milling";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+
+  }
+
 }

@@ -72,6 +72,9 @@ export class OrderBookedService {
 	receipt_url: any;
 	payment_after_delivery: any;
 	order_status: any;
+	created_at_time:any;
+	recent_status:any;
+	recentactivityarray:any=[];
 
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
@@ -118,11 +121,11 @@ export class OrderBookedService {
 						
 					}
 
-
 					this.viewAvailability();
 					this.viewEstateDetails();
 					this.getEstateReviews(this.estate_id);
 					this.getEstateSummary(this.estate_id);
+					this.ViewRecentActivity();
 				}	
 			}
 		)
@@ -192,4 +195,18 @@ export class OrderBookedService {
 		}
 		)
 	}	
+
+	ViewRecentActivity(){
+		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
+			res=>{
+				if(res['success'] == true){
+					console.log(res);
+					this.recentactivityarray=res['result'];
+				}
+
+			}
+		)
+	}
+
+
 }

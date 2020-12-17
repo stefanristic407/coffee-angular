@@ -258,7 +258,7 @@
 
                     <div class="d-flex mt-3 border-div">
                         <div class="p-0">
-                            <img  class="img-estate" [src]="prebookService.company_image_thumbnail_url" alt="">
+                            <img class="img-estate" [src]="prebookService.company_image_thumbnail_url" alt="">
                             <!-- <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div> -->
                         </div>
                         <div class="pull-left">
@@ -312,7 +312,7 @@
                             <ul class="details-list p-0 ml-2 ml-md-3">
                                 <li class="estate-name">{{prebookService.estate_name}}</li>
                                 <li class="estate-number pt-1">
-                                        {{prebookService.estate_owner}}
+                                    {{prebookService.estate_owner}}
                                 </li>
                             </ul>
                         </div>
@@ -330,7 +330,7 @@
                             <ul class="details-list p-0 ml-2 ml-md-3">
                                 <li class="estate-name">{{prebookService.roaster_name}}</li>
                                 <li class="estate-number pt-1">
-                                        {{prebookService.roaster_owner}}
+                                    {{prebookService.roaster_owner}}
                                 </li>
                             </ul>
                         </div>
@@ -623,11 +623,11 @@
                                     Assignment made ready
                             </span>
                         </div> -->
-                            <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row">
+                            <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row" *ngFor="let activity of prebookService.recentactivityarray">
                                 <div class="d-none d-md-inline-block p-0">
                                     <!-- <img class="img-estate"
                                         src="assets/images/activity1.png" alt="User"> -->
-                                    <p class="timing">12:44pm</p>
+                                    <p class="timing">{{activity.created_at | date : 'shortTime' }}</p>
                                 </div>
                                 <div class="pull-left">
                                     <ul class="details-list p-0 ">
@@ -637,42 +637,16 @@
                                         </li> -->
                                         <li class="list-activity">
                                             <div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
-                                                12:44pm</div>
-                                            <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Order confirmed by the Estate</p>
+                                                {{activity.created_at | date : 'shortTime' }}</div>
+                                            <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>{{activity.status | titlecase}}</p>
 
                                         </li>
                                     </ul>
                                 </div>
                                 <!-- <div class="pull-right ml-auto list-time d-none d-md-inline-block">12:44pm</div> -->
                             </div>
-                            <div class="d-flex col-12 mt-3  border-div flex-column flex-md-row">
-                                <div class="d-none d-md-inline-block p-0">
-                                    <!-- <img class="img-estate"
-                                        src="assets/images/stakeholder2.png" alt="User"> -->
-                                    <p class="timing">01:30pm</p>
-                                </div>
-                                <div class="pull-left">
-                                    <ul class="details-list p-0 ">
-                                        <!-- <li class="list-name d-none d-md-inline-block">
-                                            <p class="mb-0">Kevin Bailey</p>
-                                        </li>
-                                        <li class="list-user mb-2 pt-1 d-none d-md-inline-block">
-                                            <p class="mb-0">Facilitator</p>
-                                        </li> -->
-                                        <li class="list-activity">
-                                            <div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
-                                                01:30pm</div>
-                                            <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Facilitator assigned for pickup</p>
 
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- <div class="pull-right ml-auto list-time d-none d-md-inline-block">1:30pm</div> -->
 
-                            </div>
-                            <!-- <div class="w-100 mt-4 mb-2 d-block d-md-none">
-                                <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
-                            </div> -->
                         </div>
                         <div class="col-lg-6 col-12">
 

@@ -6,6 +6,7 @@ import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { data } from 'jquery';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -35,6 +36,8 @@ export class ServiceRequestsComponent implements OnInit {
 	estatetermTypeMob: string;
 	searchTerm: any;
 
+	cuppingReportId: any;
+
 	@ViewChild(DataTableDirective, { static: false })
 	datatableElement: DataTableDirective;
 	showDateRange: any;
@@ -46,40 +49,42 @@ export class ServiceRequestsComponent implements OnInit {
 
 	// Static roaster Orders Data List
 	public data: any;
-	public mainData: any[];
+	// public mainData: any[];
 	title = 'angulardatatables';
 	dtOptions: DataTables.Settings = {
 		language: { "search": '' }
 	};
 	roasterId: any;
+	greendata:any[] = [];
 
-	public greendata: any[] = [
-		{
-			"id": "1000",
-			"estateName": "Finca La Pampa",
-			"created_at": "24 Jan 2020",
-			"origin": "Colombia",
-			"variety": "Bourbon",
-			"quantity": "-",
-			"typeOfOrder": "Sample",
-			"type":"Invited"
-		},
-		{ id: '1001',  estateName: 'Gesha', created_at: '21 Jan 2020', origin: 'Ethopia', variety: 'Bourbon', quantity: '297kg', typeOfOrder: 'Booked',type:'Assigned' },
-		{ id: '1002',  estateName: 'Finca La Toboba', created_at: '22 Apr 2020', origin: 'Ethopia',variety: 'Bourbon', quantity: '29kg', typeOfOrder: 'Booked',type:'Invited'},
-		{ id: '1003',  estateName: 'Asoproaaa', created_at: '24 Apr 2020', origin: 'Ethopia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Booked',type:'Invited'},
-		{ id: '1004',  estateName: 'Cafe Directo', created_at: '25 May 2020', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Booked',type:'Invited'},
-		{ id: '1005',  estateName: 'La Isabela', created_at: '26 May 2020', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Sample',type:'Assigned'},
-		{ id: '1006',  estateName: 'La Isabela', created_at: '13 Oct 2020', origin: 'Colombia',variety: 'Bourbon', quantity: '397kg', typeOfOrder: 'Sample',type:'Assigned'},
-		{ id: '1007',  estateName: 'Cafe Directo', created_at: '13 Dec 2020', origin: 'Ethopia',variety: 'Bourbon', quantity: '297kg', typeOfOrder: 'Sample',type:'Assigned'},
-		{ id: '1008',  estateName: 'Asoproaaa', created_at: '13 Jan 2019', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Booked',type:'Invited'},
-		{ id: '1009',  estateName: 'Finca La Toboba', created_at: '14 Feb 2019', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Sample',type:'Invited' },
-		{ id: '1017',  estateName: 'Finca La Pampa', created_at: '23 Nov 2018', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Booked',type:'Assigned'}
-		];
+	// public greendata: any[] = [
+	// 	{
+	// 		"id": "1000",
+	// 		"estateName": "Finca La Pampa",
+	// 		"created_at": "24 Jan 2020",
+	// 		"origin": "Colombia",
+	// 		"variety": "Bourbon",
+	// 		"quantity": "-",
+	// 		"typeOfOrder": "Sample",
+	// 		"type":"Invited"
+	// 	},
+	// 	{ id: '1001',  estateName: 'Gesha', created_at: '21 Jan 2020', origin: 'Ethopia', variety: 'Bourbon', quantity: '297kg', typeOfOrder: 'Booked',type:'Assigned' },
+	// 	{ id: '1002',  estateName: 'Finca La Toboba', created_at: '22 Apr 2020', origin: 'Ethopia',variety: 'Bourbon', quantity: '29kg', typeOfOrder: 'Booked',type:'Invited'},
+	// 	{ id: '1003',  estateName: 'Asoproaaa', created_at: '24 Apr 2020', origin: 'Ethopia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Booked',type:'Invited'},
+	// 	{ id: '1004',  estateName: 'Cafe Directo', created_at: '25 May 2020', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Booked',type:'Invited'},
+	// 	{ id: '1005',  estateName: 'La Isabela', created_at: '26 May 2020', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Sample',type:'Assigned'},
+	// 	{ id: '1006',  estateName: 'La Isabela', created_at: '13 Oct 2020', origin: 'Colombia',variety: 'Bourbon', quantity: '397kg', typeOfOrder: 'Sample',type:'Assigned'},
+	// 	{ id: '1007',  estateName: 'Cafe Directo', created_at: '13 Dec 2020', origin: 'Ethopia',variety: 'Bourbon', quantity: '297kg', typeOfOrder: 'Sample',type:'Assigned'},
+	// 	{ id: '1008',  estateName: 'Asoproaaa', created_at: '13 Jan 2019', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Booked',type:'Invited'},
+	// 	{ id: '1009',  estateName: 'Finca La Toboba', created_at: '14 Feb 2019', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Sample',type:'Invited' },
+	// 	{ id: '1017',  estateName: 'Finca La Pampa', created_at: '23 Nov 2018', origin: 'Colombia',variety: 'Bourbon', quantity: '-', typeOfOrder: 'Booked',type:'Assigned'}
+	// 	];
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
-		public globals: GlobalsService, public roasterService:RoasterserviceService,private toastrService: ToastrService
+		public globals: GlobalsService,
+		public userService: UserserviceService, public roasterService:RoasterserviceService, private toastrService: ToastrService
 		) {
 		this.roasterId = this.cookieService.get('roaster_id');
 		// this.data = {};
@@ -92,6 +97,7 @@ export class ServiceRequestsComponent implements OnInit {
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		}
+		this.viewCuppingInviteList();
 		this.appLanguage = this.globals.languageJson;
 		this.getEstateOrdersData();
 		// var editIcon = function ( data, type, row ) {
@@ -234,6 +240,23 @@ export class ServiceRequestsComponent implements OnInit {
 
 		});
 	}
+
+	// API -call cupping invite list 
+
+	viewCuppingInviteList(){
+		this.userService.getCuppingInviteList(this.roasterId).subscribe(
+			res=>{
+				if(res['success'] == true){
+				  console.log(res);
+				  this.greendata = res['result'];
+				}
+			}
+
+		)
+
+	}
+
+
 	setStatus(term: any) {
 		this.roastertermStatus = term;
 		this.datatableElement.dtInstance.then(table => {
@@ -443,8 +466,8 @@ export class ServiceRequestsComponent implements OnInit {
 		}
 	}
 
-	generateReport(){
-		this.router.navigate(["/features/generate-report"]);
-	}
+	// generateReport(){
+	// 	this.router.navigate(["/features/generate-report"]);
+	// }
 
 }

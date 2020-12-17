@@ -136,20 +136,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let group of greendata" class="estate-boby-txt" (click)="generateReport()">
+                                <tr class="estate-boby-txt" *ngFor="let group of greendata" routerLink="/features/generate-report">
                                     <td class="spacing-order" style="width: 40px;">
                                         <label class="b-check">
                                         <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
                                       </label>
                                     </td>
 
-                                    <td>{{group.id}}</td>
-                                    <td>{{group.estateName}}</td>
-                                    <td>{{group.created_at | date:'dd-MM-yyyy'}}</td>
+                                    <td>{{group.cupping_report_id}</td>
+                                    <td>{{group.estate_name}}</td>
+                                    <td>{{group.order_date | date:'dd-MM-yyyy'}}</td>
                                     <td>{{group.origin}}</td>
-                                    <td>{{group.variety}}</td>
+                                    <td>{{group.varieties}}</td>
                                     <td>{{group.quantity}} </td>
-                                    <td>{{group.typeOfOrder}}</td>
+                                    <td>{{group.order_type}}</td>
                                     <td>{{group.type}}</td>
 
                                 </tr>
