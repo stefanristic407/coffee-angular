@@ -11,21 +11,21 @@ import { OrderBookedService } from '../order-booked/order-booked.service';
   providedIn: 'root'
 })
 export class OrderPrebookService {
-  statusPending: boolean = true;
-  statusPaid: boolean = false;
-  beforeGradeComplete: boolean = true;
-  afterGradeComplete: boolean = false;
-  roasterId: string;
-  orderPreId: any;
-  preId: any;
-  created_at: any;
-  origin: any;
+	statusPending: boolean = true;
+	statusPaid: boolean = false;
+	beforeGradeComplete: boolean = true;
+	afterGradeComplete: boolean = false;
+	roasterId: string;
+	orderPreId: any;
+	preId: any;
+	created_at: any;
+	origin: any;
 	variety: any;
 	price: any;
 	quantity_type: any;
 	quantity: any;
-  harvestId: any;
-  estate_id: any;
+	harvestId: any;
+	estate_id: any;
 	estate_thumbnail_url: any;
 	estate_owner: any;
 	roaster_thumbnail_url: any;
@@ -35,12 +35,12 @@ export class OrderPrebookService {
 	owner_name: any;
 	address_line1: any;
 	address_line2: any;
-  zipcode: any;
-  estate_name: any;
-  shipping_address: any;
-  lot_id: any;
-  city: any;
-  rating: any;
+	zipcode: any;
+	estate_name: any;
+	shipping_address: any;
+	lot_id: any;
+	city: any;
+	rating: any;
 	flavours: any;
 	soil_footprint: any;
 	species: any;
@@ -48,6 +48,8 @@ export class OrderPrebookService {
 	water_analysis: any;
 	annual_production: any;
 	crop: any;
+	recentactivityarray:any=[];
+	orderId: any;
   
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService,public bookedService: OrderBookedService) { 
     this.roasterId = this.cookieService.get('roaster_id');
@@ -116,6 +118,18 @@ export class OrderPrebookService {
 					this.crop=res['result']['crop'];
 					this.annual_production=res['result']['annual_production'];
 				}
+			}
+		)
+	}
+
+	ViewRecentActivity(){
+		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
+			res=>{
+				if(res['success'] == true){
+					console.log(res);
+					this.recentactivityarray=res['result'];
+				}
+
 			}
 		)
 	}

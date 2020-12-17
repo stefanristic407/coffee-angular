@@ -51,6 +51,8 @@ export class OrderSampleService {
 	city: any;
 	sampleId:any;
 	rating: any;
+	recentactivityarray:any=[];
+	orderId: any;
 
 	constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService,public bookedService: OrderBookedService) {
 		this.roasterId = this.cookieService.get('roaster_id');
@@ -119,6 +121,18 @@ export class OrderSampleService {
 					this.zipcode=res['result']['zipcode'];
 					this.rating=res['result']['rating'];
 				}	
+			}
+		)
+	}
+
+	ViewRecentActivity(){
+		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
+			res=>{
+				if(res['success'] == true){
+					console.log(res);
+					this.recentactivityarray=res['result'];
+				}
+
 			}
 		)
 	}

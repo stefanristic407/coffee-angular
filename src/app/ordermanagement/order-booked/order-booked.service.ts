@@ -73,6 +73,9 @@ export class OrderBookedService {
 	payment_after_delivery: any;
 	order_status: any;
 	paymentVerification: boolean = false;
+	created_at_time:any;
+	recent_status:any;
+	recentactivityarray:any=[];
 
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
@@ -119,11 +122,11 @@ export class OrderBookedService {
 						this.paymentVerification = true;
 					}
 
-
 					this.viewAvailability();
 					this.viewEstateDetails();
 					this.getEstateReviews(this.estate_id);
 					this.getEstateSummary(this.estate_id);
+					this.ViewRecentActivity();
 				}	
 			}
 		)
@@ -193,4 +196,18 @@ export class OrderBookedService {
 		}
 		)
 	}	
+
+	ViewRecentActivity(){
+		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
+			res=>{
+				if(res['success'] == true){
+					console.log(res);
+					this.recentactivityarray=res['result'];
+				}
+
+			}
+		)
+	}
+
+
 }
