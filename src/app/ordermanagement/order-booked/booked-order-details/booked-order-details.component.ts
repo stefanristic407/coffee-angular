@@ -59,20 +59,20 @@ export class BookedOrderDetailsComponent implements OnInit {
       // this.roasterId = this.cookieService.get("roaster_id");
       formData.append(
         "api_call",
-        "/es/" + this.roaster_id + "/file-manager/files"
+        "/ro/" + this.roaster_id + "/file-manager/files"
       );
       formData.append("token", this.cookieService.get("Auth"));
       this.roasterService.uploadFiles(formData).subscribe(
         result =>{
           if(result['success']==true){
-            this.toastrService.success("The file "+this.receiptName+" uploaded successfully");
+            // this.toastrService.success("The file "+this.receiptName+" uploaded successfully");
             this.receiptFileData = result['result'];
             this.receipt_url = result['result'].url;
             this.receipt_id = result['result'].id;
             var data = {
               "receipt_file_id" : this.receipt_id
             }
-            this.userService.paymentReceiptUpload(this.roaster_id,this.order_id,data).subscribe(
+            this.userService.paymentReceiptUpload(this.roaster_id,this.bookedService.orderId,data).subscribe(
               res => {
                 if(res['success'] == true){
                   this.toastrService.success("Receipt has been uploaded successfully");

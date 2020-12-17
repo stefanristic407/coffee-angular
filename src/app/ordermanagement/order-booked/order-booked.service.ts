@@ -67,6 +67,11 @@ export class OrderBookedService {
 	rate_rating_star: any;
 	countryValue: any;
 	country: any;
+	invoice_url: any;
+	payment_status: any;
+	receipt_url: any;
+	payment_after_delivery: any;
+	order_status: any;
 
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
@@ -99,6 +104,21 @@ export class OrderBookedService {
 					this.roaster_thumbnail_url=res['result']['roaster_profile_image_thumbnail_url'];
 					this.shipping_address=res['result']['shipping_address'];
 					this.estate_id=res['result']['estate_id'];
+					this.invoice_url = res['result']['invoice_url'];
+					this.payment_status = res['result']['payment_status'];
+					this.receipt_url = res['result']['receipt_url'];
+					this.payment_after_delivery = res['result']['payment_after_delivery'];
+					this.order_status = res['result']['status'];
+
+					if(this.payment_status == 'VERIFIED'){
+						this.uploadShow = false;
+						this.receiptShow = true;
+						this.statusPaid = true;
+						this.statusPending = false;
+						
+					}
+
+
 					this.viewAvailability();
 					this.viewEstateDetails();
 					this.getEstateReviews(this.estate_id);

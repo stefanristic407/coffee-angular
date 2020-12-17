@@ -271,5 +271,19 @@ export class OrderBookedComponent implements OnInit {
       }
     }
   }
+
+  showInvoice() { 
+   
+    const a = document.createElement("a"); 
+    a.href = this.bookedService.invoice_url ;
+    a.download = `#${this.bookedService.orderId}`;
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a); 
+  
+  }
+  
+     
 }
   

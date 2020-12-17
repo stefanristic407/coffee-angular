@@ -122,7 +122,7 @@
             <p class="status_paid" *ngIf="bookedService.statusPending">PENDING</p>
             <p class="status_paid" *ngIf="bookedService.statusPaid"> PAID</p>
             <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="bookedService.uploadShow && bookedService.statusPending"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
-            <button type="button" class="btn receipt-btn mb-2" *ngIf="bookedService.statusPaid" ><a href="{{receipt_url}}" target="_blank" download><img src="assets/images/view.png" class="pr-2">View receipt</a></button>
+            <button type="button" class="btn receipt-btn mb-2" *ngIf="bookedService.statusPaid" ><a href="{{bookedService.receipt_url}}" target="_blank" download><img src="assets/images/view.png" class="pr-2">View receipt</a></button>
             <p class="pb-md-2 mb-0 mt-3 mt-md-0"><a class="procedure mt-2">View payment procedure </a></p>
 
             <div class="track-info mt-4 pt-2" *ngIf="bookedService.shipmentDone">

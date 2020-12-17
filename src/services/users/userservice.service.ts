@@ -1016,10 +1016,10 @@ export class UserserviceService {
   paymentReceiptUpload(roaster_id : any,order_id : any,body : any){
     var data = {};
     data['api_call'] = `/ro/${roaster_id}/orders/${order_id}/payment`;
-    data["method"] = "POST";
+    // data["method"] = "PUT";
     data['data'] = body;
 		data['token'] = this.cookieService.get('Auth');    
-		return this.http.post(this.roasterUrl, data);
+		return this.http.put(this.putUrl, data);
   }
   addReviewOrder(roaster_id:any,orderId:any,body:any){
     var data = {};
