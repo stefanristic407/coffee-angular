@@ -60,7 +60,14 @@ export class OrderBookedComponent implements OnInit {
 		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
 		this.orderBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
 		this.bookedService.orderId=this.orderBookId;
-		this.bookedService.viewOrderDetails();
+    this.bookedService.viewOrderDetails();
+    
+    if(this.bookedService.paymentVerification == true){
+      setTimeout(() => {
+      this.bookedValueToShow = "Payment";
+        this.paymentStatusBooked();
+      }, 1000);
+    }
 	}
 
   ngOnInit(): void {
@@ -105,6 +112,7 @@ export class OrderBookedComponent implements OnInit {
     }
 
 
+
   }
 
   // Function Name : Order Placed
@@ -147,13 +155,19 @@ export class OrderBookedComponent implements OnInit {
     completedProcess.classList.remove('completed');
     this.shippmentReport = true;
     this.bookedService.shipmentDone = true;
+    setTimeout(() => {
+      this.orderBookedTimeline = false;
+      this.shippmentShow = true;
+    }, 2000);
 
     	// Calling the Order Details component by creating object of the component and accessing its methods
 
 		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService,this.globals,this.cookieService,this.toastrService,this.userService,this.roasterService,this.profileservice);
 		setTimeout(()=>{
 			uploadReceipt.uploadReceipt();
-		},500);
+    },500);
+    
+
 
   }
   // Function Name : Order Booked Received
@@ -180,11 +194,7 @@ export class OrderBookedComponent implements OnInit {
     this.uploadReport = false;
     this.gradedReport = true;
     $('#pills-contact-tab')[0].click();
-    setTimeout(() => {
-      this.orderBookedTimeline = false;
-      this.shippmentShow = true;
-    }, 2000);
-
+  
     // Calling the Grade info component by creating object of the component and accessing its methods
 
     let callGradeInfo = new BookedGradeInfoComponent(this.bookedService,this.globals);
@@ -195,10 +205,29 @@ export class OrderBookedComponent implements OnInit {
 
   //Confirm Shippment shows and timeline hides
   receivedShippment() {
-    this.orderBookedTimeline = false;
-    this.cancelShow = false;
-    this.shippmentShow = false;
-    this.receivedOrderShow = true;
+    this.roasterService.orderReceived(this.roasterId,this.bookedService.orderId).subscribe(
+      response => {
+        if(response['success'] == true){
+          this.toastrService.success("Order received has been confirmed");
+          this.orderBookedTimeline = false;
+          this.cancelShow = false;
+          this.shippmentShow = false;
+        this.receivedOrderShow = true;
+          setTimeout(()=>{
+            this.orderBookedTimeline = true;
+            this.cancelShow = false;
+            this.shippmentShow = false;
+          this.receivedOrderShow = false;
+          this.receivedStatusBooked();
+          },2000)
+        }
+        else{
+          this.toastrService.error("Error while confirmation the Shipment");
+        }
+      }
+    )
+
+
   }
   // Function Name : Order Booked Cancel Button
   // Description: This function helps to cancel the order.

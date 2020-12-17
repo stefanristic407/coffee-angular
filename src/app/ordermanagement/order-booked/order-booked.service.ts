@@ -72,6 +72,7 @@ export class OrderBookedService {
 	receipt_url: any;
 	payment_after_delivery: any;
 	order_status: any;
+	paymentVerification: boolean = false;
 
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
@@ -115,7 +116,7 @@ export class OrderBookedService {
 						this.receiptShow = true;
 						this.statusPaid = true;
 						this.statusPending = false;
-						
+						this.paymentVerification = true;
 					}
 
 

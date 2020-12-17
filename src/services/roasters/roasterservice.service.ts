@@ -726,6 +726,13 @@ export class RoasterserviceService {
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.deleteUrl, data);
   }
+  orderReceived(roaster_id : any, order_id : any){
+		const data = {};
+		data['api_call'] = `/ro/${roaster_id}/orders/${order_id}/mark/received`;
+		data['method'] = 'PUT';
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+	}
 
 }
 
