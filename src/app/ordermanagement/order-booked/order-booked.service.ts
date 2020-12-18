@@ -76,6 +76,7 @@ export class OrderBookedService {
 	created_at_time:any;
 	recent_status:any;
 	recentactivityarray:any=[];
+	oId: any;
 
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
@@ -123,8 +124,8 @@ export class OrderBookedService {
 					}
 
 					this.viewAvailability();
-					this.viewEstateDetails();
-					this.getEstateReviews(this.estate_id);
+					this.viewEstateDetails(this.roasterId,this.estate_id);
+					this.getEstateReviews(this.estate_id, this.orderId);
 					this.getEstateSummary(this.estate_id);
 					this.ViewRecentActivity();
 				}	
@@ -149,8 +150,8 @@ export class OrderBookedService {
 		)
 	}
 
-	viewEstateDetails(){
-		this.userService.getAvailableEstateList(this.roasterId,this.estate_id).subscribe(
+	viewEstateDetails(roasterVal:any,esatateVal:any){
+		this.userService.getAvailableEstateList(roasterVal,esatateVal).subscribe(
 			res=>{
 				if(res['success'] == true){
 					this.company_image_thumbnail_url=res['result']['company_image_thumbnail_url'];
@@ -165,8 +166,8 @@ export class OrderBookedService {
 			}
 		)
 	}
-	getEstateReviews(data:any){
-		this.userService.getEachEsateReviews(data,this.orderId).subscribe(
+	getEstateReviews(data:any,reviewOrderId:any){
+		this.userService.getEachEsateReviews(data,reviewOrderId).subscribe(
 		res=>{
 			if(res['success']==true){
 			this.reviewsList=res['result'];
@@ -208,6 +209,11 @@ export class OrderBookedService {
 			}
 		)
 	}
+
+	leaveFeedback(val:any){
+		this.oId = val;
+		this.router.navigate(["/ordermanagement/rating"]);
+	} 
 
 
 }

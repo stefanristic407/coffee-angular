@@ -120,7 +120,7 @@
                                 <div class="confirm-grade pt-2">Please confirm if you have recieved the shipment you have ordered.</div>
                                 <div class="confirm-grade">The order will be marked as complete then</div>
                                 <!-- <button type="submit" class="yes-txt btn mt-3" (click)="receivedShippment()">Yes i have</button> -->
-                                <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback </button>
+                                <button type="submit" class="leave-feedback btn mt-3" (click)="bookedService.leaveFeedback(orderBookId)">Leave a feedback </button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                                 <button type="submit" class="yes-order btn mt-3 yes-i-have" (click)="receivedShippment()">{{globals.languageJson?.yes_i_have}} </button><br />
@@ -147,11 +147,11 @@
                                 <div class="confirm-grade pt-2">Wohoo! You have successfully recieved the bulk you ordered.
                                 </div>
                                 <div class="confirm-grade">Please Rate and Review the estate and facilitator to help us expand as a transparent community!</div>
-                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
+                                <button type="submit" class="cancel-order btn mt-3" (click)="bookedService.leaveFeedback(orderBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
 
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="yes-order leave-feedback-booked btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback</button>
+                                <button type="submit" class="yes-order leave-feedback-booked btn mt-3" (click)="bookedService.leaveFeedback(orderBookId)">Leave a feedback</button>
                                 <button type="submit" class="cancel-order btn mt-3" routerLink="/features/sourcing">{{globals.languageJson?.browse_estates}}</button>
                             </div>
                             <!-- </div> -->

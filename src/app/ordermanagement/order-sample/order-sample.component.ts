@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import { OrderDetailsComponent } from '../order-sample/order-details/order-details.component';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { OrderBookedService } from '../order-booked/order-booked.service';
 
 @Component({
 	selector: 'app-order-sample',
@@ -49,6 +50,7 @@ export class OrderSampleComponent implements OnInit {
 
 	constructor(public sampleService: OrderSampleService, private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
+		public bookedService: OrderBookedService,
 		public globals: GlobalsService,public profileservice:RoasteryProfileService) { 
 			this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
 			this.orderSampleId = decodeURIComponent(this.route.snapshot.queryParams['id']);
