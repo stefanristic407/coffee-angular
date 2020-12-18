@@ -62,7 +62,7 @@ export class OrderBookedComponent implements OnInit {
 		this.bookedService.orderId=this.orderBookId;
     this.bookedService.viewOrderDetails();
     
-    if(this.bookedService.paymentVerification == true){
+    if(this.bookedService.paymentVerification == true && this.dataFromTable == "CONFIRMED"){
       setTimeout(() => {
       this.bookedValueToShow = "Payment";
         this.paymentStatusBooked();
@@ -183,6 +183,13 @@ export class OrderBookedComponent implements OnInit {
     const completedProcess = document.getElementById('receivedDivBooked');
     completedProcess.classList.remove('completed');
     this.receivedReport = true;
+
+    if(this.dataFromTable == "RECEIVED"){
+      setTimeout(() => {
+        this.orderBookedTimeline = false;
+        this.receivedOrderShow = true;
+      }, 2000);
+    }
   }
 
   // Function Name : Order Booked Graded

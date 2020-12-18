@@ -675,7 +675,9 @@ export class EstateOrdersComponent implements OnInit {
 	displayData($event, group) {
 		console.log("the incoming data  are " + group.type + "..." + group.status);
 
-
+		if(group.status == "RECEIVED"){
+			this.globals.ord_received_date = group.date_received;
+		}
 		let navigationExtras: NavigationExtras = {
 			queryParams: {
 				"data": encodeURIComponent(group.status),

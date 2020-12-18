@@ -14,6 +14,7 @@ export class GlobalsService {
 	permissionList: any;
 	menuSearch: any;
 	public selected_order_id : any;
+	public ord_received_date : any;
 	public userInvitesArray : any = [];
 
   	constructor(private cookieService: CookieService,	private userService: UserserviceService) {

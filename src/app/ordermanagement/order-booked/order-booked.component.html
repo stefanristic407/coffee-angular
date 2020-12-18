@@ -90,8 +90,8 @@
                                             <div class="order-tracking completed" id="receivedDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1  " (click)="receivedStatusBooked()" matTooltip="Recieved" matTooltipClass="tooltiptext" #receivedBooked>Recieved</p>
-                                                    <p class="order-date  mb-0  " *ngIf="receivedReport" matTooltip="1 March 2020" matTooltipClass="tooltiptext">1 March 2020</p>
+                                                    <p class="order-status mt-2 mb-1  " (click)="receivedStatusBooked()" matTooltip="Recieved" matTooltipClass="tooltiptext" #receivedBooked>Received</p>
+                                                    <p class="order-date  mb-0  " *ngIf="receivedReport" matTooltip="1 March 2020" matTooltipClass="tooltiptext">{{globals.ord_received_date | date : 'd MMMM y'}}</p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="gradedDivBooked">
@@ -143,7 +143,7 @@
                                 <img src="assets/images/recieved-active.svg" alt="">
                             </div>
                             <div class="col-lg-8 col-md-11">
-                                <h4 class="order-txt fnt-play">{{globals.languageJson?.received_on}}</h4>
+                                <h4 class="order-txt fnt-play">Received on {{globals.ord_received_date | date : 'd MMMM y'}}</h4>
                                 <div class="confirm-grade pt-2">Wohoo! You have successfully recieved the bulk you ordered.
                                 </div>
                                 <div class="confirm-grade">Please Rate and Review the estate and facilitator to help us expand as a transparent community!</div>
