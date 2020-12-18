@@ -123,7 +123,7 @@ export class OrderPrebookService {
 	}
 
 	ViewRecentActivity(){
-		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
+		this.userService.getRecentActivity(this.roasterId,this.orderPreId).subscribe(
 			res=>{
 				if(res['success'] == true){
 					console.log(res);

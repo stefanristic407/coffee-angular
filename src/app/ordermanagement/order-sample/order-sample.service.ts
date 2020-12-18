@@ -126,7 +126,7 @@ export class OrderSampleService {
 	}
 
 	ViewRecentActivity(){
-		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
+		this.userService.getRecentActivity(this.roasterId,this.orderSampleId).subscribe(
 			res=>{
 				if(res['success'] == true){
 					console.log(res);
