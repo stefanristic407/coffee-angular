@@ -189,8 +189,8 @@
 
                             <td>{{group.id}}</td>
                             <td>{{group.estate_name}}</td>
-                            <td>{{group.created_at | date:'dd-MM-yyyy'}}</td>
-                            <td>{{group.origin}}</td>
+                            <td>{{group.created_at | date:'dd MMM yyyy'}}</td>
+                            <td>{{GetCountry(group.origin)}}</td>
                             <td>{{group.species}}</td>
                             <td>{{group.price}}</td>
                             <td>{{group.quantity}}</td>
@@ -198,7 +198,7 @@
                                 <p class="typeoforder-Sample" *ngIf="group.type == 'Sample'">&#9679; Sample</p>
                                 <!-- <p class="typeoforder-Booked" *ngIf="group.type == 'Booked'">&#9679; {{group.type}}</p> -->
                                 <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'Pre-Booked'">&#9679; Pre-Booked</p>
-                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
+                                <p class="typeoforder-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
                             </td>
                             <td>{{group.status | titlecase}}
                             </td>
