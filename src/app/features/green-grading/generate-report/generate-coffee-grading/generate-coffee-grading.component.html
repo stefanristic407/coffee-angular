@@ -15,20 +15,20 @@
                 <div class="info_list">
                     <ul class="clearfix mb-0">
                         <li>
-                            <label>Service request ID  :</label>
-                            <p>74572</p>
+                            <label>Order ID  :</label>
+                            <p *ngIf="generateService.cuppingDetails">{{generateService.cuppingDetails.gc_order_id}}</p>
                         </li>
                         <li>
                             <label>Estate Name  :</label>
-                            <p>Finca la pampa</p>
+                            <p *ngIf="generateService.cuppingDetails">{{generateService.cuppingDetails.estate_name}}</p>
                         </li>
                         <li>
                             <label>Origin  :</label>
-                            <p>Colombia</p>
+                            <p *ngIf="generateService.cuppingDetails">{{generateService.getCountryName(generateService.cuppingDetails.origin)}}</p>
                         </li>
                         <li>
                             <label>Harvest year  :</label>
-                            <p>March 2020</p>
+                            <p *ngIf="generateService.cuppingDetails">{{generateService.cuppingDetails.order_date | date : 'MMMM y'}}</p>
                         </li>
                     </ul>
                 </div>
@@ -40,7 +40,7 @@
                     <ul class="clearfix mb-0">
                         <li>
                             <label>Evaluator  :</label>
-                            <p>Leon Joseph</p>
+                            <p *ngIf="evaluatorName">{{evaluatorName}}</p>
                         </li>
                     </ul>
                 </div>
@@ -62,61 +62,61 @@
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Full Black</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.fullblack_num"> 
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.fullblack_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Full Sour</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.fullsour_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.fullsour_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Dried Cherry/Pod</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.driedpod_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.driedpod_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Fungus Damaged</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.fungus_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.fungus_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Foreign Matter</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.matter_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.matter_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Severe Insect Damage</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.insect_damage_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.insect_damage_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-labels col-12 col-md-4">Total category 1 defects :</label>
                         <div class="col-12 col-md-4 col-md-8 col-lg-8 ">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.category_1_defects">
                         </div>
                         <!-- <div class="col-12 col-lg-4 pl-md-0">
                     <input type="text" name="" id="" class="category-value">
@@ -131,7 +131,7 @@
                         <label class="categ-label col-12 col-md-4">Moisture content</label>
                         <div class="col-12 col-md-4 col-md-8 col-lg-8">
                             <div class="input-group">
-                                <input type="text" placeholder="Type a number" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="shippingPrice">
+                                <input type="number" placeholder="Type a number" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="shippingPrice" [(ngModel)]="this.moisture_content">
                                 <div class="input-group-append">
                                     <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
                                         <option value="USD">%</option>
@@ -145,7 +145,7 @@
                         <label class="categ-label col-12 col-md-4">Water Activity</label>
                         <div class="col-12 col-md-4 col-md-8 col-lg-8">
                             <div class="input-group">
-                                <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="shippingPrice">
+                                <input type="number" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="shippingPrice" [(ngModel)]="this.water_activity">
                                 <div class="input-group-append">
                                     <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
                                         <option value="aw">aw</option>
@@ -157,7 +157,7 @@
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-12 col-md-4">Odor</label>
                         <div class="col-12 col-md-4 col-md-8 col-lg-8">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="text" name="" id="" class="category-value"  [(ngModel)]="this.odor">
                         </div>
                     </div>
                     <div class="row align-items-center pt-4">
@@ -167,19 +167,19 @@
                                 <div class="col-12 d-flex">
                                     <span class="pr-2 pr-md-3">
                                 <label class="customcheckbox color-text">
-                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Blue')"/>
                                     <span class="checkmark head-check"></span> Blue
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                 <label class="customcheckbox color-text">
-                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Blue - Green')"/>
                                     <span class="checkmark head-check"></span> Blue - Green
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                 <label class="customcheckbox color-text">
-                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Green')"/>
                                     <span class="checkmark head-check"></span> Green
                                     </label>
                                     </span>
@@ -189,13 +189,13 @@
                                 <div class="col-12 d-flex">
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Greenish')"/>
                                         <span class="checkmark head-check"></span> Greenish
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Yellow - green')"/>
                                         <span class="checkmark head-check"></span> Yellow - green
                                     </label>
                                     </span>
@@ -206,19 +206,19 @@
                                 <div class="col-12 d-flex">
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Pale Yellow')"/>
                                         <span class="checkmark head-check"></span> PaleYellow
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Yellowish')"/>
                                         <span class="checkmark head-check"></span> Yellowish
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Brownish')"/>
                                         <span class="checkmark head-check"></span> Brownish
                                     </label>
                                     </span>
@@ -242,97 +242,97 @@
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Partial Black</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_black_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_black_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Partial Sour</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_sour_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_sour_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
-                        <label class="categ-label col-4">Dried Cherry/Pod</label>
+                        <label class="categ-label col-4">Parchment / Pergamino</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_dried_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_dried_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Floater</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_floater_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_floater_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Immature / Unripe</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_unripe_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_unripe_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Withered</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_withered_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_withered_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Shells</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_shells_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_shells_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Broken / Chipped/ Cut</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_cut_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_cut_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Hull/Husk</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_hull_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_hull_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-label col-4">Slight Insect Damage</label>
                         <div class="col-4 padd-right-8 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_insect_num">
                         </div>
                         <div class="col-4 pl-md-0 mdev-width">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cate2_insect_equ">
                         </div>
                     </div>
                     <div class="category-inputs row align-items-center">
                         <label class="categ-labels col-12 col-md-4">Total category 2 defects :</label>
                         <div class="col-12 col-md-8 col-lg-8 ">
-                            <input type="text" name="" id="" class="category-value">
+                            <input type="number" name="" id="" class="category-value" [(ngModel)]="this.cat2_defects">
                         </div>
                         <!-- <div class="col-12 col-lg-4 pl-md-0">
                         <input type="text" name="" id="" class="category-value">
@@ -341,9 +341,9 @@
                 </div>
             </div>
             <div class="category-inputs row align-items-center mt-4">
-                <label class="categ-labels label_font col-12 col-md-4">Total green coffee defects :</label>
+                <label class="categ-labels label_font col-12 col-md-4">Total green defects :</label>
                 <div class="col-12 col-md-8 col-lg-8 ">
-                    <input type="text" name="" id="" class="category-value">
+                    <input type="number" name="" id="" class="category-value" [(ngModel)]="this.total_defects">
                 </div>
             </div>
         </div>

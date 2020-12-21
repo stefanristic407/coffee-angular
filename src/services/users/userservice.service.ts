@@ -1054,5 +1054,19 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data);
 
   }
-
+  getEvaluatorsList(roasterId : any,cupping_report_id:any){
+    var data = {};
+    data["api_call"] = "/ro/" + roasterId + "/cupping-process/"+ cupping_report_id + "/evaluators";
+    data["method"] = "GET";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.roasterUrl,data);
+  }
+  addPhysicalDefects(roasterId: any,cupping_report_id : any,body : any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/cupping-process/"+ cupping_report_id +"/physical-defects";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
 }

@@ -8,6 +8,7 @@ import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
+import { GenerateReportService } from '../generate-report/generate-report.service';
 
 @Component({
   selector: 'app-service-requests',
@@ -84,7 +85,7 @@ export class ServiceRequestsComponent implements OnInit {
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
 		public globals: GlobalsService,
-		public userService: UserserviceService, public roasterService:RoasterserviceService, private toastrService: ToastrService
+		public userService: UserserviceService, public roasterService:RoasterserviceService, private toastrService: ToastrService,public generateService:GenerateReportService
 		) {
 		this.roasterId = this.cookieService.get('roaster_id');
 		// this.data = {};
@@ -450,6 +451,12 @@ export class ServiceRequestsComponent implements OnInit {
 
 		}
 	}
+
+	generateReportLink(data:any){
+		this.generateService.cuppingDetails=data;
+		this.router.navigate(['/features/generate-report']);
+	  }
+
 	//  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.
 	checkAllEstate(ev) {

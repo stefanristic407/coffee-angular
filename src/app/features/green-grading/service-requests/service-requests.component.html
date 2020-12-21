@@ -136,20 +136,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="estate-boby-txt" *ngFor="let group of greendata" routerLink="/features/generate-report">
+                                <tr class="estate-boby-txt" *ngFor="let group of greendata" (click)="generateReportLink(group)">
                                     <td class="spacing-order" style="width: 40px;">
                                         <label class="b-check">
                                         <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
                                       </label>
                                     </td>
 
-                                    <td>{{group.cupping_report_id}</td>
+                                    <td>{{group.gc_order_id}}</td>
                                     <td>{{group.estate_name}}</td>
-                                    <td>{{group.order_date | date:'dd-MM-yyyy'}}</td>
-                                    <td>{{group.origin}}</td>
+                                    <td>{{group.order_date | date:'dd MMM yyyy'}}</td>
+                                    <td>{{generateService.getCountryName(group.origin)}}</td>
                                     <td>{{group.varieties}}</td>
                                     <td>{{group.quantity}} </td>
-                                    <td>{{group.order_type}}</td>
+                                    <td>
+                                        <p class="typeoforder-Sample" *ngIf="group.order_type == 'Sample'">&#9679; Sample</p>
+                                        <p class="typeoforder-Pre-Booked" *ngIf="group.order_type == 'Pre-Booked'">&#9679; Pre-Booked</p>
+                                        <p class="typeoforder-Booked" *ngIf="group.order_type == 'GC_ORDER'">&#9679; Booked</p>
+                                    </td>
                                     <td>{{group.type}}</td>
 
                                 </tr>
