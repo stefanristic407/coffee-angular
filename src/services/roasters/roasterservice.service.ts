@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {environment} from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -614,10 +615,16 @@ export class RoasterserviceService {
 	} 
 	getSelectProductDetails(roaster_id: any) {
 		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/products";
+		data['api_call'] = "/ro/" + roaster_id + "/products?per_page=200";
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
-	} 
+  }
+  getProductDetails(roaster_id: any, productId:any):Observable<any> {
+		var data = {};
+		data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+	}
 
 	getEstateOrders(roaster_id: any) {
 		var data = {};
@@ -732,7 +739,52 @@ export class RoasterserviceService {
 		data['method'] = 'PUT';
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
-	}
+  }
+  
+  //E-com APIs
+  getVatSettings(roaster_id : any):Observable<any>{
+    const data = {};
+		data['api_call'] = `/ro/${roaster_id}/vat-settings`;
+		data['method'] = 'GET';
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+  }
+  getRoastedBatches(roaster_id : any):Observable<any>{
+    const data = {};
+		data['api_call'] = `/ro/${roaster_id}/roasted-batches`;
+		data['method'] = 'GET';
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+  }
+  getCoffeeBatchDetails(roaster_id : any, batch_id: any):Observable<any>{
+    const data = {};
+		data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
+		data['method'] = 'GET';
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data).pipe(map(res => res['result']?res['result']:{}));
+  }
+  addProductDetails(roaster_id : any, body: any):Observable<any>{
+    const data = {};
+		data['api_call'] = `/ro/${roaster_id}/products`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data']  = body;
+		return this.http.post(this.url, data);
+  }
+  updateProductDetails(roaster_id : any,productId:any, body: any):Observable<any>{
+    const data = {};
+		data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data']  = body;
+		return this.http.put(this.putUrl, data);
+  }
+  addProductWeightVarients(roaster_id : any, product_id:any, body: any):Observable<any>{
+    const data = {};
+		data['api_call'] = `/ro/${roaster_id}/products/${product_id}/weight-variants`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data']  = body;
+		return this.http.post(this.url, data);
+  }
+  //E-com APIs-ends
 
 }
 

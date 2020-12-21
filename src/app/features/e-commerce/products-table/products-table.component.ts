@@ -191,11 +191,11 @@ export class ProductsTableComponent implements OnInit {
         if (data['success'] == true) {
           if ( data['result'] == null || data['result'].length == 0) {
             this.odd = true ;
-            this.toastrService.error("Table Data is empty");
+            // this.toastrService.error("Table Data is empty");
           }
           else {
             this.odd = false ;
-            this.mainData = data['result'];
+            this.mainData = data['result'] ? data['result'].reverse():[];
           }
         } else {
           this.toastrService.error("Error while getting the agreement list!");

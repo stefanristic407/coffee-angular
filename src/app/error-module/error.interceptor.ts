@@ -30,8 +30,7 @@ export class ErrorIntercept implements HttpInterceptor {
 
                     // }
                     let errorMessage = '';
-                    if (error.error instanceof ErrorEvent || error.message == "URL_NOT_FOUND") 
-                    {
+                    if (error.error instanceof ErrorEvent || error.message == "URL_NOT_FOUND") {
                         console.log("enterdd intoo.")
                         router.navigate(['/error/internal-server-error']);
                         errorMessage = `Error: ${error.error.message}`;

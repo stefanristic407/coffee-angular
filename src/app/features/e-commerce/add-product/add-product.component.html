@@ -6,31 +6,33 @@
                     <li class="b-cum"><a routerlink="/features/welcome-aboard" class="b-cum">{{globals.languageJson?.home}}</a>
                         <span aria-hidden="true" class="padl-r"><img src="/assets/images/arrow-1.png" alt=""
                                 class="group-img"></span></li>
-                    <li class="b-cum c-pink">Tres Santos</li>
+                    <li class="b-cum c-pink"> {{ productId ? product.name:'Add product'}}</li>
                 </ul>
                 <span class="col-lg-3 pull-right">
-                    <button type="button" routerlink="/features/your-services"
+                    <button type="button" *ngIf="newProduct" (click)="saveProduct()"
                         class="btn send-btn pull-right">Save</button>
+                    <button type="button" *ngIf="!newProduct" (click)="updateProduct()"
+                        class="btn send-btn pull-right">Update</button>
                 </span>
             </div>
 
             <div class="add-new-product">
                 <div class="row">
                     <div class="col-8">
-                        <p class="fnt-18 fnt-muli fnt-700 black">Tres Santos</p>
+                        <p class="fnt-18 fnt-muli fnt-700 black">{{ productId ? product.name:'Add product'}}</p>
 
                         <div class="row">
                             <div class="farm-input col-8">
                                 <label>Product Name<span class="star">*</span></label>
-                                <input type="text" value="Tres Santos" name="name" class="form-control" placeholder="" />
+                                <input type="text" [(ngModel)]="product.name" name="productName" class="form-control" placeholder="" />
                             </div>
 
                             <div class="farm-input col-4">
                                 <label class="label p-0">Product eligible for<span>*</span></label>
-                                <select class="form-control select-region " name="Subscription" required="">
-                                    <option value="Both" selected>Subscription</option>
-                                    <option value="Subscription">Subscription</option>
-                                    <option value="Subscription">Subscription</option>
+                                <select class="form-control select-region " [(ngModel)]="product.purchase_type" name="subscription" required="">
+                                    <option value="" selected disabled>Select subscription type</option>
+                                    <option value="one-time">One Time</option>
+                                    <option value="subscription">Subscription</option>
                                 </select>
                             </div>
 
@@ -42,8 +44,8 @@
                         <p class="fnt-18 fnt-muli fnt-700 black">Product visibility :
                             <span>
                                 <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
-                                    <div class="btn btn-group__item" [ngClass]="btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Public</div>
-                                    <div class="btn btn-group__item" [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Private</div>
+                                    <div class="btn btn-group__item" (click)="product.is_public = true" [ngClass]="btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Public</div>
+                                    <div class="btn btn-group__item" (click)="product.is_public = false" [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Private</div>
                                 </div>
                         </span> </p>
 
@@ -57,7 +59,7 @@
             <div class="varient mt-5">
                 <p class="fnt-18 fnt-muli fnt-700 black">Variants</p>
                 <label class="container-request fnt-14 fnt-muli fnt-600 txt-clr334">If this product has options like roasted coffee batch, flavour profile, availability etc.
-                    <input type="checkbox">
+                    <input type="checkbox" [(ngModel)]="product.is_variants_included">
                     <span class="checkmark"></span>
                   </label>
 
@@ -65,7 +67,7 @@
 
             <!-- nav tabs  -->
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                         <li class="nav-item">
@@ -75,12 +77,6 @@
                         <li class="nav-item">
                             <a class="nav-link" id="pills-batch-status-tab" data-toggle="pill" href="#pills-batch-status" role="tab" aria-controls="pills-profile" aria-selected="false">varient 2</a>
                         </li>
-
-                        <!-- <li class="share-bor pull-right ml-auto">
-                            <img src="assets/images/region-plus.svg" alt="farm" class="dwnd-img">
-                            <span class="share-txt ml-1"> Add weight variant </span>
-                        </li> -->
-
                     </ul>
 
                     <div class="tab-content mt-md-4" id="pills-tabContent">
@@ -94,27 +90,26 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- select roasted coffee batch-->
             <div class="select-roasted-coffee-batch-sec mt-5">
                 <div class="row">
                     <div class="farm-input col-6">
                         <label class="label p-0">Select roasted coffee batch<span>*</span></label>
-                        <select class="form-control select-region " name="coffee" required="">
-                            <option value="Cambucha" selected>Cambucha</option>
-                            <option value="Yes">Yes</option>
+                        <select class="form-control select-region " [(ngModel)]="rc_batch_id" name="coffeeBatch" required="" (change)="getCoffeeBatchDetails(rc_batch_id)">
+                            <option value="" diasbled>Please select the batch</option>
+                            <option [value]="batch.id" *ngFor="let batch of roastedBatches">{{batch.roast_batch_name}}</option>
                         </select>
                     </div>
-
                     <div class="farm-input col-3">
                         <label>Roasting profile<span class="star">*</span></label>
-                        <input type="text" value="Medium479" name="name" class="form-control" placeholder="" />
+                        <input readonly type="text" [(ngModel)]="coffeeBatchDetails.roasting_profile_name" name="roasting_profile_name" class="form-control" placeholder="" />
                     </div>
 
                     <div class="farm-input col-3">
                         <label>Roast level<span class="star">*</span></label>
-                        <input type="text" value="Medium Roast" name="name" class="form-control" placeholder="" />
+                        <input readonly type="text" [(ngModel)]="coffeeBatchDetails.roast_level" name="roast_level" class="form-control" placeholder="" />
                     </div>
                 </div>
 
@@ -127,22 +122,22 @@
                 <div class="row">
                     <div class="farm-input col-3">
                         <label>Estate name<span class="star">*</span></label>
-                        <input type="text" value="Finca La Pampa" name="name" class="form-control" placeholder="" />
+                        <input readonly type="text" [(ngModel)]="coffeeBatchDetails.estate_name" name="estate_name" class="form-control" placeholder="" />
                     </div>
 
                     <div class="farm-input col-3">
                         <label>Origin<span class="star">*</span></label>
-                        <input type="text" value="Mexico" name="name" class="form-control" placeholder="" />
+                        <input readonly type="text" [(ngModel)]="coffeeBatchDetails.origin" name="origin" class="form-control" placeholder="" />
                     </div>
 
                     <div class="farm-input col-3">
                         <label>Region<span class="star">*</span></label>
-                        <input type="text" value="Chipas" name="name" class="form-control" placeholder="" />
+                        <input readonly type="text" [(ngModel)]="coffeeBatchDetails.region" name="region" class="form-control" placeholder="" />
                     </div>
 
                     <div class="farm-input col-3">
                         <label>Harvest year<span class="star">*</span></label>
-                        <input type="text" value="March 2020" name="name" class="form-control" placeholder="" />
+                        <input readonly type="text" [(ngModel)]="coffeeBatchDetails.harvest_date" name="harvest_date" class="form-control" placeholder="" />
                     </div>
 
                 </div>
@@ -155,27 +150,27 @@
                 <div class="row">
                     <div class="farm-input w-m-19">
                         <label>Body<span class="star">*</span></label>
-                        <input type="number" value="5" name="name" class="form-control" placeholder="" />
+                        <input type="number" readonly [(ngModel)]="coffeeBatchDetails.body" name="body" class="form-control" placeholder="" />
                     </div>
 
                     <div class="farm-input w-m-19">
                         <label>Acidity<span class="star">*</span></label>
-                        <input type="number" value="5" name="name" class="form-control" placeholder="" />
+                        <input type="number" readonly [(ngModel)]="coffeeBatchDetails.acidity" name="acidity" class="form-control" placeholder="" />
                     </div>
 
                     <div class="farm-input w-m-19">
                         <label>Aroma<span class="star">*</span></label>
-                        <input type="number" value="4" name="name" class="form-control" placeholder="" />
+                        <input type="number" readonly [(ngModel)]="coffeeBatchDetails.aroma" name="aroma" class="form-control" placeholder="" />
                     </div>
 
                     <div class="farm-input w-m-19">
                         <label>Flavour<span class="star">*</span></label>
-                        <input type="number" value="5" name="name" class="form-control" placeholder="" />
+                        <input type="number" readonly [(ngModel)]="coffeeBatchDetails.flavour" name="flavour" class="form-control" placeholder="" />
                     </div>
 
                     <div class="farm-input w-m-19">
                         <label>Processing<span class="star">*</span></label>
-                        <input type="text" value="Fully Washed" name="name" class="form-control" placeholder="" />
+                        <input type="text" readonly [(ngModel)]="coffeeBatchDetails.processing" name="processing" class="form-control" placeholder="" />
                     </div>
 
                 </div>
@@ -188,18 +183,18 @@
                 <div class="row">
                     <div class="farm-input col-5">
                         <label> Flavour profile</label>
-                        <textarea class="form-control descr" rows="4" cols="50" placeholder="">
-                          
-                        </textarea>
-                        <!-- <span><ul class="flo-list">
-                            <li >Citrus</li>
-                            <li >Floral</li>
-                        </ul> </span> -->
+                        <div class="border flavours">
+                            <span *ngIf="coffeeBatchDetails.flavour_profile">
+                                <div class="flavour-item d-inline-block" *ngFor="let flavour of coffeeBatchDetails.flavour_profile">
+                                    {{flavour.flavour_profile_name}}
+                                </div>
+                            </span>
+                        </div>
                     </div>
 
                     <div class="farm-input col-7">
                         <label>  Roaster Recommendation</label>
-                        <textarea class="form-control descr" rows="4" cols="50" placeholder="">The beauty of astronomy is that anybody can do it. From the tiniest baby to the most advanced astrophysicist, there is something for anyone who wants to enjoy astronomy. In fact, it is a science that is so accessible that virtually anybody can do it virtually anywhere they are. All they have to know how to do is to look up.</textarea>
+                        <textarea readonly class="form-control descr" [(ngModel)]="coffeeBatchDetails.roaster_notes" name="roaster_notes" rows="4" cols="50" placeholder=""></textarea>
                     </div>
 
                 </div>
@@ -213,15 +208,20 @@
                 <div class="row">
                     <div class="farm-input col-3">
                         <label class="label p-0">Select a brewing method<span>*</span></label>
-                        <select class="form-control select-region " name="coffee" required="">
-                            <option value="Cambucha" selected>Aeropress</option>
-                            <option value="Aeropress">Aeropress</option>
+                        <select class="form-control select-region " [(ngModel)]="product.brewing_method" name="coffee" required="">
+                            <option value="" disabled selected>Please select the method</option>
+                            <option value="pour-over">Pour Over</option>
+                            <option value="coffee-maker">Coffeemaker</option>
+                            <option value="french-press">French Press</option>
+                            <option value="aeropress">AeroPress</option>
+                            <option value="mocha-pot">Moka Pot</option>
+                            <option value="chemex">Chemix</option>
                         </select>
                     </div>
 
                     <div class="farm-input col-5">
-                        <label>Roasting profile<span class="star">*</span><span class="sub-text fnt-muli pull-right">0/10 words</span></label>
-                        <input type="text" value="The beauty of astronomy is that anybody can do it." name="name" class="form-control" placeholder="" />
+                        <label>Recommendation text<span class="star">*</span><span class="sub-text fnt-muli pull-right">0/10 words</span></label>
+                        <input type="text" [(ngModel)]="product.roaster_recommendation" name="name" class="form-control" placeholder="" />
                     </div>
 
 
@@ -237,76 +237,65 @@
                 <p class="fnt-18 fnt-muli fnt-700 black"> Product Weights</p>
 
                 <div class="row pt-4">
-
-
                     <div class="col-md-3 col-12">
-                        <div class="nav flex-column nav-pills sample_info" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link vat-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <div class="nav flex-column nav-pills sample_info" *ngFor="let varient of varients;let i= index">
+                            <a class="nav-link vat-link" [ngClass]="{'active':currentVarientIndex == i}" (click)="currentVarientIndex = i">
                                 <div class="info_heading d-flex">
-                                    <div class="pull-left sample_info_head"> Weight - 16 lb </div>
-                                    <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
+                                    <div class="pull-left sample_info_head"> Weight - {{varient.weight}} {{varient.weight_unit}} </div>
+                                    <div class="ml-auto pull-right">
+                                        <img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
                                 </div>
                             </a>
-                            <a class="nav-link vat-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-                                <div class="info_heading dry-milling d-flex">
-                                    <div class="pull-left sample_info_head"> Weight - 25 lb </div>
-                                    <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
-                                </div>
-                            </a>
-
                         </div>
 
                         <span class="share-bor mt-3">
                             <img  src="assets/images/region-plus.svg" alt="farm" class="dwnd-img">
-                            <span  class="share-txt ml-1"> Add weight variant </span>
+                            <span  class="share-txt ml-1" (click)="addWeightVarient()"> Add weight variant </span>
                         </span>
 
                     </div>
 
                     <div class="col-md-9 col-12">
-                        <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-
+                        <div class="tab-content" *ngFor="let varient of varients;let gIndex = index">
+                            <div class="tab-pane show active" *ngIf="currentVarientIndex == gIndex">
                                 <div class="row">
-
                                     <div class="form-input col-3">
                                         <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Weight<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="text" value="25" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                            <input type="number" [(ngModel)]="varient.weight" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
-                                                <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
-                                                        <option value="Lb">Lb</option>
-                                                        <option value="Kg" ng-reflect-value="Yes">Kg</option>
-                                                        <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
-                                                    </select>
+                                                <select name="Year" [(ngModel)]="varient.weight_unit" required="" class="form-control select-region select-form-group-dropdown select-region-local">
+                                                    <option value=lb>Lb</option>
+                                                    <option value="kg" ng-reflect-value="Yes">Kg</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="farm-input col-3">
                                         <label class="label p-0">Status<span>*</span></label>
-                                        <select class="form-control select-region " name="Status" required="">
-                                            <option value="Instock" selected>Instock</option>
-                                            <option value="Outstock">Outstock</option>
+                                        <select class="form-control select-region " [(ngModel)]="varient.status" name="Status" required="">
+                                            <option value="in-stock" selected>In Stock</option>
+                                            <option value="out-of-stock">Out of Stock</option>
                                         </select>
                                     </div>
 
                                     <div class="col-3 mt-5">
                                         <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr">Hide product
-                                            <input type="checkbox" >
+                                            <input type="checkbox" [(ngModel)]="varient.is_public" name="is_public">
                                             <span class="checkmark"></span>
                                           </label>
                                     </div>
 
                                     <div class="col-3 mt-5">
                                         <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr">Set as default product
-                                            <input type="checkbox" >
+                                            <input type="checkbox" [(ngModel)]="varient.is_default_product">
                                             <span class="checkmark"></span>
                                           </label>
                                     </div>
                                 </div>
 
-                                <div class="row mt-4" *ngFor="let product of grindVariant; let i = index">
+                                <div class="row mt-4" *ngFor="let grind_varient of varient.grind_variants; let i = index">
 
                                     <div class="form-input col-3">
                                         <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Price (USD)<span>*</span></label>
@@ -316,47 +305,45 @@
                                                         <option value="$">$</option>
                                                 </span>
                                             </div>
-                                            <input type="number" value="22.00" placeholder="" class="form-control  right-rs-append" aria-label="Text input with dropdown button" [(ngModel)]="product.price" name="price">
+                                            <input type="number" [(ngModel)]="grind_varient.price" placeholder="" class="form-control  right-rs-append" aria-label="Text input with dropdown button" name="price">
 
                                         </div>
                                     </div>
 
                                     <div class="farm-input col-3">
                                         <label class="label p-0">Grind<span>*</span></label>
-                                        <select class="form-control select-region " name="beans" required="" [(ngModel)]="product.grind">
-                                            <option value="Whole beans" selected>Whole beans</option>
-                                            <option value="Whole beans">Whole beans</option>
+                                        <select class="form-control select-region" [(ngModel)]="grind_varient.grind" name="beans" required="">
+                                            <option value="" selected disabled>Select the grind varient</option>
+                                            <option value="beans">Whole beans</option>
+                                            <option value="extra-coarse">Extra Coarse</option>
+                                            <option value="coarse">Coarse</option>
+                                            <option value="medium-coarse">Medium Coarse</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="fine">Fine</option>
                                         </select>
                                     </div>
 
                                     <div class="form-input col-3">
                                         <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Stock available<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="text" value="25" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" [(ngModel)]="product.stock" name="stock">
+                                            <input type="number" [(ngModel)]="grind_varient.available_quantity" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="stock">
                                             <div class="input-group-append crates-width">
-                                                <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
-                                                        <option value="crates">crates</option>
-                                                        <option value="crates" ng-reflect-value="crates">Kg</option>
-                                                        <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
-                                                    </select>
+                                                <select name="Year" [(ngModel)]="grind_varient.available_quantity_type" required="" class="form-control select-region select-form-group-dropdown select-region-local">
+                                                    <option value="crate">crate</option>
+                                                    <option value="kg">Kg</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="farm-input col-2">
                                         <label>SKU number<span class="star">*</span></label>
-                                        <input type="text" value="29738730" name="name" class="form-control" placeholder="" [(ngModel)]="product.skunumber" />
-                                    </div> <span class="view-order mt-5 cursor-pointer" *ngIf="i != 0" (click)="deleteRow(i)">Delete</span>
+                                        <input type="text" [(ngModel)]="grind_varient.sku_number" name="sku_number" class="form-control" placeholder="" />
+                                    </div>
+                                    <span class="view-order mt-5 cursor-pointer" *ngIf="i != 0" (click)="deleteRow(gIndex,i)">Delete</span>
 
                                 </div>
-
-                                <p class="view-order mt-5 cursor-pointer" (click)="addNewVariant()"> Add a grind variant</p>
-
-
-
-                            </div>
-                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-
+                                <label class="view-order mt-5 cursor-pointer" (click)="addNewVariant(gIndex)"> Add a grind variant</label>
                             </div>
                         </div>
                     </div>
@@ -397,20 +384,20 @@
                 <p class="fnt-18 fnt-muli fnt-700 black">Crate details</p>
                 <p class="fnt-14 fnt-muli fnt-600 black"> Add values per crate to let your customer know</p>
 
-                <div class="row">
+                <div class="row" *ngFor="let carte of product.crates">
                     <div class="farm-input col-lg-3">
                         <label>Crate value</label>
-                        <input type="text" value="" name="Finca La Pampa" class="form-control" placeholder="1 crate" />
+                        <input readonly type="1 crate" value="" name="Finca La Pampa" class="form-control" placeholder="1 crate" />
                     </div>
                     <div class="equal-operators">=</div>
                     <div class="farm-input col-lg-3">
                         <label>Weight</label>
-                        <input type="text" value="16 lb" name="name" class="form-control" placeholder="" />
+                        <input type="number" [(ngModel)]="carte.weight" name="name" class="form-control" placeholder="" />
                     </div>
                     <div class="equal-operators">x</div>
                     <div class="farm-input col-lg-3">
                         <label>Number of bags</label>
-                        <input type="text" value="30" name="name" class="form-control" placeholder="" />
+                        <input type="number" [(ngModel)]="carte.crate_capacity" name="name" class="form-control" placeholder="" />
                     </div>
                 </div>
             </div>
@@ -422,15 +409,15 @@
                 <div class="row">
                     <div class="farm-input col-3">
                         <label class="label p-0">Select VAT trasaction type<span>*</span></label>
-                        <select class="form-control select-region " name="coffee" required="">
-                            <option value="12 % Roasted coffee" selected>12 % Roasted coffee</option>
-                            <option value="14 % Roasted coffee">14 % Roasted coffee</option>
+                        <select class="form-control select-region " [(ngModel)]="product.vat_setting_id" name="vat_setting_id" required>
+                            <option [value]="null" selected disabled> Please select the VAT</option>
+                            <option [value]="vat.id" *ngFor="let vat of vatSettings">{{vat.vat_percentage}}% {{vat.transaction_type}}</option>
                         </select>
                     </div>
                     <div class="col-4">
                         <p class="fnt-14 fnt-muli text-clr588 fnt-600"> Is the product price inclusive of VAT*</p>
                         <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr">The price is inclusive of VAT
-                            <input type="checkbox" >
+                            <input type="checkbox" [(ngModel)]="product.is_price_including_vat" name="is_price_including_vat">
                             <span class="checkmark"></span>
                           </label>
                     </div>
@@ -439,7 +426,8 @@
 
             <div class="mt-5">
                 <button class="cancel-btn mr-3">Cancel </button>
-                <button class="send-btn">Save </button>
+                <button *ngIf="newProduct" class="send-btn" (click)="saveProduct()">Save </button>
+                <button *ngIf="!newProduct" class="send-btn" (click)="updateProduct()">Update</button>
             </div>
 
 

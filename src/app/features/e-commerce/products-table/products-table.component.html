@@ -114,10 +114,9 @@
                                     <td>
                                         <span class="product-div">
                                             <img class="img-file" src="{{item.feature_image}}">
-                                            
                                         </span>
                                         <span class="product-name-div">
-                                            <p class="mb-1">{{ item.name }}</p>
+                                            <p class="mb-1" style="width: 150px;word-wrap: break-word;">{{ item.name }}</p>
                                             <div><img src="assets/images/star-1.png" alt=""><span class="pl-2">{{ item.rating }}</span></div>
                     </span>
                     </td>
@@ -134,7 +133,7 @@
                         {{item.price}}
                     </td>
                     <td>
-                        <span><a class="fnt-muli view-details">{{globals.languageJson?.edit_product}}</a><span><img class="pl-4" src="../../../../assets/images/more-opns-file.png"></span></span>
+                        <span><a class="fnt-muli view-details" [routerLink]="['/features/product/'+item.id]">{{globals.languageJson?.edit_product}}</a><span><img class="pl-4" src="../../../../assets/images/more-opns-file.png"></span></span>
                     </td>
                     </tr>
                     <tr class="odd" *ngIf="odd">

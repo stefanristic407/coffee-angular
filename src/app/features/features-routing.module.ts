@@ -285,6 +285,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: "product/:id",
+        component: AddProductComponent,
+        canActivate: [AuthGuard],
+      },
+      {
         path: "create-roasting-profile",
         component: CreateRoastingProfileComponent,
         canActivate: [AuthGuard],

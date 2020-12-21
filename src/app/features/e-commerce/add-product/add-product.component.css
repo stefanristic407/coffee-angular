@@ -428,3 +428,21 @@ li.nav-item {
 .disabledDiv {
     pointer-events: none;
 }
+
+.flavours {
+    height: 125px;
+    padding: 1rem 0.75rem;
+}
+
+.flavour-item {
+    padding: 8px 16px;
+    border-radius: 17px;
+    background-color: #747588;
+    color: #fff;
+    margin: 5px;
+}
+
+.form-control[readonly] {
+    background-color: #ffffff !important;
+    cursor: default;
+}

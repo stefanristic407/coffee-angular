@@ -165,9 +165,7 @@ export class FeaturesComponent implements OnInit {
         this.userService.getUserLanguageStrings(language).subscribe(
           resultLanguage => {
             // this.featureActive=1;
-            console.log(resultLanguage);
             this.globals.languageJson = resultLanguage;
-            console.log(this.globals.languageJson);
             this.appLanguage = this.globals.languageJson;
             this.featureActive++;
           }
