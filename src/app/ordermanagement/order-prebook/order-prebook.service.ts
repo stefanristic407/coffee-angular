@@ -84,7 +84,8 @@ export class OrderPrebookService {
 					this.lot_id=res['result']['lot_id'];
 					// this.viewAvailability();
 					this.viewpreEstateDetails();
-					this.bookedService.getEstateReviews(this.estate_id);
+					this.bookedService.viewEstateDetails(this.roasterId,this.estate_id);
+					this.bookedService.getEstateReviews(this.estate_id,this.orderPreId);
 					this.bookedService.getEstateSummary(this.estate_id);
 				}	
 			}
@@ -123,7 +124,7 @@ export class OrderPrebookService {
 	}
 
 	ViewRecentActivity(){
-		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
+		this.userService.getRecentActivity(this.roasterId,this.orderPreId).subscribe(
 			res=>{
 				if(res['success'] == true){
 					console.log(res);
@@ -133,4 +134,6 @@ export class OrderPrebookService {
 			}
 		)
 	}
+
+	
 }

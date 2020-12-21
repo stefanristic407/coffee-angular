@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {Router} from '@angular/router';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { OrderBookedService } from '../order-booked/order-booked.service';
 
 declare var $: any;
 @Component({
@@ -199,6 +200,7 @@ export class OrderPrebookComponent implements OnInit {
   countryValue: any;
   constructor(public prebookService: OrderPrebookService, private route: ActivatedRoute,
     public router: Router,public cookieService : CookieService,
+    public bookedService: OrderBookedService,
     public globals: GlobalsService,public profileservice:RoasteryProfileService) {
       this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
       this.orderPreBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);

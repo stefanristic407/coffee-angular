@@ -10,6 +10,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 @Component({
 	selector: 'app-estate-orders',
@@ -57,6 +58,7 @@ export class EstateOrdersComponent implements OnInit {
 	estatetermTypeMob: string;
 	roasterId: any;
 	estateOrdersActive:any =0;
+	countryValue: any;
 	
 
 	constructor(public router: Router,
@@ -65,7 +67,8 @@ export class EstateOrdersComponent implements OnInit {
 		private roasterService: RoasterserviceService,
 		private toastrService: ToastrService,
 		public modalService: BsModalService,
-		public globals: GlobalsService) {
+		public globals: GlobalsService,
+		public profileservice:RoasteryProfileService) {
 		this.roasterId = this.cookieService.get('roaster_id');
 		// this.data = {};
 		// this.data =
@@ -675,7 +678,9 @@ export class EstateOrdersComponent implements OnInit {
 	displayData($event, group) {
 		console.log("the incoming data  are " + group.type + "..." + group.status);
 
-
+		if(group.status == "RECEIVED"){
+			this.globals.ord_received_date = group.date_received;
+		}
 		let navigationExtras: NavigationExtras = {
 			queryParams: {
 				"data": encodeURIComponent(group.status),
@@ -729,4 +734,13 @@ export class EstateOrdersComponent implements OnInit {
 			// return this.data.every(_ => _.state);
 		}
 	}
+	GetCountry(data:any){
+		// console.log(data.toUpperCase());
+		if(data){
+		  this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
+		  if(this.countryValue){
+		  return this.countryValue.name;
+		  }
+		}
+	  }
 }

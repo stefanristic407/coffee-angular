@@ -127,7 +127,7 @@ export class RatingComponent implements OnInit {
 			"green_coffee" : parseInt(this.greenCoffee),
 			"review": this.review
 		}
-		this.userService.addReviewOrder(this.roasterId,this.bookedService.orderId,data).subscribe(
+		this.userService.addReviewOrder(this.roasterId,this.bookedService.oId,data).subscribe(
 			res=>{
 				if(res['success']==true){
 					this.resetButtonValue = "Submit"

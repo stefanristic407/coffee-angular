@@ -28,16 +28,16 @@
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="d-flex m-0">
-                        <div class="d-md-block d-none"><img class="img-review-estate" *ngIf="bookedService.estate_thumbnail_url" [src]="bookedService.estate_thumbnail_url" alt="User"></div>
+                        <div class="d-md-block d-none"><img class="img-review-estate" *ngIf="bookedService.company_image_thumbnail_url" [src]="bookedService.company_image_thumbnail_url" alt="User"></div>
                         <div class="d-block d-md-none"><img class="img-review-estate" src="assets/images/rating-profile-mob.jpg" alt="User"></div>
                         <div class="col-10 pl-0 d-md-block d-none">
                             <ul class="details-lists p-0 ">
                                 <li class="d-flex">
-                                    <span class="person-name">{{bookedService.estate_owner}}</span>
+                                    <span class="person-name">{{bookedService.owner_name}}</span>
                                     <!-- <span class="last-seen-time">{{globals.languageJson?.last_seen}} 4:30pm </span> -->
                                 </li>
                                 <li class="roaster">
-                                    {{bookedService.estate_name}}
+                                    Estate
                                 </li>
                                 <li class="d-flex rating-space">
 
@@ -53,29 +53,29 @@
                         </div>
                         <div class="col-10 d-md-none d-block pl-2 pr-0">
                             <ul class="details-lists">
-                                    <li class="">
-                                        <span class="person-name">{{globals.languageJson?.finca_la_pampa}}</span>                                   
-                                     </li>
-                                    <li class="roaster">
-                                        {{globals.languageJson?.roaster}}
-                                    </li>
-                                    <li>
-                                     <span class="last-seen-time">{{globals.languageJson?.last_seen}} 4:30pm </span>
+                                <li class="">
+                                    <span class="person-name">{{globals.languageJson?.finca_la_pampa}}</span>
+                                </li>
+                                <li class="roaster">
+                                    {{globals.languageJson?.roaster}}
+                                </li>
+                                <li>
+                                    <span class="last-seen-time">{{globals.languageJson?.last_seen}} 4:30pm </span>
 
-                                    </li>
-                                    <li class="d-flex rating-space">
-    
-                                        <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                        <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
-    
-                                    </li>
-                                    <li>
-                                            <span class="location pr-3"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
+                                </li>
+                                <li class="d-flex rating-space">
+
+                                    <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
+                                    <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
+
+                                </li>
+                                <li>
+                                    <span class="location pr-3"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
                                             {{globals.languageJson?.belgium}}</span>
-                                            <span class="details pl-3">{{globals.languageJson?.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
-                                        </li>
-                                   
-                                </ul>
+                                    <span class="details pl-3">{{globals.languageJson?.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
+                                </li>
+
+                            </ul>
                         </div>
                     </div>
                     <div class="rate-experience">
@@ -244,7 +244,7 @@
                     </div>
 
                 </div> -->
-                <!-- <div class="col-lg-7 col-md-12 col-12 pl-md-3 m-over-8">
+        <!-- <div class="col-lg-7 col-md-12 col-12 pl-md-3 m-over-8">
                     <div class="row experience-padding">
                         <div class="col-lg-5 col-md-12 col-12">
                             <span class="over-exp d-md-block d-none">{{globals.languageJson?.overall_experience}}</span>
@@ -308,12 +308,12 @@
                         </div>
                     </div>
                 </div> -->
-            <!-- </div>
+        <!-- </div>
         </div> -->
 
         <div class="d-md-none d-block farm-stricky col-12">
-                <button type="button" class="submit-mob-butn" (click)="submitMobRating()"[disabled]="resetButtonValue==='Submitting'">
+            <button type="button" class="submit-mob-butn" (click)="submitMobRating()" [disabled]="resetButtonValue==='Submitting'">
                         {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Submitting'" src="assets/images/orange-loader.gif"/></button>
-            </div>
+        </div>
     </section>
 </div>

@@ -127,7 +127,7 @@
                                         <p class="confirm-order-sample">Please confirm if you have recieved the shipment you have ordered.</p>
                                         <p class="confirm-order-sample"> order will be marked as complete then</p>
                                     </div>
-                                    <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback </button>
+                                    <button type="submit" class="leave-feedback btn mt-3" (click)="bookedService.leaveFeedback(orderSampleId)">Leave a feedback </button>
                                 </div>
                                 <div class="col-md-3 pl-md-5 pl-0">
                                     <button type="submit" class="yes-order have-sample btn mt-3" (click)="receivedDate()">Yes I have</button><br />
@@ -149,7 +149,7 @@
                                 </div>
                                 <div class="col-md-3 pl-md-5 pl-0">
                                     <button type="submit" class="yes-order btn mt-3 raise-sample" routerLink="/ordermanagement/raise-ticket-form">Raise a ticket</button><br />
-                                    <button type="submit" class="cancel-order feedback-sample btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback</button>
+                                    <button type="submit" class="cancel-order feedback-sample btn mt-3" (click)="bookedService.leaveFeedback(orderSampleId)">Leave a feedback</button>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                                         <p class="confirm-order-sample">Please Rate and Review the estate and facilitator to help us expand as a transparent community!
                                         </p>
                                     </div>
-                                    <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback </button>
+                                    <button type="submit" class="leave-feedback btn mt-3" (click)="bookedService.leaveFeedback(orderSampleId)">Leave a feedback </button>
                                 </div>
                                 <div class="col-md-3 pl-md-5 pl-0">
                                     <button type="submit" class="yes-order btn mt-3 buy-sample" routerLink="/ordermanagement/confirm-order">Buy it </button><br />

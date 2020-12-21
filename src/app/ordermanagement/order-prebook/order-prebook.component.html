@@ -118,7 +118,7 @@
                                 <h4 class="order-txt fnt-play">Cancelled</h4>
                                 <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the estate and facilitator to help us expand</div>
                                 <div class="confirm-grade">as a transparent community!</div>
-                                <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
+                                <button type="submit" class="leave-feedback btn mt-3" (click)="bookedService.leaveFeedback(orderPreBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
 
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
@@ -139,7 +139,7 @@
                                 <h4 class="order-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4>
                                 <div class="confirm-grade">The harvest is ready! Please book the lot to confirm the order
                                 </div>
-                                <button type="submit" class="leave-feedback btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
+                                <button type="submit" class="leave-feedback btn mt-3" (click)="bookedService.leaveFeedback(orderPreBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                                 <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">Buy it</button><br />

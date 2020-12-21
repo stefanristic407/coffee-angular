@@ -42,6 +42,7 @@ export class NewRoastedBatchComponent implements OnInit {
   orderDetails: any = {};
   rating: any;
   roasting_profile_name: any;
+  flavour_array: any = [];
 
 
   constructor(  public globals: GlobalsService,
@@ -134,7 +135,15 @@ export class NewRoastedBatchComponent implements OnInit {
           this.processing = data['result'].processing;
           this.quantity_unit = data['result'].roasting_profile_unit;
           this.quantity = data['result'].roasting_profile_quantity;
-          this.flavour_profile_array = data['result'].flavour_profile;
+          this.flavour_array = data['result'].flavour_profile;
+          this.flavour_array.forEach((element,index) => {
+           let chips = {
+             id : element.flavour_profile_id,
+             name : element.flavour_profile_name
+           }
+          this.langChips.push(chips);
+          this.flavour_profile_array.push(element.flavour_profile_id);
+          });
           this.cupping = data['result'].roasting_profile_id;
           this.roasting_profile_name = data['result'].roasting_profile_name;
           
@@ -206,7 +215,6 @@ export class NewRoastedBatchComponent implements OnInit {
     // }
     // else{
       console.log(this.orderId)
-      debugger
       var data = {
         "roast_batch_name": this.roast_batch_name,
         "order_id": parseInt(this.orderId),
@@ -228,7 +236,7 @@ export class NewRoastedBatchComponent implements OnInit {
             if(res['success'] == true){
               // this.loginButtonValue = "Save";
             this.toastrService.success("The Roasted Batch has been Updated.");
-            this.router.navigate(['/features/roasted-batch']);
+            this.router.navigate(['/features/roasted-coffee-batch']);
             }
             else{
               // this.loginButtonValue = "Save";
@@ -242,7 +250,7 @@ export class NewRoastedBatchComponent implements OnInit {
           if(response['success'] == true){
             // this.loginButtonValue = "Save";
             this.toastrService.success("The Roasted Batch has been added.");
-            this.router.navigate(['/features/roasted-batch']);
+            this.router.navigate(['/features/roasted-coffee-batch']);
           }
           else{
             // this.loginButtonValue = "Save";

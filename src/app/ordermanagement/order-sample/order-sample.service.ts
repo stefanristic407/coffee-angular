@@ -53,6 +53,8 @@ export class OrderSampleService {
 	rating: any;
 	recentactivityarray:any=[];
 	orderId: any;
+	oId: any;
+	
 
 	constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService,public bookedService: OrderBookedService) {
 		this.roasterId = this.cookieService.get('roaster_id');
@@ -86,7 +88,8 @@ export class OrderSampleService {
 					this.estate_id=res['result']['estate_id'];
 					this.viewSampleAvailability();
 					this.viewSampleEstateDetails();
-					this.bookedService.getEstateReviews(this.estate_id);
+					this.bookedService.viewEstateDetails(this.roasterId,this.estate_id);
+					this.bookedService.getEstateReviews(this.estate_id,this.orderSampleId);
 					this.bookedService.getEstateSummary(this.estate_id);
 				}	
 			}
@@ -126,7 +129,7 @@ export class OrderSampleService {
 	}
 
 	ViewRecentActivity(){
-		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
+		this.userService.getRecentActivity(this.roasterId,this.orderSampleId).subscribe(
 			res=>{
 				if(res['success'] == true){
 					console.log(res);
@@ -136,4 +139,6 @@ export class OrderSampleService {
 			}
 		)
 	}
+
+
 }

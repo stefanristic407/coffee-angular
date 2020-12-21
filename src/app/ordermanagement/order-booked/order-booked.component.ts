@@ -62,7 +62,7 @@ export class OrderBookedComponent implements OnInit {
 		this.bookedService.orderId=this.orderBookId;
     this.bookedService.viewOrderDetails();
     
-    if(this.bookedService.paymentVerification == true){
+    if(this.bookedService.paymentVerification == true && this.dataFromTable == "CONFIRMED"){
       setTimeout(() => {
       this.bookedValueToShow = "Payment";
         this.paymentStatusBooked();
@@ -84,27 +84,27 @@ export class OrderBookedComponent implements OnInit {
         this.orderConfirmBooked();
       }, 500);
     }
-    else if (this.dataFromTable == "Payment") {
+    else if (this.dataFromTable == "PAYMENT") {
       this.bookedValueToShow = "Payment";
       setTimeout(() => {
         this.paymentStatusBooked();
       }, 500);
 
     }
-    else if (this.dataFromTable == "Shipped") {
+    else if (this.dataFromTable == "SHIPPED") {
       this.bookedValueToShow = "Shipped";
       setTimeout(() => {
         this.shipmentStatusBooked();
       }, 500);
 
     }
-    else if (this.dataFromTable == "Received") {
+    else if (this.dataFromTable == "RECEIVED") {
       this.bookedValueToShow = "Received";
       setTimeout(() => {
         this.receivedStatusBooked();
       }, 500);
     }
-    else if (this.dataFromTable == "Graded") {
+    else if (this.dataFromTable == "GRADED") {
       this.bookedValueToShow = "Graded";
       setTimeout(() => {
         this.gradedStatusBooked();
@@ -155,10 +155,13 @@ export class OrderBookedComponent implements OnInit {
     completedProcess.classList.remove('completed');
     this.shippmentReport = true;
     this.bookedService.shipmentDone = true;
-    setTimeout(() => {
-      this.orderBookedTimeline = false;
-      this.shippmentShow = true;
-    }, 2000);
+    if(this.dataFromTable == "SHIPPED"){
+      setTimeout(() => {
+        this.orderBookedTimeline = false;
+        this.shippmentShow = true;
+      }, 2000);
+    }
+  
 
     	// Calling the Order Details component by creating object of the component and accessing its methods
 
@@ -180,6 +183,13 @@ export class OrderBookedComponent implements OnInit {
     const completedProcess = document.getElementById('receivedDivBooked');
     completedProcess.classList.remove('completed');
     this.receivedReport = true;
+
+    if(this.dataFromTable == "RECEIVED"){
+      setTimeout(() => {
+        this.orderBookedTimeline = false;
+        this.receivedOrderShow = true;
+      }, 2000);
+    }
   }
 
   // Function Name : Order Booked Graded
