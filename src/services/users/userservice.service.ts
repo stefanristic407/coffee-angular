@@ -1069,4 +1069,11 @@ export class UserserviceService {
     data['data'] = body;
     return this.http.post(this.roasterUrl, data);
   }
+  getPhysicalDefectsList(roasterId : any, cupping_report_id : any){
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/cupping-process/" + cupping_report_id + "/physical-defects";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.roasterUrl,data);
+  }
 }
