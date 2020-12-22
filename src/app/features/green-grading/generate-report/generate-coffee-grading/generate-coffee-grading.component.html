@@ -10,7 +10,7 @@
             <div class="sample_info">
                 <div class="info_heading d-flex">
                     <div class="pull-left sample_info_head">Sample Info</div>
-                    <div class="ml-auto pull-right"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
+                    <div class="ml-auto pull-right cursor-pointer" (click)="routeToProcessDet()"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
                 </div>
                 <div class="info_list">
                     <ul class="clearfix mb-0">
@@ -167,19 +167,19 @@
                                 <div class="col-12 d-flex">
                                     <span class="pr-2 pr-md-3">
                                 <label class="customcheckbox color-text">
-                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Blue')"/>
+                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="totalColors.includes('Blue')" (click)="selectColor($event,'Blue')"/>
                                     <span class="checkmark head-check"></span> Blue
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                 <label class="customcheckbox color-text">
-                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Blue - Green')"/>
+                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="totalColors.includes('Blue - Green')" (click)="selectColor($event,'Blue - Green')"/>
                                     <span class="checkmark head-check"></span> Blue - Green
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                 <label class="customcheckbox color-text">
-                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Green')"/>
+                                    <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="totalColors.includes('Green')" (click)="selectColor($event,'Green')"/>
                                     <span class="checkmark head-check"></span> Green
                                     </label>
                                     </span>
@@ -189,13 +189,13 @@
                                 <div class="col-12 d-flex">
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Greenish')"/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="totalColors.includes('Greenish')" (click)="selectColor($event,'Greenish')"/>
                                         <span class="checkmark head-check"></span> Greenish
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Yellow - green')"/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="totalColors.includes('Yellow - green')" (click)="selectColor($event,'Yellow - green')"/>
                                         <span class="checkmark head-check"></span> Yellow - green
                                     </label>
                                     </span>
@@ -206,19 +206,19 @@
                                 <div class="col-12 d-flex">
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Pale Yellow')"/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="totalColors.includes('Pale Yellow')" (click)="selectColor($event,'Pale Yellow')"/>
                                         <span class="checkmark head-check"></span> PaleYellow
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Yellowish')"/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="totalColors.includes('Yellowish')" (click)="selectColor($event,'Yellowish')"/>
                                         <span class="checkmark head-check"></span> Yellowish
                                     </label>
                                     </span>
                                     <span class="pr-2 pr-md-3">
                                     <label class="customcheckbox color-text">
-                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" (click)="selectColor($event,'Brownish')"/>
+                                        <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="totalColors.includes('Brownish')" (click)="selectColor($event,'Brownish')"/>
                                         <span class="checkmark head-check"></span> Brownish
                                     </label>
                                     </span>
