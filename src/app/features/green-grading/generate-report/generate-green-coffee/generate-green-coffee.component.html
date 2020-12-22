@@ -5,25 +5,25 @@
             <div class="sample_info">
                 <div class="info_heading d-flex">
                     <div class="pull-left sample_info_head">Sample Info</div>
-                    <div class="ml-auto pull-right"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
+                    <div class="ml-auto pull-right cursor-pointer" (click)="routeToProcessDet()"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
                 </div>
                 <div class="info_list">
                     <ul class="clearfix mb-0">
                         <li>
                             <label>Service request ID  :</label>
-                            <p>74572</p>
+                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.gc_order_id}}</p>
                         </li>
                         <li>
                             <label>Estate Name  :</label>
-                            <p>Finca la pampa</p>
+                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.estate_name}}</p>
                         </li>
                         <li>
                             <label>Origin  :</label>
-                            <p>Colombia</p>
+                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.getCountryName(generateReportService.cuppingDetails.origin)}}</p>
                         </li>
                         <li>
                             <label>Harvest year  :</label>
-                            <p>March 2020</p>
+                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.order_date | date : 'MMMM y'}}</p>
                         </li>
                     </ul>
                 </div>
@@ -35,7 +35,7 @@
                     <ul class="clearfix mb-0">
                         <li>
                             <label>Evaluator  :</label>
-                            <p>Leon Joseph</p>
+                            <p *ngIf="evaluatorName">{{evaluatorName}}</p>
                         </li>
                     </ul>
                 </div>
@@ -63,7 +63,7 @@
 
         <div class="col-12 col-md-4 Onboard-input">
             <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Sample Size *</label>
-            <input class="w-100" type="text" placeholder="Enter sample size" name="transcation_type">
+            <input class="w-100" type="number" placeholder="Enter sample size in gm" [(ngModel)]="sample_size" [ngModelOptions]="{standalone:true}"  >
         </div>
     </div>
     <div class="row mt-4">
@@ -76,17 +76,43 @@
                 <div class="sample_info_body">
                     <div class="evaluator_list">
                         <ul class="clearfix mb-0">
-                            <li>
-                                <label class="customcheckbox color-text">
-                            <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                            <span class="checkmark head-check"></span>
-                            1. Leon Joseph (You)
-                        </label>
-                                <p>Cupping Manager</p> <span class="text-clrfff fnt-14 fnt-muli fnt-700 delete-cupping-img "> <img class="del-prf-cover" src="assets/images/delete.svg ">  Delete  </span>
-
+                            <li *ngFor="let item of evaluatorsListArray ; let i=index">
+                                <!-- <label class="customcheckbox color-text"> -->
+                            <!-- <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                            <span class="checkmark head-check"></span> -->
+                           <p *ngIf="item"> {{i+1}}. {{item.evaluator_name}} <span *ngIf="item.is_primary == true">(You)</span></p>
+                        <!-- </label> -->
+                                <p  *ngIf="item">{{item.evaluator_type}}</p>
+                                <span class="cursor-pointer" *ngIf= "i !=0"> 
+                                    <img src="assets/images/delete.png" alt=""><span class="pl-2 fnt-muli txt-clr334 fnt-600">Delete</span>
+                                </span> 
                             </li>
-                            <li class="pt-3">
-                                <img src="assets/images/add-icon.svg" alt=""> <span class="add-invite">Add and invite evaluators</span>
+                            <li *ngIf="inputBoxShow"> 
+                                <div class="row pl-0">
+                                    <div class="col-md-6">
+                                        <input class="float-left px-0 form-control typeBox" type="text" [(ngModel)]="selectedValue" name="name"
+                                        [typeahead]="usersList"
+                                        typeaheadOptionField="firstname"
+                                        typeaheadWaitMs="1000"
+                                        [isAnimated]="true"
+                                        [typeaheadItemTemplate]="customItemTemplate"
+                                        (typeaheadOnSelect)="onSelect($event)" (keyup)="getUsersList($event)" placeholder="Enter name or email" autocomplete="off" >
+                                        <ng-template #customItemTemplate let-model="item">
+                                                <span ><strong>{{model.firstname}} {{model.lastname}}</strong> </span>
+                                        </ng-template>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn add-btn" type="button" (click)="addEvaluators()">Add</button>
+                                        <button class="btn cancel-btn ml-3" type="button" (click)="cancelEvaluators()">Cancel</button>
+                                    </div>
+                                </div>
+                               
+                             
+                            </li>
+                            <li class="pt-3" *ngIf="addBtnShow">
+                               <span class="cursor-pointer"> 
+                                <img src="assets/images/add-icon.svg" alt=""> <span class="add-invite" (click)="addBtnClick()">Add and invite evaluators</span>
+                               </span> 
                             </li>
                         </ul>
                     </div>
@@ -107,9 +133,9 @@
     <div>
         <ul class="list-group custom-popover">
             <!-- <li class="list-group-item item-color" (click)="setCupping(''); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">All</a></li> -->
-            <li class="list-group-item item-color" (click)="setCupping('Non-Blinded Cupping'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Non-Blinded Cupping</a></li>
-            <li class="list-group-item item-color" (click)="setCupping('Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Blinded</a></li>
-            <li class="list-group-item item-color" (click)="setCupping('Double-Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Double-Blinded</a></li>
+            <li class="list-group-item item-color" (click)="setCupping('Non-Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Non-Blinded Cupping</a></li>
+            <li class="list-group-item item-color" (click)="setCupping('Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Blinded Cupping</a></li>
+            <li class="list-group-item item-color" (click)="setCupping('Double-Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Double-Blinded Cupping</a></li>
         </ul>
     </div>
 </ng-template>
