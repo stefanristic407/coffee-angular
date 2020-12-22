@@ -272,3 +272,23 @@ span.checkmark {
     top: -20px;
     float: right;
 }
+.inputBox{
+    height: 50px;
+}
+.typeBox{
+    height: 47px;
+    padding: 10px !important;
+}
+.add-btn{
+    padding: 10px 22px;
+    border-radius: 4px;
+    background-color: #30855c;
+    color: #fff;
+    
+}
+.cancel-btn{
+    color: #80460b;
+}
+.cancel-btn:hover{
+    text-decoration:  underline;
+}
