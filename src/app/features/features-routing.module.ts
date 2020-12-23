@@ -78,6 +78,8 @@ import { DefaultSettingComponent} from './Farm Link/coffee-experience/default-se
 import { GreenCoffeeForSaleDetailsComponent} from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component'
 import { from } from 'rxjs';
 import {ApiRequestsTableComponent} from './api-requests/api-requests-table/api-requests-table.component';
+import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
+import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
 
 const routes: Routes = [
   {
@@ -464,6 +466,17 @@ const routes: Routes = [
         component:ApiRequestsTableComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path:"api-request-details",
+        component:ApiRequestDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path:"generate-key-details",
+        component:GenerateKeyDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+
       {
         path: "",
         redirectTo: "welcome-aboard",

@@ -1,0 +1,139 @@
+.bg-fff {
+    padding: 2rem;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+th {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold !important;
+    color: #232334;
+    padding-right: 1.9rem;
+}
+
+.table thead th {
+    border-bottom: none !important;
+    border-top: none !important;
+    padding-left: 1.9rem;
+}
+
+.table tbody td {
+    padding-top: 17px;
+    padding-bottom: 17px;
+}
+
+.table th,
+.table td {
+    border-top: none !important;
+}
+
+td {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.table-head {
+    border-radius: 4px;
+    background-color: #f8f8f8
+}
+
+.express__delivery {
+    border-radius: 4px;
+    border: 1px solid #d6d6d6;
+    padding: 5px;
+}
+
+.delivery__head {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 12px 16px;
+}
+
+.lot-table tr,
+.key-border {
+    border-bottom: 1px dashed #dddddd;
+}
+
+.lot-table tr:last-child {
+    border-bottom: none;
+}
+
+.generate-border {
+    padding: 16px;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    background-color: #ffffff;
+}
+
+
+/* togggle */
+
+.active__main {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 2px;
+}
+
+.active_default {
+    background-color: #3d8462;
+    height: 30px;
+    padding: 4px 16px;
+    font-size: 14px;
+    color: #fff !important;
+    border-radius: 4px !important;
+    font-family: Muli;
+    font-weight: 600;
+}
+
+.disable_default {
+    background-color: #ffffff;
+    height: 30px;
+    padding: 4px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #979797;
+    font-family: Muli;
+}
+
+
+/********Modal********/
+
+.modal-header {
+    border-bottom: none;
+}
+
+.add-btn {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 11px 18px;
+    width: 100px;
+}
+
+.add-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.no-btn {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #ffffff;
+    cursor: pointer;
+    padding: 11px 18px;
+    width: 100px;
+}
+
+.no-btn:hover {
+    background-color: #30855c;
+    color: #fff;
+}
