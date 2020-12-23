@@ -18,7 +18,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 export class AvailableConfirmOrderComponent implements OnInit {
   quantity:any;
   quantity1:any;
-  price:number=450;
+  price:number=0;
   confirmOrderError:any;
   modalRef: BsModalRef;
   appLanguage?: any;
@@ -33,8 +33,8 @@ export class AvailableConfirmOrderComponent implements OnInit {
   zipError:string;
   cityError:string;
   service: string = "Import & Delivery service";
-  serviceAmount: number ;
-  available_bags:number = 266;
+  serviceAmount: number = 0;
+  available_bags:number = 0;
   terms:boolean = false;
   termError:string;
   availableConfirmActive:any=0;
