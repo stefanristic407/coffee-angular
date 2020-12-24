@@ -244,7 +244,16 @@
     display: block;
     width: 100%;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 /* acidity check */
 
@@ -317,7 +326,7 @@
     border-bottom: solid 1px #d6d6d6;
     border-left: solid 1px #d6d6d6;
     border-right: solid 1px #d6d6d6;
-    padding: 0px 2px;
+    padding: 0px 0px;
 }
 
 
@@ -327,7 +336,7 @@
     border-bottom: solid 1px #d6d6d6;
     border-left: solid 1px #d6d6d6;
     border-right: solid 1px #d6d6d6;
-    padding: 10px 6px;
+    padding: 10px 1px;
 }
 
 .defects {
@@ -398,7 +407,7 @@
     text-align: center;
     color: #30855c;
     background-color: #ffffff;
-    padding: 5px;
+    padding: 8px;
     border-radius: 2px;
     border: solid 1px #30855c;
 }
@@ -612,4 +621,12 @@
         margin-right: 0;
         max-width: 99%;
     }
+}
+.scroll-view{
+    height: 300px;
+    overflow-y: scroll;
+}
+.heavy-high{
+    position: relative;
+    right: 10px;
 }

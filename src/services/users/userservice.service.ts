@@ -1096,4 +1096,31 @@ export class UserserviceService {
     data['method'] = "GET";
     return this.http.post(this.roasterUrl,data);
   }
+
+  
+  addCuppingScore(roasterId: any,cupping_report_id,body:any): Observable<any> {
+    var data = {};
+    data['api_call'] = "/ro/"+roasterId+"/cupping-process/"+cupping_report_id+"/cupping-score";
+    data['method'] = "POST";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  getCuppingScore(roasterId : any, cupping_report_id: any){
+    var data = {};
+    data['api_call'] = "/ro/"+roasterId+"/cupping-process/"+cupping_report_id+"/cupping-score";
+    data['method'] = "GET";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  getSingleCuppingDetails(roasterId: any,cupping_report_id: any){
+    var data = {};
+    data['api_call'] = `/ro/${roasterId}/cupping-process/${cupping_report_id}`;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+
+  }
+
 }

@@ -11,19 +11,19 @@
                     <ul class="clearfix mb-0">
                         <li>
                             <label>Service request ID  :</label>
-                            <p>74572</p>
+                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.gc_order_id}}</p>
                         </li>
                         <li>
                             <label>Estate Name  :</label>
-                            <p>Finca la pampa</p>
+                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.estate_name}}</p>
                         </li>
                         <li>
                             <label>Origin  :</label>
-                            <p>Colombia</p>
+                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.getCountryName(generateReportService.cuppingDetails.origin)}}</p>
                         </li>
                         <li>
                             <label>Harvest year  :</label>
-                            <p>March 2020</p>
+                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.order_date | date : 'MMMM y'}}</p>
                         </li>
                     </ul>
                 </div>
@@ -36,19 +36,21 @@
 
                         <li>
                             <label>Cupping type  :</label>
-                            <p>Non-Blind Cupping</p>
+                            <p *ngIf="singleCuppingDetails">{{singleCuppingDetails.cupping_type | titlecase}} Cupping</p>
                         </li>
                         <li>
                             <label>Sample size  :</label>
-                            <p>250 grams</p>
+                            <p *ngIf="singleCuppingDetails">{{singleCuppingDetails.sample_size }} grams</p>
                         </li>
                         <li>
                             <label>Evaluator  :</label>
-                            <p>Leon Joseph</p>
+                            <p *ngIf="evaluatorName">{{evaluatorName | titlecase}}</p>
                         </li>
                         <li>
                             <label>Invited Evaluators :</label>
-                            <p>Gussie Barker</p>
+                            <div *ngIf="singleCuppingDetails">
+                                <p class="float-right ml-auto" *ngFor="let item of evaluatorsListArray">{{item.evaluator_name | titlecase}}</p>
+                               </div> 
                         </li>
                     </ul>
                 </div>
@@ -72,44 +74,44 @@
             <div class=" roast-border">
                 <p class="fnt-12 fnt-700 fnt-muli black m-0">Select roast level</p>
                 <div class="roast-custom-check">
-                    <label class="roast-container">
+                    <label class="roast-container">1
 
-            <input type="checkbox">
+            <input type="checkbox" [checked]="roast_level == 1"  (click)="selectColor($event,'roastLevel',1)">
             <span class="checkmark"></span>
             </label>
 
                     <label class="roast-container">2
-            <input type="checkbox">
+            <input type="checkbox" [checked]="roast_level == 2"  (click)="selectColor($event,'roastLevel',2)">
             <span class="checkmark"></span>
             </label>
 
                     <label class="roast-container">3
-            <input type="checkbox" >
+            <input type="checkbox" [checked]="roast_level == 3" (click)="selectColor($event,'roastLevel',3)" >
             <span class="checkmark"></span>
             </label>
 
                     <label class="roast-container">4
-            <input type="checkbox" >
+            <input type="checkbox" [checked]="roast_level == 4"  (click)="selectColor($event,'roastLevel',4)">
             <span class="checkmark"></span>
             </label>
 
                     <label class="roast-container">5
-            <input type="checkbox" >
+            <input type="checkbox"  [checked]="roast_level == 5" (click)="selectColor($event,'roastLevel',5)">
             <span class="checkmark"></span>
             </label>
 
                     <label class="roast-container">6
-            <input type="checkbox">
+            <input type="checkbox" [checked]="roast_level == 6"  (click)="selectColor($event,'roastLevel',6)">
             <span class="checkmark">2</span>
             </label>
 
                     <label class="roast-container">7
-            <input type="checkbox" >
+            <input type="checkbox" [checked]="roast_level == 7" (click)="selectColor($event,'roastLevel',7)">
             <span class="checkmark"></span>
             </label>
 
                     <label class="roast-container">8
-            <input type="checkbox" >
+            <input type="checkbox"  [checked]="roast_level == 8"  (click)="selectColor($event,'roastLevel',8)">
             <span class="checkmark"></span>
             </label>
 
@@ -118,56 +120,60 @@
                 <div class="table-final-score mt-4 mt-md-3">
                     <div class="w-md-10">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Fragrance/Aroma</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score" [(ngModel)]="fragrance" [ngModelOptions]="{standalone : true}">
                         <div class="fragrance">
                             <div class="fragrance-border">
                                 <p class="fnt-10 fnt-700 fnt-muli black mb-1">Dry</p>
-                                <p-slider [(ngModel)]="val3" [step]="20"></p-slider>
-                                <p class="fnt-10 fnt-700 fnt-muli black mt-1">Step: {{val3}}</p>
+                                <p-slider [(ngModel)]="fragrance_dry" [step]="1" [min]="-3" [max]="3"></p-slider>
+                                <p class="fnt-10 fnt-700 fnt-muli black mt-1">Step: {{fragrance_dry}}</p>
                             </div>
                             <p class="fnt-10 fnt-700 fnt-muli black mb-1 mt-2">Break</p>
-                            <p-slider [(ngModel)]="val4" [step]="20"></p-slider>
-                            <p class="fnt-10 fnt-700 fnt-muli black mt-1">Step: {{val3}}</p>
+                            <p-slider [(ngModel)]="fragrance_break" [step]="1" [min]="-3" [max]="3"></p-slider>
+                            <p class="fnt-10 fnt-700 fnt-muli black mt-1">Step: {{fragrance_break}}</p>
 
                         </div>
                     </div>
                     <div class="w-md-8 mdev-tab">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Flavor</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score" [(ngModel)]="flavor_score" [ngModelOptions]="{standalone : true}">
                     </div>
                     <div class="w-md-8 mdev-tab">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Aftertaste</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score" [(ngModel)]="aftertaste_score" [ngModelOptions]="{standalone : true}">
                     </div>
                     <div class="w-md-9">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Acidity</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score" [(ngModel)]="acidity_score" [ngModelOptions]="{standalone : true}">
                         <div class="acidity">
                             <p class="fnt-10 fnt-700 fnt-muli black">Intensity</p>
 
                             <div class="custom-check">
                                 <div class="">
                                     <label class="acidity-container">
-                    <input type="radio" name="intensity" checked="checked">
+                    <input type="radio" name="intensity" [checked]="acidity_intensity == 1"   (click)="selectColor($event,'acidity',1)">
                     <span class="checkmark">1</span>
                     </label>
                                     <p class="fnt-9 fnt-700 fnt-muli black"> Low </p>
                                 </div>
                                 <label class="acidity-container">2
-                    <input type="radio" name="intensity">
+                    <input type="radio" name="intensity" [checked]="acidity_intensity == 2"  (click)="selectColor($event,'acidity',2)">
                     <span class="checkmark">2</span>
                     </label>
                                 <label class="acidity-container">3
-                    <input type="radio" name="intensity">
+                    <input type="radio" name="intensity" [checked]="acidity_intensity == 3"  (click)="selectColor($event,'acidity',3)">
                     <span class="checkmark"></span>
                     </label>
 
+                    <label class="acidity-container">4
+                        <input type="radio" name="intensity" [checked]="acidity_intensity == 4"  (click)="selectColor($event,'acidity',4)">
+                        <span class="checkmark"></span>
+                        </label>
                                 <div class="">
-                                    <label class="acidity-container">4
-                    <input type="radio" name="intensity">
+                                    <label class="acidity-container">5
+                    <input type="radio" name="intensity"  [checked]="acidity_intensity == 5" (click)="selectColor($event,'acidity',5)">
                     <span class="checkmark"></span>
                     </label>
-                                    <p class="fnt-9 fnt-700 fnt-muli black"> High </p>
+                                    <p class="fnt-9 fnt-700 fnt-muli black heavy-high"> High </p>
                                 </div>
                             </div>
                         </div>
@@ -175,146 +181,161 @@
                     </div>
                     <div class="w-md-9">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Body</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score"  [(ngModel)]="body_score" [ngModelOptions]="{standalone : true}">
                         <div class="acidity">
                             <p class="fnt-10 fnt-700 fnt-muli black">Level</p>
 
                             <div class="custom-check">
                                 <div class="">
                                     <label class="acidity-container">
-                    <input type="radio" name="level" checked="checked">
+                    <input type="radio" name="level" [checked]="body_level == 1"  (click)="selectColor($event,'body',1)">
                     <span class="checkmark">1</span>
                     </label>
                                     <p class="fnt-9 fnt-700 fnt-muli black"> thin </p>
                                 </div>
                                 <label class="acidity-container">2
-                    <input type="radio" name="level">
+                    <input type="radio" name="level" [checked]="body_level == 2"  (click)="selectColor($event,'body',2)">
                     <span class="checkmark">2</span>
                     </label>
                                 <label class="acidity-container">3
-                    <input type="radio" name="level">
+                    <input type="radio" name="level" [checked]="body_level == 3"  (click)="selectColor($event,'body',3)">
                     <span class="checkmark"></span>
                     </label>
 
+                    <label class="acidity-container">4
+                        <input type="radio" name="level" [checked]="body_level == 4"  (click)="selectColor($event,'body',4)">
+                        <span class="checkmark"></span>
+                        </label>
+
                                 <div class="">
-                                    <label class="acidity-container">4
-                    <input type="radio" name="level">
+                                    <label class="acidity-container">5
+                    <input type="radio" name="level" [checked]="body_level == 5"  (click)="selectColor($event,'body',5)">
                     <span class="checkmark"></span>
                     </label>
-                                    <p class="fnt-9 fnt-700 fnt-muli black"> heavy </p>
+                                    <p class="fnt-9 fnt-700 fnt-muli black heavy-high"> heavy </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="w-md-8">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Balance</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score"  [(ngModel)]="balance_score" [ngModelOptions]="{standalone : true}">
                     </div>
                     <div class="w-md-9">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Uniformity</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score"  [(ngModel)]="uniformity_score" [ngModelOptions]="{standalone : true}">
                         <div class="level">
 
                             <div class="custom-check">
 
                                 <label class="level-container">
-                    <input type="radio" name="Uniformity" >
+                    <input type="radio" name="Uniformity" [checked]="uniformity_value == 1"  (click)="selectColor($event,'uniformity',1)">
                     <span class="checkmark">1</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="Uniformity" >
+                                    <input type="radio" name="Uniformity" [checked]="uniformity_value == 2"  (click)="selectColor($event,'uniformity',2)">
                     <span class="checkmark">2</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="Uniformity" >
+                                    <input type="radio" name="Uniformity" [checked]="uniformity_value == 3"  (click)="selectColor($event,'uniformity',3)">
                     <span class="checkmark">3</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="Uniformity" >
+                                    <input type="radio" name="Uniformity" [checked]="uniformity_value == 4"  (click)="selectColor($event,'uniformity',4)">
                         <span class="checkmark">4</span>
                     </label>
 
+                    <label class="level-container">
+                        <input type="radio" name="Uniformity" [checked]="uniformity_value == 5"  (click)="selectColor($event,'uniformity',5)">
+            <span class="checkmark">5</span>
+        </label>
 
 
                             </div>
                         </div>
-                        <button class="add-comment fnt-10 fnt-muli fnt-700"> Add&nbsp;a&nbsp;comment</button>
+                        <input class="roast-input col-12" type="text" placeholder="Add a comment"  [(ngModel)]="uniformity_comment" [ngModelOptions]="{standalone : true}">
 
                     </div>
                     <div class="w-md-9">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Clean Cup</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score"  [(ngModel)]="cleancup_score" [ngModelOptions]="{standalone : true}">
 
                         <div class="level">
 
                             <div class="custom-check">
 
                                 <label class="level-container">
-                                    <input type="radio" name="clean-cup" >
+                                    <input type="radio" name="clean-cup" [checked]="cleancup_value == 1"  (click)="selectColor($event,'cleanCup',1)">
                     <span class="checkmark">1</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="clean-cup" >
+                                    <input type="radio" name="clean-cup" [checked]="cleancup_value == 2"  (click)="selectColor($event,'cleanCup',2)">
                     <span class="checkmark">2</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="clean-cup" >
+                                    <input type="radio" name="clean-cup" [checked]="cleancup_value == 3"  (click)="selectColor($event,'cleanCup',3)">
                     <span class="checkmark">3</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="clean-cup" >
+                                    <input type="radio" name="clean-cup" [checked]="cleancup_value == 4"  (click)="selectColor($event,'cleanCup',4)">
                         <span class="checkmark">4</span>
                     </label>
 
-
-
+                    <label class="level-container">
+                        <input type="radio" name="clean-cup" [checked]="cleancup_value == 5"  (click)="selectColor($event,'cleanCup',5)">
+            <span class="checkmark">5</span>
+        </label>
                             </div>
                         </div>
-                        <button class="add-comment fnt-10 fnt-muli fnt-700"> Add&nbsp;a&nbsp;comment</button>
+                        <input class="roast-input col-12" type="text" placeholder="Add a comment"  [(ngModel)]="cleancup_comment" [ngModelOptions]="{standalone : true}">
 
                     </div>
                     <div class="w-md-9">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Sweetness </label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score"  [(ngModel)]="sweetness_score" [ngModelOptions]="{standalone : true}">
                         <div class="level">
 
                             <div class="custom-check">
 
                                 <label class="level-container"> 
-                                    <input type="radio" name="sweetness" >
+                                    <input type="radio" name="sweetness"  [checked]="sweetness_value == 1"  (click)="selectColor($event,'sweetness',1)">
                     <span class="checkmark">1</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="sweetness" >
+                                    <input type="radio" name="sweetness"  [checked]="sweetness_value == 2"  (click)="selectColor($event,'sweetness',2)">
                     <span class="checkmark">2</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="sweetness" >
+                                    <input type="radio" name="sweetness"  [checked]="sweetness_value == 3"  (click)="selectColor($event,'sweetness',3)">
                     <span class="checkmark">3</span>
                     </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="sweetness" >
+                                    <input type="radio" name="sweetness"  [checked]="sweetness_value == 4"  (click)="selectColor($event,'sweetness',4)">
                         <span class="checkmark">4</span>
                     </label>
 
+                    <label class="level-container">
+                        <input type="radio" name="sweetness"  [checked]="sweetness_value == 5" (click)="selectColor($event,'sweetness',5)" >
+            <span class="checkmark">5</span>
+        </label>
 
                             </div>
                         </div>
-                        <button class="add-comment fnt-10 fnt-muli fnt-700"> Add&nbsp;a&nbsp;comment</button>
+                        <input class="roast-input col-12" type="text" placeholder="Add a comment"  [(ngModel)]="sweetness_comment" [ngModelOptions]="{standalone : true}">
 
                     </div>
                     <div class="w-md-8">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Overall</label>
-                        <input class="roast-input col-12" type="number" placeholder="Enter score">
+                        <input class="roast-input col-12" type="number" placeholder="Enter score"  [(ngModel)]="overall_score" [ngModelOptions]="{standalone : true}">
                     </div>
                     <div class="w-md-10">
                         <label class="fnt-12 fnt-700 fnt-muli black"> Defects 
@@ -324,31 +345,35 @@
                             <div class="custom-check mb-2">
 
                                 <label class="level-container">
-                                    <input type="radio" name="Defects" >
+                                    <input type="radio" name="Defects" [checked]="defects_no_of_cups == 1"  (click)="selectColor($event,'defects',1)">
                         <span class="checkmark">1</span>
                         </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="Defects" >
+                                    <input type="radio" name="Defects" [checked]="defects_no_of_cups == 2"  (click)="selectColor($event,'defects',2)">
                         <span class="checkmark">2</span>
                         </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="Defects" >
+                                    <input type="radio" name="Defects" [checked]="defects_no_of_cups == 3"  (click)="selectColor($event,'defects',3)">
                         <span class="checkmark">3</span>
                         </label>
 
                                 <label class="level-container">
-                                    <input type="radio" name="Defects" >
+                                    <input type="radio" name="Defects" [checked]="defects_no_of_cups == 4"  (click)="selectColor($event,'defects',4)">
                         <span class="checkmark">4</span>
                         </label>
 
 
+                        <label class="level-container">
+                            <input type="radio" name="Defects" [checked]="defects_no_of_cups == 5"  (click)="selectColor($event,'defects',5)">
+                <span class="checkmark">5</span>
+                </label>
                             </div>
                             <p class="fnt-10 fnt-700 fnt-muli black m-0">Intensity</p>
-                            <div class="btn-group toggle_butn ml-auto pull-right defect__main mt-2">
-                                <div class="btn taint_default">Taint</div>
-                                <div class="btn fault_default">Fault</div>
+                            <div class="btn-group toggle_butn ml-auto pull-right defect__main mt-2" (click)="changeDefectIntensity()">
+                                <div class="btn " [ngClass]="btnToggle ? 'taint_default' : 'active fault_default'">Taint</div>
+                                <div class="btn " [ngClass]="!btnToggle ? 'taint_default active' : 'fault_default'">Fault</div>
                             </div>
 
                         </div>
@@ -367,7 +392,7 @@
                         </a>
                         <div class="chips">
                             <mat-chip-list #chipList aria-label="language" class="desk-chips">
-                                <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language}}
+                                <mat-chip *ngFor="let language of langChips" [selectable]="selectable" [removable]="removable" (removed)="remove(language)">{{language.name}}
                                     <img *ngIf="removable" class="cross-icon" src="assets/images/cross-white.svg" (click)="remove(language)">
                                 </mat-chip>
                             </mat-chip-list>
@@ -377,7 +402,7 @@
                     <div class="col-md-6 col-12 mt-md-0 mt-3">
 
                         <label class="comment-label">Add a comment</label>
-                        <input type="text" placeholder="Please enter your comment here" class="comment-input">
+                        <input type="text" placeholder="Please enter your comment here" class="comment-input"  [(ngModel)]="comments" [ngModelOptions]="{standalone : true}">
 
                     </div>
                 </div>
