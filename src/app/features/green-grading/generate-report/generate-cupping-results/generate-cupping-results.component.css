@@ -219,11 +219,11 @@ tr:last-child {
 .add-btn {
     font-family: Muli;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     color: #ffffff;
     border-radius: 4px;
     background-color: #30855c;
-    padding: 11px 18px;
+    padding: 12px 18px;
 }
 
 .add-btn:hover {
@@ -233,13 +233,13 @@ tr:last-child {
 .no-btn {
     font-family: Muli;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     color: #30855c;
     border-radius: 4px;
     border: solid 1px #30855c;
     background-color: #ffffff;
     cursor: pointer;
-    padding: 11px 18px;
+    padding: 12px 18px;
 }
 
 .no-btn:hover {

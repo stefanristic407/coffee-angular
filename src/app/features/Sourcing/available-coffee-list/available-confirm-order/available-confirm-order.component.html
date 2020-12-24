@@ -78,7 +78,7 @@
                                             <td>{{sourcing.availabilty_variety}} </td>
                                             <td>{{sourcing.availability_species}}</td>
                                             <td>{{sourcing.cup_score}}</td>
-                                            <td>{{sourcing.quantity}}/{{sourcing.quantity_count}}kg</td>
+                                            <td>{{sourcing.quantity_count}}/{{sourcing.quantity}}{{sourcing.quantity_unit}}</td>
                                             <td>${{sourcing.price}}USD/kg</td>
                                         </tr>
                                     </tbody>
@@ -198,7 +198,7 @@
                 </div> -->
                             </div>
                             <div class="pull-right ml-auto price-total" *ngIf="service=='I don’t need Import & delivery service'">$0</div>
-                            <div class="pull-right ml-auto price-total" *ngIf="service=='Import & Delivery service'">${{serviceAmount}}</div>
+                            <div class="pull-right ml-auto price-total" *ngIf="service=='Import & Delivery service'">${{ship_unit_price*quantity}}</div>
 
                         </div>
                     </div>
@@ -248,8 +248,8 @@
                         </div>
                         <div class="row pt-2">
                             <div class="pull-right ml-auto price-total" *ngIf="quantity==''">$0</div>
-                            <div class="pull-right ml-auto price-total" *ngIf="quantity!='' && service == 'Import & Delivery service'">${{price*quantity+serviceAmount}}</div>
-                            <div class="pull-right ml-auto price-total" *ngIf="quantity!='' && service != 'Import & Delivery service'">${{price*quantity}}</div>
+                            <div class="pull-right ml-auto price-total" *ngIf="quantity!='' && service == 'Import & Delivery service'">${{(sourcing.price*quantity)+(ship_unit_price*quantity)}}</div>
+                            <div class="pull-right ml-auto price-total" *ngIf="quantity!='' && service != 'Import & Delivery service'">${{(sourcing.price*quantity)}}</div>
                         </div>
                     </div>
 

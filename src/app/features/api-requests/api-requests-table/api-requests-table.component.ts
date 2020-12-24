@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
+
 
 @Component({
   selector: 'app-api-requests-table',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./api-requests-table.component.css']
 })
 export class ApiRequestsTableComponent implements OnInit {
-
-  constructor() { }
+  appLanguage?: any ={};
+  greenActive:any =0;
+  constructor(public globals: GlobalsService) { }
 
   ngOnInit(): void {
+   
+    this.language();
+
+  }
+
+  
+  language(){
+   
+    this.appLanguage = this.globals.languageJson;
+   this.greenActive++;
+
   }
 
 }

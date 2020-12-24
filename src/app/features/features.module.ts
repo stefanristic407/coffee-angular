@@ -156,6 +156,8 @@ import { GreenCoffeeForSaleDetailsComponent } from './green-inventory/green-coff
 import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
 import { ApiKeyRequestsComponent } from './api-requests/api-requests-table/api-key-requests/api-key-requests.component';
 import { GeneratedKeysComponent } from './api-requests/api-requests-table/generated-keys/generated-keys.component';
+import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
+import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
 
 
 
@@ -279,6 +281,8 @@ import { GeneratedKeysComponent } from './api-requests/api-requests-table/genera
     ApiRequestsTableComponent,
     ApiKeyRequestsComponent,
     GeneratedKeysComponent,
+    ApiRequestDetailsComponent,
+    GenerateKeyDetailsComponent,
   
  
   ],

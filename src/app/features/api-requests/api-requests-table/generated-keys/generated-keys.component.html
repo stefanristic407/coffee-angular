@@ -1,1 +1,129 @@
-<p>generated-keys works!</p>
+<div class="row">
+    <div class="title-header">
+        <div class="hover-filters d-inline-block">
+            <div class="d-inline border-total col-sm-6" id="status_id" [outsideClick]="true" (onShown)="toggleStatus();" (onHidden)="toggleStatus();" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
+                <p class="d-inline filter-text" *ngIf="termStatus == ''">All origins&nbsp;</p>
+                <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="termStatus == ''">
+                        &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+                <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="termStatus != ''">
+                        {{ termStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="d-inline display_div">
+            <div class="hover-filters d-inline-block">
+                <div class="float-right border-order top-space" id="display_id" [outsideClick]="true" (onShown)="toggleDisplay();" (onHidden)="toggleDisplay();" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop9="bs-popover">
+                    <p class="d-inline filter-text">Display &#9679;</p>
+                    <a class="pointer-item">
+                        <p class="d-inline filter" *ngIf="display == '-1'">
+                            &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                        </p>
+                    </a>
+                    <a class="pointer-item">
+                        <p class="d-inline filter" *ngIf="display != '-1'">
+                            {{ display }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-container mb-2 mt-4">
+    <div class="table-responsive" *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
+        <table class="table">
+            <thead class="table-header">
+                <tr class="header-row">
+
+                    <th scope="col">Customer</th>
+                    <th scope="col">Customer type</th>
+                    <th scope="col">Date requested</th>
+                    <th scope="col">Key generated on </th>
+                    <th scope="col">Key status</th>
+                    <th scope="col">{{globals.languageJson?.actions}}</th>
+                </tr>
+            </thead>
+            <tbody class="customtable">
+                <tr class="ticket-boby-txt cursor-pointer" *ngFor="let item of mainData">
+
+                    <td>{{ item.customer }}</td>
+                    <td>{{ item.customer_type }} </td>
+                    <td>{{ item.date_requested }}</td>
+                    <td>{{ item.key_generated_on }} </td>
+                    <td routerLink="/features/generate-key-details"> {{item.key_status}}</td>
+                    <td>
+                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                            <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
+                        </a>
+                        <ng-template #poplistTemplate>
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li class="list-group-item"> <a class="pointer-item" (click)="pauseKey();pop.hide();">Pause Key Access </a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="deleteKey();pop.hide();">Delete Key</a></li>
+                                    <li class="list-group-item"><a class="pointer-item" (click)="reactiveuser();pop.hide();">Notifiy customer</a></li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<ng-template #allTemplate>
+    <div id="status-content">
+        <ul class="list-group">
+            <li class="list-group-item item-color" (click)="setStatus(''); pop.hide();">
+                <a class="pointer-item">All</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Brazil'); pop.hide();">
+                <a class="pointer-item">Brazil</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Guatemala'); pop.hide();">
+                <a class="pointer-item">Guatemala</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Spain'); pop.hide();">
+                <a class="pointer-item">Spain</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Sweden'); pop.hide();">
+                <a class="pointer-item">Sweden</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setStatus('Vietnam'); pop.hide();">
+                <a class="pointer-item">Vietnam</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+
+
+
+<ng-template #displayTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color" (click)="setDisplay('');pop9.hide();">
+                <a class="pointer-item">All</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setDisplay('10');pop9.hide();">
+                <a class="pointer-item">10</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setDisplay('20');pop9.hide();">
+                <a class="pointer-item">20</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setDisplay('25');pop9.hide();">
+                <a class="pointer-item">25</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setDisplay('50');pop9.hide();">
+                <a class="pointer-item">50</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>

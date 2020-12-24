@@ -112,6 +112,7 @@ export class SourcingService {
 	estate_origin: any;
 	estate_region: any;
 	farm_yield: any;
+	availabilityImages: any;
 
 
   			constructor(private http: HttpClient, public userService : UserserviceService, private cookieService : CookieService,
@@ -214,6 +215,7 @@ export class SourcingService {
 			this.estate_rating=result['result']['estate_rating'];
 			this.images=result['result']['images'];
 			this.estate_id=result['result']['estate_id'];
+			this.availabilityImages = result['result']['images'];
         }
       })
 	}

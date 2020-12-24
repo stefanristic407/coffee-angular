@@ -21,21 +21,21 @@ export class AvailableCoffeeListComponent implements OnInit {
 	brandProfileEstateWeb: string= "https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee";
 
 
-	public data = [
-		{
-		  srcUrl: 'assets/images/galleria-1.jpg',
-		  previewUrl: 'assets/images/thumbnail-4.jpg'
-		},
-		{
-		  srcUrl: 'assets/images/galleria-2.png',
-		  previewUrl: 'assets/images/thumbnail-2.jpg'
-		},
-		{
-		  srcUrl: 'assets/images/galleria-3.png',
-		  previewUrl: 'assets/images/thumbnail-3.jpg'
-		}
-	  ];
-	  imageData = this.data;
+	// public data = [
+	// 	{
+	// 	  srcUrl: 'assets/images/galleria-1.jpg',
+	// 	  previewUrl: 'assets/images/thumbnail-4.jpg'
+	// 	},
+	// 	{
+	// 	  srcUrl: 'assets/images/galleria-2.png',
+	// 	  previewUrl: 'assets/images/thumbnail-2.jpg'
+	// 	},
+	// 	{
+	// 	  srcUrl: 'assets/images/galleria-3.png',
+	// 	  previewUrl: 'assets/images/thumbnail-3.jpg'
+	// 	}
+	//   ];
+	//   imageData = this.data;
 	public coffeedata: any[] = [
 		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '$7.4 USD / kg',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
 		{  estatename: 'Gesha', name: 'Blend washed',origin:'Colombia',species: 'Bourbon', price: '$5.53USD / kg',quantity:'297 bags','image':'/assets/images/sourcing-image3.jpg',score:'88' },
@@ -210,6 +210,7 @@ export class AvailableCoffeeListComponent implements OnInit {
 	showTemperature: boolean = true;
 	hourly:any;
 	showHourly: boolean = true;
+	data: any = [];
 
 
   constructor(
@@ -229,17 +230,20 @@ export class AvailableCoffeeListComponent implements OnInit {
 		this.sourcing.availableDetailList();
 		this.sourcing.otherAvailableCoffee();
 		this.sourcing.getEachGreenCertify();
+		setTimeout(()=>{
+			this.galleryImages();
+		},2000)
 	  });
    }
 
   ngOnInit(): void {
-	this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
-	const lightboxRef = this.gallery.ref('lightbox');
-	lightboxRef.setConfig({
-		imageSize: ImageSize.Cover,
-		thumbPosition: ThumbnailsPosition.Top
-	  });
-	  lightboxRef.load(this.items);
+	// this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
+	// const lightboxRef = this.gallery.ref('lightbox');
+	// lightboxRef.setConfig({
+	// 	imageSize: ImageSize.Cover,
+	// 	thumbPosition: ThumbnailsPosition.Top
+	//   });
+	//   lightboxRef.load(this.items);
 
 	  this.language();  
 	  this.temperature = '';
@@ -314,5 +318,26 @@ GetCountry(data:any){
 				}
 			}
 		}
-	
+		galleryImages(){
+			if(this.sourcing.availabilityImages){
+				this.sourcing.availabilityImages.forEach(element => {
+					let sample={
+						srcUrl: element.url,
+						previewUrl: element.thumb_url
+					}
+					this.data.push(sample);
+				});
+				console.log(this.data);
+			}
+			else{
+				this.data =[];
+			}
+			this.items = this.data.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
+				const lightboxRef = this.gallery.ref('lightbox');
+				lightboxRef.setConfig({
+					imageSize: ImageSize.Cover,
+					thumbPosition: ThumbnailsPosition.Top
+				});
+				lightboxRef.load(this.items);
+		}
 }

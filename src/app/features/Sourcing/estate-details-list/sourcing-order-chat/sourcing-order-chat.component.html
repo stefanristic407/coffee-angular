@@ -6,18 +6,24 @@
 </div>
 <div *ngIf="sourcingChatActive == 1">
     <section class="">
-        <div class="container">
+        <div class="container sewn-container section-head-pad">
             <div class="row">
                 <div class="col-12">
                     <div class="dispute-order position-relative">
                         <div class="dispute-order__head clearfix">
 
-                            <div class="back-to cursor-pointer">
-                                <a class="back-href fnt-500" routerLink="/features/estate-details">
-                                    <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg"> {{globals.languageJson?.return_to_order}} </a>
+                            <div class="w-100">
+                                <div class="back-to cursor-pointer pull-left">
+                                    <a class="back-href fnt-500" routerLink="/features/estate-details">
+                                        <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg"> {{globals.languageJson?.return_to_order}} </a>
+
+                                </div>
+
+                                <div class="pull-right">
+                                    <button class="save fnt-muli">Have a problem?</button>
+                                </div>
 
                             </div>
-
 
                             <div class="open-order-status-list">
                                 <span></span>
@@ -31,12 +37,13 @@
                         <div class="dispute-order__conversation float-left">
                             <!--Concersatin head-->
                             <div class="conversation-head clearfix">
+
                                 <div class="conversation-head__items clearfix float-left">
                                     <div class="conversation-textBold float-left">
-                                        <span>{{globals.languageJson?.order}}</span>
-                                        <span>#12416</span>
+                                        <span>Order #12416</span>
+                                        <p class="fnt-12 fnt-muli fnt-600 text-clr588 m-0">Order Status - Shipped</p>
                                     </div>
-                                    <ul class="conversation-head__profiles ">
+                                    <ul class="conversation-head__profiles mt-2">
                                         <li>
                                             <img src="assets/images/user-profile.png">
                                         </li>
@@ -62,9 +69,52 @@
 
                                 </div>
 
-                                <div class="conversation-head__items float-right ml-lg-auto">
-                                    <a class="have-proble-order">{{globals.languageJson?.have_a_problem}}?</a>
+                                <div class="conversation-head__items float-right ml-lg-auto cursor-pointer">
+                                    <span class="have-proble-order assigned-border"> Change assigned user</span> <span class="have-proble-order"> Close tickets</span>
+                                    <!-- <a class="have-proble-order">{{globals.languageJson?.have_a_problem}}?</a> -->
                                 </div>
+
+
+                            </div>
+                            <div class="d-flex order-ticket">
+                                <div class="order-width">
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Order</p>
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334"> #12416</p>
+                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 m-0"> 11:23am</p>
+                                </div>
+
+                                <div class="ticket-width">
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Ticket #154 </p>
+                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 "> Buying coffee</p>
+                                    <span class="ticket-num__status float-left">open</span>
+                                </div>
+
+                                <div class="ticket-width">
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Ticket #155 </p>
+                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 "> Payment</p>
+                                    <span class="ticket-num__status float-left">Resolved</span>
+                                </div>
+
+                                <div class="ticket-width">
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Ticket #157 </p>
+                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 "> Payment</p>
+                                    <span class="ticket-num__status float-left">Resolved</span>
+                                </div>
+
+                                <div class="ticket-width">
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Ticket #159 </p>
+                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 "> Payment</p>
+                                    <span class="ticket-num__status float-left">Resolved</span>
+                                </div>
+
+                                <div class="ticket-width">
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Ticket #164 </p>
+                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 "> Payment</p>
+                                    <span class="ticket-num__status float-left">Resolved</span>
+                                </div>
+
+
+
                             </div>
 
                             <!--conversation body-->
@@ -240,7 +290,7 @@
                             </div>
                         </div>
 
-                        <div class="dispute-order__status open float-md-left">
+                        <div class="dispute-order__status open float-md-left d-none">
                             <div class="order-status">
                                 <span class="conversation-textgray">{{globals.languageJson?.order_status}} :&nbsp;</span>
                                 <span class="conversation-textBlack14">Shipped</span>

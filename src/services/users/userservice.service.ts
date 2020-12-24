@@ -1069,6 +1069,26 @@ export class UserserviceService {
     data['data'] = body;
     return this.http.post(this.roasterUrl, data);
   }
+  
+  updateCuppingType(cupping_report_id: any,body : any): Observable<any>{
+    const data       = {};
+    const roaster_id = parseInt(this.cookieService.get('roaster_id'));
+    data['api_call'] = `​/ro/${roaster_id}​/cupping-process​/${cupping_report_id}​/cupping-type`;
+    data['token']    = this.cookieService.get('Auth');
+    data['method']   = 'PUT';
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  addEvaluators( cupping_report_id: any,body : any){
+    const data       = {};
+    const roaster_id = parseInt(this.cookieService.get('roaster_id'));
+    data['api_call'] = `​/ro/${roaster_id}​/cupping-process​/${cupping_report_id}​/evaluators`;
+    data['token']    = this.cookieService.get('Auth');
+    data['data'] = body;
+    data['method'] = "POST";
+    return this.http.post(this.roasterUrl, data);
+  } 
   getPhysicalDefectsList(roasterId : any, cupping_report_id : any){
     var data = {};
     data['api_call'] = "/ro/" + roasterId + "/cupping-process/" + cupping_report_id + "/physical-defects";
