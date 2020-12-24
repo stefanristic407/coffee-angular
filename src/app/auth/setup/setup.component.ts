@@ -440,8 +440,8 @@ export class SetupComponent implements OnInit {
         this.roasterService.displayModal = false;
       }
       else{ 
-    this.roasterService.displayModal = true;
-    this.roasterService.imageChangedEvent = e;
+        this.roasterService.displayModal = true;
+        this.roasterService.imageChangedEvent = e;
       }
     }
   }

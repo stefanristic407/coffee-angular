@@ -210,4 +210,5 @@ export class OrderChatComponent implements OnInit {
 	this.appLanguage = this.globals.languageJson;
 	   this.ChatSampleActive++;
 	}
+
 }

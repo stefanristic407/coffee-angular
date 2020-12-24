@@ -1,0 +1,183 @@
+<section class="container sewn-container section-head-pad">
+
+    <div class="bg-fff">
+
+
+        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 web-sec">
+            <span id="title-breadcrumb-1" class="sr-only"></span>
+            <ul class="bread-nav">
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                </li>
+                <li class="b-cum c-pink">API Requests</li>
+            </ul>
+        </nav>
+
+
+        <div class="request-details">
+            <h4 class="fnt-18 fnt-muli fnt-700 txt-clr334"> Request details </h4>
+            <p class="fnt-14 fnt-muli fnt-400 text-clr588"> Accept, reject API key requests by customers and generate API keys. </p>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-7 col-12 table-responsive mt-4">
+
+                <div class="express__delivery">
+                    <div class="delivery__head">
+                        <p class=" m-0 fnt-14 fnt-muli fnt-700 black">API Key Generation Request</p>
+                    </div>
+                    <div class="delivery__body">
+
+                        <div class="w-100 p-2 mt-2">
+
+                            <div class="float-left">
+                                <p class=" m-0 fnt-14 fnt-muli fnt-700 black"> Key activated on 25 Jan 2020</p>
+                                <p class="view-order m-0 cursor-pointer" (click)="delete()"> Delete Key</p>
+                            </div>
+
+                            <div class="float-right">
+                                <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
+                                    <div class="btn btn-group__item" [ngClass]="btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Active</div>
+                                    <div class="btn btn-group__item" (click)="pause()" [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Pause</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <table class="table lot-table">
+
+                            <tbody>
+
+                                <tr>
+                                    <td> <span class="list-ques float-left"> Requested by </span></td>
+                                    <td> <span class="list-answ float-right"> Third wave coffee roasters </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-ques float-left"> Customer Type </span></td>
+                                    <td> <span class="list-answ float-right"> Micro-Roaster </span> </td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="list-ques float-left"> Requested on </span></td>
+                                    <td> <span class="list-answ float-right"> 24 Jan 2020 </span> </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-3">
+
+            <div class="pl-4">
+                <p class="fnt-14 fnt-muli fnt-700 txt-clr334"> NOTE :</p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="fnt-14 fnt-muli fnt-700 text-clr588"> Confirming the request will grant the customer to all the coffee stories for their orders and all the marketing material. </p>
+            </div>
+
+        </div>
+
+
+        <div class="d-flex mt-3">
+
+            <div class="generate-border col-md-7 col-12">
+                <p class="fnt-14 fnt-muli fnt-700 txt-clr334 col-8 float-left m-0"> Confirm the API Key generation request, to allow the customer to access coffee story.</p>
+                <!-- <button class="save float-right"> Generate Key</button> -->
+
+                <button type="submit" class="save float-right" [disabled]="resetButtonValue==='Generating Key…'">
+                    <img class="loader" *ngIf="resetButtonValue==='Generating Key…'" src="assets/images/orange-loader.gif"/> {{resetButtonValue}}
+                   </button>
+            </div>
+
+        </div>
+
+        <!-- API key is generated -->
+
+
+        <div class="d-flex mt-3">
+
+            <div class="generate-border col-md-7 col-12">
+                <p class="fnt-14 fnt-muli fnt-700 txt-clr334 col-8 float-left mt-2"> <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The API key is generated!</p>
+                <button class="save float-right">Notify now</button>
+            </div>
+
+        </div>
+
+        <!-- The API key is generated and the customer is notified!-->
+
+        <div class="d-flex mt-3">
+
+            <div class="generate-border col-md-7 col-12">
+                <p class="fnt-14 fnt-muli fnt-700 txt-clr334 float-left m-0"> <span><img class="mr-2" src="assets/images/correct.png" alt="" /> </span> The API key is generated and the customer is notified!</p>
+            </div>
+
+        </div>
+
+
+        <!-- pause-->
+
+        <div class="d-flex mt-3">
+
+            <div class="generate-border col-md-7 col-12">
+                <p class="fnt-14 fnt-muli fnt-700 txt-clr334 float-left m-0"> <span><img class="mr-2" src="assets/images/pause.png" alt="" /> </span> The API key access is paused</p>
+            </div>
+
+        </div>
+
+        <div class="d-flex mt-3">
+
+            <p class="fnt-14 fnt-muli fnt-700 text-clr588 col-7"> The customer can send a key access reactivation request. When you get the request, activate the key access. </p>
+
+        </div>
+
+
+
+    </div>
+</section>
+
+<ng-template #deletetemplate>
+    <div class="modal-header">
+        <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+    </div>
+    <div class="modal-body text-center mb-2">
+
+        <p class="fnt-14 fnt-muli fnt-700 txt-clr334">Are you sure you want to delete the API key for "Third wave coffee roasters"? </p>
+
+        <div class="pt-4">
+
+            <button class="btn no-btn" (click)="modalRef.hide();">Cancel</button>
+            <button class="btn add-btn ml-3" (click)="modalRef.hide();">Yes</button>
+
+        </div>
+
+    </div>
+</ng-template>
+
+
+<ng-template #pausetemplate>
+    <div class="modal-header">
+        <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+    </div>
+    <div class="modal-body text-center mb-2">
+
+        <p class="fnt-14 fnt-muli fnt-700 txt-clr334">Are you sure you want to Pause API key access for "Third wave coffee roasters"?</p>
+
+        <div class="pt-4">
+
+            <button class="btn no-btn" (click)="modalRef.hide();">Cancel</button>
+            <button class="btn add-btn ml-3" (click)="modalRef.hide();">Yes</button>
+
+        </div>
+
+    </div>
+</ng-template>
