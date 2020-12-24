@@ -22,8 +22,8 @@ export class AvailableConfirmOrderComponent implements OnInit {
   confirmOrderError:any;
   modalRef: BsModalRef;
   appLanguage?: any;
-  country : string ;
-  state: string ;
+  country : any = "";
+  state: any;
   address1 : string;
   address2 : string;
   zipcode: string;
@@ -48,9 +48,10 @@ export class AvailableConfirmOrderComponent implements OnInit {
   min_quantity: any;
 	flagData: any;
 	addressId: any;
+  countryData: any;
+  countryName: any;
 
 constructor(private modalService: BsModalService,
-  public confirmOrderService : RoasteryProfileService,
   public router:Router,
   public globals: GlobalsService,
   private route : ActivatedRoute,
@@ -148,10 +149,10 @@ editAddress(){
 saveAddress(){
   if(this.country=="" || this.country == null || this.country == undefined){
     this.countryError= "Please select your country";
-    document.getElementById('country').style.border = "1px solid #D50000 ";
+    document.getElementById('countryList').style.border = "1px solid #D50000 ";
     setTimeout(() => {
       this.countryError = "";
-      document.getElementById('country').style.border = "1px solid #d6d6d6 ";
+      document.getElementById('countryList').style.border = "1px solid #d6d6d6 ";
     }, 3000);
   }
   else if(this.address1=="" || this.address1 == null || this.address1 == undefined){
@@ -180,7 +181,6 @@ saveAddress(){
   }
   else{
 	console.log(this.addressId);
-debugger
 	if(this.addressId){
 		var addressData={
 			"type": "shipping",
@@ -194,7 +194,8 @@ debugger
 		this.userService.editAddress(this.roaster_id,this.addressId,addressData).subscribe(
 			response => {
 				if(response['success']==true){
-					this.toastrService.success("Address has been Edited")
+          this.toastrService.success("Address has been Edited");
+          this.getRoAddress();
 				  }
 				  else{
 					this.toastrService.error("Error while Editing the address")
@@ -224,8 +225,6 @@ debugger
 			}
 		  )
 	}
-
-    
     document.getElementById("edit-shipping").style.display = "block";
     document.getElementById("form-address").style.display = "none";
   }
@@ -236,7 +235,7 @@ debugger
 
 changeCountry() {
   // console.log("the selected country is : " + this.country);
-  this.confirmOrderService.changeCountry(this.country);
+  this.profileservice.changeCountry(this.country);
 }
 onKeyPress(event: any) {
   if (event.target.value == "") {
@@ -294,7 +293,9 @@ getshipInfo(){
 		  this.address1 = this.addressArray.address_line1;
 		  this.address2 = this.addressArray.address_line2;
 		  this.city = this.addressArray.city;
-		  this.country = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase()).name;
+      this.country = this.addressArray.country;
+      this.countryData = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase());
+      this.countryName = this.countryData? this.countryData.name : '';
 		  this.state = this.addressArray.state;
 		  this.zipcode = this.addressArray.zipcode;
 		  this.ship_unit_price = response['result'].unit_price;
@@ -312,9 +313,11 @@ getRoAddress(){
 		  this.addressId= this.addressArray.id;
 		  this.address1 = this.addressArray.address_line1;
 		  this.address2 = this.addressArray.address_line2;
-		  this.city = this.addressArray.city;
-		  this.country = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase()).name;
-		  this.state = this.addressArray.state;
+		this.city = this.addressArray.city;
+		this.state = this.addressArray.state;
+      this.country = this.addressArray.country;
+      this.countryData = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase());
+      this.countryName = this.countryData? this.countryData.name : '';
 		  this.zipcode = this.addressArray.zipcode;
 		}
 	)
