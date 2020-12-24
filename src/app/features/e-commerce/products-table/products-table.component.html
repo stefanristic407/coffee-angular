@@ -113,7 +113,7 @@
 
                                     <td>
                                         <span class="product-div">
-                                            <img class="img-file" src="{{item.feature_image}}">
+                                            <img class="img-file" src="{{item.featured_image}}">
                                         </span>
                                         <span class="product-name-div">
                                             <p class="mb-1" style="width: 150px;word-wrap: break-word;">{{ item.name }}</p>
@@ -124,8 +124,7 @@
                     <td>{{ item.estate_name }}</td>
                     <td>{{ item.roast_level }} </td>
                     <td>
-                        <!-- {{item.weight}} -->
-                        16 lb
+                        {{item.weight}} {{item.weight_unit}}
                     </td>
                     <td>{{item.status}}</td>
 
@@ -133,7 +132,23 @@
                         {{item.price}}
                     </td>
                     <td>
-                        <span><a class="fnt-muli view-details" [routerLink]="['/features/product/'+item.id]">{{globals.languageJson?.edit_product}}</a><span><img class="pl-4" src="../../../../assets/images/more-opns-file.png"></span></span>
+                        <span>
+                            <a class="fnt-muli view-details" [routerLink]="['/features/product/'+item.id]">{{globals.languageJson?.edit_product}}</a>
+                            <span>
+                                <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                    <img class="ellipse-image pl-3" src="assets/images/more-opns-file.png" alt="">
+                                </a>
+                                <ng-template #poplistTemplate>
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-group custom-popover">
+                                            <li class="list-group-item" >
+                                                <a class="pointer-item" (click)="openDeleteModal(deleteTemplate,item.id); pop.hide()">{{globals.languageJson?.delete}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </span>
+                        </span>
                     </td>
                     </tr>
                     <tr class="odd" *ngIf="odd">
@@ -213,5 +228,16 @@
                 <a class="pointer-item" (click)="setOrigin('Ethiopia'); poporigin1.hide(); poporigin2.hide();toggleOrigin()">Ethiopia</a>
             </li>
         </ul>
+    </div>
+</ng-template>
+<ng-template #deleteTemplate>
+    <div class="modal-body mt-5 mb-5 text-center fnt-muli">
+        <div><img src="assets/images/delete-role.svg" alt=""></div>
+        <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
+        <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
+        <div class="mt-4">
+            <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+            <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteproduct(deleteId)">{{globals.languageJson?.delete}}</button>
+        </div>
     </div>
 </ng-template>

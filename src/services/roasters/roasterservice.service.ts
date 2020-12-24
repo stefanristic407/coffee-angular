@@ -770,6 +770,12 @@ export class RoasterserviceService {
     data['data']  = body;
 		return this.http.post(this.url, data);
   }
+  deleteProductDetails(roaster_id : any, productId:any):Observable<any>{
+    const data = {};
+		data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
+    data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.deleteUrl, data);
+  }
   updateProductDetails(roaster_id : any,productId:any, body: any):Observable<any>{
     const data = {};
 		data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
@@ -783,6 +789,22 @@ export class RoasterserviceService {
     data['token'] = this.cookieService.get('Auth');
     data['data']  = body;
 		return this.http.post(this.url, data);
+  }
+  updateProductWeightVarients(roaster_id : any, product_id:any, body: any, weightVariantId:any):Observable<any>{
+    const data = {};
+		data['api_call'] = `/ro/${roaster_id}/products/${product_id}/weight-variants/${weightVariantId}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data']  = body;
+		return this.http.put(this.putUrl, data);
+  }
+  uploadProductImage(roaster_id : any,file:any): Observable<any> {
+    let data = new FormData();
+		data.append('api_call',`/ro/${roaster_id}/file-manager/files`);
+    data.append('token',this.cookieService.get('Auth'));
+    data.append('file',file);
+    data.append('file_module','Product');
+    data.append('name',file.name);
+		return this.http.post(this.fileuploadUrl, data).pipe(map(res => res));
   }
   //E-com APIs-ends
 

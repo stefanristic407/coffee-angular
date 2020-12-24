@@ -352,25 +352,33 @@
             </div>
 
             <!-- image -->
-            <div class="add-images mt-3">
-                <div class="row">
+            <div [ngClass]="{'add-images mt-3':currentVarientIndex == gIndex}" *ngFor="let varient of varients;let gIndex = index">
+                <div class="row" *ngIf="currentVarientIndex == gIndex">
                     <div class="col-3">
 
                     </div>
                     <div class="col-9">
                         <p class="fnt-18 fnt-muli fnt-700 black">Add Images</p>
                         <p class="fnt-14 fnt-muli fnt-600 black m-0"> Upload Feature Image</p>
-                        <div class="form-section__inputs roastery-upload-files col-3 border-img">
-                            <div class="roastery-fields">
-                                <div class="roastery-uploads">
-                                    <div class="roastery-uploads__image d-flex align-items-center justify-content-center">
-                                        <label class="mb-0">
-                                                <input type="file">
+                        <div class="row">
+                            <div class="form-section__inputs roastery-upload-files col-3 border-img">
+                                <div class="roastery-fields">
+                                    <div class="roastery-uploads">
+                                        <div class="roastery-uploads__image d-flex align-items-center justify-content-center">
+                                            <label class="mb-0">
+                                                <input type="file" accept="image/png, image/jpeg" style="visibility: hidden;" #roasterImage (change)="handleRoasterFile($event)">
                                                 <div class="d-flex flex-wrap align-items-center justify-content-center">
                                                     <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text">Drag and drop an image here or browse</span>
                                                 </div>
                                             </label>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col" *ngIf="varient.files.length">
+                                <div class="d-inline-block mr-2" *ngFor="let file of varient.files">
+                                    <img *ngIf="file.thumb_url" [src]="file.thumb_url" alt="" width="75" height="90">
+                                    <img *ngIf="file.image_url" [src]="file.image_url" alt="" width="75" height="90">
                                 </div>
                             </div>
                         </div>

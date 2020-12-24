@@ -73,7 +73,8 @@ export class VatB2bComponent implements OnInit {
 	}
 
 	getCountryName(code : any){
-		return this.roasteryProfileService.countryList.find(con => con.isoCode == code).name;	
+		const country =this.roasteryProfileService.countryList.find(con => con.isoCode == code);
+		return country? country.name:'';
 	}
 	changeCountry() {
 		// console.log("the selected country is : " + this.country);

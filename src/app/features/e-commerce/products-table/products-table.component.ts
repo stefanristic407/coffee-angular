@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
@@ -26,50 +26,9 @@ export class ProductsTableComponent implements OnInit {
   showRole: boolean = true;
   term: any;
   odd: boolean = false ;
+  modalRef: BsModalRef;
 
-  mainData: any[] = [
-    // {
-
-    //   name: 'Tres Santos',
-    //   origin: 'Colombia',
-    //   estateName: 'Finca la pampa',
-    //   roastLevel:'Medium',
-    //   weight:'16 lb',
-    //   status: 'In Stock',
-    //   price: '$44.56'
-    // },
-    // {
-
-    //   name: 'Tres Santos',
-    //   origin: 'Colombia',
-    //   estateName: 'Finca la pampa',
-    //   roastLevel:'Medium- light',
-    //   weight:'25 lb',
-    //   status: 'In Stock',
-    //   price: '$44.56'
-    // },
-    // {
-
-    //   name: 'Tres Santos',
-    //   origin: 'Colombia',
-    //   estateName: 'Finca La Toboba',
-    //   roastLevel:'Dark',
-    //   weight:'16 lb',
-    //   status: 'Sold',
-    //   price: '$44.56'
-    // },
-    // {
-
-    //   name: 'Tres Santos',
-    //   origin: 'Colombia',
-    //   estateName: 'Finca la pampa',
-    //   roastLevel:'Medium',
-    //   weight:'16 lb',
-    //   status: 'In Stock',
-    //   price: '$44.56'
-    // }
-
-  ]
+  mainData: any[] = []
   roleData: string;
   roleID: string;
   showOrigin: boolean = true;
@@ -78,6 +37,7 @@ export class ProductsTableComponent implements OnInit {
   termType: any;
   roasterId: any;
   appLanguage?: any;
+  deleteId: any;
 
   constructor(public router: Router,
     public cookieService: CookieService,
@@ -202,6 +162,20 @@ export class ProductsTableComponent implements OnInit {
         }
       }
     )
+  }
+
+  openDeleteModal(template1:TemplateRef<any>,deleteId:any){
+    this.modalRef = this.modalService.show(template1);
+    this.deleteId = deleteId;
+  }
+
+  deleteproduct(id){
+    this.roasterService.deleteProductDetails(this.roasterId, id).subscribe( res => {
+      if(res.success){
+        this.toastrService.success("Product deleted successfully");
+        this.getSelectProducts();
+      }
+    })
   }
 
 

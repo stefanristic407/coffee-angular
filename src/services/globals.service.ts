@@ -42,7 +42,6 @@ export class GlobalsService {
 
    	checkItem(data,listkey=null){
 		var slugType='';
-		// console.log(this.slug_list);
 		if(!listkey){
 			const flag3=this.slug_list.filter(elememts=>elememts.slug == data)[0];
 			let arr1=['manage','view'];

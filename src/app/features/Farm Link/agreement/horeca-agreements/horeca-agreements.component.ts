@@ -164,9 +164,9 @@ export class HorecaAgreementsComponent implements OnInit {
 	}
 
 	getCountryName(code : any){
-		return this.roasteryProfileService.countryList.find(con => con.isoCode == code).name;	
+		const country =this.roasteryProfileService.countryList.find(con => con.isoCode == code);
+		return country? country.name:'';
 	}
-	
 	getAgreements(){
 		this.roasterService.getAgreements(this.roasterId, this.customer_type).subscribe(
 			data => {
