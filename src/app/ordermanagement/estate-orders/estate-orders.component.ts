@@ -690,10 +690,10 @@ export class EstateOrdersComponent implements OnInit {
 		if (group.type == "GC_ORDER") {
 			this.router.navigate(["/ordermanagement/order-booked"], navigationExtras);
 		}
-		else if (group.type == "Sample") {
+		else if (group.type == "GC_ORDER_SAMPLE") {
 			this.router.navigate(["/ordermanagement/order-sample"], navigationExtras);
 		}
-		else if (group.type == "Pre-Booked") {
+		else if (group.type == "PREBOOK_LOT") {
 			this.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
 		}
 

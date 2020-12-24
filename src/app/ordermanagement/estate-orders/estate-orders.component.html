@@ -195,9 +195,9 @@
                             <td>{{group.price}}</td>
                             <td>{{group.quantity}}</td>
                             <td>
-                                <p class="typeoforder-Sample" *ngIf="group.type == 'Sample'">&#9679; Sample</p>
+                                <p class="typeoforder-Sample" *ngIf="group.type == 'GC_ORDER_SAMPLE'">&#9679; Sample</p>
                                 <!-- <p class="typeoforder-Booked" *ngIf="group.type == 'Booked'">&#9679; {{group.type}}</p> -->
-                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'Pre-Booked'">&#9679; Pre-Booked</p>
+                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'PREBOOK_LOT'">&#9679; Pre-Booked</p>
                                 <p class="typeoforder-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
                             </td>
                             <td>{{group.status | titlecase}}
