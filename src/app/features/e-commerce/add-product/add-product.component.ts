@@ -114,7 +114,6 @@ export class AddProductComponent implements OnInit {
     const result = [];
     const keys = Object.keys(data);
     keys.forEach( (ele,index) => {
-      data[ele][index].grind_variants = data[ele][index].products;
       data[ele][index].files          = data[ele][index].product_images;
       data[ele][index].product_images = this.setProductImages(data[ele][index].product_images);
       this.rc_batch_id = data[ele][0].rc_batch_id;
@@ -126,7 +125,7 @@ export class AddProductComponent implements OnInit {
   }
   setProductImages(images){
     const result = [];
-    if(images.length){
+    if(images&&images.length){
       images.forEach( ele => {
         result.push(ele.image_id);
       });
@@ -267,6 +266,12 @@ export class AddProductComponent implements OnInit {
         } else{
           const UploadedFile = await this.services.uploadProductImage(this.roasterId,e.target.files[i]).toPromise();
           if(UploadedFile.success){
+            if(!this.varients[this.currentVarientIndex].product_images){
+              this.varients[this.currentVarientIndex].product_images = [];
+            }
+            if(!this.varients[this.currentVarientIndex].files){
+              this.varients[this.currentVarientIndex].files = [];
+            }
             if(!this.varients[this.currentVarientIndex].product_images.length){
               this.varients[this.currentVarientIndex].featured_image_id = UploadedFile.result.id;
             }

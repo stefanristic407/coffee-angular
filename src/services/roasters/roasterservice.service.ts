@@ -799,11 +799,13 @@ export class RoasterserviceService {
   }
   uploadProductImage(roaster_id : any,file:any): Observable<any> {
     let data = new FormData();
+    const d = new Date();
+    const n = d.getTime();
 		data.append('api_call',`/ro/${roaster_id}/file-manager/files`);
     data.append('token',this.cookieService.get('Auth'));
     data.append('file',file);
     data.append('file_module','Product');
-    data.append('name',file.name);
+    data.append('name',n.toString());
 		return this.http.post(this.fileuploadUrl, data).pipe(map(res => res));
   }
   //E-com APIs-ends
