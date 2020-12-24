@@ -196,6 +196,7 @@ export class AddProductComponent implements OnInit {
         this.varients.forEach( (ele,index) => {
           ele.rc_batch_id = parseInt(this.rc_batch_id);
           ele.variant_id  = 1;
+          delete ele.files;
           this.services.addProductWeightVarients(this.roasterId,this.productId,ele).subscribe( res => {
 
           });
