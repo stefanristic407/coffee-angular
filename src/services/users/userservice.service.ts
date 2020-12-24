@@ -1096,4 +1096,22 @@ export class UserserviceService {
     data['method'] = "GET";
     return this.http.post(this.roasterUrl,data);
   }
+
+  editAddress(roasterId: any,address_id:any,body : any){
+    var data = {};
+    data['api_call'] = "/ro/"+roasterId +"/addresses/" +address_id;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = 'PUT';
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  addRequestSample(roasterId:any,harvest_id:any,body:any){
+	var data = {};
+	data['api_call'] = "/ro/" + roasterId + "/availability/"+ harvest_id +"/request-sample";
+	data['token'] = this.cookieService.get('Auth');
+	data['method'] = "POST";
+	data['data'] = body;
+	return this.http.post(this.roasterUrl, data);
+  }
 }

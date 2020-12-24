@@ -22,8 +22,8 @@ export class AvailableConfirmOrderComponent implements OnInit {
   confirmOrderError:any;
   modalRef: BsModalRef;
   appLanguage?: any;
-  country : string = '';
-  state: string = '';
+  country : any = "";
+  state: any;
   address1 : string;
   address2 : string;
   zipcode: string;
@@ -34,7 +34,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
   cityError:string;
   service: string = "Import & Delivery service";
   serviceAmount: number = 0;
-  available_bags:number = 0;
+  available_bags:number;
   terms:boolean = false;
   termError:string;
   availableConfirmActive:any=0;
@@ -46,9 +46,12 @@ export class AvailableConfirmOrderComponent implements OnInit {
   addressArray: any ;
   ship_unit_price: any;
   min_quantity: any;
+	flagData: any;
+	addressId: any;
+  countryData: any;
+  countryName: any;
 
 constructor(private modalService: BsModalService,
-  public confirmOrderService : RoasteryProfileService,
   public router:Router,
   public globals: GlobalsService,
   private route : ActivatedRoute,
@@ -62,9 +65,14 @@ constructor(private modalService: BsModalService,
     this.roaster_id = this.cookieService.get('roaster_id');
 
     this.route.queryParams.subscribe(params => {
-      this.sourcing.harvestData = params['gc_id'];
+	  this.sourcing.harvestData = params['gc_id'];
+	  this.flagData = params['flag']
 
-      this.sourcing.availableDetailList();
+	  this.sourcing.availableDetailList();
+	  if(this.flagData == 'buyNow'){
+		this.getshipInfo();
+	  }
+	  this.getRoAddress();
      
       });
    }
@@ -85,6 +93,7 @@ ngOnInit(): void {
   this.termError="";
   // this.price="$450";
   this.language();  
+ 
 }
 language(){
 	this.appLanguage = this.globals.languageJson;
@@ -100,7 +109,7 @@ placeOrder(){
       document.getElementById('quantityId').style.border = "1px solid #d6d6d6 ";
     }, 3000);
   }
-  else if(this.quantity>this.available_bags){
+  else if(this.quantity>(this.sourcing.quantity_count * this.sourcing.quantity)){
 	this.confirmOrderError = "Please enter quantity in range of available for sale";
     document.getElementById('quantityId').style.border = "1px solid #D50000";
     setTimeout(() => {
@@ -140,10 +149,10 @@ editAddress(){
 saveAddress(){
   if(this.country=="" || this.country == null || this.country == undefined){
     this.countryError= "Please select your country";
-    document.getElementById('country').style.border = "1px solid #D50000 ";
+    document.getElementById('countryList').style.border = "1px solid #D50000 ";
     setTimeout(() => {
       this.countryError = "";
-      document.getElementById('country').style.border = "1px solid #d6d6d6 ";
+      document.getElementById('countryList').style.border = "1px solid #d6d6d6 ";
     }, 3000);
   }
   else if(this.address1=="" || this.address1 == null || this.address1 == undefined){
@@ -171,27 +180,51 @@ saveAddress(){
     }, 3000);
   }
   else{
-
-    var data = {
-      "type": "shipping",
-      "address_line1": this.address1,
-      "address_line2": this.address2,
-      "city": this.city,
-      "state": this.state,
-      "country": this.country,
-      "zipcode": this.zipcode
-    }
-    this.userService.addAddresses(this.roaster_id,data).subscribe(
-      response => {
-        if(response['success']==true){
-          this.shippingAddress_id = response['result'].id;
-          this.toastrService.success("Address has been added")
-        }
-        else{
-          this.toastrService.error("Error while adding the address")
-        }
-      }
-    )
+	console.log(this.addressId);
+	if(this.addressId){
+		var addressData={
+			"type": "shipping",
+			"address_line1": this.address1,
+			"address_line2": this.address2,
+			"city": this.city,
+			"state": this.state,
+			"country": this.country,
+			"zipcode": this.zipcode
+		}
+		this.userService.editAddress(this.roaster_id,this.addressId,addressData).subscribe(
+			response => {
+				if(response['success']==true){
+          this.toastrService.success("Address has been Edited");
+          this.getRoAddress();
+				  }
+				  else{
+					this.toastrService.error("Error while Editing the address")
+				  }
+			}
+		)
+	}
+	else{
+		var data = {
+			"type": "shipping",
+			"address_line1": this.address1,
+			"address_line2": this.address2,
+			"city": this.city,
+			"state": this.state,
+			"country": this.country,
+			"zipcode": this.zipcode
+		  }
+		  this.userService.addAddresses(this.roaster_id,data).subscribe(
+			response => {
+			  if(response['success']==true){
+				this.shippingAddress_id = response['result'].id;
+				this.toastrService.success("Address has been added")
+			  }
+			  else{
+				this.toastrService.error("Error while adding the address")
+			  }
+			}
+		  )
+	}
     document.getElementById("edit-shipping").style.display = "block";
     document.getElementById("form-address").style.display = "none";
   }
@@ -202,7 +235,7 @@ saveAddress(){
 
 changeCountry() {
   // console.log("the selected country is : " + this.country);
-  this.confirmOrderService.changeCountry(this.country);
+  this.profileservice.changeCountry(this.country);
 }
 onKeyPress(event: any) {
   if (event.target.value == "") {
@@ -217,10 +250,10 @@ done(){
 
  
   var data = {
-    'quantity_count' : this.quantity,
-    'shipping_address_id' : this.shippingAddress_id,
-    'billing_address_id' : this.shippingAddress_id,
-    'is_fully_serviced_delivery' : this.service == "Import & Delivery service" ? true : false
+	"quantity_count" : parseInt(this.quantity),
+	"shipping_address_id": parseInt(this.addressId),
+	"billing_address_id": parseInt(this.addressId),
+    "is_fully_serviced_delivery" : this.service == "Import & Delivery service" ? true : false
   }
 this.roasterService.placeOrder(this.roaster_id,this.sourcing.harvestData,data).subscribe(
 data => {
@@ -237,39 +270,75 @@ data => {
 )
 }
 
-ngAfterViewInit(){
-  if(this.service == "Import & Delivery service"){
-    this.userService.getShippingInfo(this.roaster_id,this.sourcing.estate_id).subscribe(
-      response => {
-        console.log(response);
-        this.addressArray = response['result']['warehouse_address'];
-        console.log(this.addressArray);
-        this.address1 = this.addressArray.address_line1;
-        this.address2 = this.addressArray.address_line2;
-        this.city = this.addressArray.city;
-        this.country = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase()).name;
-        this.state = this.addressArray.state;
-        this.zipcode = this.addressArray.zipcode;
-        this.ship_unit_price = response['result'].unit_price;
-        this.min_quantity = response['result'].minimum_quantity;
-        
-      }
-    )
+// ngAfterViewInit(){
+// 	this.getshipInfo();
+// }
+
+serviceChange(event:any){
+  if(event.target.value == "Import & Delivery service"){
+   this.getshipInfo();
   }
   else{
-    this.userService.getAddresses(this.roaster_id).subscribe(
-      response => {
-        this.addressArray = response['result'][0];
-        this.address1 = this.addressArray.address_line1;
-        this.address2 = this.addressArray.address_line2;
-        this.city = this.addressArray.city;
-        this.country = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase()).name;
-        this.state = this.addressArray.state;
-        this.zipcode = this.addressArray.zipcode;
-      }
-    )
+   this.getRoAddress();
   }
 }
 
+getshipInfo(){
+	this.userService.getShippingInfo(this.roaster_id,this.sourcing.estate_id).subscribe(
+		response => {
+		  console.log(response);
+		  this.addressArray = response['result']['warehouse_address'];
+		  console.log(this.addressArray);
+		  this.addressId= this.addressArray.id;
+		  this.address1 = this.addressArray.address_line1;
+		  this.address2 = this.addressArray.address_line2;
+		  this.city = this.addressArray.city;
+      this.country = this.addressArray.country;
+      this.countryData = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase());
+      this.countryName = this.countryData? this.countryData.name : '';
+		  this.state = this.addressArray.state;
+		  this.zipcode = this.addressArray.zipcode;
+		  this.ship_unit_price = response['result'].unit_price;
+		  this.min_quantity = response['result'].minimum_quantity;
+		  
+		}
+	  )
+}
+
+getRoAddress(){
+	this.userService.getAddresses(this.roaster_id).subscribe(
+		response => {
+		  this.addressArray = response['result'][0];
+		  console.log(this.addressArray);
+		  this.addressId= this.addressArray.id;
+		  this.address1 = this.addressArray.address_line1;
+		  this.address2 = this.addressArray.address_line2;
+		this.city = this.addressArray.city;
+		this.state = this.addressArray.state;
+      this.country = this.addressArray.country;
+      this.countryData = this.profileservice.countryList.find(con => con.isoCode == this.addressArray.country.toUpperCase());
+      this.countryName = this.countryData? this.countryData.name : '';
+		  this.zipcode = this.addressArray.zipcode;
+		}
+	)
+}
+orderSampleDone(){
+	var doneData = {
+		"shipping_address_id": parseInt(this.addressId),
+		"billing_address_id": parseInt(this.addressId),
+		"prebook_order_id" : 0
+	  }
+	this.userService.addRequestSample(this.roaster_id,this.sourcing.harvestData,doneData).subscribe(
+	data => {
+	  if(data['success'] == true ){
+		this.toastrService.success("Order has been placed Successfully");
+		this.router.navigate(["/features/order-placed"]);
+	  }
+	  else{
+		this.toastrService.error("Error while Placing the order");
+	  }
+	}
+	)
+}
 
 }

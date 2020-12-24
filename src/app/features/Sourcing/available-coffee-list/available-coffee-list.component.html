@@ -49,8 +49,8 @@
                                         </div>
                                     </div>
                                     <div class="source-knowmore-avail pull-right">
-                                        <a class="know-more-avail mr-2">{{globals.languageJson?.order_sample}}</a>
-                                        <a class="contact-us-avail" (click)="orderPlace(sourcing.harvestData)" *ngIf="this.globals.checkItem('coffee-management') && this.globals.permissions['coffee-management'].manage">{{globals.languageJson?.buy_now}}</a>
+                                        <a class="know-more-avail mr-2" (click)="orderPlace(sourcing.harvestData,'sample')">{{globals.languageJson?.order_sample}}</a>
+                                        <a class="contact-us-avail" (click)="orderPlace(sourcing.harvestData,'buyNow')" *ngIf="this.globals.checkItem('coffee-management') && this.globals.permissions['coffee-management'].manage">{{globals.languageJson?.buy_now}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -139,12 +139,12 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate">
                                                     <div class="p-photo">
-                                                        <img *ngIf="sourcing.evaluator_dp_thumb!=''" [src]="sourcing.evaluator_dp_thumb" alt="">
+                                                        <img class="fc-img" *ngIf="sourcing.evaluator_dp_thumb!=''" [src]="sourcing.evaluator_dp_thumb" alt="">
                                                         <img *ngIf="sourcing.evaluator_dp_thumb==''" src="assets/images/profile-coffee.jpg">
                                                     </div>
 
                                                     <h3>{{sourcing.evaluator_name}}</h3>
-                                                    <h6>{{globals.languageJson?.estate_owner}}</h6>
+                                                    <h6>Facilitator</h6>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-6 v-report">

@@ -256,10 +256,11 @@ export class AvailableCoffeeListComponent implements OnInit {
   }
 
 
-orderPlace(id : any){
+orderPlace(id : any,data:any){
 	let navigationExtras: NavigationExtras = {
 		queryParams: {
 		  "gc_id": encodeURIComponent(id),
+		  "flag" : data
 		}
 	  }
   
