@@ -54,6 +54,12 @@ export class OrderSampleService {
 	recentactivityarray:any=[];
 	orderId: any;
 	oId: any;
+	invoice_url: any;
+	payment_status: any;
+	receipt_url: any;
+	payment_after_delivery: any;
+	order_status: any;
+	paymentVerification: boolean = false;
 	
 
 	constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService,public bookedService: OrderBookedService) {
@@ -86,11 +92,25 @@ export class OrderSampleService {
 					this.roaster_thumbnail_url=res['result']['roaster_profile_image_thumbnail_url'];
 					this.shipping_address=res['result']['shipping_address'];
 					this.estate_id=res['result']['estate_id'];
+					this.invoice_url = res['result']['invoice_url'];
+					this.payment_status = res['result']['payment_status'];
+					this.receipt_url = res['result']['receipt_url'];
+					this.payment_after_delivery = res['result']['payment_after_delivery'];
+					this.order_status = res['result']['status'];
+
+					if(this.payment_status == 'VERIFIED'){
+						this.uploadShow = false;
+						this.receiptShow = true;
+						this.statusPaid = true;
+						this.statusPending = false;
+						this.paymentVerification = true;
+					}
 					this.viewSampleAvailability();
 					this.viewSampleEstateDetails();
 					this.bookedService.viewEstateDetails(this.roasterId,this.estate_id);
 					this.bookedService.getEstateReviews(this.estate_id,this.orderSampleId);
 					this.bookedService.getEstateSummary(this.estate_id);
+					this.ViewRecentActivity();
 				}	
 			}
 		)

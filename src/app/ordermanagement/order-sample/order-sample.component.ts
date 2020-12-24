@@ -10,6 +10,9 @@ import { OrderDetailsComponent } from '../order-sample/order-details/order-detai
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { OrderBookedService } from '../order-booked/order-booked.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-order-sample',
@@ -51,7 +54,8 @@ export class OrderSampleComponent implements OnInit {
 	constructor(public sampleService: OrderSampleService, private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
 		public bookedService: OrderBookedService,
-		public globals: GlobalsService,public profileservice:RoasteryProfileService) { 
+		public globals: GlobalsService,public profileservice:RoasteryProfileService,private roasterService : RoasterserviceService,
+		private userService : UserserviceService,private toastrService : ToastrService) { 
 			this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
 			this.orderSampleId = decodeURIComponent(this.route.snapshot.queryParams['id']);
 			this.sampleService.orderSampleId=this.orderSampleId;
@@ -143,7 +147,7 @@ export class OrderSampleComponent implements OnInit {
 
 		// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.globals,this.profileservice);
+		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.globals,this.profileservice,this.cookieService,this.roasterService,this.userService,this.toastrService);
 		setTimeout(()=>{
 			uploadReceipt.uploadReceipt();
 		},500);
@@ -277,5 +281,16 @@ chatboxForm.addEventListener("submit", e => {
           return this.countryValue.name;
           }
         }
-      }
+	}
+	showInvoice() { 
+   
+		const a = document.createElement("a"); 
+		a.href = this.sampleService.invoice_url ;
+		a.download = `#${this.sampleService.orderSampleId}`;
+		a.target = "_blank";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a); 
+	  
+	  }
 }

@@ -124,13 +124,13 @@
         <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content mb-15">
             <h4 class="sub-title">Payment status</h4>
             <div class="w-100 mt-2 mt-md-3">
-                <p class="status_paid" *ngIf="sampleService.statusPending"> PENDING</p>
-                <!-- <button type="button" class="btn receipt-btn mb-2" *ngIf="sampleService.statusPending"><img src="assets/images/view-receipt.svg" class="pr-2">View receipt</button> -->
-
-                <!-- <p class="status_paid" *ngIf="sampleService.statusPaid"> <img src="assets/images/statusPaid.svg"> PAID</p> -->
+                <p class="status_paid" *ngIf="sampleService.statusPending">PENDING</p>
                 <p class="status_paid" *ngIf="sampleService.statusPaid"> PAID</p>
-                <div *ngIf="sampleService.uploadShow && sampleService.statusPending"><button type="submit" class="btn receipt-btn mb-2" (click)="fileUpload.click()"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button></div>
-                <div *ngIf="sampleService.statusPaid"> <button type="button" class="btn receipt-btn mb-2"><img src=" assets/images/view.png " class="pr-2 ">View receipt</button></div>
+                <!-- <button type="button" class="btn receipt-btn mb-2" *ngIf="sampleService.statusPending"><img src="assets/images/view-receipt.svg" class="pr-2">View receipt</button> -->
+                <!-- <p class="status_paid" *ngIf="sampleService.statusPaid"> <img src="assets/images/statusPaid.svg"> PAID</p> -->
+                <button type="submit" *ngIf="sampleService.uploadShow && sampleService.statusPending" class="btn receipt-btn mb-2" (click)="fileUpload.click()"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
+                <button type="button" class="btn receipt-btn mb-2" *ngIf="sampleService.statusPaid"><a href="{{sampleService.receipt_url}}" target="_blank" download><img src=" assets/images/view.png " class="pr-2 ">View receipt</a></button>
+
                 <p class="pb-md-2 mb-0 mt-3 mt-md-0"><a class="procedure mt-2 ">View payment procedure </a></p>
                 <!-- <hr/> -->
                 <div class="track-info mt-4 pt-2 " *ngIf="sampleService.shipmentDone ">
