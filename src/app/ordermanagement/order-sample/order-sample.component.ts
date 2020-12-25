@@ -36,7 +36,8 @@ export class OrderSampleComponent implements OnInit {
 	receivedReport: boolean = false;
 	gradedReportSample: boolean = false;
 	uploadReportSample: boolean = true;
-	
+	paymentReceipt: boolean = false;
+
 
 	dataFromTable: any;
 	greenIconShow: boolean = false;
@@ -60,6 +61,13 @@ export class OrderSampleComponent implements OnInit {
 			this.orderSampleId = decodeURIComponent(this.route.snapshot.queryParams['id']);
 			this.sampleService.orderSampleId=this.orderSampleId;
 			this.sampleService.viewSampleOrderDetails();
+
+			if(this.sampleService.paymentVerification == true && this.dataFromTable == "CONFIRMED"){
+				setTimeout(() => {
+				this.sampleValueToShow = "Payment";
+				  this.paySample();
+				}, 1000);
+			  }	
 		}
 
 	ngOnInit(): void {
@@ -76,27 +84,27 @@ export class OrderSampleComponent implements OnInit {
 				this.orderConfirmSample();
 			}, 500);
 		}
-		else if (this.dataFromTable == "Payment") {
+		else if (this.dataFromTable == "PAYMENT") {
 			this.sampleValueToShow = "Payment";
 			setTimeout(() => {
 				this.paySample();
 			}, 500);
 
 		}
-		else if (this.dataFromTable == "Shipped") {
+		else if (this.dataFromTable == "SHIPPED") {
 			this.sampleValueToShow = "Shipped";
 			setTimeout(() => {
 				this.shipmentStatusSample();
 			}, 500);
 
 		}
-		else if (this.dataFromTable == "Received") {
+		else if (this.dataFromTable == "RECEIVED") {
 			this.sampleValueToShow = "Received";
 			setTimeout(() => {
 				this.receivedStatusSample();
 			}, 500);
 		}
-		else if (this.dataFromTable == "Graded") {
+		else if (this.dataFromTable == "GRADED") {
 			this.sampleValueToShow = "Graded";
 			setTimeout(() => {
 				this.gradedStatusSample();
@@ -131,6 +139,7 @@ export class OrderSampleComponent implements OnInit {
 		this.payment.nativeElement.style.fontWeight = "bold";
 		const completedProcess = document.getElementById('paymentDivSample');
 		completedProcess.classList.remove('completed');
+		this.paymentReceipt = true;
 		this.sampleService.paymentStatus();
 	}
 	// Function Name : Order Sample Shippment
