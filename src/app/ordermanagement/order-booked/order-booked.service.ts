@@ -77,6 +77,7 @@ export class OrderBookedService {
 	recent_status:any;
 	recentactivityarray:any=[];
 	oId: any;
+	documentsList: any;
 
   constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
 	this.roasterId = this.cookieService.get('roaster_id');
@@ -128,6 +129,7 @@ export class OrderBookedService {
 					this.getEstateReviews(this.estate_id, this.orderId);
 					this.getEstateSummary(this.estate_id);
 					this.ViewRecentActivity();
+					this.getGCOrderDocuments();
 				}	
 			}
 		)
@@ -215,5 +217,14 @@ export class OrderBookedService {
 		this.router.navigate(["/ordermanagement/rating"]);
 	} 
 
-
+	getGCOrderDocuments(){
+		this.userService.viewGcOrderDocuments(this.roasterId,this.orderId).subscribe(
+			res=>{
+				if(res['success'] == true){
+					console.log(res);
+					this.documentsList=res['result'];
+				}
+			}
+		)
+	}
 }

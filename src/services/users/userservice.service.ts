@@ -1139,4 +1139,12 @@ export class UserserviceService {
 	data['data'] = body;
 	return this.http.post(this.roasterUrl, data);
   }
+  
+  viewGcOrderDocuments(roasterId : any, order_id: any){
+    var data = {};
+    data['api_call'] = "/ro/"+roasterId+"/orders/"+order_id+"/documents";
+    data['method'] = "GET";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
 }

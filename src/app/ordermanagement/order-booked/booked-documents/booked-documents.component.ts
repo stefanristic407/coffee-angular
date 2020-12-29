@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { OrderBookedService } from '../order-booked.service';
 
 @Component({
   selector: 'sewn-booked-documents',
@@ -9,18 +10,19 @@ import { GlobalsService } from 'src/services/globals.service';
 export class BookedDocumentsComponent implements OnInit {
   
 
-  mainData:any[] = [
-    { documentdate: 'Export documents from Colombia ', date: '24 Jan 2020', owner: 'Kevin Bailey'},
-    { documentdate: 'License to Roast', date: '24 Jan 2020', owner: 'Kevin Bailey'},
-    { documentdate: 'Certificates - Rain forest alliance', date: '24 Jan 2020', owner: 'Kevin Bailey'},
-    { documentdate: 'Import documents for Ethopia', date: '-', owner: 'Kevin Bailey'},
-    { documentdate: 'T & C agreement', date: '-', owner: 'Kevin Bailey'},
-    { documentdate: 'T & C agreementnd', date: '24 Jan 2020', owner: 'Kevin Bailey'},
-  ]
+  // mainData:any[] = [
+  //   { documentdate: 'Export documents from Colombia ', date: '24 Jan 2020', owner: 'Kevin Bailey'},
+  //   { documentdate: 'License to Roast', date: '24 Jan 2020', owner: 'Kevin Bailey'},
+  //   { documentdate: 'Certificates - Rain forest alliance', date: '24 Jan 2020', owner: 'Kevin Bailey'},
+  //   { documentdate: 'Import documents for Ethopia', date: '-', owner: 'Kevin Bailey'},
+  //   { documentdate: 'T & C agreement', date: '-', owner: 'Kevin Bailey'},
+  //   { documentdate: 'T & C agreementnd', date: '24 Jan 2020', owner: 'Kevin Bailey'},
+  // ]
+
   termStatus: any;
   showStatus: boolean = true;
   appLanguage?:any;
-  constructor(public globals: GlobalsService) { }
+  constructor(public globals: GlobalsService,public bookedService: OrderBookedService) { }
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;
@@ -30,13 +32,13 @@ export class BookedDocumentsComponent implements OnInit {
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
+    this.bookedService.documentsList.forEach(x => x.state = ev.target.checked)
   }
 
   // Function Name : IsAllchecked
   // Description: This function helps to check single role.
   isAllChecked() {
-    return this.mainData.every(_ => _.state);
+    // return this.bookedService.documentsList.every(_ => _.state);
   } 
 
   setStatus(term: any) {
@@ -53,5 +55,13 @@ export class BookedDocumentsComponent implements OnInit {
   
   }
   }
-
+  downloadFile(item:any){
+    const a = document.createElement("a"); 
+    a.href = item.url ;
+    a.download = item.name;
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a); 
+  }
 }

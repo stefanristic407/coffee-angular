@@ -46,7 +46,7 @@
                     </tr>
                 </thead>
                 <tbody class="customtable">
-                    <tr class="ticket-boby-txt" *ngFor="let item of mainData">
+                    <tr class="ticket-boby-txt" *ngFor="let item of bookedService.documentsList | filter: termStatus">
                         <td>
                             <label class="b-check">
                                             <input type="checkbox" name="sizecb[]" value="{{ item.id }}"  [(ngModel)]="item.state"/>
@@ -54,20 +54,18 @@
                                         </label>
                         </td>
 
-                        <td>{{ item.documentdate}} </td>
-                        <td>{{ item.date}} </td>
-                        <td>{{ item.owner}}
-                            <p class="fnt-14 fnt-muli text-clr588 fnt-600"> Facilitator </p>
+                        <td>{{ item.name}} </td>
+                        <td>{{ item.date_added | date : 'd MMM y'}} </td>
+                        <td>{{ item.file_owner}}
+                            <!-- <p class="fnt-14 fnt-muli text-clr588 fnt-600"> Facilitator </p> -->
                         </td>
                         <td class="showcurser">
-                            <span><img class=" pr-2" src="assets/images/file-fld.png" alt="upload-icon"/></span>
+                            <span (click)="downloadFile(item)"><img class="pr-2" *ngIf="item.mime == 'image/jpeg' || item.mime == 'image/png'" src="assets/images/pdf-img.PNG" alt="upload-icon"/></span>
                         </td>
                     </tr>
                 </tbody>
             </table>
-
             <p class="procedure text-center mt-3"> Load more </p>
-
         </div>
     </div>
 </div>
@@ -85,8 +83,8 @@
             <li class="list-group-item item-color" (click)="setStatus('Finca La Pampa');pop2.hide()">
                 <a class="pointer-item">Finca La Pampa</a>
             </li>
-            <li class="list-group-item item-color" (click)="setStatus('Guadalupe Zajú'); pop2.hide()">
-                <a class="pointer-item">Guadalupe Zajú</a>
+            <li class="list-group-item item-color" (click)="setStatus('Satya'); pop2.hide()">
+                <a class="pointer-item">Satya</a>
             </li>
         </ul>
     </div>
