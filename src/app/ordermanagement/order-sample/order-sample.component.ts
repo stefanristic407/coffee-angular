@@ -51,6 +51,7 @@ export class OrderSampleComponent implements OnInit {
 	shippmentShow :boolean = false;
 	orderSampleId: any;
 	countryValue: any;
+	roasterId: string;
 
 	constructor(public sampleService: OrderSampleService, private route: ActivatedRoute,
 		public router: Router,public cookieService : CookieService,
@@ -61,6 +62,7 @@ export class OrderSampleComponent implements OnInit {
 			this.orderSampleId = decodeURIComponent(this.route.snapshot.queryParams['id']);
 			this.sampleService.orderSampleId=this.orderSampleId;
 			this.sampleService.viewSampleOrderDetails();
+			this.roasterId = this.cookieService.get('roaster_id');
 
 			if(this.sampleService.paymentVerification == true && this.dataFromTable == "CONFIRMED"){
 				setTimeout(() => {
@@ -153,7 +155,12 @@ export class OrderSampleComponent implements OnInit {
 		completedProcess.classList.remove('completed');
 		this.shippmentReport = true;
 		this.sampleService.shipmentDone = true;
-
+		if(this.dataFromTable == "SHIPPED"){
+			setTimeout(() => {
+			  this.orderSampleTimeline = false;
+			  this.confirmShow = true;
+			}, 2000);
+		  }
 		// Calling the Order Details component by creating object of the component and accessing its methods
 
 		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.globals,this.profileservice,this.cookieService,this.roasterService,this.userService,this.toastrService);
@@ -171,6 +178,13 @@ export class OrderSampleComponent implements OnInit {
 		const completedProcess = document.getElementById('receivedDivSample');
 		completedProcess.classList.remove('completed');
 		this.receivedReport = true;
+		this.orderSampleTimeline = true;
+		if(this.dataFromTable == "RECEIVED"){
+			setTimeout(() => {
+			  this.orderSampleTimeline = false;
+			  this.confirmShow = true;
+			}, 2000);
+		  }
 	}
 	// Function Name : Order Booked Graded
 	// Description: This function shows order is graded and grade info tab timeline is filled.
@@ -186,7 +200,7 @@ export class OrderSampleComponent implements OnInit {
 		$('#pills-contact-tab')[0].click();
 		setTimeout(() => {
 			this.orderSampleTimeline = false;
-			this.confirmShow = true;
+			// this.confirmShow = true;
 		}, 2000);
 
 		// Calling the Grade info component by creating object of the component and accessing its methods
@@ -207,11 +221,30 @@ export class OrderSampleComponent implements OnInit {
 		this.cancelShow = true;
 	}
 	receivedDate(){
-		this.orderSampleTimeline = false;
-		this.confirmShow = false;
-		this.cancelShow = false;
-		this.shippmentShow =false;
-		this.recievedShow=true;
+
+		this.roasterService.orderReceived(this.roasterId,this.orderSampleId).subscribe(
+			response => {
+			  if(response['success'] == true){
+				this.toastrService.success("Order received has been confirmed");
+				this.orderSampleTimeline = false;
+				this.cancelShow = false;
+				this.shippmentShow = false;
+			  this.recievedShow = true;
+			  this.confirmShow = false;
+				setTimeout(()=>{
+				this.receivedStatusSample();
+				},2000)
+			  }
+			  else{
+				this.toastrService.error("Error while confirmation the Shipment");
+			  }
+			}
+		  )
+		// this.orderSampleTimeline = false;
+		// this.confirmShow = false;
+		// this.cancelShow = false;
+		// this.shippmentShow =false;
+		// this.recievedShow=true;
 	}
 	wrongShippment(){
 		this.orderSampleTimeline = false;
