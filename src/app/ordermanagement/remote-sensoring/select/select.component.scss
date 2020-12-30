@@ -1,0 +1,36 @@
+.select-wrap {
+  border-radius: 20px;
+  border: 1px solid #d6d6d6;
+  background-color: #ffffff;
+  padding: 10px 16px;
+
+  &.opened {
+    border: 1px solid #30855c;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+  }
+}
+
+.list-group {
+  .list-group-item {
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    &.selected {
+      color: #232334;
+      background-color: #f8f8f8;
+    }
+    &:hover {
+      color: #232334;
+      background-color: #f8f8f8;
+    }
+  }
+}

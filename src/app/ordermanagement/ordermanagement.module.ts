@@ -37,6 +37,8 @@ import { RatingComponent } from './rating/rating.component';
 import { MicroRoasterComponent } from './dispute-system/micro-roaster/micro-roaster.component';
 import { HorecaComponent } from './dispute-system/horeca/horeca.component';
 import { ModalModule } from "ngx-bootstrap/modal";
+import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
+
 import { EstateComponent } from './dispute-system/estate/estate.component';
 import { DirectMessagingComponent } from './direct-messaging/direct-messaging.component';
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
@@ -78,6 +80,9 @@ import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-deta
 // import { EmptyTableComponent } from '../error-module/empty-table/empty-table.component';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { BookedShippingComponent } from './order-booked/booked-shipping/booked-shipping.component';
+import { RemoteSensoringComponent } from './remote-sensoring/remote-sensoring.component';
+import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
+import { SelectComponent } from './remote-sensoring/select/select.component';
 
 
 @NgModule({
@@ -141,7 +146,10 @@ import { BookedShippingComponent } from './order-booked/booked-shipping/booked-s
     OrdersTableComponent,
     RequestsTableComponent,
     MrRequestDetailsComponent,
-    BookedShippingComponent
+    BookedShippingComponent,
+    RemoteSensoringComponent,
+    WeatherChartComponent,
+    SelectComponent,
   ],
   imports: [
     // BrowserAnimationsModule,
@@ -162,7 +170,10 @@ import { BookedShippingComponent } from './order-booked/booked-shipping/booked-s
     AutoCompleteModule,
     // EmptyTableComponent,
     TypeaheadModule.forRoot(),
-    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true})
+    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true}),
+    ChartAllModule,
+    AccumulationChartAllModule,
+    RangeNavigatorAllModule
   ],
   exports : [DirectMessagingComponent]
 })

@@ -39,6 +39,7 @@ import {BookedOrderConfirmationComponent} from './microroaster-orders/micro-orde
 import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { MrOrdersComponent} from './microroaster-orders/mr-orders/mr-orders.component';
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
+import { RemoteSensoringComponent } from './remote-sensoring/remote-sensoring.component';
 import { AuthGuard } from '../guards/auth.guard';
 
 
@@ -215,6 +216,11 @@ children: [
     path:'mr-request-details',
     component:MrRequestDetailsComponent,
     canActivate : [AuthGuard]
+  },
+  {
+    path: 'remote-sensoring',
+    component: RemoteSensoringComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '',
