@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CuppingReportService } from '../cupping-report.service';
 
 @Component({
   selector: 'sewn-service-reports',
@@ -17,61 +18,61 @@ export class ServiceReportsComponent implements OnInit {
   showRole:boolean = true;
   term:any;
 
-  mainData:any[] = [
-    {
-      id: '#90727',
-      name: 'Finca la pampa',
-      region: 'Colombia',
-      evaluators: 'Molly Jennings, +3',
-      date:'24 Jan 2019',
-      average: 82.5
-    },
-    {
-      id: '#56076',
-      name: 'Gesha',
-      region: 'Ethopia',
-      evaluators: 'Max Howard',
-      date:'12 Jan 2019',
-      average: 86.43
-    },
-    {
-      id: '#12416',
-      name: 'Finca la pampa',
-      region: 'Brazil',
-      evaluators: 'Eugenia McGuire + 2',
-      date:'13 Oct 2018',
-      average: 79.04
-    },
-    {
-      id: '#71716',
-      name: 'Asoproaaa',
-      region: 'Papa New..',
-      evaluators: 'Marcus Vaughn',
-      date:'02 Dec 2019',
-      average: 85.34
-    },
-    {
-      id: '#12416',
-      name: 'Cafe Directo',
-      region: 'Colombia',
-      evaluators: 'Darrell Allison +1',
-      date:'02 Dec 2019',
-      average: 77.34
-    },
-    {
-      id: '#56076',
-      name: 'La Isabela',
-      region: 'Colombia',
-      evaluators: 'Alan Webster + 1',
-      date:'24 Jan 2019',
-      average: 82.5
-    }
-  ]
+  // mainData:any[] = [
+  //   {
+  //     id: '#90727',
+  //     name: 'Finca la pampa',
+  //     region: 'Colombia',
+  //     evaluators: 'Molly Jennings, +3',
+  //     date:'24 Jan 2019',
+  //     average: 82.5
+  //   },
+  //   {
+  //     id: '#56076',
+  //     name: 'Gesha',
+  //     region: 'Ethopia',
+  //     evaluators: 'Max Howard',
+  //     date:'12 Jan 2019',
+  //     average: 86.43
+  //   },
+  //   {
+  //     id: '#12416',
+  //     name: 'Finca la pampa',
+  //     region: 'Brazil',
+  //     evaluators: 'Eugenia McGuire + 2',
+  //     date:'13 Oct 2018',
+  //     average: 79.04
+  //   },
+  //   {
+  //     id: '#71716',
+  //     name: 'Asoproaaa',
+  //     region: 'Papa New..',
+  //     evaluators: 'Marcus Vaughn',
+  //     date:'02 Dec 2019',
+  //     average: 85.34
+  //   },
+  //   {
+  //     id: '#12416',
+  //     name: 'Cafe Directo',
+  //     region: 'Colombia',
+  //     evaluators: 'Darrell Allison +1',
+  //     date:'02 Dec 2019',
+  //     average: 77.34
+  //   },
+  //   {
+  //     id: '#56076',
+  //     name: 'La Isabela',
+  //     region: 'Colombia',
+  //     evaluators: 'Alan Webster + 1',
+  //     date:'24 Jan 2019',
+  //     average: 82.5
+  //   }
+  // ]
   roleData: string;
   roleID: string;
 
  
-  constructor() {
+  constructor(public cuppingService: CuppingReportService) {
     this.termStatus = '';
     this.termRole = '';
    }
@@ -120,13 +121,13 @@ export class ServiceReportsComponent implements OnInit {
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
+    this.cuppingService.reportsList.forEach(x => x.state = ev.target.checked)
   }
 
   // Function Name : IsAllchecked
   // Description: This function helps to check single role.
   isAllChecked() {
-    return this.mainData.every(_ => _.state);
+    return this.cuppingService.reportsList.every(_ => _.state);
   } 
 
 
