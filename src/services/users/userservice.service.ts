@@ -1147,4 +1147,20 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.roasterUrl, data);
   }
+
+  addExternalCuppingReport(roasterId: any,body : any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/cupping-process/external-samples";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.roasterUrl, data); 
+  }
+  listCuppingReports(roasterId : any){
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/my-cupping-reports/";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.roasterUrl,data);
+  }
 }

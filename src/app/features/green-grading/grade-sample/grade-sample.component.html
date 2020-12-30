@@ -25,24 +25,24 @@
                
                     <div class="col-lg-3">
                         <label>Origin</label>
-                        <input class="form-control" placeholder="Please enter the origin" type="text" id="origin">
+                        <input class="form-control" placeholder="Please enter the origin" type="text" id="origin" [(ngModel)]="grade_origin" name="origin">
                     </div>
                     <div class="col-lg-3">
                         <label>Estate name</label>
-                        <input class="form-control" placeholder="Please enter estate name" type="text" id="estateName">
+                        <input class="form-control" placeholder="Please enter estate name" type="text" id="estateName" [(ngModel)]="grade_estate" name="estateName">
                     </div>
                     <div class="col-lg-3">
                         <label>Species</label>
-                        <input class="form-control" placeholder="Please enter species" type="text" id="species">
+                        <input class="form-control" placeholder="Please enter species" type="text" id="species" [(ngModel)]="grade_species" name="species">
                     </div>
                     <div class="col-lg-3">
                         <label>ID<span class="id-text">(Give your sample an ID to identify it quicker)</span></label>
-                        <input class="form-control" placeholder="Please enter your ID" type="text" id="id">
+                        <input class="form-control" placeholder="Please enter your ID" type="text" id="id" [(ngModel)]="grade_id" name="gradeId">
                     </div>
       
             </div>
             <div class="row mt-4">
-                <button type="button" class="btn next" routerLink="/features/grade-service">Next</button>
+                <button type="button" class="btn next" (click)="addExternalReport()">Next</button>
                 <button type="button" class="btn add-sample">Add an another sample</button>
             </div>
         </div>
