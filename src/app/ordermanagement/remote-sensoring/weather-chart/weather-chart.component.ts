@@ -178,7 +178,9 @@ export class WeatherChartComponent implements OnInit {
     format: '${point.tooltip}',
   };
   legendSettings = { visible: false };
-  selectedDate = new Date('2020-12-26');
+  selectedDate = new Date();
+  startDate = moment().subtract(3, 'months').toDate();
+  endDate = new Date();
   weatherData: any[] = [];
 
   constructor(public globals: GlobalsService, public agroSrv: AgroService) {}
@@ -217,6 +219,20 @@ export class WeatherChartComponent implements OnInit {
   changeDate(value) {
     if (moment(value).isValid()) {
       this.selectedDate = new Date(value);
+      this.getHistoricalWeather();
+    }
+  }
+
+  changeStartDate(value) {
+    if (moment(value).isValid()) {
+      this.startDate = new Date(value);
+      this.getHistoricalWeather();
+    }
+  }
+
+  changeEndDate(value) {
+    if (moment(value).isValid()) {
+      this.endDate = new Date(value);
       this.getHistoricalWeather();
     }
   }
@@ -262,11 +278,12 @@ export class WeatherChartComponent implements OnInit {
       }
       default: {
         query = {
-          start: moment().startOf('day').subtract(3, 'months').unix(),
-          end: moment().startOf('day').subtract(1, 'hours').unix(),
+          start: moment(this.startDate).startOf('day').unix(),
+          end: moment(this.endDate).endOf('day').subtract(1, 'hours').unix(),
         };
       }
     }
+
     this.agroSrv.getHistoricalWeather(query).subscribe(
       (res: any) => {
         this.weatherData = res;

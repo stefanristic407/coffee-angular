@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from './users/userservice.service';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,14 @@ export class AgroService {
 
   getHistoricalWeather(query: any = {}) {
     const polyid = '5fdb6975f936d5000742add0';
+    // Check time
+    if (query.end <= query.start) {
+      const temp = query.start;
+      query.start = query.end;
+      query.end = temp;
+    }
+    query.sart = Math.min(query.start, moment().unix());
+    query.end = Math.min(query.end, moment().unix());
     return this.http.get(
       `http://api.agromonitoring.com/agro/1.0/weather/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
     );
