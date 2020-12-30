@@ -24,6 +24,6 @@ export class SelectComponent implements OnInit {
 
   secectValue(idx: number = null) {
     this.selectedIndex = idx;
-    this.valueChange.emit(this.items[idx]?.value || null);
+    this.valueChange.emit(this.items[idx]?.value);
   }
 }

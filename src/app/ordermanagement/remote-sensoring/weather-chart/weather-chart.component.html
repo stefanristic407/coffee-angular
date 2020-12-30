@@ -2,13 +2,13 @@
   <div class="col-12 w-100 text-right">
     <app-select
       [items]="weatherTypes"
-      [value]="weatherTypes[weatherType].value"
+      [value]="weatherTypes[selWeatherType].value"
       (valueChange)="changeWeatherType($event)"
       class="mr-3"
     ></app-select>
     <app-select
       [items]="periods"
-      [value]="periods[period].value"
+      [value]="periods[selPeriod].value"
       (valueChange)="changePeriod($event)"
     ></app-select>
   </div>
@@ -21,7 +21,6 @@
       [primaryXAxis]="primaryXAxis"
       [primaryYAxis]="primaryYAxis"
       [tooltip]="tooltip"
-      (load)="load($event)"
       [chartArea]="chartArea"
       [legendSettings]='legendSettings'
       width="100%"
