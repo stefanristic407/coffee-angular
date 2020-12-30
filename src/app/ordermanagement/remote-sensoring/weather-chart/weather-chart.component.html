@@ -8,6 +8,14 @@
         </span>
       </div>
     </div>
+    <ng-container *ngIf="periods[selPeriod].period === 'daily'">
+      <span class="fnt-14 fnt-bold fnt-muli text-grey588 mr-3">Selected day</span>
+      <app-date-picker
+        [value]="selectedDate"
+        (valueChange)="changeDate($event)"
+        class="mr-3"
+      ></app-date-picker>
+    </ng-container>
     <app-select
       [items]="weatherTypes"
       [value]="weatherTypes[selWeatherType].value"

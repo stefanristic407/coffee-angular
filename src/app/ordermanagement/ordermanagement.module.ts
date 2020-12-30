@@ -83,6 +83,7 @@ import { BookedShippingComponent } from './order-booked/booked-shipping/booked-s
 import { RemoteSensoringComponent } from './remote-sensoring/remote-sensoring.component';
 import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
 import { SelectComponent } from './remote-sensoring/select/select.component';
+import { DatePickerComponent } from './remote-sensoring/date-picker/date-picker.component';
 
 
 @NgModule({
@@ -150,6 +151,7 @@ import { SelectComponent } from './remote-sensoring/select/select.component';
     RemoteSensoringComponent,
     WeatherChartComponent,
     SelectComponent,
+    DatePickerComponent,
   ],
   imports: [
     // BrowserAnimationsModule,

@@ -214,6 +214,13 @@ export class WeatherChartComponent implements OnInit {
     this.getHistoricalWeather();
   }
 
+  changeDate(value) {
+    if (moment(value).isValid()) {
+      this.selectedDate = new Date(value);
+      this.getHistoricalWeather();
+    }
+  }
+
   updateChartSetting() {
     if (
       this.selWeatherType === 0 &&
