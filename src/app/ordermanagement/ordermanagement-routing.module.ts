@@ -41,6 +41,8 @@ import { MrOrdersComponent} from './microroaster-orders/mr-orders/mr-orders.comp
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 import { RemoteSensoringComponent } from './remote-sensoring/remote-sensoring.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
+import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
 
 
 const routes: Routes = [
@@ -220,7 +222,22 @@ children: [
   {
     path: 'remote-sensoring',
     component: RemoteSensoringComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'weather',
+        component: WeatherChartComponent,
+      },
+      {
+        path: 'soil',
+        component: SoilChartComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'weather',
+        pathMatch: 'full',
+      },
+    ]
   },
   {
     path: '',

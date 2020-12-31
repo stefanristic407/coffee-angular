@@ -32,6 +32,7 @@ import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/rai
 import { RaisedTicketComponent } from './dispute-system/raised-ticket/raised-ticket.component';
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
 import {CalendarModule} from 'primeng/calendar';
+import { TabViewModule } from 'primeng/tabview';
 import { ReviewRatingsComponent } from './review-ratings/review-ratings.component';
 import { RatingComponent } from './rating/rating.component';
 import { MicroRoasterComponent } from './dispute-system/micro-roaster/micro-roaster.component';
@@ -84,6 +85,7 @@ import { RemoteSensoringComponent } from './remote-sensoring/remote-sensoring.co
 import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
 import { SelectComponent } from './remote-sensoring/select/select.component';
 import { DatePickerComponent } from './remote-sensoring/date-picker/date-picker.component';
+import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
 
 
 @NgModule({
@@ -152,6 +154,7 @@ import { DatePickerComponent } from './remote-sensoring/date-picker/date-picker.
     WeatherChartComponent,
     SelectComponent,
     DatePickerComponent,
+    SoilChartComponent,
   ],
   imports: [
     // BrowserAnimationsModule,
@@ -163,6 +166,7 @@ import { DatePickerComponent } from './remote-sensoring/date-picker/date-picker.
     RatingModule,
     PopoverModule,
     CalendarModule,
+    TabViewModule,
     ModalModule,
     MatBottomSheetModule,
     NgxChartsModule,

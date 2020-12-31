@@ -51,69 +51,54 @@
                 <div class="mt-2 fnt-16 fnt-normal fnt-muli text-grey588">
                   We bring you live updates of your lot with geo tracking!
                 </div>
+              </div>
+            </div>
 
-                <nav class="mt-4">
-                  <div
-                    class="nav nav-tabs nav-fill"
-                    id="nav-tab"
-                    role="tablist"
-                  >
+            <div class="row">
+              <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                <ul class="nav nav-pills mb-3 w-100">
+                  <li class="nav-item">
                     <a
-                      class="nav-item nav-link active"
-                      id="nav-home-tab1"
-                      data-toggle="tab"
-                      href="#weather"
-                      role="tab"
-                      aria-controls="nav-home"
-                      aria-selected="true"
+                      class="nav-link"
+                      routerLink="/ordermanagement/remote-sensoring/weather"
+                      routerLinkActive="active"
                       >{{ appLanguage?.weather }}</a
                     >
+                  </li>
+                  <li class="nav-item">
                     <a
-                      class="nav-item nav-link"
-                      id="nav-profile-tab2"
-                      data-toggle="tab"
-                      href="#soil"
-                      role="tab"
-                      aria-controls="nav-profile"
-                      aria-selected="false"
+                      class="nav-link"
+                      routerLink="/ordermanagement/remote-sensoring/soil"
+                      routerLinkActive="active"
                       >{{ appLanguage?.soil }}</a
                     >
+                  </li>
+                  <li class="nav-item">
                     <a
-                      class="nav-item nav-link"
-                      id="nav-profile-tab3"
-                      data-toggle="tab"
-                      href="#uv"
-                      role="tab"
-                      aria-controls="nav-profile"
-                      aria-selected="false"
+                      class="nav-link"
+                      routerLink="/ordermanagement/remote-sensoring/uv"
+                      routerLinkActive="active"
                       >UV</a
                     >
+                  </li>
+                  <li class="nav-item">
                     <a
-                      class="nav-item nav-link"
-                      id="nav-profile-tab3"
-                      data-toggle="tab"
-                      href="#images"
-                      role="tab"
-                      aria-controls="nav-profile"
-                      aria-selected="false"
-                      >{{ appLanguage?.images }}</a
+                      class="nav-link"
+                      routerLink="/ordermanagement/remote-sensoring/vegetation"
+                      routerLinkActive="active"
+                      >Vegetation Index</a
                     >
-                  </div>
-                </nav>
-
-                <div
-                  class="tab-content pt-4 mt-2 px-3 px-sm-0"
-                  id="nav-tabContent"
-                >
-                  <div
-                    class="tab-pane fade show active"
-                    id="weather"
-                    role="tabpanel"
-                    aria-labelledby="nav-profile-tab"
-                  >
-                    <app-weather-chart></app-weather-chart>
-                  </div>
-                </div>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      routerLink="/ordermanagement/remote-sensoring/images"
+                      routerLinkActive="active"
+                      >Images</a
+                    >
+                  </li>
+                </ul>
+                <router-outlet> </router-outlet>
               </div>
             </div>
           </div>
