@@ -151,7 +151,7 @@
     </div> 
     <div class="mt-4">
         <button type="button" class="btn cancel_member mt-4" routerLink="/people/manage-role">{{globals.languageJson?.cancel}}</button>
-        <!-- <button type="button" class="btn invite_members mt-4 pull-right ml-auto" >{{globals.languageJson?.assign}}</button> -->
+        <button *ngIf="showAssignBtn" type="button" class="btn invite_members mt-4 pull-right ml-auto" (click)="assignUsersToRole()">{{globals.languageJson?.assign}}</button>
     </div>                   
 </section>
 

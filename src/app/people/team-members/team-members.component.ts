@@ -33,6 +33,7 @@ export class TeamMembersComponent implements OnInit {
   modalRef: BsModalRef;
   loginId: string;
   checkCondition: any;
+  showAssignBtn:boolean = false;
 
   
   constructor(public roasterService:RoasterserviceService,
@@ -108,10 +109,10 @@ export class TeamMembersComponent implements OnInit {
             	this.userService.userLastlogin().subscribe(
             	  loginResponse => {
                   console.log(loginResponse);
-							let sample = loginResponse['result'];
-							let latest_date = sample.map(function (e) { return e.logged_in_at; }).sort().reverse()[0];
-							this.loginValue = new DatePipe('en-Us').transform(latest_date, 'dd/MM/yyyy h:mma', 'GMT+5:30');
-							tempData["lastLogin"] = this.loginValue;
+                  let sample = loginResponse['result'];
+                  let latest_date = sample.map(function (e) { return e.logged_in_at; }).sort().reverse()[0];
+                  this.loginValue = new DatePipe('en-Us').transform(latest_date, 'dd/MM/yyyy h:mma', 'GMT+5:30');
+                  tempData["lastLogin"] = this.loginValue;
             	  }
             	);
               } else {
@@ -225,8 +226,26 @@ export class TeamMembersComponent implements OnInit {
   }
 
   checkedValue(ev : any, user_id : any){
-    this.checkCondition = ev.target.checked; 
-    
+    this.checkCondition = ev.target.checked;
+    const getCheckValue = this.userfilterDat.filter(ele => ele['state'] == true);
+    this.showAssignBtn = getCheckValue && getCheckValue.length > 0 ? true : false;
+  }
+
+  assignUsersToRole(){
+    let selectedUserID = this.userfilterDat.find(ele => ele['state'] == true);    
+    this.roasterService.assignUserBasedUserRoles(this.roaster_id, this.roleID, selectedUserID['id'], ).subscribe(
+      res => {
+        console.log(res);
+        if (res['success'] == true) {
+          this.toastrService.success("User Role Assigned Successfully!");
+		      this.userfilterDat=[];
+          this.getRoasterUsers();
+        } else {
+          this.toastrService.error("User Role Already exists.Please select another role");
+        }        
+      }, err=>{
+        console.log(err); 
+      });
   }
 
    // Function Name : Delete user

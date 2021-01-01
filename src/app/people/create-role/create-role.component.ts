@@ -116,14 +116,55 @@ export class CreateRoleComponent implements OnInit {
               }]
           this.showPermission.push(this.files[0]);
         }
-		this.permissionList = this.showPermission;
-		this.createActive++;
-	  }
-    );
+        const groupedCategory = this.groupByArray(data['result'], 'category');
+        let groupPermission = [];
+        groupedCategory.forEach(ele =>{
+          let parent = {};
+          var label = ele.key;
+          label = label.replace('-', ' ');
+          parent['label'] = label;
+          parent['selectable'] = false;
+          parent['styleClass'] = 'parentNodeStyle';
+          //parent['data'] = ele;
+          let childItems = [];
+          if(ele['values']){
+            childItems = ele['values'].map(item =>{
+              let obj = {};
+              var childLabel = item.slug;
+              childLabel = childLabel.replace('-', ' ');
+              obj['label'] = childLabel + " (" + item.access_type + ")";
+              obj['key'] = item.id;
+              obj['data'] = item.slug;
+              return obj;
+            });
+          }
+          parent['children'] = childItems;
+          groupPermission.push(parent);
+        });        
+        //this.permissionList = this.showPermission;
+        this.permissionList = groupPermission;
+        this.createActive++;
+      });
   }
   language(){
     this.appLanguage = this.globals.languageJson;
     this.createActive++;
+  }
+  groupByArray(arr, key){
+      return arr.reduce(function (rv, x) {
+          let v = key instanceof Function ? key(x) : x[key];
+          let el = rv.find((r) => r && r.key === v);
+          if (el) {
+              el.values.push(x);
+          }
+          else {
+              rv.push({
+                  key: v,
+                  values: [x]
+              });
+          }
+          return rv;
+      }, []);
   }
   onKeyPress(event: any) {
     if (event.target.value == "") {
