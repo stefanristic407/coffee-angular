@@ -88,6 +88,7 @@ import { DatePickerComponent } from './remote-sensoring/date-picker/date-picker.
 import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
 import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/vegetation-chart.component';
+import { ImageMapComponent } from './remote-sensoring/image-map/image-map.component';
 
 
 @NgModule({
@@ -159,6 +160,7 @@ import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/ve
     SoilChartComponent,
     UvChartComponent,
     VegetationChartComponent,
+    ImageMapComponent,
   ],
   imports: [
     // BrowserAnimationsModule,

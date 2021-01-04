@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-12 w-100 d-flex justify-content-between">
+    <div class="d-inline-flex ndvi-mark flex-column" *ngIf="selType === 2">
+      <div class="color-wrap"></div>
+      <div class="label-wrap d-flex justify-content-between">
+        <p class="fnt-16 fnt-500 fnt-muli text-black334 m-0">High</p>
+        <p class="fnt-16 fnt-500 fnt-muli text-black334 m-0">Med</p>
+        <p class="fnt-16 fnt-500 fnt-muli text-black334 m-0">Low</p>
+      </div>
+    </div>
+    <div class="d-inline-flex evi-mark flex-column" *ngIf="selType === 3">
+      <div class="color-wrap"></div>
+      <div class="label-wrap d-flex justify-content-between">
+        <p class="fnt-16 fnt-500 fnt-muli text-black334 m-0">High</p>
+        <p class="fnt-16 fnt-500 fnt-muli text-black334 m-0">Med</p>
+        <p class="fnt-16 fnt-500 fnt-muli text-black334 m-0">Low</p>
+      </div>
+    </div>
+    <div class="w-100 d-flex justify-content-end align-items-center">
+      <span class="fnt-14 fnt-bold fnt-muli text-grey588 mr-3">
+        Selected day
+      </span>
+      <app-date-picker
+        [value]="selectedDate"
+        (valueChange)="changeDate($event)"
+        class="mr-3"
+      ></app-date-picker>
+      <app-select
+        [items]="weatherTypes"
+        [value]="weatherTypes[selType].value"
+        (valueChange)="changeWeatherType($event)"
+      ></app-select>
+    </div>
+  </div>
+</div>
+<div class="row mt-0 mt-md-4">
+  <div class="col-12">
+    <div id="map" style="width: 100%; height: 400px; margin-bottom: 24px"></div>
+  </div>
+</div>
