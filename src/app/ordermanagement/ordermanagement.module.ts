@@ -86,6 +86,7 @@ import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-
 import { SelectComponent } from './remote-sensoring/select/select.component';
 import { DatePickerComponent } from './remote-sensoring/date-picker/date-picker.component';
 import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
+import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
 
 
 @NgModule({
@@ -155,6 +156,7 @@ import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.com
     SelectComponent,
     DatePickerComponent,
     SoilChartComponent,
+    UvChartComponent,
   ],
   imports: [
     // BrowserAnimationsModule,
