@@ -282,6 +282,18 @@ a.b-cum:hover {
     text-transform: capitalize;
 }
 
+:host ::ng-deep .pi-caret-down::before {
+    content: "\e933";
+}
+
+:host ::ng-deep .pi-caret-right::before {
+    content: "\e930";
+}
+
+:host ::ng-deep .ui-tree .ui-tree-container .parentNodeStyle > .ui-treenode-content .ui-chkbox{
+    display: none !important;
+}
+
 .clear {
     clear: both;
 }
