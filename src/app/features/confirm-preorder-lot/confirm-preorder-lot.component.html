@@ -1,0 +1,310 @@
+<div class="total-loader" *ngIf="availableConfirmActive !=1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    </div>
+</div>
+<div *ngIf="availableConfirmActive == 1">
+    <section>
+        <div class="container sewn-container section-head-pad">
+
+            <div class="confirm-ffff mob-sec">
+                <section class="create-role">
+                    <div class="back-icon w-100">
+                        <a routerLink="/features/sourcing"><img src="assets/images/back-arrow-confirm.svg">{{globals.languageJson?.back}}</a>
+                    </div>
+                    <div class="confirm-order mt-3">
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <h4 class="confirm-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4>
+                                <div class="fill-txt">{{globals.languageJson?.sample_recieved}}.</div>
+                                <div class="fill-txt">{{globals.languageJson?.please_shippment}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+
+
+
+            <div class="bg-fff">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 web-sec">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/sourcing">{{globals.languageJson?.sourcing_module}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/sourcing">Finca La Pmapa</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                        </li>
+                        <li class="b-cum c-pink">{{globals.languageJson?.confirm_order}}</li>
+                    </ul>
+                </nav>
+                <section class="create-role-sec">
+                    <div class="confirm-order mt-4 web-sec">
+                        <div class="row">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <h4 class="confirm-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4>
+                                <div class="fill-txt">Please fill in the details to Pre-book the lot.</div>
+                                <!-- <div class="fill-txt">{{globals.languageJson?.please_shippment}}</div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-div ">
+                        <div class="row web-sec">
+                            <div class="col-12 details-header pb-2">{{globals.languageJson?.order_details}}</div>
+                            <div class="col-12 lot-content table-responsive">
+                                <table class="table lot-table">
+                                    <thead class="table-head">
+                                        <tr>
+                                            <th>{{globals.languageJson?.customer}}</th>
+                                            <th>{{globals.languageJson?.origin}}</th>
+                                            <th>{{globals.languageJson?.species}}</th>
+                                            <th>{{globals.languageJson?.variety}}</th>
+                                            <th>Avg, grade</th>
+                                            <th>Avg. Production</th>
+                                            <th>Token amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Finca Guadalupe Zajú</td>
+                                            <td>Colombia</td>
+                                            <td>Arabica</td>
+                                            <td>Bourbon</td>
+                                            <td> 80 - 85</td>
+                                            <td>1500 kg</td>
+                                            <td> $300</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="mob-sec">
+                            <div class="row">
+                                <div class="col-lg-12 mt-2">
+                                    <div class="estate-list">
+                                        <h3>{{globals.languageJson?.order_details}}</h3>
+                                        <table class="recent w-100">
+                                            <tr>
+                                                <td> <span class="list-ques"> {{globals.languageJson?.customer}} </span></td>
+                                                <td> <span class="list-answ"> Finca Guadalupe Zajú </span> </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span class="list-ques">  {{globals.languageJson?.origin}} </span></td>
+                                                <td> <span class="list-answ">  Colombia </span> </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span class="list-ques"> {{globals.languageJson?.species}} </span></td>
+                                                <td> <span class="list-answ">  Arabica </span> </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span class="list-ques"> {{globals.languageJson?.variety}} </span></td>
+                                                <td> <span class="list-answ">  Bourbon </span> </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span class="list-ques"> Avg, grade </span></td>
+                                                <td> <span class="list-answ">  80 - 85 </span> </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span class="list-ques"> Avg. Production </span></td>
+                                                <td> <span class="list-answ">  1500 kg </span> </td>
+                                            </tr>
+                                            <tr>
+                                                <td> <span class="list-ques">Token amount</span></td>
+                                                <td> <span class="list-answ"> $300 </span> </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-top mt-2">
+                            <div class="row col-12">
+                                <span class="fnt-14 fnt-700 fnt-muli txt-clr334"> Note:</span>
+
+                                <div class="col-7">
+                                    <p class="fnt-14 fnt-400 fnt-muli txt-clr334">A pre-book order makes you eligible to buy all the produce for the booked lot from the estate. once the beans are ready, you will be notified. </p>
+                                </div>
+                            </div>
+                            <div class="col-12 paid-bor-top">
+                                <div class="float-right">
+                                    <p class="fnt-14 fnt-700 fnt-muli txt-clr334"> Total amount to be paid </p>
+                                    <p class="fnt-18 fnt-700 fnt-muli txt-clr334"> $300 </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div id="edit-shipping" class="edit-div col-12 col-md-12 col-lg-7 mt-5">
+                        <div class="row">
+                            <div class="pull-left shipping-addr">{{globals.languageJson?.delivery_address}}</div>
+                            <div class="pull-right ml-auto edit-text" (click)="editAddress();"><img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit">Edit shipping details</div>
+                        </div>
+                        <div class="row mt-2 address-bar">
+                            <div class="col-12 col-md-4 col-lg-5 add-text">
+                                {{address1}},{{address2}},{{city}},{{state}}-{{zipcode}}
+                                <div>{{countryName}}</div>
+                            </div>
+                            <div class="col-md-1 col-lg-4"></div>
+                            <div class="col-12 col-md-4 col-lg-3 details pl-lg-0">
+                                <div>+420 6365719 </div>
+                                <div class="pt-2">info@lofbergs.com</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="form-address" class="ship-top">
+                        <div class="shipping-addr mb-4">{{globals.languageJson?.pickup_address}}</div>
+                        <form class="form-container">
+                            <div class="row">
+                                <div class="col-lg-8 ">
+                                    <div class="row">
+                                        <div class="form-group col-md-6 mt-md-3">
+                                            <label for="countryList">Country<span class="star">*</span></label>
+                                            <select id="countryList" class="form-control country select_order" (keyup)="onKeyPress($event)" [(ngModel)]="country" name="country" required="" (change)="changeCountry()">
+                                        <option value="" selected disabled>
+                                          {{globals.languageJson?.select_country}}</option
+                                        >
+                                        <option
+                                          *ngFor="let count of profileservice.countryList"
+                                          value="{{ count.isoCode }}"
+                                          >{{ count.name }}
+                                        </option>
+                                      </select>
+                                            <div class="countryError" *ngIf="countryError != ''">
+                                                {{ countryError }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6 mt-md-3">
+                                            <label for="state">State</label>
+                                            <select id="state" class="form-control state select_order" [(ngModel)]="state" name="state" required="">
+                                        <option value="" selected disabled>
+                                          {{globals.languageJson?.select_state}}</option
+                                        >
+                                        <option *ngFor="let city of profileservice.cities"
+                                          >{{ city }}
+                                        </option>
+                                      </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 mt-md-3">
+                                            <label for="address1">{{globals.languageJson?.address}}<span class="star">*</span></label>
+                                            <input class="form-control address1" id="address1" name="address1" (keyup)="onKeyPress($event)" [(ngModel)]="address1" type="text" placeholder="Line 1" />
+                                            <div class="addressError" *ngIf="addressError != ''">
+                                                {{ addressError }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6 mt-md-3">
+                                            <label for="address2">&nbsp;</label>
+                                            <input class="form-control address2" id="address2" name="address2" (keyup)="onKeyPress($event)" [(ngModel)]="address2" type="text" placeholder="Line 2" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-3 mt-md-3">
+                                            <label for="city">{{globals.languageJson?.enter_city}}<span class="star">*</span></label>
+                                            <input class="form-control city" id="city" type="text" name="city" (keyup)="onKeyPress($event)" [(ngModel)]="city" placeholder="City" />
+                                            <div class="cityError" *ngIf="cityError != ''">
+                                                {{ cityError }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group  col-md-3 mt-md-3">
+                                            <label for="zipcode">{{globals.languageJson?.zipcode}}<span class="star">*</span></label>
+                                            <input class="form-control zipcode" id="zipcode" name="zipcode" type="text" [(ngModel)]="zipcode" placeholder="eg:23134" />
+                                            <div class="zipError" *ngIf="zipError != ''">
+                                                {{ zipError }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 save-top">
+                                            <button type="submit" class="save-address float-right btn" (click)="saveAddress()">{{globals.languageJson?.save_address}}</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 mt-4 bottom-border">
+                        <div class="row">
+                            <label class="customcheckbox flavour-text mb-1 top-spacin">
+                            <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [(ngModel)]="terms"/>
+                            <span class="checkmark head-check"></span>
+                            <span class="remeber-left">{{globals.languageJson?.i_have_understood}} <span class="terms-color">{{globals.languageJson?.terms_conditions}}</span> {{globals.languageJson?.platform_agree}}.</span>
+                        </label>
+
+                            <!-- <div class="custom-control custom-checkbox mb-1 top-spacing box_mobile">
+                    <input type="checkbox" class="custom-control-input" id="custom_check1" name="example1">
+                    <label class="custom-control-label text_checkbox" for="custom_check1"><span class="remeber-left">I have read and understood the <span class="terms-color">terms & conditions</span> of the platform, and agree to them.</span></label>
+                </div> -->
+
+                        </div>
+                        <div class="termError" *ngIf="termError != ''">
+                            {{ termError }}
+                        </div>
+                    </div>
+                    <div class="row pb-5 web-sec">
+                        <div class="col-12 mt-4 mb-4">
+                            <button type="submit" class="place-order float-right btn" (click)="placeOrder()">Pre-book lot</button>
+                            <button type="button" class="ord_cancel float-right btn btn-link mr-2" routerLink="/features/available-coffee-list">{{globals.languageJson?.cancel}}</button>
+                        </div>
+                    </div>
+                    <div class="mob-sec mt-4 pb-4 mb-4">
+                        <div class="row">
+                            <div class="col-12 w-100">
+                                <button type="submit" class="col-12 place-order btn" (click)="placeOrderMob()">Pre-book lot</button>
+
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class=" col-12 w-100">
+                                <button type="button" class="col-12 ord_cancel  btn btn-link" routerLink="/features/available-coffee-list">{{globals.languageJson?.cancel_order}}</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- </div> -->
+            </div>
+        </div>
+    </section>
+
+    <ng-template #confirmtemplate>
+        <div class="modal-header">
+            <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+        <div class="modal-body text-center mb-5">
+            <img src="/assets/images/group-17.png" alt="">
+
+            <div class="are-sure fnt-play mt-3">
+                {{globals.languageJson?.confirm_order}}
+            </div>
+            <div class="do-account pt-1 pb-2">{{globals.languageJson?.are_you_sure}}</div>
+            <div class="pt-4">
+
+                <button class="no-btn " (click)="modalRef.hide();">NO</button>
+                <button class="add-btn ml-3" *ngIf="flagData == 'buyNow'" (click)="modalRef.hide();done()">{{globals.languageJson?.yes}}</button>
+                <button class="add-btn ml-3" *ngIf="flagData == 'sample'" (click)="modalRef.hide();orderSampleDone()">{{globals.languageJson?.yes}}</button>
+            </div>
+
+        </div>
+    </ng-template>
+</div>

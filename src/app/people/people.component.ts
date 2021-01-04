@@ -185,8 +185,12 @@ export class PeopleComponent implements OnInit {
   getRoasterProfile() {
     this.userService.getRoasterAccount(this.roaster_id).subscribe(
       result => {
-        this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
-        this.isActive++;
+        if(result['result']){
+          this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+          this.isActive++;
+        } else {
+          this.router.navigate(['/auth/login']);
+        }
       }
     );
   }

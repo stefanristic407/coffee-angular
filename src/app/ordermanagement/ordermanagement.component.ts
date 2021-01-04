@@ -152,8 +152,12 @@ export class OrdermanagementComponent implements OnInit {
   getRoasterProfile() {
     this.userService.getRoasterAccount(this.roaster_id).subscribe(
       result => {
-        this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
-        this.orderActive++;
+        if(result['result']){
+          this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+          this.orderActive++;
+        } else {
+          this.router.navigate(['/auth/login']);
+        }
       }
     );
   }

@@ -43,6 +43,8 @@ import { RemoteSensoringComponent } from './remote-sensoring/remote-sensoring.co
 import { AuthGuard } from '../guards/auth.guard';
 import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
 import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
+import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
+import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/vegetation-chart.component';
 
 
 const routes: Routes = [
@@ -231,6 +233,14 @@ children: [
       {
         path: 'soil',
         component: SoilChartComponent,
+      },
+      {
+        path: 'uv',
+        component: UvChartComponent,
+      },
+      {
+        path: 'vegetation',
+        component: VegetationChartComponent,
       },
       {
         path: '',

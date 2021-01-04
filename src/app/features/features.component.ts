@@ -192,8 +192,12 @@ export class FeaturesComponent implements OnInit {
   getRoasterProfile() {
     this.userService.getRoasterAccount(this.roaster_id).subscribe(
       result => {
-        this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
-        this.featureActive++;
+        if(result['result']){
+          this.roasterProfilePic = result['result']['company_image_thumbnail_url'];
+          this.featureActive++;
+        } else {
+          this.router.navigate(['/auth/login']);
+        }
       }
     );
   }

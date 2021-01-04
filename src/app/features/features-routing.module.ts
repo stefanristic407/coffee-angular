@@ -80,6 +80,7 @@ import { from } from 'rxjs';
 import {ApiRequestsTableComponent} from './api-requests/api-requests-table/api-requests-table.component';
 import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
 import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
+import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
 
 const routes: Routes = [
   {
@@ -474,6 +475,11 @@ const routes: Routes = [
       {
         path:"generate-key-details",
         component:GenerateKeyDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path:"confirm-preorder-lot",
+        component:ConfirmPreorderLotComponent,
         canActivate: [AuthGuard],
       },
 
