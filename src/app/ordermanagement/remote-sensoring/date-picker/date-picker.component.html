@@ -2,10 +2,6 @@
   class="d-inline-block date-picker-wrap"
   [class.opened]="opened"
 >
-  <p class="d-inline">
-    <span *ngIf="!date">Select date &nbsp;</span>
-    <span *ngIf="date">{{date | date: 'dd/MM/yyyy'}}</span>
-  </p>
   <a class="pointer-item">
     <p class="d-inline">
       <p-calendar
@@ -19,6 +15,8 @@
         (onShow)="opened = true"
         (onClose)="opened = false"
       ></p-calendar>
+      <span *ngIf="!date">Select date &nbsp;</span>
+      <span *ngIf="date">{{date | date: 'dd/MM/yyyy'}}</span>
       &nbsp;
       <img
         src="assets/images/active-calender.png"
