@@ -197,11 +197,10 @@ export class AddProductComponent implements OnInit {
           ele.variant_id  = 1;
           delete ele.files;
           this.services.addProductWeightVarients(this.roasterId,this.productId,ele).subscribe( res => {
-
+            this.toaster.success('Product Created Successfully');
+            this.router.navigate(['/features/products-list']);
           });
         });
-        this.toaster.success('Product Created Successfully');
-        this.router.navigate(['/features/products-list']);
       } else {
         console.log('error');
       }
