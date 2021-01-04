@@ -49,4 +49,12 @@ export class AgroService {
       `http://api.agromonitoring.com/agro/1.0/uvi/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
     );
   }
+
+  getHistoricalNdvi(query: any = {}) {
+    const polyid = '5fdb6975f936d5000742add0';
+    query = this.checkTime(query);
+    return this.http.get(
+      `http://api.agromonitoring.com/agro/1.0/ndvi/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
+    );
+  }
 }
