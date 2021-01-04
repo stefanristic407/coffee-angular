@@ -2,15 +2,15 @@
     <div class="title-header">
         <div class="hover-filters d-inline-block">
             <div class="d-inline border-total col-sm-6" id="status_id" [outsideClick]="true" (onShown)="toggleStatus();" (onHidden)="toggleStatus();" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
-                <p class="d-inline filter-text" *ngIf="termStatus == ''">All origins&nbsp;</p>
+                <p class="d-inline filter-text" *ngIf="termStatus.name == 'All'">All origins&nbsp;</p>
                 <a class="pointer-item">
-                    <p class="d-inline filter" *ngIf="termStatus == ''">
+                    <p class="d-inline filter" *ngIf="termStatus && termStatus.name == 'All'">
                         &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                     </p>
                 </a>
                 <a class="pointer-item">
-                    <p class="d-inline filter" *ngIf="termStatus != ''">
-                        {{ termStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    <p class="d-inline filter" *ngIf="termStatus.name != 'All'">
+                        {{ termStatus.name }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                     </p>
                 </a>
             </div>
@@ -53,14 +53,14 @@
         <table class="table">
             <thead class="table-header">
                 <tr class="header-row">
-                    <th>
+                    <th *ngIf="false">
                         <label class="b-check first-t check-top-header">
                                         <input type="checkbox" checked="checked"  name="all" [checked]="isAllChecked()" (change)="checkAll($event)" >
                                         <span class="checkmark"></span>
                                     </label>
                     </th>
                     <th scope="col">{{globals.languageJson?.order_id}}</th>
-                    <th scope="col">Availibility Name</th>
+                    <th scope="col">Availability Name</th>
                     <th scope="col">
                         Estate Name
                     </th>
@@ -76,7 +76,7 @@
             </thead>
             <tbody class="customtable">
                 <tr class="ticket-boby-txt cursor-pointer" *ngFor="let item of mainData">
-                    <td>
+                    <td *ngIf="false">
                         <label class="b-check check-middle-header">
                                         <input type="checkbox" name="sizecb[]" value="{{ item.id }}"  [(ngModel)]="item.state"/>
                                         <span class="checkmark"></span>
@@ -85,19 +85,19 @@
                     <td>
                         {{ item.id }}
                     </td>
-                    <td>{{ item.availibility_Name }}</td>
-                    <td>{{ item.estate_Name }} </td>
+                    <td>{{ item.availability_name }}</td>
+                    <td>{{ item.estate_name }} </td>
                     <td>{{ item.origin }}</td>
                     <td>{{ item.variety }} </td>
                     <td>
-                        {{item.quandity}}
+                        {{item.quantity_count}} {{item.quantity_type}}
                     </td>
 
 
                     <td>
-                        {{item.cup_Score}}
+                        {{item.cup_score}}
                     </td>
-                    <td class="view-order" routerLink="/features/procured-coffee">view</td>
+                    <td class="view-order" routerLink="/features/procured-coffee" [queryParams]="{orderId: item.id}">view</td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
@@ -122,11 +122,11 @@
 
 <ng-template #allTemplate>
     <div id="status-content">
-        <ul class="list-group">
-            <li class="list-group-item item-color" (click)="setStatus(''); pop.hide();">
-                <a class="pointer-item">All</a>
+        <ul *ngFor="let item of originArray"class="list-group">
+            <li class="list-group-item item-color" (click)="setStatus(item); pop.hide();">
+                <a class="pointer-item">{{item.name}}</a>
             </li>
-            <li class="list-group-item item-color" (click)="setStatus('Brazil'); pop.hide();">
+            <!-- <li class="list-group-item item-color" (click)="setStatus('Brazil'); pop.hide();">
                 <a class="pointer-item">Brazil</a>
             </li>
             <li class="list-group-item item-color" (click)="setStatus('Guatemala'); pop.hide();">
@@ -140,7 +140,7 @@
             </li>
             <li class="list-group-item item-color" (click)="setStatus('Vietnam'); pop.hide();">
                 <a class="pointer-item">Vietnam</a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </ng-template>

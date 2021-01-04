@@ -2,15 +2,15 @@
     <div class="title-header">
         <div class="hover-filters d-inline-block">
             <div class="d-inline border-total col-sm-6" id="status_id">
-                <p class="d-inline filter-text" *ngIf="termStatus == ''">{{globals.languageJson?.status}}&nbsp;</p>
+                <p class="d-inline filter-text" *ngIf="termStatus.name == 'All'">{{globals.languageJson?.status}}&nbsp;</p>
                 <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
-                    <p class="d-inline filter" *ngIf="termStatus == ''" (click)="toggleStatus()">
+                    <p class="d-inline filter" *ngIf="termStatus.name == 'All'" (click)="toggleStatus()">
                         &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                     </p>
                 </a>
                 <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
-                    <p class="d-inline filter" *ngIf="termStatus != ''" (click)="toggleStatus()">
-                        {{ termStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    <p class="d-inline filter" *ngIf="termStatus.name != 'All'" (click)="toggleStatus()">
+                        {{ termStatus.name }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                     </p>
                 </a>
             </div>
@@ -69,20 +69,20 @@
                                     </label>
                     </td> -->
                     <td>
-                        {{ item.product_Name }}
+                        {{ item.product_name }}
                     </td>
-                    <td>{{ item.availability_Name }}</td>
+                    <td>{{ item.availability_name }}</td>
                     <td>{{ item.origin }} </td>
                     <td>{{ item.variety }}</td>
-                    <td>{{ item.available }} </td>
+                    <td>{{ item.quantity }} {{item.quantity_type}} </td>
                     <td>
-                        {{item.cup_Score}}
+                        {{item.cup_score}}
                     </td>
 
                     <td>
                         {{item.status}}
                     </td>
-                    <td class="view-order" routerLink="/features/green-coffee-for-sale-details">view</td>
+                    <td class="view-order" routerLink="/features/green-coffee-for-sale-details" [queryParams]="{orderId: item.order_id}">view</td>
                     <td>
                         <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
@@ -109,16 +109,16 @@
     <div id="status-content">
         <ul class="list-group">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus(''); pop.hide(); pop2.hide();toggleStatus()">All</a>
+                <a class="pointer-item" (click)="setStatus('All', 'All'); pop.hide(); pop2.hide();toggleStatus()">All</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Instock'); pop.hide(); pop2.hide();toggleStatus()">Instock</a>
+                <a class="pointer-item" (click)="setStatus('Instock', 'IN_STOCK'); pop.hide(); pop2.hide();toggleStatus()">Instock</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Hidden'); pop.hide(); pop2.hide();toggleStatus()">Hidden</a>
+                <a class="pointer-item" (click)="setStatus('Hidden', 'HIDDEN'); pop.hide(); pop2.hide();toggleStatus()">Hidden</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Sold'); pop.hide(); pop2.hide();toggleStatus()">Sold</a>
+                <a class="pointer-item" (click)="setStatus('Sold', 'SOLD'); pop.hide(); pop2.hide();toggleStatus()">Sold</a>
             </li>
         </ul>
     </div>

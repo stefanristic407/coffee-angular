@@ -16,7 +16,7 @@
                 </section>
             </div>
 
-            <div class="bg-fff">
+            <div *ngIf="saleInformation"class="bg-fff">
                 <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 row web-sec">
                     <span id="title-breadcrumb-1" class="sr-only"></span>
 
@@ -31,7 +31,7 @@
                         <li class="b-cum">
                             <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.marked_sale}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                         </li>
-                        <li class="b-cum c-pink">Organic washed Micro-lot</li>
+                        <li class="b-cum c-pink">{{saleInformation.name ? saleInformation.name : ''}}</li>
                     </ul>
 
                     <!-- <div class="col-lg-1"></div>
@@ -52,19 +52,19 @@
         </div> -->
                     <div class="row w-100 ml-0">
                         <div class="green_grading_cont">
-                            <h1>Organic washed Micro-lot</h1>
+                            <h1>{{saleInformation.name ? saleInformation.name : 'NA'}}</h1>
                         </div>
                     </div>
-                    <div class="pull-left mr-auto col-md-7 p-0 min-Text">Lorem ipsum dolor sit amet, consetetur sadipscing</div>
+                    <!-- <div class="pull-left mr-auto col-md-7 p-0 min-Text">Lorem ipsum dolor sit amet, consetetur sadipscing</div> -->
                     <div class="border-div ">
-                        <div class="row web-sec">
+                        <div *ngIf="orderDetails"class="row web-sec">
                             <div class="col-12 details-header pb-2">{{globals.languageJson?.green_coffee_details}}</div>
                             <div class="col-12 lot-content table-responsive">
                                 <table class="table lot-table">
                                     <thead class="table-head">
                                         <tr>
                                             <th>{{globals.languageJson?.lot_id}}</th>
-                                            <th>{{globals.languageJson?.lot_name}}</th>
+                                            <!-- <th>{{globals.languageJson?.lot_name}}</th> -->
                                             <th>{{globals.languageJson?.estate}}</th>
                                             <th>{{globals.languageJson?.origin}}</th>
                                             <th>{{globals.languageJson?.species}}</th>
@@ -76,15 +76,15 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>132</td>
-                                            <td>Organic washed Micro-lot</td>
-                                            <td>Finca Guadalupe Zajú</td>
-                                            <td>Colombia</td>
-                                            <td>Arabica</td>
-                                            <td>Bourbon</td>
-                                            <td>$ 7.5/kg</td>
-                                            <td>84.5</td>
-                                            <td>266 bags, 60 kg / bag</td>
+                                            <td>{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</td>
+                                            <!-- <td>Organic washed Micro-lot</td> -->
+                                            <td>{{orderDetails.estate_name ? orderDetails.estate_name : 'NA'}}</td>
+                                            <td>{{orderDetails.origin ? orderDetails.origin : 'NA'}}</td>
+                                            <td>{{orderDetails.species ? orderDetails.species : 'NA'}}</td>
+                                            <td>{{orderDetails.variety ? orderDetails.variety : 'NA'}}</td>
+                                            <td>$ {{orderDetails.price ? orderDetails.price : 'NA'}}</td>
+                                            <td>{{orderDetails.cup_score ? orderDetails.cup_score : 'NA'}}</td>
+                                            <td>{{orderDetails.stock_in_hand ? orderDetails.stock_in_hand : 'NA'}}</td>
                                         </tr>
                                     </tbody>
 
@@ -92,46 +92,46 @@
                             </div>
                         </div>
                         <div class="mob-sec">
-                            <div class="row">
+                            <div *ngIf="orderDetails" class="row">
                                 <div class="col-lg-12 mt-2">
                                     <div class="estate-list">
                                         <div class="col-12 details-header pb-2">{{globals.languageJson?.green_coffee_details}}</div>
                                         <table class="recent w-100">
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.lot_id}}</span></td>
-                                                <td> <span class="list-answ">123</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</span> </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.lot_name}}</span></td>
                                                 <td> <span class="list-answ">Organic washed Micro-lot</span> </td>
-                                            </tr>
+                                            </tr> -->
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.estate}}</span></td>
-                                                <td> <span class="list-answ">Finca Guadalupe Zajú</span> </td>
+                                                <td> <span class="list-answ"><td>{{orderDetails.estate_name ? orderDetails.estate_name : 'NA'}}</td></span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.origin}}</span></td>
-                                                <td> <span class="list-answ">Colombia</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails.origin ? orderDetails.origin : 'NA'}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.species}}</span></td>
-                                                <td> <span class="list-answ">Arabica</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails.species ? orderDetails.species : 'NA'}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.variety}}</span></td>
-                                                <td> <span class="list-answ">Bourbon</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails.variety ? orderDetails.variety : 'NA'}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.buying_price}}</span></td>
-                                                <td> <span class="list-answ">$ 7.5/kg</span> </td>
+                                                <td> <span class="list-answ">$ {{orderDetails.price ? orderDetails.price : 'NA'}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.cupping_score}}</span></td>
-                                                <td> <span class="list-answ">84.5</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails.cup_score ? orderDetails.cup_score : 'NA'}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.stock_in_hand}}</span></td>
-                                                <td> <span class="list-answ">266 bags, 60 kg / bag</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails.stock_in_hand ? orderDetails.stock_in_hand : 'NA'}}</span> </td>
                                             </tr>
                                         </table>
                                     </div>
@@ -178,7 +178,7 @@
                                 <div class="col-lg-6 col-md-6 float-L no-padding-RL">
                                     <div class="select col-lg-15 no-padding-RL">
                                         <label>Product Name<span class="star">*</span></label>
-                                        <input type="text" name="name" class="form-control" placeholder="Give a name to this green coffee">
+                                        <input type="text" name="name" class="form-control" [(ngModel)]="saleInformation['name']" placeholder="Give a name to this green coffee">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 float-L no-padding-RL">
@@ -191,14 +191,14 @@
                                     <option value="No" ng-reflect-value="No">2</option>
                                 </select> -->
                                         <div class="input-group">
-                                            <input type="text" placeholder="Enter the selling price" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                            <input type="number" placeholder="Enter the selling price" [(ngModel)]="saleInformation['price']" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
                                                 <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
-                                                <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
-                                    <option value="per kg">per kg</option>
-                                    <option value="gram" ng-reflect-value="Yes">gram</option>
-                                    <option value="per mkg" ng-reflect-value="No">per mkg</option>
-                                </select>
+                                                <select name="Year" required="" [(ngModel)]="saleInformation['price_unit']" class="form-control select-region select-form-group-dropdown select-region-local">
+                                                    <option value="per kg">per kg</option>
+                                                    <option value="gram" ng-reflect-value="Yes">gram</option>
+                                                    <option value="per mkg" ng-reflect-value="No">per mkg</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -207,14 +207,15 @@
                                     <div class="form-input  col-lg-15 no-padding-RL">
                                         <label>Available quantity for sale<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="text" placeholder="Enter no. of coffee bags for sale" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                            <input type="number" placeholder="Enter no. of coffee bags for sale" [(ngModel)]="saleInformation['quantity']" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
                                                 <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
-                                                <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
-                                    <option value="per kg">bags</option>
-                                    <option value="gram" ng-reflect-value="Yes">bags</option>
-                                    <option value="per mkg" ng-reflect-value="No">bags</option>
-                                </select>
+                                                <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local"
+                                                [(ngModel)]="saleInformation['quantity_type']">
+                                                    <option value="bags">bags</option>
+                                                    <option value="bags" ng-reflect-value="Yes">bags</option>
+                                                    <option value="bags" ng-reflect-value="No">bags</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -223,14 +224,15 @@
                                     <div class="form-input  col-lg-15 no-padding-RL">
                                         <label>Minimum order quantity<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="text" placeholder="Enter a no. of bags" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
-                                            <div class="input-group-append">
+                                            <input type="number" placeholder="Enter a no. of bags" class="form-control input-group-right-border" aria-label="Text input with dropdown button"
+                                            [(ngModel)]="saleInformation['minimum_purchase_quantity']">
+                                            <!-- <div class="input-group-append">
                                                 <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
-                                    <option value="per kg">bags</option>
-                                    <option value="gram" ng-reflect-value="Yes">bags</option>
-                                    <option value="per mkg" ng-reflect-value="No">bags</option>
-                                </select>
-                                            </div>
+                                                    <option value="per kg">bags</option>
+                                                    <option value="gram" ng-reflect-value="Yes">bags</option>
+                                                    <option value="per mkg" ng-reflect-value="No">bags</option>
+                                                </select>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +296,7 @@
                             <div class="col-lg-4 col-md-6 float-L no-padding-RL">
                                 <div class="select col-lg-15 no-padding-RL">
                                     <label>VAT Rate<span class="star">*</span></label>
-                                    <input type="text" placeholder="Enter VAT Rate" name="name" class="form-control">
+                                    <input type="number" placeholder="Enter VAT Rate" name="name" [(ngModel)]="saleInformation['vat_rate']" class="form-control">
                                 </div>
                             </div>
 
@@ -305,7 +307,9 @@
 
                             <div class="ml-auto pull-right">
                                 <button class="btn ord_cancel mr-3">Cancel</button>
-                                <button class="download_gtm"> Save changes</button>
+                                <button class="download_gtm" (click)="updateRole()"[disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
+                                || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
+                                !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']"> Save changes</button>
 
                             </div>
 
@@ -313,7 +317,9 @@
 
                         <div class="pull-left no-padding-RL col-lg-12 col-sm-4 col-xs-6 mt-48 mb-48 ">
                             <!-- <div class="col-sm-4 col-sx-6 mob-sec float-R"> -->
-                            <button type="submit" class="col-sm-7 place-order btn mob-sec float-R">{{globals.languageJson?.save_changes}}</button>
+                            <button type="submit" class="col-sm-7 place-order btn mob-sec float-R" (click)="updateRole()" [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
+                            || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
+                            !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']">{{globals.languageJson?.save_changes}}</button>
                             <!-- </div> -->
                         </div>
 
