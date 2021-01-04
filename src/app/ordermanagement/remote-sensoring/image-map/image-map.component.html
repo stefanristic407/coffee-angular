@@ -1,4 +1,24 @@
 <div class="row">
+  <div class="col-12 mb-3">
+    <div class="bg-gray8f8 br-4 fnt-16 fnt-600 fnt-muli text-clr5d p-3">
+      <span *ngIf="selType === 0">
+        Monitor the level of vegetation on the fields. True color map offers a
+        natural color rendition.
+      </span>
+      <span *ngIf="selType === 1">
+        Monitor the level of vegetation on the fields. False color map allows
+        you to analyze the atmospheric haze, its smoke, etc.
+      </span>
+      <span *ngIf="selType === 2">
+        NDVI map helps to monitor the state of plant health. Higher the index
+        value, better the plant health.
+      </span>
+      <span *ngIf="selType === 3">
+        EVI map helps to monitor the state of plant health. Higher the index
+        value, better the plant health.
+      </span>
+    </div>
+  </div>
   <div class="col-12 w-100 d-flex justify-content-between">
     <div class="d-inline-flex ndvi-mark flex-column" *ngIf="selType === 2">
       <div class="color-wrap"></div>
@@ -35,6 +55,6 @@
 </div>
 <div class="row mt-0 mt-md-4">
   <div class="col-12">
-    <div id="map" style="width: 100%; height: 400px; margin-bottom: 24px"></div>
+    <div id="map" style="width: 100%; height: 360px; margin-bottom: 24px"></div>
   </div>
 </div>

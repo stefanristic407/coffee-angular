@@ -23570,3 +23570,7 @@ button {
 .message-text {
     float: left;
 }
+
+.br-4 {
+    border-radius: 4px;
+}
