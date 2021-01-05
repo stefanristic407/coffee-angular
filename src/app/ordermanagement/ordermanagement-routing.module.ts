@@ -45,6 +45,7 @@ import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-
 import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
 import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/vegetation-chart.component';
+import { ImageMapComponent } from './remote-sensoring/image-map/image-map.component';
 
 
 const routes: Routes = [
@@ -241,6 +242,10 @@ children: [
       {
         path: 'vegetation',
         component: VegetationChartComponent,
+      },
+      {
+        path: 'images',
+        component: ImageMapComponent,
       },
       {
         path: '',

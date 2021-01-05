@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-marked-sale',
@@ -15,26 +17,41 @@ export class MarkedSaleComponent implements OnInit {
   showDisplay:boolean = true;
   appLanguage?: any;
 
-  mainData:any[] = [
-    { product_Name: 'Origanic washed Micro-lot', availability_Name: 'Finca La Pampa', origin: 'Brazil', variety: 'Bourborn',available: '87 bags', cup_Score: '84.5',status:'Instock', Actions: 'View' },
-    { product_Name: 'Blend washed', availability_Name: 'Gesha', origin: 'Guatemala', variety: 'Bourborn',available: '27 bags', cup_Score: '88',status:'Hidden', Actions: 'View' },
-    {  product_Name: 'FTO blend', availability_Name: 'Finca La Toboba', origin: 'Spain', variety: 'Bourborn',available: '57 bags', cup_Score: '81.5',status:'Sold', Actions: 'View' },
-    {  product_Name: 'Mebratu', availability_Name: 'Asopraaaa', origin: 'Brazil', variety: 'Bourborn',available: '93 bags', cup_Score: '85.4',status:'Instock', Actions: 'View' },
-    {  product_Name: 'FTO Semi washed', availability_Name: 'Cafe Directo', origin: 'Sweden', variety: 'Bourborn',available: '110 bags', cup_Score: '82',status:'Sold', Actions: 'View' },
-    {  product_Name: 'Blend', availability_Name: 'La Isabela', origin: 'Vietnam', variety: 'Bourborn',available: '90 bags', cup_Score: '84',status:'Hidden', Actions: 'View' },
-  ]
-  constructor(public globals: GlobalsService) {
-    this.termStatus = '';
+  mainData:any[] = [];
+  roaster_id: string;
+  
+  constructor(public globals: GlobalsService, public roasterService:RoasterserviceService,
+    public cookieService: CookieService) {
+    this.termStatus = {name: "All", statusCode: ''};
     this.display = '10';
+    this.roaster_id = this.cookieService.get('roaster_id');
    }
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;
+    console.log("get marked sale");
+    
+    this.getCoffeeSaleList();
+  }
+  getCoffeeSaleList(){
+    let origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.statusCode: undefined;
+    let displayCount = this.display ? this.display: undefined;
+    this.mainData = [];
+    this.roasterService.getCoffeeSaleList(this.roaster_id, origin, displayCount).subscribe(
+      response => {
+        console.log(response);
+        if(response && response['result']){
+          this.mainData = response['result'];
+        }
+      }, err =>{
+        console.log(err);
+      }
+    );
   }
 
-  setStatus(term: any) {
-    this.termStatus = term;
-    console.log(this.termStatus)
+  setStatus(termName: any, statusCode:any) {
+    this.termStatus = {name: termName, statusCode: statusCode};
+    this.getCoffeeSaleList();
   }
   toggleStatus() {
     this.showStatus = !this.showStatus;
@@ -49,6 +66,7 @@ export class MarkedSaleComponent implements OnInit {
  
   setDisplay(displayData:any){
     this.display=displayData;
+    this.getCoffeeSaleList();
   }
   toggleDisplay() {
     this.showDisplay = !this.showDisplay;

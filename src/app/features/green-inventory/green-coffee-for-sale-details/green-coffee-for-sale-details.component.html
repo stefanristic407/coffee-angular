@@ -38,19 +38,19 @@
                                             <li class="b-cum">
                                                 <a class="b-cum">Green Coffee for Sale</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                             </li>
-                                            <li class="b-cum c-pink">Organic washed Micro-lot</li>
+                                            <li class="b-cum c-pink">{{saleInformation.name ? saleInformation.name : ''}}</li>
                                         </ul>
                                     </div>
                                 </nav>
                                 <div class="w-100 mt-3 clearfix">
                                     <div class="source-det-tit pull-left">
                                         <div class="det-tit d-inline-block">
-                                            <h2>Organic washed Micro-lot</h2>
+                                            <h2>{{saleInformation.name ? saleInformation.name : 'NA'}}</h2>
                                             <!-- <h2 class="p-h2 mb-2">Manage your green coffee</h2> -->
                                         </div>
                                     </div>
                                     <div class="source-knowmore-avail pull-right">
-                                        <a class="contact-us-avail" routerLink="/features/lot-sale">{{globals.languageJson?.edit}}</a>
+                                        <a class="contact-us-avail" routerLink="/features/lot-sale" [queryParams]="{orderId: orderDetails?.id}">{{globals.languageJson?.edit}}</a>
                                         <!-- <a class="know-more-avail">Know more</a> -->
                                     </div>
                                 </div>
@@ -71,10 +71,10 @@
                                             <div class="estate-focus">
                                                 <ul class="clearfix">
                                                     <li><label>Quantity marked for sale</label>
-                                                        <p>Total 360 bags</p>
+                                                        <p>{{saleInformation.quantity_count}} {{saleInformation.quantity_type}}/ {{saleInformation.quantity}} {{saleInformation.price_unit}} </p>
                                                     </li>
                                                     <li><label>Buying price</label>
-                                                        <p>$ 7.60/kg</p>
+                                                        <p>$ {{saleInformation.price}}/{{saleInformation.price_unit}}</p>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -86,24 +86,24 @@
                                                 <h3>{{globals.languageJson?.selling_details}}</h3>
                                                 <ul class="clearfix">
                                                     <li><label>Product Name</label>
-                                                        <p>Thogarihunkal</p>
+                                                        <p>{{saleInformation.product_name ? saleInformation.product_name : 'NA'}}</p>
                                                     </li>
-                                                    <li><label>For Sale</label>
-                                                        <p>160 bags, 60kg each</p>
+                                                    <li><label>Quantity for sale</label>
+                                                        <p>{{saleInformation.quantity_count}} {{saleInformation.quantity_type}}/ {{saleInformation.quantity}} {{saleInformation.price_unit}}</p>
                                                     </li>
-                                                    <li><label>Available Coffee</label>
-                                                        <p>123 bags (37 bags sold so far)</p>
+                                                    <li><label>Remaining coffee</label>
+                                                        <p>{{saleInformation.remaining_quantity ? saleInformation.remaining_quantity : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Minimum quantity for sale</label>
-                                                        <p>2 bags</p>
+                                                        <p>{{saleInformation.minimum_purchase_quantity ? saleInformation.minimum_purchase_quantity : 'NA'}}</p>
                                                     </li>
-                                                    <li><label>Selling Price</label>
+                                                    <!-- <li><label>Selling Price</label>
                                                         <p>$ 9.6 / kg</p>
-                                                    </li>
+                                                    </li> -->
                                                     <li><label>VAT</label>
-                                                        <p>12%</p>
+                                                        <p>{{saleInformation.vat_rate ? saleInformation.vat_rate : 'NA'}}</p>
                                                     </li>
-                                                    <li><label>Standard delivery</label>
+                                                    <!-- <li><label>Standard delivery</label>
                                                         <p>Free (3-7 days)</p>
                                                     </li>
                                                     <li><label>One day delivery</label>
@@ -111,71 +111,71 @@
                                                     </li>
                                                     <li><label>Express delivery</label>
                                                         <p>-NA-</p>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div *ngIf="orderDetails" class="row">
                                         <div class="col-lg-12">
                                             <div class="estate-focus">
                                                 <h3>{{globals.languageJson?.green_coffee_details}}</h3>
                                                 <ul class="clearfix">
                                                     <li><label>Estate</label>
-                                                        <p>Finca Guadalupe Zajú</p>
+                                                        <p>{{orderDetails.estate_name ? orderDetails.estate_name : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Origin</label>
-                                                        <p>Colombia</p>
+                                                        <p>{{orderDetails.origin ? orderDetails.origin : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Lot ID</label>
-                                                        <p>123</p>
+                                                        <p>{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Availability Name</label>
-                                                        <p>Organic washed Micro-lot</p>
+                                                        <p>{{orderDetails.availablility_name ? orderDetails.availablility_name : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Species</label>
-                                                        <p>Arabica</p>
+                                                        <p>{{orderDetails.species ? orderDetails.species : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Variety</label>
-                                                        <p>Bourbon</p>
+                                                        <p>{{orderDetails.variety ? orderDetails.variety : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Crop year</label>
-                                                        <p>January, 2020</p>
+                                                        <p>{{orderDetails.harvest_date ? orderDetails.harvest_date : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Altitude</label>
-                                                        <p>1,000 - 1,600 meters above sea level</p>
+                                                        <p>{{orderDetails.altitude ? orderDetails.altitude : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Flavour Profile</label>
-                                                        <p>Fruity, Jasmine, High sweetness, Jammy</p>
+                                                        <p>{{orderDetails.flavour_profile ? orderDetails.flavour_profile : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Mill</label>
-                                                        <p>Tapachu Mill</p>
+                                                        <p>{{orderDetails.mill ? orderDetails.mill : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Processing</label>
-                                                        <p>Natural/Sun Dried</p>
+                                                        <p>{{orderDetails.processing ? orderDetails.processing : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Moisture</label>
-                                                        <p>12.5%</p>
+                                                        <p>{{orderDetails.moisture ? orderDetails.moisture : 'NA'}}</p>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="produect-pro mt-4">
-                                        <div class="row">
+                                        <div *ngIf="orderDetails" class="row">
                                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                 <div class="real-estate p-date">
                                                     <h6>12 Feb, 2020</h6>
-                                                    <h3><span class="gray-text">Cup Score :</span> 87.0</h3>
+                                                    <h3><span class="gray-text">Cup Score :</span> {{orderDetails.cup_score ? orderDetails.cup_score : 'NA'}}</h3>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate">
                                                     <div class="p-photo">
-                                                        <img src="assets/images/profile-coffee.jpg">
+                                                        <img [src]="orderDetails.estate_profile_image_thumbnail_url">
                                                     </div>
 
-                                                    <h3>Kristine cox</h3>
+                                                    <h3>{{orderDetails.estate_owner ? orderDetails.estate_owner : 'NA'}}</h3>
                                                     <h6>Estate owner</h6>
                                                 </div>
                                             </div>

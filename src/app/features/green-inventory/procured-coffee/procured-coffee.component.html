@@ -38,19 +38,19 @@
                                             <li class="b-cum">
                                                 <a class="b-cum">Sourced Green Coffee</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                                             </li>
-                                            <li class="b-cum c-pink">Order #65837</li>
+                                            <li class="b-cum c-pink">Order #{{orderDetails?.id}}</li>
                                         </ul>
                                     </div>
                                 </nav>
                                 <div class="w-100 mt-3 clearfix">
                                     <div class="source-det-tit pull-left">
                                         <div class="det-tit d-inline-block">
-                                            <h2>Order #65837</h2>
+                                            <h2>Order #{{orderDetails?.id}}</h2>
                                             <!-- <h2 class="p-h2 mb-2">Manage your green coffee</h2> -->
                                         </div>
                                     </div>
                                     <div class="source-knowmore-avail pull-right">
-                                        <a class="contact-us-avail" routerLink="/features/coffee-sale">Mark for sale</a>
+                                        <a class="contact-us-avail" routerLink="/features/coffee-sale" [queryParams]="{orderId: orderDetails?.id}">Mark for sale</a>
                                         <!-- <a class="know-more-avail">Know more</a> -->
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                             <div class="estate-focus">
                                                 <ul class="clearfix">
                                                     <li><label>Quantity marked for sale</label>
-                                                        <p>360 bags, 59 kg each</p>
+                                                        <p>{{orderDetails?.quantity_count}} {{orderDetails?.quantity_type}}, {{orderDetails?.quantity}} kg each</p>
                                                     </li>
                                                     <li><label>Buying price</label>
                                                         <p>$7.60/kg USD</p>
@@ -90,40 +90,40 @@
                                             <div class="estate-focus">
                                                 <ul class="clearfix">
                                                     <li><label>Estate</label>
-                                                        <p>Finca Guadalupe Zajú</p>
+                                                        <p>{{orderDetails.estate_name ? orderDetails.estate_name : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Origin</label>
-                                                        <p>Colombia</p>
+                                                        <p>{{orderDetails.origin ? orderDetails.origin : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Lot ID</label>
-                                                        <p>132</p>
+                                                        <p>{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Availability Name</label>
-                                                        <p>Organic washed Micro-lot</p>
+                                                        <p>{{orderDetails.availability_name ? orderDetails.availability_name : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Species</label>
-                                                        <p>Arabica</p>
+                                                        <p>{{orderDetails.species ? orderDetails.species : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Variety</label>
-                                                        <p>Bourbon</p>
+                                                        <p>{{ orderDetails.variety ? orderDetails.variety : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Crop year</label>
-                                                        <p>January, 2020</p>
+                                                        <p>{{orderDetails.harvest_date ? orderDetails.harvest_date : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Altitude</label>
-                                                        <p>1,000 - 1,600 meters above sea level</p>
+                                                        <p>{{orderDetails.altitude ? orderDetails.altitude : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Flavour Profile</label>
-                                                        <p>Fruity, Jasmine, High sweetness, Jammy</p>
+                                                        <p>{{orderDetails.flavour_profile ? orderDetails.flavour_profile : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Wet Mill</label>
-                                                        <p>Tapachu Mill</p>
+                                                        <p>{{orderDetails.wet_mill ? orderDetails.wet_mill : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Processing</label>
-                                                        <p>Natural/Sun Dried</p>
+                                                        <p>{{orderDetails.processing ? orderDetails.processing : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Moisture content</label>
-                                                        <p>12.5%</p>
+                                                        <p>{{orderDetails.moisture_content ? orderDetails.moisture_content : 'NA'}}</p>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -135,16 +135,16 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                 <div class="real-estate p-date">
                                                     <h6>12 Feb, 2020</h6>
-                                                    <h3><span class="gray-text">Cup Score :</span> 87.0</h3>
+                                                    <h3><span class="gray-text">Cup Score :</span> {{orderDetails.cup_score ? orderDetails.cup_score : 'NA'}}</h3>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate">
                                                     <div class="p-photo">
-                                                        <img src="assets/images/profile-coffee.jpg">
+                                                        <img [src]="orderDetails?.estate_profile_image_thumbnail_url">
                                                     </div>
 
-                                                    <h3>Kristine cox</h3>
+                                                    <h3>{{orderDetails.estate_owner ? orderDetails.estate_owner : 'NA'}}</h3>
                                                     <h6>Estate owner</h6>
                                                 </div>
                                             </div>

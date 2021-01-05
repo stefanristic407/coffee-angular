@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'app-procured-coffee',
   templateUrl: './procured-coffee.component.html',
@@ -11,7 +15,7 @@ export class ProcuredCoffeeComponent implements OnInit {
 	items: GalleryItem[];
 	appLanguage?: any;
 	procuredActive:any =0;
-
+	orderID:any='';
 	public data = [
 		{
 		  srcUrl: 'assets/images/galleria-1.jpg',
@@ -29,8 +33,10 @@ export class ProcuredCoffeeComponent implements OnInit {
 		  srcUrl: 'assets/images/galleria-4.png',
 		  previewUrl: 'assets/images/thumbnail-1.jpg'
 		}
-	  ];
-	  imageData = this.data;
+	];
+	imageData = this.data;
+	roaster_id:any='';
+	orderDetails:any;
 	public coffeedata: any[] = [
 		{  estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot',origin:'Colombia', species: 'Bourbon', price: '$7.4 USD / kg',quantity:'287 bags','image':'/assets/images/sourcing-image1.jpg',score:'84.5' },
 		{  estatename: 'Gesha', name: 'Blend washed',origin:'Colombia',species: 'Bourbon', price: '$5.53USD / kg',quantity:'297 bags','image':'/assets/images/sourcing-image3.jpg',score:'88' },
@@ -38,21 +44,38 @@ export class ProcuredCoffeeComponent implements OnInit {
 		// {  estatename: 'Asoproaaa', name: 'Mebratu', origin:'Brazil',species: 'Bourbon', price: '$7.4 USD / kg',quantity:'953 bags','image':'/assets/images/sourcing-image5.jpg',score:'85.4' },
 		// {  estatename: 'Cafe Directo', name: 'FTO Semi washed', origin:'Ethopia',species: 'Bourbon', price: '$5.6 USD / kg',quantity:'110 bags','image':'/assets/images/sourcing-image4.jpg',score:'82' },
 		// {  estatename: 'La Isabela', name: 'Blend1',origin:'Colombia', species: 'Bourbon', price: '$8.92 USD /kg',quantity:'450 bags','image':'/assets/images/sourcing-image8.jpg',score:'84' }
-  ];
-  constructor(public gallery: Gallery, public lightbox: Lightbox,public globals: GlobalsService) { }
+  	];
+  constructor(public gallery: Gallery, public lightbox: Lightbox, public globals: GlobalsService,
+		public route: ActivatedRoute, public roasterService:RoasterserviceService, public cookieService: CookieService) {
+			this.roaster_id = this.cookieService.get('roaster_id');
+		 }
 
-  ngOnInit(): void {
-    this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
-    const lightboxRef = this.gallery.ref('lightbox');
-    lightboxRef.setConfig({
-      imageSize: ImageSize.Cover,
-      thumbPosition: ThumbnailsPosition.Top
-      });
-	  lightboxRef.load(this.items);
-	  this.language();
-    }
+  	ngOnInit(): void {
+		this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
+		const lightboxRef = this.gallery.ref('lightbox');
+		lightboxRef.setConfig({
+			imageSize: ImageSize.Cover,
+			thumbPosition: ThumbnailsPosition.Top
+		});
+		lightboxRef.load(this.items);
+		this.language();
+		this.getOrderDetails();
+	}
+	getOrderDetails(){
+		this.orderID = decodeURIComponent(this.route.snapshot.queryParams['orderId']);
+		this.roasterService.getProcuredCoffeeDetails(this.roaster_id, this.orderID).subscribe(
+			response => {
+			  console.log(response);
+			  if(response['success'] && response['result']){
+				  this.orderDetails = response['result'];
+			  }
+			}, err =>{
+			  console.log(err);
+			}
+		);	
+	}
 	language(){
 		this.appLanguage = this.globals.languageJson;
 	   	this.procuredActive++;
-	  }
+	}
 }

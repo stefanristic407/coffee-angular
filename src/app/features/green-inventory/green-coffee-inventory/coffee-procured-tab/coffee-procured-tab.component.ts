@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 @Component({
   selector: 'app-coffee-procured-tab',
@@ -13,28 +16,43 @@ export class CoffeeProcuredTabComponent implements OnInit {
   display:any;
   showDisplay:boolean = true;
   appLanguage?: any;
+  roaster_id: string;
+  mainData:any[] = [];
+  originArray:any[] = [];
 
-  mainData:any[] = [
-    { id: '65837', availibility_Name: 'Origanic washed Micro-lot', estate_Name: 'Finca La Pampa', origin: 'Brazil', variety: 'Bourborn',quandity: '278 Bags', cup_Score: '84.5', Actions: 'View' },
-    { id: '43284', availibility_Name: 'Blend washed', estate_Name: 'Gesha', origin: 'Guatemala', variety: 'Bourborn',quandity: '297 bags', cup_Score: '88', Actions: 'View' },
-    { id: '45627', availibility_Name: 'FTO blend', estate_Name: 'Finca La Toboba', origin: 'Spain', variety: 'Bourborn',quandity: '567 bags', cup_Score: '81.5', Actions: 'View' },
-    { id: '34638', availibility_Name: 'Mebratu', estate_Name: 'Asopraaaa', origin: 'Brazil', variety: 'Bourborn',quandity: '953 bags', cup_Score: '85.4', Actions: 'View' },
-    { id: '23238', availibility_Name: 'FTO Semi washed', estate_Name: 'Cafe Directo', origin: 'Sweden', variety: 'Bourborn',quandity: '110 bags', cup_Score: '82', Actions: 'View' },
-    { id: '14842', availibility_Name: 'Blend', estate_Name: 'La Isabela', origin: 'Vietnam', variety: 'Bourborn',quandity: '450 bags', cup_Score: '84', Actions: 'View' },
-  ]
-  constructor(public globals: GlobalsService) { 
-    this.termStatus = '';
+  constructor(public globals: GlobalsService, public roasterService:RoasterserviceService,
+    public cookieService: CookieService,public roasteryProfileService : RoasteryProfileService,) { 
+    this.termStatus = {name: 'All', isoCode: ''};
     this.display = '10';
+    this.roaster_id = this.cookieService.get('roaster_id');
   }
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;
+    this.getProcuredCoffeeList();
+    this.originArray.push({name: 'All', isoCode: ''});
+    this.originArray = this.originArray.concat(this.roasteryProfileService.countryList);
 
+  }
+  getProcuredCoffeeList(){
+    let origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.isoCode: undefined;
+    let displayCount = this.display ? this.display: undefined;
+    this.mainData = [];
+    this.roasterService.getProcuredCoffeeList(this.roaster_id, origin, displayCount).subscribe(
+      response => {
+        console.log(response);
+        if(response && response['result']){
+          this.mainData = response['result'];
+        }
+      }, err =>{
+        console.log(err);
+      }
+    );
   }
 
   setStatus(term: any) {
     this.termStatus = term;
-    console.log(this.termStatus)
+    this.getProcuredCoffeeList();
   }
   toggleStatus() {
     this.showStatus = !this.showStatus;
@@ -43,12 +61,12 @@ export class CoffeeProcuredTabComponent implements OnInit {
   }
   else{
     document.getElementById('status_id').style.border="1px solid #d6d6d6";
-  
   }
   }
  
   setDisplay(displayData:any){
     this.display=displayData;
+    this.getProcuredCoffeeList();
   }
   toggleDisplay() {
     this.showDisplay = !this.showDisplay;

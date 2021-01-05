@@ -810,8 +810,67 @@ export class RoasterserviceService {
   }
   //E-com APIs-ends
 
- 
- 
+  //Get Procured Coffees List
+  getProcuredCoffeeList(roaster_id: any, origin?, displayCount?) {
+		var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/procured-coffees";
+    data['method'] = "GET";
+    data['api_call'] = origin ? data['api_call'] + '?origin=' + origin : data['api_call'];
+    if(origin && displayCount){
+      data['api_call'] = data['api_call'] + '&per_page=' + displayCount;
+    }else if(displayCount){
+      data['api_call'] = data['api_call'] + '?per_page=' + displayCount;
+    }
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+  } 
+  //Get Coffee Sale List
+  getCoffeeSaleList(roaster_id: any, status?, displayCount?) {
+		var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/marked-sale-coffees";
+    data['method'] = "GET";
+    data['api_call'] = status ? data['api_call'] + '?status=' + status : data['api_call'];
+    if(status && displayCount){
+      data['api_call'] = data['api_call'] + '&per_page=' + displayCount;
+    }else if(displayCount){
+      data['api_call'] = data['api_call'] + '?per_page=' + displayCount;
+    }
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+  }
+  //Get Procured Coffees Details
+  getProcuredCoffeeDetails(roaster_id: any, orderID) {
+		var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/orders/" + orderID;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+		return this.http.post(this.url, data);
+  }
+  //Create Mark for Sale from Procured Coffee
+  CreateMarkForSale(roaster_id: any, orderID, data) {
+    data['method'] = "POST";
+    data['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+  }
+  //Get MarkFor Sale order details
+  getMarkForSaleDetails(roaster_id: any, orderID) {
+		var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+		return this.http.post(this.url, data);
+  }
+
+  //upate Mark for Sale from Procured Coffee
+  updateMarkForSale(roaster_id: any, orderID, data) {
+    let obj = {};
+    obj['method'] = "PUT";
+    obj['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
+    obj['data'] = data
+		obj['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, obj);
+  }
 
 }
 
