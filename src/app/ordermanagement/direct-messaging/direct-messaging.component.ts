@@ -57,13 +57,14 @@ export class DirectMessagingComponent implements OnInit {
 		authCheck['timestamp'] = this.getTimestamp();
 		authCheck['type'] = "auth";
 		authCheck['data'] = {};
-		authCheck['data']['user_token'] = this.cookieService.get("Auth");
+		let authString = this.cookieService.get("Auth");
+		let authArray = authString.replace(/\r/g, "").split(/\n/);
+		let auth = authArray[0];
+		authCheck['data']['user_token'] = auth;
 		this.threadLastMessages = {};
 		this.subject.next(authCheck);
 		this.subject.subscribe(
 			msg => {
-				console.log('message received: ')
-				console.log(msg);
 				if (msg['type'] == "history") {
 					if (msg['data'] != null) {
 						this.getCurrentUser(this.activeThread);
@@ -75,7 +76,6 @@ export class DirectMessagingComponent implements OnInit {
 							element['currentUser'] = currentUser;
 							this.threadsMessageData[this.activeThread].push(element);
 						});
-						console.log(this.threadsMessageData);
 					}
 					var allMessages = $('.live-chat-message-body');
 					allMessages.scrollTop = allMessages.scrollHeight;
@@ -100,8 +100,6 @@ export class DirectMessagingComponent implements OnInit {
 								this.threadLastMessages[element['id']] = {};
 								this.threadLastMessages[element['id']]['content'] = element['content'];
 								this.threadLastMessages[element['id']]['created_at'] = element['created_at'];
-								// this.threadsMessageData[element['id']]['messages'] = [];
-								// this.threadsMessageData[element['id']]['currentUser'] = element['member_id'];
 							}
 						});
 						console.log(this.threadLastMessages);
@@ -120,10 +118,7 @@ export class DirectMessagingComponent implements OnInit {
 							}
 						});
 						this.threadsData.push(msg['data']);
-						//this.threadsMessageData[msg['data']['id']] = {};
 						this.threadsMessageData[msg['data']['id']] = [];
-						//this.threadsMessageData[msg['data']['id']] = -1;
-						//this.threadCurrentUser = -1;
 					}
 				} else if (msg['type'] == 'message') {
 					if (msg['data'] != null) {
