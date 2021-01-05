@@ -67,7 +67,7 @@ label {
     color: #30855c;
     background-color: #ffffff;
     margin-left: 1rem;
-    padding:12px 16px;
+    padding: 12px 16px;
 }
 
 .next {
@@ -80,7 +80,7 @@ label {
     line-height: 1.57;
     color: #ffffff;
     margin-left: 1rem;
-    padding:12px 16px;
+    padding: 12px 16px;
 }
 
 .next:hover {
@@ -94,4 +94,100 @@ label {
 
 .bg-fff {
     padding-bottom: 10rem;
+}
+
+.table-header {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+.header-row {
+    border: none !important;
+}
+
+table th,
+table td {
+    border: none !important;
+}
+
+tr {
+    border-bottom: 1px dashed #d6d6d6;
+}
+
+.table td {
+    padding: 0.75rem 1.6rem 0.75rem 0rem !important;
+}
+
+.table thead th {
+    color: #232334;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Muli';
+}
+
+.table tbody tr {
+    color: #232334;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Muli';
+}
+
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #30855c !important;
+}
+
+.table-container {
+    margin: 0.5rem 0;
+    /* border-radius: 4px; */
+    border-top: solid 1px #d6d6d6;
+    padding: 4px;
+}
+
+.checkmark {
+    top: -4px !important;
+    left: 8px !important;
+    height: 17px !important;
+    width: 17px !important;
+}
+
+.customcheckbox .checkmark:after {
+    left: 5px !important;
+    top: 1px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+.edit-div {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.v-line {
+    color: #d6d6d6;
+}
+
+.edit-pic {
+    padding-right: 3%;
+    position: relative;
+    bottom: 2px;
+}
+
+.cursor-pointer:hover {
+    text-decoration: underline !important;
+}
+
+.select-title {
+    font-family: Muli;
+    font-weight: bold;
+    color: #232334;
+    font-size: 16px;
+    margin-top: 2rem;
+    margin-bottom: 0;
 }

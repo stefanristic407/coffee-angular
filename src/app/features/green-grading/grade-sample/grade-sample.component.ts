@@ -16,6 +16,14 @@ export class GradeSampleComponent implements OnInit {
   grade_estate:any;
   grade_species:any;
   grade_id:any;
+  cuppingRequestList: any;
+  editTableRow :boolean =false;
+	listTableRow : boolean = true;
+	eachId: any;
+	eachEstateName: any;
+	eachOrigin: any;
+	eachSpecies: string;
+	eachSampleId: any;
 
   constructor(private userService:UserserviceService, 
     private toasterService: ToastrService, private router: Router,
@@ -24,8 +32,14 @@ export class GradeSampleComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.getExternalReports();
   }
   addExternalReport(){
+
+    if(this.grade_origin === undefined || this.grade_species === undefined || this.grade_estate === undefined || this.grade_id === undefined){
+			this.toasterService.error("Fields should not be empty.");
+    }
+    else{ 
     var data={
       "origin": this.grade_origin,
       "estate_name": this.grade_estate,
@@ -36,7 +50,12 @@ export class GradeSampleComponent implements OnInit {
       res=>{
 		if (res['success'] == true){
 			this.toasterService.success('External cupping report added successfully.');
-			this.router.navigate(['/features/grade-service']);
+      // this.router.navigate(['/features/grade-service']);
+      this.getExternalReports();
+      this.grade_origin = '';
+			this.grade_estate = '';
+			this.grade_species = '';
+			this.grade_id = '';
 		}
 		else{
 			this.toasterService.error("Error while adding reports.")
@@ -44,4 +63,23 @@ export class GradeSampleComponent implements OnInit {
       }
     )
   }
+  }
+
+  getExternalReports(){
+		this.userService.listCuppingRequest(this.roaster_id).subscribe(
+			data=>{
+				this.cuppingRequestList=data['result'];
+			}
+		)
+  }
+  
+  editSampleReport(data:any){
+		this.editTableRow = true;
+		this.listTableRow = false;
+		this.eachId=data.cupping_report_id;
+		this.eachEstateName = data.estate_name;
+		this.eachOrigin = data.origin;
+		this.eachSpecies = "Bourbon";
+		this.eachSampleId = data.external_sample_id;
+	}
 }

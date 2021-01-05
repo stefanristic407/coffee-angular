@@ -1163,4 +1163,12 @@ export class UserserviceService {
     data['method'] = "GET";
     return this.http.post(this.roasterUrl,data);
   }
+
+  listCuppingRequest(roaster_id : any){  
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/external-cupping-invite-list/";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.roasterUrl,data);
+  }
 }

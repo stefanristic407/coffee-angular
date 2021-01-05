@@ -1,52 +1,123 @@
 <section>
     <div class="container sewn-container section-head-pad">
-<div class="bg-fff">
-    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-        <span id="title-breadcrumb-1" class="sr-only"></span>
-        <ul class="bread-nav mb-md-0">
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
-            </li>
-            <li class="b-cum">
-                <a class="b-cum" routerLink="/features/green-grading">Green grading</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
-            </li>
-            <li class="b-cum c-pink">Grade a sample</li>
-        </ul>
-    </nav>
-    <section class="grading__total">
-        <div class="green_grading_cont">
-            <h1>Green Grade a Sample</h1>
-            <h3 class="mb-2">Cup samples from your inventory</h3>
-            <hr>
-            <div class="row">
-                <div class="col-lg-12">
-                <p class="text-data">Enter sample details<span class="star">*</span></p>
+        <div class="bg-fff">
+            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+                <span id="title-breadcrumb-1" class="sr-only"></span>
+                <ul class="bread-nav mb-md-0">
+                    <li class="b-cum">
+                        <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                    </li>
+                    <li class="b-cum">
+                        <a class="b-cum" routerLink="/features/green-grading">Green grading</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
+                    </li>
+                    <li class="b-cum c-pink">Grade a sample</li>
+                </ul>
+            </nav>
+            <section class="grading__total">
+                <div class="green_grading_cont">
+                    <h1>Green Grade a Sample</h1>
+                    <h3 class="mb-2">Cup samples from your inventory</h3>
+                    <!-- <hr> -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="select-title">Selected</p>
+                            <div class="table-container mb-2">
+                                <div class="table-responsive">
+                                    <table class="table">
+
+                                        <tbody class="customtable">
+                                            <tr class="ticket-boby-txt" *ngFor="let item of cuppingRequestList">
+                                                <td>
+                                                    <label *ngIf="eachId!=item.cupping_report_id" class="customcheckbox">
+                                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" checked [(ngModel)]="item.state"/>
+                                                <span class="checkmark head-check"></span>
+                                            </label>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="eachId!=item.cupping_report_id">#{{ item.cupping_report_id }}</span>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="eachId!=item.cupping_report_id">{{ item.estate_name }}</span>
+                                                    <span *ngIf="listTableRow && eachId==item.cupping_report_id">{{ item.estate_name }}</span>
+                                                    <div *ngIf="editTableRow && eachId==item.cupping_report_id">
+                                                        <label>Estate name</label>
+                                                        <input class="form-control" placeholder="Please enter estate name" type="text" id="estateName" [(ngModel)]="eachEstateName" name="estateName">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="eachId!=item.cupping_report_id">{{ item.origin }}</span>
+                                                    <span *ngIf="listTableRow && eachId==item.cupping_report_id">{{ item.origin }}</span>
+                                                    <div *ngIf="editTableRow && eachId==item.cupping_report_id">
+                                                        <label>Origin</label>
+                                                        <input class="form-control" placeholder="Please enter the origin" type="text" id="origin" [(ngModel)]="eachOrigin" name="origin">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="eachId!=item.cupping_report_id">Bourbon</span>
+                                                    <span *ngIf="listTableRow && eachId==item.cupping_report_id">Bourbon</span>
+                                                    <div *ngIf="editTableRow && eachId==item.cupping_report_id">
+                                                        <label>Species</label>
+                                                        <input class="form-control" placeholder="Please enter species" type="text" id="species" [(ngModel)]="eachSpecies" name="species">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="eachId!=item.cupping_report_id">{{item.external_sample_id}}</span>
+                                                    <span *ngIf="listTableRow && eachId==item.cupping_report_id">{{item.external_sample_id}}</span>
+                                                    <div *ngIf="editTableRow && eachId==item.cupping_report_id">
+                                                        <label>ID<span class="id-text">(Give your sample an ID)</span></label>
+                                                        <input class="form-control" placeholder="Please enter your ID" type="text" id="id" [(ngModel)]="eachSampleId" name="gradeId">
+                                                    </div>
+                                                </td>
+                                                <!-- <td>{{item.service}}</td>
+                                        <td>{{item.status}}</td> -->
+                                                <td>
+                                                    <span class="edit-div">
+                                            <a *ngIf="eachId!=item.cupping_report_id" class="cursor-pointer" (click)="editSampleReport(item)"><img class="edit-pic" src="assets/images/edit.svg">Edit</a>
+                                            <a *ngIf="editTableRow && eachId==item.cupping_report_id" class="cursor-pointer"><img class="edit-pic" src="assets/images/edit.svg">Save</a>
+                                            <span class="v-line mx-3">|</span>
+                                                    <a class="cursor-pointer"><img class="edit-pic" src="assets/images/delete.png">Delete</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100 pb-3 pt-2">
+                        <div class="pull-right">
+                            <button type="button" class="btn next" routerLink="/features/generate-report">Next</button>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-lg-12">
+                            <p class="text-data">Enter sample details<span class="star">*</span></p>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Origin</label>
+                            <input class="form-control" placeholder="Please enter the origin" type="text" id="origin" [(ngModel)]="grade_origin" name="origin">
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Estate name</label>
+                            <input class="form-control" placeholder="Please enter estate name" type="text" id="estateName" [(ngModel)]="grade_estate" name="estateName">
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Species</label>
+                            <input class="form-control" placeholder="Please enter species" type="text" id="species" [(ngModel)]="grade_species" name="species">
+                        </div>
+                        <div class="col-lg-3">
+                            <label>ID<span class="id-text">(Give your sample an ID to identify it quicker)</span></label>
+                            <input class="form-control" placeholder="Please enter your ID" type="text" id="id" [(ngModel)]="grade_id" name="gradeId">
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                        <!-- <button type="button" class="btn next" (click)="addExternalReport()">Next</button> -->
+                        <button type="button" class="btn next" (click)="addExternalReport()">Add</button>
+                    </div>
                 </div>
-               
-                    <div class="col-lg-3">
-                        <label>Origin</label>
-                        <input class="form-control" placeholder="Please enter the origin" type="text" id="origin" [(ngModel)]="grade_origin" name="origin">
-                    </div>
-                    <div class="col-lg-3">
-                        <label>Estate name</label>
-                        <input class="form-control" placeholder="Please enter estate name" type="text" id="estateName" [(ngModel)]="grade_estate" name="estateName">
-                    </div>
-                    <div class="col-lg-3">
-                        <label>Species</label>
-                        <input class="form-control" placeholder="Please enter species" type="text" id="species" [(ngModel)]="grade_species" name="species">
-                    </div>
-                    <div class="col-lg-3">
-                        <label>ID<span class="id-text">(Give your sample an ID to identify it quicker)</span></label>
-                        <input class="form-control" placeholder="Please enter your ID" type="text" id="id" [(ngModel)]="grade_id" name="gradeId">
-                    </div>
-      
-            </div>
-            <div class="row mt-4">
-                <button type="button" class="btn next" (click)="addExternalReport()">Next</button>
-                <button type="button" class="btn add-sample">Add an another sample</button>
-            </div>
+            </section>
         </div>
-    </section>    
-</div>
-</div>
+    </div>
 </section>
