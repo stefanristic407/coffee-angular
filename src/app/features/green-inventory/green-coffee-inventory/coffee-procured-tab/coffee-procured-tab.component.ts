@@ -19,6 +19,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
   roaster_id: string;
   mainData:any[] = [];
   originArray:any[] = [];
+  searchString:string = '';
 
   constructor(public globals: GlobalsService, public roasterService:RoasterserviceService,
     public cookieService: CookieService,public roasteryProfileService : RoasteryProfileService,) { 
@@ -37,8 +38,9 @@ export class CoffeeProcuredTabComponent implements OnInit {
   getProcuredCoffeeList(){
     let origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.isoCode: undefined;
     let displayCount = this.display ? this.display: undefined;
+    let searchString = this.searchString ? this.searchString: undefined;
     this.mainData = [];
-    this.roasterService.getProcuredCoffeeList(this.roaster_id, origin, displayCount).subscribe(
+    this.roasterService.getProcuredCoffeeList(this.roaster_id, origin, displayCount, searchString).subscribe(
       response => {
         console.log(response);
         if(response && response['result']){

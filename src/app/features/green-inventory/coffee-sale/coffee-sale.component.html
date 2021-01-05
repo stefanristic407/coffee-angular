@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="pull-left mr-auto col-md-7 p-0 min-Text">Manage the price, quantity & delivery charges of coffee marked for sale</div>
-                    <div class="border-div ">
+                    <div *ngIf="orderDetails" class="border-div ">
                         <div class="row web-sec">
                             <div class="col-12 details-header pb-2">{{globals.languageJson?.green_coffee_details}}</div>
                             <div class="col-12 lot-content table-responsive">
@@ -86,14 +86,14 @@
                                             <td>{{orderDetails.variety ? orderDetails.variety : 'NA'}}</td>
                                             <td>{{orderDetails.price ? orderDetails.price : 'NA'}}</td>
                                             <td>{{orderDetails.cup_score ? orderDetails.cup_score : 'NA'}}</td>
-                                            <td>{{orderDetails?.quantity}} {{orderDetails?.quantity_type}}, {{orderDetails?.quantity_count}}/ bag</td>
+                                            <td>{{orderDetails?.quantity}} {{orderDetails?.quantity_type}}, {{orderDetails?.quantity_count}}/ kg</td>
                                         </tr>
                                     </tbody>
 
                                 </table>
                             </div>
                         </div>
-                        <div class="mob-sec">
+                        <div *ngIf="orderDetails" class="mob-sec">
                             <div class="row">
                                 <div class="col-lg-12 mt-2">
                                     <div class="estate-list">

@@ -29,9 +29,7 @@ export class MarkedSaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.appLanguage = this.globals.languageJson;
-    console.log("get marked sale");
-    
-    this.getCoffeeSaleList();
+    //this.getCoffeeSaleList();
   }
   getCoffeeSaleList(){
     let origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.statusCode: undefined;

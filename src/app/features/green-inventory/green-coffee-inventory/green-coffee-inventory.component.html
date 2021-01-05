@@ -30,7 +30,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="file-share-search">
                             <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-                            <input class="fadout-search" type="search" placeholder="Search by order id" name="filesTerm">
+                            <input class="fadout-search" type="search" placeholder="Search by order id" [(ngModel)]="searchString" (ngModelChange)="onSearch($event)"name="filesTerm">
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="pills-procured-tab" data-toggle="pill" href="#pills-procured" role="tab" aria-controls="pills-home" aria-selected="true">Sourced Green Coffee</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" (click)="onClickMarkForSaleTab()">
                                     <a class="nav-link" id="pills-marked-tab" data-toggle="pill" href="#pills-marked" role="tab" aria-controls="pills-profile" aria-selected="false">Green Coffee for Sale</a>
                                 </li>
                             </ul>

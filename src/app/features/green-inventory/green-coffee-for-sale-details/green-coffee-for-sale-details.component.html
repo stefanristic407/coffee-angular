@@ -86,7 +86,7 @@
                                                 <h3>{{globals.languageJson?.selling_details}}</h3>
                                                 <ul class="clearfix">
                                                     <li><label>Product Name</label>
-                                                        <p>{{saleInformation.product_name ? saleInformation.product_name : 'NA'}}</p>
+                                                        <p>{{saleInformation.name ? saleInformation.name : 'NA'}}</p>
                                                     </li>
                                                     <li><label>Quantity for sale</label>
                                                         <p>{{saleInformation.quantity_count}} {{saleInformation.quantity_type}}/ {{saleInformation.quantity}} {{saleInformation.price_unit}}</p>
@@ -145,7 +145,7 @@
                                                                         <p>{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</p>
                                                                     </li>
                                                                     <li><label>Availability Name</label>
-                                                                        <p>{{orderDetails.availablility_name ? orderDetails.availablility_name : 'NA'}}</p>
+                                                                        <p>{{orderDetails.availablility_name ? orderDetails.availability_name : 'NA'}}</p>
                                                                     </li>
                                                                     <li><label>Species</label>
                                                                         <p>{{orderDetails.species ? orderDetails.species : 'NA'}}</p>
@@ -154,7 +154,7 @@
                                                                         <p>{{orderDetails.variety ? orderDetails.variety : 'NA'}}</p>
                                                                     </li>
                                                                     <li><label>Crop year</label>
-                                                                        <p>{{orderDetails.harvest_date ? orderDetails.harvest_date : 'NA'}}</p>
+                                                                        <p>{{orderDetails.harvest_date | date : 'MMM, y'}}</p>
                                                                     </li>
                                                                     <li><label>Altitude</label>
                                                                         <p>{{orderDetails.altitude ? orderDetails.altitude : 'NA'}}</p>
@@ -163,7 +163,7 @@
                                                                         <p>{{orderDetails.flavour_profile ? orderDetails.flavour_profile : 'NA'}}</p>
                                                                     </li>
                                                                     <li><label>Mill</label>
-                                                                        <p>{{orderDetails.mill ? orderDetails.mill : 'NA'}}</p>
+                                                                        <p>{{orderDetails.mill ? orderDetails.wet_mill : 'NA'}}</p>
                                                                     </li>
                                                                     <li><label>Processing</label>
                                                                         <p>{{orderDetails.processing ? orderDetails.processing : 'NA'}}</p>

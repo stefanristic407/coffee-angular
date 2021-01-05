@@ -17,7 +17,7 @@
             </li>
             <li class="b-cum c-pink">Order Support</li>
             <div class="ml-auto text-right raise-ticket">
-                <button type="submit" class="btn btn-succes create-role-btn web-btn" routerLink="/ordermanagement/raise-ticket-form">Raise a ticket</button>
+                <button type="submit" class="btn btn-succes create-role-btn web-btn" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">Raise a ticket</button>
             </div>
         </ul>
     </nav>
@@ -38,7 +38,7 @@
                                 <p class="content">
                                     If the coffee has not left the country of origin yet, we may be able to negotiate with the producer to agree to cancel your order. If we are successful, we will be able to reimburse you with the full amount minus the algrano service fee.
                                 </p>
-                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form">Click here</a> to raise a ticket</p>
+                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                 <p class="content">
                                     If the coffee has not left the country of origin yet, we may be able to negotiate with the producer to agree to cancel your order. If we are successful, we will be able to reimburse you with the full amount minus the algrano service fee.
                                 </p>
-                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form">Click here</a> to raise a ticket</p>
+                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                 <p class="content">
                                     If the coffee has not left the country of origin yet, we may be able to negotiate with the producer to agree to cancel your order. If we are successful, we will be able to reimburse you with the full amount minus the algrano service fee.
                                 </p>
-                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form">Click here</a> to raise a ticket</p>
+                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                 <p class="content">
                                     If the coffee has not left the country of origin yet, we may be able to negotiate with the producer to agree to cancel your order. If we are successful, we will be able to reimburse you with the full amount minus the algrano service fee.
                                 </p>
-                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form">Click here</a> to raise a ticket</p>
+                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                                 <p class="content">
                                     If the coffee has not left the country of origin yet, we may be able to negotiate with the producer to agree to cancel your order. If we are successful, we will be able to reimburse you with the full amount minus the algrano service fee.
                                 </p>
-                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form">Click here</a> to raise a ticket</p>
+                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                 <p class="content">
                                     If the coffee has not left the country of origin yet, we may be able to negotiate with the producer to agree to cancel your order. If we are successful, we will be able to reimburse you with the full amount minus the algrano service fee.
                                 </p>
-                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form">Click here</a> to raise a ticket</p>
+                                <p class="content mb-0">Still need help? <a class="click-here" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
                             </div>
                         </div>
                     </div>
@@ -128,8 +128,8 @@
                 <div class=" col-lg-12 col-md-12 col-sm-12 help-div">
                     <p class="help-text mr-auto float-left">Did you get the help you need?</p>
                     <div class="float-right ml-auto help-btn-div">
-                        <button type="button" class="btn btn-succes yes-btn">Yes</button>
-                        <button type="button" class="btn raise-btn" routerLink="/ordermanagement/raise-ticket-form">No,Raise a ticket</button>
+                        <button type="button" class="btn btn-succes yes-btn" routerLink="/ordermanagement/order-chat" [queryParams]="{id: orderID}">Yes</button>
+                        <button type="button" class="btn raise-btn" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">No,Raise a ticket</button>
                     </div>
                 </div>
             </div>
@@ -138,13 +138,13 @@
                 <div class=" col-lg-12 col-md-12 col-sm-12 help-div">
                     <p class="help-text mr-auto float-left">Did you get the help you need?</p>
                     <div class=" ml-auto help-btn-div">
-                        <button type="button" class="btn btn-succes yes-btn">Yes</button>
-                        <button type="button" class="btn raise-btn" routerLink="/ordermanagement/raise-ticket-form">No,Raise a ticket</button>
+                        <button type="button" class="btn btn-succes yes-btn" routerLink="/ordermanagement/order-chat" [queryParams]="{id: orderID}">Yes</button>
+                        <button type="button" class="btn raise-btn" routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">No,Raise a ticket</button>
                     </div>
                 </div>
             </div>
         <div class="mobile-farm  col-12">
-                <button type="button" class="btn btn-succes create-role-btn"  routerLink="/ordermanagement/raise-ticket-form"> Raise a ticket </button>
+                <button type="button" class="btn btn-succes create-role-btn"  routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}"> Raise a ticket </button>
             </div>
     </section>
 

@@ -68,11 +68,31 @@ export class ProcuredCoffeeComponent implements OnInit {
 			  console.log(response);
 			  if(response['success'] && response['result']){
 				  this.orderDetails = response['result'];
+				  if(this.orderDetails && this.orderDetails['harvest_id']){
+					this.getGCAvailableDetails(this.orderDetails['harvest_id']);
+				  }  
 			  }
 			}, err =>{
 			  console.log(err);
 			}
 		);	
+	}
+	getGCAvailableDetails(harvest_id){
+		this.roasterService.getGCAvailableDetails(harvest_id).subscribe(
+			response => {
+				if(response && response['success'] && response['result']){
+					const result = response['result']
+					this.orderDetails['availability_name'] = result['name'];
+					this.orderDetails['cup_score'] = result['cupping']['cup_score'];
+					this.orderDetails['altitude'] = result['min_altitude'] + '-' + result['max_altitude'];
+					this.orderDetails['flavour_profile'] = result['flavours'];
+					this.orderDetails['wet_mill'] = result['wet_milling']['name'];
+					this.orderDetails['processing'] = result['processing_types'];					
+				}
+			}, err =>{
+			  console.log(err);
+			}
+		);
 	}
 	language(){
 		this.appLanguage = this.globals.languageJson;

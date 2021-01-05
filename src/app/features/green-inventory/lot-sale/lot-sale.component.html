@@ -288,8 +288,8 @@
                             <button class="btn ord_cancel ">Delete product from listing</button>
 
                             <div class="ml-auto pull-right">
-                                <button class="btn ord_cancel mr-3">Cancel</button>
-                                <button class="download_gtm" (click)="updateRole()" [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
+                                <button class="btn ord_cancel mr-3" routerLink="/features/green-coffee-for-sale-details" [queryParams]="{orderId: orderID}">Cancel</button>
+                                <button class="download_gtm" (click)="updateRole()"[disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
                                 || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
                                 !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']"> Save changes</button>
 

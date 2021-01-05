@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, Input, OnInit,ViewChild } from '@angular/core';
 import {DashboardserviceService} from 'src/services/dashboard/dashboardservice.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./estate.component.css']
 })
 export class EstateComponent implements OnInit {
-  estateterm: any;
+  	estateterm: any;
 	estatetermStatus: any;
 	estatetermType: any;
 	estatetermOrigin: any;
@@ -19,16 +19,17 @@ export class EstateComponent implements OnInit {
 	selected: Date[];
 	rangeDates: any;
 	showOrigin: boolean = true;
-  showType:boolean = true;
-  showStatus:boolean = true;
-  showDisplay:boolean =true;
-  
+	showType:boolean = true;
+	showStatus:boolean = true;
+	showDisplay:boolean =true;
+	
 	@ViewChild(DataTableDirective, {static: false})
 	datatableElement: DataTableDirective;
 	showDateRange: any;
 
 	@ViewChild('calendar')
-  	calendar: any;
+	calendar: any;
+	@Input()estateOrder: any[] = [];
 	//dtInstance:DataTables.Api;
 
 	// Static Estate Orders Data List
@@ -67,7 +68,7 @@ export class EstateComponent implements OnInit {
 		}
 
 		this.dtOptions = {
-			//ajax: this.data,
+			ajax: this.data,
 			data: this.data,
 			pagingType: 'full_numbers',
 			pageLength: 10,
@@ -80,13 +81,13 @@ export class EstateComponent implements OnInit {
 				defaultContent:'<input type="radio" name="optradio" class="radio-box">'},
 				{
 					title: 'Order ID',
-					data: 'orderid'
+					data: 'id'
 				}, {
 					title: 'Estate name',
-					data: 'estatename'
+					data: 'estate_name'
 				}, {
 					title: 'Date ordered',
-					data: 'dataordered'
+					data: 'created_at'
 				},
 				{
 					title: 'Origin',
@@ -107,7 +108,7 @@ export class EstateComponent implements OnInit {
 					data: 'quantity'
 				}, {
 					title: 'Type of order',
-					data: 'typeoforder',
+					data: 'order_type',
 					className: 'typeoforderclass'
 				}, {
 					title: 'Status',
@@ -117,7 +118,7 @@ export class EstateComponent implements OnInit {
 				
 				{
 					title: "Cupping score",
-					data: "cuppingscore",
+					data: "cup_score",
 				}
 			],
 			createdRow: (row: Node, data: any, index: number) => {
@@ -148,6 +149,10 @@ export class EstateComponent implements OnInit {
 				$('#DataTables_Table_0_processing').hide();
 			});
 		});
+	}
+	setTableData(tableData){
+		console.log(tableData);
+		this.data = tableData;
 	}
 
 	//  Function Name : Check box function.
@@ -230,7 +235,6 @@ export class EstateComponent implements OnInit {
 
 		}
 	}
- 
 	toggleOrigin() {
 		this.showOrigin = !this.showOrigin;
 		if(this.showOrigin==false){

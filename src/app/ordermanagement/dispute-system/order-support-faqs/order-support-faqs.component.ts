@@ -8,9 +8,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class OrderSupportFaqsComponent implements OnInit {
   headerValue : any;
+  orderID:string='';
   constructor(private route : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.orderID = decodeURIComponent(this.route.snapshot.queryParams['id']);
     this.headerValue = decodeURIComponent(
       this.route.snapshot.queryParams["buttonValue"]
     );

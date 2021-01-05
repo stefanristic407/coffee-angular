@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -327,10 +327,14 @@ $('body').on('click', '.responsive-pagination-list__item', function () {
     this.ticketRaise=group;
 
   }
-  continueTicket(){
-    console.log(this.ticketRaise);
-    this.router.navigate(["/ordermanagement/order-chat"]);
-
+  continueTicket(ticket?){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        id: ticket.order_id
+      }
+    };
+    this.router.navigate(["//ordermanagement/order-chat"], navigationExtras);
+    //this.router.navigate(["/ordermanagement/order-chat"]);
   }
   getRaisedTicketTableData() {
     this.roasterService.getRaisedTicketData(this.roasterId).subscribe(

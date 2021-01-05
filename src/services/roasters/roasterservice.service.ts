@@ -726,7 +726,14 @@ export class RoasterserviceService {
 		data['api_call'] = "/ro/" + roaster_id + "/orders/"+order_id;
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
-	}
+  }
+  getOrderDisputeList(roaster_id:any, order_id:any){
+    var data = {};
+    data['method'] = "GET";
+		data['api_call'] = "/ro/" + roaster_id + "/orders/"+order_id + '/disputes';
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+  }
   deleteRoastedCoffeeBatch(roaster_id : any, batch_id : any){
     var data = {};
 		data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
@@ -811,7 +818,7 @@ export class RoasterserviceService {
   //E-com APIs-ends
 
   //Get Procured Coffees List
-  getProcuredCoffeeList(roaster_id: any, origin?, displayCount?) {
+  getProcuredCoffeeList(roaster_id: any, origin?, displayCount?, searchString?) {
 		var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/procured-coffees";
     data['method'] = "GET";
@@ -820,6 +827,10 @@ export class RoasterserviceService {
       data['api_call'] = data['api_call'] + '&per_page=' + displayCount;
     }else if(displayCount){
       data['api_call'] = data['api_call'] + '?per_page=' + displayCount;
+    }if((origin || displayCount) && searchString){
+      data['api_call'] = data['api_call']  + '&search_query=' + searchString;
+    }else if(searchString){
+      data['api_call'] = data['api_call'] + '?search_query=' + searchString;
     }
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
@@ -848,10 +859,12 @@ export class RoasterserviceService {
   }
   //Create Mark for Sale from Procured Coffee
   CreateMarkForSale(roaster_id: any, orderID, data) {
-    data['method'] = "POST";
-    data['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
+    let obj = {};
+    obj['method'] = "POST";
+    obj['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
+    obj['token'] = this.cookieService.get('Auth');
+    obj['data'] = data;
+		return this.http.post(this.url, obj);
   }
   //Get MarkFor Sale order details
   getMarkForSaleDetails(roaster_id: any, orderID) {
@@ -869,6 +882,24 @@ export class RoasterserviceService {
     obj['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
     obj['data'] = data
 		obj['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, obj);
+  }
+  //Get Harvest GC available details
+  getGCAvailableDetails(harvest_id: any) {
+    var data = {};
+    data['api_call'] = "/general/availability/gc/" + harvest_id;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+		return this.http.post(this.url, data);
+  }
+
+  //Raise a Ticket for the order
+  raiseTicket(roaster_id: any, orderID, data) {
+    let obj = {};
+    obj['method'] = "POST";
+    obj['api_call'] = "/ro/" + roaster_id + "/orders/" + orderID + '/disputes';
+    obj['token'] = this.cookieService.get('Auth');
+    obj['data'] = data;
 		return this.http.post(this.url, obj);
   }
 

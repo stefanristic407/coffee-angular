@@ -20,7 +20,7 @@
                                 </div>
 
                                 <div class="pull-right">
-                                    <button class="save fnt-muli">Have a problem?</button>
+                                    <button class="save fnt-muli" routerLink="/ordermanagement/order-support" [queryParams]="{id: orderID}">Have a problem?</button>
                                 </div>
 
                             </div>
@@ -40,8 +40,8 @@
 
                                 <div class="conversation-head__items clearfix float-left">
                                     <div class="conversation-textBold float-left">
-                                        <span>Order #12416</span>
-                                        <p class="fnt-12 fnt-muli fnt-600 text-clr588 m-0">Order Status - Shipped</p>
+                                        <span>Order #{{orderDetails?.id}}</span>
+                                        <p class="fnt-12 fnt-muli fnt-600 text-clr588 m-0">Order Status - {{orderDetails?.status}}</p>
                                     </div>
                                     <ul class="conversation-head__profiles mt-2">
                                         <li>
@@ -63,27 +63,34 @@
                                     <div class="dispute-order__type">
                                         <div class="type-of-order">
                                             <h6 class="conversation-textgray type-of-order__head">{{globals.languageJson?.order_type}}</h6>
-                                            <span class="conversation-textBlack14 type-of-order__type">Sample</span>
+                                            <span class="conversation-textBlack14 type-of-order__type">{{orderDetails?.order_type}}</span>
                                         </div>
                                     </div>
 
                                 </div>
 
                                 <div class="conversation-head__items float-right ml-lg-auto cursor-pointer">
-                                    <span class="have-proble-order assigned-border"> Change assigned user</span> <span class="have-proble-order"> Close tickets</span>
+                                    <span class="have-proble-order assigned-border"> Change assigned user</span> 
+                                    <span *ngIf="isView" class="have-proble-order" (click)="isView = false"> Close tickets</span>
+                                    <span *ngIf="!isView" class="have-proble-order" (click)="isView = true"> View tickets</span>
                                     <!-- <a class="have-proble-order">{{globals.languageJson?.have_a_problem}}?</a> -->
                                 </div>
 
 
                             </div>
-                            <div class="d-flex order-ticket">
+                            <div *ngIf="isView" class="d-flex order-ticket">
                                 <div class="order-width">
                                     <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Order</p>
-                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334"> #12416</p>
-                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 m-0"> 11:23am</p>
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334"> #{{orderDetails?.id}}</p>
+                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 m-0"> {{orderDetails?.created_at | date : 'h:mm a'}}</p>
+                                </div>
+                                <div *ngFor="let item of orderDisputes;" class="ticket-width">
+                                    <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Ticket #{{item.id}} </p>
+                                    <p class="fnt-12 fnt-muli fnt-600 text-clr588 ">{{item.dispute_type}}</p>
+                                    <span class="ticket-num__status float-left">{{item.dispute_status}}</span>
                                 </div>
 
-                                <div class="ticket-width">
+                                <!-- <div class="ticket-width">
                                     <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Ticket #154 </p>
                                     <p class="fnt-12 fnt-muli fnt-600 text-clr588 "> Buying coffee</p>
                                     <span class="ticket-num__status float-left">open</span>
@@ -111,10 +118,7 @@
                                     <p class="fnt14 fnt-muli fnt-700 txt-clr334 m-0"> Ticket #164 </p>
                                     <p class="fnt-12 fnt-muli fnt-600 text-clr588 "> Payment</p>
                                     <span class="ticket-num__status float-left">Resolved</span>
-                                </div>
-
-
-
+                                </div> -->
                             </div>
 
                             <!--conversation body-->

@@ -170,7 +170,7 @@
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                                 <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
-                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}} </button>
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-chat" [queryParams]="{orderId: orderBookId}">{{globals.languageJson?.have_a_problem}} </button>
                             </div>
                         </div>
                     </div>
@@ -199,13 +199,13 @@
                         <li class="nav-item">
                             <a class="nav-link" id="pills-shipping-tab" data-toggle="pill" href="#pills-shipping" role="tab" aria-controls="pills-shipping" aria-selected="false">Shipping</a>
                         </li>
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-chat" [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}</button>
                         </li>
 
                     </ul>
 
                     <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
-                        <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
+                        <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-chat" [queryParams]="{orderId: orderBookId}">{{globals.languageJson?.have_a_problem}}</button>
                     </div>
                     <div class="tab-content mt-md-5" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">

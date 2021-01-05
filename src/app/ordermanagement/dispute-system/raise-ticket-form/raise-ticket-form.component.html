@@ -12,7 +12,7 @@
                 <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/estate-orders">Order 12416</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/ordermanagement/estate-orders">Order #{{orderDetails?.id}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
             <li class="b-cum c-pink">Order support</li>
@@ -28,21 +28,21 @@
                         <div class="raise-bg-color">
                             <h3 class="ord-details-heading fnt-muli"> Order details</h3>
                             <div class="row mt-4 col-12 border-div">
-                                <div class=" p-0"><img class="img-estate" src="assets/images/activity1.png" alt="User"></div>
+                                <div class=" p-0"><img class="img-estate" [src]="orderDetails?.estate_profile_image_thumbnail_url" alt="User"></div>
                                 <div class="pull-left">
                                     <ul class="details-list p-0 fnt-muli">
-                                        <li class="list-name"><span class="raise-estate ">Estate name : </span> <span class="raise-estate-name"> Finca La Pampa </span></li>
-                                        <li class="list-name"><span class="raise-estate">Owner : </span> <span class="raise-estate-name"> Ronnie Lowe  </span></li>
+                                        <li class="list-name"><span class="raise-estate ">Estate name : </span> <span class="raise-estate-name">{{orderDetails.estate_name ? orderDetails.estate_name : 'NA' }}</span></li>
+                                        <li class="list-name"><span class="raise-estate">Owner : </span> <span class="raise-estate-name">{{orderDetails.estate_owner ? orderDetails.estate_owner : 'NA' }}</span></li>
     
                                     </ul>
                                 </div>
                             </div>
                             <div class="row mt-4 mb-3 col-12">
-                                <div class=" p-0"><img class="img-estate" src="assets/images/activity1.png" alt="User"></div>
+                                <div class=" p-0"><img class="img-estate" [src]="orderDetails?.roaster_profile_image_thumbnail_url" alt="User"></div>
                                 <div class="pull-left">
                                     <ul class="details-list p-0 fnt-muli">
-                                        <li class="list-name"><span class="raise-estate">Roaster name :  </span> <span class="raise-estate-name"> Lofbergs </span></li>
-                                        <li class="list-name"><span class="raise-estate">Owner :  </span> <span class="raise-estate-name"> Milton Walker </span></li>
+                                        <li class="list-name"><span class="raise-estate">Roaster name :  </span> <span class="raise-estate-name"> {{orderDetails.roaster_name ? orderDetails.roaster_name : 'NA' }} </span></li>
+                                        <li class="list-name"><span class="raise-estate">Owner :  </span> <span class="raise-estate-name">{{orderDetails.roaster_owner ? orderDetails.roaster_owner : 'NA' }}</span></li>
     
                                     </ul>
                                 </div>
@@ -53,29 +53,29 @@
     
                                 <tr>
                                     <td> <span class="list-que"> Origin : </span></td>
-                                    <td> <span class="list-ans"> Colombia </span> </td>
+                                    <td> <span class="list-ans">{{orderDetails.origin ? orderDetails.origin : 'NA' }}</span> </td>
     
                                 </tr>
                                 <tr>
                                     <td> <span class="list-que">  Variety : </span></td>
-                                    <td> <span class="list-ans">  Bourbon, cautai </span> </td>
+                                    <td> <span class="list-ans">{{orderDetails.variety ? orderDetails.variety : 'NA' }}</span> </td>
     
                                 </tr>
                                 <tr>
                                     <td> <span class="list-que">  Price : </span></td>
-                                    <td> <span class="list-ans">  $7.45 USD/kg </span> </td>
+                                    <td> <span class="list-ans">$ {{orderDetails.price ? orderDetails.price : 'NA' }} USD/kg </span> </td>
     
                                 </tr>
     
                                 <tr>
                                     <td> <span class="list-que">  Type of order : </span></td>
-                                    <td> <span class="list-ans">  Booked </span> </td>
+                                    <td> <span class="list-ans"> {{orderDetails.order_type ? orderDetails.order_type : 'NA' }} </span> </td>
     
                                 </tr>
     
                                 <tr>
                                     <td> <span class="list-que">  Status : </span></td>
-                                    <td> <span class="list-ans">  Shipped </span> </td>
+                                    <td> <span class="list-ans">  {{orderDetails.status ? orderDetails.status : 'NA' }} </span> </td>
     
                                 </tr>
     
@@ -92,7 +92,7 @@
                         <div class="form-group row pt-2">
                             <div class="form-group col-md-9 col-sm-6">
                                 <label class="raise-label fnt-muli">Order ID #<span class="mobile-view "><span class="raise-chng-ord fnt-muli" routerLink="/ordermanagement/select-order"> <img src="/assets/images/shape-2.png" alt=""> change order</span></span></label>
-                                <input type="number" class="form-control raise-box ord disable-ticket" placeholder="12345" (keyup)="onKeyPress($event)" [(ngModel)]="orderid" name="orderid" id="orderId" disabled="disabled" required="">
+                                <input type="number" class="form-control raise-box ord disable-ticket" placeholder="12345" (keyup)="onKeyPress($event)" [(ngModel)]="orderID" name="orderid" id="orderId" disabled="disabled" required="">
                                 <!-- <div class="orderidError" *ngIf="orderidError != ''">{{orderidError}}</div> -->
 
                             </div>
@@ -105,10 +105,10 @@
                                 <label class="raise-label fnt-muli">What can we help you with ?<span class="required-color">*</span></label>
                                 <select class="form-control raise-boxs" (keyup)="onKeyPress($event)" [(ngModel)]="helpyou" name="helpyou" id="helpYou" required="">
                                         <option  value="" selected disabled>Select an option</option>
-                                    <option value="Payment">Payment</option>
-                        <option value="Order">Order</option>
-                        <option value="Test">Test</option>
-                    </select>
+                                        <option value="Payment">Payment</option>
+                                        <option value="Order">Order</option>
+                                        <option value="Test">Test</option>
+                                </select>
                                 <div class="helpYouError" *ngIf="helpYouError != ''">{{helpYouError}}</div>
 
                             </div>
@@ -162,11 +162,11 @@
                             <div class="form-group col-md-12">
                                 <label class="raise-label fnt-muli">Why do you want to dispute the order ?</label>
                                 <select class="form-control raise-boxs" (keyup)="onKeyPress($event)" [(ngModel)]="disputeOrder" name="disputeOrder" id="disputeOrder" required="">
-                                        <option  value="" selected disabled>Select an option</option>
-                        <option value="0">Why do I have to pay before the coffee is shipped ?</option>
-                        <option value="1">Order</option>
-                        <option value="2">Test</option>
-                    </select>
+                                    <option  value="" selected disabled>Select an option</option>
+                                    <option value="Why do I have to pay before the coffee is shipped ?">Why do I have to pay before the coffee is shipped ?</option>
+                                    <option value="Order">Order</option>
+                                    <option value="Test">Test</option>
+                                </select>
                                 <!-- <input type="text" class="form-control raise-box" placeholder="Why do I have to pay before the coffee is shipped ?" (keyup)="onKeyPress($event)" [(ngModel)]="disputeOrder" name="disputeOrder" id="disputeOrder" required=""> -->
                                 <!-- <div class="disputeOrderError" *ngIf="disputeOrderError != ''">{{disputeOrderError}}</div> -->
 
@@ -211,21 +211,21 @@
                     <div class="raise-bg-color">
                         <h3 class="ord-details-heading fnt-muli"> Order details</h3>
                         <div class="row mt-4 col-12 border-div">
-                            <div class=" p-0"><img class="img-estate" src="assets/images/activity1.png" alt="User"></div>
+                            <div class=" p-0"><img class="img-estate" [src]="orderDetails?.estate_profile_image_thumbnail_url" alt="User"></div>
                             <div class="pull-left">
                                 <ul class="details-list p-0 fnt-muli">
-                                    <li class="list-name"><span class="raise-estate ">Estate name : </span> <span class="raise-estate-name"> Finca La Pampa </span></li>
-                                    <li class="list-name"><span class="raise-estate">Owner : </span> <span class="raise-estate-name"> Ronnie Lowe  </span></li>
+                                    <li class="list-name"><span class="raise-estate ">Estate name : </span> <span class="raise-estate-name"> {{orderDetails.estate_name ? orderDetails.estate_name : 'NA' }} </span></li>
+                                    <li class="list-name"><span class="raise-estate">Owner : </span> <span class="raise-estate-name"> {{orderDetails.estate_owner ? orderDetails.estate_owner : 'NA' }}  </span></li>
 
                                 </ul>
                             </div>
                         </div>
                         <div class="row mt-4 mb-3 col-12">
-                            <div class=" p-0"><img class="img-estate" src="assets/images/activity1.png" alt="User"></div>
+                            <div class=" p-0"><img class="img-estate" [src]="orderDetails?.roaster_profile_image_thumbnail_url" alt="User"></div>
                             <div class="pull-left">
                                 <ul class="details-list p-0 fnt-muli">
-                                    <li class="list-name"><span class="raise-estate">Roaster name :  </span> <span class="raise-estate-name"> Lofbergs </span></li>
-                                    <li class="list-name"><span class="raise-estate">Owner :  </span> <span class="raise-estate-name"> Milton Walker </span></li>
+                                    <li class="list-name"><span class="raise-estate">Roaster name :  </span> <span class="raise-estate-name"> {{orderDetails.roaster_name ? orderDetails.roaster_name : 'NA' }} </span></li>
+                                    <li class="list-name"><span class="raise-estate">Owner :  </span> <span class="raise-estate-name"> {{orderDetails.roaster_owner ? orderDetails.roaster_owner : 'NA' }} </span></li>
 
                                 </ul>
                             </div>
@@ -236,29 +236,29 @@
 
                             <tr>
                                 <td> <span class="list-que"> Origin : </span></td>
-                                <td> <span class="list-ans"> Colombia </span> </td>
+                                <td> <span class="list-ans"> {{orderDetails.origin ? orderDetails.origin : 'NA' }} </span> </td>
 
                             </tr>
                             <tr>
                                 <td> <span class="list-que">  Variety : </span></td>
-                                <td> <span class="list-ans">  Bourbon, cautai </span> </td>
+                                <td> <span class="list-ans">  {{orderDetails.variety ? orderDetails.variety : 'NA' }} </span> </td>
 
                             </tr>
                             <tr>
                                 <td> <span class="list-que">  Price : </span></td>
-                                <td> <span class="list-ans">  $7.45 USD/kg </span> </td>
+                                <td> <span class="list-ans">  ${{orderDetails.price ? orderDetails.price : 'NA' }} USD/kg </span> </td>
 
                             </tr>
 
                             <tr>
                                 <td> <span class="list-que">  Type of order : </span></td>
-                                <td> <span class="list-ans">  Booked </span> </td>
+                                <td> <span class="list-ans">  {{orderDetails.order_type ? orderDetails.order_type : 'NA' }} </span> </td>
 
                             </tr>
 
                             <tr>
                                 <td> <span class="list-que">  Status : </span></td>
-                                <td> <span class="list-ans">  Shipped </span> </td>
+                                <td> <span class="list-ans">  {{orderDetails.status ? orderDetails.status : 'NA' }} </span> </td>
 
                             </tr>
 

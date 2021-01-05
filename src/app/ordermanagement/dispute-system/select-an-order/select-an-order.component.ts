@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 // import { DataTableDirective } from 'angular-datatables';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
+import { EstateComponent } from '../estate/estate.component';
 
 @Component({
   selector: 'app-select-an-order',
@@ -13,39 +14,38 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./select-an-order.component.css']
 })
 export class SelectAnOrderComponent implements OnInit {
-  roasterId : any;
-  data : any = [];
-  constructor(public router: Router,	
-    public cookieService: CookieService,
-		private roasterService: RoasterserviceService,
-		private toastrService: ToastrService,) {
-      this.roasterId = this.cookieService.get('roaster_id');
-
-     }
-
+	roasterId : any;
+	estateOrderData : any = [];
+	@ViewChild(EstateComponent, {static: false}) estateTable;
+  	constructor(public router: Router, public cookieService: CookieService,private roasterService: RoasterserviceService,
+		private toastrService: ToastrService) {
+    }
 	ngOnInit(): void {
-    if (this.cookieService.get("Auth") == "") {
+    	if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
 		}
-    // this.estateSelectAnOrderTableData();
+		this.roasterId = this.cookieService.get('roaster_id');
+		console.log("coming here");
+		
+    	this.estateSelectAnOrderTableData();
 	}
    //select order table data 
-  //  estateSelectAnOrderTableData() {
-	// 	this.roasterService.getEstateOrders(this.roasterId).subscribe(
-	// 	  data => {
-	// 		if ( data['success'] == true ) {
-	// 		  if ( data['result'] == null || data['result'].length == 0) {
-	// 			this.toastrService.error("Table Data is empty");
-	// 		  }
-	// 		  else {
-	// 			this.data = data['result'];
-	// 		  }
-	// 		} 
-	// 		else {
-			  
-	// 		  this.toastrService.error("Error while getting the agreement list!");
-	// 		}
-	// 	  }
-	// 	)
-	//   }
+   	estateSelectAnOrderTableData() {
+		this.roasterService.getEstateOrders(this.roasterId).subscribe(
+		  data => {
+			if ( data['success'] == true ) {
+			  if ( data['result'] == null || data['result'].length == 0) {
+				this.toastrService.error("Table Data is empty");
+			  }
+			  else {
+				this.estateOrderData = data['result'];
+				this.estateTable.setTableData(this.estateOrderData);
+			  }
+			} 
+			else {
+			  this.toastrService.error("Error while getting the agreement list!");
+			}
+		  }
+		)
+	}
 }

@@ -74,7 +74,10 @@
                                                         <p>{{orderDetails?.quantity_count}} {{orderDetails?.quantity_type}}, {{orderDetails?.quantity}} kg each</p>
                                                     </li>
                                                     <li><label>Buying price</label>
-                                                        <p>$7.60/kg USD</p>
+                                                        <p>$ {{orderDetails?.price}}/kg USD</p>
+                                                    </li>
+                                                    <li><label>Roaster Reference No</label>
+                                                        <p>{{orderDetails?.order_reference}}</p>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -86,7 +89,7 @@
                                             <p class="view-report float-right">View more details </p>
                                         </div>
 
-                                        <div class="row">
+                                        <div *ngIf="orderDetails" class="row">
                                             <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
                                                 <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                                                     <li class="nav-item">
@@ -122,7 +125,7 @@
                                                                         <p>{{ orderDetails.variety ? orderDetails.variety : 'NA'}}</p>
                                                                     </li>
                                                                     <li><label>Crop year</label>
-                                                                        <p>{{orderDetails.harvest_date ? orderDetails.harvest_date : 'NA'}}</p>
+                                                                        <p>{{orderDetails.harvest_date | date : 'MMM, y'}}</p>
                                                                     </li>
                                                                     <li><label>Altitude</label>
                                                                         <p>{{orderDetails.altitude ? orderDetails.altitude : 'NA'}}</p>
@@ -206,7 +209,7 @@
                                     </div>
 
                                     <div class="produect-pro mt-4">
-                                        <div class="row">
+                                        <div *ngIf="orderDetails"class="row">
                                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                                 <div class="real-estate p-date">
                                                     <h6>12 Feb, 2020</h6>
