@@ -117,49 +117,117 @@
                                         </div>
                                     </div>
                                     <div *ngIf="orderDetails" class="row">
-                                        <div class="col-lg-12">
-                                            <div class="estate-focus">
-                                                <h3>{{globals.languageJson?.green_coffee_details}}</h3>
-                                                <ul class="clearfix">
-                                                    <li><label>Estate</label>
-                                                        <p>{{orderDetails.estate_name ? orderDetails.estate_name : 'NA'}}</p>
+
+                                        <div class="row">
+                                            <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                                                <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="pills-procured-tab" data-toggle="pill" href="#pills-procured" role="tab" aria-controls="pills-home" aria-selected="true">Green coffee details</a>
                                                     </li>
-                                                    <li><label>Origin</label>
-                                                        <p>{{orderDetails.origin ? orderDetails.origin : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Lot ID</label>
-                                                        <p>{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Availability Name</label>
-                                                        <p>{{orderDetails.availablility_name ? orderDetails.availablility_name : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Species</label>
-                                                        <p>{{orderDetails.species ? orderDetails.species : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Variety</label>
-                                                        <p>{{orderDetails.variety ? orderDetails.variety : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Crop year</label>
-                                                        <p>{{orderDetails.harvest_date ? orderDetails.harvest_date : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Altitude</label>
-                                                        <p>{{orderDetails.altitude ? orderDetails.altitude : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Flavour Profile</label>
-                                                        <p>{{orderDetails.flavour_profile ? orderDetails.flavour_profile : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Mill</label>
-                                                        <p>{{orderDetails.mill ? orderDetails.mill : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Processing</label>
-                                                        <p>{{orderDetails.processing ? orderDetails.processing : 'NA'}}</p>
-                                                    </li>
-                                                    <li><label>Moisture</label>
-                                                        <p>{{orderDetails.moisture ? orderDetails.moisture : 'NA'}}</p>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="pills-marked-tab" data-toggle="pill" href="#pills-marked" role="tab" aria-controls="pills-profile" aria-selected="false">Roaster Notes</a>
                                                     </li>
                                                 </ul>
+                                                <div class="tab-content mt-md-4" id="pills-tabContent">
+                                                    <div class="tab-pane fade show active spacing-order" id="pills-procured" role="tabpanel" aria-labelledby="pills-home-tab">
+
+                                                        <div class="col-lg-12">
+                                                            <div class="estate-focus">
+                                                                <h3>{{globals.languageJson?.green_coffee_details}}</h3>
+                                                                <ul class="clearfix">
+                                                                    <li><label>Estate</label>
+                                                                        <p>{{orderDetails.estate_name ? orderDetails.estate_name : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Origin</label>
+                                                                        <p>{{orderDetails.origin ? orderDetails.origin : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Lot ID</label>
+                                                                        <p>{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Availability Name</label>
+                                                                        <p>{{orderDetails.availablility_name ? orderDetails.availablility_name : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Species</label>
+                                                                        <p>{{orderDetails.species ? orderDetails.species : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Variety</label>
+                                                                        <p>{{orderDetails.variety ? orderDetails.variety : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Crop year</label>
+                                                                        <p>{{orderDetails.harvest_date ? orderDetails.harvest_date : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Altitude</label>
+                                                                        <p>{{orderDetails.altitude ? orderDetails.altitude : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Flavour Profile</label>
+                                                                        <p>{{orderDetails.flavour_profile ? orderDetails.flavour_profile : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Mill</label>
+                                                                        <p>{{orderDetails.mill ? orderDetails.mill : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Processing</label>
+                                                                        <p>{{orderDetails.processing ? orderDetails.processing : 'NA'}}</p>
+                                                                    </li>
+                                                                    <li><label>Moisture</label>
+                                                                        <p>{{orderDetails.moisture ? orderDetails.moisture : 'NA'}}</p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade spacing-order" id="pills-marked" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                                        <div class="col-lg-12">
+
+                                                            <div class="roaster-notes">
+                                                                <ul class="clearfix">
+                                                                    <li>
+                                                                        <div class="real-estate d-flex">
+                                                                            <div class="p-photo col-1">
+                                                                                <img class="img-procured" [src]="orderDetails?.estate_profile_image_thumbnail_url">
+                                                                            </div>
+                                                                            <div class="col-11">
+                                                                                <p class="fnt-14 fnt-muli fnt-700 txt-clr334">Molly Jennings 26th March 2020</p>
+                                                                                <p class="fnt-14 fnt-muli fnt-400 text-clr588">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diamnonumy eirmod tempor invidunt ut labore et dolore magna aliquyamerat, sed diam voluptua. At vero eos et accusam
+                                                                                    et justo duo doloresea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="real-estate d-flex">
+                                                                            <div class="p-photo col-1">
+                                                                                <img class="img-procured" [src]="orderDetails?.estate_profile_image_thumbnail_url">
+                                                                            </div>
+                                                                            <div class="col-11">
+                                                                                <p class="fnt-14 fnt-muli fnt-700 txt-clr334">Molly Jennings 26th March 2020</p>
+                                                                                <p class="fnt-14 fnt-muli fnt-400 text-clr588">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diamnonumy eirmod tempor invidunt ut labore et dolore magna aliquyamerat, sed diam voluptua. At vero eos et accusam
+                                                                                    et justo duo doloresea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="real-estate d-flex">
+                                                                            <div class="p-photo col-1">
+                                                                                <img class="img-procured" [src]="orderDetails?.estate_profile_image_thumbnail_url">
+                                                                            </div>
+                                                                            <div class="col-11">
+                                                                                <p class="fnt-14 fnt-muli fnt-700 txt-clr334">Molly Jennings 26th March 2020</p>
+                                                                                <p class="fnt-14 fnt-muli fnt-400 text-clr588">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diamnonumy eirmod tempor invidunt ut labore et dolore magna aliquyamerat, sed diam voluptua. At vero eos et accusam
+                                                                                    et justo duo doloresea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
                                     <div class="produect-pro mt-4">
                                         <div *ngIf="orderDetails" class="row">
@@ -172,7 +240,7 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate">
                                                     <div class="p-photo">
-                                                        <img [src]="orderDetails.estate_profile_image_thumbnail_url">
+                                                        <img class="img-procured" [src]="orderDetails.estate_profile_image_thumbnail_url">
                                                     </div>
 
                                                     <h3>{{orderDetails.estate_owner ? orderDetails.estate_owner : 'NA'}}</h3>

@@ -429,75 +429,8 @@ ul li {
     list-style: none;
 }
 
-.s-cert li {
-    display: flex;
-    width: 32px;
-    margin-left: 14px;
-}
-
 .table-details {
     display: none;
-}
-
-.s-cert li img {
-    width: 100%;
-}
-
-.flex {
-    display: flex;
-}
-
-.s-details h3 {
-    height: 23px;
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    white-space: nowrap;
-    color: #242424;
-}
-
-.s-details h6 {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.s-details {
-    padding: 22px;
-}
-
-.s-gal img {
-    width: 100%;
-}
-
-.s-tit {
-    width: 80%;
-}
-
-.orgin-att label,
-.gray-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.orgin-att h6 {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.orgin-att {
-    padding-left: 15px;
-    padding-right: 15px;
-    border-right: 1px solid #ebebeb;
-}
-
-.orgin-att:first-child {
-    padding-left: 0;
-}
-
-.orgin-att:last-child {
-    padding-right: 0;
-    border: none;
 }
 
 .source-lets {
@@ -728,4 +661,76 @@ ul li {
         float: right;
         margin-right: 10px;
     }
+}
+
+.nav-pills {
+    border-bottom: 1px solid #dddddd;
+}
+
+li.nav-item {
+    margin-right: 7%;
+    position: relative;
+    top: .25rem;
+}
+
+.nav-pills .nav-link {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #232334;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: unset !important;
+    border-radius: unset;
+}
+
+.nav-pills .nav-link.active {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #30855c;
+}
+
+.nav-pills .nav-link.active {
+    position: relative;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.nav-link {
+    display: block;
+    padding: 0rem 1rem .5rem 1rem;
+}
+
+li.nav-item {
+    margin-right: 3%;
+    position: relative;
+    top: .25rem;
+}
+
+.nav-pills .nav-link.active:before {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    text-align: center;
+    margin: auto;
+    top: 80%;
+    transform: translate(-50%);
+    border-radius: 1.5px;
+    background-color: #30855c;
+}
+
+.mixups-tabs {
+    background-color: #ffffff;
+    overflow: hidden;
 }

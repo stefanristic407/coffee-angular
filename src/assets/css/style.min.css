@@ -23574,3 +23574,35 @@ button {
 .br-4 {
     border-radius: 4px;
 }
+
+.img-procured {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.roaster-notes ul {
+    margin-bottom: 0;
+    padding: 24px;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+}
+
+.roaster-notes ul li {
+    width: 100%;
+    float: left;
+    border-bottom: 1px dashed #eeeeee;
+    padding: 10px;
+}
+
+.roaster-notes ul li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.current-s-bg {
+    padding: 16px 17px 15px 24px;
+    border-radius: 4px;
+    background-color: #faf8f4;
+}

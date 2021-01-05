@@ -89,6 +89,7 @@ import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.com
 import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/vegetation-chart.component';
 import { ImageMapComponent } from './remote-sensoring/image-map/image-map.component';
+import { AssignUserComponent } from './assign-user/assign-user.component';
 
 
 @NgModule({
@@ -161,6 +162,7 @@ import { ImageMapComponent } from './remote-sensoring/image-map/image-map.compon
     UvChartComponent,
     VegetationChartComponent,
     ImageMapComponent,
+    AssignUserComponent,
   ],
   imports: [
     // BrowserAnimationsModule,

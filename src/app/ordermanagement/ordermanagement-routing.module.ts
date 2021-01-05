@@ -46,6 +46,7 @@ import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.com
 import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/vegetation-chart.component';
 import { ImageMapComponent } from './remote-sensoring/image-map/image-map.component';
+import { AssignUserComponent} from './assign-user/assign-user.component';
 
 
 const routes: Routes = [
@@ -220,6 +221,11 @@ children: [
   {
     path:'mr-request-details',
     component:MrRequestDetailsComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path:'assign-user',
+    component:AssignUserComponent,
     canActivate : [AuthGuard]
   },
   {

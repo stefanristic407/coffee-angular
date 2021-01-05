@@ -1,0 +1,38 @@
+.bg-fff {
+    padding: 7rem 2rem;
+}
+
+.cancel {
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    color: #30855c;
+    background-color: #ffffff;
+}
+
+.login-butn {
+    border-radius: 4px;
+    background-color: #30855c;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    border: #30855c;
+    /* box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5); */
+}
+
+.login-butn:hover {
+    background-color: #30855c;
+    border: #3d8462;
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.email {
+    height: 50px;
+    border-radius: 6px;
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+}
