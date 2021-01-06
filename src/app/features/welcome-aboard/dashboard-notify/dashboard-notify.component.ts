@@ -4,11 +4,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
-  selector: 'app-welcome-aboard',
-  templateUrl: './welcome-aboard.component.html',
-  styleUrls: ['./welcome-aboard.component.scss'],
+  selector: 'app-dashboard-notify',
+  templateUrl: './dashboard-notify.component.html',
+  styleUrls: ['./dashboard-notify.component.scss'],
 })
-export class WelcomeAboardComponent implements OnInit {
+export class DashboardNotifyComponent implements OnInit {
   appLanguage?: any;
   welcomeActive: any = 0;
 
