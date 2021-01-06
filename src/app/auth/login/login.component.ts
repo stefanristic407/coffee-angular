@@ -202,7 +202,7 @@ export class LoginComponent implements OnInit {
       data['email'] = this.userEmail;
       data['password'] = this.userPassword;
       this.userService.roasterLogin(data).subscribe(
-        data => {
+        (data: any) => {
           if (data == null) {
             this.toastrService.error("Something Went Wrong, Please Try Again");
             this.loginButtonValue = "Login";
@@ -212,6 +212,7 @@ export class LoginComponent implements OnInit {
             // this.loginButtonValue = "Login";
             this.loginButtonValue = "Logging in";
             this.cookieService.set('user_id', data['result'].user_id);
+            this.cookieService.set('userName', data.result.first_name + ' ' + data.result.last_name);
             this.cookieService.set('Auth', data['Authorization']);
 			this.cookieService.set('roaster_id', data['result'].roasters.id);
 			

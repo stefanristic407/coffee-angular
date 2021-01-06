@@ -11,6 +11,7 @@ import { GlobalsService } from 'src/services/globals.service';
 export class WelcomeAboardComponent implements OnInit {
   appLanguage?: any;
   welcomeActive: any = 0;
+  userName = '';
 
   constructor(
     private router: Router,
@@ -23,6 +24,7 @@ export class WelcomeAboardComponent implements OnInit {
     if (this.cookieService.get('Auth') === '') {
       this.router.navigate(['/auth/login']);
     }
+    this.userName = this.cookieService.get('userName');
 
     $('.nav-links__item').removeClass('active');
     $('.nav-links__item').eq(0).addClass('active');
