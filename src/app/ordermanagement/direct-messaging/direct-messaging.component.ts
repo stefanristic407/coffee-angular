@@ -117,8 +117,11 @@ export class DirectMessagingComponent implements OnInit {
 								msg['data']['name'] = userDetails[1];
 							}
 						});
-						this.threadsData.push(msg['data']);
-						this.threadsMessageData[msg['data']['id']] = [];
+						if(msg){
+							this.threadsData.push(msg['data']);
+						    this.threadsMessageData[msg['data']['id']] = [];
+						}
+						
 					}
 				} else if (msg['type'] == 'message') {
 					if (msg['data'] != null) {
