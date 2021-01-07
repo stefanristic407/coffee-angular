@@ -4,6 +4,7 @@
         <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
     </div>
 </div>
+
 <div *ngIf="lotSaleActive == 1">
     <section>
         <div class="container sewn-container section-head-pad">
@@ -16,28 +17,29 @@
                 </section>
             </div>
 
-            <div *ngIf="saleInformation" class="bg-fff">
+
+            <div class="bg-fff">
                 <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 row web-sec">
                     <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <div class="col-lg-8">
+                        <ul class="bread-nav ">
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
 
-                    <ul class="bread-nav ">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
-
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.green_coffee_inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.marked_sale}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
-                        <li class="b-cum c-pink">{{saleInformation.name ? saleInformation.name : ''}}</li>
-                    </ul>
-
-                    <!-- <div class="col-lg-1"></div>
-                    <div class="col-lg-2 pull-right margin-right-2rem">
-                        <button type="submit" class="col-12 place-order btn">{{globals.languageJson?.save_changes}}</button>
-                    </div> -->
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.green_coffee_inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum">
+                                <a class="b-cum" routerLink="/features/procured-coffee">Sourced Green Coffee</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                            </li>
+                            <li class="b-cum c-pink">Order #{{orderDetails?.id}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <!-- <div class="col-lg-2 pull-right margin-right-2rem">
+            <button type="submit" class="col-12 place-order btn">Save changes</button>
+        </div> -->
                 </nav>
 
                 <section class="create-role-sec">
@@ -52,19 +54,19 @@
         </div> -->
                     <div class="row w-100 ml-0">
                         <div class="green_grading_cont">
-                            <h1>{{saleInformation.name ? saleInformation.name : 'NA'}}</h1>
+                            <h1>Order #{{orderDetails?.id}}</h1>
                         </div>
                     </div>
-                    <!-- <div class="pull-left mr-auto col-md-7 p-0 min-Text">Lorem ipsum dolor sit amet, consetetur sadipscing</div> -->
-                    <div class="border-div ">
-                        <div *ngIf="orderDetails" class="row web-sec">
+                    <div class="pull-left mr-auto col-md-7 p-0 min-Text">Manage the price, quantity & delivery charges of coffee marked for sale</div>
+                    <div *ngIf="orderDetails" class="border-div ">
+                        <div class="row web-sec">
                             <div class="col-12 details-header pb-2">{{globals.languageJson?.green_coffee_details}}</div>
                             <div class="col-12 lot-content table-responsive">
                                 <table class="table lot-table">
                                     <thead class="table-head">
                                         <tr>
                                             <th>{{globals.languageJson?.lot_id}}</th>
-                                            <!-- <th>{{globals.languageJson?.lot_name}}</th> -->
+                                            <th>Availibility Name</th>
                                             <th>{{globals.languageJson?.estate}}</th>
                                             <th>{{globals.languageJson?.origin}}</th>
                                             <th>{{globals.languageJson?.species}}</th>
@@ -77,61 +79,61 @@
                                     <tbody>
                                         <tr>
                                             <td>{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</td>
-                                            <!-- <td>Organic washed Micro-lot</td> -->
+                                            <td>{{orderDetails.availability_name ? orderDetails.availability_name : 'NA'}}</td>
                                             <td>{{orderDetails.estate_name ? orderDetails.estate_name : 'NA'}}</td>
                                             <td>{{orderDetails.origin ? orderDetails.origin : 'NA'}}</td>
                                             <td>{{orderDetails.species ? orderDetails.species : 'NA'}}</td>
                                             <td>{{orderDetails.variety ? orderDetails.variety : 'NA'}}</td>
-                                            <td>$ {{orderDetails.price ? orderDetails.price : 'NA'}}</td>
+                                            <td>{{orderDetails.price ? orderDetails.price : 'NA'}}</td>
                                             <td>{{orderDetails.cup_score ? orderDetails.cup_score : 'NA'}}</td>
-                                            <td>{{orderDetails.stock_in_hand ? orderDetails.stock_in_hand : 'NA'}}</td>
+                                            <td>{{orderDetails?.quantity}} {{orderDetails?.quantity_type}}, {{orderDetails?.quantity_count}}/ kg</td>
                                         </tr>
                                     </tbody>
 
                                 </table>
                             </div>
                         </div>
-                        <div class="mob-sec">
-                            <div *ngIf="orderDetails" class="row">
+                        <div *ngIf="orderDetails" class="mob-sec">
+                            <div class="row">
                                 <div class="col-lg-12 mt-2">
                                     <div class="estate-list">
                                         <div class="col-12 details-header pb-2">{{globals.languageJson?.green_coffee_details}}</div>
                                         <table class="recent w-100">
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.lot_id}}</span></td>
-                                                <td> <span class="list-answ">{{orderDetails.lot_id ? orderDetails.lot_id : 'NA'}}</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails?.lot_id}}</span> </td>
                                             </tr>
-                                            <!-- <tr>
+                                            <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.lot_name}}</span></td>
-                                                <td> <span class="list-answ">Organic washed Micro-lot</span> </td>
-                                            </tr> -->
+                                                <td> <span class="list-answ">{{orderDetails?.availability_name}}</span> </td>
+                                            </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.estate}}</span></td>
-                                                <td> <span class="list-answ"><td>{{orderDetails.estate_name ? orderDetails.estate_name : 'NA'}}</td></span> </td>
+                                                <td> <span class="list-answ">{{orderDetails?.estate_name}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.origin}}</span></td>
-                                                <td> <span class="list-answ">{{orderDetails.origin ? orderDetails.origin : 'NA'}}</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails?.origin}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.species}}</span></td>
-                                                <td> <span class="list-answ">{{orderDetails.species ? orderDetails.species : 'NA'}}</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails?.species}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.variety}}</span></td>
-                                                <td> <span class="list-answ">{{orderDetails.variety ? orderDetails.variety : 'NA'}}</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails?.variety}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.buying_price}}</span></td>
-                                                <td> <span class="list-answ">$ {{orderDetails.price ? orderDetails.price : 'NA'}}</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails?.price}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.cupping_score}}</span></td>
-                                                <td> <span class="list-answ">{{orderDetails.cup_score ? orderDetails.cup_score : 'NA'}}</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails?.cup_score}}</span> </td>
                                             </tr>
                                             <tr>
                                                 <td> <span class="list-ques">{{globals.languageJson?.stock_in_hand}}</span></td>
-                                                <td> <span class="list-answ">{{orderDetails.stock_in_hand ? orderDetails.stock_in_hand : 'NA'}}</span> </td>
+                                                <td> <span class="list-answ">{{orderDetails?.quantity}} {{orderDetails?.quantity_type}}, {{orderDetails?.quantity_count}}/ bag</span> </td>
                                             </tr>
                                         </table>
                                     </div>
@@ -173,14 +175,34 @@
                             <div class="float-left">
                                 <h1>{{globals.languageJson?.sale_information}}</h1>
                                 <div class="col-12 pull-left p-0  pb-24 min-Text">Manage the price, quantity & delivery charges of coffee marked for sale</div>
+
                             </div>
 
                             <div class="float-right current-s-bg">
                                 <p class="fnt-14 fnt-muli fnt-400 txt-clr334 m-0"> Current status</p>
                                 <span class="fnt-14 fnt-700 fnt-muli txt-clr334"> In Stock</span> <span class="text-brown pl-4"><a>Change status</a> </span>
+
                             </div>
+
+
+                            <!-- change status-->
+                            <div class="float-right current-s-bg d-flex ">
+                                <div class="farm-input">
+                                    <select class="form-control select-region " name="coffee" required="">
+                                        <option value="" disabled selected>In Stock</option>
+                                        <option value="Sold">Sold</option>
+                                        <option value="Hidden">Coffeemaker</option>
+                                      
+                                    </select>
+                                </div> <span class="text-brown pl-4 pt-2"><a>Save</a> </span>
+
+                            </div>
+
+
+
+
                         </div>
-                        <div class="col-lg-12 col-md-12 no-padding-RL">
+                        <div *ngIf="saleInformation" class="col-lg-12 col-md-12 no-padding-RL">
                             <div class="col-lg-12 col-md-12 float-L no-padding-RL">
                                 <div class="col-lg-8 col-md-8 float-L no-padding-RL">
                                     <div class="select col-lg-15 no-padding-RL">
@@ -191,14 +213,20 @@
                                 <div class="col-lg-4 col-md-4 float-L no-padding-RL">
                                     <div class="form-input  col-lg-15 no-padding-RL">
                                         <label>Selling price<span>*</span>(in USD)</label>
+                                        <!-- <input type="text" name="name" placeholder="" class="form-control" value="Enter the selling price">
+                                        <select name="Year" required="" class="form-control select-region">
+                                            <option value="bags">bags</option>
+                                            <option value="Yes" ng-reflect-value="Yes">1</option>
+                                            <option value="No" ng-reflect-value="No">2</option>
+                                        </select> -->
                                         <div class="input-group">
-                                            <input type="number" placeholder="Enter the selling price" [(ngModel)]="saleInformation['price']" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                            <input type="text" placeholder="Enter the selling price" class="form-control input-group-right-border" aria-label="Text input with dropdown button" type="number" [(ngModel)]="saleInformation['price']">
                                             <div class="input-group-append">
                                                 <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
                                                 <select name="Year" required="" [(ngModel)]="saleInformation['price_unit']" class="form-control select-region select-form-group-dropdown select-region-local">
-                                                    <option value="per kg">per kg</option>
-                                                    <option value="gram" ng-reflect-value="Yes">gram</option>
-                                                    <option value="per mkg" ng-reflect-value="No">per mkg</option>
+                                                    <option value="per kg" ng-reflect-value="kg">per kg</option>
+                                                    <option value="gram" ng-reflect-value="gram">gram</option>
+                                                    <option value="per mkg" ng-reflect-value="mkg">per mkg</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -206,31 +234,33 @@
                                 </div>
                                 <div class="col-lg-3 col-md-3 float-L no-padding-RL">
                                     <div class="form-input  col-lg-15 no-padding-RL">
-                                        <label>Available quantity for sale<span>*</span></label>
+                                        <label> quantity for sale<span>*</span></label>
                                         <div class="input-group">
                                             <input type="number" placeholder="Enter no. of coffee bags for sale" [(ngModel)]="saleInformation['quantity']" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
                                                 <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
-                                                <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local" [(ngModel)]="saleInformation['quantity_type']">
-                                                    <option value="bags">bags</option>
-                                                    <option value="bags" ng-reflect-value="Yes">bags</option>
-                                                    <option value="bags" ng-reflect-value="No">bags</option>
+                                                <select name="Year" required="" type="number" class="form-control select-region select-form-group-dropdown select-region-local" [(ngModel)]="saleInformation['quantity_type']">
+                                                    <option value="per kg" ng-reflect-value="bags">bags</option>
+                                                    <option value="gram" ng-reflect-value="bags">bags</option>
+                                                    <option value="per mkg" ng-reflect-value="bags">bags</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-3 col-md-3 float-L no-padding-RL">
                                     <div class="select col-lg-15 no-padding-RL">
                                         <label>Remaining quantity<span class="star">*</span></label>
-                                        <input type="text" name="name" class="form-control" placeholder="102 bags">
+                                        <input type="text" name="name" class="form-control" placeholder="-">
                                     </div>
                                 </div>
+
                                 <div class="col-lg-3 col-md-3 float-L no-padding-RL">
                                     <div class="form-input  col-lg-15 no-padding-RL">
                                         <label>Minimum order quantity<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="number" placeholder="Enter a no. of bags" class="form-control input-group-right-border" aria-label="Text input with dropdown button" [(ngModel)]="saleInformation['minimum_purchase_quantity']">
+                                            <input type="text" type="number" placeholder="Enter a no. of bags" class="form-control input-group-right-border" [(ngModel)]="saleInformation['minimum_purchase_quantity']" aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
                                                 <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
                                                     <option value="per kg">bags</option>
@@ -246,12 +276,12 @@
                                     <div class="form-input  col-lg-15 no-padding-RL">
                                         <label>Weight / bag*<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="number" placeholder="Enter a no. of bags" class="form-control input-group-right-border" aria-label="Text input with dropdown button">
+                                            <input type="text" type="number" placeholder="Enter a no. of Kg" class="form-control input-group-right-border" [(ngModel)]="saleInformation['minimum_purchase_quantity']" aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
                                                 <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
-                                                    <option value="per kg">KG</option>
-                                                    <option value="gram" ng-reflect-value="Yes">bags</option>
-                                                    <option value="per mkg" ng-reflect-value="No">bags</option>
+                                                    <option value="per kg">Kg</option>
+                                                    <option value="2" ng-reflect-value="Yes">KG</option>
+                                                    <option value="3" ng-reflect-value="No">bags</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -259,55 +289,51 @@
                                 </div>
                             </div>
                             <!-- <div class="col-lg-8 col-md-8 float-L no-padding-RL">
-                                    <div class="col-lg-6 col-md-6 float-L no-padding-RL">
-                                        <div class="select col-lg-15">
-                                            <label>Product Name<span  class="star">*</span></label>
-                                            <input type="text" name="name" placeholder="" class="form-control">
-                                        </div> 
+                    <div class="col-lg-6 col-md-6 float-L no-padding-RL">
+                        <div class="select col-lg-15">
+                            <label>Product Name<span  class="star">*</span></label>
+                            <input type="text" name="name" placeholder="" class="form-control">
+                        </div> 
+                    </div>
+
+                </div> -->
+
+
+                            <div class="col-lg-8 col-md-8 float-L no-padding-RL">
+                                <div class="col-lg-6 col-md-6 float-L no-padding-RL">
+                                    <div class="select col-lg-15 no-padding-RL">
+                                        <label>VAT Rate<span class="star">*</span></label>
+                                        <input type="number" placeholder="Enter VAT Rate" name="name" [(ngModel)]="saleInformation['vat_rate']" class="form-control">
                                     </div>
+                                </div>
 
-                                </div> -->
+                            </div>
+                            <div class="row w-100">
 
+                                <div class="float-left mt-48 mb-48 col-sm-8">
+                                    <button class="btn ord_cancel mt-32">Delete product from listing</button>
+                                </div>
 
-
-
-
-                        </div>
-
-                        <div class="col-lg-12 col-md-12 float-L no-padding-RL">
-                            <div class="col-lg-4 col-md-6 float-L no-padding-RL">
-                                <div class="select col-lg-15 no-padding-RL">
-                                    <label>VAT Rate<span class="star">*</span></label>
-                                    <input type="number" placeholder="Enter VAT Rate" name="name" [(ngModel)]="saleInformation['vat_rate']" class="form-control">
+                                <div class="text-right no-padding-RL col-sm-4 mt-48 mb-48 ">
+                                    <button class="btn ord_cancel mt-32" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.cancel}}</button>
+                                    <button type="submit" class=" ml-3 place-order btn" [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
+                                     || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
+                                     !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']" (click)="createSale()">Save changes</button>
+                                    <!-- <div class="col-sm-4 col-sx-6 mob-sec float-R"> -->
+                                    <button type="submit" class="col-sm-7 place-order btn mob-sec float-R" [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
+                                    || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
+                                    !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']" (click)="createSale()">Save changes</button>
+                                    <!-- </div> -->
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="col-12 p-0">
 
-                            <button class="btn ord_cancel ">Delete product from listing</button>
-
-                            <div class="ml-auto pull-right">
-                                <button class="btn ord_cancel mr-3" routerLink="/features/green-coffee-for-sale-details" [queryParams]="{orderId: orderID}">Cancel</button>
-                                <button class="download_gtm" (click)="updateRole()"[disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
-                                || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
-                                !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']"> Save changes</button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="pull-left no-padding-RL col-lg-12 col-sm-4 col-xs-6 mt-48 mb-48 ">
-                            <!-- <div class="col-sm-4 col-sx-6 mob-sec float-R"> -->
-                            <button type="submit" class="col-sm-7 place-order btn mob-sec float-R" (click)="updateRole()" [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
-                            || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
-                            !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']">{{globals.languageJson?.save_changes}}</button>
-                            <!-- </div> -->
                         </div>
 
                     </div>
 
                 </section>
+
             </div>
         </div>
     </section>

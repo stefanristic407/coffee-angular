@@ -11,15 +11,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LotSaleComponent implements OnInit {
   appLanguage?: any;
-  lotSaleActive:any =0;
-  roaster_id:any='';
-  orderDetails:any;
-  orderID:any='';
-  saleInformation:any = {};
+  lotSaleActive: any = 0;
+  roaster_id: any = '';
+  orderDetails: any;
+  orderID: any = '';
+  saleInformation: any = {};
 
-  constructor(public globals: GlobalsService, public route: ActivatedRoute, 
-    public roasterService:RoasterserviceService, public cookieService: CookieService, private router: Router,) {
-      this.roaster_id = this.cookieService.get('roaster_id');
+  constructor(public globals: GlobalsService, public route: ActivatedRoute,
+    public roasterService: RoasterserviceService, public cookieService: CookieService, private router: Router,) {
+    this.roaster_id = this.cookieService.get('roaster_id');
   }
   ngOnInit(): void {
     this.language();
@@ -33,37 +33,37 @@ export class LotSaleComponent implements OnInit {
     this.getSaleOrderDetails();
     this.getSaleOrderDetails();
   }
-  language(){
+  language() {
     this.appLanguage = this.globals.languageJson;
     this.lotSaleActive++;
   }
-  getSaleOrderDetails(){
-		this.orderID = decodeURIComponent(this.route.snapshot.queryParams['orderId']);
-		this.roasterService.getMarkForSaleDetails(this.roaster_id, this.orderID).subscribe(
-			response => {
-			  console.log(response);
-			  if(response['success'] && response['result']){
-				  this.saleInformation = response['result'];
-			  }
-			}, err =>{
-			  console.log(err);
-			}
-		);	
-	}
-	getProcuredOrderDetails(){
-		this.orderID = decodeURIComponent(this.route.snapshot.queryParams['orderId']);
-		this.roasterService.getProcuredCoffeeDetails(this.roaster_id, this.orderID).subscribe(
-			response => {
-			  console.log(response);
-			  if(response['success'] && response['result']){
-				  this.orderDetails = response['result'];
-			  }
-			}, err =>{
-			  console.log(err);
-			}
-		);	
+  getSaleOrderDetails() {
+    this.orderID = decodeURIComponent(this.route.snapshot.queryParams['orderId']);
+    this.roasterService.getMarkForSaleDetails(this.roaster_id, this.orderID).subscribe(
+      response => {
+        console.log(response);
+        if (response['success'] && response['result']) {
+          this.saleInformation = response['result'];
+        }
+      }, err => {
+        console.log(err);
+      }
+    );
   }
-  updateRole(){
+  getProcuredOrderDetails() {
+    this.orderID = decodeURIComponent(this.route.snapshot.queryParams['orderId']);
+    this.roasterService.getProcuredCoffeeDetails(this.roaster_id, this.orderID).subscribe(
+      response => {
+        console.log(response);
+        if (response['success'] && response['result']) {
+          this.orderDetails = response['result'];
+        }
+      }, err => {
+        console.log(err);
+      }
+    );
+  }
+  updateRole() {
     let data = this.saleInformation;
     data['order_id'] = undefined;
     data['initial_quantity'] = undefined;
@@ -71,14 +71,15 @@ export class LotSaleComponent implements OnInit {
     data['roaster_id'] = undefined;
     data['status'] = undefined;
     this.roasterService.updateMarkForSale(this.roaster_id, this.orderID, data).subscribe(
-			response => {
-			  console.log(response);
-			  if(response && response['success']){
+      response => {
+        console.log(response);
+        if (response && response['success']) {
           this.router.navigate(["/features/green-coffee-inventory"]);
         }
-			}, err =>{
-			  console.log(err);
-			}
-		);	
+      }, err => {
+        console.log(err);
+      }
+    );
   }
+  createSale() { }
 }

@@ -11,6 +11,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 export class CuppingReportService {
   	roaster_id: any;
 	reportsList: any;
+	serviceReportDetails:any
 
   constructor(private userService:UserserviceService, 
     private toasterService: ToastrService, private router: Router,

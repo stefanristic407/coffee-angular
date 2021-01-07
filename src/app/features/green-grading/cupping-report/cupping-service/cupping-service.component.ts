@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalsService } from 'src/services/globals.service';
+import { CuppingReportService } from '../cupping-report.service';
+import { Router, NavigationExtras } from '@angular/router';
+import { YourServicesService } from 'src/services/your-services/your-services.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { UserserviceService } from 'src/services/users/userservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { GenerateReportService } from '../../generate-report/generate-report.service';
 
 @Component({
   selector: 'app-cupping-service',
@@ -426,13 +435,127 @@ type:boolean;
   colorSchemeScore = {
     domain: ['#7c6be8','#f19634']
   };
+  ro_id: any;
+  cupping_report_id: any;
+  cupping_score_details: any;
+  defectsList:any;
+  fullblack_num:any;
+  fullblack_equ:any;
+  fullsour_num:any;
+  fullsour_equ:any;
+  driedpod_num:any;
+  driedpod_equ:any;
+  fungus_num:any;
+  fungus_equ:any;
+  matter_num:any;
+  matter_equ:any;
+  insect_damage_num:any;
+  insect_damage_equ:any;
+  cate2_black_num:any;
+  cate2_black_equ:any;
+  cate2_sour_num:any;
+  cate2_sour_equ:any;
+  cate2_dried_num:any;
+  cate2_dried_equ:any;
+  cate2_floater_num:any;
+  cate2_floater_equ:any;
+  cate2_unripe_num:any;
+  cate2_unripe_equ:any;
+  cate2_withered_num:any;
+  cate2_withered_equ:any;
+  cate2_shells_num:any;
+  cate2_shells_equ:any;
+  cate2_cut_num:any;
+  cate2_cut_equ:any;
+  cate2_hull_num:any;
+  cate2_hull_equ:any;
+  cate2_insect_num:any;
+  cate2_insect_equ:any;
+  category_1_defects:any;
+  cat2_defects:any;
+  water_activity:any;
+  odor:any;
+  totalColors:any;
+  total_defects:any;
+  moisture_content:any;
 
-
-  constructor() {
+  constructor(public globals : GlobalsService,public cuppingService: CuppingReportService,  private router: Router, 
+    public yourService: YourServicesService,private roasterService : RoasterserviceService, private cookieService : CookieService,
+    private userService : UserserviceService,private toastrService: ToastrService,public generateReportService: GenerateReportService) {
     this.type = true;
+    this.ro_id = this.cookieService.get('facilitator_id');
+    this.getCuppingScoreDetails();
+    this.physicalDefectsList();
    }
 
   ngOnInit(): void {
   }
+
+  getCuppingScoreDetails(){
+		if(this.cuppingService.serviceReportDetails){
+			this.cupping_report_id=this.cuppingService.serviceReportDetails.cupping_report_id;
+			this.userService.getCuppingScore(this.ro_id,this.cupping_report_id).subscribe(
+			res => {
+				if(res['success'] == true){
+					this.cupping_score_details = res['result'];
+				}	
+			})
+		}
+  } 
+  
+  physicalDefectsList(){
+  if(this.cuppingService.serviceReportDetails){
+    this.cupping_report_id=this.cuppingService.serviceReportDetails.cupping_report_id;
+    this.userService.getPhysicalDefectsList(this.ro_id,this.cupping_report_id).subscribe(
+      res=>{
+        if(res['success'] == true){
+          this.defectsList=res['result'];
+          this.fullblack_num = this.defectsList.full_black_no;
+          this.fullblack_equ = this.defectsList.full_black_eqv;
+          this.fullsour_num = this.defectsList.full_sour_no;
+          this.fullsour_equ = this.defectsList.full_sour_eqv;
+          this.driedpod_num = this.defectsList.dried_cherry_no;
+          this.driedpod_equ = this.defectsList.dried_cherry_eqv;
+          this.fungus_num = this.defectsList.fungus_damaged_no;
+          this.fungus_equ = this.defectsList.fungus_damaged_eqv;
+          this.matter_num = this.defectsList.foreign_matter_no;
+          this.matter_equ = this.defectsList.foreign_matter_eqv;
+          this.insect_damage_num = this.defectsList.severe_insect_damage_no;
+          this.insect_damage_equ = this.defectsList.severe_insect_damage_eqv;
+          this.cate2_black_num = this.defectsList.partial_black_no;
+          this.cate2_black_equ = this.defectsList.partial_black_eqv;
+          this.cate2_sour_num = this.defectsList.partial_sour_no;
+          this.cate2_sour_equ = this.defectsList.partial_sour_eqv;
+          this.cate2_dried_num = this.defectsList.parchment_no;
+          this.cate2_dried_equ = this.defectsList.parchment_eqv;
+          this.cate2_floater_num = this.defectsList.floater_no;
+          this.cate2_floater_equ = this.defectsList.floater_eqv;
+          this.cate2_unripe_num = this.defectsList.immature_no;
+          this.cate2_unripe_equ = this.defectsList.immature_eqv;
+          this.cate2_withered_num = this.defectsList.withered_no;
+          this.cate2_withered_equ = this.defectsList.withered_eqv;
+          this.cate2_shells_num = this.defectsList.shells_no;
+          this.cate2_shells_equ = this.defectsList.shells_eqv;
+          this.cate2_cut_num = this.defectsList.brocken_chipped_no;
+          this.cate2_cut_equ = this.defectsList.brocken_chipped_eqv;
+          this.cate2_hull_num = this.defectsList.hull_husk_no;
+          this.cate2_hull_equ = this.defectsList.hull_husk_eqv;
+          this.cate2_insect_num = this.defectsList.slight_insect_damage_no;
+          this.cate2_insect_equ = this.defectsList.slight_insect_damage_eqv;
+          this.category_1_defects = this.defectsList.total_category_one;
+          this.cat2_defects = this.defectsList.total_category_two;
+          this.water_activity = this.defectsList.water_activity;
+          this.odor = this.defectsList.odor;
+          this.totalColors = this.defectsList.colors;
+          this.total_defects = this.defectsList.total_green_defects; 
+          this.moisture_content = this.defectsList.moisture_content;
+        }
+        else{
+          this.toastrService.error("Error while getting physical defects");
+        }
+      }
+    )
+  }
+} 
 
 }
