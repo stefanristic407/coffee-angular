@@ -5,7 +5,7 @@ import { OrderPrebookService } from './order-prebook.service';
 import { ActivatedRoute } from '@angular/router';
 import { PrebookGradeInfoComponent } from './prebook-grade-info/prebook-grade-info.component';
 import { CookieService } from 'ngx-cookie-service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { OrderBookedService } from '../order-booked/order-booked.service';
@@ -38,179 +38,185 @@ export class OrderPrebookComponent implements OnInit {
   totalstar = 5;
   newvalue: any = 4;
 
-  
+
   public multi = [
 
-		{
-			"name": "Legend1",
-			"series": [
-			  {
-				  "name": "27",
-				  "value": 10
-				},
-				{
-				  "name": "28",
-				  "value": 8
-				},
-				{
-				  "name": "1",
-				  "value": 12
-				},
-				{
-				  "name": "2",
-				  "value": 19
-				},
-				{
-				  "name": "3",
-				  "value": 16
-				},
-				{
-				  "name": "4",
-				  "value": 11
-				},
-				{
-				  "name": "5",
-				  "value": 13
-				},{
-				  "name": "6",
-				  "value": 23
-				},{
-				  "name": "7",
-				  "value": 18
-				},
-				{
-				  "name": "8",
-				  "value": 18
-				},
-				{
-					"name": "9",
-					"value": 17
-				  },{
-					"name": "10",
-					"value": 18
-				  },{
-					"name": "11",
-					"value": 13
-				  },
-				  {
-					"name": "12",
-					"value": 17
-				  },
-				  {
-					"name": "13",
-					"value": 12
-				  },
-				  {
-					"name": "14",
-					"value": 10
-				  }
-			]
-		  },
-		{
-		  "name": "Legend2",
-		  "series": [
-			{
-			  "name": "27",
-			  "value": 7
-			},
-			{
-			  "name": "28",
-			  "value": 2
-			},
-			{
-			  "name": "1",
-			  "value": 4
-			},
-			{
-			  "name": "2",
-			  "value": 9
-			},
-			{
-			  "name": "3",
-			  "value": 7
-			},
-			{
-			  "name": "4",
-			  "value": 3
-			},
-			{
-			  "name": "5",
-			  "value": 20
-			},{
-			  "name": "6",
-			  "value": 15
-			},{
-			  "name": "7",
-			  "value": 10
-			},
-			{
-			  "name": "8",
-			  "value": 15
-			}
-			,
-			{
-				"name": "9",
-				"value": 13
-			  },{
-				"name": "10",
-				"value": 13
-			  },{
-				"name": "11",
-				"value": 10
-			  },
-			  {
-				"name": "12",
-				"value": 8
-			  },
-			  {
-				"name": "13",
-				"value": 7
-			  },
-			  {
-				"name": "14",
-				"value": 9
-			  }
-		  ]
-		}];
-	  
-	  
+    {
+      "name": "Legend1",
+      "series": [
+        {
+          "name": "27",
+          "value": 10
+        },
+        {
+          "name": "28",
+          "value": 8
+        },
+        {
+          "name": "1",
+          "value": 12
+        },
+        {
+          "name": "2",
+          "value": 19
+        },
+        {
+          "name": "3",
+          "value": 16
+        },
+        {
+          "name": "4",
+          "value": 11
+        },
+        {
+          "name": "5",
+          "value": 13
+        }, {
+          "name": "6",
+          "value": 23
+        }, {
+          "name": "7",
+          "value": 18
+        },
+        {
+          "name": "8",
+          "value": 18
+        },
+        {
+          "name": "9",
+          "value": 17
+        }, {
+          "name": "10",
+          "value": 18
+        }, {
+          "name": "11",
+          "value": 13
+        },
+        {
+          "name": "12",
+          "value": 17
+        },
+        {
+          "name": "13",
+          "value": 12
+        },
+        {
+          "name": "14",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "name": "Legend2",
+      "series": [
+        {
+          "name": "27",
+          "value": 7
+        },
+        {
+          "name": "28",
+          "value": 2
+        },
+        {
+          "name": "1",
+          "value": 4
+        },
+        {
+          "name": "2",
+          "value": 9
+        },
+        {
+          "name": "3",
+          "value": 7
+        },
+        {
+          "name": "4",
+          "value": 3
+        },
+        {
+          "name": "5",
+          "value": 20
+        }, {
+          "name": "6",
+          "value": 15
+        }, {
+          "name": "7",
+          "value": 10
+        },
+        {
+          "name": "8",
+          "value": 15
+        }
+        ,
+        {
+          "name": "9",
+          "value": 13
+        }, {
+          "name": "10",
+          "value": 13
+        }, {
+          "name": "11",
+          "value": 10
+        },
+        {
+          "name": "12",
+          "value": 8
+        },
+        {
+          "name": "13",
+          "value": 7
+        },
+        {
+          "name": "14",
+          "value": 9
+        }
+      ]
+    }];
 
-    view: any[] = [1080, 340];
 
-    // options for the chart
-    showXAxis = true;
-    showYAxis = true;
-    gradient = false;
-    showLegend = true;
-    showXAxisLabel = true;
-    xAxisLabel = '';
-    showYAxisLabel = true;
-    yAxisLabel = 'Temperature (°C)';
-    timeline = true;
-    roundDomains = true;
-  
-    colorScheme = {
-      domain: ['#f19634','#7c6be8']
-    };
-  
-    // line, area
-    autoScale = true;
-    appLanguage? :any;
-    orderPreBookId: any;
+
+  view: any[] = [1080, 340];
+
+  // options for the chart
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = '';
+  showYAxisLabel = true;
+  yAxisLabel = 'Temperature (°C)';
+  timeline = true;
+  roundDomains = true;
+
+  colorScheme = {
+    domain: ['#f19634', '#7c6be8']
+  };
+
+  // line, area
+  autoScale = true;
+  appLanguage?: any;
+  orderPreBookId: any;
   countryValue: any;
   constructor(public prebookService: OrderPrebookService, private route: ActivatedRoute,
-    public router: Router,public cookieService : CookieService,
+    public router: Router, public cookieService: CookieService,
     public bookedService: OrderBookedService,
-    public globals: GlobalsService,public profileservice:RoasteryProfileService) {
-      this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
-      this.orderPreBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
-      this.prebookService.orderPreId=this.orderPreBookId;
-      this.prebookService.viewPrebookOrderDetails();
-     }
+    public globals: GlobalsService, public profileservice: RoasteryProfileService) {
+    this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
+    this.orderPreBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
+    this.prebookService.orderPreId = this.orderPreBookId;
+    this.prebookService.viewPrebookOrderDetails();
+    if (this.prebookService.paymentVerification == true && this.dataFromTable == "CONFIRMED") {
+      setTimeout(() => {
+        this.valueToShow = "Payment";
+        this.paymentStatus();
+      }, 1000);
+    }
+  }
 
   ngOnInit(): void {
-     //Auth checking
-     if (this.cookieService.get("Auth") == "") {
+    //Auth checking
+    if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
     this.appLanguage = this.globals.languageJson;
@@ -222,14 +228,14 @@ export class OrderPrebookComponent implements OnInit {
         this.orderConfirm();
       }, 500);
     }
-    else if (this.dataFromTable == "Payment") {
+    else if (this.dataFromTable == "PAYMENT") {
       this.valueToShow = "Payment";
       setTimeout(() => {
         this.paymentStatus();
       }, 500);
 
     }
-    else if (this.dataFromTable == "Harvest Ready") {
+    else if (this.dataFromTable == "HARVESTED") {
       this.valueToShow = "Harvest Ready";
       setTimeout(() => {
         this.harvest();
@@ -237,7 +243,7 @@ export class OrderPrebookComponent implements OnInit {
 
     }
 
-    else if (this.dataFromTable == "Graded") {
+    else if (this.dataFromTable == "GRADED") {
       this.valueToShow = "Graded";
       setTimeout(() => {
         this.gradedStatus();
@@ -301,7 +307,7 @@ export class OrderPrebookComponent implements OnInit {
 
     // Calling the Grade info component by creating object of the component and accessing its methods
 
-    let callGradeInfo = new PrebookGradeInfoComponent(this.prebookService,this.globals);
+    let callGradeInfo = new PrebookGradeInfoComponent(this.prebookService, this.globals);
     callGradeInfo.gradeComplete();
 
 
@@ -348,63 +354,63 @@ export class OrderPrebookComponent implements OnInit {
 
     //chat 
 
-		const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
+    const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
     const chatbox = document.querySelector(".js-chatbox");
     const chatboxMsgDisplay = document.querySelector(".js-chatbox-display");
     const chatboxForm = document.querySelector(".js-chatbox-form");
-    
+
     // Use to create chat bubble when user submits text
     // Appends to display
     const createChatBubble = input => {
       const chatSection = document.createElement("p");
       chatSection.textContent = input;
       chatSection.classList.add("chatbox__display-chat");
-    
+
       chatboxMsgDisplay.appendChild(chatSection);
     };
-    
+
     // Toggle the visibility of the chatbox element when clicked
     // And change the icon depending on visibility
     toggleChatboxBtn.addEventListener("click", () => {
       chatbox.classList.toggle("chatbox--is-visible");
-    
+
       if (chatbox.classList.contains("chatbox--is-visible")) {
         toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
       } else {
         toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
       }
     });
-    
+
     // Form input using method createChatBubble
     // To append any user message to display
     chatboxForm.addEventListener("submit", e => {
-    //   const chatInput = document.querySelector(".js-chatbox-input");
-      const chatInput=(document.getElementById("js-chatbox-input") as HTMLInputElement).value;
-    //   console.log("chat text coming"+chatInput);
-    
+      //   const chatInput = document.querySelector(".js-chatbox-input");
+      const chatInput = (document.getElementById("js-chatbox-input") as HTMLInputElement).value;
+      //   console.log("chat text coming"+chatInput);
+
       createChatBubble(chatInput);
-    
+
       e.preventDefault();
       this.myForm.nativeElement.reset();
     });
-    
-      }
-      // onRate($event:{ newValue:number}) {
-    
-      //   this.newvalue=$event.newValue;
-      //  console.log(this.newvalue);
-      // }
 
-      GetCountry(data:any){
-        // console.log(data.toUpperCase());
-        if(data){
-          this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
-          if(this.countryValue){
-          return this.countryValue.name;
-          }
-        }
-      }
-    
   }
+  // onRate($event:{ newValue:number}) {
+
+  //   this.newvalue=$event.newValue;
+  //  console.log(this.newvalue);
+  // }
+
+  GetCountry(data: any) {
+    // console.log(data.toUpperCase());
+    if (data) {
+      this.countryValue = this.profileservice.countryList.find(con => con.isoCode == data.toUpperCase());
+      if (this.countryValue) {
+        return this.countryValue.name;
+      }
+    }
+  }
+
+}
 
 
