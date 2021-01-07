@@ -29,7 +29,7 @@ export class DashboardEstateComponent implements OnInit {
   };
 
   roasterId: string;
-  estateData: any;
+  estates: any[] = [];
   sourcing: any;
 
   constructor(
@@ -48,8 +48,8 @@ export class DashboardEstateComponent implements OnInit {
   getAvailableEstates() {
     this.userSrv.getAvailableEstates(this.roasterId).subscribe((res: any) => {
       if (res.success) {
-        this.estateData = res.result;
-        console.log('estate data:', this.estateData);
+        this.estates = res.result;
+        console.log('estate data:', this.estates);
       } else {
         this.toastrService.error('Error while getting estates');
       }

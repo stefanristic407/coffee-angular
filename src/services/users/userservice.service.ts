@@ -1172,4 +1172,12 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.roasterUrl, data);
   }
+
+  getReviewsSummary(roaster_id: any) {
+    var data = {};
+    data['api_call'] = '/general/ro/' + roaster_id + '/reviews-summary';
+    data['method'] = 'GET';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
 }
