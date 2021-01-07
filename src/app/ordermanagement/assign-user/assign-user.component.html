@@ -4,12 +4,18 @@
 
         <section class="col-sm-12 col-md-12 col-lg-12">
             <p class="fnt-18 fnt-muli fnt-700 txt-clr334 text-center">Assign a User</p>
-            <p class="fnt-14 fnt-muli fnt-500 text-clr588 text-center">Please assign a team memeber who would be a point of contact for queries and issues with the order</p>
+            <p class="fnt-14 fnt-muli fnt-500 text-clr588 text-center">Please assign a team memeber who would be a point
+                of contact for queries and issues with the order</p>
             <div class="row justify-content-center">
                 <form class="form-container col-md-5">
                     <div class="form-group">
-                        <div class="input-group">
-                            <input type="email" class="form-control email" placeholder="Please enter an name" name="email" required>
+                        <div class="input-group assignClass">
+                            <p-autoComplete class="form-control email" placeholder="Please enter an name" name="email"
+                                field="name" [(ngModel)]="searchFilter" [suggestions]="userList"
+                                (onSelect)="onSelectUser($event)" (completeMethod)="onSearch($event)" required>
+                            </p-autoComplete>
+                            <!-- <input type="email" class="form-control email" placeholder="Please enter an name" name="email" [(ngModel)]="searchFilter" 
+                            (keyup.esc)="onSearch()" (keyup)="onSearch()"required> -->
                         </div>
                     </div>
                 </form>
@@ -17,8 +23,9 @@
 
             <div class="d-flex justify-content-center continue-web">
                 <div class="mt-2">
-                    <button class="btn cancel mr-3">Cancel</button>
-                    <button class="btn login-butn">Assign</button>
+                    <button class="btn cancel mr-3" routerLink="/ordermanagement/order-booked"
+                        [queryParams]="{id: orderID}">Cancel</button>
+                    <button class="btn login-butn" [disabled]="!userDetails" (click)="onAssign()">Assign</button>
                 </div>
             </div>
 

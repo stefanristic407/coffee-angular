@@ -240,7 +240,9 @@ export class LoginComponent implements OnInit {
             		console.log(JSON.stringify(this.permissionList));
 				}
 				
-			});
+			}, err =>{
+          this.loginButtonValue = "Login"
+      });
             //this.toastrService.success("Logged in Successfully");
             //        this.router.navigate(["/features/welcome-aboard"]);
             this.userService.getRoasterAccount(data['result'].roasters.id).subscribe(
@@ -287,6 +289,8 @@ export class LoginComponent implements OnInit {
                 } else {
                   this.toastrService.error("Something Went Wrong, Please Try Again");
                 }
+              }, err =>{
+                  this.loginButtonValue = "Login"
               }
             )
           }
@@ -306,6 +310,8 @@ export class LoginComponent implements OnInit {
           }
           // this.loginButtonValue = "Login";
 
+        }, err =>{
+          this.loginButtonValue = "Login";
         });
     }
   }

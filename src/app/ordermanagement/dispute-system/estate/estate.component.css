@@ -134,6 +134,38 @@ table.dataTable thead th {
     color: #e78926;
 }
 
+.cancel_member {
+    border-radius: 4px;
+    border: 1px solid #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    padding: 12px 24px;
+}
+
+.cancel_member:hover {
+    color: #fff;
+    background-color: #30855c;
+}
+.invite_members {
+    padding: 12px 16px;
+    font-family: Muli;
+    font-size: 14px;
+    border: 1px solid #30855c;
+    font-weight: bold;
+    border-radius: 4px;
+    background-color: #30855c;
+    text-decoration: none !important;
+    display: inline-block;
+    color: #ffffff !important;
+    cursor: pointer;
+}
+
+.invite_members:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
 .status-Received {
     font-size: 12px;
     font-weight: 500;

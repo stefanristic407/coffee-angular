@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DashboardserviceService } from 'src/services/dashboard/dashboardservice.service';
 import { DataTableDirective, DataTablesModule } from 'angular-datatables';
@@ -12,9 +12,9 @@ import { RoasteryProfileService } from 'src/app/features/roastery-profile/roaste
 
 
 @Component({
-  selector: 'app-estate',
-  templateUrl: './estate.component.html',
-  styleUrls: ['./estate.component.css']
+	selector: 'app-estate',
+	templateUrl: './estate.component.html',
+	styleUrls: ['./estate.component.css']
 })
 export class EstateComponent implements OnInit {
 	estateterm: any;
@@ -30,7 +30,7 @@ export class EstateComponent implements OnInit {
 	showDisplay: boolean = true;
 	searchTerm: any;
 	odd: boolean = false;
-	hideTable : boolean = false ; 
+	hideTable: boolean = false;
 
 	@ViewChild(DataTableDirective, { static: false })
 	datatableElement: DataTableDirective;
@@ -56,9 +56,12 @@ export class EstateComponent implements OnInit {
 	estatetermStatusMob: string;
 	estatetermTypeMob: string;
 	roasterId: any;
-	estateOrdersActive:any =0;
+	estateOrdersActive: any = 0;
 	countryValue: any;
-	
+	showContinueBtn: boolean = false;
+	orderBookId: string = "";
+	changedID: string = "";
+
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
@@ -67,39 +70,9 @@ export class EstateComponent implements OnInit {
 		private toastrService: ToastrService,
 		public modalService: BsModalService,
 		public globals: GlobalsService,
-		public profileservice:RoasteryProfileService) {
+		public route: ActivatedRoute,
+		public profileservice: RoasteryProfileService) {
 		this.roasterId = this.cookieService.get('roaster_id');
-		// this.data = {};
-		// this.data =
-		// 	[{
-		// 		"id": "1000",
-		// 		"estatename": "Finca La Pampa",
-		// 		"dataordered": "24 Jan 2020",
-		// 		"origin": "Colombia",
-		// 		"quantity": "-",
-		// 		"typeoforder": "Sample",
-		// 		"status": "Shipped",
-		// 		"species": "Bourbon",
-		// 		"price": "-"
-		// 	},
-		// 	{ id: '1001', estatename: 'Gesha', dataordered: '21 Jan 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Booked', status: 'Shipped', species: 'Bourbon', price: '-' },
-		// 	{ id: '1002', estatename: 'Finca La Toboba', dataordered: '22 Apr 2020', origin: 'Ethopia', quantity: '29kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$1,480' },
-		// 	{ id: '1003', estatename: 'Asoproaaa', dataordered: '24 Apr 2020', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$2600' },
-		// 	{ id: '1004', estatename: 'Cafe Directo', dataordered: '25 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Payment', species: 'Bourbon', price: '$1,480' },
-		// 	{ id: '1005', estatename: 'La Isabela', dataordered: '26 May 2020', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '$840' },
-		// 	{ id: '1006', estatename: 'La Isabela', dataordered: '13 Oct 2020', origin: 'Colombia', quantity: '397kg', typeoforder: 'Sample', status: 'Order confirmed', species: 'Bourbon', price: '-' },
-		// 	{ id: '1007', estatename: 'Cafe Directo', dataordered: '13 Dec 2020', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Sample', status: 'Shipped', species: 'Bourbon', price: '-' },
-		// 	{ id: '1008', estatename: 'Asoproaaa', dataordered: '13 Jan 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Harvest Ready', species: 'Bourbon', price: '$500' },
-		// 	{ id: '1009', estatename: 'Finca La Toboba', dataordered: '14 Feb 2019', origin: 'Colombia', quantity: '-', typeoforder: 'Pre-Booked', status: 'Payment', species: 'Bourbon', price: '$3,200' },
-		// 	{ id: '1010', estatename: 'Gesha', dataordered: '14 Jun 2019', origin: 'Ethopia', quantity: '297kg', typeoforder: 'Pre-Booked', status: 'In transit', species: 'Bourbon', price: '$1900' },
-		// 	{ id: '1011', estatename: 'Finca La Pampa', dataordered: '13 Jul 2019', origin: 'Ethopia', quantity: '197kg', typeoforder: 'Booked', status: 'Order confirmed', species: 'Bourbon', price: '$2,377' },
-		// 	{ id: '1012', estatename: 'Finca La Pampa', dataordered: '13 Mar 2018', origin: 'Colombia', quantity: '257kg', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3000' },
-		// 	{ id: '1013', estatename: 'Gesha', dataordered: '13 May 2018', origin: 'Colombia', quantity: '277kg', typeoforder: 'Booked', status: 'Received', species: 'Bourbon', price: '$2,377' },
-		// 	{ id: '1014', estatename: 'Finca La Toboba', dataordered: '17 Aug 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$6,560' },
-		// 	{ id: '1015', estatename: 'Asoproaaa', dataordered: '13 Oct 2018', origin: 'Ethopia', quantity: '-', typeoforder: 'Sample', status: 'Received', species: 'Bourbon', price: '-' },
-		// 	{ id: '1016', estatename: 'Finca La Toboba', dataordered: '19 Oct 2018', origin: 'Colombia', quantity: '297kg', typeoforder: 'Sample', status: 'Payment', species: 'Bourbon', price: '-' },
-		// 	{ id: '1017', estatename: 'Finca La Pampa', dataordered: '23 Nov 2018', origin: 'Colombia', quantity: '-', typeoforder: 'Booked', status: 'Cancelled', species: 'Bourbon', price: '$3,200' },
-		// 	];
 		this.mainData = this.data;
 	}
 
@@ -111,106 +84,6 @@ export class EstateComponent implements OnInit {
 		}
 		// this.appLanguage = this.globals.languageJson;
 		this.language();
-
-		this.dtOptions = {
-			//ajax: this.data,
-			data: this.mainData,
-			pagingType: 'full_numbers',
-			pageLength: 10,
-			lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-			processing: false,
-			// placeholder: 'search here',
-			// searchPlaceholder : this.globals.languageJson.all,
-			language: {
-				search: "",
-				emptyTable: this.globals.languageJson.no_table_data
-			},
-			columns: [
-				// {title: '<input type="checkbox" value="">' , data: null, className: "select-checkbox", defaultContent:'<input type="checkbox" value="">'},
-				{
-					title: '<label class="bestate-check "><input type="checkbox"  name="estate_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)"><span class="estatecheckmark"></span></label>',
-
-					defaultContent: '<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>',
-				},
-				{
-					title: this.globals.languageJson.order_id,
-					data: 'id'
-				}, {
-					title: this.globals.languageJson.estate_name,
-					data: 'estate_name'
-				},
-				 {
-					title: this.globals.languageJson.date_ordered,
-					data: 'created_at'
-				},
-				{
-					title: this.globals.languageJson.origin,
-					data: 'origin',
-
-				},
-				{
-					title: this.globals.languageJson.species,
-					data: 'species',
-
-				},
-				{
-					title: this.globals.languageJson.price,
-					data: 'price'
-				},
-				{
-					title: this.globals.languageJson.quantity,
-					data: 'quantity' + 'quantity_type'
-				}, {
-					title: this.globals.languageJson.order_type,
-					data: 'type',
-					className: 'typeoforderclass'
-				}, {
-					title: this.globals.languageJson.status,
-					data: 'status',
-					className: 'status-es'
-				},
-				{
-					title: this.globals.languageJson.action,
-					defaultContent: "View order",
-					className: "view-order"
-				}
-			],
-			createdRow: (row: Node, data: any, index: number) => {
-				const self = this;
-				if ($(row).children('td.typeoforderclass').html() == "Booked") {
-					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Booked">&#9679; Booked</span>');
-
-				}
-				if ($(row).children('td.typeoforderclass').html() == "Sample") {
-					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Sample">&#9679; Sample</span>');
-
-				}
-				if ($(row).children('td.typeoforderclass').html() == "Pre-Booked") {
-					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Pre-Booked">&#9679; Pre-Booked</span>');
-
-				}
-			},
-			rowCallback: (row: Node, data: any, index: number) => {
-				const self = this;
-				$('td', row).click(function () {
-					let navigationExtras: NavigationExtras = {
-						queryParams: {
-							"data": encodeURIComponent(data.status),
-						}
-					}
-					if (data.typeoforder == "Booked") {
-						self.router.navigate(["/ordermanagement/order-booked"], navigationExtras);
-					}
-					else if (data.typeoforder == "Sample") {
-						self.router.navigate(["/ordermanagement/order-sample"], navigationExtras);
-					}
-					else if (data.typeoforder == "Pre-Booked") {
-						self.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
-					}
-				})
-			}
-
-		};
 		this.estatetermStatus = '';
 		this.estatetermOrigin = '';
 		this.estatetermType = '';
@@ -218,6 +91,7 @@ export class EstateComponent implements OnInit {
 		this.estatetermOriginMob = '';
 		this.estatetermStatusMob = '';
 		this.estatetermTypeMob = '';
+		this.orderBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
 		$(document).ready(function () {
 			$(".dataTables_length").ready(function () {
 				$(".dataTables_length").hide()
@@ -229,14 +103,12 @@ export class EstateComponent implements OnInit {
 				$("input[type='search']").attr("placeholder", "Search by order id, estate name");
 			});
 		});
-
 		this.getEstateOrdersData();
 		//get table data
-
 	}
 
-	
-	language(){
+
+	language() {
 		this.appLanguage = this.globals.languageJson;
 		this.estateOrdersActive++;
 	}
@@ -398,7 +270,7 @@ export class EstateComponent implements OnInit {
 	displayData($event, group) {
 		console.log("the incoming data  are " + group.type + "..." + group.status);
 
-		if(group.status == "RECEIVED"){
+		if (group.status == "RECEIVED") {
 			this.globals.ord_received_date = group.date_received;
 		}
 		let navigationExtras: NavigationExtras = {
@@ -428,7 +300,7 @@ export class EstateComponent implements OnInit {
 					// }
 					// else {
 					// 	this.hideTable = false; 
-						this.data = data['result'];
+					this.data = data['result'];
 					// }
 					// this.estateOrdersActive++;
 				}
@@ -442,25 +314,40 @@ export class EstateComponent implements OnInit {
 	//  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.
 	checkAllEstate(ev) {
-		if(ev){
+		if (ev) {
 			this.data.forEach(x => (x.state = ev.target.checked));
-		}	
+		}
 	}
 
 	//  Function Name : Single Check box function.
 	//  Description   : This function helps to Check that single row isChecked.
 	isAllCheckedEstate() {
-		if(data){
+		if (data) {
 			// return this.data.every(_ => _.state);
 		}
 	}
-	GetCountry(data:any){
+	GetCountry(data: any) {
 		// console.log(data.toUpperCase());
-		if(data){
-		  this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
-		  if(this.countryValue){
-		  return this.countryValue.name;
-		  }
+		if (data) {
+			this.countryValue = this.profileservice.countryList.find(con => con.isoCode == data.toUpperCase());
+			if (this.countryValue) {
+				return this.countryValue.name;
+			}
 		}
-	  }
+	}
+	onOrderChange(groupRow) {
+		console.log(groupRow);
+		if (groupRow && groupRow['id']) {
+			this.changedID = groupRow['id'];
+		}
+		this.showContinueBtn = true;
+	}
+	continue() {
+		let navigationExtras: NavigationExtras = {
+			queryParams: {
+				"id": encodeURIComponent(this.changedID)
+			}
+		}
+		this.router.navigate(["/ordermanagement/raise-ticket-form"], navigationExtras);
+	}
 }

@@ -114,10 +114,36 @@
 }
 
 .order-width:hover,
-.ticket-width:hover {
+.ticket-width:hover, .order-select{
     opacity: 0.9;
     border: solid 1px #3a8561;
     background-color: rgba(61, 132, 98, 0.05);
+}
+
+.track-btn{
+    border: 1px solid #30855c;
+    background-color: #ffffff;
+    border-radius: 4px;
+    margin-right: 20px;
+}
+.ticketLayout{
+    overflow: auto;
+}
+.track{
+    color: #30855c;
+    font-family: Muli;
+    font-weight: bold;
+    font-size: 14px;
+}
+.disputeCard{
+    margin: 30px;
+    background: #FFF !important;
+}
+.dispute-margin{
+    margin: 10px;
+}
+.esccalate-btn{
+    float: right;
 }
 
 .order-ticket {

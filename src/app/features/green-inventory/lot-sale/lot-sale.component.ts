@@ -3,6 +3,7 @@ import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-lot-sale',
@@ -16,9 +17,13 @@ export class LotSaleComponent implements OnInit {
   orderDetails: any;
   orderID: any = '';
   saleInformation: any = {};
+  showDropdown: boolean = false;
+  order_status: string = '';
+  status_label: string = '';
 
   constructor(public globals: GlobalsService, public route: ActivatedRoute,
-    public roasterService: RoasterserviceService, public cookieService: CookieService, private router: Router,) {
+    public roasterService: RoasterserviceService, public cookieService: CookieService, private router: Router,
+    private toasterService: ToastrService) {
     this.roaster_id = this.cookieService.get('roaster_id');
   }
   ngOnInit(): void {
@@ -30,7 +35,7 @@ export class LotSaleComponent implements OnInit {
     this.saleInformation['quantity_type'] = 'per kg';
     this.saleInformation['minimum_purchase_quantity'] = '';
     this.saleInformation['vat_rate'] = '';
-    this.getSaleOrderDetails();
+    this.getProcuredOrderDetails();
     this.getSaleOrderDetails();
   }
   language() {
@@ -44,11 +49,21 @@ export class LotSaleComponent implements OnInit {
         console.log(response);
         if (response['success'] && response['result']) {
           this.saleInformation = response['result'];
+          this.order_status = response['result']['status'];
+          this.status_label = this.formatStatus(response['result']['status']);
         }
       }, err => {
         console.log(err);
       }
     );
+  }
+  formatStatus(stringVal) {
+    let formatVal = '';
+    if (stringVal) {
+      formatVal = stringVal.toLowerCase().charAt(0).toUpperCase() + stringVal.slice(1).toLowerCase();
+      formatVal = formatVal.replace('_', ' ');
+    }
+    return formatVal.replace('-', '');
   }
   getProcuredOrderDetails() {
     this.orderID = decodeURIComponent(this.route.snapshot.queryParams['orderId']);
@@ -77,6 +92,21 @@ export class LotSaleComponent implements OnInit {
           this.router.navigate(["/features/green-coffee-inventory"]);
         }
       }, err => {
+        console.log(err);
+      }
+    );
+  }
+  updateStatus() {
+    let status = { "status": this.order_status }
+    this.roasterService.updateMarkForSaleStatus(this.roaster_id, this.orderID, status).subscribe(
+      response => {
+        if (response && response['success']) {
+          this.toasterService.success("Status updated successfully");
+          this.showDropdown = false;
+          this.status_label = this.formatStatus(this.order_status);
+        }
+      }, err => {
+        this.toasterService.error("Error while updating status");
         console.log(err);
       }
     );
