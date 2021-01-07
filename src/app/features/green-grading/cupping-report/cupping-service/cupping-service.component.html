@@ -103,22 +103,22 @@
                                         <th scope="col">Overall</th>
                                     </tr>
                                 </thead>
-                                <tbody class="customtable">
-                                    <tr class="ticket-boby-txt" *ngFor="let item of serviceData">
-                                        <td>{{item.evaluator}}</td>
-                                        <td>{{item.score}}</td>
-                                        <td>{{item.aroma}}</td>
-                                        <td>{{item.dry}}</td>
-                                        <td>{{item.break}}</td>
-                                        <td>{{item.flavour}}</td>
-                                        <td>{{item.aftertaste}}</td>
-                                        <td>{{item.acidity}}</td>
-                                        <td>{{item.body}}</td>
-                                        <td>{{item.balance}}</td>
-                                        <td>{{item.uniformity}}</td>
-                                        <td>{{item.cleanup}}</td>
-                                        <td>{{item.sweetness}}</td>
-                                        <td>{{item.overall}}</td>
+                                <tbody class="customtable" *ngIf="cupping_score_details">
+                                    <tr class="ticket-boby-txt" *ngFor="let item of cupping_score_details">
+                                        <td>{{item.evaluator_name}}</td>
+                                        <td>{{item.final_score}}</td>
+                                        <td>{{item.fragrance_score}}</td>
+                                        <td>{{item.fragrance_dry}}</td>
+                                        <td>{{item.fragrance_break}}</td>
+                                        <td>{{item.flavour_score}}</td>
+                                        <td>{{item.aftertaste_score}}</td>
+                                        <td>{{item.acidity_score}}</td>
+                                        <td>{{item.body_score}}</td>
+                                        <td>{{item.balance_score}}</td>
+                                        <td>{{item.uniformity_score}}</td>
+                                        <td>{{item.cleancup_score}}</td>
+                                        <td>{{item.sweetness_score}}</td>
+                                        <td>{{item.overall_score}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -132,17 +132,17 @@
                             <div class="info_heading">
                                 <div class="sample_info_head">Evaluators</div>
                             </div>
-                            <div class="eval_list">
-                                <ul class="clearfix mb-0">
+                            <div class="eval_list" *ngIf="cupping_score_details">
+                                <ul class="clearfix mb-0" *ngFor="let eval of cupping_score_details">
                                     <li>
                                         <div class="eval_name">Leon Joseph / Q grader</div>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <div class="eval_name">Gussie Barker / Q grader</div>
                                     </li>
                                     <li>
                                         <div class="eval_name">Nancy Jones / Q grader</div>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -152,13 +152,13 @@
                             <div class="info_heading">
                                 <div class="sample_info_head">Descriptors</div>
                             </div>
-                            <div class="descriptor_list">
-                                <ul class="clearfix mb-0">
+                            <div class="descriptor_list" *ngIf="cupping_score_details">
+                                <ul class="clearfix mb-0" *ngFor="let descr of cupping_score_details">
                                     <li class="">
                                         <span>Dark chocolate</span>
                                         <span>honeycomb hints</span>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <span>Dark chocolate</span>
                                         <span>honeycomb hints</span>
                                         <span>cocoa</span>
@@ -168,7 +168,7 @@
                                         <span>honeycomb hints</span>
                                         <span>nutty</span>
                                         <span>+12</span>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -178,17 +178,17 @@
                             <div class="info_heading">
                                 <div class="sample_info_head">Comments</div>
                             </div>
-                            <div class="comments_list">
-                                <ul class="clearfix mb-0">
+                            <div class="comments_list" *ngIf="cupping_score_details">
+                                <ul class="clearfix mb-0" *ngFor="let data of cupping_score_details">
                                     <li>
+                                        <div class="eval_name">Dark chocolate, honeycomb hints, cocoa, and nutty</div>
+                                    </li>
+                                    <!-- <li>
                                         <div class="eval_name">Dark chocolate, honeycomb hints, cocoa, and nutty</div>
                                     </li>
                                     <li>
                                         <div class="eval_name">Dark chocolate, honeycomb hints, cocoa, and nutty</div>
-                                    </li>
-                                    <li>
-                                        <div class="eval_name">Dark chocolate, honeycomb hints, cocoa, and nutty</div>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -257,19 +257,19 @@
                                 <ul class="clearfix mb-0">
                                     <li>
                                         <label>Moisture content</label>
-                                        <p>11%</p>
+                                        <p>{{moisture_content}}%</p>
                                     </li>
                                     <li>
                                         <label>Water Activity</label>
-                                        <p>0.62 aw</p>
+                                        <p>{{water_activity}} aw</p>
                                     </li>
                                     <li>
                                         <label>Odor</label>
-                                        <p>None</p>
+                                        <p>{{odor}}</p>
                                     </li>
                                     <li>
                                         <label>Color</label>
-                                        <p>Green</p>
+                                        <p>{{totalColors}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -291,61 +291,61 @@
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Full Black</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.fullblack_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.fullblack_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Full Sour</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.fullsour_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.fullsour_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Dried Cherry/Pod</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.driedpod_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.driedpod_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Fungus Damaged</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.fungus_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.fungus_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Foreign Matter</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.matter_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.matter_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Severe Insect Damage</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.insect_damage_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.insect_damage_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-labels col-12 col-md-4">Total category 1 defects :</label>
                                     <div class="col-12 col-md-4 col-md-8 col-lg-8 ">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.category_1_defects" readonly>
                                     </div>
                                     <!-- <div class="col-12 col-lg-4 pl-md-0">
                                                 <input type="text" name="" id="" class="category-value">
@@ -368,97 +368,97 @@
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Partial Black</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_black_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_black_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Partial Sour</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_sour_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_sour_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Parchment / Pergamino</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_dried_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_dried_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Floater</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_floater_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_floater_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Immature / Unripe</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_unripe_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_unripe_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Withered</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_withered_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_withered_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Shells</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_shells_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_shells_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Broken / Chipped/ Cut</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="35">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_cut_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="7">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_cut_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Hull/Husk</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_hull_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="1">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_hull_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-label col-12 col-md-4">Slight Insect Damage</label>
                                     <div class="col-12 col-md-4 col-lg-4 padd-right-8">
-                                        <input type="text" name="" id="" class="category-value" value="10">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_insect_num" readonly>
                                     </div>
                                     <div class="col-12 col-md-4 col-lg-4 pl-md-0">
-                                        <input type="text" name="" id="" class="category-value" value="0">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cate2_insect_equ" readonly>
                                     </div>
                                 </div>
                                 <div class="category-inputs row align-items-center">
                                     <label class="categ-labels col-12 col-md-4">Total category 2 defects :</label>
                                     <div class="col-12 col-md-8 col-lg-8 ">
-                                        <input type="text" name="" id="" class="category-value" value="8">
+                                        <input type="text" name="" id="" class="category-value" [(ngModel)]="this.cat2_defects" readonly>
                                     </div>
 
                                 </div>

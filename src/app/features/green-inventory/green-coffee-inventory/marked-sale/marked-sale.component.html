@@ -90,10 +90,8 @@
                         <ng-template #poplistTemplate>
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"> <a class="pointer-item" (click)="pop.hide();">Message roaster </a></li>
-                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Message estate</a></li>
-                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Simulate login as roaster</a></li>
-                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Simulate login as estate</a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"> <a class="pointer-item" (click)="pop.hide();">Edit </a></li>
+                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
                                 </ul>
                             </div>
                         </ng-template>
