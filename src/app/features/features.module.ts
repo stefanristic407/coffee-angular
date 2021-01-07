@@ -1,50 +1,57 @@
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { ModalModule } from "ngx-bootstrap/modal";
-import { PopoverModule } from "ngx-bootstrap/popover";
-import { TypeaheadModule } from "ngx-bootstrap/typeahead";
-import { ImageCropperModule } from "ngx-image-cropper";
-import { ToastrModule } from "ngx-toastr";
-import { Ng2SearchPipeModule } from "ng2-search-filter";
-import {NgxChartsModule} from '@swimlane/ngx-charts';
-//PrimeNG Modules
-import { ButtonModule } from "primeng/button";
-import { CalendarModule } from "primeng/calendar";
-import { DialogModule } from "primeng/dialog";
-import { InputSwitchModule } from "primeng/inputswitch";
-import { SliderModule } from "primeng/slider";
-import { ChatNotificationComponent } from "./chat-notification/chat-notification.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { FeaturesRoutingModule } from "./features-routing.module";
-import { FeaturesComponent } from "./features.component";
-import { HelpComponent } from "./help/help.component";
-import { LoginSecurityComponent } from "./login-security/login-security.component";
-import { MyprofileComponent } from "./myprofile/myprofile.component";
-import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
-import { PrivacySettingsComponent } from "./privacy-settings/privacy-settings.component";
-import { ProfileEditComponent } from "./profile-edit/profile-edit.component";
-import { ProfilePicComponent } from "./profile-edit/profile-pic/profile-pic.component";
-import { RoasterCompleteSetupComponent } from "./roaster-complete-setup/roaster-complete-setup.component";
-import { RoasterOnboardingComponent } from "./roaster-onboarding/roaster-onboarding.component";
-import { RoasterQuickSetupComponent } from "./roaster-quick-setup/roaster-quick-setup.component";
-import { SettingsComponent } from "./settings/settings.component";
-import { WelcomeAboardComponent } from "./welcome-aboard/welcome-aboard.component";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ToastrModule } from 'ngx-toastr';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+// PrimeNG Modules
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { SliderModule } from 'primeng/slider';
+import { TooltipModule } from 'primeng/tooltip';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+
+import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { FeaturesRoutingModule } from './features-routing.module';
+import { FeaturesComponent } from './features.component';
+import { HelpComponent } from './help/help.component';
+import { LoginSecurityComponent } from './login-security/login-security.component';
+import { MyprofileComponent } from './myprofile/myprofile.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PrivacySettingsComponent } from './privacy-settings/privacy-settings.component';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { ProfilePicComponent } from './profile-edit/profile-pic/profile-pic.component';
+import { RoasterCompleteSetupComponent } from './roaster-complete-setup/roaster-complete-setup.component';
+import { RoasterOnboardingComponent } from './roaster-onboarding/roaster-onboarding.component';
+import { RoasterQuickSetupComponent } from './roaster-quick-setup/roaster-quick-setup.component';
+import { SettingsComponent } from './settings/settings.component';
+import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
 import { DashboardNotifyComponent } from './welcome-aboard/dashboard-notify/dashboard-notify.component';
+import { DashboardEstateComponent } from './welcome-aboard/dashboard-estate/dashboard-estate.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
-import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
-import { DataTablesModule } from "angular-datatables";
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { DataTablesModule } from 'angular-datatables';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-import {MatVideoModule} from 'mat-video';
-import { TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatVideoModule } from 'mat-video';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 
-
-import  { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
+import { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
 import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
@@ -52,14 +59,14 @@ import { FileShareComponent } from './Farm Link/file-share/file-share.component'
 import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 import { SourcingComponent } from './Sourcing/sourcing/sourcing.component';
 
-import {MatChipsModule} from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
 import { ContactComponent } from './roastery-profile/contact/contact.component';
 import { VirtualTourComponent } from './roastery-profile/virtual-tour/virtual-tour.component';
-import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-roastery.component'
+import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-roastery.component';
 import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
 import { EstateDetailsListComponent } from './Sourcing/estate-details-list/estate-details-list.component';
 import { AvailableCoffeeListComponent } from './Sourcing/available-coffee-list/available-coffee-list.component';
@@ -84,8 +91,6 @@ import { AvailableConfirmOrderComponent } from './Sourcing/available-coffee-list
 import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-placed/order-placed.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
-import {TooltipModule} from 'primeng/tooltip';
-import {AutoCompleteModule} from 'primeng/autocomplete';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterDashboardComponent } from './roaster-dashboard/roaster-dashboard.component';
 import { CoustomerWantsChartComponent } from './roaster-dashboard/coustomer-wants-chart/coustomer-wants-chart.component';
@@ -119,14 +124,14 @@ import { GenerateCuppingReportComponent } from './green-grading/generate-report/
 import { GenerateCuppingResultsComponent } from './green-grading/generate-report/generate-cupping-results/generate-cupping-results.component';
 import { GenerateGreenCoffeeComponent } from './green-grading/generate-report/generate-green-coffee/generate-green-coffee.component';
 import { GenerateMySampleComponent } from './green-grading/generate-report/generate-my-sample/generate-my-sample.component';
-import {GradeMySampleComponent} from './green-grading/grade-my-sample/grade-my-sample.component';
+import { GradeMySampleComponent } from './green-grading/grade-my-sample/grade-my-sample.component';
 import { GradeSampleComponent } from './green-grading/grade-sample/grade-sample.component';
 import { GradeServiceComponent } from './green-grading/grade-service/grade-service.component';
-import {GreenCoffeeGradingComponent} from './green-grading/green-coffee-grading/green-coffee-grading.component';
-import {GreenGradingComponent} from './green-grading/green-grading/green-grading.component';
+import { GreenCoffeeGradingComponent } from './green-grading/green-coffee-grading/green-coffee-grading.component';
+import { GreenGradingComponent } from './green-grading/green-grading/green-grading.component';
 import { ServiceRequestsComponent } from './green-grading/service-requests/service-requests.component';
-import {SourceGradingComponent} from './green-grading/source-grading/source-grading.component';
-import { ServiceRequestedComponent} from './green-grading/service-requested/service-requested.component';
+import { SourceGradingComponent } from './green-grading/source-grading/source-grading.component';
+import { ServiceRequestedComponent } from './green-grading/service-requested/service-requested.component';
 import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
 import { MarkedSaleComponent } from './green-inventory/green-coffee-inventory/marked-sale/marked-sale.component';
 import { CoffeeProcuredTabComponent } from './green-inventory/green-coffee-inventory/coffee-procured-tab/coffee-procured-tab.component';
@@ -139,7 +144,7 @@ import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.component';
 import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
-import {AgmCoreModule} from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
 import { AboutUsComponent } from './Farm Link/brand-profile/about-us/about-us.component';
 import { SustainabilityComponent } from './Farm Link/brand-profile/sustainability/sustainability.component';
 import { VisitUsComponent } from './Farm Link/brand-profile/visit-us/visit-us.component';
@@ -161,8 +166,6 @@ import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/ap
 import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -173,6 +176,7 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
     FeaturesComponent,
     WelcomeAboardComponent,
     DashboardNotifyComponent,
+    DashboardEstateComponent,
     MyprofileComponent,
     ProfileEditComponent,
     ProfilePicComponent,
@@ -287,13 +291,11 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
     ApiRequestDetailsComponent,
     GenerateKeyDetailsComponent,
     ConfirmPreorderLotComponent,
-  
- 
   ],
   imports: [
     CommonModule,
     FeaturesRoutingModule,
-    //PrimeNG Modules
+    // PrimeNG Modules
     ImageCropperModule,
     AutoCompleteModule,
     TooltipModule,
@@ -324,18 +326,22 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
     CarouselModule.forRoot(),
     ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU'
+      apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
       // libraries: ['places']
     }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (http: HttpClient) => {
-          return new TranslateHttpLoader(http, "./assets/multi-lang/", ".json");
+          return new TranslateHttpLoader(http, './assets/multi-lang/', '.json');
         },
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
-  ]
+    ChartAllModule,
+    AccumulationChartAllModule,
+    RangeNavigatorAllModule,
+    SharedModule,
+  ],
 })
 export class FeaturesModule {}

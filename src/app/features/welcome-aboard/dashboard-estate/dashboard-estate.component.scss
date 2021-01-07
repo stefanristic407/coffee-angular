@@ -1,0 +1,34 @@
+.chart-block {
+  border: solid 1px #ebebeb;
+  @media (min-width: 992px) {
+    border: none;
+    border-right: solid 1px #ebebeb;
+  }
+}
+
+.estates-block {
+  border: solid 1px #ebebeb;
+  @media (min-width: 992px) {
+    border: none;
+  }
+  .estate-wrap {
+    border-bottom: dashed 1px #ebebeb;
+  }
+}
+
+.total-stats {
+  position: absolute;
+  left: 50%;
+  top: 160px;
+  transform: translateX(-50%);
+  line-height: 1.4;
+  @media (min-width: 360px) {
+    top: 170px;
+  }
+  @media (min-width: 380px) {
+    top: 170px;
+  }
+  @media (min-width: 768px) {
+    top: 180px;
+  }
+}

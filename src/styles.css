@@ -385,6 +385,10 @@ input[type='number'] {
   border: 1px solid #d6d6d6;
 }
 
+.bg-f8 {
+  background-color: #f8f8f8;
+}
+
 .custom-link {
   color: #80460b;
   font-size: 12px;
@@ -398,5 +402,9 @@ input[type='number'] {
 @media (min-width: 992px) {
   .custom-link {
     font-size: 14px;
+  }
+  
+  .br-md-main {
+    border: 1px solid #d6d6d6;
   }
 }
