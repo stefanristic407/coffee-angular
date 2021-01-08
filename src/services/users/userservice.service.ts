@@ -1208,4 +1208,11 @@ export class UserserviceService {
     data['method'] = "POST";
     return this.http.post(this.roasterUrl, data);
   }
+  getRecentActivities(roaster_id: any) {
+    var data = {};
+    data['api_call'] = '/ro/' + roaster_id + '/recent-activity';
+    data['method'] = 'GET';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
 }

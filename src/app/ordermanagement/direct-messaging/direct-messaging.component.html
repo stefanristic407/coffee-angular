@@ -87,11 +87,12 @@
                         <div class="live-chat-message-body position-relative">
                             <span *ngFor = "let message of threadsMessageData[activeThread]">
                                 <span *ngIf = "message.activity_type == 'M'" >
-                                    <div class="message-to live-chat-message-body__text" *ngIf = "message.currentUser == message.member.id">
+                                    <div class="message-to live-chat-message-body__text" *ngIf = "message.currentUser != message.member.id">
                                         <div class="message-body">
                                             <div class="message-to__text "><span>{{message.content}}</span></div>
                                         </div>
                                         <p class="live-time">{{getReadableTime(message.created_at)}}</p>
+                                        <p> {{message.currentUser}} | {{message.member.id}} </p>
                                     </div>
 
                                     <!-- <div class="message-to live-chat-message-body__text" *ngIf = "message.currentUser == -1">
@@ -101,7 +102,7 @@
                                         <p class="live-time">{{getReadableTime(message.created_at)}}</p>
                                     </div> -->
 
-                                    <div class="message-from live-chat-message-body__text" *ngIf = "message.currentUser != message.member.id">
+                                    <div class="message-from live-chat-message-body__text" *ngIf = "message.currentUser == message.member.id">
                                         <div class="message-body-from">
                                             <div class="message-to__from "><span>{{message.content}}</span></div>
                                         </div>
