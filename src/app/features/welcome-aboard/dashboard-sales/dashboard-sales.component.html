@@ -1,36 +1,38 @@
-<p class="fnt-18 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-none d-md-block">Your sales & orders</p>
-<div class="br-main br-4">
-  <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Total sales</div>
+<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up">
+  <p class="fnt-18 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-none d-md-block">Your sales & orders</p>
+  <div class="br-main br-4">
+    <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Total sales</div>
 
-  <div class="row">
-    <div class="col-12">
-      <div>
-        <div class="p-3">
-          <div class="row">
-            <div class="col-12 col-md-4">
-              <div class="total-wrap py-lg-3 px-lg-2 h-100">
-                <p class="fnt-14 fnt-600 fnt-muli text-black334 mb-5 d-none d-lg-block">You've earned</p>
-                <h1 class="fnt-32 fnt-bold fnt-muli text-black334">$ {{ sales?.total_earnings.toFixed(2) }}K</h1>
-                <p class="fnt-18 fnt-600 fnt-muli text-gray588 mb-lg-5">All time earnings</p>
-                <div class="d-none d-lg-block">
-                  <h1 class="fnt-32 fnt-bold fnt-muli text-black334">$ {{ sales?.weekly_earnings.toFixed(2) }}k</h1>
-                  <p class="fnt-18 fnt-600 fnt-muli text-gray588">earned in last 7 days</p>
+    <div class="row">
+      <div class="col-12">
+        <div>
+          <div class="p-3">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <div class="total-wrap py-lg-3 px-lg-2 h-100">
+                  <p class="fnt-14 fnt-600 fnt-muli text-black334 mb-5 d-none d-lg-block">You've earned</p>
+                  <h1 class="fnt-32 fnt-bold fnt-muli text-black334">$ {{ sales?.total_earnings.toFixed(2) }}K</h1>
+                  <p class="fnt-18 fnt-600 fnt-muli text-gray588 mb-lg-5">All time earnings</p>
+                  <div class="d-none d-lg-block">
+                    <h1 class="fnt-32 fnt-bold fnt-muli text-black334">$ {{ sales?.weekly_earnings.toFixed(2) }}k</h1>
+                    <p class="fnt-18 fnt-600 fnt-muli text-gray588">earned in last 7 days</p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-12 col-md-8">
-              <div class="chart-wrap">
-                <ejs-chart
-                  id="orders-chart-container"
-                  [primaryXAxis]="primaryXAxis"
-                  [primaryYAxis]="primaryYAxis"
-                  height="360px"
-                >
-                  <e-series-collection>
-                    <e-series [dataSource]="chartData" type="Column" xName="x" yName="y"></e-series>
-                  </e-series-collection>
-                </ejs-chart>
+              <div class="col-12 col-md-8">
+                <div class="chart-wrap">
+                  <ejs-chart
+                    id="orders-chart-container"
+                    [primaryXAxis]="primaryXAxis"
+                    [primaryYAxis]="primaryYAxis"
+                    height="360px"
+                  >
+                    <e-series-collection>
+                      <e-series [dataSource]="chartData" type="Column" xName="x" yName="y"></e-series>
+                    </e-series-collection>
+                  </ejs-chart>
+                </div>
               </div>
             </div>
           </div>
