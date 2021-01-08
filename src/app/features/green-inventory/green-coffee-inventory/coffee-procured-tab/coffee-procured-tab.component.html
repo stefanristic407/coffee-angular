@@ -2,15 +2,18 @@
     <div class="title-header">
         <div class="hover-filters d-inline-block">
             <div class="d-inline border-total col-sm-6" id="status_id">
-                <p class="d-inline filter-text" *ngIf="termStatus.name == 'All'">{{globals.languageJson?.status}}&nbsp;</p>
+                <p class="d-inline filter-text" *ngIf="termStatus.name == 'All'">{{globals.languageJson?.status}}&nbsp;
+                </p>
                 <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
                     <p class="d-inline filter" *ngIf="termStatus.name == 'All'" (click)="toggleStatus()">
-                        &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                        &nbsp; <img
+                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                     </p>
                 </a>
                 <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
                     <p class="d-inline filter" *ngIf="termStatus.name != 'All'" (click)="toggleStatus()">
-                        {{ termStatus.name }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                        {{ termStatus.name }}&nbsp; <img
+                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                     </p>
                 </a>
             </div>
@@ -20,14 +23,18 @@
             <div class="hover-filters d-inline-block">
                 <div class="float-right border-order top-space" id="display_id">
                     <p class="d-inline filter-text">Display &#9679;</p>
-                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop9="bs-popover">
+                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true"
+                        container="body" #pop9="bs-popover">
                         <p class="d-inline filter" *ngIf="display == '-1'" (click)="toggleDisplay()">
-                            &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                            &nbsp; &nbsp; <img
+                                src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                         </p>
                     </a>
-                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true" container="body" #pop10="bs-popover">
+                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true"
+                        container="body" #pop10="bs-popover">
                         <p class="d-inline filter" *ngIf="display != '-1'" (click)="toggleDisplay()">
-                            {{ display }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                            {{ display }}&nbsp; &nbsp; <img
+                                src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                         </p>
                     </a>
                 </div>
@@ -36,7 +43,8 @@
     </div>
 </div>
 <div class="table-container mb-2 mt-4">
-    <div class="table-responsive" *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
+    <div class="table-responsive"
+        *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
         <table class="table">
             <thead class="table-header">
                 <tr class="header-row">
@@ -82,16 +90,24 @@
                     <td>
                         {{item.status}}
                     </td>
-                    <td class="view-order" routerLink="/features/green-coffee-for-sale-details" [queryParams]="{orderId: item.order_id}">view</td>
+                    <td class="view-order" routerLink="/features/green-coffee-for-sale-details"
+                        [queryParams]="{orderId: item.id}">view</td>
                     <td>
-                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"
+                            #pop="bs-popover">
                             <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
                         </a>
                         <ng-template #poplistTemplate>
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"> <a class="pointer-item" (click)="pop.hide();">Edit </a></li>
-                                    <li class="list-group-item" *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"><a class="pointer-item" (click)="pop.hide();">Delete</a></li>
+                                    <li class="list-group-item"
+                                        *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage">
+                                        <a class="pointer-item" (click)="pop.hide();">Edit </a>
+                                    </li>
+                                    <li class="list-group-item"
+                                        *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage">
+                                        <a class="pointer-item" (click)="pop.hide();">Delete</a>
+                                    </li>
                                 </ul>
                             </div>
                         </ng-template>
@@ -107,16 +123,20 @@
     <div id="status-content">
         <ul class="list-group">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('All', 'All'); pop.hide(); pop2.hide();toggleStatus()">All</a>
+                <a class="pointer-item"
+                    (click)="setStatus('All', 'All'); pop.hide(); pop2.hide();toggleStatus()">All</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Instock', 'IN_STOCK'); pop.hide(); pop2.hide();toggleStatus()">Instock</a>
+                <a class="pointer-item"
+                    (click)="setStatus('Instock', 'IN_STOCK'); pop.hide(); pop2.hide();toggleStatus()">Instock</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Hidden', 'HIDDEN'); pop.hide(); pop2.hide();toggleStatus()">Hidden</a>
+                <a class="pointer-item"
+                    (click)="setStatus('Hidden', 'HIDDEN'); pop.hide(); pop2.hide();toggleStatus()">Hidden</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Sold', 'SOLD'); pop.hide(); pop2.hide();toggleStatus()">Sold</a>
+                <a class="pointer-item"
+                    (click)="setStatus('Sold', 'SOLD'); pop.hide(); pop2.hide();toggleStatus()">Sold</a>
             </li>
         </ul>
     </div>

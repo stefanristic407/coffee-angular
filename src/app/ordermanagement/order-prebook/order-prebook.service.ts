@@ -8,7 +8,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { OrderBookedService } from '../order-booked/order-booked.service';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class OrderPrebookService {
 	statusPending: boolean = true;
@@ -48,92 +48,113 @@ export class OrderPrebookService {
 	water_analysis: any;
 	annual_production: any;
 	crop: any;
-	recentactivityarray:any=[];
+	recentactivityarray: any = [];
 	orderId: any;
-  
-  constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService,public bookedService: OrderBookedService) { 
-    this.roasterId = this.cookieService.get('roaster_id');
-  }
+	uploadShow: boolean = true;
+	receiptShow: boolean = false;
+	invoice_url: any;
+	payment_status: any;
+	receipt_url: any;
+	payment_after_delivery: any;
+	order_status: any;
+	paymentVerification: boolean = false;
 
-  // Function Name : Payment Status
-  // Description: This function helps to store status of payment.
-  changePaymentStatus() {
-    this.statusPaid = true;
-    this.statusPending = false;
-  }
-  viewPrebookOrderDetails(){
-		this.roasterService.getViewOrderDetails(this.roasterId,this.orderPreId).subscribe(
-			res=>{
-				if(res['success'] == true){
-					this.preId=res['result']['id'];
-					this.created_at=res['result']['created_at'];
-					this.origin=res['result']['origin'];
-					this.variety=res['result']['variety'];
-					this.price=res['result']['price'];
-					this.quantity_type=res['result']['quantity_type'];
-					this.quantity=res['result']['quantity'];
-					this.harvestId=res['result']['harvest_id'];
-					this.estate_name=res['result']['estate_name'];
-					this.estate_thumbnail_url= res['result']['estate_profile_image_thumbnail_url'];
-					this.estate_owner=res['result']['estate_owner'];
-					this.roaster_owner=res['result']['roaster_owner'];
-					this.roaster_name=res['result']['roaster_name'];
-					this.roaster_thumbnail_url=res['result']['roaster_profile_image_thumbnail_url'];
-					this.shipping_address=res['result']['shipping_address'];
-					this.estate_id=res['result']['estate_id'];
-					this.lot_id=res['result']['lot_id'];
+	constructor(private roasterService: RoasterserviceService, public router: Router, public cookieService: CookieService, private userService: UserserviceService, public bookedService: OrderBookedService) {
+		this.roasterId = this.cookieService.get('roaster_id');
+	}
+
+	// Function Name : Payment Status
+	// Description: This function helps to store status of payment.
+	changePaymentStatus() {
+		this.statusPaid = true;
+		this.statusPending = false;
+	}
+	viewPrebookOrderDetails() {
+		this.roasterService.getViewOrderDetails(this.roasterId, this.orderPreId).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.preId = res['result']['id'];
+					this.created_at = res['result']['created_at'];
+					this.origin = res['result']['origin'];
+					this.variety = res['result']['variety'];
+					this.price = res['result']['price'];
+					this.quantity_type = res['result']['quantity_type'];
+					this.quantity = res['result']['quantity'];
+					this.harvestId = res['result']['harvest_id'];
+					this.estate_name = res['result']['estate_name'];
+					this.estate_thumbnail_url = res['result']['estate_profile_image_thumbnail_url'];
+					this.estate_owner = res['result']['estate_owner'];
+					this.roaster_owner = res['result']['roaster_owner'];
+					this.roaster_name = res['result']['roaster_name'];
+					this.roaster_thumbnail_url = res['result']['roaster_profile_image_thumbnail_url'];
+					this.shipping_address = res['result']['shipping_address'];
+					this.estate_id = res['result']['estate_id'];
+					this.lot_id = res['result']['lot_id'];
+					this.invoice_url = res['result']['invoice_url'];
+					this.payment_status = res['result']['payment_status'];
+					this.receipt_url = res['result']['receipt_url'];
+					this.payment_after_delivery = res['result']['payment_after_delivery'];
+					this.order_status = res['result']['status'];
+
+					if (this.payment_status == 'VERIFIED') {
+						this.uploadShow = false;
+						this.receiptShow = true;
+						this.statusPaid = true;
+						this.statusPending = false;
+						this.paymentVerification = true;
+					}
 					// this.viewAvailability();
 					this.viewpreEstateDetails();
-					this.bookedService.viewEstateDetails(this.roasterId,this.estate_id);
-					this.bookedService.getEstateReviews(this.estate_id,this.orderPreId);
+					this.bookedService.viewEstateDetails(this.roasterId, this.estate_id);
+					this.bookedService.getEstateReviews(this.estate_id, this.orderPreId);
 					this.bookedService.getEstateSummary(this.estate_id);
-				}	
+				}
 			}
 		)
 	}
-  viewpreEstateDetails(){
-		this.userService.getAvailableEstateList(this.roasterId,this.estate_id).subscribe(
-			res=>{
-				if(res['success'] == true){
-					this.company_image_thumbnail_url=res['result']['company_image_thumbnail_url'];
-					this.owner_name=res['result']['owner_name'];
-					this.address_line1=res['result']['address_line1'];
-					this.address_line2=res['result']['address_line2'];
-					this.city=res['result']['city'];
-					this.zipcode=res['result']['zipcode'];
-					this.rating=res['result']['rating'];
-				}	
-			}
-		)
-	}
-
-	viewpreLotDetails(){
-		this.userService.getRoasterLotDetails(this.roasterId,this.estate_id,this.lot_id).subscribe(
-			res=>{
-				if(res['success'] == true){
-					this.flavours=res['result']['flavours'];
-					this.soil_footprint=res['result']['soil_footprint'];
-					this.species=res['result']['species'];
-					this.avg_cup_score=res['result']['avg_cup_score'];
-					this.water_analysis=res['result']['water_analysis'];
-					this.crop=res['result']['crop'];
-					this.annual_production=res['result']['annual_production'];
+	viewpreEstateDetails() {
+		this.userService.getAvailableEstateList(this.roasterId, this.estate_id).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.company_image_thumbnail_url = res['result']['company_image_thumbnail_url'];
+					this.owner_name = res['result']['owner_name'];
+					this.address_line1 = res['result']['address_line1'];
+					this.address_line2 = res['result']['address_line2'];
+					this.city = res['result']['city'];
+					this.zipcode = res['result']['zipcode'];
+					this.rating = res['result']['rating'];
 				}
 			}
 		)
 	}
 
-	ViewRecentActivity(){
-		this.userService.getRecentActivity(this.roasterId,this.orderPreId).subscribe(
-			res=>{
-				if(res['success'] == true){
+	viewpreLotDetails() {
+		this.userService.getRoasterLotDetails(this.roasterId, this.estate_id, this.lot_id).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.flavours = res['result']['flavours'];
+					this.soil_footprint = res['result']['soil_footprint'];
+					this.species = res['result']['species'];
+					this.avg_cup_score = res['result']['avg_cup_score'];
+					this.water_analysis = res['result']['water_analysis'];
+					this.crop = res['result']['crop'];
+					this.annual_production = res['result']['annual_production'];
+				}
+			}
+		)
+	}
+
+	ViewRecentActivity() {
+		this.userService.getRecentActivity(this.roasterId, this.orderPreId).subscribe(
+			res => {
+				if (res['success'] == true) {
 					console.log(res);
-					this.recentactivityarray=res['result'];
+					this.recentactivityarray = res['result'];
 				}
 
 			}
 		)
 	}
 
-	
+
 }

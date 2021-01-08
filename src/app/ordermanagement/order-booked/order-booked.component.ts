@@ -1,11 +1,11 @@
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Booked.
-import { Component, OnInit, ViewChild, ElementRef,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { OrderBookedService } from './order-booked.service';
 import { ActivatedRoute } from '@angular/router';
 import { BookedGradeInfoComponent } from '../order-booked/booked-grade-info/booked-grade-info.component';
 import { CookieService } from 'ngx-cookie-service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { BookedOrderDetailsComponent } from './booked-order-details/booked-order-details.component';
 declare var $: any;
 import { GlobalsService } from 'src/services/globals.service';
@@ -49,30 +49,30 @@ export class OrderBookedComponent implements OnInit {
   cancelShow: boolean = false;
   totalstar = 5;
   newvalue: any = 4;
-  appLanguage?:any;
-	roasterId: any;
-	orderBookId: any;
+  appLanguage?: any;
+  roasterId: any;
+  orderBookId: any;
   countryValue: any;
   constructor(public bookedService: OrderBookedService, private route: ActivatedRoute,
-    public router: Router,public cookieService : CookieService,public globals: GlobalsService,private userService : UserserviceService,    private toastrService : ToastrService,    private roasterService: RoasterserviceService,public profileservice:RoasteryProfileService) {
-		this.roasterId = this.cookieService.get('roaster_id');
-		//Fills the time line based on the status selected in estate order.
-		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
-		this.orderBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
-		this.bookedService.orderId=this.orderBookId;
+    public router: Router, public cookieService: CookieService, public globals: GlobalsService, private userService: UserserviceService, private toastrService: ToastrService, private roasterService: RoasterserviceService, public profileservice: RoasteryProfileService) {
+    this.roasterId = this.cookieService.get('roaster_id');
+    //Fills the time line based on the status selected in estate order.
+    this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
+    this.orderBookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
+    this.bookedService.orderId = this.orderBookId;
     this.bookedService.viewOrderDetails();
-    
-    if(this.bookedService.paymentVerification == true && this.dataFromTable == "CONFIRMED"){
+
+    if (this.bookedService.paymentVerification == true && this.dataFromTable == "CONFIRMED") {
       setTimeout(() => {
-      this.bookedValueToShow = "Payment";
+        this.bookedValueToShow = "Payment";
         this.paymentStatusBooked();
       }, 1000);
     }
-	}
+  }
 
   ngOnInit(): void {
-     //Auth checking
-     if (this.cookieService.get("Auth") == "") {
+    //Auth checking
+    if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
     }
     this.appLanguage = this.globals.languageJson
@@ -110,9 +110,6 @@ export class OrderBookedComponent implements OnInit {
         this.gradedStatusBooked();
       }, 500);
     }
-
-
-
   }
 
   // Function Name : Order Placed
@@ -155,21 +152,21 @@ export class OrderBookedComponent implements OnInit {
     completedProcess.classList.remove('completed');
     this.shippmentReport = true;
     this.bookedService.shipmentDone = true;
-    if(this.dataFromTable == "SHIPPED"){
+    if (this.dataFromTable == "SHIPPED") {
       setTimeout(() => {
         this.orderBookedTimeline = false;
         this.shippmentShow = true;
       }, 2000);
     }
-  
 
-    	// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService,this.globals,this.cookieService,this.toastrService,this.userService,this.roasterService,this.profileservice);
-		setTimeout(()=>{
-			uploadReceipt.uploadReceipt();
-    },500);
-    
+    // Calling the Order Details component by creating object of the component and accessing its methods
+
+    let uploadReceipt = new BookedOrderDetailsComponent(this.bookedService, this.globals, this.cookieService, this.toastrService, this.userService, this.roasterService, this.profileservice);
+    setTimeout(() => {
+      uploadReceipt.uploadReceipt();
+    }, 500);
+
 
 
   }
@@ -184,7 +181,7 @@ export class OrderBookedComponent implements OnInit {
     completedProcess.classList.remove('completed');
     this.receivedReport = true;
 
-    if(this.dataFromTable == "RECEIVED"){
+    if (this.dataFromTable == "RECEIVED") {
       setTimeout(() => {
         this.orderBookedTimeline = false;
         this.receivedOrderShow = true;
@@ -204,10 +201,10 @@ export class OrderBookedComponent implements OnInit {
     this.uploadReport = false;
     this.gradedReport = true;
     $('#pills-contact-tab')[0].click();
-  
+
     // Calling the Grade info component by creating object of the component and accessing its methods
 
-    let callGradeInfo = new BookedGradeInfoComponent(this.bookedService,this.globals);
+    let callGradeInfo = new BookedGradeInfoComponent(this.bookedService, this.globals);
     callGradeInfo.gradedComplete();
 
 
@@ -215,23 +212,23 @@ export class OrderBookedComponent implements OnInit {
 
   //Confirm Shippment shows and timeline hides
   receivedShippment() {
-    this.roasterService.orderReceived(this.roasterId,this.bookedService.orderId).subscribe(
+    this.roasterService.orderReceived(this.roasterId, this.bookedService.orderId).subscribe(
       response => {
-        if(response['success'] == true){
+        if (response['success'] == true) {
           this.toastrService.success("Order received has been confirmed");
           this.orderBookedTimeline = false;
           this.cancelShow = false;
           this.shippmentShow = false;
-        this.receivedOrderShow = true;
-          setTimeout(()=>{
+          this.receivedOrderShow = true;
+          setTimeout(() => {
             this.orderBookedTimeline = true;
             this.cancelShow = false;
             this.shippmentShow = false;
-          this.receivedOrderShow = false;
-          this.receivedStatusBooked();
-          },2000)
+            this.receivedOrderShow = false;
+            this.receivedStatusBooked();
+          }, 2000)
         }
-        else{
+        else {
           this.toastrService.error("Error while confirmation the Shipment");
         }
       }
@@ -260,69 +257,68 @@ export class OrderBookedComponent implements OnInit {
 
     //chat 
 
-		const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
+    const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
     const chatbox = document.querySelector(".js-chatbox");
     const chatboxMsgDisplay = document.querySelector(".js-chatbox-display");
     const chatboxForm = document.querySelector(".js-chatbox-form");
-    
+
     // Use to create chat bubble when user submits text
     // Appends to display
     const createChatBubble = input => {
       const chatSection = document.createElement("p");
       chatSection.textContent = input;
       chatSection.classList.add("chatbox__display-chat");
-    
+
       chatboxMsgDisplay.appendChild(chatSection);
     };
-    
+
     // Toggle the visibility of the chatbox element when clicked
     // And change the icon depending on visibility
     toggleChatboxBtn.addEventListener("click", () => {
       chatbox.classList.toggle("chatbox--is-visible");
-    
+
       if (chatbox.classList.contains("chatbox--is-visible")) {
         toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
       } else {
         toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
       }
     });
-    
+
     // Form input using method createChatBubble
     // To append any user message to display
     chatboxForm.addEventListener("submit", e => {
-    //   const chatInput = document.querySelector(".js-chatbox-input");
-      const chatInput=(document.getElementById("js-chatbox-input") as HTMLInputElement).value;
-    //   console.log("chat text coming"+chatInput);
-    
+      //   const chatInput = document.querySelector(".js-chatbox-input");
+      const chatInput = (document.getElementById("js-chatbox-input") as HTMLInputElement).value;
+      //   console.log("chat text coming"+chatInput);
+
       createChatBubble(chatInput);
-    
+
       e.preventDefault();
       this.myForm.nativeElement.reset();
     });
-    
-	}
-	GetCountry(data:any){
+
+  }
+  GetCountry(data: any) {
     // console.log(data.toUpperCase());
-    if(data){
-      this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
-      if(this.countryValue){
-      return this.countryValue.name;
+    if (data) {
+      this.countryValue = this.profileservice.countryList.find(con => con.isoCode == data.toUpperCase());
+      if (this.countryValue) {
+        return this.countryValue.name;
       }
     }
   }
 
-  showInvoice() { 
-   
-    const a = document.createElement("a"); 
-    a.href = this.bookedService.invoice_url ;
+  showInvoice() {
+
+    const a = document.createElement("a");
+    a.href = this.bookedService.invoice_url;
     a.download = `#${this.bookedService.orderId}`;
     a.target = "_blank";
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a); 
-  
+    document.body.removeChild(a);
+
   }
-  
-     
+
+
 }
-  

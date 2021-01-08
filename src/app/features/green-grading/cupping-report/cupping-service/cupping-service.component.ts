@@ -498,6 +498,7 @@ export class CuppingServiceComponent implements OnInit {
   evaluatorName: any;
   evaluatorsListArray: any = [];
   evaluatorData: any;
+  evaluatorIdArray: any = [];
   singleCuppingDetails: any;
   single_status: any;
   completed_on: any;
@@ -537,9 +538,13 @@ export class CuppingServiceComponent implements OnInit {
       this.roasterService.getEvaluatorsList(this.ro_id, this.cupping_report_id).subscribe(
         response => {
           if (response['success'] == true) {
+            response['result'].forEach(element => {
+              this.evaluatorIdArray.push(element.evaluator_id);
+            });
             this.evaluatorData = response['result'].filter(ele => ele.is_primary == true);
             this.evaluatorName = this.evaluatorData[0].evaluator_name;
             this.evaluatorsListArray = response['result'].filter(ele => ele.is_primary != true);
+            console.log(this.evaluatorsListArray);
           }
         }
       )
@@ -549,7 +554,7 @@ export class CuppingServiceComponent implements OnInit {
   getCuppingScoreDetails() {
     if (this.cuppingService.serviceReportDetails) {
       this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
-      this.userService.getCuppingScore(this.ro_id, this.cupping_report_id).subscribe(
+      this.userService.getCuppingScore(this.ro_id, this.cupping_report_id, this.evaluatorIdArray).subscribe(
         res => {
           if (res['success'] == true) {
             this.cupping_score_details = res['result'];

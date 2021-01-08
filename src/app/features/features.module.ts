@@ -11,6 +11,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ToastrModule } from 'ngx-toastr';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 // PrimeNG Modules
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -38,6 +39,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
 import { DashboardNotifyComponent } from './welcome-aboard/dashboard-notify/dashboard-notify.component';
 import { DashboardEstateComponent } from './welcome-aboard/dashboard-estate/dashboard-estate.component';
+import { DashboardReviewComponent } from './welcome-aboard/dashboard-review/dashboard-review.component';
+import { DashboardSalesComponent } from './welcome-aboard/dashboard-sales/dashboard-sales.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
@@ -165,6 +168,8 @@ import { GeneratedKeysComponent } from './api-requests/api-requests-table/genera
 import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
 import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
+import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
+import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
 
 @NgModule({
   declarations: [
@@ -177,6 +182,8 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
     WelcomeAboardComponent,
     DashboardNotifyComponent,
     DashboardEstateComponent,
+    DashboardReviewComponent,
+    DashboardSalesComponent,
     MyprofileComponent,
     ProfileEditComponent,
     ProfilePicComponent,
@@ -291,6 +298,8 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
     ApiRequestDetailsComponent,
     GenerateKeyDetailsComponent,
     ConfirmPreorderLotComponent,
+    OtherCuppingServiceComponent,
+    OtherGenerateReportComponent,
   ],
   imports: [
     CommonModule,

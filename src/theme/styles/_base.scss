@@ -1,16 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-
-.btn-primary {
-  border-radius: 8px;
-  border: solid 1px #3d8462;
-  background-color: #3d8462;
-}
-
-.btn-invert {
-  border-radius: 8px;
-  border: solid 1px #3d8462;
-  background-color: #ffffff;
-}
+@import 'variables';
 
 #pwd_strength_wrap:before {
   border-right: none !important;
@@ -48,21 +36,9 @@ button:focus {
   height: 150px;
   z-index: 9;
   opacity: 0.8;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0) 65%
-  );
-  background-image: -webkit-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0) 65%
-  );
-  background-image: -o-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0) 65%
-  );
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0) 65%);
+  background-image: -webkit-linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0) 65%);
+  background-image: -o-linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0) 65%);
 }
 
 /* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */
@@ -403,7 +379,7 @@ input[type='number'] {
   .custom-link {
     font-size: 14px;
   }
-  
+
   .br-md-main {
     border: 1px solid #d6d6d6;
   }

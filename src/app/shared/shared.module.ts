@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
+
 import { AvatarComponent } from './components/avatar/avatar.component';
 
 // #region material
@@ -10,7 +12,7 @@ const MATMODULES = [];
 // #endregion
 
 // #region third libs
-const THIRDMODULES = [];
+const THIRDMODULES = [AnimateOnScrollModule];
 // #endregion
 
 // #region your componets & directives

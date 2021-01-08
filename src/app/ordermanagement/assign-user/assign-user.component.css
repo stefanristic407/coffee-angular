@@ -36,3 +36,17 @@
     border: solid 1px #cccccc;
     background-color: #ffffff;
 }
+
+:host ::ng-deep .assignClass .ui-autocomplete{
+    width: 100% !important;
+}
+:host ::ng-deep .assignClass .ui-autocomplete .ui-autocomplete-input{
+    border: 0px !important;
+    width: 100%;
+}
+:host ::ng-deep .assignClass .ui-autocomplete .ui-autocomplete-panel{
+    left: 0% !important;
+}
+:host ::ng-deep .assignClass .ui-autocomplete .ui-autocomplete-input{
+    position: unset !important
+}

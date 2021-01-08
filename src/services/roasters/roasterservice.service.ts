@@ -727,6 +727,7 @@ export class RoasterserviceService {
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
+
   getOrderDisputeList(roaster_id: any, order_id: any) {
     var data = {};
     data['method'] = "GET";
@@ -734,6 +735,8 @@ export class RoasterserviceService {
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
+
+
   deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any) {
     var data = {};
     data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
@@ -884,6 +887,15 @@ export class RoasterserviceService {
     obj['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, obj);
   }
+  //upate Mark for Sale status
+  updateMarkForSaleStatus(roaster_id: any, orderID, data) {
+    let obj = {};
+    obj['method'] = "PUT";
+    obj['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale/status';
+    obj['data'] = data
+    obj['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, obj);
+  }
   //Get Harvest GC available details
   getGCAvailableDetails(harvest_id: any) {
     var data = {};
@@ -910,6 +922,64 @@ export class RoasterserviceService {
     data['method'] = "GET";
     return this.http.post(this.url, data);
   }
+  //API Function Name : Get user list of roaster
+  getRoasterUserList(roasterId: any, query) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/users";
+    data['api_call'] = query ? data['api_call'] + '?name=' + query : data['api_call'];
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url, data);
+  }
+  //API Function Name : Get user list of roaster
+  markTicketasResolved(roasterId: any, disputeId: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/disputes/" + disputeId + '/resolve';
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "PUT";
+    return this.http.post(this.url, data);
+  }
+  //API Function Name : Escalate a Dispute
+  escalteTicket(roasterId: any, disputeId: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/disputes/" + disputeId + '/escalate';
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "PUT";
+    return this.http.post(this.url, data);
+  }
+  //API Function Name : Assign user to Dispute
+  assignUserDispute(roasterId: any, disputeId: any, userData) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/disputes/" + disputeId + '/assign';
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = userData;
+    data['method'] = "POST";
+    return this.http.post(this.url, data);
+  }
+  //API Function Name : Add file IDs to dispute
+  addFileIDDispute(roasterId: any, disputeId: any, userData) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/disputes/" + disputeId + '/files';
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = userData;
+    data['method'] = "POST";
+    return this.http.post(this.url, data);
+  }
 
+  externalCuppingReportsList(roasterId: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/external-cupping-reports/";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url, data);
+  }
+
+  listCuppingRequest(roasterId: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/external-cupping-invite-list/";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url, data);
+  }
 }
 
