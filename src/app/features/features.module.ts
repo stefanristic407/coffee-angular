@@ -40,6 +40,7 @@ import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.componen
 import { DashboardNotifyComponent } from './welcome-aboard/dashboard-notify/dashboard-notify.component';
 import { DashboardEstateComponent } from './welcome-aboard/dashboard-estate/dashboard-estate.component';
 import { DashboardReviewComponent } from './welcome-aboard/dashboard-review/dashboard-review.component';
+import { DashboardSalesComponent } from './welcome-aboard/dashboard-sales/dashboard-sales.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
@@ -180,6 +181,7 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
     DashboardNotifyComponent,
     DashboardEstateComponent,
     DashboardReviewComponent,
+    DashboardSalesComponent,
     MyprofileComponent,
     ProfileEditComponent,
     ProfilePicComponent,

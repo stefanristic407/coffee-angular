@@ -12,13 +12,20 @@
           <h2 class="fnt-18 fnt-bold fnt-muli text-black334 mb-4 d-none d-md-block">
             {{ 'Hello ' + userName.split(' ')[0] + ',' }}
           </h2>
-          <app-dashboard-notify></app-dashboard-notify>
-          <div class="row d-lg-flex">
+          <div class="animation-bounce-in-up fadeIn">
+            <app-dashboard-notify></app-dashboard-notify>
+          </div>
+          <div class="row d-lg-flex animation-bounce-in-up fadeIn">
             <div class="col-12 col-lg-8 pr-md-2 mb-3 mb-md-5">
               <app-dashboard-estate></app-dashboard-estate>
             </div>
             <div class="col-12 col-lg-4 pl-md-2 mb-3 mb-md-5">
               <app-dashboard-review></app-dashboard-review>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 mb-3 mb-md-5">
+              <app-dashboard-sales></app-dashboard-sales>
             </div>
           </div>
 

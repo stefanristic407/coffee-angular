@@ -1165,11 +1165,12 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data);
   }
 
-  getStats(roaster_id: any) {
+  getStats(roaster_id: any, query: any = {}) {
     var data = {};
     data['api_call'] = '/ro/' + roaster_id + '/stats';
     data['method'] = 'GET';
     data['token'] = this.cookieService.get('Auth');
+    data = { ...data, ...query };
     return this.http.post(this.roasterUrl, data);
   }
 

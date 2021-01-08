@@ -11,12 +11,11 @@
         <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
         <div class="position-relative d-flex justify-content-center">
           <ejs-accumulationchart
-            id="container"
-            #pie
+            id="total-sale-container"
             style="display: block; width: 92%"
             [legendSettings]="legendSettings"
             [tooltip]="tooltip"
-            [enableAnimation]="true"
+            [enableAnimation]="false"
           >
             <e-accumulation-series-collection>
               <e-accumulation-series
@@ -26,10 +25,9 @@
                 yName="y"
                 [startAngle]="0"
                 [endAngle]="360"
-                innerRadius="74%"
+                innerRadius="76%"
                 radius="80%"
                 [explode]="true"
-                [dataLabel]="dataLabel"
               >
               </e-accumulation-series>
             </e-accumulation-series-collection>

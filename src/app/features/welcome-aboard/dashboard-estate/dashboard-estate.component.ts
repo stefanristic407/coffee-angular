@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { GlobalsService } from 'src/services/globals.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { WelcomeService } from '../welcome.service';
 
 @Component({
   selector: 'app-dashboard-estate',
   templateUrl: './dashboard-estate.component.html',
   styleUrls: ['./dashboard-estate.component.scss'],
 })
-export class DashboardEstateComponent implements OnInit {
+export class DashboardEstateComponent implements OnInit, OnDestroy {
   public tooltip: any = {
     enable: true,
     format: '${point.x} : <b>${point.y}t</b>',
@@ -20,52 +18,30 @@ export class DashboardEstateComponent implements OnInit {
     visible: true,
     position: 'Bottom',
   };
-  public dataLabel: any = {
-    visible: true,
-    position: 'Outside',
-    connectorStyle: { length: '10%' },
-    name: 'text',
-    font: { size: '14px' },
-  };
 
   roasterId: string;
   estates: any[] = [];
+  estatesSub: Subscription;
   sourcing: any;
+  sourcingSub: Subscription;
 
-  constructor(
-    private cookieService: CookieService,
-    public globals: GlobalsService,
-    private userSrv: UserserviceService,
-    private toastrService: ToastrService
-  ) {}
+  constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 
   ngOnInit(): void {
-    this.roasterId = this.cookieService.get('roaster_id');
-    this.getStats();
-    this.getAvailableEstates();
-  }
-
-  getAvailableEstates() {
-    this.userSrv.getAvailableEstates(this.roasterId).subscribe((res: any) => {
-      if (res.success) {
-        this.estates = res.result;
-        console.log('estate data:', this.estates);
-      } else {
-        this.toastrService.error('Error while getting estates');
-      }
-    });
-  }
-
-  getStats() {
-    this.userSrv.getStats(this.roasterId).subscribe((res: any) => {
-      if (res.success) {
-        this.sourcing = res.result.sourcing;
+    this.sourcingSub = this.welcomeSrv.sourcing$.subscribe((res: any) => {
+      this.sourcing = res;
+      if (this.sourcing) {
         this.makeChartData();
-        console.log('sourcing:', this.sourcing);
-      } else {
-        this.toastrService.error('Error while getting stats');
       }
     });
+    this.estatesSub = this.welcomeSrv.estates$.subscribe((res: any) => {
+      this.estates = res;
+    });
+  }
+
+  ngOnDestroy() {
+    this.sourcingSub.unsubscribe();
+    this.estatesSub.unsubscribe();
   }
 
   makeChartData() {
