@@ -16,4 +16,7 @@ export class WelcomeService {
 
   reviewsSummary: any = new BehaviorSubject(null);
   reviewsSummary$: any = this.reviewsSummary.asObservable();
+
+  recentActivities: any = new BehaviorSubject(null);
+  recentActivities$: any = this.recentActivities.asObservable();
 }
