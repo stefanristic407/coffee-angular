@@ -62,8 +62,8 @@
 
             </tr>
             <tr>
-                <td> <span class="list-que"> Flavour profile :  </span></td>
-                <td> <span class="list-ans" >
+                <td> <span class="list-que"> Flavour profile : </span></td>
+                <td> <span class="list-ans">
                         <span *ngFor="let item of prebookService.flavours">{{item }}</span>
                     </span>
                 </td>
@@ -71,7 +71,7 @@
             </tr>
             <tr>
                 <td> <span class="list-que">Soil Footprint :</span></td>
-                <td> <span class="list-ans">  {{prebookService.soil_footprint}} </span> </td>
+                <td> <span class="list-ans"> {{prebookService.soil_footprint}} </span> </td>
 
             </tr>
 
@@ -83,19 +83,19 @@
 
             <tr>
                 <td> <span class="list-que">Average grade : </span></td>
-                <td> <span class="list-ans">  {{prebookService.avg_cup_score}} </span> </td>
+                <td> <span class="list-ans"> {{prebookService.avg_cup_score}} </span> </td>
 
             </tr>
 
             <tr>
-                <td> <span class="list-que">  Average production :</span></td>
+                <td> <span class="list-que"> Average production :</span></td>
                 <td> <span class="list-ans"> {{prebookService.annual_production}} kg </span> </td>
 
             </tr>
 
             <tr>
                 <td> <span class="list-que"> Water source :</span></td>
-                <td> <span class="list-ans">  {{prebookService.water_analysis}}</span> </td>
+                <td> <span class="list-ans"> {{prebookService.water_analysis}}</span> </td>
 
             </tr>
 
@@ -108,18 +108,23 @@
         </table>
 
         <p class="text-center mt-3">
-            <a class="procedure" > View lot details </a>
+            <a class="procedure"> View lot details </a>
         </p>
 
     </div>
     <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content mb-15">
         <h4 class="sub-title">{{globals.languageJson?.payment_status}}</h4>
         <div class="w-100 mt-3">
-            <p class="status_paid" *ngIf="prebookService.statusPending">TOKEN PENDING</p>
-            <p class="status_paid" *ngIf="prebookService.statusPaid"> TOKEN PAID</p>
-            <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()" *ngIf="uploadShow && prebookService.statusPending"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
-            <button type="button" class="btn receipt-btn mb-2" *ngIf="prebookService.statusPaid"><img src="assets/images/view.png" class="pr-2">View receipt</button>
-            <p class="note mt-2" *ngIf="prebookService.statusPending"><strong>Note : </strong>The lot has been pre-booked, once the beans are ready, you will be notified.</p>
+            <p class="status_paid" *ngIf="prebookService.statusPending">PENDING</p>
+            <p class="status_paid" *ngIf="prebookService.statusPaid">PAID</p>
+            <button type="button" class="btn receipt-btn mb-2" (click)="fileUpload.click()"
+                *ngIf="prebookService.uploadShow && prebookService.statusPending"><img
+                    src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button>
+            <button type="button" class="btn receipt-btn mb-2" *ngIf="prebookService.statusPaid"><a
+                    href="{{prebookService.receipt_url}}" target="_blank" download><img src="assets/images/view.png"
+                        class="pr-2">View receipt</a></button>
+            <p class="note mt-2" *ngIf="prebookService.statusPending"><strong>Note : </strong>The lot has been
+                pre-booked, once the beans are ready, you will be notified.</p>
             <p><a class="procedure">View payment procedure </a></p>
             <input type="file" hidden #fileUpload (change)="openFile($event)">
             <!-- <div class="track-info mt-4 pt-2">

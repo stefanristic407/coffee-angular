@@ -8,16 +8,19 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
-                                            alt=""></span>
+                                    <a class="b-cum"
+                                        routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span
+                                        class="padl-r" aria-hidden="true"><img class="group-img"
+                                            src="/assets/images/arrow-1.png" alt=""></span>
                                 </li>
                                 <!-- <li class="b-cum">
                                     <a class="b-cum" routerLink="/ordermanagement/">{{globals.languageJson?.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li> -->
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
-                                        src="/assets/images/arrow-1.png" alt=""> </span>
+                                    <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span
+                                        class="padl-r" aria-hidden="true"> <img class="group-img"
+                                            src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
                                 <li class="b-cum c-pink">{{globals.languageJson?.order}} {{prebookService.preId}}
                                 </li>
@@ -27,7 +30,8 @@
 
                     <div class="col-lg-6 col-md-12 pull-right ml-auto pl-0 pr-0 d-none d-md-block">
                         <span class="pull-right ml-auto order-placed-text">
-                            {{globals.languageJson?.order_placed}} : <span class="date-text">{{prebookService.created_at | date:"d MMM, y"}}</span>
+                            {{globals.languageJson?.order_placed}} : <span class="date-text">{{prebookService.created_at
+                                | date:"d MMM, y"}}</span>
                         </span>
                     </div>
                 </div>
@@ -37,13 +41,16 @@
                     <div class="col-12 d-flex px-0">
 
                         <div class="col-md-6 pl-0">
-                            <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}} #{{prebookService.preId}} <span class="booked booked--pre ml-2">Pre-Booked</span>
+                            <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}}
+                                #{{prebookService.preId}} <span class="booked booked--pre ml-2">Pre-Booked</span>
                             </div>
 
-                            <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div>
+                            <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been
+                                pre-booked, once the beans are ready, you will be notified.</div>
                         </div>
                         <div class="btn-div col-md-6 d-none d-md-inline-block pr-0">
-                            <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none"> {{globals.languageJson?.order_invoice}}
+                            <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none">
+                                {{globals.languageJson?.order_invoice}}
                             </button>
                         </div>
 
@@ -59,22 +66,32 @@
                                         <div class="w-100 d-flex flex-column flex-md-row">
                                             <div class="order-tracking">
                                                 <span class="is-complete "></span>
-                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2 mb-1" (click)="orderPlace()" #orderPlaced style="color: #232334; font-weight: bold;">{{globals.languageJson?.order_placed}}</p>
-                                                    <p class="order-date mb-0 " matTooltip="Estate + facilitator Notified" matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2 mb-1" (click)="orderPlace()"
+                                                        #orderPlaced style="color: #232334; font-weight: bold;">
+                                                        {{globals.languageJson?.order_placed}}</p>
+                                                    <p class="order-date mb-0 "
+                                                        matTooltip="Estate + facilitator Notified"
+                                                        matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="confirmDiv">
                                                 <span class="is-complete"></span>
-                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2" (click)="orderConfirm()" matTooltip="" matTooltipClass="tooltiptext" #orderConfirmed>{{globals.languageJson?.order_confirmed}}</p>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2" (click)="orderConfirm()" matTooltip=""
+                                                        matTooltipClass="tooltiptext" #orderConfirmed>
+                                                        {{globals.languageJson?.order_confirmed}}</p>
                                                 </div>
                                                 <!-- <p class="order-date">SMS & Email sent to you </p> -->
                                             </div>
                                             <div class="order-tracking completed" id="paymentDiv">
                                                 <span class="is-complete"></span>
-                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status mt-2" (click)="paymentStatus()" matTooltip="" matTooltipClass="tooltiptext" #payment>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status mt-2" (click)="paymentStatus()" matTooltip=""
+                                                        matTooltipClass="tooltiptext" #payment>
                                                         {{globals.languageJson?.payment}}</p>
                                                 </div>
                                                 <!-- <p class="order-view"> View Report ></p> -->
@@ -85,16 +102,23 @@
                                         </div> -->
                                             <div class="order-tracking completed" id="harvestDiv">
                                                 <span class="is-complete"></span>
-                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()" matTooltip="" matTooltipClass="tooltiptext" #harvestReady>Harvest {{globals.languageJson?.ready}}
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2 mb-0" (click)="harvest()" matTooltip=""
+                                                        matTooltipClass="tooltiptext" #harvestReady>Harvest
+                                                        {{globals.languageJson?.ready}}
                                                     </p>
-                                                    <p class="order-harvest mb-0"> <a class="havestShow" (click)="showHarvest()">Follow your harvest </a></p>
+                                                    <p class="order-harvest mb-0"> <a class="havestShow"
+                                                            (click)="showHarvest()">Follow your harvest </a></p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="gradedDiv">
                                                 <span class="is-complete"></span>
-                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-2" (click)="gradedStatus()" matTooltip=" Graded by Facilitator" matTooltipClass="tooltiptext" #graded>
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-2" (click)="gradedStatus()"
+                                                        matTooltip=" Graded by Facilitator"
+                                                        matTooltipClass="tooltiptext" #graded>
                                                         Graded
                                                     </p>
                                                 </div>
@@ -116,14 +140,18 @@
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
                                 <h4 class="order-txt fnt-play">Cancelled</h4>
-                                <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the estate and facilitator to help us expand</div>
+                                <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the
+                                    estate and facilitator to help us expand</div>
                                 <div class="confirm-grade">as a transparent community!</div>
-                                <button type="submit" class="leave-feedback btn mt-3" (click)="bookedService.leaveFeedback(orderPreBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
+                                <button type="submit" class="leave-feedback btn mt-3"
+                                    (click)="bookedService.leaveFeedback(orderPreBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
 
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">Buy it</button><br />
-                                <button type="submit" class="cancel-order browse-estates-prebook btn mt-3" routerLink="/ordermanagement/estate-orders">Browse other estates</button>
+                                <button type="submit" class="yes-order btn mt-3 buy-order"
+                                    routerLink="/ordermanagement/prebook-confirmorder">Buy it</button><br />
+                                <button type="submit" class="cancel-order browse-estates-prebook btn mt-3"
+                                    routerLink="/ordermanagement/estate-orders">Browse other estates</button>
                                 <!-- <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
                                 <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}<img
                                         class="arrow-image1" src="assets/images/group.png" alt="arrow"></button> -->
@@ -137,13 +165,17 @@
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
                                 <h4 class="order-txt fnt-play">{{globals.languageJson?.confirm_order}}</h4>
-                                <div class="confirm-grade">The harvest is ready! Please book the lot to confirm the order
+                                <div class="confirm-grade">The harvest is ready! Please book the lot to confirm the
+                                    order
                                 </div>
-                                <button type="submit" class="leave-feedback btn mt-3" (click)="bookedService.leaveFeedback(orderPreBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
+                                <button type="submit" class="leave-feedback btn mt-3"
+                                    (click)="bookedService.leaveFeedback(orderPreBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="yes-order btn mt-3 buy-order" routerLink="/ordermanagement/prebook-confirmorder">Buy it</button><br />
-                                <button type="submit" class="cancel-order btn mt-3" (click)="cancelOrder()">No I don’t want to buy it</button>
+                                <button type="submit" class="yes-order btn mt-3 buy-order"
+                                    routerLink="/ordermanagement/prebook-confirmorder">Buy it</button><br />
+                                <button type="submit" class="cancel-order btn mt-3" (click)="cancelOrder()">No I don’t
+                                    want to buy it</button>
                             </div>
                         </div>
                     </div>
@@ -162,22 +194,30 @@
                 <div class="border-ebebeb h-100">
                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{globals.languageJson?.order_details}}</a>
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                role="tab" aria-controls="pills-home"
+                                aria-selected="true">{{globals.languageJson?.order_details}}</a>
                         </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">{{globals.languageJson?.documents}}</a>
                         </li> -->
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">{{globals.languageJson?.grade_info}}</a>
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+                                role="tab" aria-controls="pills-contact"
+                                aria-selected="false">{{globals.languageJson?.grade_info}}</a>
                         </li>
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button"
+                                class="btn problem-btn" routerLink="/ordermanagement/order-support"
+                                [queryParams]="{id: orderPreBookId}">{{globals.languageJson?.have_a_problem}}</button>
                         </li>
                     </ul>
                     <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
-                        <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">{{globals.languageJson?.have_a_problem}}</button>
+                        <button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support"
+                            [queryParams]="{id: orderPreBookId}">{{globals.languageJson?.have_a_problem}}</button>
                     </div>
                     <div class="tab-content mt-md-5" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                            aria-labelledby="pills-home-tab">
 
                             <sewn-prebook-order-details></sewn-prebook-order-details>
 
@@ -185,7 +225,8 @@
                         <!-- <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <sewn-prebook-documents></sewn-prebook-documents>
                         </div> -->
-                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                            aria-labelledby="pills-contact-tab">
                             <div class="row">
 
                                 <sewn-prebook-grade-info></sewn-prebook-grade-info>
@@ -243,7 +284,12 @@
                         <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
                             alt="Edit"> Edit</div> -->
                     </div>
-                    <div class=" d-flex mt-1 addr-text" *ngIf="prebookService.shipping_address">{{prebookService['shipping_address']['address_line1']}}, {{prebookService['shipping_address']['address_line2']}}, {{prebookService['shipping_address']['zipcode']}} - {{prebookService['shipping_address']['state']}}, {{GetCountry(prebookService['shipping_address']['country'])}}</div>
+                    <div class=" d-flex mt-1 addr-text" *ngIf="prebookService.shipping_address">
+                        {{prebookService['shipping_address']['address_line1']}},
+                        {{prebookService['shipping_address']['address_line2']}},
+                        {{prebookService['shipping_address']['zipcode']}} -
+                        {{prebookService['shipping_address']['state']}},
+                        {{GetCountry(prebookService['shipping_address']['country'])}}</div>
                     <div class=" d-flex mt-1 addr-text" *ngIf="prebookService.shipping_address == ''">NA</div>
                     <div class="d-flex mt-3">
                         <img class="img-logo" src="assets/images/google-image.png" alt="Map">
@@ -266,18 +312,21 @@
                                 <li class="estate-name">{{prebookService.owner_name}}</li>
                                 <li class="estate-number pt-1">
                                     <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
-                                        class="" src="assets/images/star-1.png" alt="User"> <span
-                                        class="star-no pl-1">
-                                        {{prebookService.rating}}</span>
+                                            class="" src="assets/images/star-1.png" alt="User"> <span
+                                            class="star-no pl-1">
+                                            {{prebookService.rating}}</span>
                                     </span>
                                 </li>
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
                             <div class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
-                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
-                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
-                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span>
+                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg"
+                                    alt="Message">
+                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg"
+                                    alt="Message">
+                                <span class="estate-message pl-2"
+                                    [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span>
                             </div>
                         </div>
                     </div>
@@ -296,7 +345,9 @@
                         </tr> -->
                         <tr>
                             <td> <span class="list-que"> {{globals.languageJson?.address}}: </span></td>
-                            <td> <span class="list-ans" *ngIf="prebookService.address_line1"> {{prebookService.address_line1}}, {{prebookService.address_line2}}, {{prebookService.zipcode}} - {{prebookService.city}} </span> </td>
+                            <td> <span class="list-ans" *ngIf="prebookService.address_line1">
+                                    {{prebookService.address_line1}}, {{prebookService.address_line2}},
+                                    {{prebookService.zipcode}} - {{prebookService.city}} </span> </td>
 
                         </tr>
                     </table>
@@ -307,7 +358,8 @@
                         </div>
                     </div>
                     <div class="d-flex mt-3 border-div">
-                        <div class="p-0"><img class="img-estate" [src]="prebookService.estate_thumbnail_url" alt=""></div>
+                        <div class="p-0"><img class="img-estate" [src]="prebookService.estate_thumbnail_url" alt="">
+                        </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
                                 <li class="estate-name">{{prebookService.estate_name}}</li>
@@ -318,14 +370,18 @@
                         </div>
                         <div class="pull-right ml-auto">
                             <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
- 
-                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
-                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
-                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
+
+                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg"
+                                    alt="Message">
+                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg"
+                                    alt="Message">
+                                <span class="estate-message pl-2"
+                                    [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
                         </div>
                     </div>
                     <div class="d-flex mt-3">
-                        <div class="p-0"><img class="img-estate" [src]="prebookService.roaster_thumbnail_url" alt=""></div>
+                        <div class="p-0"><img class="img-estate" [src]="prebookService.roaster_thumbnail_url" alt="">
+                        </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
                                 <li class="estate-name">{{prebookService.roaster_name}}</li>
@@ -336,10 +392,13 @@
                         </div>
                         <div class="pull-right ml-auto">
                             <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
- 
-                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg" alt="Message">
-                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg" alt="Message">
-                                <span class="estate-message pl-2" [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
+
+                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg"
+                                    alt="Message">
+                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg"
+                                    alt="Message">
+                                <span class="estate-message pl-2"
+                                    [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
                         </div>
                     </div>
                 </div>
@@ -361,16 +420,24 @@
 
                         <nav class="mt-4">
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">{{globals.languageJson?.weather}}</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.soil}}</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv" role="tab" aria-controls="nav-profile" aria-selected="false">UV</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.images}}</a>
+                                <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather"
+                                    role="tab" aria-controls="nav-home"
+                                    aria-selected="true">{{globals.languageJson?.weather}}</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil"
+                                    role="tab" aria-controls="nav-profile"
+                                    aria-selected="false">{{globals.languageJson?.soil}}</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv"
+                                    role="tab" aria-controls="nav-profile" aria-selected="false">UV</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images"
+                                    role="tab" aria-controls="nav-profile"
+                                    aria-selected="false">{{globals.languageJson?.images}}</a>
                             </div>
                         </nav>
 
                         <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
                             <!-- weather-->
-                            <div class="tab-pane fade show active" id="weather" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="tab-pane fade show active" id="weather" role="tabpanel"
+                                aria-labelledby="nav-home-tab">
                                 <div class="row">
                                     <div class="col-lg-5">
                                     </div>
@@ -403,7 +470,10 @@
                                     </div>
                                 </div>
                                 <div class="row mt-0 mt-md-4">
-                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
+                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                         [roundDomains]="roundDomains" [timeline]="timeline">
                                     </ngx-charts-line-chart>
                                 </div>
@@ -441,7 +511,10 @@
                                     </div>
                                 </div>
                                 <div class="row mt-0 mt-md-4">
-                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
+                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                         [roundDomains]="roundDomains" [timeline]="timeline">
                                     </ngx-charts-line-chart>
                                 </div>
@@ -479,7 +552,10 @@
                                     </div>
                                 </div>
                                 <div class="row mt-0 mt-md-4">
-                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
+                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                         [roundDomains]="roundDomains" [timeline]="timeline">
                                     </ngx-charts-line-chart>
                                 </div>
@@ -517,7 +593,10 @@
                                     </div>
                                 </div>
                                 <div class="row mt-0 mt-md-4">
-                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                    <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi"
+                                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
                                         [roundDomains]="roundDomains" [timeline]="timeline">
                                     </ngx-charts-line-chart>
                                 </div>
@@ -598,7 +677,8 @@
 
                         <div class="w-100 col-lg-6 col-md-12 recent-activity-content">
                             <p class=" w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
-                            <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2" src="assets/images/active.png"></p>
+                            <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2"
+                                    src="assets/images/active.png"></p>
                             <!-- <div class="row w-100 activity-list">
                     <span class="col-md-3 list-time">
                             12:44pm
@@ -623,7 +703,8 @@
                                     Assignment made ready
                             </span>
                         </div> -->
-                            <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row" *ngFor="let activity of prebookService.recentactivityarray">
+                            <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row"
+                                *ngFor="let activity of prebookService.recentactivityarray">
                                 <div class="d-none d-md-inline-block p-0">
                                     <!-- <img class="img-estate"
                                         src="assets/images/activity1.png" alt="User"> -->
@@ -636,9 +717,12 @@
                                             <p class="mb-0">Coffee Estate</p>
                                         </li> -->
                                         <li class="list-activity">
-                                            <div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
+                                            <div
+                                                class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
                                                 {{activity.created_at | date : 'shortTime' }}</div>
-                                            <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>{{activity.status | titlecase}}</p>
+                                            <p class="mb-0 confirmation"><span
+                                                    class="d-none d-md-inline-block pr-3">|</span>{{activity.status |
+                                                titlecase}}</p>
 
                                         </li>
                                     </ul>
@@ -659,7 +743,10 @@
                         <button type="button" class="btn cancel-order-btn" (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
                     </div> -->
                     <div class="w-100 chat-div">
-                        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/order-chat">{{globals.languageJson?.order}} #12416 {{globals.languageJson?.chat}} <span class="chat-indicator">
+                        <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+                            routerLink="/ordermanagement/order-chat"
+                            [queryParams]="{id: orderPreBookId}">{{globals.languageJson?.order}} #{{orderPreBookId}}
+                            {{globals.languageJson?.chat}} <span class="chat-indicator">
                                 &#x25CF;</span><img class="pull-right ml-auto"
                                 src="assets/images/back-arrow.png"></button>
 

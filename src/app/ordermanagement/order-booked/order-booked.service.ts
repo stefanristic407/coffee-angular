@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class OrderBookedService {
 	statusPaid: boolean = false;
@@ -73,50 +73,49 @@ export class OrderBookedService {
 	payment_after_delivery: any;
 	order_status: any;
 	paymentVerification: boolean = false;
-	created_at_time:any;
-	recent_status:any;
-	recentactivityarray:any=[];
+	created_at_time: any;
+	recent_status: any;
+	recentactivityarray: any = [];
 	oId: any;
 	documentsList: any;
 
-  constructor(private roasterService: RoasterserviceService,public router: Router,public cookieService : CookieService,private userService : UserserviceService) {
-	this.roasterId = this.cookieService.get('roaster_id');
-	// this.viewOrderDetails();
-   }
-  // Function Name : Payment Status
-  // Description: This function helps to store status of payment.
-  paymentStatus() {
-    this.statusPending = false;
-    this.statusPaid = true;
-  }
-  viewOrderDetails(){
-		this.roasterService.getViewOrderDetails(this.roasterId,this.orderId).subscribe(
-			res=>{
-				if(res['success'] == true){
-					this.orderDetails=res['result'];
-					this.bookId=res['result']['id'];
-					this.created_at=res['result']['created_at'];
-					this.origin=res['result']['origin'];
-					this.variety=res['result']['variety'];
-					this.price=res['result']['price'];
-					this.quantity_type=res['result']['quantity_type'];
-					this.quantity=res['result']['quantity'];
-					this.harvestId=res['result']['harvest_id'];
-					this.estate_name=res['result']['estate_name'];
-					this.estate_thumbnail_url= res['result']['estate_profile_image_thumbnail_url'];
-					this.estate_owner=res['result']['estate_owner'];
-					this.roaster_owner=res['result']['roaster_owner'];
-					this.roaster_name=res['result']['roaster_name'];
-					this.roaster_thumbnail_url=res['result']['roaster_profile_image_thumbnail_url'];
-					this.shipping_address=res['result']['shipping_address'];
-					this.estate_id=res['result']['estate_id'];
+	constructor(private roasterService: RoasterserviceService, public router: Router, public cookieService: CookieService, private userService: UserserviceService) {
+		this.roasterId = this.cookieService.get('roaster_id');
+		// this.viewOrderDetails();
+	}
+	// Function Name : Payment Status
+	// Description: This function helps to store status of payment.
+	paymentStatus() {
+		this.statusPending = false;
+		this.statusPaid = true;
+	}
+	viewOrderDetails() {
+		this.roasterService.getViewOrderDetails(this.roasterId, this.orderId).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.orderDetails = res['result'];
+					this.bookId = res['result']['id'];
+					this.created_at = res['result']['created_at'];
+					this.origin = res['result']['origin'];
+					this.variety = res['result']['variety'];
+					this.price = res['result']['price'];
+					this.quantity_type = res['result']['quantity_type'];
+					this.quantity = res['result']['quantity'];
+					this.harvestId = res['result']['harvest_id'];
+					this.estate_name = res['result']['estate_name'];
+					this.estate_thumbnail_url = res['result']['estate_profile_image_thumbnail_url'];
+					this.estate_owner = res['result']['estate_owner'];
+					this.roaster_owner = res['result']['roaster_owner'];
+					this.roaster_name = res['result']['roaster_name'];
+					this.roaster_thumbnail_url = res['result']['roaster_profile_image_thumbnail_url'];
+					this.shipping_address = res['result']['shipping_address'];
+					this.estate_id = res['result']['estate_id'];
 					this.invoice_url = res['result']['invoice_url'];
 					this.payment_status = res['result']['payment_status'];
 					this.receipt_url = res['result']['receipt_url'];
 					this.payment_after_delivery = res['result']['payment_after_delivery'];
 					this.order_status = res['result']['status'];
-
-					if(this.payment_status == 'VERIFIED'){
+					if (this.payment_status == 'VERIFIED') {
 						this.uploadShow = false;
 						this.receiptShow = true;
 						this.statusPaid = true;
@@ -125,104 +124,104 @@ export class OrderBookedService {
 					}
 
 					this.viewAvailability();
-					this.viewEstateDetails(this.roasterId,this.estate_id);
+					this.viewEstateDetails(this.roasterId, this.estate_id);
 					this.getEstateReviews(this.estate_id, this.orderId);
 					this.getEstateSummary(this.estate_id);
 					this.ViewRecentActivity();
 					this.getGCOrderDocuments();
-				}	
+				}
 			}
 		)
 	}
-	viewAvailability(){
-		this.userService.getGreenCoffeeDetails(this.roasterId,this.harvestId).subscribe(
-			res=>{
-				if(res['success'] == true){
+	viewAvailability() {
+		this.userService.getGreenCoffeeDetails(this.roasterId, this.harvestId).subscribe(
+			res => {
+				if (res['success'] == true) {
 					console.log(res);
-					this.flavours=res['result']['flavours'];
-					this.listing_status=res['result']['listing_status'];
-					this.packaging=res['result']['packaging'];
-					this.processing_types=res['result']['processing_types'];
-					this.type=res['result']['type'];
-					this.species=res['result']['species'];
-					this.water_activity= res['result']['dry_milling']['water_activity'];
-					this.ico_number=res['result']['ico_number'];
+					this.flavours = res['result']['flavours'];
+					this.listing_status = res['result']['listing_status'];
+					this.packaging = res['result']['packaging'];
+					this.processing_types = res['result']['processing_types'];
+					this.type = res['result']['type'];
+					this.species = res['result']['species'];
+					this.water_activity = res['result']['dry_milling']['water_activity'];
+					this.ico_number = res['result']['ico_number'];
 				}
 			}
 		)
 	}
 
-	viewEstateDetails(roasterVal:any,esatateVal:any){
-		this.userService.getAvailableEstateList(roasterVal,esatateVal).subscribe(
-			res=>{
-				if(res['success'] == true){
-					this.company_image_thumbnail_url=res['result']['company_image_thumbnail_url'];
-					this.owner_name=res['result']['owner_name'];
-					this.address_line1=res['result']['address_line1'];
-					this.address_line2=res['result']['address_line2'];
-					this.city=res['result']['city'];
-					this.zipcode=res['result']['zipcode'];
-					this.rating=res['result']['rating'];
-					this.country=res['result']['country']
-				}	
+	viewEstateDetails(roasterVal: any, esatateVal: any) {
+		this.userService.getAvailableEstateList(roasterVal, esatateVal).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.company_image_thumbnail_url = res['result']['company_image_thumbnail_url'];
+					this.owner_name = res['result']['owner_name'];
+					this.address_line1 = res['result']['address_line1'];
+					this.address_line2 = res['result']['address_line2'];
+					this.city = res['result']['city'];
+					this.zipcode = res['result']['zipcode'];
+					this.rating = res['result']['rating'];
+					this.country = res['result']['country']
+				}
 			}
 		)
 	}
-	getEstateReviews(data:any,reviewOrderId:any){
-		this.userService.getEachEsateReviews(data,reviewOrderId).subscribe(
-		res=>{
-			if(res['success']==true){
-			this.reviewsList=res['result'];
-			console.log(this.reviewsList);
+	getEstateReviews(data: any, reviewOrderId: any) {
+		this.userService.getEachEsateReviews(data, reviewOrderId).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.reviewsList = res['result'];
+					console.log(this.reviewsList);
+				}
 			}
-		}
 		)
 	}
-	getEstateSummary(data:any){
+	getEstateSummary(data: any) {
 		this.userService.getEachEsateReviewsSummary(data).subscribe(
-		res=>{
-			if(res['success']==true){
-			this.summaryList=res['result'];
-			console.log(this.summaryList);
-			this.overall=this.summaryList['average']['overall_experience'];
-			this.communication=this.summaryList['average']['communication'];
-			this.green_coffee=this.summaryList['average']['green_coffee'];
-			this.rate_rating=parseFloat(this.summaryList['summary']['rating']).toFixed(1);
-			this.rate_rating_star= this.summaryList['summary']['rating'];
-			this.total_review=this.summaryList['summary']['total_review'];
-			this.five_star=this.summaryList['summary']['5_star'];
-			this.four_star=this.summaryList['summary']['4_star'];
-			this.three_star=this.summaryList['summary']['3_star'];
-			this.two_star=this.summaryList['summary']['2_star'];
-			this.one_star=this.summaryList['summary']['1_star'];
+			res => {
+				if (res['success'] == true) {
+					this.summaryList = res['result'];
+					console.log(this.summaryList);
+					this.overall = this.summaryList['average']['overall_experience'];
+					this.communication = this.summaryList['average']['communication'];
+					this.green_coffee = this.summaryList['average']['green_coffee'];
+					this.rate_rating = parseFloat(this.summaryList['summary']['rating']).toFixed(1);
+					this.rate_rating_star = this.summaryList['summary']['rating'];
+					this.total_review = this.summaryList['summary']['total_review'];
+					this.five_star = this.summaryList['summary']['5_star'];
+					this.four_star = this.summaryList['summary']['4_star'];
+					this.three_star = this.summaryList['summary']['3_star'];
+					this.two_star = this.summaryList['summary']['2_star'];
+					this.one_star = this.summaryList['summary']['1_star'];
+				}
 			}
-		}
 		)
-	}	
+	}
 
-	ViewRecentActivity(){
-		this.userService.getRecentActivity(this.roasterId,this.orderId).subscribe(
-			res=>{
-				if(res['success'] == true){
+	ViewRecentActivity() {
+		this.userService.getRecentActivity(this.roasterId, this.orderId).subscribe(
+			res => {
+				if (res['success'] == true) {
 					console.log(res);
-					this.recentactivityarray=res['result'];
+					this.recentactivityarray = res['result'];
 				}
 
 			}
 		)
 	}
 
-	leaveFeedback(val:any){
+	leaveFeedback(val: any) {
 		this.oId = val;
 		this.router.navigate(["/ordermanagement/rating"]);
-	} 
+	}
 
-	getGCOrderDocuments(){
-		this.userService.viewGcOrderDocuments(this.roasterId,this.orderId).subscribe(
-			res=>{
-				if(res['success'] == true){
+	getGCOrderDocuments() {
+		this.userService.viewGcOrderDocuments(this.roasterId, this.orderId).subscribe(
+			res => {
+				if (res['success'] == true) {
 					console.log(res);
-					this.documentsList=res['result'];
+					this.documentsList = res['result'];
 				}
 			}
 		)
