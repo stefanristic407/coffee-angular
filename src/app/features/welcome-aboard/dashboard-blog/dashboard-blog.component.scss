@@ -1,0 +1,21 @@
+.pad-card {
+  border-bottom: dashed 1px #dddddd;
+  padding-bottom: 1.5rem;
+}
+
+.card-img-top {
+  img {
+    width: 100%;
+    height: auto;
+    transition: all 1200ms;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.btn-stroked {
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+}

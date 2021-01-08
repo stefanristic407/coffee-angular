@@ -3,8 +3,8 @@
 
   <div class="p-3 p-md-1 br-main br-4 h-100">
     <p class="fnt-14 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-md-none">Recent activity</p>
-    <div class="">
-      <table *ngIf="recentActivities" class="table w-100 d-none d-md-block">
+    <div class="d-none d-md-block">
+      <table *ngIf="recentActivities" class="table w-100">
         <thead class="table-header">
           <tr class="header-row">
             <th>
@@ -38,18 +38,18 @@
           </tr>
         </tbody>
       </table>
+    </div>
 
-      <div class="d-md-none">
-        <div *ngFor="let item of recentActivities.slice(0, 5)" class="d-flex activity-wrap">
-          <div class="mr-2">
-            <app-avatar [size]="36" [src]="item.profile_image" [name]="item.user_name"></app-avatar>
-          </div>
-          <div>
-            <p class="fnt-12 fnt-bold fnt-muli text-gray588 mb-0">{{ item.created_at | date: 'd MMM h:mm a' }}</p>
-            <p class="fnt-14 fnt-bold fnt-muli text-black334 mb-0">{{ item.user_name }}</p>
-            <p class="fnt-12 fnt-600 fnt-muli text-gray588 mb-0">{{ item.organisation_name }}</p>
-            <p class="fnt-14 fnt-600 fnt-muli text-black334 mb-2">{{ item.description }}</p>
-          </div>
+    <div class="d-md-none">
+      <div *ngFor="let item of recentActivities.slice(0, 5)" class="d-flex activity-wrap">
+        <div class="mr-2">
+          <app-avatar [size]="36" [src]="item.profile_image" [name]="item.user_name"></app-avatar>
+        </div>
+        <div>
+          <p class="fnt-12 fnt-bold fnt-muli text-gray588 mb-0">{{ item.created_at | date: 'd MMM h:mm a' }}</p>
+          <p class="fnt-14 fnt-bold fnt-muli text-black334 mb-0">{{ item.user_name }}</p>
+          <p class="fnt-12 fnt-600 fnt-muli text-gray588 mb-0">{{ item.organisation_name }}</p>
+          <p class="fnt-14 fnt-600 fnt-muli text-black334 mb-2">{{ item.description }}</p>
         </div>
       </div>
     </div>

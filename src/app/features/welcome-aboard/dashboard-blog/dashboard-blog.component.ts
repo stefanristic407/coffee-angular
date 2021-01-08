@@ -4,11 +4,11 @@ import { GlobalsService } from 'src/services/globals.service';
 import { WelcomeService } from '../welcome.service';
 
 @Component({
-  selector: 'app-dashboard-activity',
-  templateUrl: './dashboard-activity.component.html',
-  styleUrls: ['./dashboard-activity.component.scss'],
+  selector: 'app-dashboard-blog',
+  templateUrl: './dashboard-blog.component.html',
+  styleUrls: ['./dashboard-blog.component.scss'],
 })
-export class DashboardActivityComponent implements OnInit, OnDestroy {
+export class DashboardBlogComponent implements OnInit, OnDestroy {
   recentActivities: any[] = [];
   recentActivitiesSub: Subscription;
 
@@ -16,7 +16,7 @@ export class DashboardActivityComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.recentActivitiesSub = this.welcomeSrv.recentActivities$.subscribe((res: any) => {
-      this.recentActivities = res || [];
+      this.recentActivities = res;
     });
   }
 

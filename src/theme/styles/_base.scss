@@ -361,6 +361,12 @@ input[type='number'] {
   border: 1px solid #d6d6d6;
 }
 
+@media (min-width: 992px) {
+  .br-md-main {
+    border: 1px solid #d6d6d6;
+  }
+}
+
 .bg-f8 {
   background-color: #f8f8f8;
 }
@@ -369,18 +375,31 @@ input[type='number'] {
   color: #80460b;
   font-size: 12px;
   font-weight: 700;
-}
+  position: relative;
+  padding-right: 16px;
 
-.custom-link:hover {
-  color: #80460b;
-}
-
-@media (min-width: 992px) {
-  .custom-link {
-    font-size: 14px;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 0px;
+    background-image: url('/assets/images/arrow-brown-onboard.svg');
+    background-position: center;
+    background-size: contain;
   }
 
-  .br-md-main {
-    border: 1px solid #d6d6d6;
+  &:hover {
+    color: #80460b;
+    text-decoration: none;
+  }
+
+  @media (min-width: 992px) {
+    font-size: 14px;
+    &::after {
+      width: 16px;
+      height: 16px;
+      top: 1px;
+    }
   }
 }
