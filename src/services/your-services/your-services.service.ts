@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class YourServicesService {
   ) { }
 
 
- 
+
   getMyFiles(): Observable<any> {
     const data = {};
     const roasterId = this.cookieService.get('roaster_id');
@@ -38,6 +38,17 @@ export class YourServicesService {
     return this.http.post(url, data, httpOptions);
   }
 
-  
+
+  getCuppingInviteList(): Observable<any> {
+    const data = {};
+    const roasterId = this.cookieService.get('roaster_id');
+    data['api_call'] = `/ro/${roasterId}/cupping-invite-list`;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = 'GET';
+    const url = `${environment.apiURL}/ro/api`;
+    return this.http.post(url, data);
+  }
+
+
 
 }

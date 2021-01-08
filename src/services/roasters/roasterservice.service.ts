@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,13 +14,13 @@ import { map } from 'rxjs/operators';
 })
 export class RoasterserviceService {
   //API call URL's
-  private url = environment.apiURL+"/ro/api";
-  private deleteUrl = environment.apiURL+"/ro/deleteapi";
-  private putUrl = environment.apiURL+"/ro/putapi";
-  private fileuploadUrl = environment.apiURL+"/ro/filesfolders" ;
-  private putfileuploadUrl = environment.apiURL+"/ro/putfilesfolders" ;
+  private url = environment.apiURL + "/ro/api";
+  private deleteUrl = environment.apiURL + "/ro/deleteapi";
+  private putUrl = environment.apiURL + "/ro/putapi";
+  private fileuploadUrl = environment.apiURL + "/ro/filesfolders";
+  private putfileuploadUrl = environment.apiURL + "/ro/putfilesfolders";
   private encryptionKey = 'sewen_secrete_key';
-  private uploadBrandsUrl =  environment.apiURL+'/ro/uploadBrands';
+  private uploadBrandsUrl = environment.apiURL + '/ro/uploadBrands';
 
   // private url = "https://qa-fed-api.sewnstaging.com/ro/api";
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
@@ -204,10 +204,10 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
-    //API Function Name : Add Contacts
+  //API Function Name : Add Contacts
   //API Description: This API calls helps to add contacts of the Roaster.
 
-  addRoasterContacts(roaster_id: any,body:any) {
+  addRoasterContacts(roaster_id: any, body: any) {
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/users/top-contacts";
     data['method'] = "POST";
@@ -215,43 +215,43 @@ export class RoasterserviceService {
     data['data'] = body;
     return this.http.post(this.url, data);
   }
-  
-    //API Function Name : Delete Contacts
+
+  //API Function Name : Delete Contacts
   //API Description: This API calls helps to add contacts of the Roaster.
 
-  deleteRoasterContacts(roaster_id: any,contact_id:any){
+  deleteRoasterContacts(roaster_id: any, contact_id: any) {
     var data = {};
-    data['api_call'] = "/ro/" + roaster_id + "/users/top-contacts/"+contact_id;
+    data['api_call'] = "/ro/" + roaster_id + "/users/top-contacts/" + contact_id;
     // data['method'] = "DELETE";
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.deleteUrl, data);
   }
-  
-    //API Function Name : Get Brands
+
+  //API Function Name : Get Brands
   //API Description: This API calls helps to get the Brands of the Roaster.
 
-  getRoasterBrands(roaster_id: any):Observable<any> {
+  getRoasterBrands(roaster_id: any): Observable<any> {
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/brands";
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
 
-  addRoasterBrand(data: any):Observable<any> {
+  addRoasterBrand(data: any): Observable<any> {
     return this.http.post(this.uploadBrandsUrl, data);
   }
 
-  getRoasterReviews(roaster_id: any):Observable<any> {
+  getRoasterReviews(roaster_id: any): Observable<any> {
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/your-reviews";
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
 
-     //API Function Name : Get Brands
+  //API Function Name : Get Brands
   //API Description: This API calls helps to create the folder .
 
-  createFolder(roaster_id: any,body : any) {
+  createFolder(roaster_id: any, body: any) {
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/file-manager/folders";
     data['token'] = this.cookieService.get('Auth');
@@ -260,11 +260,11 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
-     //API Function Name : Get Files/Folders
+  //API Function Name : Get Files/Folders
   //API Description: This API calls helps to get the files/folders.
 
-  getFilesandFolders(roaster_id: any,parentId : any) {
-    
+  getFilesandFolders(roaster_id: any, parentId: any) {
+
     let params = new HttpParams();
     params = params.append('file_module', 'File-Share');
     params = params.append('parent_id', parentId)
@@ -273,11 +273,11 @@ export class RoasterserviceService {
     // data['params'] = params;
     data['token'] = this.cookieService.get('Auth');
     //  const params = new HttpParams().append( 'file_module', fileModule )
-    
+
     return this.http.post(this.url, data);
   }
 
-    //API Function Name : Delete Folder
+  //API Function Name : Delete Folder
   //API Description: This API calls helps to delete the Folder.
 
   deleteFolder(roaster_id: any, id: any) {
@@ -287,7 +287,7 @@ export class RoasterserviceService {
     return this.http.post(this.deleteUrl, data);
   }
 
-     //API Function Name : Delete File
+  //API Function Name : Delete File
   //API Description: This API calls helps to delete the File.
 
   deleteFile(roaster_id: any, id: any) {
@@ -297,11 +297,11 @@ export class RoasterserviceService {
     return this.http.post(this.deleteUrl, data);
   }
 
-       //API Function Name : Get Shared Files/Folders
+  //API Function Name : Get Shared Files/Folders
   //API Description: This API calls helps to get the shared files/folders.
 
   getSharedFilesandFolders(roaster_id: any) {
-    
+
     let params = new HttpParams();
     params = params.append('file_module', 'File-Share');
     var data = {};
@@ -309,15 +309,15 @@ export class RoasterserviceService {
     // data['params'] = params;
     data['token'] = this.cookieService.get('Auth');
     //  const params = new HttpParams().append( 'file_module', fileModule )
-    
+
     return this.http.post(this.url, data);
   }
 
-       //API Function Name : Get Pinned Files/Folders
+  //API Function Name : Get Pinned Files/Folders
   //API Description: This API calls helps to get the pinned files/folders.
 
   getPinnedFilesandFolders(roaster_id: any) {
-    
+
     let params = new HttpParams();
     params = params.append('file_module', 'File-Share');
     var data = {};
@@ -325,24 +325,24 @@ export class RoasterserviceService {
     // data['params'] = params;
     data['token'] = this.cookieService.get('Auth');
     //  const params = new HttpParams().append( 'file_module', fileModule )
-    
+
     return this.http.post(this.url, data);
   }
 
 
-      //API Function Name : Pin File/Folder
+  //API Function Name : Pin File/Folder
   //API Description: This API calls helps to Pin the File/Folder.
 
-  pinFileorFolder(roaster_id: any,id:any) {
+  pinFileorFolder(roaster_id: any, id: any) {
     var data = {};
-    data['api_call'] =   "/ro/" + roaster_id + "/file-manager/" + id + "/pin";
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/" + id + "/pin";
     data['method'] = "PUT";
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
 
 
-       //API Function Name : Unpin File/Folder
+  //API Function Name : Unpin File/Folder
   //API Description: This API calls helps to unpin the File/Folder.
 
   unpinFileorFolder(roaster_id: any, id: any) {
@@ -352,40 +352,40 @@ export class RoasterserviceService {
     return this.http.post(this.deleteUrl, data);
   }
 
-       //API Function Name : Rename the Details of the  Folder
+  //API Function Name : Rename the Details of the  Folder
   //API Description: This API calls helps to rename the details of the folder.
 
-  updateFolderDetails(roaster_id: any,id:any,body:any) {
+  updateFolderDetails(roaster_id: any, id: any, body: any) {
     var data = {};
-    data['api_call'] =   "/ro/" + roaster_id + "/file-manager/folders/"+ id;
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/folders/" + id;
     data['method'] = "PUT";
     data['token'] = this.cookieService.get('Auth');
     data['data'] = body;
     return this.http.post(this.url, data);
   }
 
-   //API Function Name : Get Folder Details
+  //API Function Name : Get Folder Details
   //API Description: This API calls helps to get the folder details.
 
-  getFolderDetails(roaster_id: any,id:any) {
+  getFolderDetails(roaster_id: any, id: any) {
     var data = {};
-    data['api_call'] = "/ro/" + roaster_id + "/file-manager/folders/"+id;
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/folders/" + id;
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
 
 
-   //API Function Name : Get Files Details
+  //API Function Name : Get Files Details
   //API Description: This API calls helps to get the files details.
 
-  getFileDetails(roaster_id: any,id:any) {
+  getFileDetails(roaster_id: any, id: any) {
     var data = {};
-    data['api_call'] = "/ro/" + roaster_id + "/file-manager/files/"+id;
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/files/" + id;
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.url, data);
   }
 
-    // API Function Name : Upload Files API.
+  // API Function Name : Upload Files API.
   // API Description   : This API call helps to upload the Files.
   uploadFiles(formData: any) {
     var httpOptions = {
@@ -394,7 +394,7 @@ export class RoasterserviceService {
     return this.http.post(this.fileuploadUrl, formData, httpOptions);
   }
 
-     // API Function Name : update Files API.
+  // API Function Name : update Files API.
   // API Description   : This API call helps to update the Files.
   updateFiles(formData: any) {
     var httpOptions = {
@@ -403,14 +403,14 @@ export class RoasterserviceService {
     return this.http.post(this.putfileuploadUrl, formData, httpOptions);
   }
 
-  
-   //API Function Name : Get Video files
+
+  //API Function Name : Get Video files
   //API Description: This API calls helps to get the video files.
-  getVideos(roaster_id: any,parentId : any) {
-    
+  getVideos(roaster_id: any, parentId: any) {
+
     let params = new HttpParams();
     params = params.append('file_module', 'File-Share');
-    params = params.append('type_in','VIDEO');
+    params = params.append('type_in', 'VIDEO');
     params = params.append('parent_id', parentId)
     var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/file-manager/my-files?" + params;
@@ -421,441 +421,441 @@ export class RoasterserviceService {
     return this.http.post(this.url, data);
   }
 
-    //API Function Name : Share File/Folder
-	//API Description: This API calls helps to share the file/folder to the user.
+  //API Function Name : Share File/Folder
+  //API Description: This API calls helps to share the file/folder to the user.
 
-	shareFolder(roaster_id: any,file_id : any,body : any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/file-manager/"+file_id+"/share";
-		data['token'] = this.cookieService.get('Auth');
-		data['method'] = "POST";
-		data['data'] = body;
-		return this.http.post(this.url, data);
-	}
-
-  
-	//API Function Name : Get Agreements 
-	//API Description: This API calls helps to get the agreements .
-	getAgreements(roaster_id: any,customer_type : any) {
-		
-		// let params = new HttpParams();
-		// params = params.append('file_module', 'File-Share');
-		// params = params.append('type_in','VIDEO');
-		// params = params.append('parent_id', parentId)
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements";
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		console.log(data);
-		return this.http.post(this.url, data);
-	}
-
-
-	//API Function Name : Upload Agreements 
-	//API Description: This API calls helps to upload the agreements .
-	uploadAgreements(roaster_id: any,customer_type : any, body : any) {
-		// let params = new HttpParams();
-		// params = params.append('file_module', 'File-Share');
-		// params = params.append('type_in','VIDEO');
-		// params = params.append('parent_id', parentId)
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id +"/"+ customer_type + "/agreements";
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		data['data'] = body;
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		console.log(data);
-		return this.http.post(this.url, data);
-	}
-
-  
-    //API Function Name : Update Agreements 
-	//API Description: This API calls helps to update the agreements.
-
-	getAgreementValue(roaster_id: any,customer_type:any,id:any) {
-		var data = {};
-		data['api_call'] =   "/ro/" + roaster_id + "/" + customer_type + "/agreements/"+ id;
-		data['method'] = "GET";
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-	}
-
-
-    //API Function Name : Update Agreements 
-	//API Description: This API calls helps to update the agreements.
-
-	updateAgreements(roaster_id: any,customer_type:any,id:any,body:any) {
-		var data = {};
-		data['api_call'] =   "/ro/" + roaster_id + "/" + customer_type + "/agreements/"+ id;
-		data['method'] = "PUT";
-		data['token'] = this.cookieService.get('Auth');
-		data['data'] = body;
-		return this.http.post(this.url, data);
-	}
-	//API Function Name : Delete Agreement
-	//API Description: This API calls helps to Delete the Agreement.
-
-	deleteAgreement(roaster_id: any, customer_type : any, id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements/"+ id;
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.deleteUrl, data);
-	}
-
-  
-	//API Function Name : Get Users List
-	//API Description: This API calls helps to get the Users List.
-	getUsersList(typeValue : any) {
-		
-		let params = new HttpParams();
-		// params = params.append('file_module', 'File-Share');
-		// params = params.append('type_in','VIDEO');
-		params = params.append('query', typeValue);
-		var data = {};
-		data['api_call'] = "/users/user-list?" + params ;
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		// console.log(data);
-		return this.http.post(this.url, data);
-	}
-
-
-	//API Function Name : Get shared users list
-	//API Description: This API calls helps to get the shared users list.
-	getSharedUserList(roasterId : any, fileId : any){
-		var data = {};
-		data['api_call'] = "/ro/" + roasterId + "/file-manager/" + fileId + "/shared-users";
-		data['token'] = this.cookieService.get('Auth');
-		data['method'] = "GET";
-		return this.http.post(this.url,data);
-
-	}
-
-    //API Function Name : UnShare File/Folder
-  	//API Description: This API calls helps to unshare the file/folder to the user.
-
-	unShareFolder(roaster_id: any,file_id : any,body : any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/file-manager/"+file_id+"/unshare";
-		data['token'] = this.cookieService.get('Auth');
-		data['method'] = "POST";
-		data['data'] = body;
-		return this.http.post(this.url, data);
-	}
-
-	//API Function Name : Update permissions of the File/Folder
-	//API Description: This API calls helps to update permissions of the File/Folder.
-
-	updatePermissions(roaster_id: any,file_id:any,body:any) {
-		var data = {};
-		data['api_call'] =   "/ro/" + roaster_id + "/file-manager/"+ file_id + "/permission";
-		data['method'] = "PUT";
-		data['token'] = this.cookieService.get('Auth');
-		data['data'] = body;
-		return this.http.post(this.url, data);
-	}
-
-	getMicroRoasters(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/micro-roasters";
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		// console.log(data);
-		return this.http.post(this.url, data);
-	} 
-	getMicroRoastersHoreca(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/hrc";
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		// console.log(data);
-		return this.http.post(this.url, data);
-	} 
-  
-	getMicroRoastersList(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/micro-roasters";
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		// console.log(data);
-		return this.http.post(this.url, data);
-	}
-
-	getRoastingProfile(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/roasting-profile";
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		console.log(data);
-		return this.http.post(this.url, data); 
-	} 
-	getRoasterCoffeeBatchs(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/roasted-batches";
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		console.log(data);
-		return this.http.post(this.url, data);
-	} 
-	getSelectOrderListTable(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/roasted-batches";
-		// data['params'] = params;
-		data['token'] = this.cookieService.get('Auth');
-		//  const params = new HttpParams().append( 'file_module', fileModule )
-		console.log(data);
-		return this.http.post(this.url, data);
-	} 
-	getSelectProductDetails(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/products?per_page=200";
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
+  shareFolder(roaster_id: any, file_id: any, body: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/" + file_id + "/share";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.url, data);
   }
-  getProductDetails(roaster_id: any, productId:any):Observable<any> {
-		var data = {};
-		data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-	}
 
-	getEstateOrders(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/orders";
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-	} 
-	getRaisedTicketData(roaster_id: any) {
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/disputes";
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-	} 
-	// getEstateSelectAnOrderTableData(roaster_id: any) {
-	//   var data = {};
-	//   data['api_call'] = "/ro/" + roaster_id + "/orders";
-	//   data['token'] = this.cookieService.get('Auth');
-	//   return this.http.post(this.url, data);
-	// } 
-	encryptData(data) {
-		try {
-		return CryptoJS.AES.encrypt(JSON.stringify(data), this.encryptionKey).toString();
-		} catch (e) {
-		console.log(e);
-		}
-	}
-	decryptData(data) {
-		try {
-		const bytes = CryptoJS.AES.decrypt(data, this.encryptionKey);
-		console.log(bytes);
-		if (bytes.toString()) {
-			return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-		}
-		return data;
-		} catch (e) {
-		console.log(e);
-		}
-	}
-	navigate(href, newTab) {
-		const a = document.createElement('a');
-		a.href = href;
-		if (newTab) {
-		a.setAttribute('target', '_blank');
-		}
-		a.click();
-		a.remove();
-	}
-	getMicroRoasterStimulatedLogin(id: any, roasterId: any) {
-		const data = {};
-		data['api_call'] = "/ro/" + roasterId + "/micro-roasters/" + id + "/support-login";
-		data['method'] = 'POST';
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-	}
-	getHorecaStimulatedLogin(id: any, roasterId: any) {
-		const data = {};
-		data['api_call'] = "/ro/" + roasterId + "/hrc/" + id + "/support-login";
-		data['method'] = 'POST';
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-	}
 
-	getLoggedinUserRoles(roaster_id : any){
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/users/roles";
-		data['token'] = this.cookieService.get('Auth');
-		data['method'] = "GET";
-		return this.http.post(this.url, data);
-	}
-	placeOrder(roaster_id : any,harvest_id : any,body : any){
-		const data = {};
-		data['api_call'] = `/ro/${roaster_id}/availability/${harvest_id}/gc`;
-		data['method'] = 'POST';
-		data['data'] = body;
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-	}
-	getHorecaTable(roaster_id: any,hrc_id) {
-		var data = {};
-		data['api_call'] = `/ro/${roaster_id}/hrc/${hrc_id}/partners`;
-		data['token'] = this.cookieService.get('Auth');
-		data['method'] = "GET";
-		return this.http.post(this.url, data);
-	} 
-	getMrOrders(roaster_id:any){
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/mr-orders";
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-	}
-	getMrAvailabilityRequests(roaster_id:any){
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/availability-requests";
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
+  //API Function Name : Get Agreements 
+  //API Description: This API calls helps to get the agreements .
+  getAgreements(roaster_id: any, customer_type: any) {
+
+    // let params = new HttpParams();
+    // params = params.append('file_module', 'File-Share');
+    // params = params.append('type_in','VIDEO');
+    // params = params.append('parent_id', parentId)
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
   }
-  getViewOrderDetails(roaster_id:any,order_id:any){
-		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/orders/"+order_id;
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
+
+
+  //API Function Name : Upload Agreements 
+  //API Description: This API calls helps to upload the agreements .
+  uploadAgreements(roaster_id: any, customer_type: any, body: any) {
+    // let params = new HttpParams();
+    // params = params.append('file_module', 'File-Share');
+    // params = params.append('type_in','VIDEO');
+    // params = params.append('parent_id', parentId)
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
   }
-  getOrderDisputeList(roaster_id:any, order_id:any){
+
+
+  //API Function Name : Update Agreements 
+  //API Description: This API calls helps to update the agreements.
+
+  getAgreementValue(roaster_id: any, customer_type: any, id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements/" + id;
+    data['method'] = "GET";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
+
+  //API Function Name : Update Agreements 
+  //API Description: This API calls helps to update the agreements.
+
+  updateAgreements(roaster_id: any, customer_type: any, id: any, body: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements/" + id;
+    data['method'] = "PUT";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+  //API Function Name : Delete Agreement
+  //API Description: This API calls helps to Delete the Agreement.
+
+  deleteAgreement(roaster_id: any, customer_type: any, id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/" + customer_type + "/agreements/" + id;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.deleteUrl, data);
+  }
+
+
+  //API Function Name : Get Users List
+  //API Description: This API calls helps to get the Users List.
+  getUsersList(typeValue: any) {
+
+    let params = new HttpParams();
+    // params = params.append('file_module', 'File-Share');
+    // params = params.append('type_in','VIDEO');
+    params = params.append('query', typeValue);
+    var data = {};
+    data['api_call'] = "/users/user-list?" + params;
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    // console.log(data);
+    return this.http.post(this.url, data);
+  }
+
+
+  //API Function Name : Get shared users list
+  //API Description: This API calls helps to get the shared users list.
+  getSharedUserList(roasterId: any, fileId: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/file-manager/" + fileId + "/shared-users";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url, data);
+
+  }
+
+  //API Function Name : UnShare File/Folder
+  //API Description: This API calls helps to unshare the file/folder to the user.
+
+  unShareFolder(roaster_id: any, file_id: any, body: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/" + file_id + "/unshare";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+
+  //API Function Name : Update permissions of the File/Folder
+  //API Description: This API calls helps to update permissions of the File/Folder.
+
+  updatePermissions(roaster_id: any, file_id: any, body: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/file-manager/" + file_id + "/permission";
+    data['method'] = "PUT";
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+
+  getMicroRoasters(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/micro-roasters";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    // console.log(data);
+    return this.http.post(this.url, data);
+  }
+  getMicroRoastersHoreca(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/hrc";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    // console.log(data);
+    return this.http.post(this.url, data);
+  }
+
+  getMicroRoastersList(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/micro-roasters";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    // console.log(data);
+    return this.http.post(this.url, data);
+  }
+
+  getRoastingProfile(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/roasting-profile";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
+  }
+  getRoasterCoffeeBatchs(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/roasted-batches";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
+  }
+  getSelectOrderListTable(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/roasted-batches";
+    // data['params'] = params;
+    data['token'] = this.cookieService.get('Auth');
+    //  const params = new HttpParams().append( 'file_module', fileModule )
+    console.log(data);
+    return this.http.post(this.url, data);
+  }
+  getSelectProductDetails(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/products?per_page=200";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  getProductDetails(roaster_id: any, productId: any): Observable<any> {
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
+  getEstateOrders(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/orders";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  getRaisedTicketData(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/disputes";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  // getEstateSelectAnOrderTableData(roaster_id: any) {
+  //   var data = {};
+  //   data['api_call'] = "/ro/" + roaster_id + "/orders";
+  //   data['token'] = this.cookieService.get('Auth');
+  //   return this.http.post(this.url, data);
+  // } 
+  encryptData(data) {
+    try {
+      return CryptoJS.AES.encrypt(JSON.stringify(data), this.encryptionKey).toString();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  decryptData(data) {
+    try {
+      const bytes = CryptoJS.AES.decrypt(data, this.encryptionKey);
+      console.log(bytes);
+      if (bytes.toString()) {
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      }
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  navigate(href, newTab) {
+    const a = document.createElement('a');
+    a.href = href;
+    if (newTab) {
+      a.setAttribute('target', '_blank');
+    }
+    a.click();
+    a.remove();
+  }
+  getMicroRoasterStimulatedLogin(id: any, roasterId: any) {
+    const data = {};
+    data['api_call'] = "/ro/" + roasterId + "/micro-roasters/" + id + "/support-login";
+    data['method'] = 'POST';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  getHorecaStimulatedLogin(id: any, roasterId: any) {
+    const data = {};
+    data['api_call'] = "/ro/" + roasterId + "/hrc/" + id + "/support-login";
+    data['method'] = 'POST';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+
+  getLoggedinUserRoles(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/users/roles";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url, data);
+  }
+  placeOrder(roaster_id: any, harvest_id: any, body: any) {
+    const data = {};
+    data['api_call'] = `/ro/${roaster_id}/availability/${harvest_id}/gc`;
+    data['method'] = 'POST';
+    data['data'] = body;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  getHorecaTable(roaster_id: any, hrc_id) {
+    var data = {};
+    data['api_call'] = `/ro/${roaster_id}/hrc/${hrc_id}/partners`;
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url, data);
+  }
+  getMrOrders(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/mr-orders";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  getMrAvailabilityRequests(roaster_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/availability-requests";
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  getViewOrderDetails(roaster_id: any, order_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/orders/" + order_id;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
+  getOrderDisputeList(roaster_id: any, order_id: any) {
     var data = {};
     data['method'] = "GET";
-		data['api_call'] = "/ro/" + roaster_id + "/orders/"+order_id + '/disputes';
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
+    data['api_call'] = "/ro/" + roaster_id + "/orders/" + order_id + '/disputes';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
   }
-  deleteRoastedCoffeeBatch(roaster_id : any, batch_id : any){
+  deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any) {
     var data = {};
-		data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.deleteUrl, data);
+    data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.deleteUrl, data);
   }
-  orderReceived(roaster_id : any, order_id : any){
-		const data = {};
-		data['api_call'] = `/ro/${roaster_id}/orders/${order_id}/mark/received`;
-		data['method'] = 'PUT';
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
+  orderReceived(roaster_id: any, order_id: any) {
+    const data = {};
+    data['api_call'] = `/ro/${roaster_id}/orders/${order_id}/mark/received`;
+    data['method'] = 'PUT';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
   }
-  
+
   //E-com APIs
-  getVatSettings(roaster_id : any):Observable<any>{
+  getVatSettings(roaster_id: any): Observable<any> {
     const data = {};
-		data['api_call'] = `/ro/${roaster_id}/vat-settings`;
-		data['method'] = 'GET';
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-  }
-  getRoastedBatches(roaster_id : any):Observable<any>{
-    const data = {};
-		data['api_call'] = `/ro/${roaster_id}/roasted-batches`;
-		data['method'] = 'GET';
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-  }
-  getCoffeeBatchDetails(roaster_id : any, batch_id: any):Observable<any>{
-    const data = {};
-		data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
-		data['method'] = 'GET';
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data).pipe(map(res => res['result']?res['result']:{}));
-  }
-  addProductDetails(roaster_id : any, body: any):Observable<any>{
-    const data = {};
-		data['api_call'] = `/ro/${roaster_id}/products`;
+    data['api_call'] = `/ro/${roaster_id}/vat-settings`;
+    data['method'] = 'GET';
     data['token'] = this.cookieService.get('Auth');
-    data['data']  = body;
-		return this.http.post(this.url, data);
+    return this.http.post(this.url, data);
   }
-  deleteProductDetails(roaster_id : any, productId:any):Observable<any>{
+  getRoastedBatches(roaster_id: any): Observable<any> {
     const data = {};
-		data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
+    data['api_call'] = `/ro/${roaster_id}/roasted-batches`;
+    data['method'] = 'GET';
     data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.deleteUrl, data);
+    return this.http.post(this.url, data);
   }
-  updateProductDetails(roaster_id : any,productId:any, body: any):Observable<any>{
+  getCoffeeBatchDetails(roaster_id: any, batch_id: any): Observable<any> {
     const data = {};
-		data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
+    data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
+    data['method'] = 'GET';
     data['token'] = this.cookieService.get('Auth');
-    data['data']  = body;
-		return this.http.put(this.putUrl, data);
+    return this.http.post(this.url, data).pipe(map(res => res['result'] ? res['result'] : {}));
   }
-  addProductWeightVarients(roaster_id : any, product_id:any, body: any):Observable<any>{
+  addProductDetails(roaster_id: any, body: any): Observable<any> {
     const data = {};
-		data['api_call'] = `/ro/${roaster_id}/products/${product_id}/weight-variants`;
+    data['api_call'] = `/ro/${roaster_id}/products`;
     data['token'] = this.cookieService.get('Auth');
-    data['data']  = body;
-		return this.http.post(this.url, data);
+    data['data'] = body;
+    return this.http.post(this.url, data);
   }
-  updateProductWeightVarients(roaster_id : any, product_id:any, body: any, weightVariantId:any):Observable<any>{
+  deleteProductDetails(roaster_id: any, productId: any): Observable<any> {
     const data = {};
-		data['api_call'] = `/ro/${roaster_id}/products/${product_id}/weight-variants/${weightVariantId}`;
+    data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
     data['token'] = this.cookieService.get('Auth');
-    data['data']  = body;
-		return this.http.put(this.putUrl, data);
+    return this.http.post(this.deleteUrl, data);
   }
-  uploadProductImage(roaster_id : any,file:any): Observable<any> {
+  updateProductDetails(roaster_id: any, productId: any, body: any): Observable<any> {
+    const data = {};
+    data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.put(this.putUrl, data);
+  }
+  addProductWeightVarients(roaster_id: any, product_id: any, body: any): Observable<any> {
+    const data = {};
+    data['api_call'] = `/ro/${roaster_id}/products/${product_id}/weight-variants`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+  updateProductWeightVarients(roaster_id: any, product_id: any, body: any, weightVariantId: any): Observable<any> {
+    const data = {};
+    data['api_call'] = `/ro/${roaster_id}/products/${product_id}/weight-variants/${weightVariantId}`;
+    data['token'] = this.cookieService.get('Auth');
+    data['data'] = body;
+    return this.http.put(this.putUrl, data);
+  }
+  uploadProductImage(roaster_id: any, file: any): Observable<any> {
     let data = new FormData();
     const d = new Date();
     const n = d.getTime();
-		data.append('api_call',`/ro/${roaster_id}/file-manager/files`);
-    data.append('token',this.cookieService.get('Auth'));
-    data.append('file',file);
-    data.append('file_module','Product');
-    data.append('name',n.toString());
-		return this.http.post(this.fileuploadUrl, data).pipe(map(res => res));
+    data.append('api_call', `/ro/${roaster_id}/file-manager/files`);
+    data.append('token', this.cookieService.get('Auth'));
+    data.append('file', file);
+    data.append('file_module', 'Product');
+    data.append('name', n.toString());
+    return this.http.post(this.fileuploadUrl, data).pipe(map(res => res));
   }
   //E-com APIs-ends
 
   //Get Procured Coffees List
   getProcuredCoffeeList(roaster_id: any, origin?, displayCount?, searchString?) {
-		var data = {};
+    var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/procured-coffees";
     data['method'] = "GET";
     data['api_call'] = origin ? data['api_call'] + '?origin=' + origin : data['api_call'];
-    if(origin && displayCount){
+    if (origin && displayCount) {
       data['api_call'] = data['api_call'] + '&per_page=' + displayCount;
-    }else if(displayCount){
+    } else if (displayCount) {
       data['api_call'] = data['api_call'] + '?per_page=' + displayCount;
-    }if((origin || displayCount) && searchString){
-      data['api_call'] = data['api_call']  + '&search_query=' + searchString;
-    }else if(searchString){
+    } if ((origin || displayCount) && searchString) {
+      data['api_call'] = data['api_call'] + '&search_query=' + searchString;
+    } else if (searchString) {
       data['api_call'] = data['api_call'] + '?search_query=' + searchString;
     }
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
-  } 
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
+  }
   //Get Coffee Sale List
   getCoffeeSaleList(roaster_id: any, status?, displayCount?) {
-		var data = {};
+    var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/marked-sale-coffees";
     data['method'] = "GET";
     data['api_call'] = status ? data['api_call'] + '?status=' + status : data['api_call'];
-    if(status && displayCount){
+    if (status && displayCount) {
       data['api_call'] = data['api_call'] + '&per_page=' + displayCount;
-    }else if(displayCount){
+    } else if (displayCount) {
       data['api_call'] = data['api_call'] + '?per_page=' + displayCount;
     }
-		data['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, data);
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, data);
   }
   //Get Procured Coffees Details
   getProcuredCoffeeDetails(roaster_id: any, orderID) {
-		var data = {};
+    var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/orders/" + orderID;
     data['token'] = this.cookieService.get('Auth');
     data['method'] = "GET";
-		return this.http.post(this.url, data);
+    return this.http.post(this.url, data);
   }
   //Create Mark for Sale from Procured Coffee
   CreateMarkForSale(roaster_id: any, orderID, data) {
@@ -864,15 +864,15 @@ export class RoasterserviceService {
     obj['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
     obj['token'] = this.cookieService.get('Auth');
     obj['data'] = data;
-		return this.http.post(this.url, obj);
+    return this.http.post(this.url, obj);
   }
   //Get MarkFor Sale order details
   getMarkForSaleDetails(roaster_id: any, orderID) {
-		var data = {};
+    var data = {};
     data['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
     data['token'] = this.cookieService.get('Auth');
     data['method'] = "GET";
-		return this.http.post(this.url, data);
+    return this.http.post(this.url, data);
   }
 
   //upate Mark for Sale from Procured Coffee
@@ -881,8 +881,8 @@ export class RoasterserviceService {
     obj['method'] = "PUT";
     obj['api_call'] = "/ro/" + roaster_id + "/procured-coffees/" + orderID + '/sale';
     obj['data'] = data
-		obj['token'] = this.cookieService.get('Auth');
-		return this.http.post(this.url, obj);
+    obj['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.url, obj);
   }
   //Get Harvest GC available details
   getGCAvailableDetails(harvest_id: any) {
@@ -890,7 +890,7 @@ export class RoasterserviceService {
     data['api_call'] = "/general/availability/gc/" + harvest_id;
     data['token'] = this.cookieService.get('Auth');
     data['method'] = "GET";
-		return this.http.post(this.url, data);
+    return this.http.post(this.url, data);
   }
 
   //Raise a Ticket for the order
@@ -900,7 +900,15 @@ export class RoasterserviceService {
     obj['api_call'] = "/ro/" + roaster_id + "/orders/" + orderID + '/disputes';
     obj['token'] = this.cookieService.get('Auth');
     obj['data'] = data;
-		return this.http.post(this.url, obj);
+    return this.http.post(this.url, obj);
+  }
+
+  getEvaluatorsList(roaster_id: any, cupping_report_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roaster_id + "/cupping-process/" + cupping_report_id + "/evaluators";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "GET";
+    return this.http.post(this.url, data);
   }
 
 }
