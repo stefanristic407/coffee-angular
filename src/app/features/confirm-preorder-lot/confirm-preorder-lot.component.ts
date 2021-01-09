@@ -60,6 +60,8 @@ export class ConfirmPreorderLotComponent implements OnInit {
 	estate_varieties: any;
 	estate_grade_range: any;
 	total_production: any;
+	batchList: any;
+	batchId: any;
 
 	constructor(private modalService: BsModalService,
 		public router: Router,
@@ -101,6 +103,7 @@ export class ConfirmPreorderLotComponent implements OnInit {
 		// this.price="$450";
 		this.language();
 		this.getLotDetails();
+		this.getPrebookBatch();
 	}
 	language() {
 		this.appLanguage = this.globals.languageJson;
@@ -234,27 +237,22 @@ export class ConfirmPreorderLotComponent implements OnInit {
 			"billing_address_id": parseInt(this.addressId),
 
 		}
-		// this.roasterService.placeOrder(this.roaster_id,this.sourcing.harvestData,data).subscribe(
-		// data => {
-		//   if(data['success'] == true ){
-		//     this.toastrService.success("Order has been placed Successfully");
+		if (this.batchId) {
+			this.userService.addPrebookLots(this.roaster_id, this.batchId, data).subscribe(
+				data => {
+					if (data['success'] == true) {
+						this.toastrService.success("Prebook Order has been placed Successfully");
 
-		//     this.router.navigate(["/features/order-placed"]);
-		//   }
-		//   else{
-		//     this.toastrService.error("Error while Placing the order");
+						this.router.navigate(["/features/order-placed"]);
+					}
+					else {
+						this.toastrService.error("Error while Placing the prebook order");
 
-		//   }
-		// }
-		// )
+					}
+				}
+			)
+		}
 	}
-
-	// ngAfterViewInit(){
-	// 	this.getshipInfo();
-	// }
-
-
-
 
 	getRoAddress() {
 		this.userService.getAddresses(this.roaster_id).subscribe(
@@ -298,6 +296,17 @@ export class ConfirmPreorderLotComponent implements OnInit {
 			if (this.countryValue)
 				return this.countryValue.name;
 		}
+	}
+
+	getPrebookBatch() {
+		this.userService.getPrebookBatchList(this.roaster_id, this.EstateData, this.lotData).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.batchList = res['result'][1];
+					this.batchId = this.batchList['id'];
+				}
+			}
+		)
 	}
 
 }

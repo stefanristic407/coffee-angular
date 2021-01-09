@@ -78,7 +78,7 @@ export function ConfigLoader(
         promise2.then(response => {
           if (response && response['success'] == true) {
             const permissionList = response['result'];
-            this.cookieService.set('permissionSlug', JSON.stringify(this.permissionList));
+            userService.cookieService.set('permissionSlug', JSON.stringify(permissionList));
           }
           return response;
         }, err => {

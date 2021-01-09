@@ -435,7 +435,15 @@ export class OrderPrebookComponent implements OnInit {
 		this.sourcing.prebook_flag = true;
 		this.router.navigate(["/features/available-coffee-list/" + this.prebookService.estate_id + '/' + this.prebookService.harvestId]);
 	}
-
+	showInvoice() {
+		const a = document.createElement("a");
+		a.href = this.prebookService.invoice_url;
+		a.download = `#${this.prebookService.orderPreId}`;
+		a.target = "_blank";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
 }
 
 

@@ -626,9 +626,9 @@ export class RoasterserviceService {
 		return this.http.post(this.url, data);
 	}
 
-	getEstateOrders(roaster_id: any) {
+	getEstateOrders(roaster_id: any, queryParams = '') {
 		var data = {};
-		data['api_call'] = "/ro/" + roaster_id + "/orders";
+		data['api_call'] = `/ro/${roaster_id}/orders${queryParams}`;
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
 	}

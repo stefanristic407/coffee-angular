@@ -58,6 +58,8 @@ export class OrderPrebookService {
 	payment_after_delivery: any;
 	order_status: any;
 	paymentVerification: boolean = false;
+	water_source: any;
+	other_crops: any;
 
 	constructor(private roasterService: RoasterserviceService, public router: Router, public cookieService: CookieService, private userService: UserserviceService, public bookedService: OrderBookedService) {
 		this.roasterId = this.cookieService.get('roaster_id');
@@ -108,6 +110,8 @@ export class OrderPrebookService {
 					this.bookedService.viewEstateDetails(this.roasterId, this.estate_id);
 					this.bookedService.getEstateReviews(this.estate_id, this.orderPreId);
 					this.bookedService.getEstateSummary(this.estate_id);
+					this.ViewRecentActivity();
+					this.viewpreLotDetails();
 				}
 			}
 		)
@@ -134,10 +138,10 @@ export class OrderPrebookService {
 				if (res['success'] == true) {
 					this.flavours = res['result']['flavours'];
 					this.soil_footprint = res['result']['soil_footprint'];
-					this.species = res['result']['species'];
+					this.species = res['result']['varieties'];
 					this.avg_cup_score = res['result']['avg_cup_score'];
-					this.water_analysis = res['result']['water_analysis'];
-					this.crop = res['result']['crop'];
+					this.water_source = res['result']['water_source'];
+					this.other_crops = res['result']['other_crops'];
 					this.annual_production = res['result']['annual_production'];
 				}
 			}
