@@ -328,11 +328,11 @@
             </div> -->
                 </div>
             </div>
-            <div *ngIf="showContinueBtn" class="mt-4">
-                <button type="button" class="btn invite_members pull-right ml-auto mb-4"
-                    (click)="continue()">Continue</button>
+            <div class="mt-4">
+                <button type="button" class="btn invite_members pull-right ml-auto mb-4" (click)="continue()"
+                    [disabled]="!changedID && !showContinueBtn">Continue</button>
                 <button type="button" class="btn cancel_member mr-4 pull-right ml-auto mb-4"
-                    routerLink="/ordermanagement/raise-ticket-form" [disabled]="changedID"
+                    routerLink="/ordermanagement/raise-ticket-form"
                     [queryParams]="{id: orderBookId}">{{globals.languageJson?.cancel}}</button>
             </div>
         </section>

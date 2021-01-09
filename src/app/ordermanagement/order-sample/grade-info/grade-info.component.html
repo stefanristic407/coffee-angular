@@ -1,4 +1,3 @@
-
 <!-- TimeLine HTML code starts -->
 <div class="total-loader" *ngIf="gradeSampleActive !=1">
     <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
@@ -7,62 +6,36 @@
     </div>
 </div>
 <div *ngIf="gradeSampleActive == 1">
-<div class="d-flex progress-bar-tooltip pb-7 order-tracking--timeline">
-    <div class="col-12 col-md-12 ">
-
-        <div class="row justify-content-between">
-            <div class="order-tracking completed mixups-track" id="gradedTimeline1">
-                <div class="is-complete tooltips">
-                            <p class="cup-score">82.5</p>
-                            <p class="score-text">{{globals.languageJson?.cupping_score}}</p>
-
-                        </div>
-                <p class="order-date mt-3">19 DEC 2019</p>
-                <p class="order-status mt-2">{{globals.languageJson?.grade_by_facilitator}}</p>
-                <p class="order-view" data-toggle="collapse" data-target="#estate"> {{globals.languageJson?.view_report}} </p>
-                <!-- <div id="estate" class="collapse">
-                        <p class="order-date">Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score </p>
-                        </div> -->
-            </div>
-            <div class="order-tracking mixups-track" id="gradedTimeline2">
-                <div class="is-complete tooltips">
-                            <div *ngIf="sampleService.afterGradeComplete">
-                                <p class="cup-score">82.5</p>
-                                <p class="score-text">{{globals.languageJson?.cupping_score}}</p>
-                            </div>
-                        </div>
-
-                <div *ngIf="sampleService.afterGradeComplete">
-                    <p class="order-date mt-3">20 JAN 2020</p>
-                    <p class="order-status  mt-2">Sample-1 graded by Roaster</p>
+    <div *ngIf="harvestDetails && harvestDetails.length > 0"
+        class="d-flex progress-bar-tooltip pb-7 order-tracking--timeline">
+        <div class="col-12 col-md-12 ">
+            <div class="row justify-content-between">
+                <div *ngFor="let item of harvestDetails" class="order-tracking completed mixups-track"
+                    id="gradedTimeline1">
+                    <div class="is-complete tooltips">
+                        <p class="cup-score">{{item.final_score}}</p>
+                        <p class="score-text">{{globals.languageJson?.cupping_score}}</p>
+                    </div>
+                    <p class="order-date mt-3">{{item.cupping_date | date : 'd MMM yyyy'}}</p>
+                    <p class="order-status mt-2"> Graded by {{item.evaluator_type}}</p>
+                    <p class="order-view" data-toggle="collapse" data-target="#estate" (click)="viewReport(item)">
+                        {{globals.languageJson?.view_report}} </p>
                 </div>
-                <p class="order-status-incomplete mt-3" *ngIf="sampleService.beforeGradeComplete">Sample-1 graded by Roaster</p>
-                <!-- <p class="order-view" data-toggle="collapse" data-target="#facilitor"> View Report <img src="assets/images/angle-right.png"></p> -->
-                <!-- <div id="facilitor" class="collapse">
-                            <p class="order-date">The green coffee before being onboarded on the shippment is graded again to get the latest score </p>
-                        </div> -->
             </div>
-            <!-- <div class="order-tracking mixups-track">
-                        <span class="is-complete "></span>
-                        <p class="order-status-incomplete mt-3">Bulk graded</p>
-                       <p class="order-date"> To ensure that you has recieved the correct batch, you can grade the coffee before accepting the order</p> 
-                    </div> -->
-
         </div>
     </div>
-</div>
 
-<div class="row  know-more-content">
-    <div class="">
-        <h4 class="transit-txt pb-2">{{globals.languageJson?.trying_best}} :)</h4>
-        <p class="delivery pb-3">{{globals.languageJson?.to_get_your_coffee}}.</p>
-        <!-- <p class="delivery"> SEWN follow a unique grade scale to ensure there is no confusion with grading.</p> -->
-        <!-- <a href="javascript:void(0)"> <span class="order-view">Know More > </span></a> -->
-        <!-- <button class="btn know-more" type="button">Know more</button> -->
+    <div class="row  know-more-content">
+        <div class="">
+            <h4 class="transit-txt pb-2">{{globals.languageJson?.trying_best}} :)</h4>
+            <p class="delivery pb-3">{{globals.languageJson?.to_get_your_coffee}}.</p>
+            <!-- <p class="delivery"> SEWN follow a unique grade scale to ensure there is no confusion with grading.</p> -->
+            <!-- <a href="javascript:void(0)"> <span class="order-view">Know More > </span></a> -->
+            <!-- <button class="btn know-more" type="button">Know more</button> -->
 
 
-    </div>
-    <!-- <div class="col-md-6">
+        </div>
+        <!-- <div class="col-md-6">
             <div class="avg-per-cup mt-md-3">
                 <i class="fa fa-coffee" aria-hidden="true"></i>
                 <p class="avg-cup"> Average Per cup score</p>
@@ -71,5 +44,5 @@
          
         </div> -->
 
-</div>
+    </div>
 </div>
