@@ -45,6 +45,8 @@ export class WelcomeAboardComponent implements OnInit {
     Promise.all(promises).then(() => {
       this.welcomeActive++;
     });
+
+    this.getRecentActivities();
   }
 
   getStats(resolve) {
@@ -78,6 +80,16 @@ export class WelcomeAboardComponent implements OnInit {
         this.toastrService.error('Error while getting reviews');
       }
       resolve();
+    });
+  }
+
+  getRecentActivities() {
+    this.userSrv.getRecentActivities(this.roasterId).subscribe((res: any) => {
+      if (res.success) {
+        this.welcomeSrv.recentActivities.next(res.result);
+      } else {
+        this.toastrService.error('Error while getting recent activity');
+      }
     });
   }
 }

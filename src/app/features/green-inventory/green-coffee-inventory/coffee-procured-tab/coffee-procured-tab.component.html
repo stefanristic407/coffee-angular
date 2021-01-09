@@ -54,13 +54,13 @@
                                         <span class="checkmark"></span>
                                     </label>
                     </th> -->
-                    <th scope="col">Product Name</th>
+                    <th scope="col">Order ID</th>
                     <th scope="col">Availibility Name</th>
-                    <th scope="col">
-                        Origin
-                    </th>
+                    <th scope="col">Estate Name</th>
+                    <th scope="col">Origin</th>
+                    <th scope="col">Roaster Ref. No.</th>
                     <th scope="col">Variety</th>
-                    <th scope="col">Available</th>
+                    <th scope="col">Quantity</th>
                     <th scope="col">Cup score</th>
                     <th scope="col">Status</th>
                     <th scope="col">{{globals.languageJson?.actions}}</th>
@@ -77,18 +77,20 @@
                                     </label>
                     </td> -->
                     <td>
-                        {{ item.product_name }}
+                        {{ item?.id }}
                     </td>
-                    <td>{{ item.availability_name }}</td>
-                    <td>{{ item.origin }} </td>
-                    <td>{{ item.variety }}</td>
-                    <td>{{ item.quantity }} {{item.quantity_type}} </td>
+                    <td>{{ item?.availability_name }}</td>
+                    <td>{{ item?.estate_name }}</td>
+                    <td>{{ item?.origin }} </td>
+                    <td>{{ item?.order_reference }}</td>
+                    <td>{{ item?.varieties }}</td>
+                    <td>{{ item?.quantity }} {{item?.quantity_type}} </td>
                     <td>
-                        {{item.cup_score}}
+                        {{item?.cup_score}}
                     </td>
 
                     <td>
-                        {{item.status}}
+                        {{item?.status | titlecase}}
                     </td>
                     <td class="view-order" routerLink="/features/green-coffee-for-sale-details"
                         [queryParams]="{orderId: item.id}">view</td>

@@ -59,6 +59,7 @@ export class GenerateMySampleComponent implements OnInit {
   is_included: any;
   getFlavourArray: any;
   roaster_id: string;
+  evaluatorIdArray: any = [];
 
   constructor(
     public generateReportService: GenerateReportService,
@@ -113,13 +114,30 @@ export class GenerateMySampleComponent implements OnInit {
     this.userService.getFlavourProfile().subscribe((data) => {
       if (data["success"] == true) {
         this.flavourArray = data["result"];
+
+        this.langChips = [];
+        this.getFlavourArray.forEach((element) => {
+          let findObj = this.flavourArray.find((item) => item.name == element);
+          if (findObj) {
+            this.langChips.push(findObj);
+          }
+        });
+        console.log(this.langChips);
+        console.log(this.getFlavourArray);
+        console.log(this.flavourArray);
       }
     });
   }
 
   getCuppingScoreDetails() {
     this.userService
-      .getCuppingScore(this.roaster_id, this.cupping_report_id)
+      .getCuppingScore(
+        this.roaster_id,
+        this.cupping_report_id,
+        this.evaluatorData.map((ele) => {
+          return ele.evaluator_id;
+        })
+      )
       .subscribe((res) => {
         if (res["success"] == true) {
           this.cupping_score_id = res["result"].id;
@@ -152,7 +170,10 @@ export class GenerateMySampleComponent implements OnInit {
           this.btnToggle = this.defectIntensity == "Taint" ? true : false;
           this.final_score = res["result"].final_score;
           this.comments = res["result"].comments;
-          this.getFlavourArray = res["result"].descriptors;
+          this.getFlavourArray = res["result"][0].descriptors
+            ? res["result"][0].descriptors.split(",")
+            : [];
+          this.flavourProfileList();
         }
       });
   }
@@ -305,7 +326,9 @@ export class GenerateMySampleComponent implements OnInit {
         defects_intensity: this.defectIntensity,
         total_score: this.final_score,
         final_score: this.final_score,
-        flavour_profile_ids: this.totalColors,
+        flavour_profile_ids: this.langChips.map((ele) => {
+          return ele.id;
+        }),
         comments: this.comments,
       };
       this.userService

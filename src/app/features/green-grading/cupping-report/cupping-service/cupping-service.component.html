@@ -13,35 +13,35 @@
                     <li class="b-cum">
                         <a class="b-cum">My Cupping Reports</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
                     </li>
-                    <li class="b-cum c-pink">Service iD #81671</li>
+                    <li class="b-cum c-pink" *ngIf="cuppingService.serviceReportDetails">Service iD #{{cuppingService.serviceReportDetails['service_id']}}</li>
                 </ul>
             </nav>
             <section class="green_coffee_total">
-                <h1 class="fnt-muli">Service ID #81671</h1>
+                <h1 class="fnt-muli" *ngIf="cuppingService.serviceReportDetails">Service ID #{{cuppingService.serviceReportDetails['service_id']}}</h1>
                 <div class="row mt-3">
                     <div class="col-lg-3 col-12 pr-md-0">
                         <div class="sample_info">
                             <div class="info_heading d-flex">
                                 <div class="pull-left sample_info_head">Sample Info</div>
-                                <div class="ml-auto pull-right"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
+                                <div class="ml-auto pull-right" *ngIf="eachServiceData" (click)="routeToProcessDet()"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
                             </div>
                             <div class="info_list">
                                 <ul class="clearfix mb-0">
                                     <li>
                                         <label>Service request ID  :</label>
-                                        <p>74572</p>
+                                        <p *ngIf="cuppingService.serviceReportDetails">{{cuppingService.serviceReportDetails['service_request_id']}}</p>
                                     </li>
                                     <li>
                                         <label>Estate Name  :</label>
-                                        <p>Finca la pampa</p>
+                                        <p *ngIf="eachServiceData">{{eachServiceData['estate_name']}}</p>
                                     </li>
                                     <li>
                                         <label>Origin  :</label>
-                                        <p>Colombia</p>
+                                        <p *ngIf="eachServiceData">{{cuppingService.getCountryName(eachServiceData['origin'])}}</p>
                                     </li>
                                     <li>
                                         <label>Harvest year  :</label>
-                                        <p>March 2020</p>
+                                        <p *ngIf="eachServiceData">{{eachServiceData['harvest_date'] | date : 'MMMM y'}}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -53,11 +53,11 @@
                                 <ul class="clearfix mb-0">
                                     <li>
                                         <label>Evaluator  :</label>
-                                        <p>Leon Joseph</p>
+                                        <p *ngIf="evaluatorName">{{evaluatorName | titlecase}}</p>
                                     </li>
                                     <li>
                                         <label>Invited Evaluators :</label>
-                                        <p>Brent Graham Caleb Nunez Theodore Marsh</p>
+                                        <p class="float-right ml-auto" *ngFor="let item of evaluatorsListArray">{{item.evaluator_name | titlecase}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -69,11 +69,11 @@
                                 <ul class="clearfix mb-0">
                                     <li>
                                         <label>Status  :</label>
-                                        <p>Complete</p>
+                                        <p *ngIf="singleCuppingDetails">{{single_status}}</p>
                                     </li>
                                     <li>
                                         <label>Date completed  :</label>
-                                        <p>23/07/2020</p>
+                                        <p *ngIf="singleCuppingDetails">{{completed_on}}</p>
                                     </li>
                                 </ul>
                             </div>
@@ -469,8 +469,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12 pt-4">
-                        <button type="submit" class="next_butn float-right btn font_butn">Generate new report</button>
-                        <button type="submit" class="clear_butn float-right btn mr-2 font_butn">Re-cup sample</button>
+                        <button type="submit" class="next_butn float-right btn font_butn" routerLink="/features/generate-new-report">Generate new report</button>
+                        <button type="submit" class="clear_butn float-right btn mr-2 font_butn" (click)="reCupSample()">Re-cup sample</button>
                     </div>
                 </div>
             </section>

@@ -1,0 +1,25 @@
+<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up br-main br-4 h-100">
+  <div class="fnt-18 fnt-bold text-black334 br-4 bg-f8 p-2 m-1">Top sourcing countries on SEWN</div>
+  <div class="m-3">
+    <ejs-chart
+      id="sourcing-chart-container"
+      [chartArea]="chartArea"
+      [primaryXAxis]="primaryXAxis"
+      [primaryYAxis]="primaryYAxis"
+      [tooltip]="tooltip"
+      height="230px"
+    >
+      <e-series-collection>
+        <e-series
+          [dataSource]="chartData"
+          type="Column"
+          xName="x"
+          yName="y"
+          [marker]="marker"
+          [cornerRadius]="cornerRadius"
+          [columnWidth]="0.1"
+        ></e-series>
+      </e-series-collection>
+    </ejs-chart>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -23,6 +23,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorIntercept } from './error-module/error.interceptor';
 import 'hammerjs';
 import { AuthGuard } from './guards/auth.guard';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { CookieService } from 'ngx-cookie-service';
+import { UserserviceService } from 'src/services/users/userservice.service';
 
 @NgModule({
   declarations: [AppComponent, HealthCheckComponent, HeaderComponent],
@@ -51,8 +54,39 @@ import { AuthGuard } from './guards/auth.guard';
       useClass: ErrorIntercept,
       multi: true,
     },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: ConfigLoader,
+      multi: true,
+      deps: [UserserviceService]
+    },
     AuthGuard,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
+export function ConfigLoader(
+  userService: UserserviceService,
+  cookieService: CookieService
+) {
+  return () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    // Setting token
+    if (userService.cookieService.get('Auth') && userService.cookieService.get('roaster_id')) {
+      return Promise.resolve().then(() => {
+        const promise2 = userService.getUserPermissionPromise(userService.cookieService.get('roaster_id'));
+        promise2.then(response => {
+          if (response && response['success'] == true) {
+            const permissionList = response['result'];
+            userService.cookieService.set('permissionSlug', JSON.stringify(permissionList));
+          }
+          return response;
+        }, err => {
+          return err;
+        });
+        return promise2;
+      });
+    }
+    return;
+  };
+}

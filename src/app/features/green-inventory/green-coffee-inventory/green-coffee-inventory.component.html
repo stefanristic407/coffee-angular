@@ -15,7 +15,10 @@
                             <span class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                    <a class="b-cum"
+                                        routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span
+                                        class="padl-r" aria-hidden="true"><img class="group-img"
+                                            src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
                                 <!-- <li class="b-cum">
                                     <a class="b-cum" routerLink="/features/green-coffee-inventory">{{globals.languageJson?.inventory}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
@@ -30,7 +33,8 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="file-share-search">
                             <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-                            <input class="fadout-search" type="search" placeholder="Search by order id" [(ngModel)]="searchString" (ngModelChange)="onSearch($event)"name="filesTerm">
+                            <input class="fadout-search" type="search" placeholder="Search by order id"
+                                [(ngModel)]="searchString" (ngModelChange)="onSearch($event)" name="filesTerm">
                         </div>
                     </div>
                 </div>
@@ -42,17 +46,25 @@
                         <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
                             <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="pills-procured-tab" data-toggle="pill" href="#pills-procured" role="tab" aria-controls="pills-home" aria-selected="true">Sourced Green Coffee</a>
+                                    <a class="nav-link active" id="pills-procured-tab" data-toggle="pill"
+                                        href="#pills-procured" role="tab" aria-controls="pills-home"
+                                        aria-selected="true">Procured coffee</a>
                                 </li>
                                 <li class="nav-item" (click)="onClickMarkForSaleTab()">
-                                    <a class="nav-link" id="pills-marked-tab" data-toggle="pill" href="#pills-marked" role="tab" aria-controls="pills-profile" aria-selected="false">Green Coffee for Sale</a>
+                                    <a class="nav-link" id="pills-marked-tab" data-toggle="pill" href="#pills-marked"
+                                        role="tab" aria-controls="pills-profile" aria-selected="false">Marked for
+                                        sale</a>
                                 </li>
                             </ul>
                             <div class="tab-content mt-md-4" id="pills-tabContent">
-                                <div class="tab-pane fade show active spacing-order" id="pills-procured" role="tabpanel" aria-labelledby="pills-home-tab" *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
+                                <div class="tab-pane fade show active spacing-order" id="pills-procured" role="tabpanel"
+                                    aria-labelledby="pills-home-tab"
+                                    *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
                                     <app-coffee-procured-tab></app-coffee-procured-tab>
                                 </div>
-                                <div class="tab-pane fade spacing-order" id="pills-marked" role="tabpanel" aria-labelledby="pills-profile-tab" *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-managementt'].manage">
+                                <div class="tab-pane fade spacing-order" id="pills-marked" role="tabpanel"
+                                    aria-labelledby="pills-profile-tab"
+                                    *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-managementt'].manage">
                                     <app-marked-sale></app-marked-sale>
                                 </div>
                             </div>
@@ -84,29 +96,19 @@
         <div id="status-content">
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a
-                  >
+                    <a class="pointer-item">All</a>
                 </li>
                 <li class="list-group-item item-color">
-                  <a
-                    class="pointer-item"
-                    >Shipped</a
-                  >
+                    <a class="pointer-item">Shipped</a>
                 </li>
                 <li class="list-group-item item-color">
-                  <a
-                    class="pointer-item"
-                    >Order Confirmed</a
-                  >
+                    <a class="pointer-item">Order Confirmed</a>
                 </li>
                 <li class="list-group-item item-color">
-                        <a
-                          class="pointer-item"
-                          >Payment</a
-                        >
-                      </li>
-                      <li class="list-group-item item-color">
-                            <a class="pointer-item">Harvest Ready</a>
+                    <a class="pointer-item">Payment</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Harvest Ready</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item">Received</a>
@@ -118,10 +120,9 @@
         <div>
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a
-                              >
-                            </li>
-                            <li class="list-group-item item-color"><a class="pointer-item" >Sample</a></li>
+                    <a class="pointer-item">All</a>
+                </li>
+                <li class="list-group-item item-color"><a class="pointer-item">Sample</a></li>
                 <li class="list-group-item item-color"><a class="pointer-item">Booked</a></li>
                 <li class="list-group-item item-color"><a class="pointer-item">Pre-Booked</a></li>
 

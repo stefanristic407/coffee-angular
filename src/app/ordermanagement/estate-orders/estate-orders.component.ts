@@ -31,7 +31,7 @@ export class EstateOrdersComponent implements OnInit {
 	showDisplay: boolean = true;
 	searchTerm: any;
 	odd: boolean = false;
-	hideTable : boolean = false ; 
+	hideTable: boolean = false;
 
 	@ViewChild(DataTableDirective, { static: false })
 	datatableElement: DataTableDirective;
@@ -57,9 +57,12 @@ export class EstateOrdersComponent implements OnInit {
 	estatetermStatusMob: string;
 	estatetermTypeMob: string;
 	roasterId: any;
-	estateOrdersActive:any =0;
+	estateOrdersActive: any = 0;
 	countryValue: any;
-	
+	estatetermStatusText: any;
+	displayNumbersText: any;
+	estatetermTypeText: any;
+	filterOrigin: any = [];
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
@@ -68,7 +71,7 @@ export class EstateOrdersComponent implements OnInit {
 		private toastrService: ToastrService,
 		public modalService: BsModalService,
 		public globals: GlobalsService,
-		public profileservice:RoasteryProfileService) {
+		public profileservice: RoasteryProfileService) {
 		this.roasterId = this.cookieService.get('roaster_id');
 		// this.data = {};
 		// this.data =
@@ -113,135 +116,14 @@ export class EstateOrdersComponent implements OnInit {
 		// this.appLanguage = this.globals.languageJson;
 		this.language();
 
-		this.dtOptions = {
-			//ajax: this.data,
-			data: this.mainData,
-			pagingType: 'full_numbers',
-			pageLength: 10,
-			lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-			processing: false,
-			// placeholder: 'search here',
-			// searchPlaceholder : this.globals.languageJson.all,
-			language: {
-				search: "",
-				emptyTable: this.globals.languageJson.no_table_data
-			},
-			columns: [
-				// {title: '<input type="checkbox" value="">' , data: null, className: "select-checkbox", defaultContent:'<input type="checkbox" value="">'},
-				{
-					title: '<label class="bestate-check "><input type="checkbox"  name="estate_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)"><span class="estatecheckmark"></span></label>',
 
-					defaultContent: '<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>',
-				},
-				{
-					title: this.globals.languageJson.order_id,
-					data: 'id'
-				}, {
-					title: this.globals.languageJson.estate_name,
-					data: 'estate_name'
-				},
-				 {
-					title: this.globals.languageJson.date_ordered,
-					data: 'created_at'
-				},
-				{
-					title: this.globals.languageJson.origin,
-					data: 'origin',
-
-				},
-				{
-					title: this.globals.languageJson.species,
-					data: 'species',
-
-				},
-				{
-					title: this.globals.languageJson.price,
-					data: 'price'
-				},
-				{
-					title: this.globals.languageJson.quantity,
-					data: 'quantity' + 'quantity_type'
-				}, {
-					title: this.globals.languageJson.order_type,
-					data: 'type',
-					className: 'typeoforderclass'
-				}, {
-					title: this.globals.languageJson.status,
-					data: 'status',
-					className: 'status-es'
-				},
-				{
-					title: this.globals.languageJson.action,
-					defaultContent: "View order",
-					className: "view-order"
-				}
-			],
-			createdRow: (row: Node, data: any, index: number) => {
-				const self = this;
-				if ($(row).children('td.typeoforderclass').html() == "Booked") {
-					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Booked">&#9679; Booked</span>');
-
-				}
-				if ($(row).children('td.typeoforderclass').html() == "Sample") {
-					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Sample">&#9679; Sample</span>');
-
-				}
-				if ($(row).children('td.typeoforderclass').html() == "Pre-Booked") {
-					$(row).children('td.typeoforderclass').html('<span class="typeoforder-Pre-Booked">&#9679; Pre-Booked</span>');
-
-				}
-			},
-			rowCallback: (row: Node, data: any, index: number) => {
-				const self = this;
-				$('td', row).click(function () {
-					let navigationExtras: NavigationExtras = {
-						queryParams: {
-							"data": encodeURIComponent(data.status),
-						}
-					}
-					if (data.typeoforder == "Booked") {
-						self.router.navigate(["/ordermanagement/order-booked"], navigationExtras);
-					}
-					else if (data.typeoforder == "Sample") {
-						self.router.navigate(["/ordermanagement/order-sample"], navigationExtras);
-					}
-					else if (data.typeoforder == "Pre-Booked") {
-						self.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
-					}
-				})
-			}
-
-		};
 		this.estatetermStatus = '';
 		this.estatetermOrigin = '';
 		this.estatetermType = '';
-		this.displayNumbers = '10';
+		this.displayNumbers = '';
 		this.estatetermOriginMob = '';
 		this.estatetermStatusMob = '';
 		this.estatetermTypeMob = '';
-		$(document).ready(function () {
-			$(".dataTables_length").ready(function () {
-				$(".dataTables_length").hide()
-				$(".dataTables_info").hide();
-
-			});
-			$("input[type='search']").ready(function () {
-				// $(".dataTables_filter>label").css("color","#FFF");
-				$("input[type='search']").attr("placeholder", "Search by order id, estate name");
-			});
-		});
-
-		// $(document).ready(function(){
-		// 	$('.order-raised').click(function() {
-		// 		$('li', $('.raised-mobile').parent()).removeClass('highlight');
-		// 		$(this).addClass('highlight');
-		// 		$('.raised-mobile').addClass("active");
-		// 	});
-
-		//   });
-
-
-
 
 		/* pagination start */
 		let listCount = 0;
@@ -511,29 +393,28 @@ export class EstateOrdersComponent implements OnInit {
 
 		});
 
-		/* pagination ends */
-		this.getEstateOrdersData();
-		//get table data
+
 
 	}
-	language(){
+	language() {
 		this.appLanguage = this.globals.languageJson;
 		this.estateOrdersActive++;
 	}
 
-	setStatus(term: any) {
-		this.estatetermStatus = term;
-		this.datatableElement.dtInstance.then(table => {
-			table.column(9).search(this.estatetermStatus).draw();
-		});
-	}
 
-	setOrigin(origindata: any) {
-		this.estatetermOrigin = origindata;
-		this.datatableElement.dtInstance.then(table => {
-			table.column(4).search(origindata).draw();
-		});
-	}
+	// setStatus(term: any) {
+	// 	this.estatetermStatus = term;
+	// 	this.datatableElement.dtInstance.then(table => {
+	// 		table.column(9).search(this.estatetermStatus).draw();
+	// 	});
+	// }
+
+	// setOrigin(origindata: any) {
+	// 	this.estatetermOrigin = origindata;
+	// 	this.datatableElement.dtInstance.then(table => {
+	// 		table.column(4).search(origindata).draw();
+	// 	});
+	// }
 	setOriginMob(term: any) {
 		this.estatetermOriginMob = term;
 
@@ -547,61 +428,21 @@ export class EstateOrdersComponent implements OnInit {
 
 	}
 
-	setType(data: any) {
-		this.estatetermType = data;
-		this.datatableElement.dtInstance.then(table => {
-			table.column(8).search(data).draw();
-		});
-	}
-	setDisplay(data: any) {
-		this.displayNumbers = data;
-		$("select").val(data).trigger('change');
+	// setType(data: any) {
+	// 	this.estatetermType = data;
+	// 	this.datatableElement.dtInstance.then(table => {
+	// 		table.column(8).search(data).draw();
+	// 	});
+	// }
+	// setDisplay(data: any) {
+	// 	this.displayNumbers = data;
+	// 	$("select").val(data).trigger('change');
 
-	}
+	// }
 
 	openCalendar(event: any) {
 		this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
 		event.stopPropagation();
-	}
-
-	filterDate(event: any) {
-		if (this.rangeDates[0] != null && this.rangeDates[1] != null) {
-			var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-			var fDate = new Date(this.rangeDates[0]);
-			var fromDate = JSON.stringify(fDate);
-			fromDate = fromDate.slice(1, 11);
-			var fSplit = fromDate.split("-");
-
-			var fDateString = fSplit[2] + " " + months[parseInt(fSplit[1]) - 1] + " " + fSplit[0];
-			var tDate = new Date(this.rangeDates[1]);
-			var toDate = JSON.stringify(tDate);
-			toDate = toDate.slice(1, 11);
-			var tSplit = toDate.split("-");
-			var tDateString = tSplit[2] + " " + months[parseInt(tSplit[1]) - 1] + " " + tSplit[0];
-			console.log(tDate.getTime());
-			console.log(fDate.getTime());
-			this.showDateRange = fDateString + " - " + tDateString;
-			this.calendar.overlayVisible = false;
-
-
-			$.fn.dataTable.ext.search.push(
-				function (settings, data, dataIndex) {
-					var min = new Date(fDateString).getTime();
-					var max = new Date(tDateString).getTime();
-					var startDate = new Date(data[3]).getTime();
-					console.log(startDate);
-					if (min == null && max == null) return true;
-					if (min == null && startDate <= max) return true;
-					if (max == null && startDate >= min) return true;
-					if (startDate <= max && startDate >= min) return true;
-					return false;
-				}
-			);
-			this.datatableElement.dtInstance.then(table => {
-				table.draw();
-			});
-
-		}
 	}
 
 	toggleOrigin() {
@@ -678,7 +519,7 @@ export class EstateOrdersComponent implements OnInit {
 	displayData($event, group) {
 		console.log("the incoming data  are " + group.type + "..." + group.status);
 
-		if(group.status == "RECEIVED"){
+		if (group.status == "RECEIVED") {
 			this.globals.ord_received_date = group.date_received;
 		}
 		let navigationExtras: NavigationExtras = {
@@ -708,7 +549,7 @@ export class EstateOrdersComponent implements OnInit {
 					// }
 					// else {
 					// 	this.hideTable = false; 
-						this.data = data['result'];
+					this.data = data['result'];
 					// }
 					// this.estateOrdersActive++;
 				}
@@ -722,25 +563,108 @@ export class EstateOrdersComponent implements OnInit {
 	//  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.
 	checkAllEstate(ev) {
-		if(ev){
+		if (ev) {
 			this.data.forEach(x => (x.state = ev.target.checked));
-		}	
+		}
 	}
 
 	//  Function Name : Single Check box function.
 	//  Description   : This function helps to Check that single row isChecked.
 	isAllCheckedEstate() {
-		if(data){
+		if (data) {
 			// return this.data.every(_ => _.state);
 		}
 	}
-	GetCountry(data:any){
+	GetCountry(data: any) {
 		// console.log(data.toUpperCase());
-		if(data){
-		  this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
-		  if(this.countryValue){
-		  return this.countryValue.name;
-		  }
+		if (data) {
+			this.countryValue = this.profileservice.countryList.find(con => con.isoCode == data.toUpperCase());
+			if (this.countryValue) {
+				return this.countryValue.name;
+			}
 		}
-	  }
+	}
+	setFilterValue(name: any, value: any, display: any) {
+		const filterParams = [];
+		switch (name) {
+			case 'status':
+				this.estatetermStatus = value;
+				this.estatetermStatusText = display;
+				console.log(this.estatetermStatus);
+				break;
+			case 'display':
+				this.displayNumbers = value;
+				this.displayNumbersText = display;
+				console.log(this.displayNumbers);
+				break;
+			case 'type':
+				this.estatetermType = value;
+				this.estatetermTypeText = display;
+				console.log(this.estatetermType);
+				break;
+		}
+
+		if (this.estatetermStatus) {
+			filterParams.push(`status=${this.estatetermStatus}`);
+		}
+		if (this.displayNumbers) {
+			filterParams.push(`per_page=${this.displayNumbers}`);
+		}
+		if (this.estatetermType) {
+			filterParams.push(`order_type=${this.estatetermType}`);
+		}
+		if (this.filterOrigin.length) {
+			filterParams.push(`origin=${this.filterOrigin}`)
+		}
+		if (filterParams.length) {
+			const queryParams = '?' + filterParams.join('&');
+			console.log(queryParams);
+			this.roasterService.getEstateOrders(this.roasterId, queryParams).subscribe(
+				data => {
+					console.log(data);
+					if (data['success'] == true) {
+						this.data = data['result'];
+					}
+					else {
+						this.toastrService.error(this.globals.languageJson.error_message);
+					}
+				}
+			)
+		}
+		else {
+			this.roasterService.getEstateOrders(this.roasterId).subscribe(
+				data => {
+					console.log(data);
+					if (data['success'] == true) {
+						this.data = data['result'];
+					}
+					else {
+						this.toastrService.error(this.globals.languageJson.error_message);
+					}
+				}
+			)
+		}
+	}
+	selectOrigin(event, value) {
+		if (event.target.checked) {
+			if (!this.filterOrigin.includes(value)) {
+				this.filterOrigin.push(value);
+			}
+		}
+		else {
+			if (this.filterOrigin.includes(value)) {
+				const index = this.filterOrigin.indexOf(value);
+				this.filterOrigin.splice(index, 1);
+
+			}
+		}
+	}
+	clearFilter() {
+		//   for(let i =0;i < this.filterVariety.length;i++){
+		// 	this.filterVariety[i].isChecked = val;
+		//   }
+		this.filterOrigin = [];
+		this.getEstateOrdersData();
+	}
+
 }

@@ -40,7 +40,7 @@ export class RaiseTicketFormComponent implements OnInit {
   disputeID: string = '';
 
   constructor(private route: ActivatedRoute, public roasterService: RoasterserviceService,
-    public cookieService: CookieService, public router: Router, private toastrService: ToastrService,) {
+    public cookieService: CookieService, public router: Router, private toastrService: ToastrService) {
     this.orderidError = '';
     this.helpYouError = '';
     // this.orderDateError = '';
@@ -134,9 +134,6 @@ export class RaiseTicketFormComponent implements OnInit {
     if (event.target.files) {
       this.filesArray = [];
       this.filesArray.push(event.target.files);
-      let fileList: FileList = this.filesArray;
-      console.log(fileList);
-
     }
   }
 

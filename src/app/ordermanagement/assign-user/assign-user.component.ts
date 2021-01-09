@@ -51,8 +51,6 @@ export class AssignUserComponent implements OnInit {
     this.userDetails = event;
   }
   onAssign() {
-    console.log();
-
     let user = { 'user_id': this.userDetails['id'] };
     this.roasterService.assignUserDispute(this.roasterId, this.disputeID, user).subscribe(res => {
       console.log(res);

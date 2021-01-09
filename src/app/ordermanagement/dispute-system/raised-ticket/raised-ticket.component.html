@@ -3,10 +3,12 @@
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
-                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true">
+                    <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
             <li class="b-cum">
-                <a class="b-cum" routerLink="/ordermanagement/order-support">Help & support</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                <a class="b-cum" routerLink="/ordermanagement/order-support">Help & support</a><span class="padl-r"
+                    aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
             </li>
 
             <li class="b-cum c-pink">Raised tickets</li>
@@ -42,7 +44,7 @@
                         <td>{{ ticket.order_id }}</td>
                         <td>{{ ticket.estate_name }}</td>
                         <td>
-                            {{ ticket.date_ordered }}
+                            {{ ticket.date_ordered | date : 'dd MMM yyyy' }}
                         </td>
                         <td>{{ticket.dispute_type}}</td>
                         <td>{{ ticket.dispute_status }} </td>
@@ -64,7 +66,8 @@
                     <div class="col-12">
                         <div class="title-header">
                             <div class="mb-3">
-                                <input class="d-inline search-name filter-set" type="text" name="sourcingName" id="sourcingName" placeholder="Search by name">
+                                <input class="d-inline search-name filter-set" type="text" name="sourcingName"
+                                    id="sourcingName" placeholder="Search by name">
                             </div>
                             <div class="d-inline border-grade col-sm-6">
                                 <p class="d-inline filter-text">orgin&nbsp;</p>
@@ -111,15 +114,18 @@
                             <div class="raised-list mt-5 mb-5">
                                 <ul class="cleafix pagination-content-list">
                                     <li class="order-raised pagination-content-list__item" *ngFor="let role of data">
-                                        <div class="raised-detils d-inline-block  pb-3" (click)="ticketDetails($event,role);">
+                                        <div class="raised-detils d-inline-block  pb-3"
+                                            (click)="ticketDetails($event,role);">
                                             <div class="raised-tit">
                                                 <h4 class="col-8">{{role.status}}</h4>
-                                                <label class="selok"><img src="assets/images/cricle-active.png" alt=""></label>
+                                                <label class="selok"><img src="assets/images/cricle-active.png"
+                                                        alt=""></label>
                                             </div>
                                             <div class="raised-ticket">
                                                 <h4 class="col-8 mt-3 pull-left">{{role.orderid}}</h4>
                                                 <h6 class="col-4 mt-3 pull-right text-right">{{role.dateraised}}</h6>
-                                                <h3 class="col-11 d-inline-block pb-4 pl-0 pr-0 ml-3 mr-3">{{role.estatename}} l Colombia</h3>
+                                                <h3 class="col-11 d-inline-block pb-4 pl-0 pr-0 ml-3 mr-3">
+                                                    {{role.estatename}} l Colombia</h3>
                                                 <label class="ml-3 mt-2 pull-left">{{role.disputetype}}</label>
                                                 <a class="col-4 mt-3 pull-right text-right">Go to ticket </a>
                                             </div>
