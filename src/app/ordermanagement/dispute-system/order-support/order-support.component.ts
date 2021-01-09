@@ -7,9 +7,9 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./order-support.component.css']
 })
 export class OrderSupportComponent implements OnInit {
-  term : any;
+  term: any;
   buttonValue: string;
-  orderID:string = '';
+  orderID: string = '';
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
@@ -17,67 +17,67 @@ export class OrderSupportComponent implements OnInit {
     this.orderID = decodeURIComponent(this.route.snapshot.queryParams['id']);
   }
 
-  buyingCoffee(){
+  buyingCoffee() {
     this.buttonValue = "Buying Coffee";
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        buttonValue: encodeURIComponent(this.buttonValue),
-        id: this.orderID
+        id: this.orderID,
+        buttonValue: encodeURIComponent(this.buttonValue)
       }
     };
 
     this.router.navigate(["/ordermanagement/order-support-faqs"], navigationExtras);
   }
-  requestSamples(){
+  requestSamples() {
     this.buttonValue = "Requesting Samples";
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        buttonValue: encodeURIComponent(this.buttonValue),
-        id: this.orderID
+        id: this.orderID,
+        buttonValue: encodeURIComponent(this.buttonValue)
       }
     };
 
     this.router.navigate(["/ordermanagement/order-support-faqs"], navigationExtras);
   }
-  payment(){
+  payment() {
     this.buttonValue = "Payment";
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        buttonValue: encodeURIComponent(this.buttonValue),
-        id: this.orderID
+        id: this.orderID,
+        buttonValue: encodeURIComponent(this.buttonValue)
       }
     };
 
     this.router.navigate(["/ordermanagement/order-support-faqs"], navigationExtras);
   }
-  coffeeBulks(){
+  coffeeBulks() {
     this.buttonValue = "Coffee Bulks";
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        buttonValue: encodeURIComponent(this.buttonValue),
-        id: this.orderID
+        id: this.orderID,
+        buttonValue: encodeURIComponent(this.buttonValue)
       }
     };
 
     this.router.navigate(["/ordermanagement/order-support-faqs"], navigationExtras);
   }
-  shipping(){
+  shipping() {
     this.buttonValue = "Shipping";
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        buttonValue: encodeURIComponent(this.buttonValue),
-        id: this.orderID
+        id: this.orderID,
+        buttonValue: encodeURIComponent(this.buttonValue)
       }
     };
 
     this.router.navigate(["/ordermanagement/order-support-faqs"], navigationExtras);
   }
-  others(){
+  others() {
     this.buttonValue = "Others";
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        buttonValue: encodeURIComponent(this.buttonValue),
-        id: this.orderID
+        id: this.orderID,
+        buttonValue: encodeURIComponent(this.buttonValue)
       }
     };
 

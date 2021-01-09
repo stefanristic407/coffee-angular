@@ -3,6 +3,7 @@ import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-coffee-procured-tab',
@@ -22,7 +23,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
   searchString: string = '';
 
   constructor(public globals: GlobalsService, public roasterService: RoasterserviceService,
-    public cookieService: CookieService, public roasteryProfileService: RoasteryProfileService,) {
+    public router: Router, public cookieService: CookieService, public roasteryProfileService: RoasteryProfileService,) {
     this.termStatus = { name: 'All', isoCode: '' };
     this.display = '10';
     this.roaster_id = this.cookieService.get('roaster_id');
@@ -90,6 +91,14 @@ export class CoffeeProcuredTabComponent implements OnInit {
   // Description: This function helps to check single role.
   isAllChecked() {
     return this.mainData.every(_ => _.state);
+  }
+  onEdit(item) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        orderId: item.id,
+      }
+    };
+    this.router.navigate(["/features/lot-sale"], navigationExtras);
   }
 
 }

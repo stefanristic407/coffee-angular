@@ -13,7 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class RaisedTicketComponent implements OnInit {
   term: any;
-  roasterId: any;
+  roasterId: any = '';
   odd: boolean = false;
   public data: any[] = [
     // { orderid: '81671', estatename: 'Finca La Pampa', dateraised: '24 Jan 2020', disputetype: 'Payment', status: 'Open' },
@@ -27,7 +27,7 @@ export class RaisedTicketComponent implements OnInit {
   constructor(public router: Router,
     public cookieService: CookieService,
     private roasterService: RoasterserviceService,
-    private toastrService: ToastrService,) {
+    private toastrService: ToastrService) {
     this.roasterId = this.cookieService.get('roaster_id');
   }
 

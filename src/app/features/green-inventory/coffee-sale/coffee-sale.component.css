@@ -21,6 +21,9 @@
     font-weight: normal;
     color: #020202;
 }
+.status-width{
+    width: 8rem;
+}
 
 .fill-txt {
     font-family: Muli;

@@ -7,15 +7,17 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./order-support-faqs.component.css']
 })
 export class OrderSupportFaqsComponent implements OnInit {
-  headerValue : any;
-  orderID:string='';
-  constructor(private route : ActivatedRoute) { }
+  headerValue: any;
+  orderID: string = '';
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.orderID = decodeURIComponent(this.route.snapshot.queryParams['id']);
-    this.headerValue = decodeURIComponent(
-      this.route.snapshot.queryParams["buttonValue"]
-    );
+    if (this.route.snapshot.queryParams["buttonValue"]) {
+      this.headerValue = decodeURIComponent(
+        this.route.snapshot.queryParams["buttonValue"]
+      );
+    }
   }
 
 }

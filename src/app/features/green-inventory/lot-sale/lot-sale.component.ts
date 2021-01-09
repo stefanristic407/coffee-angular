@@ -18,8 +18,9 @@ export class LotSaleComponent implements OnInit {
   orderID: any = '';
   saleInformation: any = {};
   showDropdown: boolean = false;
-  order_status: string = '';
+  order_status: string = 'IN_STOCK';
   status_label: string = '';
+  saleDetailsPresent: boolean = false;
 
   constructor(public globals: GlobalsService, public route: ActivatedRoute,
     public roasterService: RoasterserviceService, public cookieService: CookieService, private router: Router,
@@ -49,6 +50,9 @@ export class LotSaleComponent implements OnInit {
         console.log(response);
         if (response['success'] && response['result']) {
           this.saleInformation = response['result'];
+          this.saleDetailsPresent = true;
+          console.log("coming here");
+
           this.order_status = response['result']['status'];
           this.status_label = this.formatStatus(response['result']['status']);
         }
@@ -78,7 +82,7 @@ export class LotSaleComponent implements OnInit {
       }
     );
   }
-  updateRole() {
+  updateMarkForSale() {
     let data = this.saleInformation;
     data['order_id'] = undefined;
     data['initial_quantity'] = undefined;
@@ -111,5 +115,4 @@ export class LotSaleComponent implements OnInit {
       }
     );
   }
-  createSale() { }
 }
