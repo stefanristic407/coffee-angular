@@ -1,16 +1,42 @@
 <section class="tab-mob-generate-pad">
-    <div class="container-fulid px-md-0">
-        <div class="row">
-            <div class="col-lg-2 col-12 tab-mob-scroll">
-                <div class="nav flex-row flex-lg-column nav-pills tab-titles h-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <!--a class="nav-link">
+  <div class="container-fulid px-md-0">
+    <div class="row">
+      <div class="col-lg-2 col-12 tab-mob-scroll">
+        <div
+          class="nav flex-row flex-lg-column nav-pills tab-titles h-100"
+          id="v-pills-tab"
+          role="tablist"
+          aria-orientation="vertical"
+        >
+          <!--a class="nav-link">
                         <span class="fnt-16 fnt-muli fnt-700 text-clr588">Samples </span>
                     </a-->
-                    <a class="nav-link nav-item__link active" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
-                        <p class="fnt-14 fnt-muli fnt-700 black m-0"> SID : 74527</p>
-                        <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Colombia</p>
-                    </a>
-                    <a class="nav-link nav-item__link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+          <a
+            class="nav-link nav-item__link active"
+            id="v-pills-messages-tab"
+            data-toggle="pill"
+            href="#v-pills-messages"
+            role="tab"
+            aria-controls="v-pills-messages"
+            aria-selected="false"
+            *ngFor="let item of generateReportService.serviceRequestsList"
+            (click)="gradeReport(item)"
+          >
+            <p
+              class="fnt-14 fnt-muli fnt-700 black m-0"
+              *ngIf="item.gc_order_id"
+            >
+              SID : {{ item.gc_order_id }}
+            </p>
+            <p
+              class="fnt-14 fnt-muli fnt-700 black m-0"
+              *ngIf="item.external_sample_id"
+            >
+              SID : {{ item.external_sample_id }}
+            </p>
+            <p class="fnt-14 fnt-muli fnt-600 text-clr588">{{ item.origin }}</p>
+          </a>
+          <!-- <a class="nav-link nav-item__link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                         <p class="fnt-14 fnt-muli fnt-700 black m-0"> SID : 27389</p>
                         <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Brazil</p>
                     </a>
@@ -29,31 +55,45 @@
                     <a class="nav-link nav-item__link" id="v-pills-cupping-tab" data-toggle="pill" href="#v-pills-cupping" role="tab" aria-controls="v-pills-cupping" aria-selected="false">
                         <p class="fnt-14 fnt-muli fnt-700 black m-0"> CID : 79898</p>
                         <p class="fnt-14 fnt-muli fnt-600 text-clr588"> Brazil</p>
-                    </a>
-                </div>
-            </div>
+                    </a> -->
+        </div>
+      </div>
 
-            <div class="col-lg-10 col-12 mt-md-0  tab-pad-report ">
-                <div class="">
+      <div class="col-lg-10 col-12 mt-md-0 tab-pad-report">
+        <div class="">
+          <div>
+            <app-generate-coffee-grading
+              *ngIf="currentScreen == 'screen1'"
+              (next)="goNext($event)"
+            >
+            </app-generate-coffee-grading>
+          </div>
 
-                    <div>
-                        <app-generate-coffee-grading *ngIf="currentScreen== 'screen1'" (next)="goNext($event)"> </app-generate-coffee-grading>
-                    </div>
+          <div>
+            <app-generate-green-coffee
+              *ngIf="currentScreen == 'screen2'"
+              (next)="goNext($event)"
+            >
+            </app-generate-green-coffee>
+          </div>
 
-                    <div>
-                        <app-generate-green-coffee *ngIf="currentScreen=='screen2'" (next)="goNext($event)"> </app-generate-green-coffee>
-                    </div>
+          <div>
+            <app-generate-my-sample
+              *ngIf="currentScreen == 'screen3'"
+              (next)="goNext($event)"
+            >
+            </app-generate-my-sample>
+          </div>
 
-                    <div>
-                        <app-generate-my-sample *ngIf="currentScreen=='screen3'" (next)="goNext($event)"> </app-generate-my-sample>
-                    </div>
+          <div>
+            <app-generate-cupping-results
+              *ngIf="currentScreen == 'screen4'"
+              (next)="goNext($event)"
+            ></app-generate-cupping-results>
+          </div>
 
-                    <div>
-                        <app-generate-cupping-results *ngIf="currentScreen=='screen4'" (next)="goNext($event)"></app-generate-cupping-results>
-                    </div>
-
-                    <!-- Without Accordian 30/11/2020 -->
-                    <!-- <div>
+          <!-- Without Accordian 30/11/2020 -->
+          <!-- <div>
                         <section class="grade_source_total" *ngIf="currentScreen=='screen5'">
                             <p class="fnt-24 fnt-play fnt-400 black"> Generate Report</p>
                             <p class="fnt-14 fnt-muli fnt-400 text-clr588"> Select the details of the report you want to generate</p>
@@ -157,13 +197,14 @@
                         </section>
                     </div> -->
 
-                    <div>
-                        <app-generate-cupping-report *ngIf="currentScreen=='screen5'" (next)="goNext($event)"></app-generate-cupping-report>
-                    </div>
-
-                </div>
-            </div>
-
+          <div>
+            <app-generate-cupping-report
+              *ngIf="currentScreen == 'screen5'"
+              (next)="goNext($event)"
+            ></app-generate-cupping-report>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>

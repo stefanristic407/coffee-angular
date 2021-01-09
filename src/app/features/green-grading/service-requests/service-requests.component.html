@@ -1,166 +1,342 @@
 <section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4">
-                <span id="title-breadcrumb-1" class="sr-only"></span>
-                <div class="row">
-                    <div class="col-lg-8 col-md-6">
-                        <ul class="bread-nav">
-                            <li class="b-cum">
-                                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                            </li>
-                            <li class="b-cum">
-                                <a class="b-cum" routerLink="/features/green-grading">Green grading</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt="">
-                                 </span>
-                            </li>
+  <div class="container sewn-container section-head-pad">
+    <div class="bg-fff">
+      <nav
+        role="navigation"
+        aria-labelledby="title-breadcrumb-1"
+        class="breadcrumb1 pt-4"
+      >
+        <span id="title-breadcrumb-1" class="sr-only"></span>
+        <div class="row">
+          <div class="col-lg-8 col-md-6">
+            <ul class="bread-nav">
+              <li class="b-cum">
+                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a
+                ><span class="padl-r" aria-hidden="true"
+                  ><img
+                    class="group-img"
+                    src="/assets/images/arrow-1.png"
+                    alt=""
+                  />
+                </span>
+              </li>
+              <li class="b-cum">
+                <a class="b-cum" routerLink="/features/green-grading"
+                  >Green grading</a
+                ><span class="padl-r" aria-hidden="true">
+                  <img
+                    class="group-img"
+                    src="/assets/images/arrow-1.png"
+                    alt=""
+                  />
+                </span>
+              </li>
 
-                            <li class="b-cum c-pink">Grade a service</li>
+              <li class="b-cum c-pink">Grade a service</li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-6 search-gg-pl">
+            <div class="file-share-search">
+              <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
+              <input
+                class="fadout-search"
+                type="search"
+                placeholder="Search by order id"
+                name="filesTerm"
+              />
+            </div>
+          </div>
+        </div>
+      </nav>
 
+      <section class="estate-orders-heading">
+        <h5 class="estate-order-title">Green coffee orders</h5>
+        <p class="fnt-14 fnt-400 fnt-muli text-clr588">
+          Select service(s) that you want to cup
+        </p>
+      </section>
 
-                        </ul>
-                    </div>
-                    <div class="col-lg-4 col-md-6 search-gg-pl">
-                        <div class="file-share-search">
-                            <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-                            <input class="fadout-search" type="search" placeholder="Search by order id" name="filesTerm">
-                        </div>
-                    </div>
+      <div class="mt-4">
+        <section class="estate-orders d-none d-lg-block order-table mr-orders">
+          <div class="row">
+            <div class="d-inline table-w pt-2">
+              <div class="title-header d-inline desk_view_user">
+                <div
+                  class="d-inline border-order role-div col-sm-6"
+                  id="origin_id"
+                  [outsideClick]="true"
+                  (onShown)="toggleOrigin()"
+                  (onHidden)="toggleOrigin()"
+                  [popover]="originTemplate"
+                  placement="bottom"
+                  container="body"
+                  #pop4="bs-popover"
+                >
+                  <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
+                  <p
+                    class="d-inline filter-text"
+                    *ngIf="roastertermOrigin == ''"
+                  >
+                    {{ globals.languageJson?.origin }}&nbsp;
+                  </p>
+                  <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="roastertermOrigin == ''">
+                      &nbsp;
+                      <img
+                        src="{{
+                          showOrigin
+                            ? 'assets/images/down-arrow.svg'
+                            : 'assets/images/user-down.svg'
+                        }}"
+                      />
+                    </p>
+                  </a>
+                  <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="roastertermOrigin != ''">
+                      {{ roastertermOrigin }} &nbsp;<img
+                        src="{{
+                          showOrigin
+                            ? 'assets/images/down-arrow.svg'
+                            : 'assets/images/user-down.svg'
+                        }}"
+                      />
+                    </p>
+                  </a>
                 </div>
-            </nav>
+                &nbsp;&nbsp;
+                <div
+                  class="d-inline border-order type-div col-sm-6"
+                  id="type_id"
+                  [outsideClick]="true"
+                  (onShown)="toggleType()"
+                  (onHidden)="toggleType()"
+                  [popover]="typeTemplate"
+                  placement="bottom"
+                  container="body"
+                  #pop3="bs-popover"
+                >
+                  <p class="d-inline filter-text" *ngIf="roastertermType == ''">
+                    {{ globals.languageJson?.order_type }}&nbsp;
+                  </p>
+                  <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="roastertermType == ''">
+                      &nbsp;
+                      <img
+                        src="{{
+                          showType
+                            ? 'assets/images/down-arrow.svg'
+                            : 'assets/images/user-down.svg'
+                        }}"
+                      />
+                    </p>
+                  </a>
+                  <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="roastertermType != ''">
+                      {{ roastertermType }}&nbsp;
+                      <img
+                        src="{{
+                          showType
+                            ? 'assets/images/down-arrow.svg'
+                            : 'assets/images/user-down.svg'
+                        }}"
+                      />
+                    </p>
+                  </a>
+                </div>
+                &nbsp;&nbsp;
+                <div
+                  class="d-inline border-order status-div col-sm-6"
+                  id="status_id"
+                  [outsideClick]="true"
+                  (onShown)="toggleStatus()"
+                  (onHidden)="toggleStatus()"
+                  [popover]="allTemplate"
+                  placement="bottom"
+                  container="body"
+                  #pop="bs-popover"
+                >
+                  <p
+                    class="d-inline filter-text"
+                    *ngIf="roastertermStatus == ''"
+                  >
+                    {{ globals.languageJson?.status }}&nbsp;
+                  </p>
+                  <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="roastertermStatus == ''">
+                      &nbsp;
+                      <img
+                        src="{{
+                          showStatus
+                            ? 'assets/images/down-arrow.svg'
+                            : 'assets/images/user-down.svg'
+                        }}"
+                      />
+                    </p>
+                  </a>
+                  <a class="pointer-item">
+                    <p class="d-inline filter" *ngIf="roastertermStatus != ''">
+                      {{ roastertermStatus }}&nbsp;
+                      <img
+                        src="{{
+                          showStatus
+                            ? 'assets/images/down-arrow.svg'
+                            : 'assets/images/user-down.svg'
+                        }}"
+                      />
+                    </p>
+                  </a>
+                </div>
+                &nbsp;&nbsp;
 
-            <section class="estate-orders-heading">
-                <h5 class="estate-order-title">Green coffee orders</h5>
-                <p class="fnt-14 fnt-400 fnt-muli text-clr588"> Select service(s) that you want to cup</p>
-            </section>
+                <div
+                  class="d-inline border-order date-div col-sm-6"
+                  (click)="openCalendar($event)"
+                >
+                  <p class="d-inline filter-text">
+                    {{ globals.languageJson?.date_range }} &nbsp;
+                    <span *ngIf="showDateRange != ''">{{ showDateRange }}</span>
+                  </p>
 
+                  <a class="pointer-item">
+                    <p class="d-inline filter">
+                      <p-calendar
+                        #calendar
+                        styleClass="only-icon"
+                        [(ngModel)]="rangeDates"
+                        selectionMode="range"
+                        dateFormat="dd.mm.yy"
+                        [readonlyInput]="true"
+                        [showButtonBar]="true"
+                        (onSelect)="filterDate($event)"
+                      ></p-calendar>
+                      &nbsp;
+                      <img src="assets/images/active-calender.png" alt="" />
+                    </p>
+                  </a>
+                </div>
+                &nbsp;&nbsp;
+                <div class="d-inline display_div">
+                  <div
+                    class="border-order top-space"
+                    id="display_id"
+                    [outsideClick]="true"
+                    (onShown)="toggleDisplay()"
+                    (onHidden)="toggleDisplay()"
+                    [popover]="displayTemplate"
+                    placement="bottom"
+                    container="body"
+                    #pop6="bs-popover"
+                  >
+                    <p class="d-inline filter-text">
+                      {{ globals.languageJson?.display }} &#9679;
+                    </p>
+                    <a class="pointer-item">
+                      <p class="d-inline filter" *ngIf="displayNumbers == '-1'">
+                        &nbsp; &nbsp;
+                        <img
+                          src="{{
+                            showDisplay
+                              ? 'assets/images/down-arrow.svg'
+                              : 'assets/images/user-down.svg'
+                          }}"
+                        />
+                      </p>
+                    </a>
+                    <a class="pointer-item">
+                      <p class="d-inline filter" *ngIf="displayNumbers != '-1'">
+                        {{ displayNumbers }}&nbsp; &nbsp;
+                        <img
+                          src="{{
+                            showDisplay
+                              ? 'assets/images/down-arrow.svg'
+                              : 'assets/images/user-down.svg'
+                          }}"
+                        />
+                      </p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="count" class="pull-right ml-auto mr-3">
+              <span class="selected-text mr-2">Selected:{{ count }}</span
+              ><button class="btn next-btn" (click)="generateReportLink()">
+                Next
+              </button>
+            </div>
+          </div>
+          <div class="estate-table pt-2">
+            <table class="estate-boby-txt table">
+              <thead>
+                <tr class="estate-title">
+                  <th>
+                    <label class="b-check first-t">
+                      <input
+                        type="checkbox"
+                        checked="checked"
+                        name="user_all"
+                        [checked]="isAllCheckedEstate()"
+                        (change)="checkAllEstate($event)"
+                      />
+                      <!-- <span class="checkmark"></span> -->
+                    </label>
+                  </th>
+                  <th>Order ID</th>
+                  <th>Estate name</th>
+                  <th>Date ordered</th>
+                  <th>Orgin</th>
+                  <th>Variety</th>
+                  <th>Quantity</th>
+                  <th>Type of Order</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="estate-boby-txt" *ngFor="let group of greendata">
+                  <td class="spacing-order" style="width: 40px">
+                    <label class="b-check">
+                      <input
+                        type="checkbox"
+                        name="sizecb[]"
+                        value="{{ group.id }}"
+                        [(ngModel)]="group.state"
+                        (change)="selectedRow()"
+                      />
+                    </label>
+                  </td>
 
-            <div class="mt-4">
-                <section class="estate-orders d-none d-lg-block order-table mr-orders">
-
-                    <div class="row">
-                        <div class="d-inline table-w pt-2">
-                            <div class="title-header d-inline desk_view_user">
-                                <div class="d-inline border-order role-div col-sm-6" id="origin_id" [outsideClick]="true" (onShown)="toggleOrigin();" (onHidden)="toggleOrigin();" [popover]="originTemplate" placement="bottom" container="body" #pop4="bs-popover">
-                                    <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
-                                    <p class="d-inline filter-text" *ngIf="roastertermOrigin == ''">{{globals.languageJson?.origin}}&nbsp;</p>
-                                    <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="roastertermOrigin == ''">
-                                            &nbsp; <img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                    <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="roastertermOrigin != ''">
-                                            {{ roastertermOrigin }} &nbsp;<img src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                </div>&nbsp;&nbsp;
-                                <div class="d-inline border-order type-div col-sm-6" id="type_id" [outsideClick]="true" (onShown)="toggleType();" (onHidden)="toggleType();" [popover]="typeTemplate" placement="bottom" container="body" #pop3="bs-popover">
-                                    <p class="d-inline filter-text" *ngIf="roastertermType == ''">
-                                        {{globals.languageJson?.order_type}}&nbsp;</p>
-                                    <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="roastertermType == ''">
-                                            &nbsp; <img src="{{ showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                    <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="roastertermType != ''">
-                                            {{roastertermType }}&nbsp; <img src="{{ showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                </div>&nbsp;&nbsp;
-                                <div class="d-inline border-order status-div col-sm-6" id="status_id" [outsideClick]="true" (onShown)="toggleStatus();" (onHidden)="toggleStatus();" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
-                                    <p class="d-inline filter-text" *ngIf="roastertermStatus == ''">{{globals.languageJson?.status}}&nbsp;</p>
-                                    <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="roastertermStatus == ''">
-                                            &nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                    <a class="pointer-item">
-                                        <p class="d-inline filter" *ngIf="roastertermStatus != ''">
-                                            {{ roastertermStatus }}&nbsp; <img src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                        </p>
-                                    </a>
-                                </div> &nbsp;&nbsp;
-
-                                <div class="d-inline border-order date-div col-sm-6" (click)="openCalendar($event)">
-                                    <p class="d-inline filter-text">{{globals.languageJson?.date_range}} &nbsp;
-                                        <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
-                                    </p>
-
-                                    <a class="pointer-item">
-
-                                        <p class="d-inline filter">
-                                            <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
-                                            &nbsp; <img src="assets/images/active-calender.png" alt="">
-
-                                        </p>
-                                    </a>
-
-                                </div>&nbsp;&nbsp;
-                                <div class="d-inline display_div">
-                                    <div class="float-right border-order top-space" id="display_id" [outsideClick]="true" (onShown)="toggleDisplay();" (onHidden)="toggleDisplay();" [popover]="displayTemplate" placement="bottom" container="body" #pop6="bs-popover">
-                                        <p class="d-inline filter-text">{{globals.languageJson?.display}} &#9679;</p>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter" *ngIf="displayNumbers == '-1'">
-                                                &nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                            </p>
-                                        </a>
-                                        <a class="pointer-item">
-                                            <p class="d-inline filter" *ngIf="displayNumbers != '-1'">
-                                                {{ displayNumbers }}&nbsp; &nbsp; <img src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                            </p>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="estate-table pt-2">
-                        <table class="estate-boby-txt table">
-                            <thead>
-                                <tr class="estate-title">
-                                    <th>
-                                        <label class="b-check first-t">
-                                        <input type="checkbox" checked="checked"  name="user_all" [checked]="isAllCheckedEstate()" (change)="checkAllEstate($event)" >
-                                        <!-- <span class="checkmark"></span> -->
-                                    </label>
-                                    </th>
-                                    <th>Order ID </th>
-                                    <th>Estate name </th>
-                                    <th>Date ordered</th>
-                                    <th>Orgin</th>
-                                    <th>Variety</th>
-                                    <th>Quantity </th>
-                                    <th>Type of Order </th>
-                                    <th>Type </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="estate-boby-txt" *ngFor="let group of greendata" (click)="generateReportLink(group)">
-                                    <td class="spacing-order" style="width: 40px;">
-                                        <label class="b-check">
-                                        <input type="checkbox" name="sizecb[]" value="{{ group.id }}" [(ngModel)]="group.state" />
-                                      </label>
-                                    </td>
-
-                                    <td>{{group.gc_order_id}}</td>
-                                    <td>{{group.estate_name}}</td>
-                                    <td>{{group.order_date | date:'dd MMM yyyy'}}</td>
-                                    <td>{{generateService.getCountryName(group.origin)}}</td>
-                                    <td>{{group.varieties}}</td>
-                                    <td>{{group.quantity}} </td>
-                                    <td>
-                                        <p class="typeoforder-Sample" *ngIf="group.order_type == 'Sample'">&#9679; Sample</p>
-                                        <p class="typeoforder-Pre-Booked" *ngIf="group.order_type == 'Pre-Booked'">&#9679; Pre-Booked</p>
-                                        <p class="typeoforder-Booked" *ngIf="group.order_type == 'GC_ORDER'">&#9679; Booked</p>
-                                    </td>
-                                    <td>{{group.type}}</td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!-- <table class="estate-boby-txt" datatable [dtOptions]="dtOptions"> -->
-                        <!-- <thead>
+                  <td>{{ group.gc_order_id }}</td>
+                  <td>{{ group.estate_name }}</td>
+                  <td>{{ group.order_date | date: "dd MMM yyyy" }}</td>
+                  <td>{{ generateService.getCountryName(group.origin) }}</td>
+                  <td>{{ group.varieties }}</td>
+                  <td>{{ group.quantity }}</td>
+                  <td>
+                    <p
+                      class="typeoforder-Sample"
+                      *ngIf="group.order_type == 'Sample'"
+                    >
+                      &#9679; Sample
+                    </p>
+                    <p
+                      class="typeoforder-Pre-Booked"
+                      *ngIf="group.order_type == 'Pre-Booked'"
+                    >
+                      &#9679; Pre-Booked
+                    </p>
+                    <p
+                      class="typeoforder-Booked"
+                      *ngIf="group.order_type == 'GC_ORDER'"
+                    >
+                      &#9679; Booked
+                    </p>
+                  </td>
+                  <td>{{ group.type }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <table class="estate-boby-txt" datatable [dtOptions]="dtOptions"> -->
+            <!-- <thead>
                         <tr class="estate-title">
                             <th>
                                 <label class="b-check first-t">
@@ -208,10 +384,10 @@
                             <td class="view-order" (click)="displayData($event,group)">View order</td>
                         </tr>
                     </tbody> -->
-                        <!-- </table> -->
-                    </div>
+            <!-- </table> -->
+          </div>
 
-                    <!-- <div class="row pt-5" *ngIf="this.data == null">
+          <!-- <div class="row pt-5" *ngIf="this.data == null">
                         <div class="col-lg-12 col-md-12 no-data-sec">
                             <div class="text-center ">
                                 <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
@@ -221,280 +397,554 @@
                         </div>
                     </div> -->
 
+          <ng-template #originTemplate>
+            <div id="status-content">
+              <ul class="list-group custom-popover">
+                <li class="list-group-item item-color" (click)="setOrigin('')">
+                  <a class="pointer-item">{{ globals.languageJson?.all }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setOrigin('Colombia'); pop4.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.colombia
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setOrigin('Ethopia'); pop4.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.ethopia
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
 
-                    <ng-template #originTemplate>
-                        <div id="status-content">
-                            <ul class="list-group custom-popover">
-                                <li class="list-group-item item-color" (click)="setOrigin('');">
-                                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setOrigin('Colombia'); pop4.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.colombia}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setOrigin('Ethopia'); pop4.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.ethopia}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </ng-template>
+          <ng-template #allTemplate>
+            <div id="status-content">
+              <ul class="list-group custom-popover">
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatus(''); pop.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.all }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatus('Shipped'); pop.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.shipped
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatus('Order Confirmed'); pop.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.order_confirmed
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatus('Payment'); pop.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.payment
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatus('Harvest Ready'); pop.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.harvest_ready
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatus('Received'); pop.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.Received
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+          <ng-template #typeTemplate>
+            <div>
+              <ul class="list-group custom-popover">
+                <li
+                  class="list-group-item item-color"
+                  (click)="setType(''); pop3.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.all }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setType('Sample'); pop3.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.sample }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setType('Booked'); pop3.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.booked }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setType('Pre-Booked'); pop3.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.pre_booked
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
 
-                    <ng-template #allTemplate>
-                        <div id="status-content">
-                            <ul class="list-group custom-popover">
-                                <li class="list-group-item item-color" (click)="setStatus(''); pop.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatus('Shipped'); pop.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.shipped}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatus('Order Confirmed'); pop.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.order_confirmed}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatus('Payment'); pop.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.payment}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatus('Harvest Ready'); pop.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.harvest_ready}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatus('Received'); pop.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.Received}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </ng-template>
-                    <ng-template #typeTemplate>
-                        <div>
-                            <ul class="list-group custom-popover">
-                                <li class="list-group-item item-color" (click)="setType(''); pop3.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setType('Sample'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.sample}}</a></li>
-                                <li class="list-group-item item-color" (click)="setType('Booked'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.booked}}</a></li>
-                                <li class="list-group-item item-color" (click)="setType('Pre-Booked'); pop3.hide();"><a class="pointer-item">{{globals.languageJson?.pre_booked}}</a>
-                                </li>
+          <ng-template #displayTemplate>
+            <div>
+              <ul class="list-group custom-popover">
+                <li
+                  class="list-group-item item-color"
+                  (click)="setDisplay('-1'); pop6.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.all }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setDisplay('10'); pop6.hide()"
+                >
+                  <a class="pointer-item">10</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setDisplay('25'); pop6.hide()"
+                >
+                  <a class="pointer-item">25</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setDisplay('50'); pop6.hide()"
+                >
+                  <a class="pointer-item">50</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setDisplay('100'); pop6.hide()"
+                >
+                  <a class="pointer-item">100</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+        </section>
 
+        <section class="mobile-tab">
+          <div class="d-block d-lg-none">
+            <div class="raised-mobile">
+              <div class="row pt-md-4 pb-md-4">
+                <div class="col-12">
+                  <div class="title-header">
+                    <div class="mb-3">
+                      <input
+                        class="d-inline search-name filter-set fadout-search"
+                        type="text"
+                        name="sourcingName"
+                        id="sourcingName"
+                        [(ngModel)]="searchTerm"
+                        placeholder="{{ globals.languageJson?.search_by_name }}"
+                      />
+                    </div>
+                    <div
+                      class="d-inline border-grade col-sm-6"
+                      id="OrginMob-id"
+                      [outsideClick]="true"
+                      (onShown)="toggleOriginMob()"
+                      (onHidden)="toggleOriginMob()"
+                      [popover]="originTemplateMob"
+                      placement="bottom"
+                      container="body"
+                      #pop9="bs-popover"
+                    >
+                      <p
+                        class="d-inline filter-text"
+                        *ngIf="estatetermOriginMob == ''"
+                      >
+                        {{ globals.languageJson?.origin }}&nbsp;
+                      </p>
+                      <a class="pointer-item">
+                        <p
+                          class="d-inline filter"
+                          *ngIf="estatetermOriginMob == ''"
+                        >
+                          &nbsp;
+                          <img
+                            src="{{
+                              showOriginMob
+                                ? 'assets/images/down-arrow.svg'
+                                : 'assets/images/user-down.svg'
+                            }}"
+                          />
+                        </p>
+                      </a>
+                      <a class="pointer-item">
+                        <p
+                          class="d-inline filter"
+                          *ngIf="estatetermOriginMob != ''"
+                        >
+                          {{ estatetermOriginMob }} &nbsp;<img
+                            src="{{
+                              showOriginMob
+                                ? 'assets/images/down-arrow.svg'
+                                : 'assets/images/user-down.svg'
+                            }}"
+                          />
+                        </p>
+                      </a>
+                    </div>
+                    <div
+                      class="d-inline border-grade col-sm-6"
+                      id="type_id_Mob"
+                      [outsideClick]="true"
+                      (onShown)="toggleTypeMob()"
+                      (onHidden)="toggleTypeMob()"
+                      [popover]="typeTemplateMob"
+                      placement="bottom"
+                      container="body"
+                      #pop11="bs-popover"
+                    >
+                      <p
+                        class="d-inline filter-text"
+                        *ngIf="estatetermTypeMob == ''"
+                      >
+                        {{ globals.languageJson?.order_type }}&nbsp;
+                      </p>
+                      <a class="pointer-item">
+                        <p
+                          class="d-inline filter"
+                          *ngIf="estatetermTypeMob == ''"
+                        >
+                          &nbsp;
+                          <img
+                            src="{{
+                              showTypeMob
+                                ? 'assets/images/down-arrow.svg'
+                                : 'assets/images/user-down.svg'
+                            }}"
+                          />
+                        </p>
+                      </a>
+                      <a class="pointer-item">
+                        <p
+                          class="d-inline filter"
+                          *ngIf="estatetermTypeMob != ''"
+                        >
+                          {{ estatetermTypeMob }}&nbsp;
+                          <img
+                            src="{{
+                              showTypeMob
+                                ? 'assets/images/down-arrow.svg'
+                                : 'assets/images/user-down.svg'
+                            }}"
+                          />
+                        </p>
+                      </a>
+                    </div>
+                    <div
+                      class="d-inline border-grade col-sm-6"
+                      id="status_id_Mob"
+                      [outsideClick]="true"
+                      (onShown)="toggleStatusMob()"
+                      (onHidden)="toggleStatusMob()"
+                      [popover]="allTemplateMob"
+                      placement="bottom"
+                      container="body"
+                      #pop14="bs-popover"
+                    >
+                      <p
+                        class="d-inline filter-text"
+                        *ngIf="estatetermStatusMob == ''"
+                      >
+                        {{ globals.languageJson?.status }}&nbsp;
+                      </p>
+                      <a class="pointer-item">
+                        <p
+                          class="d-inline filter"
+                          *ngIf="estatetermStatusMob == ''"
+                          (click)="toggleStatusMob()"
+                        >
+                          &nbsp;
+                          <img
+                            src="{{
+                              showStatusMob
+                                ? 'assets/images/down-arrow.svg'
+                                : 'assets/images/user-down.svg'
+                            }}"
+                          />
+                        </p>
+                      </a>
+                      <a class="pointer-item">
+                        <p
+                          class="d-inline filter"
+                          *ngIf="estatetermStatusMob != ''"
+                          (click)="toggleStatusMob()"
+                        >
+                          {{ estatetermStatusMob }}&nbsp;
+                          <img
+                            src="{{
+                              showStatusMob
+                                ? 'assets/images/down-arrow.svg'
+                                : 'assets/images/user-down.svg'
+                            }}"
+                          />
+                        </p>
+                      </a>
+                    </div>
+                    <div class="d-inline border-grade col-sm-6">
+                      <p class="d-inline filter-text">
+                        {{ globals.languageJson?.date }} &nbsp;
+                        <span *ngIf="showDateRange != ''"></span>
+                      </p>
 
-                            </ul>
-                        </div>
-
-                    </ng-template>
-
-                    <ng-template #displayTemplate>
-                        <div>
-                            <ul class="list-group custom-popover">
-                                <li class="list-group-item item-color" (click)="setDisplay('-1'); pop6.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setDisplay('10'); pop6.hide();"><a class="pointer-item">10</a></li>
-                                <li class="list-group-item item-color" (click)="setDisplay('25'); pop6.hide();"><a class="pointer-item">25</a></li>
-                                <li class="list-group-item item-color" (click)="setDisplay('50'); pop6.hide();"><a class="pointer-item">50</a></li>
-                                <li class="list-group-item item-color" (click)="setDisplay('100'); pop6.hide();"><a class="pointer-item">100</a></li>
-
-
-                            </ul>
-                        </div>
-
-                    </ng-template>
-
-                </section>
-
-
-                <section class="mobile-tab">
-                    <div class="d-block d-lg-none">
-                        <div class="raised-mobile">
-                            <div class="row  pt-md-4 pb-md-4">
-                                <div class="col-12">
-                                    <div class="title-header">
-                                        <div class="mb-3">
-                                            <input class="d-inline search-name filter-set fadout-search" type="text" name="sourcingName" id="sourcingName" [(ngModel)]="searchTerm" placeholder={{globals.languageJson?.search_by_name}}>
-                                        </div>
-                                        <div class="d-inline border-grade col-sm-6" id="OrginMob-id" [outsideClick]="true" (onShown)="toggleOriginMob();" (onHidden)="toggleOriginMob();" [popover]="originTemplateMob" placement="bottom" container="body" #pop9="bs-popover">
-                                            <p class="d-inline filter-text" *ngIf="estatetermOriginMob == ''">
-                                                {{globals.languageJson?.origin}}&nbsp;</p>
-                                            <a class="pointer-item">
-                                                <p class="d-inline filter" *ngIf="estatetermOriginMob == ''">
-                                                    &nbsp; <img src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                </p>
-                                            </a>
-                                            <a class="pointer-item">
-                                                <p class="d-inline filter" *ngIf="estatetermOriginMob != ''">
-                                                    {{ estatetermOriginMob }} &nbsp;<img src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                </p>
-                                            </a>
-
-                                        </div>
-                                        <div class="d-inline border-grade col-sm-6" id="type_id_Mob" [outsideClick]="true" (onShown)="toggleTypeMob();" (onHidden)="toggleTypeMob();" [popover]="typeTemplateMob" placement="bottom" container="body" #pop11="bs-popover">
-                                            <p class="d-inline filter-text" *ngIf="estatetermTypeMob == ''">
-                                                {{globals.languageJson?.order_type}}&nbsp;</p>
-                                            <a class="pointer-item">
-                                                <p class="d-inline filter" *ngIf="estatetermTypeMob == ''">
-                                                    &nbsp; <img src="{{ showTypeMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                </p>
-                                            </a>
-                                            <a class="pointer-item">
-                                                <p class="d-inline filter" *ngIf="estatetermTypeMob != ''">
-                                                    {{ estatetermTypeMob }}&nbsp; <img src="{{ showTypeMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                </p>
-                                            </a>
-
-                                        </div>
-                                        <div class="d-inline border-grade col-sm-6" id="status_id_Mob" [outsideClick]="true" (onShown)="toggleStatusMob();" (onHidden)="toggleStatusMob();" [popover]="allTemplateMob" placement="bottom" container="body" #pop14="bs-popover">
-                                            <p class="d-inline filter-text" *ngIf="estatetermStatusMob == ''">
-                                                {{globals.languageJson?.status}}&nbsp;</p>
-                                            <a class="pointer-item">
-                                                <p class="d-inline filter" *ngIf="estatetermStatusMob == ''" (click)="toggleStatusMob()">
-                                                    &nbsp; <img src="{{ showStatusMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                </p>
-                                            </a>
-                                            <a class="pointer-item">
-                                                <p class="d-inline filter" *ngIf="estatetermStatusMob != ''" (click)="toggleStatusMob()">
-                                                    {{ estatetermStatusMob }}&nbsp; <img src="{{ showStatusMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                </p>
-                                            </a>
-                                        </div>
-                                        <div class="d-inline border-grade col-sm-6">
-                                            <p class="d-inline filter-text">{{globals.languageJson?.date}} &nbsp;
-                                                <span *ngIf="showDateRange != ''"></span>
-                                            </p>
-
-                                            <a class="pointer-item">
-
-                                                <p class="d-inline filter">
-                                                    <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true" [showButtonBar]="true"></p-calendar>
-                                                    &nbsp; <img src="assets/images/active-calender.png" alt="" (click)="openCalendar($event)">
-                                                    <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
+                      <a class="pointer-item">
+                        <p class="d-inline filter">
+                          <p-calendar
+                            #calendar
+                            styleClass="only-icon"
+                            [(ngModel)]="rangeDates"
+                            selectionMode="range"
+                            dateFormat="dd.mm.yy"
+                            [readonlyInput]="true"
+                            [showButtonBar]="true"
+                          ></p-calendar>
+                          &nbsp;
+                          <img
+                            src="assets/images/active-calender.png"
+                            alt=""
+                            (click)="openCalendar($event)"
+                          />
+                          <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                                     </p-calendar> -->
-                                                </p>
-                                            </a>
+                        </p>
+                      </a>
 
-                                            <!-- <p class="d-inline filter-text">Date&nbsp;</p>
+                      <!-- <p class="d-inline filter-text">Date&nbsp;</p>
                                     <a class="pointer-item">
                                         <p class="d-inline filter">
                                             &nbsp; <img src="assets/images/active-user.svg" />
                                         </p>
                                     </a> -->
-
-                                        </div>
-
-                                    </div>
-                                </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="pagination-content">
+                    <div class="raised-list mt-5 mb-5">
+                      <ul class="cleafix pagination-content-list">
+                        <li
+                          class="order-raised pagination-content-list__item"
+                          *ngFor="
+                            let role of greendata
+                              | filter: estatetermOriginMob
+                              | filter: estatetermTypeMob
+                              | filter: estatetermStatusMob
+                              | filter: searchTerm
+                          "
+                        >
+                          <div
+                            class="raised-detils d-inline-block pb-3"
+                            (click)="OrderDetails($event, role)"
+                          >
+                            <div class="raised-tit">
+                              <h4 class="col-8">{{ role.status }}</h4>
+                              <label class="selok"
+                                ><img
+                                  src="assets/images/cricle-active.png"
+                                  alt=""
+                              /></label>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="pagination-content">
+                            <div class="raised-ticket">
+                              <h4 class="col-6 mt-3 pull-left">
+                                {{ role.requestedby }}
+                              </h4>
+                              <h6 class="col-6 mt-3 pull-right text-right">
+                                {{ role.daterequested }}
+                              </h6>
+                              <div class="estate-order clearfix">
+                                <h3 class="d-inline-block pl-0 pr-0 mr-3">
+                                  {{ role.origin }} l {{ role.estate }}
+                                </h3>
+                              </div>
+                              <div class="estate-order clearfix">
+                                <h3 class="d-inline-block pl-0 pr-0 mr-3">
+                                  {{ role.varierty }}
+                                </h3>
+                              </div>
 
-                                        <div class="raised-list mt-5 mb-5">
-                                            <ul class="cleafix pagination-content-list">
-                                                <li class="order-raised pagination-content-list__item" *ngFor="let role of greendata  | filter:estatetermOriginMob | filter:estatetermTypeMob | filter: estatetermStatusMob | filter : searchTerm">
-                                                    <div class="raised-detils d-inline-block  pb-3" (click)="OrderDetails($event,role);">
-                                                        <div class="raised-tit">
-                                                            <h4 class="col-8">{{role.status}}</h4>
-                                                            <label class="selok"><img src="assets/images/cricle-active.png"
-                                                            alt=""></label>
-                                                        </div>
-                                                        <div class="raised-ticket">
-                                                            <h4 class="col-6 mt-3 pull-left">{{role.requestedby}}</h4>
-                                                            <h6 class="col-6 mt-3 pull-right text-right">{{role.daterequested}}</h6>
-                                                            <div class="estate-order clearfix">
-                                                                <h3 class="d-inline-block pl-0 pr-0 mr-3">{{role.origin}} l {{role.estate}}
-                                                                </h3>
-                                                            </div>
-                                                            <div class="estate-order clearfix">
-                                                                <h3 class="d-inline-block pl-0 pr-0 mr-3">{{role.varierty}}
-                                                                </h3>
-                                                            </div>
-
-                                                            <a href="#" class="col-4 mt-3 pull-right text-right">{{globals.languageJson?.see_details}}<img class="pl-1" src="assets/images/estate-arrow.svg" alt=""></a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                            </ul>
-                                            <div class="responsive-pagination clearfix">
-                                                <span class="responsive-pagination__prev float-left disable"></span>
-                                                <ul class="responsive-pagination-list d-flex float-left mb-0">
-                                                    <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
+                              <a
+                                href="#"
+                                class="col-4 mt-3 pull-right text-right"
+                                >{{ globals.languageJson?.see_details
+                                }}<img
+                                  class="pl-1"
+                                  src="assets/images/estate-arrow.svg"
+                                  alt=""
+                              /></a>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                      <div class="responsive-pagination clearfix">
+                        <span
+                          class="responsive-pagination__prev float-left disable"
+                        ></span>
+                        <ul
+                          class="responsive-pagination-list d-flex float-left mb-0"
+                        >
+                          <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
                                         <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
                                         <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
                                         <li class="pagination-content-list__item" class="responsive-pagination-list__item">4</li>
                                         <li class="pagination-content-list__item" class="responsive-pagination-list__item">5</li> -->
-                                                </ul>
-                                                <span class="responsive-pagination__next float-left"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="select-cont">
+                        </ul>
+                        <span
+                          class="responsive-pagination__next float-left"
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="select-cont">
                         <a >Continue</a>
                     </div> -->
-                        </div>
-                    </div>
-
-
-
-                    <ng-template #originTemplateMob>
-                        <div id="status-content">
-                            <ul class="list-group custom-popover">
-                                <li class="list-group-item item-color" (click)="setOriginMob(''); pop9.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setOriginMob('Colombia'); pop9.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.colombia}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setOriginMob('Ethopia'); pop9.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.ethopia}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </ng-template>
-
-                    <ng-template #allTemplateMob>
-                        <div id="status-content">
-                            <ul class="list-group custom-popover">
-                                <li class="list-group-item item-color" (click)="setStatus('');pop14.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatusMob('Shipped');pop14.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.shipped}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatusMob('Order Confirmed');pop14.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.order_confirmed}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatusMob('Payment');pop14.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.payment}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatusMob('Harvest Ready');pop14.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.harvest_ready}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setStatusMob('Received');pop14.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.received}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </ng-template>
-                    <ng-template #typeTemplateMob>
-                        <div>
-                            <ul class="list-group custom-popover">
-                                <li class="list-group-item item-color" (click)="setTypeMob(''); pop11.hide();">
-                                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setTypeMob('Sample'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.sample}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setTypeMob('Booked'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.booked}}</a>
-                                </li>
-                                <li class="list-group-item item-color" (click)="setTypeMob('Pre-Booked'); pop11.hide();"><a class="pointer-item">{{globals.languageJson?.pre_booked}}</a>
-                                </li>
-
-
-                            </ul>
-                        </div>
-
-                    </ng-template>
-                </section>
-
             </div>
+          </div>
 
-        </div>
+          <ng-template #originTemplateMob>
+            <div id="status-content">
+              <ul class="list-group custom-popover">
+                <li
+                  class="list-group-item item-color"
+                  (click)="setOriginMob(''); pop9.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.all }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setOriginMob('Colombia'); pop9.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.colombia
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setOriginMob('Ethopia'); pop9.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.ethopia
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+
+          <ng-template #allTemplateMob>
+            <div id="status-content">
+              <ul class="list-group custom-popover">
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatus(''); pop14.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.all }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatusMob('Shipped'); pop14.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.shipped
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatusMob('Order Confirmed'); pop14.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.order_confirmed
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatusMob('Payment'); pop14.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.payment
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatusMob('Harvest Ready'); pop14.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.harvest_ready
+                  }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setStatusMob('Received'); pop14.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.received
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+          <ng-template #typeTemplateMob>
+            <div>
+              <ul class="list-group custom-popover">
+                <li
+                  class="list-group-item item-color"
+                  (click)="setTypeMob(''); pop11.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.all }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setTypeMob('Sample'); pop11.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.sample }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setTypeMob('Booked'); pop11.hide()"
+                >
+                  <a class="pointer-item">{{ globals.languageJson?.booked }}</a>
+                </li>
+                <li
+                  class="list-group-item item-color"
+                  (click)="setTypeMob('Pre-Booked'); pop11.hide()"
+                >
+                  <a class="pointer-item">{{
+                    globals.languageJson?.pre_booked
+                  }}</a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+        </section>
+      </div>
     </div>
+  </div>
 </section>
