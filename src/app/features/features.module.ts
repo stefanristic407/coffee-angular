@@ -41,6 +41,7 @@ import { DashboardNotifyComponent } from './welcome-aboard/dashboard-notify/dash
 import { DashboardEstateComponent } from './welcome-aboard/dashboard-estate/dashboard-estate.component';
 import { DashboardReviewComponent } from './welcome-aboard/dashboard-review/dashboard-review.component';
 import { DashboardSalesComponent } from './welcome-aboard/dashboard-sales/dashboard-sales.component';
+import { DashboardSourcingComponent } from './welcome-aboard/dashboard-sourcing/dashboard-sourcing.component';
 import { DashboardBlogComponent } from './welcome-aboard/dashboard-blog/dashboard-blog.component';
 import { DashboardActivityComponent } from './welcome-aboard/dashboard-activity/dashboard-activity.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
@@ -184,6 +185,7 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
     DashboardEstateComponent,
     DashboardReviewComponent,
     DashboardSalesComponent,
+    DashboardSourcingComponent,
     DashboardBlogComponent,
     DashboardActivityComponent,
     MyprofileComponent,
