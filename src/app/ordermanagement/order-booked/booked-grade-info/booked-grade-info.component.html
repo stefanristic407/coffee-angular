@@ -1,54 +1,19 @@
-
 <!-- TimeLine HTML code starts -->
 
-<div class="row progress-bar-tooltip pb-7">
+<div *ngIf="harvestDetails && harvestDetails.length > 0" class="row progress-bar-tooltip pb-7">
     <div class="col-12 col-md-12 ">
 
         <div class="row justify-content-between">
-            <div class="order-tracking completed mixups-track" id="gradedTimeline1">
-                <span class="is-complete tooltips">
-                            <p class="cup-score">82.5</p>
-                            <p class="score-text">{{globals.languageJson?.cupping_score}}</p>
-
-                        </span>
-                <p class="order-date mt-3">19 DEC 2019</p>
-                <p class="order-status mt-2">Graded by Facilitator</p>
-                <p class="order-view" data-toggle="collapse" data-target="#estate"> View Report </p>
-                <!-- <div id="estate" class="collapse">
-                        <p class="order-date">Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score </p>
-                        </div> -->
-            </div>
-            <div class="order-tracking completed mixups-track" id="gradedTimeline2">
-                <span class="is-complete tooltips">
-                                <p class="cup-score">82.5</p>
-                                <p class="score-text">Cupping score</p>
-
-                        </span>
-                <p class="order-date mt-3">20 JAN 2020</p>
-                <p class="order-status  mt-2">Sample-1 graded by Roaster</p>
-                <!-- <p class="order-view" data-toggle="collapse" data-target="#facilitor"> View Report <img src="assets/images/angle-right.png"></p> -->
-                <!-- <div id="facilitor" class="collapse">
-                            <p class="order-date">The green coffee before being onboarded on the shippment is graded again to get the latest score </p>
-                        </div> -->
-            </div>
-            <div class="order-tracking  mixups-track" id="gradedTimeline3">
-                <span class="is-complete tooltips">
-                                <div *ngIf="bookedService.afterGradeComplete">
-                                <p class="cup-score">82.5</p>
-                                <p class="score-text">Cupping score</p>
-                            </div>
-                            </span>
-                <div *ngIf="bookedService.afterGradeComplete">
-                    <p class="order-date mt-3">03 March 2020</p>
-                    <p class="order-status mt-2">Bulk Graded</p>
-                    <p class="order-view" data-toggle="collapse" data-target="#estate"> View Report </p>
+            <div *ngFor="let item of harvestDetails" class="order-tracking completed mixups-track" id="gradedTimeline1">
+                <div class="is-complete tooltips">
+                    <p class="cup-score">{{item.final_score}}</p>
+                    <p class="score-text">{{globals.languageJson?.cupping_score}}</p>
                 </div>
-                <p class="order-status-incomplete mt-3" *ngIf="bookedService.beforeGradeComplete">Bulk graded</p>
-                <!-- <div id="estate" class="collapse">
-                            <p class="order-date">Before the green coffee is handed to the facilitator, series of test have been conducted by the estate to get an accurate score </p>
-                            </div> -->
+                <p class="order-date mt-3">{{item.cupping_date | date : 'd MMM yyyy'}}</p>
+                <p class="order-status mt-2"> Graded by {{item.evaluator_type}}</p>
+                <p class="order-view" data-toggle="collapse" data-target="#estate" (click)="viewReport(item)">
+                    {{globals.languageJson?.view_report}} </p>
             </div>
-
         </div>
     </div>
 </div>
@@ -56,7 +21,9 @@
 <div class="row  know-more-content">
     <div class="">
         <h4 class="transit-txt pb-2">We try our best to avoid mixups :)</h4>
-        <p class="delivery pb-3"> To get you your coffee, we make sure the coffee is graded at various stages to make sure you get the beans you ordered. In our extensive process, coffee is graded by the estate owner, facilitator and you, to guarentee a consistent grade and avoid
+        <p class="delivery pb-3"> To get you your coffee, we make sure the coffee is graded at various stages to make
+            sure you get the beans you ordered. In our extensive process, coffee is graded by the estate owner,
+            facilitator and you, to guarentee a consistent grade and avoid
             miscommunication.
         </p>
         <!-- <p class="delivery"> SEWN follow a unique grade scale to ensure there is no confusion with grading.</p> -->

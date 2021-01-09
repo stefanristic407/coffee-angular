@@ -1,11 +1,11 @@
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Sample.
-import { Component, OnInit, ViewChild, ElementRef,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { OrderSampleService } from './order-sample.service';
 import { ActivatedRoute } from '@angular/router';
 import { GradeInfoComponent } from '../order-sample/grade-info/grade-info.component';
 import { CookieService } from 'ngx-cookie-service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { OrderDetailsComponent } from '../order-sample/order-details/order-details.component';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
@@ -27,6 +27,7 @@ export class OrderSampleComponent implements OnInit {
 	@ViewChild('shippmentSample', { static: false }) private shippmentSample: ElementRef<HTMLElement>;
 	@ViewChild('receivedSample', { static: false }) private receivedSample: ElementRef<HTMLElement>;
 	@ViewChild('gradedSample', { static: false }) private gradedSample: ElementRef<HTMLElement>;
+	@ViewChild(GradeInfoComponent, { static: false }) public gradeInfoTab: GradeInfoComponent;
 	@ViewChild('myForm') myForm;
 	sampleValueToShow: string = "Order Placed";
 	orderSampleTimeline: boolean = true;
@@ -46,38 +47,38 @@ export class OrderSampleComponent implements OnInit {
 	totalstar = 5;
 	newvalue: any = 2;
 	appLanguage?: any;
-	orderSampleActive:any =0;
+	orderSampleActive: any = 0;
 	recievedShow: boolean = false;
-	shippmentShow :boolean = false;
+	shippmentShow: boolean = false;
 	orderSampleId: any;
 	countryValue: any;
 	roasterId: string;
 
 	constructor(public sampleService: OrderSampleService, private route: ActivatedRoute,
-		public router: Router,public cookieService : CookieService,
+		public router: Router, public cookieService: CookieService,
 		public bookedService: OrderBookedService,
-		public globals: GlobalsService,public profileservice:RoasteryProfileService,private roasterService : RoasterserviceService,
-		private userService : UserserviceService,private toastrService : ToastrService) { 
-			this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
-			this.orderSampleId = decodeURIComponent(this.route.snapshot.queryParams['id']);
-			this.sampleService.orderSampleId=this.orderSampleId;
-			this.sampleService.viewSampleOrderDetails();
-			this.roasterId = this.cookieService.get('roaster_id');
+		public globals: GlobalsService, public profileservice: RoasteryProfileService, private roasterService: RoasterserviceService,
+		private userService: UserserviceService, private toastrService: ToastrService) {
+		this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
+		this.orderSampleId = decodeURIComponent(this.route.snapshot.queryParams['id']);
+		this.sampleService.orderSampleId = this.orderSampleId;
+		this.sampleService.viewSampleOrderDetails();
+		this.roasterId = this.cookieService.get('roaster_id');
 
-			if(this.sampleService.paymentVerification == true && this.dataFromTable == "CONFIRMED"){
-				setTimeout(() => {
+		if (this.sampleService.paymentVerification == true && this.dataFromTable == "CONFIRMED") {
+			setTimeout(() => {
 				this.sampleValueToShow = "Payment";
-				  this.paySample();
-				}, 1000);
-			  }	
+				this.paySample();
+			}, 1000);
 		}
+	}
 
 	ngOnInit(): void {
 		//Auth checking
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
-		  }
-		  this.language();
+		}
+		this.language();
 		//Fills the time line based on the status selected in estate order.
 		console.log("the data from table trigger is  : " + this.dataFromTable);
 		if (this.dataFromTable == "CONFIRMED") {
@@ -113,7 +114,7 @@ export class OrderSampleComponent implements OnInit {
 			}, 500);
 		}
 
-		
+
 	}
 
 	// Function Name : Order Placed
@@ -155,18 +156,18 @@ export class OrderSampleComponent implements OnInit {
 		completedProcess.classList.remove('completed');
 		this.shippmentReport = true;
 		this.sampleService.shipmentDone = true;
-		if(this.dataFromTable == "SHIPPED"){
+		if (this.dataFromTable == "SHIPPED") {
 			setTimeout(() => {
-			  this.orderSampleTimeline = false;
-			  this.confirmShow = true;
+				this.orderSampleTimeline = false;
+				this.confirmShow = true;
 			}, 2000);
-		  }
+		}
 		// Calling the Order Details component by creating object of the component and accessing its methods
 
-		let uploadReceipt = new OrderDetailsComponent(this.sampleService,this.globals,this.profileservice,this.cookieService,this.roasterService,this.userService,this.toastrService);
-		setTimeout(()=>{
+		let uploadReceipt = new OrderDetailsComponent(this.sampleService, this.globals, this.profileservice, this.cookieService, this.roasterService, this.userService, this.toastrService);
+		setTimeout(() => {
 			uploadReceipt.uploadReceipt();
-		},500);
+		}, 500);
 	}
 	// Function Name : Order Sample Received
 	// Description: This function fills timeline of order received.
@@ -179,12 +180,12 @@ export class OrderSampleComponent implements OnInit {
 		completedProcess.classList.remove('completed');
 		this.receivedReport = true;
 		this.orderSampleTimeline = true;
-		if(this.dataFromTable == "RECEIVED"){
+		if (this.dataFromTable == "RECEIVED") {
 			setTimeout(() => {
-			  this.orderSampleTimeline = false;
-			  this.confirmShow = true;
+				this.orderSampleTimeline = false;
+				this.confirmShow = true;
 			}, 2000);
-		  }
+		}
 	}
 	// Function Name : Order Booked Graded
 	// Description: This function shows order is graded and grade info tab timeline is filled.
@@ -205,8 +206,8 @@ export class OrderSampleComponent implements OnInit {
 
 		// Calling the Grade info component by creating object of the component and accessing its methods
 
-		let callGradeInfo = new GradeInfoComponent(this.sampleService,this.globals);
-		callGradeInfo.gradeComplete();
+		//let callGradeInfo = new GradeInfoComponent(this.sampleService,this.globals);
+		this.gradeInfoTab.gradeComplete();
 
 
 	}
@@ -216,44 +217,44 @@ export class OrderSampleComponent implements OnInit {
 	cancelOrder() {
 		this.orderSampleTimeline = false;
 		this.confirmShow = false;
-		this.recievedShow=false;
-		this.shippmentShow =false;
+		this.recievedShow = false;
+		this.shippmentShow = false;
 		this.cancelShow = true;
 	}
-	receivedDate(){
+	receivedDate() {
 
-		this.roasterService.orderReceived(this.roasterId,this.orderSampleId).subscribe(
+		this.roasterService.orderReceived(this.roasterId, this.orderSampleId).subscribe(
 			response => {
-			  if(response['success'] == true){
-				this.toastrService.success("Order received has been confirmed");
-				this.orderSampleTimeline = false;
-				this.cancelShow = false;
-				this.shippmentShow = false;
-			  this.recievedShow = true;
-			  this.confirmShow = false;
-				setTimeout(()=>{
-				this.receivedStatusSample();
-				},2000)
-			  }
-			  else{
-				this.toastrService.error("Error while confirmation the Shipment");
-			  }
+				if (response['success'] == true) {
+					this.toastrService.success("Order received has been confirmed");
+					this.orderSampleTimeline = false;
+					this.cancelShow = false;
+					this.shippmentShow = false;
+					this.recievedShow = true;
+					this.confirmShow = false;
+					setTimeout(() => {
+						this.receivedStatusSample();
+					}, 2000)
+				}
+				else {
+					this.toastrService.error("Error while confirmation the Shipment");
+				}
 			}
-		  )
+		)
 		// this.orderSampleTimeline = false;
 		// this.confirmShow = false;
 		// this.cancelShow = false;
 		// this.shippmentShow =false;
 		// this.recievedShow=true;
 	}
-	wrongShippment(){
+	wrongShippment() {
 		this.orderSampleTimeline = false;
 		this.confirmShow = false;
 		this.cancelShow = false;
-		this.recievedShow =false;
-		this.shippmentShow=true;
+		this.recievedShow = false;
+		this.shippmentShow = true;
 	}
-	language(){
+	language() {
 		this.appLanguage = this.globals.languageJson;
 		this.orderSampleActive++;
 	}
@@ -270,44 +271,44 @@ export class OrderSampleComponent implements OnInit {
 		//chat 
 
 		const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
-const chatbox = document.querySelector(".js-chatbox");
-const chatboxMsgDisplay = document.querySelector(".js-chatbox-display");
-const chatboxForm = document.querySelector(".js-chatbox-form");
+		const chatbox = document.querySelector(".js-chatbox");
+		const chatboxMsgDisplay = document.querySelector(".js-chatbox-display");
+		const chatboxForm = document.querySelector(".js-chatbox-form");
 
-// Use to create chat bubble when user submits text
-// Appends to display
-const createChatBubble = input => {
-  const chatSection = document.createElement("p");
-  chatSection.textContent = input;
-  chatSection.classList.add("chatbox__display-chat");
+		// Use to create chat bubble when user submits text
+		// Appends to display
+		const createChatBubble = input => {
+			const chatSection = document.createElement("p");
+			chatSection.textContent = input;
+			chatSection.classList.add("chatbox__display-chat");
 
-  chatboxMsgDisplay.appendChild(chatSection);
-};
+			chatboxMsgDisplay.appendChild(chatSection);
+		};
 
-// Toggle the visibility of the chatbox element when clicked
-// And change the icon depending on visibility
-toggleChatboxBtn.addEventListener("click", () => {
-  chatbox.classList.toggle("chatbox--is-visible");
+		// Toggle the visibility of the chatbox element when clicked
+		// And change the icon depending on visibility
+		toggleChatboxBtn.addEventListener("click", () => {
+			chatbox.classList.toggle("chatbox--is-visible");
 
-  if (chatbox.classList.contains("chatbox--is-visible")) {
-    toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
-  } else {
-    toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
-  }
-});
+			if (chatbox.classList.contains("chatbox--is-visible")) {
+				toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
+			} else {
+				toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
+			}
+		});
 
-// Form input using method createChatBubble
-// To append any user message to display
-chatboxForm.addEventListener("submit", e => {
-//   const chatInput = document.querySelector(".js-chatbox-input");
-  const chatInput=(document.getElementById("js-chatbox-input") as HTMLInputElement).value;
-//   console.log("chat text coming"+chatInput);
+		// Form input using method createChatBubble
+		// To append any user message to display
+		chatboxForm.addEventListener("submit", e => {
+			//   const chatInput = document.querySelector(".js-chatbox-input");
+			const chatInput = (document.getElementById("js-chatbox-input") as HTMLInputElement).value;
+			//   console.log("chat text coming"+chatInput);
 
-  createChatBubble(chatInput);
+			createChatBubble(chatInput);
 
-  e.preventDefault();
-  this.myForm.nativeElement.reset();
-});
+			e.preventDefault();
+			this.myForm.nativeElement.reset();
+		});
 
 	}
 	// onRate($event:{ newValue:number}) {
@@ -315,24 +316,26 @@ chatboxForm.addEventListener("submit", e => {
 	//   this.newvalue=$event.newValue;
 	//  console.log(this.newvalue);
 	// }
-	GetCountry(data:any){
-        // console.log(data.toUpperCase());
-        if(data){
-          this.countryValue=this.profileservice.countryList.find(con =>con.isoCode == data.toUpperCase());
-          if(this.countryValue){
-          return this.countryValue.name;
-          }
-        }
+	GetCountry(data: any) {
+		// console.log(data.toUpperCase());
+		if (data) {
+			this.countryValue = this.profileservice.countryList.find(con => con.isoCode == data.toUpperCase());
+			if (this.countryValue) {
+				return this.countryValue.name;
+			}
+		}
 	}
-	showInvoice() { 
-   
-		const a = document.createElement("a"); 
-		a.href = this.sampleService.invoice_url ;
+	showInvoice() {
+
+		const a = document.createElement("a");
+		a.href = this.sampleService.invoice_url;
 		a.download = `#${this.sampleService.orderSampleId}`;
 		a.target = "_blank";
 		document.body.appendChild(a);
 		a.click();
-		document.body.removeChild(a); 
-	  
-	  }
+		document.body.removeChild(a);
+	}
+	onClickGradeInfoTab() {
+		this.gradeInfoTab.getHarvestDetails();
+	}
 }

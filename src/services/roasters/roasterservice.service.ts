@@ -996,5 +996,21 @@ export class RoasterserviceService {
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
 	}
+	//API Function Name : Get Harvest details
+	getHarvestDetails(harvest_id: any) {
+		var data = {};
+		data['api_call'] = "/general/harvests/" + harvest_id + "/cupping-scores";
+		data['token'] = this.cookieService.get('Auth');
+		data['method'] = "GET";
+		return this.http.post(this.url, data);
+	}
+	//Get cupping report details
+	getCuppingReportDetails(harvest_id: any) {
+		var data = {};
+		data['api_call'] = "/general/harvests/" + harvest_id + "/cupping-report";
+		data["method"] = "GET";
+		data['token'] = this.cookieService.get('Auth');
+		return this.http.post(this.url, data);
+	}
 }
 

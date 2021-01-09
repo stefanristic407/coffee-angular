@@ -29,6 +29,7 @@ export class OrderBookedComponent implements OnInit {
   @ViewChild('shippmentBooked', { static: false }) private shipmentBooked: ElementRef<HTMLElement>;
   @ViewChild('receivedBooked', { static: false }) private receivedBooked: ElementRef<HTMLElement>;
   @ViewChild('gradedBooked', { static: false }) private gradedBooked: ElementRef<HTMLElement>;
+  @ViewChild(BookedGradeInfoComponent, { static: false }) public gradeInfoTab: BookedGradeInfoComponent;
   @ViewChild('myForm') myForm;
 
 
@@ -201,11 +202,8 @@ export class OrderBookedComponent implements OnInit {
     this.uploadReport = false;
     this.gradedReport = true;
     $('#pills-contact-tab')[0].click();
-
     // Calling the Grade info component by creating object of the component and accessing its methods
-
-    let callGradeInfo = new BookedGradeInfoComponent(this.bookedService, this.globals);
-    callGradeInfo.gradedComplete();
+    this.gradeInfoTab.gradedComplete();
 
 
   }
@@ -318,6 +316,9 @@ export class OrderBookedComponent implements OnInit {
     a.click();
     document.body.removeChild(a);
 
+  }
+  onClickGradeInfoTab() {
+    this.gradeInfoTab.getHarvestDetails();
   }
 
 
