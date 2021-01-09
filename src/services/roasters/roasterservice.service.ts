@@ -727,6 +727,7 @@ export class RoasterserviceService {
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
 	}
+
 	getOrderDisputeList(roaster_id: any, order_id: any) {
 		var data = {};
 		data['method'] = "GET";
@@ -734,6 +735,8 @@ export class RoasterserviceService {
 		data['token'] = this.cookieService.get('Auth');
 		return this.http.post(this.url, data);
 	}
+
+
 	deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any) {
 		var data = {};
 		data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
@@ -911,6 +914,14 @@ export class RoasterserviceService {
 		obj['data'] = data;
 		return this.http.post(this.url, obj);
 	}
+
+	getEvaluatorsList(roaster_id: any, cupping_report_id: any) {
+		var data = {};
+		data['api_call'] = "/ro/" + roaster_id + "/cupping-process/" + cupping_report_id + "/evaluators";
+		data['token'] = this.cookieService.get('Auth');
+		data['method'] = "GET";
+		return this.http.post(this.url, data);
+	}
 	//API Function Name : Get user list of roaster
 	getRoasterUserList(roasterId: any, query) {
 		var data = {};
@@ -952,6 +963,22 @@ export class RoasterserviceService {
 		data['token'] = this.cookieService.get('Auth');
 		data['data'] = userData;
 		data['method'] = "POST";
+		return this.http.post(this.url, data);
+	}
+
+	externalCuppingReportsList(roasterId: any) {
+		var data = {};
+		data['api_call'] = "/ro/" + roasterId + "/external-cupping-reports/";
+		data['token'] = this.cookieService.get('Auth');
+		data['method'] = "GET";
+		return this.http.post(this.url, data);
+	}
+
+	listCuppingRequest(roasterId: any) {
+		var data = {};
+		data['api_call'] = "/ro/" + roasterId + "/external-cupping-invite-list/";
+		data['token'] = this.cookieService.get('Auth');
+		data['method'] = "GET";
 		return this.http.post(this.url, data);
 	}
 	updateExternalSample(roasterId: any, cupping_report_id: any, body: any) {

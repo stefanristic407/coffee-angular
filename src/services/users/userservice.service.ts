@@ -31,7 +31,7 @@ export class UserserviceService {
   // private url = "https://qa-fed-api.sewnstaging.com/api";
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/deleteapi";
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   //API Function Name : Roaster Login
   //API Description: This API calls helps to get the username and password of the user and send to the backend to check the user is valid or not.
@@ -1109,7 +1109,9 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data);
   }
 
-  getCuppingScore(roasterId: any, cupping_report_id: any) {
+  getCuppingScore(roasterId: any, cupping_report_id: any, evaluator_ids: any) {
+    let params = new HttpParams();
+    params = params.append('evaluator_ids', evaluator_ids);
     var data = {};
     data['api_call'] = '/ro/' + roasterId + '/cupping-process/' + cupping_report_id + '/cupping-score';
     data['method'] = 'GET';
@@ -1165,17 +1167,50 @@ export class UserserviceService {
     return this.http.post(this.roasterUrl, data);
   }
 
-  getStats(roaster_id: any) {
+  getStats(roaster_id: any, query: any = {}) {
     var data = {};
     data['api_call'] = '/ro/' + roaster_id + '/stats';
     data['method'] = 'GET';
     data['token'] = this.cookieService.get('Auth');
+    data = { ...data, ...query };
     return this.http.post(this.roasterUrl, data);
   }
 
   getReviewsSummary(roaster_id: any) {
     var data = {};
     data['api_call'] = '/general/ro/' + roaster_id + '/reviews-summary';
+    data['method'] = 'GET';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  recupSample(roasterId: any, service_request_id: any) {
+    var data = {};
+    data["api_call"] = `/ro/${roasterId}/service-requests/${service_request_id}/re-cup`;
+    data["token"] = this.cookieService.get("Auth");
+    data['method'] = "POST";
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  downloadReportEvaluator(roasterId: any, cupping_report_id: any, filterEval: any) {
+    let data = {};
+    let params = new HttpParams();
+    params = params.append('evaluator_ids_in', filterEval);
+    data['api_call'] = "/ro/" + roasterId + "/cupping-process/" + cupping_report_id + "/download?" + params;
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
+
+  externalRecupSample(roasterId: any, sample_id: any) {
+    var data = {};
+    data['api_call'] = "/ro/" + roasterId + "/cupping-process​/external-samples/" + sample_id + "/re-cup";
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = "POST";
+    return this.http.post(this.roasterUrl, data);
+  }
+  getRecentActivities(roaster_id: any) {
+    var data = {};
+    data['api_call'] = '/ro/' + roaster_id + '/recent-activity';
     data['method'] = 'GET';
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.roasterUrl, data);

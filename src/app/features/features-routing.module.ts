@@ -72,15 +72,17 @@ import { SourcingOrderChatComponent } from "./Sourcing/estate-details-list/sourc
 import { SourcingComponent } from "./Sourcing/sourcing/sourcing.component";
 import { VatManagementComponent } from "./vat-management/vat-management.component";
 import { WelcomeAboardComponent } from "./welcome-aboard/welcome-aboard.component";
-import { BatchSelectAnOrderComponent} from "./batch-select-an-order/batch-select-an-order.component";
+import { BatchSelectAnOrderComponent } from "./batch-select-an-order/batch-select-an-order.component";
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
-import { DefaultSettingComponent} from './Farm Link/coffee-experience/default-setting/default-setting.component';
-import { GreenCoffeeForSaleDetailsComponent} from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component'
+import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
+import { GreenCoffeeForSaleDetailsComponent } from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component'
 import { from } from 'rxjs';
-import {ApiRequestsTableComponent} from './api-requests/api-requests-table/api-requests-table.component';
+import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
 import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
 import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
+import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
+import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
 
 const routes: Routes = [
   {
@@ -463,24 +465,34 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path:"api-requests-list",
-        component:ApiRequestsTableComponent,
+        path: "api-requests-list",
+        component: ApiRequestsTableComponent,
         canActivate: [AuthGuard],
       },
       {
-        path:"api-request-details",
-        component:ApiRequestDetailsComponent,
+        path: "api-request-details",
+        component: ApiRequestDetailsComponent,
         canActivate: [AuthGuard],
       },
       {
-        path:"generate-key-details",
-        component:GenerateKeyDetailsComponent,
+        path: "generate-key-details",
+        component: GenerateKeyDetailsComponent,
         canActivate: [AuthGuard],
       },
       {
-        path:"confirm-preorder-lot",
-        component:ConfirmPreorderLotComponent,
+        path: "confirm-preorder-lot",
+        component: ConfirmPreorderLotComponent,
         canActivate: [AuthGuard],
+      },
+      {
+        path: 'other-cupping-service',
+        component: OtherCuppingServiceComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'other-generate-report',
+        component: OtherGenerateReportComponent,
+        canActivate: [AuthGuard]
       },
 
       {
@@ -500,4 +512,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FeaturesRoutingModule {}
+export class FeaturesRoutingModule { }

@@ -1,4 +1,4 @@
-<div class="p-md-3 br-md-main br-4 h-100">
+<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up p-md-3 br-md-main br-4 h-100">
   <p class="fnt-16 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-none d-md-block">Specially for you!</p>
   <p class="fnt-14 fnt-normal fnt-muli text-gray588 mb-2 mb-md-4 d-none d-md-block">
     Here are a few estates you might like to source from.
@@ -6,17 +6,16 @@
 
   <p class="fnt-16 fnt-bold fnt-muli text-black334 mb-1 d-md-none">Sourced coffee</p>
   <div class="row">
-    <div class="col-12 col-md-6">
+    <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6">
       <div class="chart-block mb-3">
         <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
         <div class="position-relative d-flex justify-content-center">
           <ejs-accumulationchart
-            id="container"
-            #pie
+            id="total-sale-container"
             style="display: block; width: 92%"
             [legendSettings]="legendSettings"
             [tooltip]="tooltip"
-            [enableAnimation]="true"
+            [enableAnimation]="false"
           >
             <e-accumulation-series-collection>
               <e-accumulation-series
@@ -26,10 +25,9 @@
                 yName="y"
                 [startAngle]="0"
                 [endAngle]="360"
-                innerRadius="74%"
+                innerRadius="76%"
                 radius="80%"
                 [explode]="true"
-                [dataLabel]="dataLabel"
               >
               </e-accumulation-series>
             </e-accumulation-series-collection>
@@ -43,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-6">
+    <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6">
       <div class="estates-block mb-3">
         <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Source from latest estates</div>
         <div class="p-3">
@@ -67,7 +65,7 @@
           </div>
 
           <div class="w-100 text-right text-md-left">
-            <a class="custom-link" routerLink="/features/sourcing">See all estates ></a>
+            <a class="custom-link" routerLink="/features/sourcing">See all estates</a>
           </div>
         </div>
       </div>

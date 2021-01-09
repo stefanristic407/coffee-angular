@@ -1,0 +1,294 @@
+//////////////////// Font Family
+
+/* vietnamese */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/7Auwp_0qiz-afT3GLRrX.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/7Auwp_0qiz-afTzGLRrX.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/7Auwp_0qiz-afTLGLQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/vietnamese-normal-500.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/latin-ext-normal-500.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/latin-normal-400.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/vietnamese-normal-600.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/latin-ext-normal-600.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* vietnamese */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/vietnamese-normal-700.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/latin-ext-normal-600.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+
+@font-face {
+  font-family: 'Muli';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/css/fonts/muli/latin-normal-700.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.fnt-play {
+  font-family: 'Playfair Display', serif !important;
+}
+
+.fnt-mont {
+  font-family: 'Muli', sans-serif;
+}
+
+.fnt-muli {
+  font-family: 'Muli', sans-serif !important;
+}
+
+//////////////////// Font Weight
+
+.fnt-200 {
+  font-weight: 200;
+}
+
+.fnt-300 {
+  font-weight: 300;
+}
+
+.fnt-400 {
+  font-weight: 400;
+}
+
+.fnt-500 {
+  font-weight: 500;
+}
+
+.fnt-normal {
+  font-weight: normal;
+}
+
+.fnt-600 {
+  font-weight: 600;
+}
+
+.fnt-700 {
+  font-weight: 700;
+}
+
+.fnt-bold {
+  font-weight: 700;
+}
+
+//////////////////// Font Size
+/* Mobile screens */
+
+.fnt-10 {
+  font-size: 10px;
+  line-height: 20px;
+}
+
+.fnt-9 {
+  font-size: 9px;
+  line-height: 20px;
+}
+
+.fnt-12 {
+  font-size: 12px;
+}
+
+.fnt-14 {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.fnt-16 {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.fnt-18 {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.fnt-40 {
+  font-size: 40px;
+  line-height: 50px;
+}
+
+.fnt-mb-14 {
+  font-size: 12px;
+  line-height: 22px;
+}
+
+.fnt-24 {
+  font-size: 24px;
+}
+
+.fnt-bold {
+  font-weight: bold;
+}
+
+/* Tablet screens */
+
+@media (min-width: 768px) {
+  .fnt-18 {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .fnt-16 {
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .fnt-mb-14 {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+/* Desktop screens */
+
+.fnt-34 {
+  font-size: 34px;
+  line-height: 44px;
+}
+
+//////////////////// Font Color
+.text-clr5d {
+  color: #5d5d5d;
+}
+
+.text-clr588 {
+  color: #747588;
+}
+
+.text-clrb46 {
+  color: #2c2b46;
+}
+
+.text-clr-e5a {
+  color: #ff1e5a;
+}
+
+.text-clr60b {
+  color: #80460b;
+}
+
+.text-clr4d {
+  color: #4d4d4d;
+}
+
+.text-clr000 {
+  color: #000000;
+}
+
+.text-clr5d {
+  color: #5d5d5d;
+}
+
+.txt-clr55c {
+  color: #30855c;
+}
+
+.txt-clr60b {
+  color: #80460b;
+}
+
+.txt-clr334 {
+  color: #232334;
+}
+
+.text-white {
+  color: #ffffff;
+}

@@ -79,6 +79,7 @@
     left: 7px !important;
     top: 3px !important;
     border-width: 0 2px 2px 0 !important;
+    border: none !important;
 }
 
 span.checkmark {
@@ -259,13 +260,27 @@ span.cupping-checkmark {
     display: inline-block !important;
     z-index: 9;
 }
-.order-id{font-size: 18px;}
+
+.order-id {
+    font-size: 18px;
+}
 
 @media (max-width: 767px) {
-    .grade_source_total{padding-right: 16px; padding-left: 16px; display: inline-block}
-    .grade_source_total .fnt-play{font-size: 20px;}
-    .cupping-report{padding:0 16px 16px;}
-    .accordion .card h2 {background-position: right top !important;}
-    .add-comment{margin-bottom: 10px;}
-    
+    .grade_source_total {
+        padding-right: 16px;
+        padding-left: 16px;
+        display: inline-block
+    }
+    .grade_source_total .fnt-play {
+        font-size: 20px;
+    }
+    .cupping-report {
+        padding: 0 16px 16px;
+    }
+    .accordion .card h2 {
+        background-position: right top !important;
+    }
+    .add-comment {
+        margin-bottom: 10px;
+    }
 }
