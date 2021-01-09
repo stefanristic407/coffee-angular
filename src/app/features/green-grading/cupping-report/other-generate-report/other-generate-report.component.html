@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="back-page w-100">
-                            <a><img class="pr-2" src="assets/images/back-arrow-1.png">Back</a>
+                            <a routerLink="/features/cupping-reports"><img class="pr-2" src="assets/images/back-arrow-1.png">Back</a>
                         </div>
                     </div>
                 </div>
@@ -21,12 +21,12 @@
                             <div class="info_list">
                                 <ul class="clearfix mb-0">
                                     <li>
-                                        <label>Service request ID  :</label>
-                                        <p *ngIf="cuppingService.serviceReportDetails">{{cuppingService.serviceReportDetails['service_request_id']}}</p>
+                                        <label>External sample ID  :</label>
+                                        <p *ngIf="cuppingService.otherReportDetails">{{cuppingService.otherReportDetails['external_sample_id']}}</p>
                                     </li>
                                     <li>
                                         <label>Estate Name  :</label>
-                                        <p *ngIf="eachServiceData">{{eachServiceData['estate_name']}}</p>
+                                        <p *ngIf="cuppingService.otherReportDetails">{{cuppingService.otherReportDetails['estate_name']}}</p>
                                     </li>
                                     <li>
                                         <label>Origin  :</label>
@@ -34,7 +34,7 @@
                                     </li>
                                     <li>
                                         <label>Harvest year  :</label>
-                                        <p *ngIf="eachServiceData">{{eachServiceData['harvest_date'] | date : 'MMMM y'}}}</p>
+                                        <p>-</p>
                                     </li>
                                 </ul>
                             </div>

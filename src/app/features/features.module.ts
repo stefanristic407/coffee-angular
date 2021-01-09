@@ -172,6 +172,8 @@ import { GeneratedKeysComponent } from './api-requests/api-requests-table/genera
 import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
 import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
+import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
+import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
 
 @NgModule({
   declarations: [
@@ -304,6 +306,8 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
     ApiRequestDetailsComponent,
     GenerateKeyDetailsComponent,
     ConfirmPreorderLotComponent,
+    OtherCuppingServiceComponent,
+    OtherGenerateReportComponent,
   ],
   imports: [
     CommonModule,

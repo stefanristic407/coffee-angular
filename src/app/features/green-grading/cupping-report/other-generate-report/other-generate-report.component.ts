@@ -10,11 +10,12 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-generate-new-report',
-  templateUrl: './generate-new-report.component.html',
-  styleUrls: ['./generate-new-report.component.css']
+  selector: 'app-other-generate-report',
+  templateUrl: './other-generate-report.component.html',
+  styleUrls: ['./other-generate-report.component.css']
 })
-export class GenerateNewReportComponent implements OnInit {
+export class OtherGenerateReportComponent implements OnInit {
+
   ro_id: any;
   mainData: any;
   eachServiceData: any;
@@ -28,32 +29,31 @@ export class GenerateNewReportComponent implements OnInit {
   evaluatorName: any;
   evaluatorsListArray: any = [];
   filterEval: any = [];
-  evalIds: any;
 
   constructor(public globals: GlobalsService, public cuppingService: CuppingReportService, private router: Router,
     public yourService: YourServicesService, private roasterService: RoasterserviceService, private cookieService: CookieService,
     private userService: UserserviceService, private toastrService: ToastrService, public generateReportService: GenerateReportService) {
-    this.ro_id = this.cookieService.get('roaster_id');
+    this.ro_id = this.cookieService.get('facilitator_id');
     this.ViewCuppingInviteList();
     this.evaluatorsList();
     this.singleCuppingData();
   }
 
   ngOnInit(): void {
-
   }
+
   ViewCuppingInviteList() {
-    this.yourService.getCuppingInviteList().subscribe(res => {
-      this.mainData = res.success ? res.result : [];
-      if (this.cuppingService.serviceReportDetails) {
-        this.eachServiceData = this.mainData.filter(ele => ele.service_request_id == this.cuppingService.serviceReportDetails['service_request_id']);
+    this.roasterService.listCuppingRequest(this.ro_id).subscribe(res => {
+      this.mainData = res['success'] ? res['result'] : [];
+      if (this.cuppingService.otherReportDetails) {
+        this.eachServiceData = this.mainData.filter(ele => ele.external_sample_id == this.cuppingService.otherReportDetails['external_sample_id']);
       }
     });
   }
 
   singleCuppingData() {
-    if (this.cuppingService.serviceReportDetails) {
-      this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
+    if (this.cuppingService.otherReportDetails) {
+      this.cupping_report_id = this.cuppingService.otherReportDetails.cupping_report_id;
       this.userService.getSingleCuppingDetails(this.ro_id, this.cupping_report_id).subscribe(
         data => {
           if (data['success'] == true) {
@@ -72,10 +72,9 @@ export class GenerateNewReportComponent implements OnInit {
     }
   }
 
-
   evaluatorsList() {
-    if (this.cuppingService.serviceReportDetails) {
-      this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
+    if (this.cuppingService.otherReportDetails) {
+      this.cupping_report_id = this.cuppingService.otherReportDetails.cupping_report_id;
       this.roasterService.getEvaluatorsList(this.ro_id, this.cupping_report_id).subscribe(
         response => {
           if (response['success'] == true) {
@@ -87,12 +86,12 @@ export class GenerateNewReportComponent implements OnInit {
       )
     }
   }
+
   downloadPdf() {
-    if (this.cuppingService.serviceReportDetails) {
+    if (this.cuppingService.otherReportDetails) {
       if (this.filterEval.length) {
-        this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
-        this.evalIds = this.filterEval.toString();
-        this.userService.downloadReportEvaluator(this.ro_id, this.cupping_report_id, this.evalIds).subscribe(
+        this.cupping_report_id = this.cuppingService.otherReportDetails.cupping_report_id;
+        this.userService.downloadReportEvaluator(this.ro_id, this.cupping_report_id, this.filterEval).subscribe(
           res => {
             if (res['success'] == true) {
               this.toastrService.success('The report has been downloaded');
@@ -132,10 +131,8 @@ export class GenerateNewReportComponent implements OnInit {
       if (this.filterEval.includes(value)) {
         const index = this.filterEval.indexOf(value);
         this.filterEval.splice(index, 1);
-
       }
     }
   }
-
 
 }

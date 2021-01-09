@@ -10,20 +10,12 @@ import { ToastrService } from 'ngx-toastr';
 import { GenerateReportService } from '../../generate-report/generate-report.service';
 
 @Component({
-  selector: 'app-cupping-service',
-  templateUrl: './cupping-service.component.html',
-  styleUrls: ['./cupping-service.component.css']
+  selector: 'app-other-cupping-service',
+  templateUrl: './other-cupping-service.component.html',
+  styleUrls: ['./other-cupping-service.component.css']
 })
-export class CuppingServiceComponent implements OnInit {
+export class OtherCuppingServiceComponent implements OnInit {
 
-
-
-  public serviceData: any[] = [
-    { evaluator: 'Leon Joseph', score: '85.23', aroma: '7', dry: '1', break: '2', flavour: '8', aftertaste: '8', acidity: '6', body: '6', balance: '10', uniformity: '10', cleanup: '10', sweetness: '10', overall: '5' },
-    { evaluator: 'Gussie Barker', score: '87.5', aroma: '7', dry: '1', break: '2', flavour: '8', aftertaste: '8', acidity: '6', body: '6', balance: '10', uniformity: '10', cleanup: '10', sweetness: '10', overall: '5' },
-    { evaluator: 'Nancy Jones', score: '86.5', aroma: '7', dry: '1', break: '2', flavour: '8', aftertaste: '8', acidity: '6', body: '6', balance: '10', uniformity: '10', cleanup: '10', sweetness: '10', overall: '5' },
-    { evaluator: 'Dale Stanley', score: '85', aroma: '7', dry: '1', break: '2', flavour: '8', aftertaste: '8', acidity: '6', body: '6', balance: '10', uniformity: '10', cleanup: '10', sweetness: '10', overall: '5' }
-  ]
   type: boolean;
 
   public bubbleData = [
@@ -435,10 +427,15 @@ export class CuppingServiceComponent implements OnInit {
   colorSchemeScore = {
     domain: ['#7c6be8', '#f19634']
   };
-  ro_id: any;
+  appLanguage: any;
+  mainData: any;
+  eachServiceData: any;
+  fc_id: any;
   cupping_report_id: any;
+  evaluatorsListArray: any = [];
+  evaluatorData: any;
+  evaluatorName: any;
   cupping_score_details: any;
-  defectsList: any;
   fullblack_num: any;
   fullblack_equ: any;
   fullsour_num: any;
@@ -451,6 +448,10 @@ export class CuppingServiceComponent implements OnInit {
   matter_equ: any;
   insect_damage_num: any;
   insect_damage_equ: any;
+  category_1_defects: any;
+  moisture_content: any;
+  water_activity: any;
+  odor: any;
   cate2_black_num: any;
   cate2_black_equ: any;
   cate2_sour_num: any;
@@ -471,15 +472,10 @@ export class CuppingServiceComponent implements OnInit {
   cate2_hull_equ: any;
   cate2_insect_num: any;
   cate2_insect_equ: any;
-  category_1_defects: any;
   cat2_defects: any;
-  water_activity: any;
-  odor: any;
-  totalColors: any;
   total_defects: any;
-  moisture_content: any;
-  eachServiceData: any;
-  service_request_id: any;
+  defectsList: any;
+  totalColors: any;
   harvest_id: any;
   dryprocess: any;
   drydescription: any;
@@ -487,86 +483,82 @@ export class CuppingServiceComponent implements OnInit {
   screen_size: any;
   density: any;
   no_of_defects: any;
-  quality_grade: any;
   preparation: any;
+  quality_grade: any;
   moisture_content_process: any;
   water_activity_process: any;
   wetprocess: any;
   wetdescription: any;
   fermentation: any;
   parchment_weight: any;
-  evaluatorName: any;
-  evaluatorsListArray: any = [];
-  evaluatorData: any;
-  evaluatorIdArray: any = [];
   singleCuppingDetails: any;
   single_status: any;
   completed_on: any;
-  mainData: any;
-  appLanguage: any;
+  sample_id: any;
+  evaluatorIdArray: any = [];
+
 
   constructor(public globals: GlobalsService, public cuppingService: CuppingReportService, private router: Router,
     public yourService: YourServicesService, private roasterService: RoasterserviceService, private cookieService: CookieService,
     private userService: UserserviceService, private toastrService: ToastrService, public generateReportService: GenerateReportService) {
     this.type = true;
-    this.ro_id = this.cookieService.get('roaster_id');
+    this.fc_id = this.cookieService.get('facilitator_id');
     this.ViewCuppingInviteList();
     this.getCuppingScoreDetails();
     this.evaluatorsList();
     // this.viewProcessDetails();
+    this.getCuppingScoreDetails();
     this.physicalDefectsList();
     this.singleCuppingData();
   }
 
   ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
-
   }
-
   ViewCuppingInviteList() {
-    this.yourService.getCuppingInviteList().subscribe(res => {
-      this.mainData = res.success ? res.result : [];
-      if (this.cuppingService.serviceReportDetails) {
-        this.eachServiceData = this.mainData.filter(ele => ele.service_request_id == this.cuppingService.serviceReportDetails['service_request_id']);
+    this.roasterService.listCuppingRequest(this.fc_id).subscribe(res => {
+      this.mainData = res['success'] ? res['result'] : [];
+      if (this.cuppingService.otherReportDetails) {
+        this.eachServiceData = this.mainData.filter(ele => ele.external_sample_id == this.cuppingService.otherReportDetails['external_sample_id']);
       }
     });
   }
-
   evaluatorsList() {
-    if (this.cuppingService.serviceReportDetails) {
-      this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
-      this.roasterService.getEvaluatorsList(this.ro_id, this.cupping_report_id).subscribe(
+    if (this.cuppingService.otherReportDetails) {
+      this.cupping_report_id = this.cuppingService.otherReportDetails.cupping_report_id;
+      this.roasterService.getEvaluatorsList(this.fc_id, this.cupping_report_id).subscribe(
         response => {
           if (response['success'] == true) {
             response['result'].forEach(element => {
-              this.evaluatorIdArray.push(element.evaluator_id);
+              this.evaluatorIdArray.push(element.evaluator_id)
+
             });
             this.evaluatorData = response['result'].filter(ele => ele.is_primary == true);
             this.evaluatorName = this.evaluatorData[0].evaluator_name;
             this.evaluatorsListArray = response['result'].filter(ele => ele.is_primary != true);
-            console.log(this.evaluatorsListArray);
           }
         }
       )
     }
   }
-
   getCuppingScoreDetails() {
-    if (this.cuppingService.serviceReportDetails) {
-      this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
-      this.userService.getCuppingScore(this.ro_id, this.cupping_report_id, this.evaluatorIdArray).subscribe(
+    if (this.cuppingService.otherReportDetails) {
+      this.cupping_report_id = this.cuppingService.otherReportDetails.cupping_report_id;
+      this.userService.getCuppingScore(this.fc_id, this.cupping_report_id, this.evaluatorIdArray).subscribe(
         res => {
           if (res['success'] == true) {
             this.cupping_score_details = res['result'];
+            this.cupping_score_details.forEach(element => {
+              let descriptorArray = element.descriptors.split(',');
+              element['descriptorArray'] = descriptorArray;
+            });
           }
         })
     }
   }
-
   physicalDefectsList() {
-    if (this.cuppingService.serviceReportDetails) {
-      this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
-      this.userService.getPhysicalDefectsList(this.ro_id, this.cupping_report_id).subscribe(
+    if (this.cuppingService.otherReportDetails) {
+      this.cupping_report_id = this.cuppingService.otherReportDetails.cupping_report_id;
+      this.userService.getPhysicalDefectsList(this.fc_id, this.cupping_report_id).subscribe(
         res => {
           if (res['success'] == true) {
             this.defectsList = res['result'];
@@ -618,10 +610,49 @@ export class CuppingServiceComponent implements OnInit {
     }
   }
 
+  // viewProcessDetails(){
+  // 	if(this.eachServiceData.harvest_id){
+  // 		this.harvest_id = this.eachServiceData.harvest_id;
+  // 		this.userService.getProcessDetails(this.fc_id,this.harvest_id).subscribe(
+  // 				res=>{
+  // 					if(res['success'] == true){
+  // 			console.log(res);
+  // 			this.dryprocess=res['result']['dry_milling']['process'];
+  // 			this.drydescription=res['result']['dry_milling']['description'];
+  // 			this.drying_period=res['result']['dry_milling']['drying_period'];
+  // 			this.screen_size=res['result']['dry_milling']['screen_size'];
+  // 			this.density=res['result']['dry_milling']['density'];
+  // 			this.no_of_defects=res['result']['dry_milling']['no_of_defects'];
+  // 			this.preparation=res['result']['dry_milling']['preparation'];
+  // 			this.quality_grade=res['result']['dry_milling']['quality_grade'];
+  // 			this.moisture_content_process=res['result']['dry_milling']['moisture_content'];
+  // 			this.water_activity_process=res['result']['dry_milling']['water_activity'];
+  // 			this.wetprocess=res['result']['wet_milling']['process'];
+  // 			this.wetdescription=res['result']['wet_milling']['description'];
+  // 			this.fermentation=res['result']['wet_milling']['fermentation'];
+  // 			this.parchment_weight=res['result']['wet_milling']['parchment_weight'];
+  // 			}
+  // 		}
+  // 		)
+  //   	}
+  // }  
+
+  // routeToProcessDet(){
+  // 	if(this.eachServiceData.harvest_id){
+  // 		let harv_id = this.eachServiceData.harvest_id;
+  // 		let navigationExtras: NavigationExtras = {
+  // 			queryParams: {
+  // 			"harvest_id": harv_id,
+  // 			}
+  // 		}
+  // 		this.router.navigate(['/features/process-details'], navigationExtras);
+  // 	}
+  // } 
+
   singleCuppingData() {
-    if (this.cuppingService.serviceReportDetails) {
-      this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
-      this.userService.getSingleCuppingDetails(this.ro_id, this.cupping_report_id).subscribe(
+    if (this.cuppingService.otherReportDetails) {
+      this.cupping_report_id = this.cuppingService.otherReportDetails.cupping_report_id;
+      this.userService.getSingleCuppingDetails(this.fc_id, this.cupping_report_id).subscribe(
         data => {
           if (data['success'] == true) {
             this.singleCuppingDetails = data['result'];
@@ -636,63 +667,20 @@ export class CuppingServiceComponent implements OnInit {
       )
     }
   }
-
-  viewProcessDetails() {
-    if (this.eachServiceData.harvest_id) {
-      this.harvest_id = this.eachServiceData.harvest_id;
-      this.userService.getProcessDetails(this.ro_id, this.harvest_id).subscribe(
-        res => {
-          if (res['success'] == true) {
-            console.log(res);
-            this.dryprocess = res['result']['dry_milling']['process'];
-            this.drydescription = res['result']['dry_milling']['description'];
-            this.drying_period = res['result']['dry_milling']['drying_period'];
-            this.screen_size = res['result']['dry_milling']['screen_size'];
-            this.density = res['result']['dry_milling']['density'];
-            this.no_of_defects = res['result']['dry_milling']['no_of_defects'];
-            this.preparation = res['result']['dry_milling']['preparation'];
-            this.quality_grade = res['result']['dry_milling']['quality_grade'];
-            this.moisture_content_process = res['result']['dry_milling']['moisture_content'];
-            this.water_activity_process = res['result']['dry_milling']['water_activity'];
-            this.wetprocess = res['result']['wet_milling']['process'];
-            this.wetdescription = res['result']['wet_milling']['description'];
-            this.fermentation = res['result']['wet_milling']['fermentation'];
-            this.parchment_weight = res['result']['wet_milling']['parchment_weight'];
-          }
+  OtherRecupSample() {
+    this.sample_id = this.cuppingService.otherReportDetails.external_sample_id;
+    this.userService.externalRecupSample(this.fc_id, this.sample_id).subscribe(
+      res => {
+        if (res['success'] == true) {
+          this.toastrService.success("External cupping report added");
+          // this.router.navigate(['/features/generate-report']);
         }
-      )
-    }
-  }
-
-
-
-  routeToProcessDet() {
-    if (this.eachServiceData.harvest_id) {
-      let harv_id = this.eachServiceData.harvest_id;
-      let navigationExtras: NavigationExtras = {
-        queryParams: {
-          "harvest_id": harv_id,
+        else {
+          this.toastrService.error('Error while recup external sample');
         }
       }
-      this.router.navigate(['/features/process-details'], navigationExtras);
-    }
+    )
   }
 
-  reCupSample() {
-    if (this.cuppingService.serviceReportDetails) {
-      this.service_request_id = this.cuppingService.serviceReportDetails.service_request_id;
-      this.userService.recupSample(this.ro_id, this.service_request_id).subscribe(
-        res => {
-          if (res['success'] == true) {
-            this.toastrService.success("Recupping added");
-            // this.router.navigate(['/features/generate-report']);
-          }
-          else {
-            this.toastrService.error('Error while recup sample');
-          }
-        }
-      )
-    }
-  }
 
 }
