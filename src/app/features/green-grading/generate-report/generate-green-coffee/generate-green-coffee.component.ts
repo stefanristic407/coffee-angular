@@ -190,6 +190,7 @@ export class GenerateGreenCoffeeComponent implements OnInit {
             this.toastrService.error("Error while Updating");
           }
         });
+      this.next.emit("screen3");
     }
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CuppingReportService } from '../cupping-report.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sewn-service-reports',
@@ -8,15 +9,15 @@ import { CuppingReportService } from '../cupping-report.service';
 })
 export class ServiceReportsComponent implements OnInit {
 
- 
+
   termRole: any;
   roles: any;
   role_id: any;
   termStatus: any;
-  teamRole:any;
+  teamRole: any;
   showVar: boolean = true;
-  showRole:boolean = true;
-  term:any;
+  showRole: boolean = true;
+  term: any;
 
   // mainData:any[] = [
   //   {
@@ -71,11 +72,11 @@ export class ServiceReportsComponent implements OnInit {
   roleData: string;
   roleID: string;
 
- 
-  constructor(public cuppingService: CuppingReportService) {
+
+  constructor(public cuppingService: CuppingReportService, private router: Router) {
     this.termStatus = '';
     this.termRole = '';
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -84,7 +85,7 @@ export class ServiceReportsComponent implements OnInit {
     this.teamRole = term;
     this.role_id = roleId;
   }
- // Function Name : Status Filiter
+  // Function Name : Status Filiter
   // Description: This function helps to filiter the users based on the selected status fiiter.
 
   setStatus(term: any) {
@@ -99,24 +100,24 @@ export class ServiceReportsComponent implements OnInit {
   }
   toggleRole() {
     this.showRole = !this.showRole;
-    if(this.showRole==false){
-      document.getElementById('role_id').style.border="1px solid #30855c";
+    if (this.showRole == false) {
+      document.getElementById('role_id').style.border = "1px solid #30855c";
     }
-    else{
-      document.getElementById('role_id').style.border="1px solid #d6d6d6";
-    
+    else {
+      document.getElementById('role_id').style.border = "1px solid #d6d6d6";
+
     }
-   }
-  
-   toggleStatus() {
+  }
+
+  toggleStatus() {
     this.showVar = !this.showVar;
-    if(this.showVar==false){
-    document.getElementById('status_id').style.border="1px solid #30855c";
-  }
-  else{
-    document.getElementById('status_id').style.border="1px solid #d6d6d6";
-  
-  }
+    if (this.showVar == false) {
+      document.getElementById('status_id').style.border = "1px solid #30855c";
+    }
+    else {
+      document.getElementById('status_id').style.border = "1px solid #d6d6d6";
+
+    }
   }
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
@@ -128,7 +129,18 @@ export class ServiceReportsComponent implements OnInit {
   // Description: This function helps to check single role.
   isAllChecked() {
     return this.cuppingService.reportsList.every(_ => _.state);
-  } 
-
+  }
+  serviceReportLink(data: any) {
+    this.cuppingService.serviceReportDetails = data;
+    this.router.navigate(['/features/cupping-service']);
+  }
+  viewPdf(data: any) {
+    const a = document.createElement("a");
+    a.href = data;
+    // a.download = "report" +".pdf";
+    a.target = "_blank";
+    // document.body.appendChild(a);
+    a.click();
+  }
 
 }

@@ -26,7 +26,7 @@ export class RoasterserviceService {
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
   // private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   //API Function Name : Role List
   //API Description: This API calls helps to get all roles to the user.
@@ -1013,7 +1013,7 @@ export class RoasterserviceService {
 
   externalCuppingReportsList(roasterId: any) {
     var data = {};
-    data["api_call"] = "/ro/" + roasterId + "/external-cupping-reports/";
+    data["api_call"] = "/ro/" + roasterId + "/external-cupping-reports";
     data["token"] = this.cookieService.get("Auth");
     data["method"] = "GET";
     return this.http.post(this.url, data);
@@ -1021,7 +1021,7 @@ export class RoasterserviceService {
 
   listCuppingRequest(roasterId: any) {
     var data = {};
-    data["api_call"] = "/ro/" + roasterId + "/external-cupping-invite-list/";
+    data["api_call"] = "/ro/" + roasterId + "/external-cupping-invite-list";
     data["token"] = this.cookieService.get("Auth");
     data["method"] = "GET";
     return this.http.post(this.url, data);

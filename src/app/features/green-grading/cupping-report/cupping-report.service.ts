@@ -48,6 +48,7 @@ export class CuppingReportService {
 					this.externalReportsList = res['result'];
 				}
 				else {
+					this.externalReportsList = [];
 					this.toasterService.error("Error while listing Other Reports.");
 				}
 			}
