@@ -58,6 +58,7 @@ export class WelcomeAboardComponent implements OnInit {
         this.welcomeSrv.sales.next(res.result.sales);
         this.welcomeSrv.sourcing.next(res.result.sourcing);
         this.welcomeSrv.stock.next(res.result.stock);
+        this.welcomeSrv.varieties.next(res.result.varieties);
       } else {
         this.toastrService.error('Error while getting stats');
       }

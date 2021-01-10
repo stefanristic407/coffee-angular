@@ -19,33 +19,27 @@ export class DashboardVarietyComponent implements OnInit, OnDestroy {
     position: 'Bottom',
   };
 
-  stock: any;
-  stockSub: Subscription;
-  orders: any[] = [];
-  ordersSub: Subscription;
+  varieties: any;
+  varietiesSub: Subscription;
 
   constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 
   ngOnInit(): void {
-    this.stockSub = this.welcomeSrv.stock$.subscribe((res: any) => {
-      this.stock = res;
-      if (this.stock) {
+    this.varietiesSub = this.welcomeSrv.varieties$.subscribe((res: any) => {
+      this.varieties = res;
+      if (this.varieties) {
         this.makeChartData();
       }
-    });
-    this.ordersSub = this.welcomeSrv.orders$.subscribe((res: any) => {
-      this.orders = res;
     });
   }
 
   ngOnDestroy() {
-    this.stockSub.unsubscribe();
-    this.ordersSub.unsubscribe();
+    this.varietiesSub.unsubscribe();
   }
 
   makeChartData() {
     const tempData = [];
-    this.stock.stock_stats.forEach((element) => {
+    this.varieties.variety_stats.forEach((element) => {
       tempData.push({
         x: element.cup_score,
         y: element.available_quantity.toFixed(0),
