@@ -299,55 +299,61 @@ export class GenerateMySampleComponent implements OnInit {
   }
 
   goNext() {
-    if (
-      this.final_score == undefined ||
-      this.overall_score == undefined ||
-      this.comments == ""
-    ) {
-      this.toastrService.error("Please fill all the details");
+    if (this.cupping_report_id == undefined) {
+      if (
+        this.final_score == undefined ||
+        this.overall_score == undefined ||
+        this.comments == ""
+      ) {
+        this.toastrService.error("Please fill all the details");
+      } else {
+        var data = {
+          roast_level: this.roast_level,
+          fragrance_score: this.fragrance,
+          fragrance_dry: this.fragrance_dry,
+          fragrance_break: this.fragrance_break,
+          fragrance_qualities: "Quality #1",
+          flavour_score: this.flavor_score,
+          aftertaste_score: this.aftertaste_score,
+          acidity_score: this.acidity_score,
+          acidity_intensity: this.acidity_intensity,
+          body_score: this.body_score,
+          body_level: this.body_level,
+          uniformity_score: this.uniformity_score,
+          uniformity_value: this.uniformity_value,
+          uniformity_comment: this.uniformity_comment,
+          balance_score: this.balance_score,
+          cleancup_score: this.cleancup_score,
+          cleancup_value: this.cleancup_value,
+          cleancup_comment: this.cleancup_comment,
+          sweetness_score: this.sweetness_score,
+          sweetness_value: this.sweetness_value,
+          sweetness_comment: this.sweetness_comment,
+          overall_score: this.overall_score,
+          defects_no_of_cups: this.defects_no_of_cups,
+          defects_intensity: this.defectIntensity,
+          total_score: this.final_score,
+          final_score: this.final_score,
+          flavour_profile_ids: this.langChips.map((ele) => {
+            return ele.id;
+          }),
+          comments: this.comments,
+        };
+        this.userService
+          .addCuppingScore(this.roaster_id, this.cupping_report_id, data)
+          .subscribe((data) => {
+            if (data["success"] == true) {
+              this.toastrService.success(
+                "Final Score details has been updated"
+              );
+              this.next.emit("screen4");
+            } else {
+              this.toastrService.error("Please fill all the details");
+            }
+          });
+      }
     } else {
-      var data = {
-        roast_level: this.roast_level,
-        fragrance_score: this.fragrance,
-        fragrance_dry: this.fragrance_dry,
-        fragrance_break: this.fragrance_break,
-        fragrance_qualities: "Quality #1",
-        flavour_score: this.flavor_score,
-        aftertaste_score: this.aftertaste_score,
-        acidity_score: this.acidity_score,
-        acidity_intensity: this.acidity_intensity,
-        body_score: this.body_score,
-        body_level: this.body_level,
-        uniformity_score: this.uniformity_score,
-        uniformity_value: this.uniformity_value,
-        uniformity_comment: this.uniformity_comment,
-        balance_score: this.balance_score,
-        cleancup_score: this.cleancup_score,
-        cleancup_value: this.cleancup_value,
-        cleancup_comment: this.cleancup_comment,
-        sweetness_score: this.sweetness_score,
-        sweetness_value: this.sweetness_value,
-        sweetness_comment: this.sweetness_comment,
-        overall_score: this.overall_score,
-        defects_no_of_cups: this.defects_no_of_cups,
-        defects_intensity: this.defectIntensity,
-        total_score: this.final_score,
-        final_score: this.final_score,
-        flavour_profile_ids: this.langChips.map((ele) => {
-          return ele.id;
-        }),
-        comments: this.comments,
-      };
-      this.userService
-        .addCuppingScore(this.roaster_id, this.cupping_report_id, data)
-        .subscribe((data) => {
-          if (data["success"] == true) {
-            this.toastrService.success("Final Score details has been updated");
-            this.next.emit("screen4");
-          } else {
-            this.toastrService.error("Please fill all the details");
-          }
-        });
+      this.next.emit("screen4");
     }
   }
 }
