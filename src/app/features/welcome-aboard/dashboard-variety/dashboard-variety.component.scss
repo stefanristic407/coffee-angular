@@ -1,0 +1,10 @@
+.chart-block {
+  border-bottom: dashed 2px #ebebeb;
+  .total-stats {
+    position: absolute;
+    left: 50%;
+    top: 120px;
+    transform: translateX(-50%);
+    line-height: 1.4;
+  }
+}

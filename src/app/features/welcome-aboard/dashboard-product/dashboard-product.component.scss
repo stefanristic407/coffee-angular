@@ -1,0 +1,24 @@
+.card {
+  border: none;
+
+  .card-img-top {
+    border-radius: 0;
+    img {
+      width: 100%;
+      height: auto;
+      transition: all 1200ms;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .card-body {
+    padding: 1rem;
+
+    .pad-card {
+      border-bottom: dashed 2px #dddddd;
+      padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+    }
+  }
+}
