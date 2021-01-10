@@ -23,6 +23,7 @@ export class OrderPrebookComponent implements OnInit {
 	@ViewChild('payment', { static: false }) private payment: ElementRef<HTMLElement>;
 	@ViewChild('harvestReady', { static: false }) private harvestReady: ElementRef<HTMLElement>;
 	@ViewChild('graded', { static: false }) private graded: ElementRef<HTMLElement>;
+	@ViewChild(PrebookGradeInfoComponent, { static: false }) private gradeInforTab: PrebookGradeInfoComponent;
 	@ViewChild('myForm') myForm;
 
 
@@ -318,9 +319,7 @@ export class OrderPrebookComponent implements OnInit {
 		}, 2000)
 
 		// Calling the Grade info component by creating object of the component and accessing its methods
-
-		let callGradeInfo = new PrebookGradeInfoComponent(this.prebookService, this.globals);
-		callGradeInfo.gradeComplete();
+		this.gradeInforTab.gradeComplete();
 
 
 
@@ -383,15 +382,16 @@ export class OrderPrebookComponent implements OnInit {
 
 		// Toggle the visibility of the chatbox element when clicked
 		// And change the icon depending on visibility
-		toggleChatboxBtn.addEventListener("click", () => {
-			chatbox.classList.toggle("chatbox--is-visible");
+		if (toggleChatboxBtn)
+			toggleChatboxBtn.addEventListener("click", () => {
+				chatbox.classList.toggle("chatbox--is-visible");
 
-			if (chatbox.classList.contains("chatbox--is-visible")) {
-				toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
-			} else {
-				toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
-			}
-		});
+				if (chatbox.classList.contains("chatbox--is-visible")) {
+					toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
+				} else {
+					toggleChatboxBtn.innerHTML = '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
+				}
+			});
 
 		// Form input using method createChatBubble
 		// To append any user message to display
@@ -435,7 +435,18 @@ export class OrderPrebookComponent implements OnInit {
 		this.sourcing.prebook_flag = true;
 		this.router.navigate(["/features/available-coffee-list/" + this.prebookService.estate_id + '/' + this.prebookService.harvestId]);
 	}
-
+	showInvoice() {
+		const a = document.createElement("a");
+		a.href = this.prebookService.invoice_url;
+		a.download = `#${this.prebookService.orderPreId}`;
+		a.target = "_blank";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
+	onClickGradeInfoTab() {
+		this.gradeInforTab.getHarvestDetails();
+	}
 }
 
 

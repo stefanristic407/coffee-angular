@@ -1,141 +1,297 @@
 <section class="green_coffee_total">
-    <h1 class="fnt-play">Green coffee cupping</h1>
-    <div class="row mt-3">
-        <div class="col-lg-3 col-12 ">
-            <div class="sample_info">
-                <div class="info_heading d-flex">
-                    <div class="pull-left sample_info_head">Sample Info</div>
-                    <div class="ml-auto pull-right cursor-pointer" (click)="routeToProcessDet()"><span class="view_process">view process details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt=""></div>
-                </div>
-                <div class="info_list">
-                    <ul class="clearfix mb-0">
-                        <li>
-                            <label>Service request ID  :</label>
-                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.gc_order_id}}</p>
-                        </li>
-                        <li>
-                            <label>Estate Name  :</label>
-                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.estate_name}}</p>
-                        </li>
-                        <li>
-                            <label>Origin  :</label>
-                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.getCountryName(generateReportService.cuppingDetails.origin)}}</p>
-                        </li>
-                        <li>
-                            <label>Harvest year  :</label>
-                            <p *ngIf="generateReportService.cuppingDetails">{{generateReportService.cuppingDetails.order_date | date : 'MMMM y'}}</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+  <h1 class="fnt-play">Green coffee cupping</h1>
+  <div class="row mt-3">
+    <div class="col-lg-3 col-12">
+      <div class="sample_info">
+        <div class="info_heading d-flex">
+          <div class="pull-left sample_info_head">Sample Info</div>
+          <div
+            class="ml-auto pull-right cursor-pointer"
+            *ngIf="generateReportService.cuppingDetails.gc_order_id"
+            (click)="routeToProcessDet()"
+          >
+            <span class="view_process">view process details</span
+            ><img class="pl-1" src="assets/images/process-arrow.svg" alt="" />
+          </div>
         </div>
-        <div class="col-lg-3 col-12 mt-lg-0 mt-3">
-            <div class="evaluator">
-                <div class="info_list">
-                    <ul class="clearfix mb-0">
-                        <li>
-                            <label>Evaluator  :</label>
-                            <p *ngIf="evaluatorName">{{evaluatorName}}</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="info_list">
+          <ul class="clearfix mb-0">
+            <li>
+              <label *ngIf="generateReportService.cuppingDetails.gc_order_id"
+                >Order ID :</label
+              >
+              <p *ngIf="generateReportService.cuppingDetails.gc_order_id">
+                {{ generateReportService.cuppingDetails["gc_order_id"] }}
+              </p>
+              <label
+                *ngIf="generateReportService.cuppingDetails.external_sample_id"
+                >Sample ID :</label
+              >
+              <p
+                *ngIf="generateReportService.cuppingDetails.external_sample_id"
+              >
+                {{ generateReportService.cuppingDetails["external_sample_id"] }}
+              </p>
+            </li>
+            <li>
+              <label>Estate Name :</label>
+              <p *ngIf="generateReportService.cuppingDetails">
+                {{ generateReportService.cuppingDetails["estate_name"] }}
+              </p>
+            </li>
+            <li>
+              <label>Origin :</label>
+              <p *ngIf="generateReportService.cuppingDetails">
+                {{
+                  generateReportService.getCountryName(
+                    generateReportService.cuppingDetails["origin"]
+                  )
+                }}
+              </p>
+            </li>
+            <li>
+              <label *ngIf="generateReportService.cuppingDetails.order_date"
+                >Order Month :</label
+              >
+              <p *ngIf="generateReportService.cuppingDetails.order_date">
+                {{
+                  generateReportService.cuppingDetails["order_date"]
+                    | date: "MMMM y"
+                }}
+              </p>
+              <label *ngIf="generateReportService.cuppingDetails.date_requested"
+                >Requested Month :</label
+              >
+              <p *ngIf="generateReportService.cuppingDetails.date_requested">
+                {{
+                  generateReportService.cuppingDetails["date_requested"]
+                    | date: "MMMM y"
+                }}
+              </p>
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
-    <div class="row mt-4">
-        <div class="col-md-6 col-lg-4">
-            <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Select type of cupping</label>
-            <div class="cupping-total" id="cupping_id">
-                <p class="d-inline filter-text" *ngIf="cupping == ''">Select type of cupping&nbsp;</p>
-                <a class="pointer-item arrow__spacing" [popover]="cuppingTemplate" placement="bottom" container="body" #pop6="bs-popover">
-                    <p class="d-inline filter" *ngIf="cupping == ''" (click)="toggleCupping()">
-                        &nbsp; <img class="" src="{{ showCupping ? 'assets/images/down-arrow.svg' : 'assets/images/arrow-cupping.svg'}}" />
-                    </p>
-                </a>
-                <p class="d-inline add-variety" *ngIf="cupping != ''">{{ cupping }}</p>
-                <a class="pointer-item arrow__spacing" [popover]="cuppingTemplate" placement="bottom" container="body" #pop7="bs-popover">
-                    <p class="d-inline filter" *ngIf="cupping != ''" (click)="toggleCupping()">
-                        &nbsp;<img class="" src="{{ showCupping ? 'assets/images/down-arrow.svg' : 'assets/images/arrow-cupping.svg'}}" />
-                    </p>
-                </a>
-            </div>
+    <div class="col-lg-3 col-12 mt-lg-0 mt-3">
+      <div class="evaluator">
+        <div class="info_list">
+          <ul class="clearfix mb-0">
+            <li>
+              <label>Evaluator :</label>
+              <p *ngIf="evaluatorName">{{ evaluatorName }}</p>
+            </li>
+          </ul>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-6 col-lg-4">
+      <label class="fnt-14 fnt-muli fnt-600 txt-clr334"
+        >Select type of cupping</label
+      >
+      <div class="cupping-total" id="cupping_id">
+        <p class="d-inline filter-text" *ngIf="cupping == ''">
+          Select type of cupping&nbsp;
+        </p>
+        <a
+          class="pointer-item arrow__spacing"
+          [popover]="cuppingTemplate"
+          placement="bottom"
+          container="body"
+          #pop6="bs-popover"
+        >
+          <p
+            class="d-inline filter"
+            *ngIf="cupping == ''"
+            (click)="toggleCupping()"
+          >
+            &nbsp;
+            <img
+              class=""
+              src="{{
+                showCupping
+                  ? 'assets/images/down-arrow.svg'
+                  : 'assets/images/arrow-cupping.svg'
+              }}"
+            />
+          </p>
+        </a>
+        <p class="d-inline add-variety" *ngIf="cupping != ''">{{ cupping }}</p>
+        <a
+          class="pointer-item arrow__spacing"
+          [popover]="cuppingTemplate"
+          placement="bottom"
+          container="body"
+          #pop7="bs-popover"
+        >
+          <p
+            class="d-inline filter"
+            *ngIf="cupping != ''"
+            (click)="toggleCupping()"
+          >
+            &nbsp;<img
+              class=""
+              src="{{
+                showCupping
+                  ? 'assets/images/down-arrow.svg'
+                  : 'assets/images/arrow-cupping.svg'
+              }}"
+            />
+          </p>
+        </a>
+      </div>
+    </div>
 
-        <div class="col-12 col-md-4 Onboard-input">
-            <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Sample Size *</label>
-            <input class="w-100" type="number" placeholder="Enter sample size in gm" [(ngModel)]="sample_size" [ngModelOptions]="{standalone:true}"  >
-        </div>
+    <div class="col-12 col-md-4 Onboard-input">
+      <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Sample Size *</label>
+      <input
+        class="w-100"
+        type="number"
+        placeholder="Enter sample size in gm"
+        [(ngModel)]="sample_size"
+        [ngModelOptions]="{ standalone: true }"
+      />
     </div>
-    <div class="row mt-4">
-        <div class="col-12 evaluators__head">
-            <h1 class="fnt-muli">Evaluators</h1>
-            <div class="evaluator col-md-6 col-lg-6 p-0">
-                <div class="eval_heading">
-                    <div class="sample_info_head">Name</div>
-                </div>
-                <div class="sample_info_body">
-                    <div class="evaluator_list">
-                        <ul class="clearfix mb-0">
-                            <li *ngFor="let item of evaluatorsListArray ; let i=index">
-                                <!-- <label class="customcheckbox color-text"> -->
-                            <!-- <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 evaluators__head">
+      <h1 class="fnt-muli">Evaluators</h1>
+      <div class="evaluator col-md-6 col-lg-6 p-0">
+        <div class="eval_heading">
+          <div class="sample_info_head">Name</div>
+        </div>
+        <div class="sample_info_body">
+          <div class="evaluator_list">
+            <ul class="clearfix mb-0">
+              <li *ngFor="let item of evaluatorsListArray; let i = index">
+                <!-- <label class="customcheckbox color-text"> -->
+                <!-- <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
                             <span class="checkmark head-check"></span> -->
-                           <p *ngIf="item"> {{i+1}}. {{item.evaluator_name}} <span *ngIf="item.is_primary == true">(You)</span></p>
-                        <!-- </label> -->
-                                <p  *ngIf="item">{{item.evaluator_type}}</p>
-                                <span class="cursor-pointer" *ngIf= "i !=0"> 
-                                    <img src="assets/images/delete.png" alt=""><span class="pl-2 fnt-muli txt-clr334 fnt-600">Delete</span>
-                                </span> 
-                            </li>
-                            <li *ngIf="inputBoxShow"> 
-                                <div class="row pl-0">
-                                    <div class="col-md-6">
-                                        <input class="float-left px-0 form-control typeBox" type="text" [(ngModel)]="selectedValue" name="name"
-                                        [typeahead]="usersList"
-                                        typeaheadOptionField="firstname"
-                                        typeaheadWaitMs="1000"
-                                        [isAnimated]="true"
-                                        [typeaheadItemTemplate]="customItemTemplate"
-                                        (typeaheadOnSelect)="onSelect($event)" (keyup)="getUsersList($event)" placeholder="Enter name or email" autocomplete="off" >
-                                        <ng-template #customItemTemplate let-model="item">
-                                                <span ><strong>{{model.firstname}} {{model.lastname}}</strong> </span>
-                                        </ng-template>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn add-btn" type="button" (click)="addEvaluators()">Add</button>
-                                        <button class="btn cancel-btn ml-3" type="button" (click)="cancelEvaluators()">Cancel</button>
-                                    </div>
-                                </div>
-                               
-                             
-                            </li>
-                            <li class="pt-3" *ngIf="addBtnShow">
-                               <span class="cursor-pointer"> 
-                                <img src="assets/images/add-icon.svg" alt=""> <span class="add-invite" (click)="addBtnClick()">Add and invite evaluators</span>
-                               </span> 
-                            </li>
-                        </ul>
-                    </div>
+                <p *ngIf="item">
+                  {{ i + 1 }}. {{ item.evaluator_name }}
+                  <span *ngIf="item.is_primary == true">(You)</span>
+                </p>
+                <!-- </label> -->
+                <p *ngIf="item">{{ item.evaluator_type }}</p>
+                <span
+                  class="cursor-pointer"
+                  *ngIf="i != 0"
+                  (click)="deleteEvaluatorData(item.evaluator_id)"
+                >
+                  <img src="assets/images/delete.png" alt="" /><span
+                    class="pl-2 fnt-muli txt-clr334 fnt-600"
+                    >Delete</span
+                  >
+                </span>
+              </li>
+              <li *ngIf="inputBoxShow">
+                <div class="row pl-0">
+                  <div class="col-md-6">
+                    <input
+                      class="float-left px-0 form-control typeBox"
+                      type="text"
+                      [(ngModel)]="selectedValue"
+                      name="name"
+                      [typeahead]="usersList"
+                      typeaheadOptionField="firstname"
+                      typeaheadWaitMs="1000"
+                      [isAnimated]="true"
+                      [typeaheadItemTemplate]="customItemTemplate"
+                      (typeaheadOnSelect)="onSelect($event)"
+                      (keyup)="getUsersList($event)"
+                      placeholder="Enter name or email"
+                      autocomplete="off"
+                    />
+                    <ng-template #customItemTemplate let-model="item">
+                      <span
+                        ><strong
+                          >{{ model.firstname }} {{ model.lastname }}</strong
+                        >
+                      </span>
+                    </ng-template>
+                  </div>
+                  <div class="col-md-6">
+                    <button
+                      class="btn add-btn"
+                      type="button"
+                      (click)="addEvaluators()"
+                    >
+                      Add
+                    </button>
+                    <button
+                      class="btn cancel-btn ml-3"
+                      type="button"
+                      (click)="cancelEvaluators()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
-            </div>
+              </li>
+              <li class="pt-3" *ngIf="addBtnShow">
+                <span class="cursor-pointer">
+                  <img src="assets/images/add-icon.svg" alt="" />
+                  <span class="add-invite" (click)="addBtnClick()"
+                    >Add and invite evaluators</span
+                  >
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-12 mt-1 border__grade"></div>
-    <div class="row mb-5 mb-md-0">
-        <div class="col-12 pt-4">
-            <button type="submit" class="next_butn float-right btn font_butn" (click)="goNext()">Start Cupping</button>
-            <button type="submit" class="clear_butn float-right btn mr-2 font_butn">Cancel</button>
-        </div>
+  </div>
+  <div class="col-12 mt-1 border__grade"></div>
+  <div class="row mb-5 mb-md-0">
+    <div class="col-12 pt-4">
+      <button
+        type="submit"
+        class="next_butn float-right btn font_butn"
+        (click)="goNext()"
+      >
+        Start Cupping
+      </button>
+      <button type="submit" class="clear_butn float-right btn mr-2 font_butn">
+        Cancel
+      </button>
     </div>
+  </div>
 </section>
 
 <ng-template #cuppingTemplate>
-    <div>
-        <ul class="list-group custom-popover">
-            <!-- <li class="list-group-item item-color" (click)="setCupping(''); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">All</a></li> -->
-            <li class="list-group-item item-color" (click)="setCupping('Non-Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Non-Blinded Cupping</a></li>
-            <li class="list-group-item item-color" (click)="setCupping('Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Blinded Cupping</a></li>
-            <li class="list-group-item item-color" (click)="setCupping('Double-Blinded'); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">Double-Blinded Cupping</a></li>
-        </ul>
-    </div>
+  <div>
+    <ul class="list-group custom-popover">
+      <!-- <li class="list-group-item item-color" (click)="setCupping(''); pop6.hide(); pop7.hide();toggleCupping()"><a class="pointer-item">All</a></li> -->
+      <li
+        class="list-group-item item-color"
+        (click)="
+          setCupping('Non-Blinded'); pop6.hide(); pop7.hide(); toggleCupping()
+        "
+      >
+        <a class="pointer-item">Non-Blinded Cupping</a>
+      </li>
+      <li
+        class="list-group-item item-color"
+        (click)="
+          setCupping('Blinded'); pop6.hide(); pop7.hide(); toggleCupping()
+        "
+      >
+        <a class="pointer-item">Blinded Cupping</a>
+      </li>
+      <li
+        class="list-group-item item-color"
+        (click)="
+          setCupping('Double-Blinded');
+          pop6.hide();
+          pop7.hide();
+          toggleCupping()
+        "
+      >
+        <a class="pointer-item">Double-Blinded Cupping</a>
+      </li>
+    </ul>
+  </div>
 </ng-template>

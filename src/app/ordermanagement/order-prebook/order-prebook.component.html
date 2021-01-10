@@ -49,7 +49,8 @@
                                 pre-booked, once the beans are ready, you will be notified.</div>
                         </div>
                         <div class="btn-div col-md-6 d-none d-md-inline-block pr-0">
-                            <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none">
+                            <button type="submit" class="btn  pull-right ord-invoice-butn d-md-block d-none"
+                                (click)="showInvoice()">
                                 {{globals.languageJson?.order_invoice}}
                             </button>
                         </div>
@@ -203,7 +204,7 @@
                         </li> -->
                         <li class="nav-item">
                             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-                                role="tab" aria-controls="pills-contact"
+                                role="tab" aria-controls="pills-contact" (click)="onClickGradeInfoTab()"
                                 aria-selected="false">{{globals.languageJson?.grade_info}}</a>
                         </li>
                         <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button"

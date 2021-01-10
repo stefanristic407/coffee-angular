@@ -1,15 +1,15 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
-import { CookieService } from 'ngx-cookie-service';
-import { ToastrService } from 'ngx-toastr';
-import { GenerateReportService } from '../generate-report.service';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Router, NavigationExtras } from "@angular/router";
+import { RoasterserviceService } from "src/services/roasters/roasterservice.service";
+import { UserserviceService } from "src/services/users/userservice.service";
+import { CookieService } from "ngx-cookie-service";
+import { ToastrService } from "ngx-toastr";
+import { GenerateReportService } from "../generate-report.service";
 
 @Component({
-  selector: 'app-generate-my-sample',
-  templateUrl: './generate-my-sample.component.html',
-  styleUrls: ['./generate-my-sample.component.css']
+  selector: "app-generate-my-sample",
+  templateUrl: "./generate-my-sample.component.html",
+  styleUrls: ["./generate-my-sample.component.css"],
 })
 export class GenerateMySampleComponent implements OnInit {
   // val3: 20;
@@ -26,7 +26,6 @@ export class GenerateMySampleComponent implements OnInit {
   evaluatorName: any;
   totalColors: any = [];
   flavourArray: any = [];
-
 
   final_score: any;
   overall_score: any;
@@ -70,20 +69,18 @@ export class GenerateMySampleComponent implements OnInit {
     private roasterService: RoasterserviceService,
     private router: Router
   ) {
-    this.roaster_id = this.cookieService.get('roaster_id');
+    this.roaster_id = this.cookieService.get("roaster_id");
     this.cupping_report_id = this.generateReportService.cuppingDetails.cupping_report_id;
   }
 
   ngOnInit(): void {
-
-    $('.btn-toggle').click(function () {
-      $(this).find('.btn').toggleClass('active');
-      $(this).find('.btn').toggleClass('active_default');
-      $(this).find('.btn').toggleClass('disable_default');
+    $(".btn-toggle").click(function () {
+      $(this).find(".btn").toggleClass("active");
+      $(this).find(".btn").toggleClass("active_default");
+      $(this).find(".btn").toggleClass("disable_default");
     });
 
     this.getCuppingScoreDetails();
-
 
     // $('.toggle_butn').click(function () {
     //   $(this).find('.btn').toggleClass('active');
@@ -101,69 +98,84 @@ export class GenerateMySampleComponent implements OnInit {
   }
   singleCuppingData() {
     if (this.cupping_report_id) {
-      this.userService.getSingleCuppingDetails(this.roaster_id, this.cupping_report_id).subscribe(
-        data => {
-          if (data['success'] == true) {
-            this.singleCuppingDetails = data['result'];
-
+      this.userService
+        .getSingleCuppingDetails(this.roaster_id, this.cupping_report_id)
+        .subscribe((data) => {
+          if (data["success"] == true) {
+            this.singleCuppingDetails = data["result"];
+          } else {
+            this.singleCuppingDetails = {};
+            this.toastrService.error("Error while loading cupping details");
           }
-          else {
-            this.singleCuppingDetails = {}
-            this.toastrService.error("Error while loading cupping details")
-          }
-        }
-      )
+        });
     }
   }
   flavourProfileList() {
-    this.userService.getFlavourProfile().subscribe(
-      data => {
-        if (data['success'] == true) {
-          this.flavourArray = data['result'];
-        }
+    this.userService.getFlavourProfile().subscribe((data) => {
+      if (data["success"] == true) {
+        this.flavourArray = data["result"];
+
+        this.langChips = [];
+        this.getFlavourArray.forEach((element) => {
+          let findObj = this.flavourArray.find((item) => item.name == element);
+          if (findObj) {
+            this.langChips.push(findObj);
+          }
+        });
+        console.log(this.langChips);
+        console.log(this.getFlavourArray);
+        console.log(this.flavourArray);
       }
-    )
+    });
   }
 
   getCuppingScoreDetails() {
-    this.userService.getCuppingScore(this.roaster_id, this.cupping_report_id, this.evaluatorIdArray).subscribe(
-      res => {
-        if (res['success'] == true) {
-          this.cupping_score_id = res['result'].id;
-          this.sample_id = res['result'].sample_id;
-          this.cupping_date = res['result'].cupping_date;
-          this.is_included = res['result'].is_included;
-          this.roast_level = res['result'].roast_level;
-          this.fragrance = res['result'].fragrance;
-          this.fragrance_break = res['result'].fragrance_break;
-          this.fragrance_dry = res['result'].fragrance_dry;
-          this.flavor_score = res['result'].flavor_score;
-          this.aftertaste_score = res['result'].aftertaste_score;
-          this.acidity_score = res['result'].acidity_score;
-          this.acidity_intensity = res['result'].acidity_intensity;
-          this.body_score = res['result'].body_score;
-          this.body_level = res['result'].body_level;
-          this.uniformity_score = res['result'].uniformity_score;
-          this.uniformity_value = res['result'].uniformity_value;
-          this.uniformity_comment = res['result'].uniformity_comment;
-          this.balance_score = res['result'].balance_score;
-          this.cleancup_score = res['result'].cleancup_score;
-          this.cleancup_value = res['result'].cleancup_value;
-          this.cleancup_comment = res['result'].cleancup_comment;
-          this.sweetness_score = res['result'].sweetness_score;
-          this.sweetness_value = res['result'].sweetness_value;
-          this.sweetness_comment = res['result'].sweetness_comment;
-          this.overall_score = res['result'].overall_score;
-          this.defects_no_of_cups = res['result'].defects_no_of_cups;
-          this.defectIntensity = res['result'].defects_intensity;
+    this.userService
+      .getCuppingScore(
+        this.roaster_id,
+        this.cupping_report_id,
+        this.evaluatorData.map((ele) => {
+          return ele.evaluator_id;
+        })
+      )
+      .subscribe((res) => {
+        if (res["success"] == true) {
+          this.cupping_score_id = res["result"].id;
+          this.sample_id = res["result"].sample_id;
+          this.cupping_date = res["result"].cupping_date;
+          this.is_included = res["result"].is_included;
+          this.roast_level = res["result"].roast_level;
+          this.fragrance = res["result"].fragrance;
+          this.fragrance_break = res["result"].fragrance_break;
+          this.fragrance_dry = res["result"].fragrance_dry;
+          this.flavor_score = res["result"].flavor_score;
+          this.aftertaste_score = res["result"].aftertaste_score;
+          this.acidity_score = res["result"].acidity_score;
+          this.acidity_intensity = res["result"].acidity_intensity;
+          this.body_score = res["result"].body_score;
+          this.body_level = res["result"].body_level;
+          this.uniformity_score = res["result"].uniformity_score;
+          this.uniformity_value = res["result"].uniformity_value;
+          this.uniformity_comment = res["result"].uniformity_comment;
+          this.balance_score = res["result"].balance_score;
+          this.cleancup_score = res["result"].cleancup_score;
+          this.cleancup_value = res["result"].cleancup_value;
+          this.cleancup_comment = res["result"].cleancup_comment;
+          this.sweetness_score = res["result"].sweetness_score;
+          this.sweetness_value = res["result"].sweetness_value;
+          this.sweetness_comment = res["result"].sweetness_comment;
+          this.overall_score = res["result"].overall_score;
+          this.defects_no_of_cups = res["result"].defects_no_of_cups;
+          this.defectIntensity = res["result"].defects_intensity;
           this.btnToggle = this.defectIntensity == "Taint" ? true : false;
-          this.final_score = res['result'].final_score;
-          this.comments = res['result'].comments;
-          this.getFlavourArray = res['result'].descriptors;
-
+          this.final_score = res["result"].final_score;
+          this.comments = res["result"].comments;
+          this.getFlavourArray = res["result"][0].descriptors
+            ? res["result"][0].descriptors.split(",")
+            : [];
+          this.flavourProfileList();
         }
-      }
-    )
+      });
   }
 
   selectColor(event: any, section: any, value: any) {
@@ -171,125 +183,108 @@ export class GenerateMySampleComponent implements OnInit {
     if (section == "roastLevel") {
       if (event.target.checked) {
         this.roast_level = value;
-      }
-      else {
+      } else {
         this.roast_level = 0;
       }
-    }
-    else if (section == "acidity") {
+    } else if (section == "acidity") {
       if (event.target.checked) {
         this.acidity_intensity = value;
-      }
-      else {
+      } else {
         this.acidity_intensity = 1;
       }
-    }
-    else if (section == "body") {
+    } else if (section == "body") {
       if (event.target.checked) {
         this.body_level = value;
-      }
-      else {
+      } else {
         this.body_level = 1;
       }
-    }
-    else if (section == "uniformity") {
+    } else if (section == "uniformity") {
       if (event.target.checked) {
         this.uniformity_value = value;
-      }
-      else {
+      } else {
         this.uniformity_value = 0;
       }
-    }
-    else if (section == "cleanCup") {
+    } else if (section == "cleanCup") {
       if (event.target.checked) {
         this.cleancup_value = value;
-      }
-      else {
+      } else {
         this.cleancup_value = 0;
       }
-    }
-    else if (section == "sweetness") {
+    } else if (section == "sweetness") {
       if (event.target.checked) {
         this.sweetness_value = value;
-      }
-      else {
+      } else {
         this.sweetness_value = 0;
       }
-    }
-    else if (section == "defects") {
+    } else if (section == "defects") {
       if (event.target.checked) {
         this.defects_no_of_cups = value;
-      }
-      else {
+      } else {
         this.defects_no_of_cups = 0;
       }
     }
-
   }
   changeDefectIntensity() {
     this.btnToggle = !this.btnToggle;
     if (this.btnToggle == true) {
       this.defectIntensity = "Taint";
-      console.log(this.defectIntensity)
-    }
-    else {
+      console.log(this.defectIntensity);
+    } else {
       this.defectIntensity = "Fault";
-      console.log(this.defectIntensity)
+      console.log(this.defectIntensity);
     }
   }
 
   evaluatorsList() {
-    this.userService.getEvaluatorsList(this.roaster_id, this.cupping_report_id).subscribe(
-      response => {
-        if (response['success'] == true) {
-          this.evaluatorData = response['result'].filter(ele => ele.is_primary == true);
+    this.userService
+      .getEvaluatorsList(this.roaster_id, this.cupping_report_id)
+      .subscribe((response) => {
+        if (response["success"] == true) {
+          this.evaluatorData = response["result"].filter(
+            (ele) => ele.is_primary == true
+          );
           this.evaluatorName = this.evaluatorData[0].evaluator_name;
-          this.evaluatorsListArray = response['result'].filter(ele => ele.is_primary != true);
-
+          this.evaluatorsListArray = response["result"].filter(
+            (ele) => ele.is_primary != true
+          );
         }
-      }
-    )
+      });
   }
 
   routeToProcessDet() {
     let harv_id = this.generateReportService.cuppingDetails.harvest_id;
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "harvest_id": harv_id,
-      }
-    }
+        harvest_id: harv_id,
+      },
+    };
 
-    this.router.navigate(['/features/process-details'], navigationExtras);
+    this.router.navigate(["/features/process-details"], navigationExtras);
   }
-
-
 
   addLang(value: any) {
     const id = value.id;
     const name = value.name;
 
     // Add our fruit
-    if ((name || '').trim() && value) {
+    if ((name || "").trim() && value) {
       this.langChips.push(value);
-      this.flavourArray.push(id);
+      this.totalColors.push(id);
     }
 
-    console.log(this.flavourArray)
+    console.log(this.totalColors);
 
     // // Reset the input value
     // if (input) {
     //   input.value = '';
     // }
-
   }
 
   remove(lang: any): void {
     const index = this.langChips.indexOf(lang);
     // this.langChips.slice(lang);
 
-
-
-    console.log(this.flavourArray)
+    console.log(this.flavourArray);
     if (index >= 0) {
       this.langChips.splice(index, 1);
       this.flavourArray.splice(index, 1);
@@ -297,46 +292,55 @@ export class GenerateMySampleComponent implements OnInit {
   }
 
   goNext() {
-    if (this.final_score == undefined || this.overall_score == undefined || this.comments == '') {
+    if (
+      this.final_score == undefined ||
+      this.overall_score == undefined ||
+      this.comments == ""
+    ) {
       this.toastrService.error("Please fill all the details");
-    }
-    else {
+    } else {
       var data = {
-        "roast_level": this.roast_level,
-        "fragrance_score": this.fragrance,
-        "fragrance_dry": this.fragrance_dry,
-        "fragrance_break": this.fragrance_break,
-        "fragrance_qualities": "Quality #1",
-        "flavour_score": this.flavor_score,
-        "aftertaste_score": this.aftertaste_score,
-        "acidity_score": this.acidity_score,
-        "acidity_intensity": this.acidity_intensity,
-        "body_score": this.body_score,
-        "body_level": this.body_level,
-        "uniformity_score": this.uniformity_score,
-        "uniformity_value": this.uniformity_value,
-        "uniformity_comment": this.uniformity_comment,
-        "balance_score": this.balance_score,
-        "cleancup_score": this.cleancup_score,
-        "cleancup_value": this.cleancup_value,
-        "cleancup_comment": this.cleancup_comment,
-        "sweetness_score": this.sweetness_score,
-        "sweetness_value": this.sweetness_value,
-        "sweetness_comment": this.sweetness_comment,
-        "overall_score": this.overall_score,
-        "defects_no_of_cups": this.defects_no_of_cups,
-        "defects_intensity": this.defectIntensity,
-        "total_score": this.final_score,
-        "final_score": this.final_score,
-        "flavour_profile_ids": this.flavourArray,
-        "comments": this.comments
-      }
-      this.userService.addCuppingScore(this.roaster_id, this.cupping_report_id, data).subscribe(
-        data => {
-
-        }
-      )
+        roast_level: this.roast_level,
+        fragrance_score: this.fragrance,
+        fragrance_dry: this.fragrance_dry,
+        fragrance_break: this.fragrance_break,
+        fragrance_qualities: "Quality #1",
+        flavour_score: this.flavor_score,
+        aftertaste_score: this.aftertaste_score,
+        acidity_score: this.acidity_score,
+        acidity_intensity: this.acidity_intensity,
+        body_score: this.body_score,
+        body_level: this.body_level,
+        uniformity_score: this.uniformity_score,
+        uniformity_value: this.uniformity_value,
+        uniformity_comment: this.uniformity_comment,
+        balance_score: this.balance_score,
+        cleancup_score: this.cleancup_score,
+        cleancup_value: this.cleancup_value,
+        cleancup_comment: this.cleancup_comment,
+        sweetness_score: this.sweetness_score,
+        sweetness_value: this.sweetness_value,
+        sweetness_comment: this.sweetness_comment,
+        overall_score: this.overall_score,
+        defects_no_of_cups: this.defects_no_of_cups,
+        defects_intensity: this.defectIntensity,
+        total_score: this.final_score,
+        final_score: this.final_score,
+        flavour_profile_ids: this.langChips.map((ele) => {
+          return ele.id;
+        }),
+        comments: this.comments,
+      };
+      this.userService
+        .addCuppingScore(this.roaster_id, this.cupping_report_id, data)
+        .subscribe((data) => {
+          if (data["success"] == true) {
+            this.toastrService.success("Final Score details has been updated");
+            this.next.emit("screen4");
+          } else {
+            this.toastrService.error("Please fill all the details");
+          }
+        });
     }
-    this.next.emit('screen4');
   }
 }
