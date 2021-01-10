@@ -41,6 +41,7 @@ import { DashboardNotifyComponent } from './welcome-aboard/dashboard-notify/dash
 import { DashboardEstateComponent } from './welcome-aboard/dashboard-estate/dashboard-estate.component';
 import { DashboardReviewComponent } from './welcome-aboard/dashboard-review/dashboard-review.component';
 import { DashboardCoffeeComponent } from './welcome-aboard/dashboard-coffee/dashboard-coffee.component';
+import { DashboardExperienceComponent } from './welcome-aboard/dashboard-experience/dashboard-experience.component';
 import { DashboardSalesComponent } from './welcome-aboard/dashboard-sales/dashboard-sales.component';
 import { DashboardSourcingComponent } from './welcome-aboard/dashboard-sourcing/dashboard-sourcing.component';
 import { DashboardInviteComponent } from './welcome-aboard/dashboard-invite/dashboard-invite.component';
@@ -189,6 +190,7 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
     DashboardEstateComponent,
     DashboardReviewComponent,
     DashboardCoffeeComponent,
+    DashboardExperienceComponent,
     DashboardSalesComponent,
     DashboardSourcingComponent,
     DashboardInviteComponent,
