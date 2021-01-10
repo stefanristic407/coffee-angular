@@ -504,6 +504,12 @@ export class CuppingServiceComponent implements OnInit {
   completed_on: any;
   mainData: any;
   appLanguage: any;
+  evaluator_ids: any;
+  cuppingScoreDetailsArray: any = [];
+  avgScoreArray: any = [];
+  avgScore: any;
+  finalscores: any;
+  evalList: any = [];
 
   constructor(public globals: GlobalsService, public cuppingService: CuppingReportService, private router: Router,
     public yourService: YourServicesService, private roasterService: RoasterserviceService, private cookieService: CookieService,
@@ -527,7 +533,8 @@ export class CuppingServiceComponent implements OnInit {
     this.yourService.getCuppingInviteList().subscribe(res => {
       this.mainData = res.success ? res.result : [];
       if (this.cuppingService.serviceReportDetails) {
-        this.eachServiceData = this.mainData.filter(ele => ele.service_request_id == this.cuppingService.serviceReportDetails['service_request_id']);
+        let eachServiceValue = this.mainData.filter(ele => ele.cupping_report_id == this.cuppingService.serviceReportDetails['cupping_report_id']);
+        this.eachServiceData = eachServiceValue[0];
       }
     });
   }
@@ -539,6 +546,7 @@ export class CuppingServiceComponent implements OnInit {
         response => {
           if (response['success'] == true) {
             response['result'].forEach(element => {
+              this.evalList = response['result'];
               this.evaluatorIdArray.push(element.evaluator_id);
             });
             this.evaluatorData = response['result'].filter(ele => ele.is_primary == true);
@@ -550,14 +558,77 @@ export class CuppingServiceComponent implements OnInit {
       )
     }
   }
+  formObject(itemKey, value) {
+    let item = {};
+    item['name'] = itemKey;
+    item['x'] = itemKey;
+    item['y'] = value;
+    item['r'] = value;
+    return item;
+  }
+
 
   getCuppingScoreDetails() {
     if (this.cuppingService.serviceReportDetails) {
       this.cupping_report_id = this.cuppingService.serviceReportDetails.cupping_report_id;
-      this.userService.getCuppingScore(this.ro_id, this.cupping_report_id, this.evaluatorIdArray).subscribe(
+      this.evaluator_ids = this.evaluatorIdArray.toString();
+      this.userService.getCuppingScore(this.ro_id, this.cupping_report_id, this.evaluator_ids).subscribe(
         res => {
           if (res['success'] == true) {
             this.cupping_score_details = res['result'];
+            this.cupping_score_details.forEach(element => {
+              let descriptorArray = element.descriptors.split(',');
+              element['descriptorArray'] = descriptorArray;
+            });
+            this.cuppingScoreDetailsArray = res['result'];
+            console.log(this.cuppingScoreDetailsArray);
+            let chartArray = [];
+            let scoreArray = [];
+            // this.cuppingScoreDetailsArray = this.cuppingScoreDetailsArray.concat(data['result']);
+            this.cuppingScoreDetailsArray.forEach(ele => {
+              this.avgScoreArray.push(ele['final_score']);
+              let scoreObj = { 'name': ele['evaluator_name'] };
+              scoreObj['series'] = [];
+              let finalScoreObj = this.formObject('Final score', ele['final_score']);
+              scoreObj['series'].push(finalScoreObj);
+              scoreArray.push(scoreObj);
+
+              let obj = { 'name': ele['evaluator_name'] };
+              obj['series'] = [];
+              ele['roast_level'] = ele['roast_level'];
+              let aromaObj = this.formObject('Aroma', ele['roast_level']);
+              let dryObj = this.formObject('Dry', ele['fragrance_dry']);
+              let breakObj = this.formObject('Break', ele['fragrance_break']);
+              let flavourObj = this.formObject('Flavour', ele['flavour_score']);
+              let afterStateObj = this.formObject('After taste', ele['aftertaste_score']);
+              let actidityObj = this.formObject('Acidity', ele['aftertaste_score']);
+              let bodyObj = this.formObject('Body', ele['body_score']);
+              let balanceObj = this.formObject('Balance', ele['balance_score']);
+              let UniformityObj = this.formObject('Uniformity', ele['uniformity_score']);
+              let cleancupObj = this.formObject('Clean cup', ele['cleancup_score']);
+              let sweetnessObj = this.formObject('Sweetness', ele['sweetness_score']);
+              let overallObj = this.formObject('Overall', ele['overall_score']);
+              obj['series'].push(aromaObj);
+              obj['series'].push(dryObj);
+              obj['series'].push(breakObj);
+              obj['series'].push(flavourObj);
+              obj['series'].push(afterStateObj);
+              obj['series'].push(actidityObj);
+              obj['series'].push(bodyObj);
+              obj['series'].push(balanceObj);
+              obj['series'].push(UniformityObj);
+              obj['series'].push(cleancupObj);
+              obj['series'].push(sweetnessObj);
+              obj['series'].push(overallObj);
+              chartArray.push(obj);
+            });
+
+            console.log(chartArray);
+            console.log(scoreArray)
+            this.scoreData = scoreArray
+            this.bubbleData = chartArray;
+            this.finalscores = this.avgScoreArray.reduce((acc, cur) => acc + cur, 0);
+            this.avgScore = this.finalscores / this.avgScoreArray.length;
           }
         })
     }

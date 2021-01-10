@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CuppingReportService } from './cupping-report.service';
 
 @Component({
   selector: 'app-cupping-report',
@@ -10,30 +11,32 @@ export class CuppingReportComponent implements OnInit {
   roles: any;
   role_id: any;
   termStatus: any;
-  teamRole:any;
+  teamRole: any;
   showVar: boolean = true;
-  showRole:boolean = true;
-  term:any;
+  showRole: boolean = true;
+  term: any;
   roleData: string;
   roleID: string;
-	selected: Date;
-	rangeDates: any;
+  selected: Date;
+  rangeDates: any;
   @ViewChild('calendar')
-  	calendar: any;
-  constructor() {
+  calendar: any;
+  constructor(public cuppingService: CuppingReportService) {
     this.termStatus = '';
     this.termRole = '';
-   }
-
-  ngOnInit(): void {
   }
 
-  
+  ngOnInit(): void {
+    this.cuppingService.getCuppingReports();
+    this.cuppingService.getExternalCuppingReports();
+  }
+
+
   setTeamRole(term: any, roleId: any) {
     this.teamRole = term;
     this.role_id = roleId;
   }
- // Function Name : Status Filiter
+  // Function Name : Status Filiter
   // Description: This function helps to filiter the users based on the selected status fiiter.
 
   setStatus(term: any) {
@@ -48,28 +51,28 @@ export class CuppingReportComponent implements OnInit {
   }
   toggleRole() {
     this.showRole = !this.showRole;
-    if(this.showRole==false){
-      document.getElementById('role_id').style.border="1px solid #30855c";
+    if (this.showRole == false) {
+      document.getElementById('role_id').style.border = "1px solid #30855c";
     }
-    else{
-      document.getElementById('role_id').style.border="1px solid #d6d6d6";
-    
+    else {
+      document.getElementById('role_id').style.border = "1px solid #d6d6d6";
+
     }
-   }
-  
-   toggleStatus() {
-    this.showVar = !this.showVar;
-    if(this.showVar==false){
-    document.getElementById('status_id').style.border="1px solid #30855c";
-  }
-  else{
-    document.getElementById('status_id').style.border="1px solid #d6d6d6";
-  
-  }
   }
 
-  openCalendar(event: any){
-		this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
-  		event.stopPropagation();
-	}
+  toggleStatus() {
+    this.showVar = !this.showVar;
+    if (this.showVar == false) {
+      document.getElementById('status_id').style.border = "1px solid #30855c";
+    }
+    else {
+      document.getElementById('status_id').style.border = "1px solid #d6d6d6";
+
+    }
+  }
+
+  openCalendar(event: any) {
+    this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
+    event.stopPropagation();
+  }
 }

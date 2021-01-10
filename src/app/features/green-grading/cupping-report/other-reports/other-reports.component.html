@@ -5,10 +5,10 @@
                 <tr class="header-row">
                     <th>
                         <label class="customcheckbox m-b-20">
-                                        <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
-                                        (change)="checkAll($event)"/>
-                                        <span class="checkmark head-check"></span>
-                                    </label>
+                            <input type="checkbox" id="mainCheckbox" [checked]="isAllChecked()"
+                                (change)="checkAll($event)" />
+                            <span class="checkmark head-check"></span>
+                        </label>
                     </th>
                     <th scope="col">{{globals.languageJson?.service_id}}</th>
                     <th scope="col">{{globals.languageJson?.estate_name}}</th>
@@ -26,12 +26,14 @@
                 </tr>
             </thead>
             <tbody class="customtable">
-                <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:term | filter: termRole | filter: termStatus">
+                <tr class="ticket-boby-txt"
+                    *ngFor="let item of cuppingService.externalReportsList | filter:term | filter: termRole | filter: termStatus">
                     <td>
                         <label class="customcheckbox">
-                                        <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
-                                        <span class="checkmark head-check"></span>
-                                    </label>
+                            <input type="checkbox" class="listCheckbox" name="sizecb[]" value="{{item.id}}"
+                                [(ngModel)]="item.state" />
+                            <span class="checkmark head-check"></span>
+                        </label>
                     </td>
                     <td>
                         {{ item.external_sample_id }}
@@ -40,17 +42,19 @@
                     <td>{{ item.origin }} </td>
                     <td>
                         <span *ngFor="let eval of item.evaluators | slice:0:1">
-                                    {{eval}}
-                                </span>
-                        <span *ngIf="item.evaluators.length>1">+{{(item.evaluators.length)-1}}more</span>
+                            {{eval}}
+                        </span>
+                        <span *ngIf="item.evaluators.length>1"> ,+{{(item.evaluators.length)-1}}more</span>
                     </td>
                     <td>{{ item.completed_on }} </td>
                     <td>
                         {{item.average_score}}
                     </td>
                     <td>
-                        <button type="button" class="btn pdf-btn">{{globals.languageJson?.view_pdf}}</button>
-                        <button type="button" class="btn table-btn">{{globals.languageJson?.view_table}}</button>
+                        <button type="button" class="btn pdf-btn"
+                            (click)="viewPdf(item.url)">{{globals.languageJson?.view_pdf}}</button>
+                        <button type="button" class="btn table-btn"
+                            (click)="otherReportLink(item)">{{globals.languageJson?.view_table}}</button>
                         <img class="ellipse-image" src="/assets/images/ellipses.png" alt="">
                     </td>
                 </tr>

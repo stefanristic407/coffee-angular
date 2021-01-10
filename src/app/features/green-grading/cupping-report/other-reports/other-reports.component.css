@@ -54,7 +54,7 @@ span.checkmark {
 }
 
 .checkmark {
-    top: 2px !important;
+    top: -5px !important;
     left: 8px !important;
     height: 17px !important;
     width: 17px !important;
