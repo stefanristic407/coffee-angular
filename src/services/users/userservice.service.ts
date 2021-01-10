@@ -31,7 +31,7 @@ export class UserserviceService {
   // private url = "https://qa-fed-api.sewnstaging.com/api";
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/deleteapi";
 
-  constructor(private http: HttpClient, public cookieService: CookieService) { }
+  constructor(private http: HttpClient, public cookieService: CookieService) {}
 
   //API Function Name : Roaster Login
   //API Description: This API calls helps to get the username and password of the user and send to the backend to check the user is valid or not.
@@ -1353,10 +1353,22 @@ export class UserserviceService {
   }
   updateStatus(roaster_id: any, cupping_report_id: any, body: any) {
     var data = {};
-    data["api_call"] = `/fc​/${roaster_id}​/cupping-process​/${cupping_report_id}​/status`;
+    data[
+      "api_call"
+    ] = `/fc​/${roaster_id}​/cupping-process​/${cupping_report_id}​/status`;
     data["token"] = this.cookieService.get("Auth");
     data["method"] = "PUT";
     data["data"] = body;
+    return this.http.post(this.roasterUrl, data);
+  }
+  downloadReport(roaster_id: any, cupping_report_id: any, evaluator_ids: any) {
+    var data = {};
+    let params = new HttpParams();
+    params = params.append("evaluator_ids_in", evaluator_ids);
+    data[
+      "api_call"
+    ] = `/fc/${roaster_id}/cupping-process/${cupping_report_id}/download?${params}`;
+    data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterUrl, data);
   }
 }
