@@ -33,13 +33,15 @@
                                                     <label *ngIf="eachId!=item.cupping_report_id"
                                                         class="customcheckbox">
                                                         <input type="checkbox" class="listCheckbox" name="sizecb[]"
-                                                            value="{{item.id}}" checked [(ngModel)]="item.state" />
+                                                            value="{{item.id}}" checked [(ngModel)]="item.state"
+                                                            (change)="selectedRow();" />
                                                         <span class="checkmark head-check"></span>
                                                     </label>
                                                     <label *ngIf="eachId==item.cupping_report_id && updateVatmode"
                                                         class="customcheckbox">
                                                         <input type="checkbox" class="listCheckbox" name="sizecb[]"
-                                                            value="{{item.id}}" checked [(ngModel)]="item.state" />
+                                                            value="{{item.id}}" checked [(ngModel)]="item.state"
+                                                            (change)="selectedRow();" />
                                                         <span class="checkmark head-check"></span>
                                                     </label>
                                                 </td>
@@ -64,14 +66,24 @@
                                                 </td>
                                                 <td>
                                                     <span
-                                                        *ngIf="eachId!=item.cupping_report_id">{{ item.origin }}</span>
+                                                        *ngIf="eachId!=item.cupping_report_id">{{generateReportService.getCountryName(item.origin)}}</span>
                                                     <span
-                                                        *ngIf="listTableRow && eachId==item.cupping_report_id">{{ item.origin }}</span>
+                                                        *ngIf="listTableRow && eachId==item.cupping_report_id">{{generateReportService.getCountryName(item.origin)}}</span>
                                                     <div *ngIf="editTableRow && eachId==item.cupping_report_id">
                                                         <label>Origin</label>
-                                                        <input class="form-control"
+                                                        <!-- <input class="form-control"
                                                             placeholder="Please enter the origin" type="text"
-                                                            id="origin" [(ngModel)]="eachOrigin" name="origin">
+                                                            id="origin" [(ngModel)]="eachOrigin" name="origin"> -->
+                                                        <select id="country" class="form-control country role_edit"
+                                                            [(ngModel)]="eachOrigin" name="country" required=""
+                                                            (change)="changeCountry()">
+                                                            <option value="" selected="" disabled=""> Select a Country
+                                                            </option>
+                                                            <option
+                                                                *ngFor="let count of roasteryProfileService.countryList"
+                                                                value="{{ count.isoCode }}">{{ count.name }}
+                                                            </option>
+                                                        </select>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -128,8 +140,9 @@
                         </div>
                     </div>
                     <div class="w-100 pb-3 pt-2">
-                        <div class="pull-right">
-                            <button type="button" class="btn next" routerLink="/features/generate-report">Next</button>
+                        <div class="pull-right" *ngIf="count">
+                            <span class="selected-text mr-2">Selected : {{count}}</span><button type="button"
+                                class="btn next" (click)="generateReportLink();">Next</button>
                         </div>
                     </div>
                     <div class="row mt-5">
@@ -137,9 +150,17 @@
                             <p class="text-data">Enter sample details<span class="star">*</span></p>
                         </div>
                         <div class="col-lg-3">
-                            <label>Origin</label>
+                            <!-- <label>Origin</label>
                             <input class="form-control" placeholder="Please enter the origin" type="text" id="origin"
-                                [(ngModel)]="grade_origin" name="origin">
+                                [(ngModel)]="grade_origin" name="origin"> -->
+                            <label for="country">Origin</label>
+                            <select id="country" class="form-control country role_edit" [(ngModel)]="grade_origin"
+                                name="country" required="" (change)="changeCountry()">
+                                <option value="" selected="" disabled=""> Select a Country</option>
+                                <option *ngFor="let count of roasteryProfileService.countryList"
+                                    value="{{ count.isoCode }}">{{ count.name }}
+                                </option>
+                            </select>
                         </div>
                         <div class="col-lg-3">
                             <label>Estate name</label>
@@ -157,7 +178,6 @@
                             <input class="form-control" placeholder="Please enter your ID" type="text" id="id"
                                 [(ngModel)]="grade_id" name="gradeId">
                         </div>
-
                     </div>
                     <div class="row mt-4">
                         <!-- <button type="button" class="btn next" (click)="addExternalReport()">Next</button> -->

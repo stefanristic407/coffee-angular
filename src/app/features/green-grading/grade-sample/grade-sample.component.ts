@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GenerateReportService } from '../generate-report/generate-report.service';
+import { RoasteryProfileService } from '../../roastery-profile/roastery-profile.service';
 
 @Component({
 	selector: 'app-grade-sample',
@@ -13,7 +15,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 })
 export class GradeSampleComponent implements OnInit {
 	roaster_id: any;
-	grade_origin: any;
+	grade_origin: any = "";
 	grade_estate: any;
 	grade_species: any;
 	grade_id: any;
@@ -26,10 +28,12 @@ export class GradeSampleComponent implements OnInit {
 	eachSpecies: string;
 	eachSampleId: any;
 	updateVatmode: boolean = false;
+	count: any;
 
 	constructor(private userService: UserserviceService,
 		private toasterService: ToastrService, private router: Router,
-		public globals: GlobalsService, private cookieService: CookieService, public roasterService: RoasterserviceService) {
+		public globals: GlobalsService, private cookieService: CookieService, public roasterService: RoasterserviceService,
+		public generateReportService: GenerateReportService, public roasteryProfileService: RoasteryProfileService) {
 		this.roaster_id = this.cookieService.get('roaster_id');
 	}
 
@@ -122,5 +126,31 @@ export class GradeSampleComponent implements OnInit {
 				}
 			}
 		);
+	}
+	selectedRow() {
+		let getItem = this.cuppingRequestList.filter(ele => ele['state'] == true);
+		this.count = getItem ? getItem.length : 0;
+
+	}
+
+	generateReportLink() {
+		let getItem = this.cuppingRequestList.filter(ele => ele['state'] == true);
+
+		if (getItem) {
+			this.generateReportService.serviceRequestsList = getItem;
+			this.generateReportService.cuppingDetails = getItem[0];
+			let navigationExtras: NavigationExtras = {
+				queryParams: {
+					"from": 'SampleRequest',
+				}
+			}
+
+			this.router.navigate(['/features/generate-report'], navigationExtras);
+		}
+
+	}
+	changeCountry() {
+		// console.log("the selected country is : " + this.country);
+		this.roasteryProfileService.changeCountry(this.roasteryProfileService.country);
 	}
 }
