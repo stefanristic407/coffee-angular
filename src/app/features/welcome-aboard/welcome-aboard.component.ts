@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from 'src/services/globals.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { WelcomeService } from './welcome.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class WelcomeAboardComponent implements OnInit {
     private cookieService: CookieService,
     public globals: GlobalsService,
     private userSrv: UserserviceService,
+    private roasterSrv: RoasterserviceService,
     private toastrService: ToastrService,
     private welcomeSrv: WelcomeService
   ) {}
@@ -47,6 +49,7 @@ export class WelcomeAboardComponent implements OnInit {
     });
 
     this.getRecentActivities();
+    this.getEstateOrders();
   }
 
   getStats(resolve) {
@@ -54,6 +57,7 @@ export class WelcomeAboardComponent implements OnInit {
       if (res.success) {
         this.welcomeSrv.sales.next(res.result.sales);
         this.welcomeSrv.sourcing.next(res.result.sourcing);
+        this.welcomeSrv.stock.next(res.result.stock);
       } else {
         this.toastrService.error('Error while getting stats');
       }
@@ -89,6 +93,16 @@ export class WelcomeAboardComponent implements OnInit {
         this.welcomeSrv.recentActivities.next(res.result);
       } else {
         this.toastrService.error('Error while getting recent activity');
+      }
+    });
+  }
+
+  getEstateOrders() {
+    this.roasterSrv.getEstateOrders(this.roasterId).subscribe((res: any) => {
+      if (res.success) {
+        this.welcomeSrv.orders.next(res.result);
+      } else {
+        this.toastrService.error('Error while getting orders');
       }
     });
   }

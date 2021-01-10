@@ -11,6 +11,9 @@ export class WelcomeService {
   sourcing: any = new BehaviorSubject(null);
   sourcing$: any = this.sourcing.asObservable();
 
+  stock: any = new BehaviorSubject(null);
+  stock$: any = this.stock.asObservable();
+
   estates: any = new BehaviorSubject(null);
   estates$: any = this.estates.asObservable();
 
@@ -19,4 +22,7 @@ export class WelcomeService {
 
   recentActivities: any = new BehaviorSubject(null);
   recentActivities$: any = this.recentActivities.asObservable();
+
+  orders: any = new BehaviorSubject(null);
+  orders$: any = this.orders.asObservable();
 }
