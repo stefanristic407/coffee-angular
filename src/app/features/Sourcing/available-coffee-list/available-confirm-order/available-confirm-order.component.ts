@@ -119,10 +119,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
         document.getElementById("quantityId").style.border =
           "1px solid #d6d6d6 ";
       }, 3000);
-    } else if (
-      this.quantity >
-      this.sourcing.quantity_count * this.sourcing.quantity
-    ) {
+    } else if (this.quantity > this.sourcing.quantity_count) {
       this.confirmOrderError =
         "Please enter quantity in range of available for sale";
       document.getElementById("quantityId").style.border = "1px solid #D50000";
