@@ -55,6 +55,7 @@ export class WelcomeAboardComponent implements OnInit {
   getStats(resolve) {
     this.userSrv.getStats(this.roasterId).subscribe((res: any) => {
       if (res.success) {
+        this.welcomeSrv.disputes.next(res.result.disputes);
         this.welcomeSrv.sales.next(res.result.sales);
         this.welcomeSrv.sourcing.next(res.result.sourcing);
         this.welcomeSrv.stock.next(res.result.stock);

@@ -5,6 +5,9 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class WelcomeService {
+  disputes: any = new BehaviorSubject(null);
+  disputes$: any = this.disputes.asObservable();
+
   sales: any = new BehaviorSubject(null);
   sales$: any = this.sales.asObservable();
 
