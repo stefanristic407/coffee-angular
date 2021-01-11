@@ -31,30 +31,30 @@
         <p *ngIf="headerValue" class="header-value mr-auto text-left mb-3">{{headerValue}}</p>
         <div class="border-clr">
             <div class="row">
-                <div class="accordion col-lg-12 col-md-12 col-sm-12 mb-3" id="accordionExample">
+                <div *ngFor="let item of questionDetails;let i = index" [attr.data-index]="i"
+                    class="accordion col-lg-12 col-md-12 col-sm-12 mb-3" id="accordionExample">
                     <div class="card">
                         <div class="card-head" id="headingOne">
-                            <h2 class="mb-0 question" data-toggle="collapse" data-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                What happens if I change my mind after placing an order?
+                            <h2 class="mb-0 question" data-toggle="collapse" [attr.data-target]="'#' + item.element_id"
+                                aria-expanded="true" [attr.aria-controls]="item.element_id">
+                                {{item.question}}
                             </h2>
                         </div>
 
-                        <div id="collapseOne" class="collapse sourcing-collapse show" aria-labelledby="headingOne"
-                            data-parent="#accordionExample">
+                        <div [attr.id]="item.element_id" class="collapse sourcing-collapse show"
+                            aria-labelledby="headingOne" data-parent="#accordionExample">
                             <div class="card-body">
-                                <p class="content">
-                                    If the coffee has not left the country of origin yet, we may be able to negotiate
-                                    with the producer to agree to cancel your order. If we are successful, we will be
-                                    able to reimburse you with the full amount minus the algrano service fee.
-                                </p>
+                                <div [innerHtml]="item.answer"></div>
+                                <!-- <p class="content">
+                                    {{item.answer}}
+                                </p> -->
                                 <p class="content mb-0">Still need help? <a class="click-here"
                                         routerLink="/ordermanagement/raise-ticket-form"
                                         [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-head" id="headingTwo">
                             <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseTwo"
                                 aria-expanded="false" aria-controls="collapseTwo">
@@ -163,7 +163,7 @@
                                         [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="row desk-view">
