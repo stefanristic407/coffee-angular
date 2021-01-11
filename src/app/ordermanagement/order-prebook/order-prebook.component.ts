@@ -232,7 +232,7 @@ export class OrderPrebookComponent implements OnInit {
 			}, 500);
 
 		}
-		else if (this.dataFromTable == "HARVESTED") {
+		else if (this.dataFromTable == "HARVEST_READY") {
 			this.valueToShow = "Harvest Ready";
 			setTimeout(() => {
 				this.harvest();

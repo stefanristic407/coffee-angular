@@ -67,7 +67,7 @@
             <tr>
                 <td> <span class="list-que"> Flavour profile : </span></td>
                 <td> <span class="list-ans" *ngIf="prebookService.flavours!=null">
-                        <span *ngFor="let item of prebookService.flavours">{{item }}</span>
+                        <span *ngFor="let item of prebookService.flavours">{{item.name }}</span>
                     </span>
                     <span *ngIf="prebookService.flavours==null">-</span>
                 </td>
