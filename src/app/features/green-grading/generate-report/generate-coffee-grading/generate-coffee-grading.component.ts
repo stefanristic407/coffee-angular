@@ -232,4 +232,16 @@ export class GenerateCoffeeGradingComponent implements OnInit {
         }
       });
   }
+  cancel() {
+    if (this.generateService.fromQueryParam == "ServiceRequest") {
+      this.router.navigate(["/features/service-request"]);
+    } else if (this.generateService.fromQueryParam == "SampleRequest") {
+      this.router.navigate(["/features/grade-sample"]);
+    } else {
+      this.router.navigate(["/features/service-request"]);
+    }
+  }
+  skip() {
+    this.next.emit("screen2");
+  }
 }

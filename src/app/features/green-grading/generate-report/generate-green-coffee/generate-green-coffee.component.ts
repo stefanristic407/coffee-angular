@@ -212,4 +212,13 @@ export class GenerateGreenCoffeeComponent implements OnInit {
         }
       });
   }
+  cancel() {
+    if (this.generateReportService.fromQueryParam == "ServiceRequest") {
+      this.router.navigate(["/features/service-request"]);
+    } else if (this.generateReportService.fromQueryParam == "SampleRequest") {
+      this.router.navigate(["/features/grade-sample"]);
+    } else {
+      this.router.navigate(["/features/service-request"]);
+    }
+  }
 }
