@@ -14,6 +14,9 @@ export class WelcomeService {
   stock: any = new BehaviorSubject(null);
   stock$: any = this.stock.asObservable();
 
+  varieties: any = new BehaviorSubject(null);
+  varieties$: any = this.varieties.asObservable();
+
   estates: any = new BehaviorSubject(null);
   estates$: any = this.estates.asObservable();
 
