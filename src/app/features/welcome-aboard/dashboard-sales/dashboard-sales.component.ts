@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { Browser } from '@syncfusion/ej2-base';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { UserserviceService } from 'src/services/users/userservice.service';
 import { WelcomeService } from '../welcome.service';
 import * as moment from 'moment';
 import * as _ from 'underscore';
@@ -17,32 +19,71 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
   roasterId: string;
   sales: any;
   salesSub: Subscription;
-  orders: any[] = [];
   chartData: any[] = [];
+  customerType = '';
+  chartType = 'day';
+  periods: any[] = [
+    {
+      value: 0,
+      label: 'last 7 days',
+    },
+    {
+      value: 1,
+      label: 'last 30 days',
+    },
+  ];
+  customerTypelist: any[] = [
+    {
+      value: '',
+      label: 'All',
+    },
+    {
+      value: 'ecom',
+      label: 'E-commerce',
+    },
+    {
+      value: 'mr',
+      label: 'Micro-roster',
+    },
+  ];
+  selPeriod = 0;
 
+  chartArea = { border: { width: 0 } };
   public primaryXAxis = {
     valueType: 'DateTime',
     labelFormat: 'd',
     intervalType: 'Days',
     interval: 1,
+    minimum: new Date(),
+    maximum: new Date(),
     edgeLabelPlacement: 'Shift',
     majorGridLines: { width: 0 },
+    majorTickLines: { width: 0 },
+    minorTickLines: { width: 0 },
   };
 
   public primaryYAxis = {
-    unit: '°C',
+    visible: !Browser.isDevice,
     minimum: 0,
     maximum: 30,
-    interval: 5,
     labelFormat: '{value}',
     rangePadding: 'None',
     lineStyle: { width: 0 },
     majorGridLines: { width: 0 },
+    majorTickLines: { width: 0 },
+    minorTickLines: { width: 0 },
     titleStyle: {
       size: '16px',
       color: '#232334',
       fontFamily: 'Muli',
       fontWeight: '500',
+    },
+  };
+  marker = {
+    dataLabel: {
+      visible: true,
+      template: '<div>$ ${point.y}</div>',
+      font: { size: '12px', fontFamily: 'Muli', fontWeight: '600', color: '#232334' },
     },
   };
 
@@ -51,39 +92,64 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     public globals: GlobalsService,
     private roasterSrv: RoasterserviceService,
     private toastrService: ToastrService,
+    private userSrv: UserserviceService,
     private welcomeSrv: WelcomeService
   ) {}
 
   ngOnInit(): void {
     this.roasterId = this.cookieService.get('roaster_id');
-    // this.getEstateOrdersData();
-    this.salesSub = this.welcomeSrv.sales$.subscribe((res: any) => {
-      this.sales = res;
-      console.log('sales:', this.sales);
-    });
+    this.getStats();
   }
 
   ngOnDestroy() {
     this.salesSub.unsubscribe();
   }
 
-  getEstateOrdersData() {
-    this.roasterSrv.getEstateOrders(this.roasterId).subscribe((res: any) => {
-      if (res.success) {
-        this.orders = res.result;
-        this.makeChartData();
-        console.log('Orders:', this.orders);
-      } else {
-        this.toastrService.error(this.globals.languageJson.error_message);
-      }
-    });
+  getStats() {
+    const dateFrom = moment().startOf('day').subtract(1, 'months').format('YYYY-MM-DD');
+    this.userSrv
+      .getStats(this.roasterId, {
+        sections: 'sales',
+        customer_type: this.customerType,
+        chart_type: this.chartType,
+        date_from: dateFrom,
+      })
+      .subscribe((res: any) => {
+        if (res.success) {
+          this.sales = res.result.sales;
+          this.makeChartData();
+        } else {
+          this.toastrService.error('Error while getting stats');
+        }
+      });
+  }
+
+  changeCustomerType(value) {
+    this.customerType = value;
+    this.getStats();
+  }
+
+  changePeriod(value: number = null) {
+    if (value != null) {
+      this.selPeriod = value;
+    }
+    const minimum =
+      this.selPeriod === 0
+        ? moment().startOf('day').subtract(7, 'days').toDate()
+        : moment().startOf('day').subtract(1, 'months').toDate();
+    this.primaryXAxis = {
+      ...this.primaryXAxis,
+      minimum,
+      maximum: moment().startOf('day').subtract(24, 'hours').toDate(),
+    };
   }
 
   makeChartData() {
+    this.changePeriod();
     const tempData = [];
-    _.chain(this.orders)
+    _.chain(this.sales.sales_stats)
       .map((item) => {
-        const key = moment.unix(item.dt).format('YYYY/MM/DD');
+        const key = moment(new Date(`${item.month}-${item.date}-${item.year}`)).format('YYYY/MM/DD');
         return {
           key,
           data: item,
@@ -91,28 +157,31 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
       })
       .groupBy('key')
       .map((value, key) => {
-        const created_at = value[0].data.created_at;
-        const quantity = _.reduce(
+        const earnings = _.reduce(
           value,
           (acc, val) => {
-            return acc + (val.data?.quantity || 0);
+            return acc + (val.data?.earnings || 0);
           },
           0
         );
         return {
           key,
-          created_at,
-          quantity,
+          earnings,
         };
       })
       .value()
       .forEach((element) => {
         tempData.push({
-          x: new Date(element.created_at),
-          y: element.quantity,
+          x: new Date(element.key),
+          y: +element.earnings.toFixed(0),
         });
       });
+
+    const maxValue = _.max(_.pluck(tempData, 'y')) * 1.2;
+    this.primaryYAxis = {
+      ...this.primaryYAxis,
+      maximum: maxValue,
+    };
     this.chartData = tempData;
-    console.log(this.chartData);
   }
 }

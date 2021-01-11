@@ -1,0 +1,45 @@
+.select-wrap {
+  border-radius: 20px;
+  border: 1px solid #d6d6d6;
+  background-color: transparent;
+  padding: 8px 16px;
+
+  &.opened {
+    border: 1px solid #30855c;
+  }
+
+  &.no-border,
+  &.opened.no-border {
+    border: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+
+    &.primary {
+      color: #30855c;
+    }
+  }
+}
+
+.list-group {
+  .list-group-item {
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    &.selected {
+      color: #232334;
+      background-color: #f8f8f8;
+    }
+    &:hover {
+      color: #232334;
+      background-color: #f8f8f8;
+    }
+  }
+}

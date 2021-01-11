@@ -1,7 +1,19 @@
 <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up">
   <p class="fnt-18 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-none d-md-block">Your sales & orders</p>
   <div class="br-main br-4">
-    <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Total sales</div>
+    <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 m-1 d-md-none d-flex justify-content-between">
+      <span class="p-2">Total sales</span>
+      <div>
+        <span class="fnt-14 fnt-600 fnt-muli text-black334">Filter :</span>
+        <app-select
+          [items]="customerTypelist"
+          [noBorder]="true"
+          [textColor]="'primary'"
+          [value]="customerType"
+          (valueChange)="changeCustomerType($event)"
+        ></app-select>
+      </div>
+    </div>
 
     <div *ngIf="sales && sales.sales_stats; else blank" class="row">
       <div class="col-12">
@@ -11,10 +23,14 @@
               <div class="col-12 col-md-4">
                 <div class="total-wrap py-lg-3 px-lg-2 h-100">
                   <p class="fnt-14 fnt-600 fnt-muli text-black334 mb-5 d-none d-lg-block">You've earned</p>
-                  <h1 class="fnt-32 fnt-bold fnt-muli text-black334">$ {{ sales?.total_earnings.toFixed(2) }}K</h1>
+                  <h1 class="fnt-32 fnt-bold fnt-muli text-black334">
+                    $ {{ ((sales?.total_earnings || 0) / 1000).toFixed(2) }}K
+                  </h1>
                   <p class="fnt-18 fnt-600 fnt-muli text-gray588 mb-lg-5">All time earnings</p>
                   <div class="d-none d-lg-block">
-                    <h1 class="fnt-32 fnt-bold fnt-muli text-black334">$ {{ sales?.weekly_earnings.toFixed(2) }}k</h1>
+                    <h1 class="fnt-32 fnt-bold fnt-muli text-black334">
+                      $ {{ ((sales?.weekly_earnings || 0) / 1000).toFixed(2) }}K
+                    </h1>
                     <p class="fnt-18 fnt-600 fnt-muli text-gray588">earned in last 7 days</p>
                   </div>
                 </div>
@@ -22,14 +38,57 @@
 
               <div class="col-12 col-md-8">
                 <div class="chart-wrap">
+                  <div class="d-none d-md-flex align-items-end mb-3">
+                    <ul class="nav nav-pills flex-fill">
+                      <li class="nav-item">
+                        <a
+                          href="javascript:void(0)"
+                          class="nav-link"
+                          (click)="changeCustomerType('')"
+                          [class.active]="customerType === ''"
+                          >ALL</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="javascript:void(0)"
+                          class="nav-link"
+                          (click)="changeCustomerType('ecom')"
+                          [class.active]="customerType === 'ecom'"
+                          >E-commerce</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          href="javascript:void(0)"
+                          class="nav-link"
+                          (click)="changeCustomerType('mr')"
+                          [class.active]="customerType === 'mr'"
+                          >Micro-roster</a
+                        >
+                      </li>
+                    </ul>
+                    <div class="select-wrap">
+                      <span class="fnt-14 fnt-600 fnt-muli text-black334">Sort by :</span>
+                      <app-select
+                        [items]="periods"
+                        [noBorder]="true"
+                        [textColor]="'primary'"
+                        [value]="periods[selPeriod].value"
+                        (valueChange)="changePeriod($event)"
+                      ></app-select>
+                    </div>
+                  </div>
+
                   <ejs-chart
                     id="orders-chart-container"
+                    [chartArea]="chartArea"
                     [primaryXAxis]="primaryXAxis"
                     [primaryYAxis]="primaryYAxis"
                     height="360px"
                   >
                     <e-series-collection>
-                      <e-series [dataSource]="chartData" type="Column" xName="x" yName="y"></e-series>
+                      <e-series [dataSource]="chartData" type="Column" xName="x" yName="y" [marker]="marker"></e-series>
                     </e-series-collection>
                   </ejs-chart>
                 </div>

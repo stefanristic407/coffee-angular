@@ -30,7 +30,9 @@
               </e-accumulation-series-collection>
             </ejs-accumulationchart>
             <div class="total-stats text-center">
-              <p class="fnt-24 fnt-bold fnt-muli text-black334 mb-0">{{ (stock?.total_coffee || 0).toFixed(0) }} ton</p>
+              <p class="fnt-24 fnt-bold fnt-muli text-black334 mb-0">
+                {{ ((stock?.total_coffee || 0) / 1000).toFixed(1) }} ton
+              </p>
               <p class="fnt-12 fnt-600 fnt-muli text-gray588 mb-0">Total Coffee sourced</p>
             </div>
           </div>

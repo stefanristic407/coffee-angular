@@ -1,0 +1,35 @@
+<div
+  class="d-inline-block select-wrap"
+  [class.no-border]="noBorder"
+  [class.opened]="opened"
+  [outsideClick]="true"
+  (onShown)="opened = !opened"
+  (onHidden)="opened = !opened"
+  [popover]="selTpl"
+  placement="bottom"
+  container="body"
+  #selectPop="bs-popover"
+>
+  <p class="d-inline" [ngClass]="textColor">{{ items[selectedIndex]?.label }}</p>
+  <a class="pointer-item">
+    <p class="d-inline">
+      &nbsp;
+      <img [src]="opened ? 'assets/images/user-down.svg' : 'assets/images/down-arrow.svg'" />
+    </p>
+  </a>
+</div>
+
+<ng-template #selTpl>
+  <div>
+    <ul class="list-group custom-popover">
+      <li
+        *ngFor="let item of items; let i = index"
+        class="list-group-item item-color"
+        [class.selected]="i === selectedIndex"
+        (click)="secectValue(i); selectPop.hide()"
+      >
+        <a class="pointer-items"> {{ item.label }} </a>
+      </li>
+    </ul>
+  </div>
+</ng-template>

@@ -4,19 +4,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
+import { SelectComponent } from './components/select/select.component';
 
 // #region material
 const MATMODULES = [];
 // #endregion
 
 // #region third libs
-const THIRDMODULES = [AnimateOnScrollModule];
+const THIRDMODULES = [AnimateOnScrollModule, PopoverModule];
 // #endregion
 
 // #region your componets & directives
-const COMPONENTS = [AvatarComponent];
+const COMPONENTS = [AvatarComponent, SelectComponent];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];
 // #endregion
