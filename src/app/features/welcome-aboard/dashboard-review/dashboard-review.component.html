@@ -6,14 +6,14 @@
 
   <div class="row">
     <div class="col-12">
-      <div class="review-block mb-3">
+      <div class="review-block">
         <p class="fnt-16 fnt-bold fnt-muli text-black334 mb-1 d-md-none">Reviews</p>
 
         <h2 class="fnt-32 fnt-bold fnt-muli text-black334 mb-md-1 mb-0">
           {{ reviewsSummary?.rating.toFixed(1) || '-' }}
         </h2>
         <p class="fnt-14 fnt-bold fnt-muli text-gray588 mb-md-1 mb-0">out of 5</p>
-        <div *ngIf="reviewsSummary" class="d-flex">
+        <div *ngIf="reviewsSummary" class="d-flex star-wrap">
           <star-rating
             value="{{ reviewsSummary.rating }}"
             totalstars="{{ totalstar }}"

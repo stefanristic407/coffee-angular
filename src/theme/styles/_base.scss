@@ -403,3 +403,9 @@ input[type='number'] {
     }
   }
 }
+
+.h-md-100 {
+  @media (min-width: 992px) {
+    height: 100%;
+  }
+}

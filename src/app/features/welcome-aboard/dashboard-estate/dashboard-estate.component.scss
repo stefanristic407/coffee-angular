@@ -19,16 +19,7 @@
 .total-stats {
   position: absolute;
   left: 50%;
-  top: 160px;
+  top: 120px;
   transform: translateX(-50%);
   line-height: 1.4;
-  @media (min-width: 360px) {
-    top: 170px;
-  }
-  @media (min-width: 380px) {
-    top: 170px;
-  }
-  @media (min-width: 768px) {
-    top: 180px;
-  }
 }

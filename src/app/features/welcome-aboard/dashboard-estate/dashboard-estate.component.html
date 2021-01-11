@@ -1,51 +1,58 @@
-<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up p-md-3 br-md-main br-4 h-100">
+<div
+  animateOnScroll
+  animationName="fadeIn"
+  class="animation-bounce-in-up p-md-4 br-md-main br-4 h-100 d-flex flex-column"
+>
   <p class="fnt-16 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-none d-md-block">Specially for you!</p>
   <p class="fnt-14 fnt-normal fnt-muli text-gray588 mb-2 mb-md-4 d-none d-md-block">
     Here are a few estates you might like to source from.
   </p>
 
   <p class="fnt-16 fnt-bold fnt-muli text-black334 mb-1 d-md-none">Sourced coffee</p>
-  <div class="row">
-    <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6">
-      <div class="chart-block mb-3">
+  <div class="row flex-fill">
+    <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6 mb-3 mb-md-0">
+      <div class="chart-block br-4 h-100 pr-md-4">
         <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
-        <div class="position-relative d-flex justify-content-center">
-          <ejs-accumulationchart
-            id="total-sale-container"
-            style="display: block; width: 92%"
-            [legendSettings]="legendSettings"
-            [tooltip]="tooltip"
-            [enableAnimation]="false"
-          >
-            <e-accumulation-series-collection>
-              <e-accumulation-series
-                name="Sourcing"
-                [dataSource]="chartData"
-                xName="x"
-                yName="y"
-                [startAngle]="0"
-                [endAngle]="360"
-                innerRadius="76%"
-                radius="80%"
-                [explode]="true"
-              >
-              </e-accumulation-series>
-            </e-accumulation-series-collection>
-          </ejs-accumulationchart>
-          <div class="total-stats text-center">
-            <p class="fnt-24 fnt-bold fnt-muli text-black334 mb-0">
-              {{ ((sourcing?.total_coffee || 0) / 1000).toFixed(0) }} Tonnes
-            </p>
-            <p class="fnt-12 fnt-600 fnt-muli text-gray588 mb-0">Total coffee available</p>
+        <div class="h-md-100 d-flex flex-column justify-content-center align-items-center">
+          <div class="position-relative w-100">
+            <ejs-accumulationchart
+              id="total-sale-container"
+              style="display: block"
+              [legendSettings]="legendSettings"
+              [tooltip]="tooltip"
+              [enableAnimation]="false"
+              height="320px"
+            >
+              <e-accumulation-series-collection>
+                <e-accumulation-series
+                  name="Sourcing"
+                  [dataSource]="chartData"
+                  xName="x"
+                  yName="y"
+                  [startAngle]="0"
+                  [endAngle]="360"
+                  innerRadius="76%"
+                  radius="80%"
+                  [explode]="true"
+                >
+                </e-accumulation-series>
+              </e-accumulation-series-collection>
+            </ejs-accumulationchart>
+            <div class="total-stats text-center">
+              <p class="fnt-24 fnt-bold fnt-muli text-black334 mb-0">
+                {{ ((sourcing?.total_coffee || 0) / 1000).toFixed(0) }} Tonnes
+              </p>
+              <p class="fnt-12 fnt-600 fnt-muli text-gray588 mb-0">Total coffee available</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6">
-      <div class="estates-block mb-3">
+    <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6 mb-3 mb-md-0">
+      <div class="estates-block br-4">
         <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Source from latest estates</div>
         <div class="p-3">
-          <div *ngFor="let item of estates.slice(0, 5)">
+          <div *ngFor="let item of estates.slice(0, 4)">
             <div class="d-flex estate-wrap mb-3">
               <div class="mr-2 ml-lg-3">
                 <app-avatar [size]="36" [src]="item.company_image_thumbnail_url" [name]="item.name"></app-avatar>
