@@ -1,5 +1,8 @@
 .notify-wrap {
-  padding: 0.5rem;
+  padding: 0.25rem;
+  @media (min-width: 375px) {
+    padding: 0.5rem;
+  }
   @media (min-width: 992px) {
     padding: 1.5rem;
     padding-top: 2rem;
