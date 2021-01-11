@@ -106,7 +106,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
   }
 
   placeOrder() {
-    debugger;
     if (
       this.quantity == "" ||
       this.quantity == null ||
@@ -281,7 +280,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
   }
 
   done() {
-    debugger;
     var data = {
       quantity_count: parseInt(this.quantity),
       shipping_address_id: parseInt(this.addressId),
