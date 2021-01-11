@@ -118,10 +118,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
         document.getElementById("quantityId").style.border =
           "1px solid #d6d6d6 ";
       }, 3000);
-    } else if (
-      this.quantity >
-      this.sourcing.quantity_count * this.sourcing.quantity
-    ) {
+    } else if (this.quantity > this.sourcing.quantity_count) {
       this.confirmOrderError =
         "Please enter quantity in range of available for sale";
       document.getElementById("quantityId").style.border = "1px solid #D50000";
@@ -130,6 +127,13 @@ export class AvailableConfirmOrderComponent implements OnInit {
         document.getElementById("quantityId").style.border =
           "1px solid #d6d6d6 ";
       }, 3000);
+    } else if (
+      this.service == "Import & Delivery service" &&
+      this.quantity < this.min_quantity
+    ) {
+      this.toastrService.error(
+        `Minimum quantity for shipping is ${this.min_quantity}. please order above.`
+      );
     } else if (this.terms == false) {
       this.termError = "Please accept the terms and conditions";
       setTimeout(() => {
@@ -284,6 +288,8 @@ export class AvailableConfirmOrderComponent implements OnInit {
       is_fully_serviced_delivery:
         this.service == "Import & Delivery service" ? true : false,
     };
+    console.log(data);
+
     this.roasterService
       .placeOrder(this.roaster_id, this.sourcing.harvestData, data)
       .subscribe((data) => {

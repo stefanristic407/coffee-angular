@@ -1272,4 +1272,12 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.roasterUrl, data);
   }
+  //Get FAQ Dispute List
+  getDisputeFAQList(roaster_id: any) {
+    var data = {};
+    data['api_call'] = '/ro/' + roaster_id + '/faq?faq_type=DISPUTE';
+    data['method'] = 'GET';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
 }
