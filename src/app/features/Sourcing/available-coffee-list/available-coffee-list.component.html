@@ -10,8 +10,7 @@
             <div class="bg-fff">
                 <div class="avaialble-mob">
                     <div class="back-page mob-left w-100">
-                        <a class="back-href fnt-500" routerLink="/features/sourcing"><img class="back-arrow-butn mr-2"
-                                src="assets/images/back-arrow-1.png"> {{globals.languageJson?.back}}</a>
+                        <a class="back-href fnt-500" routerLink="/features/sourcing"><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png"> {{globals.languageJson?.back}}</a>
                     </div>
                     <div class="organic-border">
                         <div class="mob-left w-100">
@@ -37,9 +36,7 @@
                         <div class="col-lg-12">
                             <div class="sourcing-details avaialble-web">
                                 <div class="back-page w-100">
-                                    <a class="back-href fnt-500" routerLink="/features/sourcing"
-                                        [fragment]="'green-coffee'"><img class="back-arrow-butn mr-2"
-                                            src="assets/images/back-arrow-1.png"> Back</a>
+                                    <a class="back-href fnt-500" routerLink="/features/sourcing" [fragment]="'green-coffee'"><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png"> Back</a>
                                 </div>
                                 <div class="w-100 mt-3 clearfix">
                                     <div class="source-det-tit pull-left">
@@ -52,10 +49,8 @@
                                         </div>
                                     </div>
                                     <div class="source-knowmore-avail pull-right">
-                                        <a class="know-more-avail mr-2"
-                                            (click)="orderPlace(sourcing.harvestData,'sample')">{{globals.languageJson?.order_sample}}</a>
-                                        <a class="contact-us-avail" (click)="orderPlace(sourcing.harvestData,'buyNow')"
-                                            *ngIf="this.globals.checkItem('coffee-management') && this.globals.permissions['coffee-management'].manage">{{globals.languageJson?.buy_now}}</a>
+                                        <a class="know-more-avail mr-2" (click)="orderPlace(sourcing.harvestData,'sample')">{{globals.languageJson?.order_sample}}</a>
+                                        <a class="contact-us-avail" (click)="orderPlace(sourcing.harvestData,'buyNow')" *ngIf="this.globals.checkItem('coffee-management') && this.globals.permissions['coffee-management'].manage">{{globals.languageJson?.buy_now}}</a>
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +67,7 @@
                                     <div class="cetify-logo pt-3 d-none d-md-block">
                                         <ul class="clearfix mb-5">
                                             <li class="mb-3" *ngFor="let cert of sourcing.availableCertify">
-                                                <img *ngIf="getCertificateData(cert)!=''"
-                                                    src="{{getCertificateData(cert)}}">
+                                                <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
                                                 <img *ngIf="getCertificateData(cert)==''" src="" alt="">
                                             </li>
                                         </ul>
@@ -82,8 +76,8 @@
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="product-description">
-                                    <h2 class="available__lot mb-4 mob-id">{{globals.languageJson?.lot_id}} -
-                                        {{sourcing.lot_id}}</h2>
+                                    <h2 class="available__lot mb-4 mob-id">{{globals.languageJson?.lot_id}} - {{sourcing.lot_id}}
+                                    </h2>
                                     <h2 class="p-h2 mb-2 lot-size">{{sourcing.available_name}}</h2>
                                     <div class="s-certified d-md-none">
                                         <ul class="flex">
@@ -91,14 +85,12 @@
                                             <li><img src="/assets/images/group-utz.png"></li>
                                             <li><img src="/assets/images/group-certified.png"></li> -->
                                             <li class="mb-3" *ngFor="let cert of sourcing.availableCertify">
-                                                <img *ngIf="getCertificateData(cert)!=''"
-                                                    src="{{getCertificateData(cert)}}">
+                                                <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
                                                 <img *ngIf="getCertificateData(cert)==''" src="" alt="">
                                             </li>
                                         </ul>
                                     </div>
-                                    <h6 class="p-h6 mb-4"><img class="mob-img" src="assets/images/location-rating.png"
-                                            alt=""> {{sourcing.region}}</h6>
+                                    <h6 class="p-h6 mb-4"><img class="mob-img" src="assets/images/location-rating.png" alt=""> {{sourcing.region}}</h6>
                                     <p class="avaialble-web farm-desc">{{sourcing.about}}
                                         <!-- This farm has a love story behind it: Among the first generation of coffee growers in this area was Jose Isidro Pereira, a dentist-turned–coffee producer who inherited Fazenda Sertão from his mother when she passed
                                         away—an incident that ended his dentistry career but put him on a path to coffee farming. In 1949, Jose Isidro met the "love of his life," Nazareth, who continues to run the farm her husband left in her care. -->
@@ -126,8 +118,8 @@
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                             <div class="real-estate">
                                                 <h6>{{globals.languageJson?.available_quantity}} :</h6>
-                                                <h3>{{sourcing.quantity_count}} {{sourcing.quantity_type}} of
-                                                    {{sourcing.quantity}}{{sourcing.quantity_unit}}</h3>
+                                                <h3>{{sourcing.quantity_count}} {{sourcing.quantity_type}} of {{sourcing.quantity}}{{sourcing.quantity_unit}}
+                                                </h3>
 
                                             </div>
                                         </div>
@@ -150,10 +142,8 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate">
                                                     <div class="p-photo">
-                                                        <img class="fc-img" *ngIf="sourcing.evaluator_dp_thumb!=''"
-                                                            [src]="sourcing.evaluator_dp_thumb" alt="">
-                                                        <img *ngIf="sourcing.evaluator_dp_thumb==''"
-                                                            src="assets/images/profile-coffee.jpg">
+                                                        <img class="fc-img" *ngIf="sourcing.evaluator_dp_thumb!=''" [src]="sourcing.evaluator_dp_thumb" alt="">
+                                                        <img *ngIf="sourcing.evaluator_dp_thumb==''" src="assets/images/profile-coffee.jpg">
                                                     </div>
 
                                                     <h3>{{sourcing.evaluator_name}}</h3>
@@ -278,8 +268,7 @@
                                                         <p>{{sourcing.packaging}}</p>
                                                     </li>
                                                 </ul>
-                                                <p class="fnt-muli fnt-14 fnt-500 know-listing"
-                                                    (click)="brandProfileSite()">Know more about the listing</p>
+                                                <p class="fnt-muli fnt-14 fnt-500 know-listing" (click)="brandProfileSite()">Know more about the listing</p>
                                             </div>
                                         </div>
                                     </div>
@@ -306,8 +295,7 @@
                                             <p>At warehouse</p>
                                         </li>
                                         <li><label>{{globals.languageJson?.mill}} :</label>
-                                            <p class="detail-location">Tapachu Mill <img class="pl-2"
-                                                    src="assets/images/tilt-arrow.svg" alt=""></p>
+                                            <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p>
                                         </li>
                                         <li><label>{{globals.languageJson?.altitude}} :</label>
                                             <p>1,000 - 1,600 meters above sea level</p>
@@ -335,8 +323,7 @@
                                             <p>Sun dried</p>
                                         </li>
                                         <li><label>{{globals.languageJson?.dry_descrption}} :</label>
-                                            <p>involves drying of beans with the heat and energy of the sun. The dry
-                                                process is the most simple, effective and natural way to drythe beans.
+                                            <p>involves drying of beans with the heat and energy of the sun. The dry process is the most simple, effective and natural way to drythe beans.
                                             </p>
                                         </li>
                                         <li><label>{{globals.languageJson?.wet_mill}} :</label>
@@ -346,9 +333,7 @@
                                             <p>Washed</p>
                                         </li>
                                         <li><label>{{globals.languageJson?.wet_mill_desc}} :</label>
-                                            <p>Wet processed (washed) coffees are dried without the cherry. Washed
-                                                coffee's are de-pulped then usually fermented to promote the separation
-                                                of any remaining pectin still stuck to the bean and parchment, then
+                                            <p>Wet processed (washed) coffees are dried without the cherry. Washed coffee's are de-pulped then usually fermented to promote the separation of any remaining pectin still stuck to the bean and parchment, then
                                                 washed clean prior to drying.</p>
                                         </li>
                                     </ul>
@@ -366,77 +351,54 @@
 
                                 <nav class="mt-4">
                                     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab"
-                                            href="#weather" role="tab" aria-controls="nav-home"
-                                            aria-selected="true">{{globals.languageJson?.weather}}</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab"
-                                            href="#soil" role="tab" aria-controls="nav-profile"
-                                            aria-selected="false">{{globals.languageJson?.soil}}</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv"
-                                            role="tab" aria-controls="nav-profile"
-                                            aria-selected="false">{{globals.languageJson?.uv}}</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab"
-                                            href="#images" role="tab" aria-controls="nav-profile"
-                                            aria-selected="false">{{globals.languageJson?.images}}</a>
+                                        <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">{{globals.languageJson?.weather}}</a>
+                                        <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.soil}}</a>
+                                        <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.uv}}</a>
+                                        <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.images}}</a>
                                     </div>
                                 </nav>
 
                                 <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
                                     <!-- weather-->
-                                    <div class="tab-pane fade show active" id="weather" role="tabpanel"
-                                        aria-labelledby="nav-home-tab">
+                                    <div class="tab-pane fade show active" id="weather" role="tabpanel" aria-labelledby="nav-home-tab">
                                         <div class="row">
                                             <div class="col-lg-5">
                                             </div>
                                             <div class="col-lg-7 d-inline pl-0 pl-md-5">
                                                 <div class="d-inline col-sm-6">
-                                                    <span class="legend-color"></span><span
-                                                        class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
+                                                    <span class="legend-color"></span><span class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
                                                 </div>
                                                 <div class="d-inline col-sm-6">
-                                                    <span class="legend-color2"></span><span
-                                                        class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
+                                                    <span class="legend-color2"></span><span class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
                                                 </div>
                                                 <div class="hover-filters d-inline-block">
-                                                    <div class="d-inline border-total-chart col-sm-6"
-                                                        id="temperature_id" [outsideClick]="true"
-                                                        (onShown)="toggleTemperature();"
-                                                        (onHidden)="toggleTemperature();"
-                                                        [popover]="temperatureTemplate" placement="bottom"
-                                                        container="body" #pop12="bs-popover">
+                                                    <div class="d-inline border-total-chart col-sm-6" id="temperature_id" [outsideClick]="true" (onShown)="toggleTemperature();" (onHidden)="toggleTemperature();" [popover]="temperatureTemplate" placement="bottom" container="body" #pop12="bs-popover">
                                                         <p class="d-inline filter-text-chart" *ngIf="temperature == ''">
                                                             {{globals.languageJson?.temperature}}&nbsp;</p>
                                                         <a class="pointer-item">
                                                             <p class="d-inline filter" *ngIf="temperature == ''">
-                                                                &nbsp; <img
-                                                                    src="{{ showTemperature ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                                                &nbsp; <img src="{{ showTemperature ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                                             </p>
                                                         </a>
                                                         <a class="pointer-item">
                                                             <p class="d-inline filter" *ngIf="temperature != ''">
-                                                                {{ temperature }} &nbsp;<img
-                                                                    src="{{ showTemperature ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                                                {{ temperature }} &nbsp;<img src="{{ showTemperature ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                                             </p>
                                                         </a>
                                                     </div>
                                                 </div>&nbsp;&nbsp;
                                                 <div class="hover-filters d-inline-block">
-                                                    <div class="d-inline border-total col-sm-6" id="hourly_id"
-                                                        [outsideClick]="true" (onShown)="toggleHourly();"
-                                                        (onHidden)="toggleHourly();" [popover]="hourTemplate"
-                                                        placement="bottom" container="body" #pop13="bs-popover">
+                                                    <div class="d-inline border-total col-sm-6" id="hourly_id" [outsideClick]="true" (onShown)="toggleHourly();" (onHidden)="toggleHourly();" [popover]="hourTemplate" placement="bottom" container="body" #pop13="bs-popover">
                                                         <p class="d-inline filter-text-chart" *ngIf="hourly == ''">
                                                             {{globals.languageJson?.hourly_forecast}}&nbsp;</p>
                                                         <a class="pointer-item">
                                                             <p class="d-inline filter" *ngIf="hourly == ''">
-                                                                &nbsp; <img
-                                                                    src="{{ showHourly ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                                                &nbsp; <img src="{{ showHourly ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                                             </p>
                                                         </a>
                                                         <a class="pointer-item">
                                                             <p class="d-inline filter" *ngIf="hourly != ''">
-                                                                {{ hourly }} &nbsp;<img
-                                                                    src="{{ showHourly ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                                                {{ hourly }} &nbsp;<img src="{{ showHourly ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                                             </p>
                                                         </a>
                                                     </div>
@@ -444,17 +406,12 @@
                                             </div>
                                         </div>
                                         <div class="row mt-0 mt-md-4">
-                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme"
-                                                [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
-                                                [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-                                                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-                                                [yAxisLabel]="yAxisLabel" [roundDomains]="roundDomains"
-                                                [timeline]="timeline">
+                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                                [roundDomains]="roundDomains" [timeline]="timeline">
                                             </ngx-charts-line-chart>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="soil" role="tabpanel"
-                                        aria-labelledby="nav-profile-tab">
+                                    <div class="tab-pane fade" id="soil" role="tabpanel" aria-labelledby="nav-profile-tab">
                                         <div class="row">
                                             <div class="col-lg-5">
                                             </div>
@@ -464,8 +421,7 @@
                                                         {{globals.languageJson?.legend1}}</span>
                                                 </div>
                                                 <div class="d-inline col-sm-6">
-                                                    <span class="legend-color2"></span> <span
-                                                        class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
+                                                    <span class="legend-color2"></span> <span class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
                                                 </div>
 
                                                 <div class="d-inline border-total col-sm-6 ml-md-4">
@@ -489,28 +445,21 @@
                                             </div>
                                         </div>
                                         <div class="row mt-0 mt-md-4">
-                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme"
-                                                [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
-                                                [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-                                                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-                                                [yAxisLabel]="yAxisLabel" [roundDomains]="roundDomains"
-                                                [timeline]="timeline">
+                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                                [roundDomains]="roundDomains" [timeline]="timeline">
                                             </ngx-charts-line-chart>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="uv" role="tabpanel"
-                                        aria-labelledby="nav-profile-tab">
+                                    <div class="tab-pane fade" id="uv" role="tabpanel" aria-labelledby="nav-profile-tab">
                                         <div class="row">
                                             <div class="col-lg-5">
                                             </div>
                                             <div class="col-lg-7 d-inline pl-0 pl-md-5">
                                                 <div class="d-inline col-sm-6">
-                                                    <span class="legend-color"></span><span
-                                                        class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
+                                                    <span class="legend-color"></span><span class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
                                                 </div>
                                                 <div class="d-inline col-sm-6">
-                                                    <span class="legend-color2"></span><span
-                                                        class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
+                                                    <span class="legend-color2"></span><span class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
                                                 </div>
 
                                                 <div class="d-inline border-total col-sm-6 ml-md-4">
@@ -534,28 +483,21 @@
                                             </div>
                                         </div>
                                         <div class="row mt-0 mt-md-4">
-                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme"
-                                                [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
-                                                [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-                                                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-                                                [yAxisLabel]="yAxisLabel" [roundDomains]="roundDomains"
-                                                [timeline]="timeline">
+                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                                [roundDomains]="roundDomains" [timeline]="timeline">
                                             </ngx-charts-line-chart>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="images" role="tabpanel"
-                                        aria-labelledby="nav-profile-tab">
+                                    <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="nav-profile-tab">
                                         <div class="row">
                                             <div class="col-lg-5">
                                             </div>
                                             <div class="col-lg-7 d-inline pl-0 pl-md-5">
                                                 <div class="d-inline col-sm-6">
-                                                    <span class="legend-color"></span><span
-                                                        class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
+                                                    <span class="legend-color"></span><span class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
                                                 </div>
                                                 <div class="d-inline col-sm-6">
-                                                    <span class="legend-color2"></span><span
-                                                        class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
+                                                    <span class="legend-color2"></span><span class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
                                                 </div>
 
                                                 <div class="d-inline border-total col-sm-6 ml-md-4">
@@ -579,12 +521,8 @@
                                             </div>
                                         </div>
                                         <div class="row mt-0 mt-md-4">
-                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme"
-                                                [results]="multi" [gradient]="gradient" [xAxis]="showXAxis"
-                                                [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
-                                                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-                                                [yAxisLabel]="yAxisLabel" [roundDomains]="roundDomains"
-                                                [timeline]="timeline">
+                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+                                                [roundDomains]="roundDomains" [timeline]="timeline">
                                             </ngx-charts-line-chart>
                                         </div>
                                     </div>
@@ -602,7 +540,7 @@
                     <div class="heading-other">{{globals.languageJson?.estates_other_green_coffee}}</div>
                     <div class="cardpanel-detail avaialble-web" *ngIf="sourcing.otherGreenList!=null">
                         <div class="row">
-                            <span *ngFor="let item of sourcing.otherGreenList">
+                            <span class="col-12" *ngFor="let item of sourcing.otherGreenList">
                                 <div class="col-lg-4 col-md-6 col-12 cursor-item"
                                     *ngIf="item.harvest_id != sourcing.harvestData" (click)="lotDetails(item)">
                                     <div class="source-card card-border green-coffee-product">
@@ -612,172 +550,163 @@
                                                 <img *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png"
                                                     alt="">
                                             </span>
-                                            <span *ngIf="!item.images">
+                            <span *ngIf="!item.images">
                                                 <img src="assets/images/dummy-profile.png" alt="">
                                             </span>
-                                            <div class="cupping">
-                                                <!-- <p>Cup score {{item.score}}</p> -->
-                                                <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
-                                                <p *ngIf="item.cup_score==''">NA</p>
-                                            </div>
-                                        </div>
-                                        <div class="s-details ">
-                                            <div class="flex">
-                                                <div class="s-tit">
-                                                    <h3 *ngIf="item.name!=''">{{item.name}}</h3>
-                                                    <h3 *ngIf="item.name==''">NA</h3>
-                                                    <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}
-                                                    </h5>
-                                                    <h5 *ngIf="item['estate']['name']==''">NA</h5>
-                                                    <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD /
-                                                        kg</h6>
-                                                    <h6 *ngIf="item.price==''">NA</h6>
-                                                </div>
-                                            </div>
-                                            <div class="source-lets flex">
-                                                <div class="orgin-att">
-                                                    <label>{{globals.languageJson?.origin}}</label>
-                                                    <h6 *ngIf="item['lot']['country']!=''">
-                                                        {{GetCountry(item['lot']['country'])}}</h6>
-                                                    <h6 *ngIf="item['lot']['country']==''">NA</h6>
-                                                </div>
-                                                <div class="orgin-att">
-                                                    <label>{{globals.languageJson?.variety}}</label>
-                                                    <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}
-                                                    </h6>
-                                                    <h6 *ngIf="item['lot']['variety']==''">NA</h6>
-                                                </div>
-                                                <div class="orgin-att">
-                                                    <label>{{globals.languageJson?.flavour}}</label>
-                                                    <div *ngIf="item.flavours!=null">
-                                                        <ul class="flo-list">
-                                                            <li *ngFor="let flavour of item.flavours">
-                                                                <span class="mb-2">{{getFlavourName(flavour)}}</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div *ngIf="item.flavours==null">NA</div>
-                                                </div>
-                                            </div>
-                                            <div class="top-lots">
-                                                <label>{{globals.languageJson?.available_quantity}} :
+                            <div class="cupping">
+                                <!-- <p>Cup score {{item.score}}</p> -->
+                                <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
+                                <p *ngIf="item.cup_score==''">NA</p>
+                            </div>
+                        </div>
+                        <div class="s-details ">
+                            <div class="flex">
+                                <div class="s-tit">
+                                    <h3 *ngIf="item.name!=''">{{item.name}}</h3>
+                                    <h3 *ngIf="item.name==''">NA</h3>
+                                    <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}
+                                    </h5>
+                                    <h5 *ngIf="item['estate']['name']==''">NA</h5>
+                                    <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / kg
+                                    </h6>
+                                    <h6 *ngIf="item.price==''">NA</h6>
+                                </div>
+                            </div>
+                            <div class="source-lets flex">
+                                <div class="orgin-att">
+                                    <label>{{globals.languageJson?.origin}}</label>
+                                    <h6 *ngIf="item['lot']['country']!=''">
+                                        {{GetCountry(item['lot']['country'])}}</h6>
+                                    <h6 *ngIf="item['lot']['country']==''">NA</h6>
+                                </div>
+                                <div class="orgin-att">
+                                    <label>{{globals.languageJson?.variety}}</label>
+                                    <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}
+                                    </h6>
+                                    <h6 *ngIf="item['lot']['variety']==''">NA</h6>
+                                </div>
+                                <div class="orgin-att">
+                                    <label>{{globals.languageJson?.flavour}}</label>
+                                    <div *ngIf="item.flavours!=null">
+                                        <ul class="flo-list">
+                                            <li *ngFor="let flavour of item.flavours">
+                                                <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div *ngIf="item.flavours==null">NA</div>
+                                </div>
+                            </div>
+                            <div class="top-lots">
+                                <label>{{globals.languageJson?.available_quantity}} :
                                                     <span>{{item.quantity_count}} {{item.quantity_type}} of
                                                         {{item.total_quantity}}{{item.quantity_unit}}</span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <!-- no-data for Green Coffee availbility Starts -->
-                    <div class="row" *ngIf="sourcing.otherGreenList==null">
-                        <div class="col-lg-12 col-md-12 no-data-sec">
-                            <div class="text-center ">
-                                <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
-                                <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
-                                <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                                <button type="button" class="fnt-14 fnt-600 fnt-muli save"
-                                    [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
-
                             </div>
                         </div>
                     </div>
-                    <!-- no-data for  Green Coffee availbility Ends -->
-                    <!-- Mobile Carousel -->
-                    <div class="cardpanel-detail avaialble-mob">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-12 cursor-item">
-                                <carousel [showIndicators]="true">
-                                    <slide class="animated fadeIn" *ngFor="let item of coffeedata">
-
-                                        <div class="source-card card-border green-coffee-product">
-                                            <div class="s-gal">
-                                                <img [src]="item.image" alt="">
-                                                <div class="cupping">
-                                                    <p>{{globals.languageJson?.cup_score}} {{item.score}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="s-details ">
-                                                <div class="flex">
-                                                    <div class="s-tit">
-                                                        <h3>{{item.name}}</h3>
-                                                        <h5>{{item.estatename}}</h5>
-                                                        <h6>{{item.price}}</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="source-lets flex">
-                                                    <div class="orgin-att">
-                                                        <label>{{globals.languageJson?.origin}}</label>
-                                                        <h6>{{item.origin}}</h6>
-                                                    </div>
-                                                    <div class="orgin-att">
-                                                        <label>{{globals.languageJson?.variety}}</label>
-                                                        <h6>{{item.species}}</h6>
-                                                    </div>
-                                                    <div class="orgin-att">
-                                                        <label>{{globals.languageJson?.flavour}}</label>
-                                                        <ul class="flo-list">
-                                                            <li>Citrus</li>
-                                                            <li>Floral</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="top-lots">
-                                                    <label>{{globals.languageJson?.available_quantity}} : <span>
-                                                            {{item.quantity}} of 60kg </span></label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </slide>
-                                </carousel>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
                 </div>
-
+                </span>
             </div>
         </div>
-        <ng-template #temperatureTemplate>
-            <div id="status-content">
-                <ul class="list-group custom-popover">
-                    <!-- <li class="list-group-item item-color" (click)="setFilterValue('grade',''); pop4.hide(); "><a class="pointer-item">All</a></li>
+        <!-- no-data for Green Coffee availbility Starts -->
+        <div class="row" *ngIf="sourcing.otherGreenList==null">
+            <div class="col-lg-12 col-md-12 no-data-sec">
+                <div class="text-center ">
+                    <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
+                    <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
+                    <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                    <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
+
+                </div>
+            </div>
+        </div>
+        <!-- no-data for  Green Coffee availbility Ends -->
+        <!-- Mobile Carousel -->
+        <div class="cardpanel-detail avaialble-mob">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 cursor-item">
+                    <carousel [showIndicators]="true">
+                        <slide class="animated fadeIn" *ngFor="let item of coffeedata">
+
+                            <div class="source-card card-border green-coffee-product">
+                                <div class="s-gal">
+                                    <img [src]="item.image" alt="">
+                                    <div class="cupping">
+                                        <p>{{globals.languageJson?.cup_score}} {{item.score}}</p>
+                                    </div>
+                                </div>
+                                <div class="s-details ">
+                                    <div class="flex">
+                                        <div class="s-tit">
+                                            <h3>{{item.name}}</h3>
+                                            <h5>{{item.estatename}}</h5>
+                                            <h6>{{item.price}}</h6>
+                                        </div>
+                                    </div>
+                                    <div class="source-lets flex">
+                                        <div class="orgin-att">
+                                            <label>{{globals.languageJson?.origin}}</label>
+                                            <h6>{{item.origin}}</h6>
+                                        </div>
+                                        <div class="orgin-att">
+                                            <label>{{globals.languageJson?.variety}}</label>
+                                            <h6>{{item.species}}</h6>
+                                        </div>
+                                        <div class="orgin-att">
+                                            <label>{{globals.languageJson?.flavour}}</label>
+                                            <ul class="flo-list">
+                                                <li>Citrus</li>
+                                                <li>Floral</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="top-lots">
+                                        <label>{{globals.languageJson?.available_quantity}} : <span>
+                                                            {{item.quantity}} of 60kg </span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </slide>
+                    </carousel>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+<ng-template #temperatureTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <!-- <li class="list-group-item item-color" (click)="setFilterValue('grade',''); pop4.hide(); "><a class="pointer-item">All</a></li>
                             <li class="list-group-item item-color" (click)="setFilterValue('grade','81.0 - 83.0'); pop4.hide();  "><a class="pointer-item">81.0 - 83.0</a></li>
                             <li class="list-group-item item-color" (click)="setFilterValue('grade','84.0 - 86.0'); pop4.hide();  "><a class="pointer-item">84.0 - 86.0</a></li>
                             <li class="list-group-item item-color" (click)="setFilterValue('grade','87.0 - 89.0'); pop4.hide();  "><a class="pointer-item">87.0 - 89.0</a></li> -->
-                    <li class="list-group-item item-color" (click)="setTemperature(''); pop12.hide(); "><a
-                            class="pointer-items">All</a></li>
-                    <li class="list-group-item item-color" (click)="setTemperature('5'); pop12.hide();  "><a
-                            class="pointer-items">5</a></li>
-                    <li class="list-group-item item-color" (click)="setTemperature('20'); pop12.hide();  "><a
-                            class="pointer-items">20</a></li>
-                    <li class="list-group-item item-color" (click)="setTemperature('30'); pop12.hide();  "><a
-                            class="pointer-items">30</a></li>
-                </ul>
-            </div>
-        </ng-template>
-        <ng-template #hourTemplate>
-            <div id="status-content">
-                <ul class="list-group custom-popover">
-                    <li class="list-group-item item-color" (click)="setHourly(''); pop13.hide(); "><a
-                            class="pointer-items">All</a></li>
-                    <li class="list-group-item item-color" (click)="setHourly('1'); pop13.hide();  "><a
-                            class="pointer-items">1</a></li>
-                    <li class="list-group-item item-color" (click)="setHourly('2'); pop13.hide();  "><a
-                            class="pointer-items">2</a></li>
-                    <li class="list-group-item item-color" (click)="setHourly('3'); pop13.hide();  "><a
-                            class="pointer-items">3</a></li>
-                </ul>
-            </div>
-        </ng-template>
-    </section>
+            <li class="list-group-item item-color" (click)="setTemperature(''); pop12.hide(); "><a class="pointer-items">All</a></li>
+            <li class="list-group-item item-color" (click)="setTemperature('5'); pop12.hide();  "><a class="pointer-items">5</a></li>
+            <li class="list-group-item item-color" (click)="setTemperature('20'); pop12.hide();  "><a class="pointer-items">20</a></li>
+            <li class="list-group-item item-color" (click)="setTemperature('30'); pop12.hide();  "><a class="pointer-items">30</a></li>
+        </ul>
+    </div>
+</ng-template>
+<ng-template #hourTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color" (click)="setHourly(''); pop13.hide(); "><a class="pointer-items">All</a></li>
+            <li class="list-group-item item-color" (click)="setHourly('1'); pop13.hide();  "><a class="pointer-items">1</a></li>
+            <li class="list-group-item item-color" (click)="setHourly('2'); pop13.hide();  "><a class="pointer-items">2</a></li>
+            <li class="list-group-item item-color" (click)="setHourly('3'); pop13.hide();  "><a class="pointer-items">3</a></li>
+        </ul>
+    </div>
+</ng-template>
+</section>
 </div>
 <!-- <carousel> -->
 <!-- <slide>
