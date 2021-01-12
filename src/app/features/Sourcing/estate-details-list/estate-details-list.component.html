@@ -265,7 +265,7 @@
                                                 <div class="source-card card-border green-coffee-product">
                                                     <div class="s-gal">
                                                         <span *ngIf="item.images">
-                                                            <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                            <img *ngIf="item.images[0]!=''" [src]="item.images[0].thumb_url" alt="">
                                                             <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">
                                                         </span>
                                                         <span *ngIf="!item.images">
