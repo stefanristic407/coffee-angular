@@ -19,25 +19,8 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
 	orderDetails: any;
 	orderID: any = '';
 	saleInformation: any;
-	public data = [
-		{
-			srcUrl: 'assets/images/galleria-1.jpg',
-			previewUrl: 'assets/images/thumbnail-4.jpg'
-		},
-		{
-			srcUrl: 'assets/images/galleria-2.png',
-			previewUrl: 'assets/images/thumbnail-2.jpg'
-		},
-		{
-			srcUrl: 'assets/images/galleria-3.png',
-			previewUrl: 'assets/images/thumbnail-3.jpg'
-		},
-		{
-			srcUrl: 'assets/images/galleria-4.png',
-			previewUrl: 'assets/images/thumbnail-1.jpg'
-		}
-	];
-	imageData = this.data;
+	public data = [];
+	imageData: any = [];
 	public coffeedata: any[] = [
 		{ estatename: 'Finca La Pampa', name: 'Organic washed Micro-lot', origin: 'Colombia', species: 'Bourbon', price: '$7.4 USD / kg', quantity: '287 bags', 'image': '/assets/images/sourcing-image1.jpg', score: '84.5' },
 		{ estatename: 'Gesha', name: 'Blend washed', origin: 'Colombia', species: 'Bourbon', price: '$5.53USD / kg', quantity: '297 bags', 'image': '/assets/images/sourcing-image3.jpg', score: '88' },
@@ -52,7 +35,6 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.items = this.imageData.map(item => new ImageItem({ src: item.srcUrl, thumb: item.previewUrl }));
 		const lightboxRef = this.gallery.ref('lightbox');
 		lightboxRef.setConfig({
 			imageSize: ImageSize.Cover,
@@ -108,6 +90,8 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
 					this.orderDetails['flavour_profile'] = result['flavours'];
 					this.orderDetails['wet_mill'] = result['wet_milling']['name'];
 					this.orderDetails['processing'] = result['processing_types'];
+					this.orderDetails['images'] = result['images'];
+					this.items = result['images'].map(item => new ImageItem({ src: item.url, thumb: item.thumb_url }));
 				}
 				console.log(this.orderDetails);
 
@@ -115,6 +99,18 @@ export class GreenCoffeeForSaleDetailsComponent implements OnInit {
 				console.log(err);
 			}
 		);
+	}
+	viewReport() {
+		this.roasterService.getCuppingReportDetails(this.orderDetails['harvest_id']).subscribe(res => {
+			if (res['success'] && res['result'] && res['result']['url']) {
+				var hiddenElement = document.createElement('a');
+				hiddenElement.href = res['result']['url'];
+				hiddenElement.target = '_blank';
+				hiddenElement.click();
+			}
+		}, err => {
+			console.log(err);
+		});
 	}
 
 }
