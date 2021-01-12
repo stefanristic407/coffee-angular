@@ -7,15 +7,16 @@ import { data } from 'jquery';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 @Component({
-  selector: 'app-orders-table',
-  templateUrl: './orders-table.component.html',
-  styleUrls: ['./orders-table.component.css']
+	selector: 'app-orders-table',
+	templateUrl: './orders-table.component.html',
+	styleUrls: ['./orders-table.component.css']
 })
 export class OrdersTableComponent implements OnInit {
 
-  roasterterm: any;
+	roasterterm: any;
 	roastertermStatus: any;
 	roastertermType: any;
 	roastertermOrigin: any;
@@ -39,7 +40,7 @@ export class OrdersTableComponent implements OnInit {
 	@ViewChild(DataTableDirective, { static: false })
 	datatableElement: DataTableDirective;
 	showDateRange: any;
-	hideTable : any  ; 
+	hideTable: any;
 
 	@ViewChild('calendar')
 	calendar: any;
@@ -57,8 +58,8 @@ export class OrdersTableComponent implements OnInit {
 	constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
-		public globals: GlobalsService, public roasterService:RoasterserviceService,private toastrService: ToastrService
-		) {
+		public globals: GlobalsService, public roasterService: RoasterserviceService, private toastrService: ToastrService, public roasteryProfileService: RoasteryProfileService
+	) {
 		this.roasterId = this.cookieService.get('roaster_id');
 		// this.data = {};
 		// this.data =
@@ -133,9 +134,9 @@ export class OrdersTableComponent implements OnInit {
 					title: 'Product name',
 					data: 'productname',
 					className: 'table_ellipsis',
-					render: function ( data, type, row ) {
+					render: function (data, type, row) {
 						// if ( type === 'display' ) {
-							return data +'<span class="tooltiptext">'+ data +'</span>';
+						return data + '<span class="tooltiptext">' + data + '</span>';
 						// }
 						// return data;
 					}
@@ -158,7 +159,7 @@ export class OrdersTableComponent implements OnInit {
 					data: 'species',
 
 				},
-				
+
 				{
 					title: this.globals.languageJson.quantity,
 					data: 'quantity'
@@ -632,8 +633,8 @@ export class OrdersTableComponent implements OnInit {
 					// 	// this.hideTable = true ; 
 					// }
 					// else {
-						// this.hideTable = false; 
-						this.data = data['result'];
+					// this.hideTable = false; 
+					this.data = data['result'];
 					// }
 					// this.estateOrdersActive++;
 				}
@@ -710,16 +711,21 @@ export class OrdersTableComponent implements OnInit {
 	//  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.
 	checkAllEstate(ev) {
-		if(ev){
+		if (ev) {
 			this.data.forEach(x => (x.state = ev.target.checked));
-		}	
+		}
 	}
 
 	//  Function Name : Single Check box function.
 	//  Description   : This function helps to Check that single row isChecked.
 	isAllCheckedEstate() {
-		if(data){
+		if (data) {
 			// return this.data.every(_ => _.state);
+		}
+	}
+	getCountryName(data: any) {
+		if (data) {
+			return this.roasteryProfileService.countryList.find(con => con.isoCode == data).name;
 		}
 	}
 }
