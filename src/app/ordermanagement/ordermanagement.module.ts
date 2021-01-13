@@ -1,55 +1,55 @@
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { DataTablesModule } from "angular-datatables";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
 import { RatingModule } from 'ng-starrating';
-import { Ng2SearchPipeModule } from "ng2-search-filter";
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ToastrModule } from 'ngx-toastr';
-import { EstateOrdersComponent } from "./estate-orders/estate-orders.component";
-import { MyordersComponent } from "./myorders/myorders.component";
+import { EstateOrdersComponent } from './estate-orders/estate-orders.component';
+import { MyordersComponent } from './myorders/myorders.component';
 import { BookedDocumentsComponent } from './order-booked/booked-documents/booked-documents.component';
 import { BookedGradeInfoComponent } from './order-booked/booked-grade-info/booked-grade-info.component';
 import { BookedOrderDetailsComponent } from './order-booked/booked-order-details/booked-order-details.component';
 import { OrderBookedComponent } from './order-booked/order-booked.component';
-import { OrderPrebookComponent } from "./order-prebook/order-prebook.component";
+import { OrderPrebookComponent } from './order-prebook/order-prebook.component';
 import { PrebookConfirmOrderComponent } from './order-prebook/prebook-confirm-order/prebook-confirm-order.component';
 import { PrebookDocumentsComponent } from './order-prebook/prebook-documents/prebook-documents.component';
 import { PrebookGradeInfoComponent } from './order-prebook/prebook-grade-info/prebook-grade-info.component';
 import { PrebookOrderDetailsComponent } from './order-prebook/prebook-order-details/prebook-order-details.component';
-import { ConfirmOrderComponent } from "./order-sample/confirm-order/confirm-order.component";
-import { GradeInfoComponent } from "./order-sample/grade-info/grade-info.component";
-import { OrderDetailsComponent } from "./order-sample/order-details/order-details.component";
-import { OrderSampleComponent } from "./order-sample/order-sample.component";
-import { OrdermanagementRoutingModule } from "./ordermanagement-routing.module";
-import { OrdermanagementComponent } from "./ordermanagement.component";
+import { ConfirmOrderComponent } from './order-sample/confirm-order/confirm-order.component';
+import { GradeInfoComponent } from './order-sample/grade-info/grade-info.component';
+import { OrderDetailsComponent } from './order-sample/order-details/order-details.component';
+import { OrderSampleComponent } from './order-sample/order-sample.component';
+import { OrdermanagementRoutingModule } from './ordermanagement-routing.module';
+import { OrdermanagementComponent } from './ordermanagement.component';
 // import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { OrderSupportComponent } from './dispute-system/order-support/order-support.component';
 import { OrderSupportFaqsComponent } from './dispute-system/order-support-faqs/order-support-faqs.component';
 import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/raise-ticket-form.component';
 import { RaisedTicketComponent } from './dispute-system/raised-ticket/raised-ticket.component';
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { ReviewRatingsComponent } from './review-ratings/review-ratings.component';
 import { RatingComponent } from './rating/rating.component';
 import { MicroRoasterComponent } from './dispute-system/micro-roaster/micro-roaster.component';
 import { HorecaComponent } from './dispute-system/horeca/horeca.component';
-import { ModalModule } from "ngx-bootstrap/modal";
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 
 import { EstateComponent } from './dispute-system/estate/estate.component';
 import { DirectMessagingComponent } from './direct-messaging/direct-messaging.component';
-import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FacilitatorOrdersComponent } from './facilitator-orders/facilitator-orders.component';
 import { RoasterOrdersComponent } from './roaster-orders/roaster-orders.component';
 import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
 import { PreOrderChatComponent } from './order-prebook/pre-order-chat/pre-order-chat.component';
 import { BookOrderChatComponent } from './order-booked/book-order-chat/book-order-chat.component';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { OrdersComponent } from './myorders/orders/orders.component';
 import { RequestsComponent } from './myorders/requests/requests.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
@@ -57,7 +57,7 @@ import { HorecaOrdersComponent } from './e-commerce-order/horeca-orders/horeca-o
 import { HorecaOrderDetailsComponent } from './e-commerce-order/horeca-order-details/horeca-order-details.component';
 import { HorecaOrderConfirmComponent } from './e-commerce-order/horeca-order-confirm/horeca-order-confirm.component';
 import { EstateInfoComponent } from './e-commerce-order/horeca-order-details/estate-info/estate-info.component';
-import {DetailsOrderComponent} from './e-commerce-order/horeca-order-details/details-order/details-order.component';
+import { DetailsOrderComponent } from './e-commerce-order/horeca-order-details/details-order/details-order.component';
 import { HorecaSubscriptionConfirmComponent } from './e-commerce-order/horeca-subscription-confirm/horeca-subscription-confirm.component';
 import { HorecaSubscriptionDetailsComponent } from './e-commerce-order/horeca-subscription-details/horeca-subscription-details.component';
 import { DetailsSubscriptionComponent } from './e-commerce-order/horeca-subscription-details/details-subscription/details-subscription.component';
@@ -72,25 +72,16 @@ import { MicroOrderSampleComponent } from './microroaster-orders/micro-order-sam
 import { SampleDetailsComponent } from './microroaster-orders/micro-order-sample/sample-details/sample-details.component';
 import { SampleNotesComponent } from './microroaster-orders/micro-order-sample/sample-notes/sample-notes.component';
 import { SampleOrderConfirmationComponent } from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
-import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component'
+import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component';
 import { ErrorModuleModule } from '../error-module/error-module.module';
 import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.component';
 import { OrdersTableComponent } from './microroaster-orders/mr-orders/orders-table/orders-table.component';
 import { RequestsTableComponent } from './microroaster-orders/mr-orders/requests-table/requests-table.component';
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 // import { EmptyTableComponent } from '../error-module/empty-table/empty-table.component';
-import {AutoCompleteModule} from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BookedShippingComponent } from './order-booked/booked-shipping/booked-shipping.component';
-import { RemoteSensoringComponent } from './remote-sensoring/remote-sensoring.component';
-import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
-import { SelectComponent } from './remote-sensoring/select/select.component';
-import { DatePickerComponent } from './remote-sensoring/date-picker/date-picker.component';
-import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
-import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
-import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/vegetation-chart.component';
-import { ImageMapComponent } from './remote-sensoring/image-map/image-map.component';
 import { AssignUserComponent } from './assign-user/assign-user.component';
-
 
 @NgModule({
   declarations: [
@@ -154,14 +145,6 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
     RequestsTableComponent,
     MrRequestDetailsComponent,
     BookedShippingComponent,
-    RemoteSensoringComponent,
-    WeatherChartComponent,
-    SelectComponent,
-    DatePickerComponent,
-    SoilChartComponent,
-    UvChartComponent,
-    VegetationChartComponent,
-    ImageMapComponent,
     AssignUserComponent,
   ],
   imports: [
@@ -184,11 +167,11 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
     AutoCompleteModule,
     // EmptyTableComponent,
     TypeaheadModule.forRoot(),
-    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true}),
+    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
     ChartAllModule,
     AccumulationChartAllModule,
-    RangeNavigatorAllModule
+    RangeNavigatorAllModule,
   ],
-  exports : [DirectMessagingComponent]
+  exports: [DirectMessagingComponent],
 })
 export class OrdermanagementModule {}
