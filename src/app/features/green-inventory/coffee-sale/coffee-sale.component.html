@@ -252,7 +252,7 @@
                                             <option value="No" ng-reflect-value="No">2</option>
                                         </select> -->
                                         <div class="input-group">
-                                            <input type="text" placeholder="Enter the selling price"
+                                            <input type="number" placeholder="Enter the selling price"
                                                 class="form-control input-group-right-border"
                                                 aria-label="Text input with dropdown button" type="number"
                                                 [(ngModel)]="saleInformation['price']">
@@ -294,7 +294,7 @@
                                 <div class="col-lg-3 col-md-3 float-L no-padding-RL">
                                     <div class="select col-lg-15 no-padding-RL">
                                         <label>Remaining quantity<span class="star">*</span></label>
-                                        <input type="text" name="name" class="form-control" placeholder="-">
+                                        <input type="text" name="name" disabled class="form-control" placeholder="-">
                                     </div>
                                 </div>
 
@@ -302,7 +302,7 @@
                                     <div class="form-input  col-lg-15 no-padding-RL">
                                         <label>Minimum order quantity<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="text" type="number" placeholder="Enter a no. of bags"
+                                            <input type="number" type="number" placeholder="Enter a no. of bags"
                                                 class="form-control input-group-right-border"
                                                 [(ngModel)]="saleInformation['minimum_purchase_quantity']"
                                                 aria-label="Text input with dropdown button">

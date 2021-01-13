@@ -44,8 +44,8 @@
                         <p class="fnt-18 fnt-muli fnt-700 black">Product visibility :
                             <span>
                                 <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()">
-                                    <div class="btn btn-group__item" (click)="product.is_public = true" [ngClass]="btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Public</div>
-                                    <div class="btn btn-group__item" (click)="product.is_public = false" [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Private</div>
+                                    <div class="btn btn-group__item"  [ngClass]="btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Public</div>
+                                    <div class="btn btn-group__item"  [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Private</div>
                                 </div>
                         </span> </p>
 

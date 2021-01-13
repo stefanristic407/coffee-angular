@@ -9,30 +9,39 @@
             <div class="bg-fff">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                            <span id="title-breadcrumb-1" class="sr-only"></span>
-                            <ul class="bread-nav">
-                                <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                </li>
-                                <!-- <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/brand-profile">{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                </li> -->
-                                <li class="b-cum c-pink">{{globals.languageJson?.brand_profile}}</li>
-                            </ul>
-                        </nav>
+                        <div class="col-md-6 col-12">
+                            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                                <span id="title-breadcrumb-1" class="sr-only"></span>
+                                <ul class="bread-nav">
+                                    <li class="b-cum">
+                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                    </li>
+                                    <!-- <li class="b-cum">
+                                        <a class="b-cum" routerLink="/features/brand-profile">{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
+                                    </li> -->
+                                    <li class="b-cum c-pink">{{globals.languageJson?.brand_profile}}</li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-md-6 col-12 web-farm">
+                            <button type="button" class="preview float-right" href="javascript:void(0);"> {{globals.languageJson?.preview}}  </button>
+                        </div>
                     </div>
                 </div>
 
                 <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec">
 
                     <div class="row mb-4">
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-8 col-12">
                             <p class="brand-profile"> {{globals.languageJson?.brand_profile}}</p>
                             <p class="brand-para">{{globals.languageJson?.brand_profile_text}} </p>
                         </div>
-                        <div class="col-md-6 col-12 web-farm">
-                            <button type="button" class="preview" href="javascript:void(0);">{{globals.languageJson?.preview}} </button>
+                        <div class="col-md-4 col-12 web-farm">
+                            <p class="fnt-18 fnt-muli fnt-700 black">Estate visibility :
+                                <span>  <div class="btn-group btn-toggle ml-auto pull-right active__main" (click)="activeStatus()" [ngClass]="editmode ? {disabledDiv: activeFlag} : ''">
+                                <div class="btn btn-group__item" [ngClass]="btnToggle ? 'active_default' : 'active disable_default'" id="activeStatus">Public</div>
+                                <div class="btn btn-group__item" [ngClass]="!btnToggle ? 'active_default active' : 'disable_default'" id="disableStatus">Private</div>
+                            </div></span>
 
                         </div>
                     </div>

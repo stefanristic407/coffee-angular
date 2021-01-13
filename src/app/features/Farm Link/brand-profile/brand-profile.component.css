@@ -177,3 +177,41 @@
 .pt-bp {
     padding-top: 3.55rem;
 }
+
+
+/* togggle */
+
+.active__main {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    padding: 2px;
+}
+
+.active_default {
+    background-color: #3d8462;
+    height: 30px;
+    padding: 4px 16px;
+    font-size: 14px;
+    color: #fff !important;
+    border-radius: 4px !important;
+    font-family: Muli;
+    font-weight: 600;
+}
+
+.disable_default {
+    background-color: #ffffff;
+    height: 30px;
+    padding: 4px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #979797;
+    font-family: Muli;
+}
+
+.btn-group__item.active:last-child {
+    background-color: #F23737 !important;
+}
+
+.disabledDiv {
+    pointer-events: none;
+}

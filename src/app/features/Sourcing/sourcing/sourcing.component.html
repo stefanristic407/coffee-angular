@@ -13,8 +13,11 @@
                 <div class="row  clearfix">
                     <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6">
                         <div class="sourcing-border sourcing-top-width d-md-flex">
-                            <div class="d-inline filter-set space-width" id="origin_id" [outsideClick]="true" (onShown)="toggleOrigin();" (onHidden)="toggleOrigin();" [popover]="originTemplate" placement="bottom" container="body" #pop2="bs-popover">
-                                <p class="d-inline select-origin" *ngIf="origin == ''">{{globals.languageJson?.select_origin}}&nbsp;&nbsp;</p>
+                            <div class="d-inline filter-set space-width" id="origin_id" [outsideClick]="true"
+                                (onShown)="toggleOrigin();" (onHidden)="toggleOrigin();" [popover]="originTemplate"
+                                placement="bottom" container="body" #pop2="bs-popover">
+                                <p class="d-inline select-origin" *ngIf="origin == ''">
+                                    {{globals.languageJson?.select_origin}}&nbsp;&nbsp;</p>
                                 <a class="pointer-item arrow-spacing">
                                     <p class="d-inline filter" *ngIf="origin == ''">
                                         &nbsp; <img src="assets/images/active-user.svg" />
@@ -27,8 +30,11 @@
                                 </a>
                             </div>
 
-                            <div class="d-inline filter-set space-width" [outsideClick]="true" id="variety_id" (onShown)="toggleVariety();" (onHidden)="toggleVariety();" [popover]="VarietyTemplate" placement="bottom" container="body" #pop11="bs-popover">
-                                <p class="d-inline add-variety" *ngIf="variety == ''">{{globals.languageJson?.add_variety}}&nbsp;&nbsp;</p>
+                            <div class="d-inline filter-set space-width" [outsideClick]="true" id="variety_id"
+                                (onShown)="toggleVariety();" (onHidden)="toggleVariety();" [popover]="VarietyTemplate"
+                                placement="bottom" container="body" #pop11="bs-popover">
+                                <p class="d-inline add-variety" *ngIf="variety == ''">
+                                    {{globals.languageJson?.add_variety}}&nbsp;&nbsp;</p>
                                 <a class="pointer-item arrow-spacing">
                                     <p class="d-inline filter" *ngIf="variety == ''">
                                         &nbsp; <img src="assets/images/active-user.svg" />
@@ -51,38 +57,57 @@
                             </p>
                         </a>
                     </div> -->
-                            <input class="d-inline search-name filter-set fadout-search" type="text" name="sourcingName" id="sourcingName" [(ngModel)]="termSearch" placeholder="{{globals.languageJson?.search_by_name}}">
+                            <input class="d-inline search-name filter-set fadout-search" type="text" name="sourcingName"
+                                id="sourcingName" [(ngModel)]="termSearch"
+                                placeholder="{{globals.languageJson?.search_by_name}}">
                         </div>
                     </div>
+
+                    <div class="col-lg-6 d-md-block d-none">
+                        <div class="pull-right">
+                            <button class="btn see-green-coffee">See My Green Coffee</button>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row pt-3 pt-md-4 pb-md-4">
                     <div class="title-header">
                         <div class="hover-filters d-inline-block">
-                            <div class="d-inline border-grade col-sm-6" id="grade_id" [outsideClick]="true" (onShown)="toggleGrade();" (onHidden)="toggleGrade();" [popover]="gradeTemplate" placement="bottom" container="body" #pop4="bs-popover">
-                                <p class="d-inline filter-text" *ngIf="grade == ''">{{globals.languageJson?.grade}}&nbsp;</p>
+                            <div class="d-inline border-grade col-sm-6" id="grade_id" [outsideClick]="true"
+                                (onShown)="toggleGrade();" (onHidden)="toggleGrade();" [popover]="gradeTemplate"
+                                placement="bottom" container="body" #pop4="bs-popover">
+                                <p class="d-inline filter-text" *ngIf="grade == ''">
+                                    {{globals.languageJson?.grade}}&nbsp;</p>
                                 <a class="pointer-item">
                                     <p class="d-inline filter" *ngIf="grade == ''">
-                                        &nbsp; <img src="{{ showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        &nbsp; <img
+                                            src="{{ showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
                                 <a class="pointer-item">
                                     <p class="d-inline filter" *ngIf="grade != ''">
-                                        {{ grade }} &nbsp;<img src="{{ showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        {{ grade }} &nbsp;<img
+                                            src="{{ showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
                             </div>
                         </div>
                         <div class="hover-filters d-inline-block">
-                            <div class="d-inline border-grade col-sm-6" id="crop_id" [outsideClick]="true" (onShown)="toggleCrop();" (onHidden)="toggleCrop();" [popover]="cropTemplate" placement="bottom" container="body" #pop6="bs-popover">
-                                <p class="d-inline filter-text" *ngIf="crop == ''">{{globals.languageJson?.crop_year}}&nbsp;</p>
+                            <div class="d-inline border-grade col-sm-6" id="crop_id" [outsideClick]="true"
+                                (onShown)="toggleCrop();" (onHidden)="toggleCrop();" [popover]="cropTemplate"
+                                placement="bottom" container="body" #pop6="bs-popover">
+                                <p class="d-inline filter-text" *ngIf="crop == ''">
+                                    {{globals.languageJson?.crop_year}}&nbsp;</p>
                                 <a class="pointer-item">
                                     <p class="d-inline filter" *ngIf="crop == ''">
-                                        &nbsp; <img src="{{ showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        &nbsp; <img
+                                            src="{{ showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
                                 <a class="pointer-item">
                                     <p class="d-inline filter" *ngIf="crop != ''">
-                                        {{ crop }} &nbsp;<img src="{{ showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        {{ crop }} &nbsp;<img
+                                            src="{{ showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
                             </div>
@@ -99,16 +124,20 @@
                             </div>
                         </div>
                         <div class="hover-filters d-inline-block">
-                            <div class="d-inline border-grade col-sm-6" id="coffee_id" [outsideClick]="true" (onShown)="toggleCoffee();" (onHidden)="toggleCoffee();" [popover]="coffeeTemplate" placement="bottom" container="body" #pop13="bs-popover">
+                            <div class="d-inline border-grade col-sm-6" id="coffee_id" [outsideClick]="true"
+                                (onShown)="toggleCoffee();" (onHidden)="toggleCoffee();" [popover]="coffeeTemplate"
+                                placement="bottom" container="body" #pop13="bs-popover">
                                 <p class="d-inline filter-text" *ngIf="a_coffee == null">Available Coffee&nbsp;</p>
                                 <a class="pointer-item">
                                     <p class="d-inline filter" *ngIf="a_coffee == null">
-                                        &nbsp; <img src="{{ showCoffee ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        &nbsp; <img
+                                            src="{{ showCoffee ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
                                 <a class="pointer-item">
                                     <p class="d-inline filter" *ngIf="a_coffee != null">
-                                        {{ a_coffee?'Yes':'No' }} &nbsp;<img src="{{ showCoffee ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        {{ a_coffee?'Yes':'No' }} &nbsp;<img
+                                            src="{{ showCoffee ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
                             </div>
@@ -121,9 +150,12 @@
                             &nbsp; <img src="{{ showWeight ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />&nbsp;
                         </p>
                     </a> -->
-                                <a class="pointer-item" [outsideClick]="true" (onShown)="toggleWeight();" (onHidden)="toggleWeight();" [popover]="weightTemplate" placement="bottom" container="body" #pop8="bs-popover">
+                                <a class="pointer-item" [outsideClick]="true" (onShown)="toggleWeight();"
+                                    (onHidden)="toggleWeight();" [popover]="weightTemplate" placement="bottom"
+                                    container="body" #pop8="bs-popover">
                                     <p class="d-inline filter" *ngIf="weight != ''">
-                                        {{ weight }} &nbsp;<img src="{{ showWeight ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        {{ weight }} &nbsp;<img
+                                            src="{{ showWeight ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                     </p>
                                 </a>
                             </div>
@@ -138,16 +170,22 @@
                                 <div class="col-lg-12 ">
                                     <div class="filter-sort">
                                         <div class="hover-filters d-inline-block">
-                                            <div class="d-inline border-grade col-12 col-md-6 mr-md-2 mr-3" id="sort_id" [outsideClick]="true" (onShown)="toggleSort();" (onHidden)="toggleSort();" [popover]="sortTemplate" placement="bottom" container="body" #pop10="bs-popover">
-                                                <p class="d-inline filter-text" *ngIf="sort == ''">{{globals.languageJson?.sort_by}}&nbsp;</p>
+                                            <div class="d-inline border-grade col-12 col-md-6 mr-md-2 mr-3" id="sort_id"
+                                                [outsideClick]="true" (onShown)="toggleSort();"
+                                                (onHidden)="toggleSort();" [popover]="sortTemplate" placement="bottom"
+                                                container="body" #pop10="bs-popover">
+                                                <p class="d-inline filter-text" *ngIf="sort == ''">
+                                                    {{globals.languageJson?.sort_by}}&nbsp;</p>
                                                 <a class="pointer-item">
                                                     <p class="d-inline filter" *ngIf="sort == ''">
-                                                        &nbsp; <img src="{{ showSort ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                                        &nbsp; <img
+                                                            src="{{ showSort ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                                     </p>
                                                 </a>
                                                 <a class="pointer-item">
                                                     <p class="d-inline filter" *ngIf="sort != ''">
-                                                        {{ sort }}&nbsp;<img src="{{ showSort ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                                        {{ sort }}&nbsp;<img
+                                                            src="{{ showSort ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
                                                     </p>
                                                 </a>
                                             </div>
@@ -155,16 +193,20 @@
                                         <div class="btn-group">
 
                                             <a class="btn-switch remove-toggle">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10" viewBox="0 0 14 10">
-                                                            <path fill="#FFF" d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z"/>
-                                                        </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="10"
+                                                    viewBox="0 0 14 10">
+                                                    <path fill="#FFF"
+                                                        d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z" />
+                                                </svg>
 
                                             </a>
                                             <div class="btn-group">
                                                 <a class="btn-switch activate-toggle active">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
-                                                                <path fill="#232334" d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z"/>
-                                                            </svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                                                        viewBox="0 0 13 13">
+                                                        <path fill="#232334"
+                                                            d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z" />
+                                                    </svg>
 
                                                 </a>
                                                 <!-- <button type="button" class="btn btn-default btn-switch activate-toggle active"> <span class="goods">Yes</span></button> -->
@@ -188,20 +230,32 @@
                                     </div>
                                     <nav>
                                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#estates" role="tab" aria-controls="nav-home" aria-selected="true" [ngClass]="{ 'active':activeTab==='search'}" (click)="search('search')">{{globals.languageJson?.estates}}</a>
-                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#green-coffee" role="tab" aria-controls="nav-profile" aria-selected="false" [ngClass]="{ 'active':activeTab==='result'}" (click)="result('result')">{{globals.languageJson?.available_green_coffee}}</a>
+                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
+                                                href="#estates" role="tab" aria-controls="nav-home" aria-selected="true"
+                                                [ngClass]="{ 'active':activeTab==='search'}"
+                                                (click)="search('search')">{{globals.languageJson?.estates}}</a>
+                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
+                                                href="#green-coffee" role="tab" aria-controls="nav-profile"
+                                                aria-selected="false" [ngClass]="{ 'active':activeTab==='result'}"
+                                                (click)="result('result')">{{globals.languageJson?.available_green_coffee}}</a>
                                         </div>
                                     </nav>
                                     <div class="tab-content py-md-4 px-md-3 px-sm-0" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="estates" [ngClass]="{ 'active':activeTab === 'search'}" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="tab-pane fade show active" id="estates"
+                                            [ngClass]="{ 'active':activeTab === 'search'}" role="tabpanel"
+                                            aria-labelledby="nav-home-tab">
                                             <div class="d-md-block d-none">
                                                 <div class="cardpanel-detail ">
                                                     <div class="row">
-                                                        <div class="col-lg-4 col-md-6" *ngFor="let sample of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch">
+                                                        <div class="col-lg-4 col-md-6"
+                                                            *ngFor="let sample of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch">
                                                             <div class="source-card card-border">
                                                                 <div class="s-gal" (click)="estateList(sample)">
-                                                                    <img *ngIf="sample.company_image_thumbnail_url!=''" [src]="sample.company_image_thumbnail_url" alt="">
-                                                                    <img *ngIf="sample.company_image_thumbnail_url==''" src="assets/images/dummy-profile.png" alt="">
+                                                                    <img *ngIf="sample.company_image_thumbnail_url!=''"
+                                                                        [src]="sample.company_image_thumbnail_url"
+                                                                        alt="">
+                                                                    <img *ngIf="sample.company_image_thumbnail_url==''"
+                                                                        src="assets/images/dummy-profile.png" alt="">
                                                                 </div>
                                                                 <div class="s-details" (click)="estateList(sample)">
                                                                     <div class="flex m-flex">
@@ -215,13 +269,18 @@
                                                                     </div>
                                                                     <div class="flex m-flex align-items-center">
                                                                         <div class=" s-tit">
-                                                                            <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6>
+                                                                            <h6><span class="fa fa-star checked"></span>
+                                                                                {{ sample.rating }}</h6>
                                                                         </div>
-                                                                        <div class="s-cert" (click)="estateList(sample)">
+                                                                        <div class="s-cert"
+                                                                            (click)="estateList(sample)">
                                                                             <ul class="flex">
-                                                                                <li *ngFor="let cert of sample.certificates | slice:0:2">
-                                                                                    <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
-                                                                                    <img *ngIf="getCertificateData(cert)==''" src="" alt="">
+                                                                                <li
+                                                                                    *ngFor="let cert of sample.certificates | slice:0:2">
+                                                                                    <img *ngIf="getCertificateData(cert)!=''"
+                                                                                        src="{{getCertificateData(cert)}}">
+                                                                                    <img *ngIf="getCertificateData(cert)==''"
+                                                                                        src="" alt="">
                                                                                 </li>
                                                                                 <!-- <li><img src="/assets/images/group-utz.png"></li>
                                                                             <li><img src="/assets/images/group-certified.png"></li> -->
@@ -230,22 +289,32 @@
                                                                     </div>
 
                                                                     <div class="source-lets flex">
-                                                                        <div class="orgin-att" (click)="estateList(sample)">
+                                                                        <div class="orgin-att"
+                                                                            (click)="estateList(sample)">
                                                                             <label>{{globals.languageJson?.origin}}</label>
                                                                             <!-- <h6>NA</h6> -->
-                                                                            <h6 *ngIf="sample['country'] !=''">{{GetCountry(sample['country'])}}</h6>
+                                                                            <h6 *ngIf="sample['country'] !=''">
+                                                                                {{GetCountry(sample['country'])}}</h6>
                                                                         </div>
-                                                                        <div class="orgin-att" (click)="estateList(sample)">
+                                                                        <div class="orgin-att"
+                                                                            (click)="estateList(sample)">
                                                                             <label>{{globals.languageJson?.region}}</label>
                                                                             <!-- <h6>NA</h6> -->
                                                                             <h6>{{sample['region'] || 'NA'}}</h6>
                                                                         </div>
-                                                                        <div class="orgin-att" (click)="estateList(sample)">
+                                                                        <div class="orgin-att"
+                                                                            (click)="estateList(sample)">
                                                                             <label>{{globals.languageJson?.altitude}}</label>
-                                                                            <h6 *ngIf="sample['altitude']['lte'] == 0 || sample['altitude']['lte'] == 0">NA</h6>
-                                                                            <h6 *ngIf="sample['altitude']['lte'] != 0 && sample['altitude']['lte'] != 0">{{sample['altitude']['gte']}}-{{sample['altitude']['lte']}}m</h6>
+                                                                            <h6
+                                                                                *ngIf="sample['altitude']['lte'] == 0 || sample['altitude']['lte'] == 0">
+                                                                                NA</h6>
+                                                                            <h6
+                                                                                *ngIf="sample['altitude']['lte'] != 0 && sample['altitude']['lte'] != 0">
+                                                                                {{sample['altitude']['gte']}}-{{sample['altitude']['lte']}}m
+                                                                            </h6>
                                                                         </div>
-                                                                        <div class="orgin-att pl-0 mt-2" (click)="estateList(sample)">
+                                                                        <div class="orgin-att pl-0 mt-2"
+                                                                            (click)="estateList(sample)">
                                                                             <label>{{globals.languageJson?.variety}}</label>
                                                                             <!-- <h6>NA</h6> -->
                                                                             <h6 class="flex">
@@ -255,16 +324,20 @@
                                                                     </div>
                                                                     <div class="top-lots">
                                                                         <label>{{globals.languageJson?.top_lots}}</label>
-                                                                        <span *ngIf="sample.lots== null" (click)="estateList(sample)">
-                                                                                <a>NA</a>
-                                                                            </span>
-                                                                        <span *ngIf="sample.lots!= null" (click)="redirectToLots(sample)">
-                                                                                <a *ngFor="let lotdata of sample.lots | slice:0:3" >
-                                                                                    {{lotdata.name}}
-                                                                                </a>
-                                                                                <a *ngIf="sample.lots.length>3">+{{(sample.lots.length)-3}}more</a>
+                                                                        <span *ngIf="sample.lots== null"
+                                                                            (click)="estateList(sample)">
+                                                                            <a>NA</a>
+                                                                        </span>
+                                                                        <span *ngIf="sample.lots!= null"
+                                                                            (click)="redirectToLots(sample)">
+                                                                            <a
+                                                                                *ngFor="let lotdata of sample.lots | slice:0:3">
+                                                                                {{lotdata.name}}
+                                                                            </a>
+                                                                            <a
+                                                                                *ngIf="sample.lots.length>3">+{{(sample.lots.length)-3}}more</a>
 
-                                                                            </span>
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -279,12 +352,17 @@
                                                 <div class="pagination-content d-block">
                                                     <div class="cardpanel-detail mb-5">
                                                         <div class="row pagination-content-list">
-                                                            <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let sample of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList(sample)">
+                                                            <div class="col-lg-4 col-md-6 pagination-content-list__item"
+                                                                *ngFor="let sample of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch"
+                                                                (click)="estateList(sample)">
                                                                 <div class="source-card card-border">
                                                                     <div class="s-gal">
                                                                         <!-- <img [src]="sample.image" alt=""> -->
-                                                                        <img *ngIf="sample.company_image_url!=''" [src]="sample.company_image_url" alt="">
-                                                                        <img *ngIf="sample.company_image_url==''" src="assets/images/dummy-profile.png" alt="">
+                                                                        <img *ngIf="sample.company_image_url!=''"
+                                                                            [src]="sample.company_image_url" alt="">
+                                                                        <img *ngIf="sample.company_image_url==''"
+                                                                            src="assets/images/dummy-profile.png"
+                                                                            alt="">
                                                                     </div>
                                                                     <div class="s-details">
                                                                         <div class="flex m-flex">
@@ -292,16 +370,21 @@
                                                                                 <h3>{{sample.name}}</h3>
                                                                                 <!-- <h6><span class="fa fa-star checked"></span> {{ sample.rating }}</h6> -->
                                                                                 <!-- <h6 *ngIf="sample.rating!=''"><span class="fa fa-star checked"></span> {{ sample.rating }}</h6> -->
-                                                                                <h6><span class="fa fa-star checked"></span> NA</h6>
+                                                                                <h6><span
+                                                                                        class="fa fa-star checked"></span>
+                                                                                    NA</h6>
                                                                             </div>
                                                                             <div class="s-cert">
                                                                                 <ul class="flex">
                                                                                     <!-- <li><img src="/assets/images/group-certificate.png"></li>
                                                                                     <li><img src="/assets/images/group-utz.png"></li>
                                                                                     <li><img src="/assets/images/group-certified.png"></li> -->
-                                                                                    <li *ngFor="let cert of sample.certificates | slice:0:2">
-                                                                                        <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
-                                                                                        <img *ngIf="getCertificateData(cert)==''" src="" alt="">
+                                                                                    <li
+                                                                                        *ngFor="let cert of sample.certificates | slice:0:2">
+                                                                                        <img *ngIf="getCertificateData(cert)!=''"
+                                                                                            src="{{getCertificateData(cert)}}">
+                                                                                        <img *ngIf="getCertificateData(cert)==''"
+                                                                                            src="" alt="">
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -309,30 +392,47 @@
                                                                         <div class="source-lets flex">
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.origin}}</label>
-                                                                                <h6>{{sample['country'] ? GetCountry(sample['country']):'NA'}}</h6>
+                                                                                <h6>{{sample['country'] ? GetCountry(sample['country']):'NA'}}
+                                                                                </h6>
                                                                             </div>
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.altitude}}</label>
                                                                                 <!-- <h6>{{sample.range}}</h6> -->
-                                                                                <h6 *ngIf="sample.altitude_start == 0 && sample.altitude_end == 0">NA</h6>
-                                                                                <h6 *ngIf="sample.altitude_start != 0 && sample.altitude_end != 0">{{sample.altitude_start}}-{{sample.altitude_end}}m</h6>
+                                                                                <h6
+                                                                                    *ngIf="sample.altitude_start == 0 && sample.altitude_end == 0">
+                                                                                    NA</h6>
+                                                                                <h6
+                                                                                    *ngIf="sample.altitude_start != 0 && sample.altitude_end != 0">
+                                                                                    {{sample.altitude_start}}-{{sample.altitude_end}}m
+                                                                                </h6>
                                                                             </div>
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.crop_year}}</label>
-                                                                                <h6 *ngIf="sample.crop_year_start != '' && sample.crop_year_end != ''">{{GetMonthName(sample.crop_year_start)}} - {{GetMonthName(sample.crop_year_end)}}</h6>
-                                                                                <h6 *ngIf="sample.crop_year_start == '' && sample.crop_year_end == ''">NA</h6>
+                                                                                <h6
+                                                                                    *ngIf="sample.crop_year_start != '' && sample.crop_year_end != ''">
+                                                                                    {{GetMonthName(sample.crop_year_start)}}
+                                                                                    -
+                                                                                    {{GetMonthName(sample.crop_year_end)}}
+                                                                                </h6>
+                                                                                <h6
+                                                                                    *ngIf="sample.crop_year_start == '' && sample.crop_year_end == ''">
+                                                                                    NA</h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="top-lots">
-                                                                            <label (click)="estateList(sample)">{{globals.languageJson?.top_lots}}</label>
-                                                                            <span *ngIf="sample.lots== null" (click)="estateList(sample)">
+                                                                            <label
+                                                                                (click)="estateList(sample)">{{globals.languageJson?.top_lots}}</label>
+                                                                            <span *ngIf="sample.lots== null"
+                                                                                (click)="estateList(sample)">
                                                                                 <a>NA</a>
                                                                             </span>
                                                                             <span *ngIf="sample.lots!= null">
-                                                                                <a *ngFor="let lotdata of sample.lots | slice:0:3" >
+                                                                                <a
+                                                                                    *ngFor="let lotdata of sample.lots | slice:0:3">
                                                                                     {{lotdata.name}}
                                                                                 </a>
-                                                                                <a *ngIf="sample.lots.length>3">+{{(sample.lots.length)-3}}more</a>
+                                                                                <a
+                                                                                    *ngIf="sample.lots.length>3">+{{(sample.lots.length)-3}}more</a>
 
                                                                             </span>
                                                                         </div>
@@ -341,8 +441,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="responsive-pagination clearfix">
-                                                            <span class="responsive-pagination__prev float-left disable"></span>
-                                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                            <span
+                                                                class="responsive-pagination__prev float-left disable"></span>
+                                                            <ul
+                                                                class="responsive-pagination-list d-flex float-left mb-0">
                                                                 <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
                                                             <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
                                                             <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
@@ -361,12 +463,15 @@
                                                         <table class="table">
                                                             <thead class="table-header">
                                                                 <tr class="header-row">
-                                                                    <th scope="col">{{globals.languageJson?.estate_name}}</th>
+                                                                    <th scope="col">
+                                                                        {{globals.languageJson?.estate_name}}</th>
                                                                     <th scope="col">{{globals.languageJson?.rating }}
                                                                         <!-- <img class="pl-2" src="assets/images/combined-shape.svg" /> -->
                                                                     </th>
-                                                                    <th scope="col">{{globals.languageJson?.origin}}</th>
-                                                                    <th scope="col">{{globals.languageJson?.altitude_range}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.origin}}
+                                                                    </th>
+                                                                    <th scope="col">
+                                                                        {{globals.languageJson?.altitude_range}}</th>
                                                                     <th scope="col">
                                                                         {{globals.languageJson?.crop_year}}
                                                                     </th>
@@ -374,48 +479,63 @@
                                                                         {{globals.languageJson?.variety}}
                                                                     </th>
                                                                     <th scope="col">{{globals.languageJson?.lots}}</th>
-                                                                    <th scope="col">{{globals.languageJson?.certificates}}</th>
+                                                                    <th scope="col">
+                                                                        {{globals.languageJson?.certificates}}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="customtable">
-                                                                <tr class="ticket-boby-txt cursor-item" *ngFor="let estate of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch" (click)="estateList(estate)">
+                                                                <tr class="ticket-boby-txt cursor-item"
+                                                                    *ngFor="let estate of estateData | filter : crop | filter : origin | filter : grade | filter :termSearch"
+                                                                    (click)="estateList(estate)">
 
                                                                     <td>{{ estate.name }}</td>
                                                                     <td>
                                                                         <!-- <span class="fa fa-star checked pr-2" *ngIf="sample.rating!=''">{{ estate.rating }}</span> -->
-                                                                        <span class="fa fa-star checked pr-2"></span>{{estate.rating}}
+                                                                        <span
+                                                                            class="fa fa-star checked pr-2"></span>{{estate.rating}}
                                                                     </td>
 
                                                                     <td>
                                                                         {{estate['country'] ? GetCountry(estate['country']):'NA'}}
                                                                     </td>
                                                                     <td>
-                                                                        <span *ngIf="estate['altitude']['lte'] == 0 && estate['altitude']['lte'] == 0">NA</span>
-                                                                        <span *ngIf="estate['altitude']['lte'] != 0 && estate['altitude']['lte'] != 0">{{estate['altitude']['gte']}}-{{estate['altitude']['lte']}}m</span>
+                                                                        <span
+                                                                            *ngIf="estate['altitude']['lte'] == 0 && estate['altitude']['lte'] == 0">NA</span>
+                                                                        <span
+                                                                            *ngIf="estate['altitude']['lte'] != 0 && estate['altitude']['lte'] != 0">{{estate['altitude']['gte']}}-{{estate['altitude']['lte']}}m</span>
                                                                         <!-- {{estate.range}} -->
                                                                     </td>
                                                                     <td>
-                                                                        <span *ngIf="estate['crop_year']['gte'] == 0 && estate['crop_year']['lte'] == 0">NA</span>
-                                                                        <span *ngIf="estate['crop_year']['gte'] != 0 && estate['crop_year']['lte'] != 0">{{GetMonthName(estate['crop_year']['gte'])}}-{{GetMonthName(estate['crop_year']['lte'])}}</span>
+                                                                        <span
+                                                                            *ngIf="estate['crop_year']['gte'] == 0 && estate['crop_year']['lte'] == 0">NA</span>
+                                                                        <span
+                                                                            *ngIf="estate['crop_year']['gte'] != 0 && estate['crop_year']['lte'] != 0">{{GetMonthName(estate['crop_year']['gte'])}}-{{GetMonthName(estate['crop_year']['lte'])}}</span>
                                                                         <!-- {{ estate.cropyear }}  -->
                                                                     </td>
                                                                     <td>
                                                                         {{getUniqueVarities(estate.lots)}}
                                                                     </td>
                                                                     <td class="lots-space">
-                                                                        <div *ngIf="estate.lots!= null" (click)="redirectToLots(estate)">
-                                                                            <a class="lot-class pr-3 mb-2" *ngFor="let lotdata of estate.lots | slice:0:3">{{lotdata.name}}</a>
-                                                                            <a class="lot-class mb-2" *ngIf="estate.lots.length>3">+{{(estate.lots.length)-3}}more</a>
+                                                                        <div *ngIf="estate.lots!= null"
+                                                                            (click)="redirectToLots(estate)">
+                                                                            <a class="lot-class pr-3 mb-2"
+                                                                                *ngFor="let lotdata of estate.lots | slice:0:3">{{lotdata.name}}</a>
+                                                                            <a class="lot-class mb-2"
+                                                                                *ngIf="estate.lots.length>3">+{{(estate.lots.length)-3}}more</a>
                                                                         </div>
                                                                         <div *ngIf="estate.lots== null">NA</div>
                                                                     </td>
                                                                     <td>
                                                                         <span *ngIf="estate.certificates!= null">
-                                                                        <span *ngFor="let cert of estate.certificates | slice:0:2">
-                                                                                <img class="list-img" *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
-                                                                            <!-- <img class="pr-2" src="/assets/images/group-certificate.png"/> <img class="pr-2" src="/assets/images/group-utz.png"><img src="/assets/images/group-certified.png"> -->
-                                                                        </span></span>
-                                                                        <span *ngIf="estate.certificates==null">NA</span>
+                                                                            <span
+                                                                                *ngFor="let cert of estate.certificates | slice:0:2">
+                                                                                <img class="list-img"
+                                                                                    *ngIf="getCertificateData(cert)!=''"
+                                                                                    src="{{getCertificateData(cert)}}">
+                                                                                <!-- <img class="pr-2" src="/assets/images/group-certificate.png"/> <img class="pr-2" src="/assets/images/group-utz.png"><img src="/assets/images/group-certified.png"> -->
+                                                                            </span></span>
+                                                                        <span
+                                                                            *ngIf="estate.certificates==null">NA</span>
                                                                         <!-- <span *ngIf="estate.certificates==2"><img class="pr-2" src="/assets/images/group-certificate.png" /> <img class="pr-2" src="/assets/images/group-utz.png"></span>
                                                                     <span *ngIf="estate.certificates==1"><img class="pr-2" src="/assets/images/group-utz.png"></span> -->
                                                                     </td>
@@ -426,25 +546,34 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade show" id="green-coffee" [ngClass]="{ 'active':activeTab === 'result'}" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="tab-pane fade show" id="green-coffee"
+                                            [ngClass]="{ 'active':activeTab === 'result'}" role="tabpanel"
+                                            aria-labelledby="nav-home-tab">
                                             <!-- <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> -->
                                             <!-- <div class="tab-pane fade" id="green-coffee" role="tabpanel" aria-labelledby="nav-profile-tab">
                                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"> -->
                                             <div class="d-md-block d-none">
                                                 <div class="cardpanel-detail">
                                                     <div class="row">
-                                                        <div class="col-lg-4 col-md-6" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList(item)">
+                                                        <div class="col-lg-4 col-md-6"
+                                                            *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety"
+                                                            (click)="availableCoffeeList(item)">
                                                             <div class="source-card card-border green-coffee-product">
                                                                 <div class="s-gal">
                                                                     <span *ngIf="item.images">
-                                                                            <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
-                                                                            <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">
-                                                                        </span>
+                                                                        <img *ngIf="item.images[0]!=''"
+                                                                            [src]="item.images[0].thumb_url" alt="">
+                                                                        <img *ngIf="item.images[0]==''"
+                                                                            src="assets/images/dummy-profile.png"
+                                                                            alt="">
+                                                                    </span>
                                                                     <span *ngIf="!item.images">
-                                                                            <img  src="assets/images/dummy-profile.png" alt="">
-                                                                        </span>
+                                                                        <img src="assets/images/dummy-profile.png"
+                                                                            alt="">
+                                                                    </span>
                                                                     <div class="cupping">
-                                                                        <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
+                                                                        <p *ngIf="item.cup_score!=''">Cup score
+                                                                            {{item.cup_score}}</p>
                                                                         <p *ngIf="item.cup_score==''">NA</p>
                                                                     </div>
                                                                 </div>
@@ -453,17 +582,24 @@
                                                                         <div class="s-tit">
                                                                             <h3 *ngIf="item.name!=''">{{item.name}}</h3>
                                                                             <h3 *ngIf="item.name==''">NA</h3>
-                                                                            <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}</h5>
-                                                                            <h5 *ngIf="item['estate']['name']==''">NA</h5>
-                                                                            <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / {{weight}}</h6>
+                                                                            <h5 *ngIf="item['estate']['name']!=''">
+                                                                                {{item['estate']['name']}}</h5>
+                                                                            <h5 *ngIf="item['estate']['name']==''">NA
+                                                                            </h5>
+                                                                            <h6 *ngIf="item.price!=''">
+                                                                                {{item.price_unit}}{{item.price}} USD /
+                                                                                {{weight}}</h6>
                                                                             <h6 *ngIf="item.price==''">NA</h6>
                                                                         </div>
                                                                     </div>
                                                                     <div class="source-lets flex">
                                                                         <div class="orgin-att">
                                                                             <label>{{globals.languageJson?.origin}}</label>
-                                                                            <h6 *ngIf="item['lot']['country']!=''">{{GetCountry(item['lot']['country'])}}</h6>
-                                                                            <h6 *ngIf="item['lot']['country']==''">NA</h6>
+                                                                            <h6 *ngIf="item['lot']['country']!=''">
+                                                                                {{GetCountry(item['lot']['country'])}}
+                                                                            </h6>
+                                                                            <h6 *ngIf="item['lot']['country']==''">NA
+                                                                            </h6>
                                                                         </div>
                                                                         <div class="orgin-att">
                                                                             <label>{{globals.languageJson?.region}}</label>
@@ -475,14 +611,17 @@
                                                                         </div>
                                                                         <div class="orgin-att pl-0 mt-2">
                                                                             <label>Processing</label>
-                                                                            <h6>{{item['wetmilling_process_name'] || 'NA'}}</h6>
+                                                                            <h6>{{item['wetmilling_process_name'] || 'NA'}}
+                                                                            </h6>
                                                                         </div>
                                                                         <div class="orgin-att mt-2">
                                                                             <label>{{globals.languageJson?.flavour}}</label>
                                                                             <div *ngIf="item.flavours!=null">
                                                                                 <ul class="flo-list-roaster">
-                                                                                    <li *ngFor="let flavour of item.flavours">
-                                                                                        <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                                                                                    <li
+                                                                                        *ngFor="let flavour of item.flavours">
+                                                                                        <span
+                                                                                            class="mb-2">{{getFlavourName(flavour)}}</span>
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
@@ -490,7 +629,11 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="top-lots">
-                                                                        <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity_count}} {{item.quantity_type}} of {{item.total_quantity}}{{item.quantity_unit}} </span></label>
+                                                                        <label>{{globals.languageJson?.available_quantity}}
+                                                                            : <span> {{item.quantity_count}}
+                                                                                {{item.quantity_type}} of
+                                                                                {{item.total_quantity}}{{item.quantity_unit}}
+                                                                            </span></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -519,65 +662,92 @@
                                                 <div class="pagination-content d-block">
                                                     <div class="cardpanel-detail mb-5">
                                                         <div class="row pagination-content-list">
-                                                            <div class="col-lg-4 col-md-6 pagination-content-list__item" *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList(item)">
-                                                                <div class="source-card card-border green-coffee-product">
+                                                            <div class="col-lg-4 col-md-6 pagination-content-list__item"
+                                                                *ngFor="let item of coffeedata | filter : origin |  filter :termSearch | filter : variety"
+                                                                (click)="availableCoffeeList(item)">
+                                                                <div
+                                                                    class="source-card card-border green-coffee-product">
                                                                     <div class="s-gal">
                                                                         <span *ngIf="item.images">
-                                                                                <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
-                                                                                <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">
-                                                                            </span>
+                                                                            <img *ngIf="item.images[0]!=''"
+                                                                                [src]="item.images[0].thumb_url" alt="">
+                                                                            <img *ngIf="item.images[0]==''"
+                                                                                src="assets/images/dummy-profile.png"
+                                                                                alt="">
+                                                                        </span>
                                                                         <span *ngIf="!item.images">
-                                                                                <img  src="assets/images/dummy-profile.png" alt="">
-                                                                            </span>
+                                                                            <img src="assets/images/dummy-profile.png"
+                                                                                alt="">
+                                                                        </span>
                                                                         <div class="cupping">
-                                                                            <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
+                                                                            <p *ngIf="item.cup_score!=''">Cup score
+                                                                                {{item.cup_score}}</p>
                                                                             <p *ngIf="item.cup_score==''">NA</p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="s-details ">
                                                                         <div class="flex">
                                                                             <div class="s-tit">
-                                                                                <h3 *ngIf="item.name!=''">{{item.name}}</h3>
+                                                                                <h3 *ngIf="item.name!=''">{{item.name}}
+                                                                                </h3>
                                                                                 <h3 *ngIf="item.name==''">NA</h3>
-                                                                                <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}</h5>
-                                                                                <h5 *ngIf="item['estate']['name']==''">NA</h5>
-                                                                                <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / {{weight}}</h6>
+                                                                                <h5 *ngIf="item['estate']['name']!=''">
+                                                                                    {{item['estate']['name']}}</h5>
+                                                                                <h5 *ngIf="item['estate']['name']==''">
+                                                                                    NA</h5>
+                                                                                <h6 *ngIf="item.price!=''">
+                                                                                    {{item.price_unit}}{{item.price}}
+                                                                                    USD / {{weight}}</h6>
                                                                                 <h6 *ngIf="item.price==''">NA</h6>
                                                                             </div>
                                                                         </div>
                                                                         <div class="source-lets flex">
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.origin}}</label>
-                                                                                <h6 *ngIf="item['lot']['country']!=''">{{GetCountry(item['lot']['country'])}}</h6>
-                                                                                <h6 *ngIf="item['lot']['country']==''">NA</h6>
+                                                                                <h6 *ngIf="item['lot']['country']!=''">
+                                                                                    {{GetCountry(item['lot']['country'])}}
+                                                                                </h6>
+                                                                                <h6 *ngIf="item['lot']['country']==''">
+                                                                                    NA</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.variety}}</label>
-                                                                                <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}</h6>
-                                                                                <h6 *ngIf="item['lot']['variety']==''">NA</h6>
+                                                                                <h6 *ngIf="item['lot']['variety']!=''">
+                                                                                    {{item['lot']['variety']}}</h6>
+                                                                                <h6 *ngIf="item['lot']['variety']==''">
+                                                                                    NA</h6>
                                                                             </div>
                                                                             <div class="orgin-att">
                                                                                 <label>{{globals.languageJson?.flavour}}</label>
                                                                                 <div *ngIf="item.flavours!=null">
                                                                                     <ul class="flo-list-roaster">
-                                                                                        <li *ngFor="let flavour of item.flavours">
-                                                                                            <span class="mb-2">{{getFlavourName(flavour)}}</span>
+                                                                                        <li
+                                                                                            *ngFor="let flavour of item.flavours">
+                                                                                            <span
+                                                                                                class="mb-2">{{getFlavourName(flavour)}}</span>
                                                                                         </li>
                                                                                     </ul>
                                                                                 </div>
-                                                                                <div *ngIf="item.flavours==null">NA</div>
+                                                                                <div *ngIf="item.flavours==null">NA
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="top-lots">
-                                                                            <label>{{globals.languageJson?.available_quantity}} : <span> {{item.quantity_count}} {{item.quantity_type}} of {{item.total_quantity}}{{item.quantity_unit}} </span></label>
+                                                                            <label>{{globals.languageJson?.available_quantity}}
+                                                                                : <span> {{item.quantity_count}}
+                                                                                    {{item.quantity_type}} of
+                                                                                    {{item.total_quantity}}{{item.quantity_unit}}
+                                                                                </span></label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="responsive-pagination clearfix">
-                                                            <span class="responsive-pagination__prev float-left disable"></span>
-                                                            <ul class="responsive-pagination-list d-flex float-left mb-0">
+                                                            <span
+                                                                class="responsive-pagination__prev float-left disable"></span>
+                                                            <ul
+                                                                class="responsive-pagination-list d-flex float-left mb-0">
                                                                 <!-- <li class="pagination-content-list__item" class="responsive-pagination-list__item active">1</li>
                                                         <li class="pagination-content-list__item" class="responsive-pagination-list__item">2</li>
                                                         <li class="pagination-content-list__item" class="responsive-pagination-list__item">3</li>
@@ -597,39 +767,58 @@
                                                             <thead class="table-header">
                                                                 <tr class="header-row">
                                                                     <th>{{globals.languageJson?.name}}</th>
-                                                                    <th scope="col">{{globals.languageJson?.estate_name}}</th>
-                                                                    <th scope="col">{{globals.languageJson?.origin}}</th>
-                                                                    <th scope="col">{{globals.languageJson?.variety}}</th>
+                                                                    <th scope="col">
+                                                                        {{globals.languageJson?.estate_name}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.origin}}
+                                                                    </th>
+                                                                    <th scope="col">{{globals.languageJson?.variety}}
+                                                                    </th>
                                                                     <th scope="col">{{globals.languageJson?.price}}</th>
                                                                     <!-- <img class="pl-2" src="assets/images/combined-shape.svg" /> -->
-                                                                    <th scope="col">{{globals.languageJson?.quantity}}</th>
-                                                                    <th scope="col">{{globals.languageJson?.flavour_profile}}</th>
-                                                                    <th scope="col">{{globals.languageJson?.cup_score}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.quantity}}
+                                                                    </th>
+                                                                    <th scope="col">
+                                                                        {{globals.languageJson?.flavour_profile}}</th>
+                                                                    <th scope="col">{{globals.languageJson?.cup_score}}
+                                                                    </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="customtable">
-                                                                <tr class="ticket-boby-txt cursor-item" *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter : variety" (click)="availableCoffeeList(coffeeitem)">
+                                                                <tr class="ticket-boby-txt cursor-item"
+                                                                    *ngFor="let coffeeitem of coffeedata | filter : origin |  filter :termSearch | filter : variety"
+                                                                    (click)="availableCoffeeList(coffeeitem)">
                                                                     <td>
-                                                                        <span *ngIf="coffeeitem.name!=''">{{coffeeitem.name}}</span>
+                                                                        <span
+                                                                            *ngIf="coffeeitem.name!=''">{{coffeeitem.name}}</span>
                                                                         <span *ngIf="coffeeitem.name==''">NA</span>
                                                                     </td>
-                                                                    <td> <span *ngIf="coffeeitem['estate']['name']!=''">{{coffeeitem['estate']['name']}}</span>
-                                                                        <span *ngIf="coffeeitem['estate']['name']==''">NA</span>
+                                                                    <td> <span
+                                                                            *ngIf="coffeeitem['estate']['name']!=''">{{coffeeitem['estate']['name']}}</span>
+                                                                        <span
+                                                                            *ngIf="coffeeitem['estate']['name']==''">NA</span>
                                                                     </td>
                                                                     <td>{{ coffeeitem.origin }}
-                                                                        <span *ngIf="coffeeitem['lot']['country']!=''">{{GetCountry(coffeeitem['lot']['country'])}}</span>
-                                                                        <span *ngIf="coffeeitem['lot']['country']==''">NA</span>
+                                                                        <span
+                                                                            *ngIf="coffeeitem['lot']['country']!=''">{{GetCountry(coffeeitem['lot']['country'])}}</span>
+                                                                        <span
+                                                                            *ngIf="coffeeitem['lot']['country']==''">NA</span>
                                                                     </td>
-                                                                    <td> <span *ngIf="coffeeitem['lot']['variety']!=''">{{coffeeitem['lot']['variety']}}</span>
-                                                                        <span *ngIf="coffeeitem['lot']['variety']==''">NA</span>
+                                                                    <td> <span
+                                                                            *ngIf="coffeeitem['lot']['variety']!=''">{{coffeeitem['lot']['variety']}}</span>
+                                                                        <span
+                                                                            *ngIf="coffeeitem['lot']['variety']==''">NA</span>
                                                                     </td>
-                                                                    <td> <span *ngIf="coffeeitem.price!=''">{{coffeeitem.price_unit}}{{coffeeitem.price}} USD / {{weight}}</span>
+                                                                    <td> <span
+                                                                            *ngIf="coffeeitem.price!=''">{{coffeeitem.price_unit}}{{coffeeitem.price}}
+                                                                            USD / {{weight}}</span>
                                                                         <span *ngIf="coffeeitem.price==''">NA</span>
                                                                     </td>
-                                                                    <td>{{coffeeitem.quantity_count}} {{coffeeitem.quantity_type}}</td>
+                                                                    <td>{{coffeeitem.quantity_count}}
+                                                                        {{coffeeitem.quantity_type}}</td>
                                                                     <td>
                                                                         <p class="flavor-coffee">
-                                                                            <span *ngIf="coffeeitem.flavours!=null" class="pr-1">{{coffeeitem.flavours}}</span>
+                                                                            <span *ngIf="coffeeitem.flavours!=null"
+                                                                                class="pr-1">{{coffeeitem.flavours}}</span>
                                                                         </p>
                                                                         <p *ngIf="coffeeitem.flavours==null">NA</p>
                                                                         <!-- <span class="pr-1">Citrus,</span> -->
@@ -675,17 +864,19 @@
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
                 <label class="customcheckbox flavour-text">
-                            <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="filterOrigin.includes('se')" (click)="selectOrigin($event,'se')"/>
-                            <span class="checkmark head-check"></span>
-                            Sweden
-                        </label>
+                    <input type="checkbox" class="listCheckbox" name="filter-check" value=""
+                        [checked]="filterOrigin.includes('se')" (click)="selectOrigin($event,'se')" />
+                    <span class="checkmark head-check"></span>
+                    Sweden
+                </label>
             </li>
             <li class="list-group-item item-color">
                 <label class="customcheckbox flavour-text">
-                                 <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="filterOrigin.includes('IN')"  (click)="selectOrigin($event,'IN')"/>
-                                 <span class="checkmark head-check"></span>
-                                 India
-                             </label>
+                    <input type="checkbox" class="listCheckbox" name="filter-check" value=""
+                        [checked]="filterOrigin.includes('IN')" (click)="selectOrigin($event,'IN')" />
+                    <span class="checkmark head-check"></span>
+                    India
+                </label>
             </li>
             <!-- <li class="list-group-item item-color" (click)="setOrigin('India'); pop1.hide(); pop2.hide()">
                     <a class="pointer-item">India</a>
@@ -693,7 +884,8 @@
         </ul>
         <div class="top-origin-border p-3">
             <a class="pull-left clear-filter mb-2 cursor-item" (click)="clearFilter();pop2.hide()">Clear</a>
-            <button type="submit" class="btn pull-right apply-filter mb-2" (click)="setFilterValue('origin',filterOrigin);pop2.hide()">Apply Filter</button>
+            <button type="submit" class="btn pull-right apply-filter mb-2"
+                (click)="setFilterValue('origin',filterOrigin);pop2.hide()">Apply Filter</button>
 
         </div>
     </div>
@@ -706,19 +898,26 @@
                 <li class="list-group-item item-color" (click)="setFilterValue('grade','81.0 - 83.0'); pop4.hide();  "><a class="pointer-item">81.0 - 83.0</a></li>
                 <li class="list-group-item item-color" (click)="setFilterValue('grade','84.0 - 86.0'); pop4.hide();  "><a class="pointer-item">84.0 - 86.0</a></li>
                 <li class="list-group-item item-color" (click)="setFilterValue('grade','87.0 - 89.0'); pop4.hide();  "><a class="pointer-item">87.0 - 89.0</a></li> -->
-            <li class="list-group-item item-color" (click)="setGrade(''); pop4.hide(); "><a class="pointer-item">All</a></li>
-            <li class="list-group-item item-color" (click)="setGrade('81.0 - 83.0'); pop4.hide();  "><a class="pointer-item">81.0 - 83.0</a></li>
-            <li class="list-group-item item-color" (click)="setGrade('84.0 - 86.0'); pop4.hide();  "><a class="pointer-item">84.0 - 86.0</a></li>
-            <li class="list-group-item item-color" (click)="setGrade('87.0 - 89.0'); pop4.hide();  "><a class="pointer-item">87.0 - 89.0</a></li>
-            <li class="list-group-item item-color" (click)="setGrade('90'); pop4.hide();  "><a class="pointer-item">90+</a></li>
+            <li class="list-group-item item-color" (click)="setGrade(''); pop4.hide(); "><a class="pointer-item">All</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setGrade('81.0 - 83.0'); pop4.hide();  "><a
+                    class="pointer-item">81.0 - 83.0</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('84.0 - 86.0'); pop4.hide();  "><a
+                    class="pointer-item">84.0 - 86.0</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('87.0 - 89.0'); pop4.hide();  "><a
+                    class="pointer-item">87.0 - 89.0</a></li>
+            <li class="list-group-item item-color" (click)="setGrade('90'); pop4.hide();  "><a
+                    class="pointer-item">90+</a></li>
         </ul>
     </div>
 </ng-template>
 <ng-template #weightTemplate>
     <div id="status-content">
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setWeight('kg');  pop8.hide();"><a class="pointer-item">kg</a></li>
-            <li class="list-group-item item-color" (click)="setWeight('lb');  pop8.hide();"><a class="pointer-item">lb</a></li>
+            <li class="list-group-item item-color" (click)="setWeight('kg');  pop8.hide();"><a
+                    class="pointer-item">kg</a></li>
+            <li class="list-group-item item-color" (click)="setWeight('lb');  pop8.hide();"><a
+                    class="pointer-item">lb</a></li>
 
         </ul>
     </div>
@@ -731,18 +930,30 @@
             <li class="list-group-item item-color" (click)="setCrop('Jan - March'); pop6.hide(); "><a class="pointer-item">Jan - March</a></li>
             <li class="list-group-item item-color" (click)="setCrop('August - Dec'); pop6.hide(); "><a class="pointer-item">August - Dec</a></li> -->
 
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','1'); pop6.hide(); "><a class="pointer-item">January</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','2'); pop6.hide(); "><a class="pointer-item">February</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','3'); pop6.hide(); "><a class="pointer-item">March</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','4'); pop6.hide(); "><a class="pointer-item">April</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','5'); pop6.hide(); "><a class="pointer-item">May</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','6'); pop6.hide(); "><a class="pointer-item">June</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','7'); pop6.hide(); "><a class="pointer-item">July</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','8'); pop6.hide(); "><a class="pointer-item">August</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','9'); pop6.hide(); "><a class="pointer-item">September</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','10'); pop6.hide(); "><a class="pointer-item">October</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','11'); pop6.hide(); "><a class="pointer-item">November</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('crop','12'); pop6.hide(); "><a class="pointer-item">December</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','1'); pop6.hide(); "><a
+                    class="pointer-item">January</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','2'); pop6.hide(); "><a
+                    class="pointer-item">February</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','3'); pop6.hide(); "><a
+                    class="pointer-item">March</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','4'); pop6.hide(); "><a
+                    class="pointer-item">April</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','5'); pop6.hide(); "><a
+                    class="pointer-item">May</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','6'); pop6.hide(); "><a
+                    class="pointer-item">June</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','7'); pop6.hide(); "><a
+                    class="pointer-item">July</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','8'); pop6.hide(); "><a
+                    class="pointer-item">August</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','9'); pop6.hide(); "><a
+                    class="pointer-item">September</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','10'); pop6.hide(); "><a
+                    class="pointer-item">October</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','11'); pop6.hide(); "><a
+                    class="pointer-item">November</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('crop','12'); pop6.hide(); "><a
+                    class="pointer-item">December</a></li>
         </ul>
     </div>
 
@@ -750,19 +961,26 @@
 <ng-template #sortTemplate>
     <div>
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setSort('Name (A-Z)'); pop10.hide(); "><a class="pointer-item">Name (A-Z)</a></li>
-            <li class="list-group-item item-color" (click)="setSort('Recently added'); pop10.hide(); "><a class="pointer-item">Recently added</a></li>
-            <li class="list-group-item item-color" (click)="setSort('Cup score'); pop10.hide(); "><a class="pointer-item">Cup score (High-Low)</a></li>
-            <li class="list-group-item item-color" (click)="setSort('Price'); pop10.hide(); "><a class="pointer-item">Price (High - low)</a></li>
-            <li class="list-group-item item-color" (click)="setSort('Quantity'); pop10.hide(); "><a class="pointer-item">Quantity (High- Low)</a></li>
+            <li class="list-group-item item-color" (click)="setSort('Name (A-Z)'); pop10.hide(); "><a
+                    class="pointer-item">Name (A-Z)</a></li>
+            <li class="list-group-item item-color" (click)="setSort('Recently added'); pop10.hide(); "><a
+                    class="pointer-item">Recently added</a></li>
+            <li class="list-group-item item-color" (click)="setSort('Cup score'); pop10.hide(); "><a
+                    class="pointer-item">Cup score (High-Low)</a></li>
+            <li class="list-group-item item-color" (click)="setSort('Price'); pop10.hide(); "><a
+                    class="pointer-item">Price (High - low)</a></li>
+            <li class="list-group-item item-color" (click)="setSort('Quantity'); pop10.hide(); "><a
+                    class="pointer-item">Quantity (High- Low)</a></li>
         </ul>
     </div>
 </ng-template>
 <ng-template #coffeeTemplate>
     <div>
         <ul class="list-group custom-popover">
-            <li class="list-group-item item-color" (click)="setFilterValue('coffee',1); pop13.hide(); "><a class="pointer-item">Yes</a></li>
-            <li class="list-group-item item-color" (click)="setFilterValue('coffee',0); pop13.hide(); "><a class="pointer-item">No</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('coffee',1); pop13.hide(); "><a
+                    class="pointer-item">Yes</a></li>
+            <li class="list-group-item item-color" (click)="setFilterValue('coffee',0); pop13.hide(); "><a
+                    class="pointer-item">No</a></li>
         </ul>
     </div>
 </ng-template>
@@ -793,29 +1011,33 @@
         <ul class="list-group custom-popover">
             <li class="list-group-item item-color">
                 <label class="customcheckbox flavour-text">
-                            <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="filterVariety.includes('Bourbon')" (click)="selectVariety($event,'Bourbon')"/>
-                            <span class="checkmark head-check"></span>
-                            Bourbon
-                        </label>
+                    <input type="checkbox" class="listCheckbox" name="filter-check" value=""
+                        [checked]="filterVariety.includes('Bourbon')" (click)="selectVariety($event,'Bourbon')" />
+                    <span class="checkmark head-check"></span>
+                    Bourbon
+                </label>
             </li>
             <li class="list-group-item item-color">
                 <label class="customcheckbox flavour-text">
-                            <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="filterVariety.includes('Castillo')" (click)="selectVariety($event,'Castillo')"/>
-                            <span class="checkmark head-check"></span>
-                            Castillo
-                        </label>
+                    <input type="checkbox" class="listCheckbox" name="filter-check" value=""
+                        [checked]="filterVariety.includes('Castillo')" (click)="selectVariety($event,'Castillo')" />
+                    <span class="checkmark head-check"></span>
+                    Castillo
+                </label>
             </li>
             <li class="list-group-item item-color">
                 <label class="customcheckbox flavour-text">
-                            <input type="checkbox" class="listCheckbox"  name="filter-check" value="" [checked]="filterVariety.includes('Arabica')" (click)="selectVariety($event,'Arabica')"/>
-                            <span class="checkmark head-check"></span>
-                            Arabica
-                        </label>
+                    <input type="checkbox" class="listCheckbox" name="filter-check" value=""
+                        [checked]="filterVariety.includes('Arabica')" (click)="selectVariety($event,'Arabica')" />
+                    <span class="checkmark head-check"></span>
+                    Arabica
+                </label>
             </li>
         </ul>
         <div class="top-origin-border p-3">
             <a class="pull-left clear-filter mb-2 cursor-item" (click)="clearFilter();pop11.hide();">Clear</a>
-            <button type="submit" class="btn pull-right apply-filter mb-2" (click)="setFilterValue('variety',filterVariety);pop11.hide();">Apply Filter</button>
+            <button type="submit" class="btn pull-right apply-filter mb-2"
+                (click)="setFilterValue('variety',filterVariety);pop11.hide();">Apply Filter</button>
         </div>
     </div>
 </ng-template>
@@ -825,7 +1047,7 @@
     <div class="modal-header mt-3">
         <h2 class="more-heading">More filters</h2>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <img  class="close-svg" src="/assets/images/close.svg" alt="">              </button>
+            <img class="close-svg" src="/assets/images/close.svg" alt=""> </button>
     </div>
     <div class="modal-body mb-3">
         <div class="border-filter altitude-heading mb-1">Altitude Range</div>
@@ -846,115 +1068,115 @@
         <div class="w-100% popup-filter pt-4">
             <ul class="clearfix mb-3">
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Juicy
                     </label>
                 </li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Juicy
                     </label></li>
                 <li>
                     <label class="customcheckbox flavour-text">
-                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                                <span class="checkmark head-check"></span>
-                                Juicy
-                            </label>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
                 </li>
                 <li>
                     <label class="customcheckbox flavour-text">
-                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                                <span class="checkmark head-check"></span>
-                                Juicy
-                            </label>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
                 </li>
                 <li>
                     <label class="customcheckbox flavour-text">
-                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                                <span class="checkmark head-check"></span>
-                                Juicy
-                            </label>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
                 </li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Fruity
                     </label></li>
                 <li>
                     <label class="customcheckbox flavour-text">
-                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                                <span class="checkmark head-check"></span>
-                                Fruity
-                            </label>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label>
                 </li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Fruity
                     </label></li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Fruity
                     </label></li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Fruity
                     </label></li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Spicy
                     </label></li>
                 <li>
                     <label class="customcheckbox flavour-text">
-                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                                <span class="checkmark head-check"></span>
-                                Spicy
-                            </label>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label>
                 </li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Spicy
                     </label></li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Spicy
                     </label></li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Spicy
                     </label></li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Jammy
                     </label></li>
                 <li>
                     <label class="customcheckbox flavour-text">
-                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                                <span class="checkmark head-check"></span>
-                                Jammy
-                            </label>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label>
                 </li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Jammy
                     </label></li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Jammy
                     </label></li>
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
                         Jammy
                     </label></li>
@@ -966,30 +1188,30 @@
         <div class="w-100% popup-filter pt-4">
             <ul class="clearfix mb-0">
                 <li><label class="customcheckbox flavour-text">
-                            <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                            <span class="checkmark head-check"></span>
-                            At Estate
-                        </label></li>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        At Estate
+                    </label></li>
                 <li><label class="customcheckbox flavour-text">
-                            <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                            <span class="checkmark head-check"></span>
-                            At mill
-                        </label></li>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        At mill
+                    </label></li>
                 <li><label class="customcheckbox flavour-text">
-                                <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
-                                <span class="checkmark head-check"></span>
-                                Warehouse
-                            </label></li>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Warehouse
+                    </label></li>
             </ul>
         </div>
         <div class="certificates border-filter">Certificates</div>
         <div class="w-100% pt-4 pb-3">
             <ul class="mb-0">
                 <li><label class="customcheckbox flavour-text">
-                        <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                         <span class="checkmark head-check"></span>
-                        Show listings with certificates  
-                                      </label></li>
+                        Show listings with certificates
+                    </label></li>
             </ul>
         </div>
 

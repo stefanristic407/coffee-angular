@@ -7,15 +7,16 @@ import { data } from 'jquery';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
+import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 
 @Component({
-  selector: 'app-requests-table',
-  templateUrl: './requests-table.component.html',
-  styleUrls: ['./requests-table.component.css']
+	selector: 'app-requests-table',
+	templateUrl: './requests-table.component.html',
+	styleUrls: ['./requests-table.component.css']
 })
 export class RequestsTableComponent implements OnInit {
 
-  roasterterm: any;
+	roasterterm: any;
 	roastertermStatus: any;
 	roastertermType: any;
 	roastertermOrigin: any;
@@ -52,12 +53,14 @@ export class RequestsTableComponent implements OnInit {
 		language: { "search": '' }
 	};
 	roasterId: any;
+	requestData: any;
 
 	constructor(public router: Router,
 		public cookieService: CookieService,
 		public dashboard: DashboardserviceService,
-		public globals: GlobalsService, public roasterService:RoasterserviceService,private toastrService: ToastrService) {
-			this.roasterId = this.cookieService.get('roaster_id');
+		public globals: GlobalsService, public roasterService: RoasterserviceService,
+		private toastrService: ToastrService, public roasteryProfileService: RoasteryProfileService) {
+		this.roasterId = this.cookieService.get('roaster_id');
 
 		// this.data = {};
 		// this.data =
@@ -96,76 +99,7 @@ export class RequestsTableComponent implements OnInit {
 		}
 		this.getMrRequestsData();
 		this.appLanguage = this.globals.languageJson;
-		// var editIcon = function ( data, type, row ) {
-		// 	if ( type === 'display' ) {
-		// 		return data + ' <span class="tooltiptext">Tooltip text</span>';
-		// 	}
-		// 	return data;
-		// };
-		this.dtOptions = {
-			//ajax: this.data,
-			data: this.data,
-			pagingType: 'full_numbers',
-			pageLength: 10,
-			lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-			processing: false,
-			autoWidth: false,
-			language: {
-				search: "",
-				emptyTable: this.globals.languageJson.no_table_data
-			},
-			columns: [
-				// {title: '<input type="checkbox" value="">' , data: null, className: "select-checkbox", defaultContent:'<input type="checkbox" value="">'},
-				{
-					title: '<label class="bestate-check "><input type="checkbox"  name="estate_all" [checked]="isAllCheckedRoaster()" (change)="checkAllRoaster($event)"><span class="estatecheckmark"></span></label>',
 
-					defaultContent: '<label class="bestate-check"><input type="checkbox" name="sizecb[]" value="data.id" [(ngModel)]="data.state"  /><span class="estatecheckmark"></span>',
-				},
-			 {
-					title: 'Requested by',
-					data: 'requestedby',
-				
-				}, {
-					title: 'Date requested',
-					data: 'daterequested'
-				},
-				{
-					title: this.globals.languageJson.origin,
-					data: 'origin',
-
-        },
-        {
-					title: this.globals.languageJson.estate,
-					data: 'estate'
-				}, 
-				{
-					title: 'Varity',
-					data: 'varierty',
-
-				},
-			
-
-				{
-					title: this.globals.languageJson.action,
-					defaultContent: "View details",
-					className: "view-order"
-				}
-			],
-
-			rowCallback: (row: Node, data: any, index: number) => {
-				const self = this;
-				$('td', row).click(function () {
-					let navigationExtras: NavigationExtras = {
-						queryParams: {
-							"data": encodeURIComponent(data.status),
-						}
-					}
-						self.router.navigate(["/ordermanagement/mr-request-details"], navigationExtras);
-				})
-			}
-		
-		
-		};
 		this.roastertermStatus = '';
 		this.roastertermOrigin = '';
 		this.roastertermType = '';
@@ -173,27 +107,6 @@ export class RequestsTableComponent implements OnInit {
 		this.estatetermOriginMob = '';
 		this.estatetermStatusMob = '';
 		this.estatetermTypeMob = '';
-		$(document).ready(function () {
-			$(".dataTables_length").ready(function () {
-				$(".dataTables_length").hide()
-				$(".dataTables_info").hide();
-
-			});
-			$("input[type='search']").ready(function () {
-				// $(".dataTables_filter>label").css("color","#FFF");
-				$("input[type='search']").attr("placeholder", "Search by order id, roaster name");
-			});
-		});
-		//Mobile card selection
-		$(document).ready(function () {
-			$('.order-raised').click(function () {
-				$('li', $('.raised-mobile').parent()).removeClass('highlight');
-				$(this).addClass('highlight');
-				$('.raised-mobile').addClass("active");
-			});
-
-		});
-		
 
 		/* pagination start */
 		let listCount = 0;
@@ -468,7 +381,7 @@ export class RequestsTableComponent implements OnInit {
 
 	}
 
-	
+
 	setStatus(term: any) {
 		this.roastertermStatus = term;
 		this.datatableElement.dtInstance.then(table => {
@@ -579,21 +492,13 @@ export class RequestsTableComponent implements OnInit {
 		}
 	}
 	getMrRequestsData() {
-		this.roasterService.getMrOrders(this.roasterId).subscribe(
+		this.roasterService.getMrAvailabilityRequests(this.roasterId).subscribe(
 			data => {
 				console.log(data);
 				if (data['success'] == true) {
-					// if (data['result'] == null || data['result'].length == 0) {
-					// 	// this.hideTable = true ; 
-					// }
-					// else {
-						// this.hideTable = false; 
-						this.data = data['result'];
-					// }
-					// this.estateOrdersActive++;
+					this.requestData = data['result'];
 				}
 				else {
-					// this.estateOrdersActive++;
 					this.toastrService.error(this.globals.languageJson.error_message);
 				}
 			}
@@ -656,16 +561,21 @@ export class RequestsTableComponent implements OnInit {
 	//  Function Name : Check box function.
 	//  Description   : This function helps to Check all the rows of the Users list.
 	checkAllEstate(ev) {
-		if(ev){
+		if (ev) {
 			this.data.forEach(x => (x.state = ev.target.checked));
-		}	
+		}
 	}
 
 	//  Function Name : Single Check box function.
 	//  Description   : This function helps to Check that single row isChecked.
 	isAllCheckedEstate() {
-		if(data){
+		if (data) {
 			// return this.data.every(_ => _.state);
+		}
+	}
+	getCountryName(data: any) {
+		if (data) {
+			return this.roasteryProfileService.countryList.find(con => con.isoCode == data).name;
 		}
 	}
 }

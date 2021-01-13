@@ -41,202 +41,207 @@ import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.com
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AssignUserComponent } from './assign-user/assign-user.component';
+import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
+import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
+import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
+import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/vegetation-chart.component';
+import { ImageMapComponent } from './remote-sensoring/image-map/image-map.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: OrdermanagementComponent,
-    children: [
-      {
-        path: 'myorders',
-        component: MyordersComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'estate-orders',
-        component: EstateOrdersComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'microroaster-orders',
-        component: MrOrdersComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'facilitator-orders',
-        component: FacilitatorOrdersComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'order-sample',
-        component: OrderSampleComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'confirm-order',
-        component: ConfirmOrderComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'order-prebook',
-        component: OrderPrebookComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'order-booked',
-        component: OrderBookedComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'prebook-confirmorder',
-        component: PrebookConfirmOrderComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'order-support',
-        component: OrderSupportComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'order-support-faqs',
-        component: OrderSupportFaqsComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'raised-tickets',
-        component: RaisedTicketComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'raise-ticket-form',
-        component: RaiseTicketFormComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'select-order',
-        component: SelectAnOrderComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'review-ratings',
-        component: ReviewRatingsComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'rating',
-        component: RatingComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'direct-messaging',
-        component: DirectMessagingComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'order-chat',
-        component: OrderChatComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'pre-order-chat',
-        component: PreOrderChatComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'book-order-chat',
-        component: BookOrderChatComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'horeca-orders',
-        component: HorecaOrdersComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'horeca-order-details',
-        component: HorecaOrderDetailsComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'order-confirmation',
-        component: HorecaOrderConfirmComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'details-order',
-        component: DetailsOrderComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'subscription-confirmation',
-        component: HorecaSubscriptionConfirmComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'horeca-subscription-details',
-        component: HorecaSubscriptionDetailsComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'details-subscription',
-        component: DetailsSubscriptionComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'horeca-previous-subscription',
-        component: HorecaPreviousSubscriptionComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'mr-booked',
-        component: MicroOrderBookedComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'mr-sample',
-        component: MicroOrderSampleComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'sample-order-confirmation',
-        component: SampleOrderConfirmationComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'booked-order-confirmation',
-        component: BookedOrderConfirmationComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'mr-orders',
-        component: MrOrdersComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'mr-request-details',
-        component: MrRequestDetailsComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'assign-user',
-        component: AssignUserComponent,
-        canActivate: [AuthGuard],
-      },
-      {
+    {
         path: '',
-        redirectTo: 'myorders',
-        pathMatch: 'full',
-      },
-      {
-        path: '**',
-        component: PageNotFoundComponent,
-      },
-    ],
-  },
+        component: OrdermanagementComponent,
+        children: [
+            {
+                path: 'myorders',
+                component: MyordersComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'estate-orders',
+                component: EstateOrdersComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'microroaster-orders',
+                component: MrOrdersComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'facilitator-orders',
+                component: FacilitatorOrdersComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-sample',
+                component: OrderSampleComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'confirm-order',
+                component: ConfirmOrderComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-prebook',
+                component: OrderPrebookComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-booked',
+                component: OrderBookedComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'prebook-confirmorder',
+                component: PrebookConfirmOrderComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-support',
+                component: OrderSupportComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-support-faqs',
+                component: OrderSupportFaqsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'raised-tickets',
+                component: RaisedTicketComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'raise-ticket-form',
+                component: RaiseTicketFormComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'select-order',
+                component: SelectAnOrderComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'review-ratings',
+                component: ReviewRatingsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'rating',
+                component: RatingComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'direct-messaging',
+                component: DirectMessagingComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-chat',
+                component: OrderChatComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'pre-order-chat',
+                component: PreOrderChatComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'book-order-chat',
+                component: BookOrderChatComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'horeca-orders',
+                component: HorecaOrdersComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'horeca-order-details',
+                component: HorecaOrderDetailsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-confirmation',
+                component: HorecaOrderConfirmComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'details-order',
+                component: DetailsOrderComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'subscription-confirmation',
+                component: HorecaSubscriptionConfirmComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'horeca-subscription-details',
+                component: HorecaSubscriptionDetailsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'details-subscription',
+                component: DetailsSubscriptionComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'horeca-previous-subscription',
+                component: HorecaPreviousSubscriptionComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'mr-booked',
+                component: MicroOrderBookedComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'mr-sample',
+                component: MicroOrderSampleComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'sample-order-confirmation',
+                component: SampleOrderConfirmationComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'booked-order-confirmation',
+                component: BookedOrderConfirmationComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'mr-orders',
+                component: MrOrdersComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'mr-request-details',
+                component: MrRequestDetailsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'assign-user',
+                component: AssignUserComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: '',
+                redirectTo: 'myorders',
+                pathMatch: 'full',
+            },
+            {
+                path: '**',
+                component: PageNotFoundComponent,
+            },
+        ],
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class OrdermanagementRoutingModule {}
