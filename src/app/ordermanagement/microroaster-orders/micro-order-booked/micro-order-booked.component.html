@@ -8,7 +8,8 @@
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r"
+                                        aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png"
                                             alt=""></span>
                                 </li>
                                 <!-- <li class="b-cum">
@@ -16,10 +17,11 @@
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li> -->
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/microroaster-orders">Micro roaster orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
+                                    <a class="b-cum" routerLink="/ordermanagement/microroaster-orders">Micro roaster
+                                        orders</a><span class="padl-r" aria-hidden="true"> <img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
-                                <li class="b-cum c-pink">Order 12416
+                                <li class="b-cum c-pink">Order {{bookId}}
                                 </li>
                             </ul>
                         </nav>
@@ -27,7 +29,8 @@
 
                     <div class="col-lg-6 col-md-12 pull-right ml-auto d-none d-md-block pl-0 pr-0">
                         <span class="pull-right ml-auto order-placed-text">
-                            Order placed : <span class="date-text">1st Jan 2020</span>
+                            Order placed : <span
+                                class="date-text">{{bookDetailService.created_date | date:"d MMM, y" }}</span>
                         </span>
                     </div>
                 </div>
@@ -35,7 +38,7 @@
                     <div class=" col-lg-12 col-md-12 col-sm-12 pr-0">
                         <div class="row ">
                             <div class="col-md-6 pl-0 pr-0">
-                                <div class="order__id d-flex align-items-center">Order #12416
+                                <div class="order__id d-flex align-items-center">Order #{{bookId}}
                                     <span class="booked booked--orange ml-2">Booked</span>
                                     <!-- <span class="standard__delivery">
                                         <span class="fnt-muli"><img src="assets/images/shipping.png" alt=""> Standard Delivery  (3 - 5days)</span>
@@ -44,7 +47,8 @@
                             </div>
                             <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
                                 <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
-                                <button type="submit" class="btn  pull-right ord-invoice-butn"> Order
+                                <button type="submit" class="btn  pull-right ord-invoice-butn" (click)="showInvoice()">
+                                    Order
                                     Invoice </button>
                             </div>
                         </div>
@@ -60,8 +64,10 @@
                                         <div class="w-100 d-flex flex-column flex-md-row">
                                             <div class="order-tracking" id="placedDivSample">
                                                 <span class="is-complete "></span>
-                                                <div class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
-                                                    <p class="order-status  mt-md-2 mb-1" (click)="orderPlaceSample()" #orderPlacedSample style="color: #232334;font-weight: bold;">
+                                                <div
+                                                    class="text-md-center order-tracking__mb-text mt-order-0 ml-2 ml-md-0">
+                                                    <p class="order-status  mt-md-2 mb-1" (click)="orderPlaceSample()"
+                                                        #orderPlacedSample style="color: #232334;font-weight: bold;">
                                                         Order placed</p>
                                                     <!-- <p class="order-date mb-0 t">Estate + facilitator Notified </p> -->
                                                 </div>
@@ -69,26 +75,30 @@
                                             <div class="order-tracking completed" id="confirmDivSample">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                    <p class="order-status  mt-md-2" (click)="orderConfirmSample()" #orderConfirmedSample>Order Confirmed</p>
+                                                    <p class="order-status  mt-md-2" (click)="orderConfirmSample()"
+                                                        #orderConfirmedSample>Order Confirmed</p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking  completed" id="paymentDivSample">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                    <p class="order-status mt-md-2" (click)="paySample()" #paymentSample>Payment</p>
+                                                    <p class="order-status mt-md-2" (click)="paySample()"
+                                                        #paymentSample>Payment</p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking  completed" id="shippmentDivSample">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                    <p class="order-status mt-md-2 mb-1" (click)="shipmentStatusSample()" #shippmentSample>Shipped</p>
+                                                    <p class="order-status mt-md-2 mb-1"
+                                                        (click)="shipmentStatusSample()" #shippmentSample>Shipped</p>
                                                     <!-- <p class="order-date mb-0" *ngIf="shippmentReport">20 Feb 2020</p> -->
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="receivedDivSample">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center order-tracking__mb-text ml-2 ml-md-0">
-                                                    <p class="order-status mt-md-2 mb-0" (click)="receivedStatusSample()" #receivedSample>Recieved</p>
+                                                    <p class="order-status mt-md-2 mb-0"
+                                                        (click)="receivedStatusSample()" #receivedSample>Recieved</p>
                                                     <p class="order-date mb-0"> by customer</p>
                                                 </div>
                                             </div>
@@ -120,13 +130,15 @@
                             <div class="col-lg-9 col-md-8 col-sm-12 d-flex">
                                 <div class="col-md-1 main pl-4">
                                     <span class="circle-image">
-										<img src="assets/images/cricle-active.png">
-									</span>
+                                        <img src="assets/images/cricle-active.png">
+                                    </span>
                                 </div>
                                 <div class="col-md-11 pl-0">
                                     <div class="confirm-grade order-mr pt-2">Recieved by the Customer</div>
-                                    <div class="confirm-grade order-mr">The order has been marked as recieved by the mirco roaster!</div>
-                                    <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback!</button>
+                                    <div class="confirm-grade order-mr">The order has been marked as recieved by the
+                                        mirco roaster!</div>
+                                    <button type="submit" class="cancel-order btn mt-3"
+                                        routerLink="/ordermanagement/rating">Leave a feedback!</button>
                                 </div>
                                 <!-- <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
 									<button type="submit" class="yes-order btn mt-3">Buy it again </button>
@@ -135,23 +147,25 @@
                             </div>
                         </div>
                     </div>
-                      <!-- Waiting for Confirmation -->
-                      <div class="in-order mt-5 confirm-shippment" *ngIf="waitingConfirmShow">
-                            <div class="row">
-                                <div class="col-lg-9 col-md-8 col-sm-12 d-flex">
-                                    <!-- <div class="col-md-1 main pl-4">
+                    <!-- Waiting for Confirmation -->
+                    <div class="in-order mt-5 confirm-shippment" *ngIf="waitingConfirmShow">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-8 col-sm-12 d-flex">
+                                <!-- <div class="col-md-1 main pl-4">
                                         <span class="circle-image">
                                             <img src="assets/images/cricle-active.png">
                                         </span>
                                     </div> -->
-                                    <div class="col-md-11 pl-0">
-                                        <h4 class="order-txt fnt-play">Waiting for a confirmation from Micro-Roaster</h4>
-                                        <div class="confirm-grade order-mr pt-2">The micro-roaster will review the order received and confirm the order.</div>
-                                        <button type="submit" class="cancel-order btn mt-3" routerLink="/ordermanagement/rating">Leave a feedback!</button>
-                                    </div>
+                                <div class="col-md-11 pl-0">
+                                    <h4 class="order-txt fnt-play">Waiting for a confirmation from Micro-Roaster</h4>
+                                    <div class="confirm-grade order-mr pt-2">The micro-roaster will review the order
+                                        received and confirm the order.</div>
+                                    <button type="submit" class="cancel-order btn mt-3"
+                                        routerLink="/ordermanagement/rating">Leave a feedback!</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </section>
             </div>
         </div>
@@ -161,7 +175,8 @@
     <div class="col-lg-12">
         <div class="customer__amount">
             <div class="w-100 clearfix">
-                <div class="pull-left pt-3 text-data">When you receive the due amount from the customer, mark as payment done here.</div>
+                <div class="pull-left pt-3 text-data">When you receive the due amount from the customer, mark as payment
+                    done here.</div>
                 <div class="pull-right">
                     <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                     <button class="btn payment__recieved fnt-muli mr-2">Payment Received</button>
@@ -175,10 +190,12 @@
     <div class="col-lg-12">
         <div class="customer__amount">
             <div class="w-100 clearfix">
-                <div class="pull-left pt-3 text-data col-6">When the order is ready to be shipped , please update the tracking link and the shipping date for the customers to keep a track. </div>
+                <div class="pull-left pt-3 text-data col-6">When the order is ready to be shipped , please update the
+                    tracking link and the shipping date for the customers to keep a track. </div>
                 <div class="pull-right">
                     <input type="text" class="track-link mr-2" id="track-link" placeholder="Enter tracking link">
-                    <p-calendar class="year mr-2" [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" inputId="navigators" placeholder="Estimated arrival date"></p-calendar>
+                    <p-calendar class="year mr-2" [(ngModel)]="date6" [monthNavigator]="true" [yearNavigator]="true"
+                        yearRange="2000:2030" inputId="navigators" placeholder="Estimated arrival date"></p-calendar>
                     <button class="btn save-btn fnt-muli mr-2" *ngIf="savemode" (click)="save()">Save</button>
                     <button class="btn save-btn fnt-muli mr-2" *ngIf="editmode" (click)="edit()">Edit</button>
                 </div>
@@ -196,14 +213,17 @@
                 <div class="border-ebebeb h-100">
                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Order details</a>
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                role="tab" aria-controls="pills-home" aria-selected="true">Order details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Estate Info</a>
+                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+                                role="tab" aria-controls="pills-contact" aria-selected="false">Estate Info</a>
                         </li>
                         <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button" class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a
-										problem?</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button type="button"
+                                class="btn problem-btn" routerLink="/ordermanagement/order-support">Have a
+                                problem?</button>
                         </li>
                     </ul>
                     <!-- <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
@@ -212,12 +232,14 @@
 							</div> -->
 
                     <div class="tab-content mt-md-5" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                            aria-labelledby="pills-home-tab">
 
                             <app-booked-details></app-booked-details>
                         </div>
 
-                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                        <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                            aria-labelledby="pills-contact-tab">
                             <div class="row">
                                 <app-booked-notes></app-booked-notes>
                             </div>
@@ -254,9 +276,9 @@
                                     <li class="estate-name">Toffee roasters</li>
                                     <li class="estate-number pt-1">
                                         <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
-                                            class="" src="assets/images/star-1.png" alt="User"> <span
-                                            class="star-no pl-1">
-                                            4.95</span>
+                                                class="" src="assets/images/star-1.png" alt="User"> <span
+                                                class="star-no pl-1">
+                                                4.95</span>
                                         </span>
                                     </li>
                                 </ul>
@@ -264,9 +286,8 @@
                             <div class="pull-right ml-auto">
                                 <div class="">
                                     <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
-                                    <span class="bg-msg"> <img class="message-icon"
-                                                    src="assets/images/message-icon.svg" alt="Message"><span
-                                                    class="customer-message pl-2">Message</span> </span>
+                                    <span class="bg-msg"> <img class="message-icon" src="assets/images/message-icon.svg"
+                                            alt="Message"><span class="customer-message pl-2">Message</span> </span>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +300,8 @@
 
                         <p class="delivery__addr">Notes</p>
 
-                        <p class="addr-text">Add special instructions or comments about the order for your team members </p>
+                        <p class="addr-text">Add special instructions or comments about the order for your team members
+                        </p>
 
                         <div class="farm-input">
                             <input type="text" placeholder="Add a comment">
@@ -304,7 +326,8 @@
 
                 <div class="w-100 col-lg-6 col-md-12 recent-activity-content">
                     <p class=" w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
-                    <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2" src="assets/images/active.png"></p>
+                    <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2"
+                            src="assets/images/active.png"></p>
                     <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row">
                         <div class="d-none d-md-inline-block p-0">
                             <img class="img-estate" src="assets/images/activity1.png" alt="User">
@@ -360,7 +383,9 @@
 
                     </div>
                     <div class="w-100 mt-4 mb-2 d-block d-md-none">
-                        <button type="button" class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center">Cancel order</button>
+                        <button type="button"
+                            class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center">Cancel
+                            order</button>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
@@ -375,8 +400,9 @@
                 <button type="button" class="btn cancel-order-btn">Cancel order</button>
             </div>
             <div class="w-100 chat-div">
-                <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/ordermanagement/order-chat">Order #12416 chat <span class="chat-indicator">
-							&#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
+                <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+                    routerLink="/ordermanagement/order-chat">Order #12416 chat <span class="chat-indicator">
+                        &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
 
             </div>
         </div>

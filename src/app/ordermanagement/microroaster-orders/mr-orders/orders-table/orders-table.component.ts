@@ -652,11 +652,19 @@ export class OrdersTableComponent implements OnInit {
 
 		let navigationExtras: NavigationExtras = {
 			queryParams: {
-				"data": encodeURIComponent(group.status),
+				"id": encodeURIComponent(group.id)
 			}
 		}
 		if (group.type == "GC_ORDER") {
-			this.router.navigate(["/ordermanagement/mr-booked"], navigationExtras);
+			if (group.status == "PLACED") {
+				this.router.navigate(["/ordermanagement/booked-order-confirmation"], navigationExtras);
+			}
+			else if (group.status == "REJECTED") {
+				this.router.navigate(["/ordermanagement/microroaster-orders"]);
+			}
+			else {
+				this.router.navigate(["/ordermanagement/mr-booked"], navigationExtras);
+			}
 		}
 		else if (group.type == "Sample") {
 			this.router.navigate(["/ordermanagement/mr-sample"], navigationExtras);
