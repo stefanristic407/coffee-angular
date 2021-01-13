@@ -61,7 +61,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 
 import { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
 import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
@@ -365,9 +364,6 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         deps: [HttpClient],
       },
     }),
-    ChartAllModule,
-    AccumulationChartAllModule,
-    RangeNavigatorAllModule,
     SharedModule,
   ],
 })

@@ -1,0 +1,11 @@
+.chart-details {
+  padding: 24px 24px 24px 24px;
+  border: 1px solid #ebebeb;
+}
+
+@media (max-width: 767px) {
+  .chart-details {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

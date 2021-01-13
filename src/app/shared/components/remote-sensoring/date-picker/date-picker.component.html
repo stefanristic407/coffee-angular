@@ -1,0 +1,25 @@
+<div class="d-inline-block date-picker-wrap" [class.opened]="opened">
+  <a>
+    <p class="d-inline">
+      <p-calendar
+        #calendar
+        styleClass="only-icon"
+        [(ngModel)]="date"
+        dateFormat="dd.mm.yy"
+        [readonlyInput]="true"
+        [showButtonBar]="true"
+        (onSelect)="onSelect($event)"
+        (onShow)="opened = true"
+        (onClose)="opened = false"
+      ></p-calendar>
+      <span *ngIf="!date">Select date &nbsp;</span>
+      <span *ngIf="date">{{ date | date: 'dd/MM/yyyy' }}</span>
+      &nbsp;
+      <img
+        src="assets/images/active-calender.png"
+        (click)="openCalendar($event)"
+        class="pointer-items"
+      />
+    </p>
+  </a>
+</div>

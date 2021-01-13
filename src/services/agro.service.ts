@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { UserserviceService } from './users/userservice.service';
 import * as moment from 'moment';
 
 @Injectable({
@@ -9,10 +7,9 @@ import * as moment from 'moment';
 })
 export class AgroService {
   appid = '593c1b38da7aca9aca05192c565760b4';
+  apiUrl = 'https://api.agromonitoring.com/agro/1.0/';
 
-  constructor(
-    private http: HttpClient,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   checkTime(query: any) {
     // Check time
@@ -26,43 +23,38 @@ export class AgroService {
     return query;
   }
 
-  getHistoricalWeather(query: any = {}) {
-    const polyid = '5fdb6975f936d5000742add0';
+  getHistoricalWeather(polyid, query: any = {}) {
     query = this.checkTime(query);
     return this.http.get(
-      `https://api.agromonitoring.com/agro/1.0/weather/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
+      `${this.apiUrl}weather/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
     );
   }
 
-  getHistoricalSoil(query: any = {}) {
-    const polyid = '5fdb6975f936d5000742add0';
+  getHistoricalSoil(polyid, query: any = {}) {
     query = this.checkTime(query);
     return this.http.get(
-      `https://api.agromonitoring.com/agro/1.0/soil/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
+      `${this.apiUrl}soil/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
     );
   }
 
-  getHistoricalUv(query: any = {}) {
-    const polyid = '5fdb6975f936d5000742add0';
+  getHistoricalUv(polyid, query: any = {}) {
     query = this.checkTime(query);
     return this.http.get(
-      `https://api.agromonitoring.com/agro/1.0/uvi/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
+      `${this.apiUrl}uvi/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
     );
   }
 
-  getHistoricalNdvi(query: any = {}) {
-    const polyid = '5fdb6975f936d5000742add0';
+  getHistoricalNdvi(polyid, query: any = {}) {
     query = this.checkTime(query);
     return this.http.get(
-      `https://api.agromonitoring.com/agro/1.0/ndvi/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
+      `${this.apiUrl}ndvi/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
     );
   }
 
-  getImage(query: any = {}) {
-    const polyid = '5fdb6975f936d5000742add0';
+  getImage(polyid, query: any = {}) {
     query = this.checkTime(query);
     return this.http.get(
-      `https://api.agromonitoring.com/agro/1.0/image/search?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
+      `${this.apiUrl}image/search?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`
     );
   }
 }

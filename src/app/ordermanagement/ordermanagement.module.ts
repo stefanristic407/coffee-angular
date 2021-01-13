@@ -2,6 +2,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { SharedModule } from 'src/app/shared/shared.module';
+
 import { DataTablesModule } from 'angular-datatables';
 import { RatingModule } from 'ng-starrating';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -150,6 +153,7 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
   imports: [
     // BrowserAnimationsModule,
     CommonModule,
+    SharedModule,
     OrdermanagementRoutingModule,
     DataTablesModule,
     Ng2SearchPipeModule,

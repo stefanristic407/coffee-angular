@@ -409,3 +409,39 @@ input[type='number'] {
     height: 100%;
   }
 }
+
+.ui-tabview {
+  .ui-tabview-nav {
+    li {
+      border: none !important;
+      border-bottom: 2px solid transparent !important;
+      flex: inherit !important;
+      padding-bottom: 6px !important;
+      background-color: transparent !important;
+
+      a {
+        font-weight: 600 !important;
+        font-family: $general-font-family !important;
+        font-size: 14px !important;
+        color: #232334 !important;
+      }
+
+      &.ui-tabview-selected {
+        border-bottom: 2px solid #30855c !important;
+        a {
+          color: #30855c !important;
+        }
+      }
+
+      &:focus {
+        box-shadow: none !important;
+      }
+    }
+  }
+
+  .ui-tabview-panels {
+    border: none !important;
+    border-top: 1px solid #ebebeb !important;
+    padding: 0 !important;
+  }
+}
