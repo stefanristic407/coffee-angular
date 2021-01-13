@@ -115,7 +115,7 @@ export class OrderBookedService {
 					this.receipt_url = res['result']['receipt_url'];
 					this.payment_after_delivery = res['result']['payment_after_delivery'];
 					this.order_status = res['result']['status'];
-					if (this.payment_status == 'VERIFIED') {
+					if (this.payment_status == 'VERIFIED' || this.payment_status == 'PAID') {
 						this.uploadShow = false;
 						this.receiptShow = true;
 						this.statusPaid = true;
