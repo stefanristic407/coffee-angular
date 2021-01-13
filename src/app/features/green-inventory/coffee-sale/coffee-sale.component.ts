@@ -76,11 +76,13 @@ export class CoffeeSaleComponent implements OnInit {
         console.log(response);
         if (response && response['success']) {
           this.toasterService.error("Successfully marked the sale");
+          this.router.navigate(["/features/green-coffee-inventory"]);
         }
         if (response && !response['success'] && response['messages'] && response['messages']['sale_data'] && response['messages']['sale_data'][0]) {
           this.toasterService.error("Sale data already exists.");
+        } else {
+          this.toasterService.error("Error while updating mark for sale");
         }
-        this.router.navigate(["/features/green-coffee-inventory"]);
       }, err => {
         console.log(err);
       }

@@ -209,8 +209,9 @@
 
                             <div *ngIf="!showDropdown" class="float-right current-s-bg">
                                 <p class="fnt-14 fnt-muli fnt-400 txt-clr334 m-0"> Current status</p>
-                                <span class="fnt-14 fnt-700 fnt-muli txt-clr334">{{status_label}}</span> <span
-                                    class="text-brown pl-4" (click)="showDropdown = true;"><a>Change status</a> </span>
+                                <span class="fnt-14 fnt-700 fnt-muli txt-clr334">{{status_label}}</span>
+                                <span *ngIf="!readOnlyMode" class="text-brown pl-4"
+                                    (click)="showDropdown = true;"><a>Change status</a> </span>
 
                             </div>
 
@@ -239,7 +240,7 @@
                                     <div class="select col-lg-15 no-padding-RL">
                                         <label>Product Name<span class="star">*</span></label>
                                         <input type="text" name="name" class="form-control"
-                                            [(ngModel)]="saleInformation['name']"
+                                            [(ngModel)]="saleInformation['name']" [disabled]="readOnlyMode"
                                             placeholder="Give a name to this green coffee">
                                     </div>
                                 </div>
@@ -253,14 +254,15 @@
                                             <option value="No" ng-reflect-value="No">2</option>
                                         </select> -->
                                         <div class="input-group">
-                                            <input type="text" placeholder="Enter the selling price"
-                                                class="form-control input-group-right-border"
+                                            <input type="number" placeholder="Enter the selling price"
+                                                class="form-control input-group-right-border" [disabled]="readOnlyMode"
                                                 aria-label="Text input with dropdown button" type="number"
                                                 [(ngModel)]="saleInformation['price']">
                                             <div class="input-group-append">
                                                 <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
                                                 <select name="Year" required=""
                                                     [(ngModel)]="saleInformation['price_unit']"
+                                                    [disabled]="readOnlyMode"
                                                     class="form-control select-region select-form-group-dropdown select-region-local">
                                                     <option value="per kg" ng-reflect-value="kg">per kg</option>
                                                     <option value="gram" ng-reflect-value="gram">gram</option>
@@ -275,12 +277,12 @@
                                         <label> quantity for sale<span>*</span></label>
                                         <div class="input-group">
                                             <input type="number" placeholder="Enter no. of coffee bags for sale"
-                                                [(ngModel)]="saleInformation['quantity']"
+                                                [(ngModel)]="saleInformation['quantity']" [disabled]="readOnlyMode"
                                                 class="form-control input-group-right-border"
                                                 aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
                                                 <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button> -->
-                                                <select name="Year" required="" type="number"
+                                                <select name="Year" required="" type="number" [disabled]="readOnlyMode"
                                                     class="form-control select-region select-form-group-dropdown select-region-local"
                                                     [(ngModel)]="saleInformation['quantity_type']">
                                                     <option value="per kg" ng-reflect-value="bags">bags</option>
@@ -295,7 +297,8 @@
                                 <div class="col-lg-3 col-md-3 float-L no-padding-RL">
                                     <div class="select col-lg-15 no-padding-RL">
                                         <label>Remaining quantity<span class="star">*</span></label>
-                                        <input type="text" name="name" class="form-control" placeholder="-">
+                                        <input type="text" name="name" [disabled]="true" class="form-control"
+                                            placeholder="-">
                                     </div>
                                 </div>
 
@@ -303,12 +306,12 @@
                                     <div class="form-input  col-lg-15 no-padding-RL">
                                         <label>Minimum order quantity<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="text" type="number" placeholder="Enter a no. of bags"
-                                                class="form-control input-group-right-border"
+                                            <input type="number" type="number" placeholder="Enter a no. of bags"
+                                                class="form-control input-group-right-border" [disabled]="readOnlyMode"
                                                 [(ngModel)]="saleInformation['minimum_purchase_quantity']"
                                                 aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
-                                                <select name="Year" required=""
+                                                <select name="Year" required="" [disabled]="readOnlyMode"
                                                     class="form-control select-region select-form-group-dropdown select-region-local">
                                                     <option value="per kg">bags</option>
                                                     <option value="gram" ng-reflect-value="Yes">bags</option>
@@ -324,7 +327,7 @@
                                         <label>Weight / bag*<span>*</span></label>
                                         <div class="input-group">
                                             <input type="text" type="number" placeholder="Enter a no. of Kg"
-                                                class="form-control input-group-right-border"
+                                                class="form-control input-group-right-border" [disabled]="readOnlyMode"
                                                 aria-label="Text input with dropdown button">
                                             <div class="input-group-append">
                                                 <select name="Year" required=""
@@ -354,7 +357,8 @@
                                     <div class="select col-lg-15 no-padding-RL">
                                         <label>VAT Rate<span class="star">*</span></label>
                                         <input type="number" placeholder="Enter VAT Rate" name="name"
-                                            [(ngModel)]="saleInformation['vat_rate']" class="form-control">
+                                            [disabled]="readOnlyMode" [(ngModel)]="saleInformation['vat_rate']"
+                                            class="form-control">
                                     </div>
                                 </div>
 
@@ -366,14 +370,16 @@
                                 </div>
 
                                 <div class="text-right no-padding-RL col-sm-4 mt-48 mb-48 ">
-                                    <button class="btn ord_cancel mt-32"
+                                    <button class="btn ord_cancel mt-32" *ngIf="!readOnlyMode"
                                         routerLink="/features/green-coffee-inventory">{{globals.languageJson?.cancel}}</button>
-                                    <button type="submit" class=" ml-3 place-order btn" [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
+                                    <button type="submit" *ngIf="!readOnlyMode" class=" ml-3 place-order btn"
+                                        [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
                                      || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
                                      !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']"
                                         (click)="updateMarkForSale()">Save changes</button>
                                     <!-- <div class="col-sm-4 col-sx-6 mob-sec float-R"> -->
-                                    <button type="submit" class="col-sm-7 place-order btn mob-sec float-R" [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
+                                    <button type="submit" *ngIf="!readOnlyMode"
+                                        class="col-sm-7 place-order btn mob-sec float-R" [disabled]="!saleInformation['vat_rate'] || !saleInformation['name'] || !saleInformation['price']
                                     || !saleInformation['price_unit'] || !saleInformation['quantity'] || !saleInformation['quantity_type']  ||
                                     !saleInformation['minimum_purchase_quantity'] || !saleInformation['vat_rate']"
                                         (click)="updateMarkForSale()">Save changes</button>

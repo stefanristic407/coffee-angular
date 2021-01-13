@@ -65,8 +65,8 @@
                                         <a *ngIf="!saleInformation" class="contact-us-avail"
                                             routerLink="/features/coffee-sale"
                                             [queryParams]="{orderId: orderDetails?.id}">Mark for sale</a>
-                                        <a *ngIf="saleInformation" class="contact-us-avail"
-                                            routerLink="/features/lot-sale"
+                                        <a *ngIf="saleInformation && saleInformation.status !== 'SOLD'"
+                                            class="contact-us-avail" routerLink="/features/lot-sale"
                                             [queryParams]="{orderId: orderDetails?.id}">{{globals.languageJson?.edit}}</a>
                                         <!-- <a class="know-more-avail">Know more</a> -->
                                     </div>

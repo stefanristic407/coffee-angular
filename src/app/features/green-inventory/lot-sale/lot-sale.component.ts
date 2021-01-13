@@ -21,7 +21,7 @@ export class LotSaleComponent implements OnInit {
   order_status: string = 'IN_STOCK';
   status_label: string = '';
   saleDetailsPresent: boolean = false;
-
+  readOnlyMode: boolean = false;
   constructor(public globals: GlobalsService, public route: ActivatedRoute,
     public roasterService: RoasterserviceService, public cookieService: CookieService, private router: Router,
     private toasterService: ToastrService) {
@@ -51,8 +51,7 @@ export class LotSaleComponent implements OnInit {
         if (response['success'] && response['result']) {
           this.saleInformation = response['result'];
           this.saleDetailsPresent = true;
-          console.log("coming here");
-
+          this.readOnlyMode = this.saleInformation && this.saleInformation.status !== 'SOLD' ? true : false;
           this.order_status = response['result']['status'];
           this.status_label = this.formatStatus(response['result']['status']);
         }

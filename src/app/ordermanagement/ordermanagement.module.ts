@@ -31,7 +31,7 @@ import { OrderSupportFaqsComponent } from './dispute-system/order-support-faqs/o
 import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/raise-ticket-form.component';
 import { RaisedTicketComponent } from './dispute-system/raised-ticket/raised-ticket.component';
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
 import { ReviewRatingsComponent } from './review-ratings/review-ratings.component';
 import { RatingComponent } from './rating/rating.component';
@@ -49,7 +49,7 @@ import { RoasterOrdersComponent } from './roaster-orders/roaster-orders.componen
 import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
 import { PreOrderChatComponent } from './order-prebook/pre-order-chat/pre-order-chat.component';
 import { BookOrderChatComponent } from './order-booked/book-order-chat/book-order-chat.component';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { OrdersComponent } from './myorders/orders/orders.component';
 import { RequestsComponent } from './myorders/requests/requests.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
@@ -57,7 +57,7 @@ import { HorecaOrdersComponent } from './e-commerce-order/horeca-orders/horeca-o
 import { HorecaOrderDetailsComponent } from './e-commerce-order/horeca-order-details/horeca-order-details.component';
 import { HorecaOrderConfirmComponent } from './e-commerce-order/horeca-order-confirm/horeca-order-confirm.component';
 import { EstateInfoComponent } from './e-commerce-order/horeca-order-details/estate-info/estate-info.component';
-import {DetailsOrderComponent} from './e-commerce-order/horeca-order-details/details-order/details-order.component';
+import { DetailsOrderComponent } from './e-commerce-order/horeca-order-details/details-order/details-order.component';
 import { HorecaSubscriptionConfirmComponent } from './e-commerce-order/horeca-subscription-confirm/horeca-subscription-confirm.component';
 import { HorecaSubscriptionDetailsComponent } from './e-commerce-order/horeca-subscription-details/horeca-subscription-details.component';
 import { DetailsSubscriptionComponent } from './e-commerce-order/horeca-subscription-details/details-subscription/details-subscription.component';
@@ -79,7 +79,7 @@ import { OrdersTableComponent } from './microroaster-orders/mr-orders/orders-tab
 import { RequestsTableComponent } from './microroaster-orders/mr-orders/requests-table/requests-table.component';
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 // import { EmptyTableComponent } from '../error-module/empty-table/empty-table.component';
-import {AutoCompleteModule} from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { BookedShippingComponent } from './order-booked/booked-shipping/booked-shipping.component';
 import { RemoteSensoringComponent } from './remote-sensoring/remote-sensoring.component';
 import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
@@ -184,11 +184,11 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
     AutoCompleteModule,
     // EmptyTableComponent,
     TypeaheadModule.forRoot(),
-    ToastrModule.forRoot({timeOut: 10000, preventDuplicates : true}),
+    ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
     ChartAllModule,
     AccumulationChartAllModule,
     RangeNavigatorAllModule
   ],
-  exports : [DirectMessagingComponent]
+  exports: [DirectMessagingComponent]
 })
-export class OrdermanagementModule {}
+export class OrdermanagementModule { }
