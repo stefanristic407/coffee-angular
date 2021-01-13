@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AgroService } from 'src/services/agro.service';
 import * as moment from 'moment';
 import * as _ from 'underscore';
-import { HttpErrorResponse } from '@angular/common/http';
-declare var $: any;
 
 @Component({
   selector: 'app-soil-chart',
@@ -12,6 +10,7 @@ declare var $: any;
   styleUrls: ['./soil-chart.component.scss'],
 })
 export class SoilChartComponent implements OnInit {
+  @Input() polygonId: string;
   dateKeyStrings = ['YYYY/MM/DD', 'YYYY/MM/DD', 'YYYY/MM/DD'];
 
   appLanguage?: any;
@@ -25,18 +24,12 @@ export class SoilChartComponent implements OnInit {
       label: 'Soil temperature',
       title: 'Soil temperature(°C)',
       unit: '°C',
-      minimum: 0,
-      maximum: 30,
-      interval: 5,
     },
     {
       value: 1,
       label: 'Soil moisture',
       title: 'Soil moisture(m3/m3)',
       unit: 'm3/m3',
-      minimum: 0,
-      maximum: 0.5,
-      interval: 0.1,
     },
   ];
   selWeatherType = 0;
@@ -106,6 +99,7 @@ export class SoilChartComponent implements OnInit {
     },
     textStyle: {
       color: '#747588',
+      fontFamily: 'Muli',
     },
     format: '${point.tooltip}',
   };
@@ -115,7 +109,7 @@ export class SoilChartComponent implements OnInit {
   endDate = new Date();
   weatherData: any[] = [];
 
-  constructor(public globals: GlobalsService, public agroSrv: AgroService) {}
+  constructor(public agroSrv: AgroService) {}
 
   ngOnInit(): void {
     this.changeWeatherType(0);
@@ -164,10 +158,7 @@ export class SoilChartComponent implements OnInit {
   }
 
   updateChartSetting() {
-    if (
-      this.selWeatherType === 0 &&
-      (this.selPeriod === 0 || this.selPeriod === 1)
-    ) {
+    if (this.selWeatherType === 0 && (this.selPeriod === 0 || this.selPeriod === 1)) {
       // Legend setting of which has two lines
       this.showLegend = true;
       this.legends = [
@@ -211,7 +202,7 @@ export class SoilChartComponent implements OnInit {
       }
     }
 
-    this.agroSrv.getHistoricalSoil(query).subscribe(
+    this.agroSrv.getHistoricalSoil(this.polygonId, query).subscribe(
       (res: any) => {
         this.weatherData = res;
         this.processData();
@@ -290,24 +281,11 @@ export class SoilChartComponent implements OnInit {
           y = element.moisture.toFixed(3);
         }
       }
-      const label = `${moment
-        .unix(element.dt)
-        .format(this.dateFormats[this.selPeriod])}
+      const label = `${moment.unix(element.dt).format(this.dateFormats[this.selPeriod])}
         <br /><strong>
+        ${this.legends[0].abbr + ' ' + y + this.weatherTypes[this.selWeatherType].unit}
         ${
-          this.legends[0].abbr +
-          ' ' +
-          y +
-          this.weatherTypes[this.selWeatherType].unit
-        }
-        ${
-          this.legends[1]
-            ? ' ' +
-              this.legends[1].abbr +
-              ' ' +
-              y1 +
-              this.weatherTypes[this.selWeatherType].unit
-            : ''
+          this.legends[1] ? ' ' + this.legends[1].abbr + ' ' + y1 + this.weatherTypes[this.selWeatherType].unit : ''
         }</strong>`;
 
       tempData1.push({

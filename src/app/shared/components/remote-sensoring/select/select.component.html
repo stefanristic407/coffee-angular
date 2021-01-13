@@ -28,12 +28,12 @@
   <div>
     <ul class="list-group custom-popover">
       <li
-        *ngFor="let item of items; let i = index;"
+        *ngFor="let item of items; let i = index"
         class="list-group-item item-color"
         [class.selected]="i === selectedIndex"
         (click)="secectValue(i); selectPop.hide()"
       >
-        <a class="pointer-items"> {{ item.label }} </a>
+        <a class="pointer-items fnt-muli"> {{ item.label }} </a>
       </li>
     </ul>
   </div>

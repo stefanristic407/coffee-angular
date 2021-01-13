@@ -18,19 +18,3 @@
     color: #747588;
   }
 }
-
-.list-group {
-  .list-group-item {
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-    &.selected {
-      color: #232334;
-      background-color: #f8f8f8;
-    }
-    &:hover {
-      color: #232334;
-      background-color: #f8f8f8;
-    }
-  }
-}

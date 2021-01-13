@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AgroService } from 'src/services/agro.service';
 import * as moment from 'moment';
 import * as _ from 'underscore';
-import { HttpErrorResponse } from '@angular/common/http';
-declare var $: any;
 
 @Component({
   selector: 'app-weather-chart',
@@ -12,6 +10,7 @@ declare var $: any;
   styleUrls: ['./weather-chart.component.scss'],
 })
 export class WeatherChartComponent implements OnInit {
+  @Input() polygonId: string;
   readonly WeatherConst = {
     0: 'temp',
     1: 'wind',
@@ -33,54 +32,36 @@ export class WeatherChartComponent implements OnInit {
       label: 'Temperature',
       title: 'Temperature(°C)',
       unit: '°C',
-      minimum: 0,
-      maximum: 30,
-      interval: 5,
     },
     {
       value: 1,
       label: 'Wind',
       title: 'Wind Speed(m/s)',
       unit: 'm/s',
-      minimum: 0,
-      maximum: 10,
-      interval: 2,
     },
     {
       value: 2,
       label: 'Rainfall',
       title: 'Rainfall(mm)',
       unit: 'mm',
-      minimum: 0,
-      maximum: 75,
-      interval: 15,
     },
     {
       value: 3,
       label: 'Cloudiness',
       title: 'Cloudiness(%)',
       unit: '%',
-      minimum: 0,
-      maximum: 100,
-      interval: 20,
     },
     {
       value: 4,
       label: 'Pressure',
       title: 'Pressure(hPa)',
       unit: 'hPa',
-      minimum: 1000,
-      maximum: 1050,
-      interval: 10,
     },
     {
       value: 5,
       label: 'Humidity',
       title: 'Humidity(%)',
       unit: '%',
-      minimum: 0,
-      maximum: 100,
-      interval: 20,
     },
   ];
   selWeatherType = 0;
@@ -174,6 +155,7 @@ export class WeatherChartComponent implements OnInit {
     },
     textStyle: {
       color: '#747588',
+      fontFamily: 'Muli',
     },
     format: '${point.tooltip}',
   };
@@ -183,7 +165,7 @@ export class WeatherChartComponent implements OnInit {
   endDate = new Date();
   weatherData: any[] = [];
 
-  constructor(public globals: GlobalsService, public agroSrv: AgroService) {}
+  constructor(public agroSrv: AgroService) {}
 
   ngOnInit(): void {
     this.changeWeatherType(0);
@@ -238,10 +220,7 @@ export class WeatherChartComponent implements OnInit {
   }
 
   updateChartSetting() {
-    if (
-      this.selWeatherType === 0 &&
-      (this.selPeriod === 1 || this.selPeriod === 2)
-    ) {
+    if (this.selWeatherType === 0 && (this.selPeriod === 1 || this.selPeriod === 2)) {
       // Legend setting of which has two lines
       this.showLegend = true;
       this.legends = [{ label: 'Minimum' }, { label: 'Maximum' }];
@@ -284,7 +263,7 @@ export class WeatherChartComponent implements OnInit {
       }
     }
 
-    this.agroSrv.getHistoricalWeather(query).subscribe(
+    this.agroSrv.getHistoricalWeather(this.polygonId, query).subscribe(
       (res: any) => {
         this.weatherData = res;
         this.processData();
@@ -398,24 +377,11 @@ export class WeatherChartComponent implements OnInit {
           y = element[this.WeatherConst[this.selWeatherType]].toFixed(1);
         }
       }
-      const label = `${moment
-        .unix(element.dt)
-        .format(this.dateFormats[this.selPeriod])}
+      const label = `${moment.unix(element.dt).format(this.dateFormats[this.selPeriod])}
         <br /><strong>
+        ${this.legends[0].label + ' ' + y + this.weatherTypes[this.selWeatherType].unit}
         ${
-          this.legends[0].label +
-          ' ' +
-          y +
-          this.weatherTypes[this.selWeatherType].unit
-        }
-        ${
-          this.legends[1]
-            ? ' ' +
-              this.legends[1].label +
-              ' ' +
-              y1 +
-              this.weatherTypes[this.selWeatherType].unit
-            : ''
+          this.legends[1] ? ' ' + this.legends[1].label + ' ' + y1 + this.weatherTypes[this.selWeatherType].unit : ''
         }</strong>`;
 
       tempData1.push({

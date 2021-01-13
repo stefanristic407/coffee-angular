@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AgroService } from 'src/services/agro.service';
 import * as moment from 'moment';
 import * as _ from 'underscore';
-import { HttpErrorResponse } from '@angular/common/http';
-declare var $: any;
 
 @Component({
   selector: 'app-uv-chart',
@@ -12,6 +10,7 @@ declare var $: any;
   styleUrls: ['./uv-chart.component.scss'],
 })
 export class UvChartComponent implements OnInit {
+  @Input() polygonId: string;
   dateKeyStrings = ['YYYY/MM/DD', 'YYYY/MM/DD', 'YYYY/MM/DD'];
   dateFormats = ['DD MMM', 'DD MMM', 'DD MMM'];
 
@@ -25,9 +24,6 @@ export class UvChartComponent implements OnInit {
       label: 'UVI',
       title: 'UV Index',
       unit: '',
-      minimum: 0,
-      maximum: 10,
-      interval: 2,
     },
   ];
   selWeatherType = 0;
@@ -96,6 +92,7 @@ export class UvChartComponent implements OnInit {
     },
     textStyle: {
       color: '#747588',
+      fontFamily: 'Muli',
     },
     format: '${point.tooltip}',
   };
@@ -105,7 +102,7 @@ export class UvChartComponent implements OnInit {
   endDate = new Date();
   weatherData: any[] = [];
 
-  constructor(public globals: GlobalsService, public agroSrv: AgroService) {}
+  constructor(public agroSrv: AgroService) {}
 
   ngOnInit(): void {
     this.changeWeatherType(0);
@@ -195,7 +192,7 @@ export class UvChartComponent implements OnInit {
       }
     }
 
-    this.agroSrv.getHistoricalUv(query).subscribe(
+    this.agroSrv.getHistoricalUv(this.polygonId, query).subscribe(
       (res: any) => {
         this.weatherData = res;
         this.processData();
@@ -243,16 +240,9 @@ export class UvChartComponent implements OnInit {
     const tempData1 = [];
     this.weatherData.forEach((element, index) => {
       const y = element.uvi.toFixed(2);
-      const label = `${moment
-        .unix(element.dt)
-        .format(this.dateFormats[this.selPeriod])}
+      const label = `${moment.unix(element.dt).format(this.dateFormats[this.selPeriod])}
         <br /><strong>
-        ${
-          this.legends[0].abbr +
-          ' ' +
-          y +
-          this.weatherTypes[this.selWeatherType].unit
-        }</strong>`;
+        ${this.legends[0].abbr + ' ' + y + this.weatherTypes[this.selWeatherType].unit}</strong>`;
 
       tempData1.push({
         x: moment.unix(element.dt).toDate(),

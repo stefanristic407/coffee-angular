@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
-declare var $: any;
 
 @Component({
   selector: 'app-select',
@@ -11,7 +9,9 @@ export class SelectComponent implements OnInit {
   @Input() items: any[] = [];
   @Input()
   set value(val: any) {
-    this.selectedIndex = this.items.findIndex(element => element.value === val);
+    this.selectedIndex = this.items.findIndex(
+      (element) => element.value === val,
+    );
   }
   @Output() valueChange = new EventEmitter<any>();
 

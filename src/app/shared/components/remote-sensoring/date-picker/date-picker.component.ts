@@ -6,8 +6,6 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
-declare var $: any;
 import * as moment from 'moment';
 
 @Component({
@@ -37,6 +35,7 @@ export class DatePickerComponent implements OnInit {
   }
 
   openCalendar(event: any) {
+    this.calendar.showOverlay();
     this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
     event.stopPropagation();
   }
