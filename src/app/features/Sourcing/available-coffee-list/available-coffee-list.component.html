@@ -105,16 +105,10 @@
                             </div>
                             <div class="col-lg-7 col-md-6">
                                 <div class="product-description">
-<<<<<<< HEAD
                                     <h2 class="available__lot mb-4 mob-id">
                                         {{ globals.languageJson?.lot_id }} - {{ sourcing.lot_id }}
                                     </h2>
                                     <h2 class="p-h2 mb-2 lot-size">{{ sourcing.available_name }}</h2>
-=======
-                                    <h2 class="available__lot mb-4 mob-id">{{globals.languageJson?.lot_id}} - {{sourcing.lot_id}}
-                                    </h2>
-                                    <h2 class="p-h2 mb-2 lot-size">{{sourcing.available_name}}</h2>
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                                     <div class="s-certified d-md-none">
                                         <ul class="flex">
                                             <!-- <li><img src="/assets/images/group-certificate.png"></li>
@@ -160,18 +154,11 @@
                                         </div>
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
                                             <div class="real-estate">
-<<<<<<< HEAD
                                                 <h6>{{ globals.languageJson?.available_quantity }} :</h6>
                                                 <h3>
                                                     {{ sourcing.quantity_count }} {{ sourcing.quantity_type }} of
                                                     {{ sourcing.quantity }}{{ sourcing.quantity_unit }}
                                                 </h3>
-=======
-                                                <h6>{{globals.languageJson?.available_quantity}} :</h6>
-                                                <h3>{{sourcing.quantity_count}} {{sourcing.quantity_type}} of {{sourcing.quantity}}{{sourcing.quantity_unit}}
-                                                </h3>
-
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
@@ -186,12 +173,8 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate p-date">
                                                     <h6>12 Feb, 2020</h6>
-<<<<<<< HEAD
                                                     <h3>
                                                         {{ globals.languageJson?.cup_score }} : {{ sourcing.cup_score }}
-=======
-                                                    <h3> {{globals.languageJson?.cup_score}} : {{sourcing.cup_score}}
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                                                     </h3>
                                                 </div>
                                             </div>
@@ -283,15 +266,11 @@
                                             <div class="real-estate">
                                                 <img src="assets/images/altitute.svg" />
                                                 <h6>Altitude range</h6>
-<<<<<<< HEAD
                                                 <h3>
                                                     {{ sourcing.min_altitude_coffee }}-{{
                                                         sourcing.max_altitude_coffee
                                                     }}
                                                     m
-=======
-                                                <h3>{{sourcing.min_altitude_coffee}}-{{sourcing.max_altitude_coffee}} m
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                                                 </h3>
                                             </div>
                                         </div>
@@ -323,14 +302,9 @@
                                                         <label>Wet Mill processing :</label>
                                                         <p>{{ sourcing.wet_process }}</p>
                                                     </li>
-<<<<<<< HEAD
                                                     <li>
                                                         <label>Fermentation/hr :</label>
                                                         <p>{{ sourcing.wet_fermentation }}</p>
-=======
-                                                    <li><label>Fermentation/hr :</label>
-                                                        <p>{{sourcing.wet_fermentation}}</p>
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                                                     </li>
                                                     <li>
                                                         <label>Dry milling process :</label>
@@ -458,197 +432,8 @@
                         </div>
                     </div>
                     <!-- Chart div starts-->
-<<<<<<< HEAD
                     <div *ngIf="sourcing.polygonId">
                         <app-remote-sensoring [polygonId]="sourcing.polygonId"> </app-remote-sensoring>
-=======
-                    <div class="chart-details chart-cont mt-4">
-                        <div class="row">
-                            <div class="live-estate col-lg-12 ">
-                                <h2>{{globals.languageJson?.live_from_estate}}!</h2>
-                                <div class="mt-2 live-text">{{globals.languageJson?.we_updates_geotracking}}!</div>
-
-                                <nav class="mt-4">
-                                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#weather" role="tab" aria-controls="nav-home" aria-selected="true">{{globals.languageJson?.weather}}</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab2" data-toggle="tab" href="#soil" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.soil}}</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#uv" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.uv}}</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab3" data-toggle="tab" href="#images" role="tab" aria-controls="nav-profile" aria-selected="false">{{globals.languageJson?.images}}</a>
-                                    </div>
-                                </nav>
-
-                                <div class="tab-content pt-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
-                                    <!-- weather-->
-                                    <div class="tab-pane fade show active" id="weather" role="tabpanel" aria-labelledby="nav-home-tab">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                            </div>
-                                            <div class="col-lg-7 d-inline pl-0 pl-md-5">
-                                                <div class="d-inline col-sm-6">
-                                                    <span class="legend-color"></span><span class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
-                                                </div>
-                                                <div class="d-inline col-sm-6">
-                                                    <span class="legend-color2"></span><span class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
-                                                </div>
-                                                <div class="hover-filters d-inline-block">
-                                                    <div class="d-inline border-total-chart col-sm-6" id="temperature_id" [outsideClick]="true" (onShown)="toggleTemperature();" (onHidden)="toggleTemperature();" [popover]="temperatureTemplate" placement="bottom" container="body" #pop12="bs-popover">
-                                                        <p class="d-inline filter-text-chart" *ngIf="temperature == ''">
-                                                            {{globals.languageJson?.temperature}}&nbsp;</p>
-                                                        <a class="pointer-item">
-                                                            <p class="d-inline filter" *ngIf="temperature == ''">
-                                                                &nbsp; <img src="{{ showTemperature ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                            </p>
-                                                        </a>
-                                                        <a class="pointer-item">
-                                                            <p class="d-inline filter" *ngIf="temperature != ''">
-                                                                {{ temperature }} &nbsp;<img src="{{ showTemperature ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                            </p>
-                                                        </a>
-                                                    </div>
-                                                </div>&nbsp;&nbsp;
-                                                <div class="hover-filters d-inline-block">
-                                                    <div class="d-inline border-total col-sm-6" id="hourly_id" [outsideClick]="true" (onShown)="toggleHourly();" (onHidden)="toggleHourly();" [popover]="hourTemplate" placement="bottom" container="body" #pop13="bs-popover">
-                                                        <p class="d-inline filter-text-chart" *ngIf="hourly == ''">
-                                                            {{globals.languageJson?.hourly_forecast}}&nbsp;</p>
-                                                        <a class="pointer-item">
-                                                            <p class="d-inline filter" *ngIf="hourly == ''">
-                                                                &nbsp; <img src="{{ showHourly ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                            </p>
-                                                        </a>
-                                                        <a class="pointer-item">
-                                                            <p class="d-inline filter" *ngIf="hourly != ''">
-                                                                {{ hourly }} &nbsp;<img src="{{ showHourly ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                                            </p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-0 mt-md-4">
-                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                                [roundDomains]="roundDomains" [timeline]="timeline">
-                                            </ngx-charts-line-chart>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="soil" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                            </div>
-                                            <div class="col-lg-7 d-inline pl-0 pl-md-5">
-                                                <div class="d-inline col-sm-6">
-                                                    <span class="legend-color"></span><span class="legend-text pl-2">
-                                                        {{globals.languageJson?.legend1}}</span>
-                                                </div>
-                                                <div class="d-inline col-sm-6">
-                                                    <span class="legend-color2"></span> <span class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
-                                                </div>
-
-                                                <div class="d-inline border-total col-sm-6 ml-md-4">
-                                                    <p class="d-inline add-variety">
-                                                        {{globals.languageJson?.temperature}}&nbsp;&nbsp;</p>
-                                                    <a class="pointer-item">
-                                                        <p class="d-inline filter">
-                                                            &nbsp; <img src="assets/images/active-user.svg" />
-                                                        </p>
-                                                    </a>
-                                                </div>&nbsp;&nbsp;
-                                                <div class="d-inline border-total col-sm-6">
-                                                    <p class="d-inline add-variety">
-                                                        {{globals.languageJson?.hourly_forecast}}&nbsp;&nbsp;</p>
-                                                    <a class="pointer-item">
-                                                        <p class="d-inline filter">
-                                                            &nbsp; <img src="assets/images/active-user.svg" />
-                                                        </p>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-0 mt-md-4">
-                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                                [roundDomains]="roundDomains" [timeline]="timeline">
-                                            </ngx-charts-line-chart>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="uv" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                            </div>
-                                            <div class="col-lg-7 d-inline pl-0 pl-md-5">
-                                                <div class="d-inline col-sm-6">
-                                                    <span class="legend-color"></span><span class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
-                                                </div>
-                                                <div class="d-inline col-sm-6">
-                                                    <span class="legend-color2"></span><span class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
-                                                </div>
-
-                                                <div class="d-inline border-total col-sm-6 ml-md-4">
-                                                    <p class="d-inline add-variety">
-                                                        {{globals.languageJson?.temperature}}&nbsp;&nbsp;</p>
-                                                    <a class="pointer-item">
-                                                        <p class="d-inline filter">
-                                                            &nbsp; <img src="assets/images/active-user.svg" />
-                                                        </p>
-                                                    </a>
-                                                </div>&nbsp;&nbsp;
-                                                <div class="d-inline border-total col-sm-6">
-                                                    <p class="d-inline add-variety">
-                                                        {{globals.languageJson?.hourly_forecast}}&nbsp;&nbsp;</p>
-                                                    <a class="pointer-item">
-                                                        <p class="d-inline filter">
-                                                            &nbsp; <img src="assets/images/active-user.svg" />
-                                                        </p>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-0 mt-md-4">
-                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                                [roundDomains]="roundDomains" [timeline]="timeline">
-                                            </ngx-charts-line-chart>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                            </div>
-                                            <div class="col-lg-7 d-inline pl-0 pl-md-5">
-                                                <div class="d-inline col-sm-6">
-                                                    <span class="legend-color"></span><span class="legend-text pl-2">{{globals.languageJson?.legend1}}</span>
-                                                </div>
-                                                <div class="d-inline col-sm-6">
-                                                    <span class="legend-color2"></span><span class="legend-text pl-2">{{globals.languageJson?.legend2}}</span>
-                                                </div>
-
-                                                <div class="d-inline border-total col-sm-6 ml-md-4">
-                                                    <p class="d-inline add-variety">
-                                                        {{globals.languageJson?.temperature}}&nbsp;&nbsp;</p>
-                                                    <a class="pointer-item">
-                                                        <p class="d-inline filter">
-                                                            &nbsp; <img src="assets/images/active-user.svg" />
-                                                        </p>
-                                                    </a>
-                                                </div>&nbsp;&nbsp;
-                                                <div class="d-inline border-total col-sm-6">
-                                                    <p class="d-inline add-variety">
-                                                        {{globals.languageJson?.hourly_forecast}}&nbsp;&nbsp;</p>
-                                                    <a class="pointer-item">
-                                                        <p class="d-inline filter">
-                                                            &nbsp; <img src="assets/images/active-user.svg" />
-                                                        </p>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-0 mt-md-4">
-                                            <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-                                                [roundDomains]="roundDomains" [timeline]="timeline">
-                                            </ngx-charts-line-chart>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                     </div>
                     <!-- Chart div ends-->
                 </div>
@@ -659,7 +444,6 @@
                     <div class="heading-other">{{ globals.languageJson?.estates_other_green_coffee }}</div>
                     <div class="cardpanel-detail avaialble-web" *ngIf="sourcing.otherGreenList != null">
                         <div class="row">
-<<<<<<< HEAD
                             <span *ngFor="let item of sourcing.otherGreenList">
                                 <div
                                     class="col-lg-4 col-md-6 col-12 cursor-item"
@@ -737,64 +521,8 @@
                                                 >
                                             </div>
                                         </div>
-=======
-                            <span class="col-12" *ngFor="let item of sourcing.otherGreenList">
-                                <div class="col-lg-4 col-md-6 col-12 cursor-item"
-                                    *ngIf="item.harvest_id != sourcing.harvestData" (click)="lotDetails(item)">
-                                    <div class="source-card card-border green-coffee-product">
-                                        <div class="s-gal">
-                                            <span *ngIf="item.images">
-                                                <img *ngIf="item.images[0]!=''" [src]="item.images[0].thumb_url" alt="">
-                                                <img *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png"
-                                                    alt="">
-                                            </span>
-                            <span *ngIf="!item.images">
-                                                <img src="assets/images/dummy-profile.png" alt="">
-                                            </span>
-                            <div class="cupping">
-                                <!-- <p>Cup score {{item.score}}</p> -->
-                                <p *ngIf="item.cup_score!=''">Cup score {{item.cup_score}}</p>
-                                <p *ngIf="item.cup_score==''">NA</p>
-                            </div>
-                        </div>
-                        <div class="s-details ">
-                            <div class="flex">
-                                <div class="s-tit">
-                                    <h3 *ngIf="item.name!=''">{{item.name}}</h3>
-                                    <h3 *ngIf="item.name==''">NA</h3>
-                                    <h5 *ngIf="item['estate']['name']!=''">{{item['estate']['name']}}
-                                    </h5>
-                                    <h5 *ngIf="item['estate']['name']==''">NA</h5>
-                                    <h6 *ngIf="item.price!=''">{{item.price_unit}}{{item.price}} USD / kg
-                                    </h6>
-                                    <h6 *ngIf="item.price==''">NA</h6>
-                                </div>
-                            </div>
-                            <div class="source-lets flex">
-                                <div class="orgin-att">
-                                    <label>{{globals.languageJson?.origin}}</label>
-                                    <h6 *ngIf="item['lot']['country']!=''">
-                                        {{GetCountry(item['lot']['country'])}}</h6>
-                                    <h6 *ngIf="item['lot']['country']==''">NA</h6>
-                                </div>
-                                <div class="orgin-att">
-                                    <label>{{globals.languageJson?.variety}}</label>
-                                    <h6 *ngIf="item['lot']['variety']!=''">{{item['lot']['variety']}}
-                                    </h6>
-                                    <h6 *ngIf="item['lot']['variety']==''">NA</h6>
-                                </div>
-                                <div class="orgin-att">
-                                    <label>{{globals.languageJson?.flavour}}</label>
-                                    <div *ngIf="item.flavours!=null">
-                                        <ul class="flo-list">
-                                            <li *ngFor="let flavour of item.flavours">
-                                                <span class="mb-2">{{getFlavourName(flavour)}}</span>
-                                            </li>
-                                        </ul>
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                                     </div>
                                 </div>
-<<<<<<< HEAD
                             </span>
                         </div>
                     </div>
@@ -816,13 +544,6 @@
                                 >
                                     Browse availabilities
                                 </button>
-=======
-                            </div>
-                            <div class="top-lots">
-                                <label>{{globals.languageJson?.available_quantity}} :
-                                                    <span>{{item.quantity_count}} {{item.quantity_type}} of
-                                                        {{item.total_quantity}}{{item.quantity_unit}}</span></label>
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                             </div>
                         </div>
                     </div>
@@ -873,17 +594,8 @@
                                                 </div>
                                             </div>
                                         </div>
-<<<<<<< HEAD
                                     </slide>
                                 </carousel>
-=======
-                                    </div>
-                                    <div class="top-lots">
-                                        <label>{{globals.languageJson?.available_quantity}} : <span>
-                                                            {{item.quantity}} of 60kg </span></label>
-                                    </div>
-                                </div>
->>>>>>> 439be9440b393b797884261aef19c64c843351fd
                             </div>
                         </div>
                     </div>
