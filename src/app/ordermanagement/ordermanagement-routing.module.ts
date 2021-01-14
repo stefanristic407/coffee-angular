@@ -41,11 +41,6 @@ import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.com
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AssignUserComponent } from './assign-user/assign-user.component';
-import { WeatherChartComponent } from './remote-sensoring/weather-chart/weather-chart.component';
-import { SoilChartComponent } from './remote-sensoring/soil-chart/soil-chart.component';
-import { UvChartComponent } from './remote-sensoring/uv-chart/uv-chart.component';
-import { VegetationChartComponent } from './remote-sensoring/vegetation-chart/vegetation-chart.component';
-import { ImageMapComponent } from './remote-sensoring/image-map/image-map.component';
 
 const routes: Routes = [
     {
