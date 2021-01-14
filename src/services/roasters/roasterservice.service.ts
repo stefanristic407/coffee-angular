@@ -1100,4 +1100,26 @@ export class RoasterserviceService {
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
+  getMrGcOrderDetails(roaster_id: any, order_id: any) {
+    var data = {};
+    data["api_call"] = "/ro/" + roaster_id + "/mr-orders/" + order_id;
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.url, data);
+  }
+  acceptMrConfirmOrder(roaster_id: any, order_id: any, body: any) {
+    const data = {};
+    data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/confirm';
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = 'PUT';
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
+  rejectBookedOrder(roaster_id: any, order_id: any, body: any) {
+    const data = {};
+    data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/reject';
+    data['token'] = this.cookieService.get('Auth');
+    data['method'] = 'PUT';
+    data['data'] = body;
+    return this.http.post(this.url, data);
+  }
 }

@@ -2,16 +2,17 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { from } from 'rxjs';
-import {MicroOrderBookedService } from '../micro-order-booked/micro-order-booked.service';
+import { MicroOrderBookedService } from '../micro-order-booked/micro-order-booked.service';
 import { GlobalsService } from 'src/services/globals.service';
+import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 @Component({
-  selector: 'app-micro-order-booked',
-  templateUrl: './micro-order-booked.component.html',
-  styleUrls: ['./micro-order-booked.component.css']
+	selector: 'app-micro-order-booked',
+	templateUrl: './micro-order-booked.component.html',
+	styleUrls: ['./micro-order-booked.component.css']
 })
 export class MicroOrderBookedComponent implements OnInit {
 
-  @ViewChild('orderPlacedSample', { static: false }) private orderPlacedSample: ElementRef<HTMLElement>;
+	@ViewChild('orderPlacedSample', { static: false }) private orderPlacedSample: ElementRef<HTMLElement>;
 	@ViewChild('orderConfirmedSample', { static: false }) private orderConfirmedSample: ElementRef<HTMLElement>;
 	@ViewChild('paymentSample', { static: false }) private payment: ElementRef<HTMLElement>;
 	@ViewChild('shippmentSample', { static: false }) private shippmentSample: ElementRef<HTMLElement>;
@@ -27,64 +28,37 @@ export class MicroOrderBookedComponent implements OnInit {
 	gradedReportSample: boolean = false;
 	uploadReportSample: boolean = true;
 	cancelShow: boolean = false;
-	receivedOrderShow : boolean = false;
-	paymentStatusDiv : boolean = true;
-	paymentCompletedDiv : boolean = false;
-	waitingConfirmShow : boolean = false;
+	receivedOrderShow: boolean = false;
+	paymentStatusDiv: boolean = true;
+	paymentCompletedDiv: boolean = false;
+	waitingConfirmShow: boolean = false;
 	date6: Date;
-	savemode : boolean = true;
-	editmode : boolean = false;
+	savemode: boolean = true;
+	editmode: boolean = false;
 	dataFromTable: string;
-  constructor(private route: ActivatedRoute,
-		public router: Router,public cookieService : CookieService,
-		public horecaDetailService : MicroOrderBookedService,
-		public globals: GlobalsService) { }
-
-  ngOnInit(): void {
-	//Auth checking
-	if (this.cookieService.get("Auth") == "") {
-		this.router.navigate(["/auth/login"]);
-	}
-	// this.sampleValueToShow = "Order Placed";
-	// this.paymentStatusDiv = true;
-
-	//Fills the time line based on the status selected in estate order.
-    this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams['data']);
-	if (this.dataFromTable == "Order confirmed") {
-		this.sampleValueToShow = "Order Confirmed";
-		setTimeout(() => {
-			this.orderConfirmSample();
-		}, 500);
-	}
-	else if (this.dataFromTable == "Payment") {
-		this.sampleValueToShow = "Payment";
-		setTimeout(() => {
-			this.paySample();
-		}, 500);
-
-	}
-	else if (this.dataFromTable == "Shipped") {
-		this.sampleValueToShow = "Shipped";
-		setTimeout(() => {
-			this.shipmentStatusSample();
-		}, 500);
-
-	}
-	else if (this.dataFromTable == "Received") {
-		this.sampleValueToShow = "Received";
-		setTimeout(() => {
-			this.receivedStatusSample();
-		}, 500);
-	}
-	else if (this.dataFromTable == "Graded") {
-		this.sampleValueToShow = "Graded";
-		setTimeout(() => {
-			this.gradedStatusSample();
-		}, 500);
+	roasterId: any;
+	bookId: any;
+	constructor(private route: ActivatedRoute,
+		public router: Router, public cookieService: CookieService,
+		public bookDetailService: MicroOrderBookedService,
+		public globals: GlobalsService, public roasterService: RoasterserviceService) {
+		this.roasterId = this.cookieService.get('roaster_id');
+		this.bookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
+		this.bookDetailService.bookOrderId = this.bookId;
+		this.bookDetailService.viewMrOrderDetails();
 	}
 
-  }
-  
+	ngOnInit(): void {
+		//Auth checking
+		if (this.cookieService.get("Auth") == "") {
+			this.router.navigate(["/auth/login"]);
+		}
+		// this.sampleValueToShow = "Order Placed";
+		// this.paymentStatusDiv = true;
+
+
+	}
+
 	// Function Name : Order Placed
 	// Description: This function fills order placed timeline .
 	orderPlaceSample() {
@@ -113,10 +87,10 @@ export class MicroOrderBookedComponent implements OnInit {
 		// this.sampleService.paymentStatus();
 		this.paymentCompletedDiv = true;
 		this.paymentStatusDiv = false;
-		this.horecaDetailService.receiptShow = true;
-		this.horecaDetailService.statusPaid = true;
-		this.horecaDetailService.statusPending = false;
-		console.log(this.horecaDetailService.statusPaid)
+		this.bookDetailService.receiptShow = true;
+		this.bookDetailService.statusPaid = true;
+		this.bookDetailService.statusPending = false;
+		console.log(this.bookDetailService.statusPaid)
 	}
 	// Function Name : Order Sample Shippment
 	// Description: This function shows Tracking Id and Shippment Id in order details tab once shippment is done.
@@ -129,13 +103,13 @@ export class MicroOrderBookedComponent implements OnInit {
 		completedProcess.classList.remove('completed');
 		this.shippmentReport = true;
 
-		
+
 		this.paymentCompletedDiv = true;
 		this.paymentStatusDiv = false;
-		this.horecaDetailService.receiptShow = true;
-		this.horecaDetailService.statusPaid = true;
-		this.horecaDetailService.statusPending = false;
-		this.horecaDetailService.shipment_status = true;
+		this.bookDetailService.receiptShow = true;
+		this.bookDetailService.statusPaid = true;
+		this.bookDetailService.statusPending = false;
+		this.bookDetailService.shipment_status = true;
 		// this.sampleService.shipmentDone = true;
 
 		// Calling the Order Details component by creating object of the component and accessing its methods
@@ -160,10 +134,10 @@ export class MicroOrderBookedComponent implements OnInit {
 		this.orderSampleTimeline = false;
 		this.paymentStatusDiv = false;
 		this.paymentCompletedDiv = false;
-		
-		this.horecaDetailService.receiptShow = true;
-		this.horecaDetailService.statusPaid = true;
-		this.horecaDetailService.statusPending = false;
+
+		this.bookDetailService.receiptShow = true;
+		this.bookDetailService.statusPaid = true;
+		this.bookDetailService.statusPending = false;
 	}
 	// Function Name : Order Booked Graded
 	// Description: This function shows order is graded and grade info tab timeline is filled.
@@ -190,17 +164,80 @@ export class MicroOrderBookedComponent implements OnInit {
 
 	}
 
-	save(){
+	save() {
 		this.savemode = false;
 		this.editmode = true;
 		$('#track-link').prop('disabled', true);
 		$('#navigators').prop('disabled', true);
 	}
-	edit(){
+	edit() {
 		this.savemode = true;
 		this.editmode = false;
 		$('#track-link').prop('disabled', false);
 		$('#navigators').prop('disabled', false);
 	}
 
+	showInvoice() {
+		const a = document.createElement("a");
+		a.href = this.bookDetailService['mrDetails']['invoice_file'];
+		a.download = `#${this.bookDetailService.bookOrderId}`;
+		a.target = "_blank";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
+
+	viewMrOrderDetails() {
+		this.roasterService.getMrGcOrderDetails(this.roasterId, this.bookId).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.bookDetailService.mrDetails = res['result'];
+					this.bookDetailService.roasterId = this.bookDetailService.mrDetails.roaster_id;
+					this.bookDetailService.delivery_address = this.bookDetailService.mrDetails.delivery_address;
+					this.bookDetailService.created_date = this.bookDetailService.mrDetails.created_at;
+					this.bookDetailService.quantity_count = this.bookDetailService.mrDetails.quantity_count;
+					this.bookDetailService.total_price = this.bookDetailService.mrDetails.total_price;
+					this.bookDetailService.status = this.bookDetailService.mrDetails.status;
+					this.bookDetailService.getMrDetails();
+					this.timelineData();
+				}
+			}
+		)
+	}
+	timelineData() {
+		//Fills the time line based on the status selected in estate order.
+		if (this.bookDetailService.status == "CONFIRMED") {
+			this.sampleValueToShow = "Order Confirmed";
+			setTimeout(() => {
+				this.orderConfirmSample();
+			}, 500);
+		}
+		else if (this.bookDetailService.status == "PAYMENT") {
+			this.sampleValueToShow = "Payment";
+			setTimeout(() => {
+				this.paySample();
+			}, 500);
+
+		}
+		else if (this.bookDetailService.status == "SHIPPED") {
+			this.sampleValueToShow = "Shipped";
+			setTimeout(() => {
+				this.shipmentStatusSample();
+			}, 500);
+
+		}
+		else if (this.bookDetailService.status == "RECEIVED") {
+			this.sampleValueToShow = "Received";
+			setTimeout(() => {
+				this.receivedStatusSample();
+			}, 500);
+		}
+		else if (this.bookDetailService.status == "GRADED") {
+			this.sampleValueToShow = "Graded";
+			setTimeout(() => {
+				this.gradedStatusSample();
+			}, 500);
+		}
+
+	}
 }
