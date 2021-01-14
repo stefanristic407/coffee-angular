@@ -31,6 +31,10 @@ export class MicroOrderBookedService {
 	total_price: any;
 	mrProfileDetails: any;
 	status: any;
+	bulkDetails: any;
+	water_activity: any;
+	quality_grade: any;
+	recentactivityarray: any = [];
 
 	constructor(public roasterService: RoasterserviceService, public router: Router,
 		public cookieService: CookieService, public profileservice: RoasteryProfileService,
@@ -50,10 +54,13 @@ export class MicroOrderBookedService {
 					this.quantity_count = this.mrDetails.quantity_count;
 					this.total_price = this.mrDetails.total_price;
 					this.getMrDetails();
+					this.viewAvailability();
+					this.ViewRecentActivity();
 				}
 			}
 		)
 	}
+
 	getCountry(data: any) {
 		// console.log(data.toUpperCase());
 		if (data) {
@@ -74,4 +81,27 @@ export class MicroOrderBookedService {
 		)
 	}
 
+	viewAvailability() {
+		this.userService.getGreenCoffeeDetails(this.roasterId, this.mrDetails.harvest_id).subscribe(
+			res => {
+				if (res['success'] == true) {
+					this.bulkDetails = res['result'];
+					this.water_activity = res['result']['dry_milling']['water_activity'];
+					this.quality_grade = res['result']['dry_milling']['quality_grade'];
+					// this.ico_number = res['result']['ico_number'];
+				}
+			}
+		)
+	}
+
+	ViewRecentActivity() {
+		this.userService.getMrRecentActivity(this.roasterId, this.bookOrderId).subscribe(
+			res => {
+				if (res['success'] == true) {
+					console.log(res);
+					this.recentactivityarray = res['result'];
+				}
+			}
+		)
+	}
 }

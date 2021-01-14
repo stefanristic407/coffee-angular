@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MicroOrderBookedService } from '../micro-order-booked.service';
+import { MicroOrderBookedService } from '../micro-order-booked.service';
 
 
 @Component({
@@ -11,23 +11,23 @@ export class BookedDetailsComponent implements OnInit {
 
   files: FileList;
 
-  constructor(public microroasterBookedService: MicroOrderBookedService) { }
+  constructor(public bookDetailService: MicroOrderBookedService) { }
 
   ngOnInit(): void {
-    
+    this.bookDetailService.viewMrOrderDetails();
   }
 
   // Function Name : Upload receipt
   // Description: This function helps to upload receipt in order details tab of order sample.
   openFile(event) {
     this.files = event.target.files;
-    this.microroasterBookedService.uploadShow = false;
-    this.microroasterBookedService.receiptShow = true;
+    this.bookDetailService.uploadShow = false;
+    this.bookDetailService.receiptShow = true;
   }
 
-  uploadReceipt(){
-    this.microroasterBookedService.uploadShow = false;
-    this.microroasterBookedService.receiptShow = true;
-}
+  uploadReceipt() {
+    this.bookDetailService.uploadShow = false;
+    this.bookDetailService.receiptShow = true;
+  }
 
 }

@@ -255,7 +255,12 @@
                             </div>
                             <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png" alt="Edit"> Edit</div> -->
                         </div>
-                        <div class="d-flex mt-1 addr-text">156 Jeromy Ports Suite 159, Germany</div>
+                        <div class="d-flex mt-1 addr-text" *ngIf="bookDetailService.delivery_address">
+                            {{bookDetailService.delivery_address.address_line1}},
+                            {{bookDetailService.delivery_address.address_line2}},
+                            {{bookDetailService.delivery_address.zipcode}} -
+                            {{bookDetailService.delivery_address.state}},
+                            {{bookDetailService.getCountry(bookDetailService.delivery_address.country)}}</div>
                         <div class="d-flex mt-3">
                             <img class="img-logo" src="assets/images/google-image.png" alt="Map">
 
@@ -270,15 +275,25 @@
 
                         <div class="d-flex mt-3 border-div">
                             <div class="p-0">
-                                <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
+                                <!-- <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"> -->
+                                <span *ngIf="bookDetailService.mrProfileDetails">
+                                    <img class="img-estate"
+                                        [src]="bookDetailService.mrProfileDetails.company_image_thumbnail_url" alt="">
+                                </span>
+                                <span *ngIf="bookDetailService.mrProfileDetails == ''">
+                                    <img class="img-estate" src="assets/images/stakeholder1.png" alt="">
+                                </span>
+                            </div>
                             <div class="pull-left">
                                 <ul class="details-list p-0 ml-2 ml-md-3">
-                                    <li class="estate-name">Toffee roasters</li>
+                                    <li class="estate-name" *ngIf="bookDetailService.mrProfileDetails">
+                                        {{bookDetailService.mrProfileDetails.name ? bookDetailService.mrProfileDetails.name : ''}}
+                                    </li>
                                     <li class="estate-number pt-1">
                                         <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
                                                 class="" src="assets/images/star-1.png" alt="User"> <span
-                                                class="star-no pl-1">
-                                                4.95</span>
+                                                class="star-no pl-1" *ngIf="bookDetailService.mrProfileDetails">
+                                                {{bookDetailService.mrProfileDetails.rating ? bookDetailService.mrProfileDetails.rating : '0'}}</span>
                                         </span>
                                     </li>
                                 </ul>
@@ -320,42 +335,39 @@
 <div class="row mt-4">
     <div class="col-12">
         <div class="recent-fff">
-
-
             <div class="col-lg-12 bg-shipping">
-
                 <div class="w-100 col-lg-6 col-md-12 recent-activity-content">
                     <p class=" w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
                     <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2"
                             src="assets/images/active.png"></p>
-                    <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row">
+                    <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row"
+                        *ngFor="let activity of bookDetailService.recentactivityarray">
                         <div class="d-none d-md-inline-block p-0">
                             <img class="img-estate" src="assets/images/activity1.png" alt="User">
                             <!-- <p class="timing">12:44pm</p> -->
                         </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ">
-                                <li class="list-name">Finca La Pampa</li>
+                                <li class="list-name">{{activity.user_first_name}} {{activity.user_last_name}}</li>
                                 <li class="list-user mb-2 pt-1">
-                                    Coffee Estate
+                                    <span *ngIf="activity.organization_type == 'mr'">Micro Roaster</span>
+                                    <span *ngIf="activity.organization_type == 'ro'">Roaster</span>
                                 </li>
                                 <li class="confirmation-status">
-                                    Order confirmed by the Estate
+                                    Order confirmed by the
+                                    <span *ngIf="activity.organization_type == 'mr'">Micro Roaster</span>
+                                    <span *ngIf="activity.organization_type == 'ro'">Roaster</span>
                                 </li>
-                                <!-- <li class="list-activity">
-										<div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
-											12:44pm</div>
-										<p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Order confirmed by the Estate</p>
-	
-									</li> -->
+
                             </ul>
                         </div>
-                        <div class="pull-right ml-auto list-time d-none d-md-inline-block">12:44pm</div>
+                        <div class="pull-right ml-auto list-time d-none d-md-inline-block">
+                            {{activity.created_at | date : 'shortTime' }}</div>
                     </div>
-                    <div class="d-flex col-12 mt-3  border-div flex-column flex-md-row">
+                    <!-- <div class="d-flex col-12 mt-3  border-div flex-column flex-md-row">
                         <div class="d-none d-md-inline-block p-0">
                             <img class="img-estate" src="assets/images/stakeholder2.png" alt="User">
-                            <!-- <p class="timing">01:30pm</p> -->
+                            <p class="timing">01:30pm</p>
                         </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ">
@@ -368,20 +380,12 @@
                                 <li class="confirmation-status">
                                     Order confirmed by the Estate
                                 </li>
-                                <!-- <li class="list-user mb-2 pt-1 d-none d-md-inline-block">
-										<p class="mb-0">Facilitator</p>
-									</li>
-									<li class="list-activity">
-										<div class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
-											01:30pm</div>
-										<p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>Facilitator assigned for pickup</p>
-	
-									</li> -->
+                               
                             </ul>
                         </div>
                         <div class="pull-right ml-auto list-time d-none d-md-inline-block">1:30pm</div>
 
-                    </div>
+                    </div> -->
                     <div class="w-100 mt-4 mb-2 d-block d-md-none">
                         <button type="button"
                             class="btn cancel-order-btn cancel-order-btn--mobile w-100 text-center">Cancel
@@ -389,12 +393,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
-
                 </div>
-
             </div>
-
-
             <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
                 <!-- *ngIf="this.globals.permissions['cart-management'] && this.globals.permissions['cart-management'].manage" -->
                 <button type="button" class="btn cancel-order-btn">Cancel order</button>
@@ -403,7 +403,6 @@
                 <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
                     routerLink="/ordermanagement/order-chat">Order #12416 chat <span class="chat-indicator">
                         &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
-
             </div>
         </div>
     </div>

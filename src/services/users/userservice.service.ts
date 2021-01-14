@@ -1280,4 +1280,11 @@ export class UserserviceService {
     data['token'] = this.cookieService.get('Auth');
     return this.http.post(this.roasterUrl, data);
   }
+  getMrRecentActivity(roasterId: any, orderId: any) {
+    var data = {};
+    data['api_call'] = '/ro/' + roasterId + '/mr-orders/' + orderId + '/events';
+    data['method'] = 'GET';
+    data['token'] = this.cookieService.get('Auth');
+    return this.http.post(this.roasterUrl, data);
+  }
 }

@@ -45,10 +45,12 @@ export class MicroOrderBookedComponent implements OnInit {
 		this.roasterId = this.cookieService.get('roaster_id');
 		this.bookId = decodeURIComponent(this.route.snapshot.queryParams['id']);
 		this.bookDetailService.bookOrderId = this.bookId;
+		this.viewMrOrderDetails();
 		this.bookDetailService.viewMrOrderDetails();
 	}
 
 	ngOnInit(): void {
+
 		//Auth checking
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);
@@ -198,7 +200,6 @@ export class MicroOrderBookedComponent implements OnInit {
 					this.bookDetailService.quantity_count = this.bookDetailService.mrDetails.quantity_count;
 					this.bookDetailService.total_price = this.bookDetailService.mrDetails.total_price;
 					this.bookDetailService.status = this.bookDetailService.mrDetails.status;
-					this.bookDetailService.getMrDetails();
 					this.timelineData();
 				}
 			}
