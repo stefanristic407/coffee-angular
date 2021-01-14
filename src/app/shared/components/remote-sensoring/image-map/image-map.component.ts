@@ -53,10 +53,8 @@ export class ImageMapComponent implements OnInit {
     ngOnInit(): void {
         this.changeWeatherType(0);
         this.bounds = this.calcTileBounds();
-        const promises = [];
-        promises.push(new Promise((resolve) => this.getPolygon(resolve)));
-        promises.push(new Promise((resolve) => this.getData(resolve)));
-        Promise.all(promises).then(() => this.makeData());
+        this.getPolygon();
+        this.getData();
     }
 
     changeWeatherType(value) {
@@ -71,16 +69,17 @@ export class ImageMapComponent implements OnInit {
         }
     }
 
-    getPolygon(resolve) {
+    getPolygon() {
         this.agroSrv.getPloygon(this.polygonId).subscribe(
             (res: any) => {
                 this.center = { lng: res.center[0], lat: res.center[1] };
+                this.coordinates = [];
                 res.geo_json.geometry.coordinates.forEach((element) => {
                     element.forEach((item) => {
-                        this.coordinates.push({ lng: res.center[0], lat: res.center[1] });
+                        this.coordinates.push({ lng: item[0], lat: item[1] });
                     });
                 });
-                resolve();
+                this.makeData();
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -88,7 +87,7 @@ export class ImageMapComponent implements OnInit {
         );
     }
 
-    getData(resolve?) {
+    getData() {
         const query = {
             start: moment(this.selectedDate).startOf('day').subtract(4, 'days').unix(),
             end: moment(this.selectedDate).startOf('day').unix(),
@@ -97,11 +96,7 @@ export class ImageMapComponent implements OnInit {
         this.agroSrv.getImage(this.polygonId, query).subscribe(
             (res: any) => {
                 this.weatherData = res;
-                if (resolve) {
-                    resolve();
-                } else {
-                    this.makeData();
-                }
+                this.makeData();
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
@@ -110,7 +105,7 @@ export class ImageMapComponent implements OnInit {
     }
 
     makeData() {
-        if (this.weatherData.length) {
+        if (this.weatherData.length && this.center && this.coordinates.length) {
             this.imageUrl =
                 this.weatherData[this.weatherData.length - 1].tile[this.imageTypes[this.selType].index] || '';
             this.initMap();
@@ -122,6 +117,7 @@ export class ImageMapComponent implements OnInit {
         const map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
             zoom: 14,
             center: self.center,
+            mapTypeId: 'satellite',
         });
 
         this.calcTileBounds();
@@ -133,17 +129,17 @@ export class ImageMapComponent implements OnInit {
         border.setMap(map);
 
         const imageMapType = new google.maps.ImageMapType({
-            getTileUrl: function (coord, zoom) {
-                // if (
-                //     zoom < self.zoomMin ||
-                //     zoom > self.zoomMax ||
-                //     self.bounds[zoom].xTileMin > coord.x ||
-                //     coord.x > self.bounds[zoom].xTileMax ||
-                //     self.bounds[zoom].yTileMin > coord.y ||
-                //     coord.y > self.bounds[zoom].yTileMax
-                // ) {
-                //     return '';
-                // }
+            getTileUrl: (coord, zoom) => {
+                if (
+                    zoom < self.zoomMin ||
+                    zoom > self.zoomMax ||
+                    self.bounds[zoom].xTileMin > coord.x ||
+                    coord.x > self.bounds[zoom].xTileMax ||
+                    self.bounds[zoom].yTileMin > coord.y ||
+                    coord.y > self.bounds[zoom].yTileMax
+                ) {
+                    return '';
+                }
                 return self.imageUrl
                     .replace('{x}', '' + coord.x)
                     .replace('{y}', '' + coord.y)
@@ -156,11 +152,11 @@ export class ImageMapComponent implements OnInit {
     }
 
     calcTileBounds() {
+        const lngMin = _.min(_.pluck(this.coordinates, 'lng'));
+        const latMin = (_.min(_.pluck(this.coordinates, 'lat')) * Math.PI) / 180;
+        const lngMax = _.max(_.pluck(this.coordinates, 'lng'));
+        const latMax = (_.max(_.pluck(this.coordinates, 'lat')) * Math.PI) / 180;
         for (let zoom = this.zoomMin; zoom < this.zoomMax; zoom++) {
-            const lngMin = _.min(_.pluck(this.coordinates, 'lng'));
-            const latMin = (_.min(_.pluck(this.coordinates, 'lat')) * Math.PI) / 180;
-            const lngMax = _.max(_.pluck(this.coordinates, 'lng'));
-            const latMax = (_.max(_.pluck(this.coordinates, 'lat')) * Math.PI) / 180;
             const n = Math.pow(2, zoom);
             const xTileMin = Math.floor(n * ((lngMin + 180) / 360));
             const yTileMax = Math.floor((n * (1 - Math.log(Math.tan(latMin) + 1 / Math.cos(latMin)) / Math.PI)) / 2);
