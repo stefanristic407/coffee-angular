@@ -90,7 +90,7 @@ export class ImageMapComponent implements OnInit {
 
     getData(resolve?) {
         const query = {
-            start: moment(this.selectedDate).subtract(4, 'days').unix(),
+            start: moment(this.selectedDate).startOf('day').subtract(4, 'days').unix(),
             end: moment(this.selectedDate).startOf('day').unix(),
         };
 
