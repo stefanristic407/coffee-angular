@@ -974,12 +974,14 @@ export class UserserviceService {
     data["method"] = "PUT";
     return this.http.put(this.putUrl, data);
   }
-  getSocialMediaPosts(type_in: any) {
+  getSocialMediaPosts(roaster_id, type_in: any) {
     let params = new HttpParams();
     params = params.append("file_module", "Social-Media");
     params = params.append("type_in", type_in);
     var data = {};
-    data["api_call"] = `/general/file-manager/all-files?${params}`;
+    data[
+      "api_call"
+    ] = `/general/ro/${roaster_id}/file-manager/all-files?${params}`;
     data["method"] = "GET";
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.roasterUrl, data);
