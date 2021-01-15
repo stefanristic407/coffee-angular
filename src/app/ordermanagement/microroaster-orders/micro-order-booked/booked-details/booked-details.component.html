@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col-md-12 lot-content lot-content--mb table-responsive mb-15">
-        <table class="lot-table lot-table--vertical">
-            <!-- <thead>
+  <div class="col-md-12 lot-content lot-content--mb table-responsive mb-15">
+    <table class="lot-table lot-table--vertical">
+      <!-- <thead>
                 <tr>
                     <th>Origin</th>
                     <th>Variety</th>
@@ -11,146 +11,200 @@
                 </tr>
             </thead> -->
 
-            <tbody>
-                <tr>
-                    <th>Product name</th>
-                    <td *ngIf="bookDetailService.mrDetails">{{bookDetailService.mrDetails.product_name ?
-                        bookDetailService.mrDetails.product_name :
-                        '-'}}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Lot ID</th>
-                    <td *ngIf="bookDetailService.mrDetails">
-                        {{bookDetailService.mrDetails.lot_id ? bookDetailService.mrDetails.lot_id : '-'}}
-                        <p class="view-detail">View details</p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Variety</th>
-                    <td *ngIf="bookDetailService.mrDetails">
-                        {{bookDetailService.mrDetails.varieties ? bookDetailService.mrDetails.varieties: '-'}}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Bulk Ordered</th>
-                    <td>
-                        <span *ngIf="bookDetailService.quantity_count">
-                            <span *ngIf="bookDetailService.quantity_count > 1">{{bookDetailService.quantity_count}}
-                                bags</span>
-                            <span *ngIf="bookDetailService.quantity_count == 1">{{bookDetailService.quantity_count}}
-                                bag</span>
-                        </span>
-                        <span *ngIf="bookDetailService.quantity_count == ''">-</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Rate per bag</th>
-                    <td>
-                        <span
-                            *ngIf="bookDetailService.total_price">${{bookDetailService.total_price/bookDetailService.quantity_count}}/bag</span>
-                        <span *ngIf="bookDetailService.total_price == ''">-</span>
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-    </div>
+      <tbody>
+        <tr>
+          <th>Product name</th>
+          <td *ngIf="bookDetailService.mrDetails">
+            {{
+              bookDetailService.mrDetails.product_name
+                ? bookDetailService.mrDetails.product_name
+                : "-"
+            }}
+          </td>
+        </tr>
+        <tr>
+          <th>Lot ID</th>
+          <td *ngIf="bookDetailService.mrDetails">
+            {{
+              bookDetailService.mrDetails.lot_id
+                ? bookDetailService.mrDetails.lot_id
+                : "-"
+            }}
+            <p class="view-detail">View details</p>
+          </td>
+        </tr>
+        <tr>
+          <th>Variety</th>
+          <td *ngIf="bookDetailService.mrDetails">
+            {{
+              bookDetailService.mrDetails.varieties
+                ? bookDetailService.mrDetails.varieties
+                : "-"
+            }}
+          </td>
+        </tr>
+        <tr>
+          <th>Bulk Ordered</th>
+          <td>
+            <span *ngIf="bookDetailService.quantity_count">
+              <span *ngIf="bookDetailService.quantity_count > 1"
+                >{{ bookDetailService.quantity_count }} bags</span
+              >
+              <span *ngIf="bookDetailService.quantity_count == 1"
+                >{{ bookDetailService.quantity_count }} bag</span
+              >
+            </span>
+            <span *ngIf="bookDetailService.quantity_count == ''">-</span>
+          </td>
+        </tr>
+        <tr>
+          <th>Rate per bag</th>
+          <td>
+            <span *ngIf="bookDetailService.total_price"
+              >${{
+                bookDetailService.total_price /
+                  bookDetailService.quantity_count
+              }}/bag</span
+            >
+            <span *ngIf="bookDetailService.total_price == ''">-</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<hr class="d-none d-md-block">
+<hr class="d-none d-md-block" />
 <div class="row pb-md-7">
-    <div class="col-lg-7 col-md-7 col-sm-12 bulk-details-content">
-        <h4 class="sub-title">Bulk details</h4>
+  <div class="col-lg-7 col-md-7 col-sm-12 bulk-details-content">
+    <h4 class="sub-title">Bulk details</h4>
 
-        <table class="recent-time">
+    <table class="recent-time">
+      <tr>
+        <td><span class="list-que"> Taste profile: </span></td>
+        <td>
+          <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
+            {{
+              bookDetailService.bulkDetails.flavours
+                ? bookDetailService.bulkDetails.flavours
+                : "-"
+            }}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="list-que"> Listing Status: </span></td>
+        <td>
+          <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
+            {{
+              bookDetailService.bulkDetails.listing_status
+                ? bookDetailService.bulkDetails.listing_status
+                : "-"
+            }}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="list-que"> Processing: </span></td>
+        <td>
+          <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
+            {{
+              bookDetailService.bulkDetails.processing_types
+                ? bookDetailService.bulkDetails.processing_types
+                : "-"
+            }}
+          </span>
+        </td>
+      </tr>
 
-            <tr>
-                <td> <span class="list-que"> Taste profile: </span></td>
-                <td> <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
-                        {{bookDetailService.bulkDetails.flavours ? bookDetailService.bulkDetails.flavours : '-'}}
-                    </span> </td>
+      <tr>
+        <td><span class="list-que"> Type: </span></td>
+        <td>
+          <span class="list-ans" *ngIf="bookDetailService.bulkDetails">{{
+            bookDetailService.bulkDetails.type
+              ? bookDetailService.bulkDetails.type
+              : "-"
+          }}</span>
+        </td>
+      </tr>
 
-            </tr>
-            <tr>
-                <td> <span class="list-que"> Listing Status: </span></td>
-                <td> <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
-                        {{bookDetailService.bulkDetails.listing_status ? bookDetailService.bulkDetails.listing_status : '-'}}
-                    </span> </td>
+      <tr>
+        <td><span class="list-que"> Species: </span></td>
+        <td>
+          <span class="list-ans" *ngIf="bookDetailService.bulkDetails">{{
+            bookDetailService.bulkDetails.species
+              ? bookDetailService.bulkDetails.species
+              : "-"
+          }}</span>
+        </td>
+      </tr>
 
-            </tr>
-            <tr>
-                <td> <span class="list-que"> Processing: </span></td>
-                <td> <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
-                        {{bookDetailService.bulkDetails.processing_types ? bookDetailService.bulkDetails.processing_types : '-'}}
-                    </span> </td>
+      <tr>
+        <td><span class="list-que"> Quality: </span></td>
+        <td>
+          <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
+            {{
+              bookDetailService.quality_grade
+                ? bookDetailService.quality_grade
+                : "-"
+            }}
+          </span>
+        </td>
+      </tr>
 
-            </tr>
+      <tr>
+        <td><span class="list-que"> Flavours: </span></td>
+        <td>
+          <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
+            {{
+              bookDetailService.bulkDetails.flavours
+                ? bookDetailService.bulkDetails.flavours
+                : "-"
+            }}
+          </span>
+        </td>
+      </tr>
 
-            <tr>
-                <td> <span class="list-que"> Type: </span></td>
-                <td> <span class="list-ans"
-                        *ngIf="bookDetailService.bulkDetails">{{bookDetailService.bulkDetails.type ? bookDetailService.bulkDetails.type : '-'}}</span>
-                </td>
+      <tr>
+        <td><span class="list-que"> Other: </span></td>
+        <td><span class="list-ans">-</span></td>
+      </tr>
+      <a class="procedure mt-2 position-rel">View listing</a>
+    </table>
+  </div>
+  <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content mb-15">
+    <h4 class="sub-title">Payment status</h4>
+    <div class="w-100 mt-2 mt-md-3">
+      <p class="status_paid" *ngIf="bookDetailService.statusPending">PENDING</p>
+      <!-- <button type="button" class="btn receipt-btn mb-2" *ngIf="bookDetailService.statusPending"><img src="assets/images/view-receipt.svg" class="pr-2">View receipt</button> -->
 
-            </tr>
-
-            <tr>
-                <td> <span class="list-que"> Species: </span></td>
-                <td> <span class="list-ans"
-                        *ngIf="bookDetailService.bulkDetails">{{bookDetailService.bulkDetails.species ? bookDetailService.bulkDetails.species : '-'}}</span>
-                </td>
-
-            </tr>
-
-            <tr>
-                <td> <span class="list-que"> Quality: </span></td>
-                <td> <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
-                        {{bookDetailService.quality_grade ? bookDetailService.quality_grade : '-'}} </span> </td>
-
-            </tr>
-
-            <tr>
-                <td> <span class="list-que"> Flavours: </span></td>
-                <td> <span class="list-ans" *ngIf="bookDetailService.bulkDetails">
-                        {{bookDetailService.bulkDetails.flavours ? bookDetailService.bulkDetails.flavours : '-'}}
-                    </span> </td>
-
-            </tr>
-
-            <tr>
-                <td> <span class="list-que"> Other: </span></td>
-                <td> <span class="list-ans">-</span> </td>
-
-            </tr>
-            <a class="procedure mt-2 position-rel">View listing</a>
-
-        </table>
-    </div>
-    <div class="col-lg-5 col-md-5 col-sm-12 payment-status-content mb-15">
-        <h4 class="sub-title">Payment status</h4>
-        <div class="w-100 mt-2 mt-md-3">
-            <p class="status_paid" *ngIf="bookDetailService.statusPending"> PENDING</p>
-            <!-- <button type="button" class="btn receipt-btn mb-2" *ngIf="bookDetailService.statusPending"><img src="assets/images/view-receipt.svg" class="pr-2">View receipt</button> -->
-
-            <!-- <p class="status_paid" *ngIf="bookDetailService.statusPaid"> <img src="assets/images/statusPaid.svg"> PAID</p> -->
-            <p class="status_paid" *ngIf="bookDetailService.statusPaid"> PAID</p>
-            <!-- <div *ngIf="bookDetailService.uploadShow"><button type="submit" class="btn receipt-btn mb-2" (click)="fileUpload.click()"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button></div> -->
-            <div *ngIf="bookDetailService.statusPaid"> <button type="button" class="btn receipt-btn mb-2"><img
-                        src=" assets/images/view.png " class="pr-2 ">View receipt</button></div>
-            <p class="pb-md-2 mb-0 mt-3 mt-md-0"><a class="procedure mt-2 ">View payment procedure </a></p>
-            <hr />
-            <!-- <div class="track-info mt-4 pt-2 " *ngIf="bookDetailService.statusPaid ">
+      <!-- <p class="status_paid" *ngIf="bookDetailService.statusPaid"> <img src="assets/images/statusPaid.svg"> PAID</p> -->
+      <p class="status_paid" *ngIf="bookDetailService.statusPaid">PAID</p>
+      <!-- <div *ngIf="bookDetailService.uploadShow"><button type="submit" class="btn receipt-btn mb-2" (click)="fileUpload.click()"><img src="assets/images/upload-icon.png" class="pr-2">Upload receipt</button></div> -->
+      <div *ngIf="bookDetailService.statusPaid">
+        <button type="button" class="btn receipt-btn mb-2">
+          <a
+            href="{{ bookDetailService.receipt_url }}"
+            target="_blank"
+            download
+          >
+            <img src=" assets/images/view.png " class="pr-2" />View receipt
+          </a>
+        </button>
+      </div>
+      <p class="pb-md-2 mb-0 mt-3 mt-md-0">
+        <a class="procedure mt-2">View payment procedure </a>
+      </p>
+      <hr />
+      <!-- <div class="track-info mt-4 pt-2 " *ngIf="bookDetailService.statusPaid ">
                 <p class="track-info-title ">Tracking ID
                 </p>
                 <button class="btn track-btn"><span class="track">Track shipment</span></button>
             </div> -->
-            <!-- <div class="shipment-info mt-4 " *ngIf="bookDetailService.shipmentDone ">
+      <!-- <div class="shipment-info mt-4 " *ngIf="bookDetailService.shipmentDone ">
                 <p class="shipment-title ">Shipment ID <img class="space " src="assets/images/open-icon.png " alt=" "></p>
                 <p class="shipment-id ">9274972094-29ei43</p>
             </div> -->
-            <input type="file" hidden #fileUpload (change)="openFile($event) ">
-        </div>
-
+      <input type="file" hidden #fileUpload (change)="openFile($event)" />
     </div>
+  </div>
 </div>
