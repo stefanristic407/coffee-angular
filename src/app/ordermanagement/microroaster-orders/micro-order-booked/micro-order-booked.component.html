@@ -529,16 +529,16 @@
           <div class="shipping-div__info">
             <p class="delivery__addr">Notes</p>
 
-            <p class="addr-text">
+            <p class="addr-text" >
               Add special instructions or comments about the order for your team
               members
             </p>
 
             <div class="farm-input">
-              <input type="text" placeholder="Add a comment" />
+              <input type="text" placeholder="Add a comment" [(ngModel)]="addNotes" name="notes"/>
             </div>
 
-            <button class="note-btn mt-3">Add a note</button>
+            <button class="note-btn mt-3" (click)="addNote();">Add a note</button>
           </div>
         </div>
       </div>

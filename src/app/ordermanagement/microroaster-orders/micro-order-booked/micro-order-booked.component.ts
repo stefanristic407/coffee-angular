@@ -46,6 +46,8 @@ export class MicroOrderBookedComponent implements OnInit {
   dataFromTable: string;
   roasterId: any;
   bookId: any;
+  addNotes: any;
+  noteList: any;
   //   shipmentLink: any;
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +64,7 @@ export class MicroOrderBookedComponent implements OnInit {
     this.bookDetailService.bookOrderId = this.bookId;
     this.viewMrOrderDetails();
     this.bookDetailService.viewMrOrderDetails();
+    this.getNotes();
   }
 
   ngOnInit(): void {
@@ -347,5 +350,26 @@ export class MicroOrderBookedComponent implements OnInit {
         this.paySample();
       }, 500);
     }
+  }
+  addNote() {
+    var body = {
+      "notes": this.addNotes
+    }
+    this.roasterService.addOrderNotes(this.roasterId, this.bookId, body).subscribe(
+      res => {
+        if (res["success"] == true) {
+          this.toastrService.success("Added Order Notes Successfully");
+        }
+      }
+    )
+  }
+  getNotes() {
+    this.roasterService.getOrderNotes(this.roasterId, this.bookId).subscribe(
+      res => {
+        if (res["success"] == true) {
+          this.noteList = res['result'];
+        }
+      }
+    )
   }
 }
