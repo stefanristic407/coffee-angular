@@ -147,7 +147,7 @@
                     </td>
                     <td>{{group.quantity}} {{group.quantity_type}}</td>
                     <td>
-                        <p class="typeoforder-Sample" *ngIf="group.type == 'Sample'">&#9679; Sample</p>
+                        <p class="typeoforder-Sample" *ngIf="group.type == 'GC_ORDER_SAMPLE'">&#9679; Sample</p>
                         <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
                     </td>
                     <td>{{group.status | titlecase}}

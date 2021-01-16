@@ -11,10 +11,9 @@
             <div class="bg-fff">
                 <div class="avaialble-mob">
                     <div class="back-page mob-left w-100">
-                        <a class="back-href fnt-500" routerLink="/features/sourcing"
-                            ><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png" />
-                            {{ globals.languageJson?.back }}</a
-                        >
+                        <a class="back-href fnt-500" routerLink="/features/sourcing"><img class="back-arrow-butn mr-2"
+                                src="assets/images/back-arrow-1.png" />
+                            {{ globals.languageJson?.back }}</a>
                     </div>
                     <div class="organic-border">
                         <div class="mob-left w-100">
@@ -25,7 +24,7 @@
                                 <h2>{{ sourcing.available_name }}</h2>
                                 <span class="mob-name fnt-muli fnt-600 fnt-14">{{
                                     sourcing.available_estate_name
-                                }}</span>
+                                    }}</span>
                             </div>
                         </div>
                     </div>
@@ -42,13 +41,10 @@
                         <div class="col-lg-12">
                             <div class="sourcing-details avaialble-web">
                                 <div class="back-page w-100">
-                                    <a
-                                        class="back-href fnt-500"
-                                        routerLink="/features/sourcing"
-                                        [fragment]="'green-coffee'"
-                                        ><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png" />
-                                        Back</a
-                                    >
+                                    <a class="back-href fnt-500" routerLink="/features/sourcing"
+                                        [fragment]="'green-coffee'"><img class="back-arrow-butn mr-2"
+                                            src="assets/images/back-arrow-1.png" />
+                                        Back</a>
                                 </div>
                                 <div class="w-100 mt-3 clearfix">
                                     <div class="source-det-tit pull-left">
@@ -63,20 +59,14 @@
                                         </div>
                                     </div>
                                     <div class="source-knowmore-avail pull-right">
-                                        <a
-                                            class="know-more-avail mr-2"
-                                            (click)="orderPlace(sourcing.harvestData, 'sample')"
-                                            >{{ globals.languageJson?.order_sample }}</a
-                                        >
-                                        <a
-                                            class="contact-us-avail"
-                                            (click)="orderPlace(sourcing.harvestData, 'buyNow')"
+                                        <a class="know-more-avail mr-2"
+                                            (click)="orderPlace(sourcing.harvestData, 'sample')">{{
+                                            globals.languageJson?.order_sample }}</a>
+                                        <a class="contact-us-avail" (click)="orderPlace(sourcing.harvestData, 'buyNow')"
                                             *ngIf="
                                                 this.globals.checkItem('coffee-management') &&
                                                 this.globals.permissions['coffee-management'].manage
-                                            "
-                                            >{{ globals.languageJson?.buy_now }}</a
-                                        >
+                                            ">{{ globals.languageJson?.buy_now }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -93,10 +83,8 @@
                                     <div class="cetify-logo pt-3 d-none d-md-block">
                                         <ul class="clearfix mb-5">
                                             <li class="mb-3" *ngFor="let cert of sourcing.availableCertify">
-                                                <img
-                                                    *ngIf="getCertificateData(cert) != ''"
-                                                    src="{{ getCertificateData(cert) }}"
-                                                />
+                                                <img *ngIf="getCertificateData(cert) != ''"
+                                                    src="{{ getCertificateData(cert) }}" />
                                                 <img *ngIf="getCertificateData(cert) == ''" src="" alt="" />
                                             </li>
                                         </ul>
@@ -115,10 +103,8 @@
                                             <li><img src="/assets/images/group-utz.png"></li>
                                             <li><img src="/assets/images/group-certified.png"></li> -->
                                             <li class="mb-3" *ngFor="let cert of sourcing.availableCertify">
-                                                <img
-                                                    *ngIf="getCertificateData(cert) != ''"
-                                                    src="{{ getCertificateData(cert) }}"
-                                                />
+                                                <img *ngIf="getCertificateData(cert) != ''"
+                                                    src="{{ getCertificateData(cert) }}" />
                                                 <img *ngIf="getCertificateData(cert) == ''" src="" alt="" />
                                             </li>
                                         </ul>
@@ -181,16 +167,10 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="real-estate">
                                                     <div class="p-photo">
-                                                        <img
-                                                            class="fc-img"
-                                                            *ngIf="sourcing.evaluator_dp_thumb != ''"
-                                                            [src]="sourcing.evaluator_dp_thumb"
-                                                            alt=""
-                                                        />
-                                                        <img
-                                                            *ngIf="sourcing.evaluator_dp_thumb == ''"
-                                                            src="assets/images/profile-coffee.jpg"
-                                                        />
+                                                        <img class="fc-img" *ngIf="sourcing.evaluator_dp_thumb != ''"
+                                                            [src]="sourcing.evaluator_dp_thumb" alt="" />
+                                                        <img *ngIf="sourcing.evaluator_dp_thumb == ''"
+                                                            src="assets/images/profile-coffee.jpg" />
                                                     </div>
 
                                                     <h3>{{ sourcing.evaluator_name }}</h3>
@@ -268,7 +248,7 @@
                                                 <h6>Altitude range</h6>
                                                 <h3>
                                                     {{ sourcing.min_altitude_coffee }}-{{
-                                                        sourcing.max_altitude_coffee
+                                                    sourcing.max_altitude_coffee
                                                     }}
                                                     m
                                                 </h3>
@@ -328,10 +308,8 @@
                                                         <p>{{ sourcing.packaging }}</p>
                                                     </li>
                                                 </ul>
-                                                <p
-                                                    class="fnt-muli fnt-14 fnt-500 know-listing"
-                                                    (click)="brandProfileSite()"
-                                                >
+                                                <p class="fnt-muli fnt-14 fnt-500 know-listing"
+                                                    (click)="brandProfileSite()">
                                                     Know more about the listing
                                                 </p>
                                             </div>
@@ -432,9 +410,9 @@
                         </div>
                     </div>
                     <!-- Chart div starts-->
-                    <div *ngIf="sourcing.polygonId">
+                    <!-- <div *ngIf="sourcing.polygonId">
                         <app-remote-sensoring [polygonId]="sourcing.polygonId"> </app-remote-sensoring>
-                    </div>
+                    </div> -->
                     <!-- Chart div ends-->
                 </div>
             </div>
@@ -445,20 +423,14 @@
                     <div class="cardpanel-detail avaialble-web" *ngIf="sourcing.otherGreenList != null">
                         <div class="row">
                             <span *ngFor="let item of sourcing.otherGreenList">
-                                <div
-                                    class="col-lg-4 col-md-6 col-12 cursor-item"
-                                    *ngIf="item.harvest_id != sourcing.harvestData"
-                                    (click)="lotDetails(item)"
-                                >
+                                <div class="col-lg-4 col-md-6 col-12 cursor-item"
+                                    *ngIf="item.harvest_id != sourcing.harvestData" (click)="lotDetails(item)">
                                     <div class="source-card card-border green-coffee-product">
                                         <div class="s-gal">
                                             <span *ngIf="item.images">
                                                 <img *ngIf="item.images[0] != ''" [src]="item.images[0]" alt="" />
-                                                <img
-                                                    *ngIf="item.images[0] == ''"
-                                                    src="assets/images/dummy-profile.png"
-                                                    alt=""
-                                                />
+                                                <img *ngIf="item.images[0] == ''" src="assets/images/dummy-profile.png"
+                                                    alt="" />
                                             </span>
                                             <span *ngIf="!item.images">
                                                 <img src="assets/images/dummy-profile.png" alt="" />
@@ -512,13 +484,9 @@
                                                 </div>
                                             </div>
                                             <div class="top-lots">
-                                                <label
-                                                    >{{ globals.languageJson?.available_quantity }} :
-                                                    <span
-                                                        >{{ item.quantity_count }} {{ item.quantity_type }} of
-                                                        {{ item.total_quantity }}{{ item.quantity_unit }}</span
-                                                    ></label
-                                                >
+                                                <label>{{ globals.languageJson?.available_quantity }} :
+                                                    <span>{{ item.quantity_count }} {{ item.quantity_type }} of
+                                                        {{ item.total_quantity }}{{ item.quantity_unit }}</span></label>
                                             </div>
                                         </div>
                                     </div>
@@ -530,18 +498,12 @@
                     <div class="row" *ngIf="sourcing.otherGreenList == null">
                         <div class="col-lg-12 col-md-12 no-data-sec">
                             <div class="text-center">
-                                <img
-                                    src="assets/images/table-empty.png"
-                                    alt="welcome-illustration"
-                                    class="error-image"
-                                />
+                                <img src="assets/images/table-empty.png" alt="welcome-illustration"
+                                    class="error-image" />
                                 <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
                                 <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                                <button
-                                    type="button"
-                                    class="fnt-14 fnt-600 fnt-muli save"
-                                    [routerLink]="['/features/welcome-aboard']"
-                                >
+                                <button type="button" class="fnt-14 fnt-600 fnt-muli save"
+                                    [routerLink]="['/features/welcome-aboard']">
                                     Browse availabilities
                                 </button>
                             </div>
@@ -587,10 +549,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="top-lots">
-                                                    <label
-                                                        >{{ globals.languageJson?.available_quantity }} :
-                                                        <span> {{ item.quantity }} of 60kg </span></label
-                                                    >
+                                                    <label>{{ globals.languageJson?.available_quantity }} :
+                                                        <span> {{ item.quantity }} of 60kg </span></label>
                                                 </div>
                                             </div>
                                         </div>

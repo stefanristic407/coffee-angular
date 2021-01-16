@@ -75,7 +75,7 @@ export class CoffeeSaleComponent implements OnInit {
       response => {
         console.log(response);
         if (response && response['success']) {
-          this.toasterService.error("Successfully marked the sale");
+          this.toasterService.success("Successfully marked the sale");
           this.router.navigate(["/features/green-coffee-inventory"]);
         }
         if (response && !response['success'] && response['messages'] && response['messages']['sale_data'] && response['messages']['sale_data'][0]) {
