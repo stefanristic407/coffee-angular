@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 export class BookedOrderConfirmationComponent implements OnInit {
 	bookId: any;
 	roasterId: any;
+	sampleMode: boolean = false;
+	orderType: string = '';
 
 	constructor(private route: ActivatedRoute,
 		public router: Router, public cookieService: CookieService,
@@ -26,6 +28,8 @@ export class BookedOrderConfirmationComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.orderType = decodeURIComponent(this.route.snapshot.queryParams["type"]);
+		this.sampleMode = this.orderType == 'GC_ORDER_SAMPLE' ? true : false;
 	}
 
 	acceptOrder() {

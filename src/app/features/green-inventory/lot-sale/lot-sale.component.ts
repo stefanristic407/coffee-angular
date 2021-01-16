@@ -51,7 +51,7 @@ export class LotSaleComponent implements OnInit {
         if (response['success'] && response['result']) {
           this.saleInformation = response['result'];
           this.saleDetailsPresent = true;
-          this.readOnlyMode = this.saleInformation && this.saleInformation.status !== 'SOLD' ? true : false;
+          this.readOnlyMode = this.saleInformation && this.saleInformation.status == 'SOLD' ? true : false;
           this.order_status = response['result']['status'];
           this.status_label = this.formatStatus(response['result']['status']);
         }
@@ -90,8 +90,8 @@ export class LotSaleComponent implements OnInit {
     data['status'] = undefined;
     this.roasterService.updateMarkForSale(this.roaster_id, this.orderID, data).subscribe(
       response => {
-        console.log(response);
         if (response && response['success']) {
+          this.toasterService.success("Details updated successfully");
           this.router.navigate(["/features/green-coffee-inventory"]);
         }
       }, err => {

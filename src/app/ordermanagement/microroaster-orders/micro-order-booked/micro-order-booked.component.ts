@@ -46,6 +46,8 @@ export class MicroOrderBookedComponent implements OnInit {
   dataFromTable: string;
   roasterId: any;
   bookId: any;
+  sampleMode: boolean = false;
+  orderType: string = '';
   //   shipmentLink: any;
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +67,8 @@ export class MicroOrderBookedComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.orderType = decodeURIComponent(this.route.snapshot.queryParams["type"]);
+    this.sampleMode = this.orderType == 'GC_ORDER_SAMPLE' ? true : false;
     //Auth checking
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
