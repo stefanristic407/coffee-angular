@@ -3,7 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import {GlobalsService} from 'src/services/globals.service';
+import { GlobalsService } from 'src/services/globals.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { DatePipe } from '@angular/common';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -19,12 +19,12 @@ export class TeamMembersComponent implements OnInit {
   roles: any;
   role_id: any;
   termStatus: any;
-  teamRole:any;
+  teamRole: any;
   showVar: boolean = true;
-  showRole:boolean = true;
-  term:any;
+  showRole: boolean = true;
+  term: any;
   appLanguage?: any;
-  teamActive:any = 0;
+  teamActive: any = 0;
   roleData: string;
   roleID: string;
   userfilterDat: any = [];
@@ -33,44 +33,45 @@ export class TeamMembersComponent implements OnInit {
   modalRef: BsModalRef;
   loginId: string;
   checkCondition: any;
-  showAssignBtn:boolean = false;
+  showAssignBtn: boolean = false;
 
-  
-  constructor(public roasterService:RoasterserviceService,
+
+  constructor(public roasterService: RoasterserviceService,
     public cookieService: CookieService,
     private router: Router,
     public route: ActivatedRoute,
+
     public globals: GlobalsService,
-    private toastrService : ToastrService,
-    private userService : UserserviceService,
-    private modalService: BsModalService,) { 
+    private toastrService: ToastrService,
+    private userService: UserserviceService,
+    private modalService: BsModalService,) {
     this.roaster_id = this.cookieService.get('roaster_id');
     this.termStatus = '';
     this.termRole = '';
-  
-	this.loginId = this.cookieService.get('user_id');
+
+    this.loginId = this.cookieService.get('user_id');
   }
 
-  openDeleteModal(template1:TemplateRef<any>,deleteId:any){
+  openDeleteModal(template1: TemplateRef<any>, deleteId: any) {
     this.modalRef = this.modalService.show(template1);
     this.deleteUserId = deleteId;
-    }
+  }
 
   ngOnInit(): void {
-      //Auth checking
-      if (this.cookieService.get("Auth") == "") {
-        this.router.navigate(["/auth/login"]);
-      }
-      this.listRoles();
-      this.language();
-      this.getRoasterUsers();
-         // console.log(this.globals.permissions['user-management']);
-	if(!this.globals.permissions['user-management']){
-		this.router.navigate(["/people/permission-error"]);
-  }
+    //Auth checking
+    if (this.cookieService.get("Auth") == "") {
+      this.router.navigate(["/auth/login"]);
+    }
+    this.listRoles();
+    this.language();
+    this.getRoasterUsers();
+    // console.log(this.globals.permissions['user-management']);
+    if (!this.globals.permissions['user-management']) {
+      this.router.navigate(["/people/permission-error"]);
+    }
   }
 
-  
+
   listRoles() {
     this.roasterService.getRoles(this.roaster_id).subscribe(
       response => {
@@ -84,15 +85,15 @@ export class TeamMembersComponent implements OnInit {
           this.teamRole = this.roleData;
           this.role_id = this.roleID;
         }
-		// this.teamRole = this.roles[0].name;
-		this.teamActive++;
+        // this.teamRole = this.roles[0].name;
+        this.teamActive++;
       }
     )
   }
 
 
 
-   // Function Name : Roaster
+  // Function Name : Roaster
   // Description: This function helps to get the Role Id from user management page 
 
   getRoasterUsers() {
@@ -105,19 +106,19 @@ export class TeamMembersComponent implements OnInit {
             var tempData = {};
             tempData['id'] = element.id;
             tempData['name'] = element.firstname + " " + element.lastname;
-              if(element.id == this.cookieService.get('user_id')){
-            	this.userService.userLastlogin().subscribe(
-            	  loginResponse => {
+            if (element.id == this.cookieService.get('user_id')) {
+              this.userService.userLastlogin().subscribe(
+                loginResponse => {
                   console.log(loginResponse);
                   let sample = loginResponse['result'];
                   let latest_date = sample.map(function (e) { return e.logged_in_at; }).sort().reverse()[0];
                   this.loginValue = new DatePipe('en-Us').transform(latest_date, 'dd/MM/yyyy h:mma', 'GMT+5:30');
                   tempData["lastLogin"] = this.loginValue;
-            	  }
-            	);
-              } else {
-            	tempData['lastLogin'] = "";
-              }
+                }
+              );
+            } else {
+              tempData['lastLogin'] = "";
+            }
             tempData['email'] = element.email;
             tempData['status'] = element.status;
             this.roasterService.getUserBasedRoles(this.roaster_id, tempData['id']).subscribe(
@@ -125,6 +126,11 @@ export class TeamMembersComponent implements OnInit {
                 console.log(roleResponse);
                 if (roleResponse['success'] == true) {
                   tempData['roles'] = roleResponse['result'];
+                  if (tempData['roles'] && tempData['roles'].length > 0) {
+                    let checkExist = tempData['roles'].find(ele => ele['id'] == this.roleID);
+                    tempData['state'] = checkExist ? true : false;
+                    tempData['disabled'] = checkExist ? true : false;
+                  }
                 } else {
                   tempData['roles'] = "";
                 }
@@ -134,7 +140,7 @@ export class TeamMembersComponent implements OnInit {
             console.log(tempData)
             this.userfilterDat.push(tempData)
           });
-        //   this.userActive++;          
+          //   this.userActive++;          
         }
         else {
           this.toastrService.error("Unable to fetch users data");
@@ -157,16 +163,23 @@ export class TeamMembersComponent implements OnInit {
 
   // }
 
-  language(){
+  language() {
     this.appLanguage = this.globals.languageJson;
     this.teamActive++;
   }
-  
+
   setTeamRole(term: any, roleId: any) {
     this.teamRole = term;
     this.role_id = roleId;
+    this.userfilterDat.forEach(ele => {
+      if (ele['roles'] && ele['roles'].length > 0) {
+        let checkExist = ele['roles'].find(ele => ele['id'] == this.role_id);
+        ele['state'] = checkExist ? true : false;
+        ele['disabled'] = checkExist ? true : false;
+      }
+    });
   }
- // Function Name : Status Filiter
+  // Function Name : Status Filiter
   // Description: This function helps to filiter the users based on the selected status fiiter.
 
   setStatus(term: any) {
@@ -181,29 +194,30 @@ export class TeamMembersComponent implements OnInit {
   }
   toggleRole() {
     this.showRole = !this.showRole;
-    if(this.showRole==false){
-      document.getElementById('role_id').style.border="1px solid #30855c";
+    if (this.showRole == false) {
+      document.getElementById('role_id').style.border = "1px solid #30855c";
     }
-    else{
-      document.getElementById('role_id').style.border="1px solid #d6d6d6";
-    
+    else {
+      document.getElementById('role_id').style.border = "1px solid #d6d6d6";
+
     }
-   }
-  
-   toggleStatus() {
+  }
+
+  toggleStatus() {
     this.showVar = !this.showVar;
-    if(this.showVar==false){
-    document.getElementById('status_id').style.border="1px solid #30855c";
-  }
-  else{
-    document.getElementById('status_id').style.border="1px solid #d6d6d6";
-  
-  }
+    if (this.showVar == false) {
+      document.getElementById('status_id').style.border = "1px solid #30855c";
+    }
+    else {
+      document.getElementById('status_id').style.border = "1px solid #d6d6d6";
+
+    }
   }
   // Function Name : CheckAll
   // Description: This function helps to check all roles of the role list.
   checkAll(ev: any) {
-    this.userfilterDat.forEach(x => {x.state = ev.target.checked
+    this.userfilterDat.forEach(x => {
+      x.state = ev.target.checked
       console.log(x.state);
     })
   }
@@ -212,7 +226,7 @@ export class TeamMembersComponent implements OnInit {
   // Description: This function helps to check single role.
   isAllChecked() {
     return this.userfilterDat.every(_ => _.state);
-  } 
+  }
 
   inviteNewMembers() {
     console.log(this.roleData)
@@ -225,51 +239,62 @@ export class TeamMembersComponent implements OnInit {
     this.router.navigate(['/people/invite-member'], navigationExtras);
   }
 
-  checkedValue(ev : any, user_id : any){
+  checkedValue(ev: any, user_id: any) {
     this.checkCondition = ev.target.checked;
     const getCheckValue = this.userfilterDat.filter(ele => ele['state'] == true);
     this.showAssignBtn = getCheckValue && getCheckValue.length > 0 ? true : false;
   }
 
-  assignUsersToRole(){
-    let selectedUserID = this.userfilterDat.find(ele => ele['state'] == true);    
-    this.roasterService.assignUserBasedUserRoles(this.roaster_id, this.roleID, selectedUserID['id'], ).subscribe(
-      res => {
-        console.log(res);
-        if (res['success'] == true) {
-          this.toastrService.success("User Role Assigned Successfully!");
-		      this.userfilterDat=[];
-          this.getRoasterUsers();
-        } else {
-          this.toastrService.error("User Role Already exists.Please select another role");
-        }        
-      }, err=>{
-        console.log(err); 
+  assignUsersToRole() {
+    let selectedUserID = this.userfilterDat.filter(ele => ele['state'] == true);
+    if (selectedUserID) {
+      let count = 0;
+      selectedUserID.forEach(ele => {
+        this.roasterService.assignUserBasedUserRoles(this.roaster_id, this.role_id, ele['id'],).subscribe(
+          res => {
+            console.log(res);
+            count++;
+            if (res['success'] == true) {
+              if (count == (selectedUserID.length - 1)) {
+                this.toastrService.success("User Role Assigned Successfully!");
+                this.userfilterDat = [];
+                this.getRoasterUsers();
+              }
+
+            } else {
+              this.toastrService.error("User Role Already exists.Please select another role");
+            }
+          }, err => {
+            count++;
+            console.log(err);
+          });
       });
+    }
+
   }
 
-   // Function Name : Delete user
+  // Function Name : Delete user
   // Description: This function helps to delete the selected user.
 
   deleteRoasterUser(userID: any) {
     // if (confirm("Please confirm! you want to delete?") == true) {
 
-      this.roasterService.deleteRoasterUser(this.roaster_id, userID).subscribe(
-        response => {
-          console.log(response);
-          if (response['success'] == true) {
-			this.toastrService.success("User Deleted successfully!");
-			this.userfilterDat=[];
-            this.getRoasterUsers();
-            // window.location.reload();
-          }
-          else {
-            this.toastrService.error("Unable to delete the user.");
-
-          }
-          // this.userActive++;
+    this.roasterService.deleteRoasterUser(this.roaster_id, userID).subscribe(
+      response => {
+        console.log(response);
+        if (response['success'] == true) {
+          this.toastrService.success("User Deleted successfully!");
+          this.userfilterDat = [];
+          this.getRoasterUsers();
+          // window.location.reload();
         }
-      )
+        else {
+          this.toastrService.error("Unable to delete the user.");
+
+        }
+        // this.userActive++;
+      }
+    )
     // }
   }
 }

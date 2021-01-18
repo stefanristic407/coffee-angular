@@ -113,7 +113,7 @@
                             <div class="form-group col-md-9 col-sm-6">
                                 <label class="raise-label fnt-muli">Order ID #<span class="mobile-view "><span
                                             class="raise-chng-ord fnt-muli" routerLink="/ordermanagement/select-order"
-                                            [queryParams]="{id: orderID}">
+                                            [queryParams]="{id: orderID, orderType: orderType}">
                                             <img src="/assets/images/shape-2.png" alt=""> change
                                             order</span></span></label>
                                 <input type="number" class="form-control raise-box ord disable-ticket"
@@ -124,7 +124,8 @@
                             </div>
                             <div class="form-group col-md-3 col-sm-6 web-view">
                                 <span class="raise-chng-ord fnt-muli" routerLink="/ordermanagement/select-order"
-                                    [queryParams]="{id: orderID}"> <img src="/assets/images/shape-2.png" alt=""> change
+                                    [queryParams]="{id: orderID, orderType: orderType}"> <img
+                                        src="/assets/images/shape-2.png" alt=""> change
                                     order</span>
                             </div>
                         </div>

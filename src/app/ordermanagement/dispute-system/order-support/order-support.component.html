@@ -43,7 +43,8 @@
             <div class="row">
                 <h4 class="ord-support pl-3"> Order support</h4>
                 <div class="ml-auto text-right view-all-div">
-                    <button type="button" class="btn cancel-butn" routerLink="/ordermanagement/raised-tickets"> View all
+                    <button type="button" class="btn cancel-butn" routerLink="/ordermanagement/raised-tickets"
+                        [queryParams]="{orderType:orderType}"> View all
                         my raised tickets </button>
                 </div>
             </div>
