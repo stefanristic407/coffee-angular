@@ -127,7 +127,7 @@ export class TeamMembersComponent implements OnInit {
                 if (roleResponse['success'] == true) {
                   tempData['roles'] = roleResponse['result'];
                   if (tempData['roles'] && tempData['roles'].length > 0) {
-                    let checkExist = tempData['roles'].find(ele => ele['id'] == this.roleID);
+                    let checkExist = tempData['roles'].find(ele => ele['id'] == this.role_id);
                     tempData['state'] = checkExist ? true : false;
                     tempData['disabled'] = checkExist ? true : false;
                   }
@@ -246,7 +246,7 @@ export class TeamMembersComponent implements OnInit {
   }
 
   assignUsersToRole() {
-    let selectedUserID = this.userfilterDat.filter(ele => ele['state'] == true);
+    let selectedUserID = this.userfilterDat.filter(ele => ele['state'] == true && ele['disabled'] == false);
     if (selectedUserID) {
       let count = 0;
       selectedUserID.forEach(ele => {
@@ -255,7 +255,7 @@ export class TeamMembersComponent implements OnInit {
             console.log(res);
             count++;
             if (res['success'] == true) {
-              if (count == (selectedUserID.length - 1)) {
+              if (count == selectedUserID.length) {
                 this.toastrService.success("User Role Assigned Successfully!");
                 this.userfilterDat = [];
                 this.getRoasterUsers();
