@@ -241,7 +241,7 @@ export class TeamMembersComponent implements OnInit {
 
   checkedValue(ev: any, user_id: any) {
     this.checkCondition = ev.target.checked;
-    const getCheckValue = this.userfilterDat.filter(ele => ele['state'] == true);
+    const getCheckValue = this.userfilterDat.filter(ele => ele['state'] == true && ele['disabled'] == false);
     this.showAssignBtn = getCheckValue && getCheckValue.length > 0 ? true : false;
   }
 
