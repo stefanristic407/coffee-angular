@@ -62,7 +62,6 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         this.getUserValue();
         this.getRoasterProfile();
         this.getLoggedInUserRoles();
-        this.globals.permissionMethod();
 
         $(window).scroll(function () {
             if ($(window).scrollTop() + $(window).height() === $(document).height()) {
@@ -78,10 +77,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
             }
         });
 
-        var pt = $('header').outerHeight() + 'px';
-        $('.router-design').css({
-            'padding-top': pt,
-        });
+        const pt = $('header').outerHeight() + 'px';
+        $('.router-design').css({ 'padding-top': pt });
 
         // Open side nav
         $('body').on('click', '.sidenav-hamberg', function (event) {
@@ -156,7 +153,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         this.globals.permissionMethod();
         this.userService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
             this.userName = res.result.firstname + ' ' + res.result.lastname;
-            this.profilePic = res['result.profile_image_thumb_url'];
+            this.profilePic = res.result.profile_image_thumb_url;
             const language = res.result.language === '' ? 'en' : res.result.language;
             this.userService.getUserLanguageStrings(language).subscribe((resultLanguage) => {
                 this.globals.languageJson = resultLanguage;

@@ -1,79 +1,93 @@
 <section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff">
-            <div class="process_cont">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="back-page w-100">
-                            <a (click)="backRequests()"><img src="assets/images/back-arrow-1.png"> Back</a>
-                        </div>
-                        <div class="details_heading">
-                            <h1 class="fnt-play">Process details</h1>
-                        </div>
+    <div class="bg-fff">
+        <div class="process_cont">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="back-page w-100">
+                        <a (click)="backRequests()"><img src="assets/images/back-arrow-1.png" /> Back</a>
+                    </div>
+                    <div class="details_heading">
+                        <h1 class="fnt-play">Process details</h1>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6 col-12 pr-lg-0">
-                        <div class="process_info">
-                            <ul class="clearfix">
-                                <li><label>Wet Mill</label>
-                                    <p>Tapucha Mill</p>
-                                </li>
-                                <li><label>Wet Mill Processing</label>
-                                    <p>{{processDetailsService.wetprocess}}</p>
-                                </li>
-                                <li><label>Wet Mill Process description</label>
-                                    <p>{{processDetailsService.wetdescription}}</p>
-                                </li>
-                                <li><label>Fermentation/h</label>
-                                    <p>{{processDetailsService.fermentation}}</p>
-                                </li>
-                                <li><label>Parchment weight after milling</label>
-                                    <p>{{processDetailsService.parchment_weight}}</p>
-                                </li>
-                            </ul>
-                        </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12 pr-lg-0">
+                    <div class="process_info">
+                        <ul class="clearfix">
+                            <li>
+                                <label>Wet Mill</label>
+                                <p>Tapucha Mill</p>
+                            </li>
+                            <li>
+                                <label>Wet Mill Processing</label>
+                                <p>{{ processDetailsService.wetprocess }}</p>
+                            </li>
+                            <li>
+                                <label>Wet Mill Process description</label>
+                                <p>{{ processDetailsService.wetdescription }}</p>
+                            </li>
+                            <li>
+                                <label>Fermentation/h</label>
+                                <p>{{ processDetailsService.fermentation }}</p>
+                            </li>
+                            <li>
+                                <label>Parchment weight after milling</label>
+                                <p>{{ processDetailsService.parchment_weight }}</p>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-lg-6 col-12 mt-lg-0 mt-3">
-                        <div class="process_info">
-                            <ul class="clearfix">
-                                <li><label>Dry Mill<span class="mill-star">*</span></label>
-                                    <p>Tapucha Mill</p>
-                                </li>
-                                <li><label>Dry Mill Processing*</label>
-                                    <p>{{processDetailsService.dryprocess}}</p>
-                                </li>
-                                <li><label>Dry Mill Process description*</label>
-                                    <p>
-                                        {{processDetailsService.drydescription}}
-                                    </p>
-                                </li>
-                                <li><label>Drying Period*</label>
-                                    <p>{{processDetailsService.drying_period}}</p>
-                                </li>
-                                <li><label>Screen Size*</label>
-                                    <p> {{processDetailsService.screen_size}}</p>
-                                </li>
-                                <li><label>Density</label>
-                                    <p> {{processDetailsService.density}}</p>
-                                </li>
-                                <li><label>Number of Defects*</label>
-                                    <p>{{processDetailsService.no_of_defects}}</p>
-                                </li>
-                                <li><label>Preparation*</label>
-                                    <p>{{processDetailsService.preparation}}</p>
-                                </li>
-                                <li><label>Quality grade*</label>
-                                    <p>{{processDetailsService.quality_grade}}</p>
-                                </li>
-                                <li><label>Moisture content*</label>
-                                    <p> {{processDetailsService.moisture_content}}%</p>
-                                </li>
-                                <li><label>Water activity*</label>
-                                    <p>{{processDetailsService.water_activity}}</p>
-                                </li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="col-lg-6 col-12 mt-lg-0 mt-3">
+                    <div class="process_info">
+                        <ul class="clearfix">
+                            <li>
+                                <label>Dry Mill<span class="mill-star">*</span></label>
+                                <p>Tapucha Mill</p>
+                            </li>
+                            <li>
+                                <label>Dry Mill Processing*</label>
+                                <p>{{ processDetailsService.dryprocess }}</p>
+                            </li>
+                            <li>
+                                <label>Dry Mill Process description*</label>
+                                <p>
+                                    {{ processDetailsService.drydescription }}
+                                </p>
+                            </li>
+                            <li>
+                                <label>Drying Period*</label>
+                                <p>{{ processDetailsService.drying_period }}</p>
+                            </li>
+                            <li>
+                                <label>Screen Size*</label>
+                                <p>{{ processDetailsService.screen_size }}</p>
+                            </li>
+                            <li>
+                                <label>Density</label>
+                                <p>{{ processDetailsService.density }}</p>
+                            </li>
+                            <li>
+                                <label>Number of Defects*</label>
+                                <p>{{ processDetailsService.no_of_defects }}</p>
+                            </li>
+                            <li>
+                                <label>Preparation*</label>
+                                <p>{{ processDetailsService.preparation }}</p>
+                            </li>
+                            <li>
+                                <label>Quality grade*</label>
+                                <p>{{ processDetailsService.quality_grade }}</p>
+                            </li>
+                            <li>
+                                <label>Moisture content*</label>
+                                <p>{{ processDetailsService.moisture_content }}%</p>
+                            </li>
+                            <li>
+                                <label>Water activity*</label>
+                                <p>{{ processDetailsService.water_activity }}</p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

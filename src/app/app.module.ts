@@ -2,6 +2,9 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+
+import { SharedModule } from 'src/app/shared/shared.module';
+
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +50,7 @@ import { LayoutComponent } from './layout/layout.component';
         ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
         AnimateOnScrollModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        SharedModule,
     ],
     providers: [
         {

@@ -1,58 +1,101 @@
 <section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff ">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                <span id="title-breadcrumb-1" class="sr-only"></span>
-                <ul class="bread-nav">
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                    </li>
-                    <!-- <li class="b-cum">
+    <div class="bg-fff">
+        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+            <span id="title-breadcrumb-1" class="sr-only"></span>
+            <ul class="bread-nav">
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
+                    ><span class="padl-r" aria-hidden="true"
+                        ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                    </span>
+                </li>
+                <!-- <li class="b-cum">
                         <a class="b-cum">{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                     </li> -->
 
-                    <li class="b-cum c-pink">{{globals.languageJson?.social_media_posts}}</li>
+                <li class="b-cum c-pink">{{ globals.languageJson?.social_media_posts }}</li>
 
-                    <div class="search-on-site pull-right web-farm ">
-                        <div class="search-on-site__input fnt-muli">
-                            <img src="assets/images/search.svg" class="img d-inline-block">
-                            <input type="search" placeholder="{{globals.languageJson?.search}}.." class="float-right fadout-search pt-1">
-                        </div>
+                <div class="search-on-site pull-right web-farm">
+                    <div class="search-on-site__input fnt-muli">
+                        <img src="assets/images/search.svg" class="img d-inline-block" />
+                        <input
+                            type="search"
+                            placeholder="{{ globals.languageJson?.search }}.."
+                            class="float-right fadout-search pt-1"
+                        />
                     </div>
+                </div>
+            </ul>
+        </nav>
 
-                </ul>
-            </nav>
+        <section class="social-media">
+            <p class="social-head pt-3">{{ globals.languageJson?.social_media_posts }}</p>
+            <p class="social-para">{{ globals.languageJson?.get_your_media_text }}</p>
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="row">
+                    <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                        <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link active"
+                                    id="pills-images-tab"
+                                    data-toggle="pill"
+                                    href="#pills-images"
+                                    role="tab"
+                                    aria-controls="pills-home"
+                                    aria-selected="true"
+                                    >{{ globals.languageJson?.images }}</a
+                                >
+                            </li>
 
-            <section class="social-media">
-                <p class="social-head pt-3"> {{globals.languageJson?.social_media_posts}} </p>
-                <p class="social-para">{{globals.languageJson?.get_your_media_text}}</p>
-                <div class="col-lg-12 col-md-12 col-12">
-                    <div class="row">
-                        <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
-                            <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="pills-images-tab" data-toggle="pill" href="#pills-images" role="tab" aria-controls="pills-home" aria-selected="true">{{globals.languageJson?.images}}</a>
-                                </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link"
+                                    id="pills-videos-tab"
+                                    data-toggle="pill"
+                                    href="#pills-videos"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false"
+                                    >{{ globals.languageJson?.videos }}</a
+                                >
+                            </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-videos-tab" data-toggle="pill" href="#pills-videos" role="tab" aria-controls="pills-profile" aria-selected="false">{{globals.languageJson?.videos}}</a>
-                                </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link"
+                                    id="pills-blogs-tab"
+                                    data-toggle="pill"
+                                    href="#pills-blogs"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false"
+                                    >{{ globals.languageJson?.blogs }}</a
+                                >
+                            </li>
+                        </ul>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-blogs-tab" data-toggle="pill" href="#pills-blogs" role="tab" aria-controls="pills-profile" aria-selected="false">{{globals.languageJson?.blogs}}</a>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content mt-md-4" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
-                                    <div class="row cursor-pointer social-post-farmlink ">
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3" *ngFor="let images of imagesListArray" (click)="imagesModal(imagetemplate,images)">
-                                            <div class="social-post-farmlink__item position-relative">
-                                                <img class="social-images" src="{{images.url}}" alt="farm">
-                                                <p class="mb-0 post-info">{{images.description}} &nbsp; @ {{images.owner_name}} </p>
-                                            </div>
+                        <div class="tab-content mt-md-4" id="pills-tabContent">
+                            <div
+                                class="tab-pane fade show active"
+                                id="pills-images"
+                                role="tabpanel"
+                                aria-labelledby="pills-images-tab"
+                            >
+                                <div class="row cursor-pointer social-post-farmlink">
+                                    <div
+                                        class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3"
+                                        *ngFor="let images of imagesListArray"
+                                        (click)="imagesModal(imagetemplate, images)"
+                                    >
+                                        <div class="social-post-farmlink__item position-relative">
+                                            <img class="social-images" src="{{ images.url }}" alt="farm" />
+                                            <p class="mb-0 post-info">
+                                                {{ images.description }} &nbsp; @ {{ images.owner_name }}
+                                            </p>
                                         </div>
-                                        <!-- <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 ">
+                                    </div>
+                                    <!-- <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 ">
                                             <div class="social-post-farmlink__item position-relative">
                                                 <img class="social-images" src="assets/images/farm-2.png" alt="farm">
                                                 <p class="mb-0 post-info">Next week we will serve coffee from xxxxx here at customer X @sewn” </p>
@@ -100,21 +143,29 @@
                                                 <p class="mb-0 post-info">Next week we will serve coffee from xxxxx here at customer X @sewn” </p>
                                             </div>
                                         </div> -->
-                                    </div>
                                 </div>
+                            </div>
 
-                                <div class="tab-pane fade" id="pills-videos" role="tabpanel" aria-labelledby="pills-videos-tab">
-                                    <div class="row cursor-pointer">
+                            <div
+                                class="tab-pane fade"
+                                id="pills-videos"
+                                role="tabpanel"
+                                aria-labelledby="pills-videos-tab"
+                            >
+                                <div class="row cursor-pointer">
+                                    <a
+                                        class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3"
+                                        *ngFor="let videos of videosListArray"
+                                        (click)="videosModal(videotemplate, videos)"
+                                    >
+                                        <div class="social-post-farmlink__item position-relative">
+                                            <img class="social-images" src="assets/images/farm-1.png" alt="farm" />
+                                            <img class="video-play" src="assets/images/play-button.png" alt="farm" />
+                                            <p class="mb-0 post-info">{{ videos.description }}</p>
+                                        </div>
+                                    </a>
 
-                                        <a  class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 " *ngFor="let videos of videosListArray" (click)="videosModal(videotemplate,videos)">
-                                            <div class="social-post-farmlink__item position-relative">
-                                                <img class="social-images" src="assets/images/farm-1.png" alt="farm">
-                                                <img class="video-play" src="assets/images/play-button.png" alt="farm">
-                                                <p class="mb-0 post-info">{{videos.description}}</p>
-                                            </div>
-                                        </a>
-
-                                        <!-- <a href="javascript:void(0);" class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 ">
+                                    <!-- <a href="javascript:void(0);" class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 ">
                                             <div class="social-post-farmlink__item position-relative">
                                                 <img class="social-images" src="assets/images/farm-2.png" alt="farm">
                                                 <img class="video-play" src="assets/images/play-button.png" alt="farm">
@@ -171,143 +222,276 @@
                                                 <p class="mb-0 post-info">Different coffee brewing styles</p>
                                             </div>
                                         </a> -->
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="pills-blogs" role="tabpanel" aria-labelledby="pills-blogs-tab">
-
-                                    <div class="row cursor-pointer">
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3" routerLink="/features/blog-details">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-1.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}}  </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-2.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right  mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}}  </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-3.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right  mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}}  </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-4.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right  mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}} </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-5.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right  mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}}  </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-6.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right  mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}}  </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-7.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right  mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}}  </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-8.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right  mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}}  </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
-                                            <div class="card border">
-                                                <img class="card-img-top" src="assets/images/blog-9.png" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="december">December 2019</p>
-                                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee Trends in Latin America: Analysing PDG Español Data</h5>
-                                                    <p class="fnt-14 light-gray fnt-muli pad-card">From Colombia’s thriving coffee farms to Uruguay’s micro-roasters, Latin America has a diverse and constantly evolving..</p>
-                                                    <p class="mobile-farm grey-bor"> </p>
-                                                    <p class="float-right  mb-md-3 mb-0"> <span class="read-art pt-1">{{globals.languageJson?.read_article}} </span><span> <img class="" src="assets/images/group.png" alt="farm"> </span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
                                 </div>
                             </div>
 
+                            <div
+                                class="tab-pane fade"
+                                id="pills-blogs"
+                                role="tabpanel"
+                                aria-labelledby="pills-blogs-tab"
+                            >
+                                <div class="row cursor-pointer">
+                                    <div
+                                        class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3"
+                                        routerLink="/features/blog-details"
+                                    >
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-1.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-2.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-3.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-4.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-5.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-6.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-7.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-8.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12 pb-3">
+                                        <div class="card border">
+                                            <img
+                                                class="card-img-top"
+                                                src="assets/images/blog-9.png"
+                                                alt="Card image cap"
+                                            />
+                                            <div class="card-body">
+                                                <p class="december">December 2019</p>
+                                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                                    Coffee Trends in Latin America: Analysing PDG Español Data
+                                                </h5>
+                                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                                    From Colombia’s thriving coffee farms to Uruguay’s micro-roasters,
+                                                    Latin America has a diverse and constantly evolving..
+                                                </p>
+                                                <p class="mobile-farm grey-bor"></p>
+                                                <p class="float-right mb-md-3 mb-0">
+                                                    <span class="read-art pt-1"
+                                                        >{{ globals.languageJson?.read_article }} </span
+                                                    ><span>
+                                                        <img class="" src="assets/images/group.png" alt="farm" />
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-
                 </div>
-            </section>
-
-        </div>
+            </div>
+        </section>
     </div>
 </section>
 
@@ -315,81 +499,88 @@
     <div class="modal-header">
         <!-- <span class="fnt-18 fnt-muli fnt-700 text-black334"> Different coffee brewing styles </span> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true"><img class="" src="assets/images/farm-close.svg" alt="farm"></span>
-          </button>
+            <span aria-hidden="true"><img class="" src="assets/images/farm-close.svg" alt="farm" /></span>
+        </button>
     </div>
     <div class="modal-body text-center mb-1">
         <div class="row">
-
             <div class="col-lg-5 col-md-5 col-sm-12 col-12 pb-3">
-                <img class="w-100 fram-img" src="{{imageUrl}}" alt="farm">
+                <img class="w-100 fram-img" src="{{ imageUrl }}" alt="farm" />
             </div>
 
             <div class="col-lg-7 col-md-7 col-sm-12 col-12 pb-3 txt-l mt-4">
-                <h4 class="img-open-title"> {{imageDescription}} &nbsp; @ {{imageOwner}} </h4>
+                <h4 class="img-open-title">{{ imageDescription }} &nbsp; @ {{ imageOwner }}</h4>
                 <p class="img-open-para">#coffee #specialitycoffee #sewn</p>
                 <div class="share-dwn">
-                    <span class="share-bor mr-3">  <a  class="underline" href="javascript:void(0);" download><img class="share-img" src="assets/images/share-img.png" alt="farm"> <span class="share-txt"> {{globals.languageJson?.share}} </span> </a>
+                    <span class="share-bor mr-3">
+                        <a class="underline" href="javascript:void(0);" download
+                            ><img class="share-img" src="assets/images/share-img.png" alt="farm" />
+                            <span class="share-txt"> {{ globals.languageJson?.share }} </span>
+                        </a>
                     </span>
 
-                    <span class="share-bor">  <a  class="underline" href="{{imageUrl}}" target="_blank" download> <img class="dwnd-img" src="assets/images/dwnd.png" alt="farm">  <span class="share-txt"> {{globals.languageJson?.download_image}} </span> </a>
+                    <span class="share-bor">
+                        <a class="underline" href="{{ imageUrl }}" target="_blank" download>
+                            <img class="dwnd-img" src="assets/images/dwnd.png" alt="farm" />
+                            <span class="share-txt"> {{ globals.languageJson?.download_image }} </span>
+                        </a>
                     </span>
                 </div>
             </div>
-
         </div>
     </div>
 </ng-template>
-
 
 <ng-template #videotemplate>
     <div class="modal-header">
         <!-- <span class="fnt-18 fnt-muli fnt-700 text-black334"> Different coffee brewing styles </span> -->
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true"><img class="" src="assets/images/farm-close.svg" alt="farm"></span>
-          </button>
+            <span aria-hidden="true"><img class="" src="assets/images/farm-close.svg" alt="farm" /></span>
+        </button>
     </div>
     <div class="modal-body text-center mb-1">
         <div class="row">
-
-            <div class="col-lg-5 col-md-5 col-sm-12 col-12 pb-3" (click)="videoPopup(popTemplate);"> 
-                <img class="w-100 fram-img" src="assets/images/farm-1.png" alt="farm">
-                <img class="video-play cursor-pointer" src="assets/images/play-button.png" alt="farm">
-
+            <div class="col-lg-5 col-md-5 col-sm-12 col-12 pb-3" (click)="videoPopup(popTemplate)">
+                <img class="w-100 fram-img" src="assets/images/farm-1.png" alt="farm" />
+                <img class="video-play cursor-pointer" src="assets/images/play-button.png" alt="farm" />
             </div>
 
             <div class="col-lg-7 col-md-7 col-sm-12 col-12 pb-3 txt-l mt-4">
-                <h4 class="img-open-title">{{videoDescription}} &nbsp; @ {{videoOwner}}</h4>
+                <h4 class="img-open-title">{{ videoDescription }} &nbsp; @ {{ videoOwner }}</h4>
                 <p class="img-open-para">#coffee #specialitycoffee #sewn</p>
                 <div class="">
-                    <span class="share-bor mr-3">  <a  class="underline" href="javascript:void(0);" download><img class="share-img" src="assets/images/share-img.png" alt="farm"> <span class="share-txt"> {{globals.languageJson?.share}} </span> </a>
+                    <span class="share-bor mr-3">
+                        <a class="underline" href="javascript:void(0);" download
+                            ><img class="share-img" src="assets/images/share-img.png" alt="farm" />
+                            <span class="share-txt"> {{ globals.languageJson?.share }} </span>
+                        </a>
                     </span>
 
-
-                    <span class="share-bor">  <a  class="underline" href="{{videoUrl}}" target="_blank" download> <img class="dwnd-img" src="assets/images/dwnd.png" alt="farm">  <span class="share-txt"> {{globals.languageJson?.download_image}} </span> </a>
+                    <span class="share-bor">
+                        <a class="underline" href="{{ videoUrl }}" target="_blank" download>
+                            <img class="dwnd-img" src="assets/images/dwnd.png" alt="farm" />
+                            <span class="share-txt"> {{ globals.languageJson?.download_image }} </span>
+                        </a>
                     </span>
                 </div>
             </div>
-
         </div>
     </div>
 </ng-template>
 
-
-<ng-template #popTemplate >
+<ng-template #popTemplate>
     <div class="popup-video">
-            <div class="video-close" (click)="closePopup()">
-                    <span>&#x2715;</span>
-                </div>
-    <div class="modal-body video-section-modal p-0">
+        <div class="video-close" (click)="closePopup()">
+            <span>&#x2715;</span>
+        </div>
+        <div class="modal-body video-section-modal p-0">
             <div>
                 <!-- <mat-video src="{{url}}"></mat-video> -->
-                
-<video id="player" playsinline controls data-poster="/path/to/poster.jpg">
-    <source src="{{videoUrl}}" type="video/mp4" />
-  
-  </video>
+
+                <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                    <source src="{{ videoUrl }}" type="video/mp4" />
+                </video>
             </div>
+        </div>
     </div>
-</div>    
 </ng-template>

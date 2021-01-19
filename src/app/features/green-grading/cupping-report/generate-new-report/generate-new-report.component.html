@@ -1,93 +1,105 @@
 <section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff">
-            <div class="newreport_cont">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="back-page w-100">
-                            <a routerLink="/features/cupping-reports"><img class="pr-2"
-                                    src="assets/images/back-arrow-1.png">Back</a>
+    <div class="bg-fff">
+        <div class="newreport_cont">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="back-page w-100">
+                        <a routerLink="/features/cupping-reports"
+                            ><img class="pr-2" src="assets/images/back-arrow-1.png" />Back</a
+                        >
+                    </div>
+                </div>
+            </div>
+            <p class="fnt-18 fnt-muli black pt-4 mb-0 font-report">Generate Report</p>
+            <p class="fnt-14 fnt-muli text-clr588 font-details">
+                Select the details of the report you want to generate
+            </p>
+            <div class="row mt-3">
+                <div class="col-lg-4 col-12 pr-md-0">
+                    <div class="sample_info">
+                        <div class="info_heading d-flex">
+                            <div class="pull-left sample_info_head">Sample Info</div>
+                            <div
+                                class="ml-auto pull-right cursor-pointer"
+                                *ngIf="eachServiceData"
+                                (click)="routeToProcessDet()"
+                            >
+                                <span class="view_process">view process details</span
+                                ><img class="pl-1" src="assets/images/process-arrow.svg" alt="" />
+                            </div>
+                        </div>
+                        <div class="info_list">
+                            <ul class="clearfix mb-0">
+                                <li>
+                                    <label>Order ID :</label>
+                                    <p *ngIf="cuppingService.serviceReportDetails">
+                                        {{ cuppingService.serviceReportDetails['gc_order_id'] }}
+                                    </p>
+                                </li>
+                                <li>
+                                    <label>Estate Name :</label>
+                                    <p *ngIf="eachServiceData">{{ eachServiceData['estate_name'] }}</p>
+                                </li>
+                                <li>
+                                    <label>Origin :</label>
+                                    <p *ngIf="eachServiceData">
+                                        {{ cuppingService.getCountryName(eachServiceData['origin']) }}
+                                    </p>
+                                </li>
+                                <li>
+                                    <label>Harvest year :</label>
+                                    <p *ngIf="eachServiceData">{{ eachServiceData['order_date'] | date: 'MMMM y' }}</p>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <p class="fnt-18 fnt-muli black pt-4 mb-0 font-report"> Generate Report</p>
-                <p class="fnt-14 fnt-muli text-clr588 font-details"> Select the details of the report you want to
-                    generate</p>
-                <div class="row mt-3">
-                    <div class="col-lg-4 col-12 pr-md-0">
-                        <div class="sample_info">
-                            <div class="info_heading d-flex">
-                                <div class="pull-left sample_info_head">Sample Info</div>
-                                <div class="ml-auto pull-right cursor-pointer" *ngIf="eachServiceData"
-                                    (click)="routeToProcessDet()"><span class="view_process">view process
-                                        details</span><img class="pl-1" src="assets/images/process-arrow.svg" alt="">
-                                </div>
-                            </div>
-                            <div class="info_list">
-                                <ul class="clearfix mb-0">
-                                    <li>
-                                        <label>Order ID :</label>
-                                        <p *ngIf="cuppingService.serviceReportDetails">
-                                            {{cuppingService.serviceReportDetails['gc_order_id']}}</p>
-                                    </li>
-                                    <li>
-                                        <label>Estate Name :</label>
-                                        <p *ngIf="eachServiceData">{{eachServiceData['estate_name']}}</p>
-                                    </li>
-                                    <li>
-                                        <label>Origin :</label>
-                                        <p *ngIf="eachServiceData">
-                                            {{cuppingService.getCountryName(eachServiceData['origin'])}}</p>
-                                    </li>
-                                    <li>
-                                        <label>Harvest year :</label>
-                                        <p *ngIf="eachServiceData">{{eachServiceData['order_date'] | date : 'MMMM y'}}
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-12 mt-md-0 mt-3">
-                        <div class="evaluator">
-                            <div class="info_list">
-                                <ul class="clearfix mb-0">
-                                    <li>
-                                        <label>Evaluator :</label>
-                                        <p *ngIf="evaluatorName">{{evaluatorName}}</p>
-                                    </li>
-                                    <li>
-                                        <label>Cupping type :</label>
-                                        <p *ngIf="cupping_type != ''">{{cupping_type}}</p>
-                                    </li>
-                                </ul>
-                            </div>
+                <div class="col-lg-5 col-12 mt-md-0 mt-3">
+                    <div class="evaluator">
+                        <div class="info_list">
+                            <ul class="clearfix mb-0">
+                                <li>
+                                    <label>Evaluator :</label>
+                                    <p *ngIf="evaluatorName">{{ evaluatorName }}</p>
+                                </li>
+                                <li>
+                                    <label>Cupping type :</label>
+                                    <p *ngIf="cupping_type != ''">{{ cupping_type }}</p>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Cupping Report 2.0 -->
+            <!-- Cupping Report 2.0 -->
 
-                <div class="cupping-report">
-                    <div class="row w-100">
-
-                        <div class="col-md-10 col-12 ">
-                            <p class="fnt-18 fnt-muli fnt-700 black m-0" *ngIf="version"> Cupping Report {{version}}.0
-                            </p>
-                            <p class="fnt-14 fnt-400 fnt-muli text-clr588" *ngIf="version"> Generated on:
-                                {{version | date: 'dd/MM/yyyy'}} </p>
-                            <p class="fnt-14 fnt-400 fnt-muli text-clr588"> Please select the evaluators whos result you
-                                want to include in the report </p>
-                            <span class="pr-3" *ngFor="let item of evalData">
-                                <label class="customcheckbox color-text">
-                                    <input type="checkbox" class="listCheckbox" name="filter-check" value=""
-                                        (click)="selectEval($event,item.evaluator_id)" />
-                                    <span class="checkmark head-check" *ngIf="item"></span> {{item.evaluator_name}}
-                                    <span *ngIf="item.is_primary == true">(You)</span> / {{item.evaluator_type}}
-                                    ({{item.final_score}})
-                                </label>
-                            </span>
-                            <!-- <span class="pr-3">
+            <div class="cupping-report">
+                <div class="row w-100">
+                    <div class="col-md-10 col-12">
+                        <p class="fnt-18 fnt-muli fnt-700 black m-0" *ngIf="version">Cupping Report {{ version }}.0</p>
+                        <p class="fnt-14 fnt-400 fnt-muli text-clr588" *ngIf="version">
+                            Generated on: {{ version | date: 'dd/MM/yyyy' }}
+                        </p>
+                        <p class="fnt-14 fnt-400 fnt-muli text-clr588">
+                            Please select the evaluators whos result you want to include in the report
+                        </p>
+                        <span class="pr-3" *ngFor="let item of evalData">
+                            <label class="customcheckbox color-text">
+                                <input
+                                    type="checkbox"
+                                    class="listCheckbox"
+                                    name="filter-check"
+                                    value=""
+                                    (click)="selectEval($event, item.evaluator_id)"
+                                />
+                                <span class="checkmark head-check" *ngIf="item"></span> {{ item.evaluator_name }}
+                                <span *ngIf="item.is_primary == true">(You)</span> / {{ item.evaluator_type }} ({{
+                                    item.final_score
+                                }})
+                            </label>
+                        </span>
+                        <!-- <span class="pr-3">
                                             <label class="customcheckbox color-text">
                                                 <input type="checkbox" class="listCheckbox"  name="filter-check" value=""/>
                                                 <span class="checkmark head-check"></span>Gussie Barker  / QC- grader  (87.5)
@@ -105,32 +117,29 @@
                                                 <span class="checkmark head-check"></span>Dale Stanley  / QC- grader  (87.5)
                                             </label>
                                         </span> -->
-
-                        </div>
-                        <div class="col-md-2 col-2">
-                            <p class="fnt-32 fnt-700 fnt-muli black m-0" *ngIf="average_score"> {{average_score}}</p>
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr588"> Average scrore </p>
-                        </div>
-
+                    </div>
+                    <div class="col-md-2 col-2">
+                        <p class="fnt-32 fnt-700 fnt-muli black m-0" *ngIf="average_score">{{ average_score }}</p>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr588">Average scrore</p>
                     </div>
                 </div>
-                <!-- Re-grade sample -->
+            </div>
+            <!-- Re-grade sample -->
 
-                <div class="w-100 pb-4">
-                    <div class="pull-right">
-                        <!-- <span class="">
+            <div class="w-100 pb-4">
+                <div class="pull-right">
+                    <!-- <span class="">
                                         <button class="add-comment"> Re-grade sample</button>
                                     </span> -->
-                        <div class="share-dwn">
-                            <span>
-                                <div class="btn cancel-butn" routerLink="/features/cupping-reports">Cancel</div>
-                            </span>
-                            <label class="download-butn" (click)="downloadPdf()">
-                                <!-- <input type="file" class="file-inpt"> -->
-                                <img src="assets/images/dwnd-pdf.svg" alt="download" class="share-img">
-                                <span class="share-txt ml-2"> Download as PDF </span>
-                            </label>
-                        </div>
+                    <div class="share-dwn">
+                        <span>
+                            <div class="btn cancel-butn" routerLink="/features/cupping-reports">Cancel</div>
+                        </span>
+                        <label class="download-butn" (click)="downloadPdf()">
+                            <!-- <input type="file" class="file-inpt"> -->
+                            <img src="assets/images/dwnd-pdf.svg" alt="download" class="share-img" />
+                            <span class="share-txt ml-2"> Download as PDF </span>
+                        </label>
                     </div>
                 </div>
             </div>

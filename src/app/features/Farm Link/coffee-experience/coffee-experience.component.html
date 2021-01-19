@@ -1,78 +1,135 @@
-<div class="total-loader" *ngIf="greenActive !=1">
+<div class="total-loader" *ngIf="greenActive != 1">
     <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
     </div>
 </div>
 
 <div *ngIf="greenActive == 1">
     <section>
-        <div class="container sewn-container section-head-pad">
-            <div class="bg-fff coffee-exp">
-
-                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                    <span class="sr-only"></span>
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li>
-                        <!-- <li class="b-cum">
+        <div class="bg-fff coffee-exp">
+            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                <span class="sr-only"></span>
+                <ul class="bread-nav">
+                    <li class="b-cum">
+                        <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
+                        ><span class="padl-r" aria-hidden="true"
+                            ><img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                        </span>
+                    </li>
+                    <!-- <li class="b-cum">
                             <a class="b-cum" >{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                         </li> -->
 
-                        <li class="b-cum c-pink">{{globals.languageJson?.coffee_experience}}</li>
-                        <div class="file-share-search pull-right ml-auto col-12 col-md-3 ml-md-auto mb-3 mr-5 d-none d-md-flex align-items-center">
-                            <img class="mr-1 mr-md-2" src="assets/images/search.svg">
-                            <input class="fadout-search" type="search" placeholder="Search order id, name..." [(ngModel)]="searchTerm" name="filesTerm">
-                        </div>
-                        <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
-
-                    </ul>
-                </nav>
-
-                <section class="estate-orders-heading">
-                    <h5 class="estate-order-title pt-3">{{globals.languageJson?.coffee_experience}}</h5>
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8">
-                            <p class="Give-your-end-users">Give your end users the coffee story experience they have been waiting for! Update and personalise your story related to an order.</p>
-
-                        </div>
-                        <div class="col-md-4 col-lg-4">
-                            <button class="btn add-role-btn pull-right ml-auto" type="button" routerLink="/features/default-setting">Default settings</button>
-                        </div>
+                    <li class="b-cum c-pink">{{ globals.languageJson?.coffee_experience }}</li>
+                    <div
+                        class="file-share-search pull-right ml-auto col-12 col-md-3 ml-md-auto mb-3 mr-5 d-none d-md-flex align-items-center"
+                    >
+                        <img class="mr-1 mr-md-2" src="assets/images/search.svg" />
+                        <input
+                            class="fadout-search"
+                            type="search"
+                            placeholder="Search order id, name..."
+                            [(ngModel)]="searchTerm"
+                            name="filesTerm"
+                        />
                     </div>
+                    <!-- <button type="submit" class="btn col-12 col-md-1 pull-right add-role-butn d-md-block d-none">Export</button> -->
+                </ul>
+            </nav>
 
-                    <div class="row">
-                        <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
-                            <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="pills-estate-tab" data-toggle="pill" href="#pills-estate" role="tab" aria-controls="pills-home" aria-selected="true">Purchase Orders Estates</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-mr-tab" data-toggle="pill" href="#pills-mr" role="tab" aria-controls="pills-profile" aria-selected="false">Micro Roaster Orders</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-horeca-tab" data-toggle="pill" href="#pills-horeca" role="tab" aria-controls="pills-horeca" aria-selected="false">Customer Sales Orders</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content mt-md-4" id="pills-tabContent">
-                                <div class="tab-pane fade show active spacing-order" id="pills-estate" role="tabpanel" aria-labelledby="pills-home-tab" >
-                                    <app-estate-orders></app-estate-orders>
-                                </div>
-                                <div class="tab-pane fade spacing-order" id="pills-mr" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                    <app-micro-roaster-orders></app-micro-roaster-orders>
-                                </div>
-                                <div class="tab-pane fade spacing-order" id="pills-horeca" role="tabpanel" aria-labelledby="pills-horeca-tab" >
-                                    <app-horeca-orders></app-horeca-orders>
-                                </div>
+            <section class="estate-orders-heading">
+                <h5 class="estate-order-title pt-3">{{ globals.languageJson?.coffee_experience }}</h5>
+                <div class="row">
+                    <div class="col-lg-8 col-md-8">
+                        <p class="Give-your-end-users">
+                            Give your end users the coffee story experience they have been waiting for! Update and
+                            personalise your story related to an order.
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <button
+                            class="btn add-role-btn pull-right ml-auto"
+                            type="button"
+                            routerLink="/features/default-setting"
+                        >
+                            Default settings
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mixups-tabs mt-3 pr-3 col-lg-12 col-md-12">
+                        <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link active"
+                                    id="pills-estate-tab"
+                                    data-toggle="pill"
+                                    href="#pills-estate"
+                                    role="tab"
+                                    aria-controls="pills-home"
+                                    aria-selected="true"
+                                    >Purchase Orders Estates</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link"
+                                    id="pills-mr-tab"
+                                    data-toggle="pill"
+                                    href="#pills-mr"
+                                    role="tab"
+                                    aria-controls="pills-profile"
+                                    aria-selected="false"
+                                    >Micro Roaster Orders</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link"
+                                    id="pills-horeca-tab"
+                                    data-toggle="pill"
+                                    href="#pills-horeca"
+                                    role="tab"
+                                    aria-controls="pills-horeca"
+                                    aria-selected="false"
+                                    >Customer Sales Orders</a
+                                >
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-md-4" id="pills-tabContent">
+                            <div
+                                class="tab-pane fade show active spacing-order"
+                                id="pills-estate"
+                                role="tabpanel"
+                                aria-labelledby="pills-home-tab"
+                            >
+                                <app-estate-orders></app-estate-orders>
+                            </div>
+                            <div
+                                class="tab-pane fade spacing-order"
+                                id="pills-mr"
+                                role="tabpanel"
+                                aria-labelledby="pills-profile-tab"
+                            >
+                                <app-micro-roaster-orders></app-micro-roaster-orders>
+                            </div>
+                            <div
+                                class="tab-pane fade spacing-order"
+                                id="pills-horeca"
+                                role="tabpanel"
+                                aria-labelledby="pills-horeca-tab"
+                            >
+                                <app-horeca-orders></app-horeca-orders>
                             </div>
                         </div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </div>
     </section>
-
 
     <ng-template #originTemplate>
         <div id="status-content">
@@ -94,29 +151,19 @@
         <div id="status-content">
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a
-                  >
+                    <a class="pointer-item">All</a>
                 </li>
                 <li class="list-group-item item-color">
-                  <a
-                    class="pointer-item"
-                    >Shipped</a
-                  >
+                    <a class="pointer-item">Shipped</a>
                 </li>
                 <li class="list-group-item item-color">
-                  <a
-                    class="pointer-item"
-                    >Order Confirmed</a
-                  >
+                    <a class="pointer-item">Order Confirmed</a>
                 </li>
                 <li class="list-group-item item-color">
-                        <a
-                          class="pointer-item"
-                          >Payment</a
-                        >
-                      </li>
-                      <li class="list-group-item item-color">
-                            <a class="pointer-item">Harvest Ready</a>
+                    <a class="pointer-item">Payment</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item">Harvest Ready</a>
                 </li>
                 <li class="list-group-item item-color">
                     <a class="pointer-item">Received</a>
@@ -128,17 +175,13 @@
         <div>
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item">All</a
-                              >
-                            </li>
-                            <li class="list-group-item item-color"><a class="pointer-item" >Sample</a></li>
+                    <a class="pointer-item">All</a>
+                </li>
+                <li class="list-group-item item-color"><a class="pointer-item">Sample</a></li>
                 <li class="list-group-item item-color"><a class="pointer-item">Booked</a></li>
                 <li class="list-group-item item-color"><a class="pointer-item">Pre-Booked</a></li>
-
-
             </ul>
         </div>
-
     </ng-template>
 
     <ng-template #displayTemplate>
@@ -151,11 +194,8 @@
                 <li class="list-group-item item-color"><a class="pointer-item">25</a></li>
                 <li class="list-group-item item-color"><a class="pointer-item">50</a></li>
                 <li class="list-group-item item-color"><a class="pointer-item">100</a></li>
-
-
             </ul>
         </div>
-
     </ng-template>
 
     <ng-template #originTemplateMob>

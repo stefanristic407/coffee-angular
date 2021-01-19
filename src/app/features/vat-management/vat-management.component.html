@@ -1,29 +1,33 @@
 <section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff">
-            <div class="row">
-                <div class="col-12 d-flex no-block align-items-center">
-                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                        <span id="title-breadcrumb-1" class="sr-only"></span>
-                        <ul class="bread-nav">
-                            <li class="b-cum">
-                                <a class="b-cum" routerLink="/features/welcome-aboard">Home</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                            </li>
-                            <!-- <li class="b-cum">
+    <div class="bg-fff">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">Home</a
+                            ><span class="padl-r" aria-hidden="true">
+                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                            </span>
+                        </li>
+                        <!-- <li class="b-cum">
                                 <a class="b-cum">Inventory</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                             </li> -->
 
-                            <li class="b-cum c-pink">Product Settings</li>
-                        </ul>
-                    </nav>
-                </div>
+                        <li class="b-cum c-pink">Product Settings</li>
+                    </ul>
+                </nav>
             </div>
-            <div class="row pt-4">
-                <div class="col-md-10 col-12">
-                    <p class="fnt-18 fnt-muli fnt-700 txt-clr334 m-0">Product Settings</p>
-                    <p class="fnt-14 fnt-muli fnt-400 text-clr588">Set-up your billing details, terms and conditions of use, privacy and cookie policies here </p>
-                </div>
-                <!-- <div class="col-md-2 col-12" *ngIf="vatService.savemode">
+        </div>
+        <div class="row pt-4">
+            <div class="col-md-10 col-12">
+                <p class="fnt-18 fnt-muli fnt-700 txt-clr334 m-0">Product Settings</p>
+                <p class="fnt-14 fnt-muli fnt-400 text-clr588">
+                    Set-up your billing details, terms and conditions of use, privacy and cookie policies here
+                </p>
+            </div>
+            <!-- <div class="col-md-2 col-12" *ngIf="vatService.savemode">
                     <button type="button" class="fnt-14 fnt-muli fnt-700 cancel mr-3" href="javascript:void(0);"> Cancel</button>
                     <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites" (click)="vatService.saveVatData()"> Save </button>
                 </div>
@@ -31,176 +35,287 @@
                     <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="vatService.editVatData()"> Edit </button>
 
                 </div> -->
-            </div>
-            <div class="row pt-4">
-
-
-                <div class="col-md-3 col-12">
-                    <div class="nav flex-column nav-pills sample_info" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link vat-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
-                            <div class="info_heading d-flex">
-                                <div class="pull-left sample_info_head"> Vat Management </div>
-                                <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
+        </div>
+        <div class="row pt-4">
+            <div class="col-md-3 col-12">
+                <div
+                    class="nav flex-column nav-pills sample_info"
+                    id="v-pills-tab"
+                    role="tablist"
+                    aria-orientation="vertical"
+                >
+                    <a
+                        class="nav-link vat-link active"
+                        id="v-pills-home-tab"
+                        data-toggle="pill"
+                        href="#v-pills-home"
+                        role="tab"
+                        aria-controls="v-pills-home"
+                        aria-selected="true"
+                    >
+                        <div class="info_heading d-flex">
+                            <div class="pull-left sample_info_head">Vat Management</div>
+                            <div class="ml-auto pull-right">
+                                <img class="pl-1" src="assets/images/arrow-1.png" alt="" />
                             </div>
-                        </a>
-                        <a class="nav-link vat-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-                            <div class="info_heading dry-milling d-flex">
-                                <div class="pull-left sample_info_head"> Shipping details </div>
-                                <div class="ml-auto pull-right"><img class="pl-1" src="assets/images/arrow-1.png" alt=""></div>
+                        </div>
+                    </a>
+                    <a
+                        class="nav-link vat-link"
+                        id="v-pills-profile-tab"
+                        data-toggle="pill"
+                        href="#v-pills-profile"
+                        role="tab"
+                        aria-controls="v-pills-profile"
+                        aria-selected="false"
+                    >
+                        <div class="info_heading dry-milling d-flex">
+                            <div class="pull-left sample_info_head">Shipping details</div>
+                            <div class="ml-auto pull-right">
+                                <img class="pl-1" src="assets/images/arrow-1.png" alt="" />
                             </div>
-                        </a>
-
-                    </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="col-md-9 col-12">
-                    <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                            <div class="mixups-tabs  pr-3 col-lg-12 col-md-12">
-                                <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="pills-procured-tab" data-toggle="pill" href="#pills-procured" role="tab" aria-controls="pills-home" aria-selected="true"> Micro roaster </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="pills-marked-tab" data-toggle="pill" href="#pills-marked" role="tab" aria-controls="pills-profile" aria-selected="false"> B2B e-commerce </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content mt-md-4" id="pills-tabContent">
+            </div>
+            <div class="col-md-9 col-12">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div
+                        class="tab-pane fade show active"
+                        id="v-pills-home"
+                        role="tabpanel"
+                        aria-labelledby="v-pills-home-tab"
+                    >
+                        <div class="mixups-tabs pr-3 col-lg-12 col-md-12">
+                            <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a
+                                        class="nav-link active"
+                                        id="pills-procured-tab"
+                                        data-toggle="pill"
+                                        href="#pills-procured"
+                                        role="tab"
+                                        aria-controls="pills-home"
+                                        aria-selected="true"
+                                    >
+                                        Micro roaster
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a
+                                        class="nav-link"
+                                        id="pills-marked-tab"
+                                        data-toggle="pill"
+                                        href="#pills-marked"
+                                        role="tab"
+                                        aria-controls="pills-profile"
+                                        aria-selected="false"
+                                    >
+                                        B2B e-commerce
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content mt-md-4" id="pills-tabContent">
+                                <div
+                                    class="tab-pane fade show active spacing-order"
+                                    id="pills-procured"
+                                    role="tabpanel"
+                                    aria-labelledby="pills-home-tab"
+                                >
+                                    <app-vat-micro-roaster> </app-vat-micro-roaster>
+                                </div>
 
-                                    <div class="tab-pane fade show active spacing-order" id="pills-procured" role="tabpanel" aria-labelledby="pills-home-tab">
-                                        <app-vat-micro-roaster> </app-vat-micro-roaster>
-                                    </div>
-
-                                    <div class="tab-pane fade spacing-order" id="pills-marked" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                        <app-vat-b2b> </app-vat-b2b>
-                                    </div>
-
+                                <div
+                                    class="tab-pane fade spacing-order"
+                                    id="pills-marked"
+                                    role="tabpanel"
+                                    aria-labelledby="pills-profile-tab"
+                                >
+                                    <app-vat-b2b> </app-vat-b2b>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-
-                            <div class="row">
-
-                                <div class="pls-note">
-                                    <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0"> The shipping price & estimated delivery time you set will be applicable to all green coffee and roasted coffee you sell on the platform. </p>
-                                </div>
-
-                                <div class="col-md-12 Onboard-rows pt-5">
-                                    <div class="Onboard-rows__inputs" *ngIf="saveshippingmode">
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 Onboard-input">
-                                                <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Shipping type *</label>
-                                                <input class="w-100" type="text" placeholder="Please enter shipping name" name="transcation_type" [(ngModel)]="shippingName" name="this.shippingName">
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-12 col-md-4 Onboard-input ">
-                                                <div class="form-input">
-                                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Shipping Price<span>*</span></label>
-                                                    <div class="input-group">
-                                                        <input type="text" placeholder="Please enter shipping amount" class="form-control input-group-right-border" aria-label="Text input with dropdown button"  name="shippingPrice" [(ngModel)]="this.shippingPrice">
-                                                        <div class="input-group-append">
-                                                            <select name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local">
-                                                                <option value="USD">USD</option>
-                                                                <option value="USD" ng-reflect-value="Yes">USD</option>
-                                                                <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-12 col-md-4 Onboard-input ">
-                                                <div class="form-input">
-                                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Estimated delivery time<span>*</span></label>
-                                                    <div class="input-group">
-                                                        <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="dayMin" [(ngModel)]="this.dayMin">
-                                                        <div class="input-group-append">
-                                                            <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
-                                                                <option value="USD">days</option>
-                                                               
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12 col-md-4 Onboard-input ">
-                                                <div class="form-input">
-                                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Estimated delivery time<span>*</span></label>
-                                                    <div class="input-group">
-                                                        <input type="text" placeholder="" class="form-control input-group-right-border" aria-label="Text input with dropdown button" name="dayMax
-                                                        " [(ngModel)]="this.dayMax">
-                                                        <div class="input-group-append">
-                                                            <span name="Year" required="" class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
-                                                                <option value="USD">days</option>
-                                                               
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-
-                                        <div class="col-12">
-                                            <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="saveShippingInfo()"[disabled]="resetButtonValue==='Saving'">
-                                                    {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Saving'" src="assets/images/orange-loader.gif"/></button>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
+                    </div>
+                    <div
+                        class="tab-pane fade"
+                        id="v-pills-profile"
+                        role="tabpanel"
+                        aria-labelledby="v-pills-profile-tab"
+                    >
+                        <div class="row">
+                            <div class="pls-note">
+                                <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0">
+                                    The shipping price & estimated delivery time you set will be applicable to all green
+                                    coffee and roasted coffee you sell on the platform.
+                                </p>
                             </div>
 
-                            <!-- after save -->
+                            <div class="col-md-12 Onboard-rows pt-5">
+                                <div class="Onboard-rows__inputs" *ngIf="saveshippingmode">
+                                    <div class="row">
+                                        <div class="col-12 col-md-4 Onboard-input">
+                                            <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Shipping type *</label>
+                                            <input
+                                                class="w-100"
+                                                type="text"
+                                                placeholder="Please enter shipping name"
+                                                name="transcation_type"
+                                                [(ngModel)]="shippingName"
+                                                name="this.shippingName"
+                                            />
+                                        </div>
+                                    </div>
 
-                            <div class="row" *ngIf="editshippingmode && shippData != null">
+                                    <div class="row">
+                                        <div class="col-12 col-md-4 Onboard-input">
+                                            <div class="form-input">
+                                                <label class="fnt-14 fnt-muli fnt-600 txt-clr334"
+                                                    >Shipping Price<span>*</span></label
+                                                >
+                                                <div class="input-group">
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Please enter shipping amount"
+                                                        class="form-control input-group-right-border"
+                                                        aria-label="Text input with dropdown button"
+                                                        name="shippingPrice"
+                                                        [(ngModel)]="this.shippingPrice"
+                                                    />
+                                                    <div class="input-group-append">
+                                                        <select
+                                                            name="Year"
+                                                            required=""
+                                                            class="form-control select-region select-form-group-dropdown select-region-local"
+                                                        >
+                                                            <option value="USD">USD</option>
+                                                            <option value="USD" ng-reflect-value="Yes">USD</option>
+                                                            <!-- <option value="per mkg" ng-reflect-value="No">per mkg</option> -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                <div class="pls-note">
-                                    <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0"> This information will be used for all orders placed on the platform by the Roasters and Micro roasters. </p>
-                                </div>
-                                <div class="shipping-border col-12 mt-4">
+                                        <div class="col-12 col-md-4 Onboard-input">
+                                            <div class="form-input">
+                                                <label class="fnt-14 fnt-muli fnt-600 txt-clr334"
+                                                    >Estimated delivery time<span>*</span></label
+                                                >
+                                                <div class="input-group">
+                                                    <input
+                                                        type="text"
+                                                        placeholder=""
+                                                        class="form-control input-group-right-border"
+                                                        aria-label="Text input with dropdown button"
+                                                        name="dayMin"
+                                                        [(ngModel)]="this.dayMin"
+                                                    />
+                                                    <div class="input-group-append">
+                                                        <span
+                                                            name="Year"
+                                                            required=""
+                                                            class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
+                                                        >
+                                                            <option value="USD">days</option>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                    <table class="shipping-time col-12">
+                                        <div class="col-12 col-md-4 Onboard-input">
+                                            <div class="form-input">
+                                                <label class="fnt-14 fnt-muli fnt-600 txt-clr334"
+                                                    >Estimated delivery time<span>*</span></label
+                                                >
+                                                <div class="input-group">
+                                                    <input
+                                                        type="text"
+                                                        placeholder=""
+                                                        class="form-control input-group-right-border"
+                                                        aria-label="Text input with dropdown button"
+                                                        name="dayMax
+                                                        "
+                                                        [(ngModel)]="this.dayMax"
+                                                    />
+                                                    <div class="input-group-append">
+                                                        <span
+                                                            name="Year"
+                                                            required=""
+                                                            class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
+                                                        >
+                                                            <option value="USD">days</option>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                        <tr>
-                                            <td> <span class="list-que"> Shipping name :  </span></td>
-                                            <td> <span class="list-ans"> {{this.shippingName}} </span> </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td> <span class="list-que"> Shipping price : </span></td>
-                                            <td> <span class="list-ans">  $ {{this.shippingPrice}} </span> </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td> <span class="list-que"> Estimated delivery time : </span></td>
-                                            <td> <span class="list-ans">  {{this.dayMin}} - {{this.dayMax}} days </span> </td>
-
-                                        </tr>
-                                    </table>
-
-                                </div>
-
-                                <div class="col-12 mt-3">
-                                    <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites edit-right" (click)="editShippingInfo();"> Edit </button>
-
+                                    <div class="col-12">
+                                        <button
+                                            type="button"
+                                            class="fnt-14 fnt-muli fnt-700 send-invites edit-right"
+                                            (click)="saveShippingInfo()"
+                                            [disabled]="resetButtonValue === 'Saving'"
+                                        >
+                                            {{ resetButtonValue
+                                            }}<img
+                                                class="loader"
+                                                *ngIf="resetButtonValue === 'Saving'"
+                                                src="assets/images/orange-loader.gif"
+                                            />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- after save -->
+
+                        <div class="row" *ngIf="editshippingmode && shippData != null">
+                            <div class="pls-note">
+                                <p class="fnt-13 fnt-400 fnt-muli txt-clr334 m-0">
+                                    This information will be used for all orders placed on the platform by the Roasters
+                                    and Micro roasters.
+                                </p>
+                            </div>
+                            <div class="shipping-border col-12 mt-4">
+                                <table class="shipping-time col-12">
+                                    <tr>
+                                        <td><span class="list-que"> Shipping name : </span></td>
+                                        <td>
+                                            <span class="list-ans"> {{ this.shippingName }} </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="list-que"> Shipping price : </span></td>
+                                        <td>
+                                            <span class="list-ans"> $ {{ this.shippingPrice }} </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="list-que"> Estimated delivery time : </span></td>
+                                        <td>
+                                            <span class="list-ans"> {{ this.dayMin }} - {{ this.dayMax }} days </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <button
+                                    type="button"
+                                    class="fnt-14 fnt-muli fnt-700 send-invites edit-right"
+                                    (click)="editShippingInfo()"
+                                >
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </section>

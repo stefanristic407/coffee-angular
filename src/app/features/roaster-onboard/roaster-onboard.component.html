@@ -1,98 +1,143 @@
 <section>
-    <div class="container sewn-container section-head-pad">
-
-        <div class="bg-fff">
-            <div class="onboard-total">
-                <div class="row">
-                    <div class="col-lg-7">
-                        <div class="estate-orgins h-100">
-                            <div class="origins-description">
-                                <h2 class="mb-md-3 mb-1">Estates from 12+ origins</h2>
-                                <h6>We are constantly adding estates from new origins on the platform</h6>
-                                <img class="estate-map onboard-web" src="assets/images/map-onboard.svg" alt="">
-                                <div class="onboard-mob ">
-                                    <ol class="ordered-list mb-0">
-                                        <li>South america</li>
-                                        <li>Europe</li>
-                                        <li>Australia</li>
-                                    </ol>
+    <div class="bg-fff">
+        <div class="onboard-total">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="estate-orgins h-100">
+                        <div class="origins-description">
+                            <h2 class="mb-md-3 mb-1">Estates from 12+ origins</h2>
+                            <h6>We are constantly adding estates from new origins on the platform</h6>
+                            <img class="estate-map onboard-web" src="assets/images/map-onboard.svg" alt="" />
+                            <div class="onboard-mob">
+                                <ol class="ordered-list mb-0">
+                                    <li>South america</li>
+                                    <li>Europe</li>
+                                    <li>Australia</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 pl-md-0">
+                    <div class="col-lg-12 p-0">
+                        <div class="top-countries">
+                            <div class="top-sourcing-head">
+                                <h2>Top sourcing countries on SEWN</h2>
+                            </div>
+                            <div class="chart-details">
+                                <div class="row">
+                                    <div class="bar-parent">
+                                        <ngx-charts-bar-vertical
+                                            [view]="view"
+                                            [yAxisTickFormatting]="myYAxisTickFormatting"
+                                            [results]="bar"
+                                            [xAxis]="showXAxis"
+                                            [showDataLabel]="showDataLabel"
+                                            [barPadding]="barPadding"
+                                            [scheme]="colorScheme"
+                                            [showYAxisLabel]="showYAxisLabel"
+                                            [yAxisLabel]="yAxisLabel"
+                                        >
+                                        </ngx-charts-bar-vertical>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 pl-md-0">
-                        <div class="col-lg-12 p-0">
-                            <div class="top-countries">
-                                <div class="top-sourcing-head">
-                                    <h2>Top sourcing countries on SEWN</h2>
-                                </div>
-                                <div class="chart-details">
-                                    <div class="row">
-                                        <div class="bar-parent">
-                                            <ngx-charts-bar-vertical [view]="view" [yAxisTickFormatting]="myYAxisTickFormatting" [results]="bar" [xAxis]="showXAxis" [showDataLabel]="showDataLabel" [barPadding]="barPadding" [scheme]="colorScheme" [showYAxisLabel]="showYAxisLabel" [yAxisLabel]="yAxisLabel">
-                                            </ngx-charts-bar-vertical>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="col-lg-12 mt-3 p-0">
+                        <div class="onboard-customers">
+                            <div class="onboard-customer-head">
+                                <h2>Onboard customers</h2>
                             </div>
-                        </div>
-                        <div class="col-lg-12 mt-3 p-0">
-                            <div class="onboard-customers">
-                                <div class="onboard-customer-head">
-                                    <h2>Onboard customers</h2>
+                            <div class="customer-padding">
+                                <div class="customer-text mb-md-4">
+                                    Lorem ipsum dolor sit amet, consec tetu ad ipiscing elit, sed eiusmod tempor incidid
+                                    unt ut labore et dolore.
                                 </div>
-                                <div class="customer-padding">
-                                    <div class="customer-text mb-md-4">Lorem ipsum dolor sit amet, consec tetu ad ipiscing elit, sed eiusmod tempor incidid unt ut labore et dolore.</div>
-                                    <div class="invite-main">
-                                        <button type="submit" class="btn customer-invite mb-md-3 mb-1">Send invite</button>
-                                    </div>
+                                <div class="invite-main">
+                                    <button type="submit" class="btn customer-invite mb-md-3 mb-1">Send invite</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-12 col-md-12 mt-md-5 mt-4 p-mobile">
-                    <h2 class="sewn-blog mb-3">SEWN blog</h2>
-                    <div class="row mt-lg-3 mt-md-0">
-                        <div class="col-lg-4 col-md-4 col-sm-12 mt-md-1 mt-sm-3 mt-xs-3">
-                            <div class="card border-card">
-                                <img class="card-img-top" src="assets/images/onboard-estate-1.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Coffee prices rise amid supply chain uncertainty..</h5>
-                                    <p class="fnt-14 light-gray fnt-muli pad-card">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by inject..</p>
-                                    <p class="float-right mb-md-3 mb-0 pointer-text"><span class="read-more pt-1">Read more </span><span><img  class="image-top" src="assets/images/arrow-brown-onboard.svg" alt="estate"></span></p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12 mt-md-1 mt-sm-2 mt-xs-2">
-
-                            <div class="card border-card">
-                                <img class="card-img-top" src="assets/images/onboard-estate-2.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Using social platforms, coffee shops take arts & entertai..</h5>
-                                    <p class="fnt-14 light-gray fnt-muli pad-card">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by inject..</p>
-                                    <p class="float-right mb-md-3 mb-0 pointer-text"><span class="read-more pt-1">Read more </span><span><img  class="image-top" src="assets/images/arrow-brown-onboard.svg" alt="estate"></span></p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12 mt-md-1 mt-sm-2 mt-xs-2">
-
-                            <div class="card border-card">
-                                <img class="card-img-top" src="assets/images/onboard-estate-3.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="fnt-18 black fnt-700 fnt-muli">Open for service gives a voice to coffee workers..</h5>
-                                    <p class="fnt-14 light-gray fnt-muli pad-card">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by inject..</p>
-                                    <p class="float-right mb-md-3 mb-0 pointer-text"><span class="read-more pt-1">Read more </span><span><img  class="image-top" src="assets/images/arrow-brown-onboard.svg" alt="estate"></span></p>
-                                </div>
+            <div class="col-lg-12 col-md-12 mt-md-5 mt-4 p-mobile">
+                <h2 class="sewn-blog mb-3">SEWN blog</h2>
+                <div class="row mt-lg-3 mt-md-0">
+                    <div class="col-lg-4 col-md-4 col-sm-12 mt-md-1 mt-sm-3 mt-xs-3">
+                        <div class="card border-card">
+                            <img class="card-img-top" src="assets/images/onboard-estate-1.jpg" alt="Card image cap" />
+                            <div class="card-body">
+                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                    Coffee prices rise amid supply chain uncertainty..
+                                </h5>
+                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                    There are many variations of passages of Lorem Ipsum available, but the majority
+                                    have suffered alteration in some form, by inject..
+                                </p>
+                                <p class="float-right mb-md-3 mb-0 pointer-text">
+                                    <span class="read-more pt-1">Read more </span
+                                    ><span
+                                        ><img
+                                            class="image-top"
+                                            src="assets/images/arrow-brown-onboard.svg"
+                                            alt="estate"
+                                    /></span>
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center onboard-web">
-                        <button type="submit" class="btn view-all mb-3">View all</button>
+                    <div class="col-lg-4 col-md-4 col-sm-12 mt-md-1 mt-sm-2 mt-xs-2">
+                        <div class="card border-card">
+                            <img class="card-img-top" src="assets/images/onboard-estate-2.jpg" alt="Card image cap" />
+                            <div class="card-body">
+                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                    Using social platforms, coffee shops take arts & entertai..
+                                </h5>
+                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                    There are many variations of passages of Lorem Ipsum available, but the majority
+                                    have suffered alteration in some form, by inject..
+                                </p>
+                                <p class="float-right mb-md-3 mb-0 pointer-text">
+                                    <span class="read-more pt-1">Read more </span
+                                    ><span
+                                        ><img
+                                            class="image-top"
+                                            src="assets/images/arrow-brown-onboard.svg"
+                                            alt="estate"
+                                    /></span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 mt-md-1 mt-sm-2 mt-xs-2">
+                        <div class="card border-card">
+                            <img class="card-img-top" src="assets/images/onboard-estate-3.jpg" alt="Card image cap" />
+                            <div class="card-body">
+                                <h5 class="fnt-18 black fnt-700 fnt-muli">
+                                    Open for service gives a voice to coffee workers..
+                                </h5>
+                                <p class="fnt-14 light-gray fnt-muli pad-card">
+                                    There are many variations of passages of Lorem Ipsum available, but the majority
+                                    have suffered alteration in some form, by inject..
+                                </p>
+                                <p class="float-right mb-md-3 mb-0 pointer-text">
+                                    <span class="read-more pt-1">Read more </span
+                                    ><span
+                                        ><img
+                                            class="image-top"
+                                            src="assets/images/arrow-brown-onboard.svg"
+                                            alt="estate"
+                                    /></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center onboard-web">
+                    <button type="submit" class="btn view-all mb-3">View all</button>
                 </div>
             </div>
         </div>

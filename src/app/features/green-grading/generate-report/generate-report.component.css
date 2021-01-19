@@ -12,7 +12,7 @@
 }
 
 .nav-item__link::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -49,7 +49,6 @@
 .tab-contents {
     background-color: #ffffff;
 }
-
 
 /* grade */
 
@@ -141,7 +140,7 @@ span.checkmark {
     border-radius: 2px;
 }
 
-.customcheckbox input:checked~.checkmark {
+.customcheckbox input:checked ~ .checkmark {
     background-color: #30855c !important;
 }
 
@@ -165,7 +164,7 @@ span.checkmark {
     padding-top: 30px;
 }
 
-@media only screen and (max-width:991px) {
+@media only screen and (max-width: 991px) {
     .tab-mob-generate-pad {
         padding-left: 10px;
         padding-right: 10px;
@@ -197,20 +196,14 @@ span.checkmark {
     .mdev-100 {
         width: 100%;
     }
-    .router-design {
-        overflow: hidden !important;
-    }
 }
 
-@media only screen and (max-width:767px) {
+@media only screen and (max-width: 767px) {
     .tab-titles {
         width: 800px;
     }
     .tab-pad-report {
         width: 100% !important;
         padding-left: 22px;
-    }
-    .router-design {
-        overflow: hidden;
     }
 }

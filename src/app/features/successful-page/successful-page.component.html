@@ -1,22 +1,22 @@
 <section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff">
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-        <div class="text-center mail-box">
-            <img src="assets/images/mail.svg" alt="mail" />
-            <h4 class="form_header successful-text fnt-play">{{globals.languageJson?.successful}}</h4>
-            <p class="form_para success-mail">
-                {{globals.languageJson?.invitation_sent}}
-                <span class="mail-id"  *ngFor="let userEmail of globals.userInvitesArray">"{{userEmail || ""}}" &nbsp;&nbsp;</span>
-                <!-- <span class="mail-id" >email@emai.com</span> -->
-            </p>
-            <button class="btn done-btn" id="done-btn" routerLink="/features/dashboard">
-          <span class="done-text">Add new customer</span>
-        </button>
+    <div class="bg-fff">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="text-center mail-box">
+                    <img src="assets/images/mail.svg" alt="mail" />
+                    <h4 class="form_header successful-text fnt-play">{{ globals.languageJson?.successful }}</h4>
+                    <p class="form_para success-mail">
+                        {{ globals.languageJson?.invitation_sent }}
+                        <span class="mail-id" *ngFor="let userEmail of globals.userInvitesArray"
+                            >"{{ userEmail || '' }}" &nbsp;&nbsp;</span
+                        >
+                        <!-- <span class="mail-id" >email@emai.com</span> -->
+                    </p>
+                    <button class="btn done-btn" id="done-btn" routerLink="/features/dashboard">
+                        <span class="done-text">Add new customer</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-</div>
-</div>
 </section>

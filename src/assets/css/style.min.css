@@ -21257,9 +21257,6 @@ li.select-list__item {
     .web-farm {
         display: none !important;
     }
-    /* .router-design {
-        padding-top: 5rem !important;
-    } */
     .coffee-exp div.dataTables_wrapper div.dataTables_filter {
         top: -1.5rem !important;
         right: 3rem !important;
@@ -22291,31 +22288,6 @@ body .ui-widget {
 .section-head-pad {
     padding-top: 32px;
 }
-
-@media (min-width: 1200px) {
-    .router-design {
-        padding-top: 141px !important;
-    }
-}
-
-@media (min-width: 1024px) {
-    .router-design {
-        padding-top: 207px;
-    }
-}
-
-@media (min-width: 768px) {
-    .router-design {
-        padding-top: 147px;
-    }
-}
-
-@media (max-width: 767px) {
-    .router-design {
-        padding-top: 52px;
-    }
-}
-
 
 /* slick hover image animation */
 
