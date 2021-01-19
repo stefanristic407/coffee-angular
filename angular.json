@@ -142,5 +142,20 @@
   "defaultProject": "my-app",
   "cli": {
     "analytics": "5d37f896-34f3-4842-b119-61623e91e403"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss",
+      "skipTests": true
+    },
+    "@schematics/angular:directive": {
+      "skipTests": true
+    },
+    "@schematics/angular:pipe": {
+      "skipTests": true
+    },
+    "@schematics/angular:service": {
+      "skipTests": true
+    }
   }
 }
