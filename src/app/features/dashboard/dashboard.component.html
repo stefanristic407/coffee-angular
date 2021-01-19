@@ -1,110 +1,32 @@
-<!-- <section>
-    <div class="container sewn-container section-head-pad">
-        <div class="header-sewn">
-            <h1 class="hello-txt fnt-play"> Onboard Customers </h1>
-            <p class="fnt-muli sub-text">Invite Mirco-Roaster and HoReCa's for setup </p>
-        </div>
-
-        <section class="col-sm-12 col-md-12 col-lg-12 pt-4">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn  dashboard-button" (click)="microRoaster()"><img class="logo-img float-left" src="assets/images/roaster.svg"><img class="logo-img-hover float-left" src="assets/images/roaster_logo_hover.svg"><span class="roaster">Micro-Roaster</span> <img class="icon-img float-right" src="assets/images/unfilled-arrow.png"><img class="icon-img-filled float-right" src="assets/images/filled-arrow.png"> </button>
+<section>
+    <div class="bg-fff">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 pt-5 onboard-section">
+                <h1 class="title">Onboard Customers</h1>
+                <p class="fnt-muli sub-text mb-5">Invite Mirco-Roaster and HoReCa's for setup</p>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+                        <button class="btn dashboard-button" (click)="microRoaster()">
+                            <img class="logo-img float-left" src="assets/images/roaster.svg" />
+                            <span class="roaster">Micro-Roaster</span>
+                            <img class="icon-img float-right" src="assets/images/unfilled-arrow.png" /><img
+                                class="icon-img-filled float-right"
+                                src="assets/images/filled-arrow.png"
+                            />
+                        </button>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+                        <button class="btn dashboard-button" (click)="horeca()">
+                            <img class="logo-img float-left" src="assets/images/facilitator.png" />
+                            <span class="facilitator">HoReCa</span>
+                            <img class="icon-img float-right" src="assets/images/unfilled-arrow.png" /><img
+                                class="icon-img-filled float-right"
+                                src="assets/images/filled-arrow.png"
+                            />
+                        </button>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn  dashboard-button" (click)="horeca()"><img class="logo-img float-left" src="assets/images/facilitator.png"><img class="logo-img-hover float-left" src="assets/images/facilitator.png"><span class="roaster">HoReCa</span> <img class="icon-img float-right" src="assets/images/unfilled-arrow.png"><img class="icon-img-filled float-right" src="assets/images/filled-arrow.png"> </button>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn dashboard-button "><img class="logo-img float-left" src="assets/images/estate.png"><img class="logo-img-hover float-left" src="assets/images/estate.png"><span class="roaster">Estates</span> <img class="icon-img float-right" src="assets/images/unfilled-arrow.png"><img class="icon-img-filled float-right" src="assets/images/filled-arrow.png"> </button>
-                </div>
-            </div>
-
-        </section>
-    </div>
-</section> -->
-
-<!-- 
-    <div class="page-wrapper">
-            <section class="d-flex justify-content-center">
-                <section class="col-xs-12 col-sm-6 col-md-10 col-lg-6 col-xl-5">
-                        <div class="form-container">
-                                <p class="update-title text-center mb-4">Welcome aboard!</p>
-                                <p class="note text-center mb-4">Create roles and permissions and add your team members who will help you manage your workload!</p>
-                                <div class="text-center">
-                                    <button type="button" class="chn-btn mt-1 btn create-role" routerLink="/features/create-role">Create Role</button>
-                                </div>
-                        </div>    
-                </section>
-            </section>            
-    </div> -->
-    <section>
-      <div class="container sewn-container section-head-pad">
-          <div class="bg-fff">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12 pt-5  onboard-section">
-            <h1 class="title "> Onboard Customers </h1>
-            <p class="fnt-muli sub-text mb-5">Invite Mirco-Roaster and HoReCa's for setup</p>
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn  dashboard-button" (click)="microRoaster()">
-            <img class="logo-img float-left" src="assets/images/roaster.svg" />
-            <!-- <img
-              id="roaster_hover"
-              class="logo-img-hover float-left"
-              src="assets/images/roaster_logo_hover.svg"
-            /> -->
-            <span class="roaster">Micro-Roaster</span>
-            <img
-              class="icon-img float-right"
-              src="assets/images/unfilled-arrow.png"
-            /><img
-              class="icon-img-filled float-right"
-              src="assets/images/filled-arrow.png"
-            />
-          </button>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn  dashboard-button" (click)="horeca()">
-            <img
-              class="logo-img float-left"
-              src="assets/images/facilitator.png"
-            />
-            <!-- <img
-              id="facilitator_hover"
-              class="logo-img-hover float-left"
-              src="assets/images/facilitator_onhover.svg"
-            /> -->
-            <span class="facilitator">HoReCa</span>
-            <img
-              class="icon-img float-right"
-              src="assets/images/unfilled-arrow.png"
-            /><img
-              class="icon-img-filled float-right"
-              src="assets/images/filled-arrow.png"
-            />
-          </button>
-                </div>
-                <!-- <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                    <button class="btn dashboard-button " (click)="estate()">
-            <img class="logo-img float-left" src="assets/images/estate.svg" /> -->
-            <!-- <img
-              id="estate_hover"
-              class="logo-img-hover float-left"
-              src="assets/images/estate_onhover.svg"
-            /> -->
-            <!-- <span class="estate">{{globals.languageJson?.estate}}</span>
-            <img
-              class="icon-img float-right"
-              src="assets/images/unfilled-arrow.png"
-            /><img
-              class="icon-img-filled float-right"
-              src="assets/images/filled-arrow.png"
-            />
-          </button>
-                </div> -->
             </div>
         </div>
     </div>
-
-    </div>
-    </div>
-    </section>
+</section>

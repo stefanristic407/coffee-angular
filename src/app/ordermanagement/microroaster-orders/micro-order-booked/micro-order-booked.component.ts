@@ -50,6 +50,7 @@ export class MicroOrderBookedComponent implements OnInit {
   noteList: any;
   sampleMode: boolean = false;
   orderType: string = '';
+
   //   shipmentLink: any;
   constructor(
     private route: ActivatedRoute,
@@ -362,6 +363,7 @@ export class MicroOrderBookedComponent implements OnInit {
     this.roasterService.addOrderNotes(this.roasterId, this.bookId, body).subscribe(
       res => {
         if (res["success"] == true) {
+          this.getNotes();
           this.toastrService.success("Added Order Notes Successfully");
         }
       }

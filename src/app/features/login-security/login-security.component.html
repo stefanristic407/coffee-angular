@@ -1,14 +1,14 @@
-<div class="total-loader" *ngIf="securityActive !=1">
+<div class="total-loader" *ngIf="securityActive != 1">
     <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
     </div>
 </div>
 <div *ngIf="securityActive == 1">
     <section>
-        <div class="container sewn-container section-head-pad">
-            <div class="bg-fff">
-                <!-- <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-3">
+        <div class="bg-fff">
+            <!-- <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-3">
         <span id="title-breadcrumb-1" class="sr-only"></span>
         <ul class="bread-nav">
             <li class="b-cum">
@@ -21,50 +21,74 @@
         </ul>
     </nav> -->
 
-                <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
-                    <div class="row desk-view">
-                        <div class="col-md-6 col-lg-6">
-                            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 mr-auto text-left">
-                                <span id="title-breadcrumb-1" class="sr-only"></span>
-                                <ul class="bread-nav">
-                                    <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                    </li>
-                                    <li class="b-cum">
-                                        <a class="b-cum" routerLink="/features/account-settings">{{globals.languageJson?.account_settings}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                                    </li>
-                                    <li class="b-cum c-pink">{{globals.languageJson?.login_security}}</li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="ml-auto text-right prefer-space">
-                            <button type="submit" class="btn btn-succes save-change web-btn" routerLink="/features/account-settings">{{globals.languageJson?.save_changes}}</button>
-                        </div>
+            <section class="col-sm-12 col-md-12 col-lg-12 top-padding">
+                <div class="row desk-view">
+                    <div class="col-md-6 col-lg-6">
+                        <nav
+                            role="navigation"
+                            aria-labelledby="title-breadcrumb-1"
+                            class="breadcrumb1 mr-auto text-left"
+                        >
+                            <span id="title-breadcrumb-1" class="sr-only"></span>
+                            <ul class="bread-nav">
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{
+                                        globals.languageJson?.home
+                                    }}</a
+                                    ><span class="padl-r" aria-hidden="true">
+                                        <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                                    </span>
+                                </li>
+                                <li class="b-cum">
+                                    <a class="b-cum" routerLink="/features/account-settings">{{
+                                        globals.languageJson?.account_settings
+                                    }}</a
+                                    ><span class="padl-r" aria-hidden="true">
+                                        <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                                    </span>
+                                </li>
+                                <li class="b-cum c-pink">{{ globals.languageJson?.login_security }}</li>
+                            </ul>
+                        </nav>
                     </div>
-                    <div class="row mobile-view">
-                        <span class="cursor-pointer" routerLink="/features/account-settings">
-                    <img src="/assets/images/back-arrow1.png" alt="">
-                    <span class="back-ticket pl-3">{{globals.languageJson?.back}}</span>
-                        </span>
+                    <div class="ml-auto text-right prefer-space">
+                        <button
+                            type="submit"
+                            class="btn btn-succes save-change web-btn"
+                            routerLink="/features/account-settings"
+                        >
+                            {{ globals.languageJson?.save_changes }}
+                        </button>
                     </div>
-                </section>
+                </div>
+                <div class="row mobile-view">
+                    <span class="cursor-pointer" routerLink="/features/account-settings">
+                        <img src="/assets/images/back-arrow1.png" alt="" />
+                        <span class="back-ticket pl-3">{{ globals.languageJson?.back }}</span>
+                    </span>
+                </div>
+            </section>
 
-                <section class="main-spacing">
-                    <h3 class="header-login mb-3">{{globals.languageJson?.login_security}}</h3>
-                    <p class="sub-header">{{globals.languageJson?.login_security_text}}</p>
-                    <div class="border-total pb-5">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-8 col-sm-9 col-xs-12">
-                                <p class="login-text">{{globals.languageJson?.login}}</p>
-                                <div class="row left-spacing">
-                                    <div class="form-group col-md-8 col-sm-6 mob-padding">
-                                        <label class="pwd-label">{{globals.languageJson?.password}}<span class="star-color">*</span></label>
-                                        <div>
-                                            <button class="btn change-password-btn" routerLink="/features/reset-password">{{globals.languageJson?.change_password}}</button>
-                                        </div>
-                                        <!-- <input type="password" class="form-control pwd-box ord" placeholder="" [(ngModel)]="passwordData" name="password" id="newPassword" required=""> -->
-                                        <!-- <div class="orderidError" *ngIf="orderidError != ''">{{orderidError}}</div> -->
-                                        <!-- <div id="pwd_strength_wrap">
+            <section class="main-spacing">
+                <h3 class="header-login mb-3">{{ globals.languageJson?.login_security }}</h3>
+                <p class="sub-header">{{ globals.languageJson?.login_security_text }}</p>
+                <div class="border-total pb-5">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8 col-sm-9 col-xs-12">
+                            <p class="login-text">{{ globals.languageJson?.login }}</p>
+                            <div class="row left-spacing">
+                                <div class="form-group col-md-8 col-sm-6 mob-padding">
+                                    <label class="pwd-label"
+                                        >{{ globals.languageJson?.password }}<span class="star-color">*</span></label
+                                    >
+                                    <div>
+                                        <button class="btn change-password-btn" routerLink="/features/reset-password">
+                                            {{ globals.languageJson?.change_password }}
+                                        </button>
+                                    </div>
+                                    <!-- <input type="password" class="form-control pwd-box ord" placeholder="" [(ngModel)]="passwordData" name="password" id="newPassword" required=""> -->
+                                    <!-- <div class="orderidError" *ngIf="orderidError != ''">{{orderidError}}</div> -->
+                                    <!-- <div id="pwd_strength_wrap">
                                 <div id="passwordDescription">Password not entered</div>
                                 <div id="passwordStrength" class="strength0"></div>
                                 <div id="pswd_info">
@@ -77,54 +101,76 @@
                                     </ul>
                                 </div>
                             </div> -->
-                                    </div>
-                                    <!-- <div class="form-group col-md-4">
+                                </div>
+                                <!-- <div class="form-group col-md-4">
                             <span class="change-password fnt-muli "><img src="assets/images/shape-2.png" alt=""> Change Password</span>
                         </div> -->
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-12 pb-2 pl-0">
-                                    <div class="last-update">Last update a year ago</div>
-                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-12 pb-2 pl-0">
+                                <div class="last-update">Last update a year ago</div>
+                            </div>
 
-                                <div class="pt-4">
-                                    <div class="login-history">{{globals.languageJson?.login_history}}</div>
-                                    <div class="row mt-2 history-div border-login" *ngFor="let session of sessions">
-                                        <div class="p-0">
-                                            <img class="img-estate" src="assets/images/sytem-login.svg" alt="User">
-                                        </div>
-                                        <div class="pull-left">
-                                            <ul class="session-list p-0 ml-2">
-                                                <li class="session">Session <span *ngIf="session.current_session" class="current-session ml-1">&#9679;&nbsp;Current Session</span></li>
-                                                <li class="session-details">
-                                                    {{session.logged_in_at | date:'medium'}} </li>
-                                                <li class="logout-current fnt-muli mob cursor-pointer" *ngIf="session.current_session" (click)="userLogout()">Log out</li>
-                                                <li class="logout fnt-muli mob" *ngIf="!session.current_session">Active</li>
-                                            </ul>
-                                        </div>
-                                        <div class="pull-right ml-auto desk">
-                                            <span class="logout-current pl-1 fnt-muli cursor-pointer" *ngIf="session.current_session" (click)="userLogout()">Log out</span>
-                                            <span class="logout pl-1 fnt-muli " *ngIf="!session.current_session">Active</span>
-                                        </div>
+                            <div class="pt-4">
+                                <div class="login-history">{{ globals.languageJson?.login_history }}</div>
+                                <div class="row mt-2 history-div border-login" *ngFor="let session of sessions">
+                                    <div class="p-0">
+                                        <img class="img-estate" src="assets/images/sytem-login.svg" alt="User" />
+                                    </div>
+                                    <div class="pull-left">
+                                        <ul class="session-list p-0 ml-2">
+                                            <li class="session">
+                                                Session
+                                                <span *ngIf="session.current_session" class="current-session ml-1"
+                                                    >&#9679;&nbsp;Current Session</span
+                                                >
+                                            </li>
+                                            <li class="session-details">
+                                                {{ session.logged_in_at | date: 'medium' }}
+                                            </li>
+                                            <li
+                                                class="logout-current fnt-muli mob cursor-pointer"
+                                                *ngIf="session.current_session"
+                                                (click)="userLogout()"
+                                            >
+                                                Log out
+                                            </li>
+                                            <li class="logout fnt-muli mob" *ngIf="!session.current_session">Active</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pull-right ml-auto desk">
+                                        <span
+                                            class="logout-current pl-1 fnt-muli cursor-pointer"
+                                            *ngIf="session.current_session"
+                                            (click)="userLogout()"
+                                            >Log out</span
+                                        >
+                                        <span class="logout pl-1 fnt-muli" *ngIf="!session.current_session"
+                                            >Active</span
+                                        >
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="pt-4">
-                                    <div class="deactivate-account pb-2">{{globals.languageJson?.deactivate_account}}</div>
-                                    <div class="sub-deactivate">{{globals.languageJson?.deactivate_subtext}}</div>
-                                    <div class="pt-3 account-top">
-                                        <button type="submit" class="btn deactivate-button" (click)="openModal(template);">{{globals.languageJson?.deactivate_button}}</button>
-
-                                    </div>
-
+                            <div class="pt-4">
+                                <div class="deactivate-account pb-2">
+                                    {{ globals.languageJson?.deactivate_account }}
+                                </div>
+                                <div class="sub-deactivate">{{ globals.languageJson?.deactivate_subtext }}</div>
+                                <div class="pt-3 account-top">
+                                    <button type="submit" class="btn deactivate-button" (click)="openModal(template)">
+                                        {{ globals.languageJson?.deactivate_button }}
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="mobile-farm col-12">
-                        <button type="button" class="btn btn-succes save-change" routerLink="/features/account-settings"> {{globals.languageJson?.save_changes}}</button>
-                    </div>
-                </section>
-            </div>
+                </div>
+                <div class="mobile-farm col-12">
+                    <button type="button" class="btn btn-succes save-change" routerLink="/features/account-settings">
+                        {{ globals.languageJson?.save_changes }}
+                    </button>
+                </div>
+            </section>
         </div>
     </section>
     <ng-template #template>
@@ -134,14 +180,14 @@
       </button> -->
         </div>
         <div class="modal-body text-center mb-5">
-            <img src="/assets/images/group-9.png" alt="">
+            <img src="/assets/images/group-9.png" alt="" />
             <div class="are-sure fnt-play mt-3">
-                {{globals.languageJson?.are_you_sure_text}}
+                {{ globals.languageJson?.are_you_sure_text }}
             </div>
-            <div class="do-account pt-2">{{globals.languageJson?.deactivate_question}}</div>
+            <div class="do-account pt-2">{{ globals.languageJson?.deactivate_question }}</div>
             <div class="pt-4">
-                <button class="btn yes-btn" (click)="deactivateAccount()">{{globals.languageJson?.yes}}</button>
-                <button class="btn no-btn ml-2" (click)="modalRef.hide();">No </button>
+                <button class="btn yes-btn" (click)="deactivateAccount()">{{ globals.languageJson?.yes }}</button>
+                <button class="btn no-btn ml-2" (click)="modalRef.hide()">No</button>
             </div>
         </div>
     </ng-template>

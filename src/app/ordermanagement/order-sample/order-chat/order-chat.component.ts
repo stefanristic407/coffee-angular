@@ -25,6 +25,7 @@ export class OrderChatComponent implements OnInit {
 	showEscalateBtn: boolean = false;
 	currentDispute: any;
 	roasterName: string = '';
+	orderType: string = '';
 
 	constructor(public globals: GlobalsService, private route: ActivatedRoute,
 		public roasterService: RoasterserviceService, public cookieService: CookieService,
@@ -36,6 +37,7 @@ export class OrderChatComponent implements OnInit {
 		this.roasterName = this.cookieService.get('name');
 		this.orderID = decodeURIComponent(this.route.snapshot.queryParams['id']);
 		this.currentDispute_id = this.route.snapshot.queryParams['ticketId'] ? decodeURIComponent(this.route.snapshot.queryParams['ticketId']) : undefined;
+		this.orderType = this.route.snapshot.queryParams['orderType'] ? decodeURIComponent(this.route.snapshot.queryParams['orderType']) : undefined;
 		this.getOrderDetails();
 		this.getOrderDisputes();
 		// $(window).on(".conversation-head__profiles", "click", function (e) {
@@ -47,7 +49,7 @@ export class OrderChatComponent implements OnInit {
 		// });
 	}
 	getOrderDetails() {
-		this.roasterService.getViewOrderDetails(this.roaster_id, this.orderID).subscribe(res => {
+		this.roasterService.getViewOrderDetails(this.roaster_id, this.orderID, this.orderType).subscribe(res => {
 			console.log(res);
 			if (res['success'] && res['result']) {
 				this.orderDetails = res['result'];
@@ -57,6 +59,9 @@ export class OrderChatComponent implements OnInit {
 				if (this.orderDetails['order_type']) {
 					this.orderDetails['order_type'] = this.formatStatus(this.orderDetails['order_type']);
 				}
+				if (this.orderType == 'MR' && this.orderDetails['type']) {
+					this.orderDetails['order_type'] = this.formatStatus(this.orderDetails['type']);
+				}
 			}
 		}, err => {
 			console.log(err);
@@ -64,7 +69,7 @@ export class OrderChatComponent implements OnInit {
 	}
 	getOrderDisputes() {
 		this.orderDisputes = [];
-		this.roasterService.getOrderDisputeList(this.roaster_id, this.orderID).subscribe(res => {
+		this.roasterService.getOrderDisputeList(this.roaster_id, this.orderID, this.orderType).subscribe(res => {
 			console.log(res);
 			if (res['success'] && res['result']) {
 				this.orderDisputes = res['result'];

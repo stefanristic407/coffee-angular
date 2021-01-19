@@ -1,34 +1,46 @@
 <section>
-    <div class="container sewn-container section-head-pad">
-        <div class="bg-fff">
-            <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
-                <span id="title-breadcrumb-1" class="sr-only"></span>
-                <ul class="bread-nav mb-md-0">
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
-                    </li>
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{globals.languageJson?.ecommerce}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
-                    </li>
-                    <li class="b-cum">
-                        <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{globals.languageJson?.roasted_coffee}}</a><span class="padl-r" aria-hidden="true"><img class="group-img" src="/assets/images/arrow-1.png" alt=""></span>
-                    </li>
-                    <li class="b-cum c-pink">{{globals.languageJson?.roasting_profiles}}</li>
-                    <div class="ml-auto pull-right batch-roasted mr-md-5">
-                        <button class="btn manage-profiles" routerLink="/features/create-roasting-profile">{{globals.languageJson?.create_new}}</button>
-                        <!-- <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by name, role.." /> -->
-                    </div>
-                </ul>
-            </nav>
-            <section class="grading__total">
-                <div class="row w-100 ml-0">
-                    <div class="green_grading_cont">
-                        <h1>{{globals.languageJson?.roasting_profiles}}</h1>
-
-                    </div>
-
+    <div class="bg-fff">
+        <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1">
+            <span id="title-breadcrumb-1" class="sr-only"></span>
+            <ul class="bread-nav mb-md-0">
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
+                    ><span class="padl-r" aria-hidden="true"
+                        ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
+                    /></span>
+                </li>
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{
+                        globals.languageJson?.ecommerce
+                    }}</a
+                    ><span class="padl-r" aria-hidden="true"
+                        ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
+                    /></span>
+                </li>
+                <li class="b-cum">
+                    <a class="b-cum" routerLink="/features/roasted-coffee-batch">{{
+                        globals.languageJson?.roasted_coffee
+                    }}</a
+                    ><span class="padl-r" aria-hidden="true"
+                        ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
+                    /></span>
+                </li>
+                <li class="b-cum c-pink">{{ globals.languageJson?.roasting_profiles }}</li>
+                <div class="ml-auto pull-right batch-roasted mr-md-5">
+                    <button class="btn manage-profiles" routerLink="/features/create-roasting-profile">
+                        {{ globals.languageJson?.create_new }}
+                    </button>
+                    <!-- <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search by name, role.." /> -->
                 </div>
-                <!-- <div class="d-flex">
+            </ul>
+        </nav>
+        <section class="grading__total">
+            <div class="row w-100 ml-0">
+                <div class="green_grading_cont">
+                    <h1>{{ globals.languageJson?.roasting_profiles }}</h1>
+                </div>
+            </div>
+            <!-- <div class="d-flex">
             <div class="mb-2 pull-left mr-auto col-md-7 p-0">
                 Maintain an inventory of your roasted coffee which have been procured on the platform</div>
             <div class="pull-right ml-auto col-md-4">
@@ -37,90 +49,149 @@
                 </div>
             </div>
         </div> -->
-                <div class="mt-4 pb-2">
-                    <div class="">
-                        <div class="d-inline border-total role-div col-sm-6" id="role_id">
-                            <p class="d-inline filter-text" *ngIf="termRole == ''">{{globals.languageJson?.roast_level}}&nbsp;</p>
-                            <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop3="bs-popover">
-                                <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole();">
-                                    &nbsp; <img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                </p>
-                            </a>
-                            <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" #pop1="bs-popover">
-                                <p class="d-inline filter" *ngIf="termRole != ''" (click)="toggleRole();">
-                                    {{ termRole }}&nbsp;<img src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                                </p>
-                            </a>
-                        </div>
-                        <div class="pull-right col-lg-4 col-md-6 top__spacing">
-                            <input type="text" name="search" class="search-raised desk_view_user" [(ngModel)]="term" placeholder="Search" />
-                        </div>
+            <div class="mt-4 pb-2">
+                <div class="">
+                    <div class="d-inline border-total role-div col-sm-6" id="role_id">
+                        <p class="d-inline filter-text" *ngIf="termRole == ''">
+                            {{ globals.languageJson?.roast_level }}&nbsp;
+                        </p>
+                        <a
+                            class="pointer-item"
+                            [popover]="roleTemplate"
+                            placement="bottom"
+                            container="body"
+                            #pop3="bs-popover"
+                        >
+                            <p class="d-inline filter" *ngIf="termRole == ''" (click)="toggleRole()">
+                                &nbsp;
+                                <img
+                                    src="{{
+                                        showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                    }}"
+                                />
+                            </p>
+                        </a>
+                        <a
+                            class="pointer-item"
+                            [popover]="roleTemplate"
+                            placement="bottom"
+                            container="body"
+                            #pop1="bs-popover"
+                        >
+                            <p class="d-inline filter" *ngIf="termRole != ''" (click)="toggleRole()">
+                                {{ termRole }}&nbsp;<img
+                                    src="{{
+                                        showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                    }}"
+                                />
+                            </p>
+                        </a>
+                    </div>
+                    <div class="pull-right col-lg-4 col-md-6 top__spacing">
+                        <input
+                            type="text"
+                            name="search"
+                            class="search-raised desk_view_user"
+                            [(ngModel)]="term"
+                            placeholder="Search"
+                        />
                     </div>
                 </div>
-                <div class="table-container mb-2 mt-3">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class="table-header">
-                                <tr class="header-row">
-                                    <th>
-                                        <label class="customcheckbox m-b-20">
-                                                    <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
-                                                    (change)="checkAll($event)"/>
-                                                    <span class="checkmark head-check"></span>
-                                                </label>
-                                    </th>
-                                    <th scope="col">{{globals.languageJson?.roast_name}}</th>
-                                    <th scope="col">{{globals.languageJson?.roast_level}}&nbsp;</th>
-                                    <th scope="col">
-                                        {{globals.languageJson?.temperature}}
-                                    </th>
-                                    <th scope="col">
-                                        {{globals.languageJson?.duration}}
-                                    </th>
-                                    <th scope="col">{{globals.languageJson?.actions}}</th>
-                                </tr>
-                            </thead>
-                            <tbody class="customtable">
-                                <tr class="ticket-boby-txt" *ngFor="let item of mainData | filter:term | filter: termRole | filter: termStatus">
-                                    <td>
-                                        <label class="customcheckbox">
-                                                    <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
-                                                    <span class="checkmark head-check"></span>
-                                                </label>
-                                    </td>
-                                    <td>
-                                        {{ item.roast_profile_name}}
-                                    </td>
-                                    <td>{{ item.roast_level_name }}</td>
-                                    <td>{{ item.temperature }}°C</td>
-                                    <td>{{ item.roast_duration }} min</td>
-                                    <td>
-                                        <span class="view__details d-inline" (click)="redirectToEdit(item.id);">View details</span>
-                                        <span class="d-inline"> 
-                                            <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
-                                                <img class="ellipse-image pl-3" src="assets/images/more-opns-file.png" alt="">
-                                            </a>
-                                            <ng-template #poplistTemplate id="{{item.id}}">
-                                                <div id="popover-mobile-content">
-                                                    <ul class="list-group custom-popover">
-                                                        <li class="list-group-item" >
-                                                            <a class="pointer-item" (click)="openDeleteModal(deleteTemplate,item.id); pop.hide()">{{globals.languageJson?.delete}}</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </ng-template> </span>
-                                    </td>
-
-                                </tr>
-                                <tr class="odd" *ngIf="odd">
-                                    <td valign="top" colspan="11" class="dataTables_empty">No data available in table</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            </div>
+            <div class="table-container mb-2 mt-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="table-header">
+                            <tr class="header-row">
+                                <th>
+                                    <label class="customcheckbox m-b-20">
+                                        <input
+                                            type="checkbox"
+                                            id="mainCheckbox"
+                                            [checked]="isAllChecked()"
+                                            (change)="checkAll($event)"
+                                        />
+                                        <span class="checkmark head-check"></span>
+                                    </label>
+                                </th>
+                                <th scope="col">{{ globals.languageJson?.roast_name }}</th>
+                                <th scope="col">{{ globals.languageJson?.roast_level }}&nbsp;</th>
+                                <th scope="col">
+                                    {{ globals.languageJson?.temperature }}
+                                </th>
+                                <th scope="col">
+                                    {{ globals.languageJson?.duration }}
+                                </th>
+                                <th scope="col">{{ globals.languageJson?.actions }}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="customtable">
+                            <tr
+                                class="ticket-boby-txt"
+                                *ngFor="let item of mainData | filter: term | filter: termRole | filter: termStatus"
+                            >
+                                <td>
+                                    <label class="customcheckbox">
+                                        <input
+                                            type="checkbox"
+                                            class="listCheckbox"
+                                            name="sizecb[]"
+                                            value="{{ item.id }}"
+                                            [(ngModel)]="item.state"
+                                        />
+                                        <span class="checkmark head-check"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    {{ item.roast_profile_name }}
+                                </td>
+                                <td>{{ item.roast_level_name }}</td>
+                                <td>{{ item.temperature }}°C</td>
+                                <td>{{ item.roast_duration }} min</td>
+                                <td>
+                                    <span class="view__details d-inline" (click)="redirectToEdit(item.id)"
+                                        >View details</span
+                                    >
+                                    <span class="d-inline">
+                                        <a
+                                            class="menu-arrow"
+                                            [popover]="poplistTemplate"
+                                            placement="left"
+                                            [outsideClick]="true"
+                                            #pop="bs-popover"
+                                        >
+                                            <img
+                                                class="ellipse-image pl-3"
+                                                src="assets/images/more-opns-file.png"
+                                                alt=""
+                                            />
+                                        </a>
+                                        <ng-template #poplistTemplate id="{{ item.id }}">
+                                            <div id="popover-mobile-content">
+                                                <ul class="list-group custom-popover">
+                                                    <li class="list-group-item">
+                                                        <a
+                                                            class="pointer-item"
+                                                            (click)="
+                                                                openDeleteModal(deleteTemplate, item.id); pop.hide()
+                                                            "
+                                                            >{{ globals.languageJson?.delete }}</a
+                                                        >
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </ng-template>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="odd" *ngIf="odd">
+                                <td valign="top" colspan="11" class="dataTables_empty">No data available in table</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </div>
 </section>
 
@@ -128,22 +199,26 @@
     <div>
         <ul class="list-group">
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setRole(''); pop1.hide(); pop3.hide();toggleRole()">All</a>
+                <a class="pointer-item" (click)="setRole(''); pop1.hide(); pop3.hide(); toggleRole()">All</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setRole('Light'); pop3.hide(); pop1.hide();toggleRole()">Light</a>
+                <a class="pointer-item" (click)="setRole('Light'); pop3.hide(); pop1.hide(); toggleRole()">Light</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setRole('Light Medium'); pop1.hide(); pop3.hide();toggleRole()">Light Medium</a>
+                <a class="pointer-item" (click)="setRole('Light Medium'); pop1.hide(); pop3.hide(); toggleRole()"
+                    >Light Medium</a
+                >
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setRole('Medium'); pop1.hide(); pop3.hide();toggleRole()">Medium</a>
+                <a class="pointer-item" (click)="setRole('Medium'); pop1.hide(); pop3.hide(); toggleRole()">Medium</a>
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setRole('Medium Dark'); pop1.hide(); pop3.hide();toggleRole()">Medium Dark</a>
+                <a class="pointer-item" (click)="setRole('Medium Dark'); pop1.hide(); pop3.hide(); toggleRole()"
+                    >Medium Dark</a
+                >
             </li>
             <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setRole('Dark'); pop1.hide(); pop3.hide();toggleRole()">Dark</a>
+                <a class="pointer-item" (click)="setRole('Dark'); pop1.hide(); pop3.hide(); toggleRole()">Dark</a>
             </li>
         </ul>
     </div>
@@ -171,7 +246,6 @@
             </div>
           </ng-template>   -->
 
-
 <ng-template #deleteTemplate>
     <!-- <div class="modal-header border-header">
         <h1 class="fnt-play head-roles">Manage roles</h1>
@@ -180,12 +254,14 @@
           </button>
     </div> -->
     <div class="modal-body mt-5 mb-5 text-center fnt-muli">
-        <div><img src="assets/images/delete-role.svg" alt=""></div>
+        <div><img src="assets/images/delete-role.svg" alt="" /></div>
         <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
         <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
         <div class="mt-4">
-            <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
-            <button class="btn delete-btn ml-3" (click)="modalRef.hide();deleteRoastingProfile(deleteProfileId);">{{globals.languageJson?.delete}}</button>
+            <button class="cancel-btn" (click)="modalRef.hide()">{{ globals.languageJson?.cancel }}</button>
+            <button class="btn delete-btn ml-3" (click)="modalRef.hide(); deleteRoastingProfile(deleteProfileId)">
+                {{ globals.languageJson?.delete }}
+            </button>
         </div>
     </div>
 </ng-template>

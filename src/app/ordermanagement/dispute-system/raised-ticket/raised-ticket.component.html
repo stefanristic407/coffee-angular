@@ -27,8 +27,11 @@
                 <thead class="table-header">
                     <tr class="header-row">
                         <th scope="col">Order ID</th>
-                        <th scope="col">
+                        <th *ngIf="!orderType" scope="col">
                             Estate name
+                        </th>
+                        <th *ngIf="orderType" scope="col">
+                            Micro Roaster Name
                         </th>
                         <th scope="col">Date raised<img class="pl-2" src="assets/images/combined-shape.svg" /></th>
                         <th scope="col">Type of dispute</th>
@@ -42,7 +45,8 @@
                     <tr class="ticket-boby-txt" *ngFor="let ticket of data | filter:term ">
 
                         <td>{{ ticket.order_id }}</td>
-                        <td>{{ ticket.estate_name }}</td>
+                        <td *ngIf="!orderType">{{ ticket.estate_name }}</td>
+                        <td *ngIf="orderType">{{ ticket.micro_roaster_name }}</td>
                         <td>
                             {{ ticket.date_ordered | date : 'dd MMM yyyy' }}
                         </td>

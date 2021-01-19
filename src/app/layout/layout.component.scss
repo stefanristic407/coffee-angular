@@ -1,0 +1,72 @@
+.router-design {
+    background-color: #f1f1f1;
+    padding-top: 64px;
+    @media (min-width: 768px) {
+        padding-top: 173px;
+    }
+}
+
+.cursor-dots {
+    cursor: pointer;
+    color: #747588;
+    font-family: Muli;
+}
+
+.cursor-dots:hover {
+    text-decoration: none !important;
+    color: #232334 !important;
+}
+
+.profile-name {
+    cursor: pointer;
+    position: relative;
+    top: 5px;
+}
+
+.list-group-item {
+    border: none;
+    font-family: 'Muli';
+    font-size: 12px;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588 !important;
+}
+
+.list-group-item:hover {
+    color: #232334 !important;
+    font-weight: 600 !important;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+}
+
+::ng-deep .popover-body {
+    padding: 0.25rem 0.25rem !important;
+}
+
+.profile-pic {
+    border-radius: 100%;
+}
+
+.mobile-farm {
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    .mobile-farm {
+        display: block !important;
+    }
+}
+
+:host >>> .ui-autocomplete .ui-autocomplete-input {
+    padding: 0.429em;
+    position: relative !important;
+    top: -5px !important;
+    left: -75% !important;
+}
+
+:host >>> .ui-autocomplete .ui-autocomplete-panel {
+    left: -75% !important;
+}
