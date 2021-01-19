@@ -26,9 +26,10 @@ import { AuthGuard } from './guards/auth.guard';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
-  declarations: [AppComponent, HealthCheckComponent, HeaderComponent],
+  declarations: [AppComponent, HealthCheckComponent, HeaderComponent, LayoutComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
