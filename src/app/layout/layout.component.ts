@@ -33,6 +33,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     languages: any;
     appLanguage?: any;
     rolename: any;
+    slugList: any;
 
     constructor(
         private elementRef: ElementRef,
@@ -61,6 +62,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         this.getUserValue();
         this.getRoasterProfile();
         this.getLoggedInUserRoles();
+        this.globals.permissionMethod();
 
         $(window).scroll(function () {
             if ($(window).scrollTop() + $(window).height() === $(document).height()) {
