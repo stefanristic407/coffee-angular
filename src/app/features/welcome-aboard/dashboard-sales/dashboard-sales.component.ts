@@ -94,7 +94,7 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     private toastrService: ToastrService,
     private userSrv: UserserviceService,
     private welcomeSrv: WelcomeService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.roasterId = this.cookieService.get('roaster_id');
@@ -102,7 +102,9 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.salesSub.unsubscribe();
+    if (this.salesSub) {
+      this.salesSub.unsubscribe();
+    }
   }
 
   getStats() {

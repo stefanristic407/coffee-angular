@@ -22,7 +22,8 @@
             <li class="b-cum c-pink">Order Support</li>
             <div class="ml-auto text-right raise-ticket">
                 <button type="submit" class="btn btn-succes create-role-btn web-btn"
-                    routerLink="/ordermanagement/raise-ticket-form" [queryParams]="{id: orderID}">Raise a
+                    routerLink="/ordermanagement/raise-ticket-form"
+                    [queryParams]="{id: orderID, orderType:orderType}">Raise a
                     ticket</button>
             </div>
         </ul>
@@ -50,7 +51,8 @@
                                 </p> -->
                                 <p class="content mb-0">Still need help? <a class="click-here"
                                         routerLink="/ordermanagement/raise-ticket-form"
-                                        [queryParams]="{id: orderID}">Click here</a> to raise a ticket</p>
+                                        [queryParams]="{id: orderID, orderType:orderType}">Click here</a> to raise a
+                                    ticket</p>
                             </div>
                         </div>
                     </div>
@@ -171,9 +173,10 @@
                     <p class="help-text mr-auto float-left">Did you get the help you need?</p>
                     <div class="float-right ml-auto help-btn-div">
                         <button type="button" class="btn btn-succes yes-btn" routerLink="/ordermanagement/order-chat"
-                            [queryParams]="{id: orderID}">Yes</button>
+                            [queryParams]="{id: orderID, orderType:orderType}">Yes</button>
                         <button type="button" class="btn raise-btn" routerLink="/ordermanagement/raise-ticket-form"
-                            [queryParams]="{id: orderID}">No,Raise a ticket</button>
+                            [queryParams]="{id: orderID, orderType:orderType}">No,Raise a
+                            ticket</button>
                     </div>
                 </div>
             </div>
@@ -183,15 +186,15 @@
                 <p class="help-text mr-auto float-left">Did you get the help you need?</p>
                 <div class=" ml-auto help-btn-div">
                     <button type="button" class="btn btn-succes yes-btn" routerLink="/ordermanagement/order-chat"
-                        [queryParams]="{id: orderID}">Yes</button>
+                        [queryParams]="{id: orderID, orderType:orderType}">Yes</button>
                     <button type="button" class="btn raise-btn" routerLink="/ordermanagement/raise-ticket-form"
-                        [queryParams]="{id: orderID}">No,Raise a ticket</button>
+                        [queryParams]="{id: orderID, orderType:orderType}">No,Raise a ticket</button>
                 </div>
             </div>
         </div>
         <div class="mobile-farm  col-12">
             <button type="button" class="btn btn-succes create-role-btn" routerLink="/ordermanagement/raise-ticket-form"
-                [queryParams]="{id: orderID}"> Raise a ticket </button>
+                [queryParams]="{id: orderID, orderType:orderType}"> Raise a ticket </button>
         </div>
     </section>
 

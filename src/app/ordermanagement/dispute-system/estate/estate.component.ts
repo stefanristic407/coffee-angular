@@ -77,7 +77,6 @@ export class EstateComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.getEstateOrdersData();
 		//Auth checking
 		if (this.cookieService.get("Auth") == "") {
 			this.router.navigate(["/auth/login"]);

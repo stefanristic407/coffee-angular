@@ -630,9 +630,12 @@ export class RoasterserviceService {
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
-  getRaisedTicketData(roaster_id: any) {
+  getRaisedTicketData(roaster_id: any, orderType?) {
     var data = {};
     data["api_call"] = "/ro/" + roaster_id + "/disputes";
+    if (orderType == "MR") {
+      data["api_call"] = "/ro/" + roaster_id + "/micro_roasters/disputes";
+    }
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
@@ -723,18 +726,25 @@ export class RoasterserviceService {
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
-  getViewOrderDetails(roaster_id: any, order_id: any) {
+  getViewOrderDetails(roaster_id: any, order_id: any, orderType?) {
     var data = {};
     data["api_call"] = "/ro/" + roaster_id + "/orders/" + order_id;
+    if (orderType && orderType == "MR") {
+      data["api_call"] = "/ro/" + roaster_id + "/mr-orders/" + order_id;
+    }
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
 
-  getOrderDisputeList(roaster_id: any, order_id: any) {
+  getOrderDisputeList(roaster_id: any, order_id: any, orderType?) {
     var data = {};
     data["method"] = "GET";
     data["api_call"] =
       "/ro/" + roaster_id + "/orders/" + order_id + "/disputes";
+    if (orderType == "MR") {
+      data["api_call"] =
+        "/ro/" + roaster_id + "/mr-orders/" + order_id + "/disputes";
+    }
     data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
@@ -941,10 +951,14 @@ export class RoasterserviceService {
   }
 
   //Raise a Ticket for the order
-  raiseTicket(roaster_id: any, orderID, data) {
+  raiseTicket(roaster_id: any, orderID, data, orderType?) {
     let obj = {};
     obj["method"] = "POST";
     obj["api_call"] = "/ro/" + roaster_id + "/orders/" + orderID + "/disputes";
+    if (orderType && orderType == "MR") {
+      obj["api_call"] =
+        "/ro/" + roaster_id + "/mr-orders/" + orderID + "/disputes";
+    }
     obj["token"] = this.cookieService.get("Auth");
     obj["data"] = data;
     return this.http.post(this.url, obj);
@@ -1122,6 +1136,22 @@ export class RoasterserviceService {
     data["token"] = this.cookieService.get("Auth");
     data["method"] = "PUT";
     data["data"] = body;
+    return this.http.post(this.url, data);
+  }
+  addOrderNotes(roaster_id: any, order_id: any, orderData: any) {
+    var data = {};
+    data["api_call"] =
+      "/ro/" + roaster_id + "/mr-orders/" + order_id + "/notes";
+    data["token"] = this.cookieService.get("Auth");
+    data["data"] = orderData;
+    data["method"] = "POST";
+    return this.http.post(this.url, data);
+  }
+  getOrderNotes(roaster_id: any, order_id: any) {
+    var data = {};
+    data["api_call"] =
+      "/ro/" + roaster_id + "/mr-orders/" + order_id + "/notes";
+    data["token"] = this.cookieService.get("Auth");
     return this.http.post(this.url, data);
   }
   getAvailableRequestDetail(roaster_id: any, availability_request_id: any) {

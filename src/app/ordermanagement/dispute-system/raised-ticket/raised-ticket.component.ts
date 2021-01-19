@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -17,11 +17,13 @@ export class RaisedTicketComponent implements OnInit {
   odd: boolean = false;
   public data: any[] = [];
   ticketRaise: any;
+  orderType: string = '';
   constructor(public router: Router,
     public cookieService: CookieService,
     private roasterService: RoasterserviceService,
-    private toastrService: ToastrService) {
+    private toastrService: ToastrService, public route: ActivatedRoute) {
     this.roasterId = this.cookieService.get('roaster_id');
+    this.orderType = this.route.snapshot.queryParams['orderType'] ? decodeURIComponent(this.route.snapshot.queryParams['orderType']) : '';
   }
 
   ngOnInit(): void {
@@ -324,14 +326,15 @@ export class RaisedTicketComponent implements OnInit {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         id: ticket.order_id,
-        ticketId: ticket.id
+        ticketId: ticket.id,
+        orderType: this.orderType ? this.orderType : undefined
       }
     };
     this.router.navigate(["//ordermanagement/order-chat"], navigationExtras);
     //this.router.navigate(["/ordermanagement/order-chat"]);
   }
   getRaisedTicketTableData() {
-    this.roasterService.getRaisedTicketData(this.roasterId).subscribe(
+    this.roasterService.getRaisedTicketData(this.roasterId, this.orderType).subscribe(
       data => {
         if (data['success'] == true) {
           if (data['result'] == null || data['result'].length == 0) {

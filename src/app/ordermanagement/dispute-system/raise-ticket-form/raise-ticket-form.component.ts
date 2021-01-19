@@ -38,6 +38,7 @@ export class RaiseTicketFormComponent implements OnInit {
   ticketDetails: any = {};
   filesArray: any = [];
   disputeID: string = '';
+  orderType: string = '';
 
   constructor(private route: ActivatedRoute, public roasterService: RoasterserviceService,
     public cookieService: CookieService, public router: Router, private toastrService: ToastrService) {
@@ -55,10 +56,11 @@ export class RaiseTicketFormComponent implements OnInit {
   ngOnInit(): void {
     this.orderID = decodeURIComponent(this.route.snapshot.queryParams['id']);
     this.roaster_id = this.cookieService.get('roaster_id');
+    this.orderType = this.route.snapshot.queryParams['orderType'] ? decodeURIComponent(this.route.snapshot.queryParams['orderType']) : '';
     this.getOrderDetails();
   }
   getOrderDetails() {
-    this.roasterService.getViewOrderDetails(this.roaster_id, this.orderID).subscribe(res => {
+    this.roasterService.getViewOrderDetails(this.roaster_id, this.orderID, this.orderType).subscribe(res => {
       console.log(res);
       if (res['success'] && res['result']) {
         this.orderDetails = res['result'];
@@ -67,6 +69,12 @@ export class RaiseTicketFormComponent implements OnInit {
         }
         if (this.orderDetails['order_type']) {
           this.orderDetails['order_type'] = this.formatStatus(this.orderDetails['order_type']);
+        }
+        if (this.orderType == 'MR') {
+          if (this.orderDetails['type']) {
+            this.orderDetails['order_type'] = this.formatStatus(this.orderDetails['type']);
+          }
+          this.orderDetails['price'] = this.orderDetails['total_price'] ? this.orderDetails['total_price'] : 'NA';
         }
       }
     }, err => {
@@ -114,7 +122,7 @@ export class RaiseTicketFormComponent implements OnInit {
       obj['dispute_reason'] = this.disputeOrder;
       obj['description'] = this.problem;
       obj['solution'] = this.solProblem;
-      this.roasterService.raiseTicket(this.roaster_id, this.orderID, obj).subscribe(res => {
+      this.roasterService.raiseTicket(this.roaster_id, this.orderID, obj, this.orderType).subscribe(res => {
         console.log(res);
         if (res && res['success']) {
           this.disputeID = res['result']['id'];
@@ -142,7 +150,8 @@ export class RaiseTicketFormComponent implements OnInit {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         id: this.orderID,
-        ticketId: this.disputeID
+        ticketId: this.disputeID,
+        orderType: this.orderType ? this.orderType : undefined
       }
     };
     this.router.navigate(["/ordermanagement/order-chat"], navigationExtras);

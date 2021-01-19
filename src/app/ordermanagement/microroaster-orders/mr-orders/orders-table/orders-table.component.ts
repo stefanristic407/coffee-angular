@@ -652,26 +652,19 @@ export class OrdersTableComponent implements OnInit {
 
 		let navigationExtras: NavigationExtras = {
 			queryParams: {
-				"id": encodeURIComponent(group.id)
+				"id": encodeURIComponent(group.id),
+				"type": encodeURIComponent(group.type)
 			}
 		}
-		if (group.type == "GC_ORDER") {
-			if (group.status == "PLACED") {
-				this.router.navigate(["/ordermanagement/booked-order-confirmation"], navigationExtras);
-			}
-			else if (group.status == "REJECTED") {
-				this.router.navigate(["/ordermanagement/microroaster-orders"]);
-			}
-			else {
-				this.router.navigate(["/ordermanagement/mr-booked"], navigationExtras);
-			}
+		if (group.status == "PLACED") {
+			this.router.navigate(["/ordermanagement/booked-order-confirmation"], navigationExtras);
 		}
-		else if (group.type == "Sample") {
-			this.router.navigate(["/ordermanagement/mr-sample"], navigationExtras);
+		else if (group.status == "REJECTED") {
+			this.router.navigate(["/ordermanagement/microroaster-orders"]);
 		}
-		// else if (group.typeoforder == "Pre-Booked") {
-		//   this.router.navigate(["/ordermanagement/order-prebook"], navigationExtras);
-		// }
+		else {
+			this.router.navigate(["/ordermanagement/mr-booked"], navigationExtras);
+		}
 
 	}
 	setOriginMob(term: any) {

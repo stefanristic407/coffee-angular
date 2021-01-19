@@ -11,6 +11,7 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 export class OrderSupportFaqsComponent implements OnInit {
   headerValue: any;
   orderID: string = '';
+  orderType: string = '';
   roaster_id: string = "";
   questionDetails: any = [];
   constructor(private route: ActivatedRoute, public userService: UserserviceService,
@@ -19,6 +20,7 @@ export class OrderSupportFaqsComponent implements OnInit {
   ngOnInit(): void {
     this.roaster_id = this.cookieService.get('roaster_id');
     this.orderID = decodeURIComponent(this.route.snapshot.queryParams['id']);
+    this.orderType = this.route.snapshot.queryParams['orderType'] ? decodeURIComponent(this.route.snapshot.queryParams['orderType']) : '';
     if (this.route.snapshot.queryParams["buttonValue"]) {
       this.headerValue = decodeURIComponent(
         this.route.snapshot.queryParams["buttonValue"]

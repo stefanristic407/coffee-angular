@@ -147,6 +147,9 @@
 .invite_members:hover {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 }
+.disabled-state{
+    opacity: 0.5;
+}
 
 .select-members {
     font-family: Muli;

@@ -30,7 +30,8 @@
                     <div class="col-lg-6 col-md-12 pull-right ml-auto d-none d-md-block pl-0 pr-0">
                         <span class="pull-right ml-auto order-placed-text">
                             Order placed : <span class="date-text"
-                                *ngIf="bookDetailService.created_date !='' ">{{bookDetailService.created_date | date:"d MMM, y" }}</span>
+                                *ngIf="bookDetailService.created_date !='' ">{{bookDetailService.created_date | date:"d
+                                MMM, y" }}</span>
                         </span>
                     </div>
                 </div>
@@ -39,7 +40,8 @@
                         <div class="row ">
                             <div class="col-md-6 pl-0 pr-0">
                                 <div class="order__id d-flex align-items-center">Order #{{bookId}}
-                                    <span class="booked booked--green ml-3">Booked</span>
+                                    <span *ngIf="!sampleMode" class="booked booked--green ml-3">Booked</span>
+                                    <span *ngIf="sampleMode" class="booked booked--green ml-3">Sample</span>
                                 </div>
                             </div>
                             <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
@@ -75,7 +77,8 @@
                                                     <tbody>
                                                         <tr>
                                                             <th>Product name</th>
-                                                            <td *ngIf="bookDetailService.mrDetails">{{bookDetailService.mrDetails.product_name ?
+                                                            <td *ngIf="bookDetailService.mrDetails">
+                                                                {{bookDetailService.mrDetails.product_name ?
                                                                 bookDetailService.mrDetails.product_name :
                                                                 '-'}}</td>
                                                         </tr>
@@ -83,7 +86,8 @@
                                                             <th>Lot ID</th>
                                                             <td>
                                                                 <div *ngIf="bookDetailService.mrDetails">
-                                                                    {{bookDetailService.mrDetails.lot_id ? bookDetailService.mrDetails.lot_id : '-'}}
+                                                                    {{bookDetailService.mrDetails.lot_id ?
+                                                                    bookDetailService.mrDetails.lot_id : '-'}}
                                                                 </div>
                                                                 <div class="view_text">View lot details</div>
                                                             </td>
@@ -91,7 +95,8 @@
                                                         <tr>
                                                             <th>Variety</th>
                                                             <td *ngIf="bookDetailService.mrDetails">
-                                                                {{bookDetailService.mrDetails.varieties ? bookDetailService.mrDetails.varieties: '-'}}
+                                                                {{bookDetailService.mrDetails.varieties ?
+                                                                bookDetailService.mrDetails.varieties: '-'}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -167,12 +172,14 @@
                                             <li>
                                                 <div class="delivery__name fnt-muli"
                                                     *ngIf="bookDetailService.mrProfileDetails">
-                                                    {{bookDetailService.mrProfileDetails.name ? bookDetailService.mrProfileDetails.name : ''}}
+                                                    {{bookDetailService.mrProfileDetails.name ?
+                                                    bookDetailService.mrProfileDetails.name : ''}}
 
                                                 </div>
                                                 <div class="star__total fnt-muli"><img src="assets/images/star-1.png"
                                                         alt=""><span class="pl-2"
-                                                        *ngIf="bookDetailService.mrProfileDetails">{{bookDetailService.mrProfileDetails.rating ? bookDetailService.mrProfileDetails.rating : '0'}}
+                                                        *ngIf="bookDetailService.mrProfileDetails">{{bookDetailService.mrProfileDetails.rating
+                                                        ? bookDetailService.mrProfileDetails.rating : '0'}}
                                                     </span>
                                                 </div>
                                                 <!-- <div class="delivery__receiver fnt-muli">Receiver : <span>Benson</span></div> -->

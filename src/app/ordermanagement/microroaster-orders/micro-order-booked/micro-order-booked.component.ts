@@ -46,6 +46,11 @@ export class MicroOrderBookedComponent implements OnInit {
   dataFromTable: string;
   roasterId: any;
   bookId: any;
+  addNotes: any;
+  noteList: any;
+  sampleMode: boolean = false;
+  orderType: string = '';
+
   //   shipmentLink: any;
   constructor(
     private route: ActivatedRoute,
@@ -62,9 +67,12 @@ export class MicroOrderBookedComponent implements OnInit {
     this.bookDetailService.bookOrderId = this.bookId;
     this.viewMrOrderDetails();
     this.bookDetailService.viewMrOrderDetails();
+    this.getNotes();
   }
 
   ngOnInit(): void {
+    this.orderType = decodeURIComponent(this.route.snapshot.queryParams["type"]);
+    this.sampleMode = this.orderType == 'GC_ORDER_SAMPLE' ? true : false;
     //Auth checking
     if (this.cookieService.get("Auth") == "") {
       this.router.navigate(["/auth/login"]);
@@ -347,5 +355,27 @@ export class MicroOrderBookedComponent implements OnInit {
         this.paySample();
       }, 500);
     }
+  }
+  addNote() {
+    var body = {
+      "notes": this.addNotes
+    }
+    this.roasterService.addOrderNotes(this.roasterId, this.bookId, body).subscribe(
+      res => {
+        if (res["success"] == true) {
+          this.getNotes();
+          this.toastrService.success("Added Order Notes Successfully");
+        }
+      }
+    )
+  }
+  getNotes() {
+    this.roasterService.getOrderNotes(this.roasterId, this.bookId).subscribe(
+      res => {
+        if (res["success"] == true) {
+          this.noteList = res['result'];
+        }
+      }
+    )
   }
 }
