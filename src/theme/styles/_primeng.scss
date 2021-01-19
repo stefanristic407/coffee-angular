@@ -41,3 +41,39 @@ body .ui-widget {
         padding: 0 !important;
     }
 }
+
+// SelectButton
+body .ui-selectbutton {
+    display: inline-flex;
+    border: solid 1px #3d8462;
+    font-size: inherit !important;
+    line-height: 1;
+    padding: 2px;
+    border-radius: 4px;
+    .ui-button {
+        font-size: inherit !important;
+        background-color: #fff;
+        border-color: #fff;
+        border-radius: 4px;
+        color: #979797;
+        font-family: $general-font-family;
+        font-weight: 600;
+
+        &.ui-state-active,
+        &.ui-state-active:not(.ui-state-disabled):hover {
+            background-color: #3d8462;
+            border-color: #3d8462;
+            color: #ffffff;
+        }
+
+        &:not(.ui-state-disabled):not(.ui-state-active):hover {
+            background-color: #fff;
+            border-color: #fff;
+            color: #979797;
+        }
+
+        &.ui-button-text-only .ui-button-text {
+            padding: 0.5em 1em;
+        }
+    }
+}
