@@ -340,27 +340,21 @@
                         </form>
                     </div>
                     <div class="col-12 mt-4 bottom-border">
-                        <div class="row">
-                            <label class="customcheckbox flavour-text mb-1 top-spacin">
-                                <input
-                                    type="checkbox"
-                                    class="listCheckbox"
-                                    name="filter-check"
-                                    value=""
-                                    [(ngModel)]="terms"
-                                />
-                                <span class="checkmark head-check"></span>
+                        <div class="row mb-1 dark">
+                            <p-checkbox
+                                [(ngModel)]="terms"
+                                [ngModelOptions]="{ standalone: true }"
+                                binary="true"
+                                label="I do not want to recieve messages from Era of We"
+                                inputId="terms"
+                            ></p-checkbox>
+                            <label for="terms">
                                 <span class="remeber-left"
                                     >{{ globals.languageJson?.i_have_understood }}
                                     <span class="terms-color">{{ globals.languageJson?.terms_conditions }}</span>
                                     {{ globals.languageJson?.platform_agree }}.</span
                                 >
                             </label>
-
-                            <!-- <div class="custom-control custom-checkbox mb-1 top-spacing box_mobile">
-                    <input type="checkbox" class="custom-control-input" id="custom_check1" name="example1">
-                    <label class="custom-control-label text_checkbox" for="custom_check1"><span class="remeber-left">I have read and understood the <span class="terms-color">terms & conditions</span> of the platform, and agree to them.</span></label>
-                </div> -->
                         </div>
                         <div class="termError" *ngIf="termError != ''">
                             {{ termError }}

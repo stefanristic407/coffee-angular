@@ -67,7 +67,7 @@ td {
 
 .table-head {
     border-radius: 4px;
-    background-color: #f8f8f8
+    background-color: #f8f8f8;
 }
 
 .lot-table {
@@ -76,7 +76,7 @@ td {
 }
 
 .border-div {
-    margin-top: 2.2rem!important;
+    margin-top: 2.2rem !important;
 }
 
 .ord-quantity,
@@ -216,7 +216,6 @@ td {
     padding-bottom: 2rem;
 }
 
-
 /********Modal********/
 
 .modal-header {
@@ -317,29 +316,6 @@ label {
     font-size: 14px !important;
 }
 
-.checkmark {
-    top: 2px !important;
-    left: 2px !important;
-    height: 17px !important;
-    width: 17px !important;
-}
-
-.customcheckbox .checkmark:after {
-    left: 5px !important;
-    top: 1px !important;
-    border-width: 0 2px 2px 0 !important;
-}
-
-span.checkmark {
-    background-color: #fff !important;
-    border: solid 1px #979797;
-    border-radius: 2px;
-}
-
-.customcheckbox input:checked~.checkmark {
-    background-color: #232334 !important;
-}
-
 .box-border {
     border: 1px solid #d6d6d6;
     border-radius: 4px;
@@ -355,7 +331,6 @@ span.checkmark {
     display: none;
 }
 
-
 /* 
 .search:focus {
     box-shadow: 0 0 0 0.035rem green !important;
@@ -366,20 +341,19 @@ span.checkmark {
 .addressError,
 .cityError,
 .zipError {
-    color: #D50000;
+    color: #d50000;
     font-size: 14px;
 }
 
 .termError {
-    color: #D50000;
+    color: #d50000;
     font-size: 14px;
     margin-left: 10px;
 }
 
-
 /****************************    Media Queries   ****************************/
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
     .create-role {
         margin-left: 0.9rem;
         margin-right: 0.9rem;
@@ -398,7 +372,7 @@ span.checkmark {
         margin-right: 0rem;
     }
     .border-div {
-        margin-top: 1.2rem!important;
+        margin-top: 1.2rem !important;
     }
     .back-icon {
         border-bottom: 1px solid #ebebeb;

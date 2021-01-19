@@ -168,26 +168,6 @@
     padding-left: 45px;
 }
 
-span.checkmark {
-    background-color: white;
-    border: 1px solid #666666;
-    border-radius: 4px;
-}
-
-.customcheckbox input:checked~.checkmark {
-    background-color: #000;
-}
-
-.estate-title .checkmark {
-    top: 3px !important;
-}
-
-.estate-boby-txt .checkmark {
-    top: 3px !important;
-    left: 8px !important;
-}
-
-
 /**********popover*******/
 
 .list-group-item {
@@ -209,7 +189,7 @@ span.checkmark {
 }
 
 ::ng-deep .popover-body {
-    padding: .25rem .25rem !important;
+    padding: 0.25rem 0.25rem !important;
 }
 
 ::ng-deep .popover {
@@ -228,7 +208,6 @@ span.checkmark {
     cursor: pointer;
 }
 
-
 /******Date Range Css*********/
 
 :host ::ng-deep .ui-inputtext {
@@ -239,7 +218,7 @@ span.checkmark {
     color: #3d8462;
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
     .estate-table {
         /* width: 100%; */
         overflow: scroll;
@@ -249,12 +228,11 @@ span.checkmark {
     }
 }
 
-@media (max-width:480px) {
+@media (max-width: 480px) {
     .estate-orders {
         margin: 0.5rem 0px;
     }
 }
-
 
 /* The container */
 
@@ -272,7 +250,6 @@ span.checkmark {
     margin-left: 1rem;
 }
 
-
 /* Hide the browser's default checkbox */
 
 .bestate-check input {
@@ -283,67 +260,8 @@ span.checkmark {
     width: 0;
 }
 
-
-/* Create a custom checkbox */
-
-.estatecheckmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 17px;
-    width: 17px;
-    background-color: #fff;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
 .first_t {
     top: -5px !important;
-}
-
-
-/* On mouse-over, add a grey background color */
-
-.bestate-check:hover input~.estatecheckmark {
-    background-color: #fff;
-}
-
-
-/* When the checkbox is checked, add a blue background */
-
-.bestate-check input:checked~.estatecheckmark {
-    background-color: #30855c;
-}
-
-
-/* Create the checkmark/indicator (hidden when not checked) */
-
-.estatecheckmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-
-/* Show the checkmark when checked */
-
-.bestate-check input:checked~.estatecheckmark:after {
-    display: block;
-}
-
-
-/* Style the checkmark/indicator */
-
-.bestate-check .estatecheckmark:after {
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: 1px solid #d6d6d6;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
 }
 
 .create-role-section {
@@ -391,7 +309,7 @@ span.checkmark {
 li.nav-item {
     margin-right: 7%;
     position: relative;
-    top: .25rem;
+    top: 0.25rem;
 }
 
 .nav-pills .nav-link {
@@ -404,7 +322,7 @@ li.nav-item {
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
+.nav-pills .show > .nav-link {
     color: #232334;
     font-size: 14px;
     font-weight: 600;
@@ -427,13 +345,13 @@ li.nav-item {
 
 .nav-link {
     display: block;
-    padding: 0rem 1rem .5rem 1rem;
+    padding: 0rem 1rem 0.5rem 1rem;
 }
 
 li.nav-item {
     margin-right: 3%;
     position: relative;
-    top: .25rem;
+    top: 0.25rem;
 }
 
 .nav-pills .nav-link.active:before {
@@ -456,10 +374,9 @@ li.nav-item {
     overflow: hidden;
 }
 
-
 /*********************Tab Css **********************/
 
-@media (min-width:1400px) {
+@media (min-width: 1400px) {
     .container {
         max-width: 1240px !important;
     }
@@ -539,12 +456,11 @@ ul li {
     display: none;
 }
 
-
 /*  media query Fram Link */
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .bg-fff {
-        padding: 1rem .7rem !important;
+        padding: 1rem 0.7rem !important;
     }
     .bread-nav {
         padding-left: 0rem;
@@ -565,7 +481,7 @@ ul li {
     }
     .title-header {
         /* margin: 1.3rem 1rem; */
-        margin: 0.3rem 0.2rem
+        margin: 0.3rem 0.2rem;
     }
     .estate-table {
         margin: 0rem 0rem 1rem;
@@ -580,12 +496,12 @@ ul li {
     .bor-coffe {
         border: 1px solid #ebebeb;
         border-radius: 4px;
-        padding: .5rem .5rem 0rem .5rem;
+        padding: 0.5rem 0.5rem 0rem 0.5rem;
         max-width: 48% !important;
         margin: 1% !important;
     }
     .mobile-ce p {
-        margin-bottom: .5rem !important;
+        margin-bottom: 0.5rem !important;
     }
     .bor-d6d6 {
         border-top: 2px dashed #d6d6d6;
@@ -628,7 +544,7 @@ ul li {
     }
 }
 
-.file-share-search input[type="search"] {
+.file-share-search input[type='search'] {
     outline: 0;
     border: 0;
     background: none;
@@ -638,7 +554,7 @@ ul li {
     font-family: 'Muli', sans-serif;
 }
 
-.file-share-search input[type="search"]::placeholder {
+.file-share-search input[type='search']::placeholder {
     font-size: 12px;
     font-weight: 600;
     color: #747588;

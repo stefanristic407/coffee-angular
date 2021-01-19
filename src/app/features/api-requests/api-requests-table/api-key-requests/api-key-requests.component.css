@@ -81,49 +81,8 @@ tr:last-child {
     width: 0;
 }
 
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 17px;
-    width: 17px;
-    background-color: #fff;
-    border: 1px solid #d6d6d6;
-    border-radius: 2px;
-}
-
 .first-t {
     top: -9px !important;
-}
-
-.b-check:hover input~.checkmark {
-    background-color: #fff;
-}
-
-.b-check input:checked~.checkmark {
-    background-color: #30855c;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.b-check input:checked~.checkmark:after {
-    display: block;
-}
-
-.b-check .checkmark:after {
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: 1px solid #fff;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
 }
 
 .typeoforder-Sample {
@@ -163,12 +122,4 @@ tr:last-child {
     border: 1px solid #d6d6d6;
     background-color: #fff;
     padding: 10px 12px;
-}
-
-.check-top-header .checkmark {
-    top: 6px !important;
-}
-
-.check-middle-header .checkmark {
-    top: -3px !important;
 }
