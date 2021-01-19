@@ -93,68 +93,6 @@ label span {
     margin-top: 30px;
 }
 
-
-/* The container-request */
-
-.container-request {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.container-request input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 18px;
-    width: 18px;
-    background-color: #fff;
-    border: solid 1px #979797;
-    border-radius: 2px !important;
-}
-
-.container-request:hover input~.checkmark {
-    background-color: #fff;
-}
-
-.container-request input:checked~.checkmark {
-    background-color: #30855c;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.container-request input:checked~.checkmark:after {
-    display: block;
-}
-
-.container-request .checkmark:after {
-    left: 6px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0px 3px 3px 0px;
-    transform: rotate(45deg);
-}
-
 .w-m-19 {
     width: 18%;
     margin: 0% 1%;
@@ -201,7 +139,6 @@ label span {
     color: #cbcbcb !important;
 }
 
-
 /* product weight */
 
 .sample_info {
@@ -228,7 +165,6 @@ label span {
     padding: 12px 10px;
 }
 
-
 /* tabs css  */
 
 .nav-pills {
@@ -238,7 +174,7 @@ label span {
 li.nav-item {
     margin-right: 7%;
     position: relative;
-    top: .25rem;
+    top: 0.25rem;
 }
 
 .nav-pills .nav-link {
@@ -251,7 +187,7 @@ li.nav-item {
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
+.nav-pills .show > .nav-link {
     color: #232334;
     font-size: 14px;
     font-weight: 600;
@@ -274,13 +210,13 @@ li.nav-item {
 
 .nav-link {
     display: block;
-    padding: 0rem 1rem .5rem 1rem;
+    padding: 0rem 1rem 0.5rem 1rem;
 }
 
 li.nav-item {
     margin-right: 3%;
     position: relative;
-    top: .25rem;
+    top: 0.25rem;
 }
 
 .nav-pills .nav-link.active:before {
@@ -317,7 +253,6 @@ li.nav-item {
     overflow: hidden;
 }
 
-
 /* input with dp */
 
 .select-form-group-dropdown {
@@ -329,7 +264,7 @@ li.nav-item {
 }
 
 .select-region-local {
-    height: 38px!important;
+    height: 38px !important;
     font-size: 14px !important;
     color: #000000 !important;
 }
@@ -394,7 +329,6 @@ li.nav-item {
     padding: 1rem 0;
     border-bottom: 1px dashed #d6d6d6;
 }
-
 
 /* togggle */
 

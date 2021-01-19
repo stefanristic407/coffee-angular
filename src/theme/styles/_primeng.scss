@@ -77,3 +77,41 @@ body .ui-selectbutton {
         }
     }
 }
+
+// Checkbox
+body .ui-chkbox {
+    width: 18px;
+    height: 18px;
+    .ui-chkbox-box {
+        border: 1px solid #30855c;
+        background-color: #ffffff;
+        border-radius: 2px;
+        width: 18px;
+        height: 18px;
+
+        &:not(.ui-state-disabled):hover {
+            border-color: #30855c;
+        }
+
+        &.ui-state-active,
+        &.ui-state-active:not(.ui-state-disabled):hover {
+            border-color: #30855c;
+            background-color: #30855c;
+        }
+
+        &.ui-state-focus {
+            box-shadow: none;
+        }
+
+        .ui-chkbox-icon {
+            font-size: 16px;
+        }
+    }
+}
+
+body .ui-chkbox-label {
+    font-family: $general-font-family;
+    font-size: 14px;
+    font-weight: 600;
+    color: $general-text-color;
+}

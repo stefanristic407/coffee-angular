@@ -69,11 +69,11 @@
 
         <div class="varient mt-5">
             <p class="fnt-18 fnt-muli fnt-700 black">Variants</p>
-            <label class="container-request fnt-14 fnt-muli fnt-600 txt-clr334"
-                >If this product has options like roasted coffee batch, flavour profile, availability etc.
-                <input type="checkbox" [(ngModel)]="product.is_variants_included" />
-                <span class="checkmark"></span>
-            </label>
+            <p-checkbox
+                [(ngModel)]="product.is_variants_included"
+                binary="true"
+                label="If this product has options like roasted coffee batch, flavour profile, availability etc."
+            ></p-checkbox>
         </div>
 
         <!-- nav tabs  -->
@@ -408,19 +408,19 @@
                                 </div>
 
                                 <div class="col-3 mt-5">
-                                    <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr"
-                                        >Hide product
-                                        <input type="checkbox" [(ngModel)]="varient.is_public" name="is_public" />
-                                        <span class="checkmark"></span>
-                                    </label>
+                                    <p-checkbox
+                                        [(ngModel)]="varient.is_public"
+                                        binary="true"
+                                        label="Hide product"
+                                    ></p-checkbox>
                                 </div>
 
                                 <div class="col-3 mt-5">
-                                    <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr"
-                                        >Set as default product
-                                        <input type="checkbox" [(ngModel)]="varient.is_default_product" />
-                                        <span class="checkmark"></span>
-                                    </label>
+                                    <p-checkbox
+                                        [(ngModel)]="varient.is_default_product"
+                                        binary="true"
+                                        label="Set as default product"
+                                    ></p-checkbox>
                                 </div>
                             </div>
 
@@ -616,15 +616,11 @@
                 </div>
                 <div class="col-4">
                     <p class="fnt-14 fnt-muli text-clr588 fnt-600">Is the product price inclusive of VAT*</p>
-                    <label class="container-request fnt-14 fnt-muli fnt-600 gray-clr"
-                        >The price is inclusive of VAT
-                        <input
-                            type="checkbox"
-                            [(ngModel)]="product.is_price_including_vat"
-                            name="is_price_including_vat"
-                        />
-                        <span class="checkmark"></span>
-                    </label>
+                    <p-checkbox
+                        [(ngModel)]="product.is_price_including_vat"
+                        binary="true"
+                        label="The price is inclusive of VAT"
+                    ></p-checkbox>
                 </div>
             </div>
         </div>

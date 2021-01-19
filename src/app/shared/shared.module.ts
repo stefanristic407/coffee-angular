@@ -7,6 +7,7 @@ import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TabViewModule } from 'primeng/tabview';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
@@ -31,6 +32,7 @@ const THIRDMODULES = [
     PopoverModule,
     AutoCompleteModule,
     CalendarModule,
+    CheckboxModule,
     SelectButtonModule,
     TabViewModule,
     ChartAllModule,
