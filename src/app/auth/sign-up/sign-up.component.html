@@ -1,60 +1,85 @@
 <section class="login-sec">
     <div class="container">
         <div class="sewn-bg-logo">
-
-            <img src="assets/images/era-we-logo.svg" alt="user" class="Sewn-Logo">
-
+            <img src="assets/images/era-we-logo.svg" alt="user" class="Sewn-Logo" />
         </div>
         <div class="row">
-            <div class=" col-xs-12 col-sm-10 col-md-8 col-lg-5 login-box">
+            <div class="col-xs-12 col-sm-10 col-md-8 col-lg-5 login-box">
                 <div class="login">
-                    <h3 class="login_heading fnt-play ml-3">Create an account </h3>
-                    <p class="login_para ml-3">Please enter the following details to create an account </p>
+                    <h3 class="login_heading fnt-play ml-3">Create an account</h3>
+                    <p class="login_para ml-3">Please enter the following details to create an account</p>
 
                     <form>
                         <div class="form-group row m-0">
                             <div class="form-group col-12">
                                 <label class="role-name">Your name*</label>
-                                <input type="email" class="form-control rectangle_name" id="username" placeholder="Enter your name" name="username" autofocus required>
+                                <input
+                                    type="email"
+                                    class="form-control rectangle_name"
+                                    id="username"
+                                    placeholder="Enter your name"
+                                    name="username"
+                                    autofocus
+                                    required
+                                />
                             </div>
                         </div>
                         <div class="form-group row m-0">
                             <div class="form-group col-12">
                                 <label class="role-name">E-mail address*</label>
-                                <input type="email" class="form-control rectangle_name" id="email" placeholder="Enter your e-mail address" name="email" autofocus required>
+                                <input
+                                    type="email"
+                                    class="form-control rectangle_name"
+                                    id="email"
+                                    placeholder="Enter your e-mail address"
+                                    name="email"
+                                    autofocus
+                                    required
+                                />
                             </div>
                         </div>
                         <div class="form-group row m-0">
                             <div class="form-group col-12">
                                 <label class="role-name">Set a password*</label>
-                                <input type="password" class="form-control rectangle_name" id="password" placeholder="Enter password" name="password" autofocus required>
-
+                                <input
+                                    type="password"
+                                    class="form-control rectangle_name"
+                                    id="password"
+                                    placeholder="Enter password"
+                                    name="password"
+                                    autofocus
+                                    required
+                                />
                             </div>
                         </div>
-                        <p class="ml-3 fnt-12 fnt-muli fnt-600 txt-clr334 "> By selecting Agree and continue below, I agree to Era of We’s <span>Terms of Service</span>,<span>Privacy Policy</span>.</p>
+                        <p class="ml-3 fnt-12 fnt-muli fnt-600 txt-clr334">
+                            By selecting Agree and continue below, I agree to Era of We’s
+                            <span>Terms of Service</span>,<span>Privacy Policy</span>.
+                        </p>
 
                         <div class="form-group row pt-md-1 m-0 ml-3">
                             <div class="text-center w-100">
-                                <button type="submit" class="btn btn-info login-butn email-link w-100"> Agree and continue</button>
+                                <button type="submit" class="btn btn-info login-butn email-link w-100">
+                                    Agree and continue
+                                </button>
                             </div>
                         </div>
-                        <p class="ml-3 fnt-muli fnt-600 ext-clr588 pt-3 era-fnt "> Era of We will send you marketing emails, and push notifications. You can opt out of receiving these at any time in your account settings.</p>
+                        <p class="ml-3 fnt-muli fnt-600 ext-clr588 pt-3 era-fnt">
+                            Era of We will send you marketing emails, and push notifications. You can opt out of
+                            receiving these at any time in your account settings.
+                        </p>
 
-                        <div class="form-group row pb-5 pl-3 bottom-space ">
-                            <label class="customcheckbox">
-                                <input type="checkbox" id="mainCheckbox"/>
-                                <span class="checkmark head-check"> </span>  <span class="fnt-14 fnt-muli fnt-600 txt-clr334 pl-4">I do not want to recieve messages from Era of We</span>
-                            </label>
+                        <div class="form-group row pb-5 ml-3 bottom-space">
+                            <p-checkbox
+                                [(ngModel)]="isSubscribe"
+                                [ngModelOptions]="{ standalone: true }"
+                                binary="true"
+                                label="I do not want to recieve messages from Era of We"
+                            ></p-checkbox>
                         </div>
-
                     </form>
-
                 </div>
             </div>
         </div>
-
-
     </div>
-
-
 </section>
