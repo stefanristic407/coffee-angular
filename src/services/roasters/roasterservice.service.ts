@@ -26,7 +26,7 @@ export class RoasterserviceService {
   // private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
   // private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   //API Function Name : Role List
   //API Description: This API calls helps to get all roles to the user.
@@ -1108,18 +1108,42 @@ export class RoasterserviceService {
   }
   acceptMrConfirmOrder(roaster_id: any, order_id: any, body: any) {
     const data = {};
-    data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/confirm';
-    data['token'] = this.cookieService.get('Auth');
-    data['method'] = 'PUT';
-    data['data'] = body;
+    data["api_call"] =
+      "/ro/" + roaster_id + "/mr-orders/" + order_id + "/confirm";
+    data["token"] = this.cookieService.get("Auth");
+    data["method"] = "PUT";
+    data["data"] = body;
     return this.http.post(this.url, data);
   }
   rejectBookedOrder(roaster_id: any, order_id: any, body: any) {
     const data = {};
-    data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id + '/reject';
-    data['token'] = this.cookieService.get('Auth');
-    data['method'] = 'PUT';
-    data['data'] = body;
+    data["api_call"] =
+      "/ro/" + roaster_id + "/mr-orders/" + order_id + "/reject";
+    data["token"] = this.cookieService.get("Auth");
+    data["method"] = "PUT";
+    data["data"] = body;
+    return this.http.post(this.url, data);
+  }
+  getAvailableRequestDetail(roaster_id: any, availability_request_id: any) {
+    const data = {};
+    data[
+      "api_call"
+    ] = `/ro/${roaster_id}/availability-requests/${availability_request_id}`;
+    data["token"] = this.cookieService.get("Auth");
+    data["method"] = "GET";
+    return this.http.post(this.url, data);
+  }
+  updateAvailabilityStatus(
+    roaster_id: any,
+    availability_request_id: any,
+    status: any
+  ) {
+    const data = {};
+    data[
+      "api_call"
+    ] = `/ro/${roaster_id}/availability-requests/${availability_request_id}/${status}`;
+    data["token"] = this.cookieService.get("Auth");
+    data["method"] = "PUT";
     return this.http.post(this.url, data);
   }
 }
