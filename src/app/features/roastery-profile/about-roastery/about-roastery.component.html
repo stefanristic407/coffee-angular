@@ -1,362 +1,538 @@
-<div class="total-loader" *ngIf="aboutActive !=1">
+<div class="total-loader" *ngIf="aboutActive != 1">
     <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
     </div>
 </div>
 <div *ngIf="aboutActive == 1">
     <div class="row form-section">
-        <div class="col-lg-12 mt-md-4">
+        <div class="col-lg-12">
             <form class="form-container">
                 <div class="row">
-                    <div class=" col-lg-8 ">
+                    <div class="col-lg-8">
                         <div class="border-class p-4">
-                            <div class="row  mt-3 no-margin">
-                                <div class="form-group col-md-6  no-margin">
-                                    <label *ngIf="roasteryProfileService.savemode" for="owner_name">{{globals.languageJson?.owner_name}}<span class="star">*</span></label>
-                                    <input *ngIf="roasteryProfileService.savemode" class="form-control owner_name rectangle" id="owner_name" type="text" (keyup)="onKeyPress($event)" name="owner_name" [(ngModel)]="roasteryProfileService.name" placeholder="Please enter owner name" />
-                                    <label *ngIf="roasteryProfileService.editmode" for="owner_name" class="mob-view">{{globals.languageJson?.owner_name}}</label>
-                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.name}}</p>
+                            <div class="row mt-3 no-margin">
+                                <div class="form-group col-md-6 no-margin">
+                                    <label *ngIf="roasteryProfileService.savemode" for="owner_name"
+                                        >{{ globals.languageJson?.owner_name }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        *ngIf="roasteryProfileService.savemode"
+                                        class="form-control owner_name rectangle"
+                                        id="owner_name"
+                                        type="text"
+                                        (keyup)="onKeyPress($event)"
+                                        name="owner_name"
+                                        [(ngModel)]="roasteryProfileService.name"
+                                        placeholder="Please enter owner name"
+                                    />
+                                    <label *ngIf="roasteryProfileService.editmode" for="owner_name" class="mob-view">{{
+                                        globals.languageJson?.owner_name
+                                    }}</label>
+                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">
+                                        {{ roasteryProfileService.name }}
+                                    </p>
                                     <div class="ownerNameError" *ngIf="ownerNameError != ''">
                                         {{ ownerNameError }}
                                     </div>
-
                                 </div>
-                                <div class="form-group col-md-6  no-margin">
-                                    <label *ngIf="roasteryProfileService.savemode" for="founded_in">{{globals.languageJson?.founded_in}}<span class="star">*</span></label
-                            >
-                            <input
-                            *ngIf="roasteryProfileService.savemode"
-                              class="form-control rectangle founded_in"
-                              id="founded_in"
-                              type="text"
-                              (keyup)="onKeyPress($event)"
-                              name="founded_in"
-                              [(ngModel)]="roasteryProfileService.founded_in"
-                              placeholder="Please enter founded year"
-                            />
-                            <label *ngIf="roasteryProfileService.editmode" for="founded_in" class="mob-view"
-                            >{{globals.languageJson?.founded_in}}</label>
-                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.founded_in}}</p>
+                                <div class="form-group col-md-6 no-margin">
+                                    <label *ngIf="roasteryProfileService.savemode" for="founded_in"
+                                        >{{ globals.languageJson?.founded_in }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        *ngIf="roasteryProfileService.savemode"
+                                        class="form-control rectangle founded_in"
+                                        id="founded_in"
+                                        type="text"
+                                        (keyup)="onKeyPress($event)"
+                                        name="founded_in"
+                                        [(ngModel)]="roasteryProfileService.founded_in"
+                                        placeholder="Please enter founded year"
+                                    />
+                                    <label *ngIf="roasteryProfileService.editmode" for="founded_in" class="mob-view">{{
+                                        globals.languageJson?.founded_in
+                                    }}</label>
+                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">
+                                        {{ roasteryProfileService.founded_in }}
+                                    </p>
                                     <div class="foundedInError" *ngIf="foundedInError != ''">
                                         {{ foundedInError }}
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-md-12 mt-md-3" *ngIf="roasteryProfileService.savemode">
-                                    <label for="summary">{{globals.languageJson?.roastery_summary}}</label>
-                                    <textarea *ngIf="roasteryProfileService.savemode" class="form-control summary" id="summary" name="summary" rows="5" [(ngModel)]="roasteryProfileService.summary" placeholder="Tell us and to our users about who you are as a company!">
-                              </textarea>
+                                    <label for="summary">{{ globals.languageJson?.roastery_summary }}</label>
+                                    <textarea
+                                        *ngIf="roasteryProfileService.savemode"
+                                        class="form-control summary"
+                                        id="summary"
+                                        name="summary"
+                                        rows="5"
+                                        [(ngModel)]="roasteryProfileService.summary"
+                                        placeholder="Tell us and to our users about who you are as a company!"
+                                    >
+                                    </textarea>
                                 </div>
-                                <div class="form-group col-md-12 mt-md-3 mob-border" *ngIf="roasteryProfileService.editmode">
-                                    <label for="summary" class="mob-label">{{globals.languageJson?.roastery_summary}}</label>
-                                    <p class="info-content mob-info-content" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.summary}}</p>
-
+                                <div
+                                    class="form-group col-md-12 mt-md-3 mob-border"
+                                    *ngIf="roasteryProfileService.editmode"
+                                >
+                                    <label for="summary" class="mob-label">{{
+                                        globals.languageJson?.roastery_summary
+                                    }}</label>
+                                    <p class="info-content mob-info-content" *ngIf="roasteryProfileService.editmode">
+                                        {{ roasteryProfileService.summary }}
+                                    </p>
                                 </div>
                             </div>
 
-                            <hr class="d-none d-lg-block" *ngIf="roasteryProfileService.savemode">
+                            <hr class="d-none d-lg-block" *ngIf="roasteryProfileService.savemode" />
                             <div class="row p-3 mt-md-5 mp-3" *ngIf="roasteryProfileService.savemode">
-                                <p class="sub-header">{{globals.languageJson?.employee_details}}</p>
-                                <p class="header-descr">{{globals.languageJson?.give_overview_text}}.</p>
+                                <p class="sub-header">{{ globals.languageJson?.employee_details }}</p>
+                                <p class="header-descr">{{ globals.languageJson?.give_overview_text }}.</p>
                             </div>
                             <div class="row mb-md-3" *ngIf="roasteryProfileService.savemode">
                                 <div class="form-group col-md-6">
-                                    <label for="employee_nos">{{globals.languageJson?.total_number_employees}}<span class="star">*</span></label>
-                                    <input class="form-control employee_nos rectangle" id="employee_nos" type="number" (keyup)="onKeyPress($event)" name="employee_nos" [(ngModel)]="roasteryProfileService.employee_nos" placeholder="Please enter no. of employees" />
+                                    <label for="employee_nos"
+                                        >{{ globals.languageJson?.total_number_employees
+                                        }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control employee_nos rectangle"
+                                        id="employee_nos"
+                                        type="number"
+                                        (keyup)="onKeyPress($event)"
+                                        name="employee_nos"
+                                        [(ngModel)]="roasteryProfileService.employee_nos"
+                                        placeholder="Please enter no. of employees"
+                                    />
                                     <div class="employeeNoError" *ngIf="employeeNoError != ''">
                                         {{ employeeNoError }}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 ">
-                                    <label for="employee_avg">{{globals.languageJson?.average_employee_age}}<span class="star">*</span></label
-                                >
-                                <input
-                                  class="form-control rectangle employee_avg"
-                                  id="employee_avg"
-                                  type="number"
-                                  (keyup)="onKeyPress($event)"
-                                  name="employee_avg"
-                                  [(ngModel)]="roasteryProfileService.employee_avg"
-                                  placeholder="Please enter employee avg. age"
-                                />
-                                <div class="employeeAvgError" *ngIf="employeeAvgError != ''">
-                                  {{ employeeAvgError }}
+                                <div class="form-group col-md-6">
+                                    <label for="employee_avg"
+                                        >{{ globals.languageJson?.average_employee_age
+                                        }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control rectangle employee_avg"
+                                        id="employee_avg"
+                                        type="number"
+                                        (keyup)="onKeyPress($event)"
+                                        name="employee_avg"
+                                        [(ngModel)]="roasteryProfileService.employee_avg"
+                                        placeholder="Please enter employee avg. age"
+                                    />
+                                    <div class="employeeAvgError" *ngIf="employeeAvgError != ''">
+                                        {{ employeeAvgError }}
+                                    </div>
                                 </div>
-                              </div>
-                              
-                      </div>
-                      <span class="text-data"  *ngIf="roasteryProfileService.savemode">{{globals.languageJson?.gender_distribution}}<span class="star">*</span></span>
-                      <div class="row"  *ngIf="roasteryProfileService.savemode">
-                            <div class="form-group col-md-6">
-                              <label for="female_num">{{globals.languageJson?.total_number_female_employees}}<span class="star">*</span></label>
-                                    <input class="form-control female_num rectangle" id="female_num" type="number" (keyup)="onKeyPress($event)" name="female_num" [(ngModel)]="roasteryProfileService.female_num" placeholder="Please enter the number of female employees" />
+                            </div>
+                            <span class="text-data" *ngIf="roasteryProfileService.savemode"
+                                >{{ globals.languageJson?.gender_distribution }}<span class="star">*</span></span
+                            >
+                            <div class="row" *ngIf="roasteryProfileService.savemode">
+                                <div class="form-group col-md-6">
+                                    <label for="female_num"
+                                        >{{ globals.languageJson?.total_number_female_employees
+                                        }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control female_num rectangle"
+                                        id="female_num"
+                                        type="number"
+                                        (keyup)="onKeyPress($event)"
+                                        name="female_num"
+                                        [(ngModel)]="roasteryProfileService.female_num"
+                                        placeholder="Please enter the number of female employees"
+                                    />
                                     <div class="femaleNumError" *ngIf="femaleNumError != ''">
                                         {{ femaleNumError }}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 ">
-                                    <label for="male_num">{{globals.languageJson?.total_number_male_employees}}<span class="star">*</span></label
+                                <div class="form-group col-md-6">
+                                    <label for="male_num"
+                                        >{{ globals.languageJson?.total_number_male_employees
+                                        }}<span class="star">*</span></label
                                     >
                                     <input
-                                      class="form-control rectangle male_num"
-                                      id="male_num"
-                                      type="number"
-                                      (keyup)="onKeyPress($event)"
-                                      name="male_num"
-                                      [(ngModel)]="roasteryProfileService.male_num"
-                                      placeholder="Please enter the number of male employees"
+                                        class="form-control rectangle male_num"
+                                        id="male_num"
+                                        type="number"
+                                        (keyup)="onKeyPress($event)"
+                                        name="male_num"
+                                        [(ngModel)]="roasteryProfileService.male_num"
+                                        placeholder="Please enter the number of male employees"
                                     />
                                     <div class="maleNumError" *ngIf="maleNumError != ''">
-                                      {{ maleNumError }}
+                                        {{ maleNumError }}
                                     </div>
-                                  </div>
-                                  
-                          </div>
+                                </div>
+                            </div>
 
-<!-- company details -->
+                            <!-- company details -->
 
-                            <hr class="d-none d-lg-block">
+                            <hr class="d-none d-lg-block" />
                             <div class="row mt-md-5">
-                                <div class="col-md-9" > 
+                                <div class="col-md-9">
                                     <p class="sub-header">Company details</p>
                                     <p class="header-descr">Enter your VAT and customer ID for billing purposes</p>
                                 </div>
-                                <div class="col-md-3"  *ngIf="roasteryProfileService.savemode">
+                                <div class="col-md-3" *ngIf="roasteryProfileService.savemode">
                                     <p class="header-descr private-pad-7">Private</p>
-                                    <p class="float-right ml-auto"><p-inputSwitch [(ngModel)]="roasteryProfileService.company_details_public"></p-inputSwitch></p>
+                                    <p class="float-right ml-auto">
+                                        <p-inputSwitch
+                                            [(ngModel)]="roasteryProfileService.company_details_public"
+                                        ></p-inputSwitch>
+                                    </p>
                                 </div>
-                               
                             </div>
                             <div class="row mb-md-3">
                                 <div class="form-group col-md-6">
                                     <label for="vat_nos">VAT number<span class="star">*</span></label>
-                                    <input class="form-control employee_nos rectangle" *ngIf="roasteryProfileService.savemode" id="vat_nos" type="text" (keyup)="onKeyPress($event)" name="vat_nos" [(ngModel)]="roasteryProfileService.vat_nos" placeholder="Please VAT Number" />
+                                    <input
+                                        class="form-control employee_nos rectangle"
+                                        *ngIf="roasteryProfileService.savemode"
+                                        id="vat_nos"
+                                        type="text"
+                                        (keyup)="onKeyPress($event)"
+                                        name="vat_nos"
+                                        [(ngModel)]="roasteryProfileService.vat_nos"
+                                        placeholder="Please VAT Number"
+                                    />
                                     <!-- <label *ngIf="roasteryProfileService.editmode" for="vat_nos" class="mob-view">VAT number<span class="star">*</span></label> -->
-                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.vat_nos}}</p>
+                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">
+                                        {{ roasteryProfileService.vat_nos }}
+                                    </p>
                                     <div class="vatNoError" *ngIf="vatNoError != ''">
                                         {{ vatNoError }}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 ">
+                                <div class="form-group col-md-6">
                                     <label for="cmpy_rid">Company registration ID<span class="star">*</span></label>
-                                    <input class="form-control rectangle employee_avg" *ngIf="roasteryProfileService.savemode" id="cmpy_rid" type="text" (keyup)="onKeyPress($event)" name="cmpy_rid" [(ngModel)]="roasteryProfileService.cmpy_rid" placeholder="Please enter employee avg. age"
+                                    <input
+                                        class="form-control rectangle employee_avg"
+                                        *ngIf="roasteryProfileService.savemode"
+                                        id="cmpy_rid"
+                                        type="text"
+                                        (keyup)="onKeyPress($event)"
+                                        name="cmpy_rid"
+                                        [(ngModel)]="roasteryProfileService.cmpy_rid"
+                                        placeholder="Please enter employee avg. age"
                                     />
                                     <!-- <label *ngIf="roasteryProfileService.editmode" for="cmpy_rid" class="mob-view">Company registration ID<span class="star">*</span></label> -->
-                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">{{roasteryProfileService.cmpy_rid}}</p>
+                                    <p class="info-content mob-view" *ngIf="roasteryProfileService.editmode">
+                                        {{ roasteryProfileService.cmpy_rid }}
+                                    </p>
                                     <div class="cmpyRidError" *ngIf="cmpyRidError != ''">
                                         {{ cmpyRidError }}
                                     </div>
                                 </div>
-
                             </div>
 
-
-
-                            <hr class="d-none d-md-block">
+                            <hr class="d-none d-md-block" />
                             <div class="row p-3 mt-md-5 mp-3">
-                                <p class="sub-header">{{globals.languageJson?.roastery_capabilities}}</p>
-                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{globals.languageJson?.tell_us_capability_text}}.</p>
-                                <p class="header-descr" *ngIf="roasteryProfileService.editmode">{{globals.languageJson?.our_roastery_capabilities_storage}}.</p>
+                                <p class="sub-header">{{ globals.languageJson?.roastery_capabilities }}</p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">
+                                    {{ globals.languageJson?.tell_us_capability_text }}.
+                                </p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.editmode">
+                                    {{ globals.languageJson?.our_roastery_capabilities_storage }}.
+                                </p>
                             </div>
 
                             <div class="row" *ngIf="roasteryProfileService.savemode">
                                 <div class="form-group col-md-4 col-6">
-                                    <label for="capacity">{{globals.languageJson?.roaster_capacity}}<span class="star">*</span></label>
-                                    <input class="form-control capacity rectangle" id="capacity" type="number" (keyup)="onKeyPress($event)" name="capacity" [(ngModel)]="roasteryProfileService.capacity" placeholder="Enter capacity" />
+                                    <label for="capacity"
+                                        >{{ globals.languageJson?.roaster_capacity }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control capacity rectangle"
+                                        id="capacity"
+                                        type="number"
+                                        (keyup)="onKeyPress($event)"
+                                        name="capacity"
+                                        [(ngModel)]="roasteryProfileService.capacity"
+                                        placeholder="Enter capacity"
+                                    />
                                     <div class="capacityError" *ngIf="capacityError != ''">
                                         {{ capacityError }}
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2 pl-0 col-6">
                                     <label for="kgs">&nbsp;</label>
-                                    <select class="form-control kgs rectangle role_edit" id="kgs" name="kgs" [(ngModel)]="roasteryProfileService.kgs"> 
-                                           <option selected disabled value="">Unit</option>
-                                           <option value="kg">kg</option>
-                                           <option value="lb">lb</option>
-
-                                       </select>
+                                    <select
+                                        class="form-control kgs rectangle role_edit"
+                                        id="kgs"
+                                        name="kgs"
+                                        [(ngModel)]="roasteryProfileService.kgs"
+                                    >
+                                        <option selected disabled value="">Unit</option>
+                                        <option value="kg">kg</option>
+                                        <option value="lb">lb</option>
+                                    </select>
                                     <div class="kilogramsError" *ngIf="kilogramsError != ''">
                                         {{ kilogramsError }}
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-6 ">
-                                    <label for="capabilities">{{globals.languageJson?.capabilities}}<span class="star">*</span></label
-                                        >
-                                        <input
-                                          class="form-control rectangle capabilities"
-                                          id="capabilities"
-                                          type="text"
-                                          (keyup)="onKeyPress($event)"
-                                          name="capabilities"
-                                          [(ngModel)]="roasteryProfileService.capabilities"
-                                          placeholder="Eg. Hand roasted, Blended, Mocha-Java"
-                                        />
-                                        <div class="capabilitiesError" *ngIf="capabilitiesError != ''">
-                                          {{ capabilitiesError }}
-                                        </div>
+                                <div class="form-group col-md-6">
+                                    <label for="capabilities"
+                                        >{{ globals.languageJson?.capabilities }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control rectangle capabilities"
+                                        id="capabilities"
+                                        type="text"
+                                        (keyup)="onKeyPress($event)"
+                                        name="capabilities"
+                                        [(ngModel)]="roasteryProfileService.capabilities"
+                                        placeholder="Eg. Hand roasted, Blended, Mocha-Java"
+                                    />
+                                    <div class="capabilitiesError" *ngIf="capabilitiesError != ''">
+                                        {{ capabilitiesError }}
                                     </div>
                                 </div>
+                            </div>
 
-                              <div class="row about-web" *ngIf="roasteryProfileService.editmode">
+                            <div class="row about-web" *ngIf="roasteryProfileService.editmode">
                                 <div class="col-lg-11 border-total">
-                                  <div class="col-lg-4 capabilitiesDiv">
-                                    <label class="capacity-header">{{globals.languageJson?.roaster_capacity}}</label>
-                                    <p class="weight">{{roasteryProfileService.capacity}} Kgs </p>
+                                    <div class="col-lg-4 capabilitiesDiv">
+                                        <label class="capacity-header">{{
+                                            globals.languageJson?.roaster_capacity
+                                        }}</label>
+                                        <p class="weight">{{ roasteryProfileService.capacity }} Kgs</p>
+                                    </div>
+                                    <div class="col-lg-11 capabilitiesdescrDiv">
+                                        <p class="capabilities_content">
+                                            {{ roasteryProfileService.capabilities }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col-lg-11 capabilitiesdescrDiv">
-                                    <p class="capabilities_content">
-                                        {{roasteryProfileService.capabilities}}
-                                    </p>
+                            </div>
+                            <div class="about-mobile d-flex border-capacity" *ngIf="roasteryProfileService.editmode">
+                                <div class="capacity-text">
+                                    <label class="capacity-header">{{ globals.languageJson?.roaster_capacity }}</label>
+                                    <h6 class="weight">{{ roasteryProfileService.capacity }} Kgs</h6>
+                                </div>
+                                <div class="capacity-text-1">
+                                    <h6 class="capabilities_content">{{ roasteryProfileService.capabilities }}</h6>
                                 </div>
                             </div>
-                        </div>
-                        <div class="about-mobile d-flex border-capacity" *ngIf="roasteryProfileService.editmode">
-                            <div class="capacity-text">
-                                <label class="capacity-header">{{globals.languageJson?.roaster_capacity}}</label>
-                                <h6 class="weight">{{roasteryProfileService.capacity}} Kgs</h6>
+
+                            <hr />
+
+                            <!-- Brand Profile -->
+
+                            <div class="row p-3 mt-md-5 mt-4">
+                                <p class="sub-header mt-2 mt-md-0">{{ globals.languageJson?.brands }}</p>
+                                <p class="header-descr" *ngIf="roasteryProfileService.savemode">
+                                    {{ globals.languageJson?.list_down_brands }}.
+                                </p>
                             </div>
-                            <div class="capacity-text-1">
-                                <h6 class="capabilities_content">{{roasteryProfileService.capabilities}}</h6>
-                            </div>
-                        </div>
+                            <div *ngIf="roasteryProfileService.savemode">
+                                <div class="mt-2" *ngFor="let brand of brandProfile; let i = index">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="brand_name"
+                                                >{{ globals.languageJson?.brand_name
+                                                }}<span class="star">*</span></label
+                                            >
+                                            <input
+                                                class="form-control brand_name rectangle"
+                                                type="text"
+                                                (keyup)="onKeyPress($event)"
+                                                [(ngModel)]="brand.name"
+                                                [ngModelOptions]="{ standalone: true }"
+                                                placeholder="Please enter brand name"
+                                            />
+                                            <div class="brandNameError" *ngIf="brandNameError != ''">
+                                                {{ brandNameError }}
+                                            </div>
+                                        </div>
 
-                        <hr>
-
-                        <!-- Brand Profile -->
-
-                        <div class="row p-3 mt-md-5 mt-4">
-                            <p class="sub-header mt-2 mt-md-0">{{globals.languageJson?.brands}}</p>
-                            <p class="header-descr" *ngIf="roasteryProfileService.savemode">{{globals.languageJson?.list_down_brands}}.</p>
-                        </div>
-                        <div *ngIf="roasteryProfileService.savemode">
-                            <div class="mt-2" *ngFor="let brand of brandProfile; let i = index">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="brand_name">{{globals.languageJson?.brand_name}}<span class="star">*</span></label>
-                                        <input class="form-control brand_name rectangle" type="text" (keyup)="onKeyPress($event)" [(ngModel)]="brand.name" [ngModelOptions]="{standalone : true}" placeholder="Please enter brand name" />
-                                        <div class="brandNameError" *ngIf="brandNameError != ''">
-                                            {{ brandNameError }}
+                                        <div class="form-group col-md-4">
+                                            <p class="brand-mb">Brand Logo<span class="star">*</span></p>
+                                            <label class="upload">
+                                                <input
+                                                    type="file"
+                                                    class="file-inpt"
+                                                    #roasterImage
+                                                    (change)="handleRoasterFile($event, brand)"
+                                                />
+                                                <span class="upload-txt ml-1"> Upload </span>
+                                            </label>
+                                            <span
+                                                class="view-order mt-5 cursor-pointer ml-3"
+                                                *ngIf="i != 0"
+                                                (click)="deleteRow(i)"
+                                                >Delete</span
+                                            >
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <p class="brand-mb">Brand Logo<span class="star">*</span></p>
-                                        <label class="upload">
-                                            <input type="file" class="file-inpt" #roasterImage (change)="handleRoasterFile($event,brand)">
-                                            <span class="upload-txt ml-1"> Upload </span>
-                                        </label> <span class="view-order mt-5 cursor-pointer ml-3" *ngIf="i != 0" (click)="deleteRow(i)">Delete</span>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-12 mt-3">
-                                        <label for="short_descr">{{globals.languageJson?.short_description_brand}}<span class="star">*</span></label>
-                                        <textarea class="form-control short_descr" rows="5" [(ngModel)]="brand.short_descr" [ngModelOptions]="{standalone : true}" placeholder="Tell us a bit about your brand">
-                                                </textarea>
-                                        <div class="shortDescError" *ngIf="shortDescError != ''">
-                                            {{ shortDescError }}
+                                    <div class="row">
+                                        <div class="form-group col-md-12 mt-3">
+                                            <label for="short_descr"
+                                                >{{ globals.languageJson?.short_description_brand
+                                                }}<span class="star">*</span></label
+                                            >
+                                            <textarea
+                                                class="form-control short_descr"
+                                                rows="5"
+                                                [(ngModel)]="brand.short_descr"
+                                                [ngModelOptions]="{ standalone: true }"
+                                                placeholder="Tell us a bit about your brand"
+                                            >
+                                            </textarea>
+                                            <div class="shortDescError" *ngIf="shortDescError != ''">
+                                                {{ shortDescError }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- <div class="add-brand-div">
+                                <!-- <div class="add-brand-div">
                                 <a class="brand-tag">
                                     <img class="add-field" src="assets/images/add-field.svg">
                                     <span class="add-text" (click)="addBrandProfile()">{{globals.languageJson?.add_another_brand}}</span>
                                 </a>
                             </div> -->
+                            </div>
 
-                        </div>
-
-                        <div class="border-capacity web-border" *ngFor="let brand of brands">
-                            <div class="row p-3 d-flex">
-                                <div class="col-lg-2 brand-image-div">
-                                    <img [src]="brand.url" class="brand-image">
+                            <div class="border-capacity web-border" *ngFor="let brand of brands">
+                                <div class="row p-3 d-flex">
+                                    <div class="col-lg-2 brand-image-div">
+                                        <img [src]="brand.url" class="brand-image" />
+                                    </div>
+                                    <div class="col-lg-10 brand-content-div">
+                                        <p class="brand-title">
+                                            {{ brand.name }}
+                                        </p>
+                                        <p class="brand-content">
+                                            {{ brand.description }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col-lg-10 brand-content-div">
-                                    <p class="brand-title ">
-                                        {{brand.name}}
+                                <div *ngIf="!brands?.length" class="text-center p-2">
+                                    <span> No brands found.</span>
+                                </div>
+                            </div>
+
+                            <hr />
+                            <div class="" *ngIf="roasteryProfileService.savemode">
+                                <div class="row p-3 mt-5">
+                                    <p class="sub-header">
+                                        {{ globals.languageJson?.contacts }}<span class="star">*</span>
                                     </p>
-                                    <p class="brand-content">
-                                        {{brand.description}}
-                                    </p>
+                                    <p class="header-descr mb-0">{{ globals.languageJson?.list_contacts }}!</p>
+                                </div>
+                                <div
+                                    class="row"
+                                    *ngFor="let role of roasteryProfileService.roasterContacts; let i = index"
+                                >
+                                    <div class="form-group col-md-6 mt-md-3 mb-0">
+                                        <input
+                                            class="form-control rectangle_username"
+                                            type="text"
+                                            (keyup)="onKeyPress($event)"
+                                            [(ngModel)]="role.name"
+                                            [ngModelOptions]="{ standalone: true }"
+                                        />
+                                        <!-- <input *ngIf="editmode" class="form-control rectangle_username" type="text" [ngClass]="{disabledDiv: activeFlag}" (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}"/> -->
+                                    </div>
+                                    <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete">
+                                        <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="removeContact(role.id)"
+                                            >Remove Contact</span
+                                        >
+                                    </div>
+                                </div>
+                                <div class="row mt-3" *ngIf="assignRow">
+                                    <div class="form-group col-md-6">
+                                        <label for="emp_name">{{ globals.languageJson?.select_employee }}</label>
+                                        <select
+                                            class="form-control kgs rectangle role_edit"
+                                            id="emp_name"
+                                            name="emp_name"
+                                            [(ngModel)]="roasteryProfileService.emp_name"
+                                        >
+                                            <option selected disabled value="">
+                                                {{ globals.languageJson?.please_select_employee_name }}
+                                            </option>
+                                            <option
+                                                *ngFor="let data of roasteryProfileService.roasterUsers"
+                                                value="{{ data.id }}"
+                                            >
+                                                {{ data.firstname }} {{ data.lastname }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-6 mt-4 pt-1">
+                                        <button
+                                            type="submit"
+                                            class="assign_member_role save"
+                                            [disabled]="assignButtonValue === 'Adding'"
+                                            (click)="addContact()"
+                                        >
+                                            {{ assignButtonValue
+                                            }}<img
+                                                *ngIf="assignButtonValue === 'Adding'"
+                                                class="loader"
+                                                src="assets/images/orange-loader.gif"
+                                            />
+                                        </button>
+                                        <button type="submit" class="btn cancel_assign" (click)="cancelAssign()">
+                                            <span class="cancel_text">{{ globals.languageJson?.cancel }}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="add-brand-div mt-3">
+                                    <a class="brand-tag" (click)="showContact()">
+                                        <img class="add-field" src="assets/images/add-field.svg" />
+                                        <span class="add-text">{{ globals.languageJson?.add_another_contact }}</span>
+                                    </a>
                                 </div>
                             </div>
-                            <div *ngIf="!brands?.length" class="text-center p-2">
-                                <span> No brands found.</span>
-                            </div>
-                        </div>
 
-                        <hr>
-                        <div class="" *ngIf="roasteryProfileService.savemode">
-                            <div class="row p-3 mt-5">
-                                <p class="sub-header">{{globals.languageJson?.contacts}}<span class="star">*</span></p>
-                                <p class="header-descr mb-0">{{globals.languageJson?.list_contacts}}!</p>
-                            </div>
-                            <div class="row" *ngFor="let role of roasteryProfileService.roasterContacts;let i = index">
-                                <div class="form-group col-md-6 mt-md-3 mb-0">
-                                    <input class="form-control rectangle_username" type="text" (keyup)="onKeyPress($event)" [(ngModel)]="role.name" [ngModelOptions]="{standalone: true}" />
-                                    <!-- <input *ngIf="editmode" class="form-control rectangle_username" type="text" [ngClass]="{disabledDiv: activeFlag}" (keyup)="onKeyPress($event)" [(ngModel)]="role.name"  [ngModelOptions]="{standalone: true}"/> -->
-                                </div>
-                                <div class="add-partner mt-3 col-md-6" *ngIf="roasteryProfileService.showDelete">
-                                    <span class="ml-2 fnt-muli fnt-700 fnt-14" (click)="removeContact(role.id)">Remove Contact</span>
-                                </div>
-                            </div>
-                            <div class="row mt-3" *ngIf="assignRow">
-                                <div class="form-group col-md-6">
-                                    <label for="emp_name">{{globals.languageJson?.select_employee}}</label>
-                                    <select class="form-control kgs rectangle role_edit" id="emp_name" name="emp_name" [(ngModel)]="roasteryProfileService.emp_name"> 
-                                        <option selected disabled value="">{{globals.languageJson?.please_select_employee_name}}</option>
-                                        <option *ngFor="let data of roasteryProfileService.roasterUsers" value="{{data.id}}">{{data.firstname}} {{data.lastname}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-12 col-md-6 mt-4 pt-1">
-                                    <button type="submit" class="assign_member_role save" [disabled]="assignButtonValue==='Adding'" (click)="addContact();">
-                                            {{assignButtonValue}}<img *ngIf="assignButtonValue==='Adding'" class="loader" src="assets/images/orange-loader.gif"/></button>
-                                    <button type="submit" class="btn cancel_assign" (click)="cancelAssign();">
-                                                    <span class="cancel_text">{{globals.languageJson?.cancel}}</span>
-                                                    </button>
-                                </div>
+                            <!-- </div> -->
 
-                            </div>
-                            <div class="add-brand-div mt-3">
-                                <a class="brand-tag" (click)="showContact()">
-                                    <img class="add-field" src="assets/images/add-field.svg">
-                                    <span class="add-text">{{globals.languageJson?.add_another_contact}}</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- </div> -->
-
-                        <div class="mob-view" *ngIf="roasteryProfileService.editmode">
-                            <div class="employer mt-4 d-none d-md-block">
-                                <h2>{{globals.languageJson?.contacts}}</h2>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2" *ngFor="let contact of roasteryProfileService.roasterContacts">
-                                        <div class="employ-profile">
-                                            <div class="p-gal">
-                                                <img *ngIf="contact.profile_image_url == ''" src="assets/images/profile.svg">
-                                                <img *ngIf="contact.profile_image_url != ''" src="{{contact.profile_image_url}}">
-                                            </div>
-                                            <div class="profile-des">
-                                                <h4>{{contact.name | titlecase}}</h4>
-                                                <h6>{{contact.roles[0] || '-'}}</h6>
-                                            </div>
-                                            <div class="msg-chat mt-2">
-                                                <img src="assets/images/message-icon.svg" class="d-inline-block">
-                                                <p class="pl-1 d-inline-block">{{globals.languageJson?.message}}</p>
+                            <div class="mob-view" *ngIf="roasteryProfileService.editmode">
+                                <div class="employer mt-4 d-none d-md-block">
+                                    <h2>{{ globals.languageJson?.contacts }}</h2>
+                                    <div class="row">
+                                        <div
+                                            class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2"
+                                            *ngFor="let contact of roasteryProfileService.roasterContacts"
+                                        >
+                                            <div class="employ-profile">
+                                                <div class="p-gal">
+                                                    <img
+                                                        *ngIf="contact.profile_image_url == ''"
+                                                        src="assets/images/profile.svg"
+                                                    />
+                                                    <img
+                                                        *ngIf="contact.profile_image_url != ''"
+                                                        src="{{ contact.profile_image_url }}"
+                                                    />
+                                                </div>
+                                                <div class="profile-des">
+                                                    <h4>{{ contact.name | titlecase }}</h4>
+                                                    <h6>{{ contact.roles[0] || '-' }}</h6>
+                                                </div>
+                                                <div class="msg-chat mt-2">
+                                                    <img src="assets/images/message-icon.svg" class="d-inline-block" />
+                                                    <p class="pl-1 d-inline-block">
+                                                        {{ globals.languageJson?.message }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
+                                        <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2">
                                                             <div class="employ-profile">
                                                                 <div class="p-gal">
                                                                     <img src="assets/images/gallery-2.jpg">
@@ -386,102 +562,132 @@
                                                                 </div>
                                                             </div>
                                                         </div> -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="about-mobile" *ngIf="roasteryProfileService.editmode">
-                            <p class="sub-header mt-2 mt-md-0">{{globals.languageJson?.contacts}}</p>
-                            <div class="row mt-3 mx-0 border-div">
-                                <div class="p-0">
-                                    <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
-                                <div class="pull-left">
-                                    <ul class="details-list p-0 ml-3">
-                                        <li class="contact-name">Hannah morris</li>
-                                        <li class="contact-number ">
-                                            Cupping manager
-                                        </li>
-                                        <li class="contact-number ">
-                                            hannahmorris@royalcoffeerosters
-                                        </li>
-                                        <li class="contact-name">+46 793 313 322</li>
-                                    </ul>
-                                </div>
-                                <div class="pull-right ml-auto">
-                                    <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
-                                </div>
-                            </div>
-                            <div class="row mt-3 mx-0 border-div">
-                                <div class="p-0">
-                                    <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
-                                <div class="pull-left">
-                                    <ul class="details-list p-0 ml-3">
-                                        <li class="contact-name">Molly Jennings</li>
-                                        <li class="contact-number ">
-                                            Cupping manager
-                                        </li>
-                                        <li class="contact-number ">
-                                            mollyjkennings@royalcoffeerosters
-                                        </li>
-                                        <li class="contact-name">+46 793 313 322</li>
-                                    </ul>
-                                </div>
-                                <div class="pull-right ml-auto">
-                                    <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
-                                </div>
-                            </div>
-                            <div class="row mt-3 mx-0 border-div">
-                                <div class="p-0">
-                                    <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
-                                <div class="pull-left">
-                                    <ul class="details-list p-0 ml-3">
-                                        <li class="contact-name">Johanna ortiz</li>
-                                        <li class="contact-number ">
-                                            Cupping manager
-                                        </li>
-                                        <li class="contact-number ">
-                                            johannaortiz@royalcoffeerosters
-                                        </li>
-                                        <li class="contact-name">+46 793 313 322</li>
-                                    </ul>
-                                </div>
-                                <div class="pull-right ml-auto">
-                                    <img class="message-icon" src="assets/images/add-user.svg" alt="Message">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- (this.globals.permissions['certificate-list'].view || this.globals.permissions['certificate-list'].manage)  *ngIf="this.globals.checkItem('settings-management')"-->
-                <div class=" col-lg-4">
-                    <div class="border-class mdevice-border" *ngIf="this.globals.checkItem('certificate-list') || this.globals.checkItem('certificate-management')">
-                        <div class="header m-1">{{globals.languageJson?.awards_and_certificates}}</div>
-                        <div class="row mt-3 border-div certificate-hover" *ngFor="let certificate of certificatesArray">
-                            <div class="p-0">
-                                <img class="img-estate" src="assets/images/certificate.svg" alt="User"></div>
-                            <div class="pull-left">
-                                <ul class="details-list p-0 ml-3">
-                                    <li class="estate-name">{{certificate.name}}</li>
-                                    <li class="estate-number pt-1">
-                                        {{certificate.year}}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="pull-right ml-auto">
-                                <a class="menu-arrow" [popover]="listTemplate" placement="bottom" [outsideClick]="true" #pop1="bs-popover">
-                                    <img class="message-icon" src="assets/images/ellipses.png" alt="Message">
-                                </a>
-                                <ng-template #listTemplate id="{{certificate.id}}">
-                                    <div id="popover-mobile-content">
-                                        <ul class="list-data custom-popover">
-                                            <li class="list-item" *ngIf="this.globals.checkItem('certificate-management') && this.globals.permissions['certificate-management'].manage"> <a class="pointer-item" (click)="editCertificate($event,certificate);pop1.hide();">{{globals.languageJson?.edit}} </a></li>
-                                            <li class="list-item" *ngIf="this.globals.checkItem('certificate-management') && this.globals.permissions['certificate-management'].manage"><a class="pointer-item" (click)="deleteCertificate(certificate.id);pop1.hide();">{{globals.languageJson?.delete}}</a></li>
+                            <div class="about-mobile" *ngIf="roasteryProfileService.editmode">
+                                <p class="sub-header mt-2 mt-md-0">{{ globals.languageJson?.contacts }}</p>
+                                <div class="row mt-3 mx-0 border-div">
+                                    <div class="p-0">
+                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User" />
+                                    </div>
+                                    <div class="pull-left">
+                                        <ul class="details-list p-0 ml-3">
+                                            <li class="contact-name">Hannah morris</li>
+                                            <li class="contact-number">Cupping manager</li>
+                                            <li class="contact-number">hannahmorris@royalcoffeerosters</li>
+                                            <li class="contact-name">+46 793 313 322</li>
                                         </ul>
                                     </div>
-                                </ng-template>
+                                    <div class="pull-right ml-auto">
+                                        <img class="message-icon" src="assets/images/add-user.svg" alt="Message" />
+                                    </div>
+                                </div>
+                                <div class="row mt-3 mx-0 border-div">
+                                    <div class="p-0">
+                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User" />
+                                    </div>
+                                    <div class="pull-left">
+                                        <ul class="details-list p-0 ml-3">
+                                            <li class="contact-name">Molly Jennings</li>
+                                            <li class="contact-number">Cupping manager</li>
+                                            <li class="contact-number">mollyjkennings@royalcoffeerosters</li>
+                                            <li class="contact-name">+46 793 313 322</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pull-right ml-auto">
+                                        <img class="message-icon" src="assets/images/add-user.svg" alt="Message" />
+                                    </div>
+                                </div>
+                                <div class="row mt-3 mx-0 border-div">
+                                    <div class="p-0">
+                                        <img class="img-estate" src="assets/images/stakeholder1.png" alt="User" />
+                                    </div>
+                                    <div class="pull-left">
+                                        <ul class="details-list p-0 ml-3">
+                                            <li class="contact-name">Johanna ortiz</li>
+                                            <li class="contact-number">Cupping manager</li>
+                                            <li class="contact-number">johannaortiz@royalcoffeerosters</li>
+                                            <li class="contact-name">+46 793 313 322</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pull-right ml-auto">
+                                        <img class="message-icon" src="assets/images/add-user.svg" alt="Message" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <!-- <div class="row mt-3 mx-4 border-div">
+                    </div>
+                    <!-- (this.globals.permissions['certificate-list'].view || this.globals.permissions['certificate-list'].manage)  *ngIf="this.globals.checkItem('settings-management')"-->
+                    <div class="col-lg-4">
+                        <div
+                            class="border-class mdevice-border"
+                            *ngIf="
+                                this.globals.checkItem('certificate-list') ||
+                                this.globals.checkItem('certificate-management')
+                            "
+                        >
+                            <div class="header m-1">{{ globals.languageJson?.awards_and_certificates }}</div>
+                            <div
+                                class="row mt-3 border-div certificate-hover"
+                                *ngFor="let certificate of certificatesArray"
+                            >
+                                <div class="p-0">
+                                    <img class="img-estate" src="assets/images/certificate.svg" alt="User" />
+                                </div>
+                                <div class="pull-left">
+                                    <ul class="details-list p-0 ml-3">
+                                        <li class="estate-name">{{ certificate.name }}</li>
+                                        <li class="estate-number pt-1">
+                                            {{ certificate.year }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="pull-right ml-auto">
+                                    <a
+                                        class="menu-arrow"
+                                        [popover]="listTemplate"
+                                        placement="bottom"
+                                        [outsideClick]="true"
+                                        #pop1="bs-popover"
+                                    >
+                                        <img class="message-icon" src="assets/images/ellipses.png" alt="Message" />
+                                    </a>
+                                    <ng-template #listTemplate id="{{ certificate.id }}">
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-data custom-popover">
+                                                <li
+                                                    class="list-item"
+                                                    *ngIf="
+                                                        this.globals.checkItem('certificate-management') &&
+                                                        this.globals.permissions['certificate-management'].manage
+                                                    "
+                                                >
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="editCertificate($event, certificate); pop1.hide()"
+                                                        >{{ globals.languageJson?.edit }}
+                                                    </a>
+                                                </li>
+                                                <li
+                                                    class="list-item"
+                                                    *ngIf="
+                                                        this.globals.checkItem('certificate-management') &&
+                                                        this.globals.permissions['certificate-management'].manage
+                                                    "
+                                                >
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="deleteCertificate(certificate.id); pop1.hide()"
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <!-- <div class="row mt-3 mx-4 border-div">
                             <div class="p-0">
                                 <img class="img-estate" src="assets/images/stakeholder1.png" alt="User"></div>
                             <div class="pull-left">
@@ -496,44 +702,65 @@
                               <img class="message-icon" src="assets/images/more-opns-file.png" alt="Message">
                             </div>
                         </div> -->
-                        <div class="add-brand-div p-4" *ngIf="this.globals.checkItem('certificate-management') && this.globals.permissions['certificate-management'].manage">
-                            <a class="brand-tag" routerLink="/features/license">
-                                <img class="add-field" src="assets/images/add-field.svg">
-                                <span class="add-text">{{globals.languageJson?.add_another_certificate}}</span>
-                            </a>
-                        </div>
-
-
-                    </div>
-                    <div class="border-class mt-3 mdevice-border">
-                        <div class="header m-1">{{globals.languageJson?.employee_details}}</div>
-                        <div class="row">
-                            <div class="form-group col-md-6 emp_count_div px-4 py-2 col-6 mb-0">
-                                <p class="emp_count mb-0">{{roasteryProfileService.employee_nos}}</p>
-                                <label class="emp_text">{{globals.languageJson?.total_employees}}</label>
-                            </div>
-
-                            <div class="form-group col-md-6 avg_count_div px-4 py-2 col-6 mb-0">
-                                <p class="avg_count mb-0">{{roasteryProfileService.employee_avg}}</p>
-                                <label class="emp_text">{{globals.languageJson?.average_age}}</label>
+                            <div
+                                class="add-brand-div p-4"
+                                *ngIf="
+                                    this.globals.checkItem('certificate-management') &&
+                                    this.globals.permissions['certificate-management'].manage
+                                "
+                            >
+                                <a class="brand-tag" routerLink="/features/license">
+                                    <img class="add-field" src="assets/images/add-field.svg" />
+                                    <span class="add-text">{{ globals.languageJson?.add_another_certificate }}</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="row mt-3 ">
-                            <div class="col-md-12 chart-div">
-                                <div class="oval text-center mx-auto" *ngIf="this.roasteryProfileService.male_num == null && this.roasteryProfileService.female_num == null">
-                                    <p class="note">{{globals.languageJson?.no_data_display}}</p>
+                        <div class="border-class mt-3 mdevice-border">
+                            <div class="header m-1">{{ globals.languageJson?.employee_details }}</div>
+                            <div class="row">
+                                <div class="form-group col-md-6 emp_count_div px-4 py-2 col-6 mb-0">
+                                    <p class="emp_count mb-0">{{ roasteryProfileService.employee_nos }}</p>
+                                    <label class="emp_text">{{ globals.languageJson?.total_employees }}</label>
                                 </div>
-                                <div class=" text-center mx-auto pie-chart-div">
-                                    <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="roasteryProfileService.single" [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)"
-                                        (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
-                                    </ngx-charts-pie-chart>
+
+                                <div class="form-group col-md-6 avg_count_div px-4 py-2 col-6 mb-0">
+                                    <p class="avg_count mb-0">{{ roasteryProfileService.employee_avg }}</p>
+                                    <label class="emp_text">{{ globals.languageJson?.average_age }}</label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 chart-div">
+                                    <div
+                                        class="oval text-center mx-auto"
+                                        *ngIf="
+                                            this.roasteryProfileService.male_num == null &&
+                                            this.roasteryProfileService.female_num == null
+                                        "
+                                    >
+                                        <p class="note">{{ globals.languageJson?.no_data_display }}</p>
+                                    </div>
+                                    <div class="text-center mx-auto pie-chart-div">
+                                        <ngx-charts-pie-chart
+                                            [view]="view"
+                                            [scheme]="colorScheme"
+                                            [results]="roasteryProfileService.single"
+                                            [gradient]="gradient"
+                                            [legend]="showLegend"
+                                            [legendPosition]="legendPosition"
+                                            [labels]="showLabels"
+                                            [doughnut]="isDoughnut"
+                                            (select)="onSelect($event)"
+                                            (activate)="onActivate($event)"
+                                            (deactivate)="onDeactivate($event)"
+                                        >
+                                        </ngx-charts-pie-chart>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </form>
         </div>
-        </form>
     </div>
-</div>
 </div>

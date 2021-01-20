@@ -1,269 +1,274 @@
-<div class="total-loader" *ngIf="contactActive !=1">
-	<!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-	<div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
-		<img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
-	</div>
+<div class="total-loader" *ngIf="contactActive != 1">
+    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+    </div>
 </div>
 <div *ngIf="contactActive == 1">
-<div class="row form-section" *ngIf="!roasteryProfileService.contactInfo">
-  <div class="col-lg-12 mt-md-4">
-    <form class="form-container">
-      <div class="row">
-        <div class=" col-lg-8 ">
-          <div class="border-class p-4">
-            <div class="row">
-              <div class="form-group col-md-6">
-                <label for="name">{{globals.languageJson?.name}}<span class="star">*</span></label>
-                <input
-                  class="form-control name"
-                  id="name"
-                  type="text"
-                  (keyup)="onKeyPress($event)"
-                  name="name"
-                  [(ngModel)]="roasteryProfileService.name"
-                  placeholder="Please enter the roastery name"
-                />
-                <div class="nameError" *ngIf="nameError != ''">
-                  {{ nameError }}
-                </div>
-              </div>
-            </div>
+    <div class="row form-section" *ngIf="!roasteryProfileService.contactInfo">
+        <div class="col-lg-12">
+            <form class="form-container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="border-class p-4">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="name"
+                                        >{{ globals.languageJson?.name }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control name"
+                                        id="name"
+                                        type="text"
+                                        (keyup)="onKeyPress($event)"
+                                        name="name"
+                                        [(ngModel)]="roasteryProfileService.name"
+                                        placeholder="Please enter the roastery name"
+                                    />
+                                    <div class="nameError" *ngIf="nameError != ''">
+                                        {{ nameError }}
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="row">
-              <div class="form-group col-md-6 mt-3">
-                <label for="email"
-                  >{{globals.languageJson?.email_address}}<span class="star">*</span></label
-                >
-                <input
-                  class="form-control email"
-                  id="email"
-                  type="email"
-                  (keyup)="onKeyPress($event)"
-                  name="email"
-                  [(ngModel)]="roasteryProfileService.email"
-                  placeholder="Roastery email"
-                />
-                <div class="emailError" *ngIf="emailError != ''">
-                  {{ emailError }}
+                            <div class="row">
+                                <div class="form-group col-md-6 mt-3">
+                                    <label for="email"
+                                        >{{ globals.languageJson?.email_address }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control email"
+                                        id="email"
+                                        type="email"
+                                        (keyup)="onKeyPress($event)"
+                                        name="email"
+                                        [(ngModel)]="roasteryProfileService.email"
+                                        placeholder="Roastery email"
+                                    />
+                                    <div class="emailError" *ngIf="emailError != ''">
+                                        {{ emailError }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12 phone-number mt-3">
+                                    <input hidden class="hidden-phone-num" type="text" value="+91" />
+                                    <label class="raise-label"
+                                        >{{ globals.languageJson?.phone_number }}
+                                        <span class="star-red"> *</span></label
+                                    >
+                                    <div class="phone-nmber__select" id="phone">
+                                        <span class="Selected-ISD" id="finalNumber">+91</span>
+                                        <ul class="select-list"></ul>
+                                        <span>
+                                            <input
+                                                type="number"
+                                                class="entered-number"
+                                                placeholder="Enter your phone number"
+                                                name="phoneno"
+                                                (keyup)="onKeyPress($event)"
+                                                [(ngModel)]="roasteryProfileService.phoneno"
+                                                name="phoneno"
+                                                id="phoneno"
+                                                required=""
+                                            />
+                                        </span>
+                                    </div>
+                                    <div class="phoneError" *ngIf="phoneError != ''">
+                                        {{ phoneError }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 mt-3">
+                                    <label for="country"
+                                        >{{ globals.languageJson?.country }}<span class="star">*</span></label
+                                    >
+                                    <select
+                                        id="country"
+                                        class="form-control country role_edit"
+                                        (keyup)="onKeyPress($event)"
+                                        [(ngModel)]="roasteryProfileService.country"
+                                        name="country"
+                                        required=""
+                                        (change)="changeCountry()"
+                                    >
+                                        <option value="" selected disabled>
+                                            {{ globals.languageJson?.select_country }}
+                                        </option>
+                                        <option
+                                            *ngFor="let count of roasteryProfileService.countryList"
+                                            value="{{ count.isoCode }}"
+                                        >
+                                            {{ count.name }}
+                                        </option>
+                                    </select>
+                                    <div class="countryError" *ngIf="countryError != ''">
+                                        {{ countryError }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mt-3">
+                                    <label for="state">{{ globals.languageJson?.state }}</label>
+                                    <select
+                                        id="state"
+                                        class="form-control state role_edit"
+                                        [(ngModel)]="roasteryProfileService.state"
+                                        name="state"
+                                        required=""
+                                    >
+                                        <option value="" selected disabled>
+                                            {{ globals.languageJson?.select_state }}
+                                        </option>
+                                        <option *ngFor="let city of roasteryProfileService.cities" value="{{ city }}">
+                                            {{ city }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 mt-3">
+                                    <label for="address1"
+                                        >{{ globals.languageJson?.address }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control address1"
+                                        id="address1"
+                                        name="address1"
+                                        (keyup)="onKeyPress($event)"
+                                        [(ngModel)]="roasteryProfileService.address1"
+                                        type="text"
+                                        placeholder="Line 1"
+                                    />
+                                    <div class="addressError" *ngIf="addressError != ''">
+                                        {{ addressError }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mt-0 mt-md-3">
+                                    <label for="address2" class="d-none d-md-block">&nbsp;</label>
+                                    <input
+                                        class="form-control address2"
+                                        id="address2"
+                                        name="address2"
+                                        [(ngModel)]="roasteryProfileService.address2"
+                                        type="text"
+                                        placeholder="Line 2"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 mt-3">
+                                    <label for="city"
+                                        >{{ globals.languageJson?.city }}<span class="star">*</span></label
+                                    >
+                                    <input
+                                        class="form-control city"
+                                        id="city"
+                                        type="text"
+                                        name="city"
+                                        (keyup)="onKeyPress($event)"
+                                        [(ngModel)]="roasteryProfileService.city"
+                                        placeholder="City"
+                                    />
+                                    <div class="cityError" *ngIf="cityError != ''">
+                                        {{ cityError }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mt-3">
+                                    <label for="zipcode">{{ globals.languageJson?.zipcode }}</label>
+                                    <input
+                                        class="form-control zipcode"
+                                        id="zipcode"
+                                        name="zipcode"
+                                        type="text"
+                                        [(ngModel)]="roasteryProfileService.zipcode"
+                                        placeholder="eg:23134"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="border-class mobile-border">
+                            <div class="header m-1">{{ globals.languageJson?.social_media_channels }}</div>
+                            <div class="row">
+                                <div class="form-group col-md-12 px-4 py-md-2">
+                                    <label for="facebook">{{ globals.languageJson?.facebook_link }}</label>
+                                    <input
+                                        class="form-control facebook"
+                                        id="facebook"
+                                        type="text"
+                                        name="facebook"
+                                        [(ngModel)]="roasteryProfileService.facebook"
+                                        placeholder="Add facebook URL"
+                                    />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 px-4 py-md-2">
+                                    <label for="instagram">{{ globals.languageJson?.instagram_link }}</label>
+                                    <input
+                                        class="form-control instagram"
+                                        id="instagram"
+                                        type="text"
+                                        name="instagram"
+                                        [(ngModel)]="roasteryProfileService.instagram"
+                                        placeholder="Add instagram URL"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group col-md-6 col-sm-12 phone-number mt-3">
-                <input
-                  hidden
-                  class="hidden-phone-num"
-                  type="text"
-                  value="+91"
-                />
-                <label class="raise-label"
-                  >{{globals.languageJson?.phone_number}} <span class="star-red"> *</span></label
-                >
-                <div class="phone-nmber__select" id="phone">
-                  <span class="Selected-ISD" id="finalNumber">+91</span>
-                  <ul class="select-list"></ul>
-                  <span>
-                    <input
-                      type="number"
-                      class="entered-number"
-                      placeholder="Enter your phone number"
-                      name="phoneno"
-                      (keyup)="onKeyPress($event)"
-                      [(ngModel)]="roasteryProfileService.phoneno"
-                      name="phoneno"
-                      id="phoneno"
-                      required=""
-                    />
-                  </span>
-                </div>
-                <div class="phoneError" *ngIf="phoneError != ''">
-                  {{ phoneError }}
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-md-6 mt-3">
-                <label for="country">{{globals.languageJson?.country}}<span class="star">*</span></label>
-                <select
-                  id="country"
-                  class="form-control country role_edit"
-                  (keyup)="onKeyPress($event)"
-                  [(ngModel)]="roasteryProfileService.country"
-                  name="country"
-                  required=""
-                  (change)="changeCountry()"
-                >
-                  <option value="" selected disabled>
-                    {{globals.languageJson?.select_country}}</option
-                  >
-                  <option
-                    *ngFor="let count of roasteryProfileService.countryList"
-                    value="{{ count.isoCode }}"
-                    >{{ count.name }}
-                  </option>
-                </select>
-                <div class="countryError" *ngIf="countryError != ''">
-                  {{ countryError }}
-                </div>
-              </div>
-              <div class="form-group col-md-6 mt-3">
-                <label for="state">{{globals.languageJson?.state}}</label>
-                <select
-                  id="state"
-                  class="form-control state role_edit"
-                  [(ngModel)]="roasteryProfileService.state"
-                  name="state"
-                  required=""
-                >
-                  <option value="" selected disabled>
-                    {{globals.languageJson?.select_state}}</option
-                  >
-                  <option *ngFor="let city of roasteryProfileService.cities"
-                   value="{{city}}" >{{ city }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-md-6 mt-3">
-                <label for="address1">{{globals.languageJson?.address}}<span class="star">*</span></label>
-                <input
-                  class="form-control address1"
-                  id="address1"
-                  name="address1"
-                  (keyup)="onKeyPress($event)"
-                  [(ngModel)]="roasteryProfileService.address1"
-                  type="text"
-                  placeholder="Line 1"
-                />
-                <div class="addressError" *ngIf="addressError != ''">
-                  {{ addressError }}
-                </div>
-              </div>
-              <div class="form-group col-md-6 mt-0  mt-md-3">
-                <label for="address2" class="d-none d-md-block">&nbsp;</label>
-                <input
-                  class="form-control address2"
-                  id="address2"
-                  name="address2"
-                  [(ngModel)]="roasteryProfileService.address2"
-                  type="text"
-                  placeholder="Line 2"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-md-6 mt-3">
-                <label for="city">{{globals.languageJson?.city}}<span class="star">*</span></label>
-                <input
-                  class="form-control city"
-                  id="city"
-                  type="text"
-                  name="city"
-                  (keyup)="onKeyPress($event)"
-                  [(ngModel)]="roasteryProfileService.city"
-                  placeholder="City"
-                />
-                <div class="cityError" *ngIf="cityError != ''">
-                  {{ cityError }}
-                </div>
-              </div>
-              <div class="form-group  col-md-6 mt-3">
-                <label for="zipcode">{{globals.languageJson?.zipcode}}</label>
-                <input
-                  class="form-control zipcode"
-                  id="zipcode"
-                  name="zipcode"
-                  type="text"
-                  [(ngModel)]="roasteryProfileService.zipcode"
-                  placeholder="eg:23134"
-                />
-              </div>
-            </div>
-          </div>
+            </form>
         </div>
-
-        <div class=" col-lg-4">
-          <div class="border-class mobile-border">
-            <div class="header m-1">{{globals.languageJson?.social_media_channels}}</div>
-            <div class="row">
-              <div class="form-group col-md-12 px-4 py-md-2">
-                <label for="facebook">{{globals.languageJson?.facebook_link}}</label>
-                <input
-                  class="form-control facebook"
-                  id="facebook"
-                  type="text"
-                  name="facebook"
-                  [(ngModel)]="roasteryProfileService.facebook"
-                  placeholder="Add facebook URL"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-md-12 px-4 py-md-2">
-                <label for="instagram">{{globals.languageJson?.instagram_link}}</label>
-                <input
-                  class="form-control instagram"
-                  id="instagram"
-                  type="text"
-                  name="instagram"
-                  [(ngModel)]="roasteryProfileService.instagram"
-                  placeholder="Add instagram URL"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="row list-section" *ngIf="roasteryProfileService.contactInfo">
-  <div class="col-lg-12 mt-md-4">
-    <div class="border-class p-4">
-      <div class="col-lg-6 no-padding">
-        <div class="contact-view ">
-          <h3 class="cont-info">{{globals.languageJson?.contact_info}}</h3>
-        <table>
-          <tr>
-            <td class="list-que">{{globals.languageJson?.website}}</td>
-            <td class="list-ans">{{roasteryProfileService.website}}</td>
-          </tr>
-          <tr>
-            <td class="list-que">{{globals.languageJson?.email_address}}</td>
-            <td class="list-ans">{{roasteryProfileService.email}}</td>
-          </tr>
-          <tr>
-            <td class="list-que">{{globals.languageJson?.phone_number}}</td>
-            <td class="list-ans">{{roasteryProfileService.phoneno}}</td>
-          </tr>
-          <tr>
-            <td class="list-que">{{globals.languageJson?.country}}</td>
-            <td class="list-ans">{{roasteryProfileService.countryName}}</td>
-          </tr>
-          <tr>
-            <td class="list-que">{{globals.languageJson?.address}}</td>
-            <td class="list-ans">
-              {{roasteryProfileService.address1}}
-              {{roasteryProfileService.address2}}
-              <p class="mb-0">{{roasteryProfileService.state}}</p>
-              <p class="mb-0">{{roasteryProfileService.countryName}}</p>
-            </td>
-          </tr>
-          <tr>
-            <td class="list-que">{{globals.languageJson?.zipcode}}</td>
-            <td class="list-ans">{{roasteryProfileService.zipcode}}</td>
-          </tr>
-          <tr>
-            <td class="list-que">{{globals.languageJson?.social_media}}</td>
-            <td class="list-ans">
-              {{roasteryProfileService.facebook}} {{roasteryProfileService.instagram}}
-            </td>
-          </tr>
-        </table>
-      </div>
-      </div>
     </div>
-  </div>
-</div>
-</div>
 
+    <div class="row list-section" *ngIf="roasteryProfileService.contactInfo">
+        <div class="col-lg-12">
+            <div class="border-class p-4">
+                <div class="col-lg-6 no-padding">
+                    <div class="contact-view">
+                        <h3 class="cont-info">{{ globals.languageJson?.contact_info }}</h3>
+                        <table>
+                            <tr>
+                                <td class="list-que">{{ globals.languageJson?.website }}</td>
+                                <td class="list-ans">{{ roasteryProfileService.website }}</td>
+                            </tr>
+                            <tr>
+                                <td class="list-que">{{ globals.languageJson?.email_address }}</td>
+                                <td class="list-ans">{{ roasteryProfileService.email }}</td>
+                            </tr>
+                            <tr>
+                                <td class="list-que">{{ globals.languageJson?.phone_number }}</td>
+                                <td class="list-ans">{{ roasteryProfileService.phoneno }}</td>
+                            </tr>
+                            <tr>
+                                <td class="list-que">{{ globals.languageJson?.country }}</td>
+                                <td class="list-ans">{{ roasteryProfileService.countryName }}</td>
+                            </tr>
+                            <tr>
+                                <td class="list-que">{{ globals.languageJson?.address }}</td>
+                                <td class="list-ans">
+                                    {{ roasteryProfileService.address1 }}
+                                    {{ roasteryProfileService.address2 }}
+                                    <p class="mb-0">{{ roasteryProfileService.state }}</p>
+                                    <p class="mb-0">{{ roasteryProfileService.countryName }}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="list-que">{{ globals.languageJson?.zipcode }}</td>
+                                <td class="list-ans">{{ roasteryProfileService.zipcode }}</td>
+                            </tr>
+                            <tr>
+                                <td class="list-que">{{ globals.languageJson?.social_media }}</td>
+                                <td class="list-ans">
+                                    {{ roasteryProfileService.facebook }} {{ roasteryProfileService.instagram }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

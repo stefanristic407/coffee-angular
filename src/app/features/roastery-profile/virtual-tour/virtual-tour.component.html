@@ -1,20 +1,23 @@
 <div class="row">
-    <div class="col-lg-12 mt-4">
-        <p class="description">{{appLanguage?.add_photo_files}}</p>
+    <div class="col-lg-12">
+        <p class="description">{{ appLanguage?.add_photo_files }}</p>
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12 ">
-
+    <div class="col-lg-12">
         <div class="row cursor-pointer mobile-tabs-gallary">
-
-            <div class=" col-lg-4 col-md-6 col-sm-6 col-6 pb-3" *ngIf="roasteryProfileService.addMediaDiv">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3" *ngIf="roasteryProfileService.addMediaDiv">
                 <div class="card text-center">
-                    <label class="mr-3"> 
-                            <input class="file-inpt" type="file" accept="image/png, image/jpeg" (change)="handleFile($event)"> 
-                            <img class="plus-circle" src="assets/images/plus-circle.svg">
-                            <p class="text">Add photo or videos</p>
-                        </label>
+                    <label class="mr-3">
+                        <input
+                            class="file-inpt"
+                            type="file"
+                            accept="image/png, image/jpeg"
+                            (change)="handleFile($event)"
+                        />
+                        <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                        <p class="text">Add photo or videos</p>
+                    </label>
                 </div>
             </div>
 
@@ -25,15 +28,18 @@
                     </div>
                 </a> -->
 
-            <a href="javascript:void(0);" class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3 " *ngFor="let image of tourImages">
+            <a
+                href="javascript:void(0);"
+                class="col-lg-4 col-md-6 col-sm-6 col-6 pb-3"
+                *ngFor="let image of tourImages"
+            >
                 <div class="social-post-farmlink__item position-relative">
-                    <img class="social-images" *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="farm">
+                    <img class="social-images" *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="farm" />
                     <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
                     <!-- <img class="video-play" src="assets/images/play-button.png" alt="farm"> -->
-                    <p class="mb-0 post-info">{{image.description}}</p>
+                    <p class="mb-0 post-info">{{ image.description }}</p>
                 </div>
             </a>
-
         </div>
     </div>
 </div>
