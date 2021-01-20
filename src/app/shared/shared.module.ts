@@ -13,6 +13,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
+import { BlankComponent } from './components/blank/blank.component';
 import { SelectComponent } from './components/select/select.component';
 import { RemoteSensoringComponent } from './components/remote-sensoring/remote-sensoring.component';
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
@@ -44,6 +45,7 @@ const THIRDMODULES = [
 // #region your componets & directives
 const COMPONENTS = [
     AvatarComponent,
+    BlankComponent,
     SelectComponent,
     RemoteSensoringComponent,
     WeatherChartComponent,
@@ -73,6 +75,7 @@ const DIRECTIVES = [];
         ...COMPONENTS,
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
+        BlankComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
