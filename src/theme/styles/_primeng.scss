@@ -6,17 +6,23 @@
 .p-component {
     font-family: $general-font-family;
     font-size: $general-font-size;
-    font-weight: 600;
 }
 
 .p-inputtext {
     font-family: $general-font-family;
     font-size: 14px;
+    font-weight: 600;
     color: $muted-text-color;
     background: #ffffff;
-    padding: 0.625rem 0.75rem;
+    padding: 0.625rem 1rem;
     border: 1px solid $main-border-color;
     line-height: 18px;
+}
+.p-inputtext:enabled:hover {
+    border-color: $primary-color;
+}
+.round-border .p-inputtext {
+    border-radius: 20px;
 }
 
 .p-button:focus {
@@ -256,4 +262,31 @@
 .p-dropdown-open .p-dropdown-trigger-icon {
     color: $primary-color;
     transform: rotate(180deg);
+}
+
+// Calendar
+.p-calendar {
+    border: 1px solid $main-border-color;
+    border-radius: 3px;
+    &:hover {
+        border-color: $primary-color;
+    }
+}
+.round-border .p-calendar {
+    border-radius: 20px;
+}
+.p-calendar .p-inputtext {
+    border: none;
+}
+.p-calendar .p-button {
+    color: $button-icon-color;
+    background-color: transparent;
+    border: none;
+}
+.p-calendar .p-button:enabled:hover {
+    color: $button-icon-color;
+    background-color: transparent;
+}
+.p-calendar .p-button-icon {
+    font-size: 20px;
 }
