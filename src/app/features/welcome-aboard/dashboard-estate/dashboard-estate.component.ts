@@ -13,8 +13,8 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
     estates: any[] = [];
     estatesSub: Subscription;
     sourcing: any;
-    chartData: any[] = [];
     sourcingSub: Subscription;
+    chartData: any[] = [];
 
     constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 
