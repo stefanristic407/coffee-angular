@@ -232,3 +232,40 @@ body .ui-table .ui-table-tbody > tr {
         border: none;
     }
 }
+
+// DropDown
+.p-inputtext {
+    font-family: $general-font-family;
+    font-size: 14px;
+    color: $muted-text-color;
+    background: #ffffff;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid $main-border-color;
+    line-height: 18px;
+}
+.round-border .p-dropdown {
+    border-radius: 20px;
+}
+.p-dropdown {
+    border-color: $main-border-color;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+    background: $primary-color;
+}
+
+.p-dropdown:not(.p-disabled):hover {
+    border-color: $primary-color;
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+    box-shadow: none;
+    border-color: $primary-color;
+}
+
+.p-dropdown-trigger-icon {
+    transition: color 0.2s, transform 0.2s;
+}
+.p-dropdown-open .p-dropdown-trigger-icon {
+    color: $primary-color;
+    transform: rotate(180deg);
+}
