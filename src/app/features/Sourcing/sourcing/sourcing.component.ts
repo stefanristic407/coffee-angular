@@ -48,6 +48,13 @@ export class SourcingComponent implements OnInit {
     filterCoffee: any = null;
 
     menuItems: any[];
+    gradeItems: any[] = [
+        { label: 'All', value: null },
+        { label: '81.0 - 83.0', value: '81.0,83.0' },
+        { label: '84.0 - 86.0', value: '84.0,86.0' },
+        { label: '87.0 - 89.0', value: '87.0,89.0' },
+        { label: '90+', value: '90' },
+    ];
 
     queryParams: any = {
         origin: '',
@@ -78,8 +85,11 @@ export class SourcingComponent implements OnInit {
 
     ngOnInit(): void {
         this.menuItems = [
-            { label: this.globals.languageJson?.estates, routerLink: '/features/sourcing/estate-list' },
-            { label: this.globals.languageJson?.available_green_coffee, routerLink: '/features/sourcing/coffee-list' },
+            { label: this.globals.languageJson?.estates, routerLink: ['/features/sourcing/estate-list'] },
+            {
+                label: this.globals.languageJson?.available_green_coffee,
+                routerLink: ['/features/sourcing/coffee-list'],
+            },
         ];
 
         this.appLanguage = this.globals.languageJson;

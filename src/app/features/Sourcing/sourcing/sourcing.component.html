@@ -78,42 +78,15 @@
             </div>
             <div class="row pt-3 pt-md-4 pb-md-4">
                 <div class="title-header">
-                    <div class="hover-filters d-inline-block">
-                        <div
-                            class="d-inline border-grade col-sm-6"
-                            id="grade_id"
-                            [outsideClick]="true"
-                            (onShown)="toggleGrade()"
-                            (onHidden)="toggleGrade()"
-                            [popover]="gradeTemplate"
-                            placement="bottom"
-                            container="body"
-                            #pop4="bs-popover"
-                        >
-                            <p class="d-inline filter-text" *ngIf="queryParams.grade == ''">
-                                {{ globals.languageJson?.grade }}&nbsp;
-                            </p>
-                            <a class="pointer-item">
-                                <p class="d-inline filter" *ngIf="queryParams.grade == ''">
-                                    &nbsp;
-                                    <img
-                                        src="{{
-                                            showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
-                                        }}"
-                                    />
-                                </p>
-                            </a>
-                            <a class="pointer-item">
-                                <p class="d-inline filter" *ngIf="queryParams.grade != ''">
-                                    {{ queryParams.grade }} &nbsp;<img
-                                        src="{{
-                                            showGrade ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
-                                        }}"
-                                    />
-                                </p>
-                            </a>
-                        </div>
-                    </div>
+                    <p-dropdown
+                        [options]="gradeItems"
+                        [(ngModel)]="queryParams.grade"
+                        optionLabel="label"
+                        optionValue="value"
+                        (onChange)="filterCall()"
+                        placeholder="Grade"
+                        class="round-border mr-2"
+                    ></p-dropdown>
                     <div class="hover-filters d-inline-block">
                         <div
                             class="d-inline border-grade col-sm-6"
@@ -318,32 +291,6 @@
                 Apply Filter
             </button>
         </div>
-    </div>
-</ng-template>
-
-<ng-template #gradeTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <!-- <li class="list-group-item item-color" (click)="setFilterValue('grade',''); pop4.hide(); "><a class="pointer-item">All</a></li>
-                <li class="list-group-item item-color" (click)="setFilterValue('grade','81.0 - 83.0'); pop4.hide();  "><a class="pointer-item">81.0 - 83.0</a></li>
-                <li class="list-group-item item-color" (click)="setFilterValue('grade','84.0 - 86.0'); pop4.hide();  "><a class="pointer-item">84.0 - 86.0</a></li>
-                <li class="list-group-item item-color" (click)="setFilterValue('grade','87.0 - 89.0'); pop4.hide();  "><a class="pointer-item">87.0 - 89.0</a></li> -->
-            <li class="list-group-item item-color" (click)="setGrade(''); pop4.hide()">
-                <a class="pointer-item">All</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setGrade('81.0 - 83.0'); pop4.hide()">
-                <a class="pointer-item">81.0 - 83.0</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setGrade('84.0 - 86.0'); pop4.hide()">
-                <a class="pointer-item">84.0 - 86.0</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setGrade('87.0 - 89.0'); pop4.hide()">
-                <a class="pointer-item">87.0 - 89.0</a>
-            </li>
-            <li class="list-group-item item-color" (click)="setGrade('90'); pop4.hide()">
-                <a class="pointer-item">90+</a>
-            </li>
-        </ul>
     </div>
 </ng-template>
 
