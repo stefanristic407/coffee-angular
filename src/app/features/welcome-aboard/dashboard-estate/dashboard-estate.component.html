@@ -14,37 +14,11 @@
             <div class="chart-block br-4 h-100 pr-md-4">
                 <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
                 <div class="h-md-100 d-flex flex-column justify-content-center align-items-center">
-                    <div class="position-relative w-100">
-                        <ejs-accumulationchart
-                            id="total-sale-container"
-                            style="display: block"
-                            [legendSettings]="legendSettings"
-                            [tooltip]="tooltip"
-                            [enableAnimation]="false"
-                            height="320px"
-                        >
-                            <e-accumulation-series-collection>
-                                <e-accumulation-series
-                                    name="Sourcing"
-                                    [dataSource]="chartData"
-                                    xName="x"
-                                    yName="y"
-                                    [startAngle]="0"
-                                    [endAngle]="360"
-                                    innerRadius="76%"
-                                    radius="80%"
-                                    [explode]="true"
-                                >
-                                </e-accumulation-series>
-                            </e-accumulation-series-collection>
-                        </ejs-accumulationchart>
-                        <div class="total-stats text-center">
-                            <p class="fnt-24 fnt-bold fnt-muli text-black334 mb-0">
-                                {{ ((sourcing?.total_coffee || 0) / 1000).toFixed(1) }} ton
-                            </p>
-                            <p class="fnt-12 fnt-600 fnt-muli text-gray588 mb-0">Total coffee available</p>
-                        </div>
-                    </div>
+                    <app-pie-chart
+                        [data]="chartData"
+                        [total]="((sourcing?.total_coffee || 0) / 1000).toFixed(0) + ' Tonnes'"
+                        [description]="'Total coffee available'"
+                    ></app-pie-chart>
                 </div>
             </div>
         </div>

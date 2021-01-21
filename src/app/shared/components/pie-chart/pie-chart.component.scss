@@ -1,0 +1,39 @@
+@import '../../../../theme/styles/variables';
+
+.total-info {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    overflow-wrap: break-word;
+    max-width: 120px;
+}
+
+// ngx chart styles
+::ng-deep .legend-wrap {
+    width: 300px !important;
+    margin-left: -30px;
+}
+::ng-deep .chart-legend {
+    .legend-labels {
+        display: flex;
+        flex-wrap: wrap;
+        background: none !important;
+    }
+
+    .legend-label {
+        margin: 0 !important;
+        padding: 8px 4px !important;
+        color: $primary-text-color !important;
+        font-weight: 600 !important;
+        width: 33.33% !important;
+    }
+
+    .legend-label-color {
+        height: 10px !important;
+        width: 10px !important;
+        margin-top: 2px;
+        margin-right: 8px !important;
+        border-radius: 50% !important;
+    }
+}

@@ -15,6 +15,7 @@ import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -28,6 +29,7 @@ import { VegetationChartComponent } from './components/remote-sensoring/vegetati
 import { ImageMapComponent } from './components/remote-sensoring/image-map/image-map.component';
 import { HarvestCardComponent } from './components/harvest-card/harvest-card.component';
 import { EstateCardComponent } from './components/estate-card/estate-card.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 // #region material
 const MATMODULES = [];
@@ -49,6 +51,7 @@ const THIRDMODULES = [
     ChartAllModule,
     AccumulationChartAllModule,
     RangeNavigatorAllModule,
+    NgxChartsModule,
 ];
 // #endregion
 
@@ -68,6 +71,7 @@ const COMPONENTS = [
     HarvestCardComponent,
     BlankComponent,
     EstateCardComponent,
+    PieChartComponent,
 ];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];
