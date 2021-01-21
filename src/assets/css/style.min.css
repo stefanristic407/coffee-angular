@@ -18363,6 +18363,26 @@ ul {
     align-items: center;
 }
 
+.bg-msg .message-icon-default{
+    display: inline-block;
+}
+
+.bg-msg .message-icon-active{
+    display: none;
+}
+
+.bg-msg:hover .message-icon-default{
+    display: none;
+}
+
+.bg-msg:hover .message-icon-active{
+    display: inline-block;
+}
+
+.bg-msg:hover .estate-message{
+    color: #30855c;
+}
+
 .pb-7 {
     padding-bottom: 4.8rem;
 }
