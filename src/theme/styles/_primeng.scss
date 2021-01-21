@@ -2,203 +2,200 @@
 
 @import 'variables';
 
-body .ui-widget {
+// global
+.p-component {
     font-family: $general-font-family;
+    font-size: $general-font-size;
+    font-weight: 600;
 }
 
-.ui-tabview {
-    .ui-tabview-nav {
-        li {
-            border: none !important;
-            border-bottom: 2px solid transparent !important;
-            flex: inherit !important;
-            padding-bottom: 6px !important;
-            background-color: transparent !important;
+.p-inputtext {
+    font-family: $general-font-family;
+    font-size: 14px;
+    color: $muted-text-color;
+    background: #ffffff;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid $main-border-color;
+    line-height: 18px;
+}
 
-            a {
-                font-weight: 600 !important;
-                font-family: $general-font-family !important;
-                font-size: 14px !important;
-                color: #232334 !important;
-            }
+.p-button:focus {
+    box-shadow: none;
+}
 
-            &.ui-tabview-selected {
-                border-bottom: 2px solid #30855c !important;
-                a {
-                    color: #30855c !important;
-                }
-            }
+// TabView
+.p-tabview .p-tabview-nav {
+    border-radius: 0;
+    border-bottom: 1px solid $main-border-color;
+}
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    position: relative;
+    flex: inherit !important;
+    margin-bottom: -4px;
+    margin-right: 0px;
+    transition: 0.4s ease-in-out;
+    border: none;
+    background-color: transparent;
+    color: $general-text-color;
+    font-weight: 600;
 
-            &:focus {
-                box-shadow: none !important;
-            }
-        }
+    &::before {
+        content: '';
+        width: 0%;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        text-align: center;
+        margin: auto;
+        top: 80%;
+        transform: translate(-50%);
+        border-radius: 1.5px;
+        background-color: $primary-color;
+        opacity: 0;
+        transition: 0.4s ease-in-out;
     }
-
-    .ui-tabview-panels {
-        border: none !important;
-        border-top: 1px solid #ebebeb !important;
-        padding: 0 !important;
+}
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background: transparent;
+    color: $primary-color;
+    &::before {
+        width: 100%;
+        opacity: 1;
     }
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
 }
 
 // SelectButton
-body .ui-selectbutton {
+.p-selectbutton {
     display: inline-flex;
     border: solid 1px #3d8462;
     font-size: inherit !important;
     line-height: 1;
     padding: 2px;
     border-radius: 4px;
-    .ui-button {
-        font-size: inherit !important;
-        background-color: #fff;
-        border-color: #fff;
-        border-radius: 4px;
-        color: #979797;
-        font-family: $general-font-family;
-        font-weight: 600;
+}
 
-        &.ui-state-active,
-        &.ui-state-active:not(.ui-state-disabled):hover {
-            background-color: #3d8462;
-            border-color: #3d8462;
-            color: #ffffff;
-        }
+.p-selectbutton .p-button {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    color: $muted-text-color;
+}
 
-        &:not(.ui-state-disabled):not(.ui-state-active):hover {
-            background-color: #fff;
-            border-color: #fff;
-            color: #979797;
-        }
+.p-buttonset .p-button:first-of-type,
+.p-buttonset .p-button:last-of-type {
+    border-radius: 4px !important;
+}
 
-        &.ui-button-text-only .ui-button-text {
-            padding: 0.5em 1em;
-        }
-    }
+.p-selectbutton .p-button.p-highlight {
+    background: $primary-color;
+    border-color: $primary-color;
+}
+
+.p-selectbutton .p-button:not(.p-state-disabled):not(.p-state-active):hover {
+    background-color: $gray-color;
+    border-color: $gray-color;
+    color: #ffffff;
 }
 
 // Checkbox
-body .ui-chkbox {
-    width: 18px;
-    height: 18px;
-    .ui-chkbox-box {
-        border: 1px solid #30855c;
-        background-color: #ffffff;
-        border-radius: 2px;
-        width: 18px;
-        height: 18px;
-
-        &:not(.ui-state-disabled):hover {
-            border-color: #30855c;
-        }
-
-        &.ui-state-active,
-        &.ui-state-active:not(.ui-state-disabled):hover {
-            border-color: #30855c;
-            background-color: #30855c;
-        }
-
-        &.ui-state-focus {
-            box-shadow: none;
-            border: 1px solid #30855c;
-        }
-
-        .ui-chkbox-icon {
-            font-size: 16px;
-        }
-    }
+.p-checkbox .p-checkbox-box.p-highlight {
+    border-color: $primary-color;
+    background: $primary-color;
 }
-
-.dark .ui-chkbox {
-    .ui-chkbox-box {
-        border: 1px solid #232334;
-
-        &:not(.ui-state-disabled):hover {
-            border-color: #232334;
-        }
-
-        &.ui-state-active,
-        &.ui-state-active:not(.ui-state-disabled):hover {
-            border-color: #232334;
-            background-color: #232334;
-        }
-
-        &.ui-state-focus {
-            border: 1px solid #232334;
-        }
-    }
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    border-color: $primary-color;
+    background: $primary-color;
 }
-
-body .ui-chkbox-label {
-    font-family: $general-font-family;
-    font-size: 14px;
-    font-weight: 600;
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+    box-shadow: none;
+    border-color: $primary-color;
+}
+.p-checkbox-label {
+    margin-bottom: 0;
     color: $general-text-color;
 }
 
+.dark {
+    .p-checkbox .p-checkbox-box.p-highlight {
+        border-color: $dark-color;
+        background: $dark-color;
+    }
+    .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+        border-color: $dark-color;
+        background: $dark-color;
+    }
+    .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
+        box-shadow: none;
+        border-color: $dark-color;
+    }
+}
+
 // TabMenu
-body .ui-tabmenu {
-    .ui-tabmenu-nav {
+.p-tabmenu {
+    .p-tabmenu-nav {
         border-radius: 0;
-        border-bottom: 1px solid #d6d6d6;
-        .ui-tabmenuitem {
-            position: relative;
-            border: none !important;
-            flex: inherit !important;
-            padding-bottom: 6px !important;
-            margin-bottom: -3px;
-            margin-right: 0px;
-            background-color: transparent !important;
-            transition: 0.4s ease-in-out;
-
-            &::before {
-                content: '';
-                width: 0%;
-                height: 2px;
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                text-align: center;
-                margin: auto;
-                top: 80%;
-                transform: translate(-50%);
-                border-radius: 1.5px;
-                background-color: #30855c;
-                opacity: 0;
+        border-bottom: 1px solid $main-border-color;
+        .p-tabmenuitem {
+            .p-menuitem-link {
+                position: relative;
+                flex: inherit !important;
+                margin-bottom: -4px;
+                margin-right: 0px;
                 transition: 0.4s ease-in-out;
-            }
+                border: none;
+                background-color: transparent;
+                color: $general-text-color;
+                font-weight: 600;
 
-            .ui-menuitem-link {
-                .ui-menuitem-text {
-                    margin-right: 0;
-                    font-weight: 600 !important;
-                    font-size: 14px !important;
-                    color: #232334 !important;
+                &::before {
+                    content: '';
+                    width: 0%;
+                    height: 2px;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    text-align: center;
+                    margin: auto;
+                    top: 80%;
+                    transform: translate(-50%);
+                    border-radius: 1.5px;
+                    background-color: $primary-color;
+                    opacity: 0;
+                    transition: 0.4s ease-in-out;
                 }
 
                 &:focus {
                     box-shadow: none !important;
                 }
-            }
 
-            &.ui-state-active,
-            &:hover {
-                &::before {
-                    width: 100%;
-                    content: '';
-                    opacity: 1;
-                }
-                .ui-menuitem-link .ui-menuitem-text {
-                    color: #30855c !important;
+                &.p-menuitem-link-active,
+                &:hover {
+                    color: $primary-color;
+                    &::before {
+                        width: 100%;
+                        opacity: 1;
+                    }
                 }
             }
         }
     }
 }
 
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link,
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+    background: transparent;
+    color: $primary-color;
+}
+
 // Table
-body .ui-table .ui-table-thead > tr > th {
+.p-datatable .p-datatable-thead > tr > th {
     padding: 1.1em 0.857em;
     border: none;
     border-radius: 4px;
@@ -207,7 +204,7 @@ body .ui-table .ui-table-thead > tr > th {
     background-color: #f8f8f8;
 }
 
-body .ui-table .ui-table-tbody > tr > td {
+.p-datatable .p-datatable-tbody > tr > td {
     padding: 1.3em 0.857em;
     background-color: inherit;
     border: none;
@@ -216,8 +213,8 @@ body .ui-table .ui-table-tbody > tr > td {
     transition: box-shadow 0.2s;
 }
 
-body .ui-table .ui-table-tbody > tr {
-    border-bottom: 1px dashed #d6d6d6;
+.p-datatable .p-datatable-tbody > tr {
+    border-bottom: 1px dashed $main-border-color;
 
     &:hover {
         box-shadow: 0 4px 26px 2px rgba(0, 0, 0, 0.05);
@@ -234,15 +231,6 @@ body .ui-table .ui-table-tbody > tr {
 }
 
 // DropDown
-.p-inputtext {
-    font-family: $general-font-family;
-    font-size: 14px;
-    color: $muted-text-color;
-    background: #ffffff;
-    padding: 0.625rem 0.75rem;
-    border: 1px solid $main-border-color;
-    line-height: 18px;
-}
 .round-border .p-dropdown {
     border-radius: 20px;
 }

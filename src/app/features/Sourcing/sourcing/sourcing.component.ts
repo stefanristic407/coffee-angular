@@ -85,8 +85,11 @@ export class SourcingComponent implements OnInit {
 
     ngOnInit(): void {
         this.menuItems = [
-            { label: this.globals.languageJson?.estates, routerLink: '/features/sourcing/estate-list' },
-            { label: this.globals.languageJson?.available_green_coffee, routerLink: '/features/sourcing/coffee-list' },
+            { label: this.globals.languageJson?.estates, routerLink: ['/features/sourcing/estate-list'] },
+            {
+                label: this.globals.languageJson?.available_green_coffee,
+                routerLink: ['/features/sourcing/coffee-list'],
+            },
         ];
 
         this.appLanguage = this.globals.languageJson;
