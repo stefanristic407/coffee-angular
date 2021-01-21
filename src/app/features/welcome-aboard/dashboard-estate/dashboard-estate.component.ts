@@ -38,10 +38,10 @@ export class DashboardEstateComponent implements OnInit, OnDestroy {
     makeChartData() {
         const tempData = [];
         this.sourcing.sourcing_stats.forEach((element) => {
+            const countryName = this.globals.getCountryName(element.origin) || element.origin;
             tempData.push({
-                name: element.origin,
+                name: countryName,
                 value: (element.available_quantity / 1000).toFixed(0),
-                text: `${element.origin}: ${(element.available_quantity / 1000).toFixed(0)}t`,
             });
         });
         this.chartData = tempData;
