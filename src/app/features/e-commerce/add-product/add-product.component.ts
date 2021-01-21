@@ -224,9 +224,9 @@ export class AddProductComponent implements OnInit {
             if (ele['product_weight_variant_id']) {
                 this.services
                     .updateProductWeightVarients(this.roasterId, this.productId, ele, ele['product_weight_variant_id'])
-                    .subscribe((res) => {});
+                    .subscribe((res) => { });
             } else {
-                this.services.addProductWeightVarients(this.roasterId, this.productId, ele).subscribe((res) => {});
+                this.services.addProductWeightVarients(this.roasterId, this.productId, ele).subscribe((res) => { });
             }
         });
     }
@@ -254,7 +254,7 @@ export class AddProductComponent implements OnInit {
         });
         return prodcutFlag && variantFlag;
     }
-    async handleRoasterFile(e) {
+    handleRoasterFile(e) {
         if (e.target.files.length > 0) {
             for (let i = 0; i <= e.target.files.length - 1; i++) {
                 const fsize = e.target.files.item(i).size;
@@ -263,24 +263,55 @@ export class AddProductComponent implements OnInit {
                 if (file >= 2048) {
                     this.toaster.error('File too big, please select a file smaller than 2mb');
                 } else {
-                    const UploadedFile = await this.services
-                        .uploadProductImage(this.roasterId, e.target.files[i])
-                        .toPromise();
-                    if (UploadedFile.success) {
-                        if (!this.varients[this.currentVarientIndex].product_images) {
-                            this.varients[this.currentVarientIndex].product_images = [];
-                        }
-                        if (!this.varients[this.currentVarientIndex].files) {
-                            this.varients[this.currentVarientIndex].files = [];
-                        }
-                        if (!this.varients[this.currentVarientIndex].product_images.length) {
-                            this.varients[this.currentVarientIndex].featured_image_id = UploadedFile.result.id;
-                        }
-                        this.varients[this.currentVarientIndex].product_images.push(UploadedFile.result.id);
-                        this.varients[this.currentVarientIndex].files.push(UploadedFile.result);
+                    let file = e.target.files;
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file[0]);
+                    reader.onload = (_event) => {
+                        var imgURL = reader.result;
+                        fileObj['imgURL'] = imgURL;
                     }
+                    let fileObj = e.target.files;
+                    fileObj['isNew'] = true;
+                    fileObj['fileID'] = '_' + Math.random().toString(36).substr(2, 9);
+                    this.varients[this.currentVarientIndex].files.push(fileObj);
+
                 }
             }
         }
+    }
+    iterateFiles() {
+        this.varients[this.currentVarientIndex].files.forEach(ele => {
+            if (ele['imgURL'] && ele['isNew']) {
+                this.uploadImage(ele);
+            }
+        });
+    }
+    async uploadImage(fileObj) {
+        let fileList: FileList = fileObj;
+        let file: File = fileList[0];
+        const UploadedFile = await this.services
+            .uploadProductImage(this.roasterId, file)
+            .toPromise();
+        if (UploadedFile.success) {
+            if (!this.varients[this.currentVarientIndex].files) {
+                this.varients[this.currentVarientIndex].files = [];
+            }
+            this.varients[this.currentVarientIndex].product_images.push(UploadedFile.result.id);
+            let foundObj = this.varients[this.currentVarientIndex].files.find(ele => ele['fileID'] == fileObj['fileID']);
+            if (foundObj) {
+                foundObj = UploadedFile.result;
+            }
+            //this.varients[this.currentVarientIndex].files.push(UploadedFile.result);
+        }
+    }
+    deleteImage(file) {
+        if (file['image_id']) {
+            let getIDIndex = this.varients[this.currentVarientIndex].product_images.indexOf(file['image_id']);
+            if (getIDIndex || getIDIndex == 0) {
+                this.varients[this.currentVarientIndex].product_images.splice(getIDIndex, 1);
+            }
+        }
+        let getIndex = this.varients[this.currentVarientIndex].files.indexOf(file);
+        this.varients[this.currentVarientIndex].files.splice(getIndex, 1);
     }
 }
