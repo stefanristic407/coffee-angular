@@ -196,3 +196,39 @@ body .ui-tabmenu {
         }
     }
 }
+
+// Table
+body .ui-table .ui-table-thead > tr > th {
+    padding: 1.1em 0.857em;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    color: #232334;
+    background-color: #f8f8f8;
+}
+
+body .ui-table .ui-table-tbody > tr > td {
+    padding: 1.3em 0.857em;
+    background-color: inherit;
+    border: none;
+    font-weight: 600;
+    color: #232334;
+    transition: box-shadow 0.2s;
+}
+
+body .ui-table .ui-table-tbody > tr {
+    border-bottom: 1px dashed #d6d6d6;
+
+    &:hover {
+        box-shadow: 0 4px 26px 2px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+    }
+
+    &:nth-child(even) {
+        background-color: inherit;
+    }
+
+    &:last-child {
+        border: none;
+    }
+}
