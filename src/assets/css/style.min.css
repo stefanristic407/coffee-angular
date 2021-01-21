@@ -19893,7 +19893,14 @@ button:focus {
 }
 
 .chat-profile__name {
-    width: 75%;
+    width: 100%;
+}
+.chat-profile__name .chat-status{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding:4px 0px
 }
 
 .chat-messaged__text {
