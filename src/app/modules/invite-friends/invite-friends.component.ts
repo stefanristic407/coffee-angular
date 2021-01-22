@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
@@ -10,52 +11,44 @@ import { Router } from '@angular/router';
     styleUrls: ['./invite-friends.component.scss'],
 })
 export class InviteFriendsComponent implements OnInit {
-    addUser = [
-        {
-            email: '',
-        },
-    ];
+    infoForm: FormGroup;
+
+    get emails() {
+        return this.infoForm.get('emails') as FormArray;
+    }
+
     constructor(
+        private fb: FormBuilder,
         private toastrService: ToastrService,
         private cookieService: CookieService,
         private userService: UserserviceService,
         private router: Router,
     ) {}
 
-    ngOnInit(): void {}
-
-    public addNewRow() {
-        this.addUser.push({ email: '' });
+    ngOnInit(): void {
+        this.infoForm = this.fb.group({
+            emails: this.fb.array([this.fb.control('', Validators.compose([Validators.required, Validators.email]))]),
+        });
     }
 
-    public deleteRow(index) {
-        this.addUser.splice(index, 1);
+    addEmail() {
+        this.emails.push(this.fb.control('', Validators.compose([Validators.required, Validators.email])));
     }
 
-    private validateInput(data) {
-        let flag = true;
-        if (data && data.length) {
-            data.forEach((ele) => {
-                if (ele.email === '') {
-                    flag = false;
-                }
-            });
-        }
-        return flag;
+    deleteEmail(idx) {
+        this.emails.removeAt(idx);
     }
 
-    public sendInvites() {
-        let flag = true;
-        const input = this.addUser;
-        flag = this.validateInput(input);
-
-        if (flag) {
-            this.addUser.forEach((element) => {
+    onSubmit() {
+        console.log(this.infoForm);
+        console.warn(this.infoForm.value);
+        if (this.infoForm.valid) {
+            this.infoForm.value.emails.forEach((element) => {
                 const postData = {
-                    name: element.email,
+                    name: element,
                     portal: 'Roaster',
                     content_type: 'invite_with_url',
-                    senders: [element.email],
+                    senders: [element],
                     url: 'https://qa-client-horeca.sewnstaging.com/auth/horeca-setup',
                     referral_code: this.cookieService.get('referral_code'),
                 };
@@ -69,7 +62,7 @@ export class InviteFriendsComponent implements OnInit {
                 });
             });
         } else {
-            this.toastrService.error('Fields should not be empty.');
+            this.toastrService.error('Please fill correct data.');
         }
     }
 }

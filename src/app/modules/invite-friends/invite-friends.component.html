@@ -1,55 +1,75 @@
 <section>
-    <div class="bg-fff">
-        <div class="back-page mob-left w-100">
-            <a class="back-href fnt-500" routerLink="/features/welcome-aboard"
-                ><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png" /> Return to dashboard
-            </a>
-        </div>
+    <div class="bg-white br-4 p-3 px-md-5 py-md-4">
+        <div class="py-md-2">
+            <div class="back-page mob-left w-100">
+                <a class="back-href fnt-500" routerLink="/features/welcome-aboard"
+                    ><img class="back-arrow-butn mr-2" src="assets/images/back-arrow-1.png" /> Return to dashboard
+                </a>
+            </div>
 
-        <div class="row pt-4">
-            <div class="col-md-9 col-12">
-                <p class="fnt-18 fnt-muli fnt-700 txt-clr334 mb-1">Invite friend`s and colleagues</p>
-                <p class="fnt-14 fnt-muli fnt-400 text-clr588">Invite your friend`s or colleagues from here</p>
-            </div>
-            <div class="col-md-3 col-12 pl-md-5">
-                <button type="button" class="fnt-14 fnt-muli fnt-700 cancel mr-3" href="javascript:void(0);">
-                    Cancel
-                </button>
-                <button type="button" class="fnt-14 fnt-muli fnt-700 send-invites" routerLink="/features/invite-sucess">
-                    Send Invites
-                </button>
-            </div>
-        </div>
-        <div class="row pt-4">
-            <div class="col-md-10 col-lg-8 Onboard-invite">
-                <div class="Onboard-invite__inputs" *ngFor="let add of addUser; let i = index">
-                    <div class="row">
-                        <div class="col-12 col-md-10 Onboard-input">
-                            <label class="w-100">Enter e-mail address *</label>
-                            <input
-                                class="w-100"
-                                type="email"
-                                placeholder="Please enter your e-mail address"
-                                [(ngModel)]="add.email"
-                                [ngModelOptions]="{ standalone: true }"
-                            />
-                            <span
-                                class="member-delete-rows fnt-muli fnt-700 txt-clr60b"
-                                *ngIf="i != 0"
-                                (click)="deleteRow(i)"
+            <form [formGroup]="infoForm" (ngSubmit)="onSubmit()" novalidate>
+                <div class="row pt-4">
+                    <div class="col-md-8 col-12 mb-4 pb-2">
+                        <div>
+                            <p class="fnt-18 fnt-muli fnt-700 txt-clr334 mb-1">Invite friend`s and colleagues</p>
+                            <p class="fnt-14 fnt-muli fnt-400 text-clr588">
+                                Invite your friend`s or colleagues from here
+                            </p>
+                        </div>
+                        <div class="pt-4" formArrayName="emails">
+                            <div *ngFor="let email of emails.controls; let i = index">
+                                <div class="row mb-2">
+                                    <div class="col-10 sewn-form-field">
+                                        <label>Enter e-mail address<span class="star">*</span></label>
+                                        <input
+                                            type="text"
+                                            placeholder="Please enter your e-mail address"
+                                            [formControlName]="i"
+                                            pInputText
+                                        />
+                                        <small *ngIf="email.errors?.required" class="p-error"> Required </small>
+                                        <small *ngIf="email.errors?.email" class="p-error">
+                                            Invalid email address
+                                        </small>
+                                    </div>
+                                    <div
+                                        class="delete-wrap fnt-muli fnt-700 txt-clr60b ml-0 ml-md-2 cursor-pointer"
+                                        *ngIf="i != 0"
+                                        (click)="deleteEmail(i)"
+                                    >
+                                        Delete
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider d-md-none my-3"></div>
+                            <div class="d-inline-flex align-items-center mt-2">
+                                <img src="assets/images/add-partner.svg" />
+                                <span
+                                    class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer"
+                                    (click)="addEmail()"
+                                >
+                                    Add another friend/colleague
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-12 pl-md-5 text-right">
+                        <div class="d-flex flex-wrap justify-content-end">
+                            <button
+                                type="button"
+                                class="btn-stroked mb-3 w-mob-100 order-2 order-md-1 mr-md-3"
+                                routerLink="/features/welcome-aboard"
                             >
-                                Delete
-                            </span>
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn-raised mb-3 w-mob-100 order-1 order-md-2">
+                                Send Invites
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="add-partner d-inline-flex align-items-center">
-                    <img src="assets/images/add-partner.svg" />
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer" (click)="addNewRow()">
-                        Add another friend/colleague
-                    </span>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </section>
