@@ -24,6 +24,11 @@ export const routes: Routes = [
                     import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
             },
             { path: 'people', loadChildren: () => import('./people/people.module').then((m) => m.PeopleModule) },
+            {
+                path: 'invite-friends',
+                loadChildren: () =>
+                    import('./modules/invite-friends/invite-friends.module').then((m) => m.InviteFriendsModule),
+            },
             { path: '', redirectTo: 'features', pathMatch: 'full' },
         ],
     },

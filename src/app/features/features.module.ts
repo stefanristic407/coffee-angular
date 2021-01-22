@@ -126,8 +126,6 @@ import { ServiceRequestedComponent } from './green-grading/service-requested/ser
 import { ProcessDetailsComponent } from './green-grading/process-details/process-details.component';
 import { MarkedSaleComponent } from './green-inventory/green-coffee-inventory/marked-sale/marked-sale.component';
 import { CoffeeProcuredTabComponent } from './green-inventory/green-coffee-inventory/coffee-procured-tab/coffee-procured-tab.component';
-import { InviteFriendsComponent } from './invite-friends/invite-friends.component';
-import { InviteSucessComponent } from './invite-friends/invite-sucess/invite-sucess.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { VatMicroRoasterComponent } from './vat-management/vat-micro-roaster/vat-micro-roaster.component';
 import { VatB2bComponent } from './vat-management/vat-b2b/vat-b2b.component';
@@ -266,8 +264,6 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         ProcessDetailsComponent,
         MarkedSaleComponent,
         CoffeeProcuredTabComponent,
-        InviteFriendsComponent,
-        InviteSucessComponent,
         VatManagementComponent,
         VatMicroRoasterComponent,
         VatB2bComponent,

@@ -47,8 +47,6 @@ import { GreenCoffeeInventoryComponent } from './green-inventory/green-coffee-in
 import { LotSaleComponent } from './green-inventory/lot-sale/lot-sale.component';
 import { ProcuredCoffeeComponent } from './green-inventory/procured-coffee/procured-coffee.component';
 import { HelpComponent } from './help/help.component';
-import { InviteFriendsComponent } from './invite-friends/invite-friends.component';
-import { InviteSucessComponent } from './invite-friends/invite-sucess/invite-sucess.component';
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { LoginSecurityComponent } from './login-security/login-security.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
@@ -435,16 +433,6 @@ const routes: Routes = [
             {
                 path: 'process-details',
                 component: ProcessDetailsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'invite-friends',
-                component: InviteFriendsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'invite-sucess',
-                component: InviteSucessComponent,
                 canActivate: [AuthGuard],
             },
             {
