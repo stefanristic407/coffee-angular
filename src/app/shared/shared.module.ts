@@ -3,19 +3,37 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
+
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { GalleriaModule } from 'primeng/galleria';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
+import { TooltipModule } from 'primeng/tooltip';
+import { TreeModule } from 'primeng/tree';
+
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
+import { MatVideoModule } from 'mat-video';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -37,21 +55,35 @@ const MATMODULES = [];
 
 // #region third libs
 const THIRDMODULES = [
+    AutocompleteLibModule,
     AnimateOnScrollModule,
+    CarouselModule,
+    ModalModule,
     PopoverModule,
+    TypeaheadModule,
     AutoCompleteModule,
+    ButtonModule,
     CalendarModule,
     CheckboxModule,
+    DialogModule,
     DropdownModule,
+    GalleriaModule,
+    InputSwitchModule,
     InputTextModule,
+    OverlayPanelModule,
     SelectButtonModule,
+    SliderModule,
     TableModule,
     TabMenuModule,
     TabViewModule,
+    TooltipModule,
+    TreeModule,
     ChartAllModule,
     AccumulationChartAllModule,
     RangeNavigatorAllModule,
     NgxChartsModule,
+    ImageCropperModule,
+    MatVideoModule,
 ];
 // #endregion
 

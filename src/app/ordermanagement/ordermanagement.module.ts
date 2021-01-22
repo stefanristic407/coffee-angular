@@ -8,9 +8,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
 import { RatingModule } from 'ng-starrating';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { PopoverModule } from 'ngx-bootstrap/popover';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { ToastrModule } from 'ngx-toastr';
 import { EstateOrdersComponent } from './estate-orders/estate-orders.component';
 import { MyordersComponent } from './myorders/myorders.component';
 import { BookedDocumentsComponent } from './order-booked/booked-documents/booked-documents.component';
@@ -28,23 +25,18 @@ import { OrderDetailsComponent } from './order-sample/order-details/order-detail
 import { OrderSampleComponent } from './order-sample/order-sample.component';
 import { OrdermanagementRoutingModule } from './ordermanagement-routing.module';
 import { OrdermanagementComponent } from './ordermanagement.component';
-// import { PagenotfoundComponent } from "./pagenotfound/pagenotfound.component";
 import { OrderSupportComponent } from './dispute-system/order-support/order-support.component';
 import { OrderSupportFaqsComponent } from './dispute-system/order-support-faqs/order-support-faqs.component';
 import { RaiseTicketFormComponent } from './dispute-system/raise-ticket-form/raise-ticket-form.component';
 import { RaisedTicketComponent } from './dispute-system/raised-ticket/raised-ticket.component';
 import { SelectAnOrderComponent } from './dispute-system/select-an-order/select-an-order.component';
-import { CalendarModule } from 'primeng/calendar';
-import { TabViewModule } from 'primeng/tabview';
 import { ReviewRatingsComponent } from './review-ratings/review-ratings.component';
 import { RatingComponent } from './rating/rating.component';
 import { MicroRoasterComponent } from './dispute-system/micro-roaster/micro-roaster.component';
 import { HorecaComponent } from './dispute-system/horeca/horeca.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 
 import { EstateComponent } from './dispute-system/estate/estate.component';
-import { DirectMessagingComponent } from './direct-messaging/direct-messaging.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FacilitatorOrdersComponent } from './facilitator-orders/facilitator-orders.component';
@@ -52,10 +44,8 @@ import { RoasterOrdersComponent } from './roaster-orders/roaster-orders.componen
 import { OrderChatComponent } from './order-sample/order-chat/order-chat.component';
 import { PreOrderChatComponent } from './order-prebook/pre-order-chat/pre-order-chat.component';
 import { BookOrderChatComponent } from './order-booked/book-order-chat/book-order-chat.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { OrdersComponent } from './myorders/orders/orders.component';
 import { RequestsComponent } from './myorders/requests/requests.component';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { HorecaOrdersComponent } from './e-commerce-order/horeca-orders/horeca-orders.component';
 import { HorecaOrderDetailsComponent } from './e-commerce-order/horeca-order-details/horeca-order-details.component';
 import { HorecaOrderConfirmComponent } from './e-commerce-order/horeca-order-confirm/horeca-order-confirm.component';
@@ -76,7 +66,6 @@ import { SampleDetailsComponent } from './microroaster-orders/micro-order-sample
 import { SampleNotesComponent } from './microroaster-orders/micro-order-sample/sample-notes/sample-notes.component';
 import { SampleOrderConfirmationComponent } from './microroaster-orders/micro-order-sample/sample-order-confirmation/sample-order-confirmation.component';
 import { BookedOrderConfirmationComponent } from './microroaster-orders/micro-order-booked/booked-order-confirmation/booked-order-confirmation.component';
-import { ErrorModuleModule } from '../error-module/error-module.module';
 import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.component';
 import { OrdersTableComponent } from './microroaster-orders/mr-orders/orders-table/orders-table.component';
 import { RequestsTableComponent } from './microroaster-orders/mr-orders/requests-table/requests-table.component';
@@ -90,7 +79,6 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
     declarations: [
         OrdermanagementComponent,
         MyordersComponent,
-        // PagenotfoundComponent,
         OrderSampleComponent,
         OrderDetailsComponent,
         EstateOrdersComponent,
@@ -115,7 +103,6 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
         MicroRoasterComponent,
         HorecaComponent,
         EstateComponent,
-        DirectMessagingComponent,
         FacilitatorOrdersComponent,
         RoasterOrdersComponent,
         OrderChatComponent,
@@ -151,7 +138,6 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
         AssignUserComponent,
     ],
     imports: [
-        // BrowserAnimationsModule,
         CommonModule,
         SharedModule,
         OrdermanagementRoutingModule,
@@ -159,23 +145,13 @@ import { AssignUserComponent } from './assign-user/assign-user.component';
         Ng2SearchPipeModule,
         FormsModule,
         RatingModule,
-        PopoverModule,
-        CalendarModule,
-        TabViewModule,
-        ModalModule,
         MatBottomSheetModule,
-        NgxChartsModule,
-        AutocompleteLibModule,
-        ErrorModuleModule,
         MatTooltipModule,
         AutoCompleteModule,
-        // EmptyTableComponent,
-        TypeaheadModule.forRoot(),
-        ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
         ChartAllModule,
         AccumulationChartAllModule,
         RangeNavigatorAllModule,
     ],
-    exports: [DirectMessagingComponent],
+    exports: [],
 })
 export class OrdermanagementModule {}
