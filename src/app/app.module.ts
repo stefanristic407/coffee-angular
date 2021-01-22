@@ -2,6 +2,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { DEFAULT_CURRENCY_CODE } from '@angular/core';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -29,6 +30,10 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { LayoutComponent } from './layout/layout.component';
+// Sweden
+import { registerLocaleData } from '@angular/common';
+import localeSe from '@angular/common/locales/se';
+registerLocaleData(localeSe);
 
 @NgModule({
     declarations: [AppComponent, HealthCheckComponent, LayoutComponent],
