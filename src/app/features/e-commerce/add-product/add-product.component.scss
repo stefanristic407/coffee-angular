@@ -1,3 +1,7 @@
+/* product weight */
+/* tabs css  */
+/* input with dp */
+/* togggle */
 .back-ticket {
     font-family: Muli;
     font-size: 16px;
@@ -6,7 +10,6 @@
     cursor: pointer;
     padding-left: 12px;
 }
-
 .send-btn {
     height: 46px;
     border-radius: 4px;
@@ -17,12 +20,10 @@
     font-family: Muli;
     padding: 12px 24px;
     border: 1px solid #30855c;
+    &:hover {
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    }
 }
-
-.send-btn:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
 label {
     font-family: Muli;
     font-size: 14px;
@@ -32,12 +33,10 @@ label {
     line-height: normal;
     letter-spacing: normal;
     color: #747589;
+    span {
+        color: #ff1e5a;
+    }
 }
-
-label span {
-    color: #ff1e5a;
-}
-
 .select {
     font-family: Muli;
     font-size: 14px;
@@ -48,21 +47,26 @@ label span {
     letter-spacing: normal;
     color: #747588;
 }
-
 .bg-ff {
     padding: 2rem 2.5rem;
     border-radius: 4px;
     background-color: #ffffff;
 }
-
-.farm-input input {
-    font-size: 14px !important;
-    line-height: 24px;
-    padding: 16px;
-    height: 46px;
-    color: #232334;
+.farm-input {
+    input {
+        font-size: 14px !important;
+        line-height: 24px;
+        padding: 16px;
+        height: 46px;
+        color: #232334;
+    }
+    textarea {
+        padding: 18px;
+        color: #232334 !important;
+        font-size: 14px !important;
+        font-weight: 600;
+    }
 }
-
 .cancel-btn {
     padding: 12px 24px;
     border-radius: 4px;
@@ -73,14 +77,6 @@ label span {
     font-family: Muli;
     border: 1px solid #30855c;
 }
-
-.farm-input textarea {
-    padding: 16px;
-    color: #232334 !important;
-    font-size: 14px !important;
-    font-weight: 600;
-}
-
 .equal-operators {
     font-size: 14px;
     font-weight: 600;
@@ -92,190 +88,155 @@ label span {
     padding: 9px 7px;
     margin-top: 30px;
 }
-
 .w-m-19 {
     width: 18%;
     margin: 0% 1%;
 }
-
 .flo-list {
     margin-bottom: 0;
     margin-top: -5px;
+    li {
+        float: left;
+        font-size: 12px;
+        border: 1px solid #ebebeb;
+        padding: 3px 9px 1px 15px;
+        border-radius: 12px;
+        margin-right: 3px;
+        position: relative;
+    }
 }
-
-.flo-list li {
-    float: left;
-    font-size: 12px;
-    border: 1px solid #ebebeb;
-    padding: 3px 9px 1px 15px;
-    border-radius: 12px;
-    margin-right: 3px;
-    position: relative;
-}
-
 .sub-text {
     font-size: 14px;
     font-weight: 600;
     line-height: 24px;
     color: #747589 !important;
 }
-
 .product-weights {
     border-top: 1px dashed #d6d6d6;
     border-bottom: 1px dashed #d6d6d6;
     padding: 1rem 0rem;
 }
-
 .vat-details {
     border-top: 1px dashed #d6d6d6;
     padding: 1.5rem 0rem;
 }
-
 .gray-clr {
     color: #232334 !important;
 }
-
 .gray-text {
     color: #cbcbcb !important;
 }
-
-/* product weight */
-
 .sample_info {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
 }
-
 .sample_info_head {
     font-family: Muli;
     font-size: 14px;
     font-weight: bold;
     color: #232334;
 }
-
 .info_heading {
     border-radius: 4px;
-    /* background-color: #f8f8f8; */
     padding: 12px 10px;
 }
-
 .dry-milling {
     border-radius: 4px;
-    /* background-color: #ffffff; */
     padding: 12px 10px;
 }
-
-/* tabs css  */
-
 .nav-pills {
     border-bottom: 1px solid #dddddd;
+    .nav-link {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600;
+        color: #232334;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .nav-link.active {
+        color: #232334;
+        font-size: 14px;
+        font-weight: 600;
+        background-color: unset !important;
+        border-radius: unset;
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600;
+        color: #30855c;
+        position: relative;
+        padding-right: 0px;
+        padding-left: 0px;
+        &:before {
+            content: '';
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            text-align: center;
+            margin: auto;
+            top: 80%;
+            transform: translate(-50%);
+            border-radius: 1.5px;
+            background-color: #30855c;
+            transition: unset !important;
+        }
+    }
+    .show {
+        > .nav-link {
+            color: #232334;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: unset !important;
+            border-radius: unset;
+        }
+    }
+    .vat-link {
+        &:before {
+            background-color: unset !important;
+        }
+    }
+    .vat-link.active {
+        &:before {
+            background-color: unset !important;
+        }
+        color: #f8f8f8 !important;
+        background-color: #f8f8f8 !important;
+    }
 }
-
 li.nav-item {
     margin-right: 7%;
     position: relative;
     top: 0.25rem;
-}
-
-.nav-pills .nav-link {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #232334;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-    color: #232334;
-    font-size: 14px;
-    font-weight: 600;
-    background-color: unset !important;
-    border-radius: unset;
-}
-
-.nav-pills .nav-link.active {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #30855c;
-}
-
-.nav-pills .nav-link.active {
-    position: relative;
-    padding-right: 0px;
-    padding-left: 0px;
-}
-
-.nav-link {
-    display: block;
-    padding: 0rem 1rem 0.5rem 1rem;
-}
-
-li.nav-item {
     margin-right: 3%;
     position: relative;
     top: 0.25rem;
 }
-
-.nav-pills .nav-link.active:before {
-    content: '';
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    text-align: center;
-    margin: auto;
-    top: 80%;
-    transform: translate(-50%);
-    border-radius: 1.5px;
-    background-color: #30855c;
-    transition: unset !important;
+.nav-link {
+    display: block;
+    padding: 0rem 1rem 0.5rem 1rem;
 }
-
-.nav-pills .vat-link:before {
-    background-color: unset !important;
-}
-
-.nav-pills .vat-link.active:before {
-    background-color: unset !important;
-}
-
-.nav-pills .vat-link.active {
-    color: #f8f8f8 !important;
-    background-color: #f8f8f8 !important;
-}
-
 .mixups-tabs {
     background-color: #ffffff;
     overflow: hidden;
 }
-
-/* input with dp */
-
 .select-form-group-dropdown {
     background-color: #f8f8f8;
     border: 0px;
-    /* border-bottom-left-radius: 0px;
-    border-top-left-radius: 0px; */
     border-radius: 4px;
 }
-
 .select-region-local {
     height: 38px !important;
     font-size: 14px !important;
     color: #000000 !important;
 }
-
 .input-group-right-border {
     border-right: 0px !important;
     border-bottom-right-radius: 0px !important;
     border-top-right-radius: 0px !important;
     height: 46px;
 }
-
 .input-group-append {
     width: 40%;
     border: solid 1px #d6d6d6;
@@ -285,20 +246,17 @@ li.nav-item {
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
 }
-
-::placeholder {
+.input-group-append ::placeholder {
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     color: #747588 !important;
 }
-
 .select-arrow-no {
     background: #f8f8f8 !important;
     padding: 8px 10px !important;
     border: 0px !important;
 }
-
 .left-rs-append {
     width: 20%;
     border: solid 1px #d6d6d6;
@@ -308,7 +266,6 @@ li.nav-item {
     border-bottom-right-radius: 0px !important;
     border-top-right-radius: 0px !important;
 }
-
 .right-rs-append {
     border-left: 0px !important;
     border-radius: 4px;
@@ -316,29 +273,22 @@ li.nav-item {
     border-top-left-radius: 0px !important;
     height: 46px;
 }
-
 .crates-width {
     width: 50% !important;
 }
-
 .border-img {
     border: solid 1px #d6d6d6 !important;
     border-radius: 4px !important;
 }
-
 .add-images {
     padding: 1rem 0;
     border-bottom: 1px dashed #d6d6d6;
 }
-
-/* togggle */
-
 .active__main {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
     padding: 2px;
 }
-
 .active_default {
     background-color: #3d8462;
     height: 30px;
@@ -349,7 +299,6 @@ li.nav-item {
     font-family: Muli;
     font-weight: 600;
 }
-
 .disable_default {
     background-color: #ffffff;
     height: 30px;
@@ -359,16 +308,13 @@ li.nav-item {
     color: #979797;
     font-family: Muli;
 }
-
 .disabledDiv {
     pointer-events: none;
 }
-
 .flavours {
     height: 125px;
     padding: 1rem 0.75rem;
 }
-
 .flavour-item {
     padding: 8px 16px;
     border-radius: 17px;
@@ -376,94 +322,39 @@ li.nav-item {
     color: #fff;
     margin: 5px;
 }
-
 .form-control[readonly] {
     background-color: #ffffff !important;
     cursor: default;
 }
-
-.p-0{
-    padding: 0px !important;
+.addImageContainer {
+    width: 13.25rem;
+    height: 8.12rem;
 }
-.m-0{
-    margin: 0px !important;
-}
-.noPadding{
-    margin: 0px !important;
-    padding: 0px !important;
-}
-.mb-2{
-    margin-bottom: 2rem !important;
-}
-.mb-47{
-    margin-bottom: 2.969rem !important;
-}
-.addImageContainer{
-    padding: 20px !important;
-    width: 12rem;
-    height: 5.93rem;
-}
-.addImageLabel{
-    margin: 0px !important;
-    margin-top: 2.969rem !important;
-    margin-bottom: 1rem !important;
-}
-.dragdiv{
+.dragdiv {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
 }
-.uploadDiv{
-    padding: 0px;
-    border: 0px !important;
-}
-.uploadBottom{
-    margin-bottom: 0.5rem !important;
-}
-.uploadImg{
+.uploadImg {
     width: 3.25rem;
     height: 4rem;
     margin-left: 35%;
     margin-top: 7%;
 }
-.firstImageDiv{
+.imageLabel {
+    bottom: 0;
+    position: absolute;
+    background-color: #f1f1f1;
+}
+.firstImageDiv {
     border: solid 1px #d6d6d6 !important;
     border-radius: 4px !important;
     width: 12rem;
-    height: 5.93rem;
+    height: 8.12rem;
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
+    position: relative;
 }
-.closeImg{
-    float: right;
-    right: 0;
-    padding: 8px;
-    cursor: pointer;
-}
-.pr-0{
-    padding-right: 0px;
-}
-.addVariantBtn{
-    margin-top: 2.5rem !important;
-    margin-bottom: 3rem !important;
-}
-.symbolPadding{
-    padding: 8px !important;
-}
-.plr-0{
-    padding-left: 0px;
-    padding-right: 0px;
-}
-.pl-0{
-    padding-left: 0px;
-}
-.pl-15{
-    padding-left: 15px !important;
-}
-.variant-btn{
-    width: 100%;
-    height: 100%;
-}
-.pointer{
+.pointer {
     cursor: pointer;
 }

@@ -252,7 +252,7 @@
                     </div>
 
                     <div class="mt-3 pointer" (click)="addWeightVarient()">
-                        <img src="assets/images/add-weight-variant.svg" alt="farm" class="variant-btn" />
+                        <img src="assets/images/add-weight-variant.svg" alt="farm" class="w-100 h-100" />
                         <!-- <span class="share-txt ml-1"> Add weight variant </span> -->
                     </div>
                 </div>
@@ -353,7 +353,7 @@
                                 <span class="view-order mt-5 cursor-pointer" *ngIf="i != 0"
                                     (click)="deleteRow(gIndex, i)">Delete</span>
                             </div>
-                            <label class="view-order addVariantBtn cursor-pointer" (click)="addNewVariant(gIndex)">
+                            <label class="view-order mt-5 mb-5 cursor-pointer" (click)="addNewVariant(gIndex)">
                                 Add a grind variant</label>
                         </div>
                     </div>
@@ -363,38 +363,92 @@
 
         <!-- image -->
         <div [ngClass]="{ 'add-images mt-3': currentVarientIndex == gIndex }"
-            *ngFor="let varient of varients; let gIndex = index" class="noPadding">
+            *ngFor="let varient of varients; let gIndex = index" class="p-0 m-0">
             <div class="row" *ngIf="currentVarientIndex == gIndex">
                 <div class="col-3"></div>
-                <div class="col-9 p-0 pl-15">
-                    <p class="fnt-18 fnt-muli fnt-700 black addImageLabel">Add Images</p>
+                <div class="col-9 p-0 pl-3">
+                    <p class="fnt-18 fnt-muli fnt-700 black m-0 mt-5 mb-3">Add Images</p>
                     <div class="row m-0">
-                        <div class="form-section__inputs roastery-upload-files col-3 mb-2 uploadDiv">
-                            <p class="fnt-14 fnt-muli fnt-600 black m-0 uploadBottom">Upload Feature Image</p>
-                            <div
-                                class="roastery-uploads__image d-flex align-items-center justify-content-center dragdiv">
-                                <label class="mb-0 addImageContainer">
+                        <div class="form-section__inputs roastery-upload-files col-3 mb-2 p-0 border-0">
+                            <p class="fnt-14 fnt-muli fnt-600 black m-0 mb-1">Upload Feature Image</p>
+                            <div *ngIf="!varient['featured_image']"
+                                class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv">
+                                <label class="mb-0 p-4 addImageContainer">
                                     <input type="file" accept="image/png, image/jpeg" style="visibility: hidden"
-                                        #roasterImage (change)="handleRoasterFile($event)" />
+                                        #featureImage (change)="handleRoasterFile($event,0,'featured_image')" />
                                     <div class="d-flex flex-wrap align-items-center justify-content-center">
                                         <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text">Drag
                                             and drop an image here or browse</span>
                                     </div>
                                 </label>
                             </div>
+                            <div *ngIf="varient['featured_image']" class="mr-3 firstImageDiv">
+                                <img *ngIf="varient['featured_image'].thumb_url"
+                                    [src]="varient['featured_image'].thumb_url" alt="" class="uploadImg" />
+                                <img *ngIf="varient['featured_image'].image_url"
+                                    [src]="varient['featured_image'].image_url" alt="" class="uploadImg" />
+                                <img *ngIf="varient['featured_image'].isNew" [src]="varient['featured_image'].imgURL"
+                                    alt="" class="uploadImg" />
+                                <div class="imageLabel w-100">
+                                    <label class="p-0.5">Image.png</label>
+                                    <a class="menu-arrow float-right pointer" [popover]="documentTemplate" placement="left"
+                                        [outsideClick]="true" #pop="bs-popover">
+                                        <img class="img" src="assets/images/more-opns-file.png">
+                                    </a>
+                                    <ng-template #documentTemplate id="{{varient['featured_image']['image_id']}}">
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li *ngIf="false" class="list-group-item"> <a class="pointer-item"
+                                                        (click)="pop.hide();triggerInputEdit('featureImage')">{{globals.languageJson?.edit}} </a></li>
+                                                <li class="list-group-item"><a class="pointer-item"
+                                                        (click)="pop.hide();deleteImage(varient['featured_image'],0,'feature_image')">{{globals.languageJson?.delete}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col" *ngIf="varient.files?.length">
-                            <p class="fnt-14 fnt-muli fnt-600 black m-0 uploadBottom">Product images</p>
-                            <div class="mr-2 firstImageDiv" *ngFor="let file of varient.files">
-                                <img *ngIf="file.thumb_url" [src]="file.thumb_url" alt="" class="uploadImg" />
-                                <img *ngIf="file.image_url" [src]="file.image_url" alt="" class="uploadImg" />
-                                <img *ngIf="file.isNew" [src]="file.imgURL" alt="" class="uploadImg" />
-                                <img src="/assets/images/close_img.svg" alt="" (click)="deleteImage(file)"
-                                    class="closeImg" />
+                        <div class="form-section__inputs roastery-upload-files col-3 mb-2 border-0" *ngFor="let file of varient.files;let i = index">
+                            <p class="fnt-14 fnt-muli fnt-600 black m-0 mb-1">Product images</p>
+                            <div *ngIf="file['isEmpty']"
+                                class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv">
+                                <label class="mb-0 p-4 addImageContainer">
+                                    <input type="file" accept="image/png, image/jpeg" style="visibility: hidden"
+                                        #productImage (change)="handleRoasterFile($event, i)" />
+                                    <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                        <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text">Drag
+                                            and drop an image here or browse</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <div *ngIf="!file['isEmpty']" class="mr-1 firstImageDiv">
+                                <img *ngIf="file.thumb_url"
+                                    [src]="file.thumb_url" alt="" class="uploadImg" />
+                                <img *ngIf="file.image_url"
+                                    [src]="file.image_url" alt="" class="uploadImg" />
+                                <img *ngIf="file.isNew" [src]="file.imgURL"
+                                    alt="" class="uploadImg" />
+                                <div class="imageLabel w-100">
+                                    <label class="mb-0 p-0.5">Image.png</label>
+                                    <a class="menu-arrow float-right pointer" [popover]="documentTemplate2" placement="left"
+                                        [outsideClick]="true" #pop="bs-popover">
+                                        <img class="img" src="assets/images/more-opns-file.png">
+                                    </a>
+                                    <ng-template #documentTemplate2>
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li *ngIf="false" class="list-group-item"> <a class="pointer-item"
+                                                        (click)="pop.hide();">{{globals.languageJson?.edit}} </a></li>
+                                                <li class="list-group-item"><a class="pointer-item"
+                                                        (click)="pop.hide();deleteImage(file, i)">{{globals.languageJson?.delete}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="mb-47">
+                    <div class="mb-5 mt-4">
                         <button type="button" *ngIf="newProduct" (click)="iterateFiles()" class="btn send-btn">
                             Save
                         </button>
@@ -417,12 +471,12 @@
                     <input readonly type="1 crate" value="" name="Finca La Pampa" class="form-control"
                         placeholder="1 crate" />
                 </div>
-                <div class="equal-operators symbolPadding">=</div>
-                <div class="farm-input col-lg-3 plr-0">
+                <div class="equal-operators pl-8">=</div>
+                <div class="farm-input col-lg-3 pl-0 pr-0">
                     <label>Weight</label>
                     <input type="number" [(ngModel)]="carte.weight" class="form-control" placeholder="" />
                 </div>
-                <div class="equal-operators symbolPadding">x</div>
+                <div class="equal-operators pl-8">x</div>
                 <div class="farm-input col-lg-3 pl-0">
                     <label>Number of bags</label>
                     <input type="number" [(ngModel)]="carte.crate_capacity" class="form-control" placeholder="" />

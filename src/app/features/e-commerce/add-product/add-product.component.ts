@@ -9,7 +9,7 @@ import { RoasterserviceService } from 'src/services/roasters/roasterservice.serv
 @Component({
     selector: 'app-add-product',
     templateUrl: './add-product.component.html',
-    styleUrls: ['./add-product.component.css'],
+    styleUrls: ['./add-product.component.scss'],
 })
 export class AddProductComponent implements OnInit {
     isPublicOptions: any[] = [
@@ -81,6 +81,7 @@ export class AddProductComponent implements OnInit {
             files: [],
         },
     ];
+    deleteFileIDs: any = [];
     newProduct = true;
     constructor(
         public globals: GlobalsService,
@@ -100,6 +101,8 @@ export class AddProductComponent implements OnInit {
                 this.productId = params.id;
                 this.newProduct = false;
                 this.getProductDetails(this.productId);
+            } else {
+                this.varients[0]['files'] = this.setProductImages(this.varients[0]['files'], 'files');
             }
         });
         this.services.getVatSettings(this.roasterId).subscribe((res) => {
@@ -121,7 +124,7 @@ export class AddProductComponent implements OnInit {
         const result = [];
         const keys = Object.keys(data);
         keys.forEach((ele, index) => {
-            data[ele][index].files = data[ele][index].product_images;
+            data[ele][index].files = this.setProductImages(data[ele][index].product_images, 'files');
             data[ele][index].product_images = this.setProductImages(data[ele][index].product_images);
             this.rc_batch_id = data[ele][0].rc_batch_id;
             this.getCoffeeBatchDetails(this.rc_batch_id);
@@ -129,14 +132,28 @@ export class AddProductComponent implements OnInit {
         });
         return result;
     }
-    setProductImages(images) {
+    setProductImages(images, type?) {
         const result = [];
         if (images && images.length) {
             images.forEach((ele) => {
-                result.push(ele.image_id);
+                if (type == 'files') {
+                    result.push(ele);
+                } else {
+                    result.push(ele.image_id);
+                }
             });
         }
-        return result;
+        if (type == 'files') {
+            const productEmptyArray = [];
+            const startIndex = result ? result.length : 0;
+            for (let i = startIndex; i < 3; i++) {
+                const fileObj = { isEmpty: true };
+                productEmptyArray.push(fileObj);
+            }
+            return result.concat(productEmptyArray);
+        } else {
+            return result;
+        }
     }
     async getCoffeeBatchDetails(id) {
         this.coffeeBatchDetails = await this.services.getCoffeeBatchDetails(this.roasterId, id).toPromise();
@@ -224,9 +241,13 @@ export class AddProductComponent implements OnInit {
             if (ele['product_weight_variant_id']) {
                 this.services
                     .updateProductWeightVarients(this.roasterId, this.productId, ele, ele['product_weight_variant_id'])
-                    .subscribe((res) => { });
+                    .subscribe((res) => {
+                        console.log(res);
+                    });
             } else {
-                this.services.addProductWeightVarients(this.roasterId, this.productId, ele).subscribe((res) => { });
+                this.services.addProductWeightVarients(this.roasterId, this.productId, ele).subscribe((res) => {
+                    console.log(res);
+                });
             }
         });
     }
@@ -254,7 +275,7 @@ export class AddProductComponent implements OnInit {
         });
         return prodcutFlag && variantFlag;
     }
-    handleRoasterFile(e) {
+    handleRoasterFile(e, index, type?) {
         if (e.target.files.length > 0) {
             for (let i = 0; i <= e.target.files.length - 1; i++) {
                 const fsize = e.target.files.item(i).size;
@@ -263,55 +284,99 @@ export class AddProductComponent implements OnInit {
                 if (file >= 2048) {
                     this.toaster.error('File too big, please select a file smaller than 2mb');
                 } else {
-                    let file = e.target.files;
-                    var reader = new FileReader();
+                    const file = e.target.files;
+                    const reader = new FileReader();
                     reader.readAsDataURL(file[0]);
                     reader.onload = (_event) => {
-                        var imgURL = reader.result;
+                        const imgURL = reader.result;
                         fileObj['imgURL'] = imgURL;
-                    }
-                    let fileObj = e.target.files;
+                    };
+                    const fileObj = e.target.files;
                     fileObj['isNew'] = true;
                     fileObj['fileID'] = '_' + Math.random().toString(36).substr(2, 9);
-                    this.varients[this.currentVarientIndex].files.push(fileObj);
-
+                    if (type == 'featured_image') {
+                        this.varients[this.currentVarientIndex]['featured_image'] = fileObj;
+                    } else {
+                        this.varients[this.currentVarientIndex].files[index] = fileObj;
+                    }
                 }
             }
         }
     }
     iterateFiles() {
-        this.varients[this.currentVarientIndex].files.forEach(ele => {
+        const currentVarient = this.varients[this.currentVarientIndex];
+        if (currentVarient['featured_image'] && currentVarient['featured_image']['isNew']) {
+            this.uploadImage(currentVarient['featured_image'], 'featured_image');
+        }
+        this.varients[this.currentVarientIndex].files.forEach((ele) => {
             if (ele['imgURL'] && ele['isNew']) {
                 this.uploadImage(ele);
             }
         });
+        // if(!this.newProduct){
+        //     const selectedVariant = this.varients[this.currentVarientIndex];
+        //     selectedVariant.rc_batch_id = parseInt(this.rc_batch_id);
+        //     selectedVariant.variant_id = 1;
+        //     if (selectedVariant['product_weight_variant_id']) {
+        //         this.services
+        //             .updateProductWeightVarients(this.roasterId, this.productId, selectedVariant, selectedVariant['product_weight_variant_id'])
+        //             .subscribe((res) => {
+        //                 if(this.deleteFileIDs && this.deleteFileIDs.length > 0){
+        //                     this.deleteFileIDs.forEach(item =>{
+        //                         this.deleteFileFromServer(item);
+        //                     });
+        //                 }
+        //             }, err =>{
+        //                 this.toaster.success("Error while updating the images.")
+        //             });
+        //     }
+        // }
     }
-    async uploadImage(fileObj) {
-        let fileList: FileList = fileObj;
-        let file: File = fileList[0];
-        const UploadedFile = await this.services
-            .uploadProductImage(this.roasterId, file)
-            .toPromise();
+    async deleteFileFromServer(fileID) {
+        const deleteFile = await this.services.deleteProductImage(this.roasterId, fileID).toPromise();
+        return deleteFile;
+    }
+
+    async uploadImage(fileObj, type?) {
+        const fileList: FileList = fileObj;
+        const file: File = fileList[0];
+        const UploadedFile = await this.services.uploadProductImage(this.roasterId, file).toPromise();
         if (UploadedFile.success) {
-            if (!this.varients[this.currentVarientIndex].files) {
-                this.varients[this.currentVarientIndex].files = [];
+            if (type == 'featured_image') {
+                this.varients[this.currentVarientIndex]['featured_image_id'] = UploadedFile.result.id;
+            } else {
+                if (!this.varients[this.currentVarientIndex].files) {
+                    this.varients[this.currentVarientIndex].files = [];
+                }
+                this.varients[this.currentVarientIndex].product_images.push(UploadedFile.result.id);
+                let foundObj = this.varients[this.currentVarientIndex].files.find(
+                    (ele) => ele['fileID'] == fileObj['fileID'],
+                );
+                if (foundObj) {
+                    foundObj = UploadedFile.result;
+                }
             }
-            this.varients[this.currentVarientIndex].product_images.push(UploadedFile.result.id);
-            let foundObj = this.varients[this.currentVarientIndex].files.find(ele => ele['fileID'] == fileObj['fileID']);
-            if (foundObj) {
-                foundObj = UploadedFile.result;
-            }
+
             //this.varients[this.currentVarientIndex].files.push(UploadedFile.result);
         }
     }
-    deleteImage(file) {
-        if (file['image_id']) {
-            let getIDIndex = this.varients[this.currentVarientIndex].product_images.indexOf(file['image_id']);
-            if (getIDIndex || getIDIndex == 0) {
-                this.varients[this.currentVarientIndex].product_images.splice(getIDIndex, 1);
+    triggerInputEdit(inputID) {
+        const fileID = '#' + inputID;
+        $(fileID).trigger('click');
+    }
+    deleteImage(file, index, type?) {
+        if (type == 'feature_image') {
+            if (file && file['image_id']) {
+                this.deleteFileIDs.push(file['image_id']);
+            }
+            this.varients[this.currentVarientIndex]['featured_image'] = null;
+            this.varients[this.currentVarientIndex]['featured_image_id'] = '';
+        } else {
+            this.varients[this.currentVarientIndex].files[index] = { isEmpty: true };
+            if (file['image_id']) {
+                this.varients[this.currentVarientIndex].product_images.splice(index, 1);
+                this.deleteFileIDs.push(file['image_id']);
             }
         }
-        let getIndex = this.varients[this.currentVarientIndex].files.indexOf(file);
-        this.varients[this.currentVarientIndex].files.splice(getIndex, 1);
     }
 }

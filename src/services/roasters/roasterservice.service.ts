@@ -849,6 +849,13 @@ export class RoasterserviceService {
     data.append("name", n.toString());
     return this.http.post(this.fileuploadUrl, data).pipe(map((res) => res));
   }
+  deleteProductImage(roaster_id:any, file_id:any): Observable<any> {
+    let data = {};
+    data['api_call'] = `/ro/${roaster_id}/file-manager/files/${file_id}`;
+    data["method"] = "DELETE";
+    data["token"] = this.cookieService.get("Auth");
+    return this.http.post(this.url, data).pipe(map((res) => res));
+  }
   //E-com APIs-ends
 
   //Get Procured Coffees List
