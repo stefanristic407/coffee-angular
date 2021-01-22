@@ -1,0 +1,650 @@
+<section>
+    <div class="bg-fff">
+        <div class="git-status"></div>
+        <section class="sourcing-main">
+            <div class="row clearfix">
+                <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6">
+                    <div class="sourcing-border sourcing-top-width d-md-flex">
+                        <div
+                            class="d-inline filter-set space-width"
+                            id="origin_id"
+                            [outsideClick]="true"
+                            (onShown)="toggleOrigin()"
+                            (onHidden)="toggleOrigin()"
+                            [popover]="originTemplate"
+                            placement="bottom"
+                            container="body"
+                            #pop2="bs-popover"
+                        >
+                            <p class="d-inline select-origin" *ngIf="queryParams.origin == ''">
+                                {{ globals.languageJson?.select_origin }}&nbsp;&nbsp;
+                            </p>
+                            <a class="pointer-item arrow-spacing">
+                                <p class="d-inline filter" *ngIf="queryParams.origin == ''">
+                                    &nbsp; <img src="assets/images/active-user.svg" />
+                                </p>
+                            </a>
+                            <a class="pointer-item arrow-spacing" *ngIf="queryParams.origin != ''">
+                                <p class="d-inline filter">
+                                    {{ queryParams.origin }} &nbsp;<img class="" src="assets/images/active-user.svg" />
+                                </p>
+                            </a>
+                        </div>
+
+                        <div
+                            class="d-inline filter-set space-width"
+                            [outsideClick]="true"
+                            id="variety_id"
+                            (onShown)="toggleVariety()"
+                            (onHidden)="toggleVariety()"
+                            [popover]="VarietyTemplate"
+                            placement="bottom"
+                            container="body"
+                            #pop11="bs-popover"
+                        >
+                            <p class="d-inline add-variety" *ngIf="queryParams.variety == ''">
+                                {{ globals.languageJson?.add_variety }}&nbsp;&nbsp;
+                            </p>
+                            <a class="pointer-item arrow-spacing">
+                                <p class="d-inline filter" *ngIf="queryParams.variety == ''">
+                                    &nbsp; <img src="assets/images/active-user.svg" />
+                                </p>
+                            </a>
+                            <!-- <p class="d-inline add-variety" *ngIf="variety != ''">{{variety}}&nbsp;&nbsp;</p> -->
+                            <a class="pointer-item arrow-spacing">
+                                <p class="d-inline filter" *ngIf="queryParams.variety != ''">
+                                    {{ queryParams.variety }}&nbsp;<img class="" src="assets/images/active-user.svg" />
+                                </p>
+                            </a>
+                        </div>
+
+                        <input
+                            class="d-inline search-name filter-set fadout-search"
+                            type="text"
+                            name="sourcingName"
+                            id="sourcingName"
+                            [(ngModel)]="queryParams.name"
+                            (change)="setName($event.target.value)"
+                            placeholder="{{ globals.languageJson?.search_by_name }}"
+                        />
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-md-block d-none">
+                    <div class="pull-right">
+                        <button class="btn see-green-coffee">See My Green Coffee</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-3 pt-md-4 pb-md-4">
+                <div class="title-header">
+                    <p-dropdown
+                        [options]="gradeItems"
+                        [(ngModel)]="queryParams.grade"
+                        optionLabel="label"
+                        optionValue="value"
+                        (onChange)="filterCall()"
+                        placeholder="Grade"
+                        class="round-border mr-2"
+                    ></p-dropdown>
+                    <div class="hover-filters d-inline-block">
+                        <div
+                            class="d-inline border-grade col-sm-6"
+                            id="crop_id"
+                            [outsideClick]="true"
+                            (onShown)="toggleCrop()"
+                            (onHidden)="toggleCrop()"
+                            [popover]="cropTemplate"
+                            placement="bottom"
+                            container="body"
+                            #pop6="bs-popover"
+                        >
+                            <p class="d-inline filter-text" *ngIf="queryParams.crop_year == ''">
+                                {{ globals.languageJson?.crop_year }}&nbsp;
+                            </p>
+                            <a class="pointer-item">
+                                <p class="d-inline filter" *ngIf="queryParams.crop_year == ''">
+                                    &nbsp;
+                                    <img
+                                        src="{{
+                                            showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
+                                </p>
+                            </a>
+                            <a class="pointer-item">
+                                <p class="d-inline filter" *ngIf="queryParams.crop_year != ''">
+                                    {{ queryParams.crop_year }} &nbsp;<img
+                                        src="{{
+                                            showCrop ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hover-filters d-inline-block">
+                        <div class="d-inline border-grade col-sm-6" (click)="openModal(filterTemplate)">
+                            <p class="d-inline filter-text">{{ globals.languageJson?.more_filters }}&nbsp;</p>
+                            <a class="pointer-item">
+                                <p class="d-inline filter">&nbsp; <img src="assets/images/down-arrow.svg" /></p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hover-filters d-inline-block">
+                        <div class="d-inline border-grade col-sm-6" id="weight_id">
+                            <a
+                                class="pointer-item"
+                                [outsideClick]="true"
+                                (onShown)="toggleWeight()"
+                                (onHidden)="toggleWeight()"
+                                [popover]="weightTemplate"
+                                placement="bottom"
+                                container="body"
+                                #pop8="bs-popover"
+                            >
+                                <p class="d-inline filter" *ngIf="queryParams.weight != ''">
+                                    {{ queryParams.weight }} &nbsp;<img
+                                        src="{{
+                                            showWeight ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sourcing-panel">
+                <section id="tabs">
+                    <div class="source-cont">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="filter-sort d-none d-md-block">
+                                    <div class="hover-filters d-inline-block">
+                                        <div
+                                            class="d-inline border-grade col-12 col-md-6 mr-md-2 mr-3"
+                                            id="sort_id"
+                                            [outsideClick]="true"
+                                            (onShown)="toggleSort()"
+                                            (onHidden)="toggleSort()"
+                                            [popover]="sortTemplate"
+                                            placement="bottom"
+                                            container="body"
+                                            #pop10="bs-popover"
+                                        >
+                                            <p class="d-inline filter-text" *ngIf="queryParams.sort == ''">
+                                                {{ globals.languageJson?.sort_by }}&nbsp;
+                                            </p>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter" *ngIf="queryParams.sort == ''">
+                                                    &nbsp;
+                                                    <img
+                                                        src="{{
+                                                            showSort
+                                                                ? 'assets/images/down-arrow.svg'
+                                                                : 'assets/images/user-down.svg'
+                                                        }}"
+                                                    />
+                                                </p>
+                                            </a>
+                                            <a class="pointer-item">
+                                                <p class="d-inline filter" *ngIf="queryParams.sort != ''">
+                                                    {{ queryParams.sort }}&nbsp;<img
+                                                        src="{{
+                                                            showSort
+                                                                ? 'assets/images/down-arrow.svg'
+                                                                : 'assets/images/user-down.svg'
+                                                        }}"
+                                                    />
+                                                </p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a class="btn-switch remove-toggle">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="14"
+                                                height="10"
+                                                viewBox="0 0 14 10"
+                                            >
+                                                <path
+                                                    fill="#FFF"
+                                                    d="M13.25 8c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 8 3.75 8h9.5zM.75 8c.414 0 .75.336.75.75s-.336.75-.75.75S0 9.164 0 8.75.336 8 .75 8zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5c-.414 0-.75-.336-.75-.75S3.336 4 3.75 4h9.5zM.75 4c.414 0 .75.336.75.75s-.336.75-.75.75S0 5.164 0 4.75.336 4 .75 4zm12.5-4c.414 0 .75.336.75.75s-.336.75-.75.75h-9.5C3.336 1.5 3 1.164 3 .75S3.336 0 3.75 0h9.5zM.75 0c.414 0 .75.336.75.75s-.336.75-.75.75S0 1.164 0 .75.336 0 .75 0z"
+                                                />
+                                            </svg>
+                                        </a>
+                                        <div class="btn-group">
+                                            <a class="btn-switch activate-toggle active">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="13"
+                                                    height="13"
+                                                    viewBox="0 0 13 13"
+                                                >
+                                                    <path
+                                                        fill="#232334"
+                                                        d="M12.387 7.195c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V7.808c0-.338.275-.613.613-.613zm-7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 13 0 12.725 0 12.387V7.808c0-.338.275-.613.613-.613zm6.582 1.226H8.42v3.353h3.353V8.42zm-7.195 0H1.226v3.353H4.58V8.42zM5.192 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H.613C.275 5.805 0 5.53 0 5.192V.613C0 .275.275 0 .613 0zm7.195 0c.338 0 .613.275.613.613v4.579c0 .338-.275.613-.613.613H7.808c-.338 0-.613-.275-.613-.613V.613c0-.338.275-.613.613-.613zM4.579 1.226H1.226V4.58H4.58V1.226zm7.195 0H8.42V4.58h3.353V1.226z"
+                                                    />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 mb-md-4">
+                                    <p-tabMenu [model]="menuItems"></p-tabMenu>
+                                </div>
+                                <div class="mb-4">
+                                    <router-outlet></router-outlet>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+</section>
+
+<ng-template #originTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <label class="customcheckbox flavour-text">
+                    <input
+                        type="checkbox"
+                        class="listCheckbox"
+                        name="filter-check"
+                        value=""
+                        [checked]="filterOrigin.includes('se')"
+                        (click)="selectOrigin($event, 'se')"
+                    />
+                    <span class="checkmark head-check"></span>
+                    Sweden
+                </label>
+            </li>
+            <li class="list-group-item item-color">
+                <label class="customcheckbox flavour-text">
+                    <input
+                        type="checkbox"
+                        class="listCheckbox"
+                        name="filter-check"
+                        value=""
+                        [checked]="filterOrigin.includes('IN')"
+                        (click)="selectOrigin($event, 'IN')"
+                    />
+                    <span class="checkmark head-check"></span>
+                    India
+                </label>
+            </li>
+        </ul>
+        <div class="top-origin-border p-3">
+            <a class="pull-left clear-filter mb-2 cursor-item" (click)="clearFilter(); pop2.hide()">Clear</a>
+            <button
+                type="submit"
+                class="btn pull-right apply-filter mb-2"
+                (click)="setFilterValue('origin', filterOrigin); pop2.hide()"
+            >
+                Apply Filter
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #weightTemplate>
+    <div id="status-content">
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color" (click)="setWeight('kg'); pop8.hide()">
+                <a class="pointer-item">kg</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setWeight('lb'); pop8.hide()">
+                <a class="pointer-item">lb</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+
+<ng-template #cropTemplate>
+    <div>
+        <ul class="list-group custom-popover">
+            <!-- <li class="list-group-item item-color" (click)="setCrop(''); pop6.hide(); "><a class="pointer-item">All</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('March - June'); pop6.hide(); "><a class="pointer-item">March - June</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('Jan - March'); pop6.hide(); "><a class="pointer-item">Jan - March</a></li>
+            <li class="list-group-item item-color" (click)="setCrop('August - Dec'); pop6.hide(); "><a class="pointer-item">August - Dec</a></li> -->
+
+            <li class="list-group-item item-color" (click)="setCrop('1'); pop6.hide()">
+                <a class="pointer-item">January</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('2'); pop6.hide()">
+                <a class="pointer-item">February</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('3'); pop6.hide()">
+                <a class="pointer-item">March</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('4'); pop6.hide()">
+                <a class="pointer-item">April</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('5'); pop6.hide()">
+                <a class="pointer-item">May</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('6'); pop6.hide()">
+                <a class="pointer-item">June</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('7'); pop6.hide()">
+                <a class="pointer-item">July</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('8'); pop6.hide()">
+                <a class="pointer-item">August</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('9'); pop6.hide()">
+                <a class="pointer-item">September</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('10'); pop6.hide()">
+                <a class="pointer-item">October</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('11'); pop6.hide()">
+                <a class="pointer-item">November</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setCrop('12'); pop6.hide()">
+                <a class="pointer-item">December</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+
+<ng-template #sortTemplate>
+    <div>
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color" (click)="setSort('Name (A-Z)'); pop10.hide()">
+                <a class="pointer-item">Name (A-Z)</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setSort('Recently added'); pop10.hide()">
+                <a class="pointer-item">Recently added</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setSort('Cup score'); pop10.hide()">
+                <a class="pointer-item">Cup score (High-Low)</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setSort('Price'); pop10.hide()">
+                <a class="pointer-item">Price (High - low)</a>
+            </li>
+            <li class="list-group-item item-color" (click)="setSort('Quantity'); pop10.hide()">
+                <a class="pointer-item">Quantity (High- Low)</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+
+<ng-template #VarietyTemplate>
+    <div>
+        <ul class="list-group custom-popover">
+            <li class="list-group-item item-color">
+                <label class="customcheckbox flavour-text">
+                    <input
+                        type="checkbox"
+                        class="listCheckbox"
+                        name="filter-check"
+                        value=""
+                        [checked]="filterVariety.includes('Bourbon')"
+                        (click)="selectVariety($event, 'Bourbon')"
+                    />
+                    <span class="checkmark head-check"></span>
+                    Bourbon
+                </label>
+            </li>
+            <li class="list-group-item item-color">
+                <label class="customcheckbox flavour-text">
+                    <input
+                        type="checkbox"
+                        class="listCheckbox"
+                        name="filter-check"
+                        value=""
+                        [checked]="filterVariety.includes('Castillo')"
+                        (click)="selectVariety($event, 'Castillo')"
+                    />
+                    <span class="checkmark head-check"></span>
+                    Castillo
+                </label>
+            </li>
+            <li class="list-group-item item-color">
+                <label class="customcheckbox flavour-text">
+                    <input
+                        type="checkbox"
+                        class="listCheckbox"
+                        name="filter-check"
+                        value=""
+                        [checked]="filterVariety.includes('Arabica')"
+                        (click)="selectVariety($event, 'Arabica')"
+                    />
+                    <span class="checkmark head-check"></span>
+                    Arabica
+                </label>
+            </li>
+        </ul>
+        <div class="top-origin-border p-3">
+            <a class="pull-left clear-filter mb-2 cursor-item" (click)="clearFilter(); pop11.hide()">Clear</a>
+            <button
+                type="submit"
+                class="btn pull-right apply-filter mb-2"
+                (click)="setFilterValue('variety', filterVariety); pop11.hide()"
+            >
+                Apply Filter
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #filterTemplate>
+    <div class="modal-header mt-3">
+        <h2 class="more-heading">More filters</h2>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <img class="close-svg" src="/assets/images/close.svg" alt="" />
+        </button>
+    </div>
+    <div class="modal-body mb-3">
+        <div class="border-filter altitude-heading mb-1">Altitude Range</div>
+        <div class="row pb-4">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-5 d-flex">
+                <div class="meter-border">
+                    <input type="text" placeholder="" name="" class="col-12 search-div" />
+                    <span class="meter-data">m</span>
+                </div>
+                <div class="to-heading to-space">to</div>
+                <div class="meter-border">
+                    <input type="text" placeholder="" name="" class="col-12 search-div" />
+                    <span class="meter-data">m</span>
+                </div>
+            </div>
+        </div>
+        <div class="border-filter flavour-profile">Flavour profile (A-Z)</div>
+        <div class="w-100% popup-filter pt-4">
+            <ul class="clearfix mb-3">
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Juicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Fruity
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Spicy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Jammy
+                    </label>
+                </li>
+                <div class="load-more pb-2">Load More</div>
+            </ul>
+        </div>
+        <div class="listing-status border-filter">Listing status</div>
+        <div class="w-100% popup-filter pt-4">
+            <ul class="clearfix mb-0">
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        At Estate
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        At mill
+                    </label>
+                </li>
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Warehouse
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div class="certificates border-filter">Certificates</div>
+        <div class="w-100% pt-4 pb-3">
+            <ul class="mb-0">
+                <li>
+                    <label class="customcheckbox flavour-text">
+                        <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
+                        <span class="checkmark head-check"></span>
+                        Show listings with certificates
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="border-filter">
+            <button type="submit" class="btn pull-right save-filter">Save</button>
+        </div>
+    </div>
+</ng-template>

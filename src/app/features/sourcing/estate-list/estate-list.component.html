@@ -1,0 +1,49 @@
+<div class="cardpanel-detail">
+    <div class="row">
+        <div *ngFor="let item of estateData" class="col-12 col-md-4 mb-3 mb-md-4">
+            <app-estate-card [data]="item"></app-estate-card>
+        </div>
+    </div>
+</div>
+
+<div class="table-details br-main br-4 p-1" style="display: none">
+    <p-table [value]="estateData" [resizableColumns]="true" [autoLayout]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ globals.languageJson?.estate_name }}</th>
+                <th>{{ globals.languageJson?.rating }}</th>
+                <th>{{ globals.languageJson?.origin }}</th>
+                <th>{{ globals.languageJson?.altitude_range }}</th>
+                <th>{{ globals.languageJson?.crop_year }}</th>
+                <th>{{ globals.languageJson?.lots }}</th>
+                <th>{{ globals.languageJson?.certificates }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{ item.name }}</td>
+                <td><span class="fa fa-star checked pr-2"></span>{{ item.rating }}</td>
+                <td>{{ item['country'] || 'NA' }}</td>
+                <td>{{ item['altitude']['gte'] }}-{{ item['altitude']['lte'] }}m</td>
+                <td>{{ GetMonthName(item['crop_year']['gte']) }}-{{ GetMonthName(item['crop_year']['lte']) }}</td>
+                <td>
+                    <a *ngFor="let lotdata of item.lots | slice: 0:3" class="custom-link" href="">
+                        {{ lotdata.name }}
+                    </a>
+                    <a
+                        *ngIf="item.lots?.length > 3"
+                        class="custom-link"
+                        routerLink="/features/estate-details/{{ item.estate_id }}"
+                        [queryParams]="{ dataLots: true }"
+                        >+{{ item.lots?.length - 3 }}more</a
+                    >
+                </td>
+                <td>
+                    <span *ngFor="let cert of item.certificates | slice: 0:2">
+                        <img class="cert-image ml-3" [src]="cert.image_url" />
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -8,10 +8,14 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -23,6 +27,9 @@ import { SoilChartComponent } from './components/remote-sensoring/soil-chart/soi
 import { UvChartComponent } from './components/remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './components/remote-sensoring/vegetation-chart/vegetation-chart.component';
 import { ImageMapComponent } from './components/remote-sensoring/image-map/image-map.component';
+import { HarvestCardComponent } from './components/harvest-card/harvest-card.component';
+import { EstateCardComponent } from './components/estate-card/estate-card.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 // #region material
 const MATMODULES = [];
@@ -35,12 +42,16 @@ const THIRDMODULES = [
     AutoCompleteModule,
     CalendarModule,
     CheckboxModule,
+    DropdownModule,
+    InputTextModule,
     SelectButtonModule,
+    TableModule,
     TabMenuModule,
     TabViewModule,
     ChartAllModule,
     AccumulationChartAllModule,
     RangeNavigatorAllModule,
+    NgxChartsModule,
 ];
 // #endregion
 
@@ -57,6 +68,10 @@ const COMPONENTS = [
     UvChartComponent,
     VegetationChartComponent,
     ImageMapComponent,
+    HarvestCardComponent,
+    BlankComponent,
+    EstateCardComponent,
+    PieChartComponent,
 ];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];
@@ -77,7 +92,6 @@ const DIRECTIVES = [];
         ...COMPONENTS,
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
-        BlankComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

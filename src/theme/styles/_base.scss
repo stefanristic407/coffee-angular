@@ -467,7 +467,8 @@ input[type='number'] {
     background-color: #f8f8f8;
 }
 
-.custom-link {
+// link with arrow
+.arrow-link {
     color: #80460b;
     font-size: 12px;
     font-weight: 700;
@@ -497,6 +498,24 @@ input[type='number'] {
             height: 16px;
             top: 1px;
         }
+    }
+}
+
+// link without arrow
+.custom-link {
+    color: #80460b;
+    font-size: 12px;
+    font-weight: 700;
+    position: relative;
+    padding-right: 16px;
+
+    &:hover {
+        color: #80460b;
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        font-size: 14px;
     }
 }
 

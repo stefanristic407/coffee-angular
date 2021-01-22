@@ -9,9 +9,9 @@
                             <ul class="bread-nav">
                                 <li class="b-cum">
                                     <a class="b-cum"
-                                        routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span
-                                        class="padl-r" aria-hidden="true"><img class="group-img"
-                                            src="/assets/images/arrow-1.png" alt=""></span>
+                                       routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span
+                                          class="padl-r" aria-hidden="true"><img class="group-img"
+                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li>
                                 <!-- <li class="b-cum">
                                     <a class="b-cum" routerLink="/ordermanagement/">{{globals.languageJson?.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
@@ -19,8 +19,8 @@
                                 </li> -->
                                 <li class="b-cum">
                                     <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span
-                                        class="padl-r" aria-hidden="true"> <img class="group-img"
-                                            src="/assets/images/arrow-1.png" alt=""> </span>
+                                          class="padl-r" aria-hidden="true"> <img class="group-img"
+                                             src="/assets/images/arrow-1.png" alt=""> </span>
                                 </li>
                                 <li class="b-cum c-pink">{{globals.languageJson?.order}} #{{orderBookId}}
                                 </li>
@@ -43,7 +43,8 @@
                             <div class="col-md-6 pl-0 pr-0">
                                 <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}}
                                     #{{orderBookId}} <span
-                                        class="booked booked--green ml-2">{{globals.languageJson?.booked}}</span></div>
+                                          class="booked booked--green ml-2">{{globals.languageJson?.booked}}</span>
+                                </div>
 
                                 <!-- <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div> -->
                             </div>
@@ -64,16 +65,16 @@
                                             <div class="order-tracking">
                                                 <span class="is-complete "></span>
                                                 <div
-                                                    class="text-md-center ml-2 ml-md-0 order-tracking__mb-text mt-order-0">
+                                                     class="text-md-center ml-2 ml-md-0 order-tracking__mb-text mt-order-0">
                                                     <p class="order-status mt-2 mb-1  " (click)="orderPlaceBooked()"
-                                                        matTooltip="Order placed" matTooltipClass="tooltiptext"
-                                                        #orderPlacedBooked style="color: #000000;font-weight: bold;">
+                                                       matTooltip="Order placed" matTooltipClass="tooltiptext"
+                                                       #orderPlacedBooked style="color: #000000;font-weight: bold;">
                                                         Order placed
                                                     </p>
                                                     <p class="order-date mb-0  "
-                                                        matTooltip="Estate + facilitator Notified"
-                                                        matTooltipClass="tooltiptext" matTooltip=""
-                                                        matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
+                                                       matTooltip="Estate + facilitator Notified"
+                                                       matTooltipClass="tooltiptext" matTooltip=""
+                                                       matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="confirmDivBooked">
@@ -81,10 +82,10 @@
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
 
                                                     <p class="order-status mt-2 mb-1  " (click)="orderConfirmBooked()"
-                                                        #orderConfirmedBooked matTooltip="Order Confirmed"
-                                                        matTooltipClass="tooltiptext">Order Confirmed</p>
+                                                       #orderConfirmedBooked matTooltip="Order Confirmed"
+                                                       matTooltipClass="tooltiptext">Order Confirmed</p>
                                                     <p class="order-datecolor mb-0  " *ngIf="confirmReport"
-                                                        matTooltip="View sample-1 report" matTooltipClass="tooltiptext">
+                                                       matTooltip="View sample-1 report" matTooltipClass="tooltiptext">
                                                         View sample-1 report
                                                     </p>
                                                 </div>
@@ -93,10 +94,10 @@
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
                                                     <p class="order-status mt-2 mb-1  " (click)="paymentStatusBooked()"
-                                                        matTooltip="Payment" matTooltipClass="tooltiptext"
-                                                        #paymentBooked>Payment</p>
+                                                       matTooltip="Payment" matTooltipClass="tooltiptext"
+                                                       #paymentBooked>Payment</p>
                                                     <p class="order-datecolor  mb-0  " matTooltip="View Reciept"
-                                                        matTooltipClass="tooltiptext" *ngIf="paymentReceipt">View
+                                                       matTooltipClass="tooltiptext" *ngIf="paymentReceipt">View
                                                         Reciept
                                                     </p>
                                                 </div>
@@ -105,10 +106,10 @@
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
                                                     <p class="order-status mt-2 mb-1  " (click)="shipmentStatusBooked()"
-                                                        matTooltip="Shipped" matTooltipClass="tooltiptext"
-                                                        #shippmentBooked>Shipped</p>
+                                                       matTooltip="Shipped" matTooltipClass="tooltiptext"
+                                                       #shippmentBooked>Shipped</p>
                                                     <p class="order-date  mb-0  " matTooltip="20 Feb 2020"
-                                                        matTooltipClass="tooltiptext" *ngIf="shippmentReport">20 Feb
+                                                       matTooltipClass="tooltiptext" *ngIf="shippmentReport">20 Feb
                                                         2020</p>
                                                 </div>
                                             </div>
@@ -116,26 +117,27 @@
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
                                                     <p class="order-status mt-2 mb-1  " (click)="receivedStatusBooked()"
-                                                        matTooltip="Recieved" matTooltipClass="tooltiptext"
-                                                        #receivedBooked>Received</p>
+                                                       matTooltip="Recieved" matTooltipClass="tooltiptext"
+                                                       #receivedBooked>Received</p>
                                                     <p class="order-date  mb-0  " *ngIf="receivedReport"
-                                                        matTooltip="1 March 2020" matTooltipClass="tooltiptext">
-                                                        {{globals.ord_received_date | date : 'd MMMM y'}}</p>
+                                                       matTooltip="1 March 2020" matTooltipClass="tooltiptext">
+                                                        {{globals.ord_received_date | date : 'd MMMM y'}}
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="gradedDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
                                                     <p class="order-status  mt-2 mb-1  " (click)="gradedStatusBooked()"
-                                                        matTooltip="Graded by Roaster" matTooltipClass="tooltiptext"
-                                                        #gradedBooked>Graded by Roaster</p>
+                                                       matTooltip="Graded by Roaster" matTooltipClass="tooltiptext"
+                                                       #gradedBooked>Graded by Roaster</p>
 
                                                     <label class="date-ur mb-0  " *ngIf="uploadReport"
-                                                        matTooltip="Upload report" matTooltipClass="tooltiptext"
-                                                        (click)="uploader.click()">Upload report</label>
+                                                           matTooltip="Upload report" matTooltipClass="tooltiptext"
+                                                           (click)="uploader.click()">Upload report</label>
                                                     <input hidden type="file" #uploader />
                                                     <p class="date-ur mb-0  " matTooltip="View report"
-                                                        matTooltipClass="tooltiptext" *ngIf="gradedReport">View report
+                                                       matTooltipClass="tooltiptext" *ngIf="gradedReport">View report
                                                     </p>
                                                 </div>
                                             </div>
@@ -157,11 +159,12 @@
                                 <div class="confirm-grade">The order will be marked as complete then</div>
                                 <!-- <button type="submit" class="yes-txt btn mt-3" (click)="receivedShippment()">Yes i have</button> -->
                                 <button type="submit" class="leave-feedback btn mt-3"
-                                    (click)="bookedService.leaveFeedback(orderBookId)">Leave a feedback </button>
+                                        (click)="bookedService.leaveFeedback(orderBookId)">Leave a feedback </button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                                 <button type="submit" class="yes-order btn mt-3 yes-i-have"
-                                    (click)="receivedShippment()">{{globals.languageJson?.yes_i_have}} </button><br />
+                                        (click)="receivedShippment()">{{globals.languageJson?.yes_i_have}}
+                                </button><br />
                                 <button type="submit" class="cancel-order no-havent-booked btn mt-3">No I
                                     haven’t</button>
 
@@ -190,14 +193,14 @@
                                 <div class="confirm-grade">Please Rate and Review the estate and facilitator to help us
                                     expand as a transparent community!</div>
                                 <button type="submit" class="cancel-order btn mt-3"
-                                    (click)="bookedService.leaveFeedback(orderBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
+                                        (click)="bookedService.leaveFeedback(orderBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
 
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                                 <button type="submit" class="yes-order leave-feedback-booked btn mt-3"
-                                    (click)="bookedService.leaveFeedback(orderBookId)">Leave a feedback</button>
+                                        (click)="bookedService.leaveFeedback(orderBookId)">Leave a feedback</button>
                                 <button type="submit" class="cancel-order btn mt-3"
-                                    routerLink="/features/sourcing">{{globals.languageJson?.browse_estates}}</button>
+                                        routerLink="/features/sourcing">{{globals.languageJson?.browse_estates}}</button>
                             </div>
                             <!-- </div> -->
                         </div>
@@ -213,14 +216,15 @@
                                 <div class="confirm-grade">as a transparent community!</div>
                                 <button type="submit" class="yes-txt btn mt-3">{{globals.languageJson?.buy_it}}</button>
                                 <button type="submit"
-                                    class="cancel-order btn mt-3 ml-3">{{globals.languageJson?.browse_estates}}</button>
+                                        class="cancel-order btn mt-3 ml-3">{{globals.languageJson?.browse_estates}}</button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
                                 <button type="submit" class="cancel-order btn mt-3"
-                                    routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
+                                        routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
                                 <button *ngIf="bookedService.order_status !== 'RECEIVED'" type="submit"
-                                    class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support"
-                                    [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}} </button>
+                                        class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support"
+                                        [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -239,47 +243,47 @@
                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                role="tab" aria-controls="pills-home"
-                                aria-selected="true">{{globals.languageJson?.order_details}}</a>
+                               role="tab" aria-controls="pills-home"
+                               aria-selected="true">{{globals.languageJson?.order_details}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                role="tab" aria-controls="pills-profile"
-                                aria-selected="false">{{globals.languageJson?.documents}}</a>
+                               role="tab" aria-controls="pills-profile"
+                               aria-selected="false">{{globals.languageJson?.documents}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-                                role="tab" (click)="onClickGradeInfoTab()" aria-controls="pills-contact"
-                                aria-selected="false">{{globals.languageJson?.grade_info}}</a>
+                               role="tab" (click)="onClickGradeInfoTab()" aria-controls="pills-contact"
+                               aria-selected="false">{{globals.languageJson?.grade_info}}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="pills-shipping-tab" data-toggle="pill" href="#pills-shipping"
-                                role="tab" aria-controls="pills-shipping" aria-selected="false">Shipping</a>
+                               role="tab" aria-controls="pills-shipping" aria-selected="false">Shipping</a>
                         </li>
 
                         <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button
-                                *ngIf="bookedService.order_status !== 'RECEIVED'" type="button" class="btn problem-btn"
-                                routerLink="/ordermanagement/order-support"
-                                [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}</button>
+                                    *ngIf="bookedService.order_status !== 'RECEIVED'" type="button"
+                                    class="btn problem-btn" routerLink="/ordermanagement/order-support"
+                                    [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}</button>
                         </li>
 
                     </ul>
                     <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
                         <button *ngIf="bookedService.order_status !== 'RECEIVED'" type="button" class="btn problem-btn"
-                            routerLink="/ordermanagement/order-support"
-                            [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}</button>
+                                routerLink="/ordermanagement/order-support"
+                                [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}</button>
                     </div>
                     <div class="tab-content mt-md-5" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                            aria-labelledby="pills-home-tab">
+                             aria-labelledby="pills-home-tab">
                             <app-booked-order-details></app-booked-order-details>
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                            aria-labelledby="pills-profile-tab">
+                             aria-labelledby="pills-profile-tab">
                             <sewn-booked-documents></sewn-booked-documents>
                         </div>
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
-                            aria-labelledby="pills-contact-tab">
+                             aria-labelledby="pills-contact-tab">
                             <div class="row">
 
                                 <app-booked-grade-info></app-booked-grade-info>
@@ -287,7 +291,7 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-shipping" role="tabpanel"
-                            aria-labelledby="pills-shipping-tab">
+                             aria-labelledby="pills-shipping-tab">
                             <app-booked-shipping></app-booked-shipping>
                         </div>
                     </div>
@@ -344,7 +348,8 @@
                         {{bookedService['shipping_address']['address_line2']}},
                         {{bookedService['shipping_address']['zipcode']}} -
                         {{bookedService['shipping_address']['state']}},
-                        {{GetCountry(bookedService['shipping_address']['country'])}}</div>
+                        {{GetCountry(bookedService['shipping_address']['country'])}}
+                    </div>
                     <div class="d-flex mt-3">
                         <img class="img-logo" src="assets/images/google-image.png" alt="Map">
 
@@ -359,28 +364,26 @@
 
                     <div class="d-flex mt-3 border-div">
                         <div class="p-0"><img class="img-estate" [src]="bookedService.company_image_thumbnail_url"
-                                alt="User"></div>
+                                 alt="User"></div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
                                 <li class="estate-name">{{bookedService.owner_name}}</li>
                                 <li class="estate-number pt-1">
                                     <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
-                                            class="" src="assets/images/star-1.png" alt="User"> <span
-                                            class="star-no pl-1">{{bookedService.rating}}</span>
+                                             class="" src="assets/images/star-1.png" alt="User"> <span
+                                              class="star-no pl-1">{{bookedService.rating}}</span>
                                     </span>
                                 </li>
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
-                            <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
-
-                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg"
-                                    alt="Message">
-                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg"
-                                    alt="Message">
-                                <span class="estate-message pl-2"
-                                    [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
-
+                            <span class="bg-msg">
+                                <img class="message-icon message-icon-default" src="assets/images/message-icon.svg"
+                                     alt="Message">
+                                <img class="message-icon message-icon-active" src="assets/images/green-msg-icon.svg"
+                                     alt="Message">
+                                <span class="estate-message pl-2 ">Message</span>
+                            </span>
                         </div>
                     </div>
                     <table class="recent-time m-auto">
@@ -421,15 +424,13 @@
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
-                            <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
-
-                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg"
-                                    alt="Message">
-                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg"
-                                    alt="Message">
-                                <span class="estate-message pl-2"
-                                    [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
-
+                            <span class="bg-msg">
+                                <img class="message-icon message-icon-default" src="assets/images/message-icon.svg"
+                                     alt="Message">
+                                <img class="message-icon message-icon-active" src="assets/images/green-msg-icon.svg"
+                                     alt="Message">
+                                <span class="estate-message pl-2 ">Message</span>
+                            </span>
                         </div>
                     </div>
                     <div class="d-flex mt-3">
@@ -444,15 +445,14 @@
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
-                            <span class="bg-msg" (mouseenter)="greenIconShow=true" (mouseleave)="greenIconShow=false">
+                            <span class="bg-msg">
 
-                                <img class="message-icon" *ngIf="!greenIconShow" src="assets/images/message-icon.svg"
-                                    alt="Message">
-                                <img class="message-icon" *ngIf="greenIconShow" src="assets/images/green-msg-icon.svg"
-                                    alt="Message">
-                                <span class="estate-message pl-2"
-                                    [ngStyle]="{'color': greenIconShow ? 'green' : ''}">Message</span> </span>
-
+                                <img class="message-icon message-icon-default" src="assets/images/message-icon.svg"
+                                     alt="Message">
+                                <img class="message-icon message-icon-active" src="assets/images/green-msg-icon.svg"
+                                     alt="Message">
+                                <span class="estate-message pl-2 ">Message</span>
+                            </span>
                         </div>
 
                     </div>
@@ -474,7 +474,7 @@
                 <div class="w-100 col-lg-6 col-md-12 recent-activity-content">
                     <p class=" w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
                     <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2"
-                            src="assets/images/active.png"></p>
+                             src="assets/images/active.png"></p>
                     <!-- <div class="row w-100 activity-list">
                     <span class="col-md-3 list-time">
                             12:44pm
@@ -500,7 +500,7 @@
                             </span>
                         </div> -->
                     <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row"
-                        *ngFor="let activity of bookedService.recentactivityarray">
+                         *ngFor="let activity of bookedService.recentactivityarray">
                         <div class="d-none d-md-inline-block p-0">
                             <!-- <img class="img-estate" src="assets/images/activity1.png" alt="User"> -->
                             <p class="timing">{{activity.created_at | date : 'shortTime' }}</p>
@@ -514,10 +514,12 @@
 
                                 <li class="list-activity">
                                     <div
-                                        class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
-                                        {{activity.created_at | date : 'shortTime' }}</div>
+                                         class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
+                                        {{activity.created_at | date : 'shortTime' }}
+                                    </div>
                                     <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>
-                                        {{activity.status | titlecase}}</p>
+                                        {{activity.status | titlecase}}
+                                    </p>
 
                                 </li>
                             </ul>
@@ -543,8 +545,8 @@
             </div> -->
             <div class="w-100 chat-div">
                 <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                    routerLink="/ordermanagement/order-chat"
-                    [queryParams]="{id: orderBookId}">{{globals.languageJson?.order}} #{{orderBookId}}
+                        routerLink="/ordermanagement/order-chat"
+                        [queryParams]="{id: orderBookId}">{{globals.languageJson?.order}} #{{orderBookId}}
                     {{globals.languageJson?.chat}} <span class="chat-indicator">
                         &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
 

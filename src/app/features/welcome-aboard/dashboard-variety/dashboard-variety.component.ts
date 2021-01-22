@@ -9,18 +9,9 @@ import { WelcomeService } from '../welcome.service';
     styleUrls: ['./dashboard-variety.component.scss'],
 })
 export class DashboardVarietyComponent implements OnInit, OnDestroy {
-    public tooltip: any = {
-        enable: true,
-        format: '${point.x} : <b>${point.y}t</b>',
-    };
-    public chartData: any[] = [];
-    public legendSettings: any = {
-        visible: true,
-        position: 'Bottom',
-    };
-
     varieties: any;
     varietiesSub: Subscription;
+    chartData: any[] = [];
 
     constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 
@@ -41,9 +32,8 @@ export class DashboardVarietyComponent implements OnInit, OnDestroy {
         const tempData = [];
         this.varieties.variety_stats.forEach((element) => {
             tempData.push({
-                x: element.variety,
-                y: element.order_count,
-                text: `${element.variety}: ${element.available_quantity}`,
+                name: element.variety,
+                value: element.order_count,
             });
         });
         this.chartData = tempData;

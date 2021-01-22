@@ -43,7 +43,6 @@ export class OrderBookedComponent implements OnInit {
 	receivedReport: boolean = false;
 	gradedReport: boolean = false;
 	uploadReport: boolean = true;
-	greenIconShow: boolean = false;
 
 	dataFromTable: any;
 

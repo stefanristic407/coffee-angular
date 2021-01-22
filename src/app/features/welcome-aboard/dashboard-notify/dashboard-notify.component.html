@@ -13,7 +13,7 @@
                         <p class="fnt-14 fnt-normal fnt-muli text-gray588 mb-2 mb-md-4">
                             Raised by {{ disputes?.disputer_org_name || '' }} for Order #{{ disputes?.order_id || '' }}
                         </p>
-                        <a routerLink="/dispute" class="custom-link float-right float-md-left">See details</a>
+                        <a routerLink="/dispute" class="arrow-link float-right float-md-left">See details</a>
                     </ng-container>
                     <ng-template #noDispute>
                         <p class="fnt-18 fnt-bold fnt-muli text-black334 mb-1 mb-md-2">No Dispute Raised!</p>
@@ -39,7 +39,7 @@
                         <p class="fnt-14 fnt-normal fnt-muli text-gray588 mb-2 mb-md-4">
                             See what your contacts have to say!
                         </p>
-                        <a href="javascript:void(0)" class="start-messaging custom-link float-right float-md-left"
+                        <a href="javascript:void(0)" class="start-messaging arrow-link float-right float-md-left"
                             >Go to messages</a
                         >
                     </ng-container>

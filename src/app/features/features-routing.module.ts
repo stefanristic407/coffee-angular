@@ -69,13 +69,16 @@ import { VirtualTourComponent } from './roastery-profile/virtual-tour/virtual-to
 import { ContactComponent } from './roastery-profile/contact/contact.component';
 import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
 
+import { AvailableCoffeeListComponent } from './sourcing/available-coffee-list/available-coffee-list.component';
+import { AvailableConfirmOrderComponent } from './sourcing/available-coffee-list/available-confirm-order/available-confirm-order.component';
+import { OrderPlacedComponent } from './sourcing/available-coffee-list/order-placed/order-placed.component';
+import { EstateDetailsListComponent } from './sourcing/estate-details-list/estate-details-list.component';
+import { SourcingOrderChatComponent } from './sourcing/estate-details-list/sourcing-order-chat/sourcing-order-chat.component';
+import { SourcingComponent } from './sourcing/sourcing/sourcing.component';
+import { EstateListComponent } from './sourcing/estate-list/estate-list.component';
+import { CoffeeListComponent } from './sourcing/coffee-list/coffee-list.component';
+
 import { SettingsComponent } from './settings/settings.component';
-import { AvailableCoffeeListComponent } from './Sourcing/available-coffee-list/available-coffee-list.component';
-import { AvailableConfirmOrderComponent } from './Sourcing/available-coffee-list/available-confirm-order/available-confirm-order.component';
-import { OrderPlacedComponent } from './Sourcing/available-coffee-list/order-placed/order-placed.component';
-import { EstateDetailsListComponent } from './Sourcing/estate-details-list/estate-details-list.component';
-import { SourcingOrderChatComponent } from './Sourcing/estate-details-list/sourcing-order-chat/sourcing-order-chat.component';
-import { SourcingComponent } from './Sourcing/sourcing/sourcing.component';
 import { VatManagementComponent } from './vat-management/vat-management.component';
 import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
@@ -169,6 +172,11 @@ const routes: Routes = [
                 path: 'sourcing',
                 component: SourcingComponent,
                 canActivate: [AuthGuard],
+                children: [
+                    { path: 'estate-list', component: EstateListComponent },
+                    { path: 'coffee-list', component: CoffeeListComponent },
+                    { path: '', redirectTo: 'estate-list', pathMatch: 'full' },
+                ],
             },
             {
                 path: 'brand-profile',
@@ -265,7 +273,7 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: 'available-coffee-list/:estateId/:harvestId',
+                path: 'available-available-/:estateId/:harvestId',
                 component: AvailableCoffeeListComponent,
                 canActivate: [AuthGuard],
             },

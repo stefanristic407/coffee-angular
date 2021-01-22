@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { UserserviceService } from 'src/services/users/userservice.service';
 import { RoasteryProfileService } from '../roastery-profile/roastery-profile.service';
-import { DatePipe } from '@angular/common';
 
 @Injectable({
     providedIn: 'root',
@@ -119,12 +120,23 @@ export class SourcingService {
     // Lot data
     polygonId: string;
 
+    queryParams: any = new BehaviorSubject({
+        origin: '',
+        variety: '',
+        name: '',
+        grade: '',
+        crop_year: '',
+        weight: 'kg',
+        sort: '',
+    });
+    queryParams$: any = this.queryParams.asObservable();
+
     constructor(
         private http: HttpClient,
         public userService: UserserviceService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
-        public profileservice: RoasteryProfileService
+        public profileservice: RoasteryProfileService,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
         this.certificateList();
@@ -165,17 +177,11 @@ export class SourcingService {
                     this.coordinates = this.gps_coordinates.split(',');
                     this.latitude = parseFloat(this.coordinates[0].slice(0, -3));
                     this.longitude = parseFloat(this.coordinates[1].slice(0, -3));
-                    //  this.latCoord=this.coordinates[0].split(' ')[0];
-                    //  this.longCoord=this.coordinates[1].split(' ')[1];
-                    //   this.latitude=parseFloat(this.latCoord.slice(0,-1));
-                    //   this.longitude=parseFloat(this.longCoord.slice(0,-1));
-                    //   console.log(this.latitude);
-                    //   console.log(this.longitude);
                 } else {
                     this.emptyCoord = this.gps_coordinates;
                 }
                 const country = this.profileservice.countryList.find(
-                    (con) => con.isoCode == this.country.toUpperCase()
+                    (con) => con.isoCode == this.country.toUpperCase(),
                 );
                 this.countryName = country ? country.name : this.country.toUpperCase();
             }
