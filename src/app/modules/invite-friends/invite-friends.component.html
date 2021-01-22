@@ -33,12 +33,10 @@
                                                 Invalid email address
                                             </small>
                                         </div>
-                                        <div
-                                            class="delete-wrap fnt-muli fnt-700 txt-clr60b ml-0 ml-md-2 cursor-pointer"
-                                            *ngIf="i != 0"
-                                            (click)="deleteEmail(i)"
-                                        >
-                                            Delete
+                                        <div class="delete-wrap fnt-muli ml-0 ml-md-2" *ngIf="i != 0">
+                                            <span class="fnt-700 txt-clr60b cursor-pointer" (click)="deleteEmail(i)">
+                                                Delete
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
