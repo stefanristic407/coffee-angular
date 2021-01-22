@@ -5,10 +5,9 @@ import { InviteFriendsRoutingModule } from './invite-friends-routing.module';
 import { SharedModule } from '@shared';
 
 import { InviteFriendsComponent } from './invite-friends.component';
-import { InviteSucessComponent } from './invite-sucess/invite-sucess.component';
 
 @NgModule({
-    declarations: [InviteFriendsComponent, InviteSucessComponent],
+    declarations: [InviteFriendsComponent],
     imports: [CommonModule, InviteFriendsRoutingModule, SharedModule],
 })
 export class InviteFriendsModule {}
