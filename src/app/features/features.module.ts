@@ -8,7 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { FeaturesRoutingModule } from './features-routing.module';
 import { FeaturesComponent } from './features.component';
 import { HelpComponent } from './help/help.component';
@@ -161,7 +161,7 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
 
 @NgModule({
     declarations: [
-        DashboardComponent,
+        OnboardCustomersComponent,
         RoasterOnboardingComponent,
         RoasterQuickSetupComponent,
         RoasterCompleteSetupComponent,

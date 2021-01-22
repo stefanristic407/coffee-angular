@@ -6,7 +6,11 @@
                 <p class="fnt-muli sub-text mb-5">Invite Mirco-Roaster and HoReCa's for setup</p>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                        <button class="btn dashboard-button" (click)="microRoaster()">
+                        <button
+                            class="btn dashboard-button"
+                            routerLink="/features/roaster-quick-setup"
+                            [queryParams]="{ buttonValue: 'Micro-Roaster' }"
+                        >
                             <img class="logo-img float-left" src="assets/images/roaster.svg" />
                             <span class="roaster">Micro-Roaster</span>
                             <img class="icon-img float-right" src="assets/images/unfilled-arrow.png" /><img
@@ -16,7 +20,11 @@
                         </button>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-                        <button class="btn dashboard-button" (click)="horeca()">
+                        <button
+                            class="btn dashboard-button"
+                            routerLink="/features/roaster-quick-setup"
+                            [queryParams]="{ buttonValue: 'HoReCa' }"
+                        >
                             <img class="logo-img float-left" src="assets/images/facilitator.png" />
                             <span class="facilitator">HoReCa</span>
                             <img class="icon-img float-right" src="assets/images/unfilled-arrow.png" /><img

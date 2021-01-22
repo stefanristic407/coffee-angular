@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
 import { CreateRoastingProfileComponent } from './e-commerce/create-roasting-profile/create-roasting-profile.component';
 import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
@@ -99,8 +99,8 @@ const routes: Routes = [
         component: FeaturesComponent,
         children: [
             {
-                path: 'dashboard',
-                component: DashboardComponent,
+                path: 'onboard-customers',
+                component: OnboardCustomersComponent,
                 canActivate: [AuthGuard],
             },
             {
