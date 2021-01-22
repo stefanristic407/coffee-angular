@@ -1,60 +1,59 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import localeSe from '@angular/common/locales/se';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { DEFAULT_CURRENCY_CODE } from '@angular/core';
 
 import { SharedModule } from 'src/app/shared/shared.module';
-
-import { ToastrModule } from 'ngx-toastr';
-import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { FeaturesModule } from './features/features.module';
-import { OrdermanagementModule } from './ordermanagement/ordermanagement.module';
-import { PeopleModule } from './people/people.module';
-import { HealthCheckComponent } from './health-check/health-check.component';
-import { CalendarModule } from 'primeng/calendar';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+// bootstrap modules
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
-import { GalleriaModule } from 'primeng/galleria';
-import { MatVideoModule } from 'mat-video';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
-import { ErrorModuleModule } from './error-module/error-module.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+
+import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HealthCheckComponent } from './health-check/health-check.component';
+import { DirectMessagingComponent } from './components/direct-messaging/direct-messaging.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ErrorIntercept } from './error-module/error.interceptor';
+
 import 'hammerjs';
 import { AuthGuard } from './guards/auth.guard';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
-import { LayoutComponent } from './layout/layout.component';
-// Sweden
-import { registerLocaleData } from '@angular/common';
-import localeSe from '@angular/common/locales/se';
-registerLocaleData(localeSe);
 
 @NgModule({
-    declarations: [AppComponent, HealthCheckComponent, LayoutComponent],
+    declarations: [AppComponent, HealthCheckComponent, DirectMessagingComponent, LayoutComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        AuthModule,
-        FeaturesModule,
-        PeopleModule,
-        OverlayPanelModule,
-        CalendarModule,
-        PopoverModule,
-        OrdermanagementModule,
-        GalleriaModule,
-        MatVideoModule,
-        ErrorModuleModule,
         HttpClientModule,
-        ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
         AnimateOnScrollModule.forRoot(),
+        CarouselModule.forRoot(),
+        ModalModule.forRoot(),
+        PopoverModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (http: HttpClient) => {
+                    return new TranslateHttpLoader(http, './assets/multi-lang/', '.json');
+                },
+                deps: [HttpClient],
+            },
+        }),
+        TypeaheadModule.forRoot(),
         SharedModule,
     ],
     providers: [
@@ -74,6 +73,10 @@ registerLocaleData(localeSe);
     bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// Sweden
+registerLocaleData(localeSe);
+
 export function ConfigLoader(userService: UserserviceService, cookieService: CookieService) {
     return () => {
         const queryParams = new URLSearchParams(window.location.search);
@@ -82,9 +85,9 @@ export function ConfigLoader(userService: UserserviceService, cookieService: Coo
             return Promise.resolve().then(() => {
                 const promise2 = userService.getUserPermissionPromise(userService.cookieService.get('roaster_id'));
                 promise2.then(
-                    (response) => {
-                        if (response && response['success'] == true) {
-                            const permissionList = response['result'];
+                    (response: any) => {
+                        if (response && response.success) {
+                            const permissionList = response.result;
                             userService.cookieService.set('permissionSlug', JSON.stringify(permissionList));
                         }
                         return response;

@@ -4,9 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { ImageCropperModule } from 'ngx-image-cropper';
-import { DialogModule } from 'primeng/dialog';
-import { SliderModule } from 'primeng/slider';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -25,8 +22,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { ToastrModule } from 'ngx-toastr';
-import { ErrorModuleModule } from '../error-module/error-module.module';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
@@ -45,19 +40,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
         RoasterProfileComponent,
         SignUpComponent,
     ],
-    imports: [
-        CommonModule,
-        AuthRoutingModule,
-        DialogModule,
-        ImageCropperModule,
-        SliderModule,
-        FormsModule,
-        HttpClientModule,
-        NgOtpInputModule,
-        ErrorModuleModule,
-        ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
-        SharedModule,
-    ],
+    imports: [CommonModule, AuthRoutingModule, FormsModule, HttpClientModule, NgOtpInputModule, SharedModule],
     providers: [CookieService, UserserviceService],
 })
 export class AuthModule {}

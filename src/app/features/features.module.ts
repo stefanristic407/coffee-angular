@@ -1,25 +1,11 @@
 import { CommonModule } from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { PopoverModule } from 'ngx-bootstrap/popover';
-import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { ImageCropperModule } from 'ngx-image-cropper';
-import { ToastrModule } from 'ngx-toastr';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-
-// PrimeNG Modules
-import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
-import { DialogModule } from 'primeng/dialog';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { SliderModule } from 'primeng/slider';
-import { TooltipModule } from 'primeng/tooltip';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -55,14 +41,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
-import { MatVideoModule } from 'mat-video';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { OrdermanagementModule } from '../ordermanagement/ordermanagement.module';
 import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
@@ -99,7 +79,6 @@ import { DocumentTableComponent } from './Farm Link/file-share/file-share-detail
 import { VideoTableComponent } from './Farm Link/file-share/file-share-details/video-table/video-table.component';
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AvailableConfirmOrderComponent } from './sourcing/available-coffee-list/available-confirm-order/available-confirm-order.component';
 import { OrderPlacedComponent } from './sourcing/available-coffee-list/order-placed/order-placed.component';
 import { NotificationComponent } from './notification/notification.component';
@@ -113,7 +92,6 @@ import { MicroRoasterStatComponent } from './roaster-dashboard/micro-roaster-sta
 import { SalesOrdersAllStatComponent } from './roaster-dashboard/sales-orders-all-stat/sales-orders-all-stat.component';
 import { SourcedGreenCoffeeChartComponent } from './roaster-dashboard/sourced-green-coffee-chart/sourced-green-coffee-chart.component';
 import { TotalCoffeeAvailableChartComponent } from './roaster-dashboard/total-coffee-available-chart/total-coffee-available-chart.component';
-import { ErrorModuleModule } from '../error-module/error-module.module';
 import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
 import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
@@ -325,48 +303,20 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
     imports: [
         CommonModule,
         FeaturesRoutingModule,
-        // PrimeNG Modules
-        ImageCropperModule,
-        AutoCompleteModule,
-        TooltipModule,
         DragDropModule,
-        OrdermanagementModule,
         MatChipsModule,
         MatIconModule,
-        SliderModule,
-        ModalModule,
-        DialogModule,
-        ButtonModule,
-        PopoverModule,
-        SliderModule,
         DataTablesModule,
         FormsModule,
-        InputSwitchModule,
-        CalendarModule,
         MatBottomSheetModule,
         Ng2SearchPipeModule,
         RatingModule,
-        NgxChartsModule,
         GalleryModule,
         LightboxModule,
-        MatVideoModule,
-        ErrorModuleModule,
         MatProgressBarModule,
-        TypeaheadModule.forRoot(),
-        CarouselModule.forRoot(),
-        ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true }),
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
             // libraries: ['places']
-        }),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (http: HttpClient) => {
-                    return new TranslateHttpLoader(http, './assets/multi-lang/', '.json');
-                },
-                deps: [HttpClient],
-            },
         }),
         SharedModule,
     ],
