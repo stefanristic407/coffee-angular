@@ -19,6 +19,7 @@
       "@app/*": ["src/app/*"],
       "@components": ["src/app/components/index"],
       "@env/*": ["src/environments/*"],
+      "@services": ["src/services/index"],
       "@shared": ["src/app/shared/index"],
       "@modules/*": ["src/app/modules/*"]
     }

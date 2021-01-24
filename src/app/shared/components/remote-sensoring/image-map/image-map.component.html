@@ -35,7 +35,16 @@
         </div>
         <div class="w-100 d-flex justify-content-end align-items-center">
             <span class="fnt-14 fnt-bold fnt-muli text-grey588 mr-3"> Selected day </span>
-            <app-date-picker [value]="selectedDate" (valueChange)="changeDate($event)" class="mr-3"></app-date-picker>
+            <p-calendar
+                [(ngModel)]="selectedDate"
+                (onSelect)="changeDate()"
+                [showIcon]="true"
+                dateFormat="dd.mm.yy"
+                [readonlyInput]="true"
+                [showButtonBar]="true"
+                placeholder="Selected dates"
+                class="round-border single-calendar mr-3"
+            ></p-calendar>
             <app-select
                 [items]="imageTypes"
                 [value]="imageTypes[selType].value"

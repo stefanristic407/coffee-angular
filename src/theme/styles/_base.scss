@@ -454,17 +454,31 @@ input[type='number'] {
 }
 
 .br-main {
-    border: 1px solid #d6d6d6;
+    border: 1px solid $primary-border-color;
 }
 
 @media (min-width: 992px) {
     .br-md-main {
-        border: 1px solid #d6d6d6;
+        border: 1px solid $primary-border-color;
     }
 }
 
+@media (max-width: 991px) {
+    .br-mob-main {
+        border: 1px solid $primary-border-color;
+    }
+}
+
+.br-4 {
+    border-radius: 4px;
+}
+
+.br-2 {
+    border-radius: 2px;
+}
+
 .bg-f8 {
-    background-color: #f8f8f8;
+    background-color: $primary-bg-color;
 }
 
 // link with arrow

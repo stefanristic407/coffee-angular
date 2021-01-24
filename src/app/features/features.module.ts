@@ -39,8 +39,6 @@ import { DashboardActivityComponent } from './welcome-aboard/dashboard-activity/
 import { LanguageRegionComponent } from './language-region/language-region.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
-import { GalleryModule } from 'ng-gallery';
-import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
@@ -48,9 +46,6 @@ import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
 import { FileShareComponent } from './Farm Link/file-share/file-share.component';
 import { AgreementComponent } from './Farm Link/agreement/agreement.component';
-import { SourcingComponent } from './sourcing/sourcing/sourcing.component';
-import { EstateListComponent } from './sourcing/estate-list/estate-list.component';
-import { CoffeeListComponent } from './sourcing/coffee-list/coffee-list.component';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -61,13 +56,6 @@ import { ContactComponent } from './roastery-profile/contact/contact.component';
 import { VirtualTourComponent } from './roastery-profile/virtual-tour/virtual-tour.component';
 import { AboutRoasteryComponent } from './roastery-profile/about-roastery/about-roastery.component';
 import { RoasteryProfileComponent } from './roastery-profile/roastery-profile.component';
-import { EstateDetailsListComponent } from './sourcing/estate-details-list/estate-details-list.component';
-import { AvailableCoffeeListComponent } from './sourcing/available-coffee-list/available-coffee-list.component';
-import { OverviewComponent } from './sourcing/estate-details-list/overview/overview.component';
-import { LandLotsComponent } from './sourcing/estate-details-list/land-lots/land-lots.component';
-import { OverviewRatingsComponent } from './sourcing/estate-details-list/overview-ratings/overview-ratings.component';
-import { RatingModule } from 'ng-starrating';
-import { SourcingOrderChatComponent } from './sourcing/estate-details-list/sourcing-order-chat/sourcing-order-chat.component';
 import { ProfilePhotoComponent } from './roastery-profile/profile-photo/profile-photo.component';
 import { ReviewsComponent } from './roastery-profile/reviews/reviews.component';
 import { FileShareDetailsComponent } from './Farm Link/file-share/file-share-details/file-share-details.component';
@@ -79,8 +67,6 @@ import { DocumentTableComponent } from './Farm Link/file-share/file-share-detail
 import { VideoTableComponent } from './Farm Link/file-share/file-share-details/video-table/video-table.component';
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
 
-import { AvailableConfirmOrderComponent } from './sourcing/available-coffee-list/available-confirm-order/available-confirm-order.component';
-import { OrderPlacedComponent } from './sourcing/available-coffee-list/order-placed/order-placed.component';
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
@@ -133,7 +119,6 @@ import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.component';
 import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
-import { AgmCoreModule } from '@agm/core';
 import { AboutUsComponent } from './Farm Link/brand-profile/about-us/about-us.component';
 import { SustainabilityComponent } from './Farm Link/brand-profile/sustainability/sustainability.component';
 import { VisitUsComponent } from './Farm Link/brand-profile/visit-us/visit-us.component';
@@ -193,7 +178,6 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         SocialMediaPostsComponent,
         FileShareComponent,
         AgreementComponent,
-        SourcingComponent,
         ResetPasswordComponent,
         CofeeExpeienceDetailsComponent,
         BlogDetailsComponent,
@@ -201,12 +185,6 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         ContactComponent,
         VirtualTourComponent,
         AboutRoasteryComponent,
-        EstateDetailsListComponent,
-        AvailableCoffeeListComponent,
-        OverviewComponent,
-        LandLotsComponent,
-        OverviewRatingsComponent,
-        SourcingOrderChatComponent,
         ProfilePhotoComponent,
         ReviewsComponent,
         FileShareDetailsComponent,
@@ -217,8 +195,6 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         DocumentTableComponent,
         VideoTableComponent,
         ProfileLicenseComponent,
-        AvailableConfirmOrderComponent,
-        OrderPlacedComponent,
         NotificationComponent,
         RoasteryLicenseComponent,
         RoasterOnboardComponent,
@@ -293,8 +269,6 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         ConfirmPreorderLotComponent,
         OtherCuppingServiceComponent,
         OtherGenerateReportComponent,
-        CoffeeListComponent,
-        EstateListComponent,
     ],
     imports: [
         CommonModule,
@@ -306,14 +280,7 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         FormsModule,
         MatBottomSheetModule,
         Ng2SearchPipeModule,
-        RatingModule,
-        GalleryModule,
-        LightboxModule,
         MatProgressBarModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
-            // libraries: ['places']
-        }),
         SharedModule,
     ],
 })

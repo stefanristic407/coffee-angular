@@ -18723,7 +18723,7 @@ button:focus {
 
 .g-box .ng-star-inserted {
     padding-right: 0px !important;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .g-box {
@@ -22924,39 +22924,6 @@ li.select-list__item {
 
 /* sourcing tabs ends */
 
-
-/*  back butn hover*/
-
-.back-href {
-    color: #80460b !important;
-    text-decoration: none !important;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.back-arrow-butn {
-    display: inline-flex;
-}
-
-.back-href:hover .back-arrow-butn {
-    -webkit-transform: translateX(-6px);
-    -ms-transform: translateX(-6px);
-    transform: translateX(-6px);
-    -webkit-transition: all .6s cubic-bezier(.2, .59, .21, .6);
-    -o-transition: all .6s cubic-bezier(.2, .59, .21, .6);
-    transition: all .6s cubic-bezier(.2, .59, .21, .6);
-}
-
-.back-page {
-    display: inline-block;
-    -webkit-transition: all .6s cubic-bezier(.2, .59, .21, .6);
-    -o-transition: all .6s cubic-bezier(.2, .59, .21, .6);
-    transition: all .6s cubic-bezier(.2, .59, .21, .6);
-    -webkit-font-smoothing: antialiased;
-}
-
-
-/* back butn hover end */
 
 .Onboard-input input {
     outline: 0 !important;

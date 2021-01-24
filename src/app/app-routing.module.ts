@@ -29,6 +29,10 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./modules/invite-friends/invite-friends.module').then((m) => m.InviteFriendsModule),
             },
+            {
+                path: 'sourcing',
+                loadChildren: () => import('./modules/sourcing/sourcing.module').then((m) => m.SourcingModule),
+            },
             { path: '', redirectTo: 'features', pathMatch: 'full' },
         ],
     },

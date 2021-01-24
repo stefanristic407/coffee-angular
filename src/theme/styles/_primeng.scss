@@ -39,12 +39,15 @@
 .p-tabview .p-tabview-nav {
     border-radius: 0;
     border-bottom: 1px solid $primary-border-color;
+    overflow-x: auto;
+    overflow-y: visible;
+    flex-wrap: nowrap;
 }
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
     position: relative;
     flex: inherit !important;
-    margin-bottom: -4px;
     margin-right: 0px;
+    margin-bottom: 0;
     transition: 0.4s ease-in-out;
     border: none;
     background-color: transparent;
@@ -60,7 +63,6 @@
         left: 50%;
         text-align: center;
         margin: auto;
-        top: 80%;
         transform: translate(-50%);
         border-radius: 1.5px;
         background-color: $primary-color;
@@ -82,6 +84,9 @@
     outline: 0 none;
     outline-offset: 0;
     box-shadow: none;
+}
+.p-tabview .p-tabview-panels {
+    border: none;
 }
 
 // SelectButton
@@ -330,7 +335,9 @@
 .p-calendar .p-button-icon {
     font-size: 20px;
 }
-
+.p-calendar-w-btn .p-inputtext {
+    padding-right: 0px;
+}
 // Date picker
 .p-datepicker table td {
     padding: 0.1rem;
@@ -361,4 +368,39 @@
     .ng-dirty + .p-error {
         display: block;
     }
+}
+
+// Carousel
+.p-carousel .p-carousel-content .p-carousel-prev,
+.p-carousel .p-carousel-content .p-carousel-next {
+    display: none;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator button {
+    background-color: #ffffff;
+    width: 12px;
+    height: 12px;
+    border: 1px solid $brown-color;
+    border-radius: 50%;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+    background: $brown-color;
+    color: #ffffff;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator {
+    margin-bottom: 0;
+}
+
+.p-carousel-content {
+    padding: 0;
+}
+
+.p-carousel-items-container .p-carousel-item {
+    padding-right: 0.75em;
+}
+
+.p-carousel-items-content {
+    padding-right: 0.75em;
 }

@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 
-import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
@@ -14,6 +13,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { CarouselModule } from 'primeng/carousel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -32,6 +32,9 @@ import { TreeModule } from 'primeng/tree';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { RatingModule } from 'ng-starrating';
+import { GalleryModule } from 'ng-gallery';
+import { LightboxModule } from 'ng-gallery/lightbox';
 
 import { MatVideoModule } from 'mat-video';
 
@@ -40,7 +43,6 @@ import { BlankComponent } from './components/blank/blank.component';
 import { SelectComponent } from './components/select/select.component';
 import { RemoteSensoringComponent } from './components/remote-sensoring/remote-sensoring.component';
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
-import { DatePickerComponent } from './components/remote-sensoring/date-picker/date-picker.component';
 import { SoilChartComponent } from './components/remote-sensoring/soil-chart/soil-chart.component';
 import { UvChartComponent } from './components/remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './components/remote-sensoring/vegetation-chart/vegetation-chart.component';
@@ -57,13 +59,13 @@ const MATMODULES = [];
 const THIRDMODULES = [
     AutocompleteLibModule,
     AnimateOnScrollModule,
-    CarouselModule,
     ModalModule,
     PopoverModule,
     TypeaheadModule,
     AutoCompleteModule,
     ButtonModule,
     CalendarModule,
+    CarouselModule,
     CheckboxModule,
     DialogModule,
     DropdownModule,
@@ -83,6 +85,9 @@ const THIRDMODULES = [
     RangeNavigatorAllModule,
     NgxChartsModule,
     ImageCropperModule,
+    RatingModule,
+    GalleryModule,
+    LightboxModule,
     MatVideoModule,
 ];
 // #endregion
@@ -95,7 +100,6 @@ const COMPONENTS = [
     RemoteSensoringComponent,
     WeatherChartComponent,
     SelectComponent,
-    DatePickerComponent,
     SoilChartComponent,
     UvChartComponent,
     VegetationChartComponent,

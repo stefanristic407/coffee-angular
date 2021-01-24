@@ -1,0 +1,518 @@
+.btn-wrap {
+    display: flex;
+    @media (max-width: 767px) {
+        div {
+            width: 50%;
+            button {
+                width: 100%;
+            }
+        }
+    }
+}
+.det-tit h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #242424;
+}
+.no-data-sec {
+    margin: 4rem 0rem;
+}
+.det-tit h6 {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #242424;
+}
+.fc-img {
+    width: 40px;
+    height: 37px;
+}
+.g-thumbs-container,
+#basic-test {
+    background-color: #fff !important;
+}
+
+.des-content article {
+    width: 65%;
+    border: 1px solid #000;
+    float: left;
+    margin-right: 1.5%;
+    padding: 32px 24px;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+}
+
+.des-content aside {
+    width: 33.5%;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    float: left;
+    padding: 32px 24px;
+    border-radius: 4px;
+}
+
+.stit h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.stit p {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 25px;
+}
+
+.stit p:last-child {
+    margin-bottom: 40px;
+}
+
+.source-cont-available .nav-item {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.real-estate {
+    img {
+        height: 38px;
+        width: auto;
+        object-fit: cover;
+        margin-bottom: 12px;
+    }
+    h6 {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: #747588;
+    }
+    h3 {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: bold;
+        color: #232334;
+        text-transform: capitalize;
+    }
+    @media (max-width: 767px) {
+        img {
+            height: 24px;
+            margin-bottom: 8px;
+        }
+        h6 {
+            font-size: 12px;
+            line-height: 15px;
+        }
+        h3 {
+            font-size: 14px;
+        }
+    }
+}
+
+.estate-focus h3 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.estate-focus ul {
+    margin-bottom: 0;
+}
+
+.estate-focus ul li {
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #eeeeee;
+    padding: 16px 0;
+}
+
+.estate-focus ul li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.estate-focus ul li label {
+    float: left;
+    width: 37%;
+    margin-bottom: 0;
+    color: #747588;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.estate-focus ul li p {
+    margin-bottom: 0;
+    width: 60%;
+    float: left;
+    font-size: 14px;
+    color: #232334;
+    font-weight: 600;
+}
+
+.cetify-logo ul li {
+    display: inline-block;
+    width: 50px;
+    margin-right: 30px;
+}
+
+.cetify-logo ul li :last-child {
+    margin-right: 0;
+}
+
+.cetify-logo ul li img {
+    width: 100%;
+}
+
+.prodcoffee {
+    width: 100%;
+    position: relative;
+    height: 234px;
+    background: #000;
+}
+
+.prodcoffee h4 {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0px, -50%);
+    padding: 24px;
+    font-size: 18px;
+}
+
+.p-gal img {
+    width: 100%;
+}
+
+.profile-des h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 12px;
+}
+
+.profile-des h6 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.msg-chat {
+    border: 1px solid #747588;
+    padding: 4px 13px 6px;
+    float: left;
+    border-radius: 4px;
+}
+
+.msg-chat p {
+    margin-bottom: 0;
+}
+
+.gals {
+    margin-bottom: 25px;
+}
+
+.gals img {
+    width: 100%;
+}
+
+.produect-pro {
+    border: solid 1px #747588;
+}
+
+.v-report {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.v-report a {
+    font-size: 14px;
+    font-weight: bold;
+    color: #80460b;
+    text-decoration: underline;
+}
+
+.detail-location {
+    font-family: Muli;
+    font-weight: 600;
+    color: #80460b !important;
+    text-decoration: underline;
+}
+
+.sugar-prod {
+    float: left;
+    width: 63%;
+}
+
+.estate-focus .sugar-prod li {
+    width: auto;
+    border: none;
+    padding: 0;
+    border: 1px solid #747588 !important;
+    margin-right: 4px;
+    border-radius: 20px;
+    padding: 0 10px 0 18px;
+    position: relative;
+    margin-bottom: 4px;
+}
+
+.estate-focus .sugar-prod li:before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 11px;
+    width: 4px;
+    height: 4px;
+    background: #747588;
+    border-radius: 20px;
+}
+
+.coffee-fff {
+    background-color: #ffffff;
+    margin-left: 0rem;
+    margin-right: 0rem;
+}
+
+.coffee-space {
+    padding: 32px 48px 0;
+}
+.card-border {
+    border: 1px solid #ebebeb;
+    margin-bottom: 26px;
+    border-radius: 4px;
+    cursor: pointer;
+    transform: scale(1);
+}
+.card-border:hover {
+    transform: scale(1.03);
+    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+}
+.filter-sort {
+    position: absolute;
+    right: 0;
+    top: -10px;
+}
+
+.green-coffee-product .s-tit h5 {
+    color: #747588;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.green-coffee-product .s-details h3 {
+    height: auto;
+    margin-bottom: 3px;
+}
+
+.flo-list {
+    margin-bottom: 0;
+    margin-top: -5px;
+}
+
+.flo-list li,
+.flavor-coffee span {
+    float: left;
+    font-size: 12px;
+    padding: 3px 9px 1px 15px;
+    font-weight: 600;
+    margin-right: 5px;
+    color: #747588;
+    position: relative;
+    border-radius: 11.5px;
+    border: solid 0.5px #747588;
+}
+
+.flo-list li:last-child {
+    margin-right: 0;
+}
+
+.flo-list li:before,
+.flavor-coffee span:before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: #747588;
+    border-radius: 50%;
+    position: absolute;
+    left: 6px;
+    top: 42%;
+}
+
+.green-coffee-product .top-lots label {
+    font-size: 16px;
+}
+
+.green-coffee-product .source-lets {
+    padding-bottom: 24px;
+    padding-top: 24px;
+    margin-bottom: 22px;
+}
+
+ul {
+    padding-left: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+.farm-desc {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #232334;
+}
+.avaialble-web {
+    display: block;
+}
+.avaialble-mob {
+    display: none;
+}
+/********Graph Css*********/
+
+.live-estate h2 {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.live-text {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+.add-variety {
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+@media (max-width: 640px) {
+    .source-cont-available {
+        padding: 24px 8px;
+    }
+    .mob-border {
+        width: auto !important;
+        display: inline-block !important;
+        margin-bottom: 10px;
+    }
+    .top-text {
+        margin-top: 10px;
+        padding-left: 0;
+    }
+    .avaialble-web {
+        display: none;
+    }
+    .avaialble-mob {
+        display: block;
+    }
+    .mob-left {
+        padding: 16px;
+    }
+    .organic-border {
+        border-top: 1px solid #ebebeb;
+    }
+    .det-tit h2,
+    .estate-focus h3 {
+        font-size: 16px;
+    }
+    .mob-name {
+        color: #747588;
+    }
+    .mob-id {
+        margin-bottom: 12px !important;
+        font-size: 14px !important;
+    }
+    .p-h6 {
+        font-size: 14px;
+        color: #232334;
+    }
+    .mob-img {
+        padding-right: 7px;
+    }
+    .mob-farm-desc {
+        color: #747588;
+    }
+    .v-report {
+        text-align: left;
+    }
+    .estate-focus ul li label,
+    .estate-focus ul li p,
+    .sugar-prod {
+        width: 50%;
+    }
+    .estate-focus .sugar-prod li {
+        margin-bottom: 8px;
+        margin-right: 8px;
+    }
+
+    .real-estate {
+        margin-top: 12px;
+    }
+    .s-certified {
+        width: 33%;
+        display: inline-block;
+        float: right;
+        ul li {
+            margin-right: 10px;
+            &:last-child {
+                margin-right: 0;
+            }
+            img {
+                width: 23px;
+            }
+        }
+    }
+    /*****Carousel*****/
+    .heading-other {
+        padding: 8px;
+    }
+    .coffee-space {
+        padding: 8px;
+    }
+    /*Comment Tags*/
+    .source-lets.flex,
+    .s-details .m-flex {
+        display: block;
+    }
+    .orgin-att {
+        width: 50%;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    .orgin-att:last-child {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    .orgin-att:nth-child(2) {
+        padding-left: 20px;
+        border-right: 0;
+    }
+    .s-cert li:first-child {
+        margin-left: 0;
+    }
+    .s-tit {
+        width: 100%;
+    }
+    .s-details h3 {
+        height: auto;
+        white-space: initial;
+    }
+    .green-coffee-product .orgin-att:last-child {
+        width: 100%;
+    }
+    .green-coffee-product .top-lots label,
+    .green-coffee-product .s-tit h5,
+    .orgin-att h6 {
+        font-size: 14px !important;
+    }
+    .s-details h6,
+    .s-details h3 {
+        font-size: 16px;
+    }
+    .pointer-item {
+        float: right;
+        margin-right: 10px;
+    }
+}

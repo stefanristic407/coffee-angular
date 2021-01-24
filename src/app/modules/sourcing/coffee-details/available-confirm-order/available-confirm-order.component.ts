@@ -1,19 +1,19 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GlobalsService } from 'src/services/globals.service';
-import { RoasteryProfileService } from '../roastery-profile/roastery-profile.service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { GlobalsService } from '@services';
+import { RoasterserviceService } from '@services';
+import { SourcingService } from '../../sourcing.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Toast, ToastrService } from 'ngx-toastr';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { UserserviceService } from '@services';
 
 @Component({
-    selector: 'app-confirm-preorder-lot',
-    templateUrl: './confirm-preorder-lot.component.html',
-    styleUrls: ['./confirm-preorder-lot.component.css'],
+    selector: 'app-available-confirm-order',
+    templateUrl: './available-confirm-order.component.html',
+    styleUrls: ['./available-confirm-order.component.scss'],
 })
-export class ConfirmPreorderLotComponent implements OnInit {
+export class AvailableConfirmOrderComponent implements OnInit {
     quantity: any;
     quantity1: any;
     price: number = 0;
@@ -48,38 +48,38 @@ export class ConfirmPreorderLotComponent implements OnInit {
     addressId: any;
     countryData: any;
     countryName: any;
-    lotData: any;
-    EstateData: any;
-    lotDetails: any;
-    countryValue: any;
-    estate_name: any;
-    estate_country: any;
-    estate_species: any;
-    estate_varieties: any;
-    estate_grade_range: any;
-    total_production: any;
-    batchList: any;
-    batchId: any;
+    prebook_order_id: any;
 
     constructor(
         private modalService: BsModalService,
         public router: Router,
         public globals: GlobalsService,
         private route: ActivatedRoute,
+        public sourcing: SourcingService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
-        public profileservice: RoasteryProfileService,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
 
         this.route.queryParams.subscribe((params) => {
-            this.lotData = params['lotId'];
-            this.EstateData = params['estateId'];
+            this.sourcing.harvestData = params['gc_id'];
+            this.flagData = params['flag'];
+
+            this.sourcing.availableDetailList();
+            if (this.flagData == 'buyNow') {
+                this.getshipInfo();
+            }
             this.getRoAddress();
-            console.log(this.lotData, this.EstateData);
         });
+
+        if (this.sourcing.prebook_flag == true) {
+            this.prebook_order_id = this.sourcing.prebook_order_id;
+        } else {
+            this.prebook_order_id = 0;
+        }
+        console.log('prebookID' + this.prebook_order_id);
     }
     @ViewChild('confirmtemplate') private confirmtemplate: any;
 
@@ -97,8 +97,6 @@ export class ConfirmPreorderLotComponent implements OnInit {
         this.termError = '';
         // this.price="$450";
         this.language();
-        this.getLotDetails();
-        this.getPrebookBatch();
     }
     language() {
         this.appLanguage = this.globals.languageJson;
@@ -106,7 +104,23 @@ export class ConfirmPreorderLotComponent implements OnInit {
     }
 
     placeOrder() {
-        if (this.terms == false) {
+        if (this.quantity == '' || this.quantity == null || this.quantity == undefined) {
+            this.confirmOrderError = 'Please enter quantity';
+            document.getElementById('quantityId').style.border = '1px solid #D50000';
+            setTimeout(() => {
+                this.confirmOrderError = '';
+                document.getElementById('quantityId').style.border = '1px solid #d6d6d6 ';
+            }, 3000);
+        } else if (this.quantity > this.sourcing.quantity_count) {
+            this.confirmOrderError = 'Please enter quantity in range of available for sale';
+            document.getElementById('quantityId').style.border = '1px solid #D50000';
+            setTimeout(() => {
+                this.confirmOrderError = '';
+                document.getElementById('quantityId').style.border = '1px solid #d6d6d6 ';
+            }, 3000);
+        } else if (this.service == 'Import & Delivery service' && this.quantity < this.min_quantity) {
+            this.toastrService.error(`Minimum quantity for shipping is ${this.min_quantity}. please order above.`);
+        } else if (this.terms == false) {
             this.termError = 'Please accept the terms and conditions';
             setTimeout(() => {
                 this.termError = '';
@@ -116,7 +130,18 @@ export class ConfirmPreorderLotComponent implements OnInit {
         }
     }
     placeOrderMob() {
-        this.openModal(this.confirmtemplate);
+        if (this.quantity1 == '' || this.quantity1 == null || this.quantity1 == undefined) {
+            this.confirmOrderError = 'Please enter quantity';
+            document.getElementById('quantity_id').style.border = '1px solid #D50000';
+            setTimeout(() => {
+                this.confirmOrderError = '';
+                document.getElementById('quantity_id').style.border = '1px solid #d6d6d6 ';
+            }, 3000);
+        } else if (this.service == 'Import & Delivery service' && this.quantity < this.min_quantity) {
+            this.toastrService.error(`Minimum quantity for shipping is ${this.min_quantity}. please order above.`);
+        } else {
+            this.openModal(this.confirmtemplate);
+        }
     }
     editAddress() {
         document.getElementById('edit-shipping').style.display = 'none';
@@ -199,9 +224,9 @@ export class ConfirmPreorderLotComponent implements OnInit {
     // Description: To select a country.
 
     changeCountry() {
-        // console.log("the selected country is : " + this.country);
-        this.profileservice.changeCountry(this.country);
+        // this.profileservice.changeCountry(this.country);
     }
+
     onKeyPress(event: any) {
         if (event.target.value == '') {
             document.getElementById(event.target.id).style.border = '1px solid #D50000';
@@ -211,21 +236,55 @@ export class ConfirmPreorderLotComponent implements OnInit {
     }
 
     done() {
-        var data = {
+        const data = {
+            quantity_count: parseInt(this.quantity),
             shipping_address_id: parseInt(this.addressId),
             billing_address_id: parseInt(this.addressId),
+            prebook_order_id: this.prebook_order_id,
+            is_fully_serviced_delivery: this.service === 'Import & Delivery service' ? true : false,
         };
-        if (this.batchId) {
-            this.userService.addPrebookLots(this.roaster_id, this.batchId, data).subscribe((data) => {
-                if (data['success'] == true) {
-                    this.toastrService.success('Prebook Order has been placed Successfully');
+        console.log(data);
 
-                    this.router.navigate(['/features/order-placed']);
-                } else {
-                    this.toastrService.error('Error while Placing the prebook order');
-                }
-            });
+        this.roasterService.placeOrder(this.roaster_id, this.sourcing.harvestData, data).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('Order has been placed Successfully');
+
+                this.router.navigate(['/features/order-placed']);
+            } else {
+                this.toastrService.error('Error while Placing the order');
+            }
+        });
+    }
+
+    // ngAfterViewInit(){
+    // 	this.getshipInfo();
+    // }
+
+    serviceChange(event: any) {
+        if (event.target.value === 'Import & Delivery service') {
+            this.getshipInfo();
+        } else {
+            this.getRoAddress();
         }
+    }
+
+    getshipInfo() {
+        this.userService.getShippingInfo(this.roaster_id, this.sourcing.estate_id).subscribe((res: any) => {
+            console.log(res);
+            this.addressArray = res.result.warehouse_address;
+            console.log(this.addressArray);
+            this.addressId = this.addressArray.id;
+            this.address1 = this.addressArray.address_line1;
+            this.address2 = this.addressArray.address_line2;
+            this.city = this.addressArray.city;
+            this.country = this.addressArray.country;
+            this.countryData = this.globals.getCountry(this.addressArray.country.toUpperCase());
+            this.countryName = this.countryData ? this.countryData.name : '';
+            this.state = this.addressArray.state;
+            this.zipcode = this.addressArray.zipcode;
+            this.ship_unit_price = res.result.unit_price;
+            this.min_quantity = res.result.minimum_quantity;
+        });
     }
 
     getRoAddress() {
@@ -238,40 +297,23 @@ export class ConfirmPreorderLotComponent implements OnInit {
             this.city = this.addressArray.city;
             this.state = this.addressArray.state;
             this.country = this.addressArray.country;
-            this.countryData = this.profileservice.countryList.find(
-                (con) => con.isoCode == this.addressArray.country.toUpperCase(),
-            );
+            this.countryData = this.globals.getCountry(this.addressArray.country.toUpperCase());
             this.countryName = this.countryData ? this.countryData.name : '';
             this.zipcode = this.addressArray.zipcode;
         });
     }
-
-    getLotDetails() {
-        this.userService.getAvailableEstateList(this.roaster_id, this.EstateData).subscribe((res) => {
-            if (res['success'] == true) {
-                this.lotDetails = res['result'];
-                this.estate_name = this.lotDetails.name;
-                this.estate_country = this.lotDetails.country;
-                this.estate_species = this.lotDetails.species;
-                this.estate_varieties = this.lotDetails.varieties;
-                this.estate_grade_range = this.lotDetails.grade_range;
-                this.total_production = this.lotDetails.total_production;
-            }
-        });
-    }
-    GetCountry(data: any) {
-        // console.log(data.toUpperCase());
-        if (data) {
-            this.countryValue = this.profileservice.countryList.find((con) => con.isoCode == data.toUpperCase());
-            if (this.countryValue) return this.countryValue.name;
-        }
-    }
-
-    getPrebookBatch() {
-        this.userService.getPrebookBatchList(this.roaster_id, this.EstateData, this.lotData).subscribe((res) => {
-            if (res['success'] == true) {
-                this.batchList = res['result'][1];
-                this.batchId = this.batchList['id'];
+    orderSampleDone() {
+        var doneData = {
+            shipping_address_id: parseInt(this.addressId),
+            billing_address_id: parseInt(this.addressId),
+            prebook_order_id: this.prebook_order_id,
+        };
+        this.userService.addRequestSample(this.roaster_id, this.sourcing.harvestData, doneData).subscribe((data) => {
+            if (data['success'] == true) {
+                this.toastrService.success('Order has been placed Successfully');
+                this.router.navigate(['/features/order-placed']);
+            } else {
+                this.toastrService.error('Error while Placing the order');
             }
         });
     }
