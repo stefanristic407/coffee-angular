@@ -1,0 +1,343 @@
+<section *ngIf="isLoaded; else loading">
+    <div class="bg-white br-4">
+        <div class="p-3 px-md-5 pt-md-5 pb-md-3">
+            <a class="back-page" routerLink="/sourcing/coffee-list"> {{ globals.languageJson?.back }}</a>
+        </div>
+
+        <div class="organic-border p-3 px-md-5 d-md-none">
+            <div class="w-100 d-flex">
+                <div class="mr-2 pr-1">
+                    <app-avatar
+                        [size]="48"
+                        [src]="sourcing.harvestDetail.estate_profile_image_thumbnail_url"
+                        [name]="sourcing.available_estate_name"
+                    ></app-avatar>
+                </div>
+                <div class="det-tit">
+                    <h2>{{ sourcing.available_name }}</h2>
+                    <span class="mob-name fnt-muli fnt-600 fnt-14">{{ sourcing.available_estate_name }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-3 px-md-5 d-none d-md-block">
+            <div class="w-100 mt-3 d-flex justify-content-between">
+                <div class="d-flex">
+                    <div class="d-inline-block mr-2 pr-1">
+                        <app-avatar
+                            [size]="54"
+                            [src]="sourcing.harvestDetail.estate_profile_image_thumbnail_url"
+                            [name]="sourcing.available_estate_name"
+                        ></app-avatar>
+                    </div>
+
+                    <div class="det-tit d-inline-block">
+                        <h2>{{ sourcing.available_estate_name }}</h2>
+                        <h6><span class="fa fa-star checked"></span>{{ sourcing.estate_rating }}</h6>
+                    </div>
+                </div>
+
+                <div *ngTemplateOutlet="btnGroup" class="d-none d-mb-block"></div>
+            </div>
+        </div>
+
+        <div class="px-2 px-md-5 pb-3 pb-md-4">
+            <div class="br-md-main br-4 p-md-4">
+                <div class="row">
+                    <div class="col-12 col-lg-5 col-md-6">
+                        <div class="prodect-gal p-2 p-md-0 mb-4 mb-md-5">
+                            <gallery id="basic-test" [items]="items" gallerize></gallery>
+                        </div>
+                        <div class="certify-green d-none d-md-block" *ngIf="sourcing.availableCertify != ''">
+                            <h5>Certificates</h5>
+                            <div class="cetify-logo pt-3 d-none d-md-block">
+                                <ul class="clearfix mb-5">
+                                    <li class="mb-3" *ngFor="let cert of sourcing.availableCertify">
+                                        <img
+                                            *ngIf="getCertificateData(cert) != ''"
+                                            src="{{ getCertificateData(cert) }}"
+                                        />
+                                        <img *ngIf="getCertificateData(cert) == ''" src="" alt="" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-7 col-md-6">
+                        <div class="br-mob-main br-4 p-3 p-md-0">
+                            <h2 class="mb-4 mob-id">
+                                <a
+                                    class="custom-link"
+                                    routerLink="/sourcing/lot-details/{{ sourcing.estateNumber }}/{{ sourcing.lot_id }}"
+                                >
+                                    {{ globals.languageJson?.lot_id }} - {{ sourcing.lot_id }}
+                                </a>
+                            </h2>
+                            <h2 class="fnt-18 fnt-bold text-black334 mb-2">{{ sourcing.available_name }}</h2>
+                            <div class="s-certified d-md-none">
+                                <ul class="flex">
+                                    <li class="mb-3" *ngFor="let cert of sourcing.availableCertify">
+                                        <img
+                                            *ngIf="getCertificateData(cert) != ''"
+                                            src="{{ getCertificateData(cert) }}"
+                                        />
+                                        <img *ngIf="getCertificateData(cert) == ''" src="" alt="" />
+                                    </li>
+                                </ul>
+                            </div>
+                            <h6 class="p-h6 mb-4">
+                                <img class="mob-img" src="assets/images/location-rating.png" alt="" />
+                                {{ sourcing.region }}
+                            </h6>
+                            <p class="avaialble-web farm-desc">
+                                {{ sourcing.about }}
+                            </p>
+                            <p class="avaialble-mob mb-0 fnt-14 mob-farm-desc fnt-muli">
+                                {{ sourcing.about }}
+                            </p>
+
+                            <div class="row mt-md-4 mt-2">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
+                                    <div class="real-estate p-prices">
+                                        <h6>{{ globals.languageJson?.price }} :</h6>
+                                        <h3>{{ sourcing.price_unit }}{{ sourcing.price }} USD / kg</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
+                                    <div class="real-estate">
+                                        <h6>Inco :</h6>
+                                        <h3>{{ sourcing.ico_number }}</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
+                                    <div class="real-estate">
+                                        <h6>{{ globals.languageJson?.available_quantity }} :</h6>
+                                        <h3>
+                                            {{ sourcing.quantity_count }} {{ sourcing.quantity_type }} of
+                                            {{ sourcing.quantity }}{{ sourcing.quantity_unit }}
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-md-3 mb-0">
+                                    <div class="real-estate">
+                                        <h6>{{ globals.languageJson?.minimum_quantity }} :</h6>
+                                        <h3>{{ sourcing.initial_quantity }}{{ sourcing.quantity_type }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="produect-pro br-2 p-3 p-md-4 mt-4">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="real-estate mt-0">
+                                            <h6 class="mt-0">12 Feb, 2020</h6>
+                                            <h3>{{ globals.languageJson?.cup_score }} : {{ sourcing.cup_score }}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 mb-2 mb-md-0">
+                                        <div class="real-estate d-flex">
+                                            <div class="mr-2 mr-md-3">
+                                                <app-avatar
+                                                    [size]="40"
+                                                    [src]="sourcing.harvestDetail.cupping.evaluator_dp_thumb"
+                                                    [name]="sourcing.evaluator_name"
+                                                ></app-avatar>
+                                            </div>
+                                            <div>
+                                                <h3 class="mb-1">{{ sourcing.evaluator_name }}</h3>
+                                                <h6 class="my-0">Facilitator</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 v-report">
+                                        <a class="view-report">{{ globals.languageJson?.view_report }} </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-md-none mt-3">
+                                <ng-container *ngTemplateOutlet="btnGroup"></ng-container>
+                            </div>
+                        </div>
+
+                        <div class="p-2 p-md-0">
+                            <div class="row mt-md-5 mt-3 mb-md-5 mb-0">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
+                                    <div class="real-estate">
+                                        <img src="assets/images/varient.svg" />
+                                        <h6>{{ globals.languageJson?.species }}</h6>
+                                        <h3>{{ sourcing.availability_species }}</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 pr-0">
+                                    <div class="real-estate">
+                                        <img src="assets/images/estate.svg" />
+                                        <h6>{{ globals.languageJson?.variety }}</h6>
+                                        <h3>{{ sourcing.availabilty_variety }}</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
+                                    <div class="real-estate">
+                                        <img src="assets/images/harveaster.svg" />
+                                        <h6>Harvest Month</h6>
+                                        <h3>{{ sourcing.harvest_date | date: 'MMMM ,y' }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-md-5 mt-3 mb-md-5 mb-0">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3 mr-md-5 mr-0 pr-0">
+                                    <div class="real-estate">
+                                        <img src="assets/images/flavour-image.svg" />
+                                        <h6>{{ globals.languageJson?.flavour_profile }}</h6>
+                                        <h3 *ngIf="sourcing.flavours != null">
+                                            {{ sourcing.flavours }}
+                                        </h3>
+                                        <h3 *ngIf="sourcing.flavours == null">NA</h3>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-md-3 mb-0 pr-0">
+                                    <div class="real-estate">
+                                        <img src="assets/images/altitute.svg" />
+                                        <h6>Altitude range</h6>
+                                        <h3>
+                                            {{ sourcing.min_altitude_coffee }}-{{ sourcing.max_altitude_coffee }}
+                                            m
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="estate-focus br-mob-main br-4 p-3 p-md-0">
+                            <h3 class="text-clr000">{{ globals.languageJson?.estate_details }}</h3>
+                            <ul class="clearfix">
+                                <li>
+                                    <label>Location :</label>
+                                    <p>{{ sourcing.state }}</p>
+                                </li>
+                                <li>
+                                    <label>Region :</label>
+                                    <p>{{ sourcing.region }}</p>
+                                </li>
+                                <li>
+                                    <label>Type :</label>
+                                    <p>{{ sourcing.type }}</p>
+                                </li>
+                                <li>
+                                    <label>Listing Status :</label>
+                                    <p>{{ sourcing.listing_status }}</p>
+                                    <!-- <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p> -->
+                                </li>
+                                <li>
+                                    <label>Wet Mill processing :</label>
+                                    <p>{{ sourcing.wet_process }}</p>
+                                </li>
+                                <li>
+                                    <label>Fermentation/hr :</label>
+                                    <p>{{ sourcing.wet_fermentation }}</p>
+                                </li>
+                                <li>
+                                    <label>Dry milling process :</label>
+                                    <p>{{ sourcing.dry_process }}</p>
+                                </li>
+                                <li>
+                                    <label>Drying period :</label>
+                                    <p>{{ sourcing.dry_period }}</p>
+                                </li>
+                                <li>
+                                    <label>Water activity :</label>
+                                    <p>{{ sourcing.dry_water_activity }}</p>
+                                </li>
+
+                                <li>
+                                    <label>Moisture :</label>
+                                    <p>{{ sourcing.dry_moisture_content }}</p>
+                                </li>
+                                <li>
+                                    <label>Packaging :</label>
+                                    <p>{{ sourcing.packaging }}</p>
+                                </li>
+                            </ul>
+                            <p class="fnt-muli fnt-14 fnt-500 know-listing" (click)="brandProfileSite()">
+                                Know more about the listing
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="sourcing.polygonId">
+                <app-remote-sensoring [polygonId]="sourcing.polygonId"> </app-remote-sensoring>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white br-4 pl-2 px-lg-5 py-3 py-lg-4 mt-4">
+        <div class="px-0">
+            <div class="fnt-18 fnt-bold text-clr000 mt-lg-2 mb-3 mb-lg-4">
+                {{ globals.languageJson?.estates_other_green_coffee }}
+            </div>
+            <div *ngIf="sourcing.otherGreenList && sourcing.otherGreenList.length; else noOtherCoffee" class="row">
+                <div
+                    class="col-lg-4 col-md-6 col-12 cursor-pointer d-none d-md-block"
+                    *ngFor="let item of sourcing.otherGreenList"
+                    routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}"
+                >
+                    <app-harvest-card [data]="item"></app-harvest-card>
+                </div>
+                <!-- Mobile Carousel -->
+                <div class="col-lg-4 col-md-6 col-12 cursor-pointer d-md-none">
+                    <p-carousel
+                        [value]="sourcing.otherGreenList"
+                        [numVisible]="1"
+                        [numScroll]="1"
+                        [circular]="true"
+                        [autoplayInterval]="3000"
+                    >
+                        <ng-template let-item pTemplate="item">
+                            <div routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}">
+                                <app-harvest-card [data]="item"></app-harvest-card>
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #btnGroup>
+    <div class="btn-wrap">
+        <div class="pr-2">
+            <button
+                class="btn-stroked px-3"
+                routerLink="/features/available-confirm-order"
+                [queryParams]="{ gc_id: sourcing.harvestData, flag: 'sample' }"
+            >
+                Order sample
+            </button>
+        </div>
+        <div class="pl-2">
+            <button
+                class="btn-raised"
+                routerLink="/features/available-confirm-order"
+                [queryParams]="{ gc_id: sourcing.harvestData, flag: 'buyNow' }"
+                *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"
+            >
+                Buy
+            </button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #loading>
+    <div class="total-loader">
+        <div>
+            <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #noOtherCoffee>
+    <app-blank title="No data available" button="Browse availabilities" link="/features/welcome-aboard"></app-blank>
+</ng-template>

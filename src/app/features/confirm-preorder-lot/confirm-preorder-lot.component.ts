@@ -3,7 +3,6 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from '../roastery-profile/roastery-profile.service';
-import { SourcingService } from '../sourcing/sourcing.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Toast, ToastrService } from 'ngx-toastr';
@@ -67,7 +66,6 @@ export class ConfirmPreorderLotComponent implements OnInit {
         public router: Router,
         public globals: GlobalsService,
         private route: ActivatedRoute,
-        public sourcing: SourcingService,
         private cookieService: CookieService,
         private toastrService: ToastrService,
         private roasterService: RoasterserviceService,

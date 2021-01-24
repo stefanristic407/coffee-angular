@@ -6,7 +6,7 @@ import { UserserviceService } from './users/userservice.service';
     providedIn: 'root',
 })
 export class GlobalsService {
-    private countryList: any[] = [
+    countryList: any[] = [
         {
             name: `Afghanistan`,
             isoCode: `AF`,
@@ -5453,6 +5453,13 @@ export class GlobalsService {
     getTheMaxLength(value: any, countValue: any) {
         const getLength = this.countTheString(value, countValue);
         return getLength === countValue ? value.length : '';
+    }
+
+    getCountry(data: string) {
+        if (data) {
+            return this.countryList.find((con: any) => con.isoCode === data.toUpperCase());
+        }
+        return '';
     }
 
     getCountryName(data: string) {

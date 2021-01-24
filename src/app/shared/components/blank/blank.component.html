@@ -4,6 +4,6 @@
         <p *ngIf="title" class="fnt-14 fnt-muli fnt-normal text-gray588 mb-4">
             {{ title }}
         </p>
-        <button *ngIf="button" class="btn-raised">{{ button }}</button>
+        <button *ngIf="button" class="btn-raised" [routerLink]="link">{{ button }}</button>
     </div>
 </div>

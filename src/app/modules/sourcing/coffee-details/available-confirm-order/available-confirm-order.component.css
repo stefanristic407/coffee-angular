@@ -1,0 +1,522 @@
+.create-role-sec {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+.confirm-padding {
+    margin-top: 1px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.confirm-order {
+    padding: 2.5rem 1.7rem;
+    border-radius: 4px;
+    background-color: #faf8f4;
+    overflow: hidden;
+}
+
+.confirm-txt {
+    font-size: 28px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.fill-txt {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #747588;
+}
+
+.bread-nav {
+    padding-left: 3rem;
+}
+
+th {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold !important;
+    color: #232334;
+    padding-right: 1.9rem;
+}
+
+.table thead th {
+    border-bottom: none !important;
+    border-top: none !important;
+    padding-left: 1.9rem;
+}
+
+.table tbody td {
+    padding-left: 2rem;
+    padding-top: 17px;
+    padding-bottom: 17px;
+}
+
+.table th,
+.table td {
+    border-top: none !important;
+}
+
+td {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.table-head {
+    border-radius: 4px;
+    background-color: #f8f8f8
+}
+
+.lot-table {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+.border-div {
+    margin-top: 2.2rem!important;
+}
+
+.ord-quantity,
+.amount {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.quantity-border {
+    border-right: 1px solid #dddddd;
+}
+
+.search {
+    height: 50px;
+    border: none;
+    background-color: #ffffff;
+    width: 130px;
+}
+
+.search:focus {
+    box-shadow: none !important;
+}
+
+.main-bag {
+    /* position: absolute;
+    right: 10px;
+    top: 15px; */
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+.price-tag {
+    padding-left: 10px;
+    margin-top: 16px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+}
+
+.price-total {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+    margin-right: 4.8rem;
+}
+
+.shipping-addr {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.edit-text {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    cursor: pointer;
+}
+
+.address-bar {
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 1.5rem 0.5rem;
+}
+
+.add-text,
+.details {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.details-header {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.remeber-left {
+    font-family: Muli !important;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.terms-color {
+    color: #80460b;
+    text-decoration: underline;
+}
+
+.place-order,
+.save-address {
+    border-radius: 4px;
+    background-color: #30855c;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 0px 15px;
+    height: 46px;
+}
+
+.place-order:hover,
+.save-address:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.ord_cancel {
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #ffffff;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    padding: 0px 15px;
+    height: 46px;
+    text-decoration: none;
+}
+
+.ord_cancel:hover {
+    color: #ffffff;
+    background-color: #30855c;
+}
+
+.bottom-border {
+    border-bottom: solid 1px #d6d6d6;
+    padding-bottom: 2rem;
+}
+
+
+/********Modal********/
+
+.modal-header {
+    border-bottom: none;
+}
+
+.are-sure {
+    font-family: PlayfairDisplay;
+    font-size: 28px;
+    font-weight: normal;
+    color: #020202;
+}
+
+.do-account {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+.add-btn {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    padding: 11px 18px;
+}
+
+.add-btn:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.no-btn {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    color: #30855c;
+    border-radius: 4px;
+    border: solid 1px #30855c;
+    background-color: #ffffff;
+    cursor: pointer;
+    padding: 11px 18px;
+}
+
+.no-btn:hover {
+    background-color: #30855c;
+    color: #fff;
+}
+
+::ng-deep .modal-content {
+    top: 3rem;
+}
+
+#form-address {
+    display: none;
+}
+
+.save-top {
+    margin-top: 2.8rem;
+}
+
+.ship-top {
+    margin-top: 2.2rem;
+}
+
+label {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #232334;
+}
+
+.star {
+    color: #ff1e5a;
+}
+
+.form-control {
+    height: 50px;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    font-size: 14px !important;
+}
+
+.select_order {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    background: url(/assets/images/confirm-drop.png) right 15px top 16px no-repeat;
+    -webkit-appearance: none;
+    font-family: Muli;
+    font-weight: 500;
+    height: 50px !important;
+    padding-top: 7px;
+    cursor: pointer;
+    font-size: 14px !important;
+}
+
+.checkmark {
+    top: 2px !important;
+    left: 2px !important;
+    height: 17px !important;
+    width: 17px !important;
+}
+
+.customcheckbox .checkmark:after {
+    left: 5px !important;
+    top: 1px !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+span.checkmark {
+    background-color: #fff !important;
+    border: solid 1px #979797;
+    border-radius: 2px;
+}
+
+.customcheckbox input:checked~.checkmark {
+    background-color: #232334 !important;
+}
+
+.box-border {
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    margin-left: 15px;
+    padding: 0 10px;
+}
+
+.web-sec {
+    display: block;
+}
+
+.mob-sec {
+    display: none;
+}
+
+
+/* 
+.search:focus {
+    box-shadow: 0 0 0 0.035rem green !important;
+} */
+
+.confirm-ordererror,
+.countryError,
+.addressError,
+.cityError,
+.zipError {
+    color: #D50000;
+    font-size: 14px;
+}
+
+.termError {
+    color: #D50000;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+
+/****************************    Media Queries   ****************************/
+
+@media screen and (max-width:768px) {
+    .create-role {
+        margin-left: 0.9rem;
+        margin-right: 0.9rem;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+    .mob-sec {
+        display: block;
+    }
+    .web-sec {
+        display: none;
+    }
+    .confirm-ffff {
+        background-color: #ffffff;
+        margin-left: 0rem;
+        margin-right: 0rem;
+    }
+    .border-div {
+        margin-top: 1.2rem!important;
+    }
+    .back-icon {
+        border-bottom: 1px solid #ebebeb;
+        padding-bottom: 13px;
+    }
+    .back-icon a {
+        font-size: 14px;
+        color: #80460b;
+        font-weight: 600;
+    }
+    .back-icon img {
+        margin-right: 5px;
+    }
+    .create-role-sec {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    .confirm-order {
+        padding: 1rem;
+    }
+    .confirm-txt {
+        font-size: 18px;
+        font-weight: normal;
+    }
+    .fill-txt {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 20px;
+    }
+    .estate-list {
+        border: 1px solid #ebebeb;
+        padding: 1rem;
+    }
+    .estate-list h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #232334;
+        font-family: Muli;
+    }
+    .recent td {
+        padding: 1rem 2.8rem 1rem 0rem;
+        border-bottom: 1px solid #d6d6d6;
+    }
+    .list-ques {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 500;
+        color: #747588;
+    }
+    .list-answ {
+        font-family: Muli;
+        font-size: 14px;
+        font-weight: 600 !important;
+        color: #232334;
+    }
+    tr:last-child td {
+        border-bottom: 0;
+    }
+    .search-border {
+        border: 1px solid #d6d6d6;
+        padding: 10px;
+        margin-left: 10px;
+        border-radius: 4px;
+    }
+    .price-total {
+        margin-right: 0rem;
+    }
+    .ord-quantity,
+    .amount {
+        color: #747588;
+    }
+    .search {
+        height: auto;
+        border: none !important;
+        width: 60px;
+    }
+    .search:focus {
+        box-shadow: none !important;
+    }
+    .space-top {
+        margin-top: 2rem;
+    }
+    .bag {
+        font-size: 14px;
+        font-weight: 600;
+        color: #747588;
+    }
+    .boder-name {
+        border-top: 1px solid #d6d6d6;
+        padding-top: 1.2rem;
+    }
+    .edit-div {
+        border-top: 1px solid #d6d6d6;
+        margin-top: 1rem !important;
+        padding-top: 1.3rem;
+    }
+    .save-top {
+        margin-top: 0.5rem;
+    }
+}
+
+.rectangle_dropdown {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    background: url('../../../../../assets/images/role-down.svg') right 16px top 16px no-repeat;
+    -webkit-appearance: none;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    color: #232334;
+    height: 46px !important;
+    cursor: pointer;
+}
+
+.seviceProvider {
+    border: #d6d6d6;
+    padding: 5px;
+    color: #232334;
+    background-color: #ffffff;
+}

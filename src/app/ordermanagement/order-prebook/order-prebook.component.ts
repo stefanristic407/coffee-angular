@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { OrderBookedService } from '../order-booked/order-booked.service';
-import { SourcingService } from 'src/app/features/sourcing/sourcing.service';
 declare var $: any;
 
 @Component({
@@ -51,7 +50,6 @@ export class OrderPrebookComponent implements OnInit, AfterContentInit, AfterVie
         public bookedService: OrderBookedService,
         public globals: GlobalsService,
         public profileservice: RoasteryProfileService,
-        public sourcing: SourcingService,
     ) {
         this.dataFromTable = decodeURIComponent(this.route.snapshot.queryParams.data);
         this.orderPreBookId = decodeURIComponent(this.route.snapshot.queryParams.id);
@@ -277,8 +275,8 @@ export class OrderPrebookComponent implements OnInit, AfterContentInit, AfterVie
             },
             // skipLocationChange: true
         };
-        this.sourcing.prebook_order_id = this.prebookService.preId;
-        this.sourcing.prebook_flag = true;
+        // this.sourcing.prebook_order_id = this.prebookService.preId;
+        // this.sourcing.prebook_flag = true;
         this.router.navigate([
             '/features/available-coffee-list/' + this.prebookService.estate_id + '/' + this.prebookService.harvestId,
         ]);

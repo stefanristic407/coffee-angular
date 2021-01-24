@@ -62,11 +62,8 @@ export class ImageMapComponent implements OnInit {
         this.makeData();
     }
 
-    changeDate(value) {
-        if (moment(value).isValid()) {
-            this.selectedDate = new Date(value);
-            this.getData();
-        }
+    changeDate() {
+        this.getData();
     }
 
     getPolygon() {
@@ -83,7 +80,7 @@ export class ImageMapComponent implements OnInit {
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
-            }
+            },
         );
     }
 
@@ -100,7 +97,7 @@ export class ImageMapComponent implements OnInit {
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
-            }
+            },
         );
     }
 

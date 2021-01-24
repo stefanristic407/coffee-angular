@@ -142,7 +142,10 @@
                                 <img src="assets/images/close-icon.png" />
                             </div>
                             <ul class="nav-links fnt-muli pad-5">
-                                <li class="nav-links__item d-md-inline-block position-relative active">
+                                <li
+                                    class="nav-links__item d-md-inline-block position-relative"
+                                    routerLinkActive="active"
+                                >
                                     <a
                                         class="d-inline-block fnt-600 router-link"
                                         [routerLink]="['/features/welcome-aboard']"
@@ -151,25 +154,13 @@
                                 </li>
 
                                 <li
-                                    class="nav-links__item arrow d-inline-block position-relative"
+                                    class="nav-links__item d-inline-block position-relative"
+                                    routerLinkActive="active"
                                     *ngIf="this.globals.checkItem('sourcing-management')"
                                 >
-                                    <a class="d-inline-block fnt-600 router-link">
-                                        <!-- {{globals.languageJson?.sourcing_module}} -->
-                                        Sourcing
+                                    <a class="d-inline-block fnt-600 router-link" routerLink="/sourcing">
+                                        {{ globals.languageJson?.sourcing_module }}
                                     </a>
-                                    <ul class="nav-dropdown fnt-600">
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/sourcing']">
-                                                Green Coffee Sourcing
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="router-link" [routerLink]="['/features/green-grading']">
-                                                Quality Control
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                                 <!-- *ngIf="globals.permissions['cart-management'] || globals.permissions['cart-list']" -->
                                 <li
@@ -273,6 +264,17 @@
                                         </li>
                                     </ul>
                                 </li>
+
+                                <li
+                                    class="nav-links__item d-inline-block position-relative"
+                                    routerLinkActive="active"
+                                    *ngIf="this.globals.checkItem('sourcing-management')"
+                                >
+                                    <a class="d-inline-block fnt-600 router-link" routerLink="/features/green-grading">
+                                        Green grading
+                                    </a>
+                                </li>
+
                                 <li class="nav-links__item arrow d-inline-block position-relative">
                                     <a class="d-inline-block fnt-600" href="javascript:void(0)">
                                         <!-- {{globals.languageJson?.farm_link}} -->

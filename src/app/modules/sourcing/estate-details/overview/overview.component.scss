@@ -1,0 +1,540 @@
+.des-content article {
+    width: 65%;
+    border: 1px solid #000;
+    float: left;
+    margin-right: 1.5%;
+    padding: 32px 24px;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+}
+
+.des-content aside {
+    width: 33.5%;
+    border-radius: 4px;
+    border: solid 1px #ebebeb;
+    float: left;
+    padding: 32px 24px;
+    border-radius: 4px;
+}
+
+.stit h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #000000;
+    font-family: Muli;
+}
+
+.stit p {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 25px;
+    color: #232334;
+    font-family: Muli;
+}
+
+.stit p:last-child {
+    margin-bottom: 40px;
+}
+
+.source-cont .nav-item {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.real-estate h6 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    margin-top: 12px;
+    color: #747588;
+    font-family: Muli;
+}
+
+.real-estate h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #232334;
+    font-family: Muli;
+}
+
+.estate-focus h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    font-family: Muli;
+}
+
+.estate-focus ul {
+    margin-bottom: 0;
+}
+
+.estate-focus ul li {
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #eeeeee;
+    padding: 16px 0;
+}
+
+.estate-focus ul li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.estate-focus ul li label {
+    float: left;
+    width: 28%;
+    margin-bottom: 0;
+    color: #747588;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Muli;
+}
+
+.estate-focus ul li p {
+    margin-bottom: 0;
+    width: 60%;
+    float: left;
+    font-size: 14px;
+    color: #232334;
+    font-weight: 600;
+    font-family: Muli;
+    margin-left: 2.3rem;
+}
+
+.cetify-logo ul li {
+    display: inline-block;
+    width: 50px;
+    margin-right: 30px;
+}
+
+.cetify-logo ul li :last-child {
+    margin-right: 0;
+}
+
+.cetify-logo ul li img {
+    width: 100%
+}
+
+.prodcoffee {
+    width: 100%;
+    position: relative;
+    height: 234px;
+    background: url(/assets/images/video-image.jpg) no-repeat scroll;
+}
+
+.prodcoffee h4 {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0px, -50%);
+    padding: 24px;
+    font-size: 18px;
+    z-index: 10;
+    font-weight: 600;
+    font-family: Muli;
+}
+
+.prebook .more-text {
+    width: 100%;
+    font-family: Muli;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 10px 16px;
+    border: 1px solid #30855c;
+    font-size: 14px;
+    background-color: #30855c;
+    color: #fff;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.prebook .more-text:hover {
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.prebook .prebook-estate {
+    width: 100%;
+    font-family: Muli;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 10px 16px;
+    border: 1px solid #30855c;
+    font-size: 14px;
+    color: #30855c;
+    cursor: pointer;
+}
+
+.prebook .prebook-estate:last-child {
+    margin-right: 0;
+}
+
+.prebook .prebook-estate:hover {
+    background: #30855c;
+    color: #fff;
+}
+
+.p-gal img {
+    width: 100%
+}
+
+.gals {
+    margin-bottom: 25px;
+}
+
+.gals img {
+    width: 100%;
+}
+
+.whyus-zoom img {
+    float: left;
+    margin-top: 3px;
+    margin-right: 10px;
+}
+
+.whyus-details {
+    padding: 24px;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+}
+
+.marketing-gal {
+    position: relative;
+}
+
+.marklist {
+    position: absolute;
+    bottom: 0;
+    z-index: 9;
+    background: #c69c6c;
+    color: #fff;
+    height: 90%;
+    left: 32px;
+    width: 540px;
+    padding: 5% 2% 0 4%;
+}
+
+.marklist h2 {
+    font-size: 47px;
+    font-style: italic;
+    margin-bottom: 12px;
+}
+
+.marklist h5 {
+    font-size: 16px;
+}
+
+.marklist h2 span {
+    width: 100%;
+    display: block;
+}
+
+.mark-brand {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 30px;
+}
+
+.mark-brand h3 {
+    font-size: 38px;
+    font-style: italic;
+    padding-right: 4rem;
+    color: #c69c6c;
+}
+
+.mark-brand p {
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.mark-brand p:last-child {
+    margin-bottom: 0;
+}
+
+.video-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.video-part {
+    background: #0006;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.prodcoffee .video-btn {
+    right: 8px;
+    bottom: 7px;
+    width: auto;
+    left: auto;
+    top: auto;
+}
+
+.rating-fff {
+    background-color: #FFFFFF;
+    margin: 0.5rem 0rem;
+}
+
+.chat-btn {
+    border-radius: 8px 8px 0px 0px !important;
+    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
+    background-color: #333333;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    text-align: left;
+}
+
+.chat-indicator {
+    color: #24be46;
+}
+
+.chat-div {
+    width: 98%!important;
+}
+
+.stricky-order {
+    position: fixed;
+    left: 0;
+    right: 10%;
+    bottom: 0px;
+    z-index: 99;
+    width: 23%;
+}
+
+
+/********Graph Css*********/
+
+.live-estate h2 {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.live-text {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    color: #5d5d5d;
+}
+
+.add-variety {
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+
+::ng-deep .gridline-path-vertical {
+    display: none;
+}
+
+::ng-deep .ngx-charts {
+    height: 280px;
+}
+
+.chart-cont .nav-tabs .nav-link {
+    border: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    color: #232334;
+    flex: inherit;
+    padding-bottom: 6px;
+}
+
+.chart-cont .nav-tabs .nav-link.active {
+    border-bottom: 2px solid #30855c;
+    color: #30855c;
+    font-family: Muli;
+    font-weight: 600;
+}
+
+.border-total {
+    border-radius: 20px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    padding: 10px 12px;
+}
+
+.legend-color {
+    width: 8px;
+    height: 8px;
+    background-color: #f19634;
+    border-radius: 50%;
+    display: inline-block;
+    /* position: relative; */
+    top: -3px;
+    left: 3px;
+}
+
+.legend-color2 {
+    width: 8px;
+    height: 8px;
+    background-color: #7c6be8;
+    border-radius: 50%;
+    display: inline-block;
+    /* position: relative; */
+    top: -3px;
+    left: 3px;
+}
+
+.chart-details {
+    padding: 24px 24px 0 24px;
+    border: 1px solid #ebebeb;
+}
+
+.legend-text {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: 500;
+    color: #232334;
+}
+
+ngx-charts-line-chart {
+    overflow: auto
+}
+
+agm-map {
+    height: 150px;
+    width: 100%;
+}
+
+@media (max-width:991px) {
+    /*Detail Page*/
+    .des-content article {
+        width: 100%;
+        margin-right: 0;
+    }
+    .des-content aside {
+        width: 100%;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width:767px) {
+    /*Detail page*/
+    .cetify-logo ul li {
+        width: 40px;
+        margin-right: 10px;
+    }
+    .estate-focus ul li label,
+    .estate-focus ul li p {
+        width: 50%;
+    }
+    .m-padding-8 {
+        padding: 0 8px;
+    }
+    .des-content article {
+        padding: 16px;
+    }
+    .stit h2 {
+        width: 65%;
+        display: inline-block;
+        font-size: 16px;
+    }
+    .s-cert {
+        width: 35%;
+        display: inline-block;
+        float: right;
+    }
+    .s-cert ul li {
+        margin-right: 10px;
+    }
+    .s-cert ul li:last-child {
+        margin-right: 0;
+    }
+    .s-cert li img {
+        width: 23px;
+    }
+    .area-location,
+    .stit p,
+    .real-estate h6 {
+        color: #747588;
+        font-size: 12px;
+    }
+    .m-orgin {
+        font-size: 14px;
+        color: #242424;
+        font-weight: bold;
+    }
+    .real-estate img {
+        width: 24px;
+    }
+    .stit p:last-child {
+        margin-bottom: 0px;
+    }
+    .des-content aside {
+        padding: 0px;
+        margin-top: 1rem;
+    }
+    .prebook a {
+        padding: 10px 0 !important;
+    }
+    .prodcoffee h4 {
+        font-size: 14px;
+    }
+    .employer {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    /*chart*/
+    #nav-tabContent .d-inline.col-sm-6 {
+        width: auto;
+        float: left;
+        padding-left: 0;
+    }
+    #nav-tabContent .border-total {
+        width: auto !important;
+        margin-top: 1rem;
+        clear: left;
+        padding-left: 10px !important;
+        font-size: 14px;
+    }
+    .nav-tabs.nav-fill a {
+        font-size: 14px !important;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .chart-details {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    #nav-tabContent {
+        padding-top: 10px !important;
+    }
+    ngx-charts-line-chart {
+        overflow: scroll;
+    }
+    text {
+        font-size: 12px;
+    }
+    .legend-text {
+        font-size: 12px;
+    }
+    /*End chart*/
+}
+
+@media (max-width:340px) {
+    .nav-tabs.nav-fill a {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+}
