@@ -283,6 +283,8 @@
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
     color: $muted-text-color;
     border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
     color: $primary-text-color;
@@ -307,6 +309,12 @@
 .p-dropdown-open .p-dropdown-trigger-icon {
     color: $primary-color;
     transform: rotate(180deg);
+}
+.p-dropdown .p-dropdown-label.p-placeholder {
+    color: $muted-text-color;
+}
+.p-dropdown-trigger-icon {
+    color: $button-icon-color;
 }
 
 // Calendar
