@@ -257,7 +257,9 @@
                                 <div class="clearfix account {{data.name}}" (click)="getChatHistory(data.id, data)"
                                      *ngFor="let data of threadsData">
                                     <div class="d-inline-block profile-pic chat-img-name">
-                                        <img class="profile-pic__item" src="assets/images/dm-profile.png">
+                                        <div class="profile-pic__item bg-profile"
+                                             [style.background-image]="data.thread_dp">
+                                        </div>
                                         <span class="live-account"></span>
                                     </div>
                                     <div class="chat-profile clearfix">

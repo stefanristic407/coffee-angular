@@ -36,6 +36,7 @@ export class DirectMessagingComponent implements OnInit {
     threadLastMessages: any;
     appLanguage?: any;
     messagingActive: any = 0;
+    userId: any = '';
 
     constructor(
         private modalService: BsModalService,
@@ -48,6 +49,7 @@ export class DirectMessagingComponent implements OnInit {
         this.keyword = 'firstname'
         this.wsURL = environment.wsEndpoint;
         this.roaster_id = this.cookieService.get("roaster_id");
+        this.userId = this.cookieService.get('user_id');
         this.subject = webSocket(`${this.wsURL}/ro/${this.roaster_id}/messaging`);
         console.log(this.subject);
         this.currentUser = "";
@@ -95,6 +97,7 @@ export class DirectMessagingComponent implements OnInit {
                                         element['name'] = userDetails[1];
                                     }
                                 });
+                                element.thread_dp = this.getProfileImage(element);
                                 this.threadsData.push(element);
                                 this.threadsMessageData[element['id']] = [];
                                 this.threadLastMessages[element['id']] = {};
@@ -118,6 +121,7 @@ export class DirectMessagingComponent implements OnInit {
                             }
                         });
                         if (msg) {
+                            msg['data'].thread_dp = this.getProfileImage(msg['data']);
                             this.threadsData.push(msg['data']);
                             this.threadsMessageData[msg['data']['id']] = [];
                         }
@@ -229,6 +233,15 @@ export class DirectMessagingComponent implements OnInit {
         this.openModal(this.reporttemplate);
     }
 
+    getProfileImage(data) {
+        const otherParticipant = data.members
+            .find(member => (member.user_id + '') !== (this.userId + '')); // Find one of the other participan
+        if (otherParticipant.profile_pic) {
+            return `url(${otherParticipant.profile_pic})`;
+        } else {
+            return `url(assets/images/profile.svg)`;
+        }
+    }
     getReadableTime(tTime: string = '') {
         const todayDate = moment();
         const messageDate = moment(tTime);
