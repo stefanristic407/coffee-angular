@@ -29,10 +29,10 @@ export class SourcingComponent implements OnInit {
     ];
     gradeItems: any[] = [
         { label: 'All', value: null },
-        { label: '81.0 - 83.0', value: '81.0,83.0' },
-        { label: '84.0 - 86.0', value: '84.0,86.0' },
-        { label: '87.0 - 89.0', value: '87.0,89.0' },
-        { label: '90+', value: '90' },
+        { label: '81.0 - 83.0', value: ['81.0', '83.0'] },
+        { label: '84.0 - 86.0', value: ['84.0', '86.0'] },
+        { label: '87.0 - 89.0', value: ['87.0', '89.0'] },
+        { label: '90+', value: ['90', '100'] },
     ];
     cropItems: any[];
     weightItems: any[] = [

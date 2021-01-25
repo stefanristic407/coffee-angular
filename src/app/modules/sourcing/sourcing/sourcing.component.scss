@@ -10,38 +10,6 @@
     top: -10px;
 }
 
-.activate-toggle.active {
-    background: #000;
-    color: #fff;
-}
-
-.remove-toggle.active {
-    background: #000;
-    color: #fff;
-}
-
-.btn-switch {
-    width: 40px;
-    padding: 10px 13px;
-    border-radius: 50%;
-    background: #f0f0f0;
-    cursor: pointer;
-    margin-right: 2px;
-}
-
-.btn-group {
-    border-radius: 20px;
-    background: #f0f0f0;
-}
-
-.btn-switch svg path {
-    fill: #232334;
-}
-
-.btn-switch.active svg path {
-    fill: #fff;
-}
-
 .modal-body,
 .modal-header {
     padding: 0rem !important;

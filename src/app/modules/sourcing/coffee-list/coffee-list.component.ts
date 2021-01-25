@@ -41,9 +41,13 @@ export class CoffeeListComponent implements OnInit, OnDestroy {
     getAvailableCoffee() {
         const query = [];
         Object.entries(this.queryParams).forEach(([key, value]) => {
-            this.queryParams[key] = value || '';
             if (value) {
-                query.push(`${key}=${value}`);
+                if (key === 'grade') {
+                    query.push(`cup_score_min=${value[0]}`);
+                    query.push(`cup_score_max=${value[1] || ''}`);
+                } else {
+                    query.push(`${key}=${value}`);
+                }
             }
         });
         const queryStr = '?' + query.join('&');
