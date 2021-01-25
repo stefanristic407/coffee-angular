@@ -5366,7 +5366,7 @@ export class GlobalsService {
         },
     ];
     monthList: any[] = [
-        { label: 'All', value: '' },
+        { label: 'All', value: null },
         { label: 'January', value: '1' },
         { label: 'February', value: '2' },
         { label: 'March', value: '3' },

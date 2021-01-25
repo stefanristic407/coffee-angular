@@ -1,113 +1,14 @@
-.close-svg {
-    width: 22px;
-    height: 22px;
-    margin-top: -5px;
-}
-
 .filter-sort {
     position: absolute;
     right: 0;
     top: -10px;
 }
 
-.modal-body,
-.modal-header {
-    padding: 0rem !important;
+.altitude-wrap {
+    width: 42%;
 }
 
-.modal-header {
-    border-bottom: none !important;
-    margin-bottom: 8px;
-}
-
-::ng-deep .modal-content {
-    padding: 10px 15px !important;
-}
-
-.search-div {
-    width: 82%;
-    height: 50px;
-    border: none;
-    background-color: #ffffff;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-}
-
-.border-filter {
-    padding-top: 23px !important;
-    border-top: solid 1px #d6d6d6;
-}
-
-.meter-border {
-    border: solid 1px #d6d6d6;
-    border-radius: 4px;
-}
-
-.meter-data {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #232334;
-}
-
-.flavour-profile,
-.listing-status,
-.certificates {
-    font-family: Muli;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #232334;
-}
-
-.popup-filter ul li {
-    width: 20%;
-    float: left;
-    padding-bottom: 1rem;
-}
-
-.checkmark {
-    top: 2px !important;
-    left: 2px !important;
-    height: 17px !important;
-    width: 17px !important;
-}
-
-.customcheckbox .checkmark:after {
-    left: 5px !important;
-    top: 1px !important;
-    border-width: 0 2px 2px 0 !important;
-}
-
-span.checkmark {
-    background-color: #fff !important;
-    border: solid 1px #979797;
-    border-radius: 2px;
-}
-
-.customcheckbox input:checked ~ .checkmark {
-    background-color: #30855c !important;
-}
-
-.flavour-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #747588;
-    padding-left: 36px;
-}
-
-@media (max-width: 767px) {
-    .btn-group {
-        display: none;
-    }
-}
-
-@media (min-width: 576px) {
-    ::ng-deep .modal-dialog {
-        max-width: 55% !important;
-    }
+.flavour-block {
+    max-height: 246px;
+    overflow-y: auto;
 }

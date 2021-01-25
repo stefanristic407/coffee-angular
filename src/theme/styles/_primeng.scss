@@ -503,3 +503,43 @@
 .p-input-icon-left > i:first-of-type {
     color: $button-icon-color;
 }
+
+// Dialog
+.p-dialog {
+    background: #fff;
+    border: none;
+    padding: 0 1rem;
+    width: 90vw;
+    @media (min-width: 768px) {
+        padding: 0 1.5rem;
+        width: 75vw;
+    }
+}
+.p-dialog .p-dialog-header {
+    background: #fff;
+    color: #242424;
+    padding-left: 0;
+    padding-right: 0;
+}
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+    color: $button-icon-color;
+}
+.p-dialog-header-close-icon {
+    font-size: 20px;
+}
+.p-dialog .p-dialog-content {
+    padding-left: 0;
+    padding-right: 0;
+}
+.p-dialog .p-dialog-footer {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+// Input group
+.p-inputgroup-addon {
+    background: transparent;
+    color: $primary-text-color;
+    border-color: $primary-border-color !important;
+    font-weight: 600;
+}

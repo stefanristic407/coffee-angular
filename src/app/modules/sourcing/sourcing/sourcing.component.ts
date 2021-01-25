@@ -46,15 +46,21 @@ export class SourcingComponent implements OnInit {
         { label: 'Price (High - low)', value: 'price' },
         { label: 'Quantity (High- Low)', value: 'quantity' },
     ];
+    listingStatusItems = [
+        { label: 'At Estate', value: 'ESTATE' },
+        { label: 'At mill', value: 'MILL' },
+        { label: 'Warehouse', value: 'WAREHOUSE' },
+    ];
 
     queryParams: any = {
+        grade: '',
+        crop_year: '',
         weight: 'kg',
     };
     viewMode = 'grid';
-    viewModeItems: any[] = [
-        { icon: 'pi pi-align-left', value: 'table' },
-        { icon: 'pi pi-align-right', value: 'grid' },
-    ];
+    viewModeItems: any[] = [{ value: 'table' }, { value: 'grid' }];
+    displayFilterModal = false;
+    limitFlavour = true;
 
     constructor(
         private modalService: BsModalService,
@@ -64,10 +70,6 @@ export class SourcingComponent implements OnInit {
         private toastrService: ToastrService,
         public sourcingSrv: SourcingService,
     ) {}
-
-    openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
-    }
 
     ngOnInit(): void {
         this.menuItems = [
@@ -80,6 +82,7 @@ export class SourcingComponent implements OnInit {
         this.cropItems = this.globals.monthList;
 
         this.appLanguage = this.globals.languageJson;
+        this.sourcingSrv.flavourprofileList();
     }
 
     filterCall() {

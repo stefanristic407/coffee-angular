@@ -18,6 +18,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { GalleriaModule } from 'primeng/galleria';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -71,6 +72,7 @@ const THIRDMODULES = [
     DialogModule,
     DropdownModule,
     GalleriaModule,
+    InputNumberModule,
     InputSwitchModule,
     InputTextModule,
     MultiSelectModule,

@@ -46,7 +46,6 @@ export class SourcingService {
     city: any;
     lots: any;
     varieties: any;
-    flavourList: any;
     activeLandlots: any;
     greenList: any;
     harvestData: any;
@@ -135,6 +134,9 @@ export class SourcingService {
 
     viewMode: any = new BehaviorSubject('grid');
     viewMode$: any = this.viewMode.asObservable();
+
+    flavourList: any = new BehaviorSubject([]);
+    flavourList$: any = this.flavourList.asObservable();
 
     constructor(
         private http: HttpClient,
@@ -272,7 +274,8 @@ export class SourcingService {
     flavourprofileList() {
         this.userService.getFlavourProfile().subscribe((res: any) => {
             if (res.success) {
-                this.flavourList = res.result;
+                this.flavourList.next(res.result);
+                console.log('Flavour List:', this.flavourList);
             }
         });
     }
