@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { UserserviceService } from '@services';
@@ -67,6 +68,7 @@ export class SourcingComponent implements OnInit {
         public globals: GlobalsService,
         private userService: UserserviceService,
         private cookieService: CookieService,
+        private deviceSrv: DeviceDetectorService,
         private toastrService: ToastrService,
         public sourcingSrv: SourcingService,
     ) {}
