@@ -25,7 +25,7 @@
                 [readonlyInput]="true"
                 [showButtonBar]="true"
                 placeholder="Selected dates"
-                class="round-border single-calendar mr-3"
+                styleClass="round-border single-calendar mr-3"
             ></p-calendar>
         </ng-container>
         <ng-container *ngIf="periods[selPeriod].period === 'range'">
@@ -38,7 +38,7 @@
                 [readonlyInput]="true"
                 [showButtonBar]="true"
                 placeholder="Selected dates"
-                class="round-border single-calendar mr-3"
+                styleClass="round-border single-calendar mr-3"
             ></p-calendar>
             <p-calendar
                 [(ngModel)]="endDate"
@@ -48,7 +48,7 @@
                 [readonlyInput]="true"
                 [showButtonBar]="true"
                 placeholder="Selected dates"
-                class="round-border single-calendar mr-3"
+                styleClass="round-border single-calendar mr-3"
             ></p-calendar>
         </ng-container>
         <app-select

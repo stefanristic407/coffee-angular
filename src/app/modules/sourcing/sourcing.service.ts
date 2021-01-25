@@ -123,14 +123,18 @@ export class SourcingService {
 
     queryParams: any = new BehaviorSubject({
         origin: '',
-        variety: '',
+        species: '',
         name: '',
         grade: '',
         crop_year: '',
         weight: 'kg',
-        sort: '',
+        sort_by: '',
+        sort_order: 'asc',
     });
     queryParams$: any = this.queryParams.asObservable();
+
+    viewMode: any = new BehaviorSubject('grid');
+    viewMode$: any = this.viewMode.asObservable();
 
     constructor(
         private http: HttpClient,

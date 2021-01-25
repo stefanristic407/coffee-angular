@@ -20,6 +20,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
@@ -72,6 +73,7 @@ const THIRDMODULES = [
     GalleriaModule,
     InputSwitchModule,
     InputTextModule,
+    MultiSelectModule,
     OverlayPanelModule,
     SelectButtonModule,
     SliderModule,

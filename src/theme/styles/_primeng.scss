@@ -27,7 +27,7 @@
 .p-inputtext.ng-dirty.ng-invalid {
     border-color: $invalid-color;
 }
-.round-border .p-inputtext {
+.round-border.p-inputtext {
     border-radius: 20px;
 }
 
@@ -121,6 +121,46 @@
     color: #ffffff;
 }
 
+.select-layout {
+    &.p-selectbutton {
+        border: none;
+        background: #f0f0f0;
+        padding: 0;
+        border-radius: 20px;
+
+        .p-button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 20px !important;
+            svg path {
+                fill: $primary-text-color;
+            }
+        }
+        .p-button.p-highlight {
+            background: $dark-color;
+            svg path {
+                fill: #fff;
+            }
+        }
+        .p-button:not(.p-state-disabled):not(.p-state-active):hover {
+            background: transparent;
+            svg path {
+                fill: $primary-text-color;
+            }
+        }
+        .p-button.p-highlight:not(.p-state-disabled):not(.p-state-active):hover {
+            background: $dark-color;
+            svg path {
+                fill: #fff;
+            }
+        }
+    }
+}
+
 // Checkbox
 .p-checkbox .p-checkbox-box.p-highlight {
     border-color: $primary-color;
@@ -129,6 +169,9 @@
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
     border-color: $primary-color;
     background: $primary-color;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    border-color: $primary-color;
 }
 .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
     box-shadow: none;
@@ -163,12 +206,12 @@
             .p-menuitem-link {
                 position: relative;
                 flex: inherit !important;
-                margin-bottom: -4px;
                 margin-right: 0px;
                 transition: 0.4s ease-in-out;
                 border: none;
                 background-color: transparent;
                 color: $primary-text-color;
+                padding: 0.857rem 1.5rem;
                 font-weight: 600;
 
                 &::before {
@@ -180,7 +223,6 @@
                     left: 50%;
                     text-align: center;
                     margin: auto;
-                    top: 80%;
                     transform: translate(-50%);
                     border-radius: 1.5px;
                     background-color: $primary-color;
@@ -248,7 +290,7 @@
 }
 
 // DropDown
-.round-border .p-dropdown {
+.round-border.p-dropdown {
     border-radius: 20px;
 }
 .p-dropdown {
@@ -325,7 +367,7 @@
         border-color: $primary-color;
     }
 }
-.round-border .p-calendar {
+.round-border.p-calendar {
     border-radius: 20px;
 }
 .p-calendar .p-inputtext {
@@ -344,7 +386,9 @@
     font-size: 20px;
 }
 .p-calendar-w-btn .p-inputtext {
-    padding-right: 0px;
+    padding-right: 0;
+    padding-left: 0;
+    margin-left: 1rem;
 }
 // Date picker
 .p-datepicker table td {
@@ -411,4 +455,51 @@
 
 .p-carousel-items-content {
     padding-right: 0.75em;
+}
+
+// Multiselect
+.p-multiselect {
+    border-color: $primary-border-color;
+}
+.p-multiselect:not(.p-disabled):hover {
+    border-color: $primary-color;
+}
+.p-multiselect:not(.p-disabled).p-focus {
+    box-shadow: none;
+}
+.p-multiselect .p-multiselect-label {
+    padding: 0.625rem 1rem;
+    font-weight: 600;
+    line-height: 18px;
+}
+.p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-label {
+    padding: 0.3125rem 0.429rem;
+}
+.p-multiselect .p-multiselect-label.p-placeholder {
+    color: $muted-text-color;
+    font-weight: 600;
+    line-height: 18px;
+}
+.p-multiselect-trigger-icon {
+    color: $button-icon-color;
+}
+.p-multiselect.p-multiselect-chip .p-multiselect-token {
+    background: $primary-color;
+}
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
+    background: $primary-bg-color;
+    color: $muted-text-color;
+}
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+    color: $muted-text-color;
+    font-size: 12px;
+    font-weight: 600;
+}
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus {
+    box-shadow: none;
+}
+
+// Icon input
+.p-input-icon-left > i:first-of-type {
+    color: $button-icon-color;
 }
