@@ -1,6 +1,9 @@
 <div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row">
-    <div *ngFor="let item of coffeedata" class="col-12 col-md-4 mb-3 mb-md-4">
-        <div class="cursor-pointer" routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}">
+    <div *ngFor="let item of coffeedata" class="col-12 col-md-6 col-lg-4 mb-3 mb-md-4">
+        <div
+            class="cursor-pointer h-100"
+            routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}"
+        >
             <app-harvest-card [data]="item"></app-harvest-card>
         </div>
     </div>

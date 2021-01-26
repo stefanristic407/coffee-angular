@@ -1,6 +1,6 @@
 <div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row">
-    <div *ngFor="let item of estateData" class="col-12 col-md-4 mb-3 mb-md-4">
-        <div class="cursor-pointer" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
+    <div *ngFor="let item of estateData" class="col-12 col-md-6 col-lg-4 mb-3 mb-md-4">
+        <div class="cursor-pointer h-100" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
             <app-estate-card [data]="item"></app-estate-card>
         </div>
     </div>

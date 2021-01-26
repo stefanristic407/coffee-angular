@@ -37,8 +37,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { RatingModule } from 'ng-starrating';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
-
 import { MatVideoModule } from 'mat-video';
+
+import { MonthPipe } from './pipes/month/month.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -115,6 +116,7 @@ const COMPONENTS = [
 ];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];
+const PIPES = [MonthPipe];
 // #endregion
 
 @NgModule({
@@ -132,6 +134,7 @@ const DIRECTIVES = [];
         ...COMPONENTS,
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
+        ...PIPES,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -145,6 +148,7 @@ const DIRECTIVES = [];
         // your components
         ...COMPONENTS,
         ...DIRECTIVES,
+        ...PIPES,
     ],
 })
 export class SharedModule {}
