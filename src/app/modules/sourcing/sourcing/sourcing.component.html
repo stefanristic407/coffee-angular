@@ -47,7 +47,7 @@
                     (onChange)="filterCall()"
                     scrollHeight="225px"
                     placeholder="Grade"
-                    styleClass="round-border mr-2 mb-3 mb-md-4"
+                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.grade ? 'selected' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
                     [options]="cropItems"
@@ -55,18 +55,26 @@
                     (onChange)="filterCall()"
                     scrollHeight="225px"
                     placeholder="{{ globals.languageJson?.crop_year }}"
-                    styleClass="round-border mr-2 mb-3 mb-md-4"
+                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.crop_year ? 'selected' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
                     (click)="displayFilterModal = true"
                     placeholder="{{ globals.languageJson?.more_filters }}"
-                    styleClass="round-border mr-2 mb-3 mb-md-4"
+                    styleClass="round-border mr-2 mb-3 mb-md-4 {{
+                        queryParams.altitude_start ||
+                        queryParams.altitude_end ||
+                        queryParams.flavours?.length ||
+                        queryParams.listing_status?.length ||
+                        queryParams.certificates?.length
+                            ? 'selected'
+                            : ''
+                    }}"
                 ></p-dropdown>
                 <p-dropdown
                     [options]="weightItems"
                     [(ngModel)]="queryParams.weight"
                     (onChange)="filterCall()"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 "
+                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.weight ? 'selected' : '' }}"
                 ></p-dropdown>
             </div>
 
@@ -138,7 +146,7 @@
             <div class="d-flex align-items-center justify-content-center">to</div>
             <div class="altitude-wrap">
                 <div class="p-inputgroup">
-                    <p-inputNumber [(ngModel)]="queryParams.altitude_start" placeholder="1600"> </p-inputNumber>
+                    <p-inputNumber [(ngModel)]="queryParams.altitude_end" placeholder="1600"> </p-inputNumber>
                     <span class="p-inputgroup-addon">m</span>
                 </div>
             </div>

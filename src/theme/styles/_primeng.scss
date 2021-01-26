@@ -296,6 +296,9 @@
 .p-dropdown {
     border-color: $primary-border-color;
 }
+.p-dropdown.selected {
+    border-color: $primary-color;
+}
 .p-dropdown-panel {
     border: none;
     padding: 4px;
