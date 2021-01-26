@@ -45,7 +45,7 @@
                     [options]="gradeItems"
                     [(ngModel)]="queryParams.grade"
                     (onChange)="filterCall()"
-                    optionValue="value"
+                    scrollHeight="225px"
                     placeholder="Grade"
                     styleClass="round-border mr-2 mb-3 mb-md-4"
                 ></p-dropdown>
@@ -53,6 +53,7 @@
                     [options]="cropItems"
                     [(ngModel)]="queryParams.crop_year"
                     (onChange)="filterCall()"
+                    scrollHeight="225px"
                     placeholder="{{ globals.languageJson?.crop_year }}"
                     styleClass="round-border mr-2 mb-3 mb-md-4"
                 ></p-dropdown>
@@ -150,7 +151,7 @@
             <div
                 *ngFor="
                     let item of limitFlavour
-                        ? (sourcingSrv.flavourList$ | async | slice: 1:20)
+                        ? (sourcingSrv.flavourList$ | async | slice: 0:20)
                         : (sourcingSrv.flavourList$ | async)
                 "
                 class="col-6 col-md-4 col-lg-3 mb-4"

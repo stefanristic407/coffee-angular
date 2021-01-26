@@ -300,6 +300,8 @@
     border: none;
     padding: 4px;
     margin-top: 8px;
+    border-radius: 2px;
+    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
 
     &::before,
     &::after {
@@ -325,7 +327,7 @@
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
     color: $muted-text-color;
     border-radius: 2px;
-    font-size: 12px;
+    padding: 0.75rem 2rem 0.75rem 0.75rem;
     font-weight: 600;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
@@ -333,7 +335,8 @@
     background: $primary-bg-color;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
-    background: $primary-color;
+    color: $primary-text-color;
+    background: $primary-bg-color;
 }
 
 .p-dropdown:not(.p-disabled):hover {
