@@ -39,6 +39,7 @@ import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
 
+import { CountryPipe } from './pipes/country/country.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -116,7 +117,7 @@ const COMPONENTS = [
 ];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];
-const PIPES = [MonthPipe];
+const PIPES = [CountryPipe, MonthPipe];
 // #endregion
 
 @NgModule({

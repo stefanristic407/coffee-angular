@@ -23,11 +23,11 @@
                 <tr class="cursor-pointer" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
                     <td>{{ item.name }}</td>
                     <td><span class="fa fa-star checked pr-2"></span>{{ item.rating }}</td>
-                    <td>{{ item['country'] || 'NA' }}</td>
+                    <td>{{ item['country'] | country }}</td>
                     <td>{{ item['altitude']['gte'] }}-{{ item['altitude']['lte'] }}m</td>
-                    <td>{{ GetMonthName(item['crop_year']['gte']) }}-{{ GetMonthName(item['crop_year']['lte']) }}</td>
+                    <td>{{ item['crop_year']['gte'] | month }}-{{ item['crop_year']['lte'] | month }}</td>
                     <td>
-                        <a *ngFor="let lotdata of item.lots | slice: 0:3" class="custom-link" href="">
+                        <a *ngFor="let lotdata of item.lots | slice: 0:3" class="custom-link mr-2" href="">
                             {{ lotdata.name }}
                         </a>
                         <a

@@ -53,11 +53,7 @@ export class SourcingComponent implements OnInit {
         { label: 'Warehouse', value: 'WAREHOUSE' },
     ];
 
-    queryParams: any = {
-        grade: '',
-        crop_year: '',
-        weight: 'kg',
-    };
+    queryParams: any;
     viewMode = 'grid';
     viewModeItems: any[] = [{ value: 'table' }, { value: 'grid' }];
     displayFilterModal = false;
@@ -82,6 +78,8 @@ export class SourcingComponent implements OnInit {
             },
         ];
         this.cropItems = this.globals.monthList;
+        this.queryParams = this.sourcingSrv.queryParams.getValue();
+        this.viewMode = this.sourcingSrv.viewMode.getValue();
 
         this.appLanguage = this.globals.languageJson;
         this.sourcingSrv.flavourprofileList();
