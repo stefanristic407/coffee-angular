@@ -11,7 +11,9 @@
                         selectedItemsLabel="{0} Origins"
                         [filter]="false"
                         (onChange)="filterCall()"
-                        styleClass="w-100 mb-3 mb-md-4 border-rounded-right-0"
+                        styleClass="w-100 mb-3 mb-md-4 border-rounded-right-0 {{
+                            queryParams.origin?.length ? 'highlight' : ''
+                        }}"
                     ></p-multiSelect>
                 </div>
                 <div class="col-6 col-md-3 col-lg-2">
@@ -23,7 +25,10 @@
                         selectedItemsLabel="{0} Species"
                         [filter]="false"
                         (onChange)="filterCall()"
-                        styleClass="w-100 mb-3 mb-md-4 border-rounded-left-0 border-rounded-right-md-0"
+                        scrollHeight="225px"
+                        styleClass="w-100 mb-3 mb-md-4 border-rounded-left-0 border-rounded-right-md-0 {{
+                            queryParams.species?.length ? 'highlight' : ''
+                        }}"
                     ></p-multiSelect>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 mb-3 mb-md-4">
@@ -35,7 +40,7 @@
                             [(ngModel)]="queryParams.name"
                             (change)="filterCall()"
                             placeholder="{{ globals.languageJson?.search_by_name }}"
-                            class="w-100 border-rounded-left-md-0"
+                            class="w-100 border-rounded-left-md-0 {{ queryParams.name ? 'highlight' : '' }}"
                         />
                     </span>
                 </div>
@@ -47,7 +52,7 @@
                     (onChange)="filterCall()"
                     scrollHeight="225px"
                     placeholder="Grade"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.grade ? 'selected' : '' }}"
+                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
                     [options]="cropItems"
@@ -55,7 +60,7 @@
                     (onChange)="filterCall()"
                     scrollHeight="225px"
                     placeholder="{{ globals.languageJson?.crop_year }}"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.crop_year ? 'selected' : '' }}"
+                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
                     (click)="displayFilterModal = true"
@@ -66,7 +71,7 @@
                         queryParams.flavours?.length ||
                         queryParams.listing_status?.length ||
                         queryParams.certificates?.length
-                            ? 'selected'
+                            ? 'highlight'
                             : ''
                     }}"
                 ></p-dropdown>
@@ -74,7 +79,7 @@
                     [options]="weightItems"
                     [(ngModel)]="queryParams.weight"
                     (onChange)="filterCall()"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.weight ? 'selected' : '' }}"
+                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.weight ? 'highlight' : '' }}"
                 ></p-dropdown>
             </div>
 

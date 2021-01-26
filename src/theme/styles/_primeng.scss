@@ -18,6 +18,9 @@
     border: 1px solid $primary-border-color;
     line-height: 18px;
 }
+.p-inputtext.highlight {
+    border-color: $primary-color;
+}
 .p-inputtext:enabled:hover,
 .p-inputtext:enabled:focus {
     border-color: $primary-color;
@@ -296,7 +299,7 @@
 .p-dropdown {
     border-color: $primary-border-color;
 }
-.p-dropdown.selected {
+.p-dropdown.highlight {
     border-color: $primary-color;
 }
 .p-dropdown-panel {
@@ -467,6 +470,9 @@
 .p-multiselect {
     border-color: $primary-border-color;
 }
+.p-multiselect.highlight {
+    border-color: $primary-color;
+}
 .p-multiselect:not(.p-disabled):hover {
     border-color: $primary-color;
 }
@@ -492,13 +498,17 @@
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
     background: $primary-color;
 }
+.p-multiselect-panel {
+    border: none;
+    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+}
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
     background: $primary-bg-color;
     color: $muted-text-color;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+    padding: 0.75rem;
     color: $muted-text-color;
-    font-size: 12px;
     font-weight: 600;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus {
