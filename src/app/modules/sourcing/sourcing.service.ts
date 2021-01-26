@@ -89,9 +89,7 @@ export class SourcingService {
     images: any;
     estateCertificates: any;
     resultArray: any;
-    mapped: { type: string; value: any }[];
-    valueList: any;
-    finalCertify: any = [];
+    finalCertify: any;
     overviewCertify: any;
     estate_id: any;
     otherGreenList: any;
@@ -146,7 +144,7 @@ export class SourcingService {
         private toastrService: ToastrService,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
-        this.certificateList();
+        this.getEstateCertificates();
     }
 
     estateDetailList() {
@@ -275,7 +273,6 @@ export class SourcingService {
         this.userService.getFlavourProfile().subscribe((res: any) => {
             if (res.success) {
                 this.flavourList.next(res.result);
-                console.log('Flavour List:', this.flavourList);
             }
         });
     }
@@ -295,22 +292,16 @@ export class SourcingService {
             }
         });
     }
-    certificateList() {
+    getEstateCertificates() {
         this.userService.getEstateCertificates().subscribe((res: any) => {
             if (res.success) {
-                this.estateCertificates = res.result;
-                this.mapped = Object.keys(this.estateCertificates).map((key) => ({
-                    type: key,
-                    value: this.estateCertificates[key],
-                }));
-                console.log(this.mapped);
-                this.mapped.forEach((item) => {
-                    this.valueList = item.value;
-                    this.finalCertify.push(this.valueList);
-                });
-                console.log(this.finalCertify);
+                this.finalCertify = res.result;
             }
         });
+    }
+
+    getCertificateType(typeId) {
+        return this.finalCertify[typeId] || {};
     }
 
     otherAvailableCoffee() {

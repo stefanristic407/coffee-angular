@@ -1,7 +1,8 @@
-<div class="total-loader" *ngIf="overviewActive !=1">
+<div class="total-loader" *ngIf="overviewActive != 1">
     <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div><img class="loader-gif web-loader" src="/assets/images/loader.gif">
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif">
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
     </div>
 </div>
 <div *ngIf="overviewActive == 1">
@@ -11,124 +12,139 @@
                 <article>
                     <div class="detail-descript">
                         <div class="stit">
-
-                            <h2 class="">{{sourcing.name}}</h2>
+                            <h2 class="">{{ sourcing.name }}</h2>
                             <div class="s-cert d-md-none">
                                 <ul class="flex">
                                     <!-- <li><img src="/assets/images/group-certificate.png"></li>
                                 <li><img src="/assets/images/group-utz.png"></li>
                                 <li><img src="/assets/images/group-certified.png"></li> -->
                                     <li class="mb-3" *ngFor="let cert of sourcing.overviewCertify">
-                                        <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
-                                        <img *ngIf="getCertificateData(cert)==''" src="" alt="">
+                                        <img [src]="cert.certificate_type_id | certificateImg" />
                                     </li>
                                 </ul>
                             </div>
                             <h6 class="d-block d-md-none area-location">Columbia</h6>
                             <h5 class="d-block d-md-none mt-3 m-orgin">The Origin</h5>
-                            <p>{{sourcing.description}}</p>
+                            <p>{{ sourcing.description }}</p>
                         </div>
 
                         <div class="row mt-4 mt-md-0">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                                 <div class="real-estate">
-                                    <img src="assets/images/orgin.svg">
-                                    <h6>{{globals.languageJson?.origin}}</h6>
-                                    <h3 *ngIf="sourcing.countryName==''">NA</h3>
-                                    <h3 *ngIf="sourcing.countryName!=''">{{sourcing.countryName}}</h3>
+                                    <img src="assets/images/orgin.svg" />
+                                    <h6>{{ globals.languageJson?.origin }}</h6>
+                                    <h3 *ngIf="sourcing.countryName == ''">NA</h3>
+                                    <h3 *ngIf="sourcing.countryName != ''">{{ sourcing.countryName }}</h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                                 <div class="real-estate">
-                                    <img src="assets/images/estate.svg">
-                                    <h6>{{globals.languageJson?.region}}</h6>
-                                    <h3>{{sourcing.estate_region || 'NA'}}</h3>
+                                    <img src="assets/images/estate.svg" />
+                                    <h6>{{ globals.languageJson?.region }}</h6>
+                                    <h3>{{ sourcing.estate_region || 'NA' }}</h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                                 <div class="real-estate">
-                                    <img src="assets/images/estate.svg">
-                                    <h6>{{globals.languageJson?.estate_size}}</h6>
-                                    <h3 *ngIf="sourcing.total_area!=''">{{sourcing.total_area}} acres</h3>
-                                    <h3 *ngIf="sourcing.total_area==''">NA</h3>
+                                    <img src="assets/images/estate.svg" />
+                                    <h6>{{ globals.languageJson?.estate_size }}</h6>
+                                    <h3 *ngIf="sourcing.total_area != ''">{{ sourcing.total_area }} acres</h3>
+                                    <h3 *ngIf="sourcing.total_area == ''">NA</h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                                 <div class="real-estate">
-                                    <img src="assets/images/estate.svg">
+                                    <img src="assets/images/estate.svg" />
                                     <h6>Farm Yield/Ha</h6>
-                                    <h3>{{sourcing.farm_yield || 'NA'}}</h3>
+                                    <h3>{{ sourcing.farm_yield || 'NA' }}</h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                                 <div class="real-estate">
-                                    <img src="assets/images/altitute.svg">
+                                    <img src="assets/images/altitute.svg" />
 
-                                    <h6>{{globals.languageJson?.altitude_range}}</h6>
-                                    <h3 *ngIf="sourcing.altitude_start!='' && sourcing.altitude_end!=''">{{sourcing.altitude_start}} - {{sourcing.altitude_end}} m</h3>
-                                    <h3 *ngIf="sourcing.altitude_start=='' && sourcing.altitude_end==''">NA</h3>
+                                    <h6>{{ globals.languageJson?.altitude_range }}</h6>
+                                    <h3 *ngIf="sourcing.altitude_start != '' && sourcing.altitude_end != ''">
+                                        {{ sourcing.altitude_start }} - {{ sourcing.altitude_end }} m
+                                    </h3>
+                                    <h3 *ngIf="sourcing.altitude_start == '' && sourcing.altitude_end == ''">NA</h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                                 <div class="real-estate">
-                                    <img src="assets/images/harveaster.svg">
-                                    <h6>{{globals.languageJson?.harvested_season}}</h6>
-                                    <h3 *ngIf="sourcing.crop_year_start!='' && sourcing.crop_year_end!=''">{{GetMonthName(sourcing.crop_year_start)}} - {{GetMonthName(sourcing.crop_year_end)}}</h3>
-                                    <h3 *ngIf="sourcing.crop_year_start=='' && sourcing.crop_year_end==''">NA</h3>
+                                    <img src="assets/images/harveaster.svg" />
+                                    <h6>{{ globals.languageJson?.harvested_season }}</h6>
+                                    <h3 *ngIf="sourcing.crop_year_start != '' && sourcing.crop_year_end != ''">
+                                        {{ sourcing.crop_year_start | month }} - {{ sourcing.crop_year_end | month }}
+                                    </h3>
+                                    <h3 *ngIf="sourcing.crop_year_start == '' && sourcing.crop_year_end == ''">NA</h3>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                                 <div class="real-estate">
-                                    <img src="assets/images/grad-range.svg">
-                                    <h6>{{globals.languageJson?.grade_range}}</h6>
-                                    <h3 *ngIf="sourcing.grade_range!=''">{{sourcing.grade_range}}</h3>
-                                    <h3 *ngIf="sourcing.grade_range==''">NA</h3>
+                                    <img src="assets/images/grad-range.svg" />
+                                    <h6>{{ globals.languageJson?.grade_range }}</h6>
+                                    <h3 *ngIf="sourcing.grade_range != ''">{{ sourcing.grade_range }}</h3>
+                                    <h3 *ngIf="sourcing.grade_range == ''">NA</h3>
                                 </div>
                             </div>
                         </div>
 
-
                         <div class="row">
                             <div class="col-lg-12 mt-4">
                                 <div class="estate-focus">
-                                    <h3>{{globals.languageJson?.estate_facts}}</h3>
+                                    <h3>{{ globals.languageJson?.estate_facts }}</h3>
                                     <ul class="clearfix">
-                                        <li><label>{{globals.languageJson?.location}} :</label>
-                                            <p *ngIf="sourcing.location !=''">{{sourcing.location}}</p>
-                                            <p *ngIf="sourcing.location ==''">NA</p>
+                                        <li>
+                                            <label>{{ globals.languageJson?.location }} :</label>
+                                            <p *ngIf="sourcing.location != ''">{{ sourcing.location }}</p>
+                                            <p *ngIf="sourcing.location == ''">NA</p>
                                         </li>
-                                        <li><label>Varieties :</label>
-                                            <p *ngIf="sourcing.varieties!=''">{{sourcing.varieties}}</p>
-                                            <p *ngIf="sourcing.varieties==''">NA</p>
+                                        <li>
+                                            <label>Varieties :</label>
+                                            <p *ngIf="sourcing.varieties != ''">{{ sourcing.varieties }}</p>
+                                            <p *ngIf="sourcing.varieties == ''">NA</p>
                                         </li>
-                                        <li><label>{{globals.languageJson?.average_annual_production_coffee}} :</label>
-                                            <p *ngIf="sourcing.coffee_production !=''">{{sourcing.coffee_production}} tons</p>
-                                            <p *ngIf="sourcing.coffee_production ==''">NA</p>
+                                        <li>
+                                            <label
+                                                >{{ globals.languageJson?.average_annual_production_coffee }} :</label
+                                            >
+                                            <p *ngIf="sourcing.coffee_production != ''">
+                                                {{ sourcing.coffee_production }} tons
+                                            </p>
+                                            <p *ngIf="sourcing.coffee_production == ''">NA</p>
                                         </li>
-                                        <li><label>{{globals.languageJson?.access_to_agronomist}} :</label>
-                                            <p *ngIf="sourcing.agronomist_access !=''">{{sourcing.agronomist_access}}</p>
-                                            <p *ngIf="sourcing.agronomist_access ==''">NA</p>
+                                        <li>
+                                            <label>{{ globals.languageJson?.access_to_agronomist }} :</label>
+                                            <p *ngIf="sourcing.agronomist_access != ''">
+                                                {{ sourcing.agronomist_access }}
+                                            </p>
+                                            <p *ngIf="sourcing.agronomist_access == ''">NA</p>
                                         </li>
-                                        <li><label>{{globals.languageJson?.total_number_trees}} :</label>
-                                            <p *ngIf="sourcing.number_of_trees !=''">{{sourcing.number_of_trees}}</p>
-                                            <p *ngIf="sourcing.number_of_trees ==''">NA</p>
+                                        <li>
+                                            <label>{{ globals.languageJson?.total_number_trees }} :</label>
+                                            <p *ngIf="sourcing.number_of_trees != ''">{{ sourcing.number_of_trees }}</p>
+                                            <p *ngIf="sourcing.number_of_trees == ''">NA</p>
                                         </li>
                                         <li>
                                             <label>Packaging Material :</label>
-                                            <p *ngIf="sourcing.packaging !=''">{{sourcing.packaging}}</p>
-                                            <p *ngIf="sourcing.packaging ==''">NA</p>
+                                            <p *ngIf="sourcing.packaging != ''">{{ sourcing.packaging }}</p>
+                                            <p *ngIf="sourcing.packaging == ''">NA</p>
                                         </li>
-                                        <li><label>{{globals.languageJson?.other_crops}} :</label>
-                                            <p *ngIf="sourcing.other_crops !=''">{{sourcing.other_crops}}</p>
-                                            <p *ngIf="sourcing.other_crops ==''">NA</p>
+                                        <li>
+                                            <label>{{ globals.languageJson?.other_crops }} :</label>
+                                            <p *ngIf="sourcing.other_crops != ''">{{ sourcing.other_crops }}</p>
+                                            <p *ngIf="sourcing.other_crops == ''">NA</p>
                                         </li>
-                                        <li><label>{{globals.languageJson?.wildlife}} :</label>
-                                            <p *ngIf="sourcing.wild_animals !=''">{{sourcing.wild_animals}}</p>
-                                            <p *ngIf="sourcing.wild_animals ==''">NA</p>
+                                        <li>
+                                            <label>{{ globals.languageJson?.wildlife }} :</label>
+                                            <p *ngIf="sourcing.wild_animals != ''">{{ sourcing.wild_animals }}</p>
+                                            <p *ngIf="sourcing.wild_animals == ''">NA</p>
                                         </li>
-                                        <li><label>{{globals.languageJson?.average_annual_prodcution_crops}} :</label>
-                                            <p *ngIf="sourcing.annual_prod !=''">{{sourcing.annual_prod}} tons</p>
-                                            <p *ngIf="sourcing.annual_prod ==''">NA</p>
+                                        <li>
+                                            <label>{{ globals.languageJson?.average_annual_prodcution_crops }} :</label>
+                                            <p *ngIf="sourcing.annual_prod != ''">{{ sourcing.annual_prod }} tons</p>
+                                            <p *ngIf="sourcing.annual_prod == ''">NA</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -138,48 +154,49 @@
                 </article>
                 <aside>
                     <div class="certificate-book">
-                        <div class="stit d-none d-md-block" *ngIf="sourcing.overviewCertify!=''">
-                            <h2>{{globals.languageJson?.certificates}}</h2>
+                        <div class="stit d-none d-md-block" *ngIf="sourcing.overviewCertify != ''">
+                            <h2>{{ globals.languageJson?.certificates }}</h2>
                         </div>
-                        <div class="cetify-logo pt-3 d-none d-md-block" *ngIf="sourcing.overviewCertify!=''">
-                            <ul class="clearfix  mb-5">
+                        <div class="cetify-logo pt-3 d-none d-md-block" *ngIf="sourcing.overviewCertify != ''">
+                            <ul class="clearfix mb-5">
                                 <li class="mb-3" *ngFor="let cert of sourcing.overviewCertify">
-                                    <img *ngIf="getCertificateData(cert)!=''" src="{{getCertificateData(cert)}}">
-                                    <img *ngIf="getCertificateData(cert)==''" src="" alt="">
+                                    <img [src]="cert.certificate_type_id | certificateImg" />
                                 </li>
                             </ul>
-                            <div *ngIf="sourcing.gps_coordinates==''">
-                                <img src="assets/images/map.PNG" class="w-100">
+                            <div *ngIf="sourcing.gps_coordinates == ''">
+                                <img src="assets/images/map.PNG" class="w-100" />
                             </div>
-                            <div *ngIf="sourcing.gps_coordinates!=''">
+                            <div *ngIf="sourcing.gps_coordinates != ''">
                                 <agm-map [latitude]="sourcing.latitude" [longitude]="sourcing.longitude">
-                                    <agm-marker [latitude]="sourcing.latitude" [longitude]="sourcing.longitude"></agm-marker>
+                                    <agm-marker
+                                        [latitude]="sourcing.latitude"
+                                        [longitude]="sourcing.longitude"
+                                    ></agm-marker>
                                 </agm-map>
-                                <label class="mt-1">{{sourcing.latitude?.toFixed(4)}}<sup>o</sup>N, {{sourcing.longitude?.toFixed(4)}}<sup>o</sup>E </label>
+                                <label class="mt-1"
+                                    >{{ sourcing.latitude?.toFixed(4) }}<sup>o</sup>N,
+                                    {{ sourcing.longitude?.toFixed(4) }}<sup>o</sup>E
+                                </label>
                             </div>
                         </div>
                         <div class="prodcoffee mt-0 mt-md-3">
                             <h4>Our Coffee procurement is traceable & 100% transparent</h4>
                             <div class="video-part">
-                                <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
+                                <a class="video-btn"><img src="assets/images/play-button-image.svg" /></a>
                             </div>
                         </div>
                         <div class="d-none d-md-block">
                             <div class="flex prebook mt-4 pt-md-2">
-                                <a class="more-text" (click)="brandProfileSite()">{{globals.languageJson?.know_more}}</a>
-                                <a class="prebook-estate">{{globals.languageJson?.prebook_estate}}</a>
+                                <a class="more-text" (click)="brandProfileSite()">{{
+                                    globals.languageJson?.know_more
+                                }}</a>
+                                <a class="prebook-estate">{{ globals.languageJson?.prebook_estate }}</a>
                             </div>
                         </div>
                     </div>
                 </aside>
             </div>
-
-
-
         </div>
-
-
-
     </div>
     <!-- Chart div starts-->
     <!-- <div class="chart-details chart-cont mt-4">
@@ -352,7 +369,14 @@
     <div class="mt-4">
         <app-overview-ratings></app-overview-ratings>
         <div class="w-100 chat-div d-md-block d-none">
-            <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order" routerLink="/features/sourcing-chat">Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
+            <button
+                type="button"
+                class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+                routerLink="/features/sourcing-chat"
+            >
+                Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
+                ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
+            </button>
         </div>
     </div>
 </div>

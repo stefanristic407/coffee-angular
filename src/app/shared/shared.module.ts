@@ -51,8 +51,6 @@ import { SoilChartComponent } from './components/remote-sensoring/soil-chart/soi
 import { UvChartComponent } from './components/remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './components/remote-sensoring/vegetation-chart/vegetation-chart.component';
 import { ImageMapComponent } from './components/remote-sensoring/image-map/image-map.component';
-import { HarvestCardComponent } from './components/harvest-card/harvest-card.component';
-import { EstateCardComponent } from './components/estate-card/estate-card.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 // #region material
@@ -110,9 +108,7 @@ const COMPONENTS = [
     UvChartComponent,
     VegetationChartComponent,
     ImageMapComponent,
-    HarvestCardComponent,
     BlankComponent,
-    EstateCardComponent,
     PieChartComponent,
 ];
 const COMPONENTS_NOROUNT = [];

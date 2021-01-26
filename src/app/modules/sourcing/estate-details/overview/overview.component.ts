@@ -244,14 +244,6 @@ export class OverviewComponent implements OnInit {
         }
         return this.monthName;
     }
-    getCertificateData(data: any) {
-        if (data.certificate_type_id > 0) {
-            this.certiImage = this.sourcing.finalCertify.filter((certify) => certify.id == data.certificate_type_id);
-            if (this.certiImage != '') {
-                return this.certiImage[0].image_url;
-            }
-        }
-    }
     brandProfileSite() {
         const redirectUrl = this.brandProfileEstateWeb;
         this.roasterService.navigate(redirectUrl, true);

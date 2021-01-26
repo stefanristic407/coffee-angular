@@ -143,18 +143,11 @@
                                                             <ul class="flex">
                                                                 <li class="mb-3" *ngFor="let cert of certifyEstate">
                                                                     <img
-                                                                        *ngIf="getCertificateData(cert) != ''"
-                                                                        src="{{ getCertificateData(cert) }}"
-                                                                    />
-                                                                    <img
-                                                                        *ngIf="getCertificateData(cert) == ''"
-                                                                        src=""
-                                                                        alt=""
+                                                                        [src]="
+                                                                            cert.certificate_type_id | certificateImg
+                                                                        "
                                                                     />
                                                                 </li>
-                                                                <!-- <li><img src="/assets/images/group-certificate.png"></li>
-                                                                    <li><img src="/assets/images/group-utz.png"></li>
-                                                                    <li><img src="/assets/images/group-certified.png"></li> -->
                                                             </ul>
                                                         </div>
                                                         <h6 class="d-block d-md-none area-location">Columbia</h6>
@@ -280,13 +273,7 @@
                                                         <ul class="clearfix mb-5">
                                                             <li class="mb-3" *ngFor="let cert of certifyEstate">
                                                                 <img
-                                                                    *ngIf="getCertificateData(cert) != ''"
-                                                                    src="{{ getCertificateData(cert) }}"
-                                                                />
-                                                                <img
-                                                                    *ngIf="getCertificateData(cert) == ''"
-                                                                    src=""
-                                                                    alt=""
+                                                                    [src]="cert.certificate_type_id | certificateImg"
                                                                 />
                                                             </li>
                                                         </ul>
@@ -498,9 +485,7 @@
                                                             <div *ngIf="item.flavours != null">
                                                                 <ul class="flo-list">
                                                                     <li *ngFor="let flavour of item.flavours">
-                                                                        <span class="mb-2">{{
-                                                                            getFlavourName(flavour)
-                                                                        }}</span>
+                                                                        <span class="mb-2">{{ flavour.name }}</span>
                                                                     </li>
                                                                 </ul>
                                                             </div>

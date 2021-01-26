@@ -40,7 +40,7 @@
                     </td>
                     <td>
                         <span *ngFor="let cert of item.certificates | slice: 0:2">
-                            <img class="cert-image ml-3" [src]="cert.image_url" />
+                            <img class="cert-image ml-3" [src]="cert.type_id | certificateImg" />
                         </span>
                     </td>
                 </tr>

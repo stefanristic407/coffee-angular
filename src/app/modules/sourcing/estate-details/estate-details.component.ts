@@ -109,53 +109,14 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
         return this.globals.getCountryName(data.toUpperCase());
     }
 
-    getFlavourName(flavourid: any) {
-        if (this.sourcing.flavourList) {
-            this.flavourName = this.sourcing.flavourList.find((flavour) => flavour.id == flavourid).name;
-            return this.flavourName;
-        }
-    }
-
     getEachEstateCertify() {
         this.userService.getEachEsateCertificates(this.sourcing.estateId).subscribe((res: any) => {
-            // console.log(res);
             if (res.success) {
                 this.certifyEstate = res.result;
                 this.sourcing.overviewCertify = this.certifyEstate;
-                // console.log(this.certifyEstate);
             }
         });
     }
-    getCertificateData(data: any) {
-        //   console.log(data);
-        if (data.certificate_type_id > 0) {
-            this.certiImage = this.sourcing.finalCertify.filter((certify) => certify.id == data.certificate_type_id);
-            // console.log(this.certiImage);
-            if (this.certiImage !== '') {
-                return this.certiImage[0].image_url;
-            }
-        }
-    }
-    // getAvailableEstates(){
-    // 	alert(this.sourcing.detailList);
-    // 	this.userService.getAvailableEstates(this.roaster_id).subscribe(
-    // 	  data => {
-    // 		if(data['success'] == true){
-    // 		//   console.log(data['result']);
-    // 		  this.estateCetificateData = data['result'];
-
-    // 		  for(var i=0;i<this.estateCetificateData.length;i++){
-    // 			  console.log(this.estateCetificateData[i].estate_id==this.sourcing.detailList);
-    // 				if(this.estateCetificateData[i].estate_id==this.sourcing.detailList)
-    // 				{
-    // 					this.certifyEstate=this.estateCetificateData[i].certificates;
-    // 				}
-    // 				console.log("certify"+this.certifyEstate);
-    // 		  }
-    // 		}
-    // 	  }
-    // 	)
-    //   }
 
     brandProfileSite() {
         const redirectUrl = this.brandProfileEstateWeb;
@@ -166,6 +127,7 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
         const redirectUrl = this.estateProfile;
         this.roasterService.navigate(redirectUrl, true);
     }
+
     estateGalleryFiles() {
         this.userService.getEstateGallery(this.sourcing.estateId).subscribe((res: any) => {
             if (res.success) {

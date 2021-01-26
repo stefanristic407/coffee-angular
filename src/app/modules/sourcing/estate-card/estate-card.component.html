@@ -19,7 +19,7 @@
             <div class="d-flex">
                 <img
                     *ngFor="let item of data?.certificates | slice: 0:2"
-                    [src]="item.image_url"
+                    [src]="item.type_id | certificateImg"
                     class="cert-image ml-2 ml-lg-3"
                 />
             </div>
