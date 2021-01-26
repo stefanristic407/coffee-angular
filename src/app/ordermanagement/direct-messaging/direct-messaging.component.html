@@ -102,7 +102,7 @@
                                                 <div class="message-to__text "><span>{{message.content}}</span></div>
                                             </div>
                                             <p class="live-time">{{getReadableTime(message.created_at)}}</p>
-                                            <p> {{message.currentUser}} | {{message.member.id}} </p>
+                                            <!-- <p> {{message.currentUser}} | {{message.member.id}} </p> -->
                                         </div>
 
                                         <!-- <div class="message-to live-chat-message-body__text" *ngIf = "message.currentUser == -1">
@@ -143,7 +143,8 @@
 
                                         </label>
                                         <textarea type="text" rows="1" class="chat-inputs__text"
-                                                  placeholder="Type something.."></textarea>
+                                                  placeholder="Type something.."
+                                                  (keypress)="$event.key==='Enter' && sendMessage()"></textarea>
                                         <div class="send-message">
                                             <button type="button" class="send-message__btn" (click)="sendMessage()">
 
