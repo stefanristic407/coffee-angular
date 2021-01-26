@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class EstateDetailsComponent implements OnInit, AfterViewInit {
     appLanguage?: any;
-    estateDetailsActive: any = 0;
+    isLoaded = false;
     brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
     estateProfile = 'https://qa-estates-portal.sewnstaging.com/features/estate-profile';
 
@@ -52,7 +52,6 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
             score: '81.5',
         },
     ];
-    roaster_id: string;
     blogResult: string;
     countryValue: any;
     flavourName: any;
@@ -61,6 +60,7 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
     estateCetificateData: any;
     certifyEstate: any;
     galleryImages: any;
+
     constructor(
         private modalService: BsModalService,
         public globals: GlobalsService,
@@ -69,44 +69,44 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
         public cookieService: CookieService,
         private userService: UserserviceService,
         private roasterService: RoasterserviceService,
-    ) {
-        this.route.params.subscribe((params) => {
-            this.sourcing.estateId = params['id'];
-            //   this.certifyEstate =JSON.parse(params['certificate']);
-            this.sourcing.estateDetailList();
-            this.sourcing.lotsList();
-            this.sourcing.flavourprofileList();
-            this.sourcing.greenCoffee();
-            this.sourcing.estateEmployees();
-            this.getEachEstateCertify();
-            this.estateGalleryFiles();
-            this.sourcing.getEstateReviews();
-            this.sourcing.getEstateSummary();
-            // this.getAvailableEstates();
-            // this.sourcing.certificateList();
-        });
-        this.roaster_id = this.cookieService.get('roaster_id');
-    }
-    openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
-    }
+    ) {}
+
     ngOnInit(): void {
+        this.route.paramMap.subscribe((params) => {
+            if (params.has('id')) {
+                this.sourcing.estateId = params.get('id');
+                this.refreshData();
+            }
+        });
         this.language();
-        this.blogResult = decodeURIComponent(this.route.snapshot.queryParams['dataLots']);
+        this.blogResult = decodeURIComponent(this.route.snapshot.queryParams.dataLots);
     }
+
     ngAfterViewInit() {
-        if (this.blogResult == 'true') {
+        if (this.blogResult === 'true') {
             $('#nav-profile-tab3')[0].click();
         }
     }
 
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.estateDetailsActive++;
+    refreshData() {
+        this.sourcing.estateDetailList();
+        this.sourcing.lotsList();
+        this.sourcing.flavourprofileList();
+        this.sourcing.greenCoffee();
+        this.sourcing.estateEmployees();
+        this.getEachEstateCertify();
+        this.estateGalleryFiles();
+        this.sourcing.getEstateReviews();
+        this.sourcing.getEstateSummary();
     }
 
-    GetCountry(data: any) {
-        return this.globals.getCountryName(data.toUpperCase());
+    openModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template);
+    }
+
+    language() {
+        this.appLanguage = this.globals.languageJson;
+        this.isLoaded = true;
     }
 
     getEachEstateCertify() {
@@ -116,11 +116,6 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
                 this.sourcing.overviewCertify = this.certifyEstate;
             }
         });
-    }
-
-    brandProfileSite() {
-        const redirectUrl = this.brandProfileEstateWeb;
-        this.roasterService.navigate(redirectUrl, true);
     }
 
     estateProfileSite() {

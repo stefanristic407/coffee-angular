@@ -15,7 +15,7 @@
                 </div>
                 <div class="det-tit">
                     <h2>{{ sourcing.available_name }}</h2>
-                    <span class="mob-name fnt-muli fnt-600 fnt-14">{{ sourcing.available_estate_name }}</span>
+                    <span class="fnt-muli fnt-600 text-clr588 fnt-14">{{ sourcing.available_estate_name }}</span>
                 </div>
             </div>
         </div>
@@ -52,11 +52,7 @@
                             <div class="cetify-logo pt-3 d-none d-md-block">
                                 <ul class="clearfix mb-5">
                                     <li class="mb-3" *ngFor="let cert of sourcing.availableCertify">
-                                        <img
-                                            *ngIf="getCertificateData(cert) != ''"
-                                            src="{{ getCertificateData(cert) }}"
-                                        />
-                                        <img *ngIf="getCertificateData(cert) == ''" src="" alt="" />
+                                        <img [src]="cert.certificate_type_id | certificateImg" />
                                     </li>
                                 </ul>
                             </div>
@@ -76,11 +72,7 @@
                             <div class="s-certified d-md-none">
                                 <ul class="flex">
                                     <li class="mb-3" *ngFor="let cert of sourcing.availableCertify">
-                                        <img
-                                            *ngIf="getCertificateData(cert) != ''"
-                                            src="{{ getCertificateData(cert) }}"
-                                        />
-                                        <img *ngIf="getCertificateData(cert) == ''" src="" alt="" />
+                                        <img [src]="cert.certificate_type_id | certificateImg" />
                                     </li>
                                 </ul>
                             </div>

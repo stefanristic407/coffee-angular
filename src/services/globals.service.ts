@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { StringifyOptions } from 'querystring';
 import { UserserviceService } from './users/userservice.service';
 
 @Injectable({
@@ -5389,8 +5391,13 @@ export class GlobalsService {
     selected_order_id: any;
     ord_received_date: any;
     userInvitesArray: any = [];
+    device = 'desktop';
 
-    constructor(private cookieService: CookieService, private userService: UserserviceService) {
+    constructor(
+        private cookieService: CookieService,
+        private deviceSrv: DeviceDetectorService,
+        private userService: UserserviceService,
+    ) {
         this.roaster_id = this.cookieService.get('roaster_id');
         // console.log(this.permissions);
         this.menuSearch = {
@@ -5412,6 +5419,11 @@ export class GlobalsService {
             'My Profile': '/features/myprofile',
             'Account Settings': '/features/account-settings',
         };
+        if (deviceSrv.isMobile()) {
+            this.device = 'mobile';
+        } else if (deviceSrv.isTablet()) {
+            this.device = 'tablet';
+        }
     }
 
     checkItem(data, listkey = null) {

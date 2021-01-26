@@ -1,632 +1,105 @@
-<div class="total-loader" *ngIf="estateDetailsActive != 1">
-    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div>
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-    </div>
-</div>
-<div *ngIf="estateDetailsActive == 1">
-    <section>
-        <div class="bg-fff">
-            <div class="source-cont">
-                <div>
-                    <a class="back-page" routerLink="/sourcing/estate-list"> {{ globals.languageJson?.back }} </a>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 order-2 order-md-1">
-                        <div class="sourcing-details">
-                            <div class="w-100 mt-3 clearfix">
-                                <div class="source-det-tit pull-left">
-                                    <div class="pro-logo d-inline-block">
-                                        <img src="assets/images/tit-logo.PNG" />
-                                    </div>
-                                    <div class="det-tit d-inline-block mt-3 mt-md-0">
-                                        <h2 *ngIf="sourcing.name != ''" (click)="estateProfileSite()">
-                                            {{ sourcing.name }}
-                                        </h2>
-                                        <h2 *ngIf="sourcing.name == ''">NA</h2>
-                                        <!-- <h6 class="star-rate"><span class="fa fa-star checked"></span> 4.95</h6> -->
-                                        <span class="fa fa-star checked"></span
-                                        ><span class="star-rate pl-1">{{ sourcing.rating }}</span>
-                                    </div>
-                                </div>
-                                <div class="source-knowmore pull-right mt-4 mt-md-0">
-                                    <a class="contact-us" routerLink="/features/sourcing-chat">{{
-                                        globals.languageJson?.contact_us
-                                    }}</a>
-                                    <a class="know-more" (click)="brandProfileSite()">{{
-                                        globals.languageJson?.know_more
-                                    }}</a>
+<section *ngIf="isLoaded; else loading">
+    <div class="bg-white br-4">
+        <div class="mx-3 mx-md-5 pt-3 pt-md-5">
+            <div>
+                <a class="back-page" routerLink="/sourcing/estate-list"> {{ globals.languageJson?.back }}</a>
+            </div>
+
+            <div class="row">
+                <div class="col-12 order-2 order-md-1">
+                    <div class="mt-3 d-md-flex justify-content-between">
+                        <div class="source-det-tit d-md-flex">
+                            <div class="d-flex justify-content-center mr-md-2 pr-md-1">
+                                <app-avatar
+                                    [size]="globals.device === 'desktop' ? 54 : 90"
+                                    [src]="sourcing.estateDetail?.company_image_thumbnail_url"
+                                    [name]="sourcing.estateDetail?.name"
+                                ></app-avatar>
+                            </div>
+                            <div class="d-inline-block mt-3 mt-md-0">
+                                <h2 class="fnt-18 fnt-bold text-clr24 mb-0">
+                                    {{ sourcing.name || 'NA' }}
+                                </h2>
+                                <div class="d-flex justify-content-center justify-content-md-start align-items-center">
+                                    <span class="fa fa-star checked mr-2"></span>
+                                    <h6 class="fnt-18 fnt-700 custom-link mb-0">
+                                        {{ (sourcing.rating || 0).toFixed(2) }}
+                                    </h6>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-12 mt-3 mb-4 order-1 order-md-2 m-padding-0">
-                        <div class="banner-details">
-                            <img src="assets/images/banner-details.jpg" alt="" class="w-100" />
+                        <div class="source-knowmore d-flex align-items-center justify-content-between mt-4 mt-md-0">
+                            <a class="btn-raised mr-md-3" routerLink="/sourcing/sourcing-chat">
+                                {{ globals.languageJson?.contact_us }}
+                            </a>
+                            <a class="btn-stroked" [href]="brandProfileEstateWeb">
+                                {{ globals.languageJson?.know_more }}
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 m-overflow mt-4 mt-md-0">
-                        <nav class="source-tabs">
-                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a
-                                    class="nav-item nav-link active"
-                                    id="nav-home-tab1"
-                                    data-toggle="tab"
-                                    href="#overview"
-                                    role="tab"
-                                    aria-controls="nav-home"
-                                    aria-selected="true"
-                                    >{{ globals.languageJson?.overview }}</a
-                                >
-                                <a
-                                    class="nav-item nav-link"
-                                    id="nav-profile-tab2"
-                                    data-toggle="tab"
-                                    href="#about-farm"
-                                    role="tab"
-                                    aria-controls="nav-profile"
-                                    aria-selected="false"
-                                    >{{ globals.languageJson?.about_the_farm }}</a
-                                >
-                                <a
-                                    class="nav-item nav-link"
-                                    id="nav-profile-tab3"
-                                    data-toggle="tab"
-                                    href="#land-lots"
-                                    role="tab"
-                                    aria-controls="nav-profile"
-                                    aria-selected="false"
-                                    >{{ globals.languageJson?.land_lots }}</a
-                                >
-                                <a
-                                    class="nav-item nav-link"
-                                    id="nav-profile-tab4"
-                                    data-toggle="tab"
-                                    href="#green-coffee-available"
-                                    role="tab"
-                                    aria-controls="nav-profile"
-                                    aria-selected="false"
-                                    >{{ globals.languageJson?.green_coffee_avilability }}</a
-                                >
-                                <a
-                                    class="nav-item nav-link"
-                                    id="nav-profile-tab5"
-                                    data-toggle="tab"
-                                    href="#gallery"
-                                    role="tab"
-                                    aria-controls="nav-profile"
-                                    aria-selected="false"
-                                    >{{ globals.languageJson?.gallery }}</a
-                                >
-                                <a
-                                    class="nav-item nav-link"
-                                    id="nav-profile-tab6"
-                                    data-toggle="tab"
-                                    href="#whyus"
-                                    role="tab"
-                                    aria-controls="nav-profile"
-                                    aria-selected="false"
-                                    >Go to market opportunities</a
-                                >
-                            </div>
-                        </nav>
-                        <div class="tab-content py-2 py-md-4 mt-2 px-3 px-sm-0" id="nav-tabContent">
-                            <!-- Ovrview-->
-                            <div
-                                class="tab-pane fade show active"
-                                id="overview"
-                                role="tabpanel"
-                                aria-labelledby="nav-home-tab1"
-                            >
-                                <app-overview></app-overview>
-                            </div>
-                            <!--End Ovrview-->
-                            <!-- About the farm-->
-                            <div
-                                class="tab-pane fade"
-                                id="about-farm"
-                                role="tabpanel"
-                                aria-labelledby="nav-profile-tab2"
-                            >
-                                <div class="row">
-                                    <div class="col-lg-12 m-padding-8">
-                                        <div class="des-content">
-                                            <article>
-                                                <div class="detail-descript">
-                                                    <div class="stit">
-                                                        <h2>The origin</h2>
-                                                        <div class="s-cert d-md-none">
-                                                            <ul class="flex">
-                                                                <li class="mb-3" *ngFor="let cert of certifyEstate">
-                                                                    <img
-                                                                        [src]="
-                                                                            cert.certificate_type_id | certificateImg
-                                                                        "
-                                                                    />
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <h6 class="d-block d-md-none area-location">Columbia</h6>
-                                                        <h5 class="d-block d-md-none mt-3 m-orgin">
-                                                            {{ globals.languageJson?.the_origin }}
-                                                        </h5>
-                                                        <p>
-                                                            Finca La Pampa is the operator of washing stations in
-                                                            Yirgacheffe district and Guji district. We have integrated
-                                                            supply chains with our farmer out-growers in both districts
-                                                            and are organically certified, maintaining traceability
-                                                            throughout the supply chain to ensure the best quality.
-                                                        </p>
-                                                    </div>
-                                                    <div class="row mt-4">
-                                                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
-                                                            <div class="real-estate">
-                                                                <img src="assets/images/harveaster.svg" />
-                                                                <h6>{{ globals.languageJson?.year_founded_in }}</h6>
-                                                                <h3>{{ sourcing.founded_on }}</h3>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
-                                                            <div class="real-estate">
-                                                                <img src="assets/images/stakeholder2.png" />
-                                                                <h6>{{ globals.languageJson?.estate_owner }}</h6>
-                                                                <h3 *ngIf="sourcing.owner_name != ''">
-                                                                    {{ sourcing.owner_name }}
-                                                                </h3>
-                                                                <h3 *ngIf="sourcing.owner_name == ''">NA</h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="stit mt-4">
-                                                        <h2>{{ globals.languageJson?.who_we_are }}</h2>
-                                                        <p>
-                                                            The 21st century is the golden age for surgical procedures,
-                                                            among them an increasingly popular method of corrective eye
-                                                            surgery known as LASIK. LASIK is an acronym for the surgery,
-                                                            which stands for Laser Assisted In Situ Keratomileusis. This
-                                                            procedure has become increasingly reliable, with unresolved
-                                                            complications reported in only 3 to 6 percent of patients.
-                                                            The risk of complications is still there, however, and can
-                                                            take several different forms.
-                                                        </p>
 
-                                                        <p>
-                                                            The complications of LASIK surgery can include the
-                                                            following: Dry eyes, over or under correction, visual acuity
-                                                            fluctuation, halos or starbursts around light sources at
-                                                            night, light sensitivity, double vision, wrinkles in the
-                                                            flap, striation, decentered ablation, debris or growth under
-                                                            the flap, induced astigmatism. These complications are
-                                                            classified according to whether they arise in the
-                                                            preoperative procedures, the procedure itself, or after the
-                                                            operation either early on or later.
-                                                        </p>
-                                                    </div>
-                                                    <div class="employer mt-4 d-none d-md-block">
-                                                        <h2>{{ globals.languageJson?.employees }}</h2>
-                                                        <div class="row" *ngIf="sourcing.estateContacts != null">
-                                                            <div
-                                                                class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2"
-                                                                *ngFor="let contact of sourcing.estateContacts"
-                                                            >
-                                                                <div class="employ-profile">
-                                                                    <div class="p-gal">
-                                                                        <img
-                                                                            *ngIf="contact.profile_image_url == ''"
-                                                                            src="assets/images/profile.svg"
-                                                                        />
-                                                                        <img
-                                                                            *ngIf="contact.profile_image_url != ''"
-                                                                            src="{{ contact.profile_image_url }}"
-                                                                        />
-                                                                    </div>
-                                                                    <div class="profile-des">
-                                                                        <h4>{{ contact.name | titlecase }}</h4>
-                                                                        <h6>{{ contact.roles[0] }}</h6>
-                                                                    </div>
-                                                                    <div class="msg-chat mt-2">
-                                                                        <img
-                                                                            src="assets/images/message-icon.svg"
-                                                                            class="d-inline-block"
-                                                                        />
-                                                                        <p class="pl-1 d-inline-block">
-                                                                            {{ globals.languageJson?.message }}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- no-data for Employees Starts -->
-                                                        <div class="row" *ngIf="sourcing.estateContacts == null">
-                                                            <div class="col-lg-12 col-md-12 no-data-sec">
-                                                                <div class="text-center">
-                                                                    <img
-                                                                        src="assets/images/table-empty.png"
-                                                                        alt="welcome-illustration"
-                                                                        class="error-image"
-                                                                    />
-                                                                    <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">
-                                                                        No employees data available
-                                                                    </h1>
-                                                                    <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                                                                    <!-- <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button> -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- no-data for Employees Ends -->
-                                                    </div>
-                                                </div>
-                                            </article>
-                                            <aside>
-                                                <div class="certificate-book">
-                                                    <div class="stit d-none d-md-block" *ngIf="certifyEstate != ''">
-                                                        <h2>{{ globals.languageJson?.certificates }}</h2>
-                                                    </div>
-                                                    <div
-                                                        class="cetify-logo pt-3 d-none d-md-block"
-                                                        *ngIf="certifyEstate != ''"
-                                                    >
-                                                        <ul class="clearfix mb-5">
-                                                            <li class="mb-3" *ngFor="let cert of certifyEstate">
-                                                                <img
-                                                                    [src]="cert.certificate_type_id | certificateImg"
-                                                                />
-                                                            </li>
-                                                        </ul>
-                                                        <div *ngIf="sourcing.gps_coordinates == ''">
-                                                            <img src="assets/images/map.PNG" class="w-100" />
-                                                        </div>
-                                                        <div *ngIf="sourcing.gps_coordinates != ''">
-                                                            <agm-map
-                                                                [latitude]="sourcing.latitude"
-                                                                [longitude]="sourcing.longitude"
-                                                            >
-                                                                <agm-marker
-                                                                    [latitude]="sourcing.latitude"
-                                                                    [longitude]="sourcing.longitude"
-                                                                ></agm-marker>
-                                                            </agm-map>
-                                                        </div>
-                                                    </div>
-                                                    <div class="prodcoffee mt-md-3">
-                                                        <h4>Our Coffee procurement is traceable & 100% transparent</h4>
-                                                        <div class="video-part">
-                                                            <a class="video-btn"
-                                                                ><img src="assets/images/play-button-image.svg"
-                                                            /></a>
-                                                        </div>
-                                                    </div>
+                <div class="col-12 order-1 order-md-2 mt-3 mb-4 px-sm-0 px-md-3">
+                    <img [src]="sourcing.estateDetail?.banner_url" alt="Estate" class="w-100 br-2" />
+                </div>
+            </div>
 
-                                                    <div class="employer mt-4 d-block d-md-none">
-                                                        <h2>{{ globals.languageJson?.employees }}</h2>
-                                                        <div class="row">
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
-                                                                <div class="employ-profile">
-                                                                    <div class="p-gal">
-                                                                        <img src="assets/images/gallery-1.jpg" />
-                                                                    </div>
-                                                                    <div class="profile-des">
-                                                                        <h4>Hannah morris</h4>
-                                                                        <h6>Cupping manager</h6>
-                                                                    </div>
-                                                                    <div class="msg-chat mt-2">
-                                                                        <img
-                                                                            src="assets/images/message-icon.svg"
-                                                                            class="d-inline-block"
-                                                                        />
-                                                                        <p class="pl-1 d-inline-block">
-                                                                            {{ globals.languageJson?.message }}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
-                                                                <div class="employ-profile">
-                                                                    <div class="p-gal">
-                                                                        <img src="assets/images/gallery-2.jpg" />
-                                                                    </div>
-                                                                    <div class="profile-des">
-                                                                        <h4>Jayden briggs</h4>
-                                                                        <h6>Sales manager</h6>
-                                                                    </div>
-                                                                    <div class="msg-chat mt-2">
-                                                                        <img
-                                                                            src="assets/images/message-icon.svg"
-                                                                            class="d-inline-block"
-                                                                        />
-                                                                        <p class="pl-1 d-inline-block">
-                                                                            {{ globals.languageJson?.message }}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
-                                                                <div class="employ-profile">
-                                                                    <div class="p-gal">
-                                                                        <img src="assets/images/gallery-3.jpg" />
-                                                                    </div>
-                                                                    <div class="profile-des">
-                                                                        <h4>Johanna ortiz</h4>
-                                                                        <h6>Business manager</h6>
-                                                                    </div>
-                                                                    <div class="msg-chat mt-2">
-                                                                        <img
-                                                                            src="assets/images/message-icon.svg"
-                                                                            class="d-inline-block"
-                                                                        />
-                                                                        <p class="pl-1 d-inline-block">
-                                                                            {{ globals.languageJson?.message }}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-none d-md-block">
-                                                        <div class="flex prebook mb-3 mb-md-0 mt-2 mt-md-4 pt-md-2">
-                                                            <a class="more-text" (click)="brandProfileSite()">
-                                                                {{ globals.languageJson?.know_more }}</a
-                                                            >
-                                                            <a class="prebook-estate">{{
-                                                                globals.languageJson?.prebook_estate
-                                                            }}</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </aside>
-                                            <div class="w-100 chat-div d-md-block d-none">
-                                                <button
-                                                    type="button"
-                                                    class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                                                    routerLink="/features/sourcing-chat"
-                                                >
-                                                    Chat with Finca la Pampa
-                                                    <span class="chat-indicator"> &#x25CF;</span
-                                                    ><img
-                                                        class="pull-right ml-auto"
-                                                        src="assets/images/back-arrow.png"
-                                                    />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-4 d-md-none d-block">
-                                    <app-overview-ratings></app-overview-ratings>
-                                </div>
-                            </div>
-                            <!--End About the farm-->
-                            <!-- Land lots-->
-                            <div
-                                class="tab-pane fade"
-                                id="land-lots"
-                                role="tabpanel"
-                                aria-labelledby="nav-profile-tab3"
-                            >
-                                <app-land-lots></app-land-lots>
-                            </div>
-                            <!--End Land lots-->
-                            <!-- Green coffee-->
-                            <div
-                                class="tab-pane fade"
-                                id="green-coffee-available"
-                                role="tabpanel"
-                                aria-labelledby="nav-profile-tab4"
-                            >
-                                <div class="cardpanel-detail" *ngIf="sourcing.greenList != null">
-                                    <div class="row">
-                                        <div
-                                            class="col-lg-4 col-md-6 cursor-item"
-                                            *ngFor="let item of sourcing.greenList"
-                                        >
-                                            <div class="source-card card-border green-coffee-product">
-                                                <div class="s-gal">
-                                                    <span *ngIf="item.images">
-                                                        <img
-                                                            *ngIf="item.images[0] != ''"
-                                                            [src]="item.images[0].thumb_url"
-                                                            alt=""
-                                                        />
-                                                        <img
-                                                            *ngIf="item.images[0] == ''"
-                                                            src="assets/images/dummy-profile.png"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    <span *ngIf="!item.images">
-                                                        <img src="assets/images/dummy-profile.png" alt="" />
-                                                    </span>
-                                                    <!-- <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
-                                                        <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">  -->
-                                                    <div class="cupping">
-                                                        <!-- <p>Cup score {{item.score}}</p> -->
-                                                        <p *ngIf="item.cup_score != ''">
-                                                            Cup score {{ item.cup_score }}
-                                                        </p>
-                                                        <p *ngIf="item.cup_score == ''">NA</p>
-                                                    </div>
-                                                </div>
-                                                <div class="s-details">
-                                                    <div class="flex">
-                                                        <div class="s-tit">
-                                                            <h3 *ngIf="item.name != ''">{{ item.name }}</h3>
-                                                            <h3 *ngIf="item.name == ''">NA</h3>
-                                                            <h5 *ngIf="item['estate']['name'] != ''">
-                                                                {{ item['estate']['name'] }}
-                                                            </h5>
-                                                            <h5 *ngIf="item['estate']['name'] == ''">NA</h5>
-                                                            <h6 *ngIf="item.price != ''">
-                                                                {{ item.price_unit }}{{ item.price }} USD / kg
-                                                            </h6>
-                                                            <h6 *ngIf="item.price == ''">NA</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="source-lets flex">
-                                                        <div class="orgin-att">
-                                                            <label>{{ globals.languageJson?.origin }}</label>
-                                                            <h6 *ngIf="item['lot']['country'] != ''">
-                                                                {{ GetCountry(item['lot']['country']) }}
-                                                            </h6>
-                                                            <h6 *ngIf="item['lot']['country'] == ''">NA</h6>
-                                                        </div>
-                                                        <div class="orgin-att">
-                                                            <label>{{ globals.languageJson?.variety }}</label>
-                                                            <h6 *ngIf="item['lot']['variety'] != ''">
-                                                                {{ item['lot']['variety'] }}
-                                                            </h6>
-                                                            <h6 *ngIf="item['lot']['variety'] == ''">NA</h6>
-                                                        </div>
-                                                        <div class="orgin-att">
-                                                            <label>{{ globals.languageJson?.flavour }}</label>
-                                                            <div *ngIf="item.flavours != null">
-                                                                <ul class="flo-list">
-                                                                    <li *ngFor="let flavour of item.flavours">
-                                                                        <span class="mb-2">{{ flavour.name }}</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div *ngIf="item.flavours == null">NA</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="top-lots">
-                                                        <label
-                                                            >{{ globals.languageJson?.available_quantity }} :
-                                                            <span
-                                                                >{{ item.quantity_count }} {{ item.quantity_type }} of
-                                                                {{ item.total_quantity }}{{ item.quantity_unit }}</span
-                                                            ></label
-                                                        >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 chat-div d-md-block d-none">
-                                            <button
-                                                type="button"
-                                                class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                                                routerLink="/features/sourcing-chat"
-                                            >
-                                                Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
-                                                ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- no-data for Green Coffee availbility Starts -->
-                                <div class="row" *ngIf="sourcing.greenList == null">
-                                    <div class="col-lg-12 col-md-12 no-data-sec">
-                                        <div class="text-center">
-                                            <img
-                                                src="assets/images/table-empty.png"
-                                                alt="welcome-illustration"
-                                                class="error-image"
-                                            />
-                                            <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
-                                            <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                                            <button
-                                                type="button"
-                                                class="fnt-14 fnt-600 fnt-muli save"
-                                                [routerLink]="['/features/sourcing']"
-                                            >
-                                                Browse availabilities
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- no-data for  Green Coffee availbility Ends -->
-                                <div class="row mt-4 d-md-none d-block">
-                                    <app-overview-ratings></app-overview-ratings>
-                                </div>
-                            </div>
-                            <!-- End Green coffee-->
-                            <!-- gallery-->
-                            <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="nav-profile-tab5">
-                                <div class="cardpanel-detail" *ngIf="galleryImages != null">
-                                    <div class="row">
-                                        <!-- <div class="col-lg-4 col-md-6 col-6 gals">
-                                                <div class="position-relative">
-                                                    <img src="assets/images/gal1.png" alt="">
-                                                    <div class="video-part">
-                                                        <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
-                                                    </div>
-                                                </div>
-
-                                            </div> -->
-                                        <div class="col-lg-4 col-md-6 col-6 gals" *ngFor="let image of galleryImages">
-                                            <!-- <img src="assets/images/gal6.png" alt=""> -->
-                                            <img *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="Image" />
-                                            <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
-                                        </div>
-
-                                        <!-- <div class="col-lg-4 col-md-6 col-6 gals">
-                                                <img src="assets/images/gal2.png" alt="">
-                                            </div>
-                                            <div class="col-lg-8 col-md-6 col-6 gals">
-                                                <img src="assets/images/gal3.png" alt="">
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 col-6 gals">
-                                                <div class="position-relative">
-                                                    <img src="assets/images/gal4.png" alt="">
-                                                    <div class="video-part">
-                                                        <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 col-6 gals">
-                                                <img src="assets/images/gal4.png" alt="">
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 col-6 gals">
-                                                <img src="assets/images/gal1.png" alt="">
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 col-6 gals">
-                                                <img src="assets/images/gal5.png" alt="">
-                                            </div> -->
-                                        <div class="w-100 chat-div d-md-block d-none">
-                                            <button
-                                                type="button"
-                                                class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                                                routerLink="/features/sourcing-chat"
-                                            >
-                                                Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
-                                                ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="galleryImages == ''">
-                                    <div class="col-lg-12 col-md-12 no-data-sec">
-                                        <div class="text-center">
-                                            <img
-                                                src="assets/images/table-empty.png"
-                                                alt="welcome-illustration"
-                                                class="error-image"
-                                            />
-                                            <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
-                                            <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                                            <button
-                                                type="button"
-                                                class="fnt-14 fnt-600 fnt-muli save"
-                                                [routerLink]="['/features/sourcing']"
-                                            >
-                                                Browse availabilities
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--End gallery-->
-                            <!-- whyus-->
-                            <div class="tab-pane fade" id="whyus" role="tabpanel" aria-labelledby="nav-profile-tab6">
-                                <div class="whyus-details d-md-block d-none">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6">
+            <p-tabView styleClass="mt-3">
+                <p-tabPanel header="{{ globals.languageJson?.overview }}">
+                    <app-overview></app-overview>
+                    <div class="row mt-4 d-md-none d-block">
+                        <app-overview-ratings></app-overview-ratings>
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel header="{{ globals.languageJson?.about_the_farm }}">
+                    <ng-template pTemplate="contentSoil">
+                        <div class="row">
+                            <div class="col-lg-12 m-padding-8">
+                                <div class="des-content">
+                                    <article>
+                                        <div class="detail-descript">
                                             <div class="stit">
-                                                <h2>Our license to roast comes with perks!</h2>
+                                                <h2>The origin</h2>
+                                                <div class="s-cert d-md-none">
+                                                    <ul class="flex">
+                                                        <li class="mb-3" *ngFor="let cert of certifyEstate">
+                                                            <img [src]="cert.certificate_type_id | certificateImg" />
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <h6 class="d-block d-md-none area-location">Columbia</h6>
+                                                <h5 class="d-block d-md-none mt-3 m-orgin">
+                                                    {{ globals.languageJson?.the_origin }}
+                                                </h5>
+                                                <p>
+                                                    Finca La Pampa is the operator of washing stations in Yirgacheffe
+                                                    district and Guji district. We have integrated supply chains with
+                                                    our farmer out-growers in both districts and are organically
+                                                    certified, maintaining traceability throughout the supply chain to
+                                                    ensure the best quality.
+                                                </p>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
+                                                    <div class="real-estate">
+                                                        <img src="assets/images/harveaster.svg" />
+                                                        <h6>{{ globals.languageJson?.year_founded_in }}</h6>
+                                                        <h3>{{ sourcing.founded_on }}</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-0 mb-md-3">
+                                                    <div class="real-estate">
+                                                        <img src="assets/images/stakeholder2.png" />
+                                                        <h6>{{ globals.languageJson?.estate_owner }}</h6>
+                                                        <h3 *ngIf="sourcing.owner_name != ''">
+                                                            {{ sourcing.owner_name }}
+                                                        </h3>
+                                                        <h3 *ngIf="sourcing.owner_name == ''">NA</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="stit mt-4">
+                                                <h2>{{ globals.languageJson?.who_we_are }}</h2>
                                                 <p>
                                                     The 21st century is the golden age for surgical procedures, among
                                                     them an increasingly popular method of corrective eye surgery known
@@ -636,179 +109,586 @@
                                                     only 3 to 6 percent of patients. The risk of complications is still
                                                     there, however, and can take several different forms.
                                                 </p>
-                                            </div>
-                                            <div class="msg-chat whyus-zoom">
-                                                <img src="assets/images/zoom.svg" class="d-inline-block" />
-                                                <p class="d-inline-block">
-                                                    {{ globals.languageJson?.view_our_license }}
+
+                                                <p>
+                                                    The complications of LASIK surgery can include the following: Dry
+                                                    eyes, over or under correction, visual acuity fluctuation, halos or
+                                                    starbursts around light sources at night, light sensitivity, double
+                                                    vision, wrinkles in the flap, striation, decentered ablation, debris
+                                                    or growth under the flap, induced astigmatism. These complications
+                                                    are classified according to whether they arise in the preoperative
+                                                    procedures, the procedure itself, or after the operation either
+                                                    early on or later.
                                                 </p>
                                             </div>
+                                            <div class="employer mt-4 d-none d-md-block">
+                                                <h2>{{ globals.languageJson?.employees }}</h2>
+                                                <div class="row" *ngIf="sourcing.estateContacts != null">
+                                                    <div
+                                                        class="col-lg-3 col-md-4 col-sm-6 col-6 mb-2"
+                                                        *ngFor="let contact of sourcing.estateContacts"
+                                                    >
+                                                        <div class="employ-profile">
+                                                            <div class="p-gal">
+                                                                <img
+                                                                    *ngIf="contact.profile_image_url == ''"
+                                                                    src="assets/images/profile.svg"
+                                                                />
+                                                                <img
+                                                                    *ngIf="contact.profile_image_url != ''"
+                                                                    src="{{ contact.profile_image_url }}"
+                                                                />
+                                                            </div>
+                                                            <div class="profile-des">
+                                                                <h4>{{ contact.name | titlecase }}</h4>
+                                                                <h6>{{ contact.roles[0] }}</h6>
+                                                            </div>
+                                                            <div class="msg-chat mt-2">
+                                                                <img
+                                                                    src="assets/images/message-icon.svg"
+                                                                    class="d-inline-block"
+                                                                />
+                                                                <p class="pl-1 d-inline-block">
+                                                                    {{ globals.languageJson?.message }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- no-data for Employees Starts -->
+                                                <div class="row" *ngIf="sourcing.estateContacts == null">
+                                                    <div class="col-lg-12 col-md-12 no-data-sec">
+                                                        <div class="text-center">
+                                                            <img
+                                                                src="assets/images/table-empty.png"
+                                                                alt="welcome-illustration"
+                                                                class="error-image"
+                                                            />
+                                                            <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">
+                                                                No employees data available
+                                                            </h1>
+                                                            <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                                                            <!-- <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- no-data for Employees Ends -->
+                                            </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="position-relative">
-                                                <img src="assets/images/why-image.jpg" class="w-100" />
+                                    </article>
+                                    <aside>
+                                        <div class="certificate-book">
+                                            <div class="stit d-none d-md-block" *ngIf="certifyEstate != ''">
+                                                <h2>{{ globals.languageJson?.certificates }}</h2>
+                                            </div>
+                                            <div class="cetify-logo pt-3 d-none d-md-block" *ngIf="certifyEstate != ''">
+                                                <ul class="clearfix mb-5">
+                                                    <li class="mb-3" *ngFor="let cert of certifyEstate">
+                                                        <img [src]="cert.certificate_type_id | certificateImg" />
+                                                    </li>
+                                                </ul>
+                                                <div *ngIf="sourcing.gps_coordinates == ''">
+                                                    <img src="assets/images/map.PNG" class="w-100" />
+                                                </div>
+                                                <div *ngIf="sourcing.gps_coordinates != ''">
+                                                    <agm-map
+                                                        [latitude]="sourcing.latitude"
+                                                        [longitude]="sourcing.longitude"
+                                                    >
+                                                        <agm-marker
+                                                            [latitude]="sourcing.latitude"
+                                                            [longitude]="sourcing.longitude"
+                                                        ></agm-marker>
+                                                    </agm-map>
+                                                </div>
+                                            </div>
+                                            <div class="prodcoffee mt-md-3">
+                                                <h4>Our Coffee procurement is traceable & 100% transparent</h4>
                                                 <div class="video-part">
-                                                    <a class="video-btn"><img src="assets/images/video-img.svg" /></a>
+                                                    <a class="video-btn"
+                                                        ><img src="assets/images/play-button-image.svg"
+                                                    /></a>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3 mt-md-5">
-                                        <div class="col-lg-12">
-                                            <div class="gmt-gal">
-                                                <img src="assets/images/gmt_banner.png" class="w-100" />
-                                                <div class="gmt-marklist">
-                                                    <h2 class="fnt-play mb-4">Our Go-To-Market Initiative (GTM)</h2>
-                                                    <div class="mb-3 fnt-muli fnt-16">
-                                                        Our estates have more to offer to us than just coffee! With
-                                                        their years of experience and the power of the community we will
-                                                        revolutionalize this.
-                                                    </div>
 
-                                                    <div class="mb-3 fnt-muli fnt-16">
-                                                        Our GTM’s are pre-defined activities that is bundled and
-                                                        delivered through the value chain to empower stakeholders to
-                                                        penetrate local market(s), deliver brand recognition, social and
-                                                        online strengths.
+                                            <div class="employer mt-4 d-block d-md-none">
+                                                <h2>{{ globals.languageJson?.employees }}</h2>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+                                                        <div class="employ-profile">
+                                                            <div class="p-gal">
+                                                                <img src="assets/images/gallery-1.jpg" />
+                                                            </div>
+                                                            <div class="profile-des">
+                                                                <h4>Hannah morris</h4>
+                                                                <h6>Cupping manager</h6>
+                                                            </div>
+                                                            <div class="msg-chat mt-2">
+                                                                <img
+                                                                    src="assets/images/message-icon.svg"
+                                                                    class="d-inline-block"
+                                                                />
+                                                                <p class="pl-1 d-inline-block">
+                                                                    {{ globals.languageJson?.message }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-
-                                                    <div class="mb-3 fnt-muli fnt-16">View what we have to offer!</div>
-                                                    <div>
-                                                        <button class="download_gtm">Download GTM</button>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+                                                        <div class="employ-profile">
+                                                            <div class="p-gal">
+                                                                <img src="assets/images/gallery-2.jpg" />
+                                                            </div>
+                                                            <div class="profile-des">
+                                                                <h4>Jayden briggs</h4>
+                                                                <h6>Sales manager</h6>
+                                                            </div>
+                                                            <div class="msg-chat mt-2">
+                                                                <img
+                                                                    src="assets/images/message-icon.svg"
+                                                                    class="d-inline-block"
+                                                                />
+                                                                <p class="pl-1 d-inline-block">
+                                                                    {{ globals.languageJson?.message }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+                                                        <div class="employ-profile">
+                                                            <div class="p-gal">
+                                                                <img src="assets/images/gallery-3.jpg" />
+                                                            </div>
+                                                            <div class="profile-des">
+                                                                <h4>Johanna ortiz</h4>
+                                                                <h6>Business manager</h6>
+                                                            </div>
+                                                            <div class="msg-chat mt-2">
+                                                                <img
+                                                                    src="assets/images/message-icon.svg"
+                                                                    class="d-inline-block"
+                                                                />
+                                                                <p class="pl-1 d-inline-block">
+                                                                    {{ globals.languageJson?.message }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3 mt-md-5">
-                                        <div class="col-lg-12">
-                                            <div class="marketing-gal">
-                                                <img src="assets/images/marketing_banner.png" class="w-100" />
-                                                <div class="marklist">
-                                                    <h2 class="fnt-play">
-                                                        {{ globals.languageJson?.unlimited }}
-                                                        <span class="fnt-play"
-                                                            >{{ globals.languageJson?.marketing_materials }}.</span
-                                                        >
-                                                    </h2>
-                                                    <h5 class="fnt-muli">
-                                                        {{
-                                                            globals.languageJson
-                                                                ?.high_unlimites_images_videos_promote_yourself
-                                                        }}
-                                                    </h5>
+                                            <div class="d-none d-md-block">
+                                                <div class="flex prebook mb-3 mb-md-0 mt-2 mt-md-4 pt-md-2">
+                                                    <a class="more-text" (click)="brandProfileSite()">
+                                                        {{ globals.languageJson?.know_more }}</a
+                                                    >
+                                                    <a class="prebook-estate">{{
+                                                        globals.languageJson?.prebook_estate
+                                                    }}</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </aside>
                                     <div class="w-100 chat-div d-md-block d-none">
                                         <button
                                             type="button"
                                             class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
                                             routerLink="/features/sourcing-chat"
                                         >
-                                            Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
+                                            Chat with Finca la Pampa
+                                            <span class="chat-indicator"> &#x25CF;</span
                                             ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
                                         </button>
                                     </div>
-                                    <!-- <div class="row mt-3 mt-md-5">
-                                            <div class="col-lg-8 col-sm-8 ">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-sm-4 pr-0">
-                                                        <img src="assets/images/whymake1.png" class="w-100">
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-4 pr-0">
-                                                        <img src="assets/images/whymake2.png" class="w-100">
-                                                    </div>
-                                                    <div class="col-lg-4 col-sm-4 pr-0">
-                                                        <img src="assets/images/whymake3.png" class="w-100">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-sm-4 position-relative">
-                                                <div class="mark-brand">
-                                                    <h3 class="mb-md-4 mb-3 fnt-play">{{globals.languageJson?.make_our_brand_yours}}</h3>
-                                                    <p class="fnt-muli">{{globals.languageJson?.guidelines_instruction_included_marketing_coffee}}.</p>
-                                                    <p class="fnt-muli">{{globals.languageJson?.unlimited_sizes_quantity}}!</p>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                 </div>
-                                <div class="row d-block d-md-none">
-                                    <div class="col-12 us-padding">
-                                        <div class="">
-                                            <h2 class="licence-text fnt-muli">
-                                                Our license to roast comes with perks!
-                                            </h2>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="{{ globals.languageJson?.land_lots }}">
+                    <ng-template pTemplate="contentUv">
+                        <app-land-lots></app-land-lots>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="{{ globals.languageJson?.green_coffee_avilability }}">
+                    <ng-template pTemplate="contentVegetation">
+                        <div class="cardpanel-detail" *ngIf="sourcing.greenList != null">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 cursor-item" *ngFor="let item of sourcing.greenList">
+                                    <div class="source-card card-border green-coffee-product">
+                                        <div class="s-gal">
+                                            <span *ngIf="item.images">
+                                                <img
+                                                    *ngIf="item.images[0] != ''"
+                                                    [src]="item.images[0].thumb_url"
+                                                    alt=""
+                                                />
+                                                <img
+                                                    *ngIf="item.images[0] == ''"
+                                                    src="assets/images/dummy-profile.png"
+                                                    alt=""
+                                                />
+                                            </span>
+                                            <span *ngIf="!item.images">
+                                                <img src="assets/images/dummy-profile.png" alt="" />
+                                            </span>
+                                            <!-- <img *ngIf="item.images[0]!=''" [src]="item.images[0]" alt="">
+                                                    <img  *ngIf="item.images[0]==''" src="assets/images/dummy-profile.png" alt="">  -->
+                                            <div class="cupping">
+                                                <!-- <p>Cup score {{item.score}}</p> -->
+                                                <p *ngIf="item.cup_score != ''">Cup score {{ item.cup_score }}</p>
+                                                <p *ngIf="item.cup_score == ''">NA</p>
+                                            </div>
+                                        </div>
+                                        <div class="s-details">
+                                            <div class="flex">
+                                                <div class="s-tit">
+                                                    <h3 *ngIf="item.name != ''">{{ item.name }}</h3>
+                                                    <h3 *ngIf="item.name == ''">NA</h3>
+                                                    <h5 *ngIf="item['estate']['name'] != ''">
+                                                        {{ item['estate']['name'] }}
+                                                    </h5>
+                                                    <h5 *ngIf="item['estate']['name'] == ''">NA</h5>
+                                                    <h6 *ngIf="item.price != ''">
+                                                        {{ item.price_unit }}{{ item.price }} USD / kg
+                                                    </h6>
+                                                    <h6 *ngIf="item.price == ''">NA</h6>
+                                                </div>
+                                            </div>
+                                            <div class="source-lets flex">
+                                                <div class="orgin-att">
+                                                    <label>{{ globals.languageJson?.origin }}</label>
+                                                    <h6>
+                                                        {{ item.lot?.country | country }}
+                                                    </h6>
+                                                    <h6 *ngIf="item['lot']['country'] == ''">NA</h6>
+                                                </div>
+                                                <div class="orgin-att">
+                                                    <label>{{ globals.languageJson?.variety }}</label>
+                                                    <h6 *ngIf="item['lot']['variety'] != ''">
+                                                        {{ item['lot']['variety'] }}
+                                                    </h6>
+                                                    <h6 *ngIf="item['lot']['variety'] == ''">NA</h6>
+                                                </div>
+                                                <div class="orgin-att">
+                                                    <label>{{ globals.languageJson?.flavour }}</label>
+                                                    <div *ngIf="item.flavours != null">
+                                                        <ul class="flo-list">
+                                                            <li *ngFor="let flavour of item.flavours">
+                                                                <span class="mb-2">{{ flavour.name }}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div *ngIf="item.flavours == null">NA</div>
+                                                </div>
+                                            </div>
+                                            <div class="top-lots">
+                                                <label
+                                                    >{{ globals.languageJson?.available_quantity }} :
+                                                    <span
+                                                        >{{ item.quantity_count }} {{ item.quantity_type }} of
+                                                        {{ item.total_quantity }}{{ item.quantity_unit }}</span
+                                                    ></label
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-100 chat-div d-md-block d-none">
+                                    <button
+                                        type="button"
+                                        class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+                                        routerLink="/features/sourcing-chat"
+                                    >
+                                        Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
+                                        ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- no-data for Green Coffee availbility Starts -->
+                        <div class="row" *ngIf="sourcing.greenList == null">
+                            <div class="col-lg-12 col-md-12 no-data-sec">
+                                <div class="text-center">
+                                    <img
+                                        src="assets/images/table-empty.png"
+                                        alt="welcome-illustration"
+                                        class="error-image"
+                                    />
+                                    <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
+                                    <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                                    <button
+                                        type="button"
+                                        class="fnt-14 fnt-600 fnt-muli save"
+                                        [routerLink]="['/features/sourcing']"
+                                    >
+                                        Browse availabilities
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="{{ globals.languageJson?.gallery }}">
+                    <ng-template pTemplate="contentImages">
+                        <div class="cardpanel-detail" *ngIf="galleryImages != null">
+                            <div class="row">
+                                <!-- <div class="col-lg-4 col-md-6 col-6 gals">
                                             <div class="position-relative">
-                                                <img src="assets/images/why-image.jpg" class="w-100" />
+                                                <img src="assets/images/gal1.png" alt="">
                                                 <div class="video-part">
-                                                    <a class="video-btn"><img src="assets/images/video-img.svg" /></a>
+                                                    <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
                                                 </div>
                                             </div>
-                                            <div class="fnt-muli proced-text">
-                                                The 21st century is the golden age for surgical procedures, among them
-                                                an increasingly popular method of corrective eye surgery known as LASIK.
-                                                LASIK is an acronym for the surgery, which stands for Laser Assisted In
-                                                Situ Keratomileusis. This procedure has become increasingly reliable,
-                                                with unresolved complications reported in only 3 to 6 percent of
-                                                patients. The risk of complications is still there, however, and can
-                                                take several different forms.
-                                            </div>
-                                            <div class="msg-chat whyus-zoom">
-                                                <img src="assets/images/zoom.svg" class="d-inline-block" />
-                                                <p class="d-inline-block">View our license</p>
-                                            </div>
-                                            <div class="unlimited-text">
-                                                <h2 class="fnt-play">
-                                                    {{ globals.languageJson?.unlimited }}
-                                                    <span class="fnt-play"
-                                                        >{{ globals.languageJson?.marketing_materials }}.</span
-                                                    >
-                                                </h2>
-                                                <h5 class="fnt-muli">
-                                                    {{
-                                                        globals.languageJson
-                                                            ?.high_unlimites_images_videos_promote_yourself
-                                                    }}
-                                                </h5>
-                                            </div>
-                                            <div class="brand-text mt-4">
-                                                <h3 class="mb-md-4 mb-3 fnt-play">
-                                                    {{ globals.languageJson?.make_our_brand_yours }}
-                                                    <!-- Make our
-                                            <span class="w-100 pt-1">brand yours</span> -->
-                                                </h3>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6 col-6 padd-right-6">
-                                                    <img src="assets/images/whymake-mob-1.jpg" class="w-100" />
-                                                </div>
-                                                <div class="col-lg-6 col-6 padd-left-6">
-                                                    <img src="assets/images/whymake-mob-2.jpg" class="w-100" />
+
+                                        </div> -->
+                                <div class="col-lg-4 col-md-6 col-6 gals" *ngFor="let image of galleryImages">
+                                    <!-- <img src="assets/images/gal6.png" alt=""> -->
+                                    <img *ngIf="image.type == 'IMAGE'" [src]="image.url" alt="Image" />
+                                    <video *ngIf="image.type != 'IMAGE'" [src]="image.url"></video>
+                                </div>
+
+                                <!-- <div class="col-lg-4 col-md-6 col-6 gals">
+                                            <img src="assets/images/gal2.png" alt="">
+                                        </div>
+                                        <div class="col-lg-8 col-md-6 col-6 gals">
+                                            <img src="assets/images/gal3.png" alt="">
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-6 gals">
+                                            <div class="position-relative">
+                                                <img src="assets/images/gal4.png" alt="">
+                                                <div class="video-part">
+                                                    <a class="video-btn"><img src="assets/images/play-button-image.svg"></a>
                                                 </div>
                                             </div>
-                                            <div class="guide-text">
-                                                <p class="fnt-muli pt-3">
-                                                    {{
-                                                        globals.languageJson
-                                                            ?.guidelines_instruction_included_marketing_coffee
-                                                    }}.
-                                                </p>
-                                                <p class="fnt-muli padd-top-6">
-                                                    {{ globals.languageJson?.unlimited_sizes_quantity }}!
-                                                </p>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-6 gals">
+                                            <img src="assets/images/gal4.png" alt="">
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-6 gals">
+                                            <img src="assets/images/gal1.png" alt="">
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 col-6 gals">
+                                            <img src="assets/images/gal5.png" alt="">
+                                        </div> -->
+                                <div class="w-100 chat-div d-md-block d-none">
+                                    <button
+                                        type="button"
+                                        class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+                                        routerLink="/features/sourcing-chat"
+                                    >
+                                        Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
+                                        ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="galleryImages == ''">
+                            <div class="col-lg-12 col-md-12 no-data-sec">
+                                <div class="text-center">
+                                    <img
+                                        src="assets/images/table-empty.png"
+                                        alt="welcome-illustration"
+                                        class="error-image"
+                                    />
+                                    <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
+                                    <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+                                    <button
+                                        type="button"
+                                        class="fnt-14 fnt-600 fnt-muli save"
+                                        [routerLink]="['/features/sourcing']"
+                                    >
+                                        Browse availabilities
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-tabPanel>
+                <p-tabPanel header="{{ globals.languageJson?.whyus }}">
+                    <ng-template pTemplate="contentImages">
+                        <div class="whyus-details d-md-block d-none">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="stit">
+                                        <h2>Our license to roast comes with perks!</h2>
+                                        <p>
+                                            The 21st century is the golden age for surgical procedures, among them an
+                                            increasingly popular method of corrective eye surgery known as LASIK. LASIK
+                                            is an acronym for the surgery, which stands for Laser Assisted In Situ
+                                            Keratomileusis. This procedure has become increasingly reliable, with
+                                            unresolved complications reported in only 3 to 6 percent of patients. The
+                                            risk of complications is still there, however, and can take several
+                                            different forms.
+                                        </p>
+                                    </div>
+                                    <div class="msg-chat whyus-zoom">
+                                        <img src="assets/images/zoom.svg" class="d-inline-block" />
+                                        <p class="d-inline-block">
+                                            {{ globals.languageJson?.view_our_license }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="position-relative">
+                                        <img src="assets/images/why-image.jpg" class="w-100" />
+                                        <div class="video-part">
+                                            <a class="video-btn"><img src="assets/images/video-img.svg" /></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3 mt-md-5">
+                                <div class="col-lg-12">
+                                    <div class="gmt-gal">
+                                        <img src="assets/images/gmt_banner.png" class="w-100" />
+                                        <div class="gmt-marklist">
+                                            <h2 class="fnt-play mb-4">Our Go-To-Market Initiative (GTM)</h2>
+                                            <div class="mb-3 fnt-muli fnt-16">
+                                                Our estates have more to offer to us than just coffee! With their years
+                                                of experience and the power of the community we will revolutionalize
+                                                this.
+                                            </div>
+
+                                            <div class="mb-3 fnt-muli fnt-16">
+                                                Our GTM’s are pre-defined activities that is bundled and delivered
+                                                through the value chain to empower stakeholders to penetrate local
+                                                market(s), deliver brand recognition, social and online strengths.
+                                            </div>
+
+                                            <div class="mb-3 fnt-muli fnt-16">View what we have to offer!</div>
+                                            <div>
+                                                <button class="download_gtm">Download GTM</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--End whyus-->
+                            <div class="row mt-3 mt-md-5">
+                                <div class="col-lg-12">
+                                    <div class="marketing-gal">
+                                        <img src="assets/images/marketing_banner.png" class="w-100" />
+                                        <div class="marklist">
+                                            <h2 class="fnt-play">
+                                                {{ globals.languageJson?.unlimited }}
+                                                <span class="fnt-play"
+                                                    >{{ globals.languageJson?.marketing_materials }}.</span
+                                                >
+                                            </h2>
+                                            <h5 class="fnt-muli">
+                                                {{
+                                                    globals.languageJson?.high_unlimites_images_videos_promote_yourself
+                                                }}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100 chat-div d-md-block d-none">
+                                <button
+                                    type="button"
+                                    class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+                                    routerLink="/features/sourcing-chat"
+                                >
+                                    Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
+                                    ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
+                                </button>
+                            </div>
+                            <!-- <div class="row mt-3 mt-md-5">
+                                        <div class="col-lg-8 col-sm-8 ">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-sm-4 pr-0">
+                                                    <img src="assets/images/whymake1.png" class="w-100">
+                                                </div>
+                                                <div class="col-lg-4 col-sm-4 pr-0">
+                                                    <img src="assets/images/whymake2.png" class="w-100">
+                                                </div>
+                                                <div class="col-lg-4 col-sm-4 pr-0">
+                                                    <img src="assets/images/whymake3.png" class="w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-4 position-relative">
+                                            <div class="mark-brand">
+                                                <h3 class="mb-md-4 mb-3 fnt-play">{{globals.languageJson?.make_our_brand_yours}}</h3>
+                                                <p class="fnt-muli">{{globals.languageJson?.guidelines_instruction_included_marketing_coffee}}.</p>
+                                                <p class="fnt-muli">{{globals.languageJson?.unlimited_sizes_quantity}}!</p>
+                                            </div>
+                                        </div>
+                                    </div> -->
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- <app-overview></app-overview> -->
+                        <div class="row d-block d-md-none">
+                            <div class="col-12 us-padding">
+                                <div class="">
+                                    <h2 class="licence-text fnt-muli">Our license to roast comes with perks!</h2>
+                                    <div class="position-relative">
+                                        <img src="assets/images/why-image.jpg" class="w-100" />
+                                        <div class="video-part">
+                                            <a class="video-btn"><img src="assets/images/video-img.svg" /></a>
+                                        </div>
+                                    </div>
+                                    <div class="fnt-muli proced-text">
+                                        The 21st century is the golden age for surgical procedures, among them an
+                                        increasingly popular method of corrective eye surgery known as LASIK. LASIK is
+                                        an acronym for the surgery, which stands for Laser Assisted In Situ
+                                        Keratomileusis. This procedure has become increasingly reliable, with unresolved
+                                        complications reported in only 3 to 6 percent of patients. The risk of
+                                        complications is still there, however, and can take several different forms.
+                                    </div>
+                                    <div class="msg-chat whyus-zoom">
+                                        <img src="assets/images/zoom.svg" class="d-inline-block" />
+                                        <p class="d-inline-block">View our license</p>
+                                    </div>
+                                    <div class="unlimited-text">
+                                        <h2 class="fnt-play">
+                                            {{ globals.languageJson?.unlimited }}
+                                            <span class="fnt-play"
+                                                >{{ globals.languageJson?.marketing_materials }}.</span
+                                            >
+                                        </h2>
+                                        <h5 class="fnt-muli">
+                                            {{ globals.languageJson?.high_unlimites_images_videos_promote_yourself }}
+                                        </h5>
+                                    </div>
+                                    <div class="brand-text mt-4">
+                                        <h3 class="mb-md-4 mb-3 fnt-play">
+                                            {{ globals.languageJson?.make_our_brand_yours }}
+                                            <!-- Make our
+                                        <span class="w-100 pt-1">brand yours</span> -->
+                                        </h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-6 padd-right-6">
+                                            <img src="assets/images/whymake-mob-1.jpg" class="w-100" />
+                                        </div>
+                                        <div class="col-lg-6 col-6 padd-left-6">
+                                            <img src="assets/images/whymake-mob-2.jpg" class="w-100" />
+                                        </div>
+                                    </div>
+                                    <div class="guide-text">
+                                        <p class="fnt-muli pt-3">
+                                            {{
+                                                globals.languageJson?.guidelines_instruction_included_marketing_coffee
+                                            }}.
+                                        </p>
+                                        <p class="fnt-muli padd-top-6">
+                                            {{ globals.languageJson?.unlimited_sizes_quantity }}!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-tabPanel>
+            </p-tabView>
         </div>
-    </section>
-</div>
+    </div>
+</section>
+
+<ng-template #loading>
+    <div class="total-loader">
+        <div>
+            <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+            <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+        </div>
+    </div>
+</ng-template>

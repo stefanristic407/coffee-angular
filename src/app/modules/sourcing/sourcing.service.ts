@@ -136,6 +136,8 @@ export class SourcingService {
     flavourList: any = new BehaviorSubject([]);
     flavourList$: any = this.flavourList.asObservable();
 
+    estateDetail: any;
+
     constructor(
         private http: HttpClient,
         public userService: UserserviceService,
@@ -150,6 +152,8 @@ export class SourcingService {
     estateDetailList() {
         this.userService.getAvailableEstateList(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
+                console.log('EstateDetail', res.result);
+                this.estateDetail = res.result;
                 this.name = res.result.name;
                 this.description = res.result.description;
                 this.total_area = res.result.total_area;

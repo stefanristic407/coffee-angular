@@ -72,7 +72,6 @@ export class CoffeeDetailsComponent implements OnInit {
         private roasterService: RoasterserviceService,
     ) {
         this.route.paramMap.subscribe((params) => {
-            console.log('params', params);
             if (params.has('harvestId') && params.has('estateId')) {
                 this.sourcing.harvestData = params.get('harvestId');
                 this.sourcing.estateNumber = params.get('estateId');
@@ -139,16 +138,6 @@ export class CoffeeDetailsComponent implements OnInit {
 
     setHourly(data: any) {
         this.hourly = data;
-    }
-
-    getCertificateData(data: any) {
-        //   console.log(data);
-        if (data.certificate_type_id > 0) {
-            this.certiImage = this.sourcing.finalCertify.filter((certify) => certify.id == data.certificate_type_id);
-            if (this.certiImage !== '') {
-                return this.certiImage[0].image_url;
-            }
-        }
     }
 
     galleryImages() {
