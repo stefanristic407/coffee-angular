@@ -1,0 +1,39 @@
+// Custom Theming for Prime Ng
+
+@import '../variables';
+
+// Calendar
+.p-calendar {
+    border: 1px solid $primary-border-color;
+    border-radius: 3px;
+    &:hover {
+        border-color: $primary-color;
+    }
+}
+.round-border.p-calendar {
+    border-radius: 20px;
+}
+.p-calendar .p-inputtext {
+    border: none;
+}
+.p-calendar .p-button {
+    color: $button-icon-color;
+    background-color: transparent;
+    border: none;
+}
+.p-calendar .p-button:enabled:hover {
+    color: $button-icon-color;
+    background-color: transparent;
+}
+.p-calendar .p-button-icon {
+    font-size: 20px;
+}
+.p-calendar-w-btn .p-inputtext {
+    padding-right: 0;
+    padding-left: 0;
+    margin-left: 1rem;
+}
+// Date picker
+.p-datepicker table td {
+    padding: 0.1rem;
+}

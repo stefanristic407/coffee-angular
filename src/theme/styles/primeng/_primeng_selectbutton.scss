@@ -1,0 +1,75 @@
+// Custom Theming for Prime Ng
+
+@import '../variables';
+
+// SelectButton
+.p-selectbutton {
+    display: inline-flex;
+    border: solid 1px $primary-color;
+    font-size: inherit !important;
+    line-height: 1;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.p-selectbutton .p-button {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    color: $muted-text-color;
+}
+
+.p-buttonset .p-button:first-of-type,
+.p-buttonset .p-button:last-of-type {
+    border-radius: 4px !important;
+}
+
+.p-selectbutton .p-button.p-highlight {
+    background: $primary-color;
+    border-color: $primary-color;
+}
+
+.p-selectbutton .p-button:not(.p-state-disabled):not(.p-state-active):hover {
+    background-color: $gray-color;
+    border-color: $gray-color;
+    color: #ffffff;
+}
+
+.select-layout {
+    &.p-selectbutton {
+        border: none;
+        background: #f0f0f0;
+        padding: 0;
+        border-radius: 20px;
+
+        .p-button {
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 20px !important;
+            svg path {
+                fill: $general-text-color;
+            }
+        }
+        .p-button.p-highlight {
+            background: $dark-color;
+            svg path {
+                fill: #fff;
+            }
+        }
+        .p-button:not(.p-state-disabled):not(.p-state-active):hover {
+            background: transparent;
+            svg path {
+                fill: $general-text-color;
+            }
+        }
+        .p-button.p-highlight:not(.p-state-disabled):not(.p-state-active):hover {
+            background: $dark-color;
+            svg path {
+                fill: #fff;
+            }
+        }
+    }
+}

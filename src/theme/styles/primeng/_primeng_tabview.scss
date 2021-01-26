@@ -1,0 +1,57 @@
+// Custom Theming for Prime Ng
+
+@import '../variables';
+
+// TabView
+.p-tabview .p-tabview-nav {
+    border-radius: 0;
+    border-bottom: 1px solid $primary-border-color;
+    overflow-x: auto;
+    overflow-y: visible;
+    flex-wrap: nowrap;
+}
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    position: relative;
+    flex: inherit !important;
+    margin-right: 0px;
+    margin-bottom: 0;
+    transition: 0.4s ease-in-out;
+    border: none;
+    background-color: transparent;
+    color: $general-text-color;
+    font-weight: 600;
+
+    &::before {
+        content: '';
+        width: 0%;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        text-align: center;
+        margin: auto;
+        transform: translate(-50%);
+        border-radius: 1.5px;
+        background-color: $primary-color;
+        opacity: 0;
+        transition: 0.4s ease-in-out;
+    }
+}
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background: transparent;
+    color: $primary-color;
+    &::before {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
+}
+.p-tabview .p-tabview-panels {
+    border: none;
+}

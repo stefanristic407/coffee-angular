@@ -1,0 +1,64 @@
+// Custom Theming for Prime Ng
+
+@import '../variables';
+@import 'primeng_calendar';
+@import 'primeng_carousel';
+@import 'primeng_checkbox';
+@import 'primeng_dialog';
+@import 'primeng_dropdown';
+@import 'primeng_inputtext';
+@import 'primeng_multiselect';
+@import 'primeng_selectbutton';
+@import 'primeng_table';
+@import 'primeng_tabmenu';
+@import 'primeng_tabview';
+
+// global
+.p-component {
+    font-family: $general-font-family;
+    font-size: $general-font-size;
+}
+
+.p-button:focus {
+    box-shadow: none;
+}
+
+// Form helper
+.p-error,
+.p-invalid {
+    color: $invalid-color;
+}
+
+// sewn-form-field
+.sewn-form-field {
+    margin-bottom: 1.375rem;
+    display: inline-flex;
+    flex-direction: column;
+    label {
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+    .p-inputtext {
+        padding: 0.9375rem 0.75rem;
+        border-radius: 4px;
+    }
+    .p-error {
+        display: none;
+    }
+    .ng-dirty + .p-error {
+        display: block;
+    }
+}
+
+// Icon input
+.p-input-icon-left > i:first-of-type {
+    color: $button-icon-color;
+}
+
+// Input group
+.p-inputgroup-addon {
+    background: transparent;
+    color: $general-text-color;
+    border-color: $primary-border-color !important;
+    font-weight: 600;
+}
