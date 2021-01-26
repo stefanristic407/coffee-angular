@@ -17,6 +17,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -52,6 +53,8 @@ import { UvChartComponent } from './components/remote-sensoring/uv-chart/uv-char
 import { VegetationChartComponent } from './components/remote-sensoring/vegetation-chart/vegetation-chart.component';
 import { ImageMapComponent } from './components/remote-sensoring/image-map/image-map.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { MediaComponent } from './components/media/media.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 // #region material
 const MATMODULES = [];
@@ -71,6 +74,7 @@ const THIRDMODULES = [
     CheckboxModule,
     DialogModule,
     DropdownModule,
+    DynamicDialogModule,
     GalleriaModule,
     InputNumberModule,
     InputSwitchModule,
@@ -110,6 +114,8 @@ const COMPONENTS = [
     ImageMapComponent,
     BlankComponent,
     PieChartComponent,
+    MediaComponent,
+    VideoPlayerComponent,
 ];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];

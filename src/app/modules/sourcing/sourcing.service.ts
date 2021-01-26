@@ -135,8 +135,9 @@ export class SourcingService {
 
     flavourList: any = new BehaviorSubject([]);
     flavourList$: any = this.flavourList.asObservable();
-
-    estateDetail: any;
+    // Details of an estate
+    estate: any;
+    estateHomepage: any;
 
     constructor(
         private http: HttpClient,
@@ -153,7 +154,7 @@ export class SourcingService {
         this.userService.getAvailableEstateList(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
                 console.log('EstateDetail', res.result);
-                this.estateDetail = res.result;
+                this.estate = res.result;
                 this.name = res.result.name;
                 this.description = res.result.description;
                 this.total_area = res.result.total_area;
@@ -191,6 +192,15 @@ export class SourcingService {
                 }
                 const country = this.globals.getCountry(this.country.toUpperCase());
                 this.countryName = country ? country.name : this.country.toUpperCase();
+            }
+        });
+    }
+
+    getEstateHomepage(estateId) {
+        this.userService.getEstateBrandProfileDetail(estateId, 'home-page').subscribe((res: any) => {
+            if (res.success) {
+                this.estateHomepage = res.result;
+                console.log('Home page:', this.estateHomepage);
             }
         });
     }

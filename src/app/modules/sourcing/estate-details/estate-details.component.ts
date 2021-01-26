@@ -90,6 +90,7 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
 
     refreshData() {
         this.sourcing.estateDetailList();
+        this.sourcing.getEstateHomepage(this.sourcing.estateId);
         this.sourcing.lotsList();
         this.sourcing.flavourprofileList();
         this.sourcing.greenCoffee();
@@ -116,11 +117,6 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
                 this.sourcing.overviewCertify = this.certifyEstate;
             }
         });
-    }
-
-    estateProfileSite() {
-        const redirectUrl = this.estateProfile;
-        this.roasterService.navigate(redirectUrl, true);
     }
 
     estateGalleryFiles() {

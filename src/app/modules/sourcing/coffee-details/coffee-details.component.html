@@ -200,7 +200,7 @@
                         </div>
 
                         <div class="estate-focus br-mob-main br-4 p-3 p-md-0">
-                            <h3 class="text-clr000">{{ globals.languageJson?.estate_details }}</h3>
+                            <h3 class="fnt-18 fnt-bold text-clr000">{{ globals.languageJson?.estate_details }}</h3>
                             <ul class="clearfix">
                                 <li>
                                     <label>Location :</label>
@@ -217,7 +217,6 @@
                                 <li>
                                     <label>Listing Status :</label>
                                     <p>{{ sourcing.listing_status }}</p>
-                                    <!-- <p class="detail-location">Tapachu Mill <img class="pl-2" src="assets/images/tilt-arrow.svg" alt=""></p> -->
                                 </li>
                                 <li>
                                     <label>Wet Mill processing :</label>
@@ -249,9 +248,9 @@
                                     <p>{{ sourcing.packaging }}</p>
                                 </li>
                             </ul>
-                            <p class="fnt-muli fnt-14 fnt-500 know-listing" (click)="brandProfileSite()">
+                            <a class="custom-link mt-3" [href]="brandProfileEstateWeb" target="_blank">
                                 Know more about the listing
-                            </p>
+                            </a>
                         </div>
                     </div>
                 </div>

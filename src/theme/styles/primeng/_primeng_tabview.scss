@@ -9,6 +9,16 @@
     overflow-x: auto;
     overflow-y: visible;
     flex-wrap: nowrap;
+    &::-webkit-scrollbar {
+        height: 0;
+    }
+    &::-webkit-scrollbar-track {
+        box-shadow: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+        box-shadow: none;
+    }
 }
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
     position: relative;
@@ -20,6 +30,7 @@
     background-color: transparent;
     color: $general-text-color;
     font-weight: 600;
+    white-space: nowrap;
 
     &::before {
         content: '';
