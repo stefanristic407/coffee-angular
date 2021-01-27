@@ -90,7 +90,8 @@ export class EstateDetailsComponent implements OnInit, AfterViewInit {
 
     refreshData() {
         this.sourcing.estateDetailList();
-        this.sourcing.getEstateHomepage(this.sourcing.estateId);
+        this.sourcing.getEstateHomepage();
+        this.sourcing.getEstateAboutUs();
         this.sourcing.lotsList();
         this.sourcing.flavourprofileList();
         this.sourcing.greenCoffee();

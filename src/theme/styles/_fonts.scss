@@ -240,6 +240,10 @@
         font-size: 14px;
         line-height: 24px;
     }
+    .fnt-md-16 {
+        font-size: 16px;
+        line-height: 26px;
+    }
 }
 
 /* Desktop screens */
@@ -300,4 +304,10 @@
 
 .text-white {
     color: #ffffff;
+}
+
+@media (min-width: 768px) {
+    .text-md-clr334 {
+        color: #232334;
+    }
 }

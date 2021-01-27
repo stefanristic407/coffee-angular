@@ -1,139 +1,113 @@
-<div class="total-loader" *ngIf="landLotsActive != 1">
-    <!-- <img class="loader-gif-sub" src="/assets/images/loader.gif"> -->
-    <div>
-        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
-        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
-    </div>
-</div>
-<div *ngIf="landLotsActive == 1">
-    <div class="table-details d-none d-md-block">
-        <div class="table-responsive border-lots" *ngIf="sourcing.lots != null">
-            <table class="table">
-                <thead class="table-header">
-                    <tr class="header-row">
-                        <th>{{ globals.languageJson?.overview }}</th>
-                        <th scope="col">{{ globals.languageJson?.lot_size }}</th>
-                        <th scope="col">{{ globals.languageJson?.av_score }}</th>
-                        <th scope="col">{{ globals.languageJson?.altitude }}</th>
-                        <th scope="col">{{ globals.languageJson?.variety }}</th>
-                        <th scope="col">{{ globals.languageJson?.species }}</th>
-                        <th scope="col">{{ globals.languageJson?.flavour_profile }}</th>
-                        <th scope="col">{{ globals.languageJson?.actions }}</th>
+<div class="mt-3 mt-md-4">
+    <ng-container *ngIf="sourcing.estateLots?.length; else empty">
+        <div *ngIf="globals.device !== 'mobile'" class="br-main br-4 p-1">
+            <p-table [value]="sourcing.estateLots" [resizableColumns]="true" [autoLayout]="true">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>{{ globals.languageJson?.lot_name }}</th>
+                        <th>{{ globals.languageJson?.lot_size }}</th>
+                        <th>{{ globals.languageJson?.av_score }}</th>
+                        <th>{{ globals.languageJson?.altitude }}</th>
+                        <th>{{ globals.languageJson?.variety }}</th>
+                        <th>{{ globals.languageJson?.species }}</th>
+                        <th>{{ globals.languageJson?.flavour_profile }}</th>
+                        <th>{{ globals.languageJson?.actions }}</th>
                     </tr>
-                </thead>
-                <tbody class="customtable">
-                    <tr class="ticket-boby-txt" *ngFor="let item of sourcing.lots">
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.total_area }}acres</td>
+                        <td>{{ item.total_area }} acres</td>
                         <td>{{ item.avg_cup_score }}</td>
                         <td>{{ item.min_altitude }} - {{ item.max_altitude }}m</td>
-                        <td>{{ item.variety }}</td>
+                        <td>{{ item.varieties }}</td>
                         <td>{{ item.species }}</td>
-
                         <td>
-                            <div class="flavor-coffee mb-2" *ngIf="item.flavours != null">
-                                <p *ngFor="let flavour of item.flavours">
-                                    <span class="mb-2">{{ flavour.name }}</span>
-                                </p>
+                            <div *ngIf="item.flavours != null">
+                                <span *ngFor="let flavour of item.flavours" class="flavor mb-2">
+                                    {{ flavour.name }}
+                                </span>
                             </div>
                             <div *ngIf="item.flavours == null">NA</div>
                         </td>
-                        <td class="view-lot" (click)="viewLot()">{{ globals.languageJson?.view_lot }}</td>
+                        <td>
+                            <a class="custom-link" [href]="brandProfileEstateWeb" target="_blank">
+                                {{ globals.languageJson?.view_lot }}
+                            </a>
+                        </td>
                     </tr>
-                </tbody>
-            </table>
+                </ng-template>
+            </p-table>
         </div>
-    </div>
 
-    <!-- no-data for Land lots Starts -->
-    <div class="row" *ngIf="sourcing.lots == null">
-        <div class="col-lg-12 col-md-12 no-data-sec">
-            <div class="text-center">
-                <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image" />
-                <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
-                <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/sourcing']">
-                    Browse availabilities
-                </button>
-            </div>
-        </div>
-    </div>
-    <!-- no-data for Land lots Ends -->
-
-    <div class="mt-5 d-none d-md-block">
-        <div class="map-heading">{{ globals.languageJson?.map_estate }}</div>
-        <div class="text-center map-lots">
-            <img src="assets/images/estate-map.jpg" alt="" />
-        </div>
-        <div class="w-100 chat-div d-md-block d-none">
-            <button
-                type="button"
-                class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                routerLink="/features/sourcing-chat"
-            >
-                Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
-                ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
-            </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 m-padding-8">
-            <div class="d-block d-md-none" *ngFor="let lot of sourcing.lots">
-                <div class="mdevics">
-                    <h6 class="d-block d-md-none tit-cont">{{ lot.name }}</h6>
-                    <div class="row mt-4 mt-md-0">
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
-                            <div class="real-estate">
-                                <h6>{{ globals.languageJson?.lot_size }}</h6>
-                                <h3>{{ lot.total_area }}</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
-                            <div class="real-estate">
-                                <h6>{{ globals.languageJson?.av_score }}</h6>
-                                <h3>{{ lot.avg_cup_score }}</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
-                            <div class="real-estate">
-                                <h6>{{ globals.languageJson?.altitude }}</h6>
-                                <h3>{{ lot.min_altitude }} - {{ lot.max_altitude }}m</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
-                            <div class="real-estate">
-                                <h6>{{ globals.languageJson?.variety }}</h6>
-                                <h3>{{ lot.variety }}</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
-                            <div class="real-estate">
-                                <h6>{{ globals.languageJson?.species }}</h6>
-                                <h3>{{ lot.species }}</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
-                            <div class="real-estate">
-                                <h6>{{ globals.languageJson?.flavour }}</h6>
-                                <div *ngIf="lot.flavours != null">
-                                    <ul class="sugar-prod">
-                                        <li *ngFor="let flavour of lot.flavours">
-                                            <span class="mb-2">{{ flavour.name }}</span>
-                                        </li>
-                                    </ul>
+        <div *ngIf="globals.device === 'mobile'" class="px-3">
+            <div *ngFor="let item of sourcing.estateLots">
+                <div class="br-main br-4 mb-4">
+                    <div class="p-3">
+                        <h6 class="fnt-18 fnt-bold text-clr24 mb-3">{{ item.name }}</h6>
+                        <div class="row mt-4 mt-md-0">
+                            <div class="col-4 mb-3">
+                                <div class="real-estate">
+                                    <h6>{{ globals.languageJson?.lot_size }}</h6>
+                                    <h3>{{ item.total_area || 'NA' }}</h3>
                                 </div>
-                                <div *ngIf="lot.flavours == null">NA</div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="real-estate">
+                                    <h6>{{ globals.languageJson?.av_score }}</h6>
+                                    <h3>{{ item.avg_cup_score || 'NA' }}</h3>
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="real-estate">
+                                    <h6>{{ globals.languageJson?.species }}</h6>
+                                    <h3>{{ item.species || 'NA' }}</h3>
+                                </div>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <div class="real-estate">
+                                    <h6>{{ globals.languageJson?.altitude }}</h6>
+                                    <h3>{{ item.min_altitude }} - {{ item.max_altitude }}m</h3>
+                                </div>
+                            </div>
+                            <div class="col-4 mb-3">
+                                <div class="real-estate">
+                                    <h6>{{ globals.languageJson?.variety }}</h6>
+                                    <h3>{{ item.variety || 'NA' }}</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="real-estate">
+                                    <h6>{{ globals.languageJson?.flavour_profile }}</h6>
+                                    <div *ngIf="item.flavours != null">
+                                        <span *ngFor="let flavour of item.flavours" class="flavor mb-2">
+                                            {{ flavour.name }}
+                                        </span>
+                                    </div>
+                                    <div *ngIf="item.flavours == null">NA</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="landlots mb-3">
-                        <a>{{ globals.languageJson?.buy_now }}</a>
+                    <div class="solid-divider"></div>
+                    <div class="p-3">
+                        <a class="custom-link fnt-16" [href]="brandProfileEstateWeb" target="_blank">
+                            {{ globals.languageJson?.view_lot }}
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-4 d-md-none d-block">
-        <app-overview-ratings></app-overview-ratings>
+    </ng-container>
+</div>
+
+<ng-template #empty>
+    <app-empty title="No data available"></app-empty>
+</ng-template>
+
+<div *ngIf="globals.device !== 'mobile'" class="mt-5">
+    <div class="fnt-18 fnt-bold text-clr000 mb-5">{{ globals.languageJson?.map_estate }}</div>
+    <div class="text-center map-lots">
+        <img src="assets/images/estate-map.jpg" alt="" />
     </div>
 </div>

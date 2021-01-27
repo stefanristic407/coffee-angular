@@ -45,6 +45,7 @@ import { MonthPipe } from './pipes/month/month.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
+import { EmptyComponent } from './components/empty/empty.component';
 import { SelectComponent } from './components/select/select.component';
 import { RemoteSensoringComponent } from './components/remote-sensoring/remote-sensoring.component';
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
@@ -104,6 +105,7 @@ const THIRDMODULES = [
 const COMPONENTS = [
     AvatarComponent,
     BlankComponent,
+    EmptyComponent,
     SelectComponent,
     RemoteSensoringComponent,
     WeatherChartComponent,

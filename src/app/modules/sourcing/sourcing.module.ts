@@ -19,6 +19,7 @@ import { SourcingOrderChatComponent } from './estate-details/sourcing-order-chat
 import { OverviewRatingsComponent } from './estate-details/overview-ratings/overview-ratings.component';
 import { LandLotsComponent } from './estate-details/land-lots/land-lots.component';
 import { OverviewComponent } from './estate-details/overview/overview.component';
+import { AboutComponent } from './estate-details/about/about.component';
 import { EstateCardComponent } from './estate-card/estate-card.component';
 import { HarvestCardComponent } from './harvest-card/harvest-card.component';
 
@@ -36,6 +37,7 @@ import { HarvestCardComponent } from './harvest-card/harvest-card.component';
         OverviewRatingsComponent,
         LandLotsComponent,
         OverviewComponent,
+        AboutComponent,
         EstateCardComponent,
         HarvestCardComponent,
     ],

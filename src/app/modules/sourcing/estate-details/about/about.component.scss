@@ -1,0 +1,47 @@
+.cert-img {
+    height: 24px;
+    width: auto;
+    @media (min-width: 768px) {
+        height: 50px;
+    }
+}
+
+.contacts-mob {
+    margin-top: -8px;
+}
+
+.contact-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #eeeeee;
+    border-radius: 2px;
+}
+
+.msg-chat {
+    display: inline-block;
+    padding: 6px 12px;
+    border: solid 1px #747588;
+    border-radius: 2px;
+    &:hover {
+        cursor: pointer;
+    }
+    P {
+        margin-bottom: 0;
+    }
+}
+
+.prodcoffee {
+    width: 100%;
+    position: relative;
+    height: 234px;
+    @media (max-width: 767px) {
+        width: unset;
+        margin: 0 -8px;
+    }
+}
+
+agm-map {
+    height: 150px;
+    width: 100%;
+}

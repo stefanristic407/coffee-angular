@@ -1,0 +1,119 @@
+<div class="px-2 px-md-0 pt-3 pt-md-4">
+    <div class="row gutter-05">
+        <div class="col-12 col-md-7">
+            <div class="br-md-main br-4">
+                <div class="br-mob-main br-4 p-3 p-md-4">
+                    <div class="stit mb-4 mb-md-5">
+                        <div class="d-flex justify-content-between">
+                            <h2 class="fnt-18 fnt-bold text-clr334">{{ sourcing.estateAboutUs?.intro_title }}</h2>
+                            <div class="d-md-none d-flex">
+                                <img
+                                    *ngFor="let cert of sourcing.overviewCertify"
+                                    [src]="cert.certificate_type_id | certificateImg"
+                                    class="cert-img mb-2 mb-md-3 ml-2"
+                                />
+                            </div>
+                        </div>
+                        <p class="fnt-12 fnt-md-16 text-clr588 text-md-clr334 mb-0">
+                            {{ sourcing.estateAboutUs?.intro_short_description }}
+                        </p>
+                    </div>
+
+                    <div class="row mb-4 mb-md-5">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                            <div class="real-estate">
+                                <img src="assets/images/harveaster.svg" />
+                                <h6>{{ globals.languageJson?.year_founded_in }}</h6>
+                                <h3>{{ sourcing.estate?.founded_on || 'NA' }}</h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                            <div class="real-estate">
+                                <img src="assets/images/harveaster.svg" />
+                                <h6>{{ globals.languageJson?.estate_owner }}</h6>
+                                <h3>
+                                    {{ sourcing.estate?.owner_name || 'NA' }}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="fnt-18 fnt-bold text-clr334">{{ sourcing.estateAboutUs?.who_we_are_title }}</h2>
+                        <p class="fnt-12 fnt-md-16 text-clr588 text-md-clr334 mb-0">
+                            {{ sourcing.estateAboutUs?.who_we_are_description }}
+                        </p>
+                    </div>
+                </div>
+
+                <div *ngIf="globals.device !== 'mobile'" class="mx-md-4">
+                    <ng-container *ngTemplateOutlet="contacts"></ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-5">
+            <div class="certificate-book br-md-main br-4 h-100 p-md-4">
+                <div *ngIf="globals.device !== 'mobile' && sourcing.overviewCertify != ''">
+                    <h2 class="fnt-18 fnt-bold text-clr000">{{ globals.languageJson?.certificates }}</h2>
+                    <div class="cetify-logo pt-3">
+                        <div class="d-flex mb-5">
+                            <img
+                                *ngFor="let cert of sourcing.overviewCertify"
+                                [src]="cert.certificate_type_id | certificateImg"
+                                class="cert-img mb-3 mr-3"
+                            />
+                        </div>
+                        <div *ngIf="sourcing.gps_coordinates != ''">
+                            <agm-map [latitude]="sourcing.latitude" [longitude]="sourcing.longitude">
+                                <agm-marker
+                                    [latitude]="sourcing.latitude"
+                                    [longitude]="sourcing.longitude"
+                                ></agm-marker>
+                            </agm-map>
+                        </div>
+                    </div>
+                </div>
+                <div class="prodcoffee mt-4">
+                    <app-media
+                        [title]="sourcing.estateHomepage?.award_title"
+                        [url]="sourcing.estateHomepage?.award_file_url"
+                    ></app-media>
+                </div>
+                <div *ngIf="globals.device === 'mobile'" class="mx-2 contacts-mob">
+                    <ng-container *ngTemplateOutlet="contacts"></ng-container>
+                </div>
+                <div class="row mx-0 mt-md-4 pt-2">
+                    <div class="col-6 px-2">
+                        <a class="btn-raised w-100" [href]="brandProfileEstateWeb" target="_blank">
+                            {{ globals.languageJson?.know_more }}
+                        </a>
+                    </div>
+                    <div class="col-6 px-2">
+                        <a class="btn-stroked w-100" [href]="brandProfileEstateWeb" target="_blank">
+                            {{ globals.languageJson?.prebook_estate }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #contacts>
+    <h2 class="fnt-18 fnt-bold text-clr334 mb-4 d-none d-md-block">{{ globals.languageJson?.employees }}</h2>
+    <div class="row gutter-05">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3" *ngFor="let contact of sourcing.estateContacts">
+            <div>
+                <img class="contact-img mb-1" src="{{ contact.profile_image_url || 'assets/images/profile.svg' }}" />
+                <h4 class="fnt-16 fnt-bold text-clr334 ellipsis mb-0">{{ contact.name | titlecase }}</h4>
+                <h6 class="fnt-14 fnt-500 text-clr000 ellipsis mb-0">{{ contact.roles[0] }}</h6>
+                <div class="msg-chat mt-2">
+                    <img src="assets/images/message-icon.svg" class="d-inline-block" />
+                    <p class="fnt-14 fnt-500 text-clr334 pl-1 d-inline-block">
+                        {{ globals.languageJson?.message }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

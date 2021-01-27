@@ -37,14 +37,12 @@ export class SourcingService {
     longitude: number;
     emptyCoord: any;
     countryName: any;
-    estateId: any;
     owner_name: any;
     grade_range: any;
     rating: any;
     agronomist_access: any;
     number_of_trees: any;
     city: any;
-    lots: any;
     varieties: any;
     activeLandlots: any;
     greenList: any;
@@ -85,7 +83,6 @@ export class SourcingService {
     dry_moisture_content: any;
     date_cupped: string;
     estate_rating: any;
-    estateContacts: any = [];
     images: any;
     estateCertificates: any;
     resultArray: any;
@@ -135,9 +132,14 @@ export class SourcingService {
 
     flavourList: any = new BehaviorSubject([]);
     flavourList$: any = this.flavourList.asObservable();
+
     // Details of an estate
+    estateId: any;
     estate: any;
     estateHomepage: any;
+    estateAboutUs: any;
+    estateContacts: any[] = [];
+    estateLots: any[] = [];
 
     constructor(
         private http: HttpClient,
@@ -153,7 +155,7 @@ export class SourcingService {
     estateDetailList() {
         this.userService.getAvailableEstateList(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
-                console.log('EstateDetail', res.result);
+                // console.log('EstateDetail', res.result);
                 this.estate = res.result;
                 this.name = res.result.name;
                 this.description = res.result.description;
@@ -196,11 +198,39 @@ export class SourcingService {
         });
     }
 
-    getEstateHomepage(estateId) {
-        this.userService.getEstateBrandProfileDetail(estateId, 'home-page').subscribe((res: any) => {
+    getEstateHomepage() {
+        console.log('estateId', this.estateId);
+        this.userService.getEstateBrandProfileDetail(this.estateId, 'home-page').subscribe((res: any) => {
             if (res.success) {
                 this.estateHomepage = res.result;
-                console.log('Home page:', this.estateHomepage);
+                // console.log('Home page:', this.estateHomepage);
+            }
+        });
+    }
+
+    getEstateAboutUs() {
+        this.userService.getEstateBrandProfileDetail(this.estateId, 'about-us').subscribe((res: any) => {
+            if (res.success) {
+                this.estateAboutUs = res.result;
+                // console.log('About Us:', this.estateAboutUs);
+            }
+        });
+    }
+
+    estateEmployees() {
+        this.userService.getEstateContacts(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateContacts = res.result;
+                // console.log('estateContacts: ', this.estateContacts);
+            }
+        });
+    }
+
+    lotsList() {
+        this.userService.getavailableLots(this.roaster_id, this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateLots = res.result;
+                console.log('Lots:', this.estateLots);
             }
         });
     }
@@ -275,14 +305,6 @@ export class SourcingService {
             });
     }
 
-    lotsList() {
-        this.userService.getavailableLots(this.roaster_id, this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.lots = res.result;
-            }
-        });
-    }
-
     flavourprofileList() {
         this.userService.getFlavourProfile().subscribe((res: any) => {
             if (res.success) {
@@ -295,14 +317,6 @@ export class SourcingService {
             if (res.success) {
                 this.greenList = res.result;
                 console.log('Green Coffee' + this.greenList);
-            }
-        });
-    }
-    estateEmployees() {
-        this.userService.getEstateContacts(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.estateContacts = res.result;
-                console.log('estateContacts: ', this.estateContacts);
             }
         });
     }
