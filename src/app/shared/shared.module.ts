@@ -55,6 +55,11 @@ import { ImageMapComponent } from './components/remote-sensoring/image-map/image
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { CreateRoleComponent } from './components/addTeams/create-role/create-role.component';
+import { ManagePermissionComponent } from './components/addTeams/manage-permission/manage-permission.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { RoleListComponent } from './components/addTeams/role-list/role-list.component';
 
 // #region material
 const MATMODULES = [];
@@ -67,6 +72,7 @@ const THIRDMODULES = [
     ModalModule,
     PopoverModule,
     TypeaheadModule,
+    BreadcrumbModule,
     AutoCompleteModule,
     ButtonModule,
     CalendarModule,
@@ -138,6 +144,10 @@ const PIPES = [CountryPipe, MonthPipe];
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
         ...PIPES,
+        CreateRoleComponent,
+        ManagePermissionComponent,
+        BreadcrumbComponent,
+        RoleListComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

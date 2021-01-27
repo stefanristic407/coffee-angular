@@ -16,7 +16,7 @@
 .add-role-butn-mobile {
     background-color: #3d8462;
     border: 1px solid #3d8462;
-    color: #FFFFFF;
+    color: #ffffff;
     font-weight: bold;
     font-size: 14px;
     padding: 12px 16px;
@@ -25,13 +25,6 @@
 }
 
 .role-stricky {
-    /* position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0px;
-    z-index: 99;
-    background-color: #fff;*/
-    /* padding: 5px 32px;  */
     margin-bottom: 4rem;
 }
 
@@ -51,7 +44,6 @@
     font-weight: bold;
     color: #232334;
     font-family: Muli;
-    /* margin-left: 1%; */
 }
 
 .role-name {
@@ -76,7 +68,6 @@
     border: solid 1px #cccccc;
     background-color: #ffffff;
 }
-
 
 /* 
 .border-role {
@@ -160,7 +151,7 @@
 }
 
 .role-error {
-    color: #D50000;
+    color: #d50000;
     font-size: 12px;
 }
 
@@ -185,7 +176,7 @@ a.b-cum:hover {
     border: none !important;
     width: 70% !important;
     padding: 0rem;
-    font-family: "Muli";
+    font-family: 'Muli';
     font-size: 16px;
 }
 
@@ -219,13 +210,19 @@ a.b-cum:hover {
 }
 
 :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-treenode-label.ui-state-highlight {
-    background-color: #FFF;
+    background-color: #fff;
     color: #232334;
     font-weight: 600;
 }
 
-:host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content.ui-treenode-selectable .ui-treenode-label:not(.ui-state-highlight):hover {
-    background-color: #FFF;
+:host
+    ::ng-deep
+    .ui-tree
+    .ui-tree-container
+    .ui-treenode
+    .ui-treenode-content.ui-treenode-selectable
+    .ui-treenode-label:not(.ui-state-highlight):hover {
+    background-color: #fff;
     color: #232334;
 }
 
@@ -283,14 +280,14 @@ a.b-cum:hover {
 }
 
 :host ::ng-deep .pi-caret-down::before {
-    content: "\e933";
+    content: '\e933';
 }
 
 :host ::ng-deep .pi-caret-right::before {
-    content: "\e930";
+    content: '\e930';
 }
 
-:host ::ng-deep .ui-tree .ui-tree-container .parentNodeStyle > .ui-treenode-content .ui-chkbox{
+:host ::ng-deep .ui-tree .ui-tree-container .parentNodeStyle > .ui-treenode-content .ui-chkbox {
     display: none !important;
 }
 
@@ -309,20 +306,20 @@ a.b-cum:hover {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-     :host ::ng-deep .ui-tree {
+    :host ::ng-deep .ui-tree {
         width: 100% !important;
     }
-     :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+    :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
         right: 91%;
         font-size: 1em !important;
     }
 }
 
 @media screen and (max-width: 767px) {
-     :host ::ng-deep .ui-tree {
+    :host ::ng-deep .ui-tree {
         width: 100% !important;
     }
-     :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
+    :host ::ng-deep .ui-tree .ui-tree-filter-container .ui-tree-filter-icon {
         right: 91%;
         font-size: 1.2em !important;
     }
@@ -356,10 +353,10 @@ a.b-cum:hover {
     .rectangle_name {
         font-size: 14px !important;
     }
-     :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler {
+    :host ::ng-deep .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler {
         float: left !important;
     }
-     :host ::ng-deep .pi-caret-down:before {
+    :host ::ng-deep .pi-caret-down:before {
         content: none !important;
     }
 }

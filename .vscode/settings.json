@@ -1,5 +1,10 @@
 {
-  "editor.formatOnSave": true,
   "editor.tabSize": 4,
+  "[typescript]": {
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
+  },
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
   "files.encoding": "utf8"
 }
