@@ -1,6 +1,7 @@
 @import 'src/theme/styles/variables';
 
 .flavor {
+    white-space: nowrap;
     @media (min-width: 768px) {
         padding: 3px 3px 1px 10px;
         position: relative;
@@ -43,4 +44,9 @@
             top: 43%;
         }
     }
+}
+
+agm-map {
+    height: 425px;
+    width: 100%;
 }

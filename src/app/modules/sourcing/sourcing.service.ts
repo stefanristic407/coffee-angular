@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { GlobalsService } from '@services';
+import * as _ from 'underscore';
 
 @Injectable({
     providedIn: 'root',
@@ -230,7 +231,15 @@ export class SourcingService {
         this.userService.getavailableLots(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.estateLots = res.result;
-                console.log('Lots:', this.estateLots);
+                // console.log('Lots:', this.estateLots);
+                this.estateLots.forEach((element) => {
+                    element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
+                    element.speciesStr = _.pluck(element.varieties, 'species').join(', ');
+                    if (element.polygon_coordinates) {
+                        element.polygon_coordinates = JSON.parse(element.polygon_coordinates);
+                        element.center = element.polygon_coordinates[0][0];
+                    }
+                });
             }
         });
     }

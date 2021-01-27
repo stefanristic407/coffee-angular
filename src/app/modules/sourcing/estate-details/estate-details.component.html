@@ -40,7 +40,11 @@
                 </div>
 
                 <div class="col-12 order-1 order-md-2 mt-3 mb-4 px-0 px-md-3">
-                    <img [src]="sourcing.estate?.banner_url" alt="Estate" class="w-100 br-2" />
+                    <img
+                        [src]="sourcing.estate?.banner_url || 'assets/images/banner-details.jpg'"
+                        alt="Estate"
+                        class="w-100 br-2"
+                    />
                 </div>
             </div>
         </div>

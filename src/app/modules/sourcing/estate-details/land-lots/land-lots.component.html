@@ -1,7 +1,7 @@
 <div class="mt-3 mt-md-4">
     <ng-container *ngIf="sourcing.estateLots?.length; else empty">
         <div *ngIf="globals.device !== 'mobile'" class="br-main br-4 p-1">
-            <p-table [value]="sourcing.estateLots" [resizableColumns]="true" [autoLayout]="true">
+            <p-table [value]="sourcing.estateLots" [autoLayout]="true">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>{{ globals.languageJson?.lot_name }}</th>
@@ -20,10 +20,10 @@
                         <td>{{ item.total_area }} acres</td>
                         <td>{{ item.avg_cup_score }}</td>
                         <td>{{ item.min_altitude }} - {{ item.max_altitude }}m</td>
-                        <td>{{ item.varieties }}</td>
-                        <td>{{ item.species }}</td>
+                        <td>{{ item.varietiesStr || 'NA' }}</td>
+                        <td>{{ item.speciesStr || 'NA' }}</td>
                         <td>
-                            <div *ngIf="item.flavours != null">
+                            <div *ngIf="item.flavours != null" class="d-flex">
                                 <span *ngFor="let flavour of item.flavours" class="flavor mb-2">
                                     {{ flavour.name }}
                                 </span>
@@ -31,7 +31,7 @@
                             <div *ngIf="item.flavours == null">NA</div>
                         </td>
                         <td>
-                            <a class="custom-link" [href]="brandProfileEstateWeb" target="_blank">
+                            <a class="custom-link text-nowrap" [href]="brandProfileEstateWeb" target="_blank">
                                 {{ globals.languageJson?.view_lot }}
                             </a>
                         </td>
@@ -61,7 +61,7 @@
                             <div class="col-4 mb-3">
                                 <div class="real-estate">
                                     <h6>{{ globals.languageJson?.species }}</h6>
-                                    <h3>{{ item.species || 'NA' }}</h3>
+                                    <h3>{{ item.speciesStr || 'NA' }}</h3>
                                 </div>
                             </div>
                             <div class="col-8 mb-3">
@@ -73,7 +73,7 @@
                             <div class="col-4 mb-3">
                                 <div class="real-estate">
                                     <h6>{{ globals.languageJson?.variety }}</h6>
-                                    <h3>{{ item.variety || 'NA' }}</h3>
+                                    <h3>{{ item.varietiesStr || 'NA' }}</h3>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -107,7 +107,17 @@
 
 <div *ngIf="globals.device !== 'mobile'" class="mt-5">
     <div class="fnt-18 fnt-bold text-clr000 mb-5">{{ globals.languageJson?.map_estate }}</div>
-    <div class="text-center map-lots">
-        <img src="assets/images/estate-map.jpg" alt="" />
+    <div class="d-flex justify-content-center">
+        <div class="col-10">
+            <agm-map [latitude]="sourcing.latitude" [longitude]="sourcing.longitude" [zoom]="2">
+                <ng-container *ngFor="let item of sourcing.estateLots">
+                    <agm-marker
+                        *ngIf="item.center"
+                        [longitude]="item.center[0]"
+                        [latitude]="item.center[1]"
+                    ></agm-marker>
+                </ng-container>
+            </agm-map>
+        </div>
     </div>
 </div>
