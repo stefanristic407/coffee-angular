@@ -46,7 +46,6 @@ export class SourcingService {
     city: any;
     varieties: any;
     activeLandlots: any;
-    greenList: any;
     harvestData: any;
     harvestDetail: any = {};
     available_name: any;
@@ -141,6 +140,7 @@ export class SourcingService {
     estateAboutUs: any;
     estateContacts: any[] = [];
     estateLots: any[] = [];
+    estateGreenList: any[] = [];
     galleryImages: any;
 
     constructor(
@@ -316,8 +316,8 @@ export class SourcingService {
     getGreenCoffee() {
         this.userService.getGreenCoffee(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
-                this.greenList = res.result;
-                console.log('Green Coffee' + this.greenList);
+                this.estateGreenList = res.result;
+                console.log('Green Coffee:', this.estateGreenList);
             }
         });
     }
