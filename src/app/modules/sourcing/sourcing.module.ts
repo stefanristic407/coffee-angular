@@ -23,6 +23,7 @@ import { AboutComponent } from './estate-details/about/about.component';
 import { EstateCardComponent } from './estate-card/estate-card.component';
 import { HarvestCardComponent } from './harvest-card/harvest-card.component';
 import { GreenCoffeeComponent } from './estate-details/green-coffee/green-coffee.component';
+import { GallaryComponent } from './estate-details/gallary/gallary.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { GreenCoffeeComponent } from './estate-details/green-coffee/green-coffee
         EstateCardComponent,
         HarvestCardComponent,
         GreenCoffeeComponent,
+        GallaryComponent,
     ],
     imports: [
         CommonModule,

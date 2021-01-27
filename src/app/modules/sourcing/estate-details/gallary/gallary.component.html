@@ -1,0 +1,17 @@
+<div class="mt-3 mt-md-4 px-3 px-md-0">
+    <ng-container *ngIf="sourcing.estateGalleryImages?.length; else empty">
+        <div class="row gutter-05">
+            <div class="col-6 col-lg-4 mb-2 mb-md-3" *ngFor="let item of sourcing.estateGalleryImages">
+                <div class="square">
+                    <div class="content">
+                        <app-media [url]="item.url"></app-media>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #empty>
+    <app-empty title="No data available"></app-empty>
+</ng-template>

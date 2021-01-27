@@ -141,7 +141,7 @@ export class SourcingService {
     estateContacts: any[] = [];
     estateLots: any[] = [];
     estateGreenList: any[] = [];
-    galleryImages: any;
+    estateGalleryImages: any;
 
     constructor(
         private http: HttpClient,
@@ -154,6 +154,7 @@ export class SourcingService {
         this.getEstateCertificates();
     }
 
+    // Estate detail apis
     estateDetailList() {
         this.userService.getAvailableEstateList(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
@@ -253,14 +254,54 @@ export class SourcingService {
         });
     }
 
-    estateGalleryFiles() {
-        this.userService.getEstateGallery(this.estateId).subscribe((res: any) => {
+    getGreenCoffee() {
+        this.userService.getGreenCoffee(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
-                this.galleryImages = res.result;
+                this.estateGreenList = res.result;
+                // console.log('Green Coffee:', this.estateGreenList);
             }
         });
     }
 
+    estateGalleryFiles() {
+        this.userService.getEstateGallery(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateGalleryImages = res.result;
+                // console.log('Gallary:', this.estateGalleryImages);
+            }
+        });
+    }
+
+    getEstateReviews() {
+        this.userService.getEachEsateReviews(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.reviewsList = res.result;
+                console.log('Reviews', this.reviewsList);
+            }
+        });
+    }
+
+    getEstateSummary() {
+        this.userService.getEachEsateReviewsSummary(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.summaryList = res.result;
+                console.log('Review Summary: ', this.summaryList);
+                this.overall = this.summaryList.average.overall_experience;
+                this.communication = this.summaryList.average.communication;
+                this.green_coffee = this.summaryList.average.green_coffee;
+                this.rate_rating = parseFloat(this.summaryList.summary.rating).toFixed(1);
+                this.rate_rating_star = this.summaryList.summary.rating;
+                this.total_review = this.summaryList.summary.total_review;
+                this.five_star = this.summaryList.summary['5_star'];
+                this.four_star = this.summaryList.summary['4_star'];
+                this.three_star = this.summaryList.summary['3_star'];
+                this.two_star = this.summaryList.summary['2_star'];
+                this.one_star = this.summaryList.summary['1_star'];
+            }
+        });
+    }
+
+    // Harvest detail apis
     availableDetailList(resolve: any = null) {
         this.userService.getGreenCoffeeDetails(this.roaster_id, this.harvestData).subscribe((res: any) => {
             if (res.success) {
@@ -313,15 +354,6 @@ export class SourcingService {
         });
     }
 
-    getGreenCoffee() {
-        this.userService.getGreenCoffee(this.roaster_id, this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.estateGreenList = res.result;
-                console.log('Green Coffee:', this.estateGreenList);
-            }
-        });
-    }
-
     getLotDetails() {
         this.userService.getRoasterLotDetails(this.roaster_id, this.estate_id, this.lot_id).subscribe((res: any) => {
             if (res.success === true) {
@@ -330,16 +362,25 @@ export class SourcingService {
         });
     }
 
-    getImages() {
-        return this.http
-            .get<any>('assets/photos.json')
-            .toPromise()
-            .then((res) => res.data)
-            .then((data) => {
-                return data;
-            });
+    otherAvailableCoffee() {
+        this.userService.getGreenCoffee(this.roaster_id, this.estateNumber).subscribe((res: any) => {
+            if (res.success) {
+                this.otherGreenList = res.result;
+                console.log('Other green coff:', this.otherGreenList);
+            }
+        });
     }
 
+    getEachGreenCertify() {
+        this.userService.getEachEsateCertificates(this.estateNumber).subscribe((res: any) => {
+            if (res.success) {
+                this.availableCertify = res.result;
+                console.log('Certify', this.reviewsList);
+            }
+        });
+    }
+
+    // Constant apis
     getEstateCertificates() {
         this.userService.getEstateCertificates().subscribe((res: any) => {
             if (res.success) {
@@ -358,49 +399,5 @@ export class SourcingService {
 
     getCertificateType(typeId) {
         return this.finalCertify[typeId] || {};
-    }
-
-    otherAvailableCoffee() {
-        this.userService.getGreenCoffee(this.roaster_id, this.estateNumber).subscribe((res: any) => {
-            if (res.success) {
-                this.otherGreenList = res.result;
-                console.log('Other green coff:', this.otherGreenList);
-            }
-        });
-    }
-    getEachGreenCertify() {
-        this.userService.getEachEsateCertificates(this.estateNumber).subscribe((res: any) => {
-            if (res.success) {
-                this.availableCertify = res.result;
-                console.log('Certify', this.reviewsList);
-            }
-        });
-    }
-    getEstateReviews() {
-        this.userService.getEachEsateReviews(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.reviewsList = res.result;
-                console.log('Reviews', this.reviewsList);
-            }
-        });
-    }
-    getEstateSummary() {
-        this.userService.getEachEsateReviewsSummary(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.summaryList = res.result;
-                console.log('Review Summary: ', this.summaryList);
-                this.overall = this.summaryList.average.overall_experience;
-                this.communication = this.summaryList.average.communication;
-                this.green_coffee = this.summaryList.average.green_coffee;
-                this.rate_rating = parseFloat(this.summaryList.summary.rating).toFixed(1);
-                this.rate_rating_star = this.summaryList.summary.rating;
-                this.total_review = this.summaryList.summary.total_review;
-                this.five_star = this.summaryList.summary['5_star'];
-                this.four_star = this.summaryList.summary['4_star'];
-                this.three_star = this.summaryList.summary['3_star'];
-                this.two_star = this.summaryList.summary['2_star'];
-                this.one_star = this.summaryList.summary['1_star'];
-            }
-        });
     }
 }
