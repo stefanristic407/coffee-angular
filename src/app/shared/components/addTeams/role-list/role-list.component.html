@@ -1,0 +1,114 @@
+<div class="sectionContainer">
+    <div class="row mb-3">
+        <div class="col-8">
+            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        </div>
+        <div class="col-4">
+            <a routerLink="/people/create-role"><button type="submit" class="btn  pull-right add-role-butn d-md-block d-none mr-5 mt-2r">
+                Create new role</button></a>
+        </div>
+    </div>
+    <section class="roles-heading d-none d-md-block">
+        <h5 class="d-inline manage-title">{{globals.languageJson?.manage_roles}}</h5>
+        <img *ngIf="false" src="assets/images/help-icon.svg" alt="" class="pointer-help pl-2">
+    </section>
+    <section class="roles-heading d-sm-block d-md-none">
+        <h5 class="d-inline manage-title">{{globals.languageJson?.manage_roles}}</h5>
+        <a routerLink="/people/create-role"><button type="submit"
+                class="btn  pull-right add-role-butn d-sm-block d-md-none">
+                Create new role</button></a>
+    </section>
+    <div class="table-container" *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')">
+        <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue"
+            [columns]="tableColumns" [(selection)]="tableSelected" dataKey="id" [resizableColumns]="true"
+            styleClass="ui-table-customers" [showCurrentPageReport]="false" [paginator]="false" [lazy]="true"
+            (onLazyLoad)="getTableData($event)" [totalRecords]="totalCount"[responsive]="sharedService.isMobileView">
+            <ng-template *ngIf="!sharedService.isMobileView" pTemplate="header" let-columns>
+                <tr>
+                    <th style="width: 10%" *ngIf="!sharedService.isMobileView">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+            
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null"
+                        [style.width]="col.width ? col.width + '%' : '30%'">
+                        <span class="primeng-table-header">{{col.header}}</span>
+                        <p-sortIcon *ngIf="col.sortable === true" [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr class="rowClass">
+                    <td *ngIf="!sharedService.isMobileView">
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <span *ngSwitchCase="'user_count'">
+                            <div class="d-flex">
+                                <span [class.w-50]="!sharedService.isMobileView">
+                                    {{ rowData[col.field]}}
+                                </span>
+                            </div>
+                        </span>
+                        <span *ngSwitchCase="'name'" class="tdClass">
+                            <div class="d-flex">
+                                <span [class.w-50]="!sharedService.isMobileView">
+                                    {{ rowData[col.field]}}
+                                </span>
+                                <span *ngIf="sharedService.isMobileView"class="d-flex">
+                                    {{ rowData['user_count']}}
+                                </span>
+                                <span class="show_btns">
+                                    <button type="button" class="btn view-btn" (click)="viewMembers(rowData)"
+                                        id="view-btn">{{globals.languageJson?.view_members}}</button>
+                                    <button type="button" (click)="addMembers($event,rowData)" class="btn add-btn"
+                                        id="add-btn">{{globals.languageJson?.add_members}}</button>
+                                </span>
+                            </div>
+                        </span>
+                        <span *ngSwitchCase="'actions'">
+                            <ng-container *ngIf="!sharedService.isMobileView">
+                                <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                    <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
+                                </a>
+                                <ng-template #poplistTemplate>
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-group custom-popover">
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"> <a class="pointer-item" (click)="addMembers($event,rowData);pop.hide();">{{globals.languageJson?.add_members}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')" class="list-group-item"><a class="pointer-item" (click)="viewMembers(rowData);pop.hide();">{{globals.languageJson?.view_members}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);pop.hide();">{{globals.languageJson?.update_role}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);pop.hide();">{{globals.languageJson?.rename}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{globals.languageJson?.duplicate_role}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);pop.hide();">{{globals.languageJson?.manage_permissions}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,rowData.id);pop.hide();">{{globals.languageJson?.delete_role}}</a></li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        
+                            <ng-container *ngIf="sharedService.isMobileView">
+                                <span class="pull-right prime-table-details-toggle">Show Details <i class="pi pi-angle-up"></i></span>
+                            </ng-container>
+                        </span>
+                        <span *ngSwitchDefault>
+                            {{ rowData[col.field] }}
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <ng-template #deleteTemplate>
+        <div class="modal-body mt-5 mb-5 text-center fnt-muli">
+            <div><img src="assets/images/delete-role.svg" alt=""></div>
+            <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
+            <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
+            <div class="mt-4">
+                <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+                <button class="btn delete-btn ml-3"
+                    (click)="modalRef.hide();deleteRole(this.deleteRoleID)">{{globals.languageJson?.delete}}</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

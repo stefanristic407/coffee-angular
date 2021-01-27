@@ -13,7 +13,6 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { BottomSheetRoles } from '../people/user-management/to-bottomsheet-roles/bottom-sheet-roles';
 import { BottomSheetStatus } from '../people/user-management/to-bottomsheet-status/bottom-sheet-status';
 import { AddMembersComponent } from './add-members/add-members.component';
-import { CreateRoleComponent } from './create-role/create-role.component';
 import { EditMembersComponent } from './edit-members/edit-members.component';
 import { ManageRoleComponent } from './manage-role/manage-role.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
@@ -37,7 +36,6 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 @NgModule({
     declarations: [
         PeopleComponent,
-        CreateRoleComponent,
         EditMembersComponent,
         AddMembersComponent,
         UserManagementComponent,

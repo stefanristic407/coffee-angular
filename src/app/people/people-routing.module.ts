@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-f
 import { PermissionErrorComponent } from '../people/permission-error/permission-error.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { CreateRoleComponent } from './../shared/components/addTeams/create-role/create-role.component';
+import { RoleListComponent } from '@app/shared/components/addTeams/role-list/role-list.component';
 const routes: Routes = [
     {
         path: '',
@@ -45,7 +46,7 @@ const routes: Routes = [
             },
             {
                 path: 'manage-role',
-                component: ManageRoleComponent,
+                component: RoleListComponent,
                 canActivate: [AuthGuard],
             },
             {
