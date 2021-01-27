@@ -7,15 +7,14 @@
     }
 }
 
-.gutter-05 {
-    &.row {
-        margin-right: -8px;
-        margin-left: -8px;
-        @media (max-width: 767px) {
-            margin-right: -4px;
-            margin-left: -4px;
-        }
-
+.gutter-05.row {
+    margin-right: -8px;
+    margin-left: -8px;
+    @media (max-width: 767px) {
+        margin-right: -4px;
+        margin-left: -4px;
+    }
+    & > {
         .col,
         .col-1,
         .col-10,
@@ -453,6 +452,7 @@ input[type='number'] {
     -moz-appearance: textfield;
 }
 
+// Boder styles
 .br-main {
     border: 1px solid $primary-border-color;
 }
@@ -477,13 +477,36 @@ input[type='number'] {
     border-radius: 2px;
 }
 
+.border-rounded-right-0 {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.border-rounded-left-0 {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.border-rounded-right-md-0 {
+    @media (min-width: 768px) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+.border-rounded-left-md-0 {
+    @media (min-width: 768px) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+
 .bg-f8 {
     background-color: $primary-bg-color;
 }
 
 // link with arrow
 .arrow-link {
-    color: #80460b;
+    color: $brown-color;
     font-size: 12px;
     font-weight: 700;
     position: relative;
@@ -501,7 +524,7 @@ input[type='number'] {
     }
 
     &:hover {
-        color: #80460b;
+        color: $brown-color;
         text-decoration: none;
     }
 
@@ -517,15 +540,15 @@ input[type='number'] {
 
 // link without arrow
 .custom-link {
-    color: #80460b;
+    color: $brown-color;
     font-size: 12px;
     font-weight: 700;
     position: relative;
-    padding-right: 16px;
+    text-decoration: underline;
 
     &:hover {
-        color: #80460b;
-        text-decoration: none;
+        color: $brown-color;
+        cursor: pointer;
     }
 
     @media (min-width: 992px) {
@@ -555,4 +578,26 @@ input[type='number'] {
     width: 100%;
     height: 0;
     border-bottom: dashed 2px #ebebeb;
+}
+.solid-divider {
+    width: 100%;
+    height: 0;
+    border-bottom: solid 1px #ebebeb;
+}
+
+// Scroll style
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: $primary-color;
+    box-shadow: inset 0 0 3px $primary-color;
 }

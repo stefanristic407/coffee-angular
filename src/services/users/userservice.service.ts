@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class UserserviceService {
-    //API call URL's
+    // API call URL's
     private roasterUrl = environment.apiURL + '/ro/api';
     private roasterDeleteUrl = environment.apiURL + '/ro/deleteapi';
     private putUrl = environment.apiURL + '/ro/putapi';
@@ -1310,6 +1310,15 @@ export class UserserviceService {
         data['method'] = 'PUT';
         data['data'] = body;
         data['token'] = this.cookieService.get('Auth');
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    getEstateBrandProfileDetail(estateId, pageSlug) {
+        const data = {
+            api_call: `/general/es/${estateId}/brand-profile/${pageSlug}`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
         return this.http.post(this.roasterUrl, data);
     }
 }

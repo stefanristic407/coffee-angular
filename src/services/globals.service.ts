@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { StringifyOptions } from 'querystring';
 import { UserserviceService } from './users/userservice.service';
 
 @Injectable({
@@ -5365,6 +5367,21 @@ export class GlobalsService {
             ],
         },
     ];
+    monthList: any[] = [
+        { label: 'All', value: null },
+        { label: 'January', value: '1' },
+        { label: 'February', value: '2' },
+        { label: 'March', value: '3' },
+        { label: 'April', value: '4' },
+        { label: 'May', value: '5' },
+        { label: 'June', value: '6' },
+        { label: 'July', value: '7' },
+        { label: 'August', value: '8' },
+        { label: 'September', value: '9' },
+        { label: 'October', value: '10' },
+        { label: 'November', value: '11' },
+        { label: 'December', value: '12' },
+    ];
     languageJson: any;
     slug_list: any;
     permissions: any = {};
@@ -5374,8 +5391,13 @@ export class GlobalsService {
     selected_order_id: any;
     ord_received_date: any;
     userInvitesArray: any = [];
+    device = 'desktop';
 
-    constructor(private cookieService: CookieService, private userService: UserserviceService) {
+    constructor(
+        private cookieService: CookieService,
+        private deviceSrv: DeviceDetectorService,
+        private userService: UserserviceService,
+    ) {
         this.roaster_id = this.cookieService.get('roaster_id');
         // console.log(this.permissions);
         this.menuSearch = {
@@ -5397,6 +5419,11 @@ export class GlobalsService {
             'My Profile': '/features/myprofile',
             'Account Settings': '/features/account-settings',
         };
+        if (deviceSrv.isMobile()) {
+            this.device = 'mobile';
+        } else if (deviceSrv.isTablet()) {
+            this.device = 'tablet';
+        }
     }
 
     checkItem(data, listkey = null) {

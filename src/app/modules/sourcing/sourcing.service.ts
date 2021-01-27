@@ -46,7 +46,6 @@ export class SourcingService {
     city: any;
     lots: any;
     varieties: any;
-    flavourList: any;
     activeLandlots: any;
     greenList: any;
     harvestData: any;
@@ -90,9 +89,7 @@ export class SourcingService {
     images: any;
     estateCertificates: any;
     resultArray: any;
-    mapped: { type: string; value: any }[];
-    valueList: any;
-    finalCertify: any = [];
+    finalCertify: any;
     overviewCertify: any;
     estate_id: any;
     otherGreenList: any;
@@ -123,14 +120,24 @@ export class SourcingService {
 
     queryParams: any = new BehaviorSubject({
         origin: '',
-        variety: '',
+        species: '',
         name: '',
         grade: '',
         crop_year: '',
         weight: 'kg',
-        sort: '',
+        sort_by: '',
+        sort_order: 'asc',
     });
     queryParams$: any = this.queryParams.asObservable();
+
+    viewMode: any = new BehaviorSubject('grid');
+    viewMode$: any = this.viewMode.asObservable();
+
+    flavourList: any = new BehaviorSubject([]);
+    flavourList$: any = this.flavourList.asObservable();
+    // Details of an estate
+    estate: any;
+    estateHomepage: any;
 
     constructor(
         private http: HttpClient,
@@ -140,12 +147,14 @@ export class SourcingService {
         private toastrService: ToastrService,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
-        this.certificateList();
+        this.getEstateCertificates();
     }
 
     estateDetailList() {
         this.userService.getAvailableEstateList(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
+                console.log('EstateDetail', res.result);
+                this.estate = res.result;
                 this.name = res.result.name;
                 this.description = res.result.description;
                 this.total_area = res.result.total_area;
@@ -183,6 +192,15 @@ export class SourcingService {
                 }
                 const country = this.globals.getCountry(this.country.toUpperCase());
                 this.countryName = country ? country.name : this.country.toUpperCase();
+            }
+        });
+    }
+
+    getEstateHomepage(estateId) {
+        this.userService.getEstateBrandProfileDetail(estateId, 'home-page').subscribe((res: any) => {
+            if (res.success) {
+                this.estateHomepage = res.result;
+                console.log('Home page:', this.estateHomepage);
             }
         });
     }
@@ -268,7 +286,7 @@ export class SourcingService {
     flavourprofileList() {
         this.userService.getFlavourProfile().subscribe((res: any) => {
             if (res.success) {
-                this.flavourList = res.result;
+                this.flavourList.next(res.result);
             }
         });
     }
@@ -288,22 +306,16 @@ export class SourcingService {
             }
         });
     }
-    certificateList() {
+    getEstateCertificates() {
         this.userService.getEstateCertificates().subscribe((res: any) => {
             if (res.success) {
-                this.estateCertificates = res.result;
-                this.mapped = Object.keys(this.estateCertificates).map((key) => ({
-                    type: key,
-                    value: this.estateCertificates[key],
-                }));
-                console.log(this.mapped);
-                this.mapped.forEach((item) => {
-                    this.valueList = item.value;
-                    this.finalCertify.push(this.valueList);
-                });
-                console.log(this.finalCertify);
+                this.finalCertify = res.result;
             }
         });
+    }
+
+    getCertificateType(typeId) {
+        return this.finalCertify[typeId] || {};
     }
 
     otherAvailableCoffee() {

@@ -72,79 +72,8 @@
     padding-right: 1.5rem;
 }
 
-.real-estate {
-    img {
-        height: 38px;
-        width: auto;
-        object-fit: cover;
-        margin-bottom: 12px;
-    }
-    h6 {
-        font-size: 14px;
-        line-height: 18px;
-        font-weight: 600;
-        margin-bottom: 4px;
-        color: #747588;
-    }
-    h3 {
-        font-size: 14px;
-        line-height: 18px;
-        font-weight: bold;
-        color: #232334;
-        text-transform: capitalize;
-    }
-    @media (max-width: 767px) {
-        img {
-            height: 24px;
-            margin-bottom: 8px;
-        }
-        h6 {
-            font-size: 12px;
-            line-height: 15px;
-        }
-        h3 {
-            font-size: 14px;
-        }
-    }
-}
-
-.estate-focus h3 {
-    font-size: 18px;
-    font-weight: bold;
-}
-
 .estate-focus ul {
     margin-bottom: 0;
-}
-
-.estate-focus ul li {
-    width: 100%;
-    float: left;
-    border-bottom: 1px solid #eeeeee;
-    padding: 16px 0;
-}
-
-.estate-focus ul li:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.estate-focus ul li label {
-    float: left;
-    width: 37%;
-    margin-bottom: 0;
-    color: #747588;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.estate-focus ul li p {
-    margin-bottom: 0;
-    width: 60%;
-    float: left;
-    font-size: 14px;
-    color: #232334;
-    font-weight: 600;
 }
 
 .cetify-logo ul li {
@@ -234,34 +163,6 @@
     font-weight: 600;
     color: #80460b !important;
     text-decoration: underline;
-}
-
-.sugar-prod {
-    float: left;
-    width: 63%;
-}
-
-.estate-focus .sugar-prod li {
-    width: auto;
-    border: none;
-    padding: 0;
-    border: 1px solid #747588 !important;
-    margin-right: 4px;
-    border-radius: 20px;
-    padding: 0 10px 0 18px;
-    position: relative;
-    margin-bottom: 4px;
-}
-
-.estate-focus .sugar-prod li:before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 11px;
-    width: 4px;
-    height: 4px;
-    background: #747588;
-    border-radius: 20px;
 }
 
 .coffee-fff {
@@ -417,9 +318,6 @@ ul li {
     .estate-focus h3 {
         font-size: 16px;
     }
-    .mob-name {
-        color: #747588;
-    }
     .mob-id {
         margin-bottom: 12px !important;
         font-size: 14px !important;
@@ -438,13 +336,8 @@ ul li {
         text-align: left;
     }
     .estate-focus ul li label,
-    .estate-focus ul li p,
-    .sugar-prod {
+    .estate-focus ul li p {
         width: 50%;
-    }
-    .estate-focus .sugar-prod li {
-        margin-bottom: 8px;
-        margin-right: 8px;
     }
 
     .real-estate {

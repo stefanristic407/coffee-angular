@@ -6,8 +6,8 @@
     </div>
     <div class="card-body">
         <div class="d-flex justify-content-between">
-            <div>
-                <h5 class="fnt-18 black fnt-700 mb-1">{{ data.name }}</h5>
+            <div class="name-wrap">
+                <h5 class="fnt-18 black fnt-700 mb-1 ellipsis">{{ data.name }}</h5>
                 <div class="mb-1 d-flex align-items-center">
                     <span class="fa fa-star checked mr-2"></span>
                     <h6 class="fnt-18 black fnt-700 mb-0">
@@ -19,8 +19,8 @@
             <div class="d-flex">
                 <img
                     *ngFor="let item of data?.certificates | slice: 0:2"
-                    [src]="item.image_url"
-                    class="cert-image ml-3"
+                    [src]="item.type_id | certificateImg"
+                    class="cert-image ml-2 ml-lg-3"
                 />
             </div>
         </div>
@@ -28,18 +28,18 @@
             <div class="flex row">
                 <div class="orgin-att mb-2 mb-md-3 col-5 col-md-3">
                     <label class="text-gray588">{{ globals.languageJson?.origin }}</label>
-                    <h6 class="fnt-bold text-black334 ellipsis">{{ data.country || '-' }}</h6>
+                    <h6 class="fnt-14 fnt-bold text-black334 ellipsis">{{ data.country | country }}</h6>
                 </div>
                 <div class="orgin-att mb-2 mb-md-3 col-7 col-md-4">
                     <label class="text-gray588">{{ globals.languageJson?.altitude }}</label>
-                    <h6 class="fnt-bold text-black334 ellipsis">
-                        {{ data.altitude?.lte }} - {{ data.altitude?.gte }} m
+                    <h6 class="fnt-14 fnt-bold text-black334 ellipsis">
+                        {{ data.altitude?.gte }}-{{ data.altitude?.lte }} m
                     </h6>
                 </div>
                 <div class="orgin-att mb-2 mb-md-3 col-12 col-md-4">
                     <label class="text-gray588">{{ globals.languageJson?.crop_year }}</label>
-                    <h6 class="fnt-bold text-black334 ellipsis d-none d-md-block">
-                        {{ data.crop_year?.lte }} - {{ data.crop_year?.gte }}
+                    <h6 class="fnt-14 fnt-bold text-black334 ellipsis">
+                        {{ data.crop_year?.gte | month }} - {{ data.crop_year?.lte | month }}
                     </h6>
                 </div>
             </div>
@@ -47,7 +47,7 @@
         <div>
             <div class="fnt-14 fnt600 text-gray588">{{ globals.languageJson?.top_lots }}</div>
             <div>
-                <a *ngFor="let item of data.lots | slice: 0:3" class="custom-link" href="">
+                <a *ngFor="let item of data.lots | slice: 0:3" class="custom-link mr-2 mr-md-3" href="">
                     {{ item.name }}
                 </a>
                 <a

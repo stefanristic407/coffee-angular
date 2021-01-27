@@ -53,3 +53,68 @@ label {
     display: inline-block;
     width: 130px;
 }
+
+.real-estate {
+    img {
+        height: 38px;
+        width: auto;
+        object-fit: cover;
+        margin-bottom: 12px;
+    }
+    h6 {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: #747588;
+    }
+    h3 {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: bold;
+        color: #232334;
+    }
+    @media (max-width: 767px) {
+        img {
+            height: 24px;
+            margin-bottom: 8px;
+        }
+        h6 {
+            font-size: 12px;
+            line-height: 15px;
+        }
+        h3 {
+            font-size: 14px;
+        }
+    }
+}
+
+.estate-focus ul li {
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #eeeeee;
+    padding: 16px 0;
+}
+
+.estate-focus ul li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.estate-focus ul li label {
+    float: left;
+    width: 37%;
+    margin-bottom: 0;
+    color: #747588;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.estate-focus ul li p {
+    margin-bottom: 0;
+    width: 60%;
+    float: left;
+    font-size: 14px;
+    color: #232334;
+    font-weight: 600;
+}

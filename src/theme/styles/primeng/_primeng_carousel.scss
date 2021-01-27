@@ -1,0 +1,38 @@
+// Custom Theming for Prime Ng
+
+@import '../variables';
+
+// Carousel
+.p-carousel .p-carousel-content .p-carousel-prev,
+.p-carousel .p-carousel-content .p-carousel-next {
+    display: none;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator button {
+    background-color: #ffffff;
+    width: 12px;
+    height: 12px;
+    border: 1px solid $brown-color;
+    border-radius: 50%;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+    background: $brown-color;
+    color: #ffffff;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator {
+    margin-bottom: 0;
+}
+
+.p-carousel-content {
+    padding: 0;
+}
+
+.p-carousel-items-container .p-carousel-item {
+    padding-right: 0.75em;
+}
+
+.p-carousel-items-content {
+    padding-right: 0.75em;
+}

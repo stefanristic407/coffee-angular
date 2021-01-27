@@ -17,9 +17,12 @@ import { CarouselModule } from 'primeng/carousel';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
@@ -35,8 +38,10 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { RatingModule } from 'ng-starrating';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
-
 import { MatVideoModule } from 'mat-video';
+
+import { CountryPipe } from './pipes/country/country.pipe';
+import { MonthPipe } from './pipes/month/month.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -47,9 +52,9 @@ import { SoilChartComponent } from './components/remote-sensoring/soil-chart/soi
 import { UvChartComponent } from './components/remote-sensoring/uv-chart/uv-chart.component';
 import { VegetationChartComponent } from './components/remote-sensoring/vegetation-chart/vegetation-chart.component';
 import { ImageMapComponent } from './components/remote-sensoring/image-map/image-map.component';
-import { HarvestCardComponent } from './components/harvest-card/harvest-card.component';
-import { EstateCardComponent } from './components/estate-card/estate-card.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { MediaComponent } from './components/media/media.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 // #region material
 const MATMODULES = [];
@@ -69,9 +74,12 @@ const THIRDMODULES = [
     CheckboxModule,
     DialogModule,
     DropdownModule,
+    DynamicDialogModule,
     GalleriaModule,
+    InputNumberModule,
     InputSwitchModule,
     InputTextModule,
+    MultiSelectModule,
     OverlayPanelModule,
     SelectButtonModule,
     SliderModule,
@@ -104,13 +112,14 @@ const COMPONENTS = [
     UvChartComponent,
     VegetationChartComponent,
     ImageMapComponent,
-    HarvestCardComponent,
     BlankComponent,
-    EstateCardComponent,
     PieChartComponent,
+    MediaComponent,
+    VideoPlayerComponent,
 ];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];
+const PIPES = [CountryPipe, MonthPipe];
 // #endregion
 
 @NgModule({
@@ -128,6 +137,7 @@ const DIRECTIVES = [];
         ...COMPONENTS,
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
+        ...PIPES,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -141,6 +151,7 @@ const DIRECTIVES = [];
         // your components
         ...COMPONENTS,
         ...DIRECTIVES,
+        ...PIPES,
     ],
 })
 export class SharedModule {}

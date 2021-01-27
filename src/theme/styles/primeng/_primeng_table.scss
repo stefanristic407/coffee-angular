@@ -1,0 +1,79 @@
+// Custom Theming for Prime Ng
+
+@import '../variables';
+
+// Table
+.p-datatable .p-datatable-thead > tr > th {
+    padding: 1.1em 0.857em;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    color: $general-text-color;
+    background-color: $primary-bg-color;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+    padding: 1.3em 0.857em;
+    background-color: inherit;
+    border: none;
+    font-weight: 600;
+    color: $general-text-color;
+    transition: box-shadow 0.2s;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+    border-bottom: 1px dashed $primary-border-color;
+
+    &:hover {
+        box-shadow: 0 4px 26px 2px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+    }
+
+    &:nth-child(even) {
+        background-color: inherit;
+    }
+
+    &:last-child {
+        border: none;
+    }
+}
+
+.p-datatable .p-paginator-bottom {
+    background-color: transparent;
+    border-width: 0px;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: transparent;
+    color: $primary-color;
+    border: none;
+    font-size: $general-font-size;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page {
+    font-size: $general-font-size;
+    color: $muted-text-color;
+}
+
+.p-paginator-first span,
+.p-paginator-last span {
+    border-radius: 1px;
+    border: solid 1.5px $primary-color;
+    padding: 8px 4px 7px 6px;
+}
+
+.p-datatable .p-sortable-column:focus {
+    box-shadow: none;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
+    background: transparent;
+    color: #747588;
+}
+
+.p-paginator .p-paginator-first:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
+    background: transparent;
+}

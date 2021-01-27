@@ -9,6 +9,10 @@
     }
 }
 
+.name-wrap {
+    max-width: 70%;
+}
+
 .card-img-top {
     height: 160px;
     @media (min-width: 992px) {
@@ -43,9 +47,9 @@
         }
     }
     label {
+        margin-bottom: 0.25rem;
         @media (max-width: 991px) {
             font-size: 12px;
-            margin-bottom: 0.25rem;
         }
     }
 }

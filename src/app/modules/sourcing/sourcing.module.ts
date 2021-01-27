@@ -6,6 +6,8 @@ import { SharedModule } from '@shared';
 
 import { AgmCoreModule } from '@agm/core';
 
+import { CertificateImgPipe } from './certificateImg.pipe';
+
 import { SourcingComponent } from './sourcing/sourcing.component';
 import { EstateListComponent } from './estate-list/estate-list.component';
 import { CoffeeListComponent } from './coffee-list/coffee-list.component';
@@ -17,9 +19,12 @@ import { SourcingOrderChatComponent } from './estate-details/sourcing-order-chat
 import { OverviewRatingsComponent } from './estate-details/overview-ratings/overview-ratings.component';
 import { LandLotsComponent } from './estate-details/land-lots/land-lots.component';
 import { OverviewComponent } from './estate-details/overview/overview.component';
+import { EstateCardComponent } from './estate-card/estate-card.component';
+import { HarvestCardComponent } from './harvest-card/harvest-card.component';
 
 @NgModule({
     declarations: [
+        CertificateImgPipe,
         SourcingComponent,
         EstateListComponent,
         CoffeeListComponent,
@@ -31,6 +36,8 @@ import { OverviewComponent } from './estate-details/overview/overview.component'
         OverviewRatingsComponent,
         LandLotsComponent,
         OverviewComponent,
+        EstateCardComponent,
+        HarvestCardComponent,
     ],
     imports: [
         CommonModule,
