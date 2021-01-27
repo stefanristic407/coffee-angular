@@ -88,7 +88,6 @@ export class SourcingService {
     estateCertificates: any;
     resultArray: any;
     finalCertify: any;
-    overviewCertify: any;
     estate_id: any;
     otherGreenList: any;
     availableCertify: any;
@@ -137,10 +136,12 @@ export class SourcingService {
     // Details of an estate
     estateId: any;
     estate: any;
+    estateCertify: any;
     estateHomepage: any;
     estateAboutUs: any;
     estateContacts: any[] = [];
     estateLots: any[] = [];
+    galleryImages: any;
 
     constructor(
         private http: HttpClient,
@@ -199,6 +200,14 @@ export class SourcingService {
         });
     }
 
+    getEachEstateCertify() {
+        this.userService.getEachEsateCertificates(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateCertify = res.result;
+            }
+        });
+    }
+
     getEstateHomepage() {
         console.log('estateId', this.estateId);
         this.userService.getEstateBrandProfileDetail(this.estateId, 'home-page').subscribe((res: any) => {
@@ -227,7 +236,7 @@ export class SourcingService {
         });
     }
 
-    lotsList() {
+    getLotsList() {
         this.userService.getavailableLots(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.estateLots = res.result;
@@ -240,6 +249,14 @@ export class SourcingService {
                         element.center = element.polygon_coordinates[0][0];
                     }
                 });
+            }
+        });
+    }
+
+    estateGalleryFiles() {
+        this.userService.getEstateGallery(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.galleryImages = res.result;
             }
         });
     }
@@ -296,6 +313,15 @@ export class SourcingService {
         });
     }
 
+    getGreenCoffee() {
+        this.userService.getGreenCoffee(this.roaster_id, this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.greenList = res.result;
+                console.log('Green Coffee' + this.greenList);
+            }
+        });
+    }
+
     getLotDetails() {
         this.userService.getRoasterLotDetails(this.roaster_id, this.estate_id, this.lot_id).subscribe((res: any) => {
             if (res.success === true) {
@@ -314,25 +340,18 @@ export class SourcingService {
             });
     }
 
-    flavourprofileList() {
-        this.userService.getFlavourProfile().subscribe((res: any) => {
-            if (res.success) {
-                this.flavourList.next(res.result);
-            }
-        });
-    }
-    greenCoffee() {
-        this.userService.getGreenCoffee(this.roaster_id, this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.greenList = res.result;
-                console.log('Green Coffee' + this.greenList);
-            }
-        });
-    }
     getEstateCertificates() {
         this.userService.getEstateCertificates().subscribe((res: any) => {
             if (res.success) {
                 this.finalCertify = res.result;
+            }
+        });
+    }
+
+    flavourprofileList() {
+        this.userService.getFlavourProfile().subscribe((res: any) => {
+            if (res.success) {
+                this.flavourList.next(res.result);
             }
         });
     }
