@@ -15,13 +15,19 @@
 
 .card-img-top {
     height: 160px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     @media (min-width: 992px) {
         height: 208px;
     }
     img {
-        width: 100%;
-        object-fit: cover;
         transition: all 1200ms;
+        &:not(.empty) {
+            width: 100%;
+            object-fit: cover;
+        }
     }
 }
 .card:hover {
