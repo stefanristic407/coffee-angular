@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class SharedServiceService {
-    public isMobileView = true;
+    public isMobileView = false;
     public windowWidth: number;
     public responsiveStartsAt = 640;
     constructor() {}

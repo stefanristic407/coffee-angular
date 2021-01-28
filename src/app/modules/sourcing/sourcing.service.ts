@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { GlobalsService } from '@services';
+import * as _ from 'underscore';
 
 @Injectable({
     providedIn: 'root',
@@ -37,17 +38,14 @@ export class SourcingService {
     longitude: number;
     emptyCoord: any;
     countryName: any;
-    estateId: any;
     owner_name: any;
     grade_range: any;
     rating: any;
     agronomist_access: any;
     number_of_trees: any;
     city: any;
-    lots: any;
     varieties: any;
     activeLandlots: any;
-    greenList: any;
     harvestData: any;
     harvestDetail: any = {};
     available_name: any;
@@ -85,18 +83,15 @@ export class SourcingService {
     dry_moisture_content: any;
     date_cupped: string;
     estate_rating: any;
-    estateContacts: any = [];
     images: any;
     estateCertificates: any;
     resultArray: any;
     finalCertify: any;
-    overviewCertify: any;
     estate_id: any;
     otherGreenList: any;
     availableCertify: any;
     estateNumber: any;
     reviewsList: any;
-    summaryList: any;
     overall: any;
     communication: any;
     green_coffee: any;
@@ -135,9 +130,21 @@ export class SourcingService {
 
     flavourList: any = new BehaviorSubject([]);
     flavourList$: any = this.flavourList.asObservable();
+
     // Details of an estate
+    estateId: any;
     estate: any;
+    estateCertify: any;
     estateHomepage: any;
+    estateAboutUs: any;
+    estateContacts: any[] = [];
+    estateLots: any[] = [];
+    estateGreenList: any[] = [];
+    estateGalleryImages: any;
+    estateReviewsSummary: any;
+    estateReviewsAverage: any;
+    estateReviewStars: any;
+    reviewColors = ['#ff1e5a', '#ffa001', '#649a2b'];
 
     constructor(
         private http: HttpClient,
@@ -150,10 +157,11 @@ export class SourcingService {
         this.getEstateCertificates();
     }
 
+    // Estate detail apis
     estateDetailList() {
         this.userService.getAvailableEstateList(this.roaster_id, this.estateId).subscribe((res: any) => {
             if (res.success) {
-                console.log('EstateDetail', res.result);
+                // console.log('EstateDetail', res.result);
                 this.estate = res.result;
                 this.name = res.result.name;
                 this.description = res.result.description;
@@ -196,15 +204,119 @@ export class SourcingService {
         });
     }
 
-    getEstateHomepage(estateId) {
-        this.userService.getEstateBrandProfileDetail(estateId, 'home-page').subscribe((res: any) => {
+    getEachEstateCertify() {
+        this.userService.getEachEsateCertificates(this.estateId).subscribe((res: any) => {
             if (res.success) {
-                this.estateHomepage = res.result;
-                console.log('Home page:', this.estateHomepage);
+                this.estateCertify = res.result;
             }
         });
     }
 
+    getEstateHomepage() {
+        console.log('estateId', this.estateId);
+        this.userService.getEstateBrandProfileDetail(this.estateId, 'home-page').subscribe((res: any) => {
+            if (res.success) {
+                this.estateHomepage = res.result;
+                // console.log('Home page:', this.estateHomepage);
+            }
+        });
+    }
+
+    getEstateAboutUs() {
+        this.userService.getEstateBrandProfileDetail(this.estateId, 'about-us').subscribe((res: any) => {
+            if (res.success) {
+                this.estateAboutUs = res.result;
+                // console.log('About Us:', this.estateAboutUs);
+            }
+        });
+    }
+
+    estateEmployees() {
+        this.userService.getEstateContacts(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateContacts = res.result;
+                // console.log('estateContacts: ', this.estateContacts);
+            }
+        });
+    }
+
+    getLotsList() {
+        this.userService.getavailableLots(this.roaster_id, this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateLots = res.result;
+                // console.log('Lots:', this.estateLots);
+                this.estateLots.forEach((element) => {
+                    element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
+                    element.speciesStr = _.pluck(element.varieties, 'species').join(', ');
+                    if (element.polygon_coordinates) {
+                        element.polygon_coordinates = JSON.parse(element.polygon_coordinates);
+                        element.center = element.polygon_coordinates[0][0];
+                    }
+                });
+            }
+        });
+    }
+
+    getGreenCoffee() {
+        this.userService.getGreenCoffee(this.roaster_id, this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateGreenList = res.result;
+                // console.log('Green Coffee:', this.estateGreenList);
+            }
+        });
+    }
+
+    estateGalleryFiles() {
+        this.userService.getEstateGallery(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateGalleryImages = res.result;
+                // console.log('Gallary:', this.estateGalleryImages);
+            }
+        });
+    }
+
+    getEstateReviews() {
+        this.userService.getEachEsateReviews(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.reviewsList = res.result;
+                console.log('Reviews', this.reviewsList);
+            }
+        });
+    }
+
+    getEstateSummary() {
+        this.userService.getEachEsateReviewsSummary(this.estateId).subscribe((res: any) => {
+            if (res.success) {
+                this.estateReviewsSummary = res.result.summary;
+                this.estateReviewsAverage = res.result.average;
+                this.estateReviewStars = [];
+                for (let idx = 5; idx > 0; idx--) {
+                    const percent =
+                        (this.estateReviewsSummary[idx + '_star'] * 100) / this.estateReviewsSummary.total_review;
+                    this.estateReviewStars.push({
+                        label: idx + '.0',
+                        value: this.estateReviewsSummary[idx + '_star'],
+                        percent,
+                        color: this.reviewColors[Math.floor(percent / 34)],
+                    });
+                }
+                console.log('Review Summary: ', this.estateReviewsSummary);
+                // this.overall = this.estateReviewsSummary.average.overall_experience;
+                // this.communication = this.estateReviewsSummary.average.communication;
+                // this.green_coffee = this.estateReviewsSummary.average.green_coffee;
+                // this.rate_rating = parseFloat(this.estateReviewsSummary.summary.rating).toFixed(1);
+                // this.rate_rating_star = this.estateReviewsSummary.summary.rating;
+                // this.total_review = this.estateReviewsSummary.summary.total_review;
+                // this.five_star = this.estateReviewsSummary.summary['5_star'];
+                // this.four_star = this.estateReviewsSummary.summary['4_star'];
+                // this.three_star = this.estateReviewsSummary.summary['3_star'];
+                // this.two_star = this.estateReviewsSummary.summary['2_star'];
+                // this.one_star = this.estateReviewsSummary.summary['1_star'];
+            }
+        });
+    }
+
+    // Harvest detail apis
     availableDetailList(resolve: any = null) {
         this.userService.getGreenCoffeeDetails(this.roaster_id, this.harvestData).subscribe((res: any) => {
             if (res.success) {
@@ -265,20 +377,29 @@ export class SourcingService {
         });
     }
 
-    getImages() {
-        return this.http
-            .get<any>('assets/photos.json')
-            .toPromise()
-            .then((res) => res.data)
-            .then((data) => {
-                return data;
-            });
+    otherAvailableCoffee() {
+        this.userService.getGreenCoffee(this.roaster_id, this.estateNumber).subscribe((res: any) => {
+            if (res.success) {
+                this.otherGreenList = res.result;
+                console.log('Other green coff:', this.otherGreenList);
+            }
+        });
     }
 
-    lotsList() {
-        this.userService.getavailableLots(this.roaster_id, this.estateId).subscribe((res: any) => {
+    getEachGreenCertify() {
+        this.userService.getEachEsateCertificates(this.estateNumber).subscribe((res: any) => {
             if (res.success) {
-                this.lots = res.result;
+                this.availableCertify = res.result;
+                console.log('Certify', this.reviewsList);
+            }
+        });
+    }
+
+    // Constant apis
+    getEstateCertificates() {
+        this.userService.getEstateCertificates().subscribe((res: any) => {
+            if (res.success) {
+                this.finalCertify = res.result;
             }
         });
     }
@@ -290,75 +411,8 @@ export class SourcingService {
             }
         });
     }
-    greenCoffee() {
-        this.userService.getGreenCoffee(this.roaster_id, this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.greenList = res.result;
-                console.log('Green Coffee' + this.greenList);
-            }
-        });
-    }
-    estateEmployees() {
-        this.userService.getEstateContacts(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.estateContacts = res.result;
-                console.log('estateContacts: ', this.estateContacts);
-            }
-        });
-    }
-    getEstateCertificates() {
-        this.userService.getEstateCertificates().subscribe((res: any) => {
-            if (res.success) {
-                this.finalCertify = res.result;
-            }
-        });
-    }
 
     getCertificateType(typeId) {
         return this.finalCertify[typeId] || {};
-    }
-
-    otherAvailableCoffee() {
-        this.userService.getGreenCoffee(this.roaster_id, this.estateNumber).subscribe((res: any) => {
-            if (res.success) {
-                this.otherGreenList = res.result;
-                console.log('Other green coff:', this.otherGreenList);
-            }
-        });
-    }
-    getEachGreenCertify() {
-        this.userService.getEachEsateCertificates(this.estateNumber).subscribe((res: any) => {
-            if (res.success) {
-                this.availableCertify = res.result;
-                console.log('Certify', this.reviewsList);
-            }
-        });
-    }
-    getEstateReviews() {
-        this.userService.getEachEsateReviews(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.reviewsList = res.result;
-                console.log('Reviews', this.reviewsList);
-            }
-        });
-    }
-    getEstateSummary() {
-        this.userService.getEachEsateReviewsSummary(this.estateId).subscribe((res: any) => {
-            if (res.success) {
-                this.summaryList = res.result;
-                console.log('Review Summary: ', this.summaryList);
-                this.overall = this.summaryList.average.overall_experience;
-                this.communication = this.summaryList.average.communication;
-                this.green_coffee = this.summaryList.average.green_coffee;
-                this.rate_rating = parseFloat(this.summaryList.summary.rating).toFixed(1);
-                this.rate_rating_star = this.summaryList.summary.rating;
-                this.total_review = this.summaryList.summary.total_review;
-                this.five_star = this.summaryList.summary['5_star'];
-                this.four_star = this.summaryList.summary['4_star'];
-                this.three_star = this.summaryList.summary['3_star'];
-                this.two_star = this.summaryList.summary['2_star'];
-                this.one_star = this.summaryList.summary['1_star'];
-            }
-        });
     }
 }

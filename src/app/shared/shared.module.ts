@@ -45,6 +45,7 @@ import { MonthPipe } from './pipes/month/month.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
+import { EmptyComponent } from './components/empty/empty.component';
 import { SelectComponent } from './components/select/select.component';
 import { RemoteSensoringComponent } from './components/remote-sensoring/remote-sensoring.component';
 import { WeatherChartComponent } from './components/remote-sensoring/weather-chart/weather-chart.component';
@@ -60,6 +61,8 @@ import { ManagePermissionComponent } from './components/addTeams/manage-permissi
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { RoleListComponent } from './components/addTeams/role-list/role-list.component';
+import { ReadMoreComponent } from './components/read-more/read-more.component';
+import { TeamMemberTableComponent } from './components/addTeams/team-member-table/team-member-table.component';
 
 // #region material
 const MATMODULES = [];
@@ -110,6 +113,7 @@ const THIRDMODULES = [
 const COMPONENTS = [
     AvatarComponent,
     BlankComponent,
+    EmptyComponent,
     SelectComponent,
     RemoteSensoringComponent,
     WeatherChartComponent,
@@ -122,6 +126,7 @@ const COMPONENTS = [
     PieChartComponent,
     MediaComponent,
     VideoPlayerComponent,
+    ReadMoreComponent,
 ];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];
@@ -148,6 +153,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ManagePermissionComponent,
         BreadcrumbComponent,
         RoleListComponent,
+        TeamMemberTableComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

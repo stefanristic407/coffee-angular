@@ -8,13 +8,15 @@
                             <h2 class="fnt-18 fnt-bold text-clr334">{{ sourcing.name }}</h2>
                             <div class="d-md-none d-flex">
                                 <img
-                                    *ngFor="let cert of sourcing.overviewCertify"
+                                    *ngFor="let cert of sourcing.estateCertify"
                                     [src]="cert.certificate_type_id | certificateImg"
                                     class="cert-img mb-3 ml-2"
                                 />
                             </div>
                         </div>
-                        <p class="fnt-16 text-clr588 mb-4 mb-md-5">{{ sourcing.description }}</p>
+                        <p class="fnt-12 fnt-md-16 text-clr588 text-md-clr334 mb-4 mb-md-5">
+                            {{ sourcing.description }}
+                        </p>
                     </div>
 
                     <div class="row mt-4 mt-md-0">
@@ -104,12 +106,12 @@
         </div>
         <div class="col-12 col-md-5">
             <div class="certificate-book br-md-main br-4 h-100 p-md-4">
-                <div *ngIf="globals.device !== 'mobile' && sourcing.overviewCertify != ''">
+                <div *ngIf="globals.device !== 'mobile' && sourcing.estateCertify != ''">
                     <h2 class="fnt-18 fnt-bold text-clr000">{{ globals.languageJson?.certificates }}</h2>
                     <div class="cetify-logo pt-3">
                         <div class="d-flex mb-5">
                             <img
-                                *ngFor="let cert of sourcing.overviewCertify"
+                                *ngFor="let cert of sourcing.estateCertify"
                                 [src]="cert.certificate_type_id | certificateImg"
                                 class="cert-img mb-3 mr-3"
                             />

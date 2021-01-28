@@ -3,12 +3,12 @@ import { GlobalsService } from 'src/services/globals.service';
 import { SourcingService } from '../../sourcing.service';
 
 @Component({
-    selector: 'app-land-lots',
-    templateUrl: './land-lots.component.html',
-    styleUrls: ['./land-lots.component.scss'],
+    selector: 'app-about',
+    templateUrl: './about.component.html',
+    styleUrls: ['./about.component.scss'],
 })
-export class LandLotsComponent implements OnInit {
-    brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/production-details';
+export class AboutComponent implements OnInit {
+    brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
 
     constructor(public globals: GlobalsService, public sourcing: SourcingService) {}
 

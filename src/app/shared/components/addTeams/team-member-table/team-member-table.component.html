@@ -1,0 +1,129 @@
+<div class="sectionContainer">
+    <div class="row mb-3">
+        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        </div>
+    </div>
+    <section class="team__total d-none d-md-block">
+        <div class="row">
+            <div class="d-inline add-team col-lg-8 p-0">{{globals.languageJson?.add_team_members}}
+                <!--(click)="op.toggle($event)"-->
+                <span class="d-inline select_title" >
+                    {{selectedRole}}
+                    <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
+                <div class="select-members mt-1">{{globals.languageJson?.select_members_role}}</div>
+        
+            </div>
+            <div class="col-lg-4">
+                <button type="submit" class="btn invite_members pull-right" (click)="inviteNewMembers();">
+                    <span class="update_text">{{globals.languageJson?.invite_new_members}}</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="d-inline border-total status-div col-sm-6" id="status_id">
+                    <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" [outsideClick]="true" #pop="bs-popover">
+                        <p class="d-inline filter" (click)="showVar = !showVar;">
+                            {{ termStatus }}&nbsp; <img
+                                src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                        </p>
+                    </a>
+                </div>
+                &nbsp;&nbsp;
+                <div class="d-inline border-total role-div col-sm-6" id="role_id">
+                    <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" [outsideClick]="true" #pop1="bs-popover">
+                        <p class="d-inline filter" (click)="showRole = !showRole;">
+                            {{ termRole }}&nbsp;<img
+                                src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 search-div ">
+                <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="termSearch"
+                    placeholder="{{globals.languageJson?.search_name_role}}" />
+            </div>
+        </div>
+        <div class="table-container mb-2">
+            <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
+                [(selection)]="tableSelected" dataKey="id" [resizableColumns]="true" styleClass="ui-table-customers"
+                [showCurrentPageReport]="false" [paginator]="false" [lazy]="true" (onLazyLoad)="getTableData($event)"
+                [totalRecords]="totalCount" [responsive]="sharedService.isMobileView">
+                <ng-template pTemplate="header" let-columns>
+                    <tr class="d-none d-sm-none d-md-table-row">
+                        <th style="width: 5%" class="">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null"
+                            [style.width]="col.width ? col.width + '%' : '30%'" [ngClass]="{'d-md-none': col.field == 'add_user'}">
+                            <span class="primeng-table-header">{{col.header}}</span>
+                            <p-sortIcon *ngIf="col.sortable === true" [field]="col.field" ariaLabel="Activate to sort"
+                                ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+                            </p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td class="d-none d-sm-none d-md-table-cell">
+                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                        </td>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field" [style.width]="col.width ? col.width + '%' : '30%'">
+                            <span *ngSwitchCase="'name'" class="">
+                                <span>
+                                    {{ rowData[col.field]}}
+                                </span>
+                            </span>
+                            <span *ngSwitchCase="'last_login_at'" class="">
+                                <span>
+                                    {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a'}}
+                                </span>
+                            </span>
+                            <span *ngSwitchCase="'status'" class="">
+                                <span>
+                                    {{ rowData[col.field]}}
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            
+            </p-table>
+        </div>
+    </section>
+    <ng-template #roleTemplate>
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item"
+                        (click)="setRole('');showRole = !showRole;">All</a>
+                </li>
+                <li class="list-group-item item-color" *ngFor="let role of roleList">
+                    <a class="pointer-item"
+                        (click)="setRole(role.name);showRole = !showRole">{{role.name }}</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template #allTemplate>
+        <div id="status-content">
+            <ul class="list-group">
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setStatus('');showVar = !showVar">All</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setStatus('Active');showVar = !showVar">Active</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item"
+                        (click)="setStatus('Inactive');showVar = !showVar">Inactive</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item"
+                        (click)="setStatus('Pending');showVar = !showVar">Pending</a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+</div>

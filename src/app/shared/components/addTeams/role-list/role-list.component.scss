@@ -73,10 +73,10 @@
     color: #30855c;
     margin-left: 10px;
 }
-.rowClass > td > .tdClass > .d-flex > .show_btns {
+.rowClass > td > .tdClass > .d-md-flex > .show_btns {
     visibility: hidden;
 }
-.rowClass:hover > td > .tdClass > .d-flex > .show_btns {
+.rowClass:hover > td > .tdClass > .d-md-flex > .show_btns {
     visibility: visible;
 }
 

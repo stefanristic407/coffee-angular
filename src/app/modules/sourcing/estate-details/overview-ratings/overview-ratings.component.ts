@@ -13,9 +13,9 @@ export class OverviewRatingsComponent implements OnInit {
     totalstar = 5;
     newvalue: any = 2;
     reviewvalue: any = 4;
-    termStatus: any;
+    termStatus = 'Most relevant';
+    termItems: any[];
     showRelavant: boolean = true;
-    appLanguage?: any;
     estateRatingActive: any = 0;
     reviewsList: any;
     summaryList: any;
@@ -31,16 +31,21 @@ export class OverviewRatingsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.language();
+        this.termItems = [
+            { label: this.globals.languageJson?.most_relevant, value: 'Most relevant' },
+            { label: this.globals.languageJson?.recent_reviews, value: 'Recent reviews' },
+            { label: this.globals.languageJson?.based_on_rating, value: 'Based on rating' },
+        ];
     }
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.estateRatingActive++;
+
+    filterCall() {
+        console.log('Term:', this.termStatus);
     }
 
     setStatus(term: any) {
         this.termStatus = term;
     }
+
     moreMethod() {
         let dots = document.getElementById('dots');
         let moreText = document.getElementById('more');

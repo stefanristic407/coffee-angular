@@ -6,6 +6,20 @@
 .round-border.p-dropdown {
     border-radius: 20px;
 }
+.no-border.p-dropdown {
+    border: none;
+}
+.no-padding.p-dropdown .p-dropdown-label {
+    padding: 0;
+}
+.accent.p-dropdown {
+    .p-dropdown-label {
+        color: $primary-color;
+    }
+    .p-dropdown-trigger-icon {
+        color: $primary-color;
+    }
+}
 .p-dropdown {
     border-color: $primary-border-color;
 }

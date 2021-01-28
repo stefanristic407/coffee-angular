@@ -15,11 +15,13 @@ export class MediaComponent implements OnInit {
     @Input()
     set url(value: string) {
         this.fileUrl = value;
-        const ext = value.split('.').pop();
-        if (ext === 'mp4') {
-            this.isVideo = true;
-        } else {
-            this.isVideo = false;
+        if (value) {
+            const ext = value.split('.').pop();
+            if (ext === 'mp4') {
+                this.isVideo = true;
+            } else {
+                this.isVideo = false;
+            }
         }
     }
 

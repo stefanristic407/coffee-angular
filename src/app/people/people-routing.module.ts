@@ -18,6 +18,7 @@ import { PermissionErrorComponent } from '../people/permission-error/permission-
 import { AuthGuard } from '../guards/auth.guard';
 import { CreateRoleComponent } from './../shared/components/addTeams/create-role/create-role.component';
 import { RoleListComponent } from '@app/shared/components/addTeams/role-list/role-list.component';
+import { TeamMemberTableComponent } from '@app/shared/components/addTeams/team-member-table/team-member-table.component';
 const routes: Routes = [
     {
         path: '',
@@ -76,7 +77,7 @@ const routes: Routes = [
             },
             {
                 path: 'team-members',
-                component: TeamMembersComponent,
+                component: TeamMemberTableComponent,
                 canActivate: [AuthGuard],
             },
             {

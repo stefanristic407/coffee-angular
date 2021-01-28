@@ -50,6 +50,11 @@ export class RoleListComponent implements OnInit {
                 width: 50,
             },
             {
+                field: 'add_user',
+                header: '',
+                width: 30,
+            },
+            {
                 field: 'actions',
                 header: 'Actions',
                 sortable: false,
