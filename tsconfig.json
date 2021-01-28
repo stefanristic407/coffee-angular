@@ -1,31 +1,29 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
-    "paths": {
-      "@app/*": ["src/app/*"],
-      "@components": ["src/app/components/index"],
-      "@env/*": ["src/environments/*"],
-      "@services": ["src/services/index"],
-      "@shared": ["src/app/shared/index"],
-      "@modules/*": ["src/app/modules/*"]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "es2015",
+        "lib": ["es2018", "dom"],
+        "paths": {
+            "@app/*": ["src/app/*"],
+            "@components": ["src/app/components/index"],
+            "@env/*": ["src/environments/*"],
+            "@services": ["src/services/index"],
+            "@shared": ["src/app/shared/index"],
+            "@modules/*": ["src/app/modules/*"],
+            "@models/*": ["src/models/*"]
+        }
+    },
+    "angularCompilerOptions": {
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true
     }
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  }
 }
