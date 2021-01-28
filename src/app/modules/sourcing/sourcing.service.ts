@@ -92,7 +92,6 @@ export class SourcingService {
     availableCertify: any;
     estateNumber: any;
     reviewsList: any;
-    summaryList: any;
     overall: any;
     communication: any;
     green_coffee: any;
@@ -142,6 +141,10 @@ export class SourcingService {
     estateLots: any[] = [];
     estateGreenList: any[] = [];
     estateGalleryImages: any;
+    estateReviewsSummary: any;
+    estateReviewsAverage: any;
+    estateReviewStars: any;
+    reviewColors = ['#ff1e5a', '#ffa001', '#649a2b'];
 
     constructor(
         private http: HttpClient,
@@ -284,19 +287,31 @@ export class SourcingService {
     getEstateSummary() {
         this.userService.getEachEsateReviewsSummary(this.estateId).subscribe((res: any) => {
             if (res.success) {
-                this.summaryList = res.result;
-                console.log('Review Summary: ', this.summaryList);
-                this.overall = this.summaryList.average.overall_experience;
-                this.communication = this.summaryList.average.communication;
-                this.green_coffee = this.summaryList.average.green_coffee;
-                this.rate_rating = parseFloat(this.summaryList.summary.rating).toFixed(1);
-                this.rate_rating_star = this.summaryList.summary.rating;
-                this.total_review = this.summaryList.summary.total_review;
-                this.five_star = this.summaryList.summary['5_star'];
-                this.four_star = this.summaryList.summary['4_star'];
-                this.three_star = this.summaryList.summary['3_star'];
-                this.two_star = this.summaryList.summary['2_star'];
-                this.one_star = this.summaryList.summary['1_star'];
+                this.estateReviewsSummary = res.result.summary;
+                this.estateReviewsAverage = res.result.average;
+                this.estateReviewStars = [];
+                for (let idx = 5; idx > 0; idx--) {
+                    const percent =
+                        (this.estateReviewsSummary[idx + '_star'] * 100) / this.estateReviewsSummary.total_review;
+                    this.estateReviewStars.push({
+                        label: idx + '.0',
+                        value: this.estateReviewsSummary[idx + '_star'],
+                        percent,
+                        color: this.reviewColors[Math.floor(percent / 34)],
+                    });
+                }
+                console.log('Review Summary: ', this.estateReviewsSummary);
+                // this.overall = this.estateReviewsSummary.average.overall_experience;
+                // this.communication = this.estateReviewsSummary.average.communication;
+                // this.green_coffee = this.estateReviewsSummary.average.green_coffee;
+                // this.rate_rating = parseFloat(this.estateReviewsSummary.summary.rating).toFixed(1);
+                // this.rate_rating_star = this.estateReviewsSummary.summary.rating;
+                // this.total_review = this.estateReviewsSummary.summary.total_review;
+                // this.five_star = this.estateReviewsSummary.summary['5_star'];
+                // this.four_star = this.estateReviewsSummary.summary['4_star'];
+                // this.three_star = this.estateReviewsSummary.summary['3_star'];
+                // this.two_star = this.estateReviewsSummary.summary['2_star'];
+                // this.one_star = this.estateReviewsSummary.summary['1_star'];
             }
         });
     }

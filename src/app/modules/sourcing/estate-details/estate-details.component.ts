@@ -13,6 +13,7 @@ export class EstateDetailsComponent implements OnInit {
     isLoaded = false;
     brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
     estateProfile = 'https://qa-estates-portal.sewnstaging.com/features/estate-profile';
+    selectedTab = 0;
 
     constructor(public globals: GlobalsService, private route: ActivatedRoute, public sourcing: SourcingService) {}
 

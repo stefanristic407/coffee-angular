@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <p-tabView styleClass="mt-3 mx-md-5 pb-4">
+        <p-tabView styleClass="mt-3 mx-md-5 pb-4" [(activeIndex)]="selectedTab">
             <p-tabPanel header="{{ globals.languageJson?.overview }}">
                 <app-overview></app-overview>
             </p-tabPanel>
@@ -241,6 +241,10 @@
                 </ng-template>
             </p-tabPanel>
         </p-tabView>
+    </div>
+
+    <div *ngIf="!selectedTab" class="main-block mt-3">
+        <app-overview-ratings></app-overview-ratings>
     </div>
 </section>
 

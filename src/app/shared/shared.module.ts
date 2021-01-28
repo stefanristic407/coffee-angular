@@ -56,6 +56,7 @@ import { ImageMapComponent } from './components/remote-sensoring/image-map/image
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { ReadMoreComponent } from './components/read-more/read-more.component';
 
 // #region material
 const MATMODULES = [];
@@ -118,6 +119,7 @@ const COMPONENTS = [
     PieChartComponent,
     MediaComponent,
     VideoPlayerComponent,
+    ReadMoreComponent,
 ];
 const COMPONENTS_NOROUNT = [];
 const DIRECTIVES = [];
