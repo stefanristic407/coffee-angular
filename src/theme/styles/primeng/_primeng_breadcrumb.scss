@@ -1,0 +1,41 @@
+.p-breadcrumb {
+    border: none;
+    padding: 0;
+}
+
+.p-breadcrumb ul li .p-menuitem-link:hover {
+    text-decoration: underline;
+    color: $general-text-color;
+    .p-menuitem-text {
+        color: $general-text-color;
+    }
+}
+
+.p-breadcrumb ul li:last-child .p-menuitem-link:hover {
+    text-decoration: none;
+}
+.p-breadcrumb ul li .p-menuitem-link:focus {
+    box-shadow: none;
+}
+
+.p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+    font-weight: 600;
+    color: $muted-text-color;
+}
+
+.p-breadcrumb ul li.p-breadcrumb-chevron {
+    margin-right: 16px;
+    margin-top: -1px;
+}
+
+.p-breadcrumb ul li:last-child .p-menuitem-link .p-menuitem-text {
+    color: $general-text-color;
+}
+.p-breadcrumb ul li.p-breadcrumb-chevron {
+    margin-left: 0px;
+}
+.p-breadcrumb .pi-chevron-right::before {
+    font-size: 16px;
+    color: $button-icon-color;
+    margin-left: 5px;
+}

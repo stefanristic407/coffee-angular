@@ -11,6 +11,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CarouselModule } from 'primeng/carousel';
@@ -77,6 +78,7 @@ const THIRDMODULES = [
     TypeaheadModule,
     BreadcrumbModule,
     AutoCompleteModule,
+    BreadcrumbModule,
     ButtonModule,
     CalendarModule,
     CarouselModule,

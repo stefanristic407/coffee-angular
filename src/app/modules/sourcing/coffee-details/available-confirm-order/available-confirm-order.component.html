@@ -31,31 +31,9 @@
                 </section>
             </div>
 
-            <div class="bg-fff">
-                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-4 web-sec">
-                    <span id="title-breadcrumb-1" class="sr-only"></span>
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <!-- <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/sourcing">{{globals.languageJson?.sourcing_module}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                        </li> -->
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/sourcing">Finca La Pmapa</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <li class="b-cum c-pink">
-                            {{ globals.languageJson?.confirm_order }}
-                        </li>
-                    </ul>
-                </nav>
-                <section class="create-role-sec">
+            <div class="main-block">
+                <p-breadcrumb [model]="breadItems"></p-breadcrumb>
+                <section>
                     <div class="confirm-order mt-4 web-sec">
                         <div class="row">
                             <div class="col-12 col-md-12 col-lg-12">

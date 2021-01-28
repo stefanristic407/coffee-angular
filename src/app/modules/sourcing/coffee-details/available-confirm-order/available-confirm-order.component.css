@@ -1,8 +1,3 @@
-.create-role-sec {
-    margin-left: 3rem;
-    margin-right: 3rem;
-}
-
 .confirm-padding {
     margin-top: 1px;
     color: #000000;
@@ -67,7 +62,7 @@ td {
 
 .table-head {
     border-radius: 4px;
-    background-color: #f8f8f8
+    background-color: #f8f8f8;
 }
 
 .lot-table {
@@ -76,7 +71,7 @@ td {
 }
 
 .border-div {
-    margin-top: 2.2rem!important;
+    margin-top: 2.2rem !important;
 }
 
 .ord-quantity,
@@ -216,7 +211,6 @@ td {
     padding-bottom: 2rem;
 }
 
-
 /********Modal********/
 
 .modal-header {
@@ -336,7 +330,7 @@ span.checkmark {
     border-radius: 2px;
 }
 
-.customcheckbox input:checked~.checkmark {
+.customcheckbox input:checked ~ .checkmark {
     background-color: #232334 !important;
 }
 
@@ -355,7 +349,6 @@ span.checkmark {
     display: none;
 }
 
-
 /* 
 .search:focus {
     box-shadow: 0 0 0 0.035rem green !important;
@@ -366,20 +359,19 @@ span.checkmark {
 .addressError,
 .cityError,
 .zipError {
-    color: #D50000;
+    color: #d50000;
     font-size: 14px;
 }
 
 .termError {
-    color: #D50000;
+    color: #d50000;
     font-size: 14px;
     margin-left: 10px;
 }
 
-
 /****************************    Media Queries   ****************************/
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
     .create-role {
         margin-left: 0.9rem;
         margin-right: 0.9rem;
@@ -398,7 +390,7 @@ span.checkmark {
         margin-right: 0rem;
     }
     .border-div {
-        margin-top: 1.2rem!important;
+        margin-top: 1.2rem !important;
     }
     .back-icon {
         border-bottom: 1px solid #ebebeb;
@@ -411,10 +403,6 @@ span.checkmark {
     }
     .back-icon img {
         margin-right: 5px;
-    }
-    .create-role-sec {
-        margin-left: 1rem;
-        margin-right: 1rem;
     }
     .confirm-order {
         padding: 1rem;

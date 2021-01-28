@@ -14,6 +14,12 @@ import { UserserviceService } from '@services';
     styleUrls: ['./available-confirm-order.component.scss'],
 })
 export class AvailableConfirmOrderComponent implements OnInit {
+    breadItems: any[] = [
+        { label: 'Home', routerLink: '/features/welcome-aboard' },
+        { label: 'Sourcing Module', routerLink: '/sourcing' },
+        { label: 'Finca La Pmapa', routerLink: '/sourcing/coffee-details' },
+        { label: 'Confirm order' },
+    ];
     quantity: any;
     quantity1: any;
     price: number = 0;
@@ -68,13 +74,13 @@ export class AvailableConfirmOrderComponent implements OnInit {
             this.flagData = params['flag'];
 
             this.sourcing.availableDetailList();
-            if (this.flagData == 'buyNow') {
+            if (this.flagData === 'buyNow') {
                 this.getshipInfo();
             }
             this.getRoAddress();
         });
 
-        if (this.sourcing.prebook_flag == true) {
+        if (this.sourcing.prebook_flag === true) {
             this.prebook_order_id = this.sourcing.prebook_order_id;
         } else {
             this.prebook_order_id = 0;
@@ -104,7 +110,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
     }
 
     placeOrder() {
-        if (this.quantity == '' || this.quantity == null || this.quantity == undefined) {
+        if (this.quantity === '' || this.quantity == null || this.quantity == undefined) {
             this.confirmOrderError = 'Please enter quantity';
             document.getElementById('quantityId').style.border = '1px solid #D50000';
             setTimeout(() => {
@@ -118,7 +124,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
                 this.confirmOrderError = '';
                 document.getElementById('quantityId').style.border = '1px solid #d6d6d6 ';
             }, 3000);
-        } else if (this.service == 'Import & Delivery service' && this.quantity < this.min_quantity) {
+        } else if (this.service === 'Import & Delivery service' && this.quantity < this.min_quantity) {
             this.toastrService.error(`Minimum quantity for shipping is ${this.min_quantity}. please order above.`);
         } else if (this.terms == false) {
             this.termError = 'Please accept the terms and conditions';
@@ -130,14 +136,14 @@ export class AvailableConfirmOrderComponent implements OnInit {
         }
     }
     placeOrderMob() {
-        if (this.quantity1 == '' || this.quantity1 == null || this.quantity1 == undefined) {
+        if (this.quantity1 === '' || this.quantity1 == null || this.quantity1 == undefined) {
             this.confirmOrderError = 'Please enter quantity';
             document.getElementById('quantity_id').style.border = '1px solid #D50000';
             setTimeout(() => {
                 this.confirmOrderError = '';
                 document.getElementById('quantity_id').style.border = '1px solid #d6d6d6 ';
             }, 3000);
-        } else if (this.service == 'Import & Delivery service' && this.quantity < this.min_quantity) {
+        } else if (this.service === 'Import & Delivery service' && this.quantity < this.min_quantity) {
             this.toastrService.error(`Minimum quantity for shipping is ${this.min_quantity}. please order above.`);
         } else {
             this.openModal(this.confirmtemplate);
@@ -148,28 +154,28 @@ export class AvailableConfirmOrderComponent implements OnInit {
         document.getElementById('form-address').style.display = 'block';
     }
     saveAddress() {
-        if (this.country == '' || this.country == null || this.country == undefined) {
+        if (this.country === '' || this.country == null || this.country == undefined) {
             this.countryError = 'Please select your country';
             document.getElementById('countryList').style.border = '1px solid #D50000 ';
             setTimeout(() => {
                 this.countryError = '';
                 document.getElementById('countryList').style.border = '1px solid #d6d6d6 ';
             }, 3000);
-        } else if (this.address1 == '' || this.address1 == null || this.address1 == undefined) {
+        } else if (this.address1 === '' || this.address1 == null || this.address1 == undefined) {
             this.addressError = 'Please enter address';
             document.getElementById('address1').style.border = '1px solid #D50000 ';
             setTimeout(() => {
                 this.addressError = '';
                 document.getElementById('address1').style.border = '1px solid #d6d6d6 ';
             }, 3000);
-        } else if (this.city == '' || this.city == null || this.city == undefined) {
+        } else if (this.city === '' || this.city == null || this.city == undefined) {
             this.cityError = 'Please enter city';
             document.getElementById('city').style.border = '1px solid #D50000 ';
             setTimeout(() => {
                 this.cityError = '';
                 document.getElementById('city').style.border = '1px solid #d6d6d6 ';
             }, 3000);
-        } else if (this.zipcode == '' || this.zipcode == null || this.zipcode == undefined) {
+        } else if (this.zipcode === '' || this.zipcode == null || this.zipcode == undefined) {
             this.zipError = 'Please enter zipcode';
             document.getElementById('zipcode').style.border = '1px solid #D50000 ';
             setTimeout(() => {

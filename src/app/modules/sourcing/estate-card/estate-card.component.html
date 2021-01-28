@@ -1,7 +1,8 @@
 <div class="card border-card mb-0 h-100">
     <div class="position-relative">
         <div class="overflow-hidden card-img-top">
-            <img [src]="data.company_image_thumbnail_url || 'assets/images/blog-1.png'" alt="Estate" />
+            <img *ngIf="data.company_image_thumbnail_url" [src]="data.company_image_thumbnail_url" alt="Estate" />
+            <img *ngIf="!data.company_image_thumbnail_url" src="assets/images/empty.svg" alt="Empty" class="empty" />
         </div>
     </div>
     <div class="card-body">
