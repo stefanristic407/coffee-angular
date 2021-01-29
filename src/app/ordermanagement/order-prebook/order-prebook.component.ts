@@ -269,7 +269,7 @@ export class OrderPrebookComponent implements OnInit, AfterContentInit, AfterVie
     buyConfirmOrder() {
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                harvestData: this.prebookService.harvestId,
+                harvestId: this.prebookService.harvestId,
                 estateId: this.prebookService.estate_id,
                 // certificateHarvest:JSON.stringify(this.harvestCertify)
             },
