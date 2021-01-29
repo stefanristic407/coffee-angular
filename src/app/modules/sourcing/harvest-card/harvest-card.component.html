@@ -1,7 +1,8 @@
 <div class="card border-card mb-0 h-100">
     <div class="position-relative">
         <div class="overflow-hidden card-img-top">
-            <img [src]="data.images[0].url" alt="Estate" />
+            <img *ngIf="data.images?.length" [src]="data.images[0].url" alt="Green Coffee" />
+            <img *ngIf="!data.images?.length" src="assets/images/empty.svg" alt="Empty" class="empty" />
         </div>
         <div class="cupping">
             <p>Cup score {{ data.cup_score || '-' }}</p>
