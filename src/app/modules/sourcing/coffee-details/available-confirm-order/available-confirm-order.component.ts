@@ -18,12 +18,7 @@ import { ConfirmComponent } from '@shared';
     providers: [DialogService],
 })
 export class AvailableConfirmOrderComponent implements OnInit {
-    breadItems: any[] = [
-        { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Sourcing Module', routerLink: '/sourcing' },
-        { label: 'Finca La Pmapa', routerLink: '/sourcing/coffee-details' },
-        { label: 'Confirm order' },
-    ];
+    breadItems: any[];
     serviceItems: any[] = [
         { label: 'Import & Delivery service', value: true },
         { label: 'I don’t need Import & delivery service', value: false },
@@ -78,6 +73,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
 
     refreshData() {
         new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
+            this.refreshBreadCrumb();
             const promises = [];
             if (this.flagData === 'buyNow') {
                 // promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
@@ -90,6 +86,18 @@ export class AvailableConfirmOrderComponent implements OnInit {
                 this.isLoaded = true;
             });
         });
+    }
+
+    refreshBreadCrumb() {
+        this.breadItems = [
+            { label: 'Home', routerLink: '/features/welcome-aboard' },
+            { label: 'Sourcing Module', routerLink: '/sourcing' },
+            {
+                label: this.sourcing.harvestDetail.name,
+                routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.estate_id}/${this.sourcing.harvestDetail.id}`,
+            },
+            { label: 'Confirm order' },
+        ];
     }
 
     refreshForm() {
