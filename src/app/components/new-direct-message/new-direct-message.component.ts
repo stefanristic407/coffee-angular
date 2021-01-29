@@ -203,12 +203,12 @@ export class NewDirectMessageComponent implements OnInit, OnDestroy, AfterViewIn
   handleThreadsResponse(WSmsg: WSResponse<ThreadListItem[]>) {
     if (WSmsg.code === 200) {
       this.threadList = WSmsg.data.filter(thread => thread.type === 'normal');
-      this.threadList.forEach(thread => {
-        // thread.members
+      const userId = this.cookieService.get('user_id');
+      // this.threadList.forEach(thread => {
+      //   if (thread.activity_type === ThreadActivityType.)
 
-      });
+      // });
       console.log('Thread Listing', WSmsg);
-      debugger;
       this.updateUserStatus();
       this.updateUnRead();
 
