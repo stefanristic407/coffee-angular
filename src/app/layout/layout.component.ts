@@ -1,3 +1,4 @@
+import { ChatService } from './../components/sewn-direct-message/chat.service';
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
@@ -41,6 +42,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         private toastrService: ToastrService,
         private translateService: TranslateService,
         public globals: GlobalsService,
+        public chat: ChatService,
     ) {
         this.translateService.addLangs(this.supportLanguages);
         if (localStorage.getItem('locale')) {
@@ -203,6 +205,10 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         });
         this.results = localArray;
         console.log('Search Text: ', this.text);
+    }
+
+    openMessagePanel() {
+        this.chat.toggle();
     }
 
     redirect(event: any) {
