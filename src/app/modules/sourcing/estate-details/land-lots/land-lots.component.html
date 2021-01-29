@@ -21,7 +21,7 @@
                         <td>{{ item.avg_cup_score }}</td>
                         <td>{{ item.min_altitude }} - {{ item.max_altitude }}m</td>
                         <td>{{ item.varietiesStr || 'NA' }}</td>
-                        <td>{{ item.speciesStr || 'NA' }}</td>
+                        <td>{{ item.species || 'NA' }}</td>
                         <td>
                             <div *ngIf="item.flavours != null" class="d-flex">
                                 <span *ngFor="let flavour of item.flavours" class="flavor mb-2">
@@ -61,7 +61,7 @@
                             <div class="col-4 mb-3">
                                 <div class="real-estate">
                                     <h6>{{ globals.languageJson?.species }}</h6>
-                                    <h3>{{ item.speciesStr || 'NA' }}</h3>
+                                    <h3 class="ellipsis">{{ item.species || 'NA' }}</h3>
                                 </div>
                             </div>
                             <div class="col-8 mb-3">
