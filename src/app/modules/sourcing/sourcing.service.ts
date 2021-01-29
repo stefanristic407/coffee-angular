@@ -247,7 +247,6 @@ export class SourcingService {
                 // console.log('Lots:', this.estateLots);
                 this.estateLots.forEach((element) => {
                     element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
-                    element.speciesStr = _.pluck(element.varieties, 'species').join(', ');
                     if (element.polygon_coordinates) {
                         element.polygon_coordinates = JSON.parse(element.polygon_coordinates);
                         element.center = element.polygon_coordinates[0][0];
@@ -360,7 +359,7 @@ export class SourcingService {
                 this.images = res.result.images;
                 this.estate_id = res.result.estate_id;
                 this.availabilityImages = res.result.images;
-                console.warn(res.result);
+                console.log('Harvest details:', res.result);
                 this.getLotDetails();
             }
             if (resolve) {

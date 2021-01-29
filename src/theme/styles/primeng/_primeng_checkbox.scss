@@ -22,6 +22,25 @@
     margin-bottom: 0;
     color: $general-text-color;
 }
+.p-field-checkbox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    small {
+        width: 100%;
+    }
+    & > label {
+        width: calc(100% - 32px);
+        margin-left: 0.75rem;
+        line-height: 20px;
+        * {
+            line-height: 20px;
+        }
+    }
+}
+p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
+    border-color: $error-border-color;
+}
 
 .dark {
     .p-checkbox .p-checkbox-box.p-highlight {

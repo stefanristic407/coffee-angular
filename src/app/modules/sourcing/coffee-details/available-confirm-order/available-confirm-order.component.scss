@@ -1,63 +1,38 @@
+.confirm-order {
+    padding: 3rem 2rem;
+}
+
+.confirm-txt {
+    font-size: 18px;
+    font-weight: normal;
+    color: #020202;
+    @media (min-width: 768px) {
+        font-size: 28px;
+    }
+}
+
+.fill-txt {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    @media (min-width: 768px) {
+        font-size: 16px;
+        font-weight: normal;
+    }
+}
+
+.form-middle {
+    padding-top: 36px;
+}
+
 .confirm-padding {
     margin-top: 1px;
     color: #000000;
     font-weight: bold;
 }
 
-.confirm-order {
-    padding: 2.5rem 1.7rem;
-    border-radius: 4px;
-    background-color: #faf8f4;
-    overflow: hidden;
-}
-
-.confirm-txt {
-    font-size: 28px;
-    font-weight: normal;
-    color: #020202;
-}
-
-.fill-txt {
-    font-family: Muli;
-    font-size: 16px;
-    font-weight: normal;
-    color: #747588;
-}
-
 .bread-nav {
     padding-left: 3rem;
-}
-
-th {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold !important;
-    color: #232334;
-    padding-right: 1.9rem;
-}
-
-.table thead th {
-    border-bottom: none !important;
-    border-top: none !important;
-    padding-left: 1.9rem;
-}
-
-.table tbody td {
-    padding-left: 2rem;
-    padding-top: 17px;
-    padding-bottom: 17px;
-}
-
-.table th,
-.table td {
-    border-top: none !important;
-}
-
-td {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #232334;
 }
 
 .table-head {
@@ -68,10 +43,6 @@ td {
 .lot-table {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
-}
-
-.border-div {
-    margin-top: 2.2rem !important;
 }
 
 .ord-quantity,
@@ -130,26 +101,10 @@ td {
     color: #000000;
 }
 
-.edit-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #30855c;
-    cursor: pointer;
-}
-
 .address-bar {
     border-radius: 4px;
     background-color: #f8f8f8;
     padding: 1.5rem 0.5rem;
-}
-
-.add-text,
-.details {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #232334;
 }
 
 .details-header {
@@ -157,18 +112,6 @@ td {
     font-size: 18px;
     font-weight: bold;
     color: #000000;
-}
-
-.remeber-left {
-    font-family: Muli !important;
-    font-size: 14px;
-    font-weight: 600;
-    color: #333333;
-}
-
-.terms-color {
-    color: #80460b;
-    text-decoration: underline;
 }
 
 .place-order,
@@ -204,11 +147,6 @@ td {
 .ord_cancel:hover {
     color: #ffffff;
     background-color: #30855c;
-}
-
-.bottom-border {
-    border-bottom: solid 1px #d6d6d6;
-    padding-bottom: 2rem;
 }
 
 /********Modal********/
@@ -341,10 +279,6 @@ span.checkmark {
     padding: 0 10px;
 }
 
-.web-sec {
-    display: block;
-}
-
 .mob-sec {
     display: none;
 }
@@ -381,16 +315,10 @@ span.checkmark {
     .mob-sec {
         display: block;
     }
-    .web-sec {
-        display: none;
-    }
     .confirm-ffff {
         background-color: #ffffff;
         margin-left: 0rem;
         margin-right: 0rem;
-    }
-    .border-div {
-        margin-top: 1.2rem !important;
     }
     .back-icon {
         border-bottom: 1px solid #ebebeb;
@@ -403,18 +331,6 @@ span.checkmark {
     }
     .back-icon img {
         margin-right: 5px;
-    }
-    .confirm-order {
-        padding: 1rem;
-    }
-    .confirm-txt {
-        font-size: 18px;
-        font-weight: normal;
-    }
-    .fill-txt {
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 20px;
     }
     .estate-list {
         border: 1px solid #ebebeb;
@@ -441,9 +357,6 @@ span.checkmark {
         font-size: 14px;
         font-weight: 600 !important;
         color: #232334;
-    }
-    tr:last-child td {
-        border-bottom: 0;
     }
     .search-border {
         border: 1px solid #d6d6d6;
@@ -477,11 +390,6 @@ span.checkmark {
     .boder-name {
         border-top: 1px solid #d6d6d6;
         padding-top: 1.2rem;
-    }
-    .edit-div {
-        border-top: 1px solid #d6d6d6;
-        margin-top: 1rem !important;
-        padding-top: 1.3rem;
     }
     .save-top {
         margin-top: 0.5rem;
