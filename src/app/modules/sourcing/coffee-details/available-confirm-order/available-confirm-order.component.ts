@@ -1,14 +1,14 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
-import { SourcingService } from '../../sourcing.service';
-import { CookieService } from 'ngx-cookie-service';
-import { Toast, ToastrService } from 'ngx-toastr';
 import { UserserviceService } from '@services';
 import { FormService } from '@services';
+import { SourcingService } from '../../sourcing.service';
 import { ConfirmComponent } from '@shared';
 
 @Component({
@@ -35,14 +35,14 @@ export class AvailableConfirmOrderComponent implements OnInit {
     infoForm: FormGroup;
     addressForm: FormGroup;
     isLoaded = false;
-    total = 103.21;
+    orderPlaced = false;
+    totalPrice;
     shipInfo: any;
     shipAddress: any;
     roAddress: any;
     addressData: any;
     editAddress = false;
     cities: any[] = [];
-    orderPlaced = false;
 
     constructor(
         public dialogSrv: DialogService,
@@ -74,7 +74,22 @@ export class AvailableConfirmOrderComponent implements OnInit {
         } else {
             this.prebookOrderId = 0;
         }
-        console.log('prebookID' + this.prebookOrderId);
+    }
+
+    refreshData() {
+        new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
+            const promises = [];
+            if (this.flagData === 'buyNow') {
+                // promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
+            }
+            promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
+            promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
+            Promise.all(promises).then(() => {
+                this.refreshForm();
+                this.changeService();
+                this.isLoaded = true;
+            });
+        });
     }
 
     refreshForm() {
@@ -107,37 +122,20 @@ export class AvailableConfirmOrderComponent implements OnInit {
         this.editAddress = true;
     }
 
-    refreshData() {
-        new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
-            const promises = [];
-            if (this.flagData === 'buyNow') {
-                // promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
-            }
-            promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
-            promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
-            Promise.all(promises).then(() => {
-                this.refreshForm();
-                this.changeService();
-                this.isLoaded = true;
-            });
-        });
-    }
-
     changeQuantity(event: any = null) {
         if (event) {
             this.infoForm.value.quantity = event.value;
         }
-        console.log('Cala total', event);
         setTimeout(() => {
             if (this.flagData === 'buyNow') {
                 if (this.infoForm.value.service) {
-                    this.total =
+                    this.totalPrice =
                         (this.sourcing.harvestDetail.price + this.shipInfo.unit_price) * this.infoForm.value.quantity;
                 } else {
-                    this.total = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
+                    this.totalPrice = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
                 }
             } else if (this.flagData === 'sample') {
-                this.total = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
+                this.totalPrice = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
             }
         });
     }
@@ -151,17 +149,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
         this.changeQuantity();
     }
 
-    changeCountry() {
-        if (this.addressForm.value.country) {
-            this.globals.getCountry(this.addressForm.value.country).cities.forEach((element) => {
-                this.cities.push({ label: element, value: element });
-            });
-            console.log('Cities', this.cities);
-        }
-    }
-
     placeOrder() {
-        console.log('Order Form Data:', this.infoForm.value);
         if (this.infoForm.valid) {
             this.dialogSrv
                 .open(ConfirmComponent, {
@@ -172,9 +160,24 @@ export class AvailableConfirmOrderComponent implements OnInit {
                     showHeader: false,
                     styleClass: 'confirm-dialog',
                 })
-                .onClose.subscribe((res: any) => {
-                    if (res === 'yes') {
-                        this.submitOrder();
+                .onClose.subscribe((action: any) => {
+                    if (action === 'yes') {
+                        const data = {
+                            quantity_count: this.infoForm.value.quantity,
+                            shipping_address_id: this.roAddress.id,
+                            billing_address_id: this.roAddress.id,
+                            prebook_order_id: this.prebookOrderId,
+                            is_fully_serviced_delivery: this.infoForm.value.service,
+                        };
+                        this.roasterService
+                            .placeOrder(this.roasterId, this.sourcing.harvestData, data)
+                            .subscribe((res: any) => {
+                                if (res.success) {
+                                    this.orderPlaced = true;
+                                } else {
+                                    this.toastrService.error('Error while Placing the order');
+                                }
+                            });
                     }
                 });
         } else {
@@ -182,8 +185,15 @@ export class AvailableConfirmOrderComponent implements OnInit {
         }
     }
 
+    changeCountry() {
+        if (this.addressForm.value.country) {
+            this.globals.getCountry(this.addressForm.value.country).cities.forEach((element) => {
+                this.cities.push({ label: element, value: element });
+            });
+        }
+    }
+
     saveAddress() {
-        console.log('Adress Form Data:', this.addressForm.value);
         if (this.addressForm.valid) {
             const postData = {
                 type: 'shipping',
@@ -202,7 +212,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
             } else {
                 this.userService.addAddresses(this.roasterId, postData).subscribe((res: any) => {
                     if (res.success) {
-                        console.log('add address response:', res.result);
                         this.toastrService.success('Address has been added');
                         this.editAddress = false;
                     } else {
@@ -215,24 +224,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
         }
     }
 
-    submitOrder() {
-        const data = {
-            quantity_count: this.infoForm.value.quantity,
-            shipping_address_id: this.roAddress.id,
-            billing_address_id: this.roAddress.id,
-            prebook_order_id: this.prebookOrderId,
-            is_fully_serviced_delivery: this.infoForm.value.service,
-        };
-        console.log('Post data:', data);
-        this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestData, data).subscribe((res: any) => {
-            if (res.success) {
-                this.orderPlaced = true;
-            } else {
-                this.toastrService.error('Error while Placing the order');
-            }
-        });
-    }
-
     getShipInfo(resolve: any = null) {
         this.userService
             .getShippingInfo(this.roasterId, this.sourcing.harvestDetail.estate_id)
@@ -240,7 +231,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
                 if (res.success) {
                     this.shipInfo = res.result;
                     this.shipAddress = res.result.warehouse_address;
-                    console.log('Ship Info:', this.shipInfo);
                 }
                 if (resolve) {
                     resolve();
@@ -252,7 +242,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
         this.userService.getAddresses(this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.roAddress = res.result[0];
-                console.log('Roaster Address:', this.roAddress);
                 if (resolve) {
                     resolve();
                 }

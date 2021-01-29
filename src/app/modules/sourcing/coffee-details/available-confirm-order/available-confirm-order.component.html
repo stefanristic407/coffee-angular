@@ -176,7 +176,9 @@
                                 <div class="fnt-14 fnt-bold txt-clr334">
                                     {{ globals.languageJson?.total_amount }}
                                 </div>
-                                <div class="fnt-18 fnt-bold txt-clr334 pt-md-2">${{ total | number: '1.0-0' }}</div>
+                                <div class="fnt-18 fnt-bold txt-clr334 pt-md-2">
+                                    ${{ totalPrice | number: '1.0-0' }}
+                                </div>
                             </div>
                         </div>
                     </div>
