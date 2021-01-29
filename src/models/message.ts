@@ -4,7 +4,9 @@ export enum WSOrganizationType {
     FACILITATOR = 'fc',
     ROASTER = 'ro',
     ESTATE = 'es',
-    MICRO_ROASTER = 'mr'
+    MICRO_ROASTER = 'mr',
+    SEWN_ADMIN = 'sa',
+    EMPTY = '',
 }
 export enum ThreadActivityType {
     system = 'S',
@@ -73,25 +75,32 @@ export interface ThreadListItem {
     type: string;
     type_id: number;
     unread?: number;
-    lastActivityText: string;
-    targetedUser: ThreadMembers; // Should be ref from members
+    messages: [];
+    computed_createdAt: string;
+    computed_thread_createdAt: string;
+    computed_lastActivityText: string;
+    computed_activeUser: ThreadMembers; // Should be ref from members
+    computed_targetedUser: ThreadMembers;
+    computed_targetedUserList: ThreadMembers[];
 }
 
 
 export interface ThreadMembers {
     first_name: string;
-    profile_dp_computed: string;
     id: number;
     is_removed: boolean;
     last_name: string;
     org_id: number;
-    org_type: string;
-    organization_name: string;
+    org_type: WSOrganizationType;
     profile_pic: string;
     profile_pic_thumb: string;
     last_seen?: string;
     online?: boolean;
     user_id: number;
+    computed_lastseen: string;
+    computed_fullname: string;
+    computed_profile_dp: string;
+    computed_organization_name: string;
 }
 
 
@@ -105,4 +114,11 @@ export interface ResponseUserStatus {
 }
 export interface RequestAuth {
     user_token: string;
+}
+
+export enum serviceCommunicationType {
+    SHOW_CHAT = 'SHOW_CHAT',
+    CLOSE_CHAT = 'CLOSE_CHAT',
+    OPEN_THREAD = 'OPEN_THREAD',
+    TOGGLE = 'TOGGLE'
 }

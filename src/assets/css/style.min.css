@@ -19585,6 +19585,7 @@ button:focus {
     width: 100%;
     /* top: 0;
     height: 100vh; */
+    bottom:0px;
     transition: 0.4s ease-in-out;
     z-index: 10;
     overflow: hidden;
@@ -19740,7 +19741,7 @@ button:focus {
 }
 
 .chat-accounts__name {
-    height: 100vh;
+    height: calc( 100% - 48px);
     overflow-y: auto;
 }
 
@@ -19975,6 +19976,7 @@ button:focus {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 50%;
+    display:inline-block;
 }
 
 
@@ -20084,7 +20086,7 @@ button:focus {
 }
 
 .live-chat-message-body {
-    height: calc(100vh - 276px);
+    height: calc(100% - 191px);
     overflow-y: auto;
     background-color: #f8f8f8;
 }

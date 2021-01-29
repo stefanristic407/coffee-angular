@@ -39,7 +39,8 @@
                         </li>
                         <li
                             class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                            <a class="d-inline-block cursor-pointer start-messaging image-card">
+                            <a (click)="openMessagePanel()"
+                               class="d-inline-block cursor-pointer start-messaging image-card">
                                 <img class="img" src="assets/images/mess.svg" />
                             </a>
                         </li>
@@ -346,7 +347,8 @@
                         </li>
                         <li class="footer-links__item">
                             <a class="d-inline-block">
-                                <div class="d-flex flex-column align-items-center start-messaging">
+                                <div (click)="openMessagePanel()"
+                                     class="d-flex flex-column align-items-center start-messaging">
                                     <img class="in-active" src="assets/images/mess.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-message.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
