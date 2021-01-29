@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CookieService } from 'ngx-cookie-service';
@@ -102,17 +102,22 @@ export class AvailableConfirmOrderComponent implements OnInit {
 
     refreshForm() {
         this.infoForm = this.fb.group({
-            quantity: [
-                null,
-                Validators.compose([
-                    Validators.required,
-                    Validators.min(this.shipInfo.minimum_quantity || 0),
-                    Validators.max(this.sourcing.harvestDetail.quantity_count),
-                ]),
-            ],
-            service: [true],
             terms: [null, Validators.compose([Validators.required])],
         });
+        if (this.flagData === 'buyNow') {
+            this.infoForm.addControl(
+                'quantity',
+                new FormControl(
+                    null,
+                    Validators.compose([
+                        Validators.required,
+                        Validators.min(this.shipInfo.minimum_quantity || 0),
+                        Validators.max(this.sourcing.harvestDetail.quantity_count),
+                    ]),
+                ),
+            );
+            this.infoForm.addControl('service', new FormControl(''));
+        }
         this.changeQuantity();
     }
 
@@ -170,27 +175,48 @@ export class AvailableConfirmOrderComponent implements OnInit {
                 })
                 .onClose.subscribe((action: any) => {
                     if (action === 'yes') {
-                        const data = {
-                            quantity_count: this.infoForm.value.quantity,
-                            shipping_address_id: this.roAddress.id,
-                            billing_address_id: this.roAddress.id,
-                            prebook_order_id: this.prebookOrderId,
-                            is_fully_serviced_delivery: this.infoForm.value.service,
-                        };
-                        this.roasterService
-                            .placeOrder(this.roasterId, this.sourcing.harvestData, data)
-                            .subscribe((res: any) => {
-                                if (res.success) {
-                                    this.orderPlaced = true;
-                                } else {
-                                    this.toastrService.error('Error while Placing the order');
-                                }
-                            });
+                        if (this.flagData === 'buyNow') {
+                            this.submitOrder();
+                        } else if (this.flagData === 'sample') {
+                            this.submitSample();
+                        }
                     }
                 });
         } else {
             this.formSrv.markGroupDirty(this.infoForm);
         }
+    }
+
+    submitOrder() {
+        const data = {
+            quantity_count: this.infoForm.value.quantity,
+            shipping_address_id: this.roAddress.id,
+            billing_address_id: this.roAddress.id,
+            prebook_order_id: this.prebookOrderId,
+            is_fully_serviced_delivery: this.infoForm.value.service,
+        };
+        this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestData, data).subscribe((res: any) => {
+            if (res.success) {
+                this.orderPlaced = true;
+            } else {
+                this.toastrService.error('Error while Placing the order');
+            }
+        });
+    }
+
+    submitSample() {
+        const doneData = {
+            shipping_address_id: this.addressData.id,
+            billing_address_id: this.addressData.id,
+            prebook_order_id: this.prebookOrderId,
+        };
+        this.userService.addRequestSample(this.roasterId, this.sourcing.harvestData, doneData).subscribe((res: any) => {
+            if (res.success) {
+                this.orderPlaced = true;
+            } else {
+                this.toastrService.error('Error while Placing the order');
+            }
+        });
     }
 
     changeCountry() {
@@ -253,22 +279,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
                 if (resolve) {
                     resolve();
                 }
-            }
-        });
-    }
-
-    orderSampleDone() {
-        const doneData = {
-            shipping_address_id: this.addressData.id,
-            billing_address_id: this.addressData.id,
-            prebook_order_id: this.prebookOrderId,
-        };
-        this.userService.addRequestSample(this.roasterId, this.sourcing.harvestData, doneData).subscribe((res: any) => {
-            if (res.success) {
-                this.toastrService.success('Order has been placed Successfully');
-                this.router.navigate(['/sourcing/order-placed']);
-            } else {
-                this.toastrService.error('Error while Placing the order');
             }
         });
     }
