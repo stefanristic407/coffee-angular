@@ -1,345 +1,363 @@
 <section *ngIf="isLoaded; else loading">
-    <div class="main-block mb-3 d-md-none">
-        <a class="back-page" routerLink="/sourcing"> {{ globals.languageJson?.back }}</a>
-        <div class="solid-divider mt-3 mx-n3"></div>
-        <div class="bg-f8 br-4 p-3 mt-3">
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    <h4 class="confirm-txt fnt-play">
-                        {{ globals.languageJson?.confirm_order }}
-                    </h4>
-                    <div class="fill-txt text-clr588">{{ globals.languageJson?.sample_recieved }}.</div>
-                    <div class="fill-txt text-clr588">
-                        {{ globals.languageJson?.please_shippment }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-block">
-        <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
-        <section>
-            <div class="bg-f8 br-4 confirm-order mt-4 mb-5 d-none d-md-block">
+    <ng-container *ngIf="!orderPlaced; else OrderSucess">
+        <div class="main-block mb-3 d-md-none">
+            <a class="back-page" routerLink="/sourcing"> {{ globals.languageJson?.back }}</a>
+            <div class="solid-divider mt-3 mx-n3"></div>
+            <div class="bg-f8 br-4 p-3 mt-3">
                 <div class="row">
-                    <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-12 col-md-12">
                         <h4 class="confirm-txt fnt-play">
                             {{ globals.languageJson?.confirm_order }}
                         </h4>
+                        <div class="fill-txt text-clr588">{{ globals.languageJson?.sample_recieved }}.</div>
                         <div class="fill-txt text-clr588">
                             {{ globals.languageJson?.please_shippment }}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mb-4 mb-md-45">
-                <div class="br-sm-main br-4 p-3 p-md-0">
-                    <div class="fnt-18 fnt-bold text-clr000 pb-2">
-                        {{ globals.languageJson?.order_details }}
-                    </div>
-                    <div class="br-md-main br-4 p-md-1">
-                        <p-table
-                            *ngIf="sourcing.harvestDetail"
-                            [value]="[sourcing.harvestDetail]"
-                            styleClass="p-datatable-responsive-single"
-                        >
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>{{ globals.languageJson?.customer }}</th>
-                                    <th>{{ globals.languageJson?.origin }}</th>
-                                    <th>{{ globals.languageJson?.variety }}</th>
-                                    <th>{{ globals.languageJson?.species }}</th>
-                                    <th>{{ globals.languageJson?.cupping_score }}</th>
-                                    <th>{{ globals.languageJson?.available_quantity }}</th>
-                                    <th>{{ globals.languageJson?.rate_per_kg }}</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-item>
-                                <tr>
-                                    <td>
-                                        <span class="p-column-title">
-                                            {{ globals.languageJson?.customer }}
-                                        </span>
-                                        <span>{{ item.estate_name }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="p-column-title">
-                                            {{ globals.languageJson?.origin }}
-                                        </span>
-                                        <span>{{ item.region }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="p-column-title">
-                                            {{ globals.languageJson?.variety }}
-                                        </span>
-                                        <span>{{ item.varieties }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="p-column-title">
-                                            {{ globals.languageJson?.species }}
-                                        </span>
-                                        <span>{{ item.species }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="p-column-title">
-                                            {{ globals.languageJson?.cupping_score }}
-                                        </span>
-                                        <span>{{ item.cupping?.cup_score }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="p-column-title">
-                                            {{ globals.languageJson?.available_quantity }}
-                                        </span>
-                                        <span
-                                            >{{ item.quantity_count }}/{{ item.quantity }}{{ item.quantity_unit }}</span
-                                        >
-                                    </td>
-                                    <td>
-                                        <span class="p-column-title">
-                                            {{ globals.languageJson?.rate_per_kg }}
-                                        </span>
-                                        <span>${{ item.price }}USD/kg</span>
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </div>
-                </div>
-            </div>
-            <form [formGroup]="infoForm" novalidate>
-                <div class="mt-3" *ngIf="flagData == 'buyNow'">
+        </div>
+
+        <div class="main-block">
+            <p-breadcrumb [model]="breadItems" styleClass="d-none d-md-block"></p-breadcrumb>
+            <section>
+                <div class="bg-f8 br-4 confirm-order mt-4 mb-5 d-none d-md-block">
                     <div class="row">
-                        <!-- Quantity -->
-                        <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
-                            <div class="sewn-form-field mb-md-45">
-                                <label class="fnt-bold">{{ globals.languageJson?.order_quantity }}:</label>
-                                <div class="p-inputgroup custom-addon">
-                                    <p-inputNumber
-                                        formControlName="quantity"
-                                        (onInput)="changeQuantity($event)"
-                                        min="0"
-                                        placeholder="0"
-                                    >
-                                    </p-inputNumber>
-                                    <span class="p-inputgroup-addon">Bags</span>
-                                    <small *ngIf="infoForm.controls.quantity.errors?.required" class="p-error">
-                                        Please enter quantity
-                                    </small>
-                                    <small *ngIf="infoForm.controls.quantity.errors?.max" class="p-error">
-                                        Please enter quantity in range of available for sale
-                                    </small>
-                                    <small *ngIf="infoForm.controls.quantity.errors?.min" class="p-error">
-                                        Minimum quantity for shipping is {{ shipInfo.minimum_quantity }}. please order
-                                        above.
-                                    </small>
-                                </div>
+                        <div class="col-12 col-md-12 col-lg-12">
+                            <h4 class="confirm-txt fnt-play">
+                                {{ globals.languageJson?.confirm_order }}
+                            </h4>
+                            <div class="fill-txt text-clr588">
+                                {{ globals.languageJson?.please_shippment }}
                             </div>
-                            <div class="fnt-14 fnt-bold txt-clr334 form-middle">
-                                &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;${{ sourcing.harvestDetail?.price }}
-                            </div>
-                        </div>
-                        <div class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold txt-clr334 form-middle d-none d-md-block">
-                            ${{ sourcing.harvestDetail?.price * infoForm.value.quantity | number: '1.0-0' }}
-                        </div>
-
-                        <!-- Service -->
-                        <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
-                            <div class="sewn-form-field mb-md-45">
-                                <label class="fnt-bold">{{ globals.languageJson?.select_service }}:</label>
-                                <p-dropdown
-                                    [options]="serviceItems"
-                                    formControlName="service"
-                                    (onChange)="changeService()"
-                                ></p-dropdown>
-                            </div>
-                        </div>
-                        <div class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold txt-clr334 form-middle d-none d-md-block">
-                            ${{
-                                (infoForm.value.service ? shipInfo.unit_price * infoForm.value.quantity : 0)
-                                    | number: '1.0-0'
-                            }}
-                        </div>
-
-                        <div class="col-12">
-                            <div class="solid-divider w-100 mb-4"></div>
-                        </div>
-                        <!-- Total price -->
-                        <div
-                            class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
-                        >
-                            <div class="fnt-14 fnt-bold txt-clr334">
-                                {{ globals.languageJson?.total_amount }}
-                            </div>
-                            <div class="fnt-18 fnt-bold txt-clr334 pt-md-2">${{ total | number: '1.0-0' }}</div>
                         </div>
                     </div>
                 </div>
-
-                <div *ngIf="!editAddress" class="col-12 col-md-7 mt-5 px-0">
-                    <div class="fnt-18 fnt-bold text-clr000 d-flex justify-content-between">
-                        <div *ngIf="(!infoForm.value.service && flagData == 'buyNow') || flagData == 'sample'">
-                            {{ globals.languageJson?.delivery_address }}
+                <div class="mb-4 mb-md-45">
+                    <div class="br-sm-main br-4 p-3 p-md-0">
+                        <div class="fnt-18 fnt-bold text-clr000 pb-2">
+                            {{ globals.languageJson?.order_details }}
                         </div>
-                        <div *ngIf="infoForm.value.service && flagData == 'buyNow'">
-                            {{ globals.languageJson?.pickup_address }}
-                        </div>
-                        <div
-                            *ngIf="(!infoForm.value.service && flagData == 'buyNow') || flagData == 'sample'"
-                            class="fnt-14 fnt-bold txt-clr55c cursor-pointer"
-                            (click)="refreshAddressForm()"
-                        >
-                            <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
-                            Edit shipping details
-                        </div>
-                    </div>
-                    <div
-                        class="fnt-14 lh-normal fnt-600 txt-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
-                    >
-                        <div>
-                            {{ addressData?.address_line1 }}, {{ addressData?.address_line2 }}, {{ addressData?.city }}
-                            <div>{{ addressData?.zipcode }}-{{ addressData?.state }}</div>
-                            <div>{{ addressData?.country | country }}</div>
-                        </div>
-                        <div class="mt-3 mt-md-0 d-flex flex-column justify-content-between">
-                            <div>+420 6365719</div>
-                            <div class="pt-3">info@lofbergs.com</div>
+                        <div class="br-md-main br-4 p-md-1">
+                            <p-table
+                                *ngIf="sourcing.harvestDetail"
+                                [value]="[sourcing.harvestDetail]"
+                                styleClass="p-datatable-responsive-single"
+                            >
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>{{ globals.languageJson?.customer }}</th>
+                                        <th>{{ globals.languageJson?.origin }}</th>
+                                        <th>{{ globals.languageJson?.variety }}</th>
+                                        <th>{{ globals.languageJson?.species }}</th>
+                                        <th>{{ globals.languageJson?.cupping_score }}</th>
+                                        <th>{{ globals.languageJson?.available_quantity }}</th>
+                                        <th>{{ globals.languageJson?.rate_per_kg }}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-item>
+                                    <tr>
+                                        <td>
+                                            <span class="p-column-title">
+                                                {{ globals.languageJson?.customer }}
+                                            </span>
+                                            <span>{{ item.estate_name }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="p-column-title">
+                                                {{ globals.languageJson?.origin }}
+                                            </span>
+                                            <span>{{ item.region }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="p-column-title">
+                                                {{ globals.languageJson?.variety }}
+                                            </span>
+                                            <span>{{ item.varieties }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="p-column-title">
+                                                {{ globals.languageJson?.species }}
+                                            </span>
+                                            <span>{{ item.species }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="p-column-title">
+                                                {{ globals.languageJson?.cupping_score }}
+                                            </span>
+                                            <span>{{ item.cupping?.cup_score }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="p-column-title">
+                                                {{ globals.languageJson?.available_quantity }}
+                                            </span>
+                                            <span
+                                                >{{ item.quantity_count }}/{{ item.quantity
+                                                }}{{ item.quantity_unit }}</span
+                                            >
+                                        </td>
+                                        <td>
+                                            <span class="p-column-title">
+                                                {{ globals.languageJson?.rate_per_kg }}
+                                            </span>
+                                            <span>${{ item.price }}USD/kg</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
                     </div>
                 </div>
-
-                <div *ngIf="editAddress" class="mt-4 mt-md-45">
-                    <div class="fnt-18 fnt-bold text-clr000 mb-4">
-                        {{ globals.languageJson?.shipping_address }}
-                    </div>
-                    <form [formGroup]="addressForm" class="form-container">
+                <form [formGroup]="infoForm" novalidate>
+                    <div class="mt-3" *ngIf="flagData == 'buyNow'">
                         <div class="row">
-                            <div class="col-lg-8">
-                                <div class="row">
-                                    <div class="col-12 col-md-6 sewn-form-field">
-                                        <label>Country<span class="star">*</span></label>
-                                        <p-dropdown
-                                            [options]="globals.countryList"
-                                            optionLabel="name"
-                                            optionValue="isoCode"
-                                            formControlName="country"
-                                            (onChange)="changeCountry()"
-                                            placeholder="{{ globals.languageJson?.select_country }}"
-                                            styleClass="w-100"
-                                        ></p-dropdown>
-                                        <small *ngIf="addressForm.controls.country.errors?.required" class="p-error">
-                                            Please select your country
-                                        </small>
-                                    </div>
-                                    <div class="col-12 col-md-6 sewn-form-field">
-                                        <label>State</label>
-                                        <p-dropdown
-                                            [options]="cities"
-                                            formControlName="state"
-                                            placeholder="{{ globals.languageJson?.select_state }}"
-                                            styleClass="w-100"
-                                        ></p-dropdown>
-                                    </div>
-                                    <div class="col-12 col-md-6 sewn-form-field">
-                                        <label>{{ globals.languageJson?.address }}<span class="star">*</span></label>
-                                        <input
-                                            type="text"
-                                            placeholder="Please enter your e-mail address"
-                                            formControlName="address_line1"
-                                            pInputText
-                                            placeholder="Line 1"
-                                            styleClass="w-100"
-                                        />
-                                        <small
-                                            *ngIf="addressForm.controls.address_line1.errors?.required"
-                                            class="p-error"
+                            <!-- Quantity -->
+                            <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
+                                <div class="sewn-form-field mb-md-45">
+                                    <label class="fnt-bold">{{ globals.languageJson?.order_quantity }}:</label>
+                                    <div class="p-inputgroup custom-addon">
+                                        <p-inputNumber
+                                            formControlName="quantity"
+                                            (onInput)="changeQuantity($event)"
+                                            min="0"
+                                            placeholder="0"
                                         >
-                                            Please enter address
+                                        </p-inputNumber>
+                                        <span class="p-inputgroup-addon">Bags</span>
+                                        <small *ngIf="infoForm.controls.quantity.errors?.required" class="p-error">
+                                            Please enter quantity
+                                        </small>
+                                        <small *ngIf="infoForm.controls.quantity.errors?.max" class="p-error">
+                                            Please enter quantity in range of available for sale
+                                        </small>
+                                        <small *ngIf="infoForm.controls.quantity.errors?.min" class="p-error">
+                                            Minimum quantity for shipping is {{ shipInfo.minimum_quantity }}. please
+                                            order above.
                                         </small>
                                     </div>
-                                    <div class="col-12 col-md-6 sewn-form-field">
-                                        <label>{{ globals.languageJson?.address }}</label>
-                                        <input
-                                            type="text"
-                                            placeholder="Line 2"
-                                            formControlName="address_line2"
-                                            pInputText
-                                            styleClass="w-100"
-                                        />
-                                    </div>
-                                    <div class="col-6 col-md-3 sewn-form-field">
-                                        <label>City<span class="star">*</span></label>
-                                        <input
-                                            type="text"
-                                            placeholder="{{ globals.languageJson?.enter_city }}"
-                                            formControlName="city"
-                                            pInputText
-                                            styleClass="w-100"
-                                        />
-                                        <small *ngIf="addressForm.controls.city.errors?.required" class="p-error">
-                                            Please enter city
-                                        </small>
-                                    </div>
-                                    <div class="col-6 col-md-3 sewn-form-field">
-                                        <label>{{ globals.languageJson?.zipcode }}<span class="star">*</span></label>
-                                        <input
-                                            type="text"
-                                            placeholder="{{ globals.languageJson?.zipcode }}"
-                                            formControlName="zipcode"
-                                            pInputText
-                                            styleClass="w-100"
-                                        />
-                                        <small *ngIf="addressForm.controls.zipcode.errors?.required" class="p-error">
-                                            Please enter zipcode
-                                        </small>
-                                    </div>
-                                    <div class="col-12 col-md-6 d-flex justify-content-end align-items-center">
-                                        <button type="button" class="btn-raised" (click)="saveAddress()">
-                                            {{ globals.languageJson?.save_address }}
-                                        </button>
+                                </div>
+                                <div class="fnt-14 fnt-bold txt-clr334 form-middle">
+                                    &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;${{ sourcing.harvestDetail?.price }}
+                                </div>
+                            </div>
+                            <div
+                                class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold txt-clr334 form-middle d-none d-md-block"
+                            >
+                                ${{ sourcing.harvestDetail?.price * infoForm.value.quantity | number: '1.0-0' }}
+                            </div>
+
+                            <!-- Service -->
+                            <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
+                                <div class="sewn-form-field mb-md-45">
+                                    <label class="fnt-bold">{{ globals.languageJson?.select_service }}:</label>
+                                    <p-dropdown
+                                        [options]="serviceItems"
+                                        formControlName="service"
+                                        (onChange)="changeService()"
+                                    ></p-dropdown>
+                                </div>
+                            </div>
+                            <div
+                                class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold txt-clr334 form-middle d-none d-md-block"
+                            >
+                                ${{
+                                    (infoForm.value.service ? shipInfo.unit_price * infoForm.value.quantity : 0)
+                                        | number: '1.0-0'
+                                }}
+                            </div>
+
+                            <div class="col-12">
+                                <div class="solid-divider w-100 mb-4"></div>
+                            </div>
+                            <!-- Total price -->
+                            <div
+                                class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
+                            >
+                                <div class="fnt-14 fnt-bold txt-clr334">
+                                    {{ globals.languageJson?.total_amount }}
+                                </div>
+                                <div class="fnt-18 fnt-bold txt-clr334 pt-md-2">${{ total | number: '1.0-0' }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!editAddress" class="col-12 col-md-7 mt-5 px-0">
+                        <div class="fnt-18 fnt-bold text-clr000 d-flex justify-content-between">
+                            <div *ngIf="(!infoForm.value.service && flagData == 'buyNow') || flagData == 'sample'">
+                                {{ globals.languageJson?.delivery_address }}
+                            </div>
+                            <div *ngIf="infoForm.value.service && flagData == 'buyNow'">
+                                {{ globals.languageJson?.pickup_address }}
+                            </div>
+                            <div
+                                *ngIf="(!infoForm.value.service && flagData == 'buyNow') || flagData == 'sample'"
+                                class="fnt-14 fnt-bold txt-clr55c cursor-pointer"
+                                (click)="refreshAddressForm()"
+                            >
+                                <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
+                                Edit shipping details
+                            </div>
+                        </div>
+                        <div
+                            class="fnt-14 lh-normal fnt-600 txt-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
+                        >
+                            <div>
+                                {{ addressData?.address_line1 }}, {{ addressData?.address_line2 }},
+                                {{ addressData?.city }}
+                                <div>{{ addressData?.zipcode }}-{{ addressData?.state }}</div>
+                                <div>{{ addressData?.country | country }}</div>
+                            </div>
+                            <div class="mt-3 mt-md-0 d-flex flex-column justify-content-between">
+                                <div>+420 6365719</div>
+                                <div class="pt-3">info@lofbergs.com</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="editAddress" class="mt-4 mt-md-45">
+                        <div class="fnt-18 fnt-bold text-clr000 mb-4">
+                            {{ globals.languageJson?.shipping_address }}
+                        </div>
+                        <form [formGroup]="addressForm" class="form-container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 sewn-form-field">
+                                            <label>Country<span class="star">*</span></label>
+                                            <p-dropdown
+                                                [options]="globals.countryList"
+                                                optionLabel="name"
+                                                optionValue="isoCode"
+                                                formControlName="country"
+                                                (onChange)="changeCountry()"
+                                                placeholder="{{ globals.languageJson?.select_country }}"
+                                                styleClass="w-100"
+                                            ></p-dropdown>
+                                            <small
+                                                *ngIf="addressForm.controls.country.errors?.required"
+                                                class="p-error"
+                                            >
+                                                Please select your country
+                                            </small>
+                                        </div>
+                                        <div class="col-12 col-md-6 sewn-form-field">
+                                            <label>State</label>
+                                            <p-dropdown
+                                                [options]="cities"
+                                                formControlName="state"
+                                                placeholder="{{ globals.languageJson?.select_state }}"
+                                                styleClass="w-100"
+                                            ></p-dropdown>
+                                        </div>
+                                        <div class="col-12 col-md-6 sewn-form-field">
+                                            <label
+                                                >{{ globals.languageJson?.address }}<span class="star">*</span></label
+                                            >
+                                            <input
+                                                type="text"
+                                                placeholder="Please enter your e-mail address"
+                                                formControlName="address_line1"
+                                                pInputText
+                                                placeholder="Line 1"
+                                                styleClass="w-100"
+                                            />
+                                            <small
+                                                *ngIf="addressForm.controls.address_line1.errors?.required"
+                                                class="p-error"
+                                            >
+                                                Please enter address
+                                            </small>
+                                        </div>
+                                        <div class="col-12 col-md-6 sewn-form-field">
+                                            <label>{{ globals.languageJson?.address }}</label>
+                                            <input
+                                                type="text"
+                                                placeholder="Line 2"
+                                                formControlName="address_line2"
+                                                pInputText
+                                                styleClass="w-100"
+                                            />
+                                        </div>
+                                        <div class="col-6 col-md-3 sewn-form-field">
+                                            <label>City<span class="star">*</span></label>
+                                            <input
+                                                type="text"
+                                                placeholder="{{ globals.languageJson?.enter_city }}"
+                                                formControlName="city"
+                                                pInputText
+                                                styleClass="w-100"
+                                            />
+                                            <small *ngIf="addressForm.controls.city.errors?.required" class="p-error">
+                                                Please enter city
+                                            </small>
+                                        </div>
+                                        <div class="col-6 col-md-3 sewn-form-field">
+                                            <label
+                                                >{{ globals.languageJson?.zipcode }}<span class="star">*</span></label
+                                            >
+                                            <input
+                                                type="text"
+                                                placeholder="{{ globals.languageJson?.zipcode }}"
+                                                formControlName="zipcode"
+                                                pInputText
+                                                styleClass="w-100"
+                                            />
+                                            <small
+                                                *ngIf="addressForm.controls.zipcode.errors?.required"
+                                                class="p-error"
+                                            >
+                                                Please enter zipcode
+                                            </small>
+                                        </div>
+                                        <div class="col-12 col-md-6 d-flex justify-content-end align-items-center">
+                                            <button type="button" class="btn-raised" (click)="saveAddress()">
+                                                {{ globals.languageJson?.save_address }}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                    </div>
 
-                <div class="col-12 mt-4 mt-md-45">
-                    <div class="row">
-                        <div class="sewn-form-field mb-4 mb-md-5">
-                            <div class="p-field-checkbox">
-                                <p-checkbox
-                                    formControlName="terms"
-                                    value="true"
-                                    inputId="terms"
-                                    class="dark"
-                                ></p-checkbox>
-                                <label for="terms" class="fnt-14 fnt-600 text-clr333 mb-0 flex-fill">
-                                    {{ globals.languageJson?.i_have_understood }}
-                                    <a class="custom-link fnt-14">{{ globals.languageJson?.terms_conditions }}</a>
-                                    {{ globals.languageJson?.platform_agree }}.
-                                </label>
-                                <small *ngIf="infoForm.controls.terms.errors?.required" class="p-error">
-                                    Please accept the terms and conditions
-                                </small>
+                    <div class="col-12 mt-4 mt-md-45">
+                        <div class="row">
+                            <div class="sewn-form-field mb-4 mb-md-5">
+                                <div class="p-field-checkbox">
+                                    <p-checkbox
+                                        formControlName="terms"
+                                        value="true"
+                                        inputId="terms"
+                                        class="dark"
+                                    ></p-checkbox>
+                                    <label for="terms" class="fnt-14 fnt-600 text-clr333 mb-0 flex-fill">
+                                        {{ globals.languageJson?.i_have_understood }}
+                                        <a class="custom-link fnt-14">{{ globals.languageJson?.terms_conditions }}</a>
+                                        {{ globals.languageJson?.platform_agree }}.
+                                    </label>
+                                    <small *ngIf="infoForm.controls.terms.errors?.required" class="p-error">
+                                        Please accept the terms and conditions
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="solid-divider mb-4 mb-md-45 d-none d-md-block"></div>
-                <div class="row">
-                    <div class="col-12 text-right">
-                        <button type="button" class="btn-stroked mr-3" routerLink="/features/available-coffee-list">
-                            {{ globals.languageJson?.cancel }}
-                        </button>
-                        <button type="button" class="btn-raised" (click)="placeOrder()">
-                            {{ globals.languageJson?.place_order }}
-                        </button>
+                    <div class="solid-divider mb-4 mb-md-45 d-none d-md-block"></div>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <button type="button" class="btn-stroked mr-3" routerLink="/features/available-coffee-list">
+                                {{ globals.languageJson?.cancel }}
+                            </button>
+                            <button type="button" class="btn-raised" (click)="placeOrder()">
+                                {{ globals.languageJson?.place_order }}
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </section>
-    </div>
+                </form>
+            </section>
+        </div>
+    </ng-container>
 </section>
 
 <ng-template #loading>
@@ -349,4 +367,24 @@
             <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
         </div>
     </div>
+</ng-template>
+
+<ng-template #OrderSucess>
+    <section>
+        <div class="bg-white main-block">
+            <div class="order-sec">
+                <div class="text-center">
+                    <img src="assets/images/check-brown.svg" alt="" class="" />
+                    <h1 class="fnt-34 black fnt-normal fnt-play mb-4 mt-3">
+                        {{ globals.languageJson?.order_placed }}
+                    </h1>
+                    <div class="text-center mt-2">
+                        <button type="button" class="btn-raised" routerLink="/ordermanagement/estate-orders">
+                            {{ globals.languageJson?.view_order }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </ng-template>

@@ -42,6 +42,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
     addressData: any;
     editAddress = false;
     cities: any[] = [];
+    orderPlaced = false;
 
     constructor(
         public dialogSrv: DialogService,
@@ -225,8 +226,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
         console.log('Post data:', data);
         this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestData, data).subscribe((res: any) => {
             if (res.success) {
-                this.toastrService.success('Order has been placed Successfully');
-                this.router.navigate(['/sourcing/order-placed']);
+                this.orderPlaced = true;
             } else {
                 this.toastrService.error('Error while Placing the order');
             }
