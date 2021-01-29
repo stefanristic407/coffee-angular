@@ -164,11 +164,13 @@
                             <div class="solid-divider w-100 mb-4"></div>
                         </div>
                         <!-- Total price -->
-                        <div class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10">
+                        <div
+                            class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
+                        >
                             <div class="fnt-14 fnt-bold txt-clr334">
                                 {{ globals.languageJson?.total_amount }}
                             </div>
-                            <div class="fnt-18 fnt-bold txt-clr334 pt-2">${{ total | number: '1.0-0' }}</div>
+                            <div class="fnt-18 fnt-bold txt-clr334 pt-md-2">${{ total | number: '1.0-0' }}</div>
                         </div>
                     </div>
                 </div>
@@ -205,15 +207,15 @@
                     </div>
                 </div>
 
-                <div *ngIf="editAddress" class="ship-top">
-                    <div class="shipping-addr mb-4">
-                        {{ globals.languageJson?.pickup_address }}
+                <div *ngIf="editAddress" class="mt-4 mt-md-45">
+                    <div class="fnt-18 fnt-bold text-clr000 mb-4">
+                        {{ globals.languageJson?.shipping_address }}
                     </div>
                     <form [formGroup]="addressForm" class="form-container">
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="row">
-                                    <div class="col-6 sewn-form-field">
+                                    <div class="col-12 col-md-6 sewn-form-field">
                                         <label>Country<span class="star">*</span></label>
                                         <p-dropdown
                                             [options]="globals.countryList"
@@ -228,17 +230,16 @@
                                             Please select your country
                                         </small>
                                     </div>
-                                    <div class="col-6 sewn-form-field">
+                                    <div class="col-12 col-md-6 sewn-form-field">
                                         <label>State</label>
                                         <p-dropdown
                                             [options]="cities"
                                             formControlName="state"
-                                            (onChange)="calcTotal()"
                                             placeholder="{{ globals.languageJson?.select_state }}"
                                             styleClass="w-100"
                                         ></p-dropdown>
                                     </div>
-                                    <div class="col-6 sewn-form-field">
+                                    <div class="col-12 col-md-6 sewn-form-field">
                                         <label>{{ globals.languageJson?.address }}<span class="star">*</span></label>
                                         <input
                                             type="text"
@@ -255,7 +256,7 @@
                                             Please enter address
                                         </small>
                                     </div>
-                                    <div class="col-6 sewn-form-field">
+                                    <div class="col-12 col-md-6 sewn-form-field">
                                         <label>{{ globals.languageJson?.address }}</label>
                                         <input
                                             type="text"
@@ -265,7 +266,7 @@
                                             styleClass="w-100"
                                         />
                                     </div>
-                                    <div class="col-3 sewn-form-field">
+                                    <div class="col-6 col-md-3 sewn-form-field">
                                         <label>City<span class="star">*</span></label>
                                         <input
                                             type="text"
@@ -278,7 +279,7 @@
                                             Please enter city
                                         </small>
                                     </div>
-                                    <div class="col-3 sewn-form-field">
+                                    <div class="col-6 col-md-3 sewn-form-field">
                                         <label>{{ globals.languageJson?.zipcode }}<span class="star">*</span></label>
                                         <input
                                             type="text"
@@ -340,29 +341,6 @@
         </section>
     </div>
 </section>
-
-<ng-template #confirmtemplate>
-    <div class="modal-header"></div>
-    <div class="modal-body text-center mb-5">
-        <img src="/assets/images/group-17.png" alt="" />
-
-        <div class="are-sure fnt-play mt-3">
-            {{ globals.languageJson?.confirm_order }}
-        </div>
-        <div class="do-account pt-1 pb-2">
-            {{ globals.languageJson?.are_you_sure }}
-        </div>
-        <div class="pt-4">
-            <button class="no-btn" (click)="modalRef.hide()">NO</button>
-            <button class="add-btn ml-3" *ngIf="flagData == 'buyNow'" (click)="modalRef.hide(); done()">
-                {{ globals.languageJson?.yes }}
-            </button>
-            <button class="add-btn ml-3" *ngIf="flagData == 'sample'" (click)="modalRef.hide(); orderSampleDone()">
-                {{ globals.languageJson?.yes }}
-            </button>
-        </div>
-    </div>
-</ng-template>
 
 <ng-template #loading>
     <div class="total-loader">

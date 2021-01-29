@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { SourcingService } from '../../sourcing.service';
@@ -9,11 +9,13 @@ import { CookieService } from 'ngx-cookie-service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { UserserviceService } from '@services';
 import { FormService } from '@services';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-available-confirm-order',
     templateUrl: './available-confirm-order.component.html',
     styleUrls: ['./available-confirm-order.component.scss'],
+    providers: [DialogService],
 })
 export class AvailableConfirmOrderComponent implements OnInit {
     breadItems: any[] = [
@@ -41,12 +43,10 @@ export class AvailableConfirmOrderComponent implements OnInit {
     editAddress = false;
     cities: any[] = [];
 
-    modalRef: BsModalRef;
-
     constructor(
+        public dialogSrv: DialogService,
         private fb: FormBuilder,
         private formSrv: FormService,
-        private modalService: BsModalService,
         public router: Router,
         public globals: GlobalsService,
         private route: ActivatedRoute,
@@ -56,11 +56,6 @@ export class AvailableConfirmOrderComponent implements OnInit {
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
     ) {}
-    @ViewChild('confirmtemplate') private confirmtemplate: any;
-
-    openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
-    }
 
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');
@@ -167,7 +162,20 @@ export class AvailableConfirmOrderComponent implements OnInit {
     placeOrder() {
         console.log('Order Form Data:', this.infoForm.value);
         if (this.infoForm.valid) {
-            this.openModal(this.confirmtemplate);
+            this.dialogSrv
+                .open(ConfirmComponent, {
+                    data: {
+                        title: this.globals.languageJson.confirm_order,
+                        desp: this.globals.languageJson.are_you_sure,
+                    },
+                    showHeader: false,
+                    styleClass: 'confirm-dialog',
+                })
+                .onClose.subscribe((res: any) => {
+                    if (res === 'yes') {
+                        this.submitOrder();
+                    }
+                });
         } else {
             this.formSrv.markGroupDirty(this.infoForm);
         }
@@ -206,7 +214,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
         }
     }
 
-    done() {
+    submitOrder() {
         const data = {
             quantity_count: this.infoForm.value.quantity,
             shipping_address_id: this.roAddress.id,

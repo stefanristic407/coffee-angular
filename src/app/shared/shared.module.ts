@@ -59,6 +59,8 @@ import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 
+import { ConfirmComponent } from './components/confirm/confirm.component';
+
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -123,7 +125,7 @@ const COMPONENTS = [
     VideoPlayerComponent,
     ReadMoreComponent,
 ];
-const COMPONENTS_NOROUNT = [];
+const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
 const PIPES = [CountryPipe, MonthPipe];
 // #endregion
@@ -144,6 +146,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
         ...PIPES,
+        ConfirmComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
