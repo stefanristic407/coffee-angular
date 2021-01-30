@@ -43,7 +43,7 @@
                     <div data-element="live-chat" class="live-chat" [ngClass]="{'active' : openedThread }">
                         <div class="live-caht__head clearfix" data-element="live-chat-head">
                             <div class="live-account-profile">
-                                <button class="back-to-accounts" (click)="openedThread=null ">
+                                <button class="back-to-accounts" (click)="backToAccountListing() ">
                                     <img src="assets/images/dm-back-arrow.svg">
                                 </button>
 
@@ -82,14 +82,34 @@
                         <!--Live Chats are going here-->
                         <div class="live-chat-message-body position-relative" data-element="live-chat-message-body">
 
+                            <span *ngFor="let message of messageList; let last = last" [attr.data-chat-id]="message.id">
+                                <span appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
+                                    <div class="message-to live-chat-message-body__text" *ngIf="message.isActiveUser">
+                                        <div class="message-body">
+                                            <div class="message-to__text "><span>{{message.content}}</span></div>
+                                        </div>
+                                        <p class="live-time">{{message.computed_date}}</p>
+                                    </div>
+                                    <div class="message-from live-chat-message-body__text"
+                                         *ngIf="!message.isActiveUser">
+                                        <div class="message-body-from">
+                                            <div class="message-to__from "><span>{{message.content}}</span></div>
+                                        </div>
+                                        <p class="live-time-from">{{message.computed_date}}</p>
+                                    </div>
+                                </span>
+                                <span class="done"></span>
+                            </span>
                         </div>
 
                         <!--Send Message div-->
-                        <div>
-                            <form class="messag-form position-relative" data-element="message-form">
+                        <div data-element="message-form">
+                            <div class="messag-form position-relative">
 
-                                <div class="offensive-lang">
-                                    <span>Use of offensive language is strictly prohibited...</span>
+                                <div class="offensive-lang" [ngClass]="{'active':showOffensiveMessageError}">
+                                    <span>Use of offensive language is strictly prohibited using within member to member
+                                        messaging, onour public groups, non-compliance may lead to permanent / temporary
+                                        suspension of your account.</span>
                                 </div>
                                 <div class="img-container">
                                     <span class="img-container__remove">&#10008;</span>
@@ -101,8 +121,10 @@
                                         <input type="file" class="files">
 
                                     </label>
-                                    <textarea type="text" rows="1" class="chat-inputs__text"
-                                              placeholder="Type something.."></textarea>
+                                    <textarea (keypress)="inputkeyPress($event)" (input)="inputChanges()"
+                                              data-element="messag-text-area" type="text" rows="1"
+                                              class="chat-inputs__text" placeholder="Type something.."
+                                              [(ngModel)]="messageInput"></textarea>
                                     <div class="send-message">
                                         <button type="button" class="send-message__btn">
 
@@ -117,7 +139,7 @@
                                         <img src="assets/images/dm-send.svg">
                                     </button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                     <!-- </ng-template> -->
@@ -152,14 +174,16 @@
                          [ngClass]="{'active' :  !openedThread }">
                         <div class="search-account">
                             <img src="assets/images/dm-search.svg">
-                            <input class="search-account__input" type="search" placeholder="Search Messages">
+                            <input [(ngModel)]="threadSearchKeyword" class="search-account__input" type="search"
+                                   placeholder="Search Messages">
                         </div>
 
                         <div class="chat-accounts__name">
 
                             <!--Account-->
-                            <div class="clearfix account" *ngFor="let thread of threadList"
-                                 (click)="openedThread = thread">
+                            <div class="clearfix account"
+                                 *ngFor="let thread of threadList|searchFilter:threadSearchKeyword"
+                                 (click)="openThreadChat(thread)">
                                 <div class="d-inline-block profile-pic">
                                     <span class="profile-pic__item bg-profile"
                                           [style.backgroundImage]="thread.computed_targetedUser.computed_profile_dp"></span>

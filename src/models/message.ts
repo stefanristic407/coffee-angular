@@ -122,3 +122,26 @@ export enum serviceCommunicationType {
     OPEN_THREAD = 'OPEN_THREAD',
     TOGGLE = 'TOGGLE'
 }
+
+export interface ChatMessage {
+    activity_type: ThreadActivityType;
+    content: string;
+    created_at: string;
+    id: number;
+    member: ChatMessageMember;
+    meta_data: string;
+    updated_at: string;
+    computed_date: string;
+    computed_author: ThreadMembers;
+    isActiveUser: boolean;
+}
+export interface ChatMessageMember {
+    id: number;
+    joined_at: string;
+    removed_at: string;
+}
+export interface IncomingChatMessage extends ChatMessage {
+    activity_member: ChatMessageMember;
+    member: ChatMessageMember & { user: ThreadMembers };
+    thread_id: number;
+}

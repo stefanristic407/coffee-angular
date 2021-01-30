@@ -30,6 +30,7 @@
     "@syncfusion/ej2-angular-charts": "^18.4.30",
     "angular-datatables": "^6.0.0",
     "angular-ng-autocomplete": "^2.0.1",
+    "badwords": "^1.0.0",
     "bootstrap": "^4.4.1",
     "crypto-js": "^4.0.0",
     "datatables.net": "^1.10.21",

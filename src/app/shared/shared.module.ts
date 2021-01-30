@@ -163,4 +163,4 @@ const PIPES = [CountryPipe, MonthPipe];
         ...PIPES,
     ],
 })
-export class SharedModule {}
+export class SharedModule { }
