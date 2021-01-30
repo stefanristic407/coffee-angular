@@ -11,15 +11,10 @@ import { UserserviceService } from 'src/services/users/userservice.service';
 })
 export class OverviewRatingsComponent implements OnInit {
     totalstar = 5;
-    newvalue: any = 2;
-    reviewvalue: any = 4;
     termStatus = 'Most relevant';
     termItems: any[];
-    showRelavant: boolean = true;
+    showRelavant = true;
     estateRatingActive: any = 0;
-    reviewsList: any;
-    summaryList: any;
-    overall: any;
 
     constructor(
         public globals: GlobalsService,
@@ -140,32 +135,13 @@ export class OverviewRatingsComponent implements OnInit {
     toggleRelavant() {
         this.showRelavant = !this.showRelavant;
     }
-    //   getEstateReviews(){
-    // 	this.userService.getEachEsateReviews(this.sourcing.detailList).subscribe(
-    // 		res=>{
-    // 			if(res['sucess']==true){
-    // 				this.reviewsList=res['result'];
-    // 				console.log(this.reviewsList);
-    // 			}
-    // 		}
-    // 	)
-    // }
-    // getEstateSummary(){
-    // 	this.userService.getEachEsateReviewsSummary(this.sourcing.detailList).subscribe(
-    // 		res=>{
-    // 			if(res['sucess']==true){
-    // 				this.summaryList=res['result'];
-    // 				console.log(this.summaryList);
-    // 				this.overall=this.summaryList['average']['overall_experience'];
-    // 			}
-    // 		}
-    // 	)
-    // }
+
     changeDecimal(val: any) {
         if (val) {
             return parseFloat(val).toFixed(1);
         }
     }
+
     changeDecimalStar(data: any) {
         if (data) {
             return data.toFixed(2);

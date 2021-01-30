@@ -30,7 +30,7 @@ export class CoffeeDetailsComponent implements OnInit {
         this.route.paramMap.subscribe((params) => {
             if (params.has('harvestId') && params.has('estateId')) {
                 this.sourcing.harvestId = params.get('harvestId');
-                this.sourcing.estateNumber = params.get('estateId');
+                this.sourcing.estateId = params.get('estateId');
                 this.refreshData();
             }
         });
@@ -40,7 +40,7 @@ export class CoffeeDetailsComponent implements OnInit {
 
     refreshData() {
         this.isLoaded = false;
-        this.brandProfileEstateWeb = `https://qa-brand-profile.sewnstaging.com/estate/estate-${this.sourcing.estateNumber}/estatebrandprofile/green-coffee`;
+        this.brandProfileEstateWeb = `https://qa-brand-profile.sewnstaging.com/estate/estate-${this.sourcing.estateId}/estatebrandprofile/green-coffee`;
         this.sourcing.polygonId = '';
         new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
             this.galleryImages();
@@ -52,8 +52,8 @@ export class CoffeeDetailsComponent implements OnInit {
 
     galleryImages() {
         const images = [];
-        if (this.sourcing.availabilityImages) {
-            this.sourcing.availabilityImages.forEach((element) => {
+        if (this.sourcing.harvestDetail?.images) {
+            this.sourcing.harvestDetail?.images.forEach((element) => {
                 const sample = {
                     srcUrl: element.url,
                     previewUrl: element.thumb_url,

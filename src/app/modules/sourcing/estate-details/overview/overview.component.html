@@ -5,7 +5,7 @@
                 <div class="br-sm-main br-4 p-3 p-md-4">
                     <div class="stit">
                         <div class="d-flex justify-content-between">
-                            <h2 class="fnt-18 fnt-bold text-clr334">{{ sourcing.name }}</h2>
+                            <h2 class="fnt-18 fnt-bold text-clr334">{{ sourcing.estate?.name }}</h2>
                             <div class="d-md-none d-flex">
                                 <img
                                     *ngFor="let cert of sourcing.estateCertify"
@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <p class="fnt-12 fnt-md-16 text-clr588 text-md-clr334 mb-4 mb-md-5">
-                            {{ sourcing.description }}
+                            {{ sourcing.estate?.description }}
                         </p>
                     </div>
 
@@ -24,36 +24,43 @@
                             <div class="real-estate">
                                 <img src="assets/images/orgin.svg" />
                                 <h6>{{ globals.languageJson?.origin }}</h6>
-                                <h3 *ngIf="sourcing.countryName == ''">NA</h3>
-                                <h3 *ngIf="sourcing.countryName != ''">{{ sourcing.countryName || 'NA' }}</h3>
+                                <h3>{{ (sourcing.estate?.country | country) || 'NA' }}</h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                             <div class="real-estate">
                                 <img src="assets/images/estate.svg" />
                                 <h6>Total farm area</h6>
-                                <h3 *ngIf="sourcing.total_area != ''">{{ sourcing.total_area + ' acres' || 'NA' }}</h3>
+                                <h3 *ngIf="sourcing.estate?.total_area != ''">
+                                    {{ sourcing.estate?.total_area + ' acres' || 'NA' }}
+                                </h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                             <div class="real-estate">
                                 <img src="assets/images/altitute.svg" />
                                 <h6>{{ globals.languageJson?.altitude_range }}</h6>
-                                <h3>{{ sourcing.altitude_start || 'NA' }} - {{ sourcing.altitude_end || 'NA' }} m</h3>
+                                <h3>
+                                    {{ sourcing.estate?.altitude_start || 'NA' }} -
+                                    {{ sourcing.estate?.altitude_end || 'NA' }} m
+                                </h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                             <div class="real-estate">
                                 <img src="assets/images/harveaster.svg" />
                                 <h6>{{ globals.languageJson?.crop_year }}</h6>
-                                <h3>{{ sourcing.crop_year_start | month }} - {{ sourcing.crop_year_end | month }}</h3>
+                                <h3>
+                                    {{ sourcing.estate?.crop_year_start | month }} -
+                                    {{ sourcing.estate?.crop_year_end | month }}
+                                </h3>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
                             <div class="real-estate">
                                 <img src="assets/images/grad-range.svg" />
                                 <h6>{{ globals.languageJson?.grade_range }}</h6>
-                                <h3>{{ sourcing.grade_range || 'NA' }}</h3>
+                                <h3>{{ sourcing.estate?.grade_range || 'NA' }}</h3>
                             </div>
                         </div>
                     </div>
@@ -116,11 +123,11 @@
                                 class="cert-img mb-3 mr-3"
                             />
                         </div>
-                        <div *ngIf="sourcing.gps_coordinates != ''">
-                            <agm-map [latitude]="sourcing.latitude" [longitude]="sourcing.longitude">
+                        <div *ngIf="sourcing.estate?.gps_coordinates != ''">
+                            <agm-map [latitude]="sourcing.estate?.latitude" [longitude]="sourcing.estate?.longitude">
                                 <agm-marker
-                                    [latitude]="sourcing.latitude"
-                                    [longitude]="sourcing.longitude"
+                                    [latitude]="sourcing.estate?.latitude"
+                                    [longitude]="sourcing.estate?.longitude"
                                 ></agm-marker>
                             </agm-map>
                         </div>
