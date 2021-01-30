@@ -199,7 +199,6 @@ export class NewDirectMessageComponent implements OnInit, OnDestroy, AfterViewIn
                 // thread.members
             });
             console.log('Thread Listing', WSmsg);
-            //debugger;
             this.updateUserStatus();
             this.updateUnRead();
         } else {

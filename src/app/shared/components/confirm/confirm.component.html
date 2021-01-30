@@ -1,0 +1,15 @@
+<div class="text-center p-4 p-md-5">
+    <img src="/assets/images/group-17.png" alt="" />
+    <div class="fnt-32 text-clr02 fnt-play mt-3">
+        {{ config.data.title }}
+    </div>
+    <div class="fnt-16 text-clr5d pt-1 pb-2">
+        {{ config.data.desp }}
+    </div>
+    <div class="pt-4">
+        <button class="btn-stroked mr-2" (click)="close('no')">NO</button>
+        <button class="btn-raised ml-2" (click)="close('yes')">
+            {{ globals.languageJson?.yes }}
+        </button>
+    </div>
+</div>

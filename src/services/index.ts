@@ -2,6 +2,7 @@ import { from } from 'rxjs';
 
 export * from './agro.service';
 export * from './api';
+export * from './form.service';
 export * from './globals.service';
 export * from './roasters/roasterservice.service';
 export * from './users/userservice.service';

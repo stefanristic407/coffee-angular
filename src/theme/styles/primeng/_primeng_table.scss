@@ -77,3 +77,49 @@
 .p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
     background: transparent;
 }
+
+.p-datatable-responsive-single .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+}
+@media (max-width: 767px) {
+    .p-datatable {
+        &.p-datatable-responsive-single {
+            .p-datatable-thead > tr > th,
+            .p-datatable-tfoot > tr > td {
+                display: none !important;
+            }
+
+            .p-datatable-tbody > tr {
+                box-shadow: none;
+            }
+
+            .p-datatable-tbody > tr > td {
+                padding: 1rem 0;
+                font-weight: 600;
+                text-align: left;
+                display: block;
+                width: 100%;
+                float: left;
+                clear: left;
+                border-bottom: 1px solid $primary-border-color;
+
+                .p-column-title {
+                    min-width: 40%;
+                    display: inline-block;
+                    margin-right: 1rem;
+                    font-weight: 500;
+                    color: $muted-text-color;
+                }
+
+                &:first-child {
+                    padding-top: 0;
+                }
+
+                &:last-child {
+                    padding-bottom: 0;
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}

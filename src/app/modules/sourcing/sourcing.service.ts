@@ -46,8 +46,6 @@ export class SourcingService {
     city: any;
     varieties: any;
     activeLandlots: any;
-    harvestData: any;
-    harvestDetail: any = {};
     available_name: any;
     available_estate_name: any;
     lot_id: any;
@@ -145,6 +143,14 @@ export class SourcingService {
     estateReviewsAverage: any;
     estateReviewStars: any;
     reviewColors = ['#ff1e5a', '#ffa001', '#649a2b'];
+
+    // Details of an green coffee
+    harvestId: any;
+    harvestDetail: any = {};
+
+    // Details of an lot
+    lotId: any;
+    lot: any;
 
     constructor(
         private http: HttpClient,
@@ -247,7 +253,6 @@ export class SourcingService {
                 // console.log('Lots:', this.estateLots);
                 this.estateLots.forEach((element) => {
                     element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
-                    element.speciesStr = _.pluck(element.varieties, 'species').join(', ');
                     if (element.polygon_coordinates) {
                         element.polygon_coordinates = JSON.parse(element.polygon_coordinates);
                         element.center = element.polygon_coordinates[0][0];
@@ -318,7 +323,7 @@ export class SourcingService {
 
     // Harvest detail apis
     availableDetailList(resolve: any = null) {
-        this.userService.getGreenCoffeeDetails(this.roaster_id, this.harvestData).subscribe((res: any) => {
+        this.userService.getGreenCoffeeDetails(this.roaster_id, this.harvestId).subscribe((res: any) => {
             if (res.success) {
                 this.harvestDetail = res.result;
                 this.available_name = res.result.name;
@@ -360,7 +365,7 @@ export class SourcingService {
                 this.images = res.result.images;
                 this.estate_id = res.result.estate_id;
                 this.availabilityImages = res.result.images;
-                console.warn(res.result);
+                console.log('Harvest details:', res.result);
                 this.getLotDetails();
             }
             if (resolve) {
@@ -369,10 +374,14 @@ export class SourcingService {
         });
     }
 
-    getLotDetails() {
-        this.userService.getRoasterLotDetails(this.roaster_id, this.estate_id, this.lot_id).subscribe((res: any) => {
-            if (res.success === true) {
-                this.polygonId = res.result.polygon_id;
+    getLotDetails(resolve: any = null) {
+        this.userService.getRoasterLotDetails(this.roaster_id, this.estateId, this.lotId).subscribe((res: any) => {
+            if (res.success) {
+                this.lot = { ...res.result, varietiesStr: _.pluck(res.result.varieties, 'name').join(', ') };
+                console.log('Lot details:', this.lot);
+            }
+            if (resolve) {
+                resolve();
             }
         });
     }

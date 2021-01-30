@@ -1,39 +1,41 @@
 <!-- Chart div starts-->
 <div class="chart-details br-4 mt-4">
-  <div class="row">
-    <div class="col-lg-12">
-      <h2 class="fnt-18 fnt-bold fnt-muli text-black334">Live from our Lot!</h2>
-      <div class="fnt-16 fnt-normal text-clr5d mt-2 live-text">
-        We bring you live updates of your lot with geo tracking!
-      </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="fnt-18 fnt-bold fnt-muli text-black334">Live from our Lot!</h2>
+            <div class="fnt-16 fnt-normal text-clr5d mt-2 live-text">
+                We bring you live updates of your lot with geo tracking!
+            </div>
 
-      <div class="mt-3">
-        <p-tabView>
-          <p-tabPanel header="Weather">
-            <app-weather-chart [polygonId]="polygonId"></app-weather-chart>
-          </p-tabPanel>
-          <p-tabPanel header="Soil">
-            <ng-template pTemplate="contentSoil">
-              <app-soil-chart [polygonId]="polygonId"></app-soil-chart>
-            </ng-template>
-          </p-tabPanel>
-          <p-tabPanel header="UV">
-            <ng-template pTemplate="contentUv">
-              <app-uv-chart [polygonId]="polygonId"></app-uv-chart>
-            </ng-template>
-          </p-tabPanel>
-          <p-tabPanel header="Vegetation">
-            <ng-template pTemplate="contentVegetation">
-              <app-vegetation-chart [polygonId]="polygonId"></app-vegetation-chart>
-            </ng-template>
-          </p-tabPanel>
-          <p-tabPanel header="Images">
-            <ng-template pTemplate="contentImages">
-              <app-image-map [polygonId]="polygonId"></app-image-map>
-            </ng-template>
-          </p-tabPanel>
-        </p-tabView>
-      </div>
+            <div class="mt-3">
+                <p-tabView>
+                    <p-tabPanel header="Weather">
+                        <ng-template pTemplate="contentWeather">
+                            <app-weather-chart [polygonId]="polygonId"></app-weather-chart>
+                        </ng-template>
+                    </p-tabPanel>
+                    <p-tabPanel header="Soil">
+                        <ng-template pTemplate="contentSoil">
+                            <app-soil-chart [polygonId]="polygonId"></app-soil-chart>
+                        </ng-template>
+                    </p-tabPanel>
+                    <p-tabPanel header="UV">
+                        <ng-template pTemplate="contentUv">
+                            <app-uv-chart [polygonId]="polygonId"></app-uv-chart>
+                        </ng-template>
+                    </p-tabPanel>
+                    <p-tabPanel header="Vegetation">
+                        <ng-template pTemplate="contentVegetation">
+                            <app-vegetation-chart [polygonId]="polygonId"></app-vegetation-chart>
+                        </ng-template>
+                    </p-tabPanel>
+                    <p-tabPanel header="Images">
+                        <ng-template pTemplate="contentImages">
+                            <app-image-map [polygonId]="polygonId"></app-image-map>
+                        </ng-template>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

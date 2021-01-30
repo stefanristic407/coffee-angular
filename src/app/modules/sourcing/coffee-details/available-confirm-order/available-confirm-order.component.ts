@@ -1,63 +1,52 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
-import { SourcingService } from '../../sourcing.service';
-import { CookieService } from 'ngx-cookie-service';
-import { Toast, ToastrService } from 'ngx-toastr';
 import { UserserviceService } from '@services';
+import { FormService } from '@services';
+import { SourcingService } from '../../sourcing.service';
+import { ConfirmComponent } from '@shared';
 
 @Component({
     selector: 'app-available-confirm-order',
     templateUrl: './available-confirm-order.component.html',
     styleUrls: ['./available-confirm-order.component.scss'],
+    providers: [DialogService],
 })
 export class AvailableConfirmOrderComponent implements OnInit {
-    breadItems: any[] = [
-        { label: 'Home', routerLink: '/features/welcome-aboard' },
-        { label: 'Sourcing Module', routerLink: '/sourcing' },
-        { label: 'Finca La Pmapa', routerLink: '/sourcing/coffee-details' },
-        { label: 'Confirm order' },
+    breadItems: any[];
+    serviceItems: any[] = [
+        { label: 'Import & Delivery service', value: true },
+        { label: 'I don’t need Import & delivery service', value: false },
     ];
-    quantity: any;
-    quantity1: any;
-    price: number = 0;
-    confirmOrderError: any;
-    modalRef: BsModalRef;
-    appLanguage?: any;
-    country: any = '';
-    state: any;
-    address1: string;
-    address2: string;
-    zipcode: string;
-    city: string;
-    countryError: string;
-    addressError: string;
-    zipError: string;
-    cityError: string;
-    service: string = 'Import & Delivery service';
-    serviceAmount: number = 0;
-    available_bags: number;
-    terms: boolean = false;
-    termError: string;
-    availableConfirmActive: any = 0;
-    gc_id: any;
-    roaster_id: string;
-    shippingAddress_id: any;
-    billingAddress_id: any;
-    estate_id: any;
-    addressArray: any;
-    ship_unit_price: any;
-    min_quantity: any;
-    flagData: any;
-    addressId: any;
-    countryData: any;
-    countryName: any;
-    prebook_order_id: any;
+
+    roasterId: any;
+    orderType: string;
+    prebookOrderId: any;
+    infoForm: FormGroup;
+    addressForm: FormGroup;
+    isLoaded = false;
+    orderPlaced = false;
+    orderDetail: any;
+    totalPrice;
+    shipInfo: any;
+    shipAddress: any;
+    roAddress: any;
+    addressData: any;
+    editAddress = false;
+    cities: any[] = [];
+
+    // Variables for only prebook order
+    batchId: string;
 
     constructor(
-        private modalService: BsModalService,
+        public dialogSrv: DialogService,
+        private fb: FormBuilder,
+        private formSrv: FormService,
         public router: Router,
         public globals: GlobalsService,
         private route: ActivatedRoute,
@@ -66,261 +55,351 @@ export class AvailableConfirmOrderComponent implements OnInit {
         private toastrService: ToastrService,
         private roasterService: RoasterserviceService,
         private userService: UserserviceService,
-    ) {
-        this.roaster_id = this.cookieService.get('roaster_id');
+    ) {}
 
-        this.route.queryParams.subscribe((params) => {
-            this.sourcing.harvestData = params['gc_id'];
-            this.flagData = params['flag'];
+    ngOnInit(): void {
+        this.roasterId = this.cookieService.get('roaster_id');
+        this.route.data.subscribe((data) => {
+            this.orderType = data.orderType;
+        });
 
-            this.sourcing.availableDetailList();
-            if (this.flagData === 'buyNow') {
-                this.getshipInfo();
+        this.route.queryParamMap.subscribe((params) => {
+            if (params.has('gc_id')) {
+                this.sourcing.harvestId = params.get('gc_id');
             }
-            this.getRoAddress();
+            if (params.has('estateId') && params.has('lotId')) {
+                this.sourcing.estateId = params.get('estateId');
+                this.sourcing.lotId = params.get('lotId');
+            }
+            if (this.orderType === 'booked' || this.orderType === 'sample') {
+                this.getHarvest();
+            } else if (this.orderType === 'preBooked') {
+                this.getLot();
+                this.getPrebookBatch();
+            }
         });
 
         if (this.sourcing.prebook_flag === true) {
-            this.prebook_order_id = this.sourcing.prebook_order_id;
+            this.prebookOrderId = this.sourcing.prebook_order_id;
         } else {
-            this.prebook_order_id = 0;
+            this.prebookOrderId = 0;
         }
-        console.log('prebookID' + this.prebook_order_id);
     }
-    @ViewChild('confirmtemplate') private confirmtemplate: any;
 
-    openModal(template: TemplateRef<any>) {
-        this.modalRef = this.modalService.show(template);
+    getHarvest() {
+        if (this.sourcing.harvestId) {
+            new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
+                this.refreshBreadCrumb();
+                this.getAddress();
+                this.orderDetail = [
+                    {
+                        field: 'customer',
+                        label: this.globals.languageJson?.customer,
+                        value: this.sourcing.harvestDetail.estate_name,
+                    },
+                    {
+                        field: 'origin',
+                        label: this.globals.languageJson?.origin,
+                        value: this.sourcing.harvestDetail.country,
+                    },
+                    {
+                        field: 'variety',
+                        label: this.globals.languageJson?.variety,
+                        value: this.sourcing.harvestDetail.varieties,
+                    },
+                    {
+                        field: 'species',
+                        label: this.globals.languageJson?.species,
+                        value: this.sourcing.harvestDetail.species,
+                    },
+                    {
+                        field: 'cupScore',
+                        label: this.globals.languageJson?.cupping_score,
+                        value: this.sourcing.harvestDetail.cupping.cup_score,
+                    },
+                    {
+                        field: 'quantity',
+                        label: this.globals.languageJson?.available_quantity,
+                        value: `${this.sourcing.harvestDetail.quantity_count}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
+                    },
+                    {
+                        field: 'price',
+                        label: this.globals.languageJson?.rate_per_kg,
+                        value: `$${this.sourcing.harvestDetail.price}USD/kg`,
+                    },
+                ];
+            });
+        } else {
+            this.router.navigateByUrl('/error');
+        }
     }
-    ngOnInit(): void {
-        this.quantity = '';
-        this.quantity1 = '';
-        this.confirmOrderError = '';
-        this.countryError = '';
-        this.addressError = '';
-        this.zipError = '';
-        this.cityError = '';
-        this.termError = '';
-        // this.price="$450";
-        this.language();
+
+    getLot() {
+        if (this.sourcing.lotId) {
+            new Promise((resolve) => this.sourcing.getLotDetails(resolve)).then(() => {
+                this.refreshBreadCrumb();
+                this.getAddress();
+                this.orderDetail = [
+                    {
+                        field: 'customer',
+                        label: this.globals.languageJson?.customer,
+                        value: this.sourcing.lot.estate_name,
+                    },
+                    { field: 'origin', label: this.globals.languageJson?.origin, value: this.sourcing.lot.country },
+                    {
+                        field: 'variety',
+                        label: this.globals.languageJson?.variety,
+                        value: this.sourcing.lot.varietiesStr,
+                    },
+                    { field: 'species', label: this.globals.languageJson?.species, value: this.sourcing.lot.species },
+                    { field: 'cupScore', label: 'Avg, grade', value: this.sourcing.lot.avg_cup_score },
+                    { field: 'production', label: 'Avg. Production', value: this.sourcing.lot.avg_precipitation },
+                    { field: 'token', label: 'Token amount', value: '????' },
+                ];
+            });
+        } else {
+            this.router.navigateByUrl('/error');
+        }
     }
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.availableConfirmActive++;
+
+    getAddress() {
+        const promises = [];
+        if (this.orderType === 'booked') {
+            promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
+        }
+        promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
+        Promise.all(promises).then(() => {
+            this.refreshForm();
+            this.changeService();
+            this.isLoaded = true;
+        });
+    }
+
+    refreshBreadCrumb() {
+        this.breadItems = [
+            { label: 'Home', routerLink: '/features/welcome-aboard' },
+            { label: 'Sourcing Module', routerLink: '/sourcing' },
+            this.orderType === 'preBooked'
+                ? {
+                      label: this.sourcing.lot.name,
+                      routerLink: `/sourcing/estate-details/${this.sourcing.lot.estate_id}`,
+                  }
+                : {
+                      label: this.sourcing.harvestDetail.name,
+                      routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.estate_id}/${this.sourcing.harvestDetail.id}`,
+                  },
+            { label: 'Confirm order' },
+        ];
+    }
+
+    refreshForm() {
+        this.infoForm = this.fb.group({
+            terms: [null, Validators.compose([Validators.required])],
+        });
+        if (this.orderType === 'booked') {
+            this.infoForm.addControl(
+                'quantity',
+                new FormControl(
+                    null,
+                    Validators.compose([
+                        Validators.required,
+                        Validators.min(this.shipInfo.minimum_quantity || 0),
+                        Validators.max(this.sourcing.harvestDetail.quantity_count),
+                    ]),
+                ),
+            );
+            this.infoForm.addControl('service', new FormControl(''));
+        }
+        this.changeQuantity();
+    }
+
+    refreshAddressForm() {
+        this.addressForm = this.fb.group({
+            country: ['', Validators.compose([Validators.required])],
+            state: [''],
+            address_line1: ['', Validators.compose([Validators.required])],
+            address_line2: [''],
+            city: ['', Validators.compose([Validators.required])],
+            zipcode: ['', Validators.compose([Validators.required])],
+        });
+        this.addressForm.patchValue(this.roAddress);
+        this.changeCountry();
+        this.editAddress = true;
+    }
+
+    changeQuantity(event: any = null) {
+        if (event) {
+            this.infoForm.value.quantity = event.value;
+        }
+        setTimeout(() => {
+            if (this.orderType === 'booked') {
+                if (this.infoForm.value.service) {
+                    this.totalPrice =
+                        (this.sourcing.harvestDetail.price + this.shipInfo.unit_price) * this.infoForm.value.quantity;
+                } else {
+                    this.totalPrice = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
+                }
+            } else if (this.orderType === 'sample') {
+                this.totalPrice = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
+            }
+        });
+    }
+
+    changeService() {
+        if (this.infoForm.value.service) {
+            this.addressData = this.shipAddress;
+        } else {
+            this.addressData = this.roAddress;
+        }
+        this.changeQuantity();
     }
 
     placeOrder() {
-        if (this.quantity === '' || this.quantity == null || this.quantity == undefined) {
-            this.confirmOrderError = 'Please enter quantity';
-            document.getElementById('quantityId').style.border = '1px solid #D50000';
-            setTimeout(() => {
-                this.confirmOrderError = '';
-                document.getElementById('quantityId').style.border = '1px solid #d6d6d6 ';
-            }, 3000);
-        } else if (this.quantity > this.sourcing.quantity_count) {
-            this.confirmOrderError = 'Please enter quantity in range of available for sale';
-            document.getElementById('quantityId').style.border = '1px solid #D50000';
-            setTimeout(() => {
-                this.confirmOrderError = '';
-                document.getElementById('quantityId').style.border = '1px solid #d6d6d6 ';
-            }, 3000);
-        } else if (this.service === 'Import & Delivery service' && this.quantity < this.min_quantity) {
-            this.toastrService.error(`Minimum quantity for shipping is ${this.min_quantity}. please order above.`);
-        } else if (this.terms == false) {
-            this.termError = 'Please accept the terms and conditions';
-            setTimeout(() => {
-                this.termError = '';
-            }, 3000);
+        if (this.infoForm.valid) {
+            this.dialogSrv
+                .open(ConfirmComponent, {
+                    data: {
+                        title: this.globals.languageJson.confirm_order,
+                        desp: this.globals.languageJson.are_you_sure,
+                    },
+                    showHeader: false,
+                    styleClass: 'confirm-dialog',
+                })
+                .onClose.subscribe((action: any) => {
+                    if (action === 'yes') {
+                        if (this.orderType === 'booked') {
+                            this.submitOrder();
+                        } else if (this.orderType === 'sample') {
+                            this.submitSample();
+                        } else if (this.orderType === 'preBooked') {
+                            this.submitPreBook();
+                        }
+                    }
+                });
         } else {
-            this.openModal(this.confirmtemplate);
+            this.formSrv.markGroupDirty(this.infoForm);
         }
     }
-    placeOrderMob() {
-        if (this.quantity1 === '' || this.quantity1 == null || this.quantity1 == undefined) {
-            this.confirmOrderError = 'Please enter quantity';
-            document.getElementById('quantity_id').style.border = '1px solid #D50000';
-            setTimeout(() => {
-                this.confirmOrderError = '';
-                document.getElementById('quantity_id').style.border = '1px solid #d6d6d6 ';
-            }, 3000);
-        } else if (this.service === 'Import & Delivery service' && this.quantity < this.min_quantity) {
-            this.toastrService.error(`Minimum quantity for shipping is ${this.min_quantity}. please order above.`);
-        } else {
-            this.openModal(this.confirmtemplate);
+
+    submitOrder() {
+        const data = {
+            quantity_count: this.infoForm.value.quantity,
+            shipping_address_id: this.roAddress.id,
+            billing_address_id: this.roAddress.id,
+            prebook_order_id: this.prebookOrderId,
+            is_fully_serviced_delivery: this.infoForm.value.service,
+        };
+        this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestId, data).subscribe((res: any) => {
+            if (res.success) {
+                this.orderPlaced = true;
+            } else {
+                this.toastrService.error('Error while Placing the order');
+            }
+        });
+    }
+
+    submitSample() {
+        const doneData = {
+            shipping_address_id: this.addressData.id,
+            billing_address_id: this.addressData.id,
+            prebook_order_id: this.prebookOrderId,
+        };
+        this.userService.addRequestSample(this.roasterId, this.sourcing.harvestId, doneData).subscribe((res: any) => {
+            if (res.success) {
+                this.orderPlaced = true;
+            } else {
+                this.toastrService.error('Error while Placing the order');
+            }
+        });
+    }
+
+    submitPreBook() {
+        const data = {
+            shipping_address_id: this.addressData.id,
+            billing_address_id: this.addressData.id,
+        };
+        if (this.batchId) {
+            this.userService.addPrebookLots(this.roasterId, this.batchId, data).subscribe((res: any) => {
+                if (res.success) {
+                    this.orderPlaced = true;
+                } else {
+                    this.toastrService.error('Error while Placing the prebook order');
+                }
+            });
         }
     }
-    editAddress() {
-        document.getElementById('edit-shipping').style.display = 'none';
-        document.getElementById('form-address').style.display = 'block';
+
+    changeCountry() {
+        if (this.addressForm.value.country) {
+            this.globals.getCountry(this.addressForm.value.country).cities.forEach((element) => {
+                this.cities.push({ label: element, value: element });
+            });
+        }
     }
+
     saveAddress() {
-        if (this.country === '' || this.country == null || this.country == undefined) {
-            this.countryError = 'Please select your country';
-            document.getElementById('countryList').style.border = '1px solid #D50000 ';
-            setTimeout(() => {
-                this.countryError = '';
-                document.getElementById('countryList').style.border = '1px solid #d6d6d6 ';
-            }, 3000);
-        } else if (this.address1 === '' || this.address1 == null || this.address1 == undefined) {
-            this.addressError = 'Please enter address';
-            document.getElementById('address1').style.border = '1px solid #D50000 ';
-            setTimeout(() => {
-                this.addressError = '';
-                document.getElementById('address1').style.border = '1px solid #d6d6d6 ';
-            }, 3000);
-        } else if (this.city === '' || this.city == null || this.city == undefined) {
-            this.cityError = 'Please enter city';
-            document.getElementById('city').style.border = '1px solid #D50000 ';
-            setTimeout(() => {
-                this.cityError = '';
-                document.getElementById('city').style.border = '1px solid #d6d6d6 ';
-            }, 3000);
-        } else if (this.zipcode === '' || this.zipcode == null || this.zipcode == undefined) {
-            this.zipError = 'Please enter zipcode';
-            document.getElementById('zipcode').style.border = '1px solid #D50000 ';
-            setTimeout(() => {
-                this.zipError = '';
-                document.getElementById('zipcode').style.border = '1px solid #d6d6d6 ';
-            }, 3000);
-        } else {
-            console.log(this.addressId);
-            if (this.addressId) {
-                var addressData = {
-                    type: 'shipping',
-                    address_line1: this.address1,
-                    address_line2: this.address2,
-                    city: this.city,
-                    state: this.state,
-                    country: this.country,
-                    zipcode: this.zipcode,
-                };
-                this.userService.editAddress(this.roaster_id, this.addressId, addressData).subscribe((response) => {
-                    if (response['success'] == true) {
+        if (this.addressForm.valid) {
+            const postData = {
+                type: 'shipping',
+                ...this.addressForm.value,
+            };
+            if (this.roAddress?.id) {
+                this.userService.editAddress(this.roasterId, this.roAddress?.id, postData).subscribe((res: any) => {
+                    if (res.success) {
                         this.toastrService.success('Address has been Edited');
                         this.getRoAddress();
+                        this.editAddress = false;
                     } else {
                         this.toastrService.error('Error while Editing the address');
                     }
                 });
             } else {
-                var data = {
-                    type: 'shipping',
-                    address_line1: this.address1,
-                    address_line2: this.address2,
-                    city: this.city,
-                    state: this.state,
-                    country: this.country,
-                    zipcode: this.zipcode,
-                };
-                this.userService.addAddresses(this.roaster_id, data).subscribe((response) => {
-                    if (response['success'] == true) {
-                        this.shippingAddress_id = response['result'].id;
+                this.userService.addAddresses(this.roasterId, postData).subscribe((res: any) => {
+                    if (res.success) {
                         this.toastrService.success('Address has been added');
+                        this.editAddress = false;
                     } else {
                         this.toastrService.error('Error while adding the address');
                     }
                 });
             }
-            document.getElementById('edit-shipping').style.display = 'block';
-            document.getElementById('form-address').style.display = 'none';
-        }
-    }
-
-    //  Function Name :Country Selection .
-    // Description: To select a country.
-
-    changeCountry() {
-        // this.profileservice.changeCountry(this.country);
-    }
-
-    onKeyPress(event: any) {
-        if (event.target.value == '') {
-            document.getElementById(event.target.id).style.border = '1px solid #D50000';
         } else {
-            document.getElementById(event.target.id).style.border = '1px solid #d6d6d6';
+            this.formSrv.markGroupDirty(this.addressForm);
         }
     }
 
-    done() {
-        const data = {
-            quantity_count: parseInt(this.quantity),
-            shipping_address_id: parseInt(this.addressId),
-            billing_address_id: parseInt(this.addressId),
-            prebook_order_id: this.prebook_order_id,
-            is_fully_serviced_delivery: this.service === 'Import & Delivery service' ? true : false,
-        };
-        console.log(data);
+    getShipInfo(resolve: any = null) {
+        this.userService
+            .getShippingInfo(this.roasterId, this.sourcing.harvestDetail.estate_id)
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.shipInfo = res.result;
+                    this.shipAddress = res.result.warehouse_address;
+                }
+                if (resolve) {
+                    resolve();
+                }
+            });
+    }
 
-        this.roasterService.placeOrder(this.roaster_id, this.sourcing.harvestData, data).subscribe((res: any) => {
+    getRoAddress(resolve: any = null) {
+        this.userService.getAddresses(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.toastrService.success('Order has been placed Successfully');
-
-                this.router.navigate(['/features/order-placed']);
-            } else {
-                this.toastrService.error('Error while Placing the order');
+                this.roAddress = res.result[0];
+                if (resolve) {
+                    resolve();
+                }
             }
         });
     }
 
-    // ngAfterViewInit(){
-    // 	this.getshipInfo();
-    // }
-
-    serviceChange(event: any) {
-        if (event.target.value === 'Import & Delivery service') {
-            this.getshipInfo();
-        } else {
-            this.getRoAddress();
-        }
-    }
-
-    getshipInfo() {
-        this.userService.getShippingInfo(this.roaster_id, this.sourcing.estate_id).subscribe((res: any) => {
-            console.log(res);
-            this.addressArray = res.result.warehouse_address;
-            console.log(this.addressArray);
-            this.addressId = this.addressArray.id;
-            this.address1 = this.addressArray.address_line1;
-            this.address2 = this.addressArray.address_line2;
-            this.city = this.addressArray.city;
-            this.country = this.addressArray.country;
-            this.countryData = this.globals.getCountry(this.addressArray.country.toUpperCase());
-            this.countryName = this.countryData ? this.countryData.name : '';
-            this.state = this.addressArray.state;
-            this.zipcode = this.addressArray.zipcode;
-            this.ship_unit_price = res.result.unit_price;
-            this.min_quantity = res.result.minimum_quantity;
-        });
-    }
-
-    getRoAddress() {
-        this.userService.getAddresses(this.roaster_id).subscribe((response) => {
-            this.addressArray = response['result'][0];
-            console.log(this.addressArray);
-            this.addressId = this.addressArray.id;
-            this.address1 = this.addressArray.address_line1;
-            this.address2 = this.addressArray.address_line2;
-            this.city = this.addressArray.city;
-            this.state = this.addressArray.state;
-            this.country = this.addressArray.country;
-            this.countryData = this.globals.getCountry(this.addressArray.country.toUpperCase());
-            this.countryName = this.countryData ? this.countryData.name : '';
-            this.zipcode = this.addressArray.zipcode;
-        });
-    }
-    orderSampleDone() {
-        var doneData = {
-            shipping_address_id: parseInt(this.addressId),
-            billing_address_id: parseInt(this.addressId),
-            prebook_order_id: this.prebook_order_id,
-        };
-        this.userService.addRequestSample(this.roaster_id, this.sourcing.harvestData, doneData).subscribe((data) => {
-            if (data['success'] == true) {
-                this.toastrService.success('Order has been placed Successfully');
-                this.router.navigate(['/features/order-placed']);
-            } else {
-                this.toastrService.error('Error while Placing the order');
-            }
-        });
+    getPrebookBatch() {
+        this.userService
+            .getPrebookBatchList(this.roasterId, this.sourcing.estateId, this.sourcing.lotId)
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.batchId = res.result[0].id;
+                }
+            });
     }
 }

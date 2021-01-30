@@ -61,49 +61,51 @@
 </div>
 <div class="row mt-0 mt-md-4">
     <div class="col-12" style="height: 360px">
-        <ejs-chart
-            style="display: block"
-            id="vegetationChartcontainer"
-            [primaryXAxis]="primaryXAxis"
-            [primaryYAxis]="primaryYAxis"
-            [tooltip]="tooltip"
-            [chartArea]="chartArea"
-            [palettes]="palette"
-            [legendSettings]="legendSettings"
-            height="360px"
-        >
-            <e-series-collection>
-                <e-series
-                    [dataSource]="chartData1"
-                    type="Line"
-                    xName="x"
-                    yName="y"
-                    width="2"
-                    [marker]="marker"
-                    tooltipMappingName="label"
-                >
-                </e-series>
-                <e-series
-                    [dataSource]="chartData2"
-                    type="Line"
-                    xName="x"
-                    yName="y"
-                    width="2"
-                    [marker]="marker"
-                    tooltipMappingName="label"
-                >
-                </e-series>
-                <e-series
-                    [dataSource]="chartData3"
-                    type="Line"
-                    xName="x"
-                    yName="y"
-                    width="2"
-                    [marker]="marker"
-                    tooltipMappingName="label"
-                >
-                </e-series>
-            </e-series-collection>
-        </ejs-chart>
+        <ng-container *ngIf="chartData1?.length">
+            <ejs-chart
+                style="display: block"
+                id="vegetationChartcontainer"
+                [primaryXAxis]="primaryXAxis"
+                [primaryYAxis]="primaryYAxis"
+                [tooltip]="tooltip"
+                [chartArea]="chartArea"
+                [palettes]="palette"
+                [legendSettings]="legendSettings"
+                height="360px"
+            >
+                <e-series-collection>
+                    <e-series
+                        [dataSource]="chartData1"
+                        type="Line"
+                        xName="x"
+                        yName="y"
+                        width="2"
+                        [marker]="marker"
+                        tooltipMappingName="label"
+                    >
+                    </e-series>
+                    <e-series
+                        [dataSource]="chartData2"
+                        type="Line"
+                        xName="x"
+                        yName="y"
+                        width="2"
+                        [marker]="marker"
+                        tooltipMappingName="label"
+                    >
+                    </e-series>
+                    <e-series
+                        [dataSource]="chartData3"
+                        type="Line"
+                        xName="x"
+                        yName="y"
+                        width="2"
+                        [marker]="marker"
+                        tooltipMappingName="label"
+                    >
+                    </e-series>
+                </e-series-collection>
+            </ejs-chart>
+        </ng-container>
     </div>
 </div>

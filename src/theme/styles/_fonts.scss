@@ -167,7 +167,7 @@
 }
 
 .fnt-bold {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
 //////////////////// Font Size
@@ -286,6 +286,10 @@
     color: #000000;
 }
 
+.text-clr333 {
+    color: #333333;
+}
+
 .text-clr5d {
     color: #5d5d5d;
 }
@@ -304,6 +308,10 @@
 
 .text-clr24 {
     color: #242424;
+}
+
+.text-clr02 {
+    color: #020202;
 }
 
 .text-white {

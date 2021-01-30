@@ -64,6 +64,8 @@ import { RoleListComponent } from './components/addTeams/role-list/role-list.com
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { TeamMemberTableComponent } from './components/addTeams/team-member-table/team-member-table.component';
 
+import { ConfirmComponent } from './components/confirm/confirm.component';
+
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -128,7 +130,7 @@ const COMPONENTS = [
     VideoPlayerComponent,
     ReadMoreComponent,
 ];
-const COMPONENTS_NOROUNT = [];
+const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
 const PIPES = [CountryPipe, MonthPipe];
 // #endregion
@@ -154,6 +156,7 @@ const PIPES = [CountryPipe, MonthPipe];
         BreadcrumbComponent,
         RoleListComponent,
         TeamMemberTableComponent,
+        ConfirmComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

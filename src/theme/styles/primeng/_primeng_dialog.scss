@@ -13,6 +13,9 @@
         width: 75vw;
     }
 }
+.confirm-dialog.p-dialog {
+    max-width: 450px;
+}
 .p-dialog .p-dialog-header {
     background: #fff;
     color: #242424;

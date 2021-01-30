@@ -8,7 +8,6 @@ import { EstateListComponent } from './estate-list/estate-list.component';
 import { CoffeeListComponent } from './coffee-list/coffee-list.component';
 import { CoffeeDetailsComponent } from './coffee-details/coffee-details.component';
 import { AvailableConfirmOrderComponent } from './coffee-details/available-confirm-order/available-confirm-order.component';
-import { OrderPlacedComponent } from './coffee-details/order-placed/order-placed.component';
 import { EstateDetailsComponent } from './estate-details/estate-details.component';
 import { SourcingOrderChatComponent } from './estate-details/sourcing-order-chat/sourcing-order-chat.component';
 
@@ -34,14 +33,22 @@ const routes: Routes = [
         canActivate: [AuthGuard],
     },
     {
-        path: 'available-confirm-order',
+        path: 'buy-gc',
         component: AvailableConfirmOrderComponent,
         canActivate: [AuthGuard],
+        data: { orderType: 'booked' },
     },
     {
-        path: 'order-placed',
-        component: OrderPlacedComponent,
+        path: 'order-gc-sample',
+        component: AvailableConfirmOrderComponent,
         canActivate: [AuthGuard],
+        data: { orderType: 'sample' },
+    },
+    {
+        path: 'prebook-lot',
+        component: AvailableConfirmOrderComponent,
+        canActivate: [AuthGuard],
+        data: { orderType: 'preBooked' },
     },
     {
         path: 'sourcing-chat',

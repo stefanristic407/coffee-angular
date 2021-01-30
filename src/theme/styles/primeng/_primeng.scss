@@ -46,9 +46,36 @@
     .p-error {
         display: none;
     }
-    .ng-dirty + .p-error {
-        display: block;
+    .ng-dirty ~ .p-error {
+        display: block !important;
     }
+    .ng-dirty + .p-error {
+        display: block !important;
+    }
+
+    // Styles for inputgroup with custom addon
+    .p-inputgroup.custom-addon {
+        position: relative;
+        display: inline-block;
+        .p-inputgroup-addon {
+            position: absolute;
+            padding: 1rem;
+            top: 0;
+            right: 0;
+            border: none;
+            color: $muted-text-color;
+        }
+        .p-inputnumber {
+            width: 100%;
+        }
+        .p-inputnumber-input {
+            padding-right: 4rem;
+        }
+    }
+}
+
+p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
+    border-color: $error-border-color;
 }
 
 // Icon input

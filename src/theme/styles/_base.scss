@@ -95,6 +95,25 @@
     }
 }
 
+.mx-n3 {
+    margin-left: -1rem;
+    margin-right: -1rem;
+}
+
+.mb-45 {
+    margin-bottom: 2rem;
+}
+.mb-md-45 {
+    @media (min-width: 768px) {
+        margin-bottom: 2rem !important;
+    }
+}
+.mt-md-45 {
+    @media (min-width: 768px) {
+        margin-top: 2rem !important;
+    }
+}
+
 #pwd_strength_wrap:before {
     border-right: none !important;
 }
@@ -464,7 +483,7 @@ input[type='number'] {
 }
 
 @media (max-width: 991px) {
-    .br-mob-main {
+    .br-sm-main {
         border: 1px solid $primary-border-color;
     }
 }
@@ -540,15 +559,16 @@ input[type='number'] {
 
 // link without arrow
 .custom-link {
-    color: $brown-color;
+    color: $brown-color !important;
     font-size: 12px;
     font-weight: 700;
     position: relative;
-    text-decoration: underline;
+    text-decoration: underline !important;
 
     &:hover {
-        color: $brown-color;
+        color: $brown-color !important;
         cursor: pointer;
+        text-decoration: underline !important;
     }
 
     @media (min-width: 992px) {
