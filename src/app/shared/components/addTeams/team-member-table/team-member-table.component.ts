@@ -26,6 +26,8 @@ export class TeamMemberTableComponent implements OnInit {
     totalCount = 0;
     currentRoleID = '';
     roleList: any = [];
+    selectedUsers: any = [];
+    roasterUsers: any = [];
     constructor(
         public router: Router,
         private roasterService: RoasterserviceService,
@@ -72,12 +74,6 @@ export class TeamMemberTableComponent implements OnInit {
                 sortable: false,
                 width: 20,
             },
-            {
-                field: 'actions',
-                header: 'Actions',
-                sortable: false,
-                width: 10,
-            },
         ];
         this.currentRoleID = this.route.snapshot.queryParams['roleID'];
         this.supplyBreadCrumb();
@@ -101,11 +97,13 @@ export class TeamMemberTableComponent implements OnInit {
         );
     }
     getTableData(event?): void {
+        this.roasterUsers = [];
+        this.selectedUsers = [];
         this.roasterService.getRoasterUsers(this.roaster_id).subscribe(
             (result) => {
                 if (result['success'] == true) {
                     const userData = result['result'];
-                    userData.forEach((element) => {
+                    userData.forEach((element, index) => {
                         const tempData = {};
                         tempData['id'] = element.id;
                         tempData['name'] = element.firstname + ' ' + element.lastname;
@@ -120,23 +118,34 @@ export class TeamMemberTableComponent implements OnInit {
                                 } else {
                                     tempData['roles'] = '';
                                 }
+                                if (index == userData.length - 1) {
+                                    this.filterSelectedRoleUser();
+                                }
                             });
                         tempData['roles'] = '';
-                        this.tableValue.push(tempData);
+                        this.roasterUsers.push(tempData);
                     });
 
                     //   this.userActive++;
                 } else {
                     this.toastrService.error('Unable to fetch users data');
                 }
-                setTimeout(() => {
-                    console.log(this.tableValue);
-                }, 5000);
             },
             (err) => {
                 console.log(err);
             },
         );
+    }
+    filterSelectedRoleUser(): void {
+        this.tableValue = [];
+        this.roasterUsers.forEach((ele) => {
+            const findCurrentRoleID = ele['roles']
+                ? ele['roles'].find((item) => item['id'] == this.currentRoleID)
+                : undefined;
+            if (!findCurrentRoleID) {
+                this.tableValue.push(ele);
+            }
+        });
     }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
@@ -160,6 +169,11 @@ export class TeamMemberTableComponent implements OnInit {
     setStatus(term: any) {
         this.termStatus = term;
     }
+    setTeamRole(roleName, roleID): void {
+        this.currentRoleID = roleID;
+        this.selectedRole = roleName;
+        this.filterSelectedRoleUser();
+    }
     inviteNewMembers() {
         //console.log(this.roleData);
         const navigationExtras: NavigationExtras = {
@@ -169,5 +183,27 @@ export class TeamMemberTableComponent implements OnInit {
             },
         };
         this.router.navigate(['/people/invite-member'], navigationExtras);
+    }
+    assignUsersToRole(): void {
+        let count = 0;
+        this.selectedUsers.forEach((ele) => {
+            this.roasterService.assignUserBasedUserRoles(this.roaster_id, this.currentRoleID, ele['id']).subscribe(
+                (res) => {
+                    count++;
+                    if (res['success'] == true) {
+                        if (count == this.selectedUsers.length) {
+                            this.toastrService.success('Role Assigned Successfully!');
+                            this.getTableData();
+                        }
+                    } else {
+                        this.toastrService.error('User Role Already exists.Please select another role');
+                    }
+                },
+                (err) => {
+                    count++;
+                    console.log(err);
+                },
+            );
+        });
     }
 }

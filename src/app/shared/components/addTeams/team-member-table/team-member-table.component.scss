@@ -7,9 +7,7 @@
     padding-left: 3rem;
 }
 .team__total {
-    padding-left: 3rem;
-    padding-top: 1rem;
-    padding-right: 3rem;
+    padding: 3rem;
 }
 .add-team {
     font-family: Muli;
@@ -33,6 +31,23 @@
         border: none !important;
     }
 }
+.tableDataFont {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+    color: #232334;
+}
+.typeofStatus-active {
+    color: #649a2b;
+}
+.typeofStatus-disabled {
+    color: #979797;
+}
 .content_list {
     font-family: Muli;
     font-size: 14px;
@@ -44,6 +59,10 @@
         color: #232334;
         background-color: #f8f8f8;
     }
+}
+.rolesColumn {
+    overflow: unset !important;
+    white-space: normal !important;
 }
 ::ng-deep .content_list {
     .ui-overlaypanel {
@@ -356,6 +375,9 @@ span.checkmark {
     .modal-header {
         border-bottom: 1px solid #d6d6d6 !important;
         padding: 0 0 25px 0 !important;
+    }
+    .team__total {
+        padding: 0.5rem;
     }
     .modal-body {
         margin-top: 0px !important;

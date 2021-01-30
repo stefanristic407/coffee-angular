@@ -4,24 +4,32 @@
             <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
         </div>
     </div>
-    <section class="team__total d-none d-md-block">
-        <div class="row">
-            <div class="d-inline add-team col-lg-8 p-0">{{globals.languageJson?.add_team_members}}
-                <!--(click)="op.toggle($event)"-->
-                <span class="d-inline select_title" >
+    <section class="team__total">
+        <div class="row m-0">
+            <div class="d-inline add-team col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">{{globals.languageJson?.add_team_members}}
+                <span class="d-inline select_title" (click)="op.toggle($event)">
                     {{selectedRole}}
                     <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
                 <div class="select-members mt-1">{{globals.languageJson?.select_members_role}}</div>
         
             </div>
-            <div class="col-lg-4">
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-none d-md-block">
                 <button type="submit" class="btn invite_members pull-right" (click)="inviteNewMembers();">
                     <span class="update_text">{{globals.languageJson?.invite_new_members}}</span>
                 </button>
             </div>
+            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-block d-sm-block d-md-none">
+                <button type="submit" class="btn invite_members w-100" (click)="inviteNewMembers();">
+                    <span class="update_text">{{globals.languageJson?.invite_new_members}}</span>
+                </button>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-lg-8">
+        <div class="row m-0">
+            <div class="col-sm-12 col-md-6 col-lg-4 d-block d-sm-block d-md-none mt-4 mb-4 p-0">
+                <input type="text" name="search" class="search-raised pull-right m-0 w-100" [(ngModel)]="termSearch"
+                    placeholder="{{globals.languageJson?.search_name_role}}" />
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8 p-0">
                 <div class="d-inline border-total status-div col-sm-6" id="status_id">
                     <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" [outsideClick]="true" #pop="bs-popover">
                         <p class="d-inline filter" (click)="showVar = !showVar;">
@@ -40,7 +48,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 search-div ">
+            <div class="col-sm-12 col-md-6 col-lg-4 search-div d-none d-sm-none d-md-block p-0">
                 <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="termSearch"
                     placeholder="{{globals.languageJson?.search_name_role}}" />
             </div>
@@ -49,7 +57,7 @@
             <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
                 [(selection)]="tableSelected" dataKey="id" [resizableColumns]="true" styleClass="ui-table-customers"
                 [showCurrentPageReport]="false" [paginator]="false" [lazy]="true" (onLazyLoad)="getTableData($event)"
-                [totalRecords]="totalCount" [responsive]="sharedService.isMobileView">
+                [totalRecords]="totalCount" selectionMode="multiple" [(selection)]="selectedUsers" [responsive]="sharedService.isMobileView">
                 <ng-template pTemplate="header" let-columns>
                     <tr class="d-none d-sm-none d-md-table-row">
                         <th style="width: 5%" class="">
@@ -69,21 +77,32 @@
                         <td class="d-none d-sm-none d-md-table-cell">
                             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                         </td>
-                        <td *ngFor="let col of columns" [ngSwitch]="col.field" [style.width]="col.width ? col.width + '%' : '30%'">
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field" [style.width]="col.width ? col.width + '%' : '30%'"
+                        [ngClass]="{'d-none':col.field == 'user_count', 'd-sm-none': col.field == 'user_count', 
+                            'd-md-none': col.field == 'add_user', 'd-md-table-cell': col.field !== 'add_user', 'rolesColumn': col.field == 'roles'}">
                             <span *ngSwitchCase="'name'" class="">
-                                <span>
+                                <span class="tableDataFont">
                                     {{ rowData[col.field]}}
                                 </span>
                             </span>
                             <span *ngSwitchCase="'last_login_at'" class="">
-                                <span>
+                                <span class="tableDataFont">
                                     {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a'}}
                                 </span>
                             </span>
-                            <span *ngSwitchCase="'status'" class="">
-                                <span>
-                                    {{ rowData[col.field]}}
+                            <span *ngSwitchCase="'roles'" class="">
+                                <span *ngFor = "let role of rowData[col.field]; let i = index"class="tableDataFont">
+                                    {{role.name}} <span *ngIf="i != (rowData[col.field].length-1)">,</span>
                                 </span>
+                            </span>
+                            <span *ngSwitchCase="'status'" class="d-none d-sm-none d-md-block">
+                                <span *ngIf="rowData['status'] == 'ACTIVE'" class="tableDataFont typeofStatus-active">&#9679; Active
+                                </span>
+                                <span *ngIf="rowData['status'] == 'INACTIVE'" class="tableDataFont typeofStatus-disabled">&#9679; Disabled
+                                </span>
+                            </span>
+                            <span *ngSwitchDefault>
+                                <span>{{ rowData[col.field] }}</span>
                             </span>
                         </td>
                     </tr>
@@ -91,7 +110,25 @@
             
             </p-table>
         </div>
+        <div>
+            <button type="button" class="btn cancel_member mt-4"
+                routerLink="/people/manage-role">{{globals.languageJson?.cancel}}</button>
+            <button *ngIf="selectedUsers.length > 0" type="button" class="btn invite_members mt-4 pull-right ml-auto"
+                (click)="assignUsersToRole()">{{globals.languageJson?.assign}}</button>
+        </div>
     </section>
+    <p-overlayPanel #op [dismissable]="true" appendTo="body">
+        <div class="overflow-popover">
+            <ul class="custom-popover">
+                <!-- <li class="content_list" (click) = "setRole('Sales and Marketing')">Sales and Marketing</li> -->
+                <li class="content_list" *ngFor="let role of roleList" (click)="setTeamRole(role.name,role.id);op.hide();">
+                    {{role.name}}</li>
+            </ul>
+            <button class="btn addrole_button" routerLink="/people/create-role">{{globals.languageJson?.add_role}}
+                <!-- <span class="addrole_content">Add role</span> -->
+            </button>
+        </div>
+    </p-overlayPanel>
     <ng-template #roleTemplate>
         <div>
             <ul class="list-group">

@@ -73,6 +73,9 @@
     color: #30855c;
     margin-left: 10px;
 }
+.show_btns {
+    margin-right: 60px;
+}
 .rowClass > td > .tdClass > .d-md-flex > .show_btns {
     visibility: hidden;
 }
@@ -580,5 +583,21 @@ tr:hover > td > .show_btns {
 @media only screen and (max-width: 768px) {
     .web-btn {
         display: none;
+    }
+    .table-container {
+        border: 0px !important;
+        margin: 1rem;
+        padding: 0px;
+    }
+    .roles-heading {
+        margin: 1rem;
+    }
+    .ellipsisClass {
+        float: right;
+    }
+    :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+        border: 1px solid #d6d6d6;
+        display: flex;
+        margin-bottom: 16px;
     }
 }

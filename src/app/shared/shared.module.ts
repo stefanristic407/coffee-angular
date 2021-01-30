@@ -60,7 +60,6 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 import { CreateRoleComponent } from './components/addTeams/create-role/create-role.component';
 import { ManagePermissionComponent } from './components/addTeams/manage-permission/manage-permission.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { RoleListComponent } from './components/addTeams/role-list/role-list.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { TeamMemberTableComponent } from './components/addTeams/team-member-table/team-member-table.component';
@@ -78,7 +77,6 @@ const THIRDMODULES = [
     TypeaheadModule,
     BreadcrumbModule,
     AutoCompleteModule,
-    BreadcrumbModule,
     ButtonModule,
     CalendarModule,
     CarouselModule,

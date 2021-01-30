@@ -75,14 +75,14 @@
                             </div>
                         </span>
                         <span *ngSwitchCase="'add_user'" class="d-block d-sm-block d-md-none">
-                            <div class="d-flex">
+                            <div class="d-flex justify-content-end">
                                 <p><img src="assets/images/role-grey.svg" alt="Dashboard" (click)="addMembers($event, rowData)"></p>
                             </div>
                         </span>
                         <span *ngSwitchCase="'actions'">
                             <ng-container>
                                 <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
-                                    <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
+                                    <p class="ellipsisClass"><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
                                 </a>
                                 <ng-template #poplistTemplate>
                                     <div id="popover-mobile-content">
