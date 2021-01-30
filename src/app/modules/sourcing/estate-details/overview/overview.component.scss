@@ -6,43 +6,6 @@
     }
 }
 
-.prodcoffee {
-    width: 100%;
-    position: relative;
-    height: 234px;
-    background: url(/assets/images/video-image.jpg) no-repeat scroll;
-
-    h4 {
-        color: #fff;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translate(0px, -50%);
-        padding: 24px;
-        font-size: 18px;
-        z-index: 10;
-        font-weight: 600;
-
-        @media (max-width: 767px) {
-            font-size: 14px;
-        }
-    }
-
-    .video-part {
-        background: #0006;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-
-        .video-btn {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-        }
-    }
-}
-
 agm-map {
     height: 150px;
     width: 100%;
