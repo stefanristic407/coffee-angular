@@ -23,10 +23,12 @@ export class ReadMoreComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.lineHeight = +window.getComputedStyle(this.contentDom.nativeElement).lineHeight.replace('px', '');
-        if (this.contentDom.nativeElement.scrollHeight <= this.lineHeight * this.rows) {
-            this.buttonDom.nativeElement.style.display = 'none';
-        }
+        setTimeout(() => {
+            this.lineHeight = +window.getComputedStyle(this.contentDom.nativeElement).lineHeight.replace('px', '');
+            if (this.contentDom.nativeElement.scrollHeight <= this.lineHeight * this.rows) {
+                this.buttonDom.nativeElement.style.display = 'none';
+            }
+        });
     }
 
     public toggleContent(event) {
