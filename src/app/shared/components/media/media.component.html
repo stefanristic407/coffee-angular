@@ -1,11 +1,16 @@
 <ng-container *ngIf="isVideo; else imgBanner">
-    <div class="bg-video-wrap">
-        <video [muted]="true" autoplay playsinline loop>
-            <source [src]="fileUrl" type="video/mp4" />
-        </video>
-    </div>
-    <div class="play-btn-banner" (click)="openVideo()">
-        <img src="assets/images/play-button-image.svg" />
+    <div class="position-relative">
+        <div class="bg-video-wrap">
+            <video [muted]="true" autoplay playsinline loop>
+                <source [src]="fileUrl" type="video/mp4" />
+            </video>
+        </div>
+        <img
+            class="play-btn"
+            [class.center]="btnCenter"
+            src="assets/images/play-button-image.svg"
+            (click)="openVideo()"
+        />
     </div>
 </ng-container>
 

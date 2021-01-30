@@ -45,6 +45,11 @@
 }
 
 //////////////////// Font Size
+// Static font size
+.fnt-mb-18 {
+    font-size: 18px;
+    line-height: 28px;
+}
 /* Mobile screens */
 
 .fnt-10 {
@@ -117,6 +122,10 @@
     .fnt-md-16 {
         font-size: 16px;
         line-height: 26px;
+    }
+    .fnt-md-18 {
+        font-size: 18px;
+        line-height: 28px;
     }
 }
 

@@ -128,8 +128,10 @@ export class SourcingService {
                 this.estateLots.forEach((element) => {
                     element.varietiesStr = _.pluck(element.varieties, 'name').join(', ');
                     if (element.polygon_coordinates) {
-                        element.polygon_coordinates = JSON.parse(element.polygon_coordinates);
-                        element.center = element.polygon_coordinates[0][0];
+                        try {
+                            element.polygon_coordinates = JSON.parse(element.polygon_coordinates);
+                            element.center = element.polygon_coordinates[0][0];
+                        } catch {}
                     }
                 });
             }

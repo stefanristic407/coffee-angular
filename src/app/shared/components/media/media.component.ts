@@ -11,6 +11,7 @@ import { VideoPlayerComponent } from '../video-player/video-player.component';
 export class MediaComponent implements OnInit {
     fileUrl = '';
     @Input() title = '';
+    @Input() btnCenter = false;
     isVideo = false;
     @Input()
     set url(value: string) {
