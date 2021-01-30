@@ -28,79 +28,46 @@
                                 {{ globals.languageJson?.confirm_order }}
                             </h4>
                             <div class="fill-txt text-clr588">
-                                {{ globals.languageJson?.please_shippment }}
+                                <div *ngIf="orderType === 'booked'">{{ globals.languageJson?.please_shippment }}</div>
+                                <div *ngIf="orderType === 'sample'">
+                                    Please verify the details and place your order for coffee sample
+                                </div>
+                                <div *ngIf="orderType === 'preBooked'">
+                                    Please fill in the details to Pre-book the lot.
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="mb-4 mb-md-45">
+                <!-- Order detail table -->
+                <div class="mb-3">
                     <div class="br-sm-main br-4 p-3 p-md-0">
                         <div class="fnt-18 fnt-bold text-clr000 pb-2">
                             {{ globals.languageJson?.order_details }}
                         </div>
                         <div class="br-md-main br-4 p-md-1">
                             <p-table
-                                *ngIf="sourcing.harvestDetail"
-                                [value]="[sourcing.harvestDetail]"
+                                *ngIf="orderDetail"
+                                [value]="[orderDetail]"
                                 styleClass="p-datatable-responsive-single"
                             >
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th>{{ globals.languageJson?.customer }}</th>
-                                        <th>{{ globals.languageJson?.origin }}</th>
-                                        <th>{{ globals.languageJson?.variety }}</th>
-                                        <th>{{ globals.languageJson?.species }}</th>
-                                        <th>{{ globals.languageJson?.cupping_score }}</th>
-                                        <th>{{ globals.languageJson?.available_quantity }}</th>
-                                        <th>{{ globals.languageJson?.rate_per_kg }}</th>
+                                        <th *ngFor="let item of orderDetail">{{ item.label }}</th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-item>
                                     <tr>
-                                        <td>
-                                            <span class="p-column-title">
-                                                {{ globals.languageJson?.customer }}
-                                            </span>
-                                            <span>{{ item.estate_name }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="p-column-title">
-                                                {{ globals.languageJson?.origin }}
-                                            </span>
-                                            <span>{{ item.region }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="p-column-title">
-                                                {{ globals.languageJson?.variety }}
-                                            </span>
-                                            <span>{{ item.varieties }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="p-column-title">
-                                                {{ globals.languageJson?.species }}
-                                            </span>
-                                            <span>{{ item.species }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="p-column-title">
-                                                {{ globals.languageJson?.cupping_score }}
-                                            </span>
-                                            <span>{{ item.cupping?.cup_score }}</span>
-                                        </td>
-                                        <td>
-                                            <span class="p-column-title">
-                                                {{ globals.languageJson?.available_quantity }}
-                                            </span>
-                                            <span
-                                                >{{ item.quantity_count }}/{{ item.quantity
-                                                }}{{ item.quantity_unit }}</span
-                                            >
-                                        </td>
-                                        <td>
-                                            <span class="p-column-title">
-                                                {{ globals.languageJson?.rate_per_kg }}
-                                            </span>
-                                            <span>${{ item.price }}USD/kg</span>
+                                        <td *ngFor="let element of item" [ngSwitch]="element.field">
+                                            <ng-container *ngSwitchCase="'origin'">
+                                                <span class="p-column-title"> {{ element.label }} </span>
+                                                <span>{{ element.value | country }}</span>
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchDefault>
+                                                <span class="p-column-title"> {{ element.label }} </span>
+                                                <span>{{ element.value }}</span>
+                                            </ng-container>
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -108,10 +75,28 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Prebook lot message -->
+                <div *ngIf="orderType === 'preBooked'" class="row">
+                    <div class="col-12 d-flex">
+                        <span class="fnt-14 fnt-700 txt-clr334"> Note:</span>
+                        <div class="col-md-7">
+                            <p class="fnt-14 fnt-400 txt-clr334">
+                                A pre-book order makes you eligible to buy all the produce for the booked lot from the
+                                estate. once the beans are ready, you will be notified.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-md-3">
+                        <div class="solid-divider w-100"></div>
+                    </div>
+                </div>
+
+                <!-- Form for real order -->
                 <form [formGroup]="infoForm" novalidate>
                     <div class="mt-3">
                         <div class="row">
-                            <ng-container *ngIf="flagData == 'buyNow'">
+                            <ng-container *ngIf="orderType == 'booked'">
                                 <!-- Quantity -->
                                 <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex">
                                     <div class="sewn-form-field mb-md-45">
@@ -187,14 +172,14 @@
 
                     <div *ngIf="!editAddress" class="col-12 col-md-7 mt-5 px-0">
                         <div class="fnt-18 fnt-bold text-clr000 d-flex justify-content-between align-items-center">
-                            <div *ngIf="(!infoForm.value.service && flagData == 'buyNow') || flagData == 'sample'">
+                            <div *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'">
                                 {{ globals.languageJson?.delivery_address }}
                             </div>
-                            <div *ngIf="infoForm.value.service && flagData == 'buyNow'">
+                            <div *ngIf="infoForm.value.service && orderType == 'booked'">
                                 {{ globals.languageJson?.pickup_address }}
                             </div>
                             <div
-                                *ngIf="(!infoForm.value.service && flagData == 'buyNow') || flagData == 'sample'"
+                                *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'"
                                 class="fnt-14 fnt-bold txt-clr55c cursor-pointer"
                                 (click)="refreshAddressForm()"
                             >
@@ -360,7 +345,7 @@
                                 {{ globals.languageJson?.cancel }}
                             </button>
                             <button type="button" class="btn-raised" (click)="placeOrder()">
-                                {{ globals.languageJson?.place_order }}
+                                {{ orderType === 'preBooked' ? 'Pre-book lot' : globals.languageJson?.place_order }}
                             </button>
                         </div>
                     </div>

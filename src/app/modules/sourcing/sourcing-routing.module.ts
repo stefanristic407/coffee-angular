@@ -33,9 +33,22 @@ const routes: Routes = [
         canActivate: [AuthGuard],
     },
     {
-        path: 'available-confirm-order',
+        path: 'buy-gc',
         component: AvailableConfirmOrderComponent,
         canActivate: [AuthGuard],
+        data: { orderType: 'booked' },
+    },
+    {
+        path: 'order-gc-sample',
+        component: AvailableConfirmOrderComponent,
+        canActivate: [AuthGuard],
+        data: { orderType: 'sample' },
+    },
+    {
+        path: 'prebook-lot',
+        component: AvailableConfirmOrderComponent,
+        canActivate: [AuthGuard],
+        data: { orderType: 'preBooked' },
     },
     {
         path: 'sourcing-chat',

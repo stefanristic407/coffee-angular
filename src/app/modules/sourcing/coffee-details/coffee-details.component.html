@@ -301,8 +301,8 @@
         <div class="pr-2">
             <button
                 class="btn-stroked px-3"
-                routerLink="/sourcing/available-confirm-order"
-                [queryParams]="{ gc_id: sourcing.harvestData, flag: 'sample' }"
+                routerLink="/sourcing/order-gc-sample"
+                [queryParams]="{ gc_id: sourcing.harvestId }"
             >
                 Order sample
             </button>
@@ -310,8 +310,8 @@
         <div class="pl-2">
             <button
                 class="btn-raised"
-                routerLink="/sourcing/available-confirm-order"
-                [queryParams]="{ gc_id: sourcing.harvestData, flag: 'buyNow' }"
+                routerLink="/sourcing/buy-gc"
+                [queryParams]="{ gc_id: sourcing.harvestId }"
                 *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage"
             >
                 Buy

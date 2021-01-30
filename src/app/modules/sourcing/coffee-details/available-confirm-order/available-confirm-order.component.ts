@@ -25,12 +25,13 @@ export class AvailableConfirmOrderComponent implements OnInit {
     ];
 
     roasterId: any;
-    flagData: string;
+    orderType: string;
     prebookOrderId: any;
     infoForm: FormGroup;
     addressForm: FormGroup;
     isLoaded = false;
     orderPlaced = false;
+    orderDetail: any;
     totalPrice;
     shipInfo: any;
     shipAddress: any;
@@ -38,6 +39,9 @@ export class AvailableConfirmOrderComponent implements OnInit {
     addressData: any;
     editAddress = false;
     cities: any[] = [];
+
+    // Variables for only prebook order
+    batchId: string;
 
     constructor(
         public dialogSrv: DialogService,
@@ -55,12 +59,23 @@ export class AvailableConfirmOrderComponent implements OnInit {
 
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.route.data.subscribe((data) => {
+            this.orderType = data.orderType;
+        });
 
         this.route.queryParamMap.subscribe((params) => {
             if (params.has('gc_id')) {
-                this.sourcing.harvestData = params.get('gc_id');
-                this.flagData = params.get('flag');
-                this.refreshData();
+                this.sourcing.harvestId = params.get('gc_id');
+            }
+            if (params.has('estateId') && params.has('lotId')) {
+                this.sourcing.estateId = params.get('estateId');
+                this.sourcing.lotId = params.get('lotId');
+            }
+            if (this.orderType === 'booked' || this.orderType === 'sample') {
+                this.getHarvest();
+            } else if (this.orderType === 'preBooked') {
+                this.getLot();
+                this.getPrebookBatch();
             }
         });
 
@@ -71,20 +86,92 @@ export class AvailableConfirmOrderComponent implements OnInit {
         }
     }
 
-    refreshData() {
-        new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
-            this.refreshBreadCrumb();
-            const promises = [];
-            if (this.flagData === 'buyNow') {
-                // promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
-            }
-            promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
-            promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
-            Promise.all(promises).then(() => {
-                this.refreshForm();
-                this.changeService();
-                this.isLoaded = true;
+    getHarvest() {
+        if (this.sourcing.harvestId) {
+            new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
+                this.refreshBreadCrumb();
+                this.getAddress();
+                this.orderDetail = [
+                    {
+                        field: 'customer',
+                        label: this.globals.languageJson?.customer,
+                        value: this.sourcing.harvestDetail.estate_name,
+                    },
+                    {
+                        field: 'origin',
+                        label: this.globals.languageJson?.origin,
+                        value: this.sourcing.harvestDetail.country,
+                    },
+                    {
+                        field: 'variety',
+                        label: this.globals.languageJson?.variety,
+                        value: this.sourcing.harvestDetail.varieties,
+                    },
+                    {
+                        field: 'species',
+                        label: this.globals.languageJson?.species,
+                        value: this.sourcing.harvestDetail.species,
+                    },
+                    {
+                        field: 'cupScore',
+                        label: this.globals.languageJson?.cupping_score,
+                        value: this.sourcing.harvestDetail.cupping.cup_score,
+                    },
+                    {
+                        field: 'quantity',
+                        label: this.globals.languageJson?.available_quantity,
+                        value: `${this.sourcing.harvestDetail.quantity_count}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
+                    },
+                    {
+                        field: 'price',
+                        label: this.globals.languageJson?.rate_per_kg,
+                        value: `$${this.sourcing.harvestDetail.price}USD/kg`,
+                    },
+                ];
             });
+        } else {
+            this.router.navigateByUrl('/error');
+        }
+    }
+
+    getLot() {
+        if (this.sourcing.lotId) {
+            new Promise((resolve) => this.sourcing.getLotDetails(resolve)).then(() => {
+                this.refreshBreadCrumb();
+                this.getAddress();
+                this.orderDetail = [
+                    {
+                        field: 'customer',
+                        label: this.globals.languageJson?.customer,
+                        value: this.sourcing.lot.estate_name,
+                    },
+                    { field: 'origin', label: this.globals.languageJson?.origin, value: this.sourcing.lot.country },
+                    {
+                        field: 'variety',
+                        label: this.globals.languageJson?.variety,
+                        value: this.sourcing.lot.varietiesStr,
+                    },
+                    { field: 'species', label: this.globals.languageJson?.species, value: this.sourcing.lot.species },
+                    { field: 'cupScore', label: 'Avg, grade', value: this.sourcing.lot.avg_cup_score },
+                    { field: 'production', label: 'Avg. Production', value: this.sourcing.lot.avg_precipitation },
+                    { field: 'token', label: 'Token amount', value: '????' },
+                ];
+            });
+        } else {
+            this.router.navigateByUrl('/error');
+        }
+    }
+
+    getAddress() {
+        const promises = [];
+        if (this.orderType === 'booked') {
+            promises.push(new Promise((resolve) => this.getShipInfo(resolve)));
+        }
+        promises.push(new Promise((resolve) => this.getRoAddress(resolve)));
+        Promise.all(promises).then(() => {
+            this.refreshForm();
+            this.changeService();
+            this.isLoaded = true;
         });
     }
 
@@ -92,10 +179,15 @@ export class AvailableConfirmOrderComponent implements OnInit {
         this.breadItems = [
             { label: 'Home', routerLink: '/features/welcome-aboard' },
             { label: 'Sourcing Module', routerLink: '/sourcing' },
-            {
-                label: this.sourcing.harvestDetail.name,
-                routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.estate_id}/${this.sourcing.harvestDetail.id}`,
-            },
+            this.orderType === 'preBooked'
+                ? {
+                      label: this.sourcing.lot.name,
+                      routerLink: `/sourcing/estate-details/${this.sourcing.lot.estate_id}`,
+                  }
+                : {
+                      label: this.sourcing.harvestDetail.name,
+                      routerLink: `/sourcing/coffee-details/${this.sourcing.harvestDetail.estate_id}/${this.sourcing.harvestDetail.id}`,
+                  },
             { label: 'Confirm order' },
         ];
     }
@@ -104,7 +196,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
         this.infoForm = this.fb.group({
             terms: [null, Validators.compose([Validators.required])],
         });
-        if (this.flagData === 'buyNow') {
+        if (this.orderType === 'booked') {
             this.infoForm.addControl(
                 'quantity',
                 new FormControl(
@@ -140,14 +232,14 @@ export class AvailableConfirmOrderComponent implements OnInit {
             this.infoForm.value.quantity = event.value;
         }
         setTimeout(() => {
-            if (this.flagData === 'buyNow') {
+            if (this.orderType === 'booked') {
                 if (this.infoForm.value.service) {
                     this.totalPrice =
                         (this.sourcing.harvestDetail.price + this.shipInfo.unit_price) * this.infoForm.value.quantity;
                 } else {
                     this.totalPrice = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
                 }
-            } else if (this.flagData === 'sample') {
+            } else if (this.orderType === 'sample') {
                 this.totalPrice = this.sourcing.harvestDetail.price * this.infoForm.value.quantity;
             }
         });
@@ -175,10 +267,12 @@ export class AvailableConfirmOrderComponent implements OnInit {
                 })
                 .onClose.subscribe((action: any) => {
                     if (action === 'yes') {
-                        if (this.flagData === 'buyNow') {
+                        if (this.orderType === 'booked') {
                             this.submitOrder();
-                        } else if (this.flagData === 'sample') {
+                        } else if (this.orderType === 'sample') {
                             this.submitSample();
+                        } else if (this.orderType === 'preBooked') {
+                            this.submitPreBook();
                         }
                     }
                 });
@@ -195,7 +289,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
             prebook_order_id: this.prebookOrderId,
             is_fully_serviced_delivery: this.infoForm.value.service,
         };
-        this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestData, data).subscribe((res: any) => {
+        this.roasterService.placeOrder(this.roasterId, this.sourcing.harvestId, data).subscribe((res: any) => {
             if (res.success) {
                 this.orderPlaced = true;
             } else {
@@ -210,13 +304,29 @@ export class AvailableConfirmOrderComponent implements OnInit {
             billing_address_id: this.addressData.id,
             prebook_order_id: this.prebookOrderId,
         };
-        this.userService.addRequestSample(this.roasterId, this.sourcing.harvestData, doneData).subscribe((res: any) => {
+        this.userService.addRequestSample(this.roasterId, this.sourcing.harvestId, doneData).subscribe((res: any) => {
             if (res.success) {
                 this.orderPlaced = true;
             } else {
                 this.toastrService.error('Error while Placing the order');
             }
         });
+    }
+
+    submitPreBook() {
+        const data = {
+            shipping_address_id: this.addressData.id,
+            billing_address_id: this.addressData.id,
+        };
+        if (this.batchId) {
+            this.userService.addPrebookLots(this.roasterId, this.batchId, data).subscribe((res: any) => {
+                if (res.success) {
+                    this.orderPlaced = true;
+                } else {
+                    this.toastrService.error('Error while Placing the prebook order');
+                }
+            });
+        }
     }
 
     changeCountry() {
@@ -281,5 +391,15 @@ export class AvailableConfirmOrderComponent implements OnInit {
                 }
             }
         });
+    }
+
+    getPrebookBatch() {
+        this.userService
+            .getPrebookBatchList(this.roasterId, this.sourcing.estateId, this.sourcing.lotId)
+            .subscribe((res: any) => {
+                if (res.success) {
+                    this.batchId = res.result[0].id;
+                }
+            });
     }
 }

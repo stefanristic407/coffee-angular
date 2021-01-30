@@ -29,7 +29,7 @@ export class CoffeeDetailsComponent implements OnInit {
     ) {
         this.route.paramMap.subscribe((params) => {
             if (params.has('harvestId') && params.has('estateId')) {
-                this.sourcing.harvestData = params.get('harvestId');
+                this.sourcing.harvestId = params.get('harvestId');
                 this.sourcing.estateNumber = params.get('estateId');
                 this.refreshData();
             }
