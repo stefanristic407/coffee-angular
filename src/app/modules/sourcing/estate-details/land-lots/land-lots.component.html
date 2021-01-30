@@ -101,6 +101,10 @@
     </ng-container>
 </div>
 
+<a *ngIf="globals.device === 'desktop'" class="estate-chat-btn active" routerLink="/features/sourcing-chat">
+    <span>Order #12416 chat</span>
+</a>
+
 <ng-template #empty>
     <app-empty title="No data available"></app-empty>
 </ng-template>

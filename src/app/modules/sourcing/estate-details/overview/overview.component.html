@@ -156,13 +156,6 @@
     </div>
 </div>
 
-<div *ngIf="globals.device === 'desktop'" class="w-100 chat-div">
-    <button
-        type="button"
-        class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-        routerLink="/features/sourcing-chat"
-    >
-        Chat with Finca la Pampa <span class="chat-indicator"> &#x25CF;</span
-        ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
-    </button>
-</div>
+<a *ngIf="globals.device === 'desktop'" class="estate-chat-btn active" routerLink="/features/sourcing-chat">
+    <span>Chat with {{ sourcing.estate?.name }}</span>
+</a>

@@ -43,37 +43,6 @@
     }
 }
 
-.chat-div {
-    width: 98% !important;
-    .chat-btn {
-        border-radius: 8px 8px 0px 0px !important;
-        box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08);
-        background-color: #333333;
-        font-family: Muli;
-        font-size: 14px;
-        font-weight: 600;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
-        color: #ffffff;
-        text-align: left;
-
-        .chat-indicator {
-            color: #24be46;
-        }
-    }
-}
-
-.stricky-order {
-    position: fixed;
-    left: 0;
-    right: 10%;
-    bottom: 0px;
-    z-index: 99;
-    width: 23%;
-}
-
 agm-map {
     height: 150px;
     width: 100%;
