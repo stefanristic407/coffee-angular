@@ -46,8 +46,15 @@
                     </div>
 
                     <div class="fnt-16 mb-0">View what we have to offer!</div>
-                    <div class="d-none d-md-block mt-3">
-                        <button class="btn-raised">Download GTM</button>
+                    <div *ngIf="sourcing.estateHomepage?.opportunity_file_url" class="d-none d-md-block mt-3">
+                        <a
+                            class="btn-raised"
+                            [href]="sourcing.estateHomepage?.opportunity_file_url"
+                            target="_blank"
+                            download
+                        >
+                            Download GTM
+                        </a>
                     </div>
                 </div>
             </div>

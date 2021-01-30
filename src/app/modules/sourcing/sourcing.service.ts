@@ -101,6 +101,7 @@ export class SourcingService {
         this.userService.getEstateBrandProfileDetail(this.estateId, 'home-page').subscribe((res: any) => {
             if (res.success) {
                 this.estateHomepage = res.result;
+                console.log(this.estateHomepage);
             }
         });
     }
@@ -158,6 +159,7 @@ export class SourcingService {
         this.userService.getEachEsateReviews(this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.reviewsList = res.result;
+                console.log(this.reviewsList);
             }
         });
     }
