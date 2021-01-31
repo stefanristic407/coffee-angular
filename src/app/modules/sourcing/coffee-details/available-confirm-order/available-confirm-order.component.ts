@@ -79,11 +79,7 @@ export class AvailableConfirmOrderComponent implements OnInit {
             }
         });
 
-        if (this.sourcing.prebook_flag === true) {
-            this.prebookOrderId = this.sourcing.prebook_order_id;
-        } else {
-            this.prebookOrderId = 0;
-        }
+        this.prebookOrderId = 0;
     }
 
     getHarvest() {

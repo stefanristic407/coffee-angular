@@ -1,10 +1,5 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { CookieService } from 'ngx-cookie-service';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from '@services';
-import { UserserviceService } from '@services';
 import { SourcingService } from '../sourcing.service';
 
 @Component({
@@ -13,9 +8,6 @@ import { SourcingService } from '../sourcing.service';
     styleUrls: ['./sourcing.component.scss'],
 })
 export class SourcingComponent implements OnInit {
-    modalRef: BsModalRef;
-    appLanguage?: any;
-
     menuItems: any[];
     originItems: any[] = [
         { label: 'Sweden', value: 'se' },
@@ -59,15 +51,7 @@ export class SourcingComponent implements OnInit {
     displayFilterModal = false;
     limitFlavour = true;
 
-    constructor(
-        private modalService: BsModalService,
-        public globals: GlobalsService,
-        private userService: UserserviceService,
-        private cookieService: CookieService,
-        private deviceSrv: DeviceDetectorService,
-        private toastrService: ToastrService,
-        public sourcingSrv: SourcingService,
-    ) {}
+    constructor(public globals: GlobalsService, public sourcingSrv: SourcingService) {}
 
     ngOnInit(): void {
         this.menuItems = [
@@ -81,13 +65,11 @@ export class SourcingComponent implements OnInit {
         this.queryParams = this.sourcingSrv.queryParams.getValue();
         this.viewMode = this.sourcingSrv.viewMode.getValue();
 
-        this.appLanguage = this.globals.languageJson;
         this.sourcingSrv.flavourprofileList();
     }
 
     filterCall() {
         this.sourcingSrv.queryParams.next(this.queryParams);
-        console.warn('Query params:', this.queryParams);
     }
 
     changeViewMode() {

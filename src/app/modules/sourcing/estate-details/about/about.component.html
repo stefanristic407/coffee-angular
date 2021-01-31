@@ -63,11 +63,11 @@
                                 class="cert-img mb-3 mr-3"
                             />
                         </div>
-                        <div *ngIf="sourcing.gps_coordinates != ''">
-                            <agm-map [latitude]="sourcing.latitude" [longitude]="sourcing.longitude">
+                        <div *ngIf="sourcing.estate?.gps_coordinates != ''">
+                            <agm-map [latitude]="sourcing.estate?.latitude" [longitude]="sourcing.estate?.longitude">
                                 <agm-marker
-                                    [latitude]="sourcing.latitude"
-                                    [longitude]="sourcing.longitude"
+                                    [latitude]="sourcing.estate?.latitude"
+                                    [longitude]="sourcing.estate?.longitude"
                                 ></agm-marker>
                             </agm-map>
                         </div>
@@ -98,6 +98,10 @@
         </div>
     </div>
 </div>
+
+<a *ngIf="globals.device === 'desktop'" class="estate-chat-btn active" routerLink="/features/sourcing-chat">
+    <span>Chat with {{ sourcing.estate?.name }}</span>
+</a>
 
 <ng-template #contacts>
     <h2 class="fnt-18 fnt-bold text-clr334 mb-4 d-none d-md-block">{{ globals.languageJson?.employees }}</h2>

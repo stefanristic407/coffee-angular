@@ -1,0 +1,67 @@
+.whyus-zoom {
+    float: left;
+    border: 1px solid #747588;
+    padding: 8px 12px;
+    border-radius: 2px;
+    p {
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        vertical-align: middle;
+        color: #232334;
+    }
+
+    img {
+        height: 17px;
+        margin-right: 8px;
+    }
+}
+
+.gmt-block {
+    @media (min-width: 768px) {
+        background-image: url('/assets/images/gmt_banner.png');
+        background-size: cover;
+        background-position: center;
+        padding-top: 32px;
+        padding-left: 32px;
+    }
+    .gmt-content {
+        background-color: #c69c6c;
+        h2 {
+            font-size: 30px;
+            font-style: italic;
+            font-weight: normal;
+            @media (min-width: 768px) {
+                font-size: 40px;
+                font-style: normal;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.marketing-block {
+    @media (min-width: 768px) {
+        background-image: url('/assets/images/marketing_banner.png');
+        background-size: cover;
+        background-position: center;
+    }
+    .marketing-content {
+        background-color: #232334;
+        h2 {
+            font-size: 30px;
+            font-style: italic;
+            font-weight: normal;
+            @media (min-width: 768px) {
+                font-size: 40px;
+                font-style: normal;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.brand-text {
+    color: #a88057;
+}
