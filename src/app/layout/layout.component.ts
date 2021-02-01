@@ -1,6 +1,5 @@
-import { Subscription } from 'rxjs';
-import { ChatService } from './../components/sewn-direct-message/chat.service';
 import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -10,18 +9,21 @@ import { TranslateService } from '@ngx-translate/core';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { filter } from 'rxjs/operators';
+import { MenuService } from '@components';
+import { ChatService } from './../components/sewn-direct-message/chat.service';
 
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
+    providers: [MenuService],
 })
 export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     userName: string;
     selected: string;
     roasterId: any;
     userId: any;
-    featureActive: any = 0;
+    loaded = false;
     screenwidth: any = true;
     searchString: string;
     text: string;
@@ -49,6 +51,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         private translateService: TranslateService,
         public globals: GlobalsService,
         public chat: ChatService,
+        public menuService: MenuService,
     ) {
         this.translateService.addLangs(this.supportLanguages);
         if (localStorage.getItem('locale')) {
@@ -62,7 +65,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.chatStateSubcription = this.chat.isOpen.subscribe(x => {
+        this.chatStateSubcription = this.chat.isOpen.subscribe((x) => {
             if (x) {
                 this.activeLink = 'MESSAGES';
             } else {
@@ -70,17 +73,40 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         });
         this.routeSubscription = this.router.events
-            .pipe(
-                filter(event => event instanceof NavigationEnd)
-            ).subscribe((event: NavigationEnd) => {
+            .pipe(filter((event) => event instanceof NavigationEnd))
+            .subscribe((event: NavigationEnd) => {
+                window.scrollTo(0, 0);
                 this.updateActiveLinkState();
+                this.menuService.expandActiveSubMenu();
+                if (window.innerWidth <= 768) {
+                    setTimeout(() => {
+                        $('.sidenav-mb').removeClass('open');
+                    }, 800);
+                }
             });
 
         this.updateActiveLinkState();
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
-        this.getUserValue();
-        this.getRoasterProfile();
+        const promises = [];
+        promises.push(
+            new Promise((resolve) => {
+                this.getUserValue(resolve);
+            }),
+        );
+        promises.push(
+            new Promise((resolve) => {
+                this.getRoasterProfile(resolve);
+            }),
+        );
+        const self = this;
+        Promise.all(promises).then(() => {
+            self.loaded = true;
+            setTimeout(() => {
+                self.menuService.expandActiveSubMenu();
+            });
+        });
+
         this.getLoggedInUserRoles();
 
         $(window).scroll(function () {
@@ -122,14 +148,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             }, 800);
             event.stopImmediatePropagation();
         });
-
-        $('.nav-links__item .router-link').on('click', function (event) {
-            $('.sidenav-mb__content').removeClass('open');
-            setTimeout(function () {
-                $('.sidenav-mb').removeClass('open');
-            }, 800);
-            event.stopImmediatePropagation();
-        });
     }
     ngOnDestroy() {
         if (this.chatStateSubcription) {
@@ -139,6 +157,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.routeSubscription.unsubscribe();
         }
     }
+
     updateActiveLinkState() {
         if (this.chat.isOpen.value) {
             this.activeLink = 'MESSAGES';
@@ -153,34 +172,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-    ngAfterViewInit() {
-        $('.nav-links__item').on('click', function () {
-            if ($(window).width() < 768) {
-                $('.nav-links__item').not(this).find('.nav-dropdown').slideUp();
-                $(this).find('.nav-dropdown').slideToggle();
-                $('.nav-links__item').not(this).removeClass('active');
-                $(this).toggleClass('active');
-            } else {
-                $('.nav-links__item').not(this).removeClass('active');
-                $(this).addClass('active');
-            }
-        });
+    ngAfterViewInit() {}
 
-        $('.nav-dropdown li').on('click', function () {
-            $('.nav-dropdown li').parents('.nav-links__item').not(this).removeClass('active');
-            $(this).parents('.nav-links__item').addClass('active');
-        });
-
-        $(window).on('load', function () {
-            $('html, body').animate({ scrollTop: 0 }, 'slow');
-        });
-
-        // Footer links
-
-
-    }
-
-    getUserValue() {
+    getUserValue(resolve) {
         this.globals.permissionMethod();
         this.userService.getRoasterProfile(this.roasterId).subscribe((res: any) => {
             this.userName = res.result.firstname + ' ' + res.result.lastname;
@@ -189,7 +183,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             this.userService.getUserLanguageStrings(language).subscribe((resultLanguage) => {
                 this.globals.languageJson = resultLanguage;
                 this.appLanguage = this.globals.languageJson;
-                this.featureActive++;
+                resolve();
             });
         });
     }
@@ -202,11 +196,11 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-    getRoasterProfile() {
+    getRoasterProfile(resolve) {
         this.userService.getRoasterAccount(this.roasterId).subscribe((res: any) => {
             if (res.result) {
                 this.roasterProfilePic = res.result.company_image_thumbnail_url;
-                this.featureActive++;
+                resolve();
             } else {
                 this.router.navigate(['/auth/login']);
             }
