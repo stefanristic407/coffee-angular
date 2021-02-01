@@ -2,7 +2,7 @@
 
     <!--Chat Main screen with accounts-->
     <div class="chat mt-chat " data-element="chat"
-         [ngClass]="{'open':showChat , 'expand-active': this.showChat && this.openedThread && this.expandView }">
+         [ngClass]="{'open':(chatService.isOpen|async) , 'expand-active': (chatService.isOpen|async) && openedThread && (chatService.isExpand|async) }">
         <!--Remove expand mode-->
         <div class="chat-head">
             <button class="back-to-shrinkMode" (click)="closeExapndView()">
@@ -17,7 +17,7 @@
 
             <!--Expand Mode div-->
             <div class="chat-body__expand" data-element="chat-body-expand">
-                <ng-container *ngIf="expandView">
+                <ng-container *ngIf="(chatService.isExpand|async)">
                     <div class="live-caht__head clearfix" data-element="live-chat-head">
                         <div class="live-account-profile">
                             <button class="back-to-accounts" (click)="backToAccountListing() ">
@@ -40,9 +40,10 @@
                                         {{ openedThread?.computed_targetedUser.computed_organization_name}}
                                     </span>
                                     <span>&nbsp;</span>
-                                    <span *ngIf="!openedThread?.computed_targetedUser.online" class="status last-seen">
+                                    <span *ngIf="!openedThread?.computed_targetedUser.online && openedThread?.computed_targetedUser?.computed_lastseen"
+                                          class="status last-seen">
                                         Last Seen at
-                                        {{openedThread?.computed_targetedUser?.computed_lastseen || ''}}
+                                        {{openedThread?.computed_targetedUser?.computed_lastseen}}
                                     </span>
                                 </div>
 
@@ -91,16 +92,16 @@
                         <span *ngFor="let message of messageList; let last = last" [attr.data-chat-id]="message.id">
                             <span appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
                                 <div class="message-to live-chat-message-body__text" *ngIf="message.isActiveUser">
-                                    <div class="message-body">
-                                        <div class="message-to__text "><span>{{message.content}}</span></div>
-                                    </div>
                                     <p class="live-time">{{message.computed_date}}</p>
+                                    <div class="message-body">
+                                        <div class="message-to__text"><span>{{message.content}}</span></div>
+                                    </div>
                                 </div>
                                 <div class="message-from live-chat-message-body__text" *ngIf="!message.isActiveUser">
+                                    <p class="live-time-from">{{message.computed_date}}</p>
                                     <div class="message-body-from">
                                         <div class="message-to__from "><span>{{message.content}}</span></div>
                                     </div>
-                                    <p class="live-time-from">{{message.computed_date}}</p>
                                 </div>
                             </span>
                             <span class="done"></span>
@@ -159,8 +160,8 @@
                         <div class="chat-control">
                             <div class="chat-control__expand" [ngClass]="{'d-block':openedThread}"
                                  (click)="toggleExpandView() ">
-                                <img *ngIf="!expandView" src="assets/images/dm-expand.svg">
-                                <img *ngIf="expandView" src="assets/images/dm-collapse.svg">
+                                <img *ngIf="!(chatService.isExpand|async)" src="assets/images/dm-expand.svg">
+                                <img *ngIf="(chatService.isExpand|async)" src="assets/images/dm-collapse.svg">
                             </div>
                             <div class="chat-control__close" (click)="closePanel();">
                                 <img src="assets/images/dm-close.svg">
@@ -172,8 +173,8 @@
                     <!---Live chats at particular account-->
                     <!-- <ng-template #liveChatRef> -->
                     <div data-element="live-chat" class="live-chat"
-                         [ngClass]="{'active' : openedThread && !expandView }">
-                        <ng-container *ngIf="!expandView">
+                         [ngClass]="{'active' : openedThread && !(chatService.isExpand|async) }">
+                        <ng-container *ngIf="!(chatService.isExpand|async)">
                             <div class="live-caht__head clearfix" data-element="live-chat-head">
                                 <div class="live-account-profile">
                                     <button class="back-to-accounts" (click)="backToAccountListing() ">
@@ -196,7 +197,7 @@
                                             <span
                                                   class="status">{{ openedThread?.computed_targetedUser.computed_organization_name}}</span>
                                             <span>&nbsp;</span>
-                                            <span *ngIf="!openedThread?.computed_targetedUser.online"
+                                            <span *ngIf="!openedThread?.computed_targetedUser.online  && openedThread?.computed_targetedUser?.computed_lastseen"
                                                   class="status last-seen">Last Seen at
                                                 {{openedThread?.computed_targetedUser?.computed_lastseen || ''}}
                                             </span>
@@ -248,17 +249,17 @@
                                     <span appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
                                         <div class="message-to live-chat-message-body__text"
                                              *ngIf="message.isActiveUser">
+                                            <p class="live-time">{{message.computed_date}}</p>
                                             <div class="message-body">
                                                 <div class="message-to__text "><span>{{message.content}}</span></div>
                                             </div>
-                                            <p class="live-time">{{message.computed_date}}</p>
                                         </div>
                                         <div class="message-from live-chat-message-body__text"
                                              *ngIf="!message.isActiveUser">
+                                            <p class="live-time-from">{{message.computed_date}}</p>
                                             <div class="message-body-from">
                                                 <div class="message-to__from "><span>{{message.content}}</span></div>
                                             </div>
-                                            <p class="live-time-from">{{message.computed_date}}</p>
                                         </div>
                                     </span>
                                     <span class="done"></span>
@@ -337,7 +338,7 @@
 
                     <!--All accounts body with search-->
                     <div data-element="account-body" class="chat-accounts__body"
-                         [ngClass]="{'active' :  !openedThread || expandView}">
+                         [ngClass]="{'active' :  !openedThread || (chatService.isExpand|async)}">
                         <div class="search-account">
                             <img src="assets/images/dm-search.svg">
                             <input [(ngModel)]="threadSearchKeyword" class="search-account__input" type="search"

@@ -115,16 +115,15 @@
                                 <img src="assets/images/close-icon.png" />
                             </div>
                             <ul class="nav-links fnt-muli pad-5">
-                                <li class="nav-links__item d-md-inline-block position-relative"
-                                    routerLinkActive="active">
+                                <li class="nav-links__item d-md-inline-block position-relative">
                                     <a class="d-inline-block fnt-600 router-link"
                                        [routerLink]="['/features/welcome-aboard']">{{ globals.languageJson?.dashboard }}
                                     </a>
                                 </li>
 
-                                <li class="nav-links__item d-inline-block position-relative" routerLinkActive="active"
+                                <li class="nav-links__item d-inline-block position-relative"
                                     *ngIf="this.globals.checkItem('sourcing-management')">
-                                    <a class="d-inline-block fnt-600 router-link" routerLink="/sourcing">
+                                    <a class="d-inline-block fnt-600 router-link" [routerLink]="['/sourcing']">
                                         {{ globals.languageJson?.sourcing_module }}
                                     </a>
                                 </li>
@@ -334,8 +333,9 @@
             <div class="d-flex">
                 <div class="col-12 px-0">
                     <ul class="footer-links d-flex flex-wrap mb-0 align-items-center justify-content-between">
-                        <li class="footer-links__item active">
-                            <a [routerLink]="['/features/welcome-aboard']" class="d-inline-block">
+                        <li class="footer-links__item " [ngClass]="{'active':activeLink==='DASHBOARD'}">
+                            <a (click)="closeMessagePanel()" [routerLink]="['/features/welcome-aboard']"
+                               class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
@@ -345,10 +345,9 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="footer-links__item">
-                            <a class="d-inline-block">
-                                <div (click)="openMessagePanel()"
-                                     class="d-flex flex-column align-items-center start-messaging">
+                        <li class="footer-links__item" [ngClass]="{'active':activeLink==='MESSAGES'}">
+                            <a class="d-inline-block" (click)="toggleMessagePanel()">
+                                <div class="d-flex flex-column align-items-center start-messaging">
                                     <img class="in-active" src="assets/images/mess.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-message.svg" />
                                     <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
@@ -357,8 +356,9 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="footer-links__item">
-                            <a [routerLink]="['/features/notification']" class="d-inline-block">
+                        <li class="footer-links__item" [ngClass]="{'active':activeLink==='NOTIFICATIONS'}">
+                            <a (click)="closeMessagePanel()" [routerLink]="['/features/notification']"
+                               class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/notification.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-notification.svg" />
@@ -369,8 +369,9 @@
                             </a>
                         </li>
 
-                        <li class="footer-links__item">
-                            <a href="javascript:void(0)" class="d-inline-block">
+                        <li class="footer-links__item" [ngClass]="{'active':activeLink==='PROFILES'}">
+                            <a (click)="closeMessagePanel()"
+                               [routerLink]="['/features/roastery-profile/about_roastery']" class="d-inline-block">
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
@@ -381,7 +382,7 @@
                             </a>
                             <div class="ft-dropdown">
                                 <div class="ft-dropdown__content">
-                                    <a [routerLink]="['/features/profile-edit']"
+                                    <a (click)="closeMessagePanel()" [routerLink]="['/features/profile-edit']"
                                        class="ft-dropdown__link d-flex clearfix align-items-center">
                                         <div class="img float-left mr-2">
                                             <!-- <img class="profile-pic" src="{{profilePic}}"> -->

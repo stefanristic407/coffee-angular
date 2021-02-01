@@ -1,20 +1,22 @@
+import { Subscription } from 'rxjs';
 import { ChatService } from './../components/sewn-direct-message/chat.service';
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
 })
-export class LayoutComponent implements OnInit, AfterViewInit {
+export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     userName: string;
     selected: string;
     roasterId: any;
@@ -32,6 +34,10 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     appLanguage?: any;
     rolename: any;
     slugList: any;
+    chatStateSubcription: Subscription;
+    routeSubscription: Subscription;
+
+    activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
 
     constructor(
         private elementRef: ElementRef,
@@ -56,6 +62,21 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
+        this.chatStateSubcription = this.chat.isOpen.subscribe(x => {
+            if (x) {
+                this.activeLink = 'MESSAGES';
+            } else {
+                this.updateActiveLinkState();
+            }
+        });
+        this.routeSubscription = this.router.events
+            .pipe(
+                filter(event => event instanceof NavigationEnd)
+            ).subscribe((event: NavigationEnd) => {
+                this.updateActiveLinkState();
+            });
+
+        this.updateActiveLinkState();
         this.roasterId = this.cookieService.get('roaster_id');
         this.userId = this.cookieService.get('user_id');
         this.getUserValue();
@@ -110,6 +131,27 @@ export class LayoutComponent implements OnInit, AfterViewInit {
             event.stopImmediatePropagation();
         });
     }
+    ngOnDestroy() {
+        if (this.chatStateSubcription) {
+            this.chatStateSubcription.unsubscribe();
+        }
+        if (this.routeSubscription) {
+            this.routeSubscription.unsubscribe();
+        }
+    }
+    updateActiveLinkState() {
+        if (this.chat.isOpen.value) {
+            this.activeLink = 'MESSAGES';
+        } else if (this.router.url.includes('/features/roastery-profile/about_roastery')) {
+            this.activeLink = 'PROFILES';
+        } else if (this.router.url.includes('/features/notification')) {
+            this.activeLink = 'NOTIFICATIONS';
+        } else if (this.router.url.includes('/features/welcome-aboard')) {
+            this.activeLink = 'DASHBOARD';
+        } else {
+            this.activeLink = 'UNSET';
+        }
+    }
 
     ngAfterViewInit() {
         $('.nav-links__item').on('click', function () {
@@ -135,17 +177,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
         // Footer links
 
-        $('body').on('click', '.footer-links__item', function () {
-            $(this).parents('.footer-links').find('.footer-links__item').not(this).removeClass('active');
-            $(this).addClass('active');
-            $('.footer-links__item').find('.ft-dropdown').not(this).removeClass('active');
 
-            $(this).find('.ft-dropdown').addClass('active');
-
-            setTimeout(function () {
-                $('.ft-dropdown').removeClass('active');
-            }, 3500);
-        });
     }
 
     getUserValue() {
@@ -209,6 +241,9 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
     openMessagePanel() {
         this.chat.showChatPanel();
+    }
+    closeMessagePanel() {
+        this.chat.closeChatPanel();
     }
 
     toggleMessagePanel() {

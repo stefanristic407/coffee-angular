@@ -1,5 +1,5 @@
 import { serviceCommunicationType } from '@models/message';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -11,6 +11,10 @@ export class ChatService {
     requestType: serviceCommunicationType,
     payload?: any,
   }>();
+
+  public isOpen = new BehaviorSubject<boolean>(false);
+  public isExpand = new BehaviorSubject<boolean>(false);
+
   constructor() { }
 
   public showChatPanel() {
