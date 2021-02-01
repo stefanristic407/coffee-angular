@@ -65,6 +65,8 @@ import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { TeamMemberTableComponent } from './components/addTeams/team-member-table/team-member-table.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { InviteNewUserComponent } from './components/addTeams/invite-new-user/invite-new-user.component';
+import { EditUserDetailsComponent } from './components/addTeams/edit-user-details/edit-user-details.component';
 
 // #region material
 const MATMODULES = [];
@@ -157,6 +159,8 @@ const PIPES = [CountryPipe, MonthPipe];
         RoleListComponent,
         TeamMemberTableComponent,
         ConfirmComponent,
+        InviteNewUserComponent,
+        EditUserDetailsComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -173,4 +177,4 @@ const PIPES = [CountryPipe, MonthPipe];
         ...PIPES,
     ],
 })
-export class SharedModule { }
+export class SharedModule {}

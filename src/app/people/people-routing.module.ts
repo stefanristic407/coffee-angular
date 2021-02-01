@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddMembersComponent } from './add-members/add-members.component';
 //import { CreateRoleComponent } from './create-role/create-role.component';
 import { EditMembersComponent } from './edit-members/edit-members.component';
-import { ManageRoleComponent } from './manage-role/manage-role.component';
 import { PeopleComponent } from './people.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { PDirectMessagingComponent } from './p-direct-messaging/p-direct-messaging.component';
@@ -11,8 +10,7 @@ import { CustomerManagementComponent } from './customer-management/customer-mana
 import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
-import { TeamMembersComponent } from './team-members/team-members.component';
-import { InviteMemberComponent } from './invite-member/invite-member.component';
+import { InviteNewUserComponent } from '@app/shared/components/addTeams/invite-new-user/invite-new-user.component';
 import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { PermissionErrorComponent } from '../people/permission-error/permission-error.component';
 import { AuthGuard } from '../guards/auth.guard';
@@ -82,7 +80,7 @@ const routes: Routes = [
             },
             {
                 path: 'invite-member',
-                component: InviteMemberComponent,
+                component: InviteNewUserComponent,
                 canActivate: [AuthGuard],
             },
             {

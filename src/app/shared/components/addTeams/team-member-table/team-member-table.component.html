@@ -4,7 +4,7 @@
             <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
         </div>
     </div>
-    <section class="team__total">
+    <section class="team_total">
         <div class="row m-0">
             <div *ngIf="isAddMember" class="d-inline add-team col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">{{globals.languageJson?.add_team_members}}
                 <span class="d-inline select_title" (click)="op.toggle($event)">
@@ -102,7 +102,8 @@
                             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                         </td>
                         <td *ngFor="let col of columns" [ngSwitch]="col.field" [style.width]="col.width ? col.width + '%' : '30%'"
-                        [ngClass]="{'d-none': col.field == 'status', 'd-sm-none': col.field == 'status','d-md-table-cell':  col.field == 'status','rolesColumn': col.field == 'roles',
+                        [ngClass]="{'d-none': col.field == 'status' || col.field == 'actions', 'd-sm-none': col.field == 'status' || col.field == 'actions',
+                                    'd-md-table-cell':  col.field == 'status' || col.field == 'actions','rolesColumn': col.field == 'roles',
                                     'nameMobileHeader': col.field == 'name','roleMobileBottom': col.field == 'roles', 'emailMobileClass': col.field == 'email'}">
                             <span *ngSwitchCase="'name'" class="">
                                 <span class=" d-none d-sm-none d-md-block tableDataFont">

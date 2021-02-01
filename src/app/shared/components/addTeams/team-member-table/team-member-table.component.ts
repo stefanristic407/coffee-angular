@@ -104,8 +104,6 @@ export class TeamMemberTableComponent implements OnInit {
                 width: 10,
             });
         }
-        console.log(this.isAddMember);
-
         this.supplyBreadCrumb();
         this.loginId = this.cookieService.get('user_id');
         this.roaster_id = this.cookieService.get('roaster_id');
@@ -222,8 +220,7 @@ export class TeamMemberTableComponent implements OnInit {
         //console.log(this.roleData);
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                //roleData: encodeURIComponent(this.roleData),
-                //roleID: encodeURIComponent(this.roleID),
+                roleID: encodeURIComponent(this.currentRoleID),
             },
         };
         this.router.navigate(['/people/invite-member'], navigationExtras);

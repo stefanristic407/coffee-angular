@@ -1,0 +1,127 @@
+.team_total {
+    padding-left: 3rem;
+    padding-top: 1rem;
+    padding-right: 3rem;
+}
+.add-team {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+    margin-bottom: 1.5rem;
+}
+.select_title {
+    color: #30855c !important;
+    padding: 5px;
+    border: none;
+    background-color: #ffffff;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+.nameError {
+    color: #d50000;
+}
+.emailError {
+    color: #d50000;
+}
+.custom-popover {
+    li {
+        list-style: none;
+        padding-right: 4.5rem;
+        border: none !important;
+    }
+}
+.content_list {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    padding: 10px 0px 8px 3px;
+    cursor: pointer;
+    &:hover {
+        color: #232334;
+        background-color: #f8f8f8;
+    }
+}
+.content_list::ng-deep {
+    .ui-overlaypanel {
+        border: none !important;
+        border-radius: 6px !important;
+        box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+        background-color: #ffffff;
+        margin-left: -9px;
+        &:before {
+            border-bottom-color: #fffafa !important;
+        }
+    }
+    .ui-overlaypanel-shifted {
+        &:after {
+            right: 10.9em !important;
+        }
+    }
+}
+.addrole_button {
+    border-radius: 4px;
+    border: solid 1px #3d8462;
+    color: #2f845b;
+    background-color: #fff;
+    width: 100%;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    color: #2f845b;
+    font-weight: bold;
+    &:hover {
+        background-color: #2f845b;
+        color: #ffffff;
+    }
+}
+.star {
+    color: #ff1e5a;
+}
+.send-invites {
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 12px 24px;
+    &:hover {
+        box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    }
+}
+.rectangle_username {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    height: 46px;
+}
+.rectangle_useremail {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+    background-color: #ffffff;
+    height: 46px;
+}
+.add-partner {
+    span {
+        color: #80460b;
+        text-decoration: underline;
+    }
+    cursor: pointer;
+}
+.member-delete-rows {
+    bottom: 33% !important;
+    right: 0% !important;
+}
+.loader {
+    height: 17px;
+    width: 17px;
+    margin-left: 4px;
+    margin-top: -4px;
+}
+.sectionContainer {
+    background: #fff !important;
+}
+.mt-2r {
+    margin-top: 2rem;
+}
