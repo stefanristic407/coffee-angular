@@ -22,9 +22,9 @@ export class RoasterserviceService {
   private encryptionKey = "sewen_secrete_key";
   private uploadBrandsUrl = environment.apiURL + "/ro/uploadBrands";
 
-  // private url = "https://qa-fed-api.sewnstaging.com/ro/api";
-  // private deleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
-  // private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
+  // private url = "https://fed-api.sewnstaging.com/ro/api";
+  // private deleteUrl = "https://fed-api.sewnstaging.com/ro/deleteapi";
+  // private putUrl = "https://fed-api.sewnstaging.com/ro/putapi";
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
