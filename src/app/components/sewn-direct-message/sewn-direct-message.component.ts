@@ -20,7 +20,7 @@ import {
   IncomingChatMessage
 } from '@models/message';
 
-const badwordsRegExp = require('badwords/regexp');
+const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
   selector: 'app-sewn-direct-message',
   templateUrl: './sewn-direct-message.component.html',
@@ -250,7 +250,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
       if (message.activity_type === ThreadActivityType.message) {
         const inThread = this.threadList.find(thread => thread.id === message.thread_id);
         if (inThread) {
-
           this.processChatMessages(message, inThread);
           const user = message?.member?.user;
           if (user) {
@@ -258,15 +257,19 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             console.log('incoming processed msg', user);
           }
           if (this.openedThread && (this.openedThread.id === message.thread_id)) {
+            this.lastMessageRendered.pipe(first()).subscribe(x => {
+              this.scrollbottom();
+            });
             this.messageList.push(message);
             this.openedThread.computed_lastActivityText = message.content;
-            this.scrollbottom();
             this.sendReadToken(message.id);
           } else {
             inThread.computed_lastActivityText = message.content;
             this.updateUnRead();
             this.playNotificationSound();
           }
+        } else {
+          // get thread add it into  list
         }
       }
     } else {
@@ -588,14 +591,16 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   sendMessage() {
     clearTimeout(this.offensiveTimeout);
     this.showOffensiveMessageError = false;
-    if (this.messageInput.trim() === '') {
-      this.messageInput = '';
-    } else if (badwordsRegExp.test(this.messageInput)) {
-      this.showOffensiveMessageError = true;
-      this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
-    } else {
-      this.WSSubject.next(this.getMessagePayload(this.messageInput));
-      this.messageInput = '';
+    const msg = this.messageInput.trim();
+    if (msg !== '') {
+      badwordsRegExp.lastIndex = 0;
+      if (badwordsRegExp.test(msg)) {
+        this.showOffensiveMessageError = true;
+        this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
+      } else {
+        this.WSSubject.next(this.getMessagePayload(msg));
+        this.messageInput = '';
+      }
     }
   }
 

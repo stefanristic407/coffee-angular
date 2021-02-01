@@ -121,7 +121,7 @@
                                         <input type="file" class="files">
 
                                     </label>
-                                    <textarea (keypress)="inputkeyPress($event)" (input)="inputChanges()"
+                                    <textarea (keypress)="inputkeyPress($event)" (input)="inputChanges($event)"
                                               data-element="messag-text-area" type="text" rows="1"
                                               class="chat-inputs__text" placeholder="Type something.."
                                               [(ngModel)]="messageInput"></textarea>
