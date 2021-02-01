@@ -1,7 +1,7 @@
 <section>
     <div class="main-block">
         <div class="w-100">
-            <a class="back-page" routerLink="/features/welcome-aboard"> Return to dashboard </a>
+            <a class="back-page" routerLink="/"> Return to dashboard </a>
         </div>
 
         <ng-container *ngIf="inviting; else success">
@@ -88,7 +88,7 @@
                         infoForm.value.emails.length > 3 ? ' and ' + (infoForm.value.emails.length - 3) + ' others' : ''
                     }}
                 </p>
-                <button class="btn-raised w-mob-100" routerLink="/people/user-management">Done</button>
+                <button class="btn-raised w-mob-100" routerLink="/">Done</button>
             </div>
         </div>
     </div>
