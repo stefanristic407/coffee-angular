@@ -7,6 +7,15 @@
     max-width: 360px;
     margin: 8% auto 15% auto;
 }
-.btn-raised {
+.invite-btn {
+    min-width: 134px;
+}
+.done-btn {
     min-width: 84px;
+}
+.mail-img {
+    width: 85px;
+    @media (min-width: 768px) {
+        width: 96px;
+    }
 }

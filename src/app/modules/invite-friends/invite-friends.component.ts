@@ -13,7 +13,7 @@ import { rejects } from 'assert';
 })
 export class InviteFriendsComponent implements OnInit {
     infoForm: FormGroup;
-    inviting = false;
+    inviting = true;
 
     get emails() {
         return this.infoForm.get('emails') as FormArray;

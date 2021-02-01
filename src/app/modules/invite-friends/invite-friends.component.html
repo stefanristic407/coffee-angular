@@ -42,7 +42,7 @@
                                             Invalid email address
                                         </small>
                                     </div>
-                                    <div class="delete-wrap ml-0 ml-md-2 d-none d-md-block" *ngIf="i">
+                                    <div class="delete-wrap ml-2 d-none d-md-block" *ngIf="i">
                                         <span
                                             class="fnt-bold txt-clr60b cursor-pointer hover-underline"
                                             (click)="deleteEmail(i)"
@@ -67,12 +67,15 @@
                         <div class="d-flex flex-wrap justify-content-end">
                             <button
                                 type="button"
-                                class="btn-stroked mb-3 w-mob-100 order-2 order-md-1 mr-md-3"
+                                class="btn-stroked mb-3 w-mob-100 order-2 order-md-1 mr-md-2"
                                 routerLink="/features/welcome-aboard"
                             >
                                 Cancel
                             </button>
-                            <button type="submit" class="btn-raised mb-3 w-mob-100 order-1 order-md-2">
+                            <button
+                                type="submit"
+                                class="invite-btn btn-raised mb-3 w-mob-100 order-1 order-md-2 ml-md-1"
+                            >
                                 Send Invites
                             </button>
                         </div>
@@ -87,9 +90,9 @@
     <div class="row pt-4">
         <div class="col-lg-12 col-md-12">
             <div class="text-center success-wrap">
-                <img src="assets/images/mail.svg" alt="mail" />
-                <h4 class="fnt-32 fnt-700 fnt-play txt-clr334 pt-3 mb-3">Successful!</h4>
-                <p class="fnt-14 fnt-400 fnt-muli text-clr588 mb-3">
+                <img class="mail-img" src="assets/images/mail.svg" alt="mail" />
+                <h4 class="fnt-32 fnt-700 fnt-play txt-clr334 mt-3 mt-md-4 mb-3">Successful!</h4>
+                <p class="fnt-14 lh-normal fnt-400 fnt-muli text-clr588 mb-3">
                     <span class="d-none d-md-block">An invitation email has been successfully sent out to</span>
                     <span class="d-md-none">Invitation sent to</span>
                 </p>
@@ -99,7 +102,7 @@
                         infoForm.value.emails.length > 3 ? ' and ' + (infoForm.value.emails.length - 3) + ' others' : ''
                     }}
                 </p>
-                <button class="btn-raised w-mob-100" routerLink="/">Done</button>
+                <button class="done-btn btn-raised w-mob-100" routerLink="/">Done</button>
             </div>
         </div>
     </div>
