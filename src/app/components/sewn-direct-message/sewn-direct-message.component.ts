@@ -449,6 +449,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
   }
 
+
+
   viewPortSizeChanged = () => {
 
     const chat = (this.elRef?.nativeElement?.querySelector('[data-element="chat"]')) as HTMLElement || null;
@@ -474,12 +476,20 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     this.render.setStyle(chat, 'height', `${chatBoxCalculatedHeight}px`);
     this.render.setStyle(chatBox, 'height', `${chatBoxCalculatedHeight}px`);
     this.render.setStyle(liveChat, 'height', `${panelHeight}px`);
-    this.render.setStyle(chatbodyExpand, 'height', `${panelHeight}px`);
     this.render.setStyle(accountSetting, 'height', `${panelHeight}px`);
     this.render.setStyle(accountBody, 'height', `${panelHeight}px`);
 
+    if (window.innerWidth <= 768) {
+      if (this.expandView) {
+        this.closeExapndView();
+      }
+      this.render.removeStyle(chatbodyExpand, 'height');
+    } else {
+      this.render.setStyle(chatbodyExpand, 'height', `${panelHeight}px`);
+    }
     // this.chatBodyHeightAdjust();
   }
+
 
   chatBodyHeightAdjust() {
     this.updateChatFormRef();

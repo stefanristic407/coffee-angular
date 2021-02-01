@@ -36,12 +36,14 @@
                                 <div class="chat-profile__name d-inline-block">
                                     <h5 class="name"> {{openedThread?.computed_targetedUser.computed_fullname}}
                                     </h5>
-                                    <span
-                                          class="status">{{ openedThread?.computed_targetedUser.computed_organization_name}}</span>
-                                    <span *ngIf="!openedThread?.computed_targetedUser.online"
-                                          class="status last-seen">Last
-                                        Seen at
-                                        {{openedThread?.computed_targetedUser?.computed_lastseen || ''}} </span>
+                                    <span class="status">
+                                        {{ openedThread?.computed_targetedUser.computed_organization_name}}
+                                    </span>
+                                    <span>&nbsp;</span>
+                                    <span *ngIf="!openedThread?.computed_targetedUser.online" class="status last-seen">
+                                        Last Seen at
+                                        {{openedThread?.computed_targetedUser?.computed_lastseen || ''}}
+                                    </span>
                                 </div>
 
 
@@ -193,9 +195,11 @@
                                             </h5>
                                             <span
                                                   class="status">{{ openedThread?.computed_targetedUser.computed_organization_name}}</span>
+                                            <span>&nbsp;</span>
                                             <span *ngIf="!openedThread?.computed_targetedUser.online"
                                                   class="status last-seen">Last Seen at
-                                                {{openedThread?.computed_targetedUser?.computed_lastseen || ''}} </span>
+                                                {{openedThread?.computed_targetedUser?.computed_lastseen || ''}}
+                                            </span>
                                         </div>
 
 
