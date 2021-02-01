@@ -115,7 +115,7 @@
                                     </p>
                                     <p class="d-flex align-items-center">
                                         <star-rating
-                                            value="{{ changeDecimal(review.total_rating) }}"
+                                            value="{{ review.total_rating.toFixed(2) }}"
                                             totalstars="{{ totalstar }}"
                                             checkedcolor="#ffa001"
                                             readonly="true"

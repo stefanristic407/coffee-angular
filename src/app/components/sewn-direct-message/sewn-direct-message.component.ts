@@ -1,11 +1,9 @@
 import { ChatService } from './chat.service';
 import { GlobalsService } from '@services';
-
-
-import { retry, catchError, debounce } from 'rxjs/operators';
+import { retry, catchError, debounce, first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { Subscription, Observable, BehaviorSubject, fromEvent, interval } from 'rxjs';
+import { Subscription, Observable, BehaviorSubject, fromEvent, interval, Subject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
 import * as moment from 'moment';
@@ -17,8 +15,12 @@ import {
   ThreadMembers,
   ResponseUserStatus,
   ThreadActivityType,
-  serviceCommunicationType
+  serviceCommunicationType,
+  ChatMessage,
+  IncomingChatMessage
 } from '@models/message';
+
+const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
   selector: 'app-sewn-direct-message',
   templateUrl: './sewn-direct-message.component.html',
@@ -29,8 +31,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   ORGANIZATION_TYPE = WSOrganizationType.ROASTER;
   ORGANIZATION_ID: number | null = null;
   USER_ID: number | null = null;
-  UPDATE_USER_STATUS_INTERVAL = 1000 * 60; // Update  last seen and online status on every minute
-  UPDATE_UNREAD_INTERVAL = 1000 * 30; // Update unread 30 sec
+  UPDATE_USER_STATUS_INTERVAL = 1000 * 45; // Update  last seen and online status on every 45 sec
+  UPDATE_UNREAD_INTERVAL = 1000 * 60 * 4; // Update unread on every 4 min or when a message receive.
 
   WSSubject: WebSocketSubject<any> | null = null;
   WSSubscription: Subscription | null = null;
@@ -39,14 +41,32 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   authenticationState = new BehaviorSubject<'IP' | 'FAIL' | 'SUCCESS'>('IP');
   userStatusTimerRef = 0;
   unReadTimerRef = 0;
-  threadListConfig = { // Add pagination
+  threadListConfig = {
     perPage: 100,
     activePage: 1,
   };
+  messageListConfig = {
+    perPage: 200,
+    activePage: 1,
+  };
+  messageList: ChatMessage[] = [];
   openedThread: ThreadListItem | null = null;
   expandView = false;
   showChat = false;
+  threadSearchKeyword = '';
 
+  audioPlayer = new Audio('assets/sounds/notification.mp3');
+
+  chatMessageHeadElement: HTMLElement | null = null;
+  chatMessageBodyElement: HTMLElement | null = null;
+  chatMessageFormElement: HTMLElement | null = null;
+
+  messageInputElement: HTMLTextAreaElement | null = null;
+  messageInput = '';
+
+  showOffensiveMessageError = false;
+  offensiveTimeout = 0;
+  public lastMessageRendered = new Subject();
 
   constructor(
     private cookieService: CookieService,
@@ -67,6 +87,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     if (!this.ORGANIZATION_ID) {
       console.log('Direct Message: ORGANIZATION_ID is missing');
     }
+    this.audioPlayer.load();
+
     this.initializeWebSocket();
     this.updateUserStatus();
     this.updateUnRead();
@@ -95,18 +117,17 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         .subscribe((WSmsg: WSResponse<unknown>) => {
           if (WSmsg.type === WSCommunicationType.auth) {
             this.handleAuthResponse(WSmsg as WSResponse<null>);
-          }
-          if (WSmsg.type === WSCommunicationType.threads) {
+          } else if (WSmsg.type === WSCommunicationType.threads) {
             this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
-          }
-          if (WSmsg.type === WSCommunicationType.unread) {
+          } else if (WSmsg.type === WSCommunicationType.unread) {
             this.handleUnReadResponse(WSmsg as WSResponse<null>);
-          }
-          if (WSmsg.type === WSCommunicationType.users) {
+          } else if (WSmsg.type === WSCommunicationType.users) {
             this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
+          } else if (WSmsg.type === WSCommunicationType.history) {
+            this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
+          } else if (WSmsg.type === WSCommunicationType.message) {
+            this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
           }
-
-
         });
     this.WSSubject.next(this.getAuthenicationPayload()); // Authenticate
   }
@@ -152,8 +173,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         user_id: this.USER_ID,
         org_type: this.ORGANIZATION_TYPE,
         org_id: this.ORGANIZATION_ID,
-        page: this.threadListConfig.activePage,
-        per_page: this.threadListConfig.perPage,
+        // page: this.threadListConfig.activePage,
+        // per_page: this.threadListConfig.perPage,
       }
     };
   }
@@ -162,6 +183,32 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     return {
       timestamp: this.getTimeStamp(),
       type: WSCommunicationType.unread,
+    };
+  }
+
+  getMessagePayload(message: string) {
+    return {
+      type: WSCommunicationType.message,
+      data: {
+        thread_id: this.openedThread.id,
+        content: message,
+        meta_data: ''
+      },
+      timestamp: this.getTimeStamp(),
+    };
+  }
+
+  getHistoryPayload(thread: ThreadListItem) {
+    return {
+      timestamp: this.getTimeStamp(),
+      type: WSCommunicationType.history,
+      data: {
+        thread_id: thread.id,
+        // from_time: moment().add(2, 'year').utc().format('YYYY-MM-DD HH:mm:ss'),
+        // to_time: moment().utc().format('YYYY-MM-DD HH:mm:ss'),
+        page: this.messageListConfig.activePage,
+        per_page: this.messageListConfig.perPage
+      }
     };
   }
 
@@ -177,6 +224,77 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         user_token: userToken,
       }
     };
+  }
+
+  processChatMessages(message: ChatMessage | IncomingChatMessage, thread: ThreadListItem) {
+    message.computed_date = this.getReadableTime(message.updated_at || message.created_at);
+    if (thread.computed_targetedUser.id === message.member.id) {
+      message.computed_author = thread.computed_targetedUser;
+      message.isActiveUser = false;
+    } else if (thread.computed_activeUser.id === message.member.id) {
+      message.computed_author = thread.computed_activeUser;
+      message.isActiveUser = true;
+    }
+  }
+  processThreadUser(threadUser: ThreadMembers) {
+    threadUser.computed_lastseen = this.getReadableTime(threadUser.last_seen || '');
+    threadUser.computed_organization_name = this.getOrganization(threadUser.org_type);
+    threadUser.computed_fullname = threadUser.first_name + ' ' + threadUser.last_name;
+    threadUser.computed_profile_dp = this.getProfileImageBgStyle(threadUser.profile_pic);
+  }
+
+  handleIncomingMessages(WSmsg: WSResponse<IncomingChatMessage>) {
+    console.log('incoming', WSmsg);
+    const message = WSmsg.data;
+    if ((WSmsg.code === 201) && ((message?.content || '').trim() !== '')) {
+      if (message.activity_type === ThreadActivityType.message) {
+        const inThread = this.threadList.find(thread => thread.id === message.thread_id);
+        if (inThread) {
+          this.processChatMessages(message, inThread);
+          const user = message?.member?.user;
+          if (user) {
+            this.processThreadUser(user);
+            console.log('incoming processed msg', user);
+          }
+          if (this.openedThread && (this.openedThread.id === message.thread_id)) {
+            this.lastMessageRendered.pipe(first()).subscribe(x => {
+              this.scrollbottom();
+            });
+            this.messageList.push(message);
+            this.openedThread.computed_lastActivityText = message.content;
+            this.sendReadToken(message.id);
+          } else {
+            inThread.computed_lastActivityText = message.content;
+            this.updateUnRead();
+            this.playNotificationSound();
+          }
+        } else {
+          // get thread add it into  list
+        }
+      }
+    } else {
+      console.log('Websocket:Incoming Message : Failure');
+    }
+  }
+  playNotificationSound() {
+    this.audioPlayer.play();
+  }
+
+  handleThreadHistory(WSmsg: WSResponse<ChatMessage[]>) {
+    if (WSmsg.code === 200) {
+      this.messageList = WSmsg.data.filter(x => (x.activity_type === ThreadActivityType.message) && (x.content.trim() !== '')).reverse();
+      this.messageList.forEach(message => {
+        this.processChatMessages(message, this.openedThread);
+      });
+      const lastMessage = this.messageList[this.messageList.length - 1];
+      if (lastMessage.content) {
+        this.openedThread.computed_lastActivityText = lastMessage.content;
+      }
+      this.sendReadToken(lastMessage.id);
+      this.updateUnRead();
+    } else {
+      console.log('Websocket:Thread History: Failure');
+    }
   }
 
   handleUserDetailResponse(WSmsg: WSResponse<ResponseUserStatus[]>) {
@@ -218,10 +336,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         const activeUser: ThreadMembers[] = [];
         const targtedUserList: ThreadMembers[] = [];
         thread.members.forEach(mem => {
-          mem.computed_lastseen = this.getReadableTime(mem.last_seen || '');
-          mem.computed_organization_name = this.getOrganization(mem.org_type);
-          mem.computed_fullname = mem.first_name + ' ' + mem.last_name;
-          mem.computed_profile_dp = this.getProfileImageBgStyle(mem.profile_pic);
+          this.processThreadUser(mem);
           if (!mem.is_removed) {
             if (
               mem.org_type === this.ORGANIZATION_TYPE &&
@@ -269,9 +384,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
   updateUserStatus = () => {
     // Fetch last_seen and online
-    console.log('timeoutTick User Details Request');
     if (this.threadList.length > 0) {
-      console.log('Sending User Details Request');
       this.WSSubject.next(this.getMultipleUserDetailsPayload());
     }
     if (this.userStatusTimerRef) {
@@ -281,9 +394,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   }
   updateUnRead = () => {
     // Fetch unread
-    console.log('timeoutTick User Unread Request');
     if (this.threadList.length > 0) {
-      console.log('Sending unread Details Request');
       this.WSSubject.next(this.getUnReadPayload());
     }
     if (this.unReadTimerRef) {
@@ -291,6 +402,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
     this.unReadTimerRef = window.setTimeout(this.updateUnRead, this.UPDATE_UNREAD_INTERVAL) as unknown as number;
   }
+
+
 
   getTimeStamp(): string {
     return moment.utc().format();
@@ -316,11 +429,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     payload?: any;
   }) => {
     if (req.requestType === serviceCommunicationType.SHOW_CHAT) {
-      this.showChat = true;
+      this.openPanel();
     } else if (req.requestType === serviceCommunicationType.CLOSE_CHAT) {
-      this.showChat = false;
+      this.closePanel();
     } else if (req.requestType === serviceCommunicationType.TOGGLE) {
-      this.showChat = !this.showChat;
+      if (this.showChat) {
+        this.closePanel();
+      } else {
+        this.openPanel();
+      }
     }
   }
 
@@ -351,6 +468,30 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     this.render.setStyle(accountSetting, 'height', `${panelHeight}px`);
     this.render.setStyle(accountBody, 'height', `${panelHeight}px`);
 
+    // this.chatBodyHeightAdjust();
+  }
+
+  chatBodyHeightAdjust() {
+    this.updateChatFormRef();
+    this.updateChatHeadRef();
+    this.updateChatMessageBodyElRef();
+    this.updateMessageInputElRef();
+    if (this.messageInputElement) {
+      this.render.removeStyle(this.messageInputElement, 'height');
+      const inputHeight = this.messageInputElement.offsetHeight;
+      const scrollHeight = this.messageInputElement.scrollHeight;
+      if (inputHeight < scrollHeight) {
+        this.render.setStyle(
+          this.messageInputElement,
+          'height',
+          Math.min(scrollHeight, 80) + 'px'
+        );
+      }
+    }
+    if (this.chatMessageBodyElement && this.chatMessageFormElement && this.chatMessageHeadElement) {
+      const diff = this.chatMessageFormElement.offsetHeight + this.chatMessageHeadElement.offsetHeight;
+      this.render.setStyle(this.chatMessageBodyElement, 'height', `calc( 100% - ${diff}px)`);
+    }
   }
 
   getReadableTime(tTime: string = '') {
@@ -392,6 +533,42 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
   }
 
+  updateChatMessageBodyElRef() {
+    if (!this.chatMessageBodyElement) {
+      this.chatMessageBodyElement = (
+        this.elRef?.nativeElement?.
+          querySelector('[data-element="live-chat-message-body"]')
+      ) as HTMLElement || null;
+    }
+  }
+  updateMessageInputElRef() {
+    if (!this.messageInputElement) {
+      this.messageInputElement = (
+        this.elRef?.nativeElement?.
+          querySelector('[data-element="messag-text-area"]')
+      ) as HTMLTextAreaElement || null;
+    }
+  }
+
+  updateChatHeadRef() {
+    if (!this.chatMessageHeadElement) {
+      this.chatMessageHeadElement = (
+        this.elRef?.nativeElement?.
+          querySelector('[data-element="live-chat-head"]')
+      ) as HTMLElement || null;
+    }
+  }
+
+  updateChatFormRef() {
+    if (!this.chatMessageFormElement) {
+      this.chatMessageFormElement = (
+        this.elRef?.nativeElement?.
+          querySelector('[data-element="message-form"]')
+      ) as HTMLElement || null;
+    }
+  }
+
+
   getProfileImageBgStyle(profileImageUrl: string) {
     if (profileImageUrl) {
       return `url(${profileImageUrl})`;
@@ -400,14 +577,76 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
   }
 
-  closePanel() {
-    this.showChat = false;
-    // if adding custom functionalities => also add in chatServiceRequestHandling
+  inputkeyPress(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !event.shiftKey && !event.ctrlKey) {
+      event.preventDefault();
+      this.sendMessage();
+    }
   }
-  openPanel() {
-    this.showChat = true;
-    // if adding custom functionalities => also add in chatServiceRequestHandling
+  inputChanges(event: InputEvent) {
+    this.chatBodyHeightAdjust();
   }
 
+
+  sendMessage() {
+    clearTimeout(this.offensiveTimeout);
+    this.showOffensiveMessageError = false;
+    const msg = this.messageInput.trim();
+    if (msg !== '') {
+      badwordsRegExp.lastIndex = 0;
+      if (badwordsRegExp.test(msg)) {
+        this.showOffensiveMessageError = true;
+        this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
+      } else {
+        this.WSSubject.next(this.getMessagePayload(msg));
+        this.messageInput = '';
+      }
+    }
+  }
+
+  sendReadToken(lastMessageId: number) {
+    this.WSSubject.next({
+      type: WSCommunicationType.read,
+      timestamp: this.getTimeStamp(),
+      data: {
+        thread_id: this.openedThread.id,
+        last_read_id: lastMessageId
+      }
+    });
+  }
+
+  offensiveTimeoutHandler = () => {
+    this.showOffensiveMessageError = false;
+  }
+
+  openThreadChat(thread: ThreadListItem) {
+    this.messageList = [];
+    this.openedThread = thread;
+    this.WSSubject.next(this.getHistoryPayload(thread));
+    this.lastMessageRendered.pipe(first()).subscribe(x => {
+      this.chatBodyHeightAdjust();
+      this.scrollbottom();
+    });
+  }
+  scrollbottom() {
+    this.updateChatMessageBodyElRef();
+    this.chatMessageBodyElement.scrollTop = this.chatMessageBodyElement.scrollHeight;
+  }
+
+  backToAccountListing() {
+    this.openedThread = null;
+    this.messageList = [];
+  }
+
+  closePanel() {
+    this.showChat = false;
+  }
+
+  openPanel() {
+    this.showChat = true;
+    this.lastMessageRendered.pipe(first()).subscribe(x => {
+      this.chatBodyHeightAdjust();
+    });
+  }
 
 }

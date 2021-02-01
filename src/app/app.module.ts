@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HealthCheckComponent } from './health-check/health-check.component';
 import { DirectMessagingComponent } from './components/direct-messaging/direct-messaging.component';
-import { NewDirectMessageComponent } from './components/new-direct-message/new-direct-message.component';
+import { SewnDirectMessageComponent } from './components/sewn-direct-message/sewn-direct-message.component';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -32,9 +32,19 @@ import 'hammerjs';
 import { AuthGuard } from './guards/auth.guard';
 import { CookieService } from 'ngx-cookie-service';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { SearchFilterPipe } from './components/sewn-direct-message/search-filter.pipe';
+import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyclehook.directive';
 
 @NgModule({
-    declarations: [AppComponent, HealthCheckComponent, DirectMessagingComponent, NewDirectMessageComponent, LayoutComponent],
+    declarations: [
+        AppComponent,
+        HealthCheckComponent,
+        DirectMessagingComponent,
+        SewnDirectMessageComponent,
+        LayoutComponent,
+        SearchFilterPipe,
+        LifecyclehookDirective
+    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

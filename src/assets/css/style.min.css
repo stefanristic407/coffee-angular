@@ -19813,6 +19813,8 @@ button:focus {
     outline: 0;
     float: right;
     border: 0;
+    top: 4px;
+    position: relative;
 }
 
 .search-account {
@@ -19821,6 +19823,7 @@ button:focus {
     background-color: #ffffff;
     padding: 5px;
     margin-bottom: 30px;
+ 
 }
 
 .search-account__input::placeholder {

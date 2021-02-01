@@ -22,7 +22,7 @@
     }
 }
 
-.play-btn-banner {
+.play-btn {
     position: absolute;
     right: 20px;
     bottom: 20px;
@@ -30,10 +30,8 @@
     cursor: pointer;
     display: inline-block;
     z-index: 990;
-    img {
-        width: 44px;
-        height: 44px;
-    }
+    width: 44px;
+    height: 44px;
     &.center {
         top: 50%;
         left: 50%;
