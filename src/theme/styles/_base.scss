@@ -479,15 +479,21 @@ input[type='number'] {
     border: 1px solid $primary-border-color;
 }
 
-@media (min-width: 992px) {
-    .br-md-main {
+.br-md-main {
+    @media (min-width: 992px) {
         border: 1px solid $primary-border-color;
+    }
+    @media (max-width: 991px) {
+        border: none;
     }
 }
 
-@media (max-width: 991px) {
-    .br-sm-main {
+.br-sm-main {
+    @media (max-width: 991px) {
         border: 1px solid $primary-border-color;
+    }
+    @media (min-width: 992px) {
+        border: none;
     }
 }
 

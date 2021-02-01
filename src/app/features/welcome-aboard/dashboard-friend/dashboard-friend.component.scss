@@ -1,8 +1,14 @@
+.title-wrap {
+    margin-bottom: 16px;
+    @media (min-width: 768px) {
+        margin-bottom: 38px;
+    }
+}
 .card {
-    border: none;
-
     .card-img-top {
-        border-radius: 0;
+        @media (min-width: 768px) {
+            border-radius: 0;
+        }
         img {
             width: 100%;
             height: auto;
@@ -10,12 +16,6 @@
             &:hover {
                 transform: scale(1.1);
             }
-        }
-    }
-
-    .card-body {
-        padding: 1rem 1.5rem 1.5rem 1.5rem;
-        .pad-card {
         }
     }
 }
