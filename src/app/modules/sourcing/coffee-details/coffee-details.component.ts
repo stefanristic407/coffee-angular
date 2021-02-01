@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { SourcingService } from '../sourcing.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { GlobalsService } from 'src/services/globals.service';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { GlobalsService } from '@services';
 import { UserserviceService } from '@services';
 import { RoasterserviceService } from '@services';
+import { SourcingService } from '../sourcing.service';
 
 @Component({
     selector: 'app-coffee-details',
@@ -18,12 +19,13 @@ export class CoffeeDetailsComponent implements OnInit {
     brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
 
     constructor(
+        private router: Router,
         public gallery: Gallery,
         public lightbox: Lightbox,
         public globals: GlobalsService,
         private route: ActivatedRoute,
         public sourcing: SourcingService,
-        private router: Router,
+        private toastrService: ToastrService,
         public userService: UserserviceService,
         private roasterService: RoasterserviceService,
     ) {
@@ -42,10 +44,17 @@ export class CoffeeDetailsComponent implements OnInit {
         this.isLoaded = false;
         this.brandProfileEstateWeb = `https://qa-brand-profile.sewnstaging.com/estate/estate-${this.sourcing.estateId}/estatebrandprofile/green-coffee`;
         this.sourcing.polygonId = '';
-        new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
-            this.galleryImages();
-            this.isLoaded = true;
-        });
+        this.sourcing.harvestDetail = null;
+        this.sourcing.lot = null;
+        new Promise((resolve, reject) => this.sourcing.availableDetailList(resolve, reject))
+            .then(() => {
+                this.galleryImages();
+                this.isLoaded = true;
+            })
+            .catch(() => {
+                this.toastrService.error('Error while retrieving data');
+                this.router.navigateByUrl('/sourcing/coffee-list');
+            });
         this.sourcing.otherAvailableCoffee();
         this.sourcing.getEachGreenCertify();
     }
