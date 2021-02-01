@@ -1,4 +1,3 @@
-
 <div class="estate-table web-farm pt-md-3">
     <!-- <table class="estate-boby-txt " datatable [dtOptions]="dtOptions">
     </table> -->
@@ -8,62 +7,149 @@
                 <tr class="header-row">
                     <th>
                         <label class="customcheckbox m-b-20">
-                            <input type="checkbox" id="mainCheckbox"  [checked]="isAllChecked()"
-                            (change)="checkAll($event)"/>
+                            <input
+                                type="checkbox"
+                                id="mainCheckbox"
+                                [checked]="isAllChecked()"
+                                (change)="checkAll($event)"
+                            />
                             <span class="checkmark head-check"></span>
                         </label>
                     </th>
-                    <th>{{globals.languageJson?.files}}</th>
-                    <th scope="col">{{globals.languageJson?.modified}}</th>
-                    <th scope="col">{{globals.languageJson?.type}}</th>
+                    <th>{{ globals.languageJson?.files }}</th>
+                    <th scope="col">{{ globals.languageJson?.modified }}</th>
+                    <th scope="col">{{ globals.languageJson?.type }}</th>
                     <th></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody class="customtable">
-                <tr class="ticket-boby-txt" *ngFor="let item of filedetailsService.mainData  | filter:fileService.filterTerm">
+                <tr
+                    class="ticket-boby-txt"
+                    *ngFor="let item of filedetailsService.mainData | filter: fileService.filterTerm"
+                >
                     <td>
-
                         <label class="customcheckbox">
-                                <input type="checkbox" class="listCheckbox"  name="sizecb[]" value="{{item.id}}" [(ngModel)]="item.state"/>
-                                <span class="checkmark head-check"></span>
+                            <input
+                                type="checkbox"
+                                class="listCheckbox"
+                                name="sizecb[]"
+                                value="{{ item.id }}"
+                                [(ngModel)]="item.state"
+                            />
+                            <span class="checkmark head-check"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <span
+                            class="cursor-pointer"
+                            *ngIf="item.type == 'FOLDER'"
+                            (click)="filedetailsService.shareDetails(item)"
+                            ><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon" />
+                            {{ item.name }}</span
+                        >
+                        <span class="cursor-pointer" *ngIf="item.type == 'DOCUMENT'" (click)="downloadFile(item)"
+                            ><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon" />
+                            {{ item.name }}</span
+                        >
+                        <span class="cursor-pointer" *ngIf="item.type == 'CSV'"
+                            ><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon" />
+                            {{ item.name }}</span
+                        >
+                        <span
+                            class="cursor-pointer"
+                            *ngIf="item.type == 'VIDEO'"
+                            (click)="openVideoModal(popTemplate, item)"
+                            ><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon" />{{
+                                item.name
+                            }}</span
+                        >
+                        <span class="cursor-pointer" *ngIf="item.type == 'IMAGE'" (click)="popupPrivew(item)"
+                            ><img class="dwnd-img pr-2" src="assets/images/image-file.png" alt="upload-icon" />{{
+                                item.name
+                            }}</span
+                        >
+                    </td>
+
+                    <td>
+                        <span
+                            class="cursor-pointer"
+                            *ngIf="item.type == 'FOLDER'"
+                            (click)="filedetailsService.shareDetails(item)"
+                            >{{ item.updated_at | date: 'd/MM/y, h:mm a' }}</span
+                        >
+                        <span *ngIf="item.type != 'FOLDER'">{{ item.updated_at | date: 'd/MM/y, h:mm a' }}</span>
+                    </td>
+                    <td>
+                        <span
+                            class="cursor-pointer"
+                            *ngIf="item.type == 'FOLDER'"
+                            (click)="filedetailsService.shareDetails(item)"
+                            >{{ item.type | titlecase }}</span
+                        >
+                        <span *ngIf="item.type != 'FOLDER'">{{ item.type | titlecase }}</span>
+                    </td>
+                    <td class="share_icon">
+                        <div class="edit">
+                            <label class="share-bor mr-3">
+                                <input class="file-inpt" type="file" />
+                                <img class="share-img" src="assets/images/share-img.png" alt="farm" />
+                                <span class="share-txt ml-2"> {{ globals.languageJson?.share }} </span>
                             </label>
+                        </div>
                     </td>
                     <td>
-                        <span class="cursor-pointer" *ngIf="item.type=='FOLDER'" (click)="filedetailsService.shareDetails(item)"><img class="dwnd-img pr-2" src="assets/images/file-fld.png" alt="upload-icon"> {{ item.name }}</span>
-                        <span class="cursor-pointer" *ngIf="item.type=='DOCUMENT'" (click)="downloadFile(item)"><img class="dwnd-img pr-2" src="assets/images/pdf-img.PNG" alt="upload-icon"> {{ item.name }}</span>
-                        <span class="cursor-pointer" *ngIf="item.type=='CSV'"><img class="dwnd-img pr-2" src="assets/images/file-floder.png" alt="upload-icon"> {{ item.name }}</span>
-                        <span class="cursor-pointer" *ngIf="item.type=='VIDEO'" (click)="openVideoModal(popTemplate,item)"><img class="dwnd-img pr-2" src="assets/images/file-video.png" alt="upload-icon">{{ item.name }}</span>
-                        <span class="cursor-pointer" *ngIf="item.type=='IMAGE'" (click)="popupPrivew(item)"><img class="dwnd-img pr-2" src="assets/images/image-file.png" alt="upload-icon">{{ item.name }}</span>
-
-                    </td>
-
-                    <td>
-                        <span class="cursor-pointer" *ngIf="item.type== 'FOLDER'" (click)="filedetailsService.shareDetails(item)">{{ item.updated_at | date:'d/MM/y, h:mm a'  }}</span>
-                        <span *ngIf="item.type!= 'FOLDER'">{{ item.updated_at | date:'d/MM/y, h:mm a'  }}</span>
-                    </td>
-                    <td>
-                        <span class="cursor-pointer" *ngIf="item.type== 'FOLDER'" (click)="filedetailsService.shareDetails(item)">{{item.type | titlecase }}</span>
-                        <span *ngIf="item.type!= 'FOLDER'">{{item.type | titlecase }}</span>
-                    </td>
-                    <td class="share_icon"> <div class="edit"><label class="share-bor mr-3"> <input class="file-inpt" type="file"> <img
-                        class="share-img" src="assets/images/share-img.png" alt="farm"> <span
-                        class="share-txt ml-2"> {{globals.languageJson?.share}} </span> </label></div>  
-                      </td>
-                    <td>
-                        <a class="menu-arrow" [popover]="documentTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
-                            <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt=""></p>
+                        <a
+                            class="menu-arrow"
+                            [popover]="documentTemplate"
+                            placement="left"
+                            [outsideClick]="true"
+                            #pop="bs-popover"
+                        >
+                            <p><img class="ellipse-image" src="assets/images/more-opns-file.png" alt="" /></p>
                         </a>
-                        <ng-template #documentTemplate id="{{item.id}}">
+                        <ng-template #documentTemplate id="{{ item.id }}">
                             <div id="popover-mobile-content">
                                 <ul class="list-group custom-popover">
-                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop.hide();downloadFile(item)">{{globals.languageJson?.download}} </a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide(); openShareModal(shareTemplate,item)">{{globals.languageJson?.share}}</a></li>
-                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id);pop.hide();">{{globals.languageJson?.rename}}</a></li>
-                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop.hide();">{{globals.languageJson?.rename}}</a></li>
-                                    <li class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{globals.languageJson?.comment}}</a></li>
-                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop.hide();deleteFolder(item.id);">{{globals.languageJson?.delete}}</a></li>
-                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="pop.hide();deleteFile(item.id);">{{globals.languageJson?.delete}}</a></li>
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
+                                        <a class="pointer-item" (click)="pop.hide(); downloadFile(item)"
+                                            >{{ globals.languageJson?.download }}
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a
+                                            class="pointer-item"
+                                            (click)="pop.hide(); openShareModal(shareTemplate, item)"
+                                            >{{ globals.languageJson?.share }}</a
+                                        >
+                                    </li>
+                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
+                                        <a class="pointer-item" (click)="openModal(template, item.id); pop.hide()">{{
+                                            globals.languageJson?.rename
+                                        }}</a>
+                                    </li>
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
+                                        <a
+                                            class="pointer-item"
+                                            (click)="openFileModal(fileTemplate, item.id); pop.hide()"
+                                            >{{ globals.languageJson?.rename }}</a
+                                        >
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a class="pointer-item" (click)="pop.hide()">{{
+                                            globals.languageJson?.comment
+                                        }}</a>
+                                    </li>
+                                    <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
+                                        <a class="pointer-item" (click)="pop.hide(); deleteFolder(item.id)">{{
+                                            globals.languageJson?.delete
+                                        }}</a>
+                                    </li>
+                                    <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
+                                        <a class="pointer-item" (click)="pop.hide(); deleteFile(item.id)">{{
+                                            globals.languageJson?.delete
+                                        }}</a>
+                                    </li>
                                 </ul>
                             </div>
                         </ng-template>
@@ -72,37 +158,105 @@
             </tbody>
         </table>
     </div>
-
 </div>
 <div class="estate-table mobile-farm">
-    <div class="pagination-content ">
+    <div class="pagination-content">
         <div class="cardpanel-detail mobile-farm">
-            <div class=" mobile-ce vide-tble pagination-content-list">
-                <div class="col-6 bor-coffe pagination-content-list__item" *ngFor="let item of filedetailsService.mainData | filter:fileService.filterTerm">
-                    <p><span *ngIf="item.type=='FOLDER'"> <img class="" src="assets/images/file-fld.png" alt="upload-icon"></span>
-                        <span *ngIf="item.type=='DOCUMENT'"> <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"></span>
-                        <span *ngIf="item.type=='IMAGE'"> <img class="" src="assets/images/image-file.png" alt="upload-icon"></span>
-                        <span *ngIf="item.type=='VIDEO'"> <img class="" src="assets/images/file-video.png" alt="upload-icon"></span>
-                        <span *ngIf="item.type=='CSV'"> <img class="" src="assets/images/file-floder.png" alt="upload-icon"></span> <span class=" pull-right"><a class="menu-arrow" [popover]="documentTemplate1" placement="left" [outsideClick]="true" #pop1="bs-popover"><img class="img" src="assets/images/more-opns-file.png"></a> 
-                        <ng-template #documentTemplate1 id="{{item.id}}">
+            <div class="mobile-ce vide-tble pagination-content-list">
+                <div
+                    class="col-6 bor-coffe pagination-content-list__item"
+                    *ngFor="let item of filedetailsService.mainData | filter: fileService.filterTerm"
+                >
+                    <p>
+                        <span *ngIf="item.type == 'FOLDER'">
+                            <img class="" src="assets/images/file-fld.png" alt="upload-icon"
+                        /></span>
+                        <span *ngIf="item.type == 'DOCUMENT'">
+                            <img class="" src="assets/images/pdf-img.PNG" alt="upload-icon"
+                        /></span>
+                        <span *ngIf="item.type == 'IMAGE'">
+                            <img class="" src="assets/images/image-file.png" alt="upload-icon"
+                        /></span>
+                        <span *ngIf="item.type == 'VIDEO'">
+                            <img class="" src="assets/images/file-video.png" alt="upload-icon"
+                        /></span>
+                        <span *ngIf="item.type == 'CSV'">
+                            <img class="" src="assets/images/file-floder.png" alt="upload-icon"
+                        /></span>
+                        <span class="pull-right"
+                            ><a
+                                class="menu-arrow"
+                                [popover]="documentTemplate1"
+                                placement="left"
+                                [outsideClick]="true"
+                                #pop1="bs-popover"
+                                ><img class="img" src="assets/images/more-opns-file.png"
+                            /></a>
+                            <ng-template #documentTemplate1 id="{{ item.id }}">
                                 <div id="popover-mobile-content">
                                     <ul class="list-group custom-popover">
-                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'"> <a class="pointer-item" (click)="pop1.hide();downloadFile(item)">{{globals.languageJson?.download}} </a></li>
-                                        <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide(); openShareModal(shareTemplate,item)">{{globals.languageJson?.share}}</a></li>
-                                        <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="openModal(template,item.id);pop1.hide();">{{globals.languageJson?.rename}}</a></li>
-                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="openFileModal(fileTemplate,item.id);pop1.hide();">{{globals.languageJson?.rename}}</a></li>
-                                        <li class="list-group-item"><a class="pointer-item" (click)="pop1.hide();">{{globals.languageJson?.comment}}</a></li>
-                                        <li class="list-group-item" *ngIf="item.type == 'FOLDER'"><a class="pointer-item" (click)="pop1.hide();deleteFolder(item.id);">{{globals.languageJson?.delete}}</a></li>
-                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'"><a class="pointer-item" (click)="pop1.hide();deleteFile(item.id);">{{globals.languageJson?.delete}}</a></li>
+                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
+                                            <a class="pointer-item" (click)="pop1.hide(); downloadFile(item)"
+                                                >{{ globals.languageJson?.download }}
+                                            </a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a
+                                                class="pointer-item"
+                                                (click)="pop1.hide(); openShareModal(shareTemplate, item)"
+                                                >{{ globals.languageJson?.share }}</a
+                                            >
+                                        </li>
+                                        <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
+                                            <a
+                                                class="pointer-item"
+                                                (click)="openModal(template, item.id); pop1.hide()"
+                                                >{{ globals.languageJson?.rename }}</a
+                                            >
+                                        </li>
+                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
+                                            <a
+                                                class="pointer-item"
+                                                (click)="openFileModal(fileTemplate, item.id); pop1.hide()"
+                                                >{{ globals.languageJson?.rename }}</a
+                                            >
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a class="pointer-item" (click)="pop1.hide()">{{
+                                                globals.languageJson?.comment
+                                            }}</a>
+                                        </li>
+                                        <li class="list-group-item" *ngIf="item.type == 'FOLDER'">
+                                            <a class="pointer-item" (click)="pop1.hide(); deleteFolder(item.id)">{{
+                                                globals.languageJson?.delete
+                                            }}</a>
+                                        </li>
+                                        <li class="list-group-item" *ngIf="item.type != 'FOLDER'">
+                                            <a class="pointer-item" (click)="pop1.hide(); deleteFile(item.id)">{{
+                                                globals.languageJson?.delete
+                                            }}</a>
+                                        </li>
                                     </ul>
                                 </div>
-                            </ng-template></span></p>
-                    <p class="black fnt-14" *ngIf="item.type == 'FOLDER'" (click)="filedetailsService.shareDetails(item)"> {{item.name}} </p>
-                    <p class="black fnt-14" *ngIf="item.type == 'IMAGE'" (click)="popupPrivew(item)"> {{item.name}} </p>
-                    <p class="black fnt-14" *ngIf="item.type == 'VIDEO'" (click)="openVideoModal(popTemplate,item)"> {{item.name}} </p>
-                    <p class="black fnt-14" *ngIf="item.type == 'DOCUMENT'" (click)="downloadFile(item)"> {{item.name}} </p>
-                    <p class="fnt-12 light-eb"> Last modified </p>
-                    <p class="fnt-12 light-eb">{{item.updated_at | date:'d/MM/y, h:mm a' }}</p>
+                            </ng-template></span
+                        >
+                    </p>
+                    <p
+                        class="black fnt-14"
+                        *ngIf="item.type == 'FOLDER'"
+                        (click)="filedetailsService.shareDetails(item)"
+                    >
+                        {{ item.name }}
+                    </p>
+                    <p class="black fnt-14" *ngIf="item.type == 'IMAGE'" (click)="popupPrivew(item)">{{ item.name }}</p>
+                    <p class="black fnt-14" *ngIf="item.type == 'VIDEO'" (click)="openVideoModal(popTemplate, item)">
+                        {{ item.name }}
+                    </p>
+                    <p class="black fnt-14" *ngIf="item.type == 'DOCUMENT'" (click)="downloadFile(item)">
+                        {{ item.name }}
+                    </p>
+                    <p class="fnt-12 light-eb">Last modified</p>
+                    <p class="fnt-12 light-eb">{{ item.updated_at | date: 'd/MM/y, h:mm a' }}</p>
                 </div>
                 <!-- <div class="col-6 bor-coffe pagination-content-list__item">
                     <p><span> <img class="" src="assets/images/file-fld.png" alt="upload-icon"> </span> <span class=" pull-right"><img class="img" src="assets/images/more-opns-file.png"> </span></p>
@@ -129,8 +283,6 @@
                     <p class="fnt-12 light-eb"> Last opened </p>
                     <p class="fnt-12 light-eb"> 01/02/2020 4:30pm</p>
                 </div> -->
-
-
             </div>
             <div class="responsive-pagination clearfix">
                 <span class="responsive-pagination__prev float-left disable"></span>
@@ -147,83 +299,133 @@
     </div>
 </div>
 
-
 <ng-template #template>
     <div class="modal-header">
-        <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{globals.languageJson?.update_folder}}</h5>
+        <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
+            {{ globals.languageJson?.update_folder }}
+        </h5>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <form>
             <div class="roastery-fields mb-4">
                 <div class="farm-input col-12 col-md-5 px-0">
-                    <label class="mb-0">{{globals.languageJson?.name}}</label>
-                    <input type="hidden" [(ngModel)]="folderItemId" value="{{ folderItemId }}" [ngModelOptions]="{ standalone: true }" />
-                    <input type="text" placeholder="Enter folder name" [(ngModel)]="folderName" name="updatefolder_name" id="updatefolder_name" required>
-                    <div class="folderNameError" *ngIf="folderNameError != ''">{{folderNameError}}</div>
+                    <label class="mb-0">{{ globals.languageJson?.name }}</label>
+                    <input
+                        type="hidden"
+                        [(ngModel)]="folderItemId"
+                        value="{{ folderItemId }}"
+                        [ngModelOptions]="{ standalone: true }"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Enter folder name"
+                        [(ngModel)]="folderName"
+                        name="updatefolder_name"
+                        id="updatefolder_name"
+                        required
+                    />
+                    <div class="folderNameError" *ngIf="folderNameError != ''">{{ folderNameError }}</div>
                 </div>
             </div>
             <div class="roastery-fields mb-4">
                 <div class="farm-input col-12 px-0">
-                    <label class="mb-0">{{globals.languageJson?.give_short_description}}*</label>
-                    <textarea class="mb-0" type="text" rows="5" placeholder="Give a short description to your folder (optional) " [(ngModel)]="folderDescription" id="updatefolder_descr" name="updatefolder_descr" required></textarea>
-                    <div class="descriptionError" *ngIf="descriptionError != ''">{{descriptionError}}</div>
+                    <label class="mb-0">{{ globals.languageJson?.give_short_description }}*</label>
+                    <textarea
+                        class="mb-0"
+                        type="text"
+                        rows="5"
+                        placeholder="Give a short description to your folder (optional) "
+                        [(ngModel)]="folderDescription"
+                        id="updatefolder_descr"
+                        name="updatefolder_descr"
+                        required
+                    ></textarea>
+                    <div class="descriptionError" *ngIf="descriptionError != ''">{{ descriptionError }}</div>
                 </div>
             </div>
         </form>
         <div class="main_button">
-            <button type="submit" class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4" (click)="UpdateFolder()">{{globals.languageJson?.update}}</button>
-
+            <button
+                type="submit"
+                class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
+                (click)="UpdateFolder()"
+            >
+                {{ globals.languageJson?.update }}
+            </button>
         </div>
     </div>
 </ng-template>
 
 <ng-template #fileTemplate>
     <div class="modal-header">
-        <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{globals.languageJson?.update_file}}</h5>
+        <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{ globals.languageJson?.update_file }}</h5>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <form>
             <div class="roastery-fields mb-4">
                 <div class="farm-input col-12 col-md-5 px-0">
-                    <label class="mb-0">{{globals.languageJson?.name}}</label>
-                    <input type="text" placeholder="Enter file name" name="updatefile_name" id="updatefile_name" [(ngModel)]="file_name" required>
-                    <div class="fileNameError" *ngIf="fileNameError != ''">{{fileNameError}}</div>
+                    <label class="mb-0">{{ globals.languageJson?.name }}</label>
+                    <input
+                        type="text"
+                        placeholder="Enter file name"
+                        name="updatefile_name"
+                        id="updatefile_name"
+                        [(ngModel)]="file_name"
+                        required
+                    />
+                    <div class="fileNameError" *ngIf="fileNameError != ''">{{ fileNameError }}</div>
                 </div>
             </div>
             <div class="roastery-fields mb-4">
                 <div class="farm-input col-12 px-0">
-                    <label class="mb-0">{{globals.languageJson?.give_short_description}} *</label>
-                    <textarea class="mb-0" type="text" rows="5" placeholder="Give a short description to your file (optional) " id="updatefile_descr" name="updatefile_descr" [(ngModel)]="file_description" required></textarea>
-                    <div class="filedescriptionError" *ngIf="filedescriptionError != ''">{{filedescriptionError}}</div>
+                    <label class="mb-0">{{ globals.languageJson?.give_short_description }} *</label>
+                    <textarea
+                        class="mb-0"
+                        type="text"
+                        rows="5"
+                        placeholder="Give a short description to your file (optional) "
+                        id="updatefile_descr"
+                        name="updatefile_descr"
+                        [(ngModel)]="file_description"
+                        required
+                    ></textarea>
+                    <div class="filedescriptionError" *ngIf="filedescriptionError != ''">
+                        {{ filedescriptionError }}
+                    </div>
                 </div>
             </div>
             <div class="roastery-fields mb-4">
-                <label class="mb-1 mr-2 ">{{globals.languageJson?.file_upload}} </label>
+                <label class="mb-1 mr-2">{{ globals.languageJson?.file_upload }} </label>
                 <label class="share-bor mr-3">
-                                <input class="file-inpt" type="file" (change)="reUploadFile($event);">
-                                 <img class="share-img" src="assets/images/upload-icon.png" alt="farm"> 
-                                 <span class="share-txt ml-2"> {{globals.languageJson?.upload}} </span> 
-                            </label>
-                <span class="value-name">{{fileNameValue}}</span>
+                    <input class="file-inpt" type="file" (change)="reUploadFile($event)" />
+                    <img class="share-img" src="assets/images/upload-icon.png" alt="farm" />
+                    <span class="share-txt ml-2"> {{ globals.languageJson?.upload }} </span>
+                </label>
+                <span class="value-name">{{ fileNameValue }}</span>
             </div>
         </form>
         <div class="main_button">
-            <button type="submit" class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4" (click)="updateFile()">{{globals.languageJson?.update}}</button>
-
+            <button
+                type="submit"
+                class="btn create-share fnt-14 fnt-700 fnt-muli pull-right mt-2 mb-4"
+                (click)="updateFile()"
+            >
+                {{ globals.languageJson?.update }}
+            </button>
         </div>
     </div>
 </ng-template>
 
 <div class="priview-popup-fileshare">
-    <div class="priview-popup-fileshare__back d-flex justify-content-betwen clearfix ">
+    <div class="priview-popup-fileshare__back d-flex justify-content-betwen clearfix">
         <div class="float-left">
-            <img src="assets/images/popup-back-arrow.svg" (click)="popupClose()">
+            <img src="assets/images/popup-back-arrow.svg" (click)="popupClose()" />
             <span class="ml-2 fnt-16 fnt-600 fnt-muli text-white"></span>
         </div>
         <div class="img-side-dots ml-auto">
@@ -233,9 +435,8 @@
         </div>
     </div>
     <div class="priview-popup-fileshare__img">
-        <img class="img" src="assets/images/quick-f2.png">
+        <img class="img" src="assets/images/quick-f2.png" />
     </div>
-
 </div>
 
 <ng-template #popTemplate>
@@ -248,14 +449,12 @@
                 <!-- <mat-video src="{{url}}"></mat-video> -->
 
                 <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
-                    <source src="{{url}}" type="video/mp4" />
-                  
-                  </video>
+                    <source src="{{ url }}" type="video/mp4" />
+                </video>
             </div>
         </div>
     </div>
 </ng-template>
-
 
 <!---Modal Share-->
 <!-- Modal share folder-->
@@ -264,38 +463,86 @@
         <div>
             <div>
                 <div class="modal-header">
-                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">{{globals.languageJson?.share}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
-                  <span aria-hidden="true">&times;</span>
-              </button>
+                    <h5 class="modal-title fnt-18 fnt-muli fnt-700 text-black2424 mb-0">
+                        {{ globals.languageJson?.share }}
+                    </h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        (click)="modalRef.hide()"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="">
                         <form>
                             <div class="roastery-fields mb-0">
                                 <div class="farm-input col-12 px-0">
-
-                                    <label>{{globals.languageJson?.enter_name_email}}*</label>
-                                    <div class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between">
-                                        <input class="float-left px-0 form-control auto-complete-box" type="email" [(ngModel)]="selectedValue" name="name" [typeahead]="usersList" typeaheadOptionField="firstname" typeaheadWaitMs="1000" [typeaheadItemTemplate]="customItemTemplate" (typeaheadOnSelect)="onSelect($event)"
-                                            (keyup)="getUsersList($event)" placeholder="Enter name or email" autocomplete="off">
+                                    <label>{{ globals.languageJson?.enter_name_email }}*</label>
+                                    <div
+                                        class="file-share-addMail pl-md-2 clearfix d-flex flex-column flex-md-row align-items-center justify-content-between"
+                                    >
+                                        <input
+                                            class="float-left px-0 form-control auto-complete-box"
+                                            type="email"
+                                            [(ngModel)]="selectedValue"
+                                            name="name"
+                                            [typeahead]="usersList"
+                                            typeaheadOptionField="firstname"
+                                            typeaheadWaitMs="1000"
+                                            [typeaheadItemTemplate]="customItemTemplate"
+                                            (typeaheadOnSelect)="onSelect($event)"
+                                            (keyup)="getUsersList($event)"
+                                            placeholder="Enter name or email"
+                                            autocomplete="off"
+                                        />
                                         <ng-template #customItemTemplate let-model="item">
-                                            <span *ngIf="model.organization_type == 'RO'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Roaster)</span>
-                                            <span *ngIf="model.organization_type == 'FC'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Facilitator)</span>
-                                            <span *ngIf="model.organization_type == 'ES'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Estate)</span>
-                                            <span *ngIf="model.organization_type == 'MR'"><strong>{{model.firstname}} {{model.lastname}}</strong> (Micro Roaster)</span>
-                                            <span *ngIf="model.organization_type == 'HRC'"><strong>{{model.firstname}} {{model.lastname}}</strong> (HoReCa)</span>
+                                            <span *ngIf="model.organization_type == 'RO'"
+                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
+                                                (Roaster)</span
+                                            >
+                                            <span *ngIf="model.organization_type == 'FC'"
+                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
+                                                (Facilitator)</span
+                                            >
+                                            <span *ngIf="model.organization_type == 'ES'"
+                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
+                                                (Estate)</span
+                                            >
+                                            <span *ngIf="model.organization_type == 'MR'"
+                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong> (Micro
+                                                Roaster)</span
+                                            >
+                                            <span *ngIf="model.organization_type == 'HRC'"
+                                                ><strong>{{ model.firstname }} {{ model.lastname }}</strong>
+                                                (HoReCa)</span
+                                            >
                                         </ng-template>
                                         <div class="ml-auto">
-
                                             <div class="Custom-select w-100 border-left66">
-                                                <div class="Custom-select-input w-100  pr-3">
-                                                    <input type="text" value="{{globals.languageJson?.can_view}}" readonly>
-                                                    <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="share_permission">{{globals.languageJson?.can_view}}</span>
-                                                    <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                        <li class="Custom-select-input-list__item">{{globals.languageJson?.can_view}}</li>
-                                                        <li class="Custom-select-input-list__item">{{globals.languageJson?.can_edit}}</li>
-
+                                                <div class="Custom-select-input w-100 pr-3">
+                                                    <input
+                                                        type="text"
+                                                        value="{{ globals.languageJson?.can_view }}"
+                                                        readonly
+                                                    />
+                                                    <span
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334"
+                                                        id="share_permission"
+                                                        >{{ globals.languageJson?.can_view }}</span
+                                                    >
+                                                    <ul
+                                                        class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334"
+                                                    >
+                                                        <li class="Custom-select-input-list__item">
+                                                            {{ globals.languageJson?.can_view }}
+                                                        </li>
+                                                        <li class="Custom-select-input-list__item">
+                                                            {{ globals.languageJson?.can_edit }}
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -304,7 +551,8 @@
                                 </div>
                             </div>
                             <div class="mt-3 mt-lg-4" *ngIf="sharedUsers != 0">
-                                <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">{{globals.languageJson?.existing_members}}
+                                <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">
+                                    {{ globals.languageJson?.existing_members }}
                                 </h4>
                                 <!--Existing Memebr-->
                                 <ul class="existing-members-list">
@@ -330,11 +578,12 @@
                                         <div class="member d-flex align-items-center justify-content-between clearfix">
                                             <div class="member__info d-flex align-items-center float-left">
                                                 <div class="member-profile">
-                                                    <img class="img user-img" src="{{item.thumb_image}}">
-
+                                                    <img class="img user-img" src="{{ item.thumb_image }}" />
                                                 </div>
 
-                                                <span class="ml-2 fnt-16 fnt-600 fnt-muli text-black334">{{item.firstname}} {{item.lastname}}</span>
+                                                <span class="ml-2 fnt-16 fnt-600 fnt-muli text-black334"
+                                                    >{{ item.firstname }} {{ item.lastname }}</span
+                                                >
 
                                                 <!-- <div class="Custom-select w-100">
                                               <div class="Custom-select-input w-100  pr-3">
@@ -352,13 +601,44 @@
                                             <div class="member__type float-right ml-auto">
                                                 <div class="Custom-select w-100">
                                                     <div class="Custom-select-input w-100">
-                                                        <input type="text" value="{{globals.languageJson?.can_view}}" readonly>
-                                                        <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canEdit" *ngIf="item.permission == 'EDIT'">{{globals.languageJson?.can_edit}}</span>
-                                                        <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334" id="canView" *ngIf="item.permission == 'VIEW'">{{globals.languageJson?.can_view}}</span>
-                                                        <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
-                                                            <li class="Custom-select-input-list__item" (click)="changePermissions('VIEW',item)">{{globals.languageJson?.can_view}}</li>
-                                                            <li class="Custom-select-input-list__item" (click)="changePermissions('EDIT',item)">{{globals.languageJson?.can_edit}}</li>
-                                                            <li class="Custom-select-input-list__item" (click)="removeAccess(item)">{{globals.languageJson?.remove}}</li>
+                                                        <input
+                                                            type="text"
+                                                            value="{{ globals.languageJson?.can_view }}"
+                                                            readonly
+                                                        />
+                                                        <span
+                                                            class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334"
+                                                            id="canEdit"
+                                                            *ngIf="item.permission == 'EDIT'"
+                                                            >{{ globals.languageJson?.can_edit }}</span
+                                                        >
+                                                        <span
+                                                            class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334"
+                                                            id="canView"
+                                                            *ngIf="item.permission == 'VIEW'"
+                                                            >{{ globals.languageJson?.can_view }}</span
+                                                        >
+                                                        <ul
+                                                            class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334"
+                                                        >
+                                                            <li
+                                                                class="Custom-select-input-list__item"
+                                                                (click)="changePermissions('VIEW', item)"
+                                                            >
+                                                                {{ globals.languageJson?.can_view }}
+                                                            </li>
+                                                            <li
+                                                                class="Custom-select-input-list__item"
+                                                                (click)="changePermissions('EDIT', item)"
+                                                            >
+                                                                {{ globals.languageJson?.can_edit }}
+                                                            </li>
+                                                            <li
+                                                                class="Custom-select-input-list__item"
+                                                                (click)="removeAccess(item)"
+                                                            >
+                                                                {{ globals.languageJson?.remove }}
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -371,11 +651,24 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between mx-3 mb-2">
-                    <p class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0">
-                        {{globals.languageJson?.admin_notice_text}}</p>
-                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli" (click)="shareFileAndFolder()"  [disabled]="resetButtonValue==='Sharing'">
-                        {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Sharing'" src="assets/images/orange-loader.gif"/>
-              </button>
+                    <p
+                        class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0"
+                    >
+                        {{ globals.languageJson?.admin_notice_text }}
+                    </p>
+                    <button
+                        type="button"
+                        class="btn-raised create-share fnt-14 fnt-700 fnt-muli"
+                        (click)="shareFileAndFolder()"
+                        [disabled]="resetButtonValue === 'Sharing'"
+                    >
+                        {{ resetButtonValue
+                        }}<img
+                            class="loader"
+                            *ngIf="resetButtonValue === 'Sharing'"
+                            src="assets/images/orange-loader.gif"
+                        />
+                    </button>
                 </div>
             </div>
         </div>

@@ -497,7 +497,7 @@
                     <button
                         type="button"
                         *ngIf="invite != 'Only me'"
-                        class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli"
+                        class="btn-raised create-share fnt-14 fnt-700 fnt-muli"
                         (click)="createFolder()"
                         data-dismiss="modal"
                     >
@@ -506,7 +506,7 @@
                     <button
                         type="button"
                         *ngIf="invite == 'Only me'"
-                        class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli"
+                        class="btn-raised create-share fnt-14 fnt-700 fnt-muli"
                         (click)="createFolder()"
                         data-dismiss="modal"
                     >
@@ -663,7 +663,7 @@
                     >
                         {{ globals.languageJson?.admin_notice_text }}
                     </p>
-                    <button type="button" class="btn btn-primary create-share fnt-14 fnt-700 fnt-muli">
+                    <button type="button" class="btn-raised create-share fnt-14 fnt-700 fnt-muli">
                         {{ globals.languageJson?.share }}
                     </button>
                 </div>
