@@ -9,7 +9,8 @@
 .team__total {
     padding: 3rem;
 }
-.add-team {
+.add-team,
+.view-team {
     font-family: Muli;
     font-size: 18px;
     font-weight: bold;
@@ -63,6 +64,11 @@
 .rolesColumn {
     overflow: unset !important;
     white-space: normal !important;
+}
+::ng-deep .p-datatable-tbody > tr > td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 ::ng-deep .content_list {
     .ui-overlaypanel {
@@ -372,6 +378,13 @@ span.checkmark {
     .delete_row {
         margin-bottom: 1%;
     }
+    .view-team {
+        font-family: Muli;
+        font-size: 18px;
+        font-weight: bold;
+        color: #232334;
+        margin-bottom: 0px;
+    }
     .modal-header {
         border-bottom: 1px solid #d6d6d6 !important;
         padding: 0 0 25px 0 !important;
@@ -382,5 +395,59 @@ span.checkmark {
     .modal-body {
         margin-top: 0px !important;
         padding: 0 !important;
+    }
+    :host ::ng-deep .p-datatable-tbody > tr > td {
+        border-left: 1px solid #d6d6d6;
+        border-right: 1px solid #d6d6d6;
+        padding: 14px 14px;
+        width: 100% !important;
+        display: block;
+        border-bottom: 0px !important;
+    }
+    .mobileLable {
+        color: #747588;
+    }
+    :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+        border-bottom: 0px !important;
+    }
+    :host ::ng-deep .p-datatable-tbody > tr > .nameMobileHeader {
+        border-top: 1px solid #d6d6d6;
+        background-color: #f8f8f8;
+    }
+    :host ::ng-deep .p-datatable-tbody > tr > .emailMobileClass {
+        padding-bottom: 1rem !important;
+    }
+    :host ::ng-deep .p-datatable-tbody > tr > .roleMobileBottom {
+        margin-bottom: 14px;
+        border-bottom: 1px solid #d6d6d6 !important;
+        padding-top: 1rem;
+        border-top: 1px dashed #d6d6d6;
+    }
+    :host ::ng-deep .p-checkbox .p-checkbox-box {
+        border-radius: 12px;
+    }
+    .table-container {
+        border: 0px;
+    }
+    .selectedLable {
+        padding: 13px 0px;
+        color: #232334;
+        font-size: 16px;
+        display: inline-block;
+        font-weight: bold;
+        margin-left: auto !important;
+    }
+    .assignMobileBtn {
+        padding: 13px 47px;
+        font-family: Muli;
+        font-size: 14px;
+        border: 1px solid #30855c;
+        font-weight: bold;
+        border-radius: 4px;
+        background-color: #30855c;
+        text-decoration: none !important;
+        display: inline-block;
+        color: #ffffff !important;
+        cursor: pointer;
     }
 }

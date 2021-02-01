@@ -6,28 +6,40 @@
     </div>
     <section class="team__total">
         <div class="row m-0">
-            <div class="d-inline add-team col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">{{globals.languageJson?.add_team_members}}
+            <div *ngIf="isAddMember" class="d-inline add-team col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0">{{globals.languageJson?.add_team_members}}
                 <span class="d-inline select_title" (click)="op.toggle($event)">
                     {{selectedRole}}
                     <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
                 <div class="select-members mt-1">{{globals.languageJson?.select_members_role}}</div>
         
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-none d-md-block">
+            <div *ngIf="isAddMember" class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-none d-md-block">
                 <button type="submit" class="btn invite_members pull-right" (click)="inviteNewMembers();">
                     <span class="update_text">{{globals.languageJson?.invite_new_members}}</span>
                 </button>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-block d-sm-block d-md-none">
+            <div *ngIf="isAddMember" class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-block d-sm-block d-md-none">
                 <button type="submit" class="btn invite_members w-100" (click)="inviteNewMembers();">
                     <span class="update_text">{{globals.languageJson?.invite_new_members}}</span>
                 </button>
             </div>
+            <div *ngIf="!isAddMember" class="d-inline view-team col-sm-12 col-md-6 col-lg-8 col-xl-8 p-0">
+                User Management
+            </div>
+            <div *ngIf="!isAddMember" class="col-sm-12 col-md-6 col-lg-4 col-xl-4 d-block d-sm-block d-md-none mt-3 mb-4 p-0">
+                <input type="text" name="search" class="search-raised pull-right m-0 w-100" [(ngModel)]="termSearch"
+                    (ngModelChange)="onSearch($event)" placeholder="{{globals.languageJson?.search_name_role}}" />
+            </div>
+            <div *ngIf="!isAddMember" class="col-sm-12 col-md-6 col-lg-4 search-div d-none d-sm-none d-md-block p-0">
+                <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="termSearch"
+                    placeholder="{{globals.languageJson?.search_name_role}}" />
+            </div>
+
         </div>
         <div class="row m-0">
-            <div class="col-sm-12 col-md-6 col-lg-4 d-block d-sm-block d-md-none mt-4 mb-4 p-0">
+            <div *ngIf="isAddMember"class="col-sm-12 col-md-6 col-lg-4 d-block d-sm-block d-md-none mt-4 mb-4 p-0">
                 <input type="text" name="search" class="search-raised pull-right m-0 w-100" [(ngModel)]="termSearch"
-                    placeholder="{{globals.languageJson?.search_name_role}}" />
+                    (ngModelChange)="onSearch($event)" placeholder="{{globals.languageJson?.search_name_role}}" />
             </div>
             <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8 p-0">
                 <div class="d-inline border-total status-div col-sm-6" id="status_id">
@@ -48,10 +60,17 @@
                     </a>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-4 search-div d-none d-sm-none d-md-block p-0">
+            <div *ngIf="isAddMember"class="col-sm-12 col-md-6 col-lg-4 search-div d-none d-sm-none d-md-block p-0">
                 <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="termSearch"
                     placeholder="{{globals.languageJson?.search_name_role}}" />
             </div>
+        </div>
+        <div *ngIf="selectedUsers && selectedUsers.length > 0"class="d-block d-sm-block d-md-none pt-3">
+            <span class="selectedLable">
+                {{selectedUsers.length}} selected
+            </span>
+            <button *ngIf="selectedUsers.length > 0" type="button" class="btn assignMobileBtn pull-right ml-auto"
+                    (click)="assignUsersToRole()">{{globals.languageJson?.assign}}</button>
         </div>
         <div class="table-container mb-2">
             <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
@@ -60,7 +79,7 @@
                 [totalRecords]="totalCount" selectionMode="multiple" [(selection)]="selectedUsers" [responsive]="sharedService.isMobileView">
                 <ng-template pTemplate="header" let-columns>
                     <tr class="d-none d-sm-none d-md-table-row">
-                        <th style="width: 5%" class="">
+                        <th *ngIf="isAddMember"style="width: 5%" class="">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
                         <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null"
@@ -69,37 +88,167 @@
                             <p-sortIcon *ngIf="col.sortable === true" [field]="col.field" ariaLabel="Activate to sort"
                                 ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
                             </p-sortIcon>
+                            <a *ngIf="col.field == 'roles'"class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"
+                                #pop5="bs-popover">
+                                <p class="d-inline filter">
+                                    &nbsp; <img src="assets/images/down-arrow.svg" /></p>
+                            </a>
                         </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr>
-                        <td class="d-none d-sm-none d-md-table-cell">
+                        <td *ngIf="isAddMember" class="d-none d-sm-none d-md-table-cell">
                             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                         </td>
                         <td *ngFor="let col of columns" [ngSwitch]="col.field" [style.width]="col.width ? col.width + '%' : '30%'"
-                        [ngClass]="{'d-none':col.field == 'user_count', 'd-sm-none': col.field == 'user_count', 
-                            'd-md-none': col.field == 'add_user', 'd-md-table-cell': col.field !== 'add_user', 'rolesColumn': col.field == 'roles'}">
+                        [ngClass]="{'d-none': col.field == 'status', 'd-sm-none': col.field == 'status','d-md-table-cell':  col.field == 'status','rolesColumn': col.field == 'roles',
+                                    'nameMobileHeader': col.field == 'name','roleMobileBottom': col.field == 'roles', 'emailMobileClass': col.field == 'email'}">
                             <span *ngSwitchCase="'name'" class="">
-                                <span class="tableDataFont">
+                                <span class=" d-none d-sm-none d-md-block tableDataFont">
                                     {{ rowData[col.field]}}
                                 </span>
+                                <div class="d-block d-sm-block d-md-none">
+                                    <span>{{rowData[col.field]}}</span>
+                                    <span *ngIf="rowData['status'] == 'ACTIVE'" class="tableDataFont typeofStatus-active ml-3">&#9679; Active
+                                    </span>
+                                    <span *ngIf="rowData['status'] == 'INACTIVE'" class="tableDataFont typeofStatus-disabled ml-3">&#9679; Disabled
+                                    </span>
+                                    <p-tableCheckbox *ngIf="isAddMember" class="float-right"[value]="rowData"></p-tableCheckbox>
+                                    <ng-container *ngIf="!isAddMember">
+                                        <a class="menu-arrow float-right" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop11="bs-popover">
+                                            <img class="ellipse-image" src="assets/images/ellipses.png" alt="">
+                                        </a>
+                                        <ng-template #poplistTemplate>
+                                            <div id="popover-mobile-content">
+                                                <ul class="list-group custom-popover">
+                                                    <li class="list-group-item"> <a class="pointer-item"
+                                                            (click)="editMember(rowData.id);pop11.hide()">{{globals.languageJson?.edit_member}}</a>
+                                                    </li>
+                                                    <li class="list-group-item"> <a class="pointer-item"
+                                                            (click)="pop11.hide()">{{globals.languageJson?.send_a_message}}</a>
+                                                    </li>
+                                                    <li class="list-group-item"> <a class="pointer-item"
+                                                            (click)="pop11.hide()">{{globals.languageJson?.send_recovery_email}}</a>
+                                                    </li>
+                                                    <!-- <li class="list-group-item"> <a class="pointer-item"
+                                                                                            (click)="openModal(template, rowData.id, rowData.name);pop11.hide()">{{globals.languageJson?.assign_role}}</a>
+                                                                                    </li> -->
+                                                    <li *ngIf="rowData.status == 'ACTIVE' && rowData.id != loginId" class="list-group-item"> <a
+                                                            class="pointer-item"
+                                                            (click)="userDisable(rowData.id);pop11.hide()">{{globals.languageJson?.disable_account}}</a>
+                                                    </li>
+                                                    <li *ngIf="rowData.status == 'INACTIVE' && rowData.id != loginId" class="list-group-item"> <a
+                                                            class="pointer-item"
+                                                            (click)="userEnable(rowData.id);pop11.hide()">{{globals.languageJson?.enable_account}}</a>
+                                                    </li>
+                                                    <li class="list-group-item"> <a class="pointer-item"
+                                                            (click)="pop11.hide()">{{globals.languageJson?.simulated_login}}</a>
+                                                    </li>
+                                                    <li class="list-group-item"> <a class="pointer-item"
+                                                            (click)="makeAdmin(rowData); pop11.hide()">{{globals.languageJson?.make_admin}}</a>
+                                                    </li>
+                                                    <li class="list-group-item"> <a class="pointer-item"
+                                                            (click)="pop11.hide()">{{globals.languageJson?.customize_permissions}}</a>
+                                                    </li>
+                                                    <li *ngIf="rowData.id != loginId" class="list-group-item"> <a class="pointer-item"
+                                                            (click)="deleteRoasterUser(rowData.id); pop11.hide()">{{globals.languageJson?.delete}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </ng-template>
+                                    </ng-container>
+                                </div>
                             </span>
                             <span *ngSwitchCase="'last_login_at'" class="">
-                                <span class="tableDataFont">
+                                <span class="d-none d-sm-none d-md-block tableDataFont">
                                     {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a'}}
                                 </span>
+                                <div class="d-flex d-sm-flex d-md-none">
+                                    <span class="prime-table-label w-50 mobileLable">
+                                        Last Login
+                                    </span>
+                                    <span class="w-50 tableDataFont">
+                                        {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a'}}
+                                    </span>
+                                </div>
                             </span>
                             <span *ngSwitchCase="'roles'" class="">
-                                <span *ngFor = "let role of rowData[col.field]; let i = index"class="tableDataFont">
+                                <span *ngFor = "let role of rowData[col.field]; let i = index"class="d-none d-sm-none d-md-block tableDataFont">
                                     {{role.name}} <span *ngIf="i != (rowData[col.field].length-1)">,</span>
                                 </span>
+                                <div class="d-flex d-sm-flex d-md-none">
+                                    <span class="prime-table-label w-50 mobileLable">
+                                        All Roles
+                                    </span>
+                                    <span class="w-50 tableDataFont">
+                                        <span *ngFor="let role of rowData[col.field]; let i = index">
+                                            {{role.name}} <span *ngIf="i != (rowData[col.field].length-1)">,</span>
+                                        </span>
+                                    </span>
+                                    
+                                </div>
+                            </span>
+                            <span *ngSwitchCase="'email'" class="">
+                                <span class="d-none d-sm-none d-md-block tableDataFont">
+                                    {{rowData[col.field]}}
+                                </span>
+                                <div class="d-flex d-sm-flex d-md-none">
+                                    <span class="prime-table-label w-50 mobileLable">
+                                        Email
+                                    </span>
+                                    <span class="w-50 tableDataFont">
+                                        {{rowData[col.field]}}
+                                    </span>
+                                </div>
                             </span>
                             <span *ngSwitchCase="'status'" class="d-none d-sm-none d-md-block">
                                 <span *ngIf="rowData['status'] == 'ACTIVE'" class="tableDataFont typeofStatus-active">&#9679; Active
                                 </span>
                                 <span *ngIf="rowData['status'] == 'INACTIVE'" class="tableDataFont typeofStatus-disabled">&#9679; Disabled
                                 </span>
+                            </span>
+                            <span *ngSwitchCase="'actions'">
+                                <ng-container>
+                                    <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop11="bs-popover">
+                                        <p class="ellipsisClass"><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
+                                    </a>
+                                    <ng-template #poplistTemplate>
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li class="list-group-item"> <a class="pointer-item"
+                                                        (click)="editMember(rowData.id);pop11.hide()">{{globals.languageJson?.edit_member}}</a>
+                                                </li>
+                                                <li class="list-group-item"> <a class="pointer-item"
+                                                        (click)="pop11.hide()">{{globals.languageJson?.send_a_message}}</a>
+                                                </li>
+                                                <li class="list-group-item"> <a class="pointer-item" (click)="pop11.hide()">{{globals.languageJson?.send_recovery_email}}</a>
+                                                </li>
+                                                <!-- <li class="list-group-item"> <a class="pointer-item"
+                                                        (click)="openModal(template, rowData.id, rowData.name);pop11.hide()">{{globals.languageJson?.assign_role}}</a>
+                                                </li> -->
+                                                <li *ngIf="rowData.status == 'ACTIVE' && rowData.id != loginId" class="list-group-item"> <a class="pointer-item"
+                                                        (click)="userDisable(rowData.id);pop11.hide()">{{globals.languageJson?.disable_account}}</a>
+                                                </li>
+                                                <li *ngIf="rowData.status == 'INACTIVE' && rowData.id != loginId" class="list-group-item"> <a class="pointer-item"
+                                                        (click)="userEnable(rowData.id);pop11.hide()">{{globals.languageJson?.enable_account}}</a>
+                                                </li>
+                                                <li class="list-group-item"> <a class="pointer-item"
+                                                        (click)="pop11.hide()">{{globals.languageJson?.simulated_login}}</a>
+                                                </li>
+                                                <li class="list-group-item"> <a class="pointer-item"
+                                                        (click)="makeAdmin(rowData); pop11.hide()">{{globals.languageJson?.make_admin}}</a>
+                                                </li>
+                                                <li class="list-group-item"> <a class="pointer-item"
+                                                        (click)="pop11.hide()">{{globals.languageJson?.customize_permissions}}</a>
+                                                </li>
+                                                <li *ngIf="rowData.id != loginId" class="list-group-item"> <a class="pointer-item"
+                                                        (click)="deleteRoasterUser(rowData.id); pop11.hide()">{{globals.languageJson?.delete}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </ng-container>
                             </span>
                             <span *ngSwitchDefault>
                                 <span>{{ rowData[col.field] }}</span>
@@ -110,7 +259,7 @@
             
             </p-table>
         </div>
-        <div>
+        <div *ngIf="isAddMember" class="d-none d-sm-none d-md-block">
             <button type="button" class="btn cancel_member mt-4"
                 routerLink="/people/manage-role">{{globals.languageJson?.cancel}}</button>
             <button *ngIf="selectedUsers.length > 0" type="button" class="btn invite_members mt-4 pull-right ml-auto"
@@ -120,7 +269,6 @@
     <p-overlayPanel #op [dismissable]="true" appendTo="body">
         <div class="overflow-popover">
             <ul class="custom-popover">
-                <!-- <li class="content_list" (click) = "setRole('Sales and Marketing')">Sales and Marketing</li> -->
                 <li class="content_list" *ngFor="let role of roleList" (click)="setTeamRole(role.name,role.id);op.hide();">
                     {{role.name}}</li>
             </ul>
@@ -134,11 +282,11 @@
             <ul class="list-group">
                 <li class="list-group-item item-color">
                     <a class="pointer-item"
-                        (click)="setRole('');showRole = !showRole;">All</a>
+                        (click)="setRole();showRole = !showRole;">All</a>
                 </li>
                 <li class="list-group-item item-color" *ngFor="let role of roleList">
                     <a class="pointer-item"
-                        (click)="setRole(role.name);showRole = !showRole">{{role.name }}</a>
+                        (click)="setRole(role);pop1.hide();showRole = !showRole">{{role.name }}</a>
                 </li>
             </ul>
         </div>
@@ -146,19 +294,8 @@
     <ng-template #allTemplate>
         <div id="status-content">
             <ul class="list-group">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setStatus('');showVar = !showVar">All</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setStatus('Active');showVar = !showVar">Active</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setStatus('Inactive');showVar = !showVar">Inactive</a>
-                </li>
-                <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setStatus('Pending');showVar = !showVar">Pending</a>
+                <li class="list-group-item item-color" *ngFor="let item of statusFilterArray">
+                    <a class="pointer-item" (click)="setStatus(item);pop.hide();showVar = !showVar">{{item.name}}</a>
                 </li>
             </ul>
         </div>

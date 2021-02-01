@@ -101,25 +101,14 @@ export class RoleListComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj4);
     }
-    addMembers(event, data: any): void {
+    teamMembers(rowData, isAdd = false): void {
         const navigationExtras: NavigationExtras = {
             queryParams: {
-                roleData: encodeURIComponent(data.name),
-                roleID: encodeURIComponent(data.id),
+                roleID: encodeURIComponent(rowData.id),
+                isAddMember: isAdd,
             },
         };
         this.router.navigate(['/people/team-members'], navigationExtras);
-    }
-
-    // Function Name : View Member
-    // Description: This function helps to redirect to the user management page with selected role.
-    viewMembers(data: any): void {
-        const navigationExtras: NavigationExtras = {
-            queryParams: {
-                roleData: encodeURIComponent(data.name),
-            },
-        };
-        this.router.navigate(['/people/user-management'], navigationExtras);
     }
     openDeleteModal(template1: TemplateRef<any>, deleteId: any): void {
         this.modalRef = this.modalService.show(template1);

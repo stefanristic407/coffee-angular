@@ -43,7 +43,7 @@ import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyc
         SewnDirectMessageComponent,
         LayoutComponent,
         SearchFilterPipe,
-        LifecyclehookDirective
+        LifecyclehookDirective,
     ],
     imports: [
         BrowserModule,
@@ -84,7 +84,7 @@ import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyc
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
 // Sweden
 registerLocaleData(localeSe);

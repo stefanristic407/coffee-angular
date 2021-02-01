@@ -59,9 +59,9 @@
                                     {{ rowData['name']}}
                                 </span>
                                 <span class="show_btns d-none d-sm-none d-md-block">
-                                    <button type="button" class="btn view-btn" (click)="viewMembers(rowData)"
+                                    <button type="button" class="btn view-btn" (click)="teamMembers(rowData)"
                                         id="view-btn">{{globals.languageJson?.view_members}}</button>
-                                    <button type="button" (click)="addMembers($event,rowData)" class="btn add-btn"
+                                    <button type="button" (click)="teamMembers(rowData, true)" class="btn add-btn"
                                         id="add-btn">{{globals.languageJson?.add_members}}</button>
                                 </span>
                             </div>
@@ -76,7 +76,7 @@
                         </span>
                         <span *ngSwitchCase="'add_user'" class="d-block d-sm-block d-md-none">
                             <div class="d-flex justify-content-end">
-                                <p><img src="assets/images/role-grey.svg" alt="Dashboard" (click)="addMembers($event, rowData)"></p>
+                                <p><img src="assets/images/role-grey.svg" alt="Dashboard" (click)="teamMembers(rowData, true)"></p>
                             </div>
                         </span>
                         <span *ngSwitchCase="'actions'">
@@ -87,8 +87,8 @@
                                 <ng-template #poplistTemplate>
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
-                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item d-none d-sm-none d-md-block"> <a class="pointer-item" (click)="addMembers($event,rowData);pop.hide();">{{globals.languageJson?.add_members}}</a></li>
-                                            <li *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')" class="list-group-item"><a class="pointer-item" (click)="viewMembers(rowData);pop.hide();">{{globals.languageJson?.view_members}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item d-none d-sm-none d-md-block"> <a class="pointer-item" (click)="teamMembers(rowData, true);pop.hide();">{{globals.languageJson?.add_members}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')" class="list-group-item"><a class="pointer-item" (click)="teamMembers(rowData);pop.hide();">{{globals.languageJson?.view_members}}</a></li>
                                             <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);pop.hide();">{{globals.languageJson?.edit}}</a></li>
                                             <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);pop.hide();">{{globals.languageJson?.rename}}</a></li>
                                             <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{globals.languageJson?.duplicate_role}}</a></li>
