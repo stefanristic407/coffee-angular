@@ -5,7 +5,7 @@
          [ngClass]="{'open':showChat , 'expand-active': this.showChat && this.openedThread && this.expandView }">
         <!--Remove expand mode-->
         <div class="chat-head">
-            <button class="back-to-shrinkMode" (click)="expandView=false">
+            <button class="back-to-shrinkMode" (click)="closeExapndView()">
                 <img src="assets/images/dm-back-arrow.svg">
             </button>
         </div>
@@ -16,8 +16,135 @@
         <div class="chat-body ">
 
             <!--Expand Mode div-->
-            <div class="chat-body__expand">
-                <!-- <ng-template [ngTemplateOutlet]="liveChatRef"></ng-template> -->
+            <div class="chat-body__expand" data-element="chat-body-expand">
+                <ng-container *ngIf="expandView">
+                    <div class="live-caht__head clearfix" data-element="live-chat-head">
+                        <div class="live-account-profile">
+                            <button class="back-to-accounts" (click)="backToAccountListing() ">
+                                <img src="assets/images/dm-back-arrow.svg">
+                            </button>
+
+                            <div class="d-inline-block profile-pic">
+
+                                <span class="profile-pic__item bg-profile"
+                                      [style.backgroundImage]="openedThread?.computed_targetedUser.computed_profile_dp"></span>
+                                <span *ngIf="openedThread?.computed_targetedUser.online" class="live-account"></span>
+                                <span *ngIf="!openedThread?.computed_targetedUser.online"
+                                      class="offline-account"></span>
+                            </div>
+                            <div class="chat-profile clearfix">
+                                <div class="chat-profile__name d-inline-block">
+                                    <h5 class="name"> {{openedThread?.computed_targetedUser.computed_fullname}}
+                                    </h5>
+                                    <span
+                                          class="status">{{ openedThread?.computed_targetedUser.computed_organization_name}}</span>
+                                    <span *ngIf="!openedThread?.computed_targetedUser.online"
+                                          class="status last-seen">Last
+                                        Seen at
+                                        {{openedThread?.computed_targetedUser?.computed_lastseen || ''}} </span>
+                                </div>
+
+
+                            </div>
+
+                            <div class="chat-seeting position-relative" *ngIf="openedThread">
+                                <a class="menu-arrow">
+                                    <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt="">
+                                    </p>
+                                </a>
+
+                                <div class="chat-seeting__items">
+                                    <ul class="list-group custom-popover chat-seeting__content">
+                                        <li *ngIf="!openedThread.computed_mute" class="list-group-item "
+                                            (click)="openedThread.computed_mute = true;">
+                                            <a class="pointer-item">Mute </a>
+                                        </li>
+                                        <li *ngIf="openedThread.computed_mute" class="list-group-item "
+                                            (click)="openedThread.computed_mute = false;">
+                                            <a class="pointer-item">Unmute </a>
+                                        </li>
+
+                                        <li class="list-group-item list-group-item__disabled"><a
+                                               class="pointer-item">{{globals.languageJson?.mark_unread}}</a>
+                                        </li>
+                                        <li class="list-group-item list-group-item__disabled"><a
+                                               class="pointer-item">{{globals.languageJson?.archive}}</a>
+                                        </li>
+                                        <li class="list-group-item list-group-item__disabled"><a
+                                               class="pointer-item">{{globals.languageJson?.report}}</a>
+                                        </li>
+                                        <li class="list-group-item list-group-item__disabled"><a
+                                               class="pointer-item">{{globals.languageJson?.delete_conversation}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--Live Chats are going here-->
+                    <div class="live-chat-message-body position-relative" data-element="live-chat-message-body">
+
+                        <span *ngFor="let message of messageList; let last = last" [attr.data-chat-id]="message.id">
+                            <span appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
+                                <div class="message-to live-chat-message-body__text" *ngIf="message.isActiveUser">
+                                    <div class="message-body">
+                                        <div class="message-to__text "><span>{{message.content}}</span></div>
+                                    </div>
+                                    <p class="live-time">{{message.computed_date}}</p>
+                                </div>
+                                <div class="message-from live-chat-message-body__text" *ngIf="!message.isActiveUser">
+                                    <div class="message-body-from">
+                                        <div class="message-to__from "><span>{{message.content}}</span></div>
+                                    </div>
+                                    <p class="live-time-from">{{message.computed_date}}</p>
+                                </div>
+                            </span>
+                            <span class="done"></span>
+                        </span>
+                    </div>
+
+                    <div data-element="message-form">
+                        <div class="messag-form position-relative">
+
+                            <div class="offensive-lang" [ngClass]="{'active':showOffensiveMessageError}">
+                                <span>Use of offensive language is strictly prohibited using within member to
+                                    member
+                                    messaging, onour public groups, non-compliance may lead to permanent /
+                                    temporary
+                                    suspension of your account.</span>
+                            </div>
+                            <div class="img-container">
+                                <span class="img-container__remove">&#10008;</span>
+                            </div>
+
+                            <div class="chat-inputs">
+                                <label class="chat-inputs__img">
+                                    <img src="assets/images/dm-img-upload.svg">
+                                    <input type="file" class="files">
+
+                                </label>
+                                <textarea (keypress)="inputkeyPress($event)" (input)="inputChanges($event)"
+                                          data-element="messag-text-area" type="text" rows="1" class="chat-inputs__text"
+                                          placeholder="Type something.." [(ngModel)]="messageInput"></textarea>
+                                <div class="send-message">
+                                    <button (click)="sendMessage()" type="button" class="send-message__btn">
+
+                                        <img src="assets/images/dm-send2.svg">
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="send-message">
+                                <button (click)="sendMessage()" type="button" class="send-message__btn">
+                                    <span>send</span>
+                                    <img src="assets/images/dm-send.svg">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
 
             <!--Chat box witn live chat and account sections-->
@@ -28,8 +155,10 @@
 
                         <!--Chat control-->
                         <div class="chat-control">
-                            <div class="chat-control__expand" (click)="expandView=true ">
-                                <img src="assets/images/dm-expand.svg">
+                            <div class="chat-control__expand" [ngClass]="{'d-block':openedThread}"
+                                 (click)="toggleExpandView() ">
+                                <img *ngIf="!expandView" src="assets/images/dm-expand.svg">
+                                <img *ngIf="expandView" src="assets/images/dm-collapse.svg">
                             </div>
                             <div class="chat-control__close" (click)="closePanel();">
                                 <img src="assets/images/dm-close.svg">
@@ -40,107 +169,140 @@
 
                     <!---Live chats at particular account-->
                     <!-- <ng-template #liveChatRef> -->
-                    <div data-element="live-chat" class="live-chat" [ngClass]="{'active' : openedThread }">
-                        <div class="live-caht__head clearfix" data-element="live-chat-head">
-                            <div class="live-account-profile">
-                                <button class="back-to-accounts" (click)="backToAccountListing() ">
-                                    <img src="assets/images/dm-back-arrow.svg">
-                                </button>
+                    <div data-element="live-chat" class="live-chat"
+                         [ngClass]="{'active' : openedThread && !expandView }">
+                        <ng-container *ngIf="!expandView">
+                            <div class="live-caht__head clearfix" data-element="live-chat-head">
+                                <div class="live-account-profile">
+                                    <button class="back-to-accounts" (click)="backToAccountListing() ">
+                                        <img src="assets/images/dm-back-arrow.svg">
+                                    </button>
 
-                                <div class="d-inline-block profile-pic">
+                                    <div class="d-inline-block profile-pic">
 
-                                    <span class="profile-pic__item bg-profile"
-                                          [style.backgroundImage]="openedThread?.computed_targetedUser.computed_profile_dp"></span>
-                                    <span *ngIf="openedThread?.computed_targetedUser.online"
-                                          class="live-account"></span>
-                                    <span *ngIf="!openedThread?.computed_targetedUser.online"
-                                          class="offline-account"></span>
-                                </div>
-                                <div class="chat-profile clearfix">
-                                    <div class="chat-profile__name d-inline-block">
-                                        <h5 class="name"> {{openedThread?.computed_targetedUser.computed_fullname}}
-                                        </h5>
-                                        <span
-                                              class="status">{{ openedThread?.computed_targetedUser.computed_organization_name}}</span>
+                                        <span class="profile-pic__item bg-profile"
+                                              [style.backgroundImage]="openedThread?.computed_targetedUser.computed_profile_dp"></span>
+                                        <span *ngIf="openedThread?.computed_targetedUser.online"
+                                              class="live-account"></span>
                                         <span *ngIf="!openedThread?.computed_targetedUser.online"
-                                              class="status last-seen">Last Seen at
-                                            {{openedThread?.computed_targetedUser?.computed_lastseen || ''}} </span>
+                                              class="offline-account"></span>
                                     </div>
+                                    <div class="chat-profile clearfix">
+                                        <div class="chat-profile__name d-inline-block">
+                                            <h5 class="name"> {{openedThread?.computed_targetedUser.computed_fullname}}
+                                            </h5>
+                                            <span
+                                                  class="status">{{ openedThread?.computed_targetedUser.computed_organization_name}}</span>
+                                            <span *ngIf="!openedThread?.computed_targetedUser.online"
+                                                  class="status last-seen">Last Seen at
+                                                {{openedThread?.computed_targetedUser?.computed_lastseen || ''}} </span>
+                                        </div>
 
 
-                                </div>
+                                    </div>
+                                    <div class="chat-seeting position-relative" *ngIf="openedThread">
+                                        <a class="menu-arrow">
+                                            <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt="">
+                                            </p>
+                                        </a>
 
-                                <div class="chat-seeting">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                        <div class="chat-seeting__items">
+                                            <ul class="list-group custom-popover chat-seeting__content">
+                                                <li *ngIf="!openedThread.computed_mute" class="list-group-item "
+                                                    (click)="openedThread.computed_mute = true;">
+                                                    <a class="pointer-item">Mute </a>
+                                                </li>
+                                                <li *ngIf="openedThread.computed_mute" class="list-group-item "
+                                                    (click)="openedThread.computed_mute = false;">
+                                                    <a class="pointer-item">Unmute </a>
+                                                </li>
+
+                                                <li class="list-group-item list-group-item__disabled"><a
+                                                       class="pointer-item">{{globals.languageJson?.mark_unread}}</a>
+                                                </li>
+                                                <li class="list-group-item list-group-item__disabled"><a
+                                                       class="pointer-item">{{globals.languageJson?.archive}}</a>
+                                                </li>
+                                                <li class="list-group-item list-group-item__disabled"><a
+                                                       class="pointer-item">{{globals.languageJson?.report}}</a>
+                                                </li>
+                                                <li class="list-group-item list-group-item__disabled"><a
+                                                       class="pointer-item">{{globals.languageJson?.delete_conversation}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <!--Live Chats are going here-->
-                        <div class="live-chat-message-body position-relative" data-element="live-chat-message-body">
+                            <!--Live Chats are going here-->
+                            <div class="live-chat-message-body position-relative" data-element="live-chat-message-body">
 
-                            <span *ngFor="let message of messageList; let last = last" [attr.data-chat-id]="message.id">
-                                <span appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
-                                    <div class="message-to live-chat-message-body__text" *ngIf="message.isActiveUser">
-                                        <div class="message-body">
-                                            <div class="message-to__text "><span>{{message.content}}</span></div>
+                                <span *ngFor="let message of messageList; let last = last"
+                                      [attr.data-chat-id]="message.id">
+                                    <span appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
+                                        <div class="message-to live-chat-message-body__text"
+                                             *ngIf="message.isActiveUser">
+                                            <div class="message-body">
+                                                <div class="message-to__text "><span>{{message.content}}</span></div>
+                                            </div>
+                                            <p class="live-time">{{message.computed_date}}</p>
                                         </div>
-                                        <p class="live-time">{{message.computed_date}}</p>
-                                    </div>
-                                    <div class="message-from live-chat-message-body__text"
-                                         *ngIf="!message.isActiveUser">
-                                        <div class="message-body-from">
-                                            <div class="message-to__from "><span>{{message.content}}</span></div>
+                                        <div class="message-from live-chat-message-body__text"
+                                             *ngIf="!message.isActiveUser">
+                                            <div class="message-body-from">
+                                                <div class="message-to__from "><span>{{message.content}}</span></div>
+                                            </div>
+                                            <p class="live-time-from">{{message.computed_date}}</p>
                                         </div>
-                                        <p class="live-time-from">{{message.computed_date}}</p>
-                                    </div>
+                                    </span>
+                                    <span class="done"></span>
                                 </span>
-                                <span class="done"></span>
-                            </span>
-                        </div>
+                            </div>
 
-                        <!--Send Message div-->
-                        <div data-element="message-form">
-                            <div class="messag-form position-relative">
+                            <!--Send Message div-->
+                            <div data-element="message-form">
+                                <div class="messag-form position-relative">
 
-                                <div class="offensive-lang" [ngClass]="{'active':showOffensiveMessageError}">
-                                    <span>Use of offensive language is strictly prohibited using within member to member
-                                        messaging, onour public groups, non-compliance may lead to permanent / temporary
-                                        suspension of your account.</span>
-                                </div>
-                                <div class="img-container">
-                                    <span class="img-container__remove">&#10008;</span>
-                                </div>
+                                    <div class="offensive-lang" [ngClass]="{'active':showOffensiveMessageError}">
+                                        <span>Use of offensive language is strictly prohibited using within member to
+                                            member
+                                            messaging, onour public groups, non-compliance may lead to permanent /
+                                            temporary
+                                            suspension of your account.</span>
+                                    </div>
+                                    <div class="img-container">
+                                        <span class="img-container__remove">&#10008;</span>
+                                    </div>
 
-                                <div class="chat-inputs">
-                                    <label class="chat-inputs__img">
-                                        <img src="assets/images/dm-img-upload.svg">
-                                        <input type="file" class="files">
+                                    <div class="chat-inputs">
+                                        <label class="chat-inputs__img">
+                                            <img src="assets/images/dm-img-upload.svg">
+                                            <input type="file" class="files">
 
-                                    </label>
-                                    <textarea (keypress)="inputkeyPress($event)" (input)="inputChanges($event)"
-                                              data-element="messag-text-area" type="text" rows="1"
-                                              class="chat-inputs__text" placeholder="Type something.."
-                                              [(ngModel)]="messageInput"></textarea>
+                                        </label>
+                                        <textarea (keypress)="inputkeyPress($event)" (input)="inputChanges($event)"
+                                                  data-element="messag-text-area" type="text" rows="1"
+                                                  class="chat-inputs__text" placeholder="Type something.."
+                                                  [(ngModel)]="messageInput"></textarea>
+                                        <div class="send-message">
+                                            <button (click)="sendMessage()" type="button" class="send-message__btn">
+
+                                                <img src="assets/images/dm-send2.svg">
+                                            </button>
+                                        </div>
+
+                                    </div>
                                     <div class="send-message">
-                                        <button type="button" class="send-message__btn">
-
-                                            <img src="assets/images/dm-send2.svg">
+                                        <button (click)="sendMessage()" type="button" class="send-message__btn">
+                                            <span>send</span>
+                                            <img src="assets/images/dm-send.svg">
                                         </button>
                                     </div>
-
-                                </div>
-                                <div class="send-message">
-                                    <button type="button" class="send-message__btn">
-                                        <span>send</span>
-                                        <img src="assets/images/dm-send.svg">
-                                    </button>
                                 </div>
                             </div>
-                        </div>
+                        </ng-container>
                     </div>
                     <!-- </ng-template> -->
 
@@ -171,7 +333,7 @@
 
                     <!--All accounts body with search-->
                     <div data-element="account-body" class="chat-accounts__body"
-                         [ngClass]="{'active' :  !openedThread }">
+                         [ngClass]="{'active' :  !openedThread || expandView}">
                         <div class="search-account">
                             <img src="assets/images/dm-search.svg">
                             <input [(ngModel)]="threadSearchKeyword" class="search-account__input" type="search"

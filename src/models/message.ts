@@ -76,6 +76,7 @@ export interface ThreadListItem {
     type_id: number;
     unread?: number;
     messages: [];
+    computed_mute: boolean;
     computed_createdAt: string;
     computed_thread_createdAt: string;
     computed_lastActivityText: string;

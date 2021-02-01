@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.0.0",
   "scripts": {
-    "power-serve": "node --max_old_space_size=8096 ./node_modules/@angular/cli/bin/ng serve  --open --aot  --vendor-chunk --host roaster.sewn --port 5005",
+    "power-serve": "node --max_old_space_size=8096 --max-http-header-size=25000 ./node_modules/@angular/cli/bin/ng serve  --open --aot  --vendor-chunk --host roaster.sewn --port 5005 ",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

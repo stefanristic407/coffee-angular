@@ -8,7 +8,7 @@ export const environment = {
   wsEndpoint: 'wss://messaging.sewnstaging.com/v1',
   encryptionKey: 'sewen_secrete_key',
   microRoasterWeb: 'https://microroaster.sewnstaging.com',
-  horecaWeb: 'https://partners.sewnstaging.com/',
+  horecaWeb: 'https://partners.sewnstaging.com',
   production: false
 };
 
