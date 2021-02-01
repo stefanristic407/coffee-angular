@@ -11,9 +11,8 @@ import { Router } from '@angular/router';
 export class CustomerServiceService {
   estateId: string;
   roasterId: string;
-  microRoasterWeb : string = 'https://qa-micro-roaster.sewnstaging.com';
-  
-  horecaWeb:string =  'https://qa-client-horeca.sewnstaging.com';
+  microRoasterWeb : string = 'https://microroaster.sewnstaging.com';
+  horecaWeb:string =  'https://partners.sewnstaging.com';
   microId:any;
   horecaId:any;
 	name: any;

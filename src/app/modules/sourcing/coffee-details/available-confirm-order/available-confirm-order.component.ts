@@ -84,47 +84,52 @@ export class AvailableConfirmOrderComponent implements OnInit {
 
     getHarvest() {
         if (this.sourcing.harvestId) {
-            new Promise((resolve) => this.sourcing.availableDetailList(resolve)).then(() => {
-                this.refreshBreadCrumb();
-                this.getAddress();
-                this.orderDetail = [
-                    {
-                        field: 'customer',
-                        label: this.globals.languageJson?.customer,
-                        value: this.sourcing.harvestDetail.estate_name,
-                    },
-                    {
-                        field: 'origin',
-                        label: this.globals.languageJson?.origin,
-                        value: this.sourcing.harvestDetail.country,
-                    },
-                    {
-                        field: 'variety',
-                        label: this.globals.languageJson?.variety,
-                        value: this.sourcing.harvestDetail.varieties,
-                    },
-                    {
-                        field: 'species',
-                        label: this.globals.languageJson?.species,
-                        value: this.sourcing.harvestDetail.species,
-                    },
-                    {
-                        field: 'cupScore',
-                        label: this.globals.languageJson?.cupping_score,
-                        value: this.sourcing.harvestDetail.cupping.cup_score,
-                    },
-                    {
-                        field: 'quantity',
-                        label: this.globals.languageJson?.available_quantity,
-                        value: `${this.sourcing.harvestDetail.quantity_count}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
-                    },
-                    {
-                        field: 'price',
-                        label: this.globals.languageJson?.rate_per_kg,
-                        value: `$${this.sourcing.harvestDetail.price}USD/kg`,
-                    },
-                ];
-            });
+            new Promise((resolve, reject) => this.sourcing.availableDetailList(resolve, reject))
+                .then(() => {
+                    this.refreshBreadCrumb();
+                    this.getAddress();
+                    this.orderDetail = [
+                        {
+                            field: 'customer',
+                            label: this.globals.languageJson?.customer,
+                            value: this.sourcing.harvestDetail.estate_name,
+                        },
+                        {
+                            field: 'origin',
+                            label: this.globals.languageJson?.origin,
+                            value: this.sourcing.harvestDetail.country,
+                        },
+                        {
+                            field: 'variety',
+                            label: this.globals.languageJson?.variety,
+                            value: this.sourcing.harvestDetail.varieties,
+                        },
+                        {
+                            field: 'species',
+                            label: this.globals.languageJson?.species,
+                            value: this.sourcing.harvestDetail.species,
+                        },
+                        {
+                            field: 'cupScore',
+                            label: this.globals.languageJson?.cupping_score,
+                            value: this.sourcing.harvestDetail.cupping.cup_score,
+                        },
+                        {
+                            field: 'quantity',
+                            label: this.globals.languageJson?.available_quantity,
+                            value: `${this.sourcing.harvestDetail.quantity_count}/${this.sourcing.harvestDetail.quantity}${this.sourcing.harvestDetail.quantity_unit}`,
+                        },
+                        {
+                            field: 'price',
+                            label: this.globals.languageJson?.rate_per_kg,
+                            value: `$${this.sourcing.harvestDetail.price}USD/kg`,
+                        },
+                    ];
+                })
+                .catch(() => {
+                    this.toastrService.error('Error while retrieving data');
+                    this.router.navigateByUrl('/sourcing/coffee-list');
+                });
         } else {
             this.router.navigateByUrl('/error');
         }

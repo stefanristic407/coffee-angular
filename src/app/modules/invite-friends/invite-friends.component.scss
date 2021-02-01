@@ -1,3 +1,11 @@
+.main-block {
+    @media (min-width: 768px) {
+        min-height: 640px;
+        &.success {
+            min-height: 726px;
+        }
+    }
+}
 .delete-wrap {
     padding-top: 36px;
 }
@@ -6,4 +14,16 @@
     margin-bottom: 15% !important;
     max-width: 360px;
     margin: 8% auto 15% auto;
+}
+.invite-btn {
+    min-width: 134px;
+}
+.invite-done-btn {
+    min-width: 84px;
+}
+.mail-img {
+    width: 85px;
+    @media (min-width: 768px) {
+        width: 96px;
+    }
 }

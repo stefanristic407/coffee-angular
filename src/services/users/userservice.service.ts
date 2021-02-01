@@ -26,10 +26,10 @@ export class UserserviceService {
     private estateUrl = environment.apiURL + '/es/api';
 
     // private roasterUrl = "/ro/api";
-    // private roasterDeleteUrl = "https://qa-fed-api.sewnstaging.com/ro/deleteapi";
-    // private putUrl = "https://qa-fed-api.sewnstaging.com/ro/putapi";
-    // private url = "https://qa-fed-api.sewnstaging.com/api";
-    // private deleteUrl = "https://qa-fed-api.sewnstaging.com/deleteapi";
+    // private roasterDeleteUrl = "https://fed-api.sewnstaging.com/ro/deleteapi";
+    // private putUrl = "https://fed-api.sewnstaging.com/ro/putapi";
+    // private url = "https://fed-api.sewnstaging.com/api";
+    // private deleteUrl = "https://fed-api.sewnstaging.com/deleteapi";
 
     constructor(private http: HttpClient, public cookieService: CookieService) {}
 

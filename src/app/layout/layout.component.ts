@@ -208,6 +208,10 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     }
 
     openMessagePanel() {
+        this.chat.showChatPanel();
+    }
+
+    toggleMessagePanel() {
         this.chat.toggle();
     }
 

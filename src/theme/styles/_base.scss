@@ -479,16 +479,30 @@ input[type='number'] {
     border: 1px solid $primary-border-color;
 }
 
-@media (min-width: 992px) {
-    .br-md-main {
+.br-md-main {
+    @media (min-width: 992px) {
         border: 1px solid $primary-border-color;
+    }
+    @media (max-width: 991px) {
+        border: none;
     }
 }
 
-@media (max-width: 991px) {
-    .br-sm-main {
+.br-sm-main {
+    @media (max-width: 991px) {
         border: 1px solid $primary-border-color;
     }
+    @media (min-width: 992px) {
+        border: none;
+    }
+}
+
+.br-left {
+    border-left: 1px solid $primary-border-color;
+}
+
+.br-right {
+    border-right: 1px solid $primary-border-color;
 }
 
 .br-4 {
@@ -576,6 +590,32 @@ input[type='number'] {
 
     @media (min-width: 992px) {
         font-size: 14px;
+    }
+}
+
+// link without arrow
+.custom-link {
+    color: $brown-color !important;
+    font-size: 12px;
+    font-weight: 700;
+    position: relative;
+    text-decoration: underline !important;
+
+    &:hover {
+        color: $brown-color !important;
+        cursor: pointer;
+        text-decoration: underline !important;
+    }
+
+    @media (min-width: 992px) {
+        font-size: 14px;
+    }
+}
+
+.hover-underline {
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
     }
 }
 
