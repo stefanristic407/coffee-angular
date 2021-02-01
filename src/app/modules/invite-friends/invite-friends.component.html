@@ -8,16 +8,28 @@
             <form [formGroup]="infoForm" (ngSubmit)="onSubmit()" novalidate>
                 <div class="row pt-4">
                     <div class="col-md-8 col-12 mb-4 pb-2">
-                        <div>
+                        <div class="mb-md-4">
                             <p class="fnt-18 fnt-muli fnt-700 txt-clr334 mb-1">Invite friend`s and colleagues</p>
-                            <p class="fnt-14 fnt-muli fnt-400 text-clr588">
+                            <p class="fnt-14 fnt-muli fnt-400 text-clr588 mb-0">
                                 Invite your friend`s or colleagues from here
                             </p>
                         </div>
                         <div class="pt-4" formArrayName="emails">
                             <div *ngFor="let email of emails.controls; let i = index">
-                                <div class="row mb-2">
-                                    <div class="col-10 sewn-form-field">
+                                <div *ngIf="i" class="divider d-md-none mb-4"></div>
+                                <div class="d-flex justify-content-between align-items-center d-md-none mb-3">
+                                    <h4 class="fnt-18 lh-normal fnt-bold txt-clr334 mb-0">Invite {{ i + 1 }}</h4>
+                                    <div *ngIf="i">
+                                        <span
+                                            class="fnt-bold txt-clr60b cursor-pointer hover-underline"
+                                            (click)="deleteEmail(i)"
+                                        >
+                                            Delete
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 sewn-form-field mb-4 mb-md-45">
                                         <label>Enter e-mail address<span class="star">*</span></label>
                                         <input
                                             type="text"
@@ -30,7 +42,7 @@
                                             Invalid email address
                                         </small>
                                     </div>
-                                    <div class="delete-wrap ml-0 ml-md-2" *ngIf="i != 0">
+                                    <div class="delete-wrap ml-0 ml-md-2 d-none d-md-block" *ngIf="i">
                                         <span
                                             class="fnt-bold txt-clr60b cursor-pointer hover-underline"
                                             (click)="deleteEmail(i)"
@@ -40,8 +52,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="divider d-md-none my-3"></div>
-                            <div class="d-inline-flex align-items-center mt-2">
+                            <div class="d-inline-flex align-items-center">
                                 <span
                                     class="fnt-bold txt-clr60b cursor-pointer hover-underline ml-2"
                                     (click)="addEmail()"
@@ -82,7 +93,7 @@
                     <span class="d-none d-md-block">An invitation email has been successfully sent out to</span>
                     <span class="d-md-none">Invitation sent to</span>
                 </p>
-                <p class="fnt-18 fnt-700 fnt-muli txt-clr334 mb-4 mb-md-5">
+                <p class="fnt-18 fnt-700 fnt-muli txt-clr334 mb-45 mb-md-5">
                     {{ infoForm.value.emails.slice(0, 3).join(', ') }}
                     {{
                         infoForm.value.emails.length > 3 ? ' and ' + (infoForm.value.emails.length - 3) + ' others' : ''
