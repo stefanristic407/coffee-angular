@@ -491,6 +491,14 @@ input[type='number'] {
     }
 }
 
+.br-left {
+    border-left: 1px solid $primary-border-color;
+}
+
+.br-right {
+    border-right: 1px solid $primary-border-color;
+}
+
 .br-4 {
     border-radius: 4px;
 }
