@@ -1,5 +1,5 @@
 <section>
-    <div class="main-block">
+    <div class="main-block" [class.success]="!inviting">
         <div class="w-100">
             <a class="back-page" routerLink="/"> Return to dashboard </a>
         </div>
@@ -102,7 +102,7 @@
                         infoForm.value.emails.length > 3 ? ' and ' + (infoForm.value.emails.length - 3) + ' others' : ''
                     }}
                 </p>
-                <button class="done-btn btn-raised w-mob-100" routerLink="/">Done</button>
+                <button class="invite-done-btn btn-raised w-mob-100" routerLink="/">Done</button>
             </div>
         </div>
     </div>
