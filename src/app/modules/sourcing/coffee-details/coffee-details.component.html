@@ -10,7 +10,7 @@
                 <div class="mr-2 pr-1">
                     <app-avatar
                         [size]="48"
-                        [src]="sourcing.harvestDetail.estate_profile_image_thumbnail_url"
+                        [src]="sourcing.harvestDetail?.estate_profile_image_thumbnail_url"
                         [name]="sourcing.harvestDetail?.estate_name"
                     ></app-avatar>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="d-inline-block mr-2 pr-1">
                         <app-avatar
                             [size]="54"
-                            [src]="sourcing.harvestDetail.estate_profile_image_thumbnail_url"
+                            [src]="sourcing.harvestDetail?.estate_profile_image_thumbnail_url"
                             [name]="sourcing.harvestDetail?.estate_name"
                         ></app-avatar>
                     </div>
@@ -156,13 +156,13 @@
                                             <div class="mr-2 mr-md-3">
                                                 <app-avatar
                                                     [size]="40"
-                                                    [src]="sourcing.harvestDetail?.cupping.evaluator_dp_thumb"
-                                                    [name]="sourcing.harvestDetail?.cupping.evaluator_name"
+                                                    [src]="sourcing.harvestDetail?.cupping?.evaluator_dp_thumb"
+                                                    [name]="sourcing.harvestDetail?.cupping?.evaluator_name"
                                                 ></app-avatar>
                                             </div>
                                             <div>
                                                 <h3 class="mb-1">
-                                                    {{ sourcing.harvestDetail?.cupping.evaluator_name }}
+                                                    {{ sourcing.harvestDetail?.cupping?.evaluator_name }}
                                                 </h3>
                                                 <h6 class="my-0">Facilitator</h6>
                                             </div>

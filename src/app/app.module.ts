@@ -43,7 +43,7 @@ import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyc
         SewnDirectMessageComponent,
         LayoutComponent,
         SearchFilterPipe,
-        LifecyclehookDirective
+        LifecyclehookDirective,
     ],
     imports: [
         BrowserModule,
@@ -55,7 +55,7 @@ import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyc
         ModalModule.forRoot(),
         PopoverModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-        ToastrModule.forRoot({ timeOut: 10000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
+        ToastrModule.forRoot({ timeOut: 3000, preventDuplicates: true, positionClass: 'toast-bottom-right' }),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -84,7 +84,7 @@ import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyc
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
 // Sweden
 registerLocaleData(localeSe);

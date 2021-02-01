@@ -185,15 +185,19 @@ export class SourcingService {
     }
 
     // Harvest detail apis
-    availableDetailList(resolve: any = null) {
+    availableDetailList(resolve: any = null, reject: any = null) {
         this.userService.getGreenCoffeeDetails(this.roasterId, this.harvestId).subscribe((res: any) => {
             if (res.success) {
                 this.harvestDetail = res.result;
                 this.lotId = this.harvestDetail.lot_id;
                 this.getLotDetails();
-            }
-            if (resolve) {
-                resolve();
+                if (resolve) {
+                    resolve();
+                }
+            } else {
+                if (reject) {
+                    reject();
+                }
             }
         });
     }
