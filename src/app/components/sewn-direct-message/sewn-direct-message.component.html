@@ -47,10 +47,37 @@
 
                             </div>
 
-                            <div class="chat-seeting">
-                                <span></span>
-                                <span></span>
-                                <span></span>
+                            <div class="chat-seeting position-relative" *ngIf="openedThread">
+                                <a class="menu-arrow">
+                                    <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt="">
+                                    </p>
+                                </a>
+
+                                <div class="chat-seeting__items">
+                                    <ul class="list-group custom-popover chat-seeting__content">
+                                        <li *ngIf="!openedThread.computed_mute" class="list-group-item "
+                                            (click)="openedThread.computed_mute = true;">
+                                            <a class="pointer-item">Mute </a>
+                                        </li>
+                                        <li *ngIf="openedThread.computed_mute" class="list-group-item "
+                                            (click)="openedThread.computed_mute = false;">
+                                            <a class="pointer-item">Unmute </a>
+                                        </li>
+
+                                        <li class="list-group-item list-group-item__disabled"><a
+                                               class="pointer-item">{{globals.languageJson?.mark_unread}}</a>
+                                        </li>
+                                        <li class="list-group-item list-group-item__disabled"><a
+                                               class="pointer-item">{{globals.languageJson?.archive}}</a>
+                                        </li>
+                                        <li class="list-group-item list-group-item__disabled"><a
+                                               class="pointer-item">{{globals.languageJson?.report}}</a>
+                                        </li>
+                                        <li class="list-group-item list-group-item__disabled"><a
+                                               class="pointer-item">{{globals.languageJson?.delete_conversation}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,11 +200,37 @@
 
 
                                     </div>
+                                    <div class="chat-seeting position-relative" *ngIf="openedThread">
+                                        <a class="menu-arrow">
+                                            <p><img class="ellipse-image" src="/assets/images/ellipses.png" alt="">
+                                            </p>
+                                        </a>
 
-                                    <div class="chat-seeting">
-                                        <span></span>
-                                        <span></span>
-                                        <span></span>
+                                        <div class="chat-seeting__items">
+                                            <ul class="list-group custom-popover chat-seeting__content">
+                                                <li *ngIf="!openedThread.computed_mute" class="list-group-item "
+                                                    (click)="openedThread.computed_mute = true;">
+                                                    <a class="pointer-item">Mute </a>
+                                                </li>
+                                                <li *ngIf="openedThread.computed_mute" class="list-group-item "
+                                                    (click)="openedThread.computed_mute = false;">
+                                                    <a class="pointer-item">Unmute </a>
+                                                </li>
+
+                                                <li class="list-group-item list-group-item__disabled"><a
+                                                       class="pointer-item">{{globals.languageJson?.mark_unread}}</a>
+                                                </li>
+                                                <li class="list-group-item list-group-item__disabled"><a
+                                                       class="pointer-item">{{globals.languageJson?.archive}}</a>
+                                                </li>
+                                                <li class="list-group-item list-group-item__disabled"><a
+                                                       class="pointer-item">{{globals.languageJson?.report}}</a>
+                                                </li>
+                                                <li class="list-group-item list-group-item__disabled"><a
+                                                       class="pointer-item">{{globals.languageJson?.delete_conversation}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

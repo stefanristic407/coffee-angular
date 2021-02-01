@@ -228,6 +228,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   processChatMessages(message: ChatMessage | IncomingChatMessage, thread: ThreadListItem) {
+
     message.computed_date = this.getReadableTime(message.updated_at || message.created_at);
     if (thread.computed_targetedUser.id === message.member.id) {
       message.computed_author = thread.computed_targetedUser;
@@ -267,7 +268,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
           } else {
             inThread.computed_lastActivityText = message.content;
             this.updateUnRead();
-            this.playNotificationSound();
+            if (!inThread.computed_mute) {
+              this.playNotificationSound();
+            }
           }
         } else {
           // get thread add it into  list
@@ -353,6 +356,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             }
           }
         });
+        thread.computed_mute = false;
         thread.computed_activeUser = activeUser[0];
         thread.computed_targetedUser = targtedUserList[0];
         thread.computed_targetedUserList = targtedUserList;
