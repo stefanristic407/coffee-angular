@@ -87,7 +87,7 @@
     font-size: 14px;
     font-weight: bold;
     color: #232334;
-    padding-top: .7rem;
+    padding-top: 0.7rem;
 }
 
 .complete {
@@ -105,7 +105,6 @@
     padding: 6px 0px 0px 10px;
     margin-bottom: 1.7rem;
 }
-
 
 /* progress bar slider css  starts*/
 
@@ -130,7 +129,6 @@
 ::ng-deep body .ui-slider .ui-slider-range {
     background-color: #55912d;
 }
-
 
 /* progress bar slider css  Ends*/
 
@@ -159,25 +157,23 @@
     padding: 5px 50px;
 }
 
-
 /*  media query Fram Link */
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
     .brand-button {
         padding: 1rem;
     }
     .brand-profile-sec {
-        padding: .5rem;
+        padding: 0.5rem;
     }
     .bg-fff {
-        padding: 1rem .7rem;
+        padding: 1rem 0.7rem;
     }
 }
 
 .pt-bp {
     padding-top: 3.55rem;
 }
-
 
 /* togggle */
 
@@ -209,7 +205,7 @@
 }
 
 .btn-group__item.active:last-child {
-    background-color: #F23737 !important;
+    background-color: #f23737 !important;
 }
 
 .disabledDiv {
