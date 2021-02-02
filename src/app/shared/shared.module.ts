@@ -67,6 +67,7 @@ import { TeamMemberTableComponent } from './components/addTeams/team-member-tabl
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { InviteNewUserComponent } from './components/addTeams/invite-new-user/invite-new-user.component';
 import { EditUserDetailsComponent } from './components/addTeams/edit-user-details/edit-user-details.component';
+import { SendRecoveryEmailComponent } from './components/addTeams/send-recovery-email/send-recovery-email.component';
 
 // #region material
 const MATMODULES = [];
@@ -161,6 +162,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ConfirmComponent,
         InviteNewUserComponent,
         EditUserDetailsComponent,
+        SendRecoveryEmailComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [

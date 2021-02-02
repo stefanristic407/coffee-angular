@@ -50,7 +50,7 @@ export class CreateRoleComponent implements OnInit {
     ngOnInit(): void {
         this.supplyBreadCrumb();
     }
-    getRoasterPermission(selectedPermission?): void {
+    getRoasterPermission(selectedPermission = []): void {
         this.roasterService.getRoasterPermissions(this.roaster_id).subscribe(
             (res) => {
                 console.log(res);
@@ -94,7 +94,7 @@ export class CreateRoleComponent implements OnInit {
             },
         );
     }
-    groupByArray(arr, key) {
+    groupByArray(arr = [], key) {
         return arr.reduce(function (rv, x) {
             const v = key instanceof Function ? key(x) : x[key];
             const el = rv.find((r) => r && r.key === v);

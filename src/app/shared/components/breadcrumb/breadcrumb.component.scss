@@ -1,7 +1,6 @@
 :host ::ng-deep .p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
     width: 45px;
     height: 18px;
-    margin: 0 4px 0 16px;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -14,16 +13,9 @@
 :host ::ng-deep .p-breadcrumb ul li.p-breadcrumb-chevron {
     color: #747588;
 }
-:host ::ng-deep .p-component {
-    padding: 0px;
-    border: 0px;
-    padding-top: 2rem;
-    padding-left: 1.3rem;
-}
 .disableClass {
     width: 72px;
     height: 18px;
-    margin: 0 0 0 16px;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;

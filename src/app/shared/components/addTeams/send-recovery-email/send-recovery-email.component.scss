@@ -1,0 +1,47 @@
+.sectionContainer {
+    background: #fff !important;
+}
+.team_total {
+    margin: 2% 3rem 0% 3rem;
+}
+.mt-2r {
+    margin-top: 2rem;
+}
+.editBorder {
+    border: 1px solid #d6d6d6;
+}
+.addTeam {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    color: #232334;
+    margin-bottom: 1.5rem;
+}
+.toggleDiv {
+    border: 1px solid #d6d6d6;
+    padding: 2px;
+}
+.enableBtn {
+    background-color: #30855c;
+    padding: 4px 16px;
+    color: #fff !important;
+    border-radius: 4px !important;
+}
+.greyText {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+@media all and (max-width: 767px) {
+    .editBorder {
+        border: 0px !important;
+    }
+    .team_total {
+        margin: 2% 1rem 0% 1rem;
+    }
+}

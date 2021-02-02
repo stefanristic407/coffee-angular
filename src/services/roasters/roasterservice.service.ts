@@ -53,11 +53,21 @@ export class RoasterserviceService {
     //API Function Name : Roaster User Data
     //API Description: This API calls helps to get the all Roaster user data.
 
-    getRoasterUsers(id: any) {
+    getRoasterUsers(id: any, postData?) {
         var data = {};
-        data['api_call'] = '/ro/' + id + '/users';
+        data['api_call'] = '/ro/' + id + '/users?' + this.serlialise(postData);
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
+    }
+    serlialise(obj) {
+        const str = [];
+        for (const p in obj) {
+            // eslint-disable-next-line no-prototype-builtins
+            if (obj.hasOwnProperty(p)) {
+                str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+            }
+        }
+        return str.join('&');
     }
 
     //API Function Name : Create Role

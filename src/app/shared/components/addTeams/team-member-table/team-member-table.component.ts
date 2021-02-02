@@ -130,10 +130,10 @@ export class TeamMemberTableComponent implements OnInit {
         );
     }
     getTableData(event?): void {
-        this.roasterUsers = [];
         this.selectedUsers = [];
-        const postData = { role_id: this.filterRoleID ? this.filterRoleID : '' };
-        this.tableValue = [];
+        const postData = {};
+        postData['role_id'] = this.filterRoleID ? this.filterRoleID : '';
+
         postData['name'] = this.termSearch ? this.termSearch : '';
         // eslint-disable-next-line no-constant-condition
         postData['status'] = !this.termStatus ? undefined : this.termStatus == 'Status' ? '' : this.statusValue;
@@ -143,6 +143,8 @@ export class TeamMemberTableComponent implements OnInit {
                 if (result['success'] == true) {
                     const userData = result['result'];
                     if (userData && userData.length > 0) {
+                        this.roasterUsers = [];
+                        this.tableValue = [];
                         userData.forEach((element, index) => {
                             const tempData = {};
                             tempData['id'] = element.id;
@@ -164,7 +166,12 @@ export class TeamMemberTableComponent implements OnInit {
                             this.roasterUsers.push(tempData);
                         });
                     }
-                    this.filterSelectedRoleUser();
+                    if (this.isAddMember) {
+                        this.filterSelectedRoleUser();
+                    } else {
+                        this.tableValue = this.roasterUsers;
+                        console.log(this.tableValue);
+                    }
                 } else {
                     this.toastrService.error('Unable to fetch users data');
                 }

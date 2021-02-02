@@ -72,7 +72,7 @@
             <button *ngIf="selectedUsers.length > 0" type="button" class="btn assignMobileBtn pull-right ml-auto"
                     (click)="assignUsersToRole()">{{globals.languageJson?.assign}}</button>
         </div>
-        <div class="table-container mb-2">
+        <div *ngIf="roleList && roleList.length"class="table-container mb-2">
             <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
                 [(selection)]="tableSelected" dataKey="id" [resizableColumns]="true" styleClass="ui-table-customers"
                 [showCurrentPageReport]="false" [paginator]="false" [lazy]="true" (onLazyLoad)="getTableData($event)"

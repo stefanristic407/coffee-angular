@@ -61,7 +61,7 @@
                 <li class="content_list" *ngFor="let role of roleList" (click)="setTeamRole(role);op.hide();">
                     {{role.name}}</li>
             </ul>
-            <button class="btn addrole_button" routerLink="/people/create-role">{{globals.languageJson?.add_role}}
+            <button class="btn btn-raised" routerLink="/people/create-role">{{globals.languageJson?.add_role}}
             </button>
         </div>
     </p-overlayPanel>

@@ -1,45 +1,42 @@
-<div class="sectionContainer">
+<div class="main-block">
     <div class="row mb-3">
-        <div class="col-10">
+        <div class="col-10 p-0">
             <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
         </div>
         <div class="col-2">
-            <button type="submit" class="btn  pull-right add-role-butn d-md-block d-none mr-5 mt-2r" [disabled]="!roleName" (click)="roleAdd()">
+            <button type="submit" class="btn  pull-right btn-raised d-md-block d-none" [disabled]="!roleName" (click)="roleAdd()">
                 {{btnValue}}
             </button>
         </div>
     </div>
-    <section class="create-role-sec padd-top">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-12 p-md-0 p-0">
-                    <div class="create-role">
-                        <h4 class="create-role-title">{{globals.languageJson?.create_role}}</h4>
-                        <form class="form-container">
-                            <div class="form-group row pt-2">
-                                <div class="form-group col-md-10">
-                                    <label class="role-name">{{globals.languageJson?.give_your_role_a_name}}</label>
-                                    <input type="text" class="form-control rectangle_name" id="roleName"
-                                        placeholder="Please enter your role" [ngStyle]="{'border-color': !roleName ? '' : '#E8E8E8' }" [(ngModel)]="roleName"
-                                        name="role">
-                                    <div class="role-error" *ngIf="roleError != ''">{{roleError}}</div>
-                                </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 p-0">
+                <div class="create-role">
+                    <span class="primary_txt">{{globals.languageJson?.create_role}}</span>
+                    <form class="form-container">
+                        <div class="row rolePadding">
+                            <div class="col-md-10 sewn-form-field w-100">
+                                <label class="secondary_txt">{{globals.languageJson?.give_your_role_a_name}}</label>
+                                <input type="text" id="roleName"
+                                    placeholder="Please enter your role" [ngStyle]="{'border-color': !roleName ? '' : '#E8E8E8' }" [(ngModel)]="roleName"
+                                    name="role" pInputText>
+                                <div class="role-error" *ngIf="roleError != ''">{{roleError}}</div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-    
-                <div class="col-lg-7 col-md-7 col-sm-12 pr-md-0 mob-padding">
-                    <app-manage-permission [permissionList]="permissionList"></app-manage-permission>
+                        </div>
+                    </form>
                 </div>
             </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 p-0 permissionDiv">
+                <app-manage-permission [permissionList]="permissionList"></app-manage-permission>
+            </div>
         </div>
-        <div class="role-stricky col-12 d-md-none d-block">
-            <button type="button" class="add-role-butn-mobile  mt-3" (click)="roleAdd()">
-                {{btnValue}}</button>
-        </div>
-    
-    </section>
+    </div>
+    <div class="col-12 d-block d-md-none mb-5">
+        <button type="button" class="btn-raised  mt-3 w-100" (click)="roleAdd()">
+            {{btnValue}}</button>
+    </div>
     <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
         <div class="text-center">
             <p class="fnt-muli black-semibold p-4"> {{globals.languageJson?.please_login_text}}! </p>

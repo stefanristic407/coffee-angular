@@ -1,5 +1,5 @@
-<div class="create-role border-role">
-    <h4 class="create-role-title mb-md-3 mb-2">{{globals.languageJson?.manage_permissions}}</h4>
+<div class="create-role">
+    <h4 class="primary_txt mb-2">{{globals.languageJson?.manage_permissions}}</h4>
     <p-tree [value]="permissionList" selectionMode="checkbox" [(selection)]="selectedPermission"
         [filter]="true" filterPlaceholder="Search by role" [propagateSelectionUp]="false"
         [propagateSelectionDown]="false"></p-tree>
