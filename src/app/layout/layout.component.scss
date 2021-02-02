@@ -1,10 +1,27 @@
+@import '../../theme/styles/variables';
+
+.nav-top1 {
+    display: flex;
+    align-items: center;
+    height: $mobile-header-height;
+    @media (min-width: 768px) {
+        height: $tablet-header-height;
+    }
+    @media (min-width: 992px) {
+        height: $desktop-header-height;
+    }
+}
+
 .router-design {
     background-color: #f1f1f1;
-    padding-top: 64px;
+    padding-top: calc(#{$mobile-header-height + $mobile-page-pt});
     padding-bottom: 16px;
     @media (min-width: 768px) {
-        padding-top: 173px;
-        padding-bottom: 32px;
+        padding-top: calc(#{$tablet-header-height + $tablet-page-pt});
+    }
+    @media (min-width: 992px) {
+        padding-top: calc(#{$desktop-header-height + $desktop-nav-height + $desktop-page-pt});
+        padding-bottom: $desktop-page-pb;
     }
 }
 

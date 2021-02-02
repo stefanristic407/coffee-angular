@@ -1,0 +1,20 @@
+<ng-container *ngFor="let menu of menuItems">
+    <li
+        [class.nav-links__item]="!menuParentId"
+        [class.d-md-inline-block]="!menuParentId"
+        [class.position-relative]="!menuParentId"
+        [class.arrow]="menu.hasSubMenu"
+        [id]="'menu-item-' + menu.id"
+        *ngIf="checkPermissions(menu)"
+    >
+        <a *ngIf="!menu.hasSubMenu" class="d-inline-block fnt-600" [routerLink]="[menu.routerLink]"
+            >{{ globals.languageJson[menu.title] || menu.title }}
+        </a>
+        <a *ngIf="menu.hasSubMenu" class="d-inline-block fnt-600" href="javascript:void(0)" (click)="onClick(menu.id)"
+            >{{ globals.languageJson[menu.title] || menu.title }}
+        </a>
+        <ul *ngIf="menu.hasSubMenu; &quot;sub-menu&quot;" class="nav-dropdown mb-0" [id]="'sub-menu-' + menu.id">
+            <app-menu [menuParentId]="menu.id"></app-menu>
+        </ul>
+    </li>
+</ng-container>

@@ -1,0 +1,42 @@
+<section>
+    <div class="main-block">
+        <div class="d-flex justify-content-between align-items-start mb-4 mb-md-45">
+            <div>
+                <p-breadcrumb [model]="breadItems" styleClass="mb-3 mb-md-4"></p-breadcrumb>
+                <div class="pt-3">
+                    <p class="fnt-18 fnt-bold txt-clr334 mb-2">{{ globals.languageJson?.brand_profile }}</p>
+                    <p class="fnt-14 text-clr588 mb-0">{{ globals.languageJson?.brand_profile_text }}</p>
+                </div>
+            </div>
+            <button type="button" class="btn-stroked d-none d-md-block" href="javascript:void(0);">
+                {{ globals.languageJson?.preview }}
+            </button>
+        </div>
+
+        <div class="row gutter-05">
+            <div *ngFor="let page of pages" class="col-md-6 col-lg-4 mb-3 mb-md-5">
+                <div class="page-wrap d-flex flex-column">
+                    <p class="fnt-18 fnt-600 txt-clr334 mb-2">{{ page.title }}</p>
+                    <p class="fnt-14 fnt-600 text-clr588 mt-md-1">{{ page.desp }}</p>
+                    <div class="flex-fill">
+                        <p *ngIf="page.slug === 'blog'" class="blog-chip"><span class="brand-dot"> </span>15 Blogs</p>
+                    </div>
+                    <button
+                        type="button"
+                        class="btn-stroked w-100 mb-md-3"
+                        routerLink="/brand-profile/{{ page.slug }}"
+                        *ngIf="
+                            globals.checkItem('brand-profile-management') &&
+                            globals.permissions['brand-profile-management'].manage
+                        "
+                    >
+                        Go to {{ page.title }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-md-none mobile-preview-wrap bg-white">
+        <button type="button" class="btn-stroked w-100" href="javascript:void(0);">Preview</button>
+    </div>
+</section>

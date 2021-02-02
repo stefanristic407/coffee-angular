@@ -41,7 +41,6 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { DataTablesModule } from 'angular-datatables';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { SocialMediaPostsComponent } from './Farm Link/social-media-posts/social-media-posts.component';
 import { FileShareComponent } from './Farm Link/file-share/file-share.component';
@@ -119,11 +118,6 @@ import { QAForumComponent } from './Farm Link/q-a-forum/q-a-forum.component';
 import { AssignedComponent } from './Farm Link/q-a-forum/assigned/assigned.component';
 import { ForumComponent } from './Farm Link/q-a-forum/forum/forum.component';
 import { MyAnswersComponent } from './Farm Link/q-a-forum/my-answers/my-answers.component';
-import { AboutUsComponent } from './Farm Link/brand-profile/about-us/about-us.component';
-import { SustainabilityComponent } from './Farm Link/brand-profile/sustainability/sustainability.component';
-import { VisitUsComponent } from './Farm Link/brand-profile/visit-us/visit-us.component';
-import { HomePageComponent } from './Farm Link/brand-profile/home-page/home-page.component';
-import { LearnComponent } from './Farm Link/brand-profile/learn/learn.component';
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { HorecaAgreementsComponent } from './Farm Link/agreement/horeca-agreements/horeca-agreements.component';
@@ -174,7 +168,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         ChatNotificationComponent,
         HelpComponent,
         LanguageRegionComponent,
-        BrandProfileComponent,
         CoffeeExperienceComponent,
         SocialMediaPostsComponent,
         FileShareComponent,
@@ -248,11 +241,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         AssignedComponent,
         ForumComponent,
         MyAnswersComponent,
-        AboutUsComponent,
-        SustainabilityComponent,
-        VisitUsComponent,
-        HomePageComponent,
-        LearnComponent,
         BatchSelectAnOrderComponent,
         SuccessfulPageComponent,
         HorecaAgreementsComponent,

@@ -17302,7 +17302,7 @@ ul {
 @media (max-width: 767px) {
     header {
         position: relative;
-        padding: 10px 15px;
+        padding: 0 15px;
         background-color: #ffffff;
     }
     .pad-header {
@@ -17571,17 +17571,6 @@ ul {
     }
 }
 
-@media (min-width: 768px) {
-    .nav-top1 {
-        padding: 10px 0;
-    }
-}
-
-@media (min-width: 992px) {
-    .nav-top1 {
-        padding: 12px 0;
-    }
-}
 
 @media (min-width: 768px) {
     .company-logo {
@@ -20085,6 +20074,8 @@ button:focus {
     padding: 3px 10px;
     resize: none;
     overflow: auto;
+    height: 28px;
+    line-height: 22px;
 }
 
 .d-none {
@@ -20179,6 +20170,12 @@ button:focus {
     border-radius: 4px;
     background-color: #eeeeee;
     display: inline-block;
+}
+.message-body  .message-to__text{
+    white-space: pre-line; 
+}
+.message-body-from  .message-to__from{
+    white-space: pre-line; 
 }
 
 .live-chat-message-body__text {
