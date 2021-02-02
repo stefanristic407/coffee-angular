@@ -33,6 +33,11 @@ export const routes: Routes = [
                 path: 'sourcing',
                 loadChildren: () => import('./modules/sourcing/sourcing.module').then((m) => m.SourcingModule),
             },
+            {
+                path: 'brand-profile',
+                loadChildren: () =>
+                    import('./modules/brand-profile/brand-profile.module').then((m) => m.BrandProfileModule),
+            },
             { path: '', redirectTo: 'features', pathMatch: 'full' },
         ],
     },

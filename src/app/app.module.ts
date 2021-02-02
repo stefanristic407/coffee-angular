@@ -23,6 +23,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HealthCheckComponent } from './health-check/health-check.component';
 import { DirectMessagingComponent } from './components/direct-messaging/direct-messaging.component';
 import { SewnDirectMessageComponent } from './components/sewn-direct-message/sewn-direct-message.component';
+import { MenuComponent } from '@components';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -41,6 +42,7 @@ import { LifecyclehookDirective } from './components/sewn-direct-message/lifecyc
         HealthCheckComponent,
         DirectMessagingComponent,
         SewnDirectMessageComponent,
+        MenuComponent,
         LayoutComponent,
         SearchFilterPipe,
         LifecyclehookDirective,

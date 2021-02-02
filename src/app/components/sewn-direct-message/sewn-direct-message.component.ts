@@ -51,8 +51,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   };
   messageList: ChatMessage[] = [];
   openedThread: ThreadListItem | null = null;
-  expandView = false;
-  showChat = false;
+
   threadSearchKeyword = '';
 
   audioPlayer = new Audio('assets/sounds/notification.mp3');
@@ -71,9 +70,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   constructor(
     private cookieService: CookieService,
     public globals: GlobalsService,
-    public render: Renderer2,
+    private render: Renderer2,
     private elRef: ElementRef,
-    private chatService: ChatService,
+    public chatService: ChatService,
   ) { }
 
   ngOnInit(): void {
@@ -441,7 +440,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     } else if (req.requestType === serviceCommunicationType.CLOSE_CHAT) {
       this.closePanel();
     } else if (req.requestType === serviceCommunicationType.TOGGLE) {
-      if (this.showChat) {
+      if (this.chatService.isOpen.value) {
         this.closePanel();
       } else {
         this.openPanel();
@@ -480,10 +479,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     this.render.setStyle(accountBody, 'height', `${panelHeight}px`);
 
     if (window.innerWidth <= 768) {
-      if (this.expandView) {
+      this.render.removeStyle(chatbodyExpand, 'height');
+      if (this.chatService.isExpand.value) {
         this.closeExapndView();
       }
-      this.render.removeStyle(chatbodyExpand, 'height');
     } else {
       this.render.setStyle(chatbodyExpand, 'height', `${panelHeight}px`);
     }
@@ -517,7 +516,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   getReadableTime(tTime: string = '') {
     const todayDate = moment();
     const messageDate = moment(tTime);
-    if (messageDate.isValid) {
+    if (messageDate.isValid || tTime) {
       const isSameYear = (todayDate.year() === messageDate.year());
       const isSameMonth = isSameYear && (todayDate.month() === messageDate.month());
       const isSameDay = isSameMonth && (todayDate.date() === messageDate.date());
@@ -660,7 +659,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   closePanel() {
-    this.showChat = false;
+    this.chatService.isOpen.next(false);
+    this.chatService.isExpand.next(false);
   }
 
   openExapndView() {
@@ -668,7 +668,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     this.chatMessageBodyElement = null;
     this.chatMessageFormElement = null;
     this.messageInputElement = null;
-    this.expandView = true;
+    this.chatService.isExpand.next(true);
     this.viewPortSizeChanged();
     this.lastMessageRendered.pipe(first()).subscribe(x => {
       this.chatBodyHeightAdjust();
@@ -679,14 +679,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     this.chatMessageBodyElement = null;
     this.chatMessageFormElement = null;
     this.messageInputElement = null;
-    this.expandView = false;
+    this.chatService.isExpand.next(false);
     this.viewPortSizeChanged();
     this.lastMessageRendered.pipe(first()).subscribe(x => {
       this.chatBodyHeightAdjust();
     });
   }
+
   toggleExpandView() {
-    if (this.expandView) {
+    if (this.chatService.isExpand.value) {
       this.closeExapndView();
     } else {
       this.openExapndView();
@@ -694,7 +695,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   openPanel() {
-    this.showChat = true;
+    this.chatService.isExpand.next(false);
+    this.chatService.isOpen.next(true);
     this.lastMessageRendered.pipe(first()).subscribe(x => {
       this.chatBodyHeightAdjust();
     });
