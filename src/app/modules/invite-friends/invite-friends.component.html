@@ -1,5 +1,5 @@
 <section>
-    <div class="main-block" [class.success]="!inviting">
+    <div class="main-block fit-sm-screen" [class.success]="!inviting">
         <div class="w-100">
             <a class="back-page" routerLink="/"> Return to dashboard </a>
         </div>
@@ -16,16 +16,10 @@
                         </div>
                         <div class="pt-4" formArrayName="emails">
                             <div *ngFor="let email of emails.controls; let i = index">
-                                <div *ngIf="i" class="divider d-md-none mb-4"></div>
                                 <div class="d-flex justify-content-between align-items-center d-md-none mb-3">
                                     <h4 class="fnt-18 lh-normal fnt-bold txt-clr334 mb-0">Invite {{ i + 1 }}</h4>
                                     <div *ngIf="i">
-                                        <span
-                                            class="fnt-bold txt-clr60b cursor-pointer hover-underline"
-                                            (click)="deleteEmail(i)"
-                                        >
-                                            Delete
-                                        </span>
+                                        <span class="brown-cta" (click)="deleteEmail(i)"> Delete </span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -43,20 +37,13 @@
                                         </small>
                                     </div>
                                     <div class="delete-wrap ml-2 d-none d-md-block" *ngIf="i">
-                                        <span
-                                            class="fnt-bold txt-clr60b cursor-pointer hover-underline"
-                                            (click)="deleteEmail(i)"
-                                        >
-                                            Delete
-                                        </span>
+                                        <span class="brown-cta" (click)="deleteEmail(i)"> Delete </span>
                                     </div>
                                 </div>
+                                <div class="divider d-md-none mb-4"></div>
                             </div>
                             <div class="d-inline-flex align-items-center">
-                                <span
-                                    class="fnt-bold txt-clr60b cursor-pointer hover-underline ml-2"
-                                    (click)="addEmail()"
-                                >
+                                <span class="brown-cta ml-2" (click)="addEmail()">
                                     + Add another friend/colleague
                                 </span>
                             </div>

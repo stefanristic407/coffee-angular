@@ -14,12 +14,6 @@ import { SelectOrderTableComponent } from './e-commerce/select-order-table/selec
 import { FDirectMessagingComponent } from './f-direct-messaging/f-direct-messaging.component';
 import { AgreementComponent } from './Farm Link/agreement/agreement.component';
 import { BlogDetailsComponent } from './Farm Link/blog-details/blog-details.component';
-import { AboutUsComponent } from './Farm Link/brand-profile/about-us/about-us.component';
-import { BrandProfileComponent } from './Farm Link/brand-profile/brand-profile.component';
-import { HomePageComponent } from './Farm Link/brand-profile/home-page/home-page.component';
-import { LearnComponent } from './Farm Link/brand-profile/learn/learn.component';
-import { SustainabilityComponent } from './Farm Link/brand-profile/sustainability/sustainability.component';
-import { VisitUsComponent } from './Farm Link/brand-profile/visit-us/visit-us.component';
 import { CofeeExpeienceDetailsComponent } from './Farm Link/cofee-expeience-details/cofee-expeience-details.component';
 import { CoffeeExperienceComponent } from './Farm Link/coffee-experience/coffee-experience.component';
 import { FileShareDetailsComponent } from './Farm Link/file-share/file-share-details/file-share-details.component';
@@ -155,11 +149,6 @@ const routes: Routes = [
             {
                 path: 'f-direct-messaging',
                 component: FDirectMessagingComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'brand-profile',
-                component: BrandProfileComponent,
                 canActivate: [AuthGuard],
             },
             {
@@ -399,31 +388,6 @@ const routes: Routes = [
             {
                 path: 'q-a-forum',
                 component: QAForumComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'visit-us',
-                component: VisitUsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'home-page',
-                component: HomePageComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'about-us',
-                component: AboutUsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'sustainability',
-                component: SustainabilityComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'learn',
-                component: LearnComponent,
                 canActivate: [AuthGuard],
             },
             {

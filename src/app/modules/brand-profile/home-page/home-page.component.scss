@@ -3,36 +3,6 @@
     border-radius: 4px;
 }
 
-.preview {
-    border-radius: 4px;
-    color: #30855c;
-    border: solid 1px #30855c;
-    padding: 12px 20px;
-    text-align: center;
-    font-size: 14px;
-    float: right;
-    background-color: #ffffff;
-}
-
-.preview:hover {
-    color: #ffffff;
-    background-color: #30855c;
-}
-
-.save {
-    border-radius: 4px;
-    color: #ffffff;
-    border: solid 1px #30855c;
-    padding: 12px 20px;
-    text-align: center;
-    font-size: 14px;
-    background-color: #30855c;
-}
-
-.save:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
 .star {
     color: #ff1e5a;
 }
@@ -50,18 +20,6 @@
     border: 1px dashed #d6d6d6;
 }
 
-.cancel {
-    height: 46px;
-    padding: 12px 20px;
-    border-radius: 4px;
-    border: solid 1px #30855c;
-    background-color: #ffffff;
-    font-weight: bold;
-    line-height: 1.57;
-    text-align: center;
-    color: #30855c;
-}
-
 .form-section__inputs {
     border-radius: 4px;
     border: solid 1px #ebebeb;
@@ -75,7 +33,7 @@
     padding: 0 !important;
 }
 
-.input-head--uplaod input[type="file"] {
+.input-head--uplaod input[type='file'] {
     opacity: 0;
     visibility: hidden;
     display: none;
@@ -96,7 +54,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
 }
 
 .upload-file-results__item {
@@ -122,7 +80,7 @@
 
 .upload-file-results__item button:first-of-type::after {
     position: absolute;
-    content: "";
+    content: '';
     top: 50%;
     right: 0;
     transform: translateY(-50%);
@@ -138,8 +96,8 @@
 }
 
 .plus-circle {
-    margin-bottom: .75rem;
-    margin-top: .5rem;
+    margin-bottom: 0.75rem;
+    margin-top: 0.5rem;
 }
 
 .select-product {

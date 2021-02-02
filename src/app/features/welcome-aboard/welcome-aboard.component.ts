@@ -36,8 +36,6 @@ export class WelcomeAboardComponent implements OnInit {
         this.userName = this.cookieService.get('userName');
         this.roasterId = this.cookieService.get('roaster_id');
 
-        $('.nav-links__item').removeClass('active');
-        $('.nav-links__item').eq(0).addClass('active');
         this.appLanguage = this.globals.languageJson;
 
         const promises = [];

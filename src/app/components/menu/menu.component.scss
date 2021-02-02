@@ -1,0 +1,24 @@
+@media (min-width: 768px) {
+    .nav-links__item.arrow:hover::before {
+        border-top: 1.5px solid #3d8462;
+        border-right: 1.5px solid #3d8462;
+        top: calc(35% + 7px);
+        transform: rotate(315deg);
+    }
+    .nav-links__item.arrow:hover .nav-dropdown {
+        display: block;
+        opacity: 1;
+    }
+}
+@media (max-width: 767px) {
+    .active.nav-links__item.arrow::before {
+        border-top: 1.5px solid #3d8462;
+        border-right: 1.5px solid #3d8462;
+        top: calc(35% + 7px);
+        transform: rotate(315deg);
+    }
+    .show.nav-dropdown {
+        display: block;
+        opacity: 1;
+    }
+}
