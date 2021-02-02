@@ -40,9 +40,14 @@
                                 <tr class="ticket-boby-txt" *ngFor="let item of orders.slice(0, 5)">
                                     <td>#{{ item.id }}</td>
                                     <td>{{ item.estate_name }}</td>
-                                    <td>{{ item.type }}</td>
-                                    <td>{{ item.created_at | date: 'd MMM h:mm a' }}</td>
-                                    <td>{{ item.status }}</td>
+                                    <td>
+                                        <div class="custom-badge" [style.color]="orderTypes[item.type].color">
+                                            <div [style.background-color]="orderTypes[item.type].color"></div>
+                                            <span class="fnt-14 fnt-600">{{ orderTypes[item.type].name }}</span>
+                                        </div>
+                                    </td>
+                                    <td>{{ item.created_at | date: 'dd MMM' }} '{{ item.created_at | date: 'yy' }}</td>
+                                    <td class="ticket-status">{{ item.status }}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -12,21 +12,25 @@ import { WelcomeService } from '../welcome.service';
 export class DashboardNotifyComponent implements OnInit, OnDestroy {
     disputes: any;
     disputesSub: Subscription;
+    isNewMessage = false;
+    isNewDispute = false;
+    newMessageCount = 0;
+    newDisputeCount = 0;
     messages: any[] = [
         {
             content: 'See what your contacts have to say!',
         },
     ];
 
-    constructor(
-        public globals: GlobalsService,
-        private welcomeSrv: WelcomeService,
-        public chat: ChatService,
-    ) { }
+    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService, public chat: ChatService) {}
 
     ngOnInit(): void {
         this.disputesSub = this.welcomeSrv.disputes$.subscribe((res: any) => {
-            this.disputes = res;
+            console.log('dispute observable: ', res);
+            if (res) {
+                this.disputes = res;
+                this.isNewDispute = true;
+            }
         });
     }
 

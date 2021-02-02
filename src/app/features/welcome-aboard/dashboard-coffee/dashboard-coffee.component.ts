@@ -14,7 +14,20 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
     orders: any[] = [];
     ordersSub: Subscription;
     public chartData: any[] = [];
-
+    orderTypes = {
+        GC_ORDER: {
+            color: '#f19634',
+            name: 'Booked',
+        },
+        GC_ORDER_SAMPLE: {
+            color: '#629b20',
+            name: 'Sample',
+        },
+        PREBOOK_LOT: {
+            color: '#8872ef',
+            name: 'Prebook',
+        },
+    };
     constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 
     ngOnInit(): void {

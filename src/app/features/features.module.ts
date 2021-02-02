@@ -141,6 +141,7 @@ import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/g
 import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preorder-lot.component';
 import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
 import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
     declarations: [
@@ -282,6 +283,7 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         Ng2SearchPipeModule,
         MatProgressBarModule,
         SharedModule,
+        NgxChartsModule,
     ],
 })
 export class FeaturesModule {}

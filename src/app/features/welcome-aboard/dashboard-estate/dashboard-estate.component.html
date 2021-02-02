@@ -13,7 +13,7 @@
         <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6 mb-3 mb-md-0">
             <div class="chart-block br-4 h-100 pr-md-4">
                 <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Total sourced coffee</div>
-                <div class="h-md-100 d-flex flex-column justify-content-center align-items-center">
+                <div class="h-md-100 d-flex flex-column pt-1 pt-md-2">
                     <app-pie-chart
                         [data]="chartData"
                         [total]="((sourcing?.total_coffee || 0) / 1000).toFixed(0) + ' Tonnes'"
@@ -23,11 +23,11 @@
             </div>
         </div>
         <div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up col-12 col-md-6 mb-3 mb-md-0">
-            <div class="estates-block br-4">
+            <div class="estates-block br-4 pt-1 pt-md-2">
                 <div class="fnt-14 fnt-bold text-black334 br-4 bg-f8 p-2 m-1 d-md-none">Source from latest estates</div>
                 <div class="p-3">
                     <div *ngFor="let item of estates.slice(0, 4)">
-                        <div class="d-flex estate-wrap mb-3">
+                        <div class="d-flex estate-wrap mb-3 pb-md-1">
                             <div class="mr-2 ml-lg-3">
                                 <app-avatar
                                     [size]="36"
@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="w-100 text-right text-md-left">
-                        <a class="arrow-link" routerLink="/features/sourcing">See all estates</a>
+                        <a class="arrow-link" routerLink="/sourcing/estate-list">See all estates</a>
                     </div>
                 </div>
             </div>
