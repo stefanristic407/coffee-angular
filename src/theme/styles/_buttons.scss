@@ -1,7 +1,6 @@
 .btn-raised,
 .btn-stroked {
     display: inline-block;
-    padding: 12px 16px;
     border-radius: 4px;
     font-size: 14px;
     line-height: 22px;
@@ -10,6 +9,7 @@
 }
 
 .btn-raised {
+    padding: 12px 16px;
     border: none;
     color: #fff;
     background-color: #30855c;
@@ -23,6 +23,7 @@
 }
 
 .btn-stroked {
+    padding: 11px 16px;
     border: solid 1px #30855c;
     color: #30855c;
     background-color: #fff;
