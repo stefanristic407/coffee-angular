@@ -60,6 +60,7 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { BlogCardComponent } from './components/blog-card/blog-card.component';
 
 // #region material
 const MATMODULES = [];
@@ -147,6 +148,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ...DIRECTIVES,
         ...PIPES,
         ConfirmComponent,
+        BlogCardComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -161,6 +163,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ...COMPONENTS,
         ...DIRECTIVES,
         ...PIPES,
+        BlogCardComponent,
     ],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -68,6 +68,13 @@ table td,
 
 // new
 
+::ng-deep .ui-table .ui-table-tbody > tr,
+tr:nth-child(even) {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
 .table-responsive {
     overflow: initial;
 }

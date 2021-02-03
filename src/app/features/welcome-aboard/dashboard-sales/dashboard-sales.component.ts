@@ -86,6 +86,13 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
             font: { size: '12px', fontFamily: 'Muli', fontWeight: '600', color: '#232334' },
         },
     };
+    saleData = [
+        { name: 'Mobiles', value: 105000 },
+        { name: 'Laptop', value: 55000 },
+        { name: 'AC', value: 15000 },
+        { name: 'Headset', value: 150000 },
+        { name: 'Fridge', value: 20000 },
+    ];
 
     constructor(
         private cookieService: CookieService,
@@ -186,5 +193,12 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
             maximum: maxValue,
         };
         this.chartData = tempData;
+        console.log('chartData: ', this.chartData);
     }
+
+    // dateTickFormatting(val: any): string {
+    //     if (val instanceof Date) {
+    //         return (<Date>val).toLocaleString('de-DE');
+    //     }
+    // }
 }
