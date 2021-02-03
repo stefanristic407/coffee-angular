@@ -79,9 +79,9 @@
                 <!-- Prebook lot message -->
                 <div *ngIf="orderType === 'preBooked'" class="row">
                     <div class="col-12 d-flex">
-                        <span class="fnt-14 fnt-700 txt-clr334"> Note:</span>
+                        <span class="fnt-14 fnt-700 text-clr334"> Note:</span>
                         <div class="col-md-7">
-                            <p class="fnt-14 fnt-400 txt-clr334">
+                            <p class="fnt-14 fnt-400 text-clr334">
                                 A pre-book order makes you eligible to buy all the produce for the booked lot from the
                                 estate. once the beans are ready, you will be notified.
                             </p>
@@ -122,12 +122,12 @@
                                             </small>
                                         </div>
                                     </div>
-                                    <div class="fnt-14 fnt-bold txt-clr334 form-middle">
+                                    <div class="fnt-14 fnt-bold text-clr334 form-middle">
                                         &nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;${{ sourcing.harvestDetail?.price }}
                                     </div>
                                 </div>
                                 <div
-                                    class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold txt-clr334 form-middle d-none d-md-block"
+                                    class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold text-clr334 form-middle d-none d-md-block"
                                 >
                                     ${{ sourcing.harvestDetail?.price * infoForm.value.quantity | number: '1.0-0' }}
                                 </div>
@@ -144,7 +144,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold txt-clr334 form-middle d-none d-md-block"
+                                    class="col-4 col-lg-3 col-xl-2 fnt-18 fnt-bold text-clr334 form-middle d-none d-md-block"
                                 >
                                     ${{
                                         (infoForm.value.service ? shipInfo.unit_price * infoForm.value.quantity : 0)
@@ -160,10 +160,10 @@
                             <div
                                 class="col-12 col-md-4 col-lg-3 col-xl-2 offset-md-8 offset-lg-9 offset-xl-10 d-flex d-md-block justify-content-between"
                             >
-                                <div class="fnt-14 fnt-bold txt-clr334">
+                                <div class="fnt-14 fnt-bold text-clr334">
                                     {{ globals.languageJson?.total_amount }}
                                 </div>
-                                <div class="fnt-18 fnt-bold txt-clr334 pt-md-2">
+                                <div class="fnt-18 fnt-bold text-clr334 pt-md-2">
                                     ${{ totalPrice | number: '1.0-0' }}
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                             </div>
                             <div
                                 *ngIf="(!infoForm.value.service && orderType == 'booked') || orderType == 'sample'"
-                                class="fnt-14 fnt-bold txt-clr55c cursor-pointer"
+                                class="fnt-14 fnt-bold text-clr55c cursor-pointer"
                                 (click)="refreshAddressForm()"
                             >
                                 <img class="edit-icon pr-2" src="assets/images/shape-2.png" alt="Edit" />
@@ -188,7 +188,7 @@
                             </div>
                         </div>
                         <div
-                            class="fnt-14 lh-normal fnt-600 txt-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
+                            class="fnt-14 lh-normal fnt-600 text-clr334 d-md-flex justify-content-between bg-f8 br-4 p-3 p-md-4 mt-2"
                         >
                             <div>
                                 {{ addressData?.address_line1 }}, {{ addressData?.address_line2 }},

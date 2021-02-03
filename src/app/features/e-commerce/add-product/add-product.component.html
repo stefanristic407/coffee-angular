@@ -4,8 +4,9 @@
             <ul class="bread-nav mb-md-0 col-lg-9">
                 <li class="b-cum">
                     <a routerlink="/features/welcome-aboard" class="b-cum">{{ globals.languageJson?.home }}</a>
-                    <span aria-hidden="true" class="padl-r"><img src="/assets/images/arrow-1.png" alt=""
-                            class="group-img" /></span>
+                    <span aria-hidden="true" class="padl-r"
+                        ><img src="/assets/images/arrow-1.png" alt="" class="group-img"
+                    /></span>
                 </li>
                 <li class="b-cum c-pink">{{ productId ? product.name : 'Add product' }}</li>
             </ul>
@@ -27,14 +28,23 @@
                     <div class="row">
                         <div class="farm-input col-8">
                             <label>Product Name<span class="star">*</span></label>
-                            <input type="text" [(ngModel)]="product.name" name="productName" class="form-control"
-                                placeholder="" />
+                            <input
+                                type="text"
+                                [(ngModel)]="product.name"
+                                name="productName"
+                                class="form-control"
+                                placeholder=""
+                            />
                         </div>
 
                         <div class="farm-input col-4">
                             <label class="label p-0">Product eligible for<span>*</span></label>
-                            <select class="form-control select-region" [(ngModel)]="product.purchase_type"
-                                name="subscription" required="">
+                            <select
+                                class="form-control select-region"
+                                [(ngModel)]="product.purchase_type"
+                                name="subscription"
+                                required=""
+                            >
                                 <option value="" selected disabled>Select subscription type</option>
                                 <option value="one-time">One Time</option>
                                 <option value="subscription">Subscription</option>
@@ -56,8 +66,11 @@
 
         <div class="varient mt-5">
             <p class="fnt-18 fnt-muli fnt-700 black">Variants</p>
-            <p-checkbox [(ngModel)]="product.is_variants_included" binary="true"
-                label="If this product has options like roasted coffee batch, flavour profile, availability etc.">
+            <p-checkbox
+                [(ngModel)]="product.is_variants_included"
+                binary="true"
+                label="If this product has options like roasted coffee batch, flavour profile, availability etc."
+            >
             </p-checkbox>
         </div>
 
@@ -93,8 +106,13 @@
             <div class="row">
                 <div class="farm-input col-6">
                     <label class="label p-0">Select roasted coffee batch<span>*</span></label>
-                    <select class="form-control select-region" [(ngModel)]="rc_batch_id" name="coffeeBatch" required=""
-                        (change)="getCoffeeBatchDetails(rc_batch_id)">
+                    <select
+                        class="form-control select-region"
+                        [(ngModel)]="rc_batch_id"
+                        name="coffeeBatch"
+                        required=""
+                        (change)="getCoffeeBatchDetails(rc_batch_id)"
+                    >
                         <option value="" diasbled>Please select the batch</option>
                         <option [value]="batch.id" *ngFor="let batch of roastedBatches">
                             {{ batch.roast_batch_name }}
@@ -103,14 +121,26 @@
                 </div>
                 <div class="farm-input col-3">
                     <label>Roasting profile<span class="star">*</span></label>
-                    <input readonly type="text" [(ngModel)]="coffeeBatchDetails.roasting_profile_name"
-                        name="roasting_profile_name" class="form-control" placeholder="" />
+                    <input
+                        readonly
+                        type="text"
+                        [(ngModel)]="coffeeBatchDetails.roasting_profile_name"
+                        name="roasting_profile_name"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
 
                 <div class="farm-input col-3">
                     <label>Roast level<span class="star">*</span></label>
-                    <input readonly type="text" [(ngModel)]="coffeeBatchDetails.roast_level" name="roast_level"
-                        class="form-control" placeholder="" />
+                    <input
+                        readonly
+                        type="text"
+                        [(ngModel)]="coffeeBatchDetails.roast_level"
+                        name="roast_level"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
             </div>
         </div>
@@ -121,26 +151,50 @@
             <div class="row">
                 <div class="farm-input col-3">
                     <label>Estate name<span class="star">*</span></label>
-                    <input readonly type="text" [(ngModel)]="coffeeBatchDetails.estate_name" name="estate_name"
-                        class="form-control" placeholder="" />
+                    <input
+                        readonly
+                        type="text"
+                        [(ngModel)]="coffeeBatchDetails.estate_name"
+                        name="estate_name"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
 
                 <div class="farm-input col-3">
                     <label>Origin<span class="star">*</span></label>
-                    <input readonly type="text" [(ngModel)]="coffeeBatchDetails.origin" name="origin"
-                        class="form-control" placeholder="" />
+                    <input
+                        readonly
+                        type="text"
+                        [(ngModel)]="coffeeBatchDetails.origin"
+                        name="origin"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
 
                 <div class="farm-input col-3">
                     <label>Region<span class="star">*</span></label>
-                    <input readonly type="text" [(ngModel)]="coffeeBatchDetails.region" name="region"
-                        class="form-control" placeholder="" />
+                    <input
+                        readonly
+                        type="text"
+                        [(ngModel)]="coffeeBatchDetails.region"
+                        name="region"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
 
                 <div class="farm-input col-3">
                     <label>Harvest year<span class="star">*</span></label>
-                    <input readonly type="text" [(ngModel)]="coffeeBatchDetails.harvest_date" name="harvest_date"
-                        class="form-control" placeholder="" />
+                    <input
+                        readonly
+                        type="text"
+                        [(ngModel)]="coffeeBatchDetails.harvest_date"
+                        name="harvest_date"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
             </div>
         </div>
@@ -151,32 +205,62 @@
             <div class="row">
                 <div class="farm-input w-m-19">
                     <label>Body<span class="star">*</span></label>
-                    <input type="number" readonly [(ngModel)]="coffeeBatchDetails.body" name="body" class="form-control"
-                        placeholder="" />
+                    <input
+                        type="number"
+                        readonly
+                        [(ngModel)]="coffeeBatchDetails.body"
+                        name="body"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
 
                 <div class="farm-input w-m-19">
                     <label>Acidity<span class="star">*</span></label>
-                    <input type="number" readonly [(ngModel)]="coffeeBatchDetails.acidity" name="acidity"
-                        class="form-control" placeholder="" />
+                    <input
+                        type="number"
+                        readonly
+                        [(ngModel)]="coffeeBatchDetails.acidity"
+                        name="acidity"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
 
                 <div class="farm-input w-m-19">
                     <label>Aroma<span class="star">*</span></label>
-                    <input type="number" readonly [(ngModel)]="coffeeBatchDetails.aroma" name="aroma"
-                        class="form-control" placeholder="" />
+                    <input
+                        type="number"
+                        readonly
+                        [(ngModel)]="coffeeBatchDetails.aroma"
+                        name="aroma"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
 
                 <div class="farm-input w-m-19">
                     <label>Flavour<span class="star">*</span></label>
-                    <input type="number" readonly [(ngModel)]="coffeeBatchDetails.flavour" name="flavour"
-                        class="form-control" placeholder="" />
+                    <input
+                        type="number"
+                        readonly
+                        [(ngModel)]="coffeeBatchDetails.flavour"
+                        name="flavour"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
 
                 <div class="farm-input w-m-19">
                     <label>Processing<span class="star">*</span></label>
-                    <input type="text" readonly [(ngModel)]="coffeeBatchDetails.processing" name="processing"
-                        class="form-control" placeholder="" />
+                    <input
+                        type="text"
+                        readonly
+                        [(ngModel)]="coffeeBatchDetails.processing"
+                        name="processing"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
             </div>
         </div>
@@ -187,8 +271,10 @@
                     <label> Flavour profile</label>
                     <div class="border flavours">
                         <span *ngIf="coffeeBatchDetails.flavour_profile">
-                            <div class="flavour-item d-inline-block"
-                                *ngFor="let flavour of coffeeBatchDetails.flavour_profile">
+                            <div
+                                class="flavour-item d-inline-block"
+                                *ngFor="let flavour of coffeeBatchDetails.flavour_profile"
+                            >
                                 {{ flavour.flavour_profile_name }}
                             </div>
                         </span>
@@ -197,8 +283,15 @@
 
                 <div class="farm-input col-7">
                     <label> Roaster Recommendation</label>
-                    <textarea readonly class="form-control descr" [(ngModel)]="coffeeBatchDetails.roaster_notes"
-                        name="roaster_notes" rows="4" cols="50" placeholder=""></textarea>
+                    <textarea
+                        readonly
+                        class="form-control descr"
+                        [(ngModel)]="coffeeBatchDetails.roaster_notes"
+                        name="roaster_notes"
+                        rows="4"
+                        cols="50"
+                        placeholder=""
+                    ></textarea>
                 </div>
             </div>
         </div>
@@ -209,8 +302,12 @@
             <div class="row">
                 <div class="farm-input col-3">
                     <label class="label p-0">Select a brewing method<span>*</span></label>
-                    <select class="form-control select-region" [(ngModel)]="product.brewing_method" name="coffee"
-                        required="">
+                    <select
+                        class="form-control select-region"
+                        [(ngModel)]="product.brewing_method"
+                        name="coffee"
+                        required=""
+                    >
                         <option value="" disabled selected>Please select the method</option>
                         <option value="pour-over">Pour Over</option>
                         <option value="coffee-maker">Coffeemaker</option>
@@ -222,10 +319,17 @@
                 </div>
 
                 <div class="farm-input col-5">
-                    <label>Recommendation text<span class="star">*</span><span class="sub-text fnt-muli pull-right">0/10
-                            words</span></label>
-                    <input type="text" [(ngModel)]="product.roaster_recommendation" name="name" class="form-control"
-                        placeholder="" />
+                    <label
+                        >Recommendation text<span class="star">*</span
+                        ><span class="sub-text fnt-muli pull-right">0/10 words</span></label
+                    >
+                    <input
+                        type="text"
+                        [(ngModel)]="product.roaster_recommendation"
+                        name="name"
+                        class="form-control"
+                        placeholder=""
+                    />
                 </div>
             </div>
         </div>
@@ -238,8 +342,11 @@
             <div class="row pt-4">
                 <div class="col-md-3 col-12">
                     <div class="nav flex-column nav-pills sample_info" *ngFor="let varient of varients; let i = index">
-                        <a class="nav-link vat-link pointer" [ngClass]="{ active: currentVarientIndex == i }"
-                            (click)="currentVarientIndex = i">
+                        <a
+                            class="nav-link vat-link pointer"
+                            [ngClass]="{ active: currentVarientIndex == i }"
+                            (click)="currentVarientIndex = i"
+                        >
                             <div class="info_heading d-flex">
                                 <div class="pull-left sample_info_head">
                                     Weight - {{ varient.weight }} {{ varient.weight_unit }}
@@ -262,14 +369,22 @@
                         <div class="tab-pane show active" *ngIf="currentVarientIndex == gIndex">
                             <div class="row">
                                 <div class="form-input col-3">
-                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Weight<span>*</span></label>
+                                    <label class="fnt-14 fnt-muli fnt-600 text-clr334">Weight<span>*</span></label>
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="varient.weight" placeholder=""
+                                        <input
+                                            type="number"
+                                            [(ngModel)]="varient.weight"
+                                            placeholder=""
                                             class="form-control input-group-right-border"
-                                            aria-label="Text input with dropdown button" />
+                                            aria-label="Text input with dropdown button"
+                                        />
                                         <div class="input-group-append">
-                                            <select name="Year" [(ngModel)]="varient.weight_unit" required=""
-                                                class="form-control select-region select-form-group-dropdown select-region-local">
+                                            <select
+                                                name="Year"
+                                                [(ngModel)]="varient.weight_unit"
+                                                required=""
+                                                class="form-control select-region select-form-group-dropdown select-region-local"
+                                            >
                                                 <option value="lb">Lb</option>
                                                 <option value="kg" ng-reflect-value="Yes">Kg</option>
                                             </select>
@@ -279,8 +394,12 @@
 
                                 <div class="farm-input col-3">
                                     <label class="label p-0">Status<span>*</span></label>
-                                    <select class="form-control select-region" [(ngModel)]="varient.status"
-                                        name="Status" required="">
+                                    <select
+                                        class="form-control select-region"
+                                        [(ngModel)]="varient.status"
+                                        name="Status"
+                                        required=""
+                                    >
                                         <option value="in-stock" selected>In Stock</option>
                                         <option value="out-of-stock">Out of Stock</option>
                                     </select>
@@ -292,31 +411,46 @@
                                 </div>
 
                                 <div class="col-3 mt-5">
-                                    <p-checkbox [(ngModel)]="varient.is_default_product" binary="true"
-                                        label="Set as default product"></p-checkbox>
+                                    <p-checkbox
+                                        [(ngModel)]="varient.is_default_product"
+                                        binary="true"
+                                        label="Set as default product"
+                                    ></p-checkbox>
                                 </div>
                             </div>
 
                             <div class="row mt-4" *ngFor="let grind_varient of varient.grind_variants; let i = index">
                                 <div class="form-input col-3">
-                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Price (USD)<span>*</span></label>
+                                    <label class="fnt-14 fnt-muli fnt-600 text-clr334">Price (USD)<span>*</span></label>
                                     <div class="input-group">
                                         <div class="left-rs-append">
-                                            <span name="Year" required=""
-                                                class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no">
+                                            <span
+                                                name="Year"
+                                                required=""
+                                                class="form-control select-region select-form-group-dropdown select-region-local select-arrow-no"
+                                            >
                                                 <option value="$">$</option>
                                             </span>
                                         </div>
-                                        <input type="number" [(ngModel)]="grind_varient.price" placeholder=""
+                                        <input
+                                            type="number"
+                                            [(ngModel)]="grind_varient.price"
+                                            placeholder=""
                                             class="form-control right-rs-append"
-                                            aria-label="Text input with dropdown button" name="price" />
+                                            aria-label="Text input with dropdown button"
+                                            name="price"
+                                        />
                                     </div>
                                 </div>
 
                                 <div class="farm-input col-3">
                                     <label class="label p-0">Grind<span>*</span></label>
-                                    <select class="form-control select-region" [(ngModel)]="grind_varient.grind"
-                                        name="beans" required="">
+                                    <select
+                                        class="form-control select-region"
+                                        [(ngModel)]="grind_varient.grind"
+                                        name="beans"
+                                        required=""
+                                    >
                                         <option value="" selected disabled>Select the grind varient</option>
                                         <option value="beans">Whole beans</option>
                                         <option value="extra-coarse">Extra Coarse</option>
@@ -328,16 +462,25 @@
                                 </div>
 
                                 <div class="form-input col-3">
-                                    <label class="fnt-14 fnt-muli fnt-600 txt-clr334">Stock
-                                        available<span>*</span></label>
+                                    <label class="fnt-14 fnt-muli fnt-600 text-clr334"
+                                        >Stock available<span>*</span></label
+                                    >
                                     <div class="input-group">
-                                        <input type="number" [(ngModel)]="grind_varient.available_quantity"
-                                            placeholder="" class="form-control input-group-right-border"
-                                            aria-label="Text input with dropdown button" name="stock" />
+                                        <input
+                                            type="number"
+                                            [(ngModel)]="grind_varient.available_quantity"
+                                            placeholder=""
+                                            class="form-control input-group-right-border"
+                                            aria-label="Text input with dropdown button"
+                                            name="stock"
+                                        />
                                         <div class="input-group-append crates-width">
-                                            <select name="Year" [(ngModel)]="grind_varient.available_quantity_type"
+                                            <select
+                                                name="Year"
+                                                [(ngModel)]="grind_varient.available_quantity_type"
                                                 required=""
-                                                class="form-control select-region select-form-group-dropdown select-region-local">
+                                                class="form-control select-region select-form-group-dropdown select-region-local"
+                                            >
                                                 <option value="crate">crate</option>
                                                 <option value="kg">Kg</option>
                                             </select>
@@ -347,14 +490,24 @@
 
                                 <div class="farm-input col-2">
                                     <label>SKU number<span class="star">*</span></label>
-                                    <input type="text" [(ngModel)]="grind_varient.sku_number" name="sku_number"
-                                        class="form-control" placeholder="" />
+                                    <input
+                                        type="text"
+                                        [(ngModel)]="grind_varient.sku_number"
+                                        name="sku_number"
+                                        class="form-control"
+                                        placeholder=""
+                                    />
                                 </div>
-                                <span class="view-order mt-5 cursor-pointer" *ngIf="i != 0"
-                                    (click)="deleteRow(gIndex, i)">Delete</span>
+                                <span
+                                    class="view-order mt-5 cursor-pointer"
+                                    *ngIf="i != 0"
+                                    (click)="deleteRow(gIndex, i)"
+                                    >Delete</span
+                                >
                             </div>
                             <label class="view-order mt-5 mb-5 cursor-pointer" (click)="addNewVariant(gIndex)">
-                                Add a grind variant</label>
+                                Add a grind variant</label
+                            >
                         </div>
                     </div>
                 </div>
@@ -362,8 +515,11 @@
         </div>
 
         <!-- image -->
-        <div [ngClass]="{ 'add-images mt-3': currentVarientIndex == gIndex }"
-            *ngFor="let varient of varients; let gIndex = index" class="p-0 m-0">
+        <div
+            [ngClass]="{ 'add-images mt-3': currentVarientIndex == gIndex }"
+            *ngFor="let varient of varients; let gIndex = index"
+            class="p-0 m-0"
+        >
             <div class="row" *ngIf="currentVarientIndex == gIndex">
                 <div class="col-3"></div>
                 <div class="col-9 p-0 pl-3">
@@ -371,76 +527,135 @@
                     <div class="row m-0">
                         <div class="form-section__inputs roastery-upload-files col-3 mb-2 p-0 border-0">
                             <p class="fnt-14 fnt-muli fnt-600 black m-0 mb-1">Upload Feature Image</p>
-                            <div *ngIf="!varient['featured_image']"
-                                class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv">
+                            <div
+                                *ngIf="!varient['featured_image']"
+                                class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv"
+                            >
                                 <label class="mb-0 p-4 addImageContainer">
-                                    <input type="file" accept="image/png, image/jpeg" style="visibility: hidden"
-                                        #featureImage (change)="handleRoasterFile($event,0,'featured_image')" />
+                                    <input
+                                        type="file"
+                                        accept="image/png, image/jpeg"
+                                        style="visibility: hidden"
+                                        #featureImage
+                                        (change)="handleRoasterFile($event, 0, 'featured_image')"
+                                    />
                                     <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                        <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text">Drag
-                                            and drop an image here or browse</span>
+                                        <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text"
+                                            >Drag and drop an image here or browse</span
+                                        >
                                     </div>
                                 </label>
                             </div>
                             <div *ngIf="varient['featured_image']" class="mr-3 firstImageDiv">
-                                <img *ngIf="varient['featured_image'].thumb_url"
-                                    [src]="varient['featured_image'].thumb_url" alt="" class="uploadImg" />
-                                <img *ngIf="varient['featured_image'].image_url"
-                                    [src]="varient['featured_image'].image_url" alt="" class="uploadImg" />
-                                <img *ngIf="varient['featured_image'].isNew" [src]="varient['featured_image'].imgURL"
-                                    alt="" class="uploadImg" />
+                                <img
+                                    *ngIf="varient['featured_image'].thumb_url"
+                                    [src]="varient['featured_image'].thumb_url"
+                                    alt=""
+                                    class="uploadImg"
+                                />
+                                <img
+                                    *ngIf="varient['featured_image'].image_url"
+                                    [src]="varient['featured_image'].image_url"
+                                    alt=""
+                                    class="uploadImg"
+                                />
+                                <img
+                                    *ngIf="varient['featured_image'].isNew"
+                                    [src]="varient['featured_image'].imgURL"
+                                    alt=""
+                                    class="uploadImg"
+                                />
                                 <div class="imageLabel w-100">
                                     <label class="p-0.5">Image.png</label>
-                                    <a class="menu-arrow float-right pointer" [popover]="documentTemplate" placement="left"
-                                        [outsideClick]="true" #pop="bs-popover">
-                                        <img class="img" src="assets/images/more-opns-file.png">
+                                    <a
+                                        class="menu-arrow float-right pointer"
+                                        [popover]="documentTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
+                                        <img class="img" src="assets/images/more-opns-file.png" />
                                     </a>
-                                    <ng-template #documentTemplate id="{{varient['featured_image']['image_id']}}">
+                                    <ng-template #documentTemplate id="{{ varient['featured_image']['image_id'] }}">
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
-                                                <li *ngIf="false" class="list-group-item"> <a class="pointer-item"
-                                                        (click)="pop.hide();triggerInputEdit('featureImage')">{{globals.languageJson?.edit}} </a></li>
-                                                <li class="list-group-item"><a class="pointer-item"
-                                                        (click)="pop.hide();deleteImage(varient['featured_image'],0,'feature_image')">{{globals.languageJson?.delete}}</a></li>
+                                                <li *ngIf="false" class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="pop.hide(); triggerInputEdit('featureImage')"
+                                                        >{{ globals.languageJson?.edit }}
+                                                    </a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="
+                                                            pop.hide();
+                                                            deleteImage(varient['featured_image'], 0, 'feature_image')
+                                                        "
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
+                                                </li>
                                             </ul>
                                         </div>
                                     </ng-template>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-section__inputs roastery-upload-files col-3 mb-2 border-0" *ngFor="let file of varient.files;let i = index">
+                        <div
+                            class="form-section__inputs roastery-upload-files col-3 mb-2 border-0"
+                            *ngFor="let file of varient.files; let i = index"
+                        >
                             <p class="fnt-14 fnt-muli fnt-600 black m-0 mb-1">Product images</p>
-                            <div *ngIf="file['isEmpty']"
-                                class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv">
+                            <div
+                                *ngIf="file['isEmpty']"
+                                class="roastery-uploads__image d-flex align-items-center mr-3 justify-content-center dragdiv"
+                            >
                                 <label class="mb-0 p-4 addImageContainer">
-                                    <input type="file" accept="image/png, image/jpeg" style="visibility: hidden"
-                                        #productImage (change)="handleRoasterFile($event, i)" />
+                                    <input
+                                        type="file"
+                                        accept="image/png, image/jpeg"
+                                        style="visibility: hidden"
+                                        #productImage
+                                        (change)="handleRoasterFile($event, i)"
+                                    />
                                     <div class="d-flex flex-wrap align-items-center justify-content-center">
-                                        <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text">Drag
-                                            and drop an image here or browse</span>
+                                        <span class="mb-0 ml-2 d-inline-block fnt-14 fnt-muli fnt-500 gray-text"
+                                            >Drag and drop an image here or browse</span
+                                        >
                                     </div>
                                 </label>
                             </div>
                             <div *ngIf="!file['isEmpty']" class="mr-1 firstImageDiv">
-                                <img *ngIf="file.thumb_url"
-                                    [src]="file.thumb_url" alt="" class="uploadImg" />
-                                <img *ngIf="file.image_url"
-                                    [src]="file.image_url" alt="" class="uploadImg" />
-                                <img *ngIf="file.isNew" [src]="file.imgURL"
-                                    alt="" class="uploadImg" />
+                                <img *ngIf="file.thumb_url" [src]="file.thumb_url" alt="" class="uploadImg" />
+                                <img *ngIf="file.image_url" [src]="file.image_url" alt="" class="uploadImg" />
+                                <img *ngIf="file.isNew" [src]="file.imgURL" alt="" class="uploadImg" />
                                 <div class="imageLabel w-100">
                                     <label class="mb-0 p-0.5">Image.png</label>
-                                    <a class="menu-arrow float-right pointer" [popover]="documentTemplate2" placement="left"
-                                        [outsideClick]="true" #pop="bs-popover">
-                                        <img class="img" src="assets/images/more-opns-file.png">
+                                    <a
+                                        class="menu-arrow float-right pointer"
+                                        [popover]="documentTemplate2"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
+                                        <img class="img" src="assets/images/more-opns-file.png" />
                                     </a>
                                     <ng-template #documentTemplate2>
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
-                                                <li *ngIf="false" class="list-group-item"> <a class="pointer-item"
-                                                        (click)="pop.hide();">{{globals.languageJson?.edit}} </a></li>
-                                                <li class="list-group-item"><a class="pointer-item"
-                                                        (click)="pop.hide();deleteImage(file, i)">{{globals.languageJson?.delete}}</a></li>
+                                                <li *ngIf="false" class="list-group-item">
+                                                    <a class="pointer-item" (click)="pop.hide()"
+                                                        >{{ globals.languageJson?.edit }}
+                                                    </a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="pop.hide(); deleteImage(file, i)"
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
+                                                </li>
                                             </ul>
                                         </div>
                                     </ng-template>
@@ -468,8 +683,14 @@
             <div class="row" *ngFor="let carte of product.crates">
                 <div class="farm-input col-lg-3 p-0">
                     <label>Crate value</label>
-                    <input readonly type="1 crate" value="" name="Finca La Pampa" class="form-control"
-                        placeholder="1 crate" />
+                    <input
+                        readonly
+                        type="1 crate"
+                        value=""
+                        name="Finca La Pampa"
+                        class="form-control"
+                        placeholder="1 crate"
+                    />
                 </div>
                 <div class="equal-operators pl-8">=</div>
                 <div class="farm-input col-lg-3 pl-0 pr-0">
@@ -491,8 +712,12 @@
             <div class="row">
                 <div class="farm-input col-3">
                     <label class="label p-0">Select VAT trasaction type<span>*</span></label>
-                    <select class="form-control select-region" [(ngModel)]="product.vat_setting_id"
-                        name="vat_setting_id" required>
+                    <select
+                        class="form-control select-region"
+                        [(ngModel)]="product.vat_setting_id"
+                        name="vat_setting_id"
+                        required
+                    >
                         <option [value]="null" selected disabled>Please select the VAT</option>
                         <option [value]="vat.id" *ngFor="let vat of vatSettings">
                             {{ vat.vat_percentage }}% {{ vat.transaction_type }}
@@ -501,8 +726,11 @@
                 </div>
                 <div class="col-4">
                     <p class="fnt-14 fnt-muli text-clr588 fnt-600">Is the product price inclusive of VAT*</p>
-                    <p-checkbox [(ngModel)]="product.is_price_including_vat" binary="true"
-                        label="The price is inclusive of VAT"></p-checkbox>
+                    <p-checkbox
+                        [(ngModel)]="product.is_price_including_vat"
+                        binary="true"
+                        label="The price is inclusive of VAT"
+                    ></p-checkbox>
                 </div>
             </div>
         </div>

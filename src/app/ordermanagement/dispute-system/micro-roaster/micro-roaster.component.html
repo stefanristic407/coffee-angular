@@ -1,101 +1,187 @@
 <div>
     <div class="bg-fff">
         <section class="estate-orders d-none d-lg-block">
-            <div class="row ">
+            <div class="row">
                 <div class="d-inline table-w pt-2">
                     <div class="title-header d-inline desk_view_user">
-                        <div class="d-inline border-order role-div col-sm-6" id="origin_id" [popover]="originTemplate"
-                            placement="bottom" container="body" [outsideClick]="true" (onShown)="toggleOrigin();"
-                            (onHidden)="toggleOrigin();" #pop4="bs-popover">
+                        <div
+                            class="d-inline border-order role-div col-sm-6"
+                            id="origin_id"
+                            [popover]="originTemplate"
+                            placement="bottom"
+                            container="body"
+                            [outsideClick]="true"
+                            (onShown)="toggleOrigin()"
+                            (onHidden)="toggleOrigin()"
+                            #pop4="bs-popover"
+                        >
                             <!-- <p class="d-inline">Role:</p><p class="d-inline filter"> All&nbsp;  <a data-toggle="popover-roles" data-placement="bottom"><img src="assets/images/active.png"></a></p> -->
                             <p class="d-inline filter-text" *ngIf="estatetermOrigin == ''">
-                                {{globals.languageJson?.origin}}&nbsp;
+                                {{ globals.languageJson?.origin }}&nbsp;
                             </p>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermOrigin == ''">
-                                    &nbsp; <img
-                                        src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    &nbsp;
+                                    <img
+                                        src="{{
+                                            showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
                                 </p>
                             </a>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermOrigin != ''">
                                     {{ estatetermOrigin }} &nbsp;<img
-                                        src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        src="{{
+                                            showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
                                 </p>
                             </a>
-                        </div>&nbsp;&nbsp;
-                        <div class="d-inline border-order type-div col-sm-6" id="type_id" [popover]="typeTemplate"
-                            placement="bottom" container="body" [outsideClick]="true" (onShown)="toggleType();"
-                            (onHidden)="toggleType();" #pop2="bs-popover">
+                        </div>
+                        &nbsp;&nbsp;
+                        <div
+                            class="d-inline border-order type-div col-sm-6"
+                            id="type_id"
+                            [popover]="typeTemplate"
+                            placement="bottom"
+                            container="body"
+                            [outsideClick]="true"
+                            (onShown)="toggleType()"
+                            (onHidden)="toggleType()"
+                            #pop2="bs-popover"
+                        >
                             <p class="d-inline filter-text" *ngIf="estatetermType == ''">
-                                {{globals.languageJson?.order_type}}&nbsp;</p>
+                                {{ globals.languageJson?.order_type }}&nbsp;
+                            </p>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermType == ''">
-                                    &nbsp; <img
-                                        src="{{ showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    &nbsp;
+                                    <img
+                                        src="{{
+                                            showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
                                 </p>
                             </a>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermType != ''">
-                                    {{ estatetermType }}&nbsp; <img
-                                        src="{{ showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    {{ estatetermType }}&nbsp;
+                                    <img
+                                        src="{{
+                                            showType ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
                                 </p>
                             </a>
-                        </div>&nbsp;&nbsp;
-                        <div class="d-inline border-order status-div col-sm-6" id="status_id" [popover]="allTemplate"
-                            placement="bottom" container="body" #pop="bs-popover" [outsideClick]="true"
-                            (onShown)="toggleStatus();" (onHidden)="toggleStatus();">
+                        </div>
+                        &nbsp;&nbsp;
+                        <div
+                            class="d-inline border-order status-div col-sm-6"
+                            id="status_id"
+                            [popover]="allTemplate"
+                            placement="bottom"
+                            container="body"
+                            #pop="bs-popover"
+                            [outsideClick]="true"
+                            (onShown)="toggleStatus()"
+                            (onHidden)="toggleStatus()"
+                        >
                             <p class="d-inline filter-text" *ngIf="estatetermStatus == ''">
-                                {{globals.languageJson?.status}}&nbsp;
+                                {{ globals.languageJson?.status }}&nbsp;
                             </p>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermStatus == ''">
-                                    &nbsp; <img
-                                        src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    &nbsp;
+                                    <img
+                                        src="{{
+                                            showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
                                 </p>
                             </a>
                             <a class="pointer-item">
                                 <p class="d-inline filter" *ngIf="estatetermStatus != ''">
-                                    {{ estatetermStatus }}&nbsp; <img
-                                        src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    {{ estatetermStatus }}&nbsp;
+                                    <img
+                                        src="{{
+                                            showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'
+                                        }}"
+                                    />
                                 </p>
                             </a>
-                        </div> &nbsp;&nbsp;
+                        </div>
+                        &nbsp;&nbsp;
 
                         <div class="d-inline border-order date-div col-sm-6">
-                            <p class="d-inline filter-text">{{globals.languageJson?.date_range}} &nbsp;
-                                <span *ngIf="showDateRange != ''">{{showDateRange}}</span>
+                            <p class="d-inline filter-text">
+                                {{ globals.languageJson?.date_range }} &nbsp;
+                                <span *ngIf="showDateRange != ''">{{ showDateRange }}</span>
                             </p>
 
                             <a class="pointer-item">
-
                                 <p class="d-inline filter">
-                                    <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates"
-                                        selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true"
-                                        [showButtonBar]="true" (onSelect)="filterDate($event)"></p-calendar>
-                                    &nbsp; <img src="assets/images/active-calender.png" alt=""
-                                        (click)="openCalendar($event)">
+                                    <p-calendar
+                                        #calendar
+                                        styleClass="only-icon"
+                                        [(ngModel)]="rangeDates"
+                                        selectionMode="range"
+                                        dateFormat="dd.mm.yy"
+                                        [readonlyInput]="true"
+                                        [showButtonBar]="true"
+                                        (onSelect)="filterDate($event)"
+                                    ></p-calendar>
+                                    &nbsp;
+                                    <img
+                                        src="assets/images/active-calender.png"
+                                        alt=""
+                                        (click)="openCalendar($event)"
+                                    />
                                     <!-- <p-calendar [(ngModel)]="selected" selectionMode="range" [readonlyInput]="true" [showIcon]="true" #dateFilter>
                                 </p-calendar> -->
                                 </p>
                             </a>
-
-                        </div>&nbsp;&nbsp;
+                        </div>
+                        &nbsp;&nbsp;
                         <div class="d-inline display_div">
                             <div class="float-right border-order top-space" id="display_id">
                                 <p class="d-inline filter-text">Display &#9679;</p>
-                                <a class="pointer-item" [popover]="displayTemplate" placement="bottom"
-                                    [outsideClick]="true" container="body" #pop6="bs-popover">
+                                <a
+                                    class="pointer-item"
+                                    [popover]="displayTemplate"
+                                    placement="bottom"
+                                    [outsideClick]="true"
+                                    container="body"
+                                    #pop6="bs-popover"
+                                >
                                     <p class="d-inline filter" *ngIf="displayNumbers == '-1'" (click)="toggleDisplay()">
-                                        &nbsp; &nbsp; <img
-                                            src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        &nbsp; &nbsp;
+                                        <img
+                                            src="{{
+                                                showDisplay
+                                                    ? 'assets/images/down-arrow.svg'
+                                                    : 'assets/images/user-down.svg'
+                                            }}"
+                                        />
                                     </p>
                                 </a>
-                                <a class="pointer-item" [popover]="displayTemplate" placement="bottom"
-                                    [outsideClick]="true" container="body" #pop7="bs-popover">
+                                <a
+                                    class="pointer-item"
+                                    [popover]="displayTemplate"
+                                    placement="bottom"
+                                    [outsideClick]="true"
+                                    container="body"
+                                    #pop7="bs-popover"
+                                >
                                     <p class="d-inline filter" *ngIf="displayNumbers != '-1'" (click)="toggleDisplay()">
-                                        {{ displayNumbers }}&nbsp; &nbsp; <img
-                                            src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        {{ displayNumbers }}&nbsp; &nbsp;
+                                        <img
+                                            src="{{
+                                                showDisplay
+                                                    ? 'assets/images/down-arrow.svg'
+                                                    : 'assets/images/user-down.svg'
+                                            }}"
+                                        />
                                     </p>
                                 </a>
                             </div>
@@ -106,55 +192,52 @@
             <div class="estate-table pt-2" *ngIf="this.data != null">
                 <!-- <table class="estate-boby-txt" datatable [dtOptions]="dtOptions"> -->
 
-
                 <table class="estate-boby-txt table">
                     <thead>
                         <tr class="estate-title">
-                            <th>
-
-
-                            </th>
-                            <th>Order ID </th>
-                            <th>Micro Roaster name </th>
-                            <th>Date ordered </th>
-                            <th>Orgin </th>
+                            <th></th>
+                            <th>Order ID</th>
+                            <th>Micro Roaster name</th>
+                            <th>Date ordered</th>
+                            <th>Orgin</th>
                             <th>Species</th>
                             <th>Price</th>
-                            <th>Quantity </th>
-                            <th>Type of Order </th>
-                            <th>Status </th>
+                            <th>Quantity</th>
+                            <th>Type of Order</th>
+                            <th>Status</th>
                             <th>Cupping Score</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let group of data" class="estate-boby-txt">
-                            <td class="spacing-order" style="width: 40px;">
-
-
+                            <td class="spacing-order" style="width: 40px">
                                 <label class="select-checkbox">
-                                    <input type="radio" name="optradio" class="radio-box"
-                                        (change)="onOrderChange(group)">
-
+                                    <input
+                                        type="radio"
+                                        name="optradio"
+                                        class="radio-box"
+                                        (change)="onOrderChange(group)"
+                                    />
                                 </label>
                             </td>
 
-                            <td>{{group.id}}</td>
-                            <td>{{group.micro_roaster_name}}</td>
-                            <td>{{group.created_at | date:'dd MMM yyyy'}}</td>
-                            <td>{{GetCountry(group.origin)}}</td>
-                            <td>{{group.species}}</td>
-                            <td>{{group.total_price}}</td>
-                            <td>{{group.quantity}}</td>
+                            <td>{{ group.id }}</td>
+                            <td>{{ group.micro_roaster_name }}</td>
+                            <td>{{ group.created_at | date: 'dd MMM yyyy' }}</td>
+                            <td>{{ GetCountry(group.origin) }}</td>
+                            <td>{{ group.species }}</td>
+                            <td>{{ group.total_price }}</td>
+                            <td>{{ group.quantity }}</td>
                             <td>
                                 <p class="typeoforder-Sample" *ngIf="group.type == 'GC_ORDER_SAMPLE'">&#9679; Sample</p>
                                 <!-- <p class="typeoforder-Booked" *ngIf="group.type == 'Booked'">&#9679; {{group.type}}</p> -->
-                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'PREBOOK_LOT'">&#9679; Pre-Booked
+                                <p class="typeoforder-Pre-Booked" *ngIf="group.type == 'PREBOOK_LOT'">
+                                    &#9679; Pre-Booked
                                 </p>
                                 <p class="typeoforder-Booked" *ngIf="group.type == 'GC_ORDER'">&#9679; Booked</p>
                             </td>
-                            <td>{{group.status | titlecase}}
-                            </td>
-                            <td>{{group.cup_score}}</td>
+                            <td>{{ group.status | titlecase }}</td>
+                            <td>{{ group.cup_score }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -162,110 +245,209 @@
             <!-- no-data for Land lots Starts -->
             <div class="row pt-5" *ngIf="this.data == null">
                 <div class="col-lg-12 col-md-12 no-data-sec">
-                    <div class="text-center ">
-                        <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
-                        <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
-                        <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-                        <button type="button" class="fnt-14 fnt-600 fnt-muli save"
-                            [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
-
+                    <div class="text-center">
+                        <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image" />
+                        <h1 class="fnt-18 fnt-700 fnt-muli text-clr334">No data available</h1>
+                        <!-- <p class="fnt-14 fnt-400 fnt-muli text-clr334 no-data-para">No Land</p> -->
+                        <button
+                            type="button"
+                            class="fnt-14 fnt-600 fnt-muli save"
+                            [routerLink]="['/features/welcome-aboard']"
+                        >
+                            Browse availabilities
+                        </button>
                     </div>
                 </div>
             </div>
             <!-- no-data for Land lots Ends -->
-
         </section>
         <section class="mobile-tab">
             <div class="d-block d-lg-none">
                 <div class="raised-mobile">
-                    <div class="row  pt-md-4 pb-md-4">
+                    <div class="row pt-md-4 pb-md-4">
                         <div class="col-12">
                             <div class="title-header">
                                 <div class="mb-3">
-                                    <input class="d-inline search-name filter-set fadout-search" type="text"
-                                        name="sourcingName" [(ngModel)]="searchTerm" id="sourcingName"
-                                        placeholder={{globals.languageJson?.search_by_name}}>
+                                    <input
+                                        class="d-inline search-name filter-set fadout-search"
+                                        type="text"
+                                        name="sourcingName"
+                                        [(ngModel)]="searchTerm"
+                                        id="sourcingName"
+                                        placeholder="{{ globals.languageJson?.search_by_name }}"
+                                    />
                                 </div>
                                 <div class="d-inline border-grade col-sm-6" id="OrginMob-id">
                                     <p class="d-inline filter-text" *ngIf="estatetermOriginMob == ''">
-                                        {{globals.languageJson?.origin}}&nbsp;</p>
-                                    <a class="pointer-item" [popover]="originTemplateMob" placement="bottom"
-                                        container="body" #pop9="bs-popover">
-                                        <p class="d-inline filter" *ngIf="estatetermOriginMob == ''"
-                                            (click)="toggleOriginMob()">
-                                            &nbsp; <img
-                                                src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        {{ globals.languageJson?.origin }}&nbsp;
+                                    </p>
+                                    <a
+                                        class="pointer-item"
+                                        [popover]="originTemplateMob"
+                                        placement="bottom"
+                                        container="body"
+                                        #pop9="bs-popover"
+                                    >
+                                        <p
+                                            class="d-inline filter"
+                                            *ngIf="estatetermOriginMob == ''"
+                                            (click)="toggleOriginMob()"
+                                        >
+                                            &nbsp;
+                                            <img
+                                                src="{{
+                                                    showOriginMob
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
                                         </p>
                                     </a>
-                                    <a class="pointer-item" [popover]="originTemplateMob" placement="bottom"
-                                        container="body" #pop10="bs-popover">
-                                        <p class="d-inline filter" *ngIf="estatetermOriginMob != ''"
-                                            (click)="toggleOriginMob()">
+                                    <a
+                                        class="pointer-item"
+                                        [popover]="originTemplateMob"
+                                        placement="bottom"
+                                        container="body"
+                                        #pop10="bs-popover"
+                                    >
+                                        <p
+                                            class="d-inline filter"
+                                            *ngIf="estatetermOriginMob != ''"
+                                            (click)="toggleOriginMob()"
+                                        >
                                             {{ estatetermOriginMob }} &nbsp;<img
-                                                src="{{ showOriginMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                                src="{{
+                                                    showOriginMob
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
                                         </p>
                                     </a>
-
                                 </div>
                                 <div class="d-inline border-grade col-sm-6" id="type_id_Mob">
                                     <p class="d-inline filter-text" *ngIf="estatetermTypeMob == ''">
-                                        {{globals.languageJson?.order_type}}&nbsp;</p>
-                                    <a class="pointer-item" [popover]="typeTemplateMob" placement="bottom"
-                                        container="body" #pop11="bs-popover">
-                                        <p class="d-inline filter" *ngIf="estatetermTypeMob == ''"
-                                            (click)="toggleTypeMob()">
-                                            &nbsp; <img
-                                                src="{{ showTypeMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        {{ globals.languageJson?.order_type }}&nbsp;
+                                    </p>
+                                    <a
+                                        class="pointer-item"
+                                        [popover]="typeTemplateMob"
+                                        placement="bottom"
+                                        container="body"
+                                        #pop11="bs-popover"
+                                    >
+                                        <p
+                                            class="d-inline filter"
+                                            *ngIf="estatetermTypeMob == ''"
+                                            (click)="toggleTypeMob()"
+                                        >
+                                            &nbsp;
+                                            <img
+                                                src="{{
+                                                    showTypeMob
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
                                         </p>
                                     </a>
-                                    <a class="pointer-item" [popover]="typeTemplateMob" placement="bottom"
-                                        container="body" #pop12="bs-popover">
-                                        <p class="d-inline filter" *ngIf="estatetermTypeMob != ''"
-                                            (click)="toggleTypeMob()">
-                                            {{ estatetermTypeMob }}&nbsp; <img
-                                                src="{{ showTypeMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    <a
+                                        class="pointer-item"
+                                        [popover]="typeTemplateMob"
+                                        placement="bottom"
+                                        container="body"
+                                        #pop12="bs-popover"
+                                    >
+                                        <p
+                                            class="d-inline filter"
+                                            *ngIf="estatetermTypeMob != ''"
+                                            (click)="toggleTypeMob()"
+                                        >
+                                            {{ estatetermTypeMob }}&nbsp;
+                                            <img
+                                                src="{{
+                                                    showTypeMob
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
                                         </p>
                                     </a>
-
                                 </div>
                                 <div class="d-inline border-grade col-sm-6" id="status_id_Mob">
                                     <p class="d-inline filter-text" *ngIf="estatetermStatusMob == ''">
-                                        {{globals.languageJson?.status}}&nbsp;</p>
-                                    <a class="pointer-item" [popover]="allTemplateMob" placement="bottom"
-                                        container="body" #pop13="bs-popover">
-                                        <p class="d-inline filter" *ngIf="estatetermStatusMob == ''"
-                                            (click)="toggleStatusMob()">
-                                            &nbsp; <img
-                                                src="{{ showStatusMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                        {{ globals.languageJson?.status }}&nbsp;
+                                    </p>
+                                    <a
+                                        class="pointer-item"
+                                        [popover]="allTemplateMob"
+                                        placement="bottom"
+                                        container="body"
+                                        #pop13="bs-popover"
+                                    >
+                                        <p
+                                            class="d-inline filter"
+                                            *ngIf="estatetermStatusMob == ''"
+                                            (click)="toggleStatusMob()"
+                                        >
+                                            &nbsp;
+                                            <img
+                                                src="{{
+                                                    showStatusMob
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
                                         </p>
                                     </a>
-                                    <a class="pointer-item" [popover]="allTemplateMob" placement="bottom"
-                                        container="body" #pop14="bs-popover">
-                                        <p class="d-inline filter" *ngIf="estatetermStatusMob != ''"
-                                            (click)="toggleStatusMob()">
-                                            {{ estatetermStatusMob }}&nbsp; <img
-                                                src="{{ showStatusMob ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                                    <a
+                                        class="pointer-item"
+                                        [popover]="allTemplateMob"
+                                        placement="bottom"
+                                        container="body"
+                                        #pop14="bs-popover"
+                                    >
+                                        <p
+                                            class="d-inline filter"
+                                            *ngIf="estatetermStatusMob != ''"
+                                            (click)="toggleStatusMob()"
+                                        >
+                                            {{ estatetermStatusMob }}&nbsp;
+                                            <img
+                                                src="{{
+                                                    showStatusMob
+                                                        ? 'assets/images/down-arrow.svg'
+                                                        : 'assets/images/user-down.svg'
+                                                }}"
+                                            />
                                         </p>
                                     </a>
                                 </div>
                                 <div class="d-inline border-grade col-sm-6">
-                                    <p class="d-inline filter-text">{{globals.languageJson?.date}} &nbsp;
+                                    <p class="d-inline filter-text">
+                                        {{ globals.languageJson?.date }} &nbsp;
                                         <span *ngIf="showDateRange != ''"></span>
                                     </p>
 
                                     <a class="pointer-item">
                                         <p class="d-inline filter">
-                                            <p-calendar #calendar styleClass="only-icon" [(ngModel)]="rangeDates"
-                                                selectionMode="range" dateFormat="dd.mm.yy" [readonlyInput]="true"
-                                                [showButtonBar]="true"></p-calendar>
-                                            &nbsp; <img src="assets/images/active-calender.png" alt=""
-                                                (click)="openCalendar($event)">
-
+                                            <p-calendar
+                                                #calendar
+                                                styleClass="only-icon"
+                                                [(ngModel)]="rangeDates"
+                                                selectionMode="range"
+                                                dateFormat="dd.mm.yy"
+                                                [readonlyInput]="true"
+                                                [showButtonBar]="true"
+                                            ></p-calendar>
+                                            &nbsp;
+                                            <img
+                                                src="assets/images/active-calender.png"
+                                                alt=""
+                                                (click)="openCalendar($event)"
+                                            />
                                         </p>
                                     </a>
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -275,50 +457,65 @@
                             <div class="pagination-content">
                                 <div class="raised-list mt-5 mb-5">
                                     <ul class="cleafix pagination-content-list">
-                                        <li class="order-raised pagination-content-list__item"
-                                            *ngFor="let role of data  | filter:estatetermOriginMob | filter:estatetermTypeMob | filter: estatetermStatusMob | filter:searchTerm">
-                                            <div class="raised-detils d-inline-block  pb-3"
-                                                (click)="displayData($event,role);">
+                                        <li
+                                            class="order-raised pagination-content-list__item"
+                                            *ngFor="
+                                                let role of data
+                                                    | filter: estatetermOriginMob
+                                                    | filter: estatetermTypeMob
+                                                    | filter: estatetermStatusMob
+                                                    | filter: searchTerm
+                                            "
+                                        >
+                                            <div
+                                                class="raised-detils d-inline-block pb-3"
+                                                (click)="displayData($event, role)"
+                                            >
                                                 <div class="raised-tit">
-                                                    <h4 class="col-8">{{role.status}}</h4>
-                                                    <label class="selok"><img src="assets/images/cricle-active.png"
-                                                            alt=""></label>
+                                                    <h4 class="col-8">{{ role.status }}</h4>
+                                                    <label class="selok"
+                                                        ><img src="assets/images/cricle-active.png" alt=""
+                                                    /></label>
                                                 </div>
                                                 <div class="raised-ticket">
-                                                    <h4 class="col-8 mt-3 pull-left">{{role.id}}</h4>
-                                                    <h6 class="col-4 mt-3 pull-right text-right">{{role.dataordered}}
+                                                    <h4 class="col-8 mt-3 pull-left">{{ role.id }}</h4>
+                                                    <h6 class="col-4 mt-3 pull-right text-right">
+                                                        {{ role.dataordered }}
                                                     </h6>
                                                     <div class="estate-order clearfix">
-                                                        <h3 class="d-inline-block pl-0 pr-0 mr-3">{{role.estatename}} l
-                                                            {{role.origin}}
+                                                        <h3 class="d-inline-block pl-0 pr-0 mr-3">
+                                                            {{ role.estatename }} l
+                                                            {{ role.origin }}
                                                         </h3>
                                                         <!-- <label class="ml-3 pull-left">{{role.typeoforder}}</label> -->
-                                                        <span class="status-booked"
-                                                            *ngIf="role.typeoforder == 'Booked'">&#9679;
-                                                            {{role.typeoforder}}</span>
-                                                        <span class="status-prebook"
-                                                            *ngIf="role.typeoforder == 'Pre-Booked'">
-                                                            &#9679; {{role.typeoforder}}
+                                                        <span class="status-booked" *ngIf="role.typeoforder == 'Booked'"
+                                                            >&#9679; {{ role.typeoforder }}</span
+                                                        >
+                                                        <span
+                                                            class="status-prebook"
+                                                            *ngIf="role.typeoforder == 'Pre-Booked'"
+                                                        >
+                                                            &#9679; {{ role.typeoforder }}
                                                         </span>
-                                                        <span class="status-sample"
-                                                            *ngIf="role.typeoforder == 'Sample'">
-                                                            &#9679; {{role.typeoforder}}
+                                                        <span
+                                                            class="status-sample"
+                                                            *ngIf="role.typeoforder == 'Sample'"
+                                                        >
+                                                            &#9679; {{ role.typeoforder }}
                                                         </span>
                                                     </div>
 
-                                                    <a class="col-5 mt-3 pull-right text-right">{{globals.languageJson?.see_details}}
-                                                        <img class="pl-1" src="assets/images/estate-arrow.svg"
-                                                            alt=""></a>
+                                                    <a class="col-5 mt-3 pull-right text-right"
+                                                        >{{ globals.languageJson?.see_details }}
+                                                        <img class="pl-1" src="assets/images/estate-arrow.svg" alt=""
+                                                    /></a>
                                                 </div>
                                             </div>
                                         </li>
-
                                     </ul>
                                     <div class="responsive-pagination clearfix">
                                         <span class="responsive-pagination__prev float-left disable"></span>
-                                        <ul class="responsive-pagination-list d-flex float-left mb-0">
-
-                                        </ul>
+                                        <ul class="responsive-pagination-list d-flex float-left mb-0"></ul>
                                         <span class="responsive-pagination__next float-left"></span>
                                     </div>
                                 </div>
@@ -331,19 +528,28 @@
                 </div>
             </div>
             <div class="mt-4">
-                <button type="button" class="btn invite_members pull-right ml-auto mb-4" (click)="continue()"
-                    [disabled]="!changedID && !showContinueBtn">Continue</button>
-                <button type="button" class="btn cancel_member mr-4 pull-right ml-auto mb-4"
+                <button
+                    type="button"
+                    class="btn invite_members pull-right ml-auto mb-4"
+                    (click)="continue()"
+                    [disabled]="!changedID && !showContinueBtn"
+                >
+                    Continue
+                </button>
+                <button
+                    type="button"
+                    class="btn cancel_member mr-4 pull-right ml-auto mb-4"
                     routerLink="/ordermanagement/raise-ticket-form"
-                    [queryParams]="{id: orderBookId, orderType:orderType}">{{globals.languageJson?.cancel}}</button>
+                    [queryParams]="{ id: orderBookId, orderType: orderType }"
+                >
+                    {{ globals.languageJson?.cancel }}
+                </button>
             </div>
         </section>
-
     </div>
 
     <ng-template #originTemplate>
         <div id="status-content">
-
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
                     <label class="customcheckbox flavour-text mb-0">
@@ -383,9 +589,9 @@
             </ul>
             <div class="top-origin-border p-3">
                 <a class="pull-left clear-filter mb-2">Clear</a>
-                <button type="submit" class="btn pull-right apply-filter mb-2" (click)="pop4.hide()">Apply
-                    Filter</button>
-
+                <button type="submit" class="btn pull-right apply-filter mb-2" (click)="pop4.hide()">
+                    Apply Filter
+                </button>
             </div>
         </div>
     </ng-template>
@@ -393,16 +599,23 @@
         <div id="status-content">
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setOriginMob(''); pop9.hide(); pop10.hide();toggleOriginMob()">{{globals.languageJson?.all}}</a>
+                    <a class="pointer-item" (click)="setOriginMob(''); pop9.hide(); pop10.hide(); toggleOriginMob()">{{
+                        globals.languageJson?.all
+                    }}</a>
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide();toggleOriginMob()">{{globals.languageJson?.colombia}}</a>
+                    <a
+                        class="pointer-item"
+                        (click)="setOriginMob('Colombia'); pop9.hide(); pop10.hide(); toggleOriginMob()"
+                        >{{ globals.languageJson?.colombia }}</a
+                    >
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setOriginMob('Ethopia'); pop9.hide(); pop10.hide();toggleOriginMob()">{{globals.languageJson?.ethopia}}</a>
+                    <a
+                        class="pointer-item"
+                        (click)="setOriginMob('Ethopia'); pop9.hide(); pop10.hide(); toggleOriginMob()"
+                        >{{ globals.languageJson?.ethopia }}</a
+                    >
                 </li>
             </ul>
         </div>
@@ -411,23 +624,23 @@
     <ng-template #allTemplate>
         <div id="status-content">
             <ul class="list-group custom-popover">
-                <li class="list-group-item item-color" (click)="setStatus(''); pop.hide();">
-                    <a class="pointer-item">{{globals.languageJson?.all}}</a>
+                <li class="list-group-item item-color" (click)="setStatus(''); pop.hide()">
+                    <a class="pointer-item">{{ globals.languageJson?.all }}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Shipped'); pop.hide()">
-                    <a class="pointer-item">{{globals.languageJson?.shipped}}</a>
+                    <a class="pointer-item">{{ globals.languageJson?.shipped }}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Order Confirmed'); pop.hide()">
-                    <a class="pointer-item">{{globals.languageJson?.order_confirmed}}</a>
+                    <a class="pointer-item">{{ globals.languageJson?.order_confirmed }}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Payment'); pop.hide()">
-                    <a class="pointer-item">{{globals.languageJson?.payment}}</a>
+                    <a class="pointer-item">{{ globals.languageJson?.payment }}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Harvest Ready'); pop.hide()">
-                    <a class="pointer-item">{{globals.languageJson?.harvest_ready}}</a>
+                    <a class="pointer-item">{{ globals.languageJson?.harvest_ready }}</a>
                 </li>
                 <li class="list-group-item item-color" (click)="setStatus('Received'); pop.hide()">
-                    <a class="pointer-item">{{globals.languageJson?.received}}</a>
+                    <a class="pointer-item">{{ globals.languageJson?.received }}</a>
                 </li>
             </ul>
         </div>
@@ -437,93 +650,119 @@
         <div id="status-content">
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setStatus(''); pop13.hide(); pop14.hide();toggleStatusMob()">{{globals.languageJson?.all}}</a>
+                    <a class="pointer-item" (click)="setStatus(''); pop13.hide(); pop14.hide(); toggleStatusMob()">{{
+                        globals.languageJson?.all
+                    }}</a>
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setStatusMob('Shipped'); pop13.hide(); pop14.hide();toggleStatusMob()">{{globals.languageJson?.shipped}}</a>
+                    <a
+                        class="pointer-item"
+                        (click)="setStatusMob('Shipped'); pop13.hide(); pop14.hide(); toggleStatusMob()"
+                        >{{ globals.languageJson?.shipped }}</a
+                    >
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setStatusMob('Order Confirmed'); pop13.hide(); pop14.hide();toggleStatusMob()">{{globals.languageJson?.order_confirmed}}</a>
+                    <a
+                        class="pointer-item"
+                        (click)="setStatusMob('Order Confirmed'); pop13.hide(); pop14.hide(); toggleStatusMob()"
+                        >{{ globals.languageJson?.order_confirmed }}</a
+                    >
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setStatusMob('Payment'); pop13.hide(); pop14.hide();toggleStatusMob()">{{globals.languageJson?.payment}}</a>
+                    <a
+                        class="pointer-item"
+                        (click)="setStatusMob('Payment'); pop13.hide(); pop14.hide(); toggleStatusMob()"
+                        >{{ globals.languageJson?.payment }}</a
+                    >
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setStatusMob('Harvest Ready'); pop13.hide(); pop14.hide();toggleStatusMob()">{{globals.languageJson?.harvest_ready}}</a>
+                    <a
+                        class="pointer-item"
+                        (click)="setStatusMob('Harvest Ready'); pop13.hide(); pop14.hide(); toggleStatusMob()"
+                        >{{ globals.languageJson?.harvest_ready }}</a
+                    >
                 </li>
                 <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setStatusMob('Received'); pop13.hide(); pop14.hide();toggleStatusMob()">{{globals.languageJson?.received}}</a>
+                    <a
+                        class="pointer-item"
+                        (click)="setStatusMob('Received'); pop13.hide(); pop14.hide(); toggleStatusMob()"
+                        >{{ globals.languageJson?.received }}</a
+                    >
                 </li>
             </ul>
         </div>
     </ng-template>
-
 
     <ng-template #typeTemplateMob>
         <div>
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setTypeMob(''); pop11.hide(); pop12.hide();toggleTypeMob()">All</a>
+                    <a class="pointer-item" (click)="setTypeMob(''); pop11.hide(); pop12.hide(); toggleTypeMob()"
+                        >All</a
+                    >
                 </li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setTypeMob('Sample'); pop11.hide(); pop12.hide();toggleTypeMob()">Sample</a>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setTypeMob('Sample'); pop11.hide(); pop12.hide(); toggleTypeMob()"
+                        >Sample</a
+                    >
                 </li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setTypeMob('Booked'); pop11.hide(); pop12.hide();toggleTypeMob()">Booked</a>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setTypeMob('Booked'); pop11.hide(); pop12.hide(); toggleTypeMob()"
+                        >Booked</a
+                    >
                 </li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setTypeMob('Pre-Booked'); pop11.hide(); pop12.hide();toggleTypeMob()">Pre-Booked</a>
+                <li class="list-group-item item-color">
+                    <a
+                        class="pointer-item"
+                        (click)="setTypeMob('Pre-Booked'); pop11.hide(); pop12.hide(); toggleTypeMob()"
+                        >Pre-Booked</a
+                    >
                 </li>
-
-
             </ul>
         </div>
-
     </ng-template>
     <ng-template #typeTemplate>
         <div>
             <ul class="list-group custom-popover">
-                <li class="list-group-item item-color" (click)="setType('');pop2.hide()">
+                <li class="list-group-item item-color" (click)="setType(''); pop2.hide()">
                     <a class="pointer-item">All</a>
                 </li>
-                <li class="list-group-item item-color" (click)="setType('Sample'); pop2.hide()"><a
-                        class="pointer-item">Sample</a>
+                <li class="list-group-item item-color" (click)="setType('Sample'); pop2.hide()">
+                    <a class="pointer-item">Sample</a>
                 </li>
-                <li class="list-group-item item-color" (click)="setType('Booked'); pop2.hide()"><a
-                        class="pointer-item">Booked</a>
+                <li class="list-group-item item-color" (click)="setType('Booked'); pop2.hide()">
+                    <a class="pointer-item">Booked</a>
                 </li>
-                <li class="list-group-item item-color" (click)="setType('Pre-Booked'); pop2.hide()"><a
-                        class="pointer-item">Pre-Booked</a>
+                <li class="list-group-item item-color" (click)="setType('Pre-Booked'); pop2.hide()">
+                    <a class="pointer-item">Pre-Booked</a>
                 </li>
             </ul>
         </div>
-
     </ng-template>
 
     <ng-template #displayTemplate>
         <div>
             <ul class="list-group custom-popover">
                 <li class="list-group-item item-color">
-                    <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide();toggleDisplay()">All</a>
+                    <a class="pointer-item" (click)="setDisplay('-1'); pop6.hide(); pop7.hide(); toggleDisplay()"
+                        >All</a
+                    >
                 </li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setDisplay('10'); pop6.hide(); pop7.hide();toggleDisplay()">10</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setDisplay('25'); pop6.hide(); pop7.hide();toggleDisplay()">25</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setDisplay('50'); pop6.hide(); pop7.hide();toggleDisplay()">50</a></li>
-                <li class="list-group-item item-color"><a class="pointer-item"
-                        (click)="setDisplay('100'); pop6.hide(); pop7.hide();toggleDisplay()">100</a></li>
-
-
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setDisplay('10'); pop6.hide(); pop7.hide(); toggleDisplay()">10</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setDisplay('25'); pop6.hide(); pop7.hide(); toggleDisplay()">25</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setDisplay('50'); pop6.hide(); pop7.hide(); toggleDisplay()">50</a>
+                </li>
+                <li class="list-group-item item-color">
+                    <a class="pointer-item" (click)="setDisplay('100'); pop6.hide(); pop7.hide(); toggleDisplay()"
+                        >100</a
+                    >
+                </li>
             </ul>
         </div>
-
     </ng-template>
 </div>

@@ -9,7 +9,7 @@
                 <div class="row pt-4">
                     <div class="col-md-8 col-12 mb-4 pb-2">
                         <div class="mb-md-4">
-                            <p class="fnt-18 fnt-muli fnt-700 txt-clr334 mb-1">Invite friend`s and colleagues</p>
+                            <p class="fnt-18 fnt-muli fnt-700 text-clr334 mb-1">Invite friend`s and colleagues</p>
                             <p class="fnt-14 fnt-muli fnt-400 text-clr588 mb-0">
                                 Invite your friend`s or colleagues from here
                             </p>
@@ -17,7 +17,7 @@
                         <div class="pt-4" formArrayName="emails">
                             <div *ngFor="let email of emails.controls; let i = index">
                                 <div class="d-flex justify-content-between align-items-center d-md-none mb-3">
-                                    <h4 class="fnt-18 lh-normal fnt-bold txt-clr334 mb-0">Invite {{ i + 1 }}</h4>
+                                    <h4 class="fnt-18 lh-normal fnt-bold text-clr334 mb-0">Invite {{ i + 1 }}</h4>
                                     <div *ngIf="i">
                                         <span class="brown-cta" (click)="deleteEmail(i)"> Delete </span>
                                     </div>
@@ -78,12 +78,12 @@
         <div class="col-lg-12 col-md-12">
             <div class="text-center success-wrap">
                 <img class="mail-img" src="assets/images/mail.svg" alt="mail" />
-                <h4 class="fnt-32 fnt-700 fnt-play txt-clr334 mt-3 mt-md-4 mb-3">Successful!</h4>
+                <h4 class="fnt-32 fnt-700 fnt-play text-clr334 mt-3 mt-md-4 mb-3">Successful!</h4>
                 <p class="fnt-14 lh-normal fnt-400 fnt-muli text-clr588 mb-3">
                     <span class="d-none d-md-block">An invitation email has been successfully sent out to</span>
                     <span class="d-md-none">Invitation sent to</span>
                 </p>
-                <p class="fnt-18 fnt-700 fnt-muli txt-clr334 mb-45 mb-md-5">
+                <p class="fnt-18 fnt-700 fnt-muli text-clr334 mb-45 mb-md-5">
                     {{ infoForm.value.emails.slice(0, 3).join(', ') }}
                     {{
                         infoForm.value.emails.length > 3 ? ' and ' + (infoForm.value.emails.length - 3) + ' others' : ''

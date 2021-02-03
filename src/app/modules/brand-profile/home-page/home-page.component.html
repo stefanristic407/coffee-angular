@@ -4,7 +4,7 @@
 
         <div class="d-flex justify-content-between align-items-start mb-4 pt-3">
             <div>
-                <h4 class="fnt-18 fnt-700 fnt-muli txt-clr33">Home page</h4>
+                <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Home page</h4>
                 <p class="fnt-14 fnt-600 fnt-muli text-clr588">
                     Add details according to respective sections to create your brand profile website
                 </p>
@@ -18,8 +18,10 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
                 <div class="border p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Banner<span class="star">*</span></h4>
-                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334 mb-1">Image/Video banner<span class="star">*</span></p>
+                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Banner<span class="star">*</span></h4>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-1">
+                        Image/Video banner<span class="star">*</span>
+                    </p>
                     <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">Upload a banner cover about your roaster</p>
                     <p class="fnt-14 fnt-600 fnt-muli text-clr588">Size - 1440 x 465 px</p>
 
@@ -34,7 +36,7 @@
                     </label>
                     <span class="pl-3 sub-header-text fnt-muli">{{ banner_image_name }}</span>
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
                         >Banner Title<span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(banner_title, 10) }}/10 words</span
@@ -51,10 +53,10 @@
                 </div>
 
                 <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Who you are</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334">give yourself a small intro!</p>
+                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Who you are</h4>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">give yourself a small intro!</p>
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
                         >Title<span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(intro_title, 10) }}/10 words</span
@@ -69,7 +71,7 @@
                         maxlength="{{ globals.getTheMaxLength(intro_title, 10) }}"
                     />
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
                         >A short description about the Estate<span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(estate_desc, 10) }}/50 words</span
@@ -87,12 +89,12 @@
                 </div>
 
                 <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Wizard</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334">
+                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Wizard</h4>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">
                         Your customers can personalise their coffee from this section.
                     </p>
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
                         >Title<span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(wizard_title, 10) }}/10 words</span
@@ -107,7 +109,7 @@
                         maxlength="{{ globals.getTheMaxLength(wizard_title, 10) }}"
                     />
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
                         >Sub heading <span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(wizard_heading, 10) }}/10 words</span
@@ -124,8 +126,8 @@
                 </div>
 
                 <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Feature your products</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334">
+                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Feature your products</h4>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">
                         Select products from your shop to display them here
                     </p>
                     <div class="row">
@@ -134,7 +136,7 @@
                                 <label class="cursor-pointer">
                                     <input type="file" class="file-inpt" />
                                     <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334 m-0">Select a product</p>
+                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
                                 </label>
                             </div>
                         </div>
@@ -143,7 +145,7 @@
                                 <label class="cursor-pointer">
                                     <input type="file" class="file-inpt" />
                                     <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334 m-0">Select a product</p>
+                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
                                 </label>
                             </div>
                         </div>
@@ -152,7 +154,7 @@
                                 <label class="cursor-pointer">
                                     <input type="file" class="file-inpt" />
                                     <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334 m-0">Select a product</p>
+                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
                                 </label>
                             </div>
                         </div>
@@ -161,7 +163,7 @@
                                 <label class="cursor-pointer">
                                     <input type="file" class="file-inpt" />
                                     <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334 m-0">Select a product</p>
+                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
                                 </label>
                             </div>
                         </div>
@@ -169,12 +171,12 @@
                 </div>
 
                 <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Traceability stories</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334">
+                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Traceability stories</h4>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">
                         Users will be redirected to your completed coffee experience stories. Give them insights!
                     </p>
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
                         >Title<span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(traceability_title, 10) }}/10 words</span
@@ -189,7 +191,7 @@
                         maxlength="{{ globals.getTheMaxLength(traceability_title, 10) }}"
                     />
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
                         >Sub heading <span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(traceability_heading, 10) }}/10 words</span
@@ -204,7 +206,7 @@
                         maxlength="{{ globals.getTheMaxLength(traceability_heading, 10) }}"
                     />
 
-                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334 mt-3 mb-0">
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mt-3 mb-0">
                         Upload 2 Images / Videos*<span class="star">*</span>
                     </p>
                     <p class="fnt-14 fnt-600 fnt-muli text-clr588">Size - 540x 445 px</p>
@@ -225,10 +227,10 @@
                 </div>
 
                 <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">Sustainability</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Give an intro to your practices</p>
+                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Sustainability</h4>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">Give an intro to your practices</p>
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
                         >Title<span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(substainability_title, 10) }}/10 words</span
@@ -243,7 +245,7 @@
                         maxlength="{{ globals.getTheMaxLength(substainability_title, 10) }}"
                     />
 
-                    <label class="w-100 fnt-18 fnt-700 fnt-muli txt-clr334 mt-3"
+                    <label class="w-100 fnt-18 fnt-700 fnt-muli text-clr334 mt-3"
                         >Sub heading <span class="star">*</span>
                         <span class="sub-text fnt-muli pull-right"
                             >{{ globals.countTheString(substainability_heading, 10) }}/10 words</span
@@ -258,7 +260,7 @@
                         maxlength="{{ globals.getTheMaxLength(substainability_heading, 10) }}"
                     />
 
-                    <p class="fnt-14 fnt-600 fnt-muli txt-clr334 mt-3 mb-0">
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mt-3 mb-0">
                         Upload 2 Images / Videos*<span class="star">*</span>
                     </p>
                     <p class="fnt-14 fnt-600 fnt-muli text-clr588">Please upload 2 images : Size - 600 x 650 px</p>
