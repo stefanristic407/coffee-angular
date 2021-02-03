@@ -204,6 +204,9 @@ export class TeamMemberTableComponent implements OnInit {
             disabled: false,
         };
         const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles, disabled: true };
+        if (!this.isAddMember) {
+            obj4['label'] = this.globals.languageJson?.user_management;
+        }
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj4);

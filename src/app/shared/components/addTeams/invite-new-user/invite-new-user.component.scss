@@ -1,21 +1,6 @@
-.team_total {
-    padding-left: 3rem;
-    padding-top: 1rem;
-    padding-right: 3rem;
-}
-.add-team {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-    margin-bottom: 1.5rem;
-}
-.select_title {
-    color: #30855c !important;
-    padding: 5px;
-    border: none;
-    background-color: #ffffff;
-    -webkit-appearance: none;
+@import '../../../../../theme/styles/variables';
+.roleTxt-selector {
+    color: $primary-color;
     cursor: pointer;
 }
 .custom-popover {
@@ -53,10 +38,4 @@
             right: 10.9em !important;
         }
     }
-}
-.sectionContainer {
-    background: #fff !important;
-}
-.mt-2r {
-    margin-top: 2rem;
 }

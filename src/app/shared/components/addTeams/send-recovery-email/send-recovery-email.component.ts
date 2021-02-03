@@ -101,15 +101,11 @@ export class SendRecoveryEmailComponent implements OnInit {
         };
         const obj3: MenuItem = {
             label: 'User Management',
-            routerLink: '/people/team-members',
-            queryParams: { roleID: this.currentRoleID, isAddMember: false },
-            disabled: false,
+            disabled: true,
         };
-        const obj4: MenuItem = { label: this.globals.languageJson?.edit, disabled: true };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);
-        this.breadCrumbItem.push(obj4);
     }
     addRole(): void {
         this.isEdit = true;

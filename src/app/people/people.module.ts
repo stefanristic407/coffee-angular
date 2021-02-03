@@ -9,17 +9,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DialogModule } from 'primeng/dialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-
-import { BottomSheetRoles } from '../people/user-management/to-bottomsheet-roles/bottom-sheet-roles';
-import { BottomSheetStatus } from '../people/user-management/to-bottomsheet-status/bottom-sheet-status';
 import { AddMembersComponent } from './add-members/add-members.component';
-import { EditMembersComponent } from './edit-members/edit-members.component';
-import { ManageRoleComponent } from './manage-role/manage-role.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { PeopleRoutingModule } from './people-routing.module';
 import { PeopleComponent } from './people.component';
-import { SheetValues } from './user-management/sheet-values';
-import { UserManagementComponent } from './user-management/user-management.component';
 
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { MicroRoasterComponent } from './customer-management/micro-roaster/micro-roaster.component';
@@ -28,21 +21,14 @@ import { MicroRoasterDetailsComponent } from './customer-management/micro-roaste
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { HorecaTableComponent } from './customer-management/horeca-details/horeca-table/horeca-table.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
-import { TeamMembersComponent } from './team-members/team-members.component';
-import { InviteMemberComponent } from './invite-member/invite-member.component';
 import { PermissionErrorComponent } from './permission-error/permission-error.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
     declarations: [
         PeopleComponent,
-        EditMembersComponent,
         AddMembersComponent,
-        UserManagementComponent,
-        ManageRoleComponent,
         PagenotfoundComponent,
-        BottomSheetRoles,
-        BottomSheetStatus,
         CustomerManagementComponent,
         MicroRoasterComponent,
         HoReCaComponent,
@@ -50,8 +36,6 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
         HorecaDetailsComponent,
         HorecaTableComponent,
         DiscountEditComponent,
-        TeamMembersComponent,
-        InviteMemberComponent,
         PermissionErrorComponent,
     ],
     imports: [
@@ -67,6 +51,6 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
         AutoCompleteModule,
         SharedModule,
     ],
-    providers: [SheetValues],
+    providers: [],
 })
 export class PeopleModule {}

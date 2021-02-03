@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddMembersComponent } from './add-members/add-members.component';
 //import { CreateRoleComponent } from './create-role/create-role.component';
-import { EditMembersComponent } from './edit-members/edit-members.component';
 import { PeopleComponent } from './people.component';
-import { UserManagementComponent } from './user-management/user-management.component';
 import { PDirectMessagingComponent } from './p-direct-messaging/p-direct-messaging.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
@@ -41,7 +39,7 @@ const routes: Routes = [
             },
             {
                 path: 'user-management',
-                component: UserManagementComponent,
+                component: TeamMemberTableComponent,
                 canActivate: [AuthGuard],
             },
             {
