@@ -61,6 +61,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     messageInputElement: HTMLTextAreaElement | null = null;
     messageInput = '';
+    userSearchKeywords = '';
 
     showOffensiveMessageError = false;
     offensiveTimeout = 0;
@@ -230,6 +231,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
     processThreadUser(threadUser: ThreadMembers) {
+        threadUser.last_seen = threadUser.last_seen || '';
         threadUser.computed_lastseen = this.getReadableTime(threadUser.last_seen || '');
         threadUser.computed_organization_name = this.getOrganization(threadUser.org_type);
         threadUser.computed_fullname = threadUser.first_name + ' ' + threadUser.last_name;
@@ -271,6 +273,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             console.log('Websocket:Incoming Message : Failure');
         }
     }
+
     playNotificationSound() {
         this.audioPlayer.play();
     }
@@ -307,7 +310,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             });
             this.threadList.forEach((thread) => {
                 thread.members.forEach((member) => {
-                    member.last_seen = userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id}`].last_seen;
+                    member.last_seen =
+                        userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id}`]?.last_seen || '';
                     member.online = userStatusMap[`${member.user_id}_${member.org_type}_${member.org_id}`].online;
                     member.computed_lastseen = this.getReadableTime(member.last_seen || '');
                 });
@@ -599,6 +603,13 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.chatBodyHeightAdjust();
             }
         }
+    }
+
+    startNewChat() {
+        this.chatService.userSearch.next(true);
+    }
+    backToListFromUsers() {
+        this.chatService.userSearch.next(false);
     }
 
     sendReadToken(lastMessageId: number) {
