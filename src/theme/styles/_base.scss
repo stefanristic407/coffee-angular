@@ -505,6 +505,10 @@ input[type='number'] {
     border-right: 1px solid $primary-border-color;
 }
 
+.br-8 {
+    border-radius: 8px;
+}
+
 .br-4 {
     border-radius: 4px;
 }
@@ -543,20 +547,22 @@ input[type='number'] {
 // link with arrow
 .arrow-link {
     color: $brown-color;
-    font-size: 12px;
     font-weight: 700;
     position: relative;
     padding-right: 16px;
+    line-height: normal !important;
+    cursor: pointer;
 
     &::after {
         content: '';
         position: absolute;
-        width: 15px;
-        height: 15px;
+        width: 16px;
+        height: 100%;
         top: 0px;
         background-image: url('/assets/images/arrow-brown-onboard.svg');
         background-position: center;
         background-size: contain;
+        background-repeat: no-repeat;
     }
 
     &:hover {
@@ -564,12 +570,13 @@ input[type='number'] {
         text-decoration: none;
     }
 
-    @media (min-width: 992px) {
-        font-size: 14px;
+    &.green {
+        color: $primary-color !important;
         &::after {
-            width: 16px;
-            height: 16px;
-            top: 1px;
+            background-image: url('/assets/images/arrow-green.svg');
+        }
+        &:hover {
+            color: $primary-color !important;
         }
     }
 }
@@ -664,6 +671,11 @@ input[type='number'] {
 .solid-divider {
     height: 0;
     border-bottom: solid 1px #ebebeb;
+}
+.v-divider {
+    height: 100%;
+    width: 0;
+    border-left: solid 1px #ebebeb;
 }
 
 // Scroll style

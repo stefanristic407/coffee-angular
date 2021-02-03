@@ -1,0 +1,25 @@
+.mob-negative {
+    @media (max-width: 767px) {
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+    }
+}
+
+.feedback-total {
+    padding: 1rem 0.75rem;
+    @media (min-width: 768px) {
+        padding: 2.5rem;
+    }
+}
+
+.rating-total {
+    padding: 1rem 0.5rem 0.5rem;
+    @media (min-width: 768px) {
+        padding: 2rem 2rem 1.5rem;
+    }
+}
+
+.mobile-btn-wrap {
+    margin: 0 -15px -15px -15px;
+    padding: 12px 28px 12px 28px;
+}

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { RatingModule } from 'ng-starrating';
 
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
@@ -268,6 +269,7 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
         FormsModule,
         MatBottomSheetModule,
         Ng2SearchPipeModule,
+        RatingModule,
         MatProgressBarModule,
         SharedModule,
     ],
