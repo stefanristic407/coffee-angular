@@ -17302,7 +17302,7 @@ ul {
 @media (max-width: 767px) {
     header {
         position: relative;
-        padding: 10px 15px;
+        padding: 0 15px;
         background-color: #ffffff;
     }
     .pad-header {
@@ -17571,17 +17571,6 @@ ul {
     }
 }
 
-@media (min-width: 768px) {
-    .nav-top1 {
-        padding: 10px 0;
-    }
-}
-
-@media (min-width: 992px) {
-    .nav-top1 {
-        padding: 12px 0;
-    }
-}
 
 @media (min-width: 768px) {
     .company-logo {

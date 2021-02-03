@@ -1099,4 +1099,14 @@ export class RoasterserviceService {
         data['method'] = 'PUT';
         return this.http.post(this.url, data);
     }
+
+    // Order settings details
+    getOrderSettings(roasterId) {
+        const data = {
+            api_call: `/ro/${roasterId}/order-settings`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.url, data);
+    }
 }
