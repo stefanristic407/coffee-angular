@@ -59,7 +59,7 @@
 
                             <div class="chat-seeting position-relative" *ngIf="openedThread">
                                 <a class="menu-arrow">
-                                    <p><img class="ellipse-image" src="assets/images/ellipses.png" alt="" /></p>
+                                    <p><img class="ellipse-image" src="assets/images/three-dots.svg" alt="" /></p>
                                 </a>
 
                                 <div class="chat-seeting__items">
@@ -127,7 +127,7 @@
                             <div class="offensive-lang" [ngClass]="{ active: showOffensiveMessageError }">
                                 <span
                                     >Use of offensive language is strictly prohibited using within member to member
-                                    messaging, onour public groups, non-compliance may lead to permanent / temporary
+                                    messaging, on our public groups, non-compliance may lead to permanent / temporary
                                     suspension of your account.</span
                                 >
                             </div>
@@ -242,7 +242,7 @@
                                     <div class="chat-seeting position-relative" *ngIf="openedThread">
                                         <a class="menu-arrow">
                                             <p>
-                                                <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                                <img class="ellipse-image" src="assets/images/three-dots.svg" alt="" />
                                             </p>
                                         </a>
 
@@ -323,7 +323,7 @@
                                     <div class="offensive-lang" [ngClass]="{ active: showOffensiveMessageError }">
                                         <span
                                             >Use of offensive language is strictly prohibited using within member to
-                                            member messaging, onour public groups, non-compliance may lead to permanent
+                                            member messaging, on our public groups, non-compliance may lead to permanent
                                             / temporary suspension of your account.</span
                                         >
                                     </div>
@@ -405,16 +405,18 @@
                                     [(ngModel)]="userSearchKeywords"
                                     class="search-account__input"
                                     type="search"
+                                    data-element="user-search-input"
                                     placeholder="Search users"
+                                    appLifecyclehook
+                                    (viewChecked)="userSearchPanelRendered.next('done')"
                                 />
                             </div>
 
                             <div class="chat-accounts__name">
-                                <!--Account-->
-                                <div
+                                <!--User Search-->
+                                <!-- <div
                                     class="clearfix account"
                                     *ngFor="let thread of threadList | searchFilter: threadSearchKeyword"
-                                    (click)="openThreadChat(thread)"
                                 >
                                     <div class="d-inline-block profile-pic">
                                         <span
@@ -429,13 +431,13 @@
                                     </div>
                                     <div class="chat-profile clearfix">
                                         <div class="chat-profile__name d-inline-block">
+                                            <div class="chat-profile__time">
+                                                <span>{{ thread.computed_createdAt }}</span>
+                                            </div>
                                             <h5 class="name">{{ thread.computed_targetedUser.computed_fullname }}</h5>
                                             <span class="status">{{
                                                 thread.computed_targetedUser.computed_organization_name
                                             }}</span>
-                                        </div>
-                                        <div class="chat-profile__time">
-                                            <span>{{ thread.computed_createdAt }}</span>
                                         </div>
                                         <div class="chat-messaged">
                                             <p class="chat-messaged__text">{{ thread.computed_lastActivityText }}</p>
@@ -446,18 +448,24 @@
                                             >
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </ng-container>
 
                         <ng-container *ngIf="!(chatService.userSearch | async)">
-                            <div class="search-account">
+                            <div class="search-account position-relative">
                                 <img src="assets/images/dm-search.svg" />
                                 <input
                                     [(ngModel)]="threadSearchKeyword"
                                     class="search-account__input"
                                     type="search"
                                     placeholder="Search Messages"
+                                />
+                                <img
+                                    *ngIf="threadSearchKeyword"
+                                    class="close-button"
+                                    (click)="threadSearchKeyword = ''"
+                                    src="assets/images/close.svg"
                                 />
                             </div>
 
@@ -481,14 +489,15 @@
                                     </div>
                                     <div class="chat-profile clearfix">
                                         <div class="chat-profile__name d-inline-block">
+                                            <div class="chat-profile__time">
+                                                <span>{{ thread.computed_createdAt }}</span>
+                                            </div>
                                             <h5 class="name">{{ thread.computed_targetedUser.computed_fullname }}</h5>
                                             <span class="status">{{
                                                 thread.computed_targetedUser.computed_organization_name
                                             }}</span>
                                         </div>
-                                        <div class="chat-profile__time">
-                                            <span>{{ thread.computed_createdAt }}</span>
-                                        </div>
+
                                         <div class="chat-messaged">
                                             <p class="chat-messaged__text">{{ thread.computed_lastActivityText }}</p>
                                             <span
