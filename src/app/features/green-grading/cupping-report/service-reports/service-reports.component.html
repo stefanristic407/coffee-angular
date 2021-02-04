@@ -5,20 +5,20 @@
                 <tr class="header-row">
                     <th>
                         <label class="customcheckbox m-b-20">
-                            <input type="checkbox" id="mainCheckbox" [checked]="isAllChecked()"
-                                (change)="checkAll($event)" />
+                            <input
+                                type="checkbox"
+                                id="mainCheckbox"
+                                [checked]="isAllChecked()"
+                                (change)="checkAll($event)"
+                            />
                             <span class="checkmark head-check"></span>
                         </label>
                     </th>
-                    <th scope="col">Order ID </th>
+                    <th scope="col">Order ID</th>
                     <th scope="col">Estate Name</th>
 
-                    <th scope="col">
-                        Region
-                    </th>
-                    <th scope="col">
-                        Evaluators
-                    </th>
+                    <th scope="col">Region</th>
+                    <th scope="col">Evaluators</th>
                     <th scope="col">Date Conducted</th>
                     <th scope="col">Avg. Cup Score</th>
 
@@ -26,12 +26,21 @@
                 </tr>
             </thead>
             <tbody class="customtable">
-                <tr class="ticket-boby-txt"
-                    *ngFor="let item of cuppingService.reportsList | filter:term | filter: termRole | filter: termStatus">
+                <tr
+                    class="ticket-boby-txt"
+                    *ngFor="
+                        let item of cuppingService.reportsList | filter: term | filter: termRole | filter: termStatus
+                    "
+                >
                     <td>
                         <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox" name="sizecb[]" value="{{item.id}}"
-                                [(ngModel)]="item.state" />
+                            <input
+                                type="checkbox"
+                                class="listCheckbox"
+                                name="sizecb[]"
+                                value="{{ item.id }}"
+                                [(ngModel)]="item.state"
+                            />
                             <span class="checkmark head-check"></span>
                         </label>
                     </td>
@@ -39,22 +48,23 @@
                         {{ item.gc_order_id }}
                     </td>
                     <td>{{ item.estate_name }}</td>
-                    <td>{{ item.region }} </td>
+                    <td>{{ item.region }}</td>
                     <td>
-                        <span *ngFor="let eval of item.evaluators | slice:0:1">
-                            {{eval}}
+                        <span *ngFor="let eval of item.evaluators | slice: 0:1">
+                            {{ eval }}
                         </span>
-                        <span *ngIf="item.evaluators.length >1"> ,{{(item.evaluators.length)-1}}more</span>
+                        <span *ngIf="item.evaluators.length > 1"> ,{{ item.evaluators.length - 1 }}more</span>
                     </td>
-                    <td>{{ item.completed_on }} </td>
+                    <td>{{ item.completed_on }}</td>
                     <td>
-                        {{item.average_score}}
+                        {{ item.average_score }}
                     </td>
                     <td>
                         <button type="button" class="btn pdf-btn" (click)="viewPdf(item.url)">View PDF</button>
-                        <button type="button" class="btn table-btn" (click)="serviceReportLink(item)">View
-                            table</button>
-                        <img class="ellipse-image" src="/assets/images/ellipses.png" alt="">
+                        <button type="button" class="btn table-btn" (click)="serviceReportLink(item)">
+                            View table
+                        </button>
+                        <img class="ellipse-image" src="/assets/images/ellipses.png" alt="" />
                     </td>
                 </tr>
             </tbody>
@@ -64,13 +74,13 @@
 <!-- no-data for Cupping report Starts -->
 <div class="row pt-5" *ngIf="this.cuppingService.reportsList == null">
     <div class="col-lg-12 col-md-12 no-data-sec">
-        <div class="text-center ">
-            <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
-            <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
-            <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
-            <button type="button" class="fnt-14 fnt-600 fnt-muli save"
-                [routerLink]="['/features/welcome-aboard']">Browse availabilities</button>
-
+        <div class="text-center">
+            <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image" />
+            <h1 class="fnt-18 fnt-700 fnt-muli text-clr334">No data available</h1>
+            <!-- <p class="fnt-14 fnt-400 fnt-muli text-clr334 no-data-para">No Land</p> -->
+            <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">
+                Browse availabilities
+            </button>
         </div>
     </div>
 </div>

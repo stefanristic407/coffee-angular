@@ -1,261 +1,387 @@
 <section>
-        <div class="bg-fff mb-4">
-            <div class="row">
-                <div class="col-12 d-flex no-block align-items-center">
-                    <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                        <span id="title-breadcrumb-1" class="sr-only"></span>
-                        <ul class="bread-nav">
-                            <li class="b-cum">
-                                <a class="b-cum" routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                            </li>
-                            <!-- <li class="b-cum">
+    <div class="bg-fff mb-4">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
+                    <span id="title-breadcrumb-1" class="sr-only"></span>
+                    <ul class="bread-nav">
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
+                            ><span class="padl-r" aria-hidden="true">
+                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                            </span>
+                        </li>
+                        <!-- <li class="b-cum">
                                 <a class="b-cum">{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
                             </li> -->
-                            <li class="b-cum">
-                                <a class="b-cum" routerLink="/features/brand-profile">{{globals.languageJson?.brand_profile}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                            </li>
-                            <li class="b-cum c-pink">Visit Us</li>
-                        </ul>
-                    </nav>
+                        <li class="b-cum">
+                            <a class="b-cum" routerLink="/features/brand-profile">{{
+                                globals.languageJson?.brand_profile
+                            }}</a
+                            ><span class="padl-r" aria-hidden="true">
+                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                            </span>
+                        </li>
+                        <li class="b-cum c-pink">Visit Us</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec px-0">
+            <div class="row mb-4">
+                <div class="col-md-6 col-12">
+                    <p class="brand-profile">Visit Us</p>
+                    <p class="brand-para">
+                        Add details according to respective sections to create your brand profile website
+                    </p>
+                </div>
+                <div class="col-md-6 col-12 web-farm">
+                    <button type="button" class="save ml-3 pull-right" (click)="saveVisitProfile()">Save</button>
+                    <button type="button" class="preview">Preview</button>
                 </div>
             </div>
 
-            <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec px-0">
+            <div class="row px-3">
+                <div class="col-lg-8 col-md-12 col-sm-12 border p-4">
+                    <p class="header-text fnt-muli">Banner<span class="star">*</span></p>
+                    <label class="w-100 sub-header-text fnt-muli">Image/Video banner<span class="star">*</span></label>
+                    <p class="sub-text fnt-muli">Size - 1440 x 465 px</p>
+                    <label class="mt-3">
+                        <input
+                            type="file"
+                            class="file-inpt"
+                            accept="video/*,image/*"
+                            (change)="onFileChange($event, 1440, 465, 'Banner')"
+                        />
+                        <span class="save"> Upload </span>
+                    </label>
+                    <span class="pl-3 sub-header-text fnt-muli">{{ banner_image_name }}</span>
+                    <!-- <button class="save " type="button">Upload</button> -->
+                    <label class="w-100 sub-header-text fnt-muli mt-3"
+                        >Banner Title<span class="star">*</span>
+                        <span class="sub-text fnt-muli pull-right"
+                            >{{ globals.countTheString(banner_title, 10) }}/10 words</span
+                        ></label
+                    >
+                    <input
+                        type="text"
+                        class="form-control banner-title"
+                        name="banner-title"
+                        id="banner-title"
+                        [(ngModel)]="banner_title"
+                        maxlength="{{ globals.getTheMaxLength(banner_title, 10) }}"
+                    />
+                </div>
+            </div>
 
-                <div class="row mb-4">
-                    <div class="col-md-6 col-12">
-                        <p class="brand-profile"> Visit Us</p>
-                        <p class="brand-para">Add details according to respective sections to create your brand profile website</p>
+            <div class="row px-3 pt-4">
+                <div class="col-lg-8 col-md-12 col-sm-12 p-4 border">
+                    <p class="header-text fnt-muli">Contact Info</p>
+                    <p class="w-100 sub-header-text fnt-muli">Your details to get in touch!</p>
+                    <p class="header-text fnt-muli">Address<span class="star">*</span></p>
+
+                    <div class="row">
+                        <div class="roastery-fields col-md-6 col-12">
+                            <div class="farm-input col-12 px-0">
+                                <label class="label pl-1">Country<span class="star">*</span></label>
+                                <select
+                                    name="Year"
+                                    required=""
+                                    class="form-control select-region"
+                                    [(ngModel)]="country"
+                                    (change)="changeCountry()"
+                                >
+                                    <option value="" selected="" disabled="">Please select your country</option>
+                                    <option
+                                        *ngFor="let count of roasterProfileService.countryList"
+                                        value="{{ count.isoCode }}"
+                                    >
+                                        {{ count.name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="roastery-fields col-12 col-md-6">
+                            <div class="farm-input col-12 px-0">
+                                <label class="label pl-1">State<span class="star">*</span></label>
+                                <select name="Year" required="" class="form-control select-region" [(ngModel)]="state">
+                                    <option value="" selected="" disabled="">Please select your State</option>
+                                    <option *ngFor="let city of roasterProfileService.cities" value="{{ state }}">
+                                        {{ city }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-12 web-farm">
-                        <button type="button" class="save ml-3 pull-right" (click)="saveVisitProfile()">Save </button>
-                        <button type="button" class="preview">Preview </button>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label class="w-100 sub-header-text fnt-muli mt-3"
+                                >Address<span class="star">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control banner-title"
+                                name="line1"
+                                id="line1"
+                                placeholder="Line 1"
+                                [(ngModel)]="address1"
+                            />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label class="w-100 sub-header-text fnt-muli mt-3">&nbsp;</label>
+                            <input
+                                type="text"
+                                class="form-control banner-title"
+                                name="line2"
+                                id="line2"
+                                placeholder="Line 2"
+                                [(ngModel)]="address2"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-6">
+                            <label class="w-100 sub-header-text fnt-muli mt-3">City<span class="star">*</span> </label>
+                            <input
+                                type="text"
+                                class="form-control banner-title"
+                                name="city"
+                                id="city"
+                                placeholder="city"
+                                [(ngModel)]="city"
+                            />
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6">
+                            <label class="w-100 sub-header-text fnt-muli mt-3">Zipcode</label>
+                            <input
+                                type="text"
+                                class="form-control banner-title"
+                                name="zipcode"
+                                id="zipcode"
+                                [(ngModel)]="zip_code"
+                            />
+                        </div>
+                    </div>
+
+                    <p class="bor-top mt-4"></p>
+                    <p class="header-text fnt-muli">Contact details<span class="star">*</span></p>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label class="w-100 sub-header-text fnt-muli mt-3"
+                                >Email Address<span class="star">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                class="form-control banner-title"
+                                name="Email"
+                                id="email"
+                                placeholder="Roastery email"
+                                [(ngModel)]="email"
+                            />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label class="w-100 sub-header-text fnt-muli mt-3"
+                                >Phone Number<span class="star">*</span>
+                            </label>
+                            <input
+                                type="tel"
+                                class="form-control banner-title"
+                                name="Phone"
+                                id="Phone"
+                                placeholder="+46"
+                                [(ngModel)]="phoneNumber"
+                            />
+                        </div>
                     </div>
                 </div>
 
-                <div class="row px-3">
-                    <div class="col-lg-8 col-md-12 col-sm-12  border p-4">
-                        <p class="header-text fnt-muli">Banner<span class="star">*</span></p>
-                        <label class="w-100 sub-header-text fnt-muli">Image/Video banner<span class="star">*</span></label>
-                        <p class="sub-text fnt-muli">Size - 1440 x 465 px</p>
-                        <label class="mt-3">
-                            <input type="file" class="file-inpt" accept="video/*,image/*" (change)="onFileChange($event, 1440, 465, 'Banner')">
-                            <span class="save"> Upload </span>
-                        </label>
-                        <span class="pl-3 sub-header-text fnt-muli">{{banner_image_name}}</span>
-                        <!-- <button class="save " type="button">Upload</button> -->
-                        <label class="w-100 sub-header-text fnt-muli mt-3">Banner Title<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(banner_title,10)}}/10 words</span></label>
-                        <input type="text" class="form-control banner-title" name="banner-title" id="banner-title" [(ngModel)]="banner_title" maxlength="{{globals.getTheMaxLength(banner_title,10)}}">
+                <div class="col-lg-8 col-md-12 col-sm-12 p-4 border mt-3">
+                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">FAQs</h4>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">Help your users solves questions faster</p>
+
+                    <div *ngFor="let questiondata of questionArray; let i = index">
+                        <div class="roastery-fields">
+                            <div class="farm-input col-12 col-md-10 px-0">
+                                <label class="label"></label>
+                                <select
+                                    name="Year"
+                                    required=""
+                                    class="form-control select-region"
+                                    [(ngModel)]="questiondata.type"
+                                    id="question_type"
+                                >
+                                    <option value="" selected="" disabled="">Do you offer a trial purchase?</option>
+                                    <option value="Bow">Bow</option>
+                                    <option value="Lucile French">Lucile French</option>
+                                    <option value="Rena Gonzales">Rena Gonzales</option>
+                                </select>
+                            </div>
+                            <div class="questionTypeError" *ngIf="questionTypeError != ''">{{ questionTypeError }}</div>
+                        </div>
+
+                        <div class="roastery-fields">
+                            <div class="farm-input col-12 col-md-12 px-0">
+                                <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
+                                    >Question<span class="star">*</span>
+                                    <span class="sub-text fnt-muli pull-right"
+                                        >{{ globals.countTheString(questiondata.question, 15) }}/15 words</span
+                                    ></label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control banner-title"
+                                    placeholder="Please enter the name of your employee"
+                                    name="title"
+                                    id="question"
+                                    [(ngModel)]="questiondata.question"
+                                    maxlength="{{ globals.getTheMaxLength(questiondata.question, 15) }}"
+                                />
+                            </div>
+                            <div class="questionError" *ngIf="questionError != ''">
+                                {{ questionError }}
+                            </div>
+                        </div>
+
+                        <div class="roastery-fields">
+                            <div class="farm-input col-12 col-md-12 px-0">
+                                <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
+                                    >Answer<span class="star">*</span>
+                                    <span class="sub-text fnt-muli pull-right"
+                                        >{{ globals.countTheString(questiondata.answer, 100) }}/100 words</span
+                                    ></label
+                                >
+                                <textarea
+                                    id="question_answer"
+                                    class="form-control"
+                                    rows="5"
+                                    cols="50"
+                                    [(ngModel)]="questiondata.answer"
+                                    maxlength="{{ globals.getTheMaxLength(questiondata.answer, 100) }}"
+                                >
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="questionAnswerError" *ngIf="questionAnswerError != ''">
+                            {{ questionAnswerError }}
+                        </div>
+                        <div class="mt-3">
+                            <button type="button" class="save" (click)="saveQuestion(questiondata.id, $event)">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+
+                    <hr class="dashed my-4" />
+
+                    <div class="add-partner d-inline-flex align-items-center">
+                        <img src="assets/images/add-partner.svg" />
+                        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr60b cursor-pointer" (click)="addnewrow()">
+                            Add new question
+                        </span>
                     </div>
                 </div>
 
-                <div class="row px-3 pt-4">
-                    <div class="col-lg-8 col-md-12 col-sm-12 p-4 border">
+                <!-- accordion ui -->
 
-                        <p class="header-text fnt-muli">Contact Info</p>
-                        <p class="w-100 sub-header-text fnt-muli">Your details to get in touch!</p>
-                        <p class="header-text fnt-muli">Address<span class="star">*</span></p>
+                <div class="col-lg-8 col-md-12 col-sm-12 p-4 border mt-3">
+                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">FAQs</h4>
+                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">Help your users solves questions faster</p>
 
+                    <div class="visit-us-accordion-content position-relative col-md-10 col-12">
                         <div class="row">
-                            <div class="roastery-fields col-md-6 col-12">
-                                <div class="farm-input col-12  px-0">
-                                    <label class="label pl-1">Country<span class="star">*</span></label>
-                                    <select name="Year" required="" class="form-control select-region" [(ngModel)]="country" (change)="changeCountry()">
-                                            <option  value="" selected="" disabled="" > Please select your country</option>
-                                            <option
-                                            *ngFor="let count of roasterProfileService.countryList"
-                                            value="{{ count.isoCode }}"
-                                            >{{ count.name }}
-                                          </option>
-                                        </select>
-                                </div>
-                            </div>
+                            <div class="accordion col-12 mb-3" id="accordionExample">
+                                <div class="card" *ngFor="let saveddata of savedFaqArray; let i = index">
+                                    <div class="card-head" [id]="'heading' + i">
+                                        <h2
+                                            class="mb-0 question float-left w-80"
+                                            data-toggle="collapse"
+                                            [attr.data-target]="'#collapse' + i"
+                                            aria-expanded="true"
+                                            [attr.aria-controls]="'collapse' + i"
+                                        >
+                                            {{ saveddata.question }}
+                                        </h2>
+                                        <div class="d-flex float-right">
+                                            <span (click)="editFAQ(saveddata)">Edit</span> &nbsp;
+                                            <span (click)="deleteFAQ(saveddata)">Delete</span>
+                                        </div>
+                                        <!-- <span>Edit</span> &nbsp; <span>Delete</span> -->
+                                    </div>
 
-                            <div class="roastery-fields col-12 col-md-6">
-                                <div class="farm-input col-12 px-0">
-                                    <label class="label pl-1">State<span class="star">*</span></label>
-                                    <select name="Year" required="" class="form-control select-region" [(ngModel)]="state">
-                                            <option  value="" selected="" disabled="" > Please select your State</option>
-                                            <option *ngFor="let city of roasterProfileService.cities" value={{state}}
-                                            >{{ city }}
-                                            </option>
-                                        </select>
+                                    <div
+                                        [id]="'collapse' + i"
+                                        class="collapse sourcing-collapse show"
+                                        [attr.aria-labelledby]="'heading' + i"
+                                        data-parent="#accordionExample"
+                                    >
+                                        <div class="card-body">
+                                            <div class="roastery-fields">
+                                                <div class="farm-input col-12 px-0">
+                                                    <label class="label"></label> {{ saveddata.answer }}
+                                                    <!-- <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title"> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-head" id="headingTwo">
+                                        <h2
+                                            class="mb-0 collapsed question"
+                                            data-toggle="collapse"
+                                            data-target="#collapseTwo"
+                                            aria-expanded="false"
+                                            aria-controls="collapseTwo"
+                                        >
+                                            How much will the shipping and haulage cost?
+                                        </h2>
+                                    </div>
+
+                                    <div
+                                        id="collapseTwo"
+                                        class="collapse sourcing-collapse"
+                                        aria-labelledby="headingTwo"
+                                        data-parent="#accordionExample"
+                                    >
+                                        <div class="card-body">
+                                            <div class="roastery-fields">
+                                                <div class="farm-input col-12 px-0">
+                                                    <label class="label"></label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control banner-title"
+                                                        placeholder="Please enter the name of your employee"
+                                                        name="title"
+                                                        id="title"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <label class="w-100 sub-header-text fnt-muli mt-3">Address<span class="star">*</span> </label>
-                                <input type="text" class="form-control banner-title" name="line1" id="line1" placeholder="Line 1" [(ngModel)]="address1">
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <label class="w-100 sub-header-text fnt-muli mt-3">&nbsp;</label>
-                                <input type="text" class="form-control banner-title" name="line2" id="line2" placeholder="Line 2" [(ngModel)]="address2">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                <label class="w-100 sub-header-text fnt-muli mt-3">City<span class="star">*</span> </label>
-                                <input type="text" class="form-control banner-title" name="city" id="city" placeholder="city" [(ngModel)]="city">
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                <label class="w-100 sub-header-text fnt-muli mt-3">Zipcode</label>
-                                <input type="text" class="form-control banner-title" name="zipcode" id="zipcode" [(ngModel)]="zip_code">
-                            </div>
-
-                        </div>
-
-                        <p class="bor-top mt-4"> </p>
-                        <p class="header-text fnt-muli">Contact details<span class="star">*</span></p>
-
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <label class="w-100 sub-header-text fnt-muli mt-3">Email Address<span class="star">*</span> </label>
-                                <input type="email" class="form-control banner-title" name="Email" id="email" placeholder="Roastery email" [(ngModel)]="email">
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <label class="w-100 sub-header-text fnt-muli mt-3">Phone Number<span class="star">*</span> </label>
-                                <input type="tel" class="form-control banner-title" name="Phone" id="Phone" placeholder="+46" [(ngModel)]="phoneNumber">
-                            </div>
-                        </div>
-
-
-                    </div>
-
-
-                    <div class="col-lg-8 col-md-12 col-sm-12 p-4 border mt-3">
-                        <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">FAQs</h4>
-                        <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Help your users solves questions faster</p>
-
-
-                        <div *ngFor="let questiondata of questionArray; let i = index">
-                            <div class="roastery-fields">
-                                <div class="farm-input col-12 col-md-10 px-0">
-                                    <label class="label"></label>
-                                    <select name="Year" required="" class="form-control select-region" [(ngModel)]="questiondata.type" id="question_type">
-                                        <option value="" selected="" disabled=""> Do you offer a trial purchase?</option>
-                                        <option value="Bow"> Bow </option>
-                                        <option value="Lucile French"> Lucile French </option>
-                                        <option value="Rena Gonzales"> Rena Gonzales </option>
-                                    </select>
-                                </div>
-                                <div class="questionTypeError" *ngIf="questionTypeError != ''">{{ questionTypeError }}</div>
-                            </div>
-
-                            <div class="roastery-fields">
-                                <div class="farm-input col-12 col-md-12 px-0">
-                                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Question<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(questiondata.question,15)}}/15 words</span></label>
-                                    <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="question" [(ngModel)]="questiondata.question" maxlength="{{globals.getTheMaxLength(questiondata.question,15)}}">
-                                </div>
-                                <div class="questionError" *ngIf="questionError != ''">
-                                    {{ questionError }}
-                                </div>
-                            </div>
-
-                            <div class="roastery-fields">
-                                <div class="farm-input col-12 col-md-12 px-0">
-                                    <label class="w-100 fnt-14 fnt-600 fnt-muli txt-clr334 mt-3">Answer<span class="star">*</span> <span class="sub-text fnt-muli pull-right">{{globals.countTheString(questiondata.answer,100)}}/100 words</span></label>
-                                    <textarea id="question_answer" class="form-control" rows="5" cols="50" [(ngModel)]="questiondata.answer" maxlength="{{globals.getTheMaxLength(questiondata.answer,100)}}"> </textarea>
-                                </div>
-                            </div>
-                            <div class="questionAnswerError" *ngIf="questionAnswerError != ''">
-                                {{ questionAnswerError }}
-                            </div>
-                            <div class="mt-3">
-                                <button type="button" class="save" (click)="saveQuestion(questiondata.id, $event)">Add </button>
-                            </div>
-                        </div>
-
-
-
-
-                        <hr class="dashed my-4">
+                        <hr class="dashed my-4" />
 
                         <div class="add-partner d-inline-flex align-items-center">
-                            <img src="assets/images/add-partner.svg">
-                            <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer" (click)="addnewrow()"> Add new question  </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- accordion ui -->
-
-                    <div class="col-lg-8 col-md-12 col-sm-12 p-4 border mt-3">
-                        <h4 class="fnt-18 fnt-700 fnt-muli txt-clr334">FAQs</h4>
-                        <p class="fnt-14 fnt-600 fnt-muli txt-clr334">Help your users solves questions faster</p>
-
-
-                        <div class="visit-us-accordion-content  position-relative col-md-10 col-12">
-                            <div class="row ">
-
-                                <div class="accordion col-12  mb-3" id="accordionExample">
-                                    <div class="card" *ngFor="let saveddata of savedFaqArray; let i = index">
-                                        <div class="card-head" [id]="'heading'+i">
-                                            <h2 class="mb-0 question float-left w-80" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
-                                                {{saveddata.question}}
-                                            </h2>
-                                            <div class="d-flex float-right">
-                                                <span (click)="editFAQ(saveddata)">Edit</span> &nbsp; <span (click)="deleteFAQ(saveddata)">Delete</span>
-                                            </div>
-                                            <!-- <span>Edit</span> &nbsp; <span>Delete</span> -->
-
-                                        </div>
-
-                                        <div [id]="'collapse'+i" class="collapse sourcing-collapse show" [attr.aria-labelledby]="'heading'+i" data-parent="#accordionExample">
-                                            <div class="card-body">
-                                                <div class="roastery-fields">
-                                                    <div class="farm-input col-12 px-0">
-                                                        <label class="label"></label> {{saveddata.answer}}
-                                                        <!-- <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title"> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-head" id="headingTwo">
-                                            <h2 class="mb-0 collapsed question" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                How much will the shipping and haulage cost?
-                                            </h2>
-                                        </div>
-
-                                        <div id="collapseTwo" class="collapse sourcing-collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                            <div class="card-body">
-                                                <div class="roastery-fields">
-                                                    <div class="farm-input col-12 px-0">
-                                                        <label class="label"></label>
-                                                        <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <hr class="dashed my-4">
-
-                            <div class="add-partner d-inline-flex align-items-center">
-                                <img src="assets/images/add-partner.svg">
-                                <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer"> Add new question  </span>
-
-                            </div>
+                            <img src="assets/images/add-partner.svg" />
+                            <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr60b cursor-pointer">
+                                Add new question
+                            </span>
                         </div>
                     </div>
-
-
                 </div>
+            </div>
 
-                <div class="pb-5 pt-4 ">
-                    <button class="cancel pull-left mr-auto fnt-muli" type="button" routerLink="/features/brand-profile">Cancel</button>
-                </div>
-
-
-            </section>
-
-
-        </div>
+            <div class="pb-5 pt-4">
+                <button class="cancel pull-left mr-auto fnt-muli" type="button" routerLink="/features/brand-profile">
+                    Cancel
+                </button>
+            </div>
+        </section>
+    </div>
 </section>

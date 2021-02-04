@@ -5,33 +5,49 @@
                 <tr class="header-row">
                     <th>
                         <label class="customcheckbox m-b-20">
-                            <input type="checkbox" id="mainCheckbox" [checked]="isAllChecked()"
-                                (change)="checkAll($event)" />
+                            <input
+                                type="checkbox"
+                                id="mainCheckbox"
+                                [checked]="isAllChecked()"
+                                (change)="checkAll($event)"
+                            />
                             <span class="checkmark head-check"></span>
                         </label>
                     </th>
-                    <th scope="col">{{globals.languageJson?.service_id}}</th>
-                    <th scope="col">{{globals.languageJson?.estate_name}}</th>
+                    <th scope="col">{{ globals.languageJson?.service_id }}</th>
+                    <th scope="col">{{ globals.languageJson?.estate_name }}</th>
 
                     <th scope="col">
-                        {{globals.languageJson?.region}}
+                        {{ globals.languageJson?.region }}
                     </th>
 
-                    <th scope="col">{{globals.languageJson?.evaluators}}</th>
-                    <th scope="col">{{globals.languageJson?.date_conducted}}</th>
+                    <th scope="col">{{ globals.languageJson?.evaluators }}</th>
+                    <th scope="col">{{ globals.languageJson?.date_conducted }}</th>
                     <th scope="col">
-                        {{globals.languageJson?.avg_cup_score}}
+                        {{ globals.languageJson?.avg_cup_score }}
                     </th>
-                    <th scope="col">{{globals.languageJson?.action}}</th>
+                    <th scope="col">{{ globals.languageJson?.action }}</th>
                 </tr>
             </thead>
             <tbody class="customtable">
-                <tr class="ticket-boby-txt"
-                    *ngFor="let item of cuppingService.externalReportsList | filter:term | filter: termRole | filter: termStatus">
+                <tr
+                    class="ticket-boby-txt"
+                    *ngFor="
+                        let item of cuppingService.externalReportsList
+                            | filter: term
+                            | filter: termRole
+                            | filter: termStatus
+                    "
+                >
                     <td>
                         <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox" name="sizecb[]" value="{{item.id}}"
-                                [(ngModel)]="item.state" />
+                            <input
+                                type="checkbox"
+                                class="listCheckbox"
+                                name="sizecb[]"
+                                value="{{ item.id }}"
+                                [(ngModel)]="item.state"
+                            />
                             <span class="checkmark head-check"></span>
                         </label>
                     </td>
@@ -39,23 +55,25 @@
                         {{ item.external_sample_id }}
                     </td>
                     <td>{{ item.estate_name }}</td>
-                    <td>{{ item.origin }} </td>
+                    <td>{{ item.origin }}</td>
                     <td>
-                        <span *ngFor="let eval of item.evaluators | slice:0:1">
-                            {{eval}}
+                        <span *ngFor="let eval of item.evaluators | slice: 0:1">
+                            {{ eval }}
                         </span>
-                        <span *ngIf="item.evaluators.length>1"> ,+{{(item.evaluators.length)-1}}more</span>
+                        <span *ngIf="item.evaluators.length > 1"> ,+{{ item.evaluators.length - 1 }}more</span>
                     </td>
-                    <td>{{ item.completed_on }} </td>
+                    <td>{{ item.completed_on }}</td>
                     <td>
-                        {{item.average_score}}
+                        {{ item.average_score }}
                     </td>
                     <td>
-                        <button type="button" class="btn pdf-btn"
-                            (click)="viewPdf(item.url)">{{globals.languageJson?.view_pdf}}</button>
-                        <button type="button" class="btn table-btn"
-                            (click)="otherReportLink(item)">{{globals.languageJson?.view_table}}</button>
-                        <img class="ellipse-image" src="/assets/images/ellipses.png" alt="">
+                        <button type="button" class="btn pdf-btn" (click)="viewPdf(item.url)">
+                            {{ globals.languageJson?.view_pdf }}
+                        </button>
+                        <button type="button" class="btn table-btn" (click)="otherReportLink(item)">
+                            {{ globals.languageJson?.view_table }}
+                        </button>
+                        <img class="ellipse-image" src="/assets/images/ellipses.png" alt="" />
                     </td>
                 </tr>
             </tbody>
@@ -66,10 +84,10 @@
 <!-- no-data for Cupping report Starts -->
 <div class="row pt-5" *ngIf="this.cuppingService.externalReportsList == null">
     <div class="col-lg-12 col-md-12 no-data-sec">
-        <div class="text-center ">
-            <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image">
-            <h1 class="fnt-18 fnt-700 fnt-muli txt-clr334">No data available</h1>
-            <!-- <p class="fnt-14 fnt-400 fnt-muli txt-clr334 no-data-para">No Land</p> -->
+        <div class="text-center">
+            <img src="assets/images/table-empty.png" alt="welcome-illustration" class="error-image" />
+            <h1 class="fnt-18 fnt-700 fnt-muli text-clr334">No data available</h1>
+            <!-- <p class="fnt-14 fnt-400 fnt-muli text-clr334 no-data-para">No Land</p> -->
             <!-- <button type="button" class="fnt-14 fnt-600 fnt-muli save" [routerLink]="['/features/welcome-aboard']">Browse availabilities</button> -->
         </div>
     </div>

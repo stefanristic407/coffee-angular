@@ -25,6 +25,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
@@ -36,7 +37,7 @@ import { TreeModule } from 'primeng/tree';
 import { ChartAllModule, AccumulationChartAllModule, RangeNavigatorAllModule } from '@syncfusion/ej2-angular-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { RatingModule } from 'ng-starrating';
+// import { RatingModule } from 'ng-starrating';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
@@ -95,6 +96,7 @@ const THIRDMODULES = [
     InputTextModule,
     MultiSelectModule,
     OverlayPanelModule,
+    RatingModule,
     SelectButtonModule,
     SliderModule,
     TableModule,
@@ -107,7 +109,7 @@ const THIRDMODULES = [
     RangeNavigatorAllModule,
     NgxChartsModule,
     ImageCropperModule,
-    RatingModule,
+    // RatingModule,
     GalleryModule,
     LightboxModule,
     MatVideoModule,

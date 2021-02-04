@@ -10,11 +10,9 @@
         <div class="container header-container">
             <div class="pad-header">
                 <div class="row align-items-center">
-                    <div class="sidenav-hamberg">
-                        <span class="sidenav-hamberg__line"></span>
-                        <span class="sidenav-hamberg__line"></span>
-                        <span class="sidenav-hamberg__line"></span>
-                    </div>
+                    <a class="sidenav-hamberg d-md-none" (click)="openSideNav()">
+                        <img src="assets/images/hamberg.svg" alt="hamberg" />
+                    </a>
                     <div class="company-logo pad-logo">
                         <a class="company-logo__img d-inline-block" [routerLink]="['/features/welcome-aboard']">
                             <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />

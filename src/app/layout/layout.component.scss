@@ -12,6 +12,13 @@
     }
 }
 
+.sidenav-hamberg {
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
 .router-design {
     background-color: #f1f1f1;
     padding-top: calc(#{$mobile-header-height + $mobile-page-pt});

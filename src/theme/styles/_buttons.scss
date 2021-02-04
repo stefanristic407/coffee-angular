@@ -22,6 +22,24 @@
     }
 }
 
+.btn-raised.loading {
+    span {
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            background-image: url(/assets/images/orange-loader.gif);
+            background-size: cover;
+            background-position: center;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 8px;
+            height: 16px;
+            width: 16px;
+        }
+    }
+}
+
 .btn-stroked {
     padding: 11px 16px;
     border: solid 1px #30855c;

@@ -4,7 +4,7 @@
             <div>
                 <p-breadcrumb [model]="breadItems" styleClass="mb-3 mb-md-4"></p-breadcrumb>
                 <div class="pt-3">
-                    <p class="fnt-18 fnt-bold txt-clr334 mb-2">{{ globals.languageJson?.brand_profile }}</p>
+                    <p class="fnt-18 fnt-bold text-clr334 mb-2">{{ globals.languageJson?.brand_profile }}</p>
                     <p class="fnt-14 text-clr588 mb-0">{{ globals.languageJson?.brand_profile_text }}</p>
                 </div>
             </div>
@@ -16,7 +16,7 @@
         <div class="row gutter-05">
             <div *ngFor="let page of pages" class="col-md-6 col-lg-4 mb-3 mb-md-5">
                 <div class="page-wrap d-flex flex-column">
-                    <p class="fnt-18 fnt-600 txt-clr334 mb-2">{{ page.title }}</p>
+                    <p class="fnt-18 fnt-600 text-clr334 mb-2">{{ page.title }}</p>
                     <p class="fnt-14 fnt-600 text-clr588 mt-md-1">{{ page.desp }}</p>
                     <div class="flex-fill">
                         <p *ngIf="page.slug === 'blog'" class="blog-chip"><span class="brand-dot"> </span>15 Blogs</p>
