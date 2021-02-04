@@ -75,8 +75,6 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "sourceMap": false,
-                        "optimization": false,
                         "browserTarget": "my-app:build"
                     },
                     "configurations": {
