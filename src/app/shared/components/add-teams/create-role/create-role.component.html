@@ -4,7 +4,7 @@
             <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
         </div>
         <div class="col-2">
-            <button type="submit" class="btn  pull-right btn-raised d-md-block d-none" [disabled]="!roleName" (click)="roleAdd()">
+            <button type="submit" class="btn  pull-right btn-raised d-md-block d-none" [disabled]="!roleForm.valid" (click)="roleAdd()">
                 {{btnValue}}
             </button>
         </div>
@@ -14,12 +14,12 @@
             <div class="col-sm-12 col-md-6 col-lg-6 p-0">
                 <div class="create-role">
                     <span class="primary_txt">{{globals.languageJson?.create_role}}</span>
-                    <form class="form-container">
+                    <form [formGroup]="roleForm" class="form-container">
                         <div class="row rolePadding">
                             <div class="col-md-10 sewn-form-field w-100">
                                 <label class="secondary_txt">{{globals.languageJson?.give_your_role_a_name}}</label>
                                 <input type="text" id="roleName"
-                                    placeholder="Please enter your role" [ngStyle]="{'border-color': !roleName ? '' : '#E8E8E8' }" [(ngModel)]="roleName"
+                                    placeholder="Please enter your role" formControlName="roleName"
                                     name="role" pInputText>
                                 <div class="role-error" *ngIf="roleError != ''">{{roleError}}</div>
                             </div>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="col-12 d-block d-md-none mb-5">
-        <button type="button" class="btn-raised  mt-3 w-100" (click)="roleAdd()">
+        <button type="button" class="btn-raised  mt-3 w-100" [disabled]="!roleForm.valid" (click)="roleAdd()">
             {{btnValue}}</button>
     </div>
     <p-dialog [(visible)]="displayModal" [modal]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">

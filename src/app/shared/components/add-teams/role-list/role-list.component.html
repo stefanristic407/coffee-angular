@@ -21,7 +21,7 @@
         <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue"
             [columns]="tableColumns" [(selection)]="tableSelected" dataKey="id" [resizableColumns]="true"
             styleClass="ui-table-customers" [showCurrentPageReport]="false" [paginator]="false" [lazy]="true"
-            (onLazyLoad)="getTableData($event)" [totalRecords]="totalCount"[responsive]="sharedService.isMobileView">
+            (onLazyLoad)="getTableData()" [totalRecords]="totalCount"[responsive]="sharedService.isMobileView">
             <ng-template pTemplate="header" let-columns>
                 <tr class="d-none d-sm-none d-md-table-row">
                     <th style="width: 10%" class="">
@@ -86,13 +86,13 @@
                                 <ng-template #poplistTemplate>
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
-                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item d-none d-sm-none d-md-block"> <a class="pointer-item" (click)="teamMembers(rowData, true);pop.hide();">{{globals.languageJson?.add_members}}</a></li>
-                                            <li *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')" class="list-group-item"><a class="pointer-item" (click)="teamMembers(rowData);pop.hide();">{{globals.languageJson?.view_members}}</a></li>
-                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);pop.hide();">{{globals.languageJson?.edit}}</a></li>
-                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);pop.hide();">{{globals.languageJson?.rename}}</a></li>
-                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="pop.hide();">{{globals.languageJson?.duplicate_role}}</a></li>
-                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);pop.hide();">{{globals.languageJson?.manage_permissions}}</a></li>
-                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,rowData.id);pop.hide();">{{globals.languageJson?.delete_role}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item d-none d-sm-none d-md-block"> <a class="pointer-item" (click)="teamMembers(rowData, true);">{{globals.languageJson?.add_members}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')" class="list-group-item"><a class="pointer-item" (click)="teamMembers(rowData)">{{globals.languageJson?.view_members}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);">{{globals.languageJson?.edit}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);">{{globals.languageJson?.rename}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item">{{globals.languageJson?.duplicate_role}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);">{{globals.languageJson?.manage_permissions}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,rowData.id);">{{globals.languageJson?.delete_role}}</a></li>
                                         </ul>
                                     </div>
                                 </ng-template>

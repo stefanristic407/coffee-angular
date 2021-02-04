@@ -5,6 +5,15 @@
 .inputPadding {
     margin-top: 3rem;
 }
+.removeRoleBtn {
+    padding: 0px;
+}
+.text-highlited {
+    font-weight: bold;
+    color: #80460b !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
 .toggleDiv {
     border: 1px solid #d6d6d6;
     padding: 2px;
@@ -32,5 +41,9 @@
     }
     .inputPadding {
         margin-top: 1rem;
+    }
+    .removeRoleBtn {
+        padding: 0px 15px;
+        margin-bottom: 0.5rem;
     }
 }

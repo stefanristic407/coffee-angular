@@ -70,7 +70,7 @@ export class RoleListComponent implements OnInit {
         this.supplyBreadCrumb();
         this.roaster_id = this.cookieService.get('roaster_id');
     }
-    getTableData(event?): void {
+    getTableData(): void {
         this.tableValue = [];
         this.roasterService.getRoles(this.roaster_id).subscribe(
             (res) => {
@@ -81,7 +81,7 @@ export class RoleListComponent implements OnInit {
                 }
             },
             (err) => {
-                console.log(err);
+                console.error(err);
             },
         );
     }

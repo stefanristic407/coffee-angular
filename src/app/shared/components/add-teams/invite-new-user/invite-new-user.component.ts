@@ -48,7 +48,7 @@ export class InviteNewUserComponent implements OnInit {
                 this.roleList = response['result'];
             },
             (err) => {
-                console.log(err);
+                console.error(err);
             },
         );
     }

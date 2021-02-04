@@ -73,8 +73,8 @@
     </div>
     <div *ngIf="roleList && roleList.length"class="table-container userTable mb-2">
         <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
-            [(selection)]="tableSelected" dataKey="id" [resizableColumns]="true" styleClass="ui-table-customers"
-            [showCurrentPageReport]="false" [paginator]="false" [lazy]="true" (onLazyLoad)="getTableData($event)"
+           dataKey="id" [resizableColumns]="true" styleClass="ui-table-customers"
+            [showCurrentPageReport]="false" [paginator]="false" [lazy]="true" (onLazyLoad)="getTableData()"
             [totalRecords]="totalCount" selectionMode="multiple" [(selection)]="selectedUsers" [responsive]="sharedService.isMobileView">
             <ng-template pTemplate="header" let-columns>
                 <tr class="d-none d-sm-none d-md-table-row">
@@ -123,36 +123,29 @@
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
                                                 <li class="list-group-item"> <a class="pointer-item"
-                                                        (click)="editMember(rowData.id);pop11.hide()">{{globals.languageJson?.edit_member}}</a>
+                                                        (click)="editMember(rowData.id);">{{globals.languageJson?.edit}}</a>
                                                 </li>
-                                                <li class="list-group-item"> <a class="pointer-item"
-                                                        (click)="pop11.hide()">{{globals.languageJson?.send_a_message}}</a>
+                                                <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.send_a_message}}</a>
                                                 </li>
-                                                <li class="list-group-item"> <a class="pointer-item"
-                                                        (click)="pop11.hide()">{{globals.languageJson?.send_recovery_email}}</a>
+                                                <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.send_recovery_email}}</a>
                                                 </li>
-                                                <!-- <li class="list-group-item"> <a class="pointer-item"
-                                                                                        (click)="openModal(template, rowData.id, rowData.name);pop11.hide()">{{globals.languageJson?.assign_role}}</a>
-                                                                                </li> -->
                                                 <li *ngIf="rowData.status == 'ACTIVE' && rowData.id != loginId" class="list-group-item"> <a
                                                         class="pointer-item"
-                                                        (click)="userDisable(rowData.id);pop11.hide()">{{globals.languageJson?.disable_account}}</a>
+                                                        (click)="userDisable(rowData.id)">{{globals.languageJson?.disable_account}}</a>
                                                 </li>
                                                 <li *ngIf="rowData.status == 'INACTIVE' && rowData.id != loginId" class="list-group-item"> <a
                                                         class="pointer-item"
-                                                        (click)="userEnable(rowData.id);pop11.hide()">{{globals.languageJson?.enable_account}}</a>
+                                                        (click)="userEnable(rowData.id)">{{globals.languageJson?.enable_account}}</a>
+                                                </li>
+                                                <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.simulated_login}}</a>
                                                 </li>
                                                 <li class="list-group-item"> <a class="pointer-item"
-                                                        (click)="pop11.hide()">{{globals.languageJson?.simulated_login}}</a>
+                                                        (click)="makeAdmin(rowData)">{{globals.languageJson?.make_admin}}</a>
                                                 </li>
-                                                <li class="list-group-item"> <a class="pointer-item"
-                                                        (click)="makeAdmin(rowData); pop11.hide()">{{globals.languageJson?.make_admin}}</a>
-                                                </li>
-                                                <li class="list-group-item"> <a class="pointer-item"
-                                                        (click)="pop11.hide()">{{globals.languageJson?.customize_permissions}}</a>
+                                                <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.customize_permissions}}</a>
                                                 </li>
                                                 <li *ngIf="rowData.id != loginId" class="list-group-item"> <a class="pointer-item"
-                                                        (click)="deleteRoasterUser(rowData.id); pop11.hide()">{{globals.languageJson?.delete}}</a>
+                                                        (click)="deleteRoasterUser(rowData.id);">{{globals.languageJson?.delete}}</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -217,33 +210,27 @@
                                     <div id="popover-mobile-content">
                                         <ul class="list-group custom-popover">
                                             <li class="list-group-item"> <a class="pointer-item"
-                                                    (click)="editMember(rowData.id);pop11.hide()">{{globals.languageJson?.edit_member}}</a>
+                                                    (click)="editMember(rowData.id)">{{globals.languageJson?.edit}}</a>
                                             </li>
-                                            <li class="list-group-item"> <a class="pointer-item"
-                                                    (click)="pop11.hide()">{{globals.languageJson?.send_a_message}}</a>
+                                            <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.send_a_message}}</a>
                                             </li>
-                                            <li class="list-group-item"> <a class="pointer-item" (click)="pop11.hide()">{{globals.languageJson?.send_recovery_email}}</a>
+                                            <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.send_recovery_email}}</a>
                                             </li>
-                                            <!-- <li class="list-group-item"> <a class="pointer-item"
-                                                    (click)="openModal(template, rowData.id, rowData.name);pop11.hide()">{{globals.languageJson?.assign_role}}</a>
-                                            </li> -->
                                             <li *ngIf="rowData.status == 'ACTIVE' && rowData.id != loginId" class="list-group-item"> <a class="pointer-item"
-                                                    (click)="userDisable(rowData.id);pop11.hide()">{{globals.languageJson?.disable_account}}</a>
+                                                    (click)="userDisable(rowData.id)">{{globals.languageJson?.disable_account}}</a>
                                             </li>
                                             <li *ngIf="rowData.status == 'INACTIVE' && rowData.id != loginId" class="list-group-item"> <a class="pointer-item"
-                                                    (click)="userEnable(rowData.id);pop11.hide()">{{globals.languageJson?.enable_account}}</a>
+                                                    (click)="userEnable(rowData.id)">{{globals.languageJson?.enable_account}}</a>
+                                            </li>
+                                            <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.simulated_login}}</a>
                                             </li>
                                             <li class="list-group-item"> <a class="pointer-item"
-                                                    (click)="pop11.hide()">{{globals.languageJson?.simulated_login}}</a>
+                                                    (click)="makeAdmin(rowData)">{{globals.languageJson?.make_admin}}</a>
                                             </li>
-                                            <li class="list-group-item"> <a class="pointer-item"
-                                                    (click)="makeAdmin(rowData); pop11.hide()">{{globals.languageJson?.make_admin}}</a>
-                                            </li>
-                                            <li class="list-group-item"> <a class="pointer-item"
-                                                    (click)="pop11.hide()">{{globals.languageJson?.customize_permissions}}</a>
+                                            <li class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.customize_permissions}}</a>
                                             </li>
                                             <li *ngIf="rowData.id != loginId" class="list-group-item"> <a class="pointer-item"
-                                                    (click)="deleteRoasterUser(rowData.id); pop11.hide()">{{globals.languageJson?.delete}}</a>
+                                                    (click)="deleteRoasterUser(rowData.id)">{{globals.languageJson?.delete}}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -285,7 +272,7 @@
                 </li>
                 <li class="list-group-item item-color" *ngFor="let role of roleList">
                     <a class="pointer-item"
-                        (click)="setRole(role);pop1.hide();showRole = !showRole">{{role.name }}</a>
+                        (click)="setRole(role);showRole = !showRole">{{role.name }}</a>
                 </li>
             </ul>
         </div>
@@ -294,7 +281,7 @@
         <div id="status-content">
             <ul class="list-group">
                 <li class="list-group-item item-color" *ngFor="let item of statusFilterArray">
-                    <a class="pointer-item" (click)="setStatus(item);pop.hide();showVar = !showVar">{{item.name}}</a>
+                    <a class="pointer-item" (click)="setStatus(item);showVar = !showVar">{{item.name}}</a>
                 </li>
             </ul>
         </div>

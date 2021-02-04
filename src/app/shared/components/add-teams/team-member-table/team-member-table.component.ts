@@ -125,15 +125,14 @@ export class TeamMemberTableComponent implements OnInit {
             },
             (err) => {
                 this.getTableData();
-                console.log(err);
+                console.error(err);
             },
         );
     }
-    getTableData(event?): void {
+    getTableData(): void {
         this.selectedUsers = [];
         const postData = {};
         postData['role_id'] = this.filterRoleID ? this.filterRoleID : '';
-
         postData['name'] = this.termSearch ? this.termSearch : '';
         // eslint-disable-next-line no-constant-condition
         postData['status'] = !this.termStatus ? undefined : this.termStatus == 'Status' ? '' : this.statusValue;
@@ -170,14 +169,13 @@ export class TeamMemberTableComponent implements OnInit {
                         this.filterSelectedRoleUser();
                     } else {
                         this.tableValue = this.roasterUsers;
-                        console.log(this.tableValue);
                     }
                 } else {
                     this.toastrService.error('Unable to fetch users data');
                 }
             },
             (err) => {
-                console.log(err);
+                console.error(err);
             },
         );
     }
@@ -227,7 +225,6 @@ export class TeamMemberTableComponent implements OnInit {
         this.filterSelectedRoleUser();
     }
     inviteNewMembers() {
-        //console.log(this.roleData);
         const navigationExtras: NavigationExtras = {
             queryParams: {
                 roleID: encodeURIComponent(this.currentRoleID),
@@ -255,7 +252,7 @@ export class TeamMemberTableComponent implements OnInit {
                 },
                 (err) => {
                     count++;
-                    console.log(err);
+                    console.error(err);
                 },
             );
         });
@@ -294,7 +291,6 @@ export class TeamMemberTableComponent implements OnInit {
         }
     }
     userEnable(enableId) {
-        console.log('Id of enabling account' + enableId);
         if (confirm('Please confirm! you want to Enable Account?') == true) {
             this.roasterService.enableAdminUser(this.roaster_id, enableId).subscribe((result) => {
                 if (result['success'] == true) {

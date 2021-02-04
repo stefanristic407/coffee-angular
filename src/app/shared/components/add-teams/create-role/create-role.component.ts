@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { RoasterserviceService, UserserviceService } from '@services';
@@ -21,12 +22,11 @@ export class CreateRoleComponent implements OnInit {
     selectedPermission: TreeNode[] = [];
     roaster_id: any;
     permissionList: any = [];
-    roleName: string;
     displayModal = false;
+    roleForm: FormGroup;
     @ViewChild(ManagePermissionComponent, { static: false }) managePermission;
 
     constructor(
-        private sharedService: SharedServiceService,
         public globals: GlobalsService,
         private roasterService: RoasterserviceService,
         private cookieService: CookieService,
@@ -34,6 +34,7 @@ export class CreateRoleComponent implements OnInit {
         private activeRoute: ActivatedRoute,
         private userService: UserserviceService,
         private toasterService: ToastrService,
+        private fb: FormBuilder,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
         this.activeRoute.params.subscribe((params) => {
@@ -48,12 +49,14 @@ export class CreateRoleComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.roleForm = this.fb.group({
+            roleName: ['', Validators.compose([Validators.required])],
+        });
         this.supplyBreadCrumb();
     }
     getRoasterPermission(selectedPermission = []): void {
         this.roasterService.getRoasterPermissions(this.roaster_id).subscribe(
             (res) => {
-                console.log(res);
                 const groupedCategory = this.groupByArray(res['result'], 'category');
                 const groupPermission = [];
                 this.selectedPermission = [];
@@ -61,7 +64,7 @@ export class CreateRoleComponent implements OnInit {
                     const parent = {};
                     let label = ele.key;
                     label = label.replace('-', ' ');
-                    parent['label'] = label;
+                    parent['label'] = label.charAt(0).toUpperCase() + label.slice(1);
                     parent['selectable'] = false;
                     parent['styleClass'] = 'parentNodeStyle';
                     let childItems = [];
@@ -70,6 +73,7 @@ export class CreateRoleComponent implements OnInit {
                             const obj = {};
                             let childLabel = item.slug;
                             childLabel = childLabel.replace('-', ' ');
+                            childLabel = childLabel.charAt(0).toUpperCase() + childLabel.slice(1);
                             obj['label'] = childLabel + ' (' + item.access_type + ')';
                             obj['key'] = item.id;
                             obj['data'] = item.slug;
@@ -90,7 +94,7 @@ export class CreateRoleComponent implements OnInit {
                 this.permissionList = groupPermission;
             },
             (err) => {
-                console.log(err);
+                console.error(err);
             },
         );
     }
@@ -132,30 +136,23 @@ export class CreateRoleComponent implements OnInit {
         this.breadCrumbItem.push(obj4);
     }
     roleAdd(): void {
-        if (this.roleName == '' || this.roleName == null || this.roleName == undefined) {
-            this.roleError = 'Please enter your role';
-            document.getElementById('roleName').style.border = '1px solid #D50000';
-            setTimeout(() => {
-                this.roleError = '';
-            }, 3000);
-        } else {
+        if (this.roleForm.valid) {
             const permissionsArray = [];
             this.managePermission.selectedPermission.forEach((permission) => {
                 permissionsArray.push(permission['key']);
             });
             const body = { permissions: permissionsArray };
             if (this.roleID) {
-                const data = { name: this.roleName, roleId: this.roleID };
+                const data = { name: this.roleForm.controls.roleName.value, roleId: this.roleID };
                 this.updateRole(data, body);
             } else {
-                const data = { name: this.roleName, id: this.roaster_id };
+                const data = { name: this.roleForm.controls.roleName.value, id: this.roaster_id };
                 this.createRole(data, body);
             }
         }
     }
     createRole(params, permissionArray): void {
         this.roasterService.createRole(params).subscribe((result) => {
-            console.log(result);
             if (result['success'] == true) {
                 this.toasterService.success('Role has been created. We are assigning permissions.');
                 if (this.managePermission.selectedPermission !== undefined) {
@@ -207,11 +204,9 @@ export class CreateRoleComponent implements OnInit {
     getUserBasedRoles(): void {
         const loggedInUserID = this.cookieService.get('user_id');
         this.roasterService.getUserBasedRoles(this.roaster_id, loggedInUserID).subscribe((result) => {
-            console.log(result);
             if (result['success'] == true) {
                 if (result['result']) {
                     const flagTrue = result['result'].some((role) => role.id == this.roleID);
-                    console.log(flagTrue);
                     if (flagTrue) {
                         this.displayModal = true;
                     } else {
@@ -226,10 +221,9 @@ export class CreateRoleComponent implements OnInit {
             if (res['success'] == true) {
                 this.cookieService.deleteAll();
                 this.route.navigate(['/login']);
-                console.log('Logout successfully !');
                 this.toasterService.success('Logout successfully !');
             } else {
-                console.log('Error while Logout!');
+                console.error('Error while Logout!');
                 this.toasterService.error('Error while Logout!');
             }
         });
@@ -242,9 +236,8 @@ export class CreateRoleComponent implements OnInit {
             (data) => {
                 let selectedPermission = [];
                 if (data['success'] == true) {
-                    this.roleName = data['result']['role_name'];
+                    this.roleForm.setValue({ roleName: data['result']['role_name'] });
                     selectedPermission = data['result']['permissions'];
-                    // this.getuserrolepermissions(roleID);
                 }
                 this.getRoasterPermission(selectedPermission);
             },

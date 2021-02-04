@@ -15,7 +15,6 @@ export class EditUserDetailsComponent implements OnInit {
         this.userForm = this.fb.group({
             items: this.fb.array([this.createItem()]),
         });
-        console.log(this.userForm);
     }
     addUser(): void {
         this.items = this.userForm.get('items') as FormArray;

@@ -11,7 +11,5 @@ export class ManagePermissionComponent implements OnInit {
     @Input() selectedPermission: any = [];
     constructor(public globals: GlobalsService) {}
 
-    ngOnInit(): void {
-        console.log();
-    }
+    ngOnInit(): void {}
 }

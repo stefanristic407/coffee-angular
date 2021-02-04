@@ -58,17 +58,17 @@ import { ImageMapComponent } from './components/remote-sensoring/image-map/image
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { CreateRoleComponent } from './components/addTeams/create-role/create-role.component';
-import { ManagePermissionComponent } from './components/addTeams/manage-permission/manage-permission.component';
+import { CreateRoleComponent } from './components/add-teams/create-role/create-role.component';
+import { ManagePermissionComponent } from './components/add-teams/manage-permission/manage-permission.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-import { RoleListComponent } from './components/addTeams/role-list/role-list.component';
+import { RoleListComponent } from './components/add-teams/role-list/role-list.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
-import { TeamMemberTableComponent } from './components/addTeams/team-member-table/team-member-table.component';
+import { TeamMemberTableComponent } from './components/add-teams/team-member-table/team-member-table.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
-import { InviteNewUserComponent } from './components/addTeams/invite-new-user/invite-new-user.component';
-import { EditUserDetailsComponent } from './components/addTeams/edit-user-details/edit-user-details.component';
-import { SendRecoveryEmailComponent } from './components/addTeams/send-recovery-email/send-recovery-email.component';
+import { InviteNewUserComponent } from './components/add-teams/invite-new-user/invite-new-user.component';
+import { EditUserDetailsComponent } from './components/add-teams/edit-user-details/edit-user-details.component';
+import { SendRecoveryEmailComponent } from './components/add-teams/send-recovery-email/send-recovery-email.component';
 
 // #region material
 const MATMODULES = [];
@@ -177,6 +177,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ...THIRDMODULES,
         // your components
         ...COMPONENTS,
+        BreadcrumbComponent,
         ...DIRECTIVES,
         ...PIPES,
     ],

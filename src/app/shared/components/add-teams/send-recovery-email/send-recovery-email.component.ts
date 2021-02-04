@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
@@ -24,6 +25,7 @@ export class SendRecoveryEmailComponent implements OnInit {
     userDetails = {};
     userID = '';
     deleteRoles: any = [];
+    userForm: FormGroup;
     constructor(
         public roasterService: RoasterserviceService,
         public cookieService: CookieService,
@@ -32,6 +34,7 @@ export class SendRecoveryEmailComponent implements OnInit {
         public route: ActivatedRoute,
         public userService: UserserviceService,
         private toastrService: ToastrService,
+        private fb: FormBuilder,
     ) {}
 
     ngOnInit(): void {
@@ -39,9 +42,17 @@ export class SendRecoveryEmailComponent implements OnInit {
         this.currentRoleID = this.route.snapshot.queryParams['roleID'] ? this.route.snapshot.queryParams['roleID'] : '';
         this.supplyBreadCrumb();
         this.listRoles();
+        this.userForm = this.fb.group({
+            name: new FormControl(
+                { value: '', disabled: !this.isEdit || !this.statusToggle },
+                Validators.compose([Validators.required]),
+            ),
+            email: new FormControl(
+                { value: '', disabled: !this.isEdit || !this.statusToggle },
+                Validators.compose([Validators.required, Validators.email]),
+            ),
+        });
         this.userDetails['last_activated'] = '';
-        this.userDetails['name'] = '';
-        this.userDetails['email'] = '';
         this.userDetails['roles'] = [];
         if (this.route.snapshot.queryParams['userID'] != undefined) {
             this.userID = decodeURIComponent(this.route.snapshot.queryParams['userID']);
@@ -55,8 +66,10 @@ export class SendRecoveryEmailComponent implements OnInit {
         this.userService.getRoasterUserData(this.roaster_id, this.userID).subscribe((result) => {
             console.log(result['result']);
             if (result && result['success']) {
-                this.userDetails['name'] = result['result']['firstname'] + ' ' + result['result']['lastname'];
-                this.userDetails['email'] = result['result']['email'];
+                this.userForm.setValue({
+                    name: result['result']['firstname'] + ' ' + result['result']['lastname'],
+                    email: result['result']['email'],
+                });
                 this.userDetails['last_activated'] = result['result']['created_at'];
                 this.userDetails['status'] = result['result']['status'];
                 this.statusToggle = result['result']['status'] == 'ACTIVE' ? true : false;
@@ -112,11 +125,11 @@ export class SendRecoveryEmailComponent implements OnInit {
         this.userDetails['roles'].push({ id: '', name: '', isNew: true });
     }
     onEditCancel() {
-        this.isEdit = true;
+        this.isEdit = false;
         this.getUserData();
     }
     validateFields(): boolean {
-        if (!this.userDetails['name'] || !this.userDetails['email'] || !this.userDetails['roles']) {
+        if (!this.userForm.valid || !this.userDetails['roles']) {
             return false;
         } else {
             const findEmptyRole = this.userDetails['roles'].find((ele) => ele['id'] === '');
@@ -136,10 +149,22 @@ export class SendRecoveryEmailComponent implements OnInit {
             this.updateUserDetails();
         }
     }
+    updateForm(): void {
+        this.userForm['controls']['name'].enable();
+        this.userForm['controls']['email'].enable();
+        if (!this.isEdit || !this.statusToggle) {
+            this.userForm['controls']['name'].disable();
+            this.userForm['controls']['email'].disable();
+        }
+    }
     updateUserDetails() {
         const getValidate = this.validateFields();
         if (getValidate) {
-            const inputObj = { firstname: this.userDetails['name'], lastname: '', email: this.userDetails['email'] };
+            const inputObj = {
+                firstname: this.userForm['controls']['name']['value'],
+                lastname: '',
+                email: this.userForm['controls']['email']['value'],
+            };
             this.userService.updateUserData(inputObj, this.roaster_id, this.userID).subscribe(
                 (res) => {
                     if (res && res['success']) {
@@ -150,6 +175,9 @@ export class SendRecoveryEmailComponent implements OnInit {
                         if (getNewRole) {
                             this.addNewRoles();
                         }
+                        this.isEdit = false;
+                        this.updateForm();
+                        this.toastrService.success('User details udpated successfully');
                     }
                 },
                 (err) => {
@@ -211,6 +239,8 @@ export class SendRecoveryEmailComponent implements OnInit {
             (value) => {
                 if (value['success'] == true) {
                     this.toastrService.success('User has been disabled');
+                    this.isEdit = false;
+                    this.updateForm();
                 } else {
                     this.toastrService.error('Error while disabling the user');
                 }
@@ -232,10 +262,10 @@ export class SendRecoveryEmailComponent implements OnInit {
     }
     sendMail() {
         const body = {
-            name: this.userDetails['name'],
+            name: this.userForm.controls['name']['value'],
             portal: 'Roaster',
             content_type: 'invite_with_url',
-            senders: [this.userDetails['email']],
+            senders: [this.userForm.controls['email']['value']],
             url: 'https://qa-roaster-portal.sewnstaging.com/#/auth/update-password',
         };
         this.userService.sendUrlToEmail(body).subscribe(
