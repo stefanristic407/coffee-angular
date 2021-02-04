@@ -12,6 +12,7 @@ export class ChatService {
     }>();
 
     public isOpen = new BehaviorSubject<boolean>(false);
+    public userSearch = new BehaviorSubject<boolean>(false);
     public isExpand = new BehaviorSubject<boolean>(false);
 
     constructor() {}

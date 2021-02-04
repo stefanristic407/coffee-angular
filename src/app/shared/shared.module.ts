@@ -58,9 +58,17 @@ import { ImageMapComponent } from './components/remote-sensoring/image-map/image
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { CreateRoleComponent } from './components/add-teams/create-role/create-role.component';
+import { ManagePermissionComponent } from './components/add-teams/manage-permission/manage-permission.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { RoleListComponent } from './components/add-teams/role-list/role-list.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
+import { TeamMemberTableComponent } from './components/add-teams/team-member-table/team-member-table.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { InviteNewUserComponent } from './components/add-teams/invite-new-user/invite-new-user.component';
+import { EditUserDetailsComponent } from './components/add-teams/edit-user-details/edit-user-details.component';
+import { SendRecoveryEmailComponent } from './components/add-teams/send-recovery-email/send-recovery-email.component';
 
 // #region material
 const MATMODULES = [];
@@ -73,8 +81,8 @@ const THIRDMODULES = [
     ModalModule,
     PopoverModule,
     TypeaheadModule,
-    AutoCompleteModule,
     BreadcrumbModule,
+    AutoCompleteModule,
     ButtonModule,
     CalendarModule,
     CarouselModule,
@@ -148,7 +156,15 @@ const PIPES = [CountryPipe, MonthPipe];
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
         ...PIPES,
+        CreateRoleComponent,
+        ManagePermissionComponent,
+        BreadcrumbComponent,
+        RoleListComponent,
+        TeamMemberTableComponent,
         ConfirmComponent,
+        InviteNewUserComponent,
+        EditUserDetailsComponent,
+        SendRecoveryEmailComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -161,6 +177,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ...THIRDMODULES,
         // your components
         ...COMPONENTS,
+        BreadcrumbComponent,
         ...DIRECTIVES,
         ...PIPES,
     ],

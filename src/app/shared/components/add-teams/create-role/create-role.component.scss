@@ -1,0 +1,28 @@
+.create-role {
+    padding: 1.3rem;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+.role-error {
+    color: #d50000;
+    font-size: 12px;
+}
+.rolePadding {
+    padding-top: 2rem !important;
+}
+.permissionDiv {
+    padding-left: 1.5rem !important;
+}
+
+@media screen and (max-width: 767px) {
+    .create-role {
+        padding: 0;
+        border: none;
+    }
+    .rolePadding {
+        padding-top: 1rem !important;
+    }
+    .permissionDiv {
+        padding-left: 0px !important;
+    }
+}

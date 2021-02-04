@@ -1,0 +1,191 @@
+<div class="main-block">
+    <div class="row mb-3">
+        <div class="col-10">
+            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn pull-right btn-raised d-md-block d-none"
+                routerLink="/features/add-product">
+                {{globals.languageJson?.add_product}}
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <span class="primary_txt">E-commerce catalog management</span>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-6">
+            <div class="d-inline border-total col-sm-6" id="role_id">
+                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" [outsideClick]="true"
+                    #pop1="bs-popover">
+                    <p *ngIf="!originFilter" class="d-inline filter" (click)="showOrigin = !showOrigin;">
+                        {{ globals.languageJson?.origins }}&nbsp;<img
+                            src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                    <p *ngIf="originFilter" class="d-inline filter" (click)="showOrigin = !showOrigin;">
+                        {{ originFilter }}&nbsp;<img
+                            src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>&nbsp;&nbsp;
+            <div class="d-inline border-total col-sm-6" id="role_id">
+                <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" [outsideClick]="true"
+                    #pop2="bs-popover">
+                    <p *ngIf="!priceFilter"class="d-inline filter" (click)="showPrice = !showPrice;">
+                        Price ranges&nbsp;<img src="{{ showPrice ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                    <p *ngIf="priceFilter" class="d-inline filter" (click)="showPrice = !showPrice;">
+                        {{ priceFilter }}&nbsp;<img
+                            src="{{ showPrice ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>&nbsp;&nbsp;
+            <div class="d-inline border-total status-div col-sm-6" id="status_id">
+                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" [outsideClick]="true"
+                    #pop3="bs-popover">
+                    <p *ngIf="!statusFilter"class="d-inline filter" (click)="showStatus = !showStatus;">
+                        Status&nbsp; <img
+                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                    <p *ngIf="statusFilter" class="d-inline filter" (click)="showStatus = !showStatus;">
+                        {{ statusFilter }}&nbsp; <img
+                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="col-6">
+            <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="termSearch"
+                placeholder="{{globals.languageJson?.search_name_role}}" />
+        </div>
+    </div>
+    <div class="table-container userTable mt-2 mb-2">
+        <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
+            [(selection)]="selectedProducts" dataKey="id" [resizableColumns]="true" styleClass="ui-table-customers"
+            [showCurrentPageReport]="false" [paginator]="false" [lazy]="true" (onLazyLoad)="getTableData($event)"
+            [totalRecords]="totalCount" selectionMode="multiple"
+            [responsive]="sharedService.isMobileView">
+            <ng-template pTemplate="header" let-columns>
+                <tr class="d-none d-sm-none d-md-table-row">
+                    <th style="width: 5%" class="">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null"
+                        [style.width]="col.width ? col.width + '%' : '30%'" [ngClass]="{'d-md-none': col.field == 'add_user'}">
+                        <span class="primeng-table-header">{{col.header}}</span>
+                        <p-sortIcon *ngIf="col.sortable === true" [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td class="d-none d-sm-none d-md-table-cell">
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
+                    <!-- [ngClass]="{'d-none': col.field == 'status'}" -->
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field" [style.width]="col.width ? col.width + '%' : '30%'"
+                        >
+                        <span *ngSwitchCase="'name'" class="">
+                            <span class="d-md-inline-block">
+                                <img class="img-file" src="{{ rowData['featured_image'] }}" />
+                            </span>
+                            <span class="d-md-inline-block pl-3">
+                                <span class="mb-1">{{ rowData['name'] }}</span>
+                                <div>
+                                    <img src="assets/images/star-1.png" alt="" /><span class="pl-2">{{rowData['rating']}}</span>
+                                </div>
+                            </span>
+                        </span>
+                        <span *ngSwitchCase="'actions'" class="">
+                            <span>
+                                <a class="fnt-muli editBtn" [routerLink]="['/features/product/' + rowData['id']]">{{globals.languageJson?.edit_product }}</a>
+                                <span class="float-right">
+                                    <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                        <img class="ellipse-image pl-3" src="assets/images/more-opns-file.png" alt="" />
+                                    </a>
+                                    <ng-template #poplistTemplate>
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li class="list-group-item">
+                                                    <a class="pointer-item" (click)="openDeleteModal(deleteTemplate, rowData['id']); pop.hide()">{{ globals.languageJson?.delete }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </span>
+                            </span>
+                        </span>
+                        <span *ngSwitchCase="'status'" class="">
+                            <span>{{ rowData[col.field] | titlecase }}</span>
+                        </span>
+                        <span *ngSwitchDefault>
+                            <span>{{ rowData[col.field] }}</span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<ng-template #allTemplate>
+    <div id="status-content">
+        <ul class="list-group">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus('');">All</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus('Active');">Active</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setStatus('Disabled');">Disabled</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+<ng-template #typeTemplate>
+    <div id="status-content">
+        <ul class="list-group">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setType('');">All</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setType('$0-$500');">$0-$500</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setType('$500-$1000');">$500-$1000</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+<ng-template #originTemplate>
+    <div id="status-content">
+        <ul class="list-group">
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setOrigin('');">All</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setOrigin('Colombia');">Colombia</a>
+            </li>
+            <li class="list-group-item item-color">
+                <a class="pointer-item" (click)="setOrigin('Ethiopia');">Ethiopia</a>
+            </li>
+        </ul>
+    </div>
+</ng-template>
+<ng-template #deleteTemplate>
+    <div class="modal-body mt-5 mb-5 text-center fnt-muli">
+        <div><img src="assets/images/delete-role.svg" alt="" /></div>
+        <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
+        <div class="fnt-muli fnt-18 fnt-normal mt-2 pb-3">You sure you really want to delete this?</div>
+        <div class="mt-4">
+            <button class="btn-stroked" (click)="modalRef.hide()">{{ globals.languageJson?.cancel }}</button>
+            <button class="btn btn-raised ml-3" (click)="modalRef.hide(); deleteproduct()">
+                {{ globals.languageJson?.delete }}
+            </button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,41 @@
+.create-role {
+    padding: 1.3rem;
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+
+:host ::ng-deep .p-tree-selectable {
+    border: 0px;
+    padding: 0px;
+    padding-top: 1.5rem;
+}
+:host ::ng-deep .p-tree-container .p-checkbox-disabled {
+    display: none;
+}
+:host ::ng-deep .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
+    background: #ffffff;
+    color: #232334;
+    box-shadow: none;
+}
+:host ::ng-deep .p-tree .p-tree-container .p-treenode .p-treenode-content:focus {
+    box-shadow: none !important;
+}
+:host
+    ::ng-deep
+    .p-tree
+    .p-tree-container
+    .p-treenode
+    .p-treenode-content.p-treenode-selectable:not(.p-highlight):hover {
+    background: #ffffff;
+}
+@media screen and (max-width: 767px) {
+    .create-role {
+        padding: 0;
+        border: none;
+    }
+    :host ::ng-deep .p-tree-selectable {
+        border: 0px;
+        padding: 0px;
+        padding-top: 1rem;
+    }
+}

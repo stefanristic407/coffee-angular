@@ -1,0 +1,27 @@
+:host ::ng-deep .p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+    width: 45px;
+    height: 18px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #747588;
+}
+:host ::ng-deep .p-breadcrumb ul li.p-breadcrumb-chevron {
+    color: #747588;
+}
+.disableClass {
+    width: 72px;
+    height: 18px;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}

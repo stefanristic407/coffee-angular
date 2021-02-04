@@ -41,6 +41,7 @@ export class AddProductComponent implements OnInit {
         purchase_type: '',
         discount_eligibility: false,
         discount_amount: 0,
+        bought_platform: 'Yes',
         discount_type: '',
         is_price_including_vat: true,
         discount_applicable_to: '',
