@@ -5387,7 +5387,6 @@ export class GlobalsService {
     permissions: any = {};
     roaster_id: string;
     permissionList: any;
-    menuSearch: any;
     selected_order_id: any;
     ord_received_date: any;
     userInvitesArray: any = [];
@@ -5400,25 +5399,6 @@ export class GlobalsService {
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
         // console.log(this.permissions);
-        this.menuSearch = {
-            'Sourcing Module': '/features/sourcing',
-            Dashboard: '/features/welcome-aboard',
-            'Estate Orders': '/ordermanagement/estate-orders',
-            'Micro Roaster Orders': '/ordermanagement/microroaster-orders',
-            Inventory: '/features/green-coffee-inventory',
-            'E-Commerce': '/features/roasted-coffee-batch',
-            'Brand Profile': '/features/brand-profile',
-            'File Share': '/features/file-share',
-            Aggreements: '/features/agreement',
-            'Q and A Forum': '/features/q-a-forum',
-            'Social Media Posts': '/features/social-media',
-            'Manage Roles': '/people/manage-role',
-            'User Management': '/people/user-management',
-            'Customer Management': '/people/customer-management',
-            'Roaster Profile': '/features/roastery-profile',
-            'My Profile': '/features/myprofile',
-            'Account Settings': '/features/account-settings',
-        };
         if (deviceSrv.isMobile()) {
             this.device = 'mobile';
         } else if (deviceSrv.isTablet()) {

@@ -18,10 +18,11 @@
                             <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
                         </a>
                     </div>
-                    <div class="d-inline-block">
+                    <div class="d-none d-md-inline-block">
                         <p-autoComplete
                             [(ngModel)]="text"
                             [suggestions]="results"
+                            field="title"
                             (onSelect)="redirect($event)"
                             (completeMethod)="search($event)"
                             placeholder="Search.."

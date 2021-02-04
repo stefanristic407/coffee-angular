@@ -109,6 +109,9 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
         color: $general-text-color;
         font-size: 16px;
         font-weight: normal;
+        @media (min-width: 768px) {
+            width: 378px;
+        }
     }
     input::placeholder {
         color: $button-icon-color !important;

@@ -19,6 +19,7 @@ import { ChatService } from './../components/sewn-direct-message/chat.service';
     providers: [MenuService],
 })
 export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
+    menuItems: any[];
     userName: string;
     selected: string;
     roasterId: any;
@@ -105,6 +106,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             setTimeout(() => {
                 self.menuService.expandActiveSubMenu();
             });
+            this.refreshMenuItems();
         });
 
         this.getLoggedInUserRoles();
@@ -149,6 +151,13 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.routeSubscription) {
             this.routeSubscription.unsubscribe();
         }
+    }
+
+    refreshMenuItems() {
+        this.menuItems = this.menuService.getMenuItems().filter((element) => element.routerLink);
+        this.menuItems.forEach((element) => {
+            element.title = this.globals.languageJson[element.title] || element.title;
+        });
     }
 
     updateActiveLinkState() {
@@ -213,17 +222,13 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     search(event: any) {
-        const searchArray = Object.keys(this.globals.menuSearch);
-        console.log('Search Array: ', searchArray);
-
         const localArray = [];
-        searchArray.forEach((element) => {
-            if (element.toLowerCase().indexOf(event.query.toLowerCase()) !== -1) {
+        this.menuItems.forEach((element) => {
+            if (element.title.toLowerCase().indexOf(event.query.toLowerCase()) > -1) {
                 localArray.push(element);
             }
         });
         this.results = localArray;
-        console.log('Search Text: ', this.text);
     }
 
     openMessagePanel() {
@@ -238,9 +243,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     redirect(event: any) {
-        console.log('Triggered');
-        console.log(event);
-        this.router.navigate([this.globals.menuSearch[event]]);
+        this.router.navigateByUrl(event.routerLink);
     }
 
     openSideNav() {
