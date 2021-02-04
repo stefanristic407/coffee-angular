@@ -129,7 +129,6 @@
         "check-typecast"
       ]
     },
-    "no-string-literal":false,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
