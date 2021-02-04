@@ -1,4 +1,4 @@
-import { serviceCommunicationType } from '@models/message';
+import { serviceCommunicationType } from '@models';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 

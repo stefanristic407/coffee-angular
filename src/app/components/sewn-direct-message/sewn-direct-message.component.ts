@@ -18,7 +18,7 @@ import {
     serviceCommunicationType,
     ChatMessage,
     IncomingChatMessage,
-} from '@models/message';
+} from '@models';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
 @Component({
