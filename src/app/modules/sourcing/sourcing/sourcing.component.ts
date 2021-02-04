@@ -21,7 +21,6 @@ export class SourcingComponent implements OnInit {
         { label: 'Arabsdsica', value: 'Araasdbica' },
     ];
     gradeItems: any[] = [
-        { label: 'All', value: null },
         { label: '81.0 - 83.0', value: ['81.0', '83.0'] },
         { label: '84.0 - 86.0', value: ['84.0', '86.0'] },
         { label: '87.0 - 89.0', value: ['87.0', '89.0'] },
@@ -62,14 +61,14 @@ export class SourcingComponent implements OnInit {
             },
         ];
         this.cropItems = this.globals.monthList;
-        this.queryParams = this.sourcingSrv.queryParams.getValue();
+        this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();
 
         this.sourcingSrv.flavourprofileList();
     }
 
     filterCall() {
-        this.sourcingSrv.queryParams.next(this.queryParams);
+        this.sourcingSrv.queryParams.next({ ...this.queryParams });
     }
 
     changeViewMode() {

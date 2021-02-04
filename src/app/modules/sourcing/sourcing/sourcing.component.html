@@ -50,6 +50,7 @@
                     [(ngModel)]="queryParams.grade"
                     (onChange)="filterCall()"
                     scrollHeight="225px"
+                    [showClear]="true"
                     placeholder="Grade"
                     styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
                 ></p-dropdown>
@@ -58,6 +59,7 @@
                     [(ngModel)]="queryParams.crop_year"
                     (onChange)="filterCall()"
                     scrollHeight="225px"
+                    [showClear]="true"
                     placeholder="{{ globals.languageJson?.crop_year }}"
                     styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
                 ></p-dropdown>

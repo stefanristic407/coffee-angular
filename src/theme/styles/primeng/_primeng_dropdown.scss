@@ -89,3 +89,17 @@
 .p-dropdown .p-dropdown-label.p-placeholder {
     color: $muted-text-color;
 }
+
+.p-dropdown .p-dropdown-clear-icon {
+    color: $button-icon-color;
+    right: 10px;
+    opacity: 1;
+    background: #fff;
+    transition: opacity 0s 0.3s;
+}
+
+.p-dropdown-open .p-dropdown-clear-icon {
+    right: 10px;
+    opacity: 0;
+    transition: none;
+}
