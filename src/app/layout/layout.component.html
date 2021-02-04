@@ -60,9 +60,11 @@
                         </li>
                         <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
                             <div class="profile-link d-flex align-items-center">
-                                <div class="profile-link__img d-inline-block mr-md-2">
-                                    <img *ngIf="profilePic != ''" class="profile-pic" src="{{ profilePic }}" />
-                                    <img *ngIf="profilePic == ''" class="profile-pic" src="assets/images/profile.svg" />
+                                <div class="d-inline-block mr-md-2">
+                                    <app-avatar
+                                        [size]="38"
+                                        [src]="profilePic || 'assets/images/profile.svg'"
+                                    ></app-avatar>
                                 </div>
                                 <div class="profile-link__info pl-lg-1 float-right">
                                     <div>
@@ -75,7 +77,7 @@
                                             container="body"
                                             [outsideClick]="true"
                                         >
-                                            <h6 class="d-block fnt-14 m-0 fnt-600 fnt-mont">
+                                            <h6 class="d-block fnt-16 fnt-600 text-clr24 m-0">
                                                 {{ userName }}
                                                 <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
                                             </h6>
@@ -133,7 +135,7 @@
         </div>
     </nav>
 
-    <nav class="bg-gray8f8">
+    <nav class="bg-f8">
         <div class="container header-container">
             <div class="pad-header">
                 <div class="row">

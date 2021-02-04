@@ -5,8 +5,8 @@
 }
 
 .company-logo > .company-logo__img > img {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
 }
 
 /* Mobile screen css for hedader start*/
@@ -257,7 +257,7 @@
         opacity: 0;
     }
     .company-logo > .company-logo__img {
-        width: 100px;
+        height: 36px;
     }
 }
 
@@ -335,27 +335,6 @@
         width: 25px;
         height: 25px;
     }
-}
-
-.profile-link__img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-@media (min-width: 992px) {
-    .profile-link__img {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-    }
-}
-
-.profile-link__img > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .nav-links {
