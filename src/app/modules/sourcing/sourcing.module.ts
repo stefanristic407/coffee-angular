@@ -5,6 +5,7 @@ import { SourcingRoutingModule } from './sourcing-routing.module';
 import { SharedModule } from '@shared';
 
 import { AgmCoreModule } from '@agm/core';
+import { RatingModule } from 'ng-starrating';
 
 import { CertificateImgPipe } from './certificateImg.pipe';
 
@@ -52,6 +53,7 @@ import { WhyUsComponent } from './estate-details/why-us/why-us.component';
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAacYaKLrRdDZDzrQ5QAdNFMj9nQ2PgweU',
         }),
+        RatingModule,
     ],
 })
 export class SourcingModule {}

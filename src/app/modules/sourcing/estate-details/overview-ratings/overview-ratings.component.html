@@ -64,7 +64,7 @@
                         <p class="fnt-12 fnt-600 text-clr588 mb-1 text-nowrap">
                             {{ globals.languageJson?.overall_experience | titlecase }}
                         </p>
-                        <p class="fnt-14 fnt-bold txt-clr334">
+                        <p class="fnt-14 fnt-bold text-clr334">
                             <span class="fa fa-star mr-1"></span>
                             {{ sourcing.estateReviewsAverage?.overall_experience | number: '1.1-1' }}
                         </p>
@@ -73,14 +73,14 @@
                         <p class="fnt-12 fnt-600 text-clr588 mb-1 text-nowrap">
                             {{ globals.languageJson?.communication | titlecase }}
                         </p>
-                        <p class="fnt-14 fnt-bold txt-clr334">
+                        <p class="fnt-14 fnt-bold text-clr334">
                             <span class="fa fa-star mr-1"></span>
                             {{ sourcing.estateReviewsAverage?.communication | number: '1.1-1' }}
                         </p>
                     </div>
                     <div class="mr-3 mr-md-5 d-none d-md-block">
                         <p class="fnt-12 fnt-600 text-clr588 mb-1 text-nowrap">Green coffee</p>
-                        <p class="fnt-14 fnt-bold txt-clr334">
+                        <p class="fnt-14 fnt-bold text-clr334">
                             <span class="fa fa-star mr-1"></span>
                             {{ sourcing.estateReviewsAverage?.green_coffee | number: '1.1-1' }}
                         </p>
@@ -107,10 +107,10 @@
                                     ></app-avatar>
                                 </div>
                                 <div>
-                                    <h3 class="fnt-16 lh-normal fnt-bold txt-clr334 mb-1">
+                                    <h3 class="fnt-16 lh-normal fnt-bold text-clr334 mb-1">
                                         {{ review.reviewed_by_name | titlecase }}
                                     </h3>
-                                    <p class="fnt-14 lh-normal fnt-bold txt-clr588 mb-1">
+                                    <p class="fnt-14 lh-normal fnt-bold text-clr588 mb-1">
                                         {{ review.reviewed_by_type == 'ro' ? 'Roaster' : 'Facilitator' }}
                                     </p>
                                     <p class="d-flex align-items-center">
@@ -122,7 +122,7 @@
                                             uncheckedcolor="#d6d6d6"
                                             size="19px"
                                         ></star-rating>
-                                        <span class="fnt-14 fnt-bold txt-clr334">
+                                        <span class="fnt-14 fnt-bold text-clr334">
                                             {{ review.total_rating | number: '1.1-1' }}
                                         </span>
                                     </p>
@@ -132,7 +132,7 @@
                                 <p class="fnt-12 fnt-600 text-clr588">{{ review.created_at | date: 'MMM, y' }}</p>
                             </div>
                         </div>
-                        <div class="fnt-12 fnt-mb-14 fnt-500 txt-clr334 message-space">
+                        <div class="fnt-12 fnt-mb-14 fnt-500 text-clr334 message-space">
                             <app-read-more [content]="review.comment" rows="3"></app-read-more>
                         </div>
                     </div>

@@ -126,13 +126,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         const pt = $('header').outerHeight() + 'px';
         $('.router-design').css({ 'padding-top': pt });
 
-        // Open side nav
-        $('body').on('click', '.sidenav-hamberg', function (event) {
-            $('.sidenav-mb').addClass('open');
-            $('.sidenav-mb__content').addClass('open');
-            event.stopImmediatePropagation();
-        });
-
         $('body').on('click', '.sidenav-mb__close', function (event) {
             $('.sidenav-mb__content').removeClass('open');
             setTimeout(function () {
@@ -248,5 +241,10 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log('Triggered');
         console.log(event);
         this.router.navigate([this.globals.menuSearch[event]]);
+    }
+
+    openSideNav() {
+        $('.sidenav-mb').addClass('open');
+        $('.sidenav-mb__content').addClass('open');
     }
 }

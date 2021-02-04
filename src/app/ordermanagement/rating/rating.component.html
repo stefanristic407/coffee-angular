@@ -1,319 +1,157 @@
-<div class="bg-fff">
-    <section class="rating-top">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 cursor-pointer d-md-block d-none" routerLink="/ordermanagement/estate-orders">
-                <img src="/assets/images/backarrow.png" alt="">
-                <span class="back-order pl-2">{{globals.languageJson?.return_to_order}}</span>
+<div class="main-block">
+    <div class="d-flex justify-content-between align-items-center">
+        <a class="back-page green" routerLink="/ordermanagement/estate-orders">
+            {{ globals.languageJson?.return_to_order }}
+        </a>
+        <button
+            type="button"
+            class="btn-raised d-none d-md-block"
+            [class.loading]="submitted"
+            (click)="submitRating()"
+            [disabled]="submitted"
+        >
+            <span>{{ submitted ? 'Submitting' : globals.languageJson?.submit }}</span>
+        </button>
+    </div>
+
+    <div class="mob-negative">
+        <div class="feedback-total br-main br-8 bg-f8 mt-3 mt-md-45">
+            <h1 class="fnt-18 fnt-md-16 lh-normal fnt-bold text-clr334">
+                {{ globals.languageJson?.leave_a_feedback }}
+            </h1>
+            <div class="fnt-600 text-clr588">
+                {{ globals.languageJson?.give_us_experience }}. <br class="d-none d-md-block" />
+                {{ globals.languageJson?.by_giving_feedback }}
             </div>
-            <div class="float-right ml-auto save-padding d-md-block d-none">
-                <button type="button" class="btn save-button" (click)="submitRating()">{{globals.languageJson?.submit}}</button>
-            </div>
-        </div>
-        <div class="cursor-pointer pl-2 pl-md-0 d-block d-md-none" routerLink="/ordermanagement/estate-orders">
-            <img src="/assets/images/back-arrow-review.svg" alt="">
-            <span class="back-order pl-2">{{globals.languageJson?.return_to_order}}</span>
-        </div>
-        <div class="user-name d-md-block d-none">{{globals.languageJson?.finca_la_pampa}}</div>
-        <div class="feedback-total mt-3">
-            <h1 class="leave-text">{{globals.languageJson?.leave_a_feedback}}</h1>
-            <div class="give-rating d-md-block d-none">
-                {{globals.languageJson?.give_us_experience}}.
-            </div>
-            <div class="rating-subtext d-md-block d-none">{{globals.languageJson?.by_giving_feedback}}
-            </div>
-            <div class="give-rating d-md-none d-block">{{globals.languageJson?.give_your_feedback}}</div>
         </div>
 
-        <div class="rating-total mt-3">
+        <div class="rating-total br-main br-4 mt-3">
             <div class="row">
-                <div class="col-lg-4 col-md-12 col-12">
-                    <div class="d-flex m-0">
-                        <div class="d-md-block d-none"><img class="img-review-estate" *ngIf="bookedService.company_image_thumbnail_url" [src]="bookedService.company_image_thumbnail_url" alt="User"></div>
-                        <div class="d-block d-md-none"><img class="img-review-estate" src="assets/images/rating-profile-mob.jpg" alt="User"></div>
-                        <div class="col-10 pl-0 d-md-block d-none">
-                            <ul class="details-lists p-0 ">
-                                <li class="d-flex">
-                                    <span class="person-name">{{bookedService.owner_name}}</span>
-                                    <!-- <span class="last-seen-time">{{globals.languageJson?.last_seen}} 4:30pm </span> -->
-                                </li>
-                                <li class="roaster">
-                                    Estate
-                                </li>
-                                <li class="d-flex rating-space">
+                <div class="col-lg-5 col-md-12 col-12 pr-md-5">
+                    <div class="px-1 px-md-0">
+                        <div class="d-flex m-0">
+                            <app-avatar
+                                [size]="globals.device === 'mobile' ? 39 : 70"
+                                [src]="bookedService.company_image_thumbnail_url"
+                                [name]="bookedService.owner_name"
+                            ></app-avatar>
 
-                                    <star-rating value="{{changeDecimal(bookedService.rating)}}" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                    <p class="rating-value">{{bookedService.rating}}
-                                </li>
-                                <li>
-                                    <span class="location pr-2"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                    {{GetCountry(bookedService.country)}}</span>
-                                    <span class="details pl-2">Contact details <img class="top-image" src="/assets/images/group.png" alt=""></span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-10 d-md-none d-block pl-2 pr-0">
-                            <ul class="details-lists">
-                                <li class="">
-                                    <span class="person-name">{{globals.languageJson?.finca_la_pampa}}</span>
-                                </li>
-                                <li class="roaster">
-                                    {{globals.languageJson?.roaster}}
-                                </li>
-                                <li>
-                                    <span class="last-seen-time">{{globals.languageJson?.last_seen}} 4:30pm </span>
-
-                                </li>
-                                <li class="d-flex rating-space">
-
-                                    <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                    <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
-
-                                </li>
-                                <li>
-                                    <span class="location pr-3"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                            {{globals.languageJson?.belgium}}</span>
-                                    <span class="details pl-3">{{globals.languageJson?.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="rate-experience">
-                        {{globals.languageJson?.rate_your_experience}}
-                    </div>
-
-                </div>
-                <div class="col-lg-8 col-md-12 col-12 pl-md-3 m-over-8">
-                    <div class="row experience-padding">
-                        <div class="col-lg-4 col-md-12 col-12">
-                            <span class="over-exp d-md-block d-none">{{globals.languageJson?.overall_experience}}</span>
-                            <div class="over-exp d-md-none d-block ">{{globals.languageJson?.overall_experience}}<span class="required-star">*</span></div>
-
-                            <span>
-                            <!-- <star-rating value="0" totalstars={{totalstar}}  (rate)="onRate($event)" id="experienceId" checkedcolor="#ffa001" uncheckedcolor="#d6d6d6" size="36px"  ></star-rating>
-                            <div class="experienceError" *ngIf="experienceError != ''">{{experienceError}}</div> -->
-                            <div class="rating d-flex clearfix pt-2  pb-3 pb-lg-0 flex-wrap">
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="1"  (change)="onCheckboxChangeFirst($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="2" (change)="onCheckboxChangeFirst($event)" >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="3"  (change)="onCheckboxChangeFirst($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="4" (change)="onCheckboxChangeFirst($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="5" (change)="onCheckboxChangeFirst($event)">
-                                    </label>
-                                    <p class="experienceError rating-error mb-0 pt-1">{{globals.languageJson?.tap_start_rate}}</p>
-                                </div>
-                            </span>
-
-
-                        </div>
-                        <div class="col-lg-4 col-md-12 col-12">
-                            <span class="over-exp  d-md-block d-none">{{globals.languageJson?.communication}}</span>
-                            <div class="over-exp d-md-none d-block ">{{globals.languageJson?.grading_abilities}}<span class="required-star">*</span></div>
-
-                            <span>
-                            <!-- <star-rating value="0" totalstars={{totalstar}} (rate)="onCommunication($event)" id="communicationId" checkedcolor="#ffa001" uncheckedcolor="#d6d6d6" size="36px"></star-rating>
-                            <div class="communicationError" *ngIf="communicationError != ''">{{communicationError}}</div> -->
-                            <div class="rating d-flex clearfix pt-2 flex-wrap">
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="1"  (change)="onCheckboxChangeSecond($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="2"  (change)="onCheckboxChangeSecond($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="3"  (change)="onCheckboxChangeSecond($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="4" (change)="onCheckboxChangeSecond($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="5" (change)="onCheckboxChangeSecond($event)">
-                                    </label>
-                                    <p class="experienceError rating-error pt-1 mb-0">{{globals.languageJson?.tap_start_rate}}</p>
-                                </div>
-                            </span>
-                        </div>
-                        <div class="col-lg-4 col-md-12 col-12">
-                            <span class="over-exp  d-md-block d-none">Green coffee</span>
-                            <div class="over-exp d-md-none d-block ">Green coffee<span class="required-star">*</span></div>
-                            <span>
-                            <div class="rating d-flex clearfix pt-2 flex-wrap">
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="1" (change)="onCheckboxChange($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="2"  (change)="onCheckboxChange($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="3"  (change)="onCheckboxChange($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="4" (change)="onCheckboxChange($event)">
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="5" (change)="onCheckboxChange($event)">
-                                    </label>
-                                    <p class="experienceError rating-error pt-1 mb-0">{{globals.languageJson?.tap_start_rate}}</p>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row experience-padding">
-                        <div class="form-group col-lg-11 col-md-12 mb-0 mt-4">
-                            <label class="review-label">{{globals.languageJson?.write_a_review}}</label>
-                            <textarea class="form-control area-border" placeholder={{globals.languageJson?.short_description}} [(ngModel)]="review" name="review" id="reviewId" rows="4" cols="50" (keyup)="onKeyPress($event)"></textarea>
-                            <div class="reviewError" *ngIf="reviewError != ''">{{reviewError}}</div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="rating-total mt-3 mob-margin">
-            <div class="row">
-                <div class="col-lg-5 col-md-12 col-12">
-                    <div class="row m-0">
-                        <div class="d-inline-block rating-pic">
-                            <img class="img-estate d-md-block d-none" src="assets/images/rating-2.png" alt="User">
-                            <img class="img-estate d-block d-md-none" src="assets/images/rating-profile2-mob.jpg" alt="User">
-                            <span class="online-rating"></span>
-                        </div>
-                        <div class="col-10 pl-0 d-md-block d-none">
-                            <ul class="details-lists p-0">
-                                <li class="person-name">
-                                    {{globals.languageJson?.kevil_baliey}}
-                                    <span class="last-seen">{{globals.languageJson?.online}}</span>
-                                </li>
-                                <li class="roaster">
-                                    {{globals.languageJson?.facilitator}}
-                                </li>
-                                <li class="d-flex rating-space">
-
-                                    <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                    <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
-                                </li>
-                                <li>
-                                    <span class="location pr-2"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                    {{globals.languageJson?.belgium}}</span>
-                                    <span class="details pl-2">{{globals.languageJson?.contact_details}} <img class="top-image" src="/assets/images/group.png" alt=""></span>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="col-10 d-md-none d-block pl-2 pr-0">
-                                <ul class="details-lists">
-                                        <li class="">
-                                            <span class="person-name">{{globals.languageJson?.kevil_baliey}}</span>                                   
-                                         </li>
-                                        <li class="roaster">
-                                                {{globals.languageJson?.facilitator}}
-                                        </li>
-                                        <li>
-                                         <span class="last-seen-time">{{globals.languageJson?.online}}</span>
-    
-                                        </li>
-                                        <li class="d-flex rating-space">
-        
-                                            <star-rating value="4" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#d6d6d6" size="19px"></star-rating>
-                                            <p class="rating-value">{{this.newvalue.toFixed(1)}}</p>
-        
-                                        </li>
-                                        <li>
-                                                <span class="location pr-3"><img class="pr-1" src="/assets/images/location-rating.png" alt="">
-                                                {{globals.languageJson?.belgium}}</span>
-                                                <span class="details pl-3">{{globals.languageJson?.contact_details}}<img class="top-image" src="/assets/images/group.png" alt=""></span>
-                                            </li>
-                                         
-                                    </ul>
+                            <div class="pl-2 pl-md-3">
+                                <ul class="p-0">
+                                    <li class="d-flex align-items-end mb-1 mb-md-2">
+                                        <span class="fnt-16 lh-normal fnt-bold text-clr334">{{
+                                            bookedService.owner_name
+                                        }}</span>
+                                        <span class="fnt-14 lh-normal fnt-600 text-clr97 ml-3 d-none d-md-block"
+                                            >{{ globals.languageJson?.last_seen }} 4:30pm
+                                        </span>
+                                    </li>
+                                    <li class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-1 mb-md-2">Estate</li>
+                                    <p class="fnt-12 lh-normal fnt-600 text-clr97 d-md-none mt-1 mb-3">
+                                        {{ globals.languageJson?.last_seen }} 4:30pm
+                                    </p>
+                                    <li class="d-flex mb-3">
+                                        <span class="fnt-12">
+                                            <p-rating
+                                                [ngModel]="bookedService.rating"
+                                                [cancel]="false"
+                                                [readonly]="true"
+                                            ></p-rating
+                                        ></span>
+                                        <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">
+                                            {{ bookedService.rating }}
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="fnt-14 lh-normal fnt-bold text-clr588"
+                                            ><img class="pr-1" src="/assets/images/location-rating.png" alt="" />
+                                            {{ bookedService.country | country }}</span
+                                        >
+                                        <span class="v-divider mx-3"></span>
+                                        <a class="arrow-link green">{{ globals.languageJson?.contact_details }}</a>
+                                    </li>
+                                </ul>
                             </div>
-
-
-                    </div>
-                    <div class="rate-experience">
-                        {{globals.languageJson?.rate_your_experience}}
-                    </div>
-
-                </div> -->
-        <!-- <div class="col-lg-7 col-md-12 col-12 pl-md-3 m-over-8">
-                    <div class="row experience-padding">
-                        <div class="col-lg-5 col-md-12 col-12">
-                            <span class="over-exp d-md-block d-none">{{globals.languageJson?.overall_experience}}</span>
-                            <div class="over-exp d-md-none d-block ">{{globals.languageJson?.overall_experience}}<span class="required-star">*</span></div>
-                            <span>
-                           
-                            <div class="rating d-flex clearfix pt-2  pb-3 pb-lg-0 flex-wrap">
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="1"  >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="2"  >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="3"  >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="4" >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="5" >
-                                    </label>
-                                    <p class="experienceError rating-error pt-1 mb-0">{{globals.languageJson?.tap_start_rate}}</p>
-                                </div>
-        
-                        </span>
                         </div>
-                        <div class="col-lg-5 col-md-12 col-12">
-                                <span class="over-exp  d-md-block d-none">{{globals.languageJson?.communication}}</span>
-                                <div class="over-exp d-md-none d-block ">{{globals.languageJson?.grading_abilities}}<span class="required-star">*</span></div>                            <span>
-                            
-                            <div class="rating d-flex clearfix pt-2 flex-wrap">
-                                    <label class="rating__item float-left d-inline-block  " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="1"  >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block " style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="2"  >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="3" >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="4" >
-                                    </label>
-                                    <label class="rating__item float-left d-inline-block" style="width: 24px;height: 24px;">
-                                        <input type='checkbox' value="5" >
-                                    </label>
-                                    <p class="experienceError rating-error pt-1 mb-0">{{globals.languageJson?.tap_start_rate}}</p>
-                                </div>
-        
-                        </span>
-                        </div>
-
-                    </div>
-                    <div class="row experience-padding">
-                        <div class="form-group col-lg-11 col-md-12 mb-0 mt-4">
-                            <label class="review-label">{{globals.languageJson?.write_a_review}}</label>
-                            <textarea class="form-control area-border" placeholder={{globals.languageJson?.short_description}} rows="4" cols="50" [(ngModel)]="reviewUser" name="reviewUser" id="reviewUserId" (keyup)="onKeyPress($event)"></textarea>
-                            <div class="reviewUserError" *ngIf="reviewUserError != ''">{{reviewUserError}}</div>
-
+                        <div class="fnt-14 fnt-600 text-clr588 mb-45">
+                            {{ globals.languageJson?.rate_your_experience }}
                         </div>
                     </div>
-                </div> -->
-        <!-- </div>
-        </div> -->
-
-        <div class="d-md-none d-block farm-stricky col-12">
-            <button type="button" class="submit-mob-butn" (click)="submitMobRating()" [disabled]="resetButtonValue==='Submitting'">
-                        {{resetButtonValue}}<img class="loader" *ngIf="resetButtonValue==='Submitting'" src="assets/images/orange-loader.gif"/></button>
+                </div>
+                <div class="col-lg-7 col-md-12 col-12">
+                    <form [formGroup]="infoForm" novalidate>
+                        <div class="row">
+                            <div class="sewn-form-field col-lg-4 col-md-12 col-12">
+                                <label class="fnt-16 fnt-bold text-clr334">
+                                    {{ globals.languageJson?.overall_experience }}
+                                </label>
+                                <span style="font-size: 24px">
+                                    <p-rating formControlName="overall_experience" [cancel]="false"></p-rating>
+                                    <small
+                                        *ngIf="infoForm.controls.overall_experience.errors?.required"
+                                        class="p-error fnt-14 fnt-600"
+                                    >
+                                        Tap the stars to rate
+                                    </small>
+                                </span>
+                            </div>
+                            <div class="sewn-form-field col-lg-4 col-md-12 col-12">
+                                <label class="fnt-16 fnt-bold text-clr334">{{
+                                    globals.languageJson?.communication
+                                }}</label>
+                                <span style="font-size: 24px">
+                                    <p-rating formControlName="communication" [cancel]="false"></p-rating>
+                                    <small
+                                        *ngIf="infoForm.controls.communication.errors?.required"
+                                        class="p-error fnt-14 fnt-600"
+                                    >
+                                        Tap the stars to rate
+                                    </small>
+                                </span>
+                            </div>
+                            <div class="sewn-form-field col-lg-4 col-md-12 col-12">
+                                <label class="fnt-16 fnt-bold text-clr334">Green coffee</label>
+                                <span style="font-size: 24px">
+                                    <p-rating formControlName="green_coffee" [cancel]="false"></p-rating>
+                                    <small
+                                        *ngIf="infoForm.controls.green_coffee.errors?.required"
+                                        class="p-error fnt-14 fnt-600"
+                                    >
+                                        Tap the stars to rate
+                                    </small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="sewn-form-field col-lg-11 col-md-12 mt-4 mb-0">
+                                <label class="text-clr588">{{ globals.languageJson?.write_a_review }}</label>
+                                <textarea
+                                    class="form-control area-border"
+                                    placeholder="{{ globals.languageJson?.short_description }}"
+                                    formControlName="review"
+                                    rows="4"
+                                    cols="50"
+                                ></textarea>
+                                <small *ngIf="infoForm.controls.review.errors?.required" class="p-error fnt-14 fnt-600">
+                                    Please write your review
+                                </small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+</div>
+
+<div class="d-md-none mobile-btn-wrap bg-white">
+    <button
+        type="button"
+        class="btn-raised w-100"
+        [class.loading]="submitted"
+        (click)="submitRating()"
+        [disabled]="submitted"
+    >
+        <span>{{ submitted ? 'Submitting' : globals.languageJson?.submit }}</span>
+    </button>
 </div>

@@ -1,26 +1,32 @@
 <div class="back-page w-100 pl-4">
-    <a class="view-orders"><img src="assets/images/back-arrow-1.png"> Back</a>
+    <a class="view-orders"><img src="assets/images/back-arrow-1.png" /> Back</a>
 </div>
 <section class="cupping__total">
-
     <div class="row">
         <div class="col-lg-9 col-md-9 col-12">
             <div class="results__info">
                 <div class="row">
-
                     <div class="col-lg-12 col-md-12 col-12">
                         <!-- <div *ngIf="type"> -->
                         <div class="results__head d-flex" *ngIf="type">
                             <div class="pull-left result_text">Results</div>
-                            <div class="ml-auto pull-right" *ngFor="let item of evaluatorsList"><span
-                                    class="view_process_color color_legend1"></span><span
-                                    class="view_process pl-2">{{item.evaluator_name}}</span></div>
+                            <div class="ml-auto pull-right" *ngFor="let item of evaluatorsList">
+                                <span class="view_process_color color_legend1"></span
+                                ><span class="view_process pl-2">{{ item.evaluator_name }}</span>
+                            </div>
                         </div>
                         <div class="mt-3 scroll_chart" *ngIf="type">
                             <!-- <div class="col-lg-12 col-12 p-0"> -->
-                            <ngx-charts-bubble-chart [view]="view" [scheme]="colorScheme" [results]="bubbleData"
-                                [xAxis]="showXAxis" [yAxis]="showYAxis" [yScaleMin]="yScaleMin" [yScaleMax]="yScaleMax"
-                                [minRadius]="minRadius">
+                            <ngx-charts-bubble-chart
+                                [view]="view"
+                                [scheme]="colorScheme"
+                                [results]="bubbleData"
+                                [xAxis]="showXAxis"
+                                [yAxis]="showYAxis"
+                                [yScaleMin]="yScaleMin"
+                                [yScaleMax]="yScaleMax"
+                                [minRadius]="minRadius"
+                            >
                             </ngx-charts-bubble-chart>
                             <!-- </div> -->
                         </div>
@@ -28,15 +34,23 @@
                         <!-- <div *ngIf="!type"> -->
                         <div class="results__head d-flex" *ngIf="!type">
                             <div class="pull-left result_text">Results</div>
-                            <div class="ml-auto pull-right" *ngFor="let item of evaluatorsList"><span
-                                    class="view_process_color color_legend2"></span><span
-                                    class="view_process pl-2">{{item.evaluator_name}}</span></div>
+                            <div class="ml-auto pull-right" *ngFor="let item of evaluatorsList">
+                                <span class="view_process_color color_legend2"></span
+                                ><span class="view_process pl-2">{{ item.evaluator_name }}</span>
+                            </div>
                         </div>
                         <div class="mt-3 scroll_chart" *ngIf="!type">
                             <!-- <div class="col-lg-12 col-12 p-0"> -->
-                            <ngx-charts-bubble-chart [view]="view" [scheme]="colorSchemeScore" [results]="scoreData"
-                                [xAxis]="showXAxisScore" [yAxis]="showYAxisScore" [yScaleMin]="yScaleMinScore"
-                                [yScaleMax]="yScaleMaxScore" [minRadius]="minRadiusScore">
+                            <ngx-charts-bubble-chart
+                                [view]="view"
+                                [scheme]="colorSchemeScore"
+                                [results]="scoreData"
+                                [xAxis]="showXAxisScore"
+                                [yAxis]="showYAxisScore"
+                                [yScaleMin]="yScaleMinScore"
+                                [yScaleMax]="yScaleMaxScore"
+                                [minRadius]="minRadiusScore"
+                            >
                             </ngx-charts-bubble-chart>
                             <!-- </div> -->
                         </div>
@@ -46,7 +60,6 @@
                     <div *ngIf="!type">User</div>
                 </div> -->
                     </div>
-
                 </div>
             </div>
         </div>
@@ -63,30 +76,34 @@
                 </a>
             </div> -->
             <div class="view__info mt-md-0 mt-3">
-                <div class="view_head">
-                    View
-                </div>
+                <div class="view_head">View</div>
                 <div class="view_body">
-                    <div class="d-flex"><input type="radio" name="type" [value]="true" [(ngModel)]="type"
-                            [checked]="type"><span class="compare_category pl-2">Compare categories</span></div>
-                    <div class="d-flex pt-3"><input type="radio" name="type" [value]="false" [(ngModel)]="type"
-                            [checked]="!type"><span class="compare_category pl-2">Compare final scores</span></div>
+                    <div class="d-flex">
+                        <input type="radio" name="type" [value]="true" [(ngModel)]="type" [checked]="type" /><span
+                            class="compare_category pl-2"
+                            >Compare categories</span
+                        >
+                    </div>
+                    <div class="d-flex pt-3">
+                        <input type="radio" name="type" [value]="false" [(ngModel)]="type" [checked]="!type" /><span
+                            class="compare_category pl-2"
+                            >Compare final scores</span
+                        >
+                    </div>
                 </div>
             </div>
 
             <div class="view__info mt-3">
-
                 <div class="view_body">
-                    <h4 class="fnt-40 fnt-700 fnt-muli txt-clr334">{{avgScore}} </h4>
-                    <p class=" fnt-18 fnt-600 fnt-muli text-clr588">Average scrore </p>
+                    <h4 class="fnt-40 fnt-700 fnt-muli text-clr334">{{ avgScore }}</h4>
+                    <p class="fnt-18 fnt-600 fnt-muli text-clr588">Average scrore</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-lg-12 col-md-12 col-12">
-
-            <p class="fnt-18 fnt-muli fnt-700 txt-clr334 m-0">Select evaluators to include in your report </p>
+            <p class="fnt-18 fnt-muli fnt-700 text-clr334 m-0">Select evaluators to include in your report</p>
 
             <!-- <div class="table__info"> -->
             <div class="table-responsive border__cupping">
@@ -97,8 +114,8 @@
                                 <label class="customcheckbox color-text">
                                     <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                                     <span class="checkmark head-check"></span>
-
-                                </label> </th>
+                                </label>
+                            </th>
                             <th>Evaluator</th>
                             <th scope="col">Final Score</th>
                             <th scope="col">Aroma</th>
@@ -116,28 +133,27 @@
                         </tr>
                     </thead>
                     <tbody class="customtable">
-                        <tr class="ticket-boby-txt" *ngFor="let item of cuppingScoreDetailsArray; let i = index;">
-                            <td class="spacing-order" style="width: 40px;">
+                        <tr class="ticket-boby-txt" *ngFor="let item of cuppingScoreDetailsArray; let i = index">
+                            <td class="spacing-order" style="width: 40px">
                                 <label class="customcheckbox color-text">
                                     <input type="checkbox" class="listCheckbox" name="filter-check" value="" />
                                     <span class="checkmark head-check"></span>
-
                                 </label>
                             </td>
-                            <td>{{item.evaluator_name}}</td>
-                            <td>{{item.final_score}}</td>
-                            <td>{{item.roast_level}}</td>
-                            <td>{{item.fragrance_dry}}</td>
-                            <td>{{item.fragrance_break}}</td>
-                            <td>{{item.flavour_score}}</td>
-                            <td>{{item.aftertaste_score}}</td>
-                            <td>{{item.acidity_score}}</td>
-                            <td>{{item.body_score}}</td>
-                            <td>{{item.balance_score}}</td>
-                            <td>{{item.uniformity_score}}</td>
-                            <td>{{item.cleancup_score}}</td>
-                            <td>{{item.sweetness_score}}</td>
-                            <td>{{item.overall_score}}</td>
+                            <td>{{ item.evaluator_name }}</td>
+                            <td>{{ item.final_score }}</td>
+                            <td>{{ item.roast_level }}</td>
+                            <td>{{ item.fragrance_dry }}</td>
+                            <td>{{ item.fragrance_break }}</td>
+                            <td>{{ item.flavour_score }}</td>
+                            <td>{{ item.aftertaste_score }}</td>
+                            <td>{{ item.acidity_score }}</td>
+                            <td>{{ item.body_score }}</td>
+                            <td>{{ item.balance_score }}</td>
+                            <td>{{ item.uniformity_score }}</td>
+                            <td>{{ item.cleancup_score }}</td>
+                            <td>{{ item.sweetness_score }}</td>
+                            <td>{{ item.overall_score }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -148,12 +164,12 @@
     <div class="row">
         <div class="col-12 pt-4">
             <button type="submit" class="generate_report float-right btn font_butn" (click)="submit()">Submit</button>
-            <button type="submit" class="regrade_sample float-right btn mr-2 font_butn" (click)="reGrade()">Re-grade
-                sample</button>
+            <button type="submit" class="regrade_sample float-right btn mr-2 font_butn" (click)="reGrade()">
+                Re-grade sample
+            </button>
         </div>
     </div>
 </section>
-
 
 <ng-template #confirmtemplate>
     <div class="modal-header">
@@ -162,20 +178,13 @@
           </button> -->
     </div>
     <div class="modal-body text-center mb-5">
-        <img src="/assets/images/alert-messaging.png" alt="">
+        <img src="/assets/images/alert-messaging.png" alt="" />
 
-        <div class="are-sure fnt-play mt-3">
-            Are you sure want to submit the result
-        </div>
+        <div class="are-sure fnt-play mt-3">Are you sure want to submit the result</div>
         <!-- <div class="do-account pt-1 pb-2">Are you sure you want to place order</div> -->
         <div class="pt-4">
-
-            <button class="btn no-btn" (click)="modalRef.hide();">No</button>
-            <button class="btn add-btn ml-3" (click)="modalRef.hide();goNext()">Yes</button>
-
+            <button class="btn no-btn" (click)="modalRef.hide()">No</button>
+            <button class="btn add-btn ml-3" (click)="modalRef.hide(); goNext()">Yes</button>
         </div>
-
-
-
     </div>
 </ng-template>
