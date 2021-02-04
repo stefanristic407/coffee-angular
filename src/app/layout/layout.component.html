@@ -18,20 +18,17 @@
                             <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
                         </a>
                     </div>
-                    <div class="d-inline-block header-searach">
-                        <div class="search-on-site">
-                            <div class="search-on-site__input fnt-muli">
-                                <img class="img d-inline-block" src="assets/images/search.svg" />
-                                <p-autoComplete
-                                    [(ngModel)]="text"
-                                    [suggestions]="results"
-                                    (onSelect)="redirect($event)"
-                                    (completeMethod)="search($event)"
-                                    class="fadout-search pt-1"
-                                >
-                                </p-autoComplete>
-                            </div>
-                        </div>
+                    <div class="d-inline-block">
+                        <p-autoComplete
+                            [(ngModel)]="text"
+                            [suggestions]="results"
+                            (onSelect)="redirect($event)"
+                            (completeMethod)="search($event)"
+                            placeholder="Search.."
+                            styleClass="header-search"
+                            scrollHeight="225px"
+                        >
+                        </p-autoComplete>
                     </div>
                     <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                         <li

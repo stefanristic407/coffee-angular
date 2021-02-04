@@ -1,6 +1,7 @@
 // Custom Theming for Prime Ng
 
 @import '../variables';
+@import 'primeng_autocomplete';
 @import 'primeng_breadcrumb';
 @import 'primeng_calendar';
 @import 'primeng_carousel';
@@ -84,6 +85,41 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
 // Icon input
 .p-input-icon-left > i:first-of-type {
     color: $button-icon-color;
+}
+.custom-search,
+.header-search {
+    position: relative;
+    &::before {
+        content: '';
+        background-image: url(/assets/images/search.svg);
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 8px;
+    }
+    & > .p-inputtext {
+        padding-left: 3.125rem;
+    }
+}
+// Search auto complete
+.header-search {
+    & > .p-inputtext {
+        color: $general-text-color;
+        font-size: 16px;
+        font-weight: normal;
+    }
+    input::placeholder {
+        color: $button-icon-color !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+    }
+}
+.p-inputwrapper-filled .header-search {
+    & > .p-inputtext {
+        border-color: $primary-color;
+    }
 }
 
 // Input group
