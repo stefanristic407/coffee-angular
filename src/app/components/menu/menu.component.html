@@ -11,7 +11,7 @@
             >{{ globals.languageJson[menu.title] || menu.title }}
         </a>
         <a *ngIf="menu.hasSubMenu" class="d-inline-block fnt-600" href="javascript:void(0)" (click)="onClick(menu.id)"
-            >{{ globals.languageJson[menu.title] || menu.title }}
+            >{{ globals.languageJson[menu.title] || menu.title | titlecase }}
         </a>
         <ul *ngIf="menu.hasSubMenu; &quot;sub-menu&quot;" class="nav-dropdown mb-0" [id]="'sub-menu-' + menu.id">
             <app-menu [menuParentId]="menu.id"></app-menu>

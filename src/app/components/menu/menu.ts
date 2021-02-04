@@ -2,7 +2,9 @@ import { Menu } from './menu.model';
 
 export const menuItems = [
     new Menu(1, 'dashboard', '/features/welcome-aboard', null, null, null, false, 0, []),
-    new Menu(2, 'sourcing_module', '/sourcing', null, null, null, false, 0, ['sourcing-management']),
+    new Menu(2, 'sourcing', null, null, null, null, true, 0, ['sourcing-management']),
+    new Menu(21, 'Green coffee sourcing', '/sourcing', null, null, null, false, 2, []),
+    new Menu(22, 'Quality Control', '/features/green-grading', null, null, null, false, 2, []),
 
     new Menu(3, 'order_management', null, null, null, null, true, 0, ['sourcing-management']),
     new Menu(31, 'Purchase Orders Estates', '/ordermanagement/estate-orders', null, null, null, false, 3, []),
@@ -34,8 +36,6 @@ export const menuItems = [
     new Menu(52, 'Sales Contracts', '/features/agreement', null, null, null, false, 5, []),
     new Menu(53, 'Sales Tool', '/features/agreement', null, null, null, false, 5, []),
     new Menu(53, 'API Requests', '/features/api-requests-list', null, null, null, false, 5, []),
-
-    new Menu(6, 'Green grading', '/features/green-grading', null, null, null, false, 0, []),
 
     new Menu(7, 'Brand & Experience', null, null, null, null, true, 0, []),
     new Menu(71, 'Brand Profile Management', '/brand-profile', null, null, null, false, 7, []),
