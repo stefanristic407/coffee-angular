@@ -1,5 +1,4 @@
 // NOTE:  Avoid using module, use file based types for better maintainability
-
 export enum WSOrganizationType {
     FACILITATOR = 'fc',
     ROASTER = 'ro',
@@ -12,9 +11,9 @@ export enum ThreadActivityType {
     system = 'S',
     message = 'M',
     adduser = 'AU',
-    removeuser = 'RU'
+    removeuser = 'RU',
 }
-export enum WSCommunicationType {
+export enum WSChatMessageType {
     auth = 'auth', // Authenicate user
     threads = 'threads', // Get Thread Listing
     thread = 'thread', // Get Thread Details
@@ -32,13 +31,13 @@ export enum WSCommunicationType {
 }
 
 export interface WSRequest<RequestBody> {
-    type: WSCommunicationType;
+    type: WSChatMessageType;
     data: RequestBody;
     timestamp: string;
 }
 
 export interface WSResponse<ResponseBody> {
-    type: WSCommunicationType; // same as request
+    type: WSChatMessageType; // same as request
     data: ResponseBody | null;
     timestamp: string; // same as request
     success: boolean;
@@ -46,7 +45,8 @@ export interface WSResponse<ResponseBody> {
     messages: {
         [errorKey: string]: string;
     } | null;
-    result_info?: { // In case of paginated results
+    result_info?: {
+        // In case of paginated results
         page: number;
         per_page: number;
         total_count: number;
@@ -85,7 +85,6 @@ export interface ThreadListItem {
     computed_targetedUserList: ThreadMembers[];
 }
 
-
 export interface ThreadMembers {
     first_name: string;
     id: number;
@@ -104,7 +103,6 @@ export interface ThreadMembers {
     computed_organization_name: string;
 }
 
-
 export interface ResponseUserStatus {
     id: number;
     last_seen: string;
@@ -117,11 +115,11 @@ export interface RequestAuth {
     user_token: string;
 }
 
-export enum serviceCommunicationType {
+export enum ServiceCommunicationType {
     SHOW_CHAT = 'SHOW_CHAT',
     CLOSE_CHAT = 'CLOSE_CHAT',
     OPEN_THREAD = 'OPEN_THREAD',
-    TOGGLE = 'TOGGLE'
+    TOGGLE = 'TOGGLE',
 }
 
 export interface ChatMessage {

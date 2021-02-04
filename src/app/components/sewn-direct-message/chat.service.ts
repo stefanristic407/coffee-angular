@@ -1,4 +1,4 @@
-import { serviceCommunicationType } from '@models';
+import { ServiceCommunicationType } from '@models';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class ChatService {
     public chatSubject = new Subject<{
-        requestType: serviceCommunicationType;
+        requestType: ServiceCommunicationType;
         payload?: any;
     }>();
 
@@ -19,24 +19,24 @@ export class ChatService {
 
     public showChatPanel() {
         this.chatSubject.next({
-            requestType: serviceCommunicationType.SHOW_CHAT,
+            requestType: ServiceCommunicationType.SHOW_CHAT,
         });
     }
     public closeChatPanel() {
         this.chatSubject.next({
-            requestType: serviceCommunicationType.CLOSE_CHAT,
+            requestType: ServiceCommunicationType.CLOSE_CHAT,
         });
     }
 
     public openChatThread() {
         this.chatSubject.next({
-            requestType: serviceCommunicationType.OPEN_THREAD,
+            requestType: ServiceCommunicationType.OPEN_THREAD,
         });
     }
 
     public toggle() {
         this.chatSubject.next({
-            requestType: serviceCommunicationType.TOGGLE,
+            requestType: ServiceCommunicationType.TOGGLE,
         });
     }
 }

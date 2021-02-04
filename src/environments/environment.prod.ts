@@ -9,6 +9,7 @@ export const environment = {
     encryptionKey: 'sewen_secrete_key',
     microRoasterWeb: 'https://microroaster.sewnstaging.com',
     horecaWeb: 'https://partners.sewnstaging.com',
+    coreApi: 'https://bed-api.sewnstaging.com/v1',
     production: false,
 };
 
