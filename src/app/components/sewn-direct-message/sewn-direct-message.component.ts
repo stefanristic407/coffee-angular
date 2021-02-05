@@ -1,3 +1,4 @@
+import { ThreadListItem } from './../../../models/message';
 /* tslint:disable no-string-literal */
 import { SocketService } from './../../../services/socket.service';
 import { HttpClient } from '@angular/common/http';
@@ -267,10 +268,20 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                         console.log('incoming processed msg', user);
                     }
                     if (this.openedThread && this.openedThread.id === message.thread_id) {
+                        this.updateChatMessageBodyElRef();
+                        let isCurrentlyBottom = false;
+                        if (this.chatMessageBodyElement) {
+                            isCurrentlyBottom =
+                                this.chatMessageBodyElement.scrollTop + this.chatMessageBodyElement.clientHeight ===
+                                this.chatMessageBodyElement.scrollHeight;
+                        }
+
                         this.SM['lastRender' + this.getTimeStamp()] = this.lastMessageRendered
                             .pipe(first())
                             .subscribe((x) => {
-                                this.scrollbottom();
+                                if (isCurrentlyBottom) {
+                                    this.scrollbottom();
+                                }
                             });
                         this.messageList.push(message);
                         this.openedThread.computed_lastActivityText = message.content;
@@ -608,17 +619,18 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     sendMessage() {
         clearTimeout(this.offensiveTimeout);
         this.showOffensiveMessageError = false;
-        const msg = this.messageInput.trim();
+        let msg = this.messageInput.trim();
         if (msg !== '') {
             badwordsRegExp.lastIndex = 0;
             if (badwordsRegExp.test(msg)) {
                 this.showOffensiveMessageError = true;
                 this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
-            } else {
-                this.socket.chatSent.next(this.getMessagePayload(msg));
-                this.messageInput = '';
-                this.chatBodyHeightAdjust();
+                msg = msg.replace(badwordsRegExp, '****');
             }
+
+            this.socket.chatSent.next(this.getMessagePayload(msg));
+            this.messageInput = '';
+            this.chatBodyHeightAdjust();
         }
     }
 
@@ -729,6 +741,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.chatMessageFormElement = null;
         this.messageInputElement = null;
         this.chatService.isExpand.next(false);
+        if (!this.openedThread) {
+            this.openedThread = this.threadList[0];
+        }
         this.viewPortSizeChanged();
         this.SM['lastRender' + this.getTimeStamp()] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
             this.chatBodyHeightAdjust();

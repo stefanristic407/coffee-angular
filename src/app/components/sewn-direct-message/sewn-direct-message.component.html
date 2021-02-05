@@ -175,16 +175,12 @@
 
                         <!--Chat control-->
                         <div class="chat-control">
-                            <div
-                                class="chat-control__expand"
-                                [ngClass]="{ 'd-block': openedThread }"
-                                (click)="toggleExpandView()"
-                            >
+                            <div class="chat-control__expand d-block" (click)="toggleExpandView()">
                                 <img *ngIf="!(chatService.isExpand | async)" src="assets/images/dm-expand.svg" />
                                 <img *ngIf="chatService.isExpand | async" src="assets/images/dm-collapse.svg" />
                             </div>
                             <div class="chat-control__close" (click)="closePanel()">
-                                <img src="assets/images/dm-close.svg" />
+                                <img src="assets/images/dm-chat-close.svg" />
                             </div>
                         </div>
                     </div>
