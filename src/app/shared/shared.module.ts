@@ -22,6 +22,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -43,7 +44,9 @@ import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
 
 import { CountryPipe } from './pipes/country/country.pipe';
+import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
+import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { BlankComponent } from './components/blank/blank.component';
@@ -64,6 +67,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { RoleListComponent } from './components/add-teams/role-list/role-list.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { TeamMemberTableComponent } from './components/add-teams/team-member-table/team-member-table.component';
+import { UploaderComponent } from './components/uploader/uploader.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { InviteNewUserComponent } from './components/add-teams/invite-new-user/invite-new-user.component';
@@ -93,6 +97,7 @@ const THIRDMODULES = [
     GalleriaModule,
     InputNumberModule,
     InputSwitchModule,
+    InputTextareaModule,
     InputTextModule,
     MultiSelectModule,
     OverlayPanelModule,
@@ -134,10 +139,11 @@ const COMPONENTS = [
     MediaComponent,
     VideoPlayerComponent,
     ReadMoreComponent,
+    UploaderComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
-const PIPES = [CountryPipe, MonthPipe];
+const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
 // #endregion
 
 @NgModule({

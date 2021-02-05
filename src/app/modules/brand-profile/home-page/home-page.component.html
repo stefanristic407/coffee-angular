@@ -15,316 +15,315 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-8 col-md-12">
-                <div class="border p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Banner<span class="star">*</span></h4>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-1">
-                        Image/Video banner<span class="star">*</span>
-                    </p>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">Upload a banner cover about your roaster</p>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr588">Size - 1440 x 465 px</p>
+        <form [formGroup]="infoForm" novalidate>
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="border p-4">
+                        <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Banner<span class="star">*</span></h4>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-1">
+                            Image/Video banner<span class="star">*</span>
+                        </p>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">Upload a banner cover about your roaster</p>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-4">Size - 1440 x 423 px</p>
 
-                    <label class="mt-3">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            (change)="onFileChange($event, 1440, 465, 'Banner')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli">{{ banner_image_name }}</span>
-
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
-                        >Banner Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(banner_title, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="banner-title"
-                        id="banner-title"
-                        [(ngModel)]="banner_title"
-                        maxlength="{{ globals.getTheMaxLength(banner_title, 10) }}"
-                    />
-                </div>
-
-                <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Who you are</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">give yourself a small intro!</p>
-
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(intro_title, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="title"
-                        id="title"
-                        [(ngModel)]="intro_title"
-                        maxlength="{{ globals.getTheMaxLength(intro_title, 10) }}"
-                    />
-
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
-                        >A short description about the Estate<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(estate_desc, 10) }}/50 words</span
-                        ></label
-                    >
-                    <textarea
-                        id="description"
-                        class="form-control"
-                        rows="5"
-                        cols="50"
-                        [(ngModel)]="estate_desc"
-                        maxlength="{{ globals.getTheMaxLength(estate_desc, 10) }}"
-                    >
-                    </textarea>
-                </div>
-
-                <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Wizard</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">
-                        Your customers can personalise their coffee from this section.
-                    </p>
-
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(wizard_title, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="title"
-                        id="title"
-                        [(ngModel)]="wizard_title"
-                        maxlength="{{ globals.getTheMaxLength(wizard_title, 10) }}"
-                    />
-
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
-                        >Sub heading <span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(wizard_heading, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="title"
-                        id="title"
-                        [(ngModel)]="wizard_heading"
-                        maxlength="{{ globals.getTheMaxLength(wizard_title, 10) }}"
-                    />
-                </div>
-
-                <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Feature your products</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">
-                        Select products from your shop to display them here
-                    </p>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="select-product">
-                                <label class="cursor-pointer">
-                                    <input type="file" class="file-inpt" />
-                                    <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
-                                </label>
-                            </div>
+                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
+                                Please upload
+                            </small>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="select-product">
-                                <label class="cursor-pointer">
-                                    <input type="file" class="file-inpt" />
-                                    <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="select-product">
-                                <label class="cursor-pointer">
-                                    <input type="file" class="file-inpt" />
-                                    <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="select-product">
-                                <label class="cursor-pointer">
-                                    <input type="file" class="file-inpt" />
-                                    <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
-                                </label>
-                            </div>
+
+                        <div class="w-100 sewn-form-field mb-0">
+                            <label>
+                                Banner Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('banner_title').value | wordCount }}/10 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="banner_title" pInputText />
+                            <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.banner_title.errors?.maxWordCount" class="p-error">
+                                Please input 10 words
+                            </small>
                         </div>
                     </div>
-                </div>
 
-                <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Traceability stories</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">
-                        Users will be redirected to your completed coffee experience stories. Give them insights!
-                    </p>
+                    <div class="border mt-3 p-4">
+                        <h4 class="fnt-18 fnt-700 text-clr334">Who you are</h4>
+                        <p class="fnt-14 fnt-600 text-clr334">give yourself a small intro!</p>
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(traceability_title, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="title"
-                        id="title"
-                        [(ngModel)]="traceability_title"
-                        maxlength="{{ globals.getTheMaxLength(traceability_title, 10) }}"
-                    />
+                        <div class="w-100 sewn-form-field mb-4">
+                            <label>
+                                Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('banner_title').value | wordCount }}/10 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="intro_title" pInputText />
+                            <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.banner_title.errors?.maxWordCount" class="p-error">
+                                Please input 10 words
+                            </small>
+                        </div>
 
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
-                        >Sub heading <span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(traceability_heading, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="title"
-                        id="title"
-                        [(ngModel)]="traceability_heading"
-                        maxlength="{{ globals.getTheMaxLength(traceability_heading, 10) }}"
-                    />
+                        <div class="w-100 sewn-form-field mb-0">
+                            <label>
+                                A short description about the Estate<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('short_description').value | wordCount }}/50 words
+                                </span>
+                            </label>
+                            <textarea formControlName="short_description" rows="5" cols="50" pInputTextarea></textarea>
+                            <small *ngIf="infoForm.controls.short_description.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.short_description.errors?.maxWordCount" class="p-error">
+                                Please input 50 words
+                            </small>
+                        </div>
+                    </div>
 
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mt-3 mb-0">
-                        Upload 2 Images / Videos*<span class="star">*</span>
-                    </p>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr588">Size - 540x 445 px</p>
+                    <!-- <div class="border mt-3 p-4">
+                        <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Wizard</h4>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr334">
+                            Your customers can personalise their coffee from this section.
+                        </p>
 
-                    <label class="mt-3">
+                        <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
+                            >Title<span class="star">*</span>
+                            <span class="sub-text fnt-muli pull-right"
+                                >{{ globals.countTheString(wizard_title, 10) }}/10 words</span
+                            ></label
+                        >
                         <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            multiple
-                            (change)="onFileChange($event, 540, 445, 'Traceability')"
+                            type="text"
+                            class="form-control banner-title"
+                            name="title"
+                            id="title"
+                            [(ngModel)]="wizard_title"
+                            maxlength="{{ globals.getTheMaxLength(wizard_title, 10) }}"
                         />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli"
-                        >{{ traceability_image_name_1 }}, {{ traceability_image_name_2 }}</span
-                    >
-                </div>
 
-                <div class="border mt-3 p-4">
-                    <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Sustainability</h4>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334">Give an intro to your practices</p>
-
-                    <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(substainability_title, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="title"
-                        id="title"
-                        [(ngModel)]="substainability_title"
-                        maxlength="{{ globals.getTheMaxLength(substainability_title, 10) }}"
-                    />
-
-                    <label class="w-100 fnt-18 fnt-700 fnt-muli text-clr334 mt-3"
-                        >Sub heading <span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(substainability_heading, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="title"
-                        id="title"
-                        [(ngModel)]="substainability_heading"
-                        maxlength="{{ globals.getTheMaxLength(substainability_heading, 10) }}"
-                    />
-
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr334 mt-3 mb-0">
-                        Upload 2 Images / Videos*<span class="star">*</span>
-                    </p>
-                    <p class="fnt-14 fnt-600 fnt-muli text-clr588">Please upload 2 images : Size - 600 x 650 px</p>
-
-                    <label class="mt-3">
+                        <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
+                            >Sub heading <span class="star">*</span>
+                            <span class="sub-text fnt-muli pull-right"
+                                >{{ globals.countTheString(wizard_heading, 10) }}/10 words</span
+                            ></label
+                        >
                         <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            multiple
-                            (change)="onFileChange($event, 600, 650, 'Substainability')"
+                            type="text"
+                            class="form-control banner-title"
+                            name="title"
+                            id="title"
+                            [(ngModel)]="wizard_heading"
+                            maxlength="{{ globals.getTheMaxLength(wizard_title, 10) }}"
                         />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli"
-                        >{{ substainability_image_name_1 }}, {{ substainability_image_name_2 }}</span
-                    >
-                </div>
-            </div>
+                    </div> -->
 
-            <div class="col-12 col-md-4">
-                <div class="form-section__inputs form-section__inputs--withHead">
-                    <div class="input-head input-head--uplaod d-flex align-items-center justify-content-between">
-                        <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">Certificates</h5>
-                        <label class="mb-0">
-                            <input type="file" />
-                            <span class="fnt-muli fnt-700 d-inline-block">+</span>
+                    <!-- <div class="border mt-3 p-4">
+                        <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Feature your products</h4>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr334">
+                            Select products from your shop to display them here
+                        </p>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="select-product">
+                                    <label class="cursor-pointer">
+                                        <input type="file" class="file-inpt" />
+                                        <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                                        <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="select-product">
+                                    <label class="cursor-pointer">
+                                        <input type="file" class="file-inpt" />
+                                        <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                                        <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="select-product">
+                                    <label class="cursor-pointer">
+                                        <input type="file" class="file-inpt" />
+                                        <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                                        <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="select-product">
+                                    <label class="cursor-pointer">
+                                        <input type="file" class="file-inpt" />
+                                        <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                                        <p class="fnt-14 fnt-600 fnt-muli text-clr334 m-0">Select a product</p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="border mt-3 p-4">
+                        <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Traceability stories</h4>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr334">
+                            Users will be redirected to your completed coffee experience stories. Give them insights!
+                        </p>
+
+                        <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
+                            >Title<span class="star">*</span>
+                            <span class="sub-text fnt-muli pull-right"
+                                >{{ globals.countTheString(traceability_title, 10) }}/10 words</span
+                            ></label
+                        >
+                        <input
+                            type="text"
+                            class="form-control banner-title"
+                            name="title"
+                            id="title"
+                            [(ngModel)]="traceability_title"
+                            maxlength="{{ globals.getTheMaxLength(traceability_title, 10) }}"
+                        />
+
+                        <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
+                            >Sub heading <span class="star">*</span>
+                            <span class="sub-text fnt-muli pull-right"
+                                >{{ globals.countTheString(traceability_heading, 10) }}/10 words</span
+                            ></label
+                        >
+                        <input
+                            type="text"
+                            class="form-control banner-title"
+                            name="title"
+                            id="title"
+                            [(ngModel)]="traceability_heading"
+                            maxlength="{{ globals.getTheMaxLength(traceability_heading, 10) }}"
+                        />
+
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr334 mt-3 mb-0">
+                            Upload 2 Images / Videos*<span class="star">*</span>
+                        </p>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr588">Size - 540x 445 px</p>
+
+                        <label class="mt-3">
+                            <input
+                                type="file"
+                                class="file-inpt"
+                                accept="video/*,image/*"
+                                multiple
+                                (change)="onFileChange($event, 540, 445, 'Traceability')"
+                            />
+                            <span class="save"> Upload </span>
                         </label>
-                    </div>
-                    <div class="input-body">
-                        <div class="upload-file-results">
-                            <div
-                                class="upload-file-results__item d-flex flex-md-column flex-lg-row justify-content-between"
-                            >
-                                <div class="pr-3">
-                                    <h4 class="mb-0 fnt-14 fnt-700 fnt-muli text-black334">Rise Certificate</h4>
-                                    <span class="d-block fnt-12 fnt-600 fnt-muli text-gray588">2014</span>
-                                </div>
-                                <div class="d-flex">
-                                    <button class="fnt-muli fnt-14 fnt-700">View</button>
+                        <span class="pl-3 sub-header-text fnt-muli"
+                            >{{ traceability_image_name_1 }}, {{ traceability_image_name_2 }}</span
+                        >
+                    </div> -->
 
-                                    <button class="fnt-muli fnt-14 fnt-700">Delete</button>
-                                </div>
-                            </div>
+                    <!-- <div class="border mt-3 p-4">
+                        <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Sustainability</h4>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr334">Give an intro to your practices</p>
 
-                            <div
-                                class="upload-file-results__item d-flex flex-md-column flex-lg-row justify-content-between"
-                            >
-                                <div class="pr-3">
-                                    <h4 class="mb-0 fnt-14 fnt-700 fnt-muli text-black334">Rise Certificate</h4>
-                                    <span class="d-block fnt-12 fnt-600 fnt-muli text-gray588">2014</span>
-                                </div>
-                                <div class="d-flex">
-                                    <button class="fnt-muli fnt-14 fnt-700">View</button>
+                        <label class="w-100 fnt-14 fnt-600 fnt-muli text-clr334 mt-3"
+                            >Title<span class="star">*</span>
+                            <span class="sub-text fnt-muli pull-right"
+                                >{{ globals.countTheString(substainability_title, 10) }}/10 words</span
+                            ></label
+                        >
+                        <input
+                            type="text"
+                            class="form-control banner-title"
+                            name="title"
+                            id="title"
+                            [(ngModel)]="substainability_title"
+                            maxlength="{{ globals.getTheMaxLength(substainability_title, 10) }}"
+                        />
 
-                                    <button class="fnt-muli fnt-14 fnt-700">Delete</button>
+                        <label class="w-100 fnt-18 fnt-700 fnt-muli text-clr334 mt-3"
+                            >Sub heading <span class="star">*</span>
+                            <span class="sub-text fnt-muli pull-right"
+                                >{{ globals.countTheString(substainability_heading, 10) }}/10 words</span
+                            ></label
+                        >
+                        <input
+                            type="text"
+                            class="form-control banner-title"
+                            name="title"
+                            id="title"
+                            [(ngModel)]="substainability_heading"
+                            maxlength="{{ globals.getTheMaxLength(substainability_heading, 10) }}"
+                        />
+
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr334 mt-3 mb-0">
+                            Upload 2 Images / Videos*<span class="star">*</span>
+                        </p>
+                        <p class="fnt-14 fnt-600 fnt-muli text-clr588">Please upload 2 images : Size - 600 x 650 px</p>
+
+                        <label class="mt-3">
+                            <input
+                                type="file"
+                                class="file-inpt"
+                                accept="video/*,image/*"
+                                multiple
+                                (change)="onFileChange($event, 600, 650, 'Substainability')"
+                            />
+                            <span class="save"> Upload </span>
+                        </label>
+                        <span class="pl-3 sub-header-text fnt-muli"
+                            >{{ substainability_image_name_1 }}, {{ substainability_image_name_2 }}</span
+                        >
+                    </div> -->
+                </div>
+
+                <!-- <div class="col-12 col-md-4">
+                    <div class="form-section__inputs form-section__inputs--withHead">
+                        <div class="input-head input-head--uplaod d-flex align-items-center justify-content-between">
+                            <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">Certificates</h5>
+                            <label class="mb-0">
+                                <input type="file" />
+                                <span class="fnt-muli fnt-700 d-inline-block">+</span>
+                            </label>
+                        </div>
+                        <div class="input-body">
+                            <div class="upload-file-results">
+                                <div
+                                    class="upload-file-results__item d-flex flex-md-column flex-lg-row justify-content-between"
+                                >
+                                    <div class="pr-3">
+                                        <h4 class="mb-0 fnt-14 fnt-700 fnt-muli text-black334">Rise Certificate</h4>
+                                        <span class="d-block fnt-12 fnt-600 fnt-muli text-gray588">2014</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <button class="fnt-muli fnt-14 fnt-700">View</button>
+
+                                        <button class="fnt-muli fnt-14 fnt-700">Delete</button>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="upload-file-results__item d-flex flex-md-column flex-lg-row justify-content-between"
+                                >
+                                    <div class="pr-3">
+                                        <h4 class="mb-0 fnt-14 fnt-700 fnt-muli text-black334">Rise Certificate</h4>
+                                        <span class="d-block fnt-12 fnt-600 fnt-muli text-gray588">2014</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <button class="fnt-muli fnt-14 fnt-700">View</button>
+
+                                        <button class="fnt-muli fnt-14 fnt-700">Delete</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
-        </div>
-
+        </form>
         <div class="mt-45">
             <button class="btn-stroked mr-4" type="button" routerLink="/brand-profile">Cancel</button>
             <button type="button" class="btn-raised" (click)="saveHomeProfile()">Save</button>

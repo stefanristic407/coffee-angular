@@ -1,0 +1,13 @@
+<div class="upload-layer">
+    <div *ngFor="let item of files; index as i" class="file-wrap fnt-600 text-clr588" (click)="openPicture(item.url)">
+        {{ item.url | fileName }}
+        <img src="assets/images/close.svg" alt="Delete" (click)="$event.stopPropagation(); delete(i)" />
+    </div>
+    <input id="fileToUpload" type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display: none" />
+    <label for="fileToUpload" class="mb-0">
+        <div class="upload-btn fnt-500 text-clr334">
+            <img src="assets/images/upload-black.svg" alt="" />
+            Upload
+        </div>
+    </label>
+</div>

@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Injectable({
     providedIn: 'root',
@@ -395,6 +396,19 @@ export class RoasterserviceService {
             headers: new HttpHeaders({ Accept: 'application/json' }),
         };
         return this.http.post(this.fileuploadUrl, formData, httpOptions);
+    }
+
+    // Upload brand profile files
+    uploadBrandProfile(file) {
+        const roasterId = this.cookieService.get('roaster_id');
+        const uploadData = new FormData();
+        uploadData.append('api_call', `/ro/${roasterId}/file-manager/files`);
+        uploadData.append('method', 'POST');
+        uploadData.append('file', file);
+        uploadData.append('name', moment().format('YYYYMMDDHHmmss') + '.' + file.name.split('.').pop());
+        uploadData.append('file_module', 'Brand-Profile');
+        uploadData.append('token', this.cookieService.get('Auth'));
+        return this.http.post(this.fileuploadUrl, uploadData);
     }
 
     // API Function Name : update Files API.

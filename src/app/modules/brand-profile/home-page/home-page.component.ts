@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { maxWordCountValidator } from '@services';
+import { FormService } from '@services';
+import { GlobalsService } from '@services';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
@@ -42,7 +45,11 @@ export class HomePageComponent implements OnInit {
     substainability_title: string = '';
     substainability_heading: string = '';
 
+    infoForm: FormGroup;
+
     constructor(
+        private fb: FormBuilder,
+        private formSrv: FormService,
         public globals: GlobalsService,
         private toastrService: ToastrService,
         public cookieService: CookieService,
@@ -60,6 +67,12 @@ export class HomePageComponent implements OnInit {
             { label: this.globals.languageJson?.brand_profile, routerLink: '/brand-profile' },
             { label: this.globals.languageJson?.home_page },
         ];
+        this.infoForm = this.fb.group({
+            banner_file: ['', Validators.compose([Validators.required])],
+            banner_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
+            intro_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
+            short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
+        });
         this.getHomeDetails();
         this.loaded = true;
     }
@@ -180,6 +193,17 @@ export class HomePageComponent implements OnInit {
     }
 
     saveHomeProfile() {
+        console.log(this.infoForm.value);
+        if (this.infoForm.valid) {
+            const postData = {
+                ...this.infoForm.value,
+                banner_file: this.infoForm.value.banner_file.id,
+            };
+            console.log(postData);
+        } else {
+            this.formSrv.markGroupDirty(this.infoForm);
+        }
+        return;
         if (
             this.banner_title === '' ||
             this.intro_title === '' ||
@@ -223,46 +247,53 @@ export class HomePageComponent implements OnInit {
         }
     }
 
-    async getHomeDetails() {
-        this.userService.getPageDetails(this.roaster_id, 'home-page').subscribe(async (data) => {
-            if (data['result'] !== {}) {
-                this.banner_title = data['result'].banner_title;
-                this.intro_title = data['result'].intro_title;
-                this.wizard_heading = data['result'].wizard_sub_heading;
-                this.estate_desc = data['result'].short_description;
-                this.wizard_title = data['result'].wizard_title;
-                this.substainability_heading = data['result'].sustainability_sub_heading;
-                this.substainability_title = data['result'].sustainability_title;
-                this.traceability_title = data['result'].traceability_story_title;
-                this.traceability_heading = data['result'].traceability_story_sub_heading;
-                this.banner_id = data['result'].banner_file;
-                this.traceability_id_1 = data['result'].traceability_story_file_1;
-                this.traceability_id_2 = data['result'].traceability_story_file_2;
+    getHomeDetails() {
+        this.userService.getPageDetails(this.roaster_id, 'home-page').subscribe((res: any) => {
+            if (res.success) {
+                console.log('Home page data:', res.result);
+                this.banner_title = res.result.banner_title;
+                this.intro_title = res.result.intro_title;
+                this.wizard_heading = res.result.wizard_sub_heading;
+                this.estate_desc = res.result.short_description;
+                this.wizard_title = res.result.wizard_title;
+                this.substainability_heading = res.result.sustainability_sub_heading;
+                this.substainability_title = res.result.sustainability_title;
+                this.traceability_title = res.result.traceability_story_title;
+                this.traceability_heading = res.result.traceability_story_sub_heading;
+                this.banner_id = res.result.banner_file;
+                this.traceability_id_1 = res.result.traceability_story_file_1;
+                this.traceability_id_2 = res.result.traceability_story_file_2;
 
-                this.substainability_id_1 = data['result'].sustainability_file_1;
-                this.substainability_id_2 = data['result'].sustainability_file_2;
+                this.substainability_id_1 = res.result.sustainability_file_1;
+                this.substainability_id_2 = res.result.sustainability_file_2;
 
-                this.banner_image_name = await this.userService
-                    .getFileDetails(this.roaster_id, this.banner_id)
-                    .pipe(map((response) => response['name']))
-                    .toPromise();
-                this.traceability_image_name_1 = await this.userService
-                    .getFileDetails(this.roaster_id, this.traceability_id_1)
-                    .pipe(map((response) => response['name']))
-                    .toPromise();
-                this.traceability_image_name_2 = await this.userService
-                    .getFileDetails(this.roaster_id, this.traceability_id_2)
-                    .pipe(map((response) => response['name']))
-                    .toPromise();
+                this.infoForm.patchValue(res.result);
+                this.infoForm.controls.banner_file.setValue({
+                    id: res.result.banner_file,
+                    url: res.result.banner_file_url,
+                });
 
-                this.substainability_image_name_1 = await this.userService
-                    .getFileDetails(this.roaster_id, this.substainability_id_1)
-                    .pipe(map((response) => response['name']))
-                    .toPromise();
-                this.substainability_image_name_2 = await this.userService
-                    .getFileDetails(this.roaster_id, this.substainability_id_2)
-                    .pipe(map((response) => response['name']))
-                    .toPromise();
+                // this.banner_image_name = await this.userService
+                //     .getFileDetails(this.roaster_id, this.banner_id)
+                //     .pipe(map((response) => response['name']))
+                //     .toPromise();
+                // this.traceability_image_name_1 = await this.userService
+                //     .getFileDetails(this.roaster_id, this.traceability_id_1)
+                //     .pipe(map((response) => response['name']))
+                //     .toPromise();
+                // this.traceability_image_name_2 = await this.userService
+                //     .getFileDetails(this.roaster_id, this.traceability_id_2)
+                //     .pipe(map((response) => response['name']))
+                //     .toPromise();
+
+                // this.substainability_image_name_1 = await this.userService
+                //     .getFileDetails(this.roaster_id, this.substainability_id_1)
+                //     .pipe(map((response) => response['name']))
+                //     .toPromise();
+                // this.substainability_image_name_2 = await this.userService
+                //     .getFileDetails(this.roaster_id, this.substainability_id_2)
+                //     .pipe(map((response) => response['name']))
+                //     .toPromise();
             }
         });
     }
