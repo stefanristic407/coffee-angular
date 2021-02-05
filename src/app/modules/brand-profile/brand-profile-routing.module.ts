@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BrandProfileComponent } from './brand-profile.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { LearnComponent } from './learn/learn.component';
 import { SustainabilityComponent } from './sustainability/sustainability.component';
 import { VisitUsComponent } from './visit-us/visit-us.component';
@@ -15,6 +16,10 @@ const routes: Routes = [
     {
         path: 'home-page',
         component: HomePageComponent,
+    },
+    {
+        path: 'featured-products',
+        component: FeaturedProductsComponent,
     },
     {
         path: 'sustainability',

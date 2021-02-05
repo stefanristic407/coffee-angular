@@ -3,6 +3,9 @@
 @import '../variables';
 
 // Multiselect
+.round-border.p-multiselect {
+    border-radius: 20px;
+}
 .p-multiselect {
     border-color: $primary-border-color;
 }

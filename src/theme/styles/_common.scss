@@ -199,6 +199,33 @@ label {
     }
 }
 
+// Chip style
+.custom-chip {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid #ebebeb;
+    padding: 5px 9px 3px 15px;
+    border-radius: 12px;
+    position: relative;
+    color: $muted-text-color;
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &:before {
+        content: '';
+        width: 4px;
+        height: 4px;
+        background: #747588;
+        border-radius: 50%;
+        position: absolute;
+        left: 6px;
+        top: 42%;
+    }
+}
+
 .primary_txt {
     font-family: Muli;
     font-size: 18px;

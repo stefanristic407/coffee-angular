@@ -1,0 +1,72 @@
+<div class="main-block">
+    <div class="w-100 d-flex justify-content-between mb-3 mb-md-4">
+        <div>
+            <a class="back-page" routerLink="/brand-profile/home-page"> Go back </a>
+        </div>
+        <span class="p-input-icon-left custom-search">
+            <input
+                type="text"
+                pInputText
+                [(ngModel)]="queryParams.name"
+                (change)="filterCall()"
+                placeholder="Search for a product"
+                class="{{ queryParams.name ? 'highlight' : '' }}"
+            />
+        </span>
+    </div>
+    <div class="d-flex justify-content-between mb-4 mb-md-45">
+        <div>
+            <div class="fnt-18 fnt-bold text-clr334 mb-2">Select the products you want to feature</div>
+            <div class="fnt-14 fnt-normal text-clr588">Select upto 4 products</div>
+        </div>
+        <div>
+            <span class="fnt-bold text-clr55c mr-3">{{ productIds.length }} selected</span>
+            <button class="btn-raised" (click)="save()">Save</button>
+        </div>
+    </div>
+
+    <div>
+        <p-multiSelect
+            [options]="originItems"
+            [(ngModel)]="queryParams.origin"
+            defaultLabel="{{ globals.languageJson?.select_origin }}"
+            [maxSelectedLabels]="1"
+            selectedItemsLabel="{0} Origins"
+            [filter]="false"
+            (onChange)="filterCall()"
+            styleClass="round-border mb-3 mb-md-4 mr-2 {{ queryParams.origin?.length ? 'highlight' : '' }}"
+        ></p-multiSelect>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="row">
+                <div *ngFor="let item of products" class="col-md-2 col-lg-4 px-md-4 mb-45">
+                    <div
+                        class="product-card br-8 bg-f8 p-4 cursor-pointer"
+                        [class.selected]="item.is_featured"
+                        (click)="item.is_featured = !item.is_featured; clickProduct(item)"
+                    >
+                        <div class="img-wrap mb-45">
+                            <img [src]="item.featured_image" alt="Product" />
+                        </div>
+                        <div>
+                            <div class="chip-list">
+                                <div class="custom-chip mb-2 mr-2" *ngFor="let flavour of item.flavours.split(',')">
+                                    {{ flavour }}
+                                </div>
+                            </div>
+                            <div class="text-clr334 mb-4">{{ item.name }}</div>
+                            <h3 class="fnt-20 fnt-bold text-clr334 mb-1">{{ item.origin | country }}</h3>
+                            <div class="fnt-bold text-clr588">
+                                <span>${{ item.price }}</span>
+                                <span class="v-divider mx-2"></span>
+                                <span>{{ item.weight }} {{ item.weight_unit }} bag</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

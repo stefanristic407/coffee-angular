@@ -12,7 +12,6 @@ export function maxWordCountValidator(limit: number): ValidatorFn {
 
 export function fileCountValidator(limit: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-        console.log('filelength', control.value?.length, control.value);
         return control.value?.length === limit ? null : { fileCount: true };
     };
 }

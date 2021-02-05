@@ -81,6 +81,11 @@
     line-height: 26px;
 }
 
+.fnt-20 {
+    font-size: 18px;
+    line-height: 28px;
+}
+
 .fnt-32 {
     font-size: 32px;
     line-height: 43px;
@@ -107,6 +112,10 @@
 /* Tablet screens */
 
 @media (min-width: 768px) {
+    .fnt-20 {
+        font-size: 20px;
+        line-height: 30px;
+    }
     .fnt-18 {
         font-size: 18px;
         line-height: 28px;

@@ -619,9 +619,9 @@ export class RoasterserviceService {
         console.log(data);
         return this.http.post(this.url, data);
     }
-    getSelectProductDetails(roaster_id: any) {
+    getSelectProductDetails(roaster_id: any, queryParams = '') {
         var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/products?per_page=200';
+        data['api_call'] = `/ro/${roaster_id}/products${queryParams}`;
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }
@@ -629,6 +629,17 @@ export class RoasterserviceService {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/products/${productId}`;
         data['token'] = this.cookieService.get('Auth');
+        return this.http.post(this.url, data);
+    }
+
+    // Update featured products list by RO
+    updateFeatured(roasterId: any, product_ids: number[] = []): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterId}/products/update-featured`,
+            data: { product_ids },
+            method: 'PUT',
+            token: this.cookieService.get('Auth'),
+        };
         return this.http.post(this.url, data);
     }
 
@@ -1120,6 +1131,15 @@ export class RoasterserviceService {
             api_call: `/ro/${roasterId}/order-settings`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.url, data);
+    }
+
+    getFeaturedProducts(roasterId): Observable<any> {
+        const data = {
+            api_call: `/general/ro/${roasterId}/featured-products`,
+            method: 'GET',
+            token: '',
         };
         return this.http.post(this.url, data);
     }

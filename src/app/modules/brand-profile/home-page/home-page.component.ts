@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { maxWordCountValidator, fileCountValidator } from '@services';
 import { FormService } from '@services';
 import { GlobalsService } from '@services';
@@ -8,7 +8,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 @Component({
     selector: 'app-home-page',
     templateUrl: './home-page.component.html',
@@ -19,8 +18,7 @@ export class HomePageComponent implements OnInit {
     breadItems: any[];
     certificates: any[];
     roasterId: string;
-    featureId: any;
-
+    featuredProducts: any[];
     infoForm: FormGroup;
 
     constructor(
@@ -62,6 +60,7 @@ export class HomePageComponent implements OnInit {
             roastery_images: [null, Validators.compose([fileCountValidator(2)])],
         });
         this.getHomeDetails();
+        this.getFeaturedProducts();
         this.loaded = true;
     }
 
@@ -202,6 +201,15 @@ export class HomePageComponent implements OnInit {
                 //     .getFileDetails(this.roaster_id, this.banner_id)
                 //     .pipe(map((response) => response['name']))
                 //     .toPromise();
+            }
+        });
+    }
+
+    getFeaturedProducts() {
+        this.roasterService.getFeaturedProducts(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                console.log('featuredProducts:', res.result);
+                this.featuredProducts = res.result;
             }
         });
     }

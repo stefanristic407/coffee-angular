@@ -1,0 +1,25 @@
+.product-card {
+    transition: all 0.2s ease-in;
+    border: solid 2px #f8f8f8;
+    &.selected {
+        border: solid 2px #30855c;
+    }
+    &:hover {
+        box-shadow: 0 22px 54px -10px rgba(223, 223, 223, 0.5);
+        transform: translateY(-5px);
+    }
+
+    .img-wrap {
+        height: 123px;
+        text-align: center;
+        img {
+            height: 100%;
+            width: auto;
+            margin: 0 auto;
+        }
+    }
+
+    .v-divider {
+        border-left: solid 2px #747588;
+    }
+}

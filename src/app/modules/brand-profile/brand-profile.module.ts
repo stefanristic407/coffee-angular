@@ -9,9 +9,10 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LearnComponent } from './learn/learn.component';
 import { SustainabilityComponent } from './sustainability/sustainability.component';
 import { VisitUsComponent } from './visit-us/visit-us.component';
+import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 
 @NgModule({
-    declarations: [BrandProfileComponent, HomePageComponent, LearnComponent, SustainabilityComponent, VisitUsComponent],
+    declarations: [BrandProfileComponent, HomePageComponent, LearnComponent, SustainabilityComponent, VisitUsComponent, FeaturedProductsComponent],
     imports: [CommonModule, BrandProfileRoutingModule, SharedModule],
 })
 export class BrandProfileModule {}
