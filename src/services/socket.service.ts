@@ -1,3 +1,4 @@
+import { WSResponse, WSRequest } from './../models/message';
 import { environment } from '../environments/environment';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,8 +15,8 @@ export class SocketService implements OnDestroy {
     public WSSubject: WebSocketSubject<any> | null = null;
     private WSSubscriptionToken: Subscription | null = null;
 
-    public ChatSent = new Subject();
-    public ChatReceive = new Subject();
+    public chatSent = new Subject<WSRequest<unknown>>();
+    public chatReceive = new Subject<WSResponse<unknown>>();
     public ChatSentSubscription: Subscription | null = null;
 
     constructor(public cookieService: CookieService) {
@@ -23,16 +24,16 @@ export class SocketService implements OnDestroy {
             `${environment.wsEndpoint}/${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/messaging`,
         );
         this.WSSubscriptionToken = this.WSSubject.subscribe(this.handleSusbscription);
-        this.ChatSentSubscription = this.ChatSent.subscribe((payload) => {
+        this.ChatSentSubscription = this.chatSent.subscribe((payload) => {
             this.WSSubject.next(payload);
         });
     }
 
-    handleSusbscription = (WSMessage: any) => {
+    handleSusbscription = (WSMessage: WSResponse<unknown>) => {
         const arr = Object.keys(WSChatMessageType);
-        if (arr.includes(WSMessage.types)) {
+        if (arr.includes(WSMessage.type)) {
             // Created Handlers for your message types
-            this.ChatSent.next(WSMessage);
+            this.chatReceive.next(WSMessage);
         }
     };
 

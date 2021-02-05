@@ -32,7 +32,7 @@ export enum WSChatMessageType {
 
 export interface WSRequest<RequestBody> {
     type: WSChatMessageType;
-    data: RequestBody;
+    data?: RequestBody;
     timestamp: string;
 }
 

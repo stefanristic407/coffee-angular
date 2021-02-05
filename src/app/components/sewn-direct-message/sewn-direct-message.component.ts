@@ -1,4 +1,5 @@
 /* tslint:disable no-string-literal */
+import { SocketService } from './../../../services/socket.service';
 import { HttpClient } from '@angular/common/http';
 import { ChatService } from './chat.service';
 import { GlobalsService } from '@services';
@@ -36,7 +37,6 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     UPDATE_UNREAD_INTERVAL = 1000 * 60 * 4; // Update unread on every 4 min or when a message receive.
 
     USER_SEARCH_API_ENDPOINT = `${environment.coreApi}/users/user-list`;
-    WSSubject: WebSocketSubject<any> | null = null;
     SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
     threadList: ThreadListItem[] = [];
     authenticationState = new BehaviorSubject<'IP' | 'FAIL' | 'SUCCESS'>('IP');
@@ -76,6 +76,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         public globals: GlobalsService,
         private render: Renderer2,
         private elRef: ElementRef,
+        private socket: SocketService,
         public chatService: ChatService,
         public http: HttpClient,
     ) {}
@@ -108,37 +109,41 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     initializeWebSocket() {
         this.authenticationState.next('IP');
-        this.WSSubject = webSocket(
-            `${environment.wsEndpoint}/${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/messaging`,
-        );
-        this.SM['WSSubscription'] = this.WSSubject.pipe(
-            catchError((err: any, caught: Observable<any>) => {
-                console.log('Error in WebScoket ', err);
-                return caught;
-            }),
-            // retry(5), // REVIEW  Retry if the connection failed due to packet missing errors
-        ).subscribe((WSmsg: WSResponse<unknown>) => {
-            if (WSmsg.type === WSChatMessageType.auth) {
-                this.handleAuthResponse(WSmsg as WSResponse<null>);
-            } else if (WSmsg.type === WSChatMessageType.threads) {
-                this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
-            } else if (WSmsg.type === WSChatMessageType.unread) {
-                this.handleUnReadResponse(WSmsg as WSResponse<null>);
-            } else if (WSmsg.type === WSChatMessageType.users) {
-                this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
-            } else if (WSmsg.type === WSChatMessageType.history) {
-                this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
-            } else if (WSmsg.type === WSChatMessageType.message) {
-                this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
-            }
-        });
-        this.WSSubject.next(this.getAuthenicationPayload()); // Authenticate
+        this.SM['WSSubscription'] = this.socket.chatReceive
+            .pipe(
+                catchError((err: any, caught: Observable<any>) => {
+                    console.log('Error in WebScoket ', err);
+                    return caught;
+                }),
+                // retry(5), // REVIEW  Retry if the connection failed due to packet missing errors
+            )
+            .subscribe((WSmsg: WSResponse<unknown>) => {
+                if (WSmsg.type === WSChatMessageType.auth) {
+                    this.handleAuthResponse(WSmsg as WSResponse<null>);
+                } else if (WSmsg.type === WSChatMessageType.threads) {
+                    this.handleThreadsResponse(WSmsg as WSResponse<ThreadListItem[]>);
+                } else if (WSmsg.type === WSChatMessageType.unread) {
+                    this.handleUnReadResponse(WSmsg as WSResponse<null>);
+                } else if (WSmsg.type === WSChatMessageType.users) {
+                    this.handleUserDetailResponse(WSmsg as WSResponse<ResponseUserStatus[]>);
+                } else if (WSmsg.type === WSChatMessageType.history) {
+                    this.handleThreadHistory(WSmsg as WSResponse<ChatMessage[]>);
+                } else if (WSmsg.type === WSChatMessageType.message) {
+                    this.handleIncomingMessages(WSmsg as WSResponse<IncomingChatMessage>);
+                }
+            });
+        this.socket.chatSent.next(this.getAuthenicationPayload()); // Authenticate
     }
 
     destorySocket() {
-        if (this.WSSubject && this.WSSubject.complete) {
-            this.WSSubject.complete(); // Closing connection
-        }
+        /**
+         * Close connection if needed
+         *
+         *  if (this.WSSubject && this.WSSubject.complete) {\
+         *  this.WSSubject.complete(); // Closing connection
+         * }
+         *
+         */
     }
 
     getMultipleUserDetailsPayload() {
@@ -393,7 +398,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             console.log('Websocket:Auth: Validation Error');
         } else if (WSmsg.code === 200) {
             this.authenticationState.next('SUCCESS');
-            this.WSSubject.next(this.getCurrentThreadPayload());
+            this.socket.chatSent.next(this.getCurrentThreadPayload());
             console.log('Websocket:Auth: Success');
         }
     }
@@ -401,7 +406,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     updateUserStatus = () => {
         // Fetch last_seen and online
         if (this.threadList.length > 0) {
-            this.WSSubject.next(this.getMultipleUserDetailsPayload());
+            this.socket.chatSent.next(this.getMultipleUserDetailsPayload());
         }
         if (this.userStatusTimerRef) {
             clearTimeout(this.userStatusTimerRef);
@@ -411,7 +416,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     updateUnRead = () => {
         // Fetch unread
         if (this.threadList.length > 0) {
-            this.WSSubject.next(this.getUnReadPayload());
+            this.socket.chatSent.next(this.getUnReadPayload());
         }
         if (this.unReadTimerRef) {
             clearTimeout(this.unReadTimerRef);
@@ -610,7 +615,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.showOffensiveMessageError = true;
                 this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
             } else {
-                this.WSSubject.next(this.getMessagePayload(msg));
+                this.socket.chatSent.next(this.getMessagePayload(msg));
                 this.messageInput = '';
                 this.chatBodyHeightAdjust();
             }
@@ -669,7 +674,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     };
 
     sendReadToken(lastMessageId: number) {
-        this.WSSubject.next({
+        this.socket.chatSent.next({
             type: WSChatMessageType.read,
             timestamp: this.getTimeStamp(),
             data: {
@@ -686,7 +691,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     openThreadChat(thread: ThreadListItem) {
         this.messageList = [];
         this.openedThread = thread;
-        this.WSSubject.next(this.getHistoryPayload(thread));
+        this.socket.chatSent.next(this.getHistoryPayload(thread));
         this.SM['lastRender' + this.getTimeStamp()] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
             this.chatBodyHeightAdjust();
             this.scrollbottom();
