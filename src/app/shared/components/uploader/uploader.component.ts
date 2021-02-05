@@ -19,17 +19,24 @@ import { UserserviceService } from '@services';
     ],
 })
 export class UploaderComponent implements OnInit, ControlValueAccessor {
+    inputId = Math.random() * 1000;
     onChange: any;
     onTouched: any;
-    files: any[];
-    @Input() multiple = false;
+    files: any[] = [];
+    @Input() count = 1;
+    @Input() type = 'all';
+    acceptType: string;
 
     writeValue(value: any): void {
         console.log('Write', value);
-        if (this.multiple) {
-            this.files = value;
+        if (value) {
+            if (this.count > 1) {
+                this.files = value;
+            } else {
+                this.files = [value];
+            }
         } else {
-            this.files = [value];
+            this.files = [];
         }
     }
 
@@ -48,7 +55,15 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
         private userService: UserserviceService,
     ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        if (this.type === 'video') {
+            this.acceptType = 'video/*';
+        } else if (this.type === 'image') {
+            this.acceptType = 'image/*';
+        } else {
+            this.acceptType = 'video/*,image/*';
+        }
+    }
 
     fileChangeEvent(event: any) {
         if (event.target.files && event.target.files[0]) {
@@ -56,12 +71,13 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
             this.roasterSrv.uploadBrandProfile(file).subscribe(
                 (res: any) => {
                     if (res.success) {
-                        if (this.multiple) {
+                        if (this.count > 1) {
                             this.files = this.files.concat([res.result]);
-                            this.onChange(this.files.concat([res.result]));
+                            this.onChange(this.files);
                         } else {
-                            this.files = [res.result];
+                            this.files = JSON.parse(JSON.stringify([res.result]));
                             this.onChange(res.result);
+                            console.log('Wizard file:', res.result, this.files);
                         }
                     }
                 },
@@ -76,7 +92,7 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
         this.files.splice(idx, 1);
         console.log(idx, this.files);
 
-        if (this.multiple) {
+        if (this.count > 1) {
             this.onChange(this.files);
         } else {
             this.onChange(this.files[0] || null);

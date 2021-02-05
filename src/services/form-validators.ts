@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ControlContainer, FormControl, ValidatorFn } from '@angular/forms';
 
 export function maxWordCountValidator(limit: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
@@ -7,5 +7,12 @@ export function maxWordCountValidator(limit: number): ValidatorFn {
             .replace(/[ ]{2,}/gi, ' ')
             .replace(/\n /, '\n');
         return stringData.split(' ').length > limit ? { maxWordCount: true } : null;
+    };
+}
+
+export function fileCountValidator(limit: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+        console.log('filelength', control.value?.length, control.value);
+        return control.value?.length === limit ? null : { fileCount: true };
     };
 }
