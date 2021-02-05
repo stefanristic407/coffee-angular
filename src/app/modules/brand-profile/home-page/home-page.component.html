@@ -58,7 +58,7 @@
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
-                                    {{ infoForm.get('intro_title').value | wordCount }}/10 words
+                                    {{ infoForm.get('intro_title').value | wordCount }}/15 words
                                 </span>
                             </label>
                             <input type="text" formControlName="intro_title" pInputText />
@@ -66,7 +66,7 @@
                                 Required
                             </small>
                             <small *ngIf="infoForm.controls.intro_title.errors?.maxWordCount" class="p-error">
-                                Please input 10 words
+                                Please input 15 words
                             </small>
                         </div>
 
@@ -113,7 +113,7 @@
                             <label>
                                 Sub heading
                                 <span class="pull-right text-clr588">
-                                    {{ infoForm.get('wizard_sub_heading').value | wordCount }}/50 words
+                                    {{ infoForm.get('wizard_sub_heading').value | wordCount }}/15 words
                                 </span>
                             </label>
                             <textarea formControlName="wizard_sub_heading" rows="3" cols="50" pInputTextarea></textarea>
@@ -146,7 +146,7 @@
                             <label>
                                 Title<span class="star">*</span>
                                 <span class="pull-right text-clr588">
-                                    {{ infoForm.get('featured_products_title').value | wordCount }}/10 words
+                                    {{ infoForm.get('featured_products_title').value | wordCount }}/15 words
                                 </span>
                             </label>
                             <input type="text" formControlName="featured_products_title" pInputText />
@@ -202,7 +202,7 @@
                             <label>
                                 Sub heading
                                 <span class="pull-right text-clr588">
-                                    {{ infoForm.get('traceability_story_sub_heading').value | wordCount }}/50 words
+                                    {{ infoForm.get('traceability_story_sub_heading').value | wordCount }}/30 words
                                 </span>
                             </label>
                             <textarea
@@ -221,7 +221,7 @@
                                 *ngIf="infoForm.controls.traceability_story_sub_heading.errors?.maxWordCount"
                                 class="p-error"
                             >
-                                Please input 15 words
+                                Please input 30 words
                             </small>
                         </div>
 

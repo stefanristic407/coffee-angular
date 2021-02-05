@@ -46,7 +46,7 @@ export class HomePageComponent implements OnInit {
         this.infoForm = this.fb.group({
             banner_file: [null, Validators.compose([Validators.required])],
             banner_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
-            intro_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
+            intro_title: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
             short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(50)])],
             wizard_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
             wizard_sub_heading: ['', Validators.compose([maxWordCountValidator(15)])],
