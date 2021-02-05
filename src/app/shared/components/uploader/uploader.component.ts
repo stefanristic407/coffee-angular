@@ -28,7 +28,6 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
     acceptType: string;
 
     writeValue(value: any): void {
-        console.log('Write', value);
         if (value) {
             if (this.count > 1) {
                 this.files = value;

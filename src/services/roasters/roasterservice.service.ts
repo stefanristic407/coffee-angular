@@ -1143,4 +1143,14 @@ export class RoasterserviceService {
         };
         return this.http.post(this.url, data);
     }
+
+    // Delete certificate.
+    deleteCertificate(roaster_id: any, certificateId: any) {
+        const data = {
+            api_call: `/ro/${roaster_id}/certificates/${certificateId}`,
+            method: 'DELETE',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.url, data);
+    }
 }

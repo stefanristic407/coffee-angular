@@ -1,5 +1,9 @@
-<div class="upload-layer">
-    <div *ngFor="let item of files; index as i" class="file-wrap fnt-600 text-clr588" (click)="openPicture(item.url)">
+<div class="d-flex flex-wrap">
+    <div
+        *ngFor="let item of files; index as i"
+        class="file-wrap fnt-600 text-clr588 ellipsis"
+        (click)="openPicture(item.url)"
+    >
         {{ item.url | fileName }}
         <img src="assets/images/close.svg" alt="Delete" (click)="$event.stopPropagation(); delete(i)" />
     </div>
