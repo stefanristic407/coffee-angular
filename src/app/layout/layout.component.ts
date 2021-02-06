@@ -39,6 +39,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     chatStateSubcription: Subscription;
     routeSubscription: Subscription;
 
+    notifications: any[];
+    readNotification: any;
+
     activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
 
     constructor(
@@ -148,6 +151,8 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             }, 800);
             event.stopImmediatePropagation();
         });
+
+        this.getNotificationList();
     }
     ngOnDestroy() {
         if (this.chatStateSubcription) {
@@ -156,6 +161,16 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.routeSubscription) {
             this.routeSubscription.unsubscribe();
         }
+    }
+
+    getNotificationList() {
+        this.userService.getNofitication().subscribe((res: any) => {
+            console.log('notification data: ', res);
+        });
+    }
+
+    showNotification() {
+        console.log('notif show: ');
     }
 
     updateActiveLinkState() {
