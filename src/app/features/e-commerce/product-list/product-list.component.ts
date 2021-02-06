@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { DashboardserviceService, GlobalsService, RoasterserviceService } from '@services';
@@ -28,6 +29,10 @@ export class ProductListComponent implements OnInit {
     deleteProductID = '';
     modalRef: BsModalRef;
     roasterID: any = '';
+    originArray: any = [];
+    priceRangeArray: any = [];
+    statusArray: any = [];
+    searchForm: FormGroup;
 
     constructor(
         public router: Router,
@@ -38,6 +43,7 @@ export class ProductListComponent implements OnInit {
         public modalService: BsModalService,
         public globals: GlobalsService,
         public sharedService: SharedServiceService,
+        private fb: FormBuilder,
     ) {}
 
     ngOnInit(): void {
@@ -46,6 +52,15 @@ export class ProductListComponent implements OnInit {
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
+        this.searchForm = this.fb.group({
+            searchField: new FormControl({ value: '' }, Validators.compose([Validators.required])),
+        });
+        this.searchForm.setValue({ searchField: '' });
+        this.searchForm.controls['searchField'].valueChanges.subscribe((value) => {
+            this.termSearch = value;
+            this.getTableData();
+        });
+        this.loadFilterValues();
         this.tableColumns = [
             {
                 field: 'name',
@@ -97,6 +112,17 @@ export class ProductListComponent implements OnInit {
         ];
         this.supplyBreadCrumb();
     }
+    loadFilterValues() {
+        this.originArray = this.globals.countryList;
+        this.priceRangeArray = [
+            { label: '$0-$500', price_min: '0', price_max: '500' },
+            { label: '$500-$1000', price_min: '500', price_max: '1000' },
+        ];
+        this.statusArray = [
+            { label: 'In Stock', value: 'IN-STOCK' },
+            { label: 'Sold', value: 'OUT-OF-STOCK' },
+        ];
+    }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
@@ -111,14 +137,21 @@ export class ProductListComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
     }
     getTableData(event?) {
-        // const postData = {};
-        // postData['role_id'] = this.filterRoleID ? this.filterRoleID : '';
-
-        // postData['name'] = this.termSearch ? this.termSearch : '';
-        // // eslint-disable-next-line no-constant-condition
-        // postData['status'] = !this.termStatus ? undefined : this.termStatus == 'Status' ? '' : this.statusValue;
-        // postData['per_page'] = 100;
-        this.roasterService.getSelectProductDetails(this.roasterID).subscribe(
+        const postData = {};
+        postData['origin'] = this.originFilter ? this.originFilter : '';
+        if (this.priceFilter) {
+            const priceRange = this.priceRangeArray.find((ele) => ele['label'] == this.priceFilter);
+            postData['price_min'] = priceRange && priceRange['price_min'] ? priceRange['price_min'] : '';
+            postData['price_max'] = priceRange && priceRange['price_max'] ? priceRange['price_max'] : '';
+        }
+        if (this.statusFilter) {
+            const statusValue = this.statusArray.find((ele) => ele['label'] == this.statusFilter);
+            postData['status'] = statusValue && statusValue['value'] ? statusValue['value'] : undefined;
+        }
+        postData['name'] = this.termSearch ? this.termSearch : '';
+        // eslint-disable-next-line no-constant-condition
+        postData['per_page'] = 100;
+        this.roasterService.getSelectProductDetails(this.roasterID, postData).subscribe(
             (data) => {
                 if (data['success']) {
                     this.tableValue = data['result'];
@@ -131,11 +164,18 @@ export class ProductListComponent implements OnInit {
             },
         );
     }
-    setType(pricerange): void {
-        console.log(pricerange);
+    setType(priceRange): void {
+        this.priceFilter = priceRange && priceRange['label'] ? priceRange['label'] : '';
+        this.getTableData();
     }
-    setOrigin(origin): void {}
-    setStatus(status): void {}
+    setOrigin(origin): void {
+        this.originFilter = origin && origin['name'] ? origin['name'] : '';
+        this.getTableData();
+    }
+    setStatus(status): void {
+        this.statusFilter = status && status['label'] ? status['label'] : '';
+        this.getTableData();
+    }
     deleteproduct(): void {}
     openDeleteModal(template1: TemplateRef<any>, deleteId: any) {
         this.modalRef = this.modalService.show(template1);

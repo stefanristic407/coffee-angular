@@ -619,9 +619,9 @@ export class RoasterserviceService {
         console.log(data);
         return this.http.post(this.url, data);
     }
-    getSelectProductDetails(roaster_id: any, queryParams = '') {
-        var data = {};
-        data['api_call'] = `/ro/${roaster_id}/products${queryParams}`;
+    getSelectProductDetails(roaster_id: any, postData?) {
+        const data = {};
+        data['api_call'] = '/ro/' + roaster_id + '/products?' + this.serlialise(postData);
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.url, data);
     }

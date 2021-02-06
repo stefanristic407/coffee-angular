@@ -76,6 +76,7 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
 import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
 import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
 import { ProductListComponent } from './e-commerce/product-list/product-list.component';
+import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
 
 const routes: Routes = [
     {
@@ -278,7 +279,12 @@ const routes: Routes = [
             },
             {
                 path: 'products-list',
-                component: ProductsTableComponent,
+                component: ProductListComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'new-product',
+                component: ProductDetailsComponent,
                 canActivate: [AuthGuard],
             },
             {

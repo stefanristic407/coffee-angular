@@ -1,0 +1,250 @@
+<div class="main-block">
+    <div class="row mb-3">
+        <div class="col-10">
+            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        </div>
+    </div>
+    <div [formGroup]="productForm">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <div class="float-right">
+                    <span class="primary_txt pr-3">Product Visibility : </span>
+                    <div class="btn-group toggleDiv">
+                        <div class="btn" [ngClass]="productForm['controls']['isPublic']['value'] ? 'enableBtn' : ''" id="activeStatus"
+                            (click)="togglePublic(true)">
+                            Active</div>
+                        <div class="btn" (click)="togglePublic(false)"
+                            [ngClass]="!productForm['controls']['isPublic']['value'] ? 'enableBtn' : ''" id="disableStatus">
+                            Disable</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+                    <label>Product Name<span class="star">*</span></label>
+                    <input type="text" placeholder="product name" formControlName="name" pInputText />
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <label>Product eligible for<span class="star">*</span></label>
+                    <p-dropdown [options]="eligibleArray" optionLabel="name" placeholder="Select subscription type" [style]="{'width':'100%'}"
+                        formControlName="eligible_for" optionValue="id"></p-dropdown>
+            </div>
+            <!-- <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <div class="sewn-form-field w-100">
+                    <label>Is the product bought on the platform?<span class="star">*</span></label>
+                    <p-dropdown [options]="boughtArray" optionLabel="label" placeholder="" [style]="{'width':'100%'}"
+                        formControlName="bought_on_platform" optionValue="value"></p-dropdown>
+                </div>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
+                <label>Product Description<span class="star">*</span></label>
+                <textarea type="text" placeholder="Tell us a bit about the product " formControlName="description" pInputText></textarea>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <span class="primary_txt">Variants</span>
+            </div>
+            <div class="col-8 mt-2">
+                <p-checkbox formControlName="product_option" binary="true" label="If this product has options like roasted coffee batch, flavour profile, availability etc.">
+                </p-checkbox>
+            </div>
+            <div *ngIf="productForm['value']['product_option']"class="col-4">
+                <div class="pull-right addWeightDiv">
+                    <img class="pl-3" src="assets/images/add-partner.svg" />
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewVarients()">
+                        Add new variant
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="{'isProductOption' : !productForm['value']['product_option']}">
+            <p-tabView>
+                <p-tabPanel formArrayName="varients"
+                    *ngFor="let varient of productForm.controls['varients']['controls']; let i = index; last as isLast">
+                    <ng-template pTemplate="header">
+                        <span>{{varient['value']['varient_name']}}</span>
+                    </ng-template>
+                    <div [formGroupName]="i">
+                        <div class="row mt-4">
+                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                                <label>Select roasted coffee batch<span class="star">*</span></label>
+                                <p-dropdown [options]="roastedBatches" optionLabel="roast_batch_name" placeholder="Please select the batch" [style]="{'width':'100%'}"
+                                    formControlName="id" optionValue="id" (onChange)="onBatchChange(i)"></p-dropdown>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Roaster Ref No.<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="roaster_ref_no" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Batch Ref No.<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="batch_ref_no" pInputText />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Roaster Profile<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="roasting_profile_name" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Roaster level<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="roast_level" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Roasting Time<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="roast_time" pInputText />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <span class="primary_txt">Estate Details</span>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Estate Name<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="estate_name" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Origin<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="origin" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Region<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="region" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Harvest year<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="harvest_year" pInputText />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <span class="primary_txt">Tasting notes</span>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-2 sewn-form-field w-100">
+                                <label>Body<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="body" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-2 sewn-form-field w-100">
+                                <label>Acidity<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="acidity" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-2 sewn-form-field w-100">
+                                <label>Aroma<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="aroma" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Flavour<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="flavour" pInputText />
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
+                                <label>Processing<span class="star">*</span></label>
+                                <input type="text" readonly formControlName="processing" pInputText />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 sewn-form-field w-100">
+                                <label>Flavour profile</label>
+                                <div class="flavour-item d-inline-block"
+                                    *ngFor="let flavour of varient['controls']['flavour_profile']['value']">
+                                    {{ flavour.flavour_profile_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                                <label>Roaster notes</label>
+                                <textarea type="text" readonly placeholder="" formControlName="roaster_notes" pInputText></textarea>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
+                                <label>Recipes</label>
+                                <textarea type="text" readonly placeholder="" formControlName="recipes" pInputText></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <span class="primary_txt">Recommended brewing method</span>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                                <label>Select a brewing method<span class="star">*</span></label>
+                                <p-dropdown [options]="brewingMethodArray" optionLabel="name" placeholder="Please select a method"
+                                    [style]="{'width':'100%'}" formControlName="recommended_breweing_method" optionValue="id">
+                                </p-dropdown>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100">
+                                <div>
+                                    <label>Recommendation text<span class="star">*</span></label>
+                                    <label class="float-right">0/10 words</label>
+                                </div>
+                                <input type="text" formControlName="recommendation_text" pInputText />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <span class="primary_txt">Product Weights</span>
+                            </div>
+                            <div class="col-12">
+                                <app-varient-details [varientDetails]="varient"></app-varient-details>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div formArrayName="boxDetails" *ngFor="let box of productForm.controls['boxDetails']['controls']; let i = index; last as isLast" class="mt-4">
+            <div [formGroupName]="i" class="row">
+                <div class="col-12 mb-3">
+                    <span class="primary_txt">Boxes details</span><br>
+                    <span>Add values per crate to let your customer know</span>
+                </div>
+                <div class="col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100">
+                    <label>Box value<span class="star">*</span></label>
+                    <input type="text" placeholder="" readonly formControlName="crate_unit" pInputText />
+                </div>
+                <div class="equal-operators pl-8 pr-2">=</div>
+                <div class="col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100">
+                    <label>Weight<span class="star">*</span></label>
+                    <input type="text" placeholder="" formControlName="weight" pInputText />
+                </div>
+                <div class="equal-operators pl-2 pr-2">x</div>
+                <div class="col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100">
+                    <label>Number of bags<span class="star">*</span></label>
+                    <input type="text" placeholder="" formControlName="crate_capacity" pInputText />
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 mb-3">
+                <span class="primary_txt">VAT Details</span><br>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
+                <label>Select VAT trasaction type<span class="star">*</span></label>
+                <p-dropdown [options]="vatSettings" optionLabel="label" placeholder="Select subscription type"
+                    [style]="{'width':'100%'}" formControlName="vat_type" optionValue="value"></p-dropdown>
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <label>Is the product price inclusive of VAT<span class="star">*</span></label>
+                <p-checkbox formControlName="inclusive_vat" binary="true" class="mt-3"
+                    label="The price is inclusive of VAT">
+                </p-checkbox>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <button type="submit" class="btn btn-stroked" (click)="onCancel()">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-raised ml-4" (click)="onSave()">
+                    Save
+                </button>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <button type="submit" class="btn btn-raised pull-right" (click)="onSave()">
+                    Publish
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

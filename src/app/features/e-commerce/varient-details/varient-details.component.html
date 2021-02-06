@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="nav flex-column nav-pills sample_info" *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
+            <a class="nav-link vat-link pointer" [ngClass]="{ active: currentVarientIndex == i }"
+                (click)="currentVarientIndex = i">
+                <div class="info_heading d-flex">
+                    <div class="pull-left sample_info_head">
+                        Weight - {{ weight.weight }} {{ weight.weight_unit }}
+                    </div>
+                    <div class="ml-auto pull-right">
+                        <img class="pl-1" src="assets/images/right-arrow.svg" alt="" />
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="mt-3 pl-3 addWeightDiv">
+            <img class="pl-3"src="assets/images/add-partner.svg" />
+            <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewWeights()">
+                Add weight variant
+            </span>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9" [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]">
+        <div class="row">
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <label>Weight<span class="star">*</span></label>
+                <input type="text" formControlName="weight" pInputText />
+            </div>
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                <label>Status<span class="star">*</span></label>
+                <p-dropdown [options]="statusArray" optionLabel="label" placeholder="Please select the status" [style]="{'width':'100%'}"
+                    formControlName="status" optionValue="value"></p-dropdown>
+            </div>
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 checkBoxDiv">
+                <p-checkbox formControlName="hide_product" binary="true"
+                    label="Hide product">
+                </p-checkbox>
+            </div>
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 checkBoxDiv">
+                <p-checkbox formControlName="default_product" binary="true" label="Set as default product">
+                </p-checkbox>
+            </div>
+        </div>
+        <div formArrayName="grind_varient" *ngFor="let grind_varient of weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['grind_varient']['controls']; let i = index; last as isLast">
+            <div [formGroupName]="i" class="row">
+                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <label>Price<span class="star">*</span></label>
+                    <input type="text" formControlName="price" pInputText />
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <label>Grind<span class="star">*</span></label>
+                    <p-dropdown [options]="grindArray" optionLabel="label" placeholder="Please select the grind varient" [style]="{'width':'100%'}"
+                        formControlName="grind" optionValue="value"></p-dropdown>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
+                    <label>Stock Available<span class="star">*</span></label>
+                    <input type="text" formControlName="stock_available" pInputText />
+                </div>
+                <div class="col-6 col-sm-6 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100">
+                    <label>SKU number<span class="star">*</span></label>
+                    <input type="text" formControlName="sku_number" pInputText />
+                </div>
+                <div class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1">
+                    <span class="fnt-700 txt-clr60b cursor-pointer" (click)="deleteGrindVariant(i)">
+                        Delete
+                    </span>
+                </div>
+                <div *ngIf="isLast" class="col-12">
+                    <img src="assets/images/add-partner.svg" />
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer" (click)="addNewGrindVarients()">
+                        Add a grind variant
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
