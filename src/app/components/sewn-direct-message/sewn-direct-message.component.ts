@@ -1,4 +1,3 @@
-import { ThreadListItem } from './../../../models/message';
 /* tslint:disable no-string-literal */
 import { SocketService } from './../../../services/socket.service';
 import { HttpClient } from '@angular/common/http';
