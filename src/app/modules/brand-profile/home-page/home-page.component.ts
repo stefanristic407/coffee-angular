@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 import { maxWordCountValidator, fileCountValidator } from '@services';
 import { FormService } from '@services';
 import { GlobalsService } from '@services';
@@ -7,11 +9,12 @@ import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
-import { Router } from '@angular/router';
+import { ConfirmComponent } from '@shared';
 @Component({
     selector: 'app-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
+    providers: [DialogService],
 })
 export class HomePageComponent implements OnInit {
     loaded = false;
@@ -22,6 +25,7 @@ export class HomePageComponent implements OnInit {
     infoForm: FormGroup;
 
     constructor(
+        public dialogSrv: DialogService,
         private fb: FormBuilder,
         private formSrv: FormService,
         public globals: GlobalsService,
@@ -61,6 +65,7 @@ export class HomePageComponent implements OnInit {
         });
         this.getHomeDetails();
         this.getFeaturedProducts();
+        this.getCertificates();
         this.loaded = true;
     }
 
@@ -139,7 +144,6 @@ export class HomePageComponent implements OnInit {
                 roastery_image_2: this.infoForm.value.roastery_images[1].id,
             };
             delete postData.roastery_images;
-            console.log(postData);
             this.userService.updateHomeDetails(this.roasterId, postData, 'home-page').subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('Home page Details updated successfully');
@@ -156,7 +160,6 @@ export class HomePageComponent implements OnInit {
     getHomeDetails() {
         this.userService.getPageDetails(this.roasterId, 'home-page').subscribe((res: any) => {
             if (res.success) {
-                console.log('Home page data:', res.result);
                 this.infoForm.patchValue(res.result);
                 if (res.result.banner_file) {
                     this.infoForm.controls.banner_file.setValue({
@@ -208,9 +211,40 @@ export class HomePageComponent implements OnInit {
     getFeaturedProducts() {
         this.roasterService.getFeaturedProducts(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                console.log('featuredProducts:', res.result);
                 this.featuredProducts = res.result;
             }
         });
+    }
+
+    getCertificates() {
+        this.userService.getCompanyCertificates(this.roasterId).subscribe((res: any) => {
+            if (res.success) {
+                this.certificates = res.result;
+            }
+        });
+    }
+
+    deleteCertificate(certificateId) {
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Confirm delete',
+                    desp: 'Are you sure want to delete certificate',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.roasterService.deleteCertificate(this.roasterId, certificateId).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success('Certificate deleted successfully');
+                            this.getCertificates();
+                        } else {
+                            this.toastrService.error('Error while deleting certificate');
+                        }
+                    });
+                }
+            });
     }
 }

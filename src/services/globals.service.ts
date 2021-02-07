@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { StringifyOptions } from 'querystring';
+import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
+import { Lightbox } from 'ng-gallery/lightbox';
 import { UserserviceService } from './users/userservice.service';
 
 @Injectable({
@@ -5392,6 +5393,8 @@ export class GlobalsService {
     device = 'desktop';
 
     constructor(
+        public gallery: Gallery,
+        public lightbox: Lightbox,
         private cookieService: CookieService,
         private deviceSrv: DeviceDetectorService,
         private userService: UserserviceService,
@@ -5473,5 +5476,16 @@ export class GlobalsService {
             return this.countryList.find((con: any) => con.isoCode === data.toUpperCase())?.name || '';
         }
         return '';
+    }
+
+    openPicture(src) {
+        const items = [new ImageItem({ src, thumb: src })];
+        const lightboxRef = this.gallery.ref('lightbox');
+        lightboxRef.setConfig({
+            imageSize: ImageSize.Cover,
+            thumb: false,
+        });
+        lightboxRef.load(items);
+        this.lightbox.open(0);
     }
 }

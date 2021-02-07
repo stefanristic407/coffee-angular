@@ -161,7 +161,7 @@
                             </small>
                         </div>
                         <div class="row gutter-05">
-                            <div *ngFor="let i of [0, 1, 2, 3]" class="col-lg-3">
+                            <div *ngFor="let i of [0, 1, 2, 3]" class="col-lg-3 mb-3 md-md-0">
                                 <div
                                     class="select-product cursor-pointer"
                                     routerLink="/brand-profile/featured-products"
@@ -302,7 +302,7 @@
                         </div>
                     </div>
 
-                    <div class="br-main br-2 mt-3 p-3 p-md-4">
+                    <div class="br-main br-2 mt-3 p-3 p-md-4 mb-3 mb-md-0">
                         <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Roastery Images</h4>
                         <p class="fnt-14 fnt-600 fnt-muli text-clr334">Add images of your roastery</p>
 
@@ -336,28 +336,28 @@
                 </div>
 
                 <div class="col-12 col-md-4">
-                    <div class="form-section__inputs form-section__inputs--withHead">
-                        <div class="input-head input-head--uplaod d-flex align-items-center justify-content-between">
+                    <div class="br-main br-4 p-1">
+                        <div class="bg-f8 br-4 d-flex align-items-center justify-content-between cert-header">
                             <h5 class="fnt-14 fnt-muli fnt-700 text-black334 mb-0">Certificates</h5>
-                            <label class="mb-0">
-                                <input type="file" />
+                            <label class="mb-0 cert-add">
+                                <input type="file" class="d-none" />
                                 <span class="fnt-muli fnt-700 d-inline-block">+</span>
                             </label>
                         </div>
-                        <div class="input-body">
-                            <div class="upload-file-results">
+                        <div class="p-3 p-md-4">
+                            <div *ngFor="let item of certificates; index as i">
+                                <div *ngIf="i" class="w-100 solid-divider my-3"></div>
                                 <div
-                                    *ngFor="let item of certificates"
-                                    class="upload-file-results__item d-flex flex-md-column flex-lg-row justify-content-between"
+                                    class="d-flex flex-md-column flex-lg-row justify-content-between align-items-lg-center"
                                 >
                                     <div class="pr-3">
-                                        <h4 class="mb-0 fnt-14 fnt-700 fnt-muli text-black334">Rise Certificate</h4>
-                                        <span class="d-block fnt-12 fnt-600 fnt-muli text-gray588">2014</span>
+                                        <h4 class="fnt-14 fnt-700 text-black334 mb-0">{{ item.name }}</h4>
+                                        <span class="d-block fnt-12 fnt-600 text-gray588">{{ item.year }} </span>
                                     </div>
-                                    <div class="d-flex">
-                                        <button class="fnt-muli fnt-14 fnt-700">View</button>
-
-                                        <button class="fnt-muli fnt-14 fnt-700">Delete</button>
+                                    <div>
+                                        <a class="brown-cta" [href]="item.public_url" target="_blank"> View </a>
+                                        <span class="v-divider mx-2"></span>
+                                        <a class="brown-cta" (click)="deleteCertificate(item.id)">Delete</a>
                                     </div>
                                 </div>
                             </div>
