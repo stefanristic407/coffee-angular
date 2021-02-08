@@ -14,3 +14,11 @@
 @import 'theme/styles/common';
 @import 'theme/styles/_variables';
 @import 'theme/styles/_header';
+
+@import '~primeflex/src/_variables.scss';
+@import '~primeflex/src/_formlayout.scss';
+@import '~primeflex/src/_display.scss';
+@import '~primeflex/src/_text.scss';
+@import '~primeflex/src/flexbox/_flexbox.scss';
+@import '~primeflex/src/_spacing.scss';
+@import '~primeflex/src/_elevation.scss';
