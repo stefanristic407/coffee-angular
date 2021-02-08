@@ -5,6 +5,7 @@ export enum WSOrganizationType {
     ESTATE = 'es',
     MICRO_ROASTER = 'mr',
     SEWN_ADMIN = 'sa',
+    HORECA = 'hrc',
     EMPTY = '',
 }
 export enum ThreadActivityType {
@@ -143,4 +144,20 @@ export interface IncomingChatMessage extends ChatMessage {
     activity_member: ChatMessageMember;
     member: ChatMessageMember & { user: ThreadMembers };
     thread_id: number;
+}
+
+export interface UserListItem {
+    email_verified: boolean;
+    firstname: string;
+    id: number;
+    language: string; // or any specific value
+    lastname: string;
+    organization_id: number;
+    organization_name: string;
+    profile_pic: string;
+    organization_type: WSOrganizationType;
+    timezone: string;
+    computed_fullname: string;
+    computed_profile_dp: string;
+    computed_organization_name: string;
 }

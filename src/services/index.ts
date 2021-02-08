@@ -11,3 +11,4 @@ export * from './your-services/your-services.service';
 export * from './dashboard/dashboardservice.service';
 export * from './data/data.service';
 export * from './brand-profile/about-us.service';
+export * from './socket.service';

@@ -209,7 +209,7 @@ export class UserserviceService {
         data['api_call'] = '/users/user-list?query=' + key;
         data['token'] = this.cookieService.get('Auth');
         data['method'] = 'GET';
-        return this.http.post(this.roasterUrl, data);
+        return this.http.post<any>(this.roasterUrl, data);
     }
 
     //API Function Name : Roaster User Last Login
