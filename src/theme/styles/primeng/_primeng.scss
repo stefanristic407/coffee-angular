@@ -46,6 +46,7 @@
     .p-inputtext {
         padding: 0.9375rem 0.75rem;
         border-radius: 4px;
+        width: 100%;
     }
     .p-error {
         display: none;
@@ -77,6 +78,10 @@
         .p-inputnumber-input {
             padding-right: 4rem;
         }
+    }
+
+    .p-autocomplete {
+        width: 100%;
     }
 }
 
