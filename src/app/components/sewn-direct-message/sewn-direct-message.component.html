@@ -395,7 +395,7 @@
                                 <img src="assets/images/dm-back-arrow.svg" />
                                 <span>Back to Conversation list</span>
                             </div>
-                            <div class="search-account">
+                            <div class="search-account position-relative">
                                 <img src="assets/images/dm-search.svg" />
                                 <input
                                     [(ngModel)]="userSearchKeywords"
@@ -406,45 +406,30 @@
                                     appLifecyclehook
                                     (viewChecked)="userSearchPanelRendered.next('done')"
                                 />
+                                <img
+                                    *ngIf="userSearchKeywords"
+                                    class="search-close-button"
+                                    (click)="userSearchKeywords = ''"
+                                    src="assets/images/dm-close.svg"
+                                />
                             </div>
 
                             <div class="chat-accounts__name">
                                 <!--User Search-->
-                                <!-- <div
-                                    class="clearfix account"
-                                    *ngFor="let thread of threadList | searchFilter: threadSearchKeyword"
-                                >
+                                <div class="clearfix account" *ngFor="let user of usersList">
                                     <div class="d-inline-block profile-pic">
                                         <span
                                             class="profile-pic__item bg-profile"
-                                            [style.backgroundImage]="thread.computed_targetedUser.computed_profile_dp"
-                                        ></span>
-                                        <span *ngIf="thread.computed_targetedUser.online" class="live-account"></span>
-                                        <span
-                                            *ngIf="!thread.computed_targetedUser.online"
-                                            class="offline-account"
+                                            [style.backgroundImage]="user.computed_profile_dp"
                                         ></span>
                                     </div>
                                     <div class="chat-profile clearfix">
                                         <div class="chat-profile__name d-inline-block">
-                                            <div class="chat-profile__time">
-                                                <span>{{ thread.computed_createdAt }}</span>
-                                            </div>
-                                            <h5 class="name">{{ thread.computed_targetedUser.computed_fullname }}</h5>
-                                            <span class="status">{{
-                                                thread.computed_targetedUser.computed_organization_name
-                                            }}</span>
-                                        </div>
-                                        <div class="chat-messaged">
-                                            <p class="chat-messaged__text">{{ thread.computed_lastActivityText }}</p>
-                                            <span
-                                                *ngIf="thread.unread && thread.unread > 0"
-                                                class="chat-messaged__total"
-                                                >{{ thread.unread }}</span
-                                            >
+                                            <h5 class="name">{{ user.computed_fullname }}</h5>
+                                            <span class="status">{{ user.computed_organization_name }}</span>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </ng-container>
 
@@ -459,9 +444,9 @@
                                 />
                                 <img
                                     *ngIf="threadSearchKeyword"
-                                    class="close-button"
+                                    class="search-close-button"
                                     (click)="threadSearchKeyword = ''"
-                                    src="assets/images/close.svg"
+                                    src="assets/images/dm-close.svg"
                                 />
                             </div>
 
