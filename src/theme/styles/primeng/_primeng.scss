@@ -49,6 +49,8 @@
     }
     .p-error {
         display: none;
+        font-size: 14px;
+        font-weight: 600;
     }
     .ng-dirty ~ .p-error {
         display: block !important;
