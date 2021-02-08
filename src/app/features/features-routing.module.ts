@@ -288,6 +288,11 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
+                path: 'new-product/:id',
+                component: ProductDetailsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
                 path: 'select-order-list',
                 component: SelectOrderTableComponent,
                 canActivate: [AuthGuard],

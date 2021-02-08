@@ -144,7 +144,7 @@
                                 <div class="col-12 editDiv">
                                     <span>
                                         <a class="fnt-muli editBtn"
-                                            [routerLink]="['/features/product/' + rowData['id']]">{{globals.languageJson?.edit_product }}</a>
+                                            [routerLink]="['/features/new-product/' + rowData['id']]">{{globals.languageJson?.edit_product }}</a>
                                         <span class="float-right">
                                             <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                                                 <img class="ellipse-image pl-3" src="assets/images/more-opns-file.png" alt="" />
@@ -167,7 +167,7 @@
                         </span>
                         <span *ngSwitchCase="'actions'" class="">
                             <span>
-                                <a class="fnt-muli editBtn" [routerLink]="['/features/product/' + rowData['id']]">{{globals.languageJson?.edit_product }}</a>
+                                <a class="fnt-muli editBtn" [routerLink]="['/features/new-product/' + rowData['id']]">{{globals.languageJson?.edit_product }}</a>
                                 <span class="float-right">
                                     <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
                                         <img class="ellipse-image pl-3" src="assets/images/more-opns-file.png" alt="" />

@@ -176,7 +176,14 @@ export class ProductListComponent implements OnInit {
         this.statusFilter = status && status['label'] ? status['label'] : '';
         this.getTableData();
     }
-    deleteproduct(): void {}
+    deleteproduct(): void {
+        this.roasterService.deleteProductDetails(this.roasterID, this.deleteProductID).subscribe((res) => {
+            if (res.success) {
+                this.toastrService.success('Product deleted successfully');
+                this.getTableData();
+            }
+        });
+    }
     openDeleteModal(template1: TemplateRef<any>, deleteId: any) {
         this.modalRef = this.modalService.show(template1);
         this.deleteProductID = deleteId;

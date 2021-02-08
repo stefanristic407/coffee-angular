@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Weight<span class="star">*</span></label>
-                <input type="text" formControlName="weight" pInputText />
+                <input type="number" formControlName="weight" pInputText />
             </div>
             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Status<span class="star">*</span></label>
@@ -32,20 +32,20 @@
                     formControlName="status" optionValue="value"></p-dropdown>
             </div>
             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 checkBoxDiv">
-                <p-checkbox formControlName="hide_product" binary="true"
+                <p-checkbox formControlName="is_public" binary="true"
                     label="Hide product">
                 </p-checkbox>
             </div>
             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100 checkBoxDiv">
-                <p-checkbox formControlName="default_product" binary="true" label="Set as default product">
+                <p-checkbox formControlName="is_default_product" binary="true" label="Set as default product">
                 </p-checkbox>
             </div>
         </div>
-        <div formArrayName="grind_varient" *ngFor="let grind_varient of weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['grind_varient']['controls']; let i = index; last as isLast">
+        <div formArrayName="grind_variants" *ngFor="let grind_varient of weightForm['controls']['weights']['controls'][currentVarientIndex]['controls']['grind_variants']['controls']; let i = index; last as isLast">
             <div [formGroupName]="i" class="row">
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                     <label>Price<span class="star">*</span></label>
-                    <input type="text" formControlName="price" pInputText />
+                    <input type="number" formControlName="price" pInputText />
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                     <label>Grind<span class="star">*</span></label>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                     <label>Stock Available<span class="star">*</span></label>
-                    <input type="text" formControlName="stock_available" pInputText />
+                    <input type="number" formControlName="available_quantity" pInputText />
                 </div>
                 <div class="col-6 col-sm-6 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100">
                     <label>SKU number<span class="star">*</span></label>
@@ -71,6 +71,87 @@
                         Add a grind variant
                     </span>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 primary_txt mt-3 mb-3">
+                Add Images
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3  sewn-form-field w-100">
+                <label>Upload Feature Image<span class="star">*</span></label>
+                <label *ngIf="!weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']" class="addImageContainer">
+                    <input type="file" accept="image/png, image/jpeg" style="visibility: hidden" #featureImage
+                        (change)="handleRoasterFile($event,0,'featured_image')" />
+                    <div class="d-flex flex-wrap align-items-center justify-content-center ml-4 mr-4">
+                        <img src="assets/images/upload_icon.svg">
+                        <span class="secondary_txt mt-2">Drag
+                            and drop an image here or browse</span>
+                    </div>
+                </label>
+                <div *ngIf="weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']" class="addImageContainer">
+                    <img [src]="weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['fileDetails']['image_url']" alt="" class="uploadImg" />
+                    <div class="imageLabel ml-1 mr-1">
+                        <label class="mb-0 p-0.5">Image.png</label>
+                        <a class="menu-arrow float-right pointer" [popover]="documentTemplate2" placement="left" [outsideClick]="true"
+                            #pop="bs-popover">
+                            <img class="img" src="assets/images/more-opns-file.png">
+                        </a>
+                        <ng-template #documentTemplate2>
+                            <div id="popover-mobile-content">
+                                <ul class="list-group custom-popover">
+                                    <li *ngIf="false" class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.edit}} </a></li>
+                                    <li class="list-group-item"><a class="pointer-item"
+                                            (click)="deleteImage(0, 'feature_image')">{{globals.languageJson?.delete}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 d-flex p-0">
+                <div *ngFor="let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['product_images']; let m = index"
+                    class="pl-3">
+                    <label class="mb-0">Product images<span class="star">*</span></label>
+                    <label *ngIf="!product_image['fileDetails']"
+                        class="addImageContainer">
+                        <input type="file" accept="image/png, image/jpeg" style="visibility: hidden" #featureImage
+                            (change)="handleRoasterFile($event,m,'product_image')" />
+                        <div class="d-flex flex-wrap align-items-center justify-content-center ml-4 mr-4">
+                            <img src="assets/images/upload_icon.svg">
+                            <span class="secondary_txt mt-2">Drag
+                                and drop an image here or browse</span>
+                        </div>
+                    </label>
+                    <div *ngIf="product_image['fileDetails']"
+                        class="addImageContainer position-relative">
+                        <img [src]="product_image['fileDetails']['image_url']"
+                            alt="" class="uploadImg" />
+                        <div class="imageLabel ml-1 mr-1">
+                            <label class="mb-0 p-0.5">Image.png</label>
+                            <a class="menu-arrow float-right pointer" [popover]="documentTemplate2" placement="left" [outsideClick]="true"
+                                #pop="bs-popover">
+                                <img class="img" src="assets/images/more-opns-file.png">
+                            </a>
+                            <ng-template #documentTemplate2>
+                                <div id="popover-mobile-content">
+                                    <ul class="list-group custom-popover">
+                                        <li *ngIf="false" class="list-group-item"> <a class="pointer-item">{{globals.languageJson?.edit}}
+                                            </a></li>
+                                        <li class="list-group-item"><a class="pointer-item"
+                                                (click)="deleteImage(m, 'product_image')">{{globals.languageJson?.delete}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="button" (click)="uploadImages()" class="btn btn-stroked">
+                    Update
+                </button>
             </div>
         </div>
     </div>

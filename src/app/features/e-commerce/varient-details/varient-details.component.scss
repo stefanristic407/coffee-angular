@@ -59,6 +59,23 @@
         background-color: #f8f8f8 !important;
     }
 }
+.imageLabel {
+    bottom: 0;
+    position: absolute;
+    background-color: #c0c0c9;
+    width: 13rem;
+}
+.uploadImg {
+    width: 3.25rem;
+    height: 4rem;
+    margin-left: 35%;
+    margin-top: 7%;
+}
+.addImageContainer {
+    width: 13.25rem;
+    height: 8.12rem;
+    border: 1px solid #d6d6d6;
+}
 .addWeightDiv {
     border: 1px solid #d6d6d6;
 }
