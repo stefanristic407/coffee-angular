@@ -67,7 +67,6 @@ export class AboutUsComponent implements OnInit {
     getAboutDetails() {
         this.userService.getPageDetails(this.roasterId, 'about-us').subscribe((res: any) => {
             if (res.success) {
-                console.log('About us:', res.result);
                 this.infoForm.patchValue(res.result);
                 if (res.result.banner_file) {
                     this.infoForm.controls.banner_file.setValue({
