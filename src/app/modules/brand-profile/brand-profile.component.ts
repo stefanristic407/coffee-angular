@@ -46,7 +46,6 @@ export class BrandProfileComponent implements OnInit {
     ngOnInit(): void {
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/welcome-aboard' },
-            { label: 'Farm Link' },
             { label: this.globals.languageJson?.brand_profile },
         ];
     }
