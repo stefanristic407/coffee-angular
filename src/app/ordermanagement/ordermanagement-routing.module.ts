@@ -1,3 +1,4 @@
+import { SewnOrderChatComponent } from './../sewn-order-chat/sewn-order-chat.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // import { PagenotfoundComponent } from '../people/pagenotfound/pagenotfound.component';
@@ -126,21 +127,32 @@ const routes: Routes = [
                 component: RatingComponent,
                 canActivate: [AuthGuard],
             },
+
             {
-                path: 'order-chat',
-                component: OrderChatComponent,
+                path: 'order-chat/:orderId/:type',
+                component: SewnOrderChatComponent,
                 canActivate: [AuthGuard],
             },
-            {
-                path: 'pre-order-chat',
-                component: PreOrderChatComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'book-order-chat',
-                component: BookOrderChatComponent,
-                canActivate: [AuthGuard],
-            },
+
+            /**
+             * These entries are kept for debugging purposes will be remove it later
+             */
+            // {
+            //     path: 'dep-order-chat',
+            //     component: OrderChatComponent,
+            //     canActivate: [AuthGuard],
+            // },
+            // {
+            //     path: 'dep-pre-order-chat',
+            //     component: PreOrderChatComponent,
+            //     canActivate: [AuthGuard],
+            // },
+            // {
+            //     path: 'dep-book-order-chat',
+            //     component: BookOrderChatComponent,
+            //     canActivate: [AuthGuard],
+            // },
+
             {
                 path: 'horeca-orders',
                 component: HorecaOrdersComponent,
