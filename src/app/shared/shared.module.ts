@@ -71,9 +71,13 @@ import { TeamMemberTableComponent } from './components/add-teams/team-member-tab
 import { UploaderComponent } from './components/uploader/uploader.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
+<<<<<<< HEAD
 import { InviteNewUserComponent } from './components/add-teams/invite-new-user/invite-new-user.component';
 import { EditUserDetailsComponent } from './components/add-teams/edit-user-details/edit-user-details.component';
 import { SendRecoveryEmailComponent } from './components/add-teams/send-recovery-email/send-recovery-email.component';
+=======
+import { BlogCardComponent } from './components/blog-card/blog-card.component';
+>>>>>>> 2bbd4f27b6468a27aa3ca4de4137367982c1fc1b
 
 // #region material
 const MATMODULES = [];
@@ -170,9 +174,13 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         RoleListComponent,
         TeamMemberTableComponent,
         ConfirmComponent,
+<<<<<<< HEAD
         InviteNewUserComponent,
         EditUserDetailsComponent,
         SendRecoveryEmailComponent,
+=======
+        BlogCardComponent,
+>>>>>>> 2bbd4f27b6468a27aa3ca4de4137367982c1fc1b
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -188,6 +196,7 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         BreadcrumbComponent,
         ...DIRECTIVES,
         ...PIPES,
+        BlogCardComponent,
     ],
 })
 export class SharedModule {}

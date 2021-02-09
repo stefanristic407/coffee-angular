@@ -52,9 +52,75 @@
                         <li
                             class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
                         >
-                            <a href="javascript:void(0)" class="d-inline-block image-card">
+                            <a
+                                href="javascript:void(0)"
+                                class="d-inline-block image-card"
+                                role="button"
+                                [popover]="notifList"
+                                placement="bottom"
+                                container="body"
+                                [outsideClick]="true"
+                            >
                                 <img class="img" src="assets/images/notification.svg " />
                             </a>
+                            <ng-template #notifList>
+                                <div class="notification-header">
+                                    <span
+                                        class="notfi-header-title fnt-18 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 ng-star-inserted"
+                                        >Notifications</span
+                                    >
+                                    <a href="javascript:void(0)" class="notif-close">
+                                        <img src="assets/images/notif-close-icon.svg" />
+                                    </a>
+                                    <a href="javascript:void(0)" class="mark-all under-mark">Mark all read</a>
+                                </div>
+                                <div class="notification-body">
+                                    <ul class="p-0">
+                                        <li>
+                                            <div class="border-container">
+                                                <div class="notifi-cotainer">
+                                                    <p
+                                                        class="fnt-16 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-none d-md-block"
+                                                    >
+                                                        Order Shipped!
+                                                    </p>
+                                                    <div class="notif-description">
+                                                        <P class="fnt-14 fnt-normal fnt-muli text-gray588 mb-2"
+                                                            >Your green coffee order placed with Finca La Pampa estate
+                                                            has been shipped</P
+                                                        >
+                                                    </div>
+                                                    <p class="under-mark">Order #13213</p>
+                                                    <p class="fnt-12 fnt-normal fnt-muli text-gray588 mb-2">
+                                                        2 hours ago
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="border-container">
+                                                <div class="notifi-cotainer">
+                                                    <p
+                                                        class="fnt-16 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-none d-md-block"
+                                                    >
+                                                        Order Shipped!
+                                                    </p>
+                                                    <div class="notif-description active">
+                                                        <P class="fnt-14 fnt-normal fnt-muli text-gray588 mb-2"
+                                                            >Your green coffee order placed with Finca La Pampa estate
+                                                            has been shipped</P
+                                                        >
+                                                    </div>
+                                                    <p class="under-mark">Order #13213</p>
+                                                    <p class="fnt-12 fnt-normal fnt-muli text-gray588 mb-2">
+                                                        2 hours ago
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-template>
                         </li>
                         <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
                             <div class="profile-link d-flex align-items-center">

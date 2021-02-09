@@ -40,6 +40,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     chatStateSubcription: Subscription;
     routeSubscription: Subscription;
 
+    notifications: any[];
+    readNotification: any;
+
     activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
 
     constructor(
@@ -143,6 +146,8 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
             }, 800);
             event.stopImmediatePropagation();
         });
+
+        this.getNotificationList();
     }
     ngOnDestroy() {
         if (this.chatStateSubcription) {
@@ -153,6 +158,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
+<<<<<<< HEAD
     refreshMenuItems() {
         this.menuItems = this.menuService.getMenuItems().filter((element) => element.routerLink);
         this.menuItems.forEach((element) => {
@@ -160,6 +166,18 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
+=======
+    getNotificationList() {
+        this.userService.getNofitication().subscribe((res: any) => {
+            console.log('notification data: ', res);
+        });
+    }
+
+    showNotification() {
+        console.log('notif show: ');
+    }
+
+>>>>>>> 2bbd4f27b6468a27aa3ca4de4137367982c1fc1b
     updateActiveLinkState() {
         if (this.chat.isOpen.value) {
             this.activeLink = 'MESSAGES';
