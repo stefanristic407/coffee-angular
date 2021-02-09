@@ -244,3 +244,43 @@ span.star {
     letter-spacing: normal;
     color: #747588;
 }
+
+ngx-intl-tel-input {
+    .custom-intl-tel-input {
+        height: 50px !important;
+        border: 1px solid $primary-border-color !important;
+        border-radius: 4px;
+        color: $general-text-color;
+        font-family: 'Muli', sans-serif !important;
+        font-weight: bold;
+        font-size: 14px;
+
+        &:hover {
+            border-color: $primary-color !important;
+        }
+    }
+
+    .iti__selected-flag {
+        margin-left: 8px !important;
+    }
+
+    .iti__flag-container {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .iti--allow-dropdown input {
+        padding-left: 63px !important;
+    }
+
+    .dropdown-toggle {
+        border-right: 1px solid #d6d6d6 !important;
+    }
+    &.w-100 .iti--allow-dropdown {
+        width: 100% !important;
+
+        .custom-intl-tel-input {
+            width: 100% !important;
+        }
+    }
+}

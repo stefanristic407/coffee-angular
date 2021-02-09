@@ -20,49 +20,15 @@ export class SustainabilityComponent implements OnInit {
     breadItems: any[];
     infoForm: FormGroup;
 
-    appLanguage?: any;
-    brandProfileActive: any = 0;
-    banner_title: string = '';
-    intro_title: string = '';
-    section_title: string = '';
-    section_title1: string = '';
-    section_title2: string = '';
-    section_title3: string = '';
-    section_title4: string = '';
-    description: string = '';
-    answer: string = '';
-    section_answer: string = '';
-    section_answer1: string = '';
-    section_answer2: string = '';
-    section_answer3: string = '';
-    section_answer4: string = '';
-    banner_id: any;
-    intro_id: any;
-    section_file_id: any;
-    section_file1_id: any;
-    section_file2_id: any;
-    section3_file_id_1: any;
-    section3_file_id_2: any;
-    section4_file_id_1: any;
-    section4_file_id_2: any;
-    banner_image: string = '';
-    intro_image: string = '';
-    section_file_image: string = '';
-    section_file1_image: string = '';
-    section_file2_image: string = '';
-    section_file3_image_1: string = '';
-    section_file3_image_2: string = '';
-    section_file4_image_2: string = '';
-    section_file4_image_1: string = '';
     constructor(
         private fb: FormBuilder,
+        private route: Router,
         private formSrv: FormService,
         public globals: GlobalsService,
         private toastrService: ToastrService,
-        public cookieService: CookieService,
-        public userService: UserserviceService,
-        public route: Router,
-        public roasterService: RoasterserviceService,
+        private cookieService: CookieService,
+        private userService: UserserviceService,
+        private roasterService: RoasterserviceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
     }
