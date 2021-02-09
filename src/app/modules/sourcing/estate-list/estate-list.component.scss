@@ -8,3 +8,9 @@
         height: 32px;
     }
 }
+.card-wrap {
+    margin-bottom: 24px;
+    @media (min-width: 768px) {
+        margin-bottom: 26px;
+    }
+}

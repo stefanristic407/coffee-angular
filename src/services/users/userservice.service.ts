@@ -1321,4 +1321,16 @@ export class UserserviceService {
         };
         return this.http.post(this.roasterUrl, data);
     }
+
+    getNofitication() {
+        const organization = 'ro';
+        const organizationId = this.cookieService.get('roaster_id');
+        const userId = this.cookieService.get('user_id');
+        const data = {
+            api_call: `/${organization}/${organizationId}/notifications?from_user_id=${userId}&from_org_type=ro&is_read=false`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
 }

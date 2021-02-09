@@ -9,7 +9,7 @@ export const environment = {
     encryptionKey: 'sewen_secrete_key',
     microRoasterWeb: 'https://microroaster.sewnstaging.com',
     horecaWeb: 'https://partners.sewnstaging.com',
-    production: false,
+    production: true,
 };
 
 /*

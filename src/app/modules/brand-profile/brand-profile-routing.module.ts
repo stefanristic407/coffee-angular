@@ -27,6 +27,10 @@ const routes: Routes = [
         component: FeaturedProductsComponent,
     },
     {
+        path: 'learn',
+        component: LearnComponent,
+    },
+    {
         path: 'sustainability',
         component: SustainabilityComponent,
     },
@@ -37,10 +41,6 @@ const routes: Routes = [
     {
         path: 'sustainability',
         component: SustainabilityComponent,
-    },
-    {
-        path: 'learn',
-        component: LearnComponent,
     },
 ];
 

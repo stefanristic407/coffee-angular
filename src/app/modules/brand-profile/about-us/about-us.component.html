@@ -186,6 +186,34 @@
                                 Please input 30 words
                             </small>
                         </div>
+
+                        <div formArrayName="members">
+                            <ng-container *ngFor="let member of members.controls; let i = index">
+                                <div class="d-flex">
+                                    <div class="flex-fill sewn-form-field mb-4 mb-md-45">
+                                        <label> Select your employees<span class="star">*</span> </label>
+                                        <p-autoComplete
+                                            [formControlName]="i"
+                                            [suggestions]="autoMembers"
+                                            field="name"
+                                            completeOnFocus="true"
+                                            (completeMethod)="search($event)"
+                                            placeholder="Please enter the name of your employee"
+                                            styleClass=""
+                                            scrollHeight="225px"
+                                        >
+                                        </p-autoComplete>
+                                        <small *ngIf="member.errors?.required" class="p-error"> Required </small>
+                                    </div>
+                                    <div class="delete-wrap ml-4">
+                                        <span class="brown-cta" (click)="deleteMember(i)"> Delete </span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <div class="d-inline-flex align-items-center">
+                                <span class="brown-cta" (click)="addMember()"> + Add employee </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,161 +222,5 @@
             <button type="button" class="btn-stroked mr-4" routerLink="/brand-profile">Cancel</button>
             <button type="button" class="btn-raised" (click)="saveAboutProfile()">Save</button>
         </div>
-    </div>
-</section>
-
-<section>
-    <div class="bg-fff">
-        <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec px-0">
-            <div class="row">
-                <div class="col-lg-8 col-md-12">
-                    <div class="border mt-3 p-4">
-                        <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Your team members</h4>
-                        <p class="fnt-14 fnt-600 fnt-muli text-clr334">
-                            Select your emplyees to display on your website page.
-                        </p>
-
-                        <div class="roastery-fields">
-                            <div class="farm-input col-12 col-md-10 px-0">
-                                <ng-container *ngFor="let member of teamList">
-                                    <input
-                                        type="text"
-                                        class="form-control banner-title"
-                                        placeholder="Katie Patterson"
-                                        name="title"
-                                        id="title"
-                                        [(ngModel)]="member.name"
-                                    />
-                                    <span
-                                        class="mt-2 fnt-muli fnt-700 fnt-14 text-clr60b cursor-pointer"
-                                        (click)="removeUser(member.id)"
-                                        >Remove</span
-                                    >
-                                </ng-container>
-                            </div>
-                        </div>
-
-                        <div class="roastery-fields" *ngIf="!showAddEmp">
-                            <div class="farm-input col-12 col-md-10 px-0">
-                                <label class="label"></label>
-                                <select
-                                    name="Year"
-                                    required=""
-                                    class="form-control select-region"
-                                    [(ngModel)]="addUserId"
-                                >
-                                    <option value="" selected="" disabled="">Select your employees</option>
-                                    <option *ngFor="let member of roasterUsers" value="{{ member.id }}">
-                                        {{ member.firstname }} {{ member.lastname }}
-                                    </option>
-                                </select>
-
-                                <div class="col-12 col-md-12 mt-4 p-0">
-                                    <button type="submit" class="assign_member_role save" (click)="addMember()">
-                                        Add Contact<img
-                                            *ngIf="assignButtonValue === 'Adding'"
-                                            class="loader"
-                                            src="assets/images/orange-loader.gif"
-                                        />
-                                    </button>
-                                    <button type="submit" class="btn cancel_assign" (click)="cancelAssign()">
-                                        <span class="cancel_text" (click)="showAddEmp = true">Cancel</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div class="roastery-fields">
-                                <div class="farm-input col-12 col-md-10 px-0">
-                                    <label class="label"></label>
-                                    <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
-                                </div>
-                            </div> -->
-
-                        <div class="add-partner d-inline-flex align-items-center" *ngIf="showAddEmp">
-                            <img src="assets/images/add-partner.svg" />
-                            <span
-                                class="ml-2 fnt-muli fnt-700 fnt-14 text-clr60b cursor-pointer"
-                                (click)="showAddEmp = false"
-                            >
-                                Add employee
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- accordion-->
-                    <!-- <div class="border mt-3 p-4">
-                            <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Your team members</h4>
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr334">Select your emplyees to display on your website page.</p>
-
-
-                            <div class="visit-us-accordion-content  position-relative col-md-10 col-12">
-                                <div class="row ">
-
-                                    <div class="accordion col-12  mb-3" id="accordionExample">
-                                        <div class="card">
-                                            <div class="card-head" id="headingOne">
-                                                <h2 class="mb-0 question float-left w-80" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    What happens if i change my mind after placing an order?
-                                                </h2>
-
-                                                <div class="d-flex float-right">
-                                                    <span>Edit</span> &nbsp; <span>Delete</span>
-                                                </div>
-                                            </div>
-
-                                            <div id="collapseOne" class="collapse sourcing-collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                                <div class="card-body">
-                                                    <div class="roastery-fields">
-                                                        <div class="farm-input col-12 px-0">
-                                                            <label class="label"></label>
-                                                            <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-head" id="headingTwo">
-                                                <h2 class="mb-0 collapsed question float-left w-80" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                    How much will the shipping and haulage cost?
-                                                </h2>
-                                                <div class="d-flex float-right">
-                                                    <span>Edit</span> &nbsp; <span>Delete</span>
-                                                </div>
-                                            </div>
-
-                                            <div id="collapseTwo" class="collapse sourcing-collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                                <div class="card-body">
-                                                    <div class="roastery-fields">
-                                                        <div class="farm-input col-12 px-0">
-                                                            <label class="label"></label>
-                                                            <input type="text" class="form-control banner-title" placeholder="Please enter the name of your employee" name="title" id="title">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <hr class="dashed my-4">
-
-                                <div class="add-partner d-inline-flex align-items-center">
-                                    <img src="assets/images/add-partner.svg">
-                                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-clr60b cursor-pointer"> Add new question  </span>
-
-                                </div>
-                            </div>
-                        </div> -->
-                </div>
-            </div>
-
-            <div class="py-4">
-                <button class="cancel pull-left mr-auto fnt-muli" type="button" routerLink="/features/brand-profile">
-                    Cancel
-                </button>
-            </div>
-        </section>
     </div>
 </section>

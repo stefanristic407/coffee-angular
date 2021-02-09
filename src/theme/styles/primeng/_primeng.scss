@@ -46,9 +46,12 @@
     .p-inputtext {
         padding: 0.9375rem 0.75rem;
         border-radius: 4px;
+        width: 100%;
     }
     .p-error {
         display: none;
+        font-size: 14px;
+        font-weight: 600;
     }
     .ng-dirty ~ .p-error {
         display: block !important;
@@ -75,6 +78,11 @@
         .p-inputnumber-input {
             padding-right: 4rem;
         }
+    }
+
+    .p-autocomplete,
+    .p-dropdown {
+        width: 100%;
     }
 }
 

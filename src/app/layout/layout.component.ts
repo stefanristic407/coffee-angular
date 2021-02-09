@@ -40,6 +40,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     chatStateSubcription: Subscription;
     routeSubscription: Subscription;
 
+    notifications: any[];
+    readNotification: any;
+
     activeLink: 'DASHBOARD' | 'MESSAGES' | 'NOTIFICATIONS' | 'PROFILES' | 'UNSET' = 'UNSET';
 
     constructor(
@@ -111,7 +114,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.getLoggedInUserRoles();
 
-        $(window).scroll(function () {
+        $(window).scroll(() => {
             if ($(window).scrollTop() + $(window).height() === $(document).height()) {
                 $('.sectin-footer-mb').css({
                     opacity: '0',
@@ -128,21 +131,23 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         const pt = $('header').outerHeight() + 'px';
         $('.router-design').css({ 'padding-top': pt });
 
-        $('body').on('click', '.sidenav-mb__close', function (event) {
+        $('body').on('click', '.sidenav-mb__close', (event) => {
             $('.sidenav-mb__content').removeClass('open');
-            setTimeout(function () {
+            setTimeout(() => {
                 $('.sidenav-mb').removeClass('open');
             }, 800);
             event.stopImmediatePropagation();
         });
 
-        $('body').on('click', '.sidenav-mb__hide', function (event) {
+        $('body').on('click', '.sidenav-mb__hide', (event) => {
             $('.sidenav-mb__content').removeClass('open');
-            setTimeout(function () {
+            setTimeout(() => {
                 $('.sidenav-mb').removeClass('open');
             }, 800);
             event.stopImmediatePropagation();
         });
+
+        this.getNotificationList();
     }
     ngOnDestroy() {
         if (this.chatStateSubcription) {
@@ -158,6 +163,16 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         this.menuItems.forEach((element) => {
             element.title = this.globals.languageJson[element.title] || element.title;
         });
+    }
+
+    getNotificationList() {
+        this.userService.getNofitication().subscribe((res: any) => {
+            console.log('notification data: ', res);
+        });
+    }
+
+    showNotification() {
+        console.log('notif show: ');
     }
 
     updateActiveLinkState() {

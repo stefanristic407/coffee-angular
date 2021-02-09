@@ -103,3 +103,7 @@
     opacity: 0;
     transition: none;
 }
+.p-dropdown.p-dropdown-clearable .p-dropdown-label,
+.p-dropdown .p-inputtext {
+    padding-right: 0;
+}
