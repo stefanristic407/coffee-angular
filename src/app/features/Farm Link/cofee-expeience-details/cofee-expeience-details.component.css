@@ -14,7 +14,7 @@
 
 .farmlink-container .farm-input .label::after {
     position: absolute;
-    content: "*";
+    content: '*';
     top: 0;
     color: #ff1e5a;
     z-index: 1;
@@ -26,10 +26,6 @@
 
 .text-black334 {
     color: #232334;
-}
-
-.text-gray588 {
-    color: #747588;
 }
 
 .form-section__inputs {
@@ -45,7 +41,7 @@
     width: 90px;
     height: 90px;
     /* background-image: url("../../assets/images/logo-upload-bg.svg"); */
-    background-image: url("../../../../assets/images/logo-upload-bg.svg");
+    background-image: url('../../../../assets/images/logo-upload-bg.svg');
     border-radius: 50%;
     position: relative;
     background-position: center;
@@ -62,7 +58,7 @@
     height: 30px;
 }
 
-.logo-upload__input input[type="file"] {
+.logo-upload__input input[type='file'] {
     opacity: 0;
     visibility: hidden;
     display: none;
@@ -184,7 +180,7 @@
     cursor: pointer;
 }
 
-.input-head--uplaod input[type="file"] {
+.input-head--uplaod input[type='file'] {
     opacity: 0;
     visibility: hidden;
     display: none;
@@ -205,7 +201,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
 }
 
 .upload-file-results__item {
@@ -231,7 +227,7 @@
 
 .upload-file-results__item button:first-of-type::after {
     position: absolute;
-    content: "";
+    content: '';
     top: 50%;
     right: 0;
     transform: translateY(-50%);
@@ -267,7 +263,6 @@
     font-size: 12px;
 }
 
-
 /* .copy-link button {
     box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
 } */
@@ -293,7 +288,7 @@
 
 .contact-for-help::after {
     position: absolute;
-    content: "";
+    content: '';
     top: 0;
     left: -15px;
     width: calc(100% + 30px);
@@ -450,7 +445,7 @@
     }
     .contact-for-help::after {
         position: absolute;
-        content: "";
+        content: '';
         top: 0;
         left: -20px;
         width: calc(100% + 40px);
@@ -558,7 +553,7 @@
     }
     .contact-for-help::after {
         position: absolute;
-        content: "";
+        content: '';
         top: 0;
         left: -25px;
         width: calc(100% + 50px);
@@ -624,7 +619,7 @@
 ::ng-deep body .ui-inputtext:hover {
     border: 1px solid #d6d6d6;
 }
-.tags-onEdit{
+.tags-onEdit {
     border: 1px solid #30855c;
     color: #30855c;
     border-radius: 20%;

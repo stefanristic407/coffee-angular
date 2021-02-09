@@ -10,7 +10,7 @@
                     <h2 class="fnt-32 fnt-bold fnt-muli text-black334 mb-md-1 mb-0">
                         {{ sourcing.estateReviewsSummary?.rating.toFixed(1) || '-' }}
                     </h2>
-                    <p class="fnt-14 fnt-bold fnt-muli text-gray588 mb-md-1 mb-0">out of 5</p>
+                    <p class="fnt-14 fnt-bold fnt-muli text-clr588 mb-md-1 mb-0">out of 5</p>
                     <div *ngIf="sourcing.estateReviewsSummary" class="d-flex star-wrap">
                         <star-rating
                             value="{{ sourcing.estateReviewsSummary.rating }}"
@@ -49,7 +49,7 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="text-gray588"> ({{ item.value }}) </span>
+                                <span class="text-clr588"> ({{ item.value }}) </span>
                             </td>
                         </tr>
                     </table>

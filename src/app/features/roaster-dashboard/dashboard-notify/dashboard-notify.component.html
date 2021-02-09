@@ -13,7 +13,7 @@
                 <div class="notify-content col-12 col-md-9">
                     <ng-container *ngIf="isNewDispute; else noDispute">
                         <p class="fnt-18 fnt-bold fnt-muli text-black334 mb-1 mb-md-2">New Dispute Raised!</p>
-                        <p class="fnt-14 fnt-normal fnt-muli text-gray588 mb-2 mb-md-4">
+                        <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2 mb-md-4">
                             Raised by {{ disputes?.disputer_org_name || '' }} for Order #{{ disputes?.order_id || '' }}
                         </p>
                         <a routerLink="/dispute" class="arrow-link fnt-mb-14 float-right float-md-left">See details</a>
@@ -39,7 +39,7 @@
                             <span class="d-none d-md-inline">You have </span>
                             {{ messages.length }} new messages
                         </p>
-                        <p class="fnt-14 fnt-normal fnt-muli text-gray588 mb-2 mb-md-4">
+                        <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2 mb-md-4">
                             See what your contacts have to say!
                         </p>
                         <a
