@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -9,6 +9,8 @@ import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
+import { rejects } from 'assert';
+import { promise } from 'protractor';
 @Component({
     selector: 'app-about-us',
     templateUrl: './about-us.component.html',
@@ -18,30 +20,13 @@ export class AboutUsComponent implements OnInit {
     roasterId: string;
     breadItems: any[];
     infoForm: FormGroup;
-
-    appLanguage?: any;
-    brandProfileActive: any = 0;
-    banner_file: any;
-    intro_file_1: any;
-    intro_file_2: any;
-    file: any;
-    banner_title: string = '';
-    intro_title: string = '';
-    title: string = '';
-    short_description: string = '';
-    intro_short_description: string = '';
-    banner_image_name: any;
-    intro_image_name_1: string = '';
-    intro_image_name_2: string = '';
-    file_image_name: any;
-    teamList: [] = [];
-    select_user = '';
-    new_users = '';
-    selectedMembers: [] = [];
     roasterUsers: any[] = [];
-    showAddEmp = true;
-    addUserId: any = '';
-    assignButtonValue = '';
+    topContacts: any[] = [];
+    autoMembers: any[] = [];
+
+    get members() {
+        return this.infoForm.get('members') as FormArray;
+    }
 
     constructor(
         private fb: FormBuilder,
@@ -73,22 +58,15 @@ export class AboutUsComponent implements OnInit {
             short_description: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
             team_title: ['', Validators.compose([Validators.required, maxWordCountValidator(10)])],
             team_description: ['', Validators.compose([Validators.required, maxWordCountValidator(30)])],
+            members: this.fb.array([]),
         });
-        this.language();
         this.getAboutDetails();
-        this.getMembers();
-        this.getRoasterUsers();
-    }
-
-    language() {
-        this.appLanguage = this.globals.languageJson;
-        this.brandProfileActive++;
+        this.getTopContacts();
     }
 
     getAboutDetails() {
         this.userService.getPageDetails(this.roasterId, 'about-us').subscribe((res: any) => {
             if (res.success) {
-                console.log('About us:', res.result);
                 this.infoForm.patchValue(res.result);
                 if (res.result.banner_file) {
                     this.infoForm.controls.banner_file.setValue({
@@ -108,205 +86,130 @@ export class AboutUsComponent implements OnInit {
                         url: res.result.file_url,
                     });
                 }
-
-                (this.title = res['result'].title),
-                    (this.intro_short_description = res['result'].intro_short_description);
-                (this.file = res['result'].file), (this.banner_title = res['result'].banner_title);
-                this.intro_title = res['result'].intro_title;
-                (this.banner_file = res['result'].banner_file),
-                    (this.short_description = res['result'].short_description),
-                    (this.intro_file_1 = res['result'].intro_file_1),
-                    (this.intro_file_2 = res['result'].intro_file_2);
             }
         });
     }
 
-    //save the upload files
-    onFileChange(event: any, width: any, height: any, FieldValue: any) {
-        var files = event.target.files;
-        // this.fileEvent = this.files;
-        if (FieldValue == 'Intro' && files.length != 2) {
-            if (files.length > 2) {
-                this.toastrService.error('You can only upload a maximum of 2 files');
-                return;
-            } else {
-                this.toastrService.error('Please upload 2 files');
-                return;
-            }
-        }
-        if (files.length > 0) {
-            for (let i = 0; i < files.length; i++) {
-                if (
-                    files[i].type == 'image/png' ||
-                    files[i].type == 'image/jpg' ||
-                    files[i].type == 'image/jpeg' ||
-                    files[0].type == 'image/gif'
-                ) {
-                    let reader = new FileReader();
-                    let img = new Image();
-                    let fileValue = event.target.files[i];
-                    img.src = window.URL.createObjectURL(fileValue);
-                    reader.readAsDataURL(fileValue);
-                    reader.onload = () => {
-                        setTimeout(() => {
-                            const widthValue = img.naturalWidth;
-                            const heightValue = img.naturalHeight;
-
-                            window.URL.revokeObjectURL(img.src);
-                            console.log(widthValue + '*' + widthValue);
-                            if (widthValue === width && widthValue === height) {
-                                alert(`photo should be ${width} x ${height} size`);
-                            } else {
-                                var imgURL = reader.result;
-                                if (imgURL) {
-                                    let formData: FormData = new FormData();
-                                    console.log(files[0]);
-                                    formData.append('file', fileValue, fileValue.name);
-                                    formData.append('name', fileValue.name);
-                                    formData.append('file_module', 'Brand-Profile');
-                                    formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
-                                    formData.append('token', this.cookieService.get('Auth'));
-                                    this.roasterService.uploadFiles(formData).subscribe((data) => {
-                                        if (data['success'] == true) {
-                                            this.toastrService.success('File uploaded successfully');
-                                            if (FieldValue == 'Banner') {
-                                                this.banner_file = data['result'].id;
-                                                this.banner_image_name = fileValue.name;
-                                            } else if (FieldValue == 'Intro') {
-                                                this['intro_file_' + [i + 1]] = data['result'].id;
-                                                // this.intro_file = data['result'].id;
-                                                this['intro_image_name_' + [i + 1]] = fileValue.name;
-                                            } else if (FieldValue == 'File') {
-                                                this.file = data['result'].id;
-                                                this.file_image_name = fileValue.name;
-                                            }
-                                        } else {
-                                            this.toastrService.error('Error while uploading the File');
-                                        }
-                                    });
-                                }
-                            }
-                        }, 2000);
-                        // console.log(imgURL);
-                    };
-                } else if (
-                    files[i].type == 'video/mp4' ||
-                    files[i].type == 'video/mpeg' ||
-                    files[i].type == 'video/mov' ||
-                    files[i].type == 'video/wmv' ||
-                    files[i].type == 'video/flv' ||
-                    files[i].type == 'video/webm'
-                ) {
-                    console.log('Video');
-                    let fileValue = event.target.files[i];
-                    let formData: FormData = new FormData();
-                    formData.append('file', fileValue, fileValue.name);
-                    formData.append('name', fileValue.name);
-                    formData.append('file_module', 'Brand-Profile');
-                    formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
-                    formData.append('token', this.cookieService.get('Auth'));
-                    this.roasterService.uploadFiles(formData).subscribe((data) => {
-                        if (data['success'] == true) {
-                            this.toastrService.success('File uploaded successfully');
-                            if (FieldValue == 'Banner') {
-                                this.banner_file = data['result'].id;
-                                this.banner_image_name = fileValue.name;
-                            } else if (FieldValue == 'Intro') {
-                                this['intro_file_' + [i + 1]] = data['result'].id;
-                                this['intro_image_name_' + [i + 1]] = fileValue.name;
-                            } else if (FieldValue == 'File') {
-                                this.file = data['result'].id;
-                                this.file_image_name = fileValue.name;
-                            }
-                        } else {
-                            this.toastrService.error('Error while uploading the File');
-                        }
-                    });
-                } else {
-                    this.toastrService.error('If image, please select JPG,PNG or JPEG ');
-                    this.toastrService.error('If Video, Please select MP4,MOV,WMV');
-                }
-            } //for loop
-        }
-    }
-
     saveAboutProfile() {
+        console.log(this.infoForm);
         if (this.infoForm.valid) {
+            const promises = [];
+            // add top contacts
+            this.infoForm.value.members.forEach((element) => {
+                const idx = this.topContacts.findIndex((item) => item.user_id === element.id);
+                if (element && element.id && idx === -1) {
+                    const payload = {
+                        user_id: element.id,
+                    };
+                    promises.push(
+                        new Promise((resolve, reject) =>
+                            this.roasterService.addRoasterContacts(this.roasterId, payload).subscribe(
+                                (res: any) => {
+                                    if (res.success) {
+                                        resolve(res.result);
+                                    } else {
+                                        reject();
+                                    }
+                                },
+                                (err) => {
+                                    reject();
+                                },
+                            ),
+                        ),
+                    );
+                }
+            });
+            // remove top contacts
+            this.topContacts.forEach((element) => {
+                const idx = this.infoForm.value.members.findIndex((item) => item.id === element.user_id);
+                if (idx === -1) {
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            this.roasterService.deleteRoasterContacts(this.roasterId, element.id).subscribe(
+                                (res: any) => {
+                                    if (res.success) {
+                                        resolve(res.result);
+                                    }
+                                },
+                                (err) => {
+                                    reject();
+                                },
+                            );
+                        }),
+                    );
+                }
+            });
+            // Update page data
             const postData = {
                 ...this.infoForm.value,
                 banner_file: this.infoForm.value.banner_file.id,
                 intro_file_1: this.infoForm.value.intro_file_1.id,
                 file: this.infoForm.value.file.id,
             };
-            delete postData.roastery_images;
-            this.userService.updateHomeDetails(this.roasterId, postData, 'about-us').subscribe((res: any) => {
-                if (res.success) {
+            delete postData.members;
+            promises.push(
+                new Promise((resolve, reject) => {
+                    this.userService.updateHomeDetails(this.roasterId, postData, 'about-us').subscribe((res: any) => {
+                        if (res.success) {
+                            resolve(res.result);
+                        } else {
+                            reject();
+                        }
+                    });
+                }),
+            );
+            Promise.all(promises)
+                .then(() => {
                     this.toastrService.success('About page Details updated successfully');
                     this.route.navigate(['/brand-profile']);
-                } else {
+                })
+                .catch(() => {
                     this.toastrService.error('Error while updating details');
-                }
-            });
+                });
         } else {
             this.formSrv.markGroupDirty(this.infoForm);
         }
     }
 
-    selectUser(value) {
-        this.new_users = value.firstname;
-        // console.log(value)
+    addMember() {
+        this.members.push(this.fb.control('', Validators.compose([Validators.required])));
     }
 
-    getRoasterUsers() {
-        this.roasterService.getRoasterUsers(this.roasterId).subscribe((data) => {
-            if (data['success'] == true) {
-                this.roasterUsers = data['result'];
+    deleteMember(idx) {
+        this.members.removeAt(idx);
+    }
+
+    search(event: any) {
+        const localArray = [];
+        const postData = {
+            name: event.query.toLowerCase(),
+        };
+        this.roasterService.getRoasterUsers(this.roasterId, postData).subscribe((res: any) => {
+            if (res.success) {
+                res.result.forEach((element) => {
+                    localArray.push({
+                        id: element.id,
+                        name: `${element.firstname || ''} ${element.lastname || ''}`,
+                    });
+                });
+                this.autoMembers = localArray;
             }
         });
     }
 
-    getMembers() {
-        this.userService.getTeamMembers(this.roasterId, 'top-contacts').subscribe((data) => {
-            this.teamList = data['result'];
-            console.log(data);
+    getTopContacts() {
+        this.userService.getTeamMembers(this.roasterId, 'top-contacts').subscribe((res: any) => {
+            if (res.success) {
+                this.topContacts = res.result;
+                res.result.forEach((element) => {
+                    this.members.push(
+                        this.fb.control(
+                            { id: element.user_id, name: element.name },
+                            Validators.compose([Validators.required]),
+                        ),
+                    );
+                });
+            }
         });
-    }
-
-    addMember() {
-        // return;
-        const payload = {
-            user_id: +this.addUserId,
-        };
-        this.roasterService.addRoasterContacts(this.roasterId, payload).subscribe(
-            (data) => {
-                if (data['success'] == true) {
-                    this.toastrService.success('Contact added successfully');
-                    this.showAddEmp = true;
-                    this.getMembers();
-                }
-            },
-            (err) => {
-                this.toastrService.error('Error while updating details');
-            },
-        );
-    }
-
-    removeUser(id) {
-        this.roasterService.deleteRoasterContacts(this.roasterId, id).subscribe(
-            (data) => {
-                if (data['success'] == true) {
-                    this.toastrService.success('Contact removed successfully');
-                    this.showAddEmp = true;
-                    this.getMembers();
-                }
-            },
-            (err) => {
-                this.toastrService.success('Error while updating');
-            },
-        );
-    }
-
-    cancelAssign() {
-        this.showAddEmp = true;
     }
 }
