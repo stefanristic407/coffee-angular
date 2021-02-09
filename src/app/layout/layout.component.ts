@@ -114,7 +114,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.getLoggedInUserRoles();
 
-        $(window).scroll(function () {
+        $(window).scroll(() => {
             if ($(window).scrollTop() + $(window).height() === $(document).height()) {
                 $('.sectin-footer-mb').css({
                     opacity: '0',
@@ -131,17 +131,17 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         const pt = $('header').outerHeight() + 'px';
         $('.router-design').css({ 'padding-top': pt });
 
-        $('body').on('click', '.sidenav-mb__close', function (event) {
+        $('body').on('click', '.sidenav-mb__close', (event) => {
             $('.sidenav-mb__content').removeClass('open');
-            setTimeout(function () {
+            setTimeout(() => {
                 $('.sidenav-mb').removeClass('open');
             }, 800);
             event.stopImmediatePropagation();
         });
 
-        $('body').on('click', '.sidenav-mb__hide', function (event) {
+        $('body').on('click', '.sidenav-mb__hide', (event) => {
             $('.sidenav-mb__content').removeClass('open');
-            setTimeout(function () {
+            setTimeout(() => {
                 $('.sidenav-mb').removeClass('open');
             }, 800);
             event.stopImmediatePropagation();
@@ -158,7 +158,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         }
     }
 
-<<<<<<< HEAD
     refreshMenuItems() {
         this.menuItems = this.menuService.getMenuItems().filter((element) => element.routerLink);
         this.menuItems.forEach((element) => {
@@ -166,7 +165,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     }
 
-=======
     getNotificationList() {
         this.userService.getNofitication().subscribe((res: any) => {
             console.log('notification data: ', res);
@@ -177,7 +175,6 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log('notif show: ');
     }
 
->>>>>>> 2bbd4f27b6468a27aa3ca4de4137367982c1fc1b
     updateActiveLinkState() {
         if (this.chat.isOpen.value) {
             this.activeLink = 'MESSAGES';
