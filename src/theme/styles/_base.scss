@@ -108,6 +108,14 @@
         margin-bottom: 2rem !important;
     }
 }
+.mb-25 {
+    margin-bottom: 0.75rem;
+}
+.mb-md-25 {
+    @media (min-width: 768px) {
+        margin-bottom: 0.75rem !important;
+    }
+}
 .mt-45 {
     margin-top: 2rem;
 }
@@ -116,7 +124,17 @@
         margin-top: 2rem !important;
     }
 }
-
+.mt-25 {
+    margin-top: 0.75rem;
+}
+.mt-md-25 {
+    @media (min-width: 768px) {
+        margin-top: 0.75rem !important;
+    }
+}
+.mr-25 {
+    margin-right: 0.75rem;
+}
 #pwd_strength_wrap:before {
     border-right: none !important;
 }

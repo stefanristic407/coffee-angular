@@ -1,6 +1,6 @@
 <section>
-    <div class="bg-white br-4 p-3 p-md-4 px-lg-5 py-lg-3">
-        <div class="py-lg-3">
+    <div class="main-block">
+        <div>
             <div class="row no-gutters">
                 <div class="col-6 col-md-3 col-lg-2">
                     <p-multiSelect
@@ -44,7 +44,7 @@
                     </span>
                 </div>
             </div>
-            <div>
+            <div class="mb-md-4">
                 <p-dropdown
                     [options]="gradeItems"
                     [(ngModel)]="queryParams.grade"
@@ -52,7 +52,7 @@
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="Grade"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
+                    styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
                     [options]="cropItems"
@@ -61,12 +61,12 @@
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="{{ globals.languageJson?.crop_year }}"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
+                    styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
                     (click)="displayFilterModal = true"
                     placeholder="{{ globals.languageJson?.more_filters }}"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{
+                    styleClass="round-border mr-25 mb-25 mb-md-4 {{
                         queryParams.altitude_start ||
                         queryParams.altitude_end ||
                         queryParams.flavours?.length ||
@@ -80,7 +80,7 @@
                     [options]="weightItems"
                     [(ngModel)]="queryParams.weight"
                     (onChange)="filterCall()"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.weight ? 'highlight' : '' }}"
+                    styleClass="round-border mb-25 mb-md-4 d-none d-md-inline-flex"
                 ></p-dropdown>
             </div>
 
@@ -91,7 +91,7 @@
                         [(ngModel)]="queryParams.sort_by"
                         (onChange)="filterCall()"
                         placeholder="{{ globals.languageJson?.sort_by }}"
-                        styleClass="round-border mr-2"
+                        styleClass="round-border mr-25"
                     ></p-dropdown>
                     <p-selectButton
                         [options]="viewModeItems"
@@ -128,7 +128,7 @@
                     </p-selectButton>
                 </div>
 
-                <div class="mb-3 mb-md-4">
+                <div class="pb-4">
                     <p-tabMenu [model]="menuItems"></p-tabMenu>
                 </div>
                 <div class="mb-4">

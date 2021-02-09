@@ -11,6 +11,7 @@ import { SourcingService } from '../sourcing.service';
     styleUrls: ['./estate-list.component.scss'],
 })
 export class EstateListComponent implements OnInit, OnDestroy {
+    isLoaded = false;
     roasterId: any;
     estateData: any[] = [];
     queryParams: any;
@@ -44,8 +45,9 @@ export class EstateListComponent implements OnInit, OnDestroy {
             }
         });
         const queryStr = '?' + query.join('&');
-
+        this.isLoaded = false;
         this.userService.getAvailableEstates(this.roasterId, queryStr).subscribe((res: any) => {
+            this.isLoaded = true;
             if (res.success) {
                 this.estateData = res.result;
             }

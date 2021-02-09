@@ -75,6 +75,7 @@ import { InviteNewUserComponent } from './components/add-teams/invite-new-user/i
 import { EditUserDetailsComponent } from './components/add-teams/edit-user-details/edit-user-details.component';
 import { SendRecoveryEmailComponent } from './components/add-teams/send-recovery-email/send-recovery-email.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 // #region material
 const MATMODULES = [];
@@ -143,6 +144,7 @@ const COMPONENTS = [
     VideoPlayerComponent,
     ReadMoreComponent,
     UploaderComponent,
+    LoadingComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
