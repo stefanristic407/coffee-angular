@@ -9,7 +9,22 @@
     border-radius: 4px !important;
 }
 .addWeightDiv {
-    border: 1px solid #d6d6d6;
+    border: 1px solid #747588;
+    padding: 8px 16px 8px 12px;
+    border-radius: 2px;
+}
+.descriptionText-area {
+    height: 5.25rem;
+}
+.roasterDivText-area {
+    height: 7.62rem;
+}
+.flavour-item {
+    padding: 8px 16px;
+    border-radius: 17px;
+    background-color: #747588;
+    color: #fff;
+    margin: 5px;
 }
 
 .isProductOption > .p-tabview > .p-tabview-nav {

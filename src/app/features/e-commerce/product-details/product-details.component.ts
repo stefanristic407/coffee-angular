@@ -67,7 +67,7 @@ export class ProductDetailsComponent implements OnInit {
             description: ['', Validators.compose([Validators.required])],
             is_variants_included: [false],
             varients: this.fb.array([this.createEmptyVarient()]),
-            crates: this.fb.array([this.createEmptyCrate()]),
+            crates: this.fb.array([]),
             vat_setting_id: ['', Validators.compose([Validators.required])],
             is_price_including_vat: [false],
         });
@@ -136,13 +136,23 @@ export class ProductDetailsComponent implements OnInit {
                         'description',
                         'is_public',
                         'is_variants_included',
-                        'crates',
                         'vat_setting_id',
                         'is_price_including_vat',
                     ];
                     productFields.forEach((ele) => {
                         const getValue = productDetails[ele];
                         this.productForm['controls'][ele].setValue(getValue);
+                    });
+                    this.crates = this.productForm.get('crates') as FormArray;
+                    this.crates.removeAt(0);
+                    productDetails['crates'].forEach((crate) => {
+                        const randomNumber = '_' + Math.random().toString(36).substr(2, 9);
+                        const crateForm = this.createEmptyCrate();
+                        crateForm['controls']['weight'].setValue(crate['weight']);
+                        crateForm['controls']['id'].setValue(crate['id']);
+                        crateForm['controls']['product_weight_variant_id'].setValue(randomNumber);
+                        crateForm['controls']['crate_capacity'].setValue(crate['crate_capacity']);
+                        this.crates.push(crateForm);
                     });
                     this.varients = this.productForm.get('varients') as FormArray;
                     this.varients.removeAt(0);
@@ -233,11 +243,29 @@ export class ProductDetailsComponent implements OnInit {
     }
     createEmptyCrate() {
         return this.fb.group({
+            id: '',
             weight: [0, Validators.compose([Validators.required])],
             crate_unit: 'lb',
-            id: '',
+            product_weight_variant_id: '',
             crate_capacity: [0, Validators.compose([Validators.required])],
         });
+    }
+    onWeightCreate(event) {
+        this.crates = this.productForm.get('crates') as FormArray;
+        if (!event['modify']) {
+            const getCrate = this.createEmptyCrate();
+            getCrate['controls']['weight'].setValue(event.value);
+            getCrate['controls']['product_weight_variant_id'].setValue(event.product_weight_variant_id);
+            this.crates.push(getCrate);
+        } else {
+            const getObj = this.crates['value'].find(
+                (ele) => ele['product_weight_variant_id'] === event['product_weight_variant_id'],
+            );
+            const indexValue = this.crates['value'].indexOf(getObj);
+            if (getObj) {
+                this.crates['controls'][indexValue]['controls']['weight'].setValue(event.value);
+            }
+        }
     }
     onCancel(): void {
         console.log('oncancel');
@@ -291,11 +319,13 @@ export class ProductDetailsComponent implements OnInit {
                 const weightObj = weight;
                 weightObj['featured_image_id'] = weight['featured_image_id'] ? weight['featured_image_id'] : undefined;
                 const productImagesArray = [];
-                weightObj['product_images'].forEach((ele) => {
-                    if (ele['fileDetails'] && ele['image_id']) {
-                        productImagesArray.push(ele['image_id']);
-                    }
-                });
+                if (weightObj && weightObj['product_images']) {
+                    weightObj['product_images'].forEach((ele) => {
+                        if (ele['fileDetails'] && ele['image_id']) {
+                            productImagesArray.push(ele['image_id']);
+                        }
+                    });
+                }
                 weightObj['variant_id'] = index + 1;
                 weightObj['rc_batch_id'] = getVarientDetails['rc_batch_id'];
                 weightObj['product_images'] = productImagesArray;
@@ -321,7 +351,13 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
     addNewGrindVariant(productID, weigthObj, showToaster) {
+        delete weigthObj['product_weight_variant_id'];
+        delete weigthObj['fileDetails'];
         weigthObj['status'] = weigthObj['status'].toUpperCase();
+        weigthObj['grind_variants'].forEach((ele) => {
+            ele['id'] = undefined;
+            ele['grind_variant_id'] = undefined;
+        });
         this.services.addProductWeightVarients(this.roasterId, productID, weigthObj).subscribe(
             (res) => {
                 if (res['success'] && showToaster) {

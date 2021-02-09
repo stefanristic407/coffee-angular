@@ -153,6 +153,7 @@ export class ProductListComponent implements OnInit {
         postData['per_page'] = 100;
         this.roasterService.getSelectProductDetails(this.roasterID, postData).subscribe(
             (data) => {
+                this.tableValue = [];
                 if (data['success']) {
                     this.tableValue = data['result'];
                 } else {

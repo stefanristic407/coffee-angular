@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalsService, RoasterserviceService } from '@services';
@@ -21,6 +21,10 @@ export class VarientDetailsComponent implements OnInit {
     productID: any = '';
     deleteImageIDs: any = [];
     roasterID: any = '';
+    weightTypeArray: any = '';
+    quantityTypeArray: any = '';
+    // tslint:disable-next-line: no-output-on-prefix
+    @Output() onWeightCreate = new EventEmitter<any>();
     weightFields = ['weight_unit', 'weight', 'status', 'is_public', 'is_default_product', 'product_weight_variant_id'];
     grindVariantFields = [
         'price',
@@ -48,16 +52,25 @@ export class VarientDetailsComponent implements OnInit {
         });
         const weight = this.weightForm.get('weights') as FormArray;
         weight['controls'][this.currentVarientIndex]['controls']['product_images'].setValue(this.setProductImages([]));
-
         this.route.params.subscribe((params) => {
             if (params.id) {
                 this.productID = params.id;
                 this.loadWeight();
+            } else {
+                this.updateCrate(0);
             }
         });
         this.statusArray = [
             { label: 'In Stock', value: 'in-stock' },
             { label: 'Out of Stock', value: 'out-of-stock' },
+        ];
+        this.weightTypeArray = [
+            { label: 'lb', value: 'lb' },
+            { label: 'kg', value: 'kg' },
+        ];
+        this.quantityTypeArray = [
+            { label: 'Crate', value: 'crate' },
+            { label: 'kg', value: 'kg' },
         ];
         this.grindArray = [
             { label: 'Whole beans', value: 'beans' },
@@ -67,6 +80,25 @@ export class VarientDetailsComponent implements OnInit {
             { label: 'Medium', value: 'medium' },
             { label: 'Fine', value: 'fine' },
         ];
+    }
+    onWeightChange(event) {
+        const weight = this.weightForm.get('weights') as FormArray;
+        const getObj = {
+            value: Number(event.target.value),
+            product_weight_variant_id:
+                weight['controls'][this.currentVarientIndex]['value']['product_weight_variant_id'],
+            modify: true,
+        };
+        this.onWeightCreate.emit(getObj);
+    }
+    updateCrate(idx) {
+        const weight = this.weightForm.get('weights') as FormArray;
+        const getObj = {
+            value: weight['controls'][idx]['value']['weight'],
+            product_weight_variant_id: weight['controls'][idx]['value']['product_weight_variant_id'],
+            modify: false,
+        };
+        this.onWeightCreate.emit(getObj);
     }
     loadWeight() {
         if (this.varientDetails && this.varientDetails['value']['weight_variants']) {
@@ -99,7 +131,7 @@ export class VarientDetailsComponent implements OnInit {
                 weightForm['controls']['product_images'].setValue(productImageArray);
                 this.weights.push(weightForm);
             });
-            console.log(this.weightForm);
+            console.log(this.weights);
         }
     }
     loadGrindVariants(grindForm, item): void {
@@ -118,7 +150,7 @@ export class VarientDetailsComponent implements OnInit {
     addNewWeights(): void {
         this.weights = this.weightForm.get('weights') as FormArray;
         this.weights.push(this.createEmptyWeights());
-        console.log(this.weights);
+        this.updateCrate(this.weights.length - 1);
     }
     addNewGrindVarients(): void {
         const weight = this.weightForm.get('weights') as FormArray;
@@ -126,10 +158,11 @@ export class VarientDetailsComponent implements OnInit {
         this.grind_variants.push(this.createEmptyGrindVarient());
     }
     createEmptyWeights() {
+        const emptyWeight_variant_id = '_' + Math.random().toString(36).substr(2, 9);
         return this.fb.group({
             weight_name: 'weight - 0 lb',
             weight_unit: 'lb',
-            product_weight_variant_id: '',
+            product_weight_variant_id: emptyWeight_variant_id,
             featured_image_id: '',
             fileDetails: null,
             product_images: [],
@@ -162,7 +195,6 @@ export class VarientDetailsComponent implements OnInit {
     }
 
     deleteGrindVariant(idx) {
-        console.log(idx);
         const weight = this.weightForm.get('weights') as FormArray;
         this.grind_variants = weight['controls'][this.currentVarientIndex].get('grind_variants') as FormArray;
         this.grind_variants.removeAt(idx);
@@ -257,7 +289,6 @@ export class VarientDetailsComponent implements OnInit {
                 if (showToaster) {
                     this.toaster.success('Image uploaded successfully');
                 }
-                console.log(this.weightForm);
             }
         } else {
             this.toaster.error('Error while uploading image.');
