@@ -1,6 +1,6 @@
 <section *ngIf="isLoaded; else loading">
-    <div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row">
-        <div *ngFor="let item of coffeedata" class="col-12 col-md-6 col-lg-4 mb-3 mb-md-4">
+    <div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row gutter-26">
+        <div *ngFor="let item of coffeedata" class="col-12 col-md-6 col-lg-4 card-wrap">
             <div
                 class="cursor-pointer h-100"
                 routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}"
