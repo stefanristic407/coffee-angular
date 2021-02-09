@@ -1,133 +1,126 @@
 /* Dashboard css */
 
 .welcome-sec {
-  border-radius: 4px;
-  background-color: #ffffff;
-  padding: 0.5rem 0.5rem 2rem 0.5rem;
-  margin: 0rem 0rem 2rem 0rem;
-
-  @media (min-width: 992px) {
-    padding: 2rem 3rem 3rem 3rem;
-  }
+    border-radius: 4px;
+    background-color: #ffffff;
+    margin: 0rem 0rem 2rem 0rem;
 }
 
 .pink {
-  /* background-image: linear-gradient(to top, #ffffff 106%, #faf8f4 -2%);*/
-  background-color: #faf8f4;
-  padding: 2.5rem 0rem;
+    /* background-image: linear-gradient(to top, #ffffff 106%, #faf8f4 -2%);*/
+    background-color: #faf8f4;
+    padding: 2.5rem 0rem;
 }
 
 .add-tem-butn {
-  border-radius: 4px;
-  background-color: #30855c;
-  border: 1px solid #30855c;
-  color: #ffffff;
-  cursor: pointer;
-  padding: 12px 24px;
-}
-
-.add-tem-butn:focus {
-  outline: none !important;
+    border-radius: 4px;
+    background-color: #30855c;
+    border: 1px solid #30855c;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 10px 24px;
 }
 
 .add-tem-butn:hover {
-  /* background-color: #3d8462; 
-    color:#fff; */
-  box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.add-tem-butn:focus {
+    outline: none !important;
 }
 
 .border-0 {
-  border: 0px;
+    border: 0px;
 }
 
 .create-txt {
-  padding: 0 32%;
+    padding: 0 32%;
 }
 
 .black {
-  color: #232334;
+    color: #232334;
 }
 
 .pad-card {
-  padding: 0px 83px 0px 0px;
+    padding: 0px 83px 0px 0px;
 }
 
 .card-body {
-  flex: 1 1 auto;
-  min-height: 1px;
-  padding: 1.25rem 1.25rem 2.5rem 1.25rem !important;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem 1.25rem 2.5rem 1.25rem !important;
 }
 
 .light-gray {
-  color: #747588;
+    color: #747588;
 }
 
 /* media query */
 
 @media (max-width: 767px) {
-  .fnt-34 {
-    font-size: 30px;
-    line-height: 40px;
-  }
-  .create-txt {
-    padding: 0 5%;
-  }
+    .fnt-34 {
+        font-size: 30px;
+        line-height: 40px;
+    }
+    .create-txt {
+        padding: 0 5%;
+    }
 }
 
 @media (max-width: 480px) {
-  .fnt-34 {
-    font-size: 26px;
-    line-height: 36px;
-  }
-  .create-txt {
-    padding: 0 5%;
-  }
-  .pad-card {
-    padding: 0px 10% 0px 0px;
-  }
+    .fnt-34 {
+        font-size: 26px;
+        line-height: 36px;
+    }
+    .create-txt {
+        padding: 0 5%;
+    }
+    .pad-card {
+        padding: 0px 10% 0px 0px;
+    }
 }
 
-/*========= pop-on-hover  =========*/
+/*==================*/
 
 @-webkit-keyframes pop-on-hover {
-  50% {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-  }
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
 }
 
 @keyframes pop-on-hover {
-  50% {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-  }
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
 }
 
 .pop-on-hover {
-  display: inline-block;
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
 
 .pop-on-hover:hover,
 .pop-on-hover:focus,
 .pop-on-hover:active {
-  -webkit-animation-name: pop-on-hover;
-  animation-name: pop-on-hover;
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
+    -webkit-animation-name: pop-on-hover;
+    animation-name: pop-on-hover;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
 }
 
 .hover-img {
-  transform: scale(1);
+    transform: scale(1);
 }
 
 .hover-img:hover {
-  transform: scale(1.03);
+    transform: scale(1.01);
 }

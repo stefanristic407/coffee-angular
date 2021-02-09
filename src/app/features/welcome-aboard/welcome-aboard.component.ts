@@ -15,7 +15,7 @@ export class WelcomeAboardComponent implements OnInit {
     welcomeActive: any = 0;
     userName = '';
     roasterId: string;
-
+    welcomeBoardStatus = 0;
     constructor(
         private router: Router,
         private cookieService: CookieService,
@@ -39,7 +39,10 @@ export class WelcomeAboardComponent implements OnInit {
     getStats() {
         this.userSrv.getStats(this.roasterId).subscribe((res: any) => {
             console.log('get stats: ', res);
-            if (res.success) {
+            if (res && res.success) {
+                if (!res.result.added_details && res.result.added_team_members) {
+                    this.welcomeBoardStatus = 1;
+                }
             } else {
                 this.toastrService.error('Error while getting stats');
             }
