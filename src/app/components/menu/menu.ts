@@ -1,7 +1,7 @@
 import { Menu } from './menu.model';
 
 export const menuItems = [
-    new Menu(1, 'dashboard', '/features/welcome-aboard', null, null, null, false, 0, []),
+    new Menu(1, 'dashboard', '/features/roaster-dashboard', null, null, null, false, 0, []),
     new Menu(2, 'sourcing_module', '/sourcing', null, null, null, false, 0, ['sourcing-management']),
 
     new Menu(3, 'order_management', null, null, null, null, true, 0, ['sourcing-management']),
