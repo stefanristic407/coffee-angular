@@ -7,8 +7,8 @@
 
 <header class="stricky" *ngIf="loaded">
     <nav class="bg-white nav-top1">
-        <div class="container header-container">
-            <div class="pad-header">
+        <div class="container sewn-container">
+            <div class="pad-header col-12">
                 <div class="row align-items-center">
                     <a class="sidenav-hamberg d-md-none" (click)="openSideNav()">
                         <img src="assets/images/hamberg.svg" alt="hamberg" />
@@ -19,27 +19,39 @@
                         </a>
                     </div>
                     <div class="d-none d-md-inline-block">
-                        <p-autoComplete [(ngModel)]="text" [suggestions]="results" field="title"
-                            (onSelect)="redirect($event)" (completeMethod)="search($event)" placeholder="Search.."
-                            styleClass="header-search" scrollHeight="225px">
+                        <p-autoComplete
+                            [(ngModel)]="text"
+                            [suggestions]="results"
+                            field="title"
+                            (onSelect)="redirect($event)"
+                            (completeMethod)="search($event)"
+                            placeholder="Search.."
+                            styleClass="header-search"
+                            scrollHeight="225px"
+                        >
                         </p-autoComplete>
                     </div>
                     <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
                         <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
+                        >
                             <a [routerLink]="['/people/team-members']" class="d-inline-block image-card">
                                 <img class="img" src="assets/images/add.svg" />
                             </a>
                         </li>
                         <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
-                            <a (click)="openMessagePanel()"
-                                class="d-inline-block cursor-pointer start-messaging image-card">
+                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
+                        >
+                            <a
+                                (click)="openMessagePanel()"
+                                class="d-inline-block cursor-pointer start-messaging image-card"
+                            >
                                 <img class="img" src="assets/images/mess.svg" />
                             </a>
                         </li>
                         <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
+                        >
                             <a href="javascript:void(0)" class="d-inline-block image-card">
                                 <img class="img" src="assets/images/notification.svg " />
                             </a>
@@ -52,37 +64,58 @@
                                 </div>
                                 <div class="profile-link__info pl-lg-1 float-right">
                                     <div>
-                                        <a class="profile-name" role="button" [popover]="popTemplate" placement="bottom"
-                                            #pop2="bs-popover" container="body" [outsideClick]="true">
+                                        <a
+                                            class="profile-name"
+                                            role="button"
+                                            [popover]="popTemplate"
+                                            placement="bottom"
+                                            #pop2="bs-popover"
+                                            container="body"
+                                            [outsideClick]="true"
+                                        >
                                             <h6 class="d-block fnt-16 fnt-600 text-clr24 m-0">
                                                 {{ userName }}
                                                 <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
                                             </h6>
-                                            <span class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
-                                                style="transform: translateY(-10px)">{{ rolename | titlecase }}</span>
+                                            <span
+                                                class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
+                                                style="transform: translateY(-10px)"
+                                                >{{ rolename | titlecase }}</span
+                                            >
                                         </a>
                                         <ng-template #popTemplate>
                                             <div id="popover-mobile-content">
                                                 <ul class="list-group">
-                                                    <li class="list-group-item"
-                                                        *ngIf="this.globals.checkItem('settings-management')">
-                                                        <a class="cursor-dots"
+                                                    <li
+                                                        class="list-group-item"
+                                                        *ngIf="this.globals.checkItem('settings-management')"
+                                                    >
+                                                        <a
+                                                            class="cursor-dots"
                                                             [routerLink]="['/features/roastery-profile']"
-                                                            (click)="pop2.hide()">{{ globals.languageJson?.roastery_profile }}</a>
+                                                            (click)="pop2.hide()"
+                                                            >{{ globals.languageJson?.roastery_profile }}</a
+                                                        >
                                                     </li>
                                                     <li class="list-group-item">
-                                                        <a class="cursor-dots" [routerLink]="['/features/myprofile']"
-                                                            (click)="pop2.hide()">{{ globals.languageJson?.my_profile }}
+                                                        <a
+                                                            class="cursor-dots"
+                                                            [routerLink]="['/features/myprofile']"
+                                                            (click)="pop2.hide()"
+                                                            >{{ globals.languageJson?.my_profile }}
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item">
-                                                        <a class="cursor-dots"
+                                                        <a
+                                                            class="cursor-dots"
                                                             [routerLink]="['/features/account-settings']"
-                                                            (click)="pop2.hide()">{{ globals.languageJson?.account_settings }}</a>
+                                                            (click)="pop2.hide()"
+                                                            >{{ globals.languageJson?.account_settings }}</a
+                                                        >
                                                     </li>
                                                     <li class="list-group-item">
-                                                        <a class="cursor-dots"
-                                                            (click)="userLogout()">{{ globals.languageJson?.logout }}
+                                                        <a class="cursor-dots" (click)="userLogout()"
+                                                            >{{ globals.languageJson?.logout }}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -99,8 +132,8 @@
     </nav>
 
     <nav class="bg-f8">
-        <div class="container header-container">
-            <div class="pad-header">
+        <div class="container sewn-container">
+            <div class="pad-header col-12">
                 <div class="row">
                     <div class="w-100 sidenav-mb">
                         <span class="sidenav-mb__hide"></span>
@@ -108,22 +141,23 @@
                             <div class="sidenav-mb__close">
                                 <img src="assets/images/close-icon.png" />
                             </div>
-                            <div class="px-2">
+                            <div class="">
                                 <app-menu [menuParentId]="0"></app-menu>
                             </div>
                             <ul class="nav-links fnt-muli pad-5">
                                 <li
-                                    class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5">
-                                    <a class="d-inline-block fnt-600"
-                                        [routerLink]="['/features/account-settings']">{{ globals.languageJson?.account_settings }}
+                                    class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
+                                >
+                                    <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
+                                        >{{ globals.languageJson?.account_settings }}
                                     </a>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
                                     <a class="d-inline-block fnt-600">{{ globals.languageJson?.help_support }} </a>
                                 </li>
                                 <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
-                                    <a class="d-inline-block fnt-600"
-                                        (click)="userLogout()">{{ globals.languageJson?.logout }}
+                                    <a class="d-inline-block fnt-600" (click)="userLogout()"
+                                        >{{ globals.languageJson?.logout }}
                                     </a>
                                 </li>
                             </ul>
@@ -142,8 +176,11 @@
                 <div class="col-12 px-0">
                     <ul class="footer-links d-flex flex-wrap mb-0 align-items-center justify-content-between">
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'DASHBOARD' }">
-                            <a (click)="closeMessagePanel()" [routerLink]="['/features/welcome-aboard']"
-                                class="d-inline-block">
+                            <a
+                                (click)="closeMessagePanel()"
+                                [routerLink]="['/features/welcome-aboard']"
+                                class="d-inline-block"
+                            >
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
@@ -165,8 +202,11 @@
                             </a>
                         </li>
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'NOTIFICATIONS' }">
-                            <a (click)="closeMessagePanel()" [routerLink]="['/features/notification']"
-                                class="d-inline-block">
+                            <a
+                                (click)="closeMessagePanel()"
+                                [routerLink]="['/features/notification']"
+                                class="d-inline-block"
+                            >
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/notification.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-notification.svg" />
@@ -178,8 +218,11 @@
                         </li>
 
                         <li class="footer-links__item" [ngClass]="{ active: activeLink === 'PROFILES' }">
-                            <a (click)="closeMessagePanel()"
-                                [routerLink]="['/features/roastery-profile/about_roastery']" class="d-inline-block">
+                            <a
+                                (click)="closeMessagePanel()"
+                                [routerLink]="['/features/roastery-profile/about_roastery']"
+                                class="d-inline-block"
+                            >
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
@@ -190,17 +233,25 @@
                             </a>
                             <div class="ft-dropdown">
                                 <div class="ft-dropdown__content">
-                                    <a (click)="closeMessagePanel()" [routerLink]="['/features/profile-edit']"
-                                        class="ft-dropdown__link d-flex clearfix align-items-center">
+                                    <a
+                                        (click)="closeMessagePanel()"
+                                        [routerLink]="['/features/profile-edit']"
+                                        class="ft-dropdown__link d-flex clearfix align-items-center"
+                                    >
                                         <div class="img float-left mr-2">
                                             <img *ngIf="profilePic != ''" class="profile-pic" src="{{ profilePic }}" />
-                                            <img *ngIf="profilePic == ''" class="profile-pic"
-                                                src="assets/images/profile.svg" />
+                                            <img
+                                                *ngIf="profilePic == ''"
+                                                class="profile-pic"
+                                                src="assets/images/profile.svg"
+                                            />
                                         </div>
                                         <span class="text-capitalize">{{ globals.languageJson?.my_profile }}</span>
                                     </a>
-                                    <a [routerLink]="['/features/roastery-profile']"
-                                        class="ft-dropdown__link active d-flex clearfix align-items-center">
+                                    <a
+                                        [routerLink]="['/features/roastery-profile']"
+                                        class="ft-dropdown__link active d-flex clearfix align-items-center"
+                                    >
                                         <div class="img float-left mr-2">
                                             <img class="profile-pic" src="{{ roasterProfilePic }}" />
                                         </div>
