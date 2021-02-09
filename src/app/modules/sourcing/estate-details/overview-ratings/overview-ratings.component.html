@@ -3,11 +3,11 @@
         <div class="col-lg-4 col-md-12">
             <div class="p-4 br-main br-4">
                 <div class="review-block">
-                    <p class="fnt-18 fnt-bold fnt-muli text-black334 mb-1 d-md-none">
+                    <p class="fnt-18 fnt-bold fnt-muli text-clr334 mb-1 d-md-none">
                         {{ globals.languageJson?.reviews }}
                     </p>
 
-                    <h2 class="fnt-32 fnt-bold fnt-muli text-black334 mb-md-1 mb-0">
+                    <h2 class="fnt-32 fnt-bold fnt-muli text-clr334 mb-md-1 mb-0">
                         {{ sourcing.estateReviewsSummary?.rating.toFixed(1) || '-' }}
                     </h2>
                     <p class="fnt-14 fnt-bold fnt-muli text-clr588 mb-md-1 mb-0">out of 5</p>
@@ -22,13 +22,13 @@
                         ></star-rating>
                     </div>
 
-                    <p class="fnt-14 fnt-bold fnt-muli text-black334 pt-3">
+                    <p class="fnt-14 fnt-bold fnt-muli text-clr334 pt-3">
                         {{ sourcing.estateReviewsSummary?.total_review || '-' }} customer reviews
                     </p>
                     <table *ngIf="sourcing.estateReviewsSummary">
                         <tr *ngFor="let item of sourcing.estateReviewStars">
                             <td>
-                                <span class="fnt-14 fnt-bold fnt-muli text-black334">
+                                <span class="fnt-14 fnt-bold fnt-muli text-clr334">
                                     {{ item.label }}
                                     <span class="fa fa-star mr-1"></span>
                                 </span>
