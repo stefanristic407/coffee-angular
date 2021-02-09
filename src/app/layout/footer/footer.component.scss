@@ -3,12 +3,13 @@
     .text-content {
         font-family: Muli;
         font-size: 14px;
-        font-weight: normal;
+        font-weight: 600;
         font-stretch: normal;
         color: #232334;
         line-height: 2;
         & > div {
             color: #747588;
+            font-weight: normal;
         }
     }
 
