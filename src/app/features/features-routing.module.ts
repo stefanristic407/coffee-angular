@@ -67,8 +67,8 @@ import { WelcomeAboardComponent } from './welcome-aboard/welcome-aboard.componen
 import { BatchSelectAnOrderComponent } from './batch-select-an-order/batch-select-an-order.component';
 import { SuccessfulPageComponent } from './successful-page/successful-page.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
+// tslint:disable-next-line: max-line-length
 import { GreenCoffeeForSaleDetailsComponent } from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component';
-import { from } from 'rxjs';
 import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
 import { ApiRequestDetailsComponent } from './api-requests/api-requests-table/api-request-details/api-request-details.component';
 import { GenerateKeyDetailsComponent } from './api-requests/api-requests-table/generate-key-details/generate-key-details.component';

@@ -65,18 +65,10 @@ import { VideoFileComponent } from './Farm Link/file-share/file-share-details/vi
 import { DocumentTableComponent } from './Farm Link/file-share/file-share-details/document-table/document-table.component';
 import { VideoTableComponent } from './Farm Link/file-share/file-share-details/video-table/video-table.component';
 import { ProfileLicenseComponent } from './profile-edit/profile-license/profile-license.component';
-
 import { NotificationComponent } from './notification/notification.component';
 import { RoasteryLicenseComponent } from './roastery-profile/roastery-license/roastery-license.component';
 import { RoasterOnboardComponent } from './roaster-onboard/roaster-onboard.component';
 import { RoasterDashboardComponent } from './roaster-dashboard/roaster-dashboard.component';
-import { CoustomerWantsChartComponent } from './roaster-dashboard/coustomer-wants-chart/coustomer-wants-chart.component';
-import { ECommerceStatComponent } from './roaster-dashboard/e-commerce-stat/e-commerce-stat.component';
-import { GreenCoffeeTableComponent } from './roaster-dashboard/green-coffee-table/green-coffee-table.component';
-import { MicroRoasterStatComponent } from './roaster-dashboard/micro-roaster-stat/micro-roaster-stat.component';
-import { SalesOrdersAllStatComponent } from './roaster-dashboard/sales-orders-all-stat/sales-orders-all-stat.component';
-import { SourcedGreenCoffeeChartComponent } from './roaster-dashboard/sourced-green-coffee-chart/sourced-green-coffee-chart.component';
-import { TotalCoffeeAvailableChartComponent } from './roaster-dashboard/total-coffee-available-chart/total-coffee-available-chart.component';
 import { RoastedCoffeeBatchesComponent } from './e-commerce/roasted-coffee-batches/roasted-coffee-batches.component';
 import { NewRoastedBatchComponent } from './e-commerce/new-roasted-batch/new-roasted-batch.component';
 import { AddProductComponent } from './e-commerce/add-product/add-product.component';
@@ -126,6 +118,7 @@ import { EstateOrdersComponent } from './Farm Link/coffee-experience/estate-orde
 import { MicroRoasterOrdersComponent } from './Farm Link/coffee-experience/micro-roaster-orders/micro-roaster-orders.component';
 import { HorecaOrdersComponent } from './Farm Link/coffee-experience/horeca-orders/horeca-orders.component';
 import { DefaultSettingComponent } from './Farm Link/coffee-experience/default-setting/default-setting.component';
+// tslint:disable-next-line: max-line-length
 import { GreenCoffeeForSaleDetailsComponent } from './green-inventory/green-coffee-for-sale-details/green-coffee-for-sale-details.component';
 import { ApiRequestsTableComponent } from './api-requests/api-requests-table/api-requests-table.component';
 import { ApiKeyRequestsComponent } from './api-requests/api-requests-table/api-key-requests/api-key-requests.component';
@@ -193,13 +186,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         RoasteryLicenseComponent,
         RoasterOnboardComponent,
         RoasterDashboardComponent,
-        CoustomerWantsChartComponent,
-        ECommerceStatComponent,
-        GreenCoffeeTableComponent,
-        MicroRoasterStatComponent,
-        SalesOrdersAllStatComponent,
-        SourcedGreenCoffeeChartComponent,
-        TotalCoffeeAvailableChartComponent,
         RoastedCoffeeBatchesComponent,
         NewRoastedBatchComponent,
         AddProductComponent,
