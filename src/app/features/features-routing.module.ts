@@ -438,7 +438,7 @@ const routes: Routes = [
 
             {
                 path: '',
-                redirectTo: 'welcome-aboard',
+                redirectTo: 'roaster-dashboard',
                 pathMatch: 'full',
             },
             {

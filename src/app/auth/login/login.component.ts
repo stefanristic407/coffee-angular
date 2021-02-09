@@ -268,7 +268,7 @@ export class LoginComponent implements OnInit {
                                                                 localStorage.removeItem('redirectUrl');
                                                                 this.router.navigate([url]);
                                                             } else {
-                                                                this.router.navigate(['/features/welcome-aboard']);
+                                                                this.router.navigate(['/features/roaster-dashboard']);
                                                                 this.loginButtonValue = 'Login';
                                                             }
                                                         }
