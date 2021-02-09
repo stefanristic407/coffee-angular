@@ -42,6 +42,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 import { CountryPipe } from './pipes/country/country.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
@@ -118,6 +119,7 @@ const THIRDMODULES = [
     GalleryModule,
     LightboxModule,
     MatVideoModule,
+    NgxIntlTelInputModule,
 ];
 // #endregion
 
