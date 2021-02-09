@@ -1,0 +1,71 @@
+<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up">
+    <p class="fnt-18 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-none d-md-block">Recent activity</p>
+
+    <div class="p-3 p-md-1 br-main br-4 h-100">
+        <p class="fnt-14 fnt-bold fnt-muli text-black334 mb-1 mb-md-2 d-md-none">Recent activity</p>
+        <div class="d-none d-md-block">
+            <p-table
+                *ngIf="recentActivities"
+                #activeDT
+                styleClass="table w-100"
+                [value]="recentActivities.slice(0, 5)"
+                [(selection)]="selectedMetaData"
+                dataKey="name"
+                tableStyleClass="table"
+                [rowHover]="false"
+                [loading]="loading"
+                [filterDelay]="0"
+                [globalFilterFields]="['description', 'user_name', 'created_at']"
+                [resizableColumns]="true"
+                [autoLayout]="true"
+            >
+                <ng-template pTemplate="header" styleClass="table-header" class="table-header">
+                    <tr class="header-row">
+                        <th style="width: 6rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="description">Activity<p-sortIcon field="description"></p-sortIcon></th>
+                        <th scope="col" pSortableColumn="user_name">
+                            Action taken by<p-sortIcon field="user_name"></p-sortIcon>
+                        </th>
+                        <th scope="col" pSortableColumn="created_at">
+                            Date & Time<p-sortIcon field="created_at"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td>
+                            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                        </td>
+                        <td class="showcurser">
+                            {{ item.description }}
+                        </td>
+                        <td>
+                            {{ item.user_name }}
+                        </td>
+                        <td>
+                            {{ item.created_at | date: 'd MMM h:mm a' }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <div class="d-md-none">
+            <div *ngFor="let item of recentActivities.slice(0, 5)" class="d-flex activity-wrap">
+                <div class="mr-2">
+                    <app-avatar [size]="36" [src]="item.profile_image" [name]="item.user_name"></app-avatar>
+                </div>
+                <div>
+                    <p class="fnt-12 fnt-bold fnt-muli text-gray588 mb-0">
+                        {{ item.created_at | date: 'd MMM h:mm a' }}
+                    </p>
+                    <p class="fnt-14 fnt-bold fnt-muli text-black334 mb-0">{{ item.user_name }}</p>
+                    <p class="fnt-12 fnt-600 fnt-muli text-gray588 mb-0">{{ item.organisation_name }}</p>
+                    <p class="fnt-14 fnt-600 fnt-muli text-black334 mb-2 text-break">{{ item.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

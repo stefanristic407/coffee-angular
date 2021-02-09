@@ -194,6 +194,7 @@ export class LoginComponent implements OnInit {
                     if (data == null) {
                         this.toastrService.error('Something Went Wrong, Please Try Again');
                         this.loginButtonValue = 'Login';
+                        return;
                         // this.toastrService.error("invalid Credentials ");
                     } else if (data['success'] == true) {
                         // this.loginButtonValue = "Login";
@@ -262,15 +263,36 @@ export class LoginComponent implements OnInit {
                                                             );
                                                             this.loginButtonValue = 'Login';
                                                         } else {
-                                                            this.toastrService.success('Logged in Successfully');
-                                                            if (localStorage.getItem('redirectUrl')) {
-                                                                const url = localStorage.getItem('redirectUrl');
-                                                                localStorage.removeItem('redirectUrl');
-                                                                this.router.navigate([url]);
-                                                            } else {
-                                                                this.router.navigate(['/features/welcome-aboard']);
-                                                                this.loginButtonValue = 'Login';
-                                                            }
+                                                            this.userService
+                                                                .getStats(data['result'].roasters.id)
+                                                                .subscribe((userStatRes: any) => {
+                                                                    if (userStatRes && userStatRes.success) {
+                                                                        this.toastrService.success(
+                                                                            'Logged in Successfully',
+                                                                        );
+                                                                        if (
+                                                                            userStatRes.result.added_details &&
+                                                                            userStatRes.result.added_team_members
+                                                                        ) {
+                                                                            if (localStorage.getItem('redirectUrl')) {
+                                                                                const url = localStorage.getItem(
+                                                                                    'redirectUrl',
+                                                                                );
+                                                                                localStorage.removeItem('redirectUrl');
+                                                                                this.router.navigate([url]);
+                                                                            } else {
+                                                                                this.router.navigate([
+                                                                                    '/features/roaster-dashboard',
+                                                                                ]);
+                                                                                this.loginButtonValue = 'Login';
+                                                                            }
+                                                                        } else {
+                                                                            this.router.navigate([
+                                                                                '/features/welcome-aboard',
+                                                                            ]);
+                                                                        }
+                                                                    }
+                                                                });
                                                         }
                                                     });
                                                 }

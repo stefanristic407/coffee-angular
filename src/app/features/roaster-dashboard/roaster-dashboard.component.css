@@ -1,579 +1,135 @@
-.dispute-border {
+/* Dashboard css */
+
+.welcome-sec {
     border-radius: 4px;
-    background-color: #f8f8f8;
-    position: relative;
-}
-
-.dispute__status {
-    top: 0;
-    right: 0;
-    z-index: 2;
-    border-radius: 50%;
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    background-color: #e02f1f;
-}
-
-.dispute-pad {
-    padding: 10px 20px;
-}
-
-.message-pad {
-    padding: 10px 15px;
-}
-
-.new-imp-contact-border {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 1.5rem 1.5rem 0rem 1.5rem;
-}
-
-.new-dispute-border {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 1.5rem 1rem 1rem 1rem;
-}
-
-.what-customer-width {
-    max-width: 31.3%;
-}
-
-.new-customer-wants-border {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 1.5rem 0rem 0rem 0rem;
-    max-width: 31.3%;
-    margin-left: 2%;
-}
-
-.new-micro-wants-border {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 1.5rem 0rem 0rem 0rem;
-    margin-left: 2%;
-}
-
-.pointer {
-    cursor: pointer;
-}
-
-.message {
-    max-width: 48%;
-    margin-left: 2%;
-}
-
-.stock-padd {
-    padding: 2rem 0rem 0rem 0rem;
-}
-
-.service-border {
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 0;
-}
-
-.table-service {
-    max-width: 64.6%;
-    margin-left: 2%;
-}
-
-.order-stat {
-    width: 100%;
-    display: inline-block;
-}
-
-.new-update-coffee-border {
-    border-radius: 8px;
-    background-color: #f8f8f8;
-    padding: 1.5rem 2rem 6rem 2rem;
-}
-
-.update-now {
-    border-radius: 4px;
-    background-color: #30855c;
-    padding: 10px 24px;
-    color: #fff;
-    border: #30855c;
-}
-
-.update-now:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.update-your-coffee {
-    padding: 5% 28%;
-}
-
-.img-coffee-man {
-    width: 95%;
-}
-
-.coffee-experience-img {
-    position: absolute;
-    top: 10%;
-    left: 5%;
-}
-
-
-/* review rating */
-
-.review-sec {
-    /* padding: 2rem; */
-    padding: 1.5rem 0rem 3rem 1.5rem;
-    ;
-    border-radius: 4px;
-    border: solid 1px #ebebeb;
-}
-
-.cust-review {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #232334;
-    ;
-}
-
-.progress {
-    display: -ms-flexbox;
-    display: flex;
-    height: 4px;
-    overflow: hidden;
-    font-size: .75rem;
-    background-color: #ebebeb;
-    border-radius: 2px;
-    width: 190px;
-    margin-top: 7px;
-}
-
-.review-star td {
-    padding: 1rem 1rem .5rem 0rem !important;
-    border-bottom: 0px solid #dddddd !important;
-}
-
-.progress-bar {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -ms-flex-pack: center;
-    justify-content: center;
-    overflow: hidden;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    border-radius: 2.5px;
-    background-color: #649a2b;
-    transition: width .6s ease;
-}
-
-.orange-per {
-    background-color: #ffa001 !important;
-}
-
-.red-per {
-    background-color: #ff1e5a !important;
-}
-
-.total-border {
-    padding: 2rem;
-    border-left: solid 1px #ebebeb;
-}
-
-.sales-border {
-    padding: 0rem;
-    border-left: solid 1px #ebebeb;
-}
-
-.finca-per-details {
-    padding-bottom: .5rem;
-    border-bottom: dashed 1px #ebebeb;
-}
-
-.exchange-width-pad {
-    margin-left: 2%;
-}
-
-.coffee-form-width {
-    max-width: 64.6%;
-}
-
-.fnt-40 {
-    font-size: 40px;
-    line-height: 50px;
-}
-
-.see-border {
-    border-bottom: 1px dashed #ddd;
-    padding-bottom: 1.5rem;
-}
-
-.customer-card-bor {
-    border: none !important;
-}
-
-
-/*=======   Tabs  =======*/
-
-.mixups-tabs {
     background-color: #ffffff;
-    overflow: hidden;
+    padding: 0.5rem 0.5rem 2rem 0.5rem;
+    margin: 0rem 0rem 2rem 0rem;
 }
 
-.nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
-    color: #232334;
-    font-size: 14px;
-    font-weight: 600;
-    background-color: unset !important;
-    border-radius: unset;
+@media screen and (min-width: 992px) {
+    .welcome-sec {
+        padding-top: 2rem !important;
+    }
 }
 
-.nav-pills .nav-link.active {
-    position: relative;
-    padding-right: 15px;
-    padding-left: 15px;
+.pink {
+    /* background-image: linear-gradient(to top, #ffffff 106%, #faf8f4 -2%);*/
+    background-color: #faf8f4;
+    padding: 2.5rem 0rem;
 }
 
-.nav-pills .nav-link.active:before {
-    content: '';
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    text-align: center;
-    margin: auto;
-    top: 80%;
-    transform: translate(-50%);
-    border-radius: 1.5px;
+.add-tem-butn {
+    border-radius: 4px;
     background-color: #30855c;
-}
-
-.nav-pills {
-    border-bottom: 1px solid #dddddd;
-}
-
-li.nav-item {
-    margin-right: 7%;
-    position: relative;
-    top: .25rem;
-}
-
-.nav-pills .nav-link {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #232334;
-}
-
-.nav-pills .nav-link.active {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: 600;
-    color: #30855c;
-}
-
-.manage-e-pad {
-    padding: 0rem 2rem 3.5rem 2rem;
-}
-
-.manage-gre-coffee-pad {
-    padding: 0 2rem;
-}
-
-.border-div {
-    border-bottom: solid 1px #ebebeb;
-}
-
-
-/* Estates from 12+ origins Starts  */
-
-.onboard-total {
-    padding: 2rem 3rem;
-}
-
-.estate-orgins {
-    padding: 40px 24px;
-    border-radius: 4px;
-    border: solid 1px #ebebeb;
-}
-
-.top-countries,
-.onboard-customers {
-    border-radius: 4px;
-    border: solid 1px #ebebeb;
-}
-
-.origins-description h2,
-.top-sourcing-head h2,
-.onboard-customer-head h2,
-.sewn-blog {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: bold;
-    color: #232334;
-    margin-bottom: 0;
-}
-
-.origins-description h6,
-.customer-text {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: normal;
-    color: #747588;
-}
-
-.top-sourcing-head,
-.onboard-customer-head {
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    margin: 4px;
-    padding: 14px 20px;
-}
-
-.chart-details {
-    margin: 24px 40px 30px;
-}
-
-.customer-padding {
-    padding: 24px 20px;
-}
-
-.customer-invite {
-    border-radius: 4px;
-    border: solid 1px #30855c;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #30855c;
+    border: 1px solid #30855c;
+    color: #ffffff;
+    cursor: pointer;
     padding: 12px 24px;
 }
 
-.customer-invite:hover {
-    color: #fff;
-    background-color: #30855c;
+.add-tem-butn:focus {
+    outline: none !important;
 }
 
-.origins-description img {
-    margin-top: 6rem;
+.add-tem-butn:hover {
+    /* background-color: #3d8462; 
+      color:#fff; */
+    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
+}
+
+.border-0 {
+    border: 0px;
+}
+
+.create-txt {
+    padding: 0 32%;
+}
+
+.black {
+    color: #232334;
 }
 
 .pad-card {
-    /* padding: 0px 83px 0px 0px; */
-    border-bottom: dashed 1px #dddddd;
-    padding-bottom: 1.5rem;
+    padding: 0px 83px 0px 0px;
 }
 
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 1.25rem 1.25rem 0rem 1.25rem !important;
-}
-
-.border-card {
-    border-radius: 4px;
-    border: solid 1px #dddddd;
+    padding: 1.25rem 1.25rem 2.5rem 1.25rem !important;
 }
 
 .light-gray {
     color: #747588;
 }
 
-.estate-map {
-    width: 100%;
-}
+/* media query */
 
-.read-more {
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #80460b;
-}
-
-.image-top {
-    margin-top: -4px;
-}
-
-.view-all {
-    border-radius: 4px;
-    border: solid 1px #30855c;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    color: #30855c;
-    padding: 12px 32px;
-    margin-top: 16px;
-}
-
-.view-all:hover {
-    color: #fff;
-    background-color: #30855c;
-}
-
-.pointer-text {
-    cursor: pointer;
-}
-
-.bar-parent {
-    overflow: auto
-}
-
-.onboard-web {
-    display: block;
-}
-
-.onboard-mob {
-    display: none;
-}
-
-
-/* Dashboard css */
-
-.welcome-sec {
-    border-radius: 4px;
-    background-color: #ffffff;
-    margin: 1rem 0rem 2rem 0rem;
-}
-
-.create-txt {
-    padding: 0 20%;
-}
-
-.driking-coffee {
-    position: relative;
-    top: -100px;
-}
-
-.pink {
-    /* background-image: linear-gradient(to top, #ffffff 106%, #faf8f4 -2%);*/
-    background-color: #faf8f4;
-    padding: 2.5rem 0rem 0rem 0rem
-}
-
-.coffee-process {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-    position: relative;
-}
-
-.your-rating {
-    padding: 7rem 2rem 3rem 2rem;
-}
-
-.manage-width {
-    max-width: 64.6%;
-    margin-left: 1%;
-}
-
-.manage-green {
-    max-width: 31.3%;
-    margin-left: 2%
-}
-
-@media (max-width:767px) {
-    .bar-parent {
-        overflow: scroll
+@media (max-width: 767px) {
+    .fnt-34 {
+        font-size: 30px;
+        line-height: 40px;
     }
-    .onboard-total {
-        padding: 0.5rem;
-    }
-    .estate-orgins {
-        padding: 12px;
-    }
-    .origins-description h2,
-    .top-sourcing-head h2,
-    .onboard-customer-head h2,
-    .sewn-blog {
-        font-size: 14px;
-    }
-    .origins-description h6 {
-        font-size: 12px;
-        line-height: 18px;
-        border-bottom: 1px solid #ebebeb;
-        padding-bottom: 12px;
-    }
-    .onboard-web {
-        display: none;
-    }
-    .onboard-mob {
-        display: block;
-    }
-    .ordered-list {
-        padding-left: 12px;
-    }
-    .ordered-list li {
-        color: #232334;
-        font-size: 12px;
-        font-weight: 600;
-        font-family: Muli;
-    }
-    .top-sourcing-head,
-    .onboard-customer-head {
-        padding: 14px 12px;
-    }
-    .chart-details {
-        margin: 16px 18px 12px;
-    }
-    .customer-padding {
-        padding: 12px 16px;
-    }
-    .customer-text {
-        font-size: 12px;
-    }
-    .invite-main {
-        text-align: right;
-        margin-top: 20px;
-    }
-    .p-mobile {
-        padding: 0;
-    }
-    .top-countries {
-        margin-top: 1rem;
-    }
-    .card-body {
-        padding: 1.5rem 1rem 1rem !important;
-    }
-    .read-more {
-        font-size: 12px;
+    .create-txt {
+        padding: 0 5%;
     }
 }
 
-
-/* Estates from 12+ origins Ends*/
-
-@media (max-width:767px) {
-    .bg-white {
-        padding: 10px;
+@media (max-width: 480px) {
+    .fnt-34 {
+        font-size: 26px;
+        line-height: 36px;
     }
-    .exchange-width-pad,
-    .new-micro-wants-border {
-        margin-left: 0%;
+    .create-txt {
+        padding: 0 5%;
     }
-    .coffee-form-width,
-    .what-customer-width {
-        max-width: 100%;
-    }
-    .message,
-    .new-customer-wants-border,
-    .table-service {
-        max-width: 100%;
-        margin-left: 0%;
-    }
-    .update-your-coffee {
-        padding: 10%;
-    }
-    .coffee-experience-img {
-        position: absolute;
-        top: 72%;
-        left: 5%;
+    .pad-card {
+        padding: 0px 10% 0px 0px;
     }
 }
 
-@media (max-width:375px) {
-    li.nav-item {
-        margin-right: 5%;
+/*========= pop-on-hover  =========*/
+
+@-webkit-keyframes pop-on-hover {
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
     }
+}
+
+@keyframes pop-on-hover {
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+}
+
+.pop-on-hover {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+
+.pop-on-hover:hover,
+.pop-on-hover:focus,
+.pop-on-hover:active {
+    -webkit-animation-name: pop-on-hover;
+    animation-name: pop-on-hover;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+}
+
+.hover-img {
+    transform: scale(1);
+}
+
+.hover-img:hover {
+    transform: scale(1.03);
 }
