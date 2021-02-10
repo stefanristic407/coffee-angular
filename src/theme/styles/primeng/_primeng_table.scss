@@ -123,3 +123,14 @@
         }
     }
 }
+
+.p-datatable .p-sortable-column:not(.p-highlight):hover,
+.p-datatable .p-sortable-column.p-highlight:hover,
+.p-datatable .p-sortable-column.p-highlight {
+    background: $primary-bg-color;
+    color: $general-text-color;
+}
+.p-datatable .p-sortable-column.p-highlight:hover .p-sortable-column-icon,
+.p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+    color: $general-text-color;
+}

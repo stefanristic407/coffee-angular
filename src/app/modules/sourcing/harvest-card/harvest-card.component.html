@@ -11,25 +11,29 @@
     <div class="card-body">
         <h5 class="fnt-18 black fnt-700 mb-1 ellipsis">{{ data.name }}</h5>
         <div class="d-flex justify-content-between">
-            <span class="fnt-14 fnt-600 text-gray588">{{ data.estate?.name || '-' }}</span>
-            <h6 class="fnt-bold text-black334">
+            <span class="fnt-14 fnt-600 text-clr588">{{ data.estate?.name || '-' }}</span>
+            <h6 class="fnt-bold text-clr334">
                 {{ data.price_unit }}{{ data.price }} {{ Currencies[data.price_unit] }}&nbsp;/&nbsp;kg
             </h6>
         </div>
         <div class="pad-card">
             <div class="flex row">
                 <div class="orgin-att mb-2 mb-md-3 col-5 col-md-3">
-                    <label class="text-gray588">{{ globals.languageJson?.origin }}</label>
-                    <h6 class="fnt-bold text-black334 ellipsis">{{ data.lot?.country || '-' }}</h6>
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.origin }}</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
+                        {{ data.lot?.country | country }}
+                    </h6>
                 </div>
                 <div class="orgin-att mb-2 mb-md-3 col-7 col-md-4">
-                    <label class="text-gray588">Species</label>
-                    <h6 class="fnt-bold text-black334 ellipsis">{{ data.lot?.species.join(', ') || '-' }}</h6>
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">Species</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
+                        {{ data.lot?.species[0] || '-' }}
+                    </h6>
                 </div>
                 <div class="orgin-att mb-2 mb-md-3 col-12 col-md-4">
-                    <label class="text-gray588">{{ globals.languageJson?.variety }}</label>
-                    <h6 class="fnt-bold text-black334 ellipsis d-none d-md-block">
-                        {{ data.lot?.varieties.join(', ') || '-' }}
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.variety }}</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis d-none d-md-block mb-0">
+                        {{ data.lot?.varieties[0] || '-' }}
                     </h6>
                     <ul class="flo-list d-md-none">
                         <li *ngFor="let variety of data.lot?.varieties">{{ variety }}</li>
@@ -38,8 +42,8 @@
             </div>
         </div>
         <div class="d-flex justify-content-between">
-            <div class="fnt-14 fnt600 text-gray588">{{ globals.languageJson?.available_quantity }}</div>
-            <span class="fnt-14 fnt-bold text-black334">
+            <div class="fnt-14 fnt600 text-clr588">{{ globals.languageJson?.available_quantity }}</div>
+            <span class="fnt-14 fnt-bold text-clr334">
                 {{ data.quantity_count }}&nbsp;{{ data.quantity_type }} of {{ data.quantity }}{{ data.quantity_unit }}
             </span>
         </div>

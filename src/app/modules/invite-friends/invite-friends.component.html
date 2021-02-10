@@ -6,11 +6,13 @@
 
         <ng-container *ngIf="inviting; else success">
             <form [formGroup]="infoForm" (ngSubmit)="onSubmit()" novalidate>
-                <div class="row pt-4">
+                <div class="row pt-4 mt-md-3">
                     <div class="col-md-8 col-12 mb-4 pb-2">
                         <div class="mb-md-4">
-                            <p class="fnt-18 fnt-muli fnt-700 text-clr334 mb-1">Invite friend`s and colleagues</p>
-                            <p class="fnt-14 fnt-muli fnt-400 text-clr588 mb-0">
+                            <p class="fnt-18 lh-normal fnt-muli fnt-700 text-clr334 mb-2 mb-md-25">
+                                Invite friend`s and colleagues
+                            </p>
+                            <p class="fnt-14 lh-normal fnt-muli fnt-400 text-clr588 mb-0">
                                 Invite your friend`s or colleagues from here
                             </p>
                         </div>
@@ -43,9 +45,7 @@
                                 <div class="divider d-md-none mb-4"></div>
                             </div>
                             <div class="d-inline-flex align-items-center">
-                                <span class="brown-cta ml-2" (click)="addEmail()">
-                                    + Add another friend/colleague
-                                </span>
+                                <span class="brown-cta" (click)="addEmail()"> + Add another friend/colleague </span>
                             </div>
                         </div>
                     </div>

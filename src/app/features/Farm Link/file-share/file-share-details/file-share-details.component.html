@@ -73,7 +73,7 @@
                             {{ globals.languageJson?.share }}</span
                         >
                     </span>
-                    <p class="mt-2 fnt-14 fnt-muli fnt-600 text-gray588" *ngIf="sharedUsers != 0">
+                    <p class="mt-2 fnt-14 fnt-muli fnt-600 text-clr588" *ngIf="sharedUsers != 0">
                         Sharing with {{ sharedUsers }} members
                     </p>
                 </div>
@@ -307,10 +307,10 @@
                             </div>
                         </div>
                         <div class="roastery-fields mb-4">
-                            <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">
+                            <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
                                 {{ globals.languageJson?.sharing_access }}
                             </h4>
-                            <span class="fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{
+                            <span class="fnt-14 fnt-500 text-clr588 fnt-muli text-clr334 mb-1">{{
                                 globals.languageJson?.invite_to_access
                             }}</span>
                             <div
@@ -346,10 +346,10 @@
 
                         <div class="invite-to">
                             <div class="roastery-fields mb-4">
-                                <h4 class="fnt-16 fnt-700 fnt-muli text-black334 mb-0">
+                                <h4 class="fnt-16 fnt-700 fnt-muli text-clr334 mb-0">
                                     {{ globals.languageJson?.select_an_order }}*
                                 </h4>
-                                <span class="d-block fnt-14 fnt-500 text-gray588 fnt-muli text-black334 mb-1">{{
+                                <span class="d-block fnt-14 fnt-500 text-clr588 fnt-muli text-clr334 mb-1">{{
                                     globals.languageJson?.link_your_files
                                 }}</span>
 
@@ -358,7 +358,7 @@
                                     class="d-inline-flex mt-2 view-order-file-share align-items-center"
                                 >
                                     <img src="assets/images/view.png" />
-                                    <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-black334">{{
+                                    <span class="d-inline-block ml-2 fnt-14 fnt-500 fnt-muli text-clr334">{{
                                         globals.languageJson?.view_orders
                                     }}</span>
                                 </a>
@@ -392,11 +392,11 @@
                                                         readonly
                                                     />
                                                     <span
-                                                        class="Custom-select-input__selctedText fnt-600 fnt-muli text-black334"
+                                                        class="Custom-select-input__selctedText fnt-600 fnt-muli text-clr334"
                                                         id="permission"
                                                         >{{ globals.languageJson?.can_view }}</span
                                                     >
-                                                    <ul class="Custom-select-input-list fnt-600 fnt-muli text-black334">
+                                                    <ul class="Custom-select-input-list fnt-600 fnt-muli text-clr334">
                                                         <li class="Custom-select-input-list__item">
                                                             {{ globals.languageJson?.can_view }}
                                                         </li>
@@ -529,12 +529,12 @@
                                                     readonly
                                                 />
                                                 <span
-                                                    class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334"
+                                                    class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334"
                                                     id="share_permission"
                                                     >{{ globals.languageJson?.can_view }}</span
                                                 >
                                                 <ul
-                                                    class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334"
+                                                    class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334"
                                                 >
                                                     <li class="Custom-select-input-list__item">
                                                         {{ globals.languageJson?.can_view }}
@@ -550,7 +550,7 @@
                             </div>
                         </div>
                         <div class="mt-3 mt-lg-4" *ngIf="sharedUsers != 0">
-                            <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-black334">
+                            <h4 class="fnt-16 mb-4 mt-lg-2 mb-3 mb-lg-4 fnt-700 fnt-muli text-clr334">
                                 {{ globals.languageJson?.existing_members }}
                             </h4>
                             <!--Existing Memebr-->
@@ -561,14 +561,14 @@
                                             <div class="member-profile">
                                                 <img class="img" src="assets/images/activity3.png">
                                             </div>
-                                            <span class="ml-2 fnt-16 fnt-600 fnt-muli text-black334">Finca La
+                                            <span class="ml-2 fnt-16 fnt-600 fnt-muli text-clr334">Finca La
                                                 Pampa</span>
                                         </div>
 
                                         <div class="member__type float-right ml-auto">
 
                                             <span
-                                                class="text-capitalize fnt-14 fnt-600 fnt-muli text-black334 owner">owner</span>
+                                                class="text-capitalize fnt-14 fnt-600 fnt-muli text-clr334 owner">owner</span>
                                         </div>
                                     </div>
                                 </li> -->
@@ -580,15 +580,15 @@
                                                 <img class="img" src="{{ item.thumb_image }}" />
                                             </div>
 
-                                            <span class="ml-2 fnt-16 fnt-600 fnt-muli text-black334"
+                                            <span class="ml-2 fnt-16 fnt-600 fnt-muli text-clr334"
                                                 >{{ item.firstname }} {{ item.lastname }}</span
                                             >
 
                                             <!-- <div class="Custom-select w-100">
                                                 <div class="Custom-select-input w-100  pr-3">
                                                     <input type="text" value="Can view" readonly>
-                                                    <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334">Can view</span>
-                                                    <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334">
+                                                    <span class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334">Can view</span>
+                                                    <ul class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334">
                                                         <li class="Custom-select-input-list__item">Can view</li>
                                                         <li class="Custom-select-input-list__item">Can edit</li>
 
@@ -606,19 +606,19 @@
                                                         readonly
                                                     />
                                                     <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334"
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334"
                                                         id="canEdit"
                                                         *ngIf="item.permission == 'EDIT'"
                                                         >{{ globals.languageJson?.can_edit }}</span
                                                     >
                                                     <span
-                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-black334"
+                                                        class="Custom-select-input__selctedText fnt-14 fnt-600 fnt-muli text-clr334"
                                                         id="canView"
                                                         *ngIf="item.permission == 'VIEW'"
                                                         >{{ globals.languageJson?.can_view }}</span
                                                     >
                                                     <ul
-                                                        class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-black334"
+                                                        class="Custom-select-input-list fnt-14 fnt-600 fnt-muli text-clr334"
                                                     >
                                                         <li
                                                             class="Custom-select-input-list__item"
@@ -651,7 +651,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <p
-                    class="fnt-14 fnt-600 fnt-muli text-gray588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0"
+                    class="fnt-14 fnt-600 fnt-muli text-clr588 col-sm-12 col-md-10 col-lg-9 px-0 m-0 text-center text-md-left pb-3 pb-md-0"
                 >
                     {{ globals.languageJson?.admin_notice_text }}
                 </p>

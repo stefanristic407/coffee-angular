@@ -26,6 +26,7 @@ export class EstateListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.sourcingSrv.clearQueryParams();
         this.queryParamsSub = this.sourcingSrv.queryParams$.subscribe((res: any) => {
             this.queryParams = res;
             this.getAvailableEstates();
@@ -49,10 +50,18 @@ export class EstateListComponent implements OnInit, OnDestroy {
         this.userService.getAvailableEstates(this.roasterId, queryStr).subscribe((res: any) => {
             this.isLoaded = true;
             if (res.success) {
-                this.estateData = res.result;
+                this.estateData = [...res.result];
             }
         });
     }
 
-    filter() {}
+    getData(event) {
+        setTimeout(() => {
+            this.sourcingSrv.queryParams.next({
+                ...this.queryParams,
+                sort_by: event.sortField,
+                sort_order: event.sortOrder === 1 ? 'asc' : 'desc',
+            });
+        });
+    }
 }
