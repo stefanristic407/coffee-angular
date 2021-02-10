@@ -1,5 +1,15 @@
 @import '_variables.scss';
 
+.close-button {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    @media (min-width: 768px) {
+        width: 32px;
+        height: 32px;
+    }
+}
+
 .altitude-block {
     @media (min-width: 768px) {
         max-width: 286px;

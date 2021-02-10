@@ -4,16 +4,6 @@
     top: -24px;
 }
 
-.close-button {
-    width: 20px;
-    height: 20px;
-    object-fit: cover;
-    @media (min-width: 768px) {
-        width: 32px;
-        height: 32px;
-    }
-}
-
 ::ng-deep .p-dialog {
     width: 90vw;
     @media (min-width: 768px) {
