@@ -1,56 +1,63 @@
-<section *ngIf="isLoaded; else loading">
-    <div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row gutter-26">
-        <div *ngFor="let item of estateData" class="col-12 col-md-6 col-lg-4 card-wrap">
-            <div class="cursor-pointer h-100" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
-                <app-estate-card [data]="item"></app-estate-card>
-            </div>
+<div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row gutter-26">
+    <div *ngFor="let item of estateData" class="col-12 col-md-6 col-lg-4 card-wrap">
+        <div class="cursor-pointer h-100" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
+            <app-estate-card [data]="item"></app-estate-card>
         </div>
     </div>
-    <ng-template #tableView>
-        <div class="table-details br-main br-4 p-1 mt-25">
-            <p-table [value]="estateData" [resizableColumns]="true" [autoLayout]="true">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>{{ globals.languageJson?.estate_name }}</th>
-                        <th>{{ globals.languageJson?.rating }}</th>
-                        <th>{{ globals.languageJson?.origin }}</th>
-                        <th>{{ globals.languageJson?.altitude_range }}</th>
-                        <th>{{ globals.languageJson?.crop_year }}</th>
-                        <th>{{ globals.languageJson?.lots }}</th>
-                        <th>{{ globals.languageJson?.certificates }}</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-item>
-                    <tr class="cursor-pointer" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
-                        <td>{{ item.name }}</td>
-                        <td><span class="fa fa-star checked pr-2"></span>{{ item.rating }}</td>
-                        <td>{{ item['country'] | country }}</td>
-                        <td>{{ item['altitude']['gte'] }}-{{ item['altitude']['lte'] }}m</td>
-                        <td>{{ item['crop_year']['gte'] | month }}-{{ item['crop_year']['lte'] | month }}</td>
-                        <td>
-                            <a *ngFor="let lotdata of item.lots | slice: 0:3" class="custom-link mr-2" href="">
-                                {{ lotdata.name }}
-                            </a>
-                            <a
-                                *ngIf="item.lots?.length > 3"
-                                class="custom-link"
-                                routerLink="/features/estate-details/{{ item.estate_id }}"
-                                [queryParams]="{ dataLots: true }"
-                                >+{{ item.lots?.length - 3 }}more</a
-                            >
-                        </td>
-                        <td>
-                            <span *ngFor="let cert of item.certificates | slice: 0:2">
-                                <img class="cert-image ml-3" [src]="cert.type_id | certificateImg" />
-                            </span>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    </ng-template>
-</section>
-
-<ng-template #loading>
-    <app-loading></app-loading>
+    <app-loading *ngIf="!isLoaded"></app-loading>
+</div>
+<ng-template #tableView>
+    <div class="table-details br-main br-4 p-1 mt-25">
+        <p-table
+            [value]="estateData"
+            [loading]="!isLoaded"
+            [lazy]="true"
+            [lazyLoadOnInit]="false"
+            (onLazyLoad)="getData($event)"
+            [resizableColumns]="true"
+            [autoLayout]="true"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>{{ globals.languageJson?.estate_name }}</th>
+                    <th pSortableColumn="rating">
+                        {{ globals.languageJson?.rating }}<p-sortIcon field="rating"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="origin">
+                        {{ globals.languageJson?.origin }}<p-sortIcon field="origin"></p-sortIcon>
+                    </th>
+                    <th>{{ globals.languageJson?.altitude_range }}</th>
+                    <th>{{ globals.languageJson?.crop_year }}</th>
+                    <th>{{ globals.languageJson?.lots }}</th>
+                    <th>{{ globals.languageJson?.certificates }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="cursor-pointer" routerLink="/sourcing/estate-details/{{ item.estate_id }}">
+                    <td>{{ item.name }}</td>
+                    <td><span class="fa fa-star checked pr-2"></span>{{ item.rating }}</td>
+                    <td>{{ item['country'] | country }}</td>
+                    <td>{{ item['altitude']['gte'] }}-{{ item['altitude']['lte'] }}m</td>
+                    <td>{{ item['crop_year']['gte'] | month }}-{{ item['crop_year']['lte'] | month }}</td>
+                    <td>
+                        <a *ngFor="let lotdata of item.lots | slice: 0:3" class="custom-link mr-2" href="">
+                            {{ lotdata.name }}
+                        </a>
+                        <a
+                            *ngIf="item.lots?.length > 3"
+                            class="custom-link"
+                            routerLink="/features/estate-details/{{ item.estate_id }}"
+                            [queryParams]="{ dataLots: true }"
+                            >+{{ item.lots?.length - 3 }}more</a
+                        >
+                    </td>
+                    <td>
+                        <span *ngFor="let cert of item.certificates | slice: 0:2">
+                            <img class="cert-image ml-3" [src]="cert.type_id | certificateImg" />
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </ng-template>
