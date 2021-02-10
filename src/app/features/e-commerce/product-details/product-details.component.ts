@@ -24,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
     vatSettings: any = [];
     roastedBatches: any = [];
     productID = '';
+    variantTypeArray: any = [];
     roastedFields = [
         'roaster_ref_no',
         'batch_ref_no',
@@ -43,9 +44,8 @@ export class ProductDetailsComponent implements OnInit {
         'roaster_notes',
         'recipes',
     ];
-    //@ViewChild(VarientDetailsComponent, { static: false }) varientDetails;
-    //@ViewChildren('cmp') varientComponent: QueryList<VarientDetailsComponent>;
     @ViewChildren(VarientDetailsComponent) varientComponent: QueryList<VarientDetailsComponent>;
+    currentVariant = 0;
     constructor(
         public globals: GlobalsService,
         private fb: FormBuilder,
@@ -62,7 +62,6 @@ export class ProductDetailsComponent implements OnInit {
         this.productForm = this.fb.group({
             is_public: [false],
             name: ['', Validators.compose([Validators.required])],
-            //bought_on_platform: [true],
             purchase_type: ['', Validators.compose([Validators.required])],
             description: ['', Validators.compose([Validators.required])],
             is_variants_included: [false],
@@ -74,6 +73,8 @@ export class ProductDetailsComponent implements OnInit {
         this.route.params.subscribe((params) => {
             if (params.id) {
                 this.productID = params.id;
+            } else {
+                this.createTypeVariantArray();
             }
         });
         this.boughtArray = [
@@ -92,7 +93,7 @@ export class ProductDetailsComponent implements OnInit {
             { label: 'One Time', value: 'one-time' },
             { label: 'Subscription', value: 'subscription' },
         ];
-        this.productForm.controls['is_variants_included'].valueChanges.subscribe((value) => {
+        this.productForm.controls.is_variants_included.valueChanges.subscribe((value) => {
             if (!value) {
                 this.varients = this.productForm.get('varients') as FormArray;
                 while (this.varients.length !== 0) {
@@ -103,9 +104,9 @@ export class ProductDetailsComponent implements OnInit {
         });
         this.services.getVatSettings(this.roasterId).subscribe((res) => {
             this.vatSettings = [];
-            if (res && res['result']) {
-                res['result'].forEach((ele) => {
-                    const vatObj = { label: ele['vat_percentage'] + '% ' + ele['transaction_type'], value: ele['id'] };
+            if (res && res.result) {
+                res.result.forEach((ele) => {
+                    const vatObj = { label: ele.vat_percentage + '% ' + ele.transaction_type, value: ele.id };
                     this.vatSettings.push(vatObj);
                 });
             }
@@ -128,8 +129,8 @@ export class ProductDetailsComponent implements OnInit {
     getProductDetails(id) {
         this.services.getProductDetails(this.roasterId, id).subscribe(
             (res) => {
-                if (res && res['result']) {
-                    const productDetails = res['result'];
+                if (res && res.result) {
+                    const productDetails = res.result;
                     const productFields = [
                         'name',
                         'purchase_type',
@@ -141,43 +142,44 @@ export class ProductDetailsComponent implements OnInit {
                     ];
                     productFields.forEach((ele) => {
                         const getValue = productDetails[ele];
-                        this.productForm['controls'][ele].setValue(getValue);
+                        this.productForm.controls[ele].setValue(getValue);
                     });
                     this.crates = this.productForm.get('crates') as FormArray;
                     this.crates.removeAt(0);
-                    productDetails['crates'].forEach((crate) => {
+                    productDetails.crates.forEach((crate) => {
                         const randomNumber = '_' + Math.random().toString(36).substr(2, 9);
                         const crateForm = this.createEmptyCrate();
-                        crateForm['controls']['weight'].setValue(crate['weight']);
-                        crateForm['controls']['id'].setValue(crate['id']);
-                        crateForm['controls']['product_weight_variant_id'].setValue(randomNumber);
-                        crateForm['controls']['crate_capacity'].setValue(crate['crate_capacity']);
+                        crateForm.controls.weight.setValue(crate.weight);
+                        crateForm.controls.id.setValue(crate.id);
+                        crateForm.controls.product_weight_variant_id.setValue(randomNumber);
+                        crateForm.controls.crate_capacity.setValue(crate.crate_capacity);
                         this.crates.push(crateForm);
                     });
                     this.varients = this.productForm.get('varients') as FormArray;
                     this.varients.removeAt(0);
                     // tslint:disable-next-line: forin
-                    for (const key in res['result']['variants']) {
-                        const getVariant = res['result']['variants'][key];
-                        const coffeeBatchID = getVariant[0]['weight_variants'][0]['rc_batch_id'];
-                        const getBatchDetails = this.roastedBatches.find((ele) => ele['id'] == coffeeBatchID);
-                        const varient = {};
-                        (varient['varient_name'] = 'Varient ' + (this.varients.length + 1)),
+                    for (const key in res.result.variants) {
+                        const getVariant = res.result.variants[key];
+                        const coffeeBatchID = getVariant[0].weight_variants[0].rc_batch_id;
+                        const getBatchDetails = this.roastedBatches.find((ele) => ele.id === coffeeBatchID);
+                        const varient: any = {};
+                        (varient.varient_name = 'Varient ' + (this.varients.length + 1)),
                             this.roastedFields.forEach((ele) => {
                                 const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
                                 varient[ele] = getValue;
                             });
-                        varient['rc_batch_id'] = coffeeBatchID;
-                        varient['weight_variants'] = getVariant[0]['weight_variants'];
-                        varient['roaster_recommendation'] = getVariant[0]['variant_details']['roaster_recommendation'];
-                        varient['brewing_method'] = getVariant[0]['variant_details']['brewing_method'];
+                        varient.rc_batch_id = coffeeBatchID;
+                        varient.weight_variants = getVariant[0].weight_variants;
+                        varient.roaster_recommendation = getVariant[0].variant_details.roaster_recommendation;
+                        varient.brewing_method = getVariant[0].variant_details.brewing_method;
                         const variantForm = this.fb.group(varient);
-                        const weight_variants = getVariant[0]['weight_variants'];
-                        const flavour_profile = getBatchDetails['flavour_profile'];
-                        variantForm['controls']['flavour_profile'].setValue(flavour_profile);
-                        variantForm['controls']['weight_variants'].setValue(weight_variants);
+                        const weight_variants = getVariant[0].weight_variants;
+                        const flavour_profile = getBatchDetails.flavour_profile;
+                        variantForm.controls.flavour_profile.setValue(flavour_profile);
+                        variantForm.controls.weight_variants.setValue(weight_variants);
                         this.varients.push(variantForm);
                     }
+                    this.createTypeVariantArray();
                 }
             },
             (err) => {
@@ -188,6 +190,7 @@ export class ProductDetailsComponent implements OnInit {
     addNewVarients(): void {
         this.varients = this.productForm.get('varients') as FormArray;
         this.varients.push(this.createEmptyVarient());
+        this.createTypeVariantArray();
     }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
@@ -205,10 +208,10 @@ export class ProductDetailsComponent implements OnInit {
     }
     onBatchChange(idx) {
         this.varients = this.productForm.get('varients') as FormArray;
-        const getVarient = this.varients['controls'][idx];
-        if (getVarient && getVarient['value']) {
-            const selectedID = getVarient['value']['rc_batch_id'];
-            const getBatchDetails = this.roastedBatches.find((ele) => ele['id'] == selectedID);
+        const getVarient = this.varients.controls[idx];
+        if (getVarient && getVarient.value) {
+            const selectedID = getVarient.value.rc_batch_id;
+            const getBatchDetails = this.roastedBatches.find((ele) => ele.id === selectedID);
             this.roastedFields.forEach((ele) => {
                 const getValue = getBatchDetails[ele] ? getBatchDetails[ele] : '';
                 getVarient['controls'][ele].setValue(getValue);
@@ -252,27 +255,27 @@ export class ProductDetailsComponent implements OnInit {
     }
     onWeightCreate(event) {
         this.crates = this.productForm.get('crates') as FormArray;
-        if (!event['modify']) {
+        if (!event.modify) {
             const getCrate = this.createEmptyCrate();
-            getCrate['controls']['weight'].setValue(event.value);
-            getCrate['controls']['product_weight_variant_id'].setValue(event.product_weight_variant_id);
+            getCrate.controls.weight.setValue(event.value);
+            getCrate.controls.product_weight_variant_id.setValue(event.product_weight_variant_id);
             this.crates.push(getCrate);
         } else {
-            const getObj = this.crates['value'].find(
-                (ele) => ele['product_weight_variant_id'] === event['product_weight_variant_id'],
+            const getObj = this.crates.value.find(
+                (ele) => ele.product_weight_variant_id === event.product_weight_variant_id,
             );
-            const indexValue = this.crates['value'].indexOf(getObj);
+            const indexValue = this.crates.value.indexOf(getObj);
             if (getObj) {
-                this.crates['controls'][indexValue]['controls']['weight'].setValue(event.value);
+                this.crates.controls[indexValue]['controls'].weight.setValue(event.value);
             }
         }
     }
     onCancel(): void {
-        console.log('oncancel');
+        this.router.navigate(['/features/products-list']);
     }
     onSave(): void {
         if (this.validateForms()) {
-            const productObj = this.productForm['value'];
+            const productObj = this.productForm.value;
             if (this.productID) {
                 this.updateProductDetails(productObj);
             } else {
@@ -285,7 +288,7 @@ export class ProductDetailsComponent implements OnInit {
     createNewProduct(productObj) {
         this.services.addProductDetails(this.roasterId, productObj).subscribe(
             (res) => {
-                if (res && res['success']) {
+                if (res && res.success) {
                     this.GrindVarientsDetails(res.result.id);
                 } else {
                     this.toasterService.error('Error while add a Product');
@@ -299,7 +302,7 @@ export class ProductDetailsComponent implements OnInit {
     updateProductDetails(productObj) {
         this.services.updateProductDetails(this.roasterId, this.productID, productObj).subscribe(
             (res) => {
-                if (res && res['success']) {
+                if (res && res.success) {
                     this.GrindVarientsDetails(this.productID);
                 } else {
                     this.toasterService.error('Error while add a Product');
@@ -312,59 +315,57 @@ export class ProductDetailsComponent implements OnInit {
     }
     GrindVarientsDetails(productID) {
         this.varientComponent.forEach((child, childIndex) => {
-            const variantForm = child.weightForm['value'];
-            const getWeightArray = variantForm['weights'];
-            const getVarientDetails = child.varientDetails['value'];
+            const variantForm = child.weightForm.value;
+            const getWeightArray = variantForm.weights;
+            const getVarientDetails = child.varientDetails.value;
             getWeightArray.forEach((weight, index) => {
                 const weightObj = weight;
-                weightObj['featured_image_id'] = weight['featured_image_id'] ? weight['featured_image_id'] : undefined;
+                weightObj.featured_image_id = weight.featured_image_id ? weight.featured_image_id : undefined;
                 const productImagesArray = [];
-                if (weightObj && weightObj['product_images']) {
-                    weightObj['product_images'].forEach((ele) => {
-                        if (ele['fileDetails'] && ele['image_id']) {
-                            productImagesArray.push(ele['image_id']);
+                if (weightObj && weightObj.product_images) {
+                    weightObj.product_images.forEach((ele) => {
+                        if (ele.fileDetails && ele.image_id) {
+                            productImagesArray.push(ele.image_id);
                         }
                     });
                 }
-                weightObj['variant_id'] = index + 1;
-                weightObj['rc_batch_id'] = getVarientDetails['rc_batch_id'];
-                weightObj['product_images'] = productImagesArray;
-                weightObj['is_public'] = !weight['is_public'];
-                const weight_varient_id = weight['product_weight_variant_id']
-                    ? weight['product_weight_variant_id']
-                    : false;
-                weightObj['variant_details'] = {
-                    brewing_method: getVarientDetails['brewing_method'],
-                    roaster_recommendation: getVarientDetails['roaster_recommendation'],
-                    recipes: getVarientDetails['recipes'],
+                weightObj.variant_id = index + 1;
+                weightObj.rc_batch_id = getVarientDetails.rc_batch_id;
+                weightObj.product_images = productImagesArray;
+                weightObj.is_public = !weight.is_public;
+                const weightVariantID = weight.product_weight_variant_id ? weight.product_weight_variant_id : false;
+                weightObj.variant_details = {
+                    brewing_method: getVarientDetails.brewing_method,
+                    roaster_recommendation: getVarientDetails.roaster_recommendation,
+                    recipes: getVarientDetails.recipes,
                 };
                 let showToaster = false;
                 if (childIndex === this.varientComponent.length - 1 && index === getWeightArray.length - 1) {
                     showToaster = true;
                 }
-                if (!this.productID || !weight_varient_id) {
+                if (!this.productID || !weightVariantID) {
                     this.addNewGrindVariant(productID, weightObj, showToaster);
-                } else if (weight_varient_id) {
-                    this.updateGrindVariant(weightObj, showToaster, weight_varient_id);
+                } else if (weightVariantID) {
+                    this.updateGrindVariant(weightObj, showToaster, weightVariantID);
                 }
             });
         });
     }
     addNewGrindVariant(productID, weigthObj, showToaster) {
-        delete weigthObj['product_weight_variant_id'];
-        delete weigthObj['fileDetails'];
-        weigthObj['status'] = weigthObj['status'].toUpperCase();
-        weigthObj['grind_variants'].forEach((ele) => {
-            ele['id'] = undefined;
-            ele['grind_variant_id'] = undefined;
+        delete weigthObj.product_weight_variant_id;
+        delete weigthObj.fileDetails;
+        weigthObj.status = weigthObj.status.toUpperCase();
+        weigthObj.grind_variants.forEach((ele) => {
+            ele.id = undefined;
+            ele.grind_variant_id = undefined;
         });
         this.services.addProductWeightVarients(this.roasterId, productID, weigthObj).subscribe(
             (res) => {
-                if (res['success'] && showToaster) {
+                if (res.success && showToaster) {
                     this.toasterService.success('Product created successfully');
                     this.router.navigate(['/features/products-list']);
                 }
-                if (!res['success']) {
+                if (!res.success) {
                     this.toasterService.error('Errow while adding weight varients');
                 }
             },
@@ -373,25 +374,23 @@ export class ProductDetailsComponent implements OnInit {
             },
         );
     }
-    updateGrindVariant(weightObj, showToaster, weight_variant_id) {
-        delete weightObj['product_weight_variant_id'];
-        weightObj['status'] = weightObj['status'].toUpperCase();
-        weightObj['grind_variants'].map((ele) => {
-            ele['id'] = ele['grind_variant_id'] ? ele['grind_variant_id'] : undefined;
+    updateGrindVariant(weightObj, showToaster, weightVariantID) {
+        delete weightObj.product_weight_variant_id;
+        weightObj.status = weightObj.status.toUpperCase();
+        weightObj.grind_variants.map((ele) => {
+            ele.id = ele.grind_variant_id ? ele.grind_variant_id : undefined;
         });
-        this.services
-            .updateProductWeightVarients(this.roasterId, this.productID, weightObj, weight_variant_id)
-            .subscribe(
-                (res) => {
-                    if (showToaster && res['success']) {
-                        this.toasterService.success('Product updated successfully');
-                        this.router.navigate(['/features/products-list']);
-                    }
-                },
-                (err) => {
-                    this.toasterService.error('Errow while updating weight varients');
-                },
-            );
+        this.services.updateProductWeightVarients(this.roasterId, this.productID, weightObj, weightVariantID).subscribe(
+            (res) => {
+                if (showToaster && res.success) {
+                    this.toasterService.success('Product updated successfully');
+                    this.router.navigate(['/features/products-list']);
+                }
+            },
+            (err) => {
+                this.toasterService.error('Errow while updating weight varients');
+            },
+        );
     }
     validateForms() {
         let returnFlag = true;
@@ -411,6 +410,16 @@ export class ProductDetailsComponent implements OnInit {
         console.log('onpublish');
     }
     togglePublic(flag) {
-        this.productForm['controls']['is_public'].setValue(flag);
+        this.productForm.controls.is_public.setValue(flag);
+    }
+    createTypeVariantArray() {
+        this.variantTypeArray = [];
+        const variant = this.productForm.get('varients') as FormArray;
+        variant['value'].forEach((ele, index) => {
+            this.variantTypeArray.push({ label: ele.varient_name, value: index });
+        });
+        this.variantTypeArray.push({ label: '', value: 'button' });
+        this.currentVariant = this.variantTypeArray.length - 2;
+        console.log(this.currentVariant);
     }
 }

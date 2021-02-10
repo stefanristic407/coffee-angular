@@ -17,11 +17,11 @@ export class ProductListComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
     showStatus = false;
     showOrigin = false;
-    statusFilter = '';
-    originFilter = '';
+    statusFilter;
+    originFilter;
+    priceFilter;
     termSearch = '';
     showPrice = false;
-    priceFilter = '';
     tableColumns = [];
     tableValue = [];
     totalCount = 0;
@@ -56,10 +56,11 @@ export class ProductListComponent implements OnInit {
             searchField: new FormControl({ value: '' }, Validators.compose([Validators.required])),
         });
         this.searchForm.setValue({ searchField: '' });
-        this.searchForm.controls['searchField'].valueChanges.subscribe((value) => {
+        this.searchForm.controls.searchField.valueChanges.subscribe((value) => {
             this.termSearch = value;
             this.getTableData();
         });
+
         this.loadFilterValues();
         this.tableColumns = [
             {
@@ -115,8 +116,8 @@ export class ProductListComponent implements OnInit {
     loadFilterValues() {
         this.originArray = this.globals.countryList;
         this.priceRangeArray = [
-            { label: '$0-$500', price_min: '0', price_max: '500' },
-            { label: '$500-$1000', price_min: '500', price_max: '1000' },
+            { label: '$0-$500', value: { price_min: '0', price_max: '500' } },
+            { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },
         ];
         this.statusArray = [
             { label: 'In Stock', value: 'IN-STOCK' },
@@ -137,25 +138,20 @@ export class ProductListComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
     }
     getTableData(event?) {
-        const postData = {};
-        postData['origin'] = this.originFilter ? this.originFilter : '';
+        const postData: any = {};
+        postData.origin = this.originFilter ? this.originFilter : '';
         if (this.priceFilter) {
-            const priceRange = this.priceRangeArray.find((ele) => ele['label'] == this.priceFilter);
-            postData['price_min'] = priceRange && priceRange['price_min'] ? priceRange['price_min'] : '';
-            postData['price_max'] = priceRange && priceRange['price_max'] ? priceRange['price_max'] : '';
+            postData.price_min = this.priceFilter.price_min;
+            postData.price_max = this.priceFilter.price_max;
         }
-        if (this.statusFilter) {
-            const statusValue = this.statusArray.find((ele) => ele['label'] == this.statusFilter);
-            postData['status'] = statusValue && statusValue['value'] ? statusValue['value'] : undefined;
-        }
-        postData['name'] = this.termSearch ? this.termSearch : '';
-        // eslint-disable-next-line no-constant-condition
-        postData['per_page'] = 100;
+        postData.status = this.statusFilter ? this.statusFilter : '';
+        postData.name = this.termSearch ? this.termSearch : '';
+        postData.per_page = 100;
         this.roasterService.getSelectProductDetails(this.roasterID, postData).subscribe(
-            (data) => {
+            (data: any) => {
                 this.tableValue = [];
-                if (data['success']) {
-                    this.tableValue = data['result'];
+                if (data.success) {
+                    this.tableValue = data.result;
                 } else {
                     this.toastrService.error('Error while getting the agreement list!');
                 }
@@ -165,16 +161,7 @@ export class ProductListComponent implements OnInit {
             },
         );
     }
-    setType(priceRange): void {
-        this.priceFilter = priceRange && priceRange['label'] ? priceRange['label'] : '';
-        this.getTableData();
-    }
-    setOrigin(origin): void {
-        this.originFilter = origin && origin['name'] ? origin['name'] : '';
-        this.getTableData();
-    }
-    setStatus(status): void {
-        this.statusFilter = status && status['label'] ? status['label'] : '';
+    filterCall() {
         this.getTableData();
     }
     deleteproduct(): void {

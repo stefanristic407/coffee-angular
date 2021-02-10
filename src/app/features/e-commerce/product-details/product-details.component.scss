@@ -41,3 +41,24 @@
     padding: 9px 7px;
     margin-top: 30px;
 }
+.divSeperator {
+    border: 1px dashed #d6d6d6;
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+}
+@media screen and (max-width: 767px) {
+    .weightVariantBtn {
+        border: solid 1px #30855c;
+        color: #30855c;
+        padding: 0.5rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    :host ::ng-deep .p-tabview-nav {
+        display: none;
+    }
+    .p-dropdown {
+        width: 100%;
+    }
+}

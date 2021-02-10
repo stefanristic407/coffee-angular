@@ -21,44 +21,18 @@
                 placeholder="{{globals.languageJson?.search_name_role}}" />
         </div>
         <div class="col-12 col-sm-12 col-md-6 filterLayout">
-            <div class="d-inline border-total col-sm-6" id="role_id">
-                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" [outsideClick]="true"
-                    #pop1="bs-popover">
-                    <p *ngIf="!originFilter" class="d-inline filter" (click)="showOrigin = !showOrigin;">
-                        {{ globals.languageJson?.origins }}&nbsp;<img
-                            src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                    <p *ngIf="originFilter" class="d-inline filter" (click)="showOrigin = !showOrigin;">
-                        {{ originFilter }}&nbsp;<img
-                            src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>&nbsp;&nbsp;
-            <div class="d-inline border-total col-sm-6" id="role_id">
-                <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" [outsideClick]="true"
-                    #pop2="bs-popover">
-                    <p *ngIf="!priceFilter"class="d-inline filter" (click)="showPrice = !showPrice;">
-                        Price ranges&nbsp;<img src="{{ showPrice ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                    <p *ngIf="priceFilter" class="d-inline filter" (click)="showPrice = !showPrice;">
-                        {{ priceFilter }}&nbsp;<img
-                            src="{{ showPrice ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>&nbsp;&nbsp;
-            <div class="d-inline border-total status-div col-sm-6" id="status_id">
-                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" [outsideClick]="true"
-                    #pop3="bs-popover">
-                    <p *ngIf="!statusFilter"class="d-inline filter" (click)="showStatus = !showStatus;">
-                        Status&nbsp; <img
-                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                    <p *ngIf="statusFilter" class="d-inline filter" (click)="showStatus = !showStatus;">
-                        {{ statusFilter }}&nbsp; <img
-                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>
+            <p-dropdown [options]="originArray" optionLabel="name" optionValue="isoCode" [(ngModel)]="originFilter" (onChange)="filterCall()" scrollHeight="225px"
+                [showClear]="true" placeholder="Origin"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ originFilter ? 'highlight' : '' }}">
+            </p-dropdown>
+            <p-dropdown [options]="priceRangeArray" optionLabel="label" optionValue="value" [(ngModel)]="priceFilter"
+                (onChange)="filterCall()" scrollHeight="225px" [showClear]="true" placeholder="Price"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ priceFilter ? 'highlight' : '' }}">
+            </p-dropdown>
+            <p-dropdown [options]="statusArray" optionLabel="label" optionValue="value" [(ngModel)]="statusFilter"
+                (onChange)="filterCall()" scrollHeight="225px" [showClear]="true" placeholder="Status"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ statusFilter ? 'highlight' : '' }}">
+            </p-dropdown>
         </div>
         <div [formGroup]="searchForm" class="d-none d-sm-none d-md-block col-6">
             <input type="text" name="search" class="search-raised pull-right" formControlName="searchField"
@@ -90,7 +64,6 @@
                     <td class="d-none d-sm-none d-md-table-cell">
                         <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                     </td>
-                    <!-- [ngClass]="{'d-none': col.field == 'status'}" -->
                     <td *ngFor="let col of columns" [ngSwitch]="col.field" [style.width]="col.width ? col.width + '%' : '30%'"
                         [ngClass]="{'d-none': col.field == 'status' || col.field == 'origin' || col.field == 'estate_name' 
                                     || col.field == 'weight' || col.field == 'price' || col.field == 'actions' || col.field == 'roast_level',
@@ -202,42 +175,6 @@
         </p-table>
     </div>
 </div>
-<ng-template #allTemplate>
-    <div id="status-content">
-        <ul class="list-group">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('');">All</a>
-            </li>
-            <li *ngFor="let item of statusArray" class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus(item);">{{item['label']}}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-<ng-template #typeTemplate>
-    <div id="status-content">
-        <ul class="list-group">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setType('');">All</a>
-            </li>
-            <li *ngFor="let item of priceRangeArray"class="list-group-item item-color">
-                <a class="pointer-item" (click)="setType(item);">{{item['label']}}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-<ng-template #originTemplate>
-    <div id="status-content">
-        <ul class="list-group">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('');">All</a>
-            </li>
-            <li *ngFor="let item of originArray" class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin(item);">{{item['name']}}</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
 <ng-template #deleteTemplate>
     <div class="modal-body mt-5 mb-5 text-center fnt-muli">
         <div><img src="assets/images/delete-role.svg" alt="" /></div>

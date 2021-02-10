@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 d-none d-sm-none d-md-block">
         <div class="nav flex-column nav-pills weightDiv" *ngFor="let weight of this.weightForm['value']['weights']; let i = index">
             <a class="nav-link vat-link pointer" [ngClass]="{ active: currentVarientIndex == i }"
                 (click)="currentVarientIndex = i">
@@ -20,8 +20,22 @@
             </span>
         </div>
     </div>
+    <div class="col-12 d-block d-sm-block d-md-none">
+        <p-dropdown [options]="weightVariantArray" optionLabel="label" placeholder="Please select the status"
+            [style]="{'width':'100%'}" [(ngModel)]="currentVarientIndex" optionValue="value">
+            <ng-template let-weight pTemplate="item">
+                <span *ngIf="weight.label">{{weight.label}}</span>
+                <span *ngIf="!weight.label" class="weightVariantBtn">
+                    <img class="" src="assets/images/add_grey.svg" />
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewWeights()">
+                        Add weight variant
+                    </span>
+                </span>
+            </ng-template>
+        </p-dropdown>
+    </div>
     <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9" [formGroup]="weightForm['controls']['weights']['controls'][currentVarientIndex]">
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Weight<span class="star">*</span></label>
                 <div class="input-group weightInputGroupDiv">
@@ -85,13 +99,13 @@
                     <input type="text" formControlName="sku_number" pInputText />
                 </div>
                 <div class="col-12 col-sm-12 col-md-1 col-lg-1 col-xl-1 sewn-form-field checkBoxDiv">
-                    <span class="fnt-700 txt-clr60b cursor-pointer" (click)="deleteGrindVariant(i)">
+                    <span class="fnt-700 editBtn cursor-pointer" (click)="deleteGrindVariant(i)">
                         Delete
                     </span>
                 </div>
-                <div *ngIf="isLast" class="col-12">
+                <div *ngIf="isLast" class="col-12 mt-3 mb-3">
                     <img src="assets/images/add-partner.svg" />
-                    <span class="ml-2 fnt-muli fnt-700 fnt-14 txt-clr60b cursor-pointer" (click)="addNewGrindVarients()">
+                    <span class="ml-2 fnt-muli fnt-700 fnt-14 editBtn cursor-pointer" (click)="addNewGrindVarients()">
                         Add a grind variant
                     </span>
                 </div>
@@ -110,7 +124,7 @@
                             (change)="handleRoasterFile($event,0,'featured_image')" />
                         <div class="d-flex flex-wrap align-items-center justify-content-center ml-4 mr-4">
                             <img src="assets/images/upload_icon.svg">
-                            <span class="secondary_txt mt-2">Drag
+                            <span class="d-none d-sm-none d-md-block secondary_txt mt-2">Drag
                                 and drop an image here or browse</span>
                         </div>
                     </label>
@@ -139,15 +153,15 @@
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 row">
-                <div class="col-4 pl-3" *ngFor="let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['product_images']; let m = index">
-                    <label class="mb-0">Product images<span class="star">*</span></label>
+                <div class="col-4 pl-3 sewn-form-field w-100" *ngFor="let product_image of weightForm['controls']['weights']['controls'][currentVarientIndex]['value']['product_images']; let m = index">
+                    <label>Product images<span class="star">*</span></label>
                     <div *ngIf="!product_image['fileDetails']" class="addImageContainer d-flex align-items-center justify-content-center">
                         <label>
                             <input type="file" accept="image/png, image/jpeg" style="display: none" #featureImage
                                 (change)="handleRoasterFile($event,m,'product_image')" />
                             <div class="d-flex flex-wrap align-items-center justify-content-center ml-4 mr-4">
                                 <img src="assets/images/upload_icon.svg">
-                                <span class="secondary_txt mt-2">Drag
+                                <span class="d-none d-sm-none d-md-block secondary_txt mt-2">Drag
                                     and drop an image here or browse</span>
                             </div>
                         </label>
@@ -178,7 +192,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 mt-3">
                 <button type="button" (click)="uploadImages()" class="btn btn-stroked">
                     Update
                 </button>

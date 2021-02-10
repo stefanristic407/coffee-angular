@@ -34,6 +34,7 @@ export class VarientDetailsComponent implements OnInit {
         'sku_number',
         'grind_variant_id',
     ];
+    weightVariantArray: any = [];
     constructor(
         private fb: FormBuilder,
         private route: ActivatedRoute,
@@ -51,13 +52,14 @@ export class VarientDetailsComponent implements OnInit {
             weights: this.fb.array([this.createEmptyWeights()]),
         });
         const weight = this.weightForm.get('weights') as FormArray;
-        weight['controls'][this.currentVarientIndex]['controls']['product_images'].setValue(this.setProductImages([]));
+        weight.controls[this.currentVarientIndex]['controls'].product_images.setValue(this.setProductImages([]));
         this.route.params.subscribe((params) => {
             if (params.id) {
                 this.productID = params.id;
                 this.loadWeight();
             } else {
                 this.updateCrate(0);
+                this.createWeightVariantArray();
             }
         });
         this.statusArray = [
@@ -85,53 +87,54 @@ export class VarientDetailsComponent implements OnInit {
         const weight = this.weightForm.get('weights') as FormArray;
         const getObj = {
             value: Number(event.target.value),
-            product_weight_variant_id:
-                weight['controls'][this.currentVarientIndex]['value']['product_weight_variant_id'],
+            product_weight_variant_id: weight.controls[this.currentVarientIndex].value.product_weight_variant_id,
             modify: true,
         };
         this.onWeightCreate.emit(getObj);
+        this.createWeightVariantArray();
     }
     updateCrate(idx) {
         const weight = this.weightForm.get('weights') as FormArray;
         const getObj = {
-            value: weight['controls'][idx]['value']['weight'],
-            product_weight_variant_id: weight['controls'][idx]['value']['product_weight_variant_id'],
+            value: weight.controls[idx].value.weight,
+            product_weight_variant_id: weight.controls[idx].value.product_weight_variant_id,
             modify: false,
         };
         this.onWeightCreate.emit(getObj);
     }
     loadWeight() {
-        if (this.varientDetails && this.varientDetails['value']['weight_variants']) {
+        if (this.varientDetails && this.varientDetails.value.weight_variants) {
             this.weights = this.weightForm.get('weights') as FormArray;
             this.weights.removeAt(0);
-            this.varientDetails['value']['weight_variants'].forEach((ele) => {
+            this.varientDetails.value.weight_variants.forEach((ele) => {
                 const weightForm = this.createEmptyWeights();
-                weightForm['controls']['weight_name'].setValue('weight -' + ele['weight'] + '' + ele['weight_unit']);
-                if (ele['featured_image']) {
-                    weightForm['controls']['featured_image_id'].setValue(ele['featured_image']['image_id']);
-                    weightForm['controls']['fileDetails'].setValue({ image_url: ele['featured_image']['image_url'] });
+                weightForm.controls.weight_name.setValue('weight -' + ele.weight + '' + ele.weight_unit);
+                if (ele.featured_image) {
+                    weightForm.controls.featured_image_id.setValue(ele.featured_image.image_id);
+                    weightForm.controls.fileDetails.setValue({ image_url: ele.featured_image.image_url });
                 }
                 this.weightFields.forEach((key) => {
                     let getValue = ele[key];
                     if (key === 'is_public') {
                         getValue = !getValue;
                     }
-                    weightForm['controls'][key].setValue(getValue);
+                    weightForm.controls[key].setValue(getValue);
                 });
                 const productImages = [];
-                ele['product_images'] = ele['product_images'] ? ele['product_images'] : [];
-                ele['product_images'].forEach((image) => {
+                ele.product_images = ele.product_images ? ele.product_images : [];
+                ele.product_images.forEach((image) => {
                     productImages.push({
-                        image_id: image['image_id'],
-                        fileDetails: { image_url: image['image_url'] },
+                        image_id: image.image_id,
+                        fileDetails: { image_url: image.image_url },
                     });
                 });
-                this.loadGrindVariants(weightForm['controls']['grind_variants'], ele['grind_variants']);
+                this.loadGrindVariants(weightForm.controls.grind_variants, ele.grind_variants);
                 const productImageArray = this.setProductImages(productImages);
-                weightForm['controls']['product_images'].setValue(productImageArray);
+                weightForm.controls.product_images.setValue(productImageArray);
                 this.weights.push(weightForm);
             });
             console.log(this.weights);
+            this.createWeightVariantArray();
         }
     }
     loadGrindVariants(grindForm, item): void {
@@ -141,7 +144,7 @@ export class VarientDetailsComponent implements OnInit {
             item.forEach((variant) => {
                 const formGrind = this.createEmptyGrindVarient();
                 this.grindVariantFields.forEach((field) => {
-                    formGrind['controls'][field].setValue(variant[field]);
+                    formGrind.controls[field].setValue(variant[field]);
                 });
                 this.grind_variants.push(formGrind);
             });
@@ -151,18 +154,19 @@ export class VarientDetailsComponent implements OnInit {
         this.weights = this.weightForm.get('weights') as FormArray;
         this.weights.push(this.createEmptyWeights());
         this.updateCrate(this.weights.length - 1);
+        this.createWeightVariantArray();
     }
     addNewGrindVarients(): void {
         const weight = this.weightForm.get('weights') as FormArray;
-        this.grind_variants = weight['controls'][this.currentVarientIndex].get('grind_variants') as FormArray;
+        this.grind_variants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
         this.grind_variants.push(this.createEmptyGrindVarient());
     }
     createEmptyWeights() {
-        const emptyWeight_variant_id = '_' + Math.random().toString(36).substr(2, 9);
+        const emptyVarientID = '_' + Math.random().toString(36).substr(2, 9);
         return this.fb.group({
             weight_name: 'weight - 0 lb',
             weight_unit: 'lb',
-            product_weight_variant_id: emptyWeight_variant_id,
+            product_weight_variant_id: emptyVarientID,
             featured_image_id: '',
             fileDetails: null,
             product_images: [],
@@ -196,7 +200,7 @@ export class VarientDetailsComponent implements OnInit {
 
     deleteGrindVariant(idx) {
         const weight = this.weightForm.get('weights') as FormArray;
-        this.grind_variants = weight['controls'][this.currentVarientIndex].get('grind_variants') as FormArray;
+        this.grind_variants = weight.controls[this.currentVarientIndex].get('grind_variants') as FormArray;
         this.grind_variants.removeAt(idx);
     }
     handleRoasterFile(e, index, type) {
@@ -208,23 +212,23 @@ export class VarientDetailsComponent implements OnInit {
                 if (file >= 2048) {
                     this.toaster.error('File too big, please select a file smaller than 2mb');
                 } else {
-                    const file = e.target.files;
+                    const imgFile: any = e.target.files;
                     const reader = new FileReader();
-                    reader.readAsDataURL(file[0]);
-                    reader.onload = (_event) => {
+                    reader.readAsDataURL(imgFile[0]);
+                    reader.onload = (event) => {
                         const imgURL = reader.result;
-                        fileObj['image_url'] = imgURL;
+                        fileObj.image_url = imgURL;
                     };
                     const fileObj = e.target.files;
-                    fileObj['isNew'] = true;
-                    fileObj['fileID'] = '_' + Math.random().toString(36).substr(2, 9);
+                    fileObj.isNew = true;
+                    fileObj.fileID = '_' + Math.random().toString(36).substr(2, 9);
                     const weight = this.weightForm.get('weights') as FormArray;
                     if (type == 'featured_image') {
-                        weight['controls'][this.currentVarientIndex]['controls']['fileDetails'].setValue(fileObj);
+                        weight.controls[this.currentVarientIndex]['controls'].fileDetails.setValue(fileObj);
                     } else {
-                        weight['controls'][this.currentVarientIndex]['controls']['product_images']['value'][index][
-                            'fileDetails'
-                        ] = fileObj;
+                        weight.controls[this.currentVarientIndex]['controls'].product_images.value[
+                            index
+                        ].fileDetails = fileObj;
                     }
                 }
             }
@@ -233,38 +237,38 @@ export class VarientDetailsComponent implements OnInit {
     deleteImage(index, type?) {
         const weight = this.weightForm.get('weights') as FormArray;
         if (type === 'feature_image') {
-            const getValue = weight['controls'][this.currentVarientIndex]['value'];
-            if (getValue && getValue['featured_image_id']) {
-                this.deleteImageIDs.push(getValue['featured_image_id']);
+            const getValue = weight.controls[this.currentVarientIndex].value;
+            if (getValue && getValue.featured_image_id) {
+                this.deleteImageIDs.push(getValue.featured_image_id);
             }
-            weight['controls'][this.currentVarientIndex]['controls']['fileDetails'].setValue(null);
-            weight['controls'][this.currentVarientIndex]['controls']['feature_image_set'].setValue(false);
-            weight['controls'][this.currentVarientIndex]['controls']['featured_image_id'].setValue('');
+            weight.controls[this.currentVarientIndex]['controls'].fileDetails.setValue(null);
+            weight.controls[this.currentVarientIndex]['controls'].feature_image_set.setValue(false);
+            weight.controls[this.currentVarientIndex]['controls'].featured_image_id.setValue('');
         } else {
-            const productArray = weight['controls'][this.currentVarientIndex]['controls']['product_images']['value'];
-            if (productArray[index]['fileDetails'] && productArray[index]['fileDetails']['image_id']) {
+            const productArray = weight.controls[this.currentVarientIndex]['controls'].product_images.value;
+            if (productArray[index].fileDetails && productArray[index].fileDetails.image_id) {
                 this.deleteImageIDs.push(productArray[index]);
             }
-            productArray[index]['fileDetails'] = null;
+            productArray[index].fileDetails = null;
         }
     }
     uploadImages() {
         const weight = this.weightForm.get('weights') as FormArray;
-        const getValue = weight['controls'][this.currentVarientIndex]['value'];
-        if (!getValue['featured_image_id'] && getValue['fileDetails']) {
-            this.uploadImage(getValue['fileDetails'], 'featured_image', 0, true);
+        const getValue = weight.controls[this.currentVarientIndex].value;
+        if (!getValue.featured_image_id && getValue.fileDetails) {
+            this.uploadImage(getValue.fileDetails, 'featured_image', 0, true);
         }
-        const productImageArray = weight['controls'][this.currentVarientIndex]['controls']['product_images']['value'];
+        const productImageArray = weight.controls[this.currentVarientIndex]['controls'].product_images.value;
         const getNewImage = productImageArray.filter(
-            (ele) => ele['fileDetails'] && !ele['fileDetails']['image_id'] && ele['fileDetails']['image_url'],
+            (ele) => ele.fileDetails && !ele.fileDetails.image_id && ele.fileDetails.image_url,
         );
         getNewImage.forEach((ele, index) => {
-            if (ele['fileDetails'] && !ele['fileDetails']['image_id'] && ele['fileDetails']['image_url']) {
+            if (ele.fileDetails && !ele.fileDetails.image_id && ele.fileDetails.image_url) {
                 let showToaster = false;
                 if (index === getNewImage.length - 1) {
                     showToaster = true;
                 }
-                this.uploadImage(ele['fileDetails'], 'product_images', showToaster);
+                this.uploadImage(ele.fileDetails, 'product_images', showToaster);
             }
         });
     }
@@ -275,16 +279,15 @@ export class VarientDetailsComponent implements OnInit {
         if (UploadedFile.success) {
             const weight = this.weightForm.get('weights') as FormArray;
             if (type === 'featured_image') {
-                weight['controls'][this.currentVarientIndex]['controls']['featured_image_id'].setValue(
+                weight.controls[this.currentVarientIndex]['controls'].featured_image_id.setValue(
                     UploadedFile.result.id,
                 );
                 this.toaster.success('Image uploaded successfully');
             } else {
-                const productImageArray =
-                    weight['controls'][this.currentVarientIndex]['controls']['product_images']['value'];
-                let foundObj = productImageArray.find((ele) => ele['fileDetails']['fileID'] === fileObj['fileID']);
+                const productImageArray = weight.controls[this.currentVarientIndex]['controls'].product_images.value;
+                const foundObj = productImageArray.find((ele) => ele.fileDetails.fileID === fileObj.fileID);
                 if (foundObj) {
-                    foundObj['image_id'] = UploadedFile.result.id;
+                    foundObj.image_id = UploadedFile.result.id;
                 }
                 if (showToaster) {
                     this.toaster.success('Image uploaded successfully');
@@ -293,5 +296,14 @@ export class VarientDetailsComponent implements OnInit {
         } else {
             this.toaster.error('Error while uploading image.');
         }
+    }
+    createWeightVariantArray() {
+        this.weightVariantArray = [];
+        const weight = this.weightForm.get('weights') as FormArray;
+        weight['value'].forEach((ele, index) => {
+            const weightName = 'Weight -' + (ele.weight ? ele.weight : 0) + ' ' + ele.weight_unit;
+            this.weightVariantArray.push({ label: weightName, value: index });
+        });
+        this.weightVariantArray.push({ label: '', value: 'button' });
     }
 }
