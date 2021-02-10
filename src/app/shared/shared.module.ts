@@ -61,6 +61,7 @@ import { ReadMoreComponent } from './components/read-more/read-more.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 // #region material
 const MATMODULES = [];
@@ -149,6 +150,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ...PIPES,
         ConfirmComponent,
         BlogCardComponent,
+        BarChartComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -164,6 +166,7 @@ const PIPES = [CountryPipe, MonthPipe];
         ...DIRECTIVES,
         ...PIPES,
         BlogCardComponent,
+        BarChartComponent,
     ],
 })
 export class SharedModule {}
