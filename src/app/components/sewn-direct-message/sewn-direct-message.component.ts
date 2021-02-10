@@ -1,8 +1,7 @@
-import { UserListItem } from './../../../models/message';
 /* tslint:disable no-string-literal */
 import { UserserviceService, SocketService } from '@services';
 import { HttpClient } from '@angular/common/http';
-import { ChatService } from './chat.service';
+import { ChatHandlerService } from '../../../services/chat/chat-handler.service';
 import { GlobalsService } from '@services';
 import { catchError, debounce, first } from 'rxjs/operators';
 import { Subscription, Observable, BehaviorSubject, fromEvent, interval, Subject } from 'rxjs';
@@ -20,6 +19,8 @@ import {
     ServiceCommunicationType,
     ChatMessage,
     IncomingChatMessage,
+    UserListItem,
+    ThreadType,
 } from '@models';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
@@ -75,7 +76,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         private render: Renderer2,
         private elRef: ElementRef,
         private socket: SocketService,
-        public chatService: ChatService,
+        public chatService: ChatHandlerService,
         private userService: UserserviceService,
         public http: HttpClient,
     ) {}
@@ -96,7 +97,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.initializeWebSocket();
         this.updateUserStatus();
         this.updateUnRead();
-        this.SM['ChatService'] = this.chatService.chatSubject.subscribe(this.chatServiceRequestHandling);
+        this.SM['ChatHandlerService'] = this.chatService.chatSubject.subscribe(this.chatServiceRequestHandling);
     }
 
     ngAfterViewInit() {
@@ -360,7 +361,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     handleThreadsResponse(WSmsg: WSResponse<ThreadListItem[]>) {
         if (WSmsg.code === 200) {
-            this.threadList = (WSmsg.data || []).filter((thread) => thread.type === 'normal');
+            this.threadList = (WSmsg.data || []).filter((thread) => thread.type === ThreadType.normal);
             this.threadList.forEach((thread) => {
                 const activeUser: ThreadMembers[] = [];
                 const targtedUserList: ThreadMembers[] = [];

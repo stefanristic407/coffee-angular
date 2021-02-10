@@ -1,4 +1,4 @@
-import { ChatService } from './../../../components/sewn-direct-message/chat.service';
+import { ChatHandlerService } from '../../../../services/chat/chat-handler.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GlobalsService } from 'src/services/globals.service';
@@ -22,7 +22,7 @@ export class DashboardNotifyComponent implements OnInit, OnDestroy {
         },
     ];
 
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService, public chat: ChatService) {}
+    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService, public chat: ChatHandlerService) {}
 
     ngOnInit(): void {
         this.disputesSub = this.welcomeSrv.disputes$.subscribe((res: any) => {

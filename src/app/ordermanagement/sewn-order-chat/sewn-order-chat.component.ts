@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { ThreadMembers, ChatMessage, IncomingChatMessage } from './../../../models/message';
 /* tslint:disable no-string-literal */
 
-import { ChatService } from './../../components/sewn-direct-message/chat.service';
+import { ChatHandlerService } from '../../../services/chat/chat-handler.service';
 import { GlobalsService, SocketService, UserserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
@@ -22,12 +22,27 @@ export class SewnOrderChatComponent implements OnInit {
     messageList: ChatMessage[] = [];
     SM: { [SubscriptionName: string]: Subscription } = {}; // Subscrition MAP object
 
+    orderTypes = {
+        GC_ORDER: {
+            color: '#f19634',
+            name: 'Booked',
+        },
+        GC_ORDER_SAMPLE: {
+            color: '#629b20',
+            name: 'Sample',
+        },
+        PREBOOK_LOT: {
+            color: '#8872ef',
+            name: 'Prebook',
+        },
+    };
+
     audioPlayer = new Audio('assets/sounds/notification.mp3');
     constructor(
         private cookieService: CookieService,
         public globals: GlobalsService,
         private socket: SocketService,
-        public chatService: ChatService,
+        public chatService: ChatHandlerService,
         private userService: UserserviceService,
     ) {}
 
@@ -85,37 +100,7 @@ export class SewnOrderChatComponent implements OnInit {
             return 'Unknown';
         }
     }
-    handleIncomingMessages(WSmsg: WSResponse<IncomingChatMessage>) {
-        console.log('incoming', WSmsg);
-        const message = WSmsg.data;
-        if (WSmsg.code === 201 && (message?.content || '').trim() !== '') {
-            if (message.activity_type === ThreadActivityType.message) {
-                const inThread = this.threadList.find((thread) => thread.id === message.thread_id);
-                if (inThread) {
-                    this.processChatMessages(message, inThread);
-                    const user = message?.member?.user;
-                    if (user) {
-                        this.processThreadUser(user);
-                        console.log('incoming processed msg', user);
-                    }
-                    let isCurrentlyBottom = false;
-                    if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
-                        this.SM['lastRender'].unsubscribe();
-                    }
-                    this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                        if (isCurrentlyBottom) {
-                            this.scrollbottom();
-                        }
-                    });
-                    this.messageList.push(message);
-                } else {
-                    // get thread add it into  list
-                }
-            }
-        } else {
-            console.log('Websocket:Incoming Message : Failure');
-        }
-    }
+
     processChatMessages(message: ChatMessage | IncomingChatMessage, thread: ThreadListItem) {
         message.computed_date = this.getReadableTime(message.updated_at || message.created_at);
         if (thread.computed_targetedUser.id === message.member.id) {
