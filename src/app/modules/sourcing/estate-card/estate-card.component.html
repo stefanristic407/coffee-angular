@@ -26,18 +26,18 @@
             </div>
         </div>
         <div class="pad-card">
-            <div class="flex row">
-                <div class="orgin-att col-5 col-md-3">
+            <div class="d-flex flex-wrap">
+                <div class="orgin-att">
                     <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.origin }}</label>
                     <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">{{ data.country | country }}</h6>
                 </div>
-                <div class="orgin-att col-7 col-md-4">
+                <div class="orgin-att">
                     <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.altitude }}</label>
                     <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
                         {{ data.altitude?.gte }}-{{ data.altitude?.lte }} m
                     </h6>
                 </div>
-                <div class="orgin-att col-12 col-md-4">
+                <div class="orgin-att">
                     <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.crop_year }}</label>
                     <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
                         {{ data.crop_year?.gte | month }} - {{ data.crop_year?.lte | month }}

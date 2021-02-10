@@ -1,0 +1,29 @@
+@import '_variables.scss';
+
+.altitude-block {
+    @media (min-width: 768px) {
+        max-width: 286px;
+    }
+    .altitude-wrap {
+        width: calc(50% - 23px);
+        @media (min-width: 768px) {
+            width: 120px;
+        }
+    }
+}
+.flavour-block {
+    max-height: 246px;
+    overflow-y: auto;
+}
+.dialog-wrap {
+    padding: 20px 16px 24px 16px;
+    @media (min-width: 768px) {
+        padding: 2rem 1.5rem 1rem 1.5rem;
+    }
+}
+::ng-deep .p-checkbox-label {
+    color: $muted-text-color;
+    &.p-checkbox-label-active {
+        color: $general-text-color;
+    }
+}

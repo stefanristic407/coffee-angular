@@ -4,11 +4,19 @@
     top: -24px;
 }
 
-.altitude-wrap {
-    width: 42%;
+.close-button {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    @media (min-width: 768px) {
+        width: 32px;
+        height: 32px;
+    }
 }
 
-.flavour-block {
-    max-height: 246px;
-    overflow-y: auto;
+::ng-deep .p-dialog {
+    width: 90vw;
+    @media (min-width: 768px) {
+        width: 816px;
+    }
 }
