@@ -1,0 +1,46 @@
+<div>
+    <div class="vertical-bar">
+        <ngx-charts-bar-vertical
+            [view]="[width, height]"
+            [results]="results"
+            [xAxisLabel]="xAxisLabel"
+            [legendTitle]="legendTitle"
+            [yAxisLabel]="yAxisLabel"
+            [legend]="legend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [gradient]="gradient"
+            [barPadding]="barPadding"
+            [scheme]="scheme"
+            [noBarWhenZero]="noBarWhenZero"
+            [showDataLabel]="showDataLabel"
+        >
+            <!-- [yAxisTickFormatting]="yAxisTickFormattingFn" -->
+            <ng-template #tooltipTemplate let-model="model">
+                <div class="custom-chart-tooltip">$ {{ model.value | number: '1.0':'en-US' }}</div>
+            </ng-template>
+        </ngx-charts-bar-vertical>
+    </div>
+    <div class="horizontal-bar">
+        <ngx-charts-bar-horizontal
+            [view]="[width, height]"
+            [results]="results"
+            [xAxisLabel]="xAxisLabel"
+            [legendTitle]="legendTitle"
+            [yAxisLabel]="yAxisLabel"
+            [legend]="legend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [gradient]="gradient"
+            [barPadding]="barPadding"
+            [scheme]="scheme"
+            [noBarWhenZero]="noBarWhenZero"
+            [showDataLabel]="showDataLabel"
+        >
+        </ngx-charts-bar-horizontal>
+    </div>
+</div>
