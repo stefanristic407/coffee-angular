@@ -1,12 +1,26 @@
 .review-block {
-    .star-wrap {
-        margin-top: -10px;
+    .total-rating {
+        font-size: 36px;
+        margin-bottom: 2px;
+        @media (min-width: 768px) {
+            font-size: 40px;
+        }
     }
-    table td {
-        padding: 7px 7px 7px 0px !important;
-        border-bottom: none !important;
-        @media (min-width: 992px) {
-            padding: 8px 5px 8px 0px !important;
+    .star-wrap {
+        font-size: 18px;
+        line-height: 1;
+    }
+    table {
+        td {
+            border-bottom: none !important;
+            padding-top: 0;
+            padding-bottom: 24px;
+            line-height: 1;
+        }
+        tr:last-child {
+            td {
+                padding-bottom: 0;
+            }
         }
     }
 
@@ -43,6 +57,12 @@
 
 .message-space {
     @media (min-width: 768px) {
-        margin-left: 42px;
+        margin-left: 50px;
+    }
+}
+
+.review-list {
+    @media (min-width: 768px) {
+        padding-right: 54px;
     }
 }

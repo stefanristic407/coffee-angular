@@ -11,7 +11,7 @@ export class ReadMoreComponent implements OnInit, AfterViewInit {
     @Input() content: any;
     @Input() rows = 1;
     public contentVisibility = false;
-    lineHeight = 16;
+    lineHeight: any = 16;
 
     constructor() {}
 
@@ -24,7 +24,14 @@ export class ReadMoreComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         setTimeout(() => {
-            this.lineHeight = +window.getComputedStyle(this.contentDom.nativeElement).lineHeight.replace('px', '');
+            this.lineHeight = window.getComputedStyle(this.contentDom.nativeElement).lineHeight;
+            if (this.lineHeight === 'normal') {
+                this.lineHeight = Math.ceil(
+                    +window.getComputedStyle(this.contentDom.nativeElement).fontSize.replace('px', '') * 1.25,
+                );
+            } else {
+                this.lineHeight = +this.lineHeight.replace('px', '');
+            }
             if (this.contentDom.nativeElement.scrollHeight <= this.lineHeight * this.rows) {
                 this.buttonDom.nativeElement.style.display = 'none';
             }
