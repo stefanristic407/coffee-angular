@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
 import { GlobalsService } from '@services';
 import { SourcingService } from '../sourcing.service';
+import { FilterComponent } from '../filter/filter.component';
 
 @Component({
     selector: 'app-sourcing',
     templateUrl: './sourcing.component.html',
     styleUrls: ['./sourcing.component.scss'],
+    providers: [DialogService],
 })
 export class SourcingComponent implements OnInit {
     menuItems: any[];
@@ -38,19 +41,12 @@ export class SourcingComponent implements OnInit {
         { label: 'Price (High - low)', value: 'price' },
         { label: 'Quantity (High- Low)', value: 'quantity' },
     ];
-    listingStatusItems = [
-        { label: 'At Estate', value: 'ESTATE' },
-        { label: 'At mill', value: 'MILL' },
-        { label: 'Warehouse', value: 'WAREHOUSE' },
-    ];
 
     queryParams: any;
     viewMode = 'grid';
     viewModeItems: any[] = [{ value: 'table' }, { value: 'grid' }];
-    displayFilterModal = false;
-    limitFlavour = true;
 
-    constructor(public globals: GlobalsService, public sourcingSrv: SourcingService) {}
+    constructor(public dialogSrv: DialogService, public globals: GlobalsService, public sourcingSrv: SourcingService) {}
 
     ngOnInit(): void {
         this.menuItems = [
@@ -73,5 +69,12 @@ export class SourcingComponent implements OnInit {
 
     changeViewMode() {
         this.sourcingSrv.viewMode.next(this.viewMode);
+    }
+
+    openFilter() {
+        this.dialogSrv.open(FilterComponent, {
+            data: {},
+            showHeader: false,
+        });
     }
 }

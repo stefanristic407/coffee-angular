@@ -25,6 +25,7 @@ import { HarvestCardComponent } from './harvest-card/harvest-card.component';
 import { GreenCoffeeComponent } from './estate-details/green-coffee/green-coffee.component';
 import { GallaryComponent } from './estate-details/gallary/gallary.component';
 import { WhyUsComponent } from './estate-details/why-us/why-us.component';
+import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { WhyUsComponent } from './estate-details/why-us/why-us.component';
         GreenCoffeeComponent,
         GallaryComponent,
         WhyUsComponent,
+        FilterComponent,
     ],
     imports: [
         CommonModule,
@@ -55,5 +57,6 @@ import { WhyUsComponent } from './estate-details/why-us/why-us.component';
         }),
         RatingModule,
     ],
+    entryComponents: [FilterComponent],
 })
 export class SourcingModule {}

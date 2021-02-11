@@ -120,29 +120,34 @@ span.star {
     float: left;
     border-bottom: 1px solid #eeeeee;
     padding: 16px 0;
-}
 
+    label {
+        float: left;
+        width: 36%;
+        margin-bottom: 0;
+        color: #747588;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: normal;
+        padding-right: 24px;
+        @media (min-width: 768px) {
+            padding-right: 40px;
+        }
+    }
+
+    p {
+        margin-bottom: 0;
+        width: 60%;
+        float: left;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: normal;
+        color: #232334;
+    }
+}
 .estate-focus:not(.with-last-border) ul li:last-child {
     border-bottom: none;
     padding-bottom: 0;
-}
-
-.estate-focus ul li label {
-    float: left;
-    width: 37%;
-    margin-bottom: 0;
-    color: #747588;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.estate-focus ul li p {
-    margin-bottom: 0;
-    width: 60%;
-    float: left;
-    font-size: 14px;
-    color: #232334;
-    font-weight: 600;
 }
 
 .estate-chat-btn {
@@ -203,8 +208,9 @@ span.star {
     display: inline-block;
     font-size: 12px;
     font-weight: 600;
+    line-height: 15px;
     border: 1px solid #ebebeb;
-    padding: 5px 9px 3px 15px;
+    padding: 4px 7px 3px 15px;
     border-radius: 12px;
     position: relative;
     color: $muted-text-color;

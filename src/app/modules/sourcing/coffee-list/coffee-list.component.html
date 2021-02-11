@@ -43,15 +43,12 @@
                     routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}"
                 >
                     <td>{{ item.name }}</td>
-                    <td>{{ item.estate?.name || '-' }}</td>
+                    <td>{{ item.estate?.name || 'NA' }}</td>
                     <td>{{ item.lot?.country | country }}</td>
-                    <td>{{ item.lot?.varieties.join(', ') || '-' }}</td>
+                    <td>{{ item.lot?.varieties[0] || 'NA' }}</td>
                     <td>{{ item.price_unit }}{{ item.price }} {{ Currencies[item.price_unit] }}&nbsp;/&nbsp;kg</td>
-                    <td>
-                        {{ item.quantity_count }}&nbsp;{{ item.quantity_type }} of {{ item.quantity
-                        }}{{ item.quantity_unit }}
-                    </td>
-                    <td>{{ item.flavours }}</td>
+                    <td>{{ item.quantity_count }}&nbsp;{{ item.quantity_type | lowercase }}</td>
+                    <td>{{ item.flavours?.length ? item.flavours.join(', ') : 'NA' }}</td>
                     <td>{{ item.cup_score }}</td>
                 </tr>
             </ng-template>

@@ -3,6 +3,15 @@
 @import '../variables';
 
 // Checkbox
+.p-checkbox {
+    width: 18px;
+    height: 18px;
+}
+.p-checkbox .p-checkbox-box {
+    width: 18px;
+    height: 18px;
+}
+
 .p-checkbox .p-checkbox-box.p-highlight {
     border-color: $primary-color;
     background: $primary-color;
@@ -20,6 +29,7 @@
 }
 .p-checkbox-label {
     margin-bottom: 0;
+    margin-left: 12px;
     color: $general-text-color;
 }
 .p-field-checkbox {
@@ -32,9 +42,9 @@
     & > label {
         width: calc(100% - 32px);
         margin-left: 0.75rem;
-        line-height: 20px;
+        line-height: 18px;
         * {
-            line-height: 20px;
+            line-height: 18px;
         }
     }
 }
