@@ -66,7 +66,7 @@
     margin-bottom: 24px;
     &:first-child {
         border-right: 1px solid #ebebeb;
-        padding-right: 32px;
+        padding-right: 24px;
         margin-right: 24px;
     }
     @media (max-width: 767px) {
@@ -78,7 +78,7 @@
     @media (min-width: 768px) {
         &:nth-child(2) {
             border-right: 1px solid #ebebeb;
-            padding-right: 32px;
+            padding-right: 24px;
             margin-right: 24px;
         }
     }

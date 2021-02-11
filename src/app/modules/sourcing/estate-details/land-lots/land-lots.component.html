@@ -23,10 +23,13 @@
                         <td>{{ item.varietiesStr || 'NA' }}</td>
                         <td>{{ item.species || 'NA' }}</td>
                         <td>
-                            <div *ngIf="item.flavours != null" class="d-flex">
-                                <span *ngFor="let flavour of item.flavours" class="flavor mb-2">
-                                    {{ flavour.name }}
-                                </span>
+                            <div *ngIf="item.flavours != null">
+                                <ng-container *ngFor="let flavour of item.flavours; index as i">
+                                    <div *ngIf="i && i % 3 == 0" style="height: 8px"></div>
+                                    <span class="flavor mb-2" [class.with-dot]="i % 3">
+                                        {{ flavour.name }}
+                                    </span>
+                                </ng-container>
                             </div>
                             <div *ngIf="item.flavours == null">NA</div>
                         </td>
@@ -44,43 +47,43 @@
             <div *ngFor="let item of sourcing.estateLots">
                 <div class="br-main br-4 mb-4">
                     <div class="p-3">
-                        <h6 class="fnt-18 fnt-bold text-clr24 mb-3">{{ item.name }}</h6>
+                        <h6 class="fnt-18 lh-normal fnt-bold text-clr24 mb-3">{{ item.name }}</h6>
                         <div class="row mt-4 mt-md-0">
-                            <div class="col-4 mb-3">
+                            <div class="col-4">
                                 <div class="real-estate">
                                     <h6>{{ globals.languageJson?.lot_size }}</h6>
                                     <h3>{{ item.total_area || 'NA' }}</h3>
                                 </div>
                             </div>
-                            <div class="col-4 mb-3">
+                            <div class="col-4">
                                 <div class="real-estate">
                                     <h6>{{ globals.languageJson?.av_score }}</h6>
                                     <h3>{{ item.avg_cup_score || 'NA' }}</h3>
                                 </div>
                             </div>
-                            <div class="col-4 mb-3">
+                            <div class="col-4">
                                 <div class="real-estate">
                                     <h6>{{ globals.languageJson?.species }}</h6>
                                     <h3 class="ellipsis">{{ item.species || 'NA' }}</h3>
                                 </div>
                             </div>
-                            <div class="col-8 mb-3">
+                            <div class="col-8">
                                 <div class="real-estate">
                                     <h6>{{ globals.languageJson?.altitude }}</h6>
                                     <h3>{{ item.min_altitude }} - {{ item.max_altitude }}m</h3>
                                 </div>
                             </div>
-                            <div class="col-4 mb-3">
+                            <div class="col-4">
                                 <div class="real-estate">
                                     <h6>{{ globals.languageJson?.variety }}</h6>
                                     <h3>{{ item.varietiesStr || 'NA' }}</h3>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="real-estate">
+                                <div class="real-estate mb-0">
                                     <h6>{{ globals.languageJson?.flavour_profile }}</h6>
                                     <div *ngIf="item.flavours != null">
-                                        <span *ngFor="let flavour of item.flavours" class="flavor mb-2">
+                                        <span *ngFor="let flavour of item.flavours" class="custom-chip mb-2 mr-2">
                                             {{ flavour.name }}
                                         </span>
                                     </div>
@@ -102,7 +105,7 @@
 </div>
 
 <a *ngIf="globals.device === 'desktop'" class="estate-chat-btn active" routerLink="/features/sourcing-chat">
-    <span>Order #12416 chat</span>
+    <span>Chat with {{ sourcing.estate?.name }}</span>
 </a>
 
 <ng-template #empty>

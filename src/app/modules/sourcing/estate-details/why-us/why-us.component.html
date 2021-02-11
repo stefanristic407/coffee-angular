@@ -2,8 +2,10 @@
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <div>
-                <h2 class="fnt-mb-18 fnt-bold text-clr334">{{ sourcing.estateHomepage?.award_title }}</h2>
-                <div class="d-md-none">
+                <h2 class="fnt-mb-18 lh-normal fnt-bold text-clr334 mb-25 mb-md-3">
+                    {{ sourcing.estateHomepage?.award_title }}
+                </h2>
+                <div class="d-md-none mb-25">
                     <ng-container *ngTemplateOutlet="award"></ng-container>
                 </div>
                 <p class="fnt-16 text-clr334 mb-4">
@@ -25,7 +27,9 @@
         </div>
 
         <ng-template #award>
-            <app-media [url]="sourcing.estateHomepage?.award_file_url" [btnCenter]="true"></app-media>
+            <div class="media-wrap br-4 overflow-hidden">
+                <app-media [url]="sourcing.estateHomepage?.award_file_url" [btnCenter]="true"></app-media>
+            </div>
         </ng-template>
     </div>
 
@@ -83,7 +87,7 @@
                 {{ globals.languageJson?.make_our_brand_yours }}
             </h3>
         </div>
-        <div class="row gutter-05">
+        <div class="row gutter-8 gutter-md-16">
             <div class="col-lg-6 col-6">
                 <img src="assets/images/whymake-mob-1.jpg" class="w-100" />
             </div>

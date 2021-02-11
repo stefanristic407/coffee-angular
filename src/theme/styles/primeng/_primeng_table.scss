@@ -37,14 +37,11 @@
 
 .p-datatable .p-datatable-tbody > tr {
     border-bottom: 1px dashed $primary-border-color;
+    background-color: inherit;
 
     &:hover {
         box-shadow: 0 4px 26px 2px rgba(0, 0, 0, 0.05);
         cursor: pointer;
-    }
-
-    &:nth-child(even) {
-        background-color: inherit;
     }
 
     &:last-child {

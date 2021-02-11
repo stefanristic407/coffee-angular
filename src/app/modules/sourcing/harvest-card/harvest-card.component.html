@@ -25,13 +25,15 @@
                 <div class="orgin-att">
                     <label class="fnt-mb-14 lh-normal text-clr588 mb-2">Species</label>
                     <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
-                        {{ data.lot?.species[0] || '-' }}
+                        {{ data.lot?.species[0] || 'NA' }}
+                        {{ data.lot?.species?.length > 1 ? ' +' + (data.lot.species.length - 1) : '' }}
                     </h6>
                 </div>
                 <div class="orgin-att d-none d-md-block">
                     <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.variety }}</label>
                     <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
-                        {{ data.lot?.varieties[0] || '-' }}
+                        {{ data.lot?.varieties[0] || 'NA' }}
+                        {{ data.lot?.varieties?.length > 1 ? ' +' + (data.lot.varieties.length - 1) : '' }}
                     </h6>
                 </div>
                 <div class="orgin-att w-100">

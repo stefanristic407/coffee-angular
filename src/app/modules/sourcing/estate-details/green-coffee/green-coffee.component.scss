@@ -1,0 +1,13 @@
+.card-block {
+    margin-top: -24px;
+    @media (min-width: 768px) {
+        margin-top: -26px;
+    }
+}
+
+.card-wrap {
+    margin-top: 24px;
+    @media (min-width: 768px) {
+        margin-top: 26px;
+    }
+}

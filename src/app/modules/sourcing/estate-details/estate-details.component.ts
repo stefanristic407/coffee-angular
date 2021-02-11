@@ -28,6 +28,8 @@ export class EstateDetailsComponent implements OnInit {
 
     refreshData() {
         this.isLoaded = true;
+        this.sourcing.estate = null;
+        this.sourcing.lot = null;
         this.sourcing.estateDetailList();
         this.sourcing.getEstateHomepage();
         this.sourcing.getEstateAboutUs();

@@ -1,7 +1,7 @@
 <div class="pt-3 pt-md-45 px-3 px-md-0">
     <ng-container *ngIf="sourcing.estateGreenList?.length; else empty">
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-4 mb-3 mb-md-4" *ngFor="let item of sourcing.estateGreenList">
+        <div class="row gutter-26 card-block">
+            <div class="col-12 col-md-6 col-lg-4 card-wrap" *ngFor="let item of sourcing.estateGreenList">
                 <app-harvest-card [data]="item"></app-harvest-card>
             </div>
         </div>
