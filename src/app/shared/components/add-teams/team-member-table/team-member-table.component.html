@@ -5,17 +5,21 @@
         </div>
     </div>
     <div class="row m-0 mt-4">
-        <div *ngIf="isAddMember" class="d-inline col-sm-12 col-md-8 col-lg-8 col-xl-8 p-0 primary_txt">{{globals.languageJson?.add_team_members}}
+        <div *ngIf="isAddMember" class="d-inline col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 primary_txt">{{globals.languageJson?.add_team_members}}
             <span class="primary_txt roleTxt-selector" (click)="op.toggle($event)">
                 {{selectedRole}}
                 <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
             <div class="secondary_txt mt-1">{{globals.languageJson?.select_members_role}}</div>
-    
         </div>
-        <div *ngIf="isAddMember" class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-none d-md-block">
-            <button class="btn btn-raised pull-right" (click)="inviteNewMembers();">
-                <span class="update_text">{{globals.languageJson?.invite_new_members}}</span>
-            </button>
+        <div *ngIf="isAddMember" class="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 d-none d-sm-none d-md-flex">
+            <div class="w-100">
+                <button class="btn btn-raised pull-right" (click)="inviteNewMembers();">
+                    <span class="update_text">{{globals.languageJson?.invite_new_members}}</span>
+                </button>
+                <input type="text" name="search" class="search-raised pull-right mr-3" [(ngModel)]="termSearch"
+                    placeholder="{{globals.languageJson?.search_name_role}}" />
+                
+            </div>
         </div>
         <div *ngIf="isAddMember" class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-block d-sm-block d-md-none mt-4">
             <button class="btn btn-raised w-100" (click)="inviteNewMembers();">
@@ -41,35 +45,29 @@
                 (ngModelChange)="onSearch($event)" placeholder="{{globals.languageJson?.search_name_role}}" />
         </div>
         <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-            <div class="d-inline border-total status-div col-sm-6" id="status_id">
-                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" [outsideClick]="true" #pop="bs-popover">
-                    <p class="d-inline filter" (click)="showVar = !showVar;">
-                        {{ termStatus }}&nbsp; <img
-                            src="{{ showVar ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>
-            &nbsp;&nbsp;
-            <div class="d-inline border-total role-div col-sm-6" id="role_id">
-                <a class="pointer-item" [popover]="roleTemplate" placement="bottom" container="body" [outsideClick]="true" #pop1="bs-popover">
-                    <p class="d-inline filter" (click)="showRole = !showRole;">
-                        {{ termRole }}&nbsp;<img
-                            src="{{ showRole ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>
+            <p-dropdown [options]="statusFilterArray" optionLabel="name" optionValue="value" [(ngModel)]="termStatus"
+                (onChange)="filterCall()" scrollHeight="225px" [showClear]="true" placeholder="Status"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ termStatus ? 'highlight' : '' }}">
+            </p-dropdown>
+            <p-dropdown [options]="roleList" optionLabel="name" optionValue="id" [(ngModel)]="termRole"
+                (onChange)="filterCall()" scrollHeight="225px" [showClear]="true" placeholder="Role"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ termRole ? 'highlight' : '' }}">
+            </p-dropdown>
         </div>
-        <div *ngIf="isAddMember"class="col-sm-12 col-md-6 col-lg-4 search-div d-none d-sm-none d-md-block">
-            <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="termSearch"
-                placeholder="{{globals.languageJson?.search_name_role}}" />
+        <div *ngIf="selectedUsers && selectedUsers.length > 0" class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-3 d-none d-sm-none d-md-flex align-items-center justify-content-end">
+            <span class="secondary_txt float-right mr-3">
+                {{selectedUsers.length}} selected
+            </span>
+            <button *ngIf="selectedUsers.length > 0" type="button" class="btn btn-raised float-right"
+                (click)="assignUsersToRole()">{{globals.languageJson?.assign}}</button>            
         </div>
     </div>
-    <div *ngIf="selectedUsers && selectedUsers.length > 0"class="d-block d-sm-block d-md-none pt-3">
-        <span class="selectedLable">
+    <div *ngIf="selectedUsers && selectedUsers.length > 0" class="d-flex d-sm-flex d-md-none pt-3 align-items-center">
+        <span class="secondary_txt">
             {{selectedUsers.length}} selected
         </span>
         <button *ngIf="selectedUsers.length > 0" type="button" class="btn btn-raised pull-right ml-auto"
-                (click)="assignUsersToRole()">{{globals.languageJson?.assign}}</button>
+            (click)="assignUsersToRole()">{{globals.languageJson?.assign}}</button>
     </div>
     <div *ngIf="roleList && roleList.length"class="table-container userTable mb-2">
         <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
@@ -87,11 +85,11 @@
                         <p-sortIcon *ngIf="col.sortable === true" [field]="col.field" ariaLabel="Activate to sort"
                             ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
                         </p-sortIcon>
-                        <a *ngIf="col.field == 'roles'"class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"
+                        <!-- <a *ngIf="col.field == 'roles'"class="pointer-item" [popover]="roleTemplate" placement="bottom" [outsideClick]="true" container="body"
                             #pop5="bs-popover">
                             <p class="d-inline filter">
                                 &nbsp; <img src="assets/images/down-arrow.svg" /></p>
-                        </a>
+                        </a> -->
                     </th>
                 </tr>
             </ng-template>
@@ -246,12 +244,6 @@
         
         </p-table>
     </div>
-    <div *ngIf="isAddMember" class="d-none d-sm-none d-md-block">
-        <button type="button" class="btn btn-stroked mt-4"
-            routerLink="/people/manage-role">{{globals.languageJson?.cancel}}</button>
-        <button *ngIf="selectedUsers.length > 0" type="button" class="btn btn-raised mt-4 pull-right ml-auto"
-            (click)="assignUsersToRole()">{{globals.languageJson?.assign}}</button>
-    </div>
     <p-overlayPanel #op [dismissable]="true" appendTo="body">
         <div class="overflow-popover">
             <ul class="custom-popover">
@@ -263,27 +255,4 @@
             </button>
         </div>
     </p-overlayPanel>
-    <ng-template #roleTemplate>
-        <div>
-            <ul class="list-group">
-                <li class="list-group-item item-color">
-                    <a class="pointer-item"
-                        (click)="setRole();showRole = !showRole;">All</a>
-                </li>
-                <li class="list-group-item item-color" *ngFor="let role of roleList">
-                    <a class="pointer-item"
-                        (click)="setRole(role);showRole = !showRole">{{role.name }}</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
-    <ng-template #allTemplate>
-        <div id="status-content">
-            <ul class="list-group">
-                <li class="list-group-item item-color" *ngFor="let item of statusFilterArray">
-                    <a class="pointer-item" (click)="setStatus(item);showVar = !showVar">{{item.name}}</a>
-                </li>
-            </ul>
-        </div>
-    </ng-template>
 </div>

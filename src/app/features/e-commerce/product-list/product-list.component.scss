@@ -38,6 +38,9 @@
     letter-spacing: normal;
     color: #747588;
 }
+::ng-deep .productListTable .p-checkbox {
+    margin-left: 0px;
+}
 
 .list-group-item:hover {
     color: #232334;
@@ -48,7 +51,7 @@
     .filterLayout {
         margin-top: 1.5rem;
     }
-    :host ::ng-deep .p-datatable-tbody > tr > .nameMobileHeader {
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .nameMobileHeader {
         padding: 0px;
         width: 100% !important;
     }
@@ -59,11 +62,11 @@
         border-bottom: 1px dashed #d6d6d6;
         padding: 1rem 0px;
     }
-    :host ::ng-deep .p-datatable-tbody > tr > .cardBottom {
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .cardBottom {
         margin-bottom: 14px;
         border-bottom: 1px solid #d6d6d6 !important;
     }
-    :host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+    :host ::ng-deep .productListTable .p-datatable .p-datatable-tbody > tr {
         border-bottom: 0px !important;
     }
     .borderCard {

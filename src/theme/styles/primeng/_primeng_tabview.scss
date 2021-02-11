@@ -31,6 +31,7 @@
     color: $general-text-color;
     font-weight: 600;
     white-space: nowrap;
+    padding-top: 0;
 
     &::before {
         content: '';

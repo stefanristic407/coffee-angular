@@ -46,14 +46,20 @@
     .p-inputtext {
         padding: 0.9375rem 0.75rem;
         border-radius: 4px;
+        width: 100%;
     }
     .p-error {
         display: none;
+        font-size: 14px;
+        font-weight: 600;
     }
     .ng-dirty ~ .p-error {
         display: block !important;
     }
     .ng-dirty + .p-error {
+        display: block !important;
+    }
+    .ng-touched + .p-error {
         display: block !important;
     }
 
@@ -63,10 +69,11 @@
         display: inline-block;
         .p-inputgroup-addon {
             position: absolute;
-            padding: 1rem;
+            padding: 0.9375rem 1rem;
             top: 0;
             right: 0;
             border: none;
+            line-height: 18px;
             color: $muted-text-color;
         }
         .p-inputnumber {
@@ -75,6 +82,11 @@
         .p-inputnumber-input {
             padding-right: 4rem;
         }
+    }
+
+    .p-autocomplete,
+    .p-dropdown {
+        width: 100%;
     }
 }
 

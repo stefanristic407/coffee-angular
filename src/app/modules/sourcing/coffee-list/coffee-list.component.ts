@@ -14,6 +14,7 @@ export class CoffeeListComponent implements OnInit, OnDestroy {
     Currencies = {
         $: 'USD',
     };
+    isLoaded = false;
     roasterId: any;
     coffeedata: any[] = [];
     queryParams: any;
@@ -28,6 +29,7 @@ export class CoffeeListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.sourcingSrv.clearQueryParams();
         this.queryParamsSub = this.sourcingSrv.queryParams$.subscribe((res: any) => {
             this.queryParams = res;
             this.getAvailableCoffee();
@@ -51,12 +53,23 @@ export class CoffeeListComponent implements OnInit, OnDestroy {
             }
         });
         const queryStr = '?' + query.join('&');
-
+        this.isLoaded = false;
         this.userService.getAvailableGreenCoffee(this.roasterId, queryStr).subscribe((res: any) => {
+            this.isLoaded = true;
             if (res.success) {
                 this.coffeedata = res.result;
                 console.warn(this.coffeedata);
             }
+        });
+    }
+
+    getData(event) {
+        setTimeout(() => {
+            this.sourcingSrv.queryParams.next({
+                ...this.queryParams,
+                sort_by: event.sortField,
+                sort_order: event.sortOrder === 1 ? 'asc' : 'desc',
+            });
         });
     }
 }

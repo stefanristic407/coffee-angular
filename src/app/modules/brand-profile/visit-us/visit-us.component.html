@@ -1,204 +1,190 @@
 <section>
-    <div class="bg-fff mb-4">
-        <div class="row">
-            <div class="col-12 d-flex no-block align-items-center">
-                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                    <span id="title-breadcrumb-1" class="sr-only"></span>
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <!-- <li class="b-cum">
-                                <a class="b-cum">{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                            </li> -->
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/brand-profile">{{
-                                globals.languageJson?.brand_profile
-                            }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <li class="b-cum c-pink">Visit Us</li>
-                    </ul>
-                </nav>
+    <div class="main-block">
+        <p-breadcrumb [model]="breadItems" styleClass="mb-3 mb-md-4"></p-breadcrumb>
+
+        <div class="d-flex justify-content-between align-items-start mb-4 mb-md-45 pt-3">
+            <div>
+                <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Visit Us</h4>
+                <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-0">
+                    Add details according to respective sections to create your brand profile website
+                </p>
+            </div>
+            <div class="d-none d-md-block">
+                <button type="button" class="btn-stroked mr-2">Preview</button>
+                <button type="button" class="btn-raised ml-1" (click)="saveVisitProfile()">Save</button>
             </div>
         </div>
 
-        <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec px-0">
-            <div class="row mb-4">
-                <div class="col-md-6 col-12">
-                    <p class="brand-profile">Visit Us</p>
-                    <p class="brand-para">
-                        Add details according to respective sections to create your brand profile website
-                    </p>
-                </div>
-                <div class="col-md-6 col-12 web-farm">
-                    <button type="button" class="save ml-3 pull-right" (click)="saveVisitProfile()">Save</button>
-                    <button type="button" class="preview">Preview</button>
-                </div>
-            </div>
+        <form [formGroup]="infoForm" novalidate>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="br-main br-2 p-3 p-md-4">
+                        <h4 class="fnt-18 fnt-700 text-clr334">Banner<span class="star">*</span></h4>
+                        <p class="fnt-14 fnt-600 text-clr334 mb-1">Image/Video banner<span class="star">*</span></p>
+                        <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 1440 x 465 px</p>
 
-            <div class="row px-3">
-                <div class="col-lg-8 col-md-12 col-sm-12 border p-4">
-                    <p class="header-text fnt-muli">Banner<span class="star">*</span></p>
-                    <label class="w-100 sub-header-text fnt-muli">Image/Video banner<span class="star">*</span></label>
-                    <p class="sub-text fnt-muli">Size - 1440 x 465 px</p>
-                    <label class="mt-3">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            (change)="onFileChange($event, 1440, 465, 'Banner')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli">{{ banner_image_name }}</span>
-                    <!-- <button class="save " type="button">Upload</button> -->
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Banner Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ globals.countTheString(banner_title, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="banner-title"
-                        id="banner-title"
-                        [(ngModel)]="banner_title"
-                        maxlength="{{ globals.getTheMaxLength(banner_title, 10) }}"
-                    />
-                </div>
-            </div>
+                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
+                                Please upload
+                            </small>
+                        </div>
 
-            <div class="row px-3 pt-4">
-                <div class="col-lg-8 col-md-12 col-sm-12 p-4 border">
-                    <p class="header-text fnt-muli">Contact Info</p>
-                    <p class="w-100 sub-header-text fnt-muli">Your details to get in touch!</p>
-                    <p class="header-text fnt-muli">Address<span class="star">*</span></p>
+                        <div class="w-100 sewn-form-field mb-0">
+                            <label>
+                                Banner Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('banner_title').value | wordCount }}/15 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="banner_title" pInputText />
+                            <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.banner_title.errors?.maxWordCount" class="p-error">
+                                Please input 15 words
+                            </small>
+                        </div>
+                    </div>
 
-                    <div class="row">
-                        <div class="roastery-fields col-md-6 col-12">
-                            <div class="farm-input col-12 px-0">
-                                <label class="label pl-1">Country<span class="star">*</span></label>
-                                <select
-                                    name="Year"
-                                    required=""
-                                    class="form-control select-region"
-                                    [(ngModel)]="country"
-                                    (change)="changeCountry()"
+                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                        <h4 class="fnt-18 fnt-700 text-clr334">Contact Info</h4>
+                        <p class="fnt-14 fnt-600 text-clr334 mb-4 mb-md-45">Your details to get in touch!</p>
+
+                        <h4 class="fnt-18 fnt-700 text-clr334 mb-4">Address<span class="star">*</span></h4>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>Country<span class="star">*</span></label>
+                                <p-dropdown
+                                    [options]="globals.countryList"
+                                    optionLabel="name"
+                                    optionValue="isoCode"
+                                    formControlName="country"
+                                    (onChange)="changeCountry()"
+                                    placeholder="{{ globals.languageJson?.select_country }}"
+                                ></p-dropdown>
+                                <small *ngIf="infoForm.controls.country.errors?.required" class="p-error">
+                                    Please select your country
+                                </small>
+                            </div>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>State</label>
+                                <p-dropdown
+                                    [options]="cities"
+                                    formControlName="state"
+                                    placeholder="{{ globals.languageJson?.select_state }}"
+                                ></p-dropdown>
+                            </div>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>{{ globals.languageJson?.address }}<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    placeholder="Please enter your e-mail address"
+                                    formControlName="address1"
+                                    pInputText
+                                    placeholder="Line 1"
+                                />
+                                <small *ngIf="infoForm.controls.address1.errors?.required" class="p-error">
+                                    Please enter address
+                                </small>
+                            </div>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>{{ globals.languageJson?.address }}</label>
+                                <input type="text" placeholder="Line 2" formControlName="address2" pInputText />
+                            </div>
+                            <div class="col-6 col-md-3 sewn-form-field">
+                                <label>City<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    placeholder="{{ globals.languageJson?.enter_city }}"
+                                    formControlName="city"
+                                    pInputText
+                                />
+                                <small *ngIf="infoForm.controls.city.errors?.required" class="p-error">
+                                    Please enter city
+                                </small>
+                            </div>
+                            <div class="col-6 col-md-3 sewn-form-field">
+                                <label>{{ globals.languageJson?.zipcode }}<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    placeholder="{{ globals.languageJson?.zipcode }}"
+                                    formControlName="zip_code"
+                                    pInputText
+                                />
+                                <small *ngIf="infoForm.controls.zip_code.errors?.required" class="p-error">
+                                    Please enter zipcode
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="divider mb-4"></div>
+                        <h4 class="fnt-18 fnt-700 text-clr334 mb-4">Contact details<span class="star">*</span></h4>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label>Email Address<span class="star">*</span></label>
+                                <input
+                                    type="text"
+                                    placeholder="Roastery email"
+                                    formControlName="email"
+                                    pInputText
+                                    placeholder="Line 1"
+                                />
+                                <small *ngIf="infoForm.controls.email.errors?.required" class="p-error">
+                                    Please enter email
+                                </small>
+                                <small *ngIf="infoForm.controls.email.errors?.email" class="p-error">
+                                    Please enter valid email
+                                </small>
+                            </div>
+                            <div class="col-12 col-md-6 sewn-form-field">
+                                <label
+                                    >Phone Number<span class="star">*</span>
+                                    <span class="flag-icon flag-icon-gr"></span>
+                                </label>
+                                <ngx-intl-tel-input
+                                    [cssClass]="'custom-intl-tel-input'"
+                                    [preferredCountries]="preferredCountries"
+                                    [enableAutoCountrySelect]="true"
+                                    [enablePlaceholder]="true"
+                                    [searchCountryFlag]="true"
+                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                    [selectFirstCountry]="false"
+                                    [maxLength]="'15'"
+                                    [tooltipField]="TooltipLabel.Name"
+                                    [separateDialCode]="true"
+                                    [numberFormat]="PhoneNumberFormat.National"
+                                    formControlName="phone"
+                                    class="w-100"
+                                    required
                                 >
-                                    <option value="" selected="" disabled="">Please select your country</option>
-                                    <option
-                                        *ngFor="let count of roasterProfileService.countryList"
-                                        value="{{ count.isoCode }}"
-                                    >
-                                        {{ count.name }}
-                                    </option>
-                                </select>
+                                </ngx-intl-tel-input>
+                                <small *ngIf="infoForm.controls.phone.errors?.required" class="p-error">
+                                    Please enter phone number
+                                </small>
                             </div>
                         </div>
 
-                        <div class="roastery-fields col-12 col-md-6">
-                            <div class="farm-input col-12 px-0">
-                                <label class="label pl-1">State<span class="star">*</span></label>
-                                <select name="Year" required="" class="form-control select-region" [(ngModel)]="state">
-                                    <option value="" selected="" disabled="">Please select your State</option>
-                                    <option *ngFor="let city of roasterProfileService.cities" value="{{ state }}">
-                                        {{ city }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <label class="w-100 sub-header-text fnt-muli mt-3"
-                                >Address<span class="star">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control banner-title"
-                                name="line1"
-                                id="line1"
-                                placeholder="Line 1"
-                                [(ngModel)]="address1"
-                            />
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <label class="w-100 sub-header-text fnt-muli mt-3">&nbsp;</label>
-                            <input
-                                type="text"
-                                class="form-control banner-title"
-                                name="line2"
-                                id="line2"
-                                placeholder="Line 2"
-                                [(ngModel)]="address2"
-                            />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-6">
-                            <label class="w-100 sub-header-text fnt-muli mt-3">City<span class="star">*</span> </label>
-                            <input
-                                type="text"
-                                class="form-control banner-title"
-                                name="city"
-                                id="city"
-                                placeholder="city"
-                                [(ngModel)]="city"
-                            />
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6">
-                            <label class="w-100 sub-header-text fnt-muli mt-3">Zipcode</label>
-                            <input
-                                type="text"
-                                class="form-control banner-title"
-                                name="zipcode"
-                                id="zipcode"
-                                [(ngModel)]="zip_code"
-                            />
-                        </div>
-                    </div>
-
-                    <p class="bor-top mt-4"></p>
-                    <p class="header-text fnt-muli">Contact details<span class="star">*</span></p>
-
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <label class="w-100 sub-header-text fnt-muli mt-3"
-                                >Email Address<span class="star">*</span>
-                            </label>
-                            <input
-                                type="email"
-                                class="form-control banner-title"
-                                name="Email"
-                                id="email"
-                                placeholder="Roastery email"
-                                [(ngModel)]="email"
-                            />
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <label class="w-100 sub-header-text fnt-muli mt-3"
-                                >Phone Number<span class="star">*</span>
-                            </label>
-                            <input
-                                type="tel"
-                                class="form-control banner-title"
-                                name="Phone"
-                                id="Phone"
-                                placeholder="+46"
-                                [(ngModel)]="phoneNumber"
-                            />
-                        </div>
+                        <div class="divider mb-4"></div>
+                        <h4 class="fnt-18 fnt-700 text-clr334 mb-4">Store timings<span class="star">*</span></h4>
                     </div>
                 </div>
+            </div>
+        </form>
 
+        <div class="mt-45">
+            <button type="button" class="btn-stroked mr-4" routerLink="/brand-profile">Cancel</button>
+            <button type="button" class="btn-raised" (click)="saveVisitProfile()">Save</button>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="bg-fff mb-4">
+        <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec px-0">
+            <div class="row px-3 pt-4">
                 <div class="col-lg-8 col-md-12 col-sm-12 p-4 border mt-3">
                     <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">FAQs</h4>
                     <p class="fnt-14 fnt-600 fnt-muli text-clr334">Help your users solves questions faster</p>

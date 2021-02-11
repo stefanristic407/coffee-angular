@@ -15,8 +15,6 @@ import { MenuItem } from 'primeng/api';
 })
 export class ProductListComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
-    showStatus = false;
-    showOrigin = false;
     statusFilter;
     originFilter;
     priceFilter;

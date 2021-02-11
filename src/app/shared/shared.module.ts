@@ -42,6 +42,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 import { CountryPipe } from './pipes/country/country.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
@@ -73,6 +74,9 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
 import { InviteNewUserComponent } from './components/add-teams/invite-new-user/invite-new-user.component';
 import { EditUserDetailsComponent } from './components/add-teams/edit-user-details/edit-user-details.component';
 import { SendRecoveryEmailComponent } from './components/add-teams/send-recovery-email/send-recovery-email.component';
+import { BlogCardComponent } from './components/blog-card/blog-card.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 // #region material
 const MATMODULES = [];
@@ -118,6 +122,7 @@ const THIRDMODULES = [
     GalleryModule,
     LightboxModule,
     MatVideoModule,
+    NgxIntlTelInputModule,
 ];
 // #endregion
 
@@ -140,6 +145,7 @@ const COMPONENTS = [
     VideoPlayerComponent,
     ReadMoreComponent,
     UploaderComponent,
+    LoadingComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
@@ -171,6 +177,8 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         InviteNewUserComponent,
         EditUserDetailsComponent,
         SendRecoveryEmailComponent,
+        BlogCardComponent,
+        BarChartComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -186,6 +194,8 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         BreadcrumbComponent,
         ...DIRECTIVES,
         ...PIPES,
+        BlogCardComponent,
+        BarChartComponent,
     ],
 })
 export class SharedModule {}

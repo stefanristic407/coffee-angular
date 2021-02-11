@@ -13,7 +13,7 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./role-list.component.scss'],
 })
 export class RoleListComponent implements OnInit {
-    roaster_id: any;
+    roasterID: any;
     breadCrumbItem: MenuItem[] = [];
     tableColumns: any = [];
     tableValue: any = [];
@@ -21,6 +21,7 @@ export class RoleListComponent implements OnInit {
     totalCount = 0;
     modalRef: BsModalRef;
     deleteRoleID: any;
+    loader = false;
     constructor(
         public router: Router,
         private roasterService: RoasterserviceService,
@@ -61,26 +62,28 @@ export class RoleListComponent implements OnInit {
                 width: 10,
             },
         ];
-        if (this.cookieService.get('Auth') == '') {
+        if (this.cookieService.get('Auth') === '') {
             this.router.navigate(['/auth/login']);
         }
         if (!this.globals.checkItem('acl-management') && !this.globals.checkItem('acl-list')) {
             this.router.navigate(['/people/permission-error']);
         }
         this.supplyBreadCrumb();
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterID = this.cookieService.get('roaster_id');
     }
     getTableData(): void {
         this.tableValue = [];
-        this.roasterService.getRoles(this.roaster_id).subscribe(
-            (res) => {
-                if (res['success'] == true) {
-                    this.tableValue = res['result'];
-                    this.totalCount =
-                        res['result_info'] && res['result_info']['total_count'] ? res['result_info']['total_count'] : 0;
+        this.loader = true;
+        this.roasterService.getRoles(this.roasterID).subscribe(
+            (res: any) => {
+                this.loader = false;
+                if (res.success === true) {
+                    this.tableValue = res.result;
+                    this.totalCount = res.result_info && res.result_info.total_count ? res.result_info.total_count : 0;
                 }
             },
             (err) => {
+                this.loader = false;
                 console.error(err);
             },
         );
@@ -96,7 +99,7 @@ export class RoleListComponent implements OnInit {
             routerLink: '/people/manage-role',
             disabled: false,
         };
-        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles, disabled: true };
+        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj4);
@@ -111,15 +114,16 @@ export class RoleListComponent implements OnInit {
         this.router.navigate(['/people/team-members'], navigationExtras);
     }
     openDeleteModal(template1: TemplateRef<any>, deleteId: any): void {
-        this.modalRef = this.modalService.show(template1);
+        const config = {
+            class: 'modal-dialog-centered deleteModal',
+        };
+        this.modalRef = this.modalService.show(template1, config);
         this.deleteRoleID = deleteId;
     }
     deleteRole(id: any) {
-        this.roasterService.deleteRoles(this.roaster_id, id).subscribe((data) => {
-            if (data['success'] == true) {
+        this.roasterService.deleteRoles(this.roasterID, id).subscribe((data: any) => {
+            if (data.success === true) {
                 this.toastrService.success('Roles deleted successfully!');
-                $('#tr_' + id).hide();
-                $('body').trigger('click');
                 this.getTableData();
             } else {
                 this.toastrService.error('There are Users assigned to this role.');
@@ -128,5 +132,13 @@ export class RoleListComponent implements OnInit {
     }
     updateRole(id: any): void {
         this.router.navigate(['/people/create-role', id]);
+    }
+    duplicateRole(id: any): void {
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                duplicate: true,
+            },
+        };
+        this.router.navigate(['/people/create-role', id], navigationExtras);
     }
 }

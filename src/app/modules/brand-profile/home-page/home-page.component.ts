@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 import { maxWordCountValidator, fileCountValidator } from '@services';
 import { FormService } from '@services';
 import { GlobalsService } from '@services';
-import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
-import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
-import { UserserviceService } from 'src/services/users/userservice.service';
+import { RoasterserviceService } from '@services';
+import { UserserviceService } from '@services';
 import { ConfirmComponent } from '@shared';
 @Component({
     selector: 'app-home-page',
@@ -41,7 +41,6 @@ export class HomePageComponent implements OnInit {
     ngOnInit(): void {
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/welcome-aboard' },
-            { label: 'Farm Link' },
             { label: this.globals.languageJson?.brand_profile, routerLink: '/brand-profile' },
             { label: this.globals.languageJson?.home_page },
         ];
@@ -132,7 +131,6 @@ export class HomePageComponent implements OnInit {
     }
 
     saveHomeProfile() {
-        console.log(this.infoForm.value);
         if (this.infoForm.valid) {
             const postData = {
                 ...this.infoForm.value,

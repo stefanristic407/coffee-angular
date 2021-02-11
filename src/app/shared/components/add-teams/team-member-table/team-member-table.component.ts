@@ -13,21 +13,17 @@ import { MenuItem } from 'primeng/api';
     styleUrls: ['./team-member-table.component.scss'],
 })
 export class TeamMemberTableComponent implements OnInit {
-    roaster_id: any;
+    roasterID: any;
     breadCrumbItem: MenuItem[] = [];
     selectedRole = 'Role';
-    termStatus = 'Status';
-    statusValue = '';
-    termRole = 'Role';
-    filterRoleID = '';
-    showVar = true;
-    showRole = true;
+    termStatus;
+    termRole;
     termSearch = '';
     tableColumns: any = [];
     tableValue: any = [];
     tableSelected: any = [];
     totalCount = 0;
-    currentRoleID = '';
+    currentRoleID;
     roleList: any = [];
     selectedUsers: any = [];
     roasterUsers: any = [];
@@ -86,14 +82,13 @@ export class TeamMemberTableComponent implements OnInit {
             },
         ];
         this.statusFilterArray = [
-            { name: 'All', value: '' },
             { name: 'Active', value: 'active' },
             { name: 'Inactive', value: 'Inactive' },
             { name: 'Pending', value: 'pending' },
         ];
-        this.currentRoleID = this.route.snapshot.queryParams['roleID'];
+        this.currentRoleID = Number(this.route.snapshot.queryParams.roleID);
         this.isAddMember =
-            this.route.snapshot.queryParams['isAddMember'] && this.route.snapshot.queryParams['isAddMember'] == 'true'
+            this.route.snapshot.queryParams.isAddMember && this.route.snapshot.queryParams.isAddMember === 'true'
                 ? true
                 : false;
         if (!this.isAddMember) {
@@ -106,21 +101,20 @@ export class TeamMemberTableComponent implements OnInit {
         }
         this.supplyBreadCrumb();
         this.loginId = this.cookieService.get('user_id');
-        this.roaster_id = this.cookieService.get('roaster_id');
+        this.roasterID = this.cookieService.get('roaster_id');
         this.listRoles();
     }
     listRoles(): void {
-        this.roasterService.getRoles(this.roaster_id).subscribe(
-            (response) => {
-                if (response['success']) {
-                    const getCurrentRole = response['result'].find((ele) => ele['id'] == this.currentRoleID);
-                    this.selectedRole = getCurrentRole ? getCurrentRole['name'] : '';
+        this.roasterService.getRoles(this.roasterID).subscribe(
+            (response: any) => {
+                if (response.success) {
+                    const getCurrentRole = response.result.find((ele) => ele.id === this.currentRoleID);
+                    this.selectedRole = getCurrentRole ? getCurrentRole.name : '';
                     if (!this.isAddMember) {
-                        this.termRole = this.selectedRole;
-                        this.filterRoleID = getCurrentRole['id'];
+                        this.termRole = this.currentRoleID;
                     }
                 }
-                this.roleList = response['result'];
+                this.roleList = response.result;
                 this.getTableData();
             },
             (err) => {
@@ -131,37 +125,36 @@ export class TeamMemberTableComponent implements OnInit {
     }
     getTableData(): void {
         this.selectedUsers = [];
-        const postData = {};
-        postData['role_id'] = this.filterRoleID ? this.filterRoleID : '';
-        postData['name'] = this.termSearch ? this.termSearch : '';
-        // eslint-disable-next-line no-constant-condition
-        postData['status'] = !this.termStatus ? undefined : this.termStatus == 'Status' ? '' : this.statusValue;
-        postData['per_page'] = 100;
-        this.roasterService.getRoasterUsers(this.roaster_id, postData).subscribe(
-            (result) => {
-                if (result['success'] == true) {
-                    const userData = result['result'];
+        const postData: any = {};
+        postData.role_id = this.termRole ? this.termRole : '';
+        postData.name = this.termSearch ? this.termSearch : '';
+        postData.status = this.termStatus ? this.termStatus : undefined;
+        postData.per_page = 100;
+        this.roasterService.getRoasterUsers(this.roasterID, postData).subscribe(
+            (result: any) => {
+                if (result.success) {
+                    const userData = result.result;
                     if (userData && userData.length > 0) {
                         this.roasterUsers = [];
                         this.tableValue = [];
                         userData.forEach((element, index) => {
-                            const tempData = {};
-                            tempData['id'] = element.id;
-                            tempData['name'] = element.firstname + ' ' + element.lastname;
-                            tempData['email'] = element.email;
-                            tempData['status'] = element.status;
-                            tempData['last_login_at'] = element['last_login_at'];
+                            const tempData: any = {};
+                            tempData.id = element.id;
+                            tempData.name = element.firstname + ' ' + element.lastname;
+                            tempData.email = element.email;
+                            tempData.status = element.status;
+                            tempData.last_login_at = element.last_login_at;
                             const roleList = [];
-                            if (element['roles']) {
+                            if (element.roles) {
                                 const rolesName = element.roles.split(',');
                                 rolesName.forEach((ele) => {
-                                    const getRoles = this.roleList.find((item) => item.name == ele);
+                                    const getRoles = this.roleList.find((item) => item.name === ele);
                                     if (getRoles) {
                                         roleList.push(getRoles);
                                     }
                                 });
                             }
-                            tempData['roles'] = roleList;
+                            tempData.roles = roleList;
                             this.roasterUsers.push(tempData);
                         });
                     }
@@ -182,9 +175,7 @@ export class TeamMemberTableComponent implements OnInit {
     filterSelectedRoleUser(): void {
         this.tableValue = [];
         this.roasterUsers.forEach((ele) => {
-            const findCurrentRoleID = ele['roles']
-                ? ele['roles'].find((item) => item['id'] == this.currentRoleID)
-                : undefined;
+            const findCurrentRoleID = ele.roles ? ele.roles.find((item) => item.id === this.currentRoleID) : undefined;
             if ((this.isAddMember && !findCurrentRoleID) || (!this.isAddMember && findCurrentRoleID)) {
                 this.tableValue.push(ele);
             }
@@ -203,21 +194,11 @@ export class TeamMemberTableComponent implements OnInit {
         };
         const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles, disabled: true };
         if (!this.isAddMember) {
-            obj4['label'] = this.globals.languageJson?.user_management;
+            obj4.label = this.globals.languageJson?.user_management;
         }
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj4);
-    }
-    setRole(role?): void {
-        this.termRole = role && role['name'] ? role['name'] : 'All';
-        this.filterRoleID = role && role['id'] ? role['id'] : '';
-        this.getTableData();
-    }
-    setStatus(term: any) {
-        this.termStatus = term.name;
-        this.statusValue = term.value;
-        this.getTableData();
     }
     setTeamRole(roleName, roleID): void {
         this.currentRoleID = roleID;
@@ -238,11 +219,11 @@ export class TeamMemberTableComponent implements OnInit {
     assignUsersToRole(): void {
         let count = 0;
         this.selectedUsers.forEach((ele) => {
-            this.roasterService.assignUserBasedUserRoles(this.roaster_id, this.currentRoleID, ele['id']).subscribe(
-                (res) => {
+            this.roasterService.assignUserBasedUserRoles(this.roasterID, this.currentRoleID, ele.id).subscribe(
+                (res: any) => {
                     count++;
-                    if (res['success'] == true) {
-                        if (count == this.selectedUsers.length) {
+                    if (res.success) {
+                        if (count === this.selectedUsers.length) {
                             this.toastrService.success('Role Assigned Successfully!');
                             this.getTableData();
                         }
@@ -279,9 +260,9 @@ export class TeamMemberTableComponent implements OnInit {
     // Function Name : user Disable
     // Description: This function helps to disable the selected user.
     userDisable(disableId) {
-        if (confirm('Please confirm! you want to Disable Account?') == true) {
-            this.roasterService.disableAdminUsers(this.roaster_id, disableId).subscribe((result) => {
-                if (result['success'] == true) {
+        if (confirm('Please confirm! you want to Disable Account?') === true) {
+            this.roasterService.disableAdminUsers(this.roasterID, disableId).subscribe((result: any) => {
+                if (result.success) {
                     this.toastrService.success('Disabled User Account Successfully');
                     this.getTableData();
                 } else {
@@ -291,9 +272,9 @@ export class TeamMemberTableComponent implements OnInit {
         }
     }
     userEnable(enableId) {
-        if (confirm('Please confirm! you want to Enable Account?') == true) {
-            this.roasterService.enableAdminUser(this.roaster_id, enableId).subscribe((result) => {
-                if (result['success'] == true) {
+        if (confirm('Please confirm! you want to Enable Account?') === true) {
+            this.roasterService.enableAdminUser(this.roasterID, enableId).subscribe((result: any) => {
+                if (result.success) {
                     this.toastrService.success('Enabled User Account');
                     this.getTableData();
                 } else {
@@ -304,30 +285,32 @@ export class TeamMemberTableComponent implements OnInit {
     }
     makeAdmin(userDetails: any) {
         let findAdmin = false;
-        if (userDetails && userDetails['roles'] && userDetails['roles'].length > 0) {
-            findAdmin = userDetails.roles.find((ele) => ele['name'] == 'support-admins');
+        if (userDetails && userDetails.roles && userDetails.roles.length > 0) {
+            findAdmin = userDetails.roles.find((ele) => ele.name === 'support-admins');
             this.toastrService.error('Already an Admin.');
         }
         if (!findAdmin) {
-            const findAdminRole = this.roleList.find((ele) => ele['name'] == 'support-admins');
+            const findAdminRole = this.roleList.find((ele) => ele.name === 'support-admins');
             this.roasterService
-                .assignUserBasedUserRoles(this.roaster_id, findAdminRole['id'], userDetails['id'])
-                .subscribe((data) => {
-                    if (data['success'] == true) {
+                .assignUserBasedUserRoles(this.roasterID, findAdminRole.id, userDetails.id)
+                .subscribe((data: any) => {
+                    if (data.success) {
                         this.toastrService.success('User has been made Admin Successfully!');
                     }
                 });
         }
     }
     deleteRoasterUser(userID: any) {
-        this.roasterService.deleteRoasterUser(this.roaster_id, userID).subscribe((response) => {
-            console.log(response);
-            if (response['success'] == true) {
+        this.roasterService.deleteRoasterUser(this.roasterID, userID).subscribe((response: any) => {
+            if (response.success) {
                 this.toastrService.success('User Deleted successfully!');
                 this.getTableData();
             } else {
                 this.toastrService.error('Unable to delete the user.');
             }
         });
+    }
+    filterCall() {
+        this.getTableData();
     }
 }

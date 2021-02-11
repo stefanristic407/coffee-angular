@@ -39,7 +39,7 @@
                 placeholder="{{globals.languageJson?.search_name_role}}" />
         </div>
     </div>
-    <div class="table-container userTable mt-2 mb-2">
+    <div class="table-container userTable mt-2 mb-2 productListTable">
         <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
             [(selection)]="selectedProducts" dataKey="id" [resizableColumns]="true" styleClass="ui-table-customers"
             [showCurrentPageReport]="false" [paginator]="false" [lazy]="true" (onLazyLoad)="getTableData($event)"

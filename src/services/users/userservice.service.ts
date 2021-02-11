@@ -209,7 +209,7 @@ export class UserserviceService {
         data['api_call'] = '/users/user-list?query=' + key;
         data['token'] = this.cookieService.get('Auth');
         data['method'] = 'GET';
-        return this.http.post(this.roasterUrl, data);
+        return this.http.post<any>(this.roasterUrl, data);
     }
 
     //API Function Name : Roaster User Last Login
@@ -1191,7 +1191,7 @@ export class UserserviceService {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/stats?sections=${query.sections || ''}&customer_type=${
             query.customer_type || ''
-        }&chart_type=${query.chart_type || ''}&date_from=${query.date_from || ''}`;
+        }&chart_type=${query.chart_type || ''}&date_from=${query.date_from || ''}&date_to=${query.date_to || ''}`;
         data['method'] = 'GET';
         data['token'] = this.cookieService.get('Auth');
         return this.http.post(this.roasterUrl, data);
@@ -1316,6 +1316,18 @@ export class UserserviceService {
     getEstateBrandProfileDetail(estateId, pageSlug) {
         const data = {
             api_call: `/general/es/${estateId}/brand-profile/${pageSlug}`,
+            method: 'GET',
+            token: this.cookieService.get('Auth'),
+        };
+        return this.http.post(this.roasterUrl, data);
+    }
+
+    getNofitication() {
+        const organization = 'ro';
+        const organizationId = this.cookieService.get('roaster_id');
+        const userId = this.cookieService.get('user_id');
+        const data = {
+            api_call: `/${organization}/${organizationId}/notifications?from_user_id=${userId}&from_org_type=ro&is_read=false`,
             method: 'GET',
             token: this.cookieService.get('Auth'),
         };

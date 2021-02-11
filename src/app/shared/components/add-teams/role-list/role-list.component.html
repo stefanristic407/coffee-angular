@@ -1,3 +1,9 @@
+<div class="total-loader" *ngIf="loader">
+    <div>
+        <img class="loader-gif web-loader" src="/assets/images/loader.gif" />
+        <img class="loader-gif mob-loader" src="/assets/images/coffeeloader-mobile.gif" />
+    </div>
+</div>
 <div class="main-block">
     <div class="row p-0">
         <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
@@ -8,7 +14,7 @@
                 Create new role</button>
         </div>
     </div>
-    <div class="d-none d-md-block">
+    <div class="d-none d-md-block pt-2 pb-2">
         <span class="primary_txt">{{globals.languageJson?.manage_roles}}</span>
         <img *ngIf="false" src="assets/images/help-icon.svg" alt="" class="pointer-help pl-2">
     </div>
@@ -25,7 +31,7 @@
             <ng-template pTemplate="header" let-columns>
                 <tr class="d-none d-sm-none d-md-table-row">
                     <th style="width: 10%" class="">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
                     </th>
             
                     <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null"
@@ -81,7 +87,7 @@
                         <span *ngSwitchCase="'actions'">
                             <ng-container>
                                 <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
-                                    <p class="ellipsisClass"><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
+                                    <p class="ellipsisClass mb-0 mt-0"><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
                                 </a>
                                 <ng-template #poplistTemplate>
                                     <div id="popover-mobile-content">
@@ -90,7 +96,7 @@
                                             <li *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')" class="list-group-item"><a class="pointer-item" (click)="teamMembers(rowData)">{{globals.languageJson?.view_members}}</a></li>
                                             <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage"class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);">{{globals.languageJson?.edit}}</a></li>
                                             <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);">{{globals.languageJson?.rename}}</a></li>
-                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item">{{globals.languageJson?.duplicate_role}}</a></li>
+                                            <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="duplicateRole(rowData.id);">{{globals.languageJson?.duplicate_role}}</a></li>
                                             <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="updateRole(rowData.id);">{{globals.languageJson?.manage_permissions}}</a></li>
                                             <li *ngIf="this.globals.checkItem('acl-management') && this.globals.permissions['acl-management'].manage" class="list-group-item"><a class="pointer-item" (click)="openDeleteModal(deleteTemplate,rowData.id);">{{globals.languageJson?.delete_role}}</a></li>
                                         </ul>
@@ -112,8 +118,8 @@
             <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
             <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
             <div class="mt-4">
-                <button class="cancel-btn" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
-                <button class="btn delete-btn ml-3"
+                <button class="btn btn-stroked" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+                <button class="btn btn-raised ml-3"
                     (click)="modalRef.hide();deleteRole(this.deleteRoleID)">{{globals.languageJson?.delete}}</button>
             </div>
         </div>

@@ -1,5 +1,5 @@
-<div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row">
-    <div *ngFor="let item of coffeedata" class="col-12 col-md-6 col-lg-4 mb-3 mb-md-4">
+<div *ngIf="(sourcingSrv.viewMode$ | async) === 'grid'; else tableView" class="row gutter-26">
+    <div *ngFor="let item of coffeedata" class="col-12 col-md-6 col-lg-4 card-wrap">
         <div
             class="cursor-pointer h-100"
             routerLink="/sourcing/coffee-details/{{ item.estate.id }}/{{ item.harvest_id }}"
@@ -7,19 +7,32 @@
             <app-harvest-card [data]="item"></app-harvest-card>
         </div>
     </div>
+    <app-loading *ngIf="!isLoaded"></app-loading>
 </div>
 
 <ng-template #tableView>
-    <div class="br-main br-4 p-1">
-        <p-table [value]="coffeedata" [resizableColumns]="true" [autoLayout]="true">
+    <div class="br-main br-4 p-1 mt-25">
+        <p-table
+            [value]="coffeedata"
+            [loading]="!isLoaded"
+            [lazy]="true"
+            [lazyLoadOnInit]="false"
+            (onLazyLoad)="getData($event)"
+            [resizableColumns]="true"
+            [autoLayout]="true"
+        >
             <ng-template pTemplate="header">
                 <tr>
                     <th>{{ globals.languageJson?.name }}</th>
                     <th>{{ globals.languageJson?.estate_name }}</th>
                     <th>{{ globals.languageJson?.origin }}</th>
                     <th>{{ globals.languageJson?.variety }}</th>
-                    <th>{{ globals.languageJson?.price }}</th>
-                    <th>{{ globals.languageJson?.quantity }}</th>
+                    <th pSortableColumn="price">
+                        {{ globals.languageJson?.price }}<p-sortIcon field="price"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="quantity">
+                        {{ globals.languageJson?.quantity }}<p-sortIcon field="quantity"></p-sortIcon>
+                    </th>
                     <th>{{ globals.languageJson?.flavour_profile }}</th>
                     <th>{{ globals.languageJson?.cup_score }}</th>
                 </tr>

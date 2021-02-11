@@ -1,380 +1,243 @@
 <section>
-    <div class="bg-fff mb-4">
-        <div class="row">
-            <div class="col-12 d-flex no-block align-items-center">
-                <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 farm-breadcum">
-                    <span id="title-breadcrumb-1" class="sr-only"></span>
-                    <ul class="bread-nav">
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/welcome-aboard">{{ globals.languageJson?.home }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <!-- <li class="b-cum">
-                                <a class="b-cum">{{globals.languageJson?.farm_link}}</a><span class="padl-r" aria-hidden="true"> <img class="group-img" src="/assets/images/arrow-1.png" alt=""> </span>
-                            </li> -->
-                        <li class="b-cum">
-                            <a class="b-cum" routerLink="/features/brand-profile">{{
-                                globals.languageJson?.brand_profile
-                            }}</a
-                            ><span class="padl-r" aria-hidden="true">
-                                <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
-                            </span>
-                        </li>
-                        <li class="b-cum c-pink">Sustainability</li>
-                    </ul>
-                </nav>
+    <div class="main-block">
+        <p-breadcrumb [model]="breadItems" styleClass="mb-3 mb-md-4"></p-breadcrumb>
+
+        <div class="d-flex justify-content-between align-items-start mb-4 mb-md-45 pt-3">
+            <div>
+                <h4 class="fnt-18 fnt-700 fnt-muli text-clr334">Sustainability</h4>
+                <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-0">
+                    Add details about your estate to give yours a view.
+                </p>
+            </div>
+            <div class="d-none d-md-block">
+                <button type="button" class="btn-stroked mr-2">Preview</button>
+                <button type="button" class="btn-raised ml-1" (click)="saveBrandProfile()">Save</button>
             </div>
         </div>
 
-        <section class="col-sm-12 col-md-12 col-lg-12 brand-profile-sec px-0">
-            <div class="row mb-4">
-                <div class="col-md-6 col-12">
-                    <p class="brand-profile">Sustainability</p>
-                    <p class="brand-para">Add details about your estate to give yours a view.</p>
-                </div>
-                <div class="col-md-6 col-12 web-farm">
-                    <button type="button" class="save ml-3 pull-right" (click)="saveBrandProfile()">Save</button>
-                    <button type="button" class="preview">Preview</button>
-                </div>
-            </div>
+        <form [formGroup]="infoForm" novalidate>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="br-main br-2 p-3 p-md-4">
+                        <h4 class="fnt-18 fnt-700 text-clr334">Banner<span class="star">*</span></h4>
+                        <p class="fnt-14 fnt-600 text-clr334 mb-1">Image/Video banner<span class="star">*</span></p>
+                        <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 1440 x 465 px</p>
 
-            <div class="row px-3">
-                <div class="col-lg-8 col-md-12 col-sm-12 border p-4">
-                    <p class="header-text fnt-muli">Banner<span class="star">*</span></p>
-                    <label class="w-100 sub-header-text fnt-muli">Image/Video banner<span class="star">*</span></label>
-                    <p class="sub-text fnt-muli">Size - 1440 x 465 px</p>
-                    <label class="mt-3 cursor-pointer">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            (change)="onFileChange($event, 1440, 465, 'Banner')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli">{{ banner_image }}</span>
-                    <!-- <button class="save " type="button">Upload</button> -->
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Banner Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(banner_title, 10) }}/10 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="banner-title"
-                        id="banner-title"
-                        maxlength="{{ getTheMaxLength(banner_title, 10) }}"
-                        [(ngModel)]="banner_title"
-                    />
-                </div>
-            </div>
+                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
+                                Please upload
+                            </small>
+                        </div>
 
-            <div class="row mt-4 px-3">
-                <div class="col-lg-8 col-md-12 col-sm-12 border p-4">
-                    <p class="header-text fnt-muli">Intro</p>
-                    <p class="sub-header-text fnt-muli">Give a small intro!</p>
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(intro_title, 15) }}/15 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="intro-title"
-                        id="intro-title"
-                        maxlength="{{ getTheMaxLength(intro_title, 15) }}"
-                        [(ngModel)]="intro_title"
-                    />
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Answer<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(answer, 100) }}/100 words</span
-                        ></label
-                    >
-                    <textarea
-                        id="answer-intro"
-                        name="answer"
-                        rows="6"
-                        class="form-control"
-                        maxlength="{{ getTheMaxLength(answer, 100) }}"
-                        [(ngModel)]="answer"
-                    ></textarea>
-                    <label class="w-100 sub-header-text fnt-muli mt-3">Images<span class="star">*</span></label>
-                    <p class="sub-text fnt-muli">Please upload an image : Size - 500 x 540 px</p>
-                    <!-- <button class="save " type="button">Upload</button> -->
-                    <label class="mt-3 cursor-pointer">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            (change)="onFileChange($event, 500, 540, 'Intro')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli">{{ intro_image }}</span>
-                </div>
-            </div>
+                        <div class="w-100 sewn-form-field mb-0">
+                            <label>
+                                Banner Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('banner_title').value | wordCount }}/10 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="banner_title" pInputText />
+                            <small *ngIf="infoForm.controls.banner_title.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.banner_title.errors?.maxWordCount" class="p-error">
+                                Please input 10 words
+                            </small>
+                        </div>
+                    </div>
 
-            <div class="row mt-4 px-3">
-                <div class="col-lg-8 col-md-12 col-sm-12 border p-4">
-                    <p class="header-text fnt-muli">About your work</p>
-                    <p class="sub-header-text fnt-muli">A detailed section of your work</p>
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_title, 10) }}/15 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="intro-title"
-                        maxlength="{{ getTheMaxLength(section_title, 40) }}"
-                        [(ngModel)]="section_title"
-                    />
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Answer<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_answer, 100) }}/100 words</span
-                        ></label
-                    >
-                    <textarea
-                        id="answer"
-                        name="answer"
-                        rows="6"
-                        class="form-control"
-                        maxlength="{{ getTheMaxLength(section_answer, 100) }}"
-                        [(ngModel)]="section_answer"
-                    ></textarea>
-                    <label class="w-100 sub-header-text fnt-muli mt-3">Images<span class="star">*</span></label>
-                    <p class="sub-text fnt-muli">Please upload an image : Size - 600 x 500 px</p>
-                    <!-- <button class="save " type="button">Upload</button> -->
-                    <label class="mt-3 cursor-pointer">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            (change)="onFileChange($event, 600, 500, 'Section')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli">{{ section_file_image }}</span>
-                    <hr class="dashed my-4" />
+                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                        <h4 class="fnt-18 fnt-700 text-clr334">Intro</h4>
+                        <p class="fnt-14 fnt-600 text-clr334">Give yourself a small intro!</p>
 
-                    <p class="header-text fnt-muli mt-2">Section 1</p>
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_title1, 15) }}/15 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="intro-title"
-                        maxlength="{{ getTheMaxLength(section_title1, 40) }}"
-                        [(ngModel)]="section_title1"
-                    />
-                    <label class="w-100 sub-header-text fnt-muli mt-2"
-                        >Answer<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_answer1, 100) }}/100 words</span
-                        ></label
-                    >
-                    <textarea
-                        id="answer1"
-                        name="answer"
-                        rows="6"
-                        class="form-control"
-                        maxlength="{{ getTheMaxLength(section_answer1, 100) }}"
-                        [(ngModel)]="section_answer1"
-                    ></textarea>
-                    <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
-                    <p class="sub-text fnt-muli">Please upload an image : Size - 389 x 417 px</p>
-                    <!-- <button class="save " type="button">Upload</button> -->
-                    <label class="mt-3 cursor-pointer">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            (change)="onFileChange($event, 389, 417, 'Section1')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli">{{ section_file1_image }}</span>
+                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                            <label>
+                                Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('intro_title').value | wordCount }}/15 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="intro_title" pInputText />
+                            <small *ngIf="infoForm.controls.intro_title.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.intro_title.errors?.maxWordCount" class="p-error">
+                                Please input 15 words
+                            </small>
+                        </div>
 
-                    <hr class="dashed my-4" />
+                        <div class="w-100 sewn-form-field mb-2">
+                            <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                                Upload an Image/Video<span class="star">*</span>
+                            </p>
+                            <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 815 x 449 px</p>
+                            <app-uploader formControlName="intro_file"></app-uploader>
+                            <small *ngIf="infoForm.controls.intro_file.errors?.required" class="p-error">
+                                Please upload
+                            </small>
+                        </div>
+                    </div>
 
-                    <p class="header-text fnt-muli mt-2">Section 2</p>
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_title2, 15) }}/15 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="intro-title"
-                        maxlength="{{ getTheMaxLength(section_title2, 15) }}"
-                        [(ngModel)]="section_title2"
-                    />
-                    <label class="w-100 sub-header-text fnt-muli mt-2"
-                        >Answer<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_answer2, 100) }}/100 words</span
-                        ></label
-                    >
-                    <textarea
-                        id="answer2"
-                        name="answer"
-                        rows="6"
-                        class="form-control"
-                        maxlength="{{ getTheMaxLength(section_answer2, 100) }}"
-                        [(ngModel)]="section_answer2"
-                    ></textarea>
-                    <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
-                    <p class="sub-text fnt-muli">Please upload an image : Size - 601 x 395 px</p>
-                    <!-- <button class="save " type="button">Upload</button> -->
-                    <label class="mt-3 cursor-pointer">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            accept="video/*,image/*"
-                            (change)="onFileChange($event, 601, 395, 'Section2')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli">{{ section_file2_image }}</span>
+                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                        <h4 class="fnt-18 fnt-700 text-clr334">Info about your sustainability work</h4>
+                        <p class="fnt-14 fnt-600 text-clr334">Give a brief intro about your sustainability practises</p>
 
-                    <hr class="dashed my-4" />
+                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                            <label>
+                                Title<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('title').value | wordCount }}/10 words
+                                </span>
+                            </label>
+                            <input type="text" formControlName="title" pInputText />
+                            <small *ngIf="infoForm.controls.title.errors?.required" class="p-error"> Required </small>
+                            <small *ngIf="infoForm.controls.title.errors?.maxWordCount" class="p-error">
+                                Please input 10 words
+                            </small>
+                        </div>
 
-                    <p class="header-text fnt-muli mt-2">Section 3</p>
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_title3, 15) }}/15 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="intro-title"
-                        maxlength="{{ getTheMaxLength(section_title3, 15) }}"
-                        [(ngModel)]="section_title3"
-                    />
-                    <label class="w-100 sub-header-text fnt-muli mt-2"
-                        >Answer<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_answer3, 100) }}/100 words</span
-                        ></label
-                    >
-                    <textarea
-                        id="answer3"
-                        name="answer"
-                        rows="6"
-                        class="form-control"
-                        maxlength="{{ getTheMaxLength(section_answer3, 100) }}"
-                        [(ngModel)]="section_answer3"
-                    ></textarea>
-                    <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
-                    <p class="sub-text fnt-muli">Please upload 2 image : Size - 601 x 395 px</p>
-                    <!-- <button class="save " type="button">Upload</button> -->
-                    <label class="mt-3 cursor-pointer">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            multiple
-                            accept="video/*,image/*"
-                            multiple
-                            (change)="onFileChange($event, 601, 395, 'Section3')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli"
-                        >{{ section_file3_image_1 }} {{ section_file3_image_2 }}</span
-                    >
+                        <div class="w-100 sewn-form-field mb-0">
+                            <label>
+                                Sub heading<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('short_description').value | wordCount }}/100 words
+                                </span>
+                            </label>
+                            <textarea formControlName="short_description" rows="3" cols="50" pInputTextarea></textarea>
+                            <small *ngIf="infoForm.controls.short_description.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small *ngIf="infoForm.controls.short_description.errors?.maxWordCount" class="p-error">
+                                Please input 100 words
+                            </small>
+                        </div>
 
-                    <hr class="dashed my-4" />
+                        <ng-container *ngFor="let i of [1, 2, 3, 4]">
+                            <div class="divider my-4"></div>
+                            <h4 class="fnt-18 fnt-700 text-clr334">Your sustainability pratice #{{ i }}</h4>
 
-                    <p class="header-text fnt-muli mt-2">Section 4</p>
-                    <label class="w-100 sub-header-text fnt-muli mt-3"
-                        >Title<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_title4, 15) }}/15 words</span
-                        ></label
-                    >
-                    <input
-                        type="text"
-                        class="form-control banner-title"
-                        name="intro-title"
-                        maxlength="{{ getTheMaxLength(section_title4, 15) }}"
-                        [(ngModel)]="section_title4"
-                    />
-                    <label class="w-100 sub-header-text fnt-muli mt-2"
-                        >Answer<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(section_answer4, 100) }}/100 words</span
-                        ></label
-                    >
-                    <textarea
-                        id="answer4"
-                        name="answer"
-                        rows="6"
-                        class="form-control"
-                        maxlength="{{ getTheMaxLength(section_answer4, 100) }}"
-                        [(ngModel)]="section_answer4"
-                    ></textarea>
-                    <label class="w-100 sub-header-text fnt-muli mt-3">Images/Videos<span class="star">*</span></label>
-                    <p class="sub-text fnt-muli">Please upload 2 image : Size - 601 x 395 px</p>
-                    <!-- <button class="save " type="button">Upload</button> -->
-                    <label class="mt-3 cursor-pointer">
-                        <input
-                            type="file"
-                            class="file-inpt"
-                            multiple
-                            accept="video/*,image/*"
-                            (change)="onFileChange($event, 601, 395, 'Section4')"
-                        />
-                        <span class="save"> Upload </span>
-                    </label>
-                    <span class="pl-3 sub-header-text fnt-muli"
-                        >{{ section_file4_image_1 }} {{ section_file4_image_2 }}</span
-                    >
+                            <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                                <label>
+                                    Title<span class="star">*</span>
+                                    <span class="pull-right text-clr588">
+                                        {{ infoForm.get('section' + i + '_title').value | wordCount }}/15 words
+                                    </span>
+                                </label>
+                                <input type="text" formControlName="section{{ i }}_title" pInputText />
+                                <small
+                                    *ngIf="infoForm.controls['section' + i + '_title'].errors?.required"
+                                    class="p-error"
+                                >
+                                    Required
+                                </small>
+                                <small
+                                    *ngIf="infoForm.controls['section' + i + '_title'].errors?.maxWordCount"
+                                    class="p-error"
+                                >
+                                    Please input 15 words
+                                </small>
+                            </div>
+
+                            <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                                <label>
+                                    Sub heading<span class="star">*</span>
+                                    <span class="pull-right text-clr588">
+                                        {{ infoForm.get('section' + i + '_description').value | wordCount }}/70 words
+                                    </span>
+                                </label>
+                                <textarea
+                                    formControlName="section{{ i }}_description"
+                                    rows="3"
+                                    cols="50"
+                                    pInputTextarea
+                                ></textarea>
+                                <small
+                                    *ngIf="infoForm.controls['section' + i + '_description'].errors?.required"
+                                    class="p-error"
+                                >
+                                    Required
+                                </small>
+                                <small
+                                    *ngIf="infoForm.controls['section' + i + '_description'].errors?.maxWordCount"
+                                    class="p-error"
+                                >
+                                    Please input 70 words
+                                </small>
+                            </div>
+
+                            <div class="w-100 sewn-form-field mb-2">
+                                <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                                    Upload {{ i === 3 ? '2 Image/Video' : 'an Image/Video' }}<span class="star">*</span>
+                                </p>
+                                <p class="fnt-14 fnt-600 text-clr588 mb-4">
+                                    Size - {{ i === 3 ? '282 x 460' : '389 x 417' }} px
+                                </p>
+                                <app-uploader
+                                    formControlName="section{{ i }}_file"
+                                    [count]="i == 3 ? 2 : 1"
+                                ></app-uploader>
+                                <small
+                                    *ngIf="infoForm.controls['section' + i + '_file'].errors?.required"
+                                    class="p-error"
+                                >
+                                    Please upload
+                                </small>
+                                <small
+                                    *ngIf="infoForm.controls['section' + i + '_file'].errors?.fileCount"
+                                    class="p-error"
+                                >
+                                    Please upload 2 images
+                                </small>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
+                        <h4 class="fnt-18 fnt-700 text-clr334">Product Labels</h4>
+
+                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                            <label>
+                                A short description*<span class="star">*</span>
+                                <span class="pull-right text-clr588">
+                                    {{ infoForm.get('product_short_description').value | wordCount }}/40 words
+                                </span>
+                            </label>
+                            <textarea
+                                formControlName="product_short_description"
+                                rows="3"
+                                cols="50"
+                                pInputTextarea
+                            ></textarea>
+                            <small *ngIf="infoForm.controls.product_short_description.errors?.required" class="p-error">
+                                Required
+                            </small>
+                            <small
+                                *ngIf="infoForm.controls.product_short_description.errors?.maxWordCount"
+                                class="p-error"
+                            >
+                                Please input 40 words
+                            </small>
+                        </div>
+
+                        <div class="w-100 sewn-form-field mb-2">
+                            <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                                Upload 4 label icons<span class="star">*</span>
+                            </p>
+                            <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 100 x 100 px</p>
+                            <app-uploader formControlName="product_label_icon" [count]="4" type="image"></app-uploader>
+                            <small *ngIf="infoForm.controls.product_label_icon.errors?.fileCount" class="p-error">
+                                Please upload 4 icons
+                            </small>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </form>
 
-            <div class="row mt-4 px-3">
-                <div class="col-lg-8 col-md-12 col-sm-12 border p-4">
-                    <p class="header-text fnt-muli mt-2">Product Labels</p>
-                    <label class="w-100 sub-header-text fnt-muli mt-2"
-                        >A short description<span class="star">*</span>
-                        <span class="sub-text fnt-muli pull-right"
-                            >{{ countTheString(description, 40) }}/40 words</span
-                        ></label
-                    >
-                    <textarea
-                        id="description"
-                        name="description"
-                        rows="6"
-                        class="form-control"
-                        maxlength="{{ getTheMaxLength(description, 40) }}"
-                        [(ngModel)]="description"
-                    ></textarea>
-                </div>
-            </div>
-
-            <div class="pb-5 pt-4">
-                <button class="cancel pull-left mr-auto fnt-muli" type="button" routerLink="/features/brand-profile">
-                    Cancel
-                </button>
-            </div>
-        </section>
+        <div class="mt-45">
+            <button type="button" class="btn-stroked mr-4" routerLink="/brand-profile">Cancel</button>
+            <button type="button" class="btn-raised" (click)="saveBrandProfile()">Save</button>
+        </div>
     </div>
 </section>

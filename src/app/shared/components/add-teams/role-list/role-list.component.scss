@@ -9,7 +9,10 @@
     background: #ffffff;
 }
 ::ng-deep .roleTable .p-datatable .p-datatable-tbody > tr > td {
-    padding: 0.8em 0.857em;
+    padding: 0.8em 0.7em;
+}
+::ng-deep .roleTable .p-datatable-thead > tr > th {
+    pointer-events: none;
 }
 .rowClass > td > .tdClass > .d-md-flex > .show_btns {
     visibility: hidden;

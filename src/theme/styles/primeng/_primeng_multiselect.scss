@@ -62,3 +62,6 @@
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close:enabled:hover {
     color: $primary-color;
 }
+.p-multiselect .p-multiselect-label {
+    padding-right: 0;
+}

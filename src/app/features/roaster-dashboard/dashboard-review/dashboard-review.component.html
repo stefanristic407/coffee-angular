@@ -1,0 +1,81 @@
+<div animateOnScroll animationName="fadeIn" class="animation-bounce-in-up p-4 br-main br-4 h-100">
+    <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block">Your rating</p>
+    <p class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2 mb-md-4 d-none d-md-block">
+        See what estates & your customers have to say!
+    </p>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="review-block">
+                <p class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 d-md-none">Reviews</p>
+
+                <h2 class="fnt-32 fnt-bold fnt-muli text-clr334 mb-md-1 mb-0">
+                    {{ reviewsSummary?.rating.toFixed(1) || '-' }}
+                </h2>
+                <p class="fnt-14 fnt-bold fnt-muli text-clr588 mb-md-1 mb-0">out of 5</p>
+                <div *ngIf="reviewsSummary" class="d-flex star-wrap">
+                    <star-rating
+                        value="{{ reviewsSummary.rating }}"
+                        totalstars="{{ totalstar }}"
+                        checkedcolor="#ffa001"
+                        readonly="true"
+                        uncheckedcolor="#d6d6d6"
+                        size="26px"
+                    ></star-rating>
+                </div>
+
+                <p class="fnt-14 fnt-bold fnt-muli text-clr334 pt-3">
+                    {{ reviewsSummary?.total_review || '-' }} customer reviews
+                </p>
+                <div class="table-wrap pb-3 mb-3">
+                    <table *ngIf="reviewsSummary">
+                        <tr *ngFor="let item of reviewStars">
+                            <td>
+                                <span class="fnt-14 fnt-bold fnt-muli text-clr334">
+                                    {{ item.label }}
+                                    <span class="d-inline-flex align-items-center">
+                                        <ng-container *ngIf="false; else star"></ng-container>
+                                    </span>
+                                </span>
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        aria-valuenow="60"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        [style.width]="item.percent + '%'"
+                                        [style.background-color]="item.color"
+                                    >
+                                        <span class="sr-only">{{ item.percent }}% Complete</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-clr588"> ({{ item.value }}) </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="w-100 text-right text-md-left">
+                    <a class="arrow-link fnt-mb-14" routerLink="/features/roastery-profile/reviews">See more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #star>
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+        <g fill="none" fill-rule="evenodd">
+            <path d="M0 0H15V15H0z" />
+            <path
+                fill="#979797"
+                d="M13.978 6.073c-.046-.148-.175-.243-.335-.258L9.41 5.55 7.84 1.733c-.052-.133-.197-.199-.342-.206-.152 0-.305.066-.365.206L5.564 5.55l-4.204.265c-.16.015-.29.11-.343.258-.045.14 0 .302.122.398l3.238 2.623-1.052 3.978c-.038.14.023.295.145.383.13.089.297.096.427.015l3.602-2.188 3.572 2.188c.137.081.305.074.434-.015.122-.088.183-.235.145-.383l-1.051-3.978 3.265-2.623c.122-.096.167-.258.114-.398z"
+            />
+        </g>
+    </svg>
+</ng-template>

@@ -7,8 +7,8 @@
 
 <header class="stricky" *ngIf="loaded">
     <nav class="bg-white nav-top1">
-        <div class="container header-container">
-            <div class="pad-header">
+        <div class="container sewn-container">
+            <div class="pad-header col-12">
                 <div class="row align-items-center">
                     <a class="sidenav-hamberg d-md-none" (click)="openSideNav()">
                         <img src="assets/images/hamberg.svg" alt="hamberg" />
@@ -52,17 +52,81 @@
                         <li
                             class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
                         >
-                            <a href="javascript:void(0)" class="d-inline-block image-card">
+                            <a
+                                href="javascript:void(0)"
+                                class="d-inline-block image-card"
+                                role="button"
+                                [popover]="notifList"
+                                placement="bottom"
+                                container="body"
+                                [outsideClick]="true"
+                            >
                                 <img class="img" src="assets/images/notification.svg " />
                             </a>
+                            <ng-template #notifList>
+                                <div class="notification-header">
+                                    <span
+                                        class="notfi-header-title fnt-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 ng-star-inserted"
+                                        >Notifications</span
+                                    >
+                                    <a href="javascript:void(0)" class="notif-close">
+                                        <img src="assets/images/notif-close-icon.svg" />
+                                    </a>
+                                    <a href="javascript:void(0)" class="mark-all under-mark">Mark all read</a>
+                                </div>
+                                <div class="notification-body">
+                                    <ul class="p-0">
+                                        <li>
+                                            <div class="border-container">
+                                                <div class="notifi-cotainer">
+                                                    <p
+                                                        class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
+                                                    >
+                                                        Order Shipped!
+                                                    </p>
+                                                    <div class="notif-description">
+                                                        <P class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2"
+                                                            >Your green coffee order placed with Finca La Pampa estate
+                                                            has been shipped</P
+                                                        >
+                                                    </div>
+                                                    <p class="under-mark">Order #13213</p>
+                                                    <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">
+                                                        2 hours ago
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="border-container">
+                                                <div class="notifi-cotainer">
+                                                    <p
+                                                        class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
+                                                    >
+                                                        Order Shipped!
+                                                    </p>
+                                                    <div class="notif-description active">
+                                                        <P class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2"
+                                                            >Your green coffee order placed with Finca La Pampa estate
+                                                            has been shipped</P
+                                                        >
+                                                    </div>
+                                                    <p class="under-mark">Order #13213</p>
+                                                    <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">
+                                                        2 hours ago
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-template>
                         </li>
                         <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
                             <div class="profile-link d-flex align-items-center">
                                 <div class="d-inline-block mr-md-2">
-                                    <app-avatar
-                                        [size]="38"
-                                        [src]="profilePic || 'assets/images/profile.svg'"
-                                    ></app-avatar>
+                                    <app-avatar [size]="38" [src]="profilePic || 'assets/images/profile.svg'">
+                                    </app-avatar>
                                 </div>
                                 <div class="profile-link__info pl-lg-1 float-right">
                                     <div>
@@ -134,8 +198,8 @@
     </nav>
 
     <nav class="bg-f8">
-        <div class="container header-container">
-            <div class="pad-header">
+        <div class="container sewn-container">
+            <div class="pad-header col-12">
                 <div class="row">
                     <div class="w-100 sidenav-mb">
                         <span class="sidenav-mb__hide"></span>
@@ -143,7 +207,7 @@
                             <div class="sidenav-mb__close">
                                 <img src="assets/images/close-icon.png" />
                             </div>
-                            <div class="px-2">
+                            <div class="">
                                 <app-menu [menuParentId]="0"></app-menu>
                             </div>
                             <ul class="nav-links fnt-muli pad-5">
@@ -186,7 +250,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-dashboard.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-dashboard.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
                                         {{ globals.languageJson?.dashboard }}
                                     </p>
                                 </div>
@@ -197,7 +261,7 @@
                                 <div class="d-flex flex-column align-items-center start-messaging">
                                     <img class="in-active" src="assets/images/mess.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-message.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
                                         {{ globals.languageJson?.messages }}
                                     </p>
                                 </div>
@@ -212,7 +276,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/notification.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-notification.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
                                         {{ globals.languageJson?.notifications }}
                                     </p>
                                 </div>
@@ -228,7 +292,7 @@
                                 <div class="d-flex flex-column align-items-center">
                                     <img class="in-active" src="assets/images/ft-icon-profile.svg" />
                                     <img class="active" src="assets/images/ft-icon-active-profile.svg" />
-                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-gray588">
+                                    <p class="mb-0 fnt-12 fnt-600 fnt-muli text-clr588">
                                         {{ globals.languageJson?.profile }}
                                     </p>
                                 </div>
@@ -271,10 +335,13 @@
     </section>
 </footer>
 
-<div class="container sewn-container" *ngIf="loaded">
-    <div class="router-design">
-        <!-- <app-direct-messaging></app-direct-messaging> -->
-        <app-sewn-direct-message></app-sewn-direct-message>
-        <router-outlet></router-outlet>
+<div class="layout-wrap">
+    <div class="container sewn-container" *ngIf="loaded">
+        <div class="router-design">
+            <!-- <app-direct-messaging></app-direct-messaging> -->
+            <app-sewn-direct-message></app-sewn-direct-message>
+            <router-outlet></router-outlet>
+        </div>
     </div>
+    <app-footer></app-footer>
 </div>

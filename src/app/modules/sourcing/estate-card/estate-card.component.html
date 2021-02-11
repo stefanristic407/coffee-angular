@@ -26,34 +26,35 @@
             </div>
         </div>
         <div class="pad-card">
-            <div class="flex row">
-                <div class="orgin-att mb-2 mb-md-3 col-5 col-md-3">
-                    <label class="text-gray588">{{ globals.languageJson?.origin }}</label>
-                    <h6 class="fnt-14 fnt-bold text-black334 ellipsis">{{ data.country | country }}</h6>
+            <div class="d-flex flex-wrap">
+                <div class="orgin-att">
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.origin }}</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">{{ data.country | country }}</h6>
                 </div>
-                <div class="orgin-att mb-2 mb-md-3 col-7 col-md-4">
-                    <label class="text-gray588">{{ globals.languageJson?.altitude }}</label>
-                    <h6 class="fnt-14 fnt-bold text-black334 ellipsis">
+                <div class="orgin-att">
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.altitude }}</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
                         {{ data.altitude?.gte }}-{{ data.altitude?.lte }} m
                     </h6>
                 </div>
-                <div class="orgin-att mb-2 mb-md-3 col-12 col-md-4">
-                    <label class="text-gray588">{{ globals.languageJson?.crop_year }}</label>
-                    <h6 class="fnt-14 fnt-bold text-black334 ellipsis">
+                <div class="orgin-att">
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.crop_year }}</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
                         {{ data.crop_year?.gte | month }} - {{ data.crop_year?.lte | month }}
                     </h6>
                 </div>
             </div>
         </div>
+        <div class="solid-divider-de mb-3"></div>
         <div>
-            <div class="fnt-14 fnt600 text-gray588">{{ globals.languageJson?.top_lots }}</div>
+            <div class="fnt-mb-14 lh-normal fnt-bold text-clr588 mb-2">{{ globals.languageJson?.top_lots }}</div>
             <div>
-                <a *ngFor="let item of data.lots | slice: 0:3" class="custom-link mr-2 mr-md-3" href="">
+                <a *ngFor="let item of data.lots | slice: 0:3" class="custom-link fnt-14 mr-3" href="">
                     {{ item.name }}
                 </a>
                 <a
                     *ngIf="data.lots?.length > 3"
-                    class="custom-link"
+                    class="custom-link fnt-14"
                     routerLink="/features/estate-details/{{ data.estate_id }}"
                     [queryParams]="{ dataLots: true }"
                     >+{{ data.lots?.length - 3 }}more</a

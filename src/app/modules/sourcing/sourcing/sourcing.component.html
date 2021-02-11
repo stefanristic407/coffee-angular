@@ -1,8 +1,8 @@
 <section>
-    <div class="bg-white br-4 p-3 p-md-4 px-lg-5 py-lg-3">
-        <div class="py-lg-3">
-            <div class="row no-gutters">
-                <div class="col-6 col-md-3 col-lg-2">
+    <div class="main-block">
+        <div>
+            <div class="row no-gutters col-lg-6 px-0">
+                <div class="col-6 col-md-3">
                     <p-multiSelect
                         [options]="originItems"
                         [(ngModel)]="queryParams.origin"
@@ -16,7 +16,7 @@
                         }}"
                     ></p-multiSelect>
                 </div>
-                <div class="col-6 col-md-3 col-lg-2">
+                <div class="col-6 col-md-3">
                     <p-multiSelect
                         [options]="varietyItems"
                         [(ngModel)]="queryParams.species"
@@ -31,7 +31,7 @@
                         }}"
                     ></p-multiSelect>
                 </div>
-                <div class="col-12 col-md-6 col-lg-3 mb-3 mb-md-4">
+                <div class="col-12 col-md-4 mb-3 mb-md-4">
                     <span class="p-input-icon-left custom-search w-100">
                         <input
                             type="text"
@@ -44,7 +44,7 @@
                     </span>
                 </div>
             </div>
-            <div>
+            <div class="mb-25 mb-md-45">
                 <p-dropdown
                     [options]="gradeItems"
                     [(ngModel)]="queryParams.grade"
@@ -52,7 +52,7 @@
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="Grade"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
+                    styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.grade ? 'highlight' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
                     [options]="cropItems"
@@ -61,12 +61,12 @@
                     scrollHeight="225px"
                     [showClear]="true"
                     placeholder="{{ globals.languageJson?.crop_year }}"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
+                    styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.crop_year ? 'highlight' : '' }}"
                 ></p-dropdown>
                 <p-dropdown
-                    (click)="displayFilterModal = true"
+                    (click)="openFilter()"
                     placeholder="{{ globals.languageJson?.more_filters }}"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{
+                    styleClass="round-border mr-25 mb-25 mb-md-4 {{
                         queryParams.altitude_start ||
                         queryParams.altitude_end ||
                         queryParams.flavours?.length ||
@@ -80,7 +80,7 @@
                     [options]="weightItems"
                     [(ngModel)]="queryParams.weight"
                     (onChange)="filterCall()"
-                    styleClass="round-border mr-2 mb-3 mb-md-4 {{ queryParams.weight ? 'highlight' : '' }}"
+                    styleClass="round-border mb-25 mb-md-4 d-none d-md-inline-flex"
                 ></p-dropdown>
             </div>
 
@@ -90,8 +90,9 @@
                         [options]="sortItems"
                         [(ngModel)]="queryParams.sort_by"
                         (onChange)="filterCall()"
+                        scrollHeight="225px"
                         placeholder="{{ globals.languageJson?.sort_by }}"
-                        styleClass="round-border mr-2"
+                        styleClass="round-border mr-25"
                     ></p-dropdown>
                     <p-selectButton
                         [options]="viewModeItems"
@@ -128,7 +129,7 @@
                     </p-selectButton>
                 </div>
 
-                <div class="mb-3 mb-md-4">
+                <div class="pb-4">
                     <p-tabMenu [model]="menuItems"></p-tabMenu>
                 </div>
                 <div class="mb-4">
@@ -138,68 +139,3 @@
         </div>
     </div>
 </section>
-
-<p-dialog header="More filters" [(visible)]="displayFilterModal" [baseZIndex]="10000">
-    <div>
-        <div class="fnt-14 fnt-600 text-clr588 mb-2">Altitude Range</div>
-        <div class="col-12 col-md-6 col-lg-5 px-0 d-flex justify-content-between">
-            <div class="altitude-wrap">
-                <div class="p-inputgroup">
-                    <p-inputNumber [(ngModel)]="queryParams.altitude_start" placeholder="0"> </p-inputNumber>
-                    <span class="p-inputgroup-addon">m</span>
-                </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-center">to</div>
-            <div class="altitude-wrap">
-                <div class="p-inputgroup">
-                    <p-inputNumber [(ngModel)]="queryParams.altitude_end" placeholder="1600"> </p-inputNumber>
-                    <span class="p-inputgroup-addon">m</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="solid-divider my-4"></div>
-
-        <h3 class="fnt-16 fnt-bold text-clr334 mb-4">Flavour profile (A-Z)</h3>
-        <div class="row no-gutters flavour-block">
-            <div
-                *ngFor="
-                    let item of limitFlavour
-                        ? (sourcingSrv.flavourList$ | async | slice: 0:20)
-                        : (sourcingSrv.flavourList$ | async)
-                "
-                class="col-6 col-md-4 col-lg-3 mb-4"
-            >
-                <p-checkbox [value]="item.id" [(ngModel)]="queryParams.flavours" [label]="item.name"></p-checkbox>
-            </div>
-            <div class="custom-link" (click)="limitFlavour = !limitFlavour">
-                Load {{ limitFlavour ? 'More' : 'Less' }}
-            </div>
-        </div>
-
-        <div class="solid-divider my-4"></div>
-
-        <h3 class="fnt-16 fnt-bold text-clr334 mb-4">Listing status</h3>
-        <div class="row no-gutters">
-            <div *ngFor="let item of listingStatusItems" class="col-6 col-md-4 col-lg-3 mb-4">
-                <p-checkbox
-                    [value]="item.value"
-                    [(ngModel)]="queryParams.listing_status"
-                    [label]="item.label"
-                ></p-checkbox>
-            </div>
-        </div>
-
-        <div class="solid-divider mb-4"></div>
-
-        <h3 class="fnt-16 fnt-bold text-clr334 mb-4">Certificates</h3>
-        <p-checkbox
-            value="1"
-            [(ngModel)]="queryParams.certificates"
-            label="Show listings with certificates"
-        ></p-checkbox>
-    </div>
-    <ng-template pTemplate="footer">
-        <button type="submit" class="btn-raised" (click)="displayFilterModal = false; filterCall()">Save</button>
-    </ng-template>
-</p-dialog>

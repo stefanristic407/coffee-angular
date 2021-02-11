@@ -282,6 +282,7 @@ export class ProductDetailsComponent implements OnInit {
                 this.createNewProduct(productObj);
             }
         } else {
+            //this.productForm.markAllAsTouched();
             this.toasterService.error('Please fill all Data');
         }
     }
