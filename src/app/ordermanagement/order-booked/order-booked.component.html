@@ -2,142 +2,212 @@
     <div class="row">
         <div class="col-12">
             <div class="d-md-flex flex-column order-fff">
-                <div class="col-12  page-breadcrumb__nav px-md-0">
+                <div class="col-12 page-breadcrumb__nav px-md-0">
                     <div class="col-lg-6 col-md-12 pull-left mr-auto pl-0 pr-0">
                         <nav role="navigation" aria-labelledby="title-breadcrumb-1" class="breadcrumb1 pt-2">
                             <span id="title-breadcrumb-1" class="sr-only"></span>
                             <ul class="bread-nav">
                                 <li class="b-cum">
-                                    <a class="b-cum"
-                                       routerLink="/features/welcome-aboard">{{globals.languageJson?.home}}</a><span
-                                          class="padl-r" aria-hidden="true"><img class="group-img"
-                                             src="/assets/images/arrow-1.png" alt=""></span>
+                                    <a class="b-cum" routerLink="/features/welcome-aboard">{{
+                                        globals.languageJson?.home
+                                    }}</a
+                                    ><span class="padl-r" aria-hidden="true"
+                                        ><img class="group-img" src="/assets/images/arrow-1.png" alt=""
+                                    /></span>
                                 </li>
                                 <!-- <li class="b-cum">
                                     <a class="b-cum" routerLink="/ordermanagement/">{{globals.languageJson?.order_management}}</a><span class="padl-r" aria-hidden="true"><img class="group-img"
                                             src="/assets/images/arrow-1.png" alt=""></span>
                                 </li> -->
                                 <li class="b-cum">
-                                    <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a><span
-                                          class="padl-r" aria-hidden="true"> <img class="group-img"
-                                             src="/assets/images/arrow-1.png" alt=""> </span>
+                                    <a class="b-cum" routerLink="/ordermanagement/estate-orders">Estate Orders</a
+                                    ><span class="padl-r" aria-hidden="true">
+                                        <img class="group-img" src="/assets/images/arrow-1.png" alt="" />
+                                    </span>
                                 </li>
-                                <li class="b-cum c-pink">{{globals.languageJson?.order}} #{{orderBookId}}
-                                </li>
+                                <li class="b-cum c-pink">{{ globals.languageJson?.order }} #{{ orderBookId }}</li>
                             </ul>
                         </nav>
                     </div>
 
                     <div class="col-lg-6 col-md-12 pull-right ml-auto pl-0 pr-0 d-none d-md-block">
                         <span class="pull-right ml-auto order-placed-text">
-                            {{globals.languageJson?.order_placed}} : <span class="date-text">{{bookedService.created_at
-                                | date:"d MMM, y"}}</span>
+                            {{ globals.languageJson?.order_placed }} :
+                            <span class="date-text">{{ bookedService.created_at | date: 'd MMM, y' }}</span>
                             <!-- 1st Jan 2020 -->
                         </span>
                     </div>
                 </div>
 
                 <section class="container create-role-sec mt-2 px-md-0 mb-15">
-                    <div class=" col-lg-12 col-md-12 col-sm-12 pr-0">
-                        <div class="row ">
+                    <div class="col-lg-12 col-md-12 col-sm-12 pr-0">
+                        <div class="row">
                             <div class="col-md-6 pl-0 pr-0">
-                                <div class="order-id d-flex align-items-center">{{globals.languageJson?.order}}
-                                    #{{orderBookId}} <span
-                                          class="booked booked--green ml-2">{{globals.languageJson?.booked}}</span>
+                                <div class="order-id d-flex align-items-center">
+                                    {{ globals.languageJson?.order }} #{{ orderBookId }}
+                                    <span class="booked booked--green ml-2">{{ globals.languageJson?.booked }}</span>
                                 </div>
 
                                 <!-- <div class="pt-2 note-prebooked"><span class="bold-note">Note :</span> The lot has been pre-booked, once the beans are ready, you will be notified.</div> -->
                             </div>
                             <div class="btn-div col-md-6 pl-0 pr-3 d-md-block d-none">
-                                <button type="submit" class="btn  pull-right ord-invoice-butn" (click)="showInvoice()">
-                                    {{globals.languageJson?.order_invoice}}</button>
+                                <button type="submit" class="btn pull-right ord-invoice-butn" (click)="showInvoice()">
+                                    {{ globals.languageJson?.order_invoice }}
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <div class="in-order mt-3" *ngIf="orderBookedTimeline">
                         <div class="row">
-                            <div class="col-12 col-md-12 ">
-                                <h4 class="order-txt fnt-play mb-4 mb-md-2">{{bookedValueToShow}}</h4>
+                            <div class="col-12 col-md-12">
+                                <h4 class="order-txt fnt-play mb-4 mb-md-2">{{ bookedValueToShow }}</h4>
                                 <div class="transit-scoll overflow-hidden overflow-md-auto">
                                     <div class="transit-maxwidth main-order-tracking-mbVesrion">
                                         <div class="w-100 d-flex flex-column flex-md-row">
                                             <div class="order-tracking">
-                                                <span class="is-complete "></span>
+                                                <span class="is-complete"></span>
                                                 <div
-                                                     class="text-md-center ml-2 ml-md-0 order-tracking__mb-text mt-order-0">
-                                                    <p class="order-status mt-2 mb-1  " (click)="orderPlaceBooked()"
-                                                       matTooltip="Order placed" matTooltipClass="tooltiptext"
-                                                       #orderPlacedBooked style="color: #000000;font-weight: bold;">
+                                                    class="text-md-center ml-2 ml-md-0 order-tracking__mb-text mt-order-0"
+                                                >
+                                                    <p
+                                                        class="order-status mt-2 mb-1"
+                                                        (click)="orderPlaceBooked()"
+                                                        matTooltip="Order placed"
+                                                        matTooltipClass="tooltiptext"
+                                                        #orderPlacedBooked
+                                                        style="color: #000000; font-weight: bold"
+                                                    >
                                                         Order placed
                                                     </p>
-                                                    <p class="order-date mb-0  "
-                                                       matTooltip="Estate + facilitator Notified"
-                                                       matTooltipClass="tooltiptext" matTooltip=""
-                                                       matTooltipClass="tooltiptext">Estate + facilitator Notified </p>
+                                                    <p
+                                                        class="order-date mb-0"
+                                                        matTooltip="Estate + facilitator Notified"
+                                                        matTooltipClass="tooltiptext"
+                                                        matTooltip=""
+                                                        matTooltipClass="tooltiptext"
+                                                    >
+                                                        Estate + facilitator Notified
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="confirmDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-
-                                                    <p class="order-status mt-2 mb-1  " (click)="orderConfirmBooked()"
-                                                       #orderConfirmedBooked matTooltip="Order Confirmed"
-                                                       matTooltipClass="tooltiptext">Order Confirmed</p>
-                                                    <p class="order-datecolor mb-0  " *ngIf="confirmReport"
-                                                       matTooltip="View sample-1 report" matTooltipClass="tooltiptext">
+                                                    <p
+                                                        class="order-status mt-2 mb-1"
+                                                        (click)="orderConfirmBooked()"
+                                                        #orderConfirmedBooked
+                                                        matTooltip="Order Confirmed"
+                                                        matTooltipClass="tooltiptext"
+                                                    >
+                                                        Order Confirmed
+                                                    </p>
+                                                    <p
+                                                        class="order-datecolor mb-0"
+                                                        *ngIf="confirmReport"
+                                                        matTooltip="View sample-1 report"
+                                                        matTooltipClass="tooltiptext"
+                                                    >
                                                         View sample-1 report
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="order-tracking  completed" id="paymentDivBooked">
+                                            <div class="order-tracking completed" id="paymentDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1  " (click)="paymentStatusBooked()"
-                                                       matTooltip="Payment" matTooltipClass="tooltiptext"
-                                                       #paymentBooked>Payment</p>
-                                                    <p class="order-datecolor  mb-0  " matTooltip="View Reciept"
-                                                       matTooltipClass="tooltiptext" *ngIf="paymentReceipt">View
-                                                        Reciept
+                                                    <p
+                                                        class="order-status mt-2 mb-1"
+                                                        (click)="paymentStatusBooked()"
+                                                        matTooltip="Payment"
+                                                        matTooltipClass="tooltiptext"
+                                                        #paymentBooked
+                                                    >
+                                                        Payment
+                                                    </p>
+                                                    <p
+                                                        class="order-datecolor mb-0"
+                                                        matTooltip="View Reciept"
+                                                        matTooltipClass="tooltiptext"
+                                                        *ngIf="paymentReceipt"
+                                                    >
+                                                        View Reciept
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="order-tracking  completed" id="shippmentDivBooked">
+                                            <div class="order-tracking completed" id="shippmentDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1  " (click)="shipmentStatusBooked()"
-                                                       matTooltip="Shipped" matTooltipClass="tooltiptext"
-                                                       #shippmentBooked>Shipped</p>
-                                                    <p class="order-date  mb-0  " matTooltip="20 Feb 2020"
-                                                       matTooltipClass="tooltiptext" *ngIf="shippmentReport">20 Feb
-                                                        2020</p>
+                                                    <p
+                                                        class="order-status mt-2 mb-1"
+                                                        (click)="shipmentStatusBooked()"
+                                                        matTooltip="Shipped"
+                                                        matTooltipClass="tooltiptext"
+                                                        #shippmentBooked
+                                                    >
+                                                        Shipped
+                                                    </p>
+                                                    <p
+                                                        class="order-date mb-0"
+                                                        matTooltip="20 Feb 2020"
+                                                        matTooltipClass="tooltiptext"
+                                                        *ngIf="shippmentReport"
+                                                    >
+                                                        20 Feb 2020
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="receivedDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status mt-2 mb-1  " (click)="receivedStatusBooked()"
-                                                       matTooltip="Recieved" matTooltipClass="tooltiptext"
-                                                       #receivedBooked>Received</p>
-                                                    <p class="order-date  mb-0  " *ngIf="receivedReport"
-                                                       matTooltip="1 March 2020" matTooltipClass="tooltiptext">
-                                                        {{globals.ord_received_date | date : 'd MMMM y'}}
+                                                    <p
+                                                        class="order-status mt-2 mb-1"
+                                                        (click)="receivedStatusBooked()"
+                                                        matTooltip="Recieved"
+                                                        matTooltipClass="tooltiptext"
+                                                        #receivedBooked
+                                                    >
+                                                        Received
+                                                    </p>
+                                                    <p
+                                                        class="order-date mb-0"
+                                                        *ngIf="receivedReport"
+                                                        matTooltip="1 March 2020"
+                                                        matTooltipClass="tooltiptext"
+                                                    >
+                                                        {{ globals.ord_received_date | date: 'd MMMM y' }}
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="order-tracking completed" id="gradedDivBooked">
                                                 <span class="is-complete"></span>
                                                 <div class="text-md-center ml-2 ml-md-0 order-tracking__mb-text">
-                                                    <p class="order-status  mt-2 mb-1  " (click)="gradedStatusBooked()"
-                                                       matTooltip="Graded by Roaster" matTooltipClass="tooltiptext"
-                                                       #gradedBooked>Graded by Roaster</p>
+                                                    <p
+                                                        class="order-status mt-2 mb-1"
+                                                        (click)="gradedStatusBooked()"
+                                                        matTooltip="Graded by Roaster"
+                                                        matTooltipClass="tooltiptext"
+                                                        #gradedBooked
+                                                    >
+                                                        Graded by Roaster
+                                                    </p>
 
-                                                    <label class="date-ur mb-0  " *ngIf="uploadReport"
-                                                           matTooltip="Upload report" matTooltipClass="tooltiptext"
-                                                           (click)="uploader.click()">Upload report</label>
+                                                    <label
+                                                        class="date-ur mb-0"
+                                                        *ngIf="uploadReport"
+                                                        matTooltip="Upload report"
+                                                        matTooltipClass="tooltiptext"
+                                                        (click)="uploader.click()"
+                                                        >Upload report</label
+                                                    >
                                                     <input hidden type="file" #uploader />
-                                                    <p class="date-ur mb-0  " matTooltip="View report"
-                                                       matTooltipClass="tooltiptext" *ngIf="gradedReport">View report
+                                                    <p
+                                                        class="date-ur mb-0"
+                                                        matTooltip="View report"
+                                                        matTooltipClass="tooltiptext"
+                                                        *ngIf="gradedReport"
+                                                    >
+                                                        View report
                                                     </p>
                                                 </div>
                                             </div>
@@ -148,59 +218,83 @@
                         </div>
                     </div>
 
-
                     <!-- Confirm Shippment Block -->
                     <div class="in-order mt-5 confirm-shippment" *ngIf="shippmentShow">
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
                                 <h4 class="order-txt fnt-play">Confirm order</h4>
-                                <div class="confirm-grade pt-2">Please confirm if you have recieved the shipment you
-                                    have ordered.</div>
+                                <div class="confirm-grade pt-2">
+                                    Please confirm if you have recieved the shipment you have ordered.
+                                </div>
                                 <div class="confirm-grade">The order will be marked as complete then</div>
                                 <!-- <button type="submit" class="yes-txt btn mt-3" (click)="receivedShippment()">Yes i have</button> -->
-                                <button type="submit" class="leave-feedback btn mt-3"
-                                        (click)="bookedService.leaveFeedback(orderBookId)">Leave a feedback </button>
+                                <button
+                                    type="submit"
+                                    class="leave-feedback btn mt-3"
+                                    (click)="bookedService.leaveFeedback(orderBookId)"
+                                >
+                                    Leave a feedback
+                                </button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="yes-order btn mt-3 yes-i-have"
-                                        (click)="receivedShippment()">{{globals.languageJson?.yes_i_have}}
-                                </button><br />
-                                <button type="submit" class="cancel-order no-havent-booked btn mt-3">No I
-                                    haven’t</button>
-
+                                <button
+                                    type="submit"
+                                    class="yes-order btn mt-3 yes-i-have"
+                                    (click)="receivedShippment()"
+                                >
+                                    {{ globals.languageJson?.yes_i_have }}</button
+                                ><br />
+                                <button type="submit" class="cancel-order no-havent-booked btn mt-3">
+                                    No I haven’t
+                                </button>
                             </div>
                         </div>
                     </div>
 
-
                     <!-- Recieved Block -->
                     <div class="in-order mt-5 confirm-shippment" *ngIf="receivedOrderShow">
                         <div class="row">
-
                             <!-- <div class="col-lg-9 col-md-8 col-sm-12 d-flex"> -->
                             <!-- <div class="col-md-1 main pl-4">
                                     <span class="circle-image"></span>
                                 </div> -->
                             <div class="pt-2 pl-3">
-                                <img src="assets/images/recieved-active.svg" alt="">
+                                <img src="assets/images/recieved-active.svg" alt="" />
                             </div>
                             <div class="col-lg-8 col-md-11">
-                                <h4 class="order-txt fnt-play">Received on {{globals.ord_received_date | date : 'd MMMM
-                                    y'}}</h4>
-                                <div class="confirm-grade pt-2">Wohoo! You have successfully recieved the bulk you
-                                    ordered.
+                                <h4 class="order-txt fnt-play">
+                                    Received on
+                                    {{
+                                        globals.ord_received_date | date: 'd MMMM
+                                    y'
+                                    }}
+                                </h4>
+                                <div class="confirm-grade pt-2">
+                                    Wohoo! You have successfully recieved the bulk you ordered.
                                 </div>
-                                <div class="confirm-grade">Please Rate and Review the estate and facilitator to help us
-                                    expand as a transparent community!</div>
-                                <button type="submit" class="cancel-order btn mt-3"
-                                        (click)="bookedService.leaveFeedback(orderBookId)">{{globals.languageJson?.leave_a_feedback}}</button>
-
+                                <div class="confirm-grade">
+                                    Please Rate and Review the estate and facilitator to help us expand as a transparent
+                                    community!
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="cancel-order btn mt-3"
+                                    (click)="bookedService.leaveFeedback(orderBookId)"
+                                >
+                                    {{ globals.languageJson?.leave_a_feedback }}
+                                </button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="yes-order leave-feedback-booked btn mt-3"
-                                        (click)="bookedService.leaveFeedback(orderBookId)">Leave a feedback</button>
-                                <button type="submit" class="cancel-order btn mt-3"
-                                        routerLink="/features/sourcing">{{globals.languageJson?.browse_estates}}</button>
+                                <button
+                                    type="submit"
+                                    class="yes-order leave-feedback-booked btn mt-3"
+                                    (click)="bookedService.leaveFeedback(orderBookId)"
+                                >
+                                    Leave a feedback
+                                </button>
+                                <button type="submit" class="cancel-order btn mt-3" routerLink="/features/sourcing">
+                                    {{ globals.languageJson?.browse_estates }}
+                                </button>
                             </div>
                             <!-- </div> -->
                         </div>
@@ -210,20 +304,35 @@
                     <div class="in-order mt-5 cancel-predisplay" *ngIf="cancelShow">
                         <div class="row">
                             <div class="col-lg-9 col-md-8 col-sm-12">
-                                <h4 class="order-txt fnt-play">{{globals.languageJson?.cancelled}}</h4>
-                                <div class="confirm-grade pt-2">Your order is complete. Please Rate and Review the
-                                    estate and facilitator to help us expand</div>
+                                <h4 class="order-txt fnt-play">{{ globals.languageJson?.cancelled }}</h4>
+                                <div class="confirm-grade pt-2">
+                                    Your order is complete. Please Rate and Review the estate and facilitator to help us
+                                    expand
+                                </div>
                                 <div class="confirm-grade">as a transparent community!</div>
-                                <button type="submit" class="yes-txt btn mt-3">{{globals.languageJson?.buy_it}}</button>
-                                <button type="submit"
-                                        class="cancel-order btn mt-3 ml-3">{{globals.languageJson?.browse_estates}}</button>
+                                <button type="submit" class="yes-txt btn mt-3">
+                                    {{ globals.languageJson?.buy_it }}
+                                </button>
+                                <button type="submit" class="cancel-order btn mt-3 ml-3">
+                                    {{ globals.languageJson?.browse_estates }}
+                                </button>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12 ship-pl">
-                                <button type="submit" class="cancel-order btn mt-3"
-                                        routerLink="/ordermanagement/rating">{{globals.languageJson?.leave_a_feedback}}</button>
-                                <button *ngIf="bookedService.order_status !== 'RECEIVED'" type="submit"
-                                        class="cancel-order btn mt-3" routerLink="/ordermanagement/order-support"
-                                        [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}
+                                <button
+                                    type="submit"
+                                    class="cancel-order btn mt-3"
+                                    routerLink="/ordermanagement/rating"
+                                >
+                                    {{ globals.languageJson?.leave_a_feedback }}
+                                </button>
+                                <button
+                                    *ngIf="bookedService.order_status !== 'RECEIVED'"
+                                    type="submit"
+                                    class="cancel-order btn mt-3"
+                                    routerLink="/ordermanagement/order-support"
+                                    [queryParams]="{ id: orderBookId }"
+                                >
+                                    {{ globals.languageJson?.have_a_problem }}
                                 </button>
                             </div>
                         </div>
@@ -234,64 +343,118 @@
     </div>
 </div>
 
-
 <div class="row">
     <div class="col-12">
         <div class="order-tab-fff d-lg-flex bg-none">
-            <div class="mixups-tabs pr-lg-5 col-lg-8 col-md-12 mb-md-3 mb-lg-0 pl-lg-0 mixups-tabs--pd0 ">
+            <div class="mixups-tabs pr-lg-5 col-lg-8 col-md-12 mb-md-3 mb-lg-0 pl-lg-0 mixups-tabs--pd0">
                 <div class="border-ebebeb h-100">
                     <ul class="nav nav-pills mb-3 w-100" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                               role="tab" aria-controls="pills-home"
-                               aria-selected="true">{{globals.languageJson?.order_details}}</a>
+                            <a
+                                class="nav-link active"
+                                id="pills-home-tab"
+                                data-toggle="pill"
+                                href="#pills-home"
+                                role="tab"
+                                aria-controls="pills-home"
+                                aria-selected="true"
+                                >{{ globals.languageJson?.order_details }}</a
+                            >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                               role="tab" aria-controls="pills-profile"
-                               aria-selected="false">{{globals.languageJson?.documents}}</a>
+                            <a
+                                class="nav-link"
+                                id="pills-profile-tab"
+                                data-toggle="pill"
+                                href="#pills-profile"
+                                role="tab"
+                                aria-controls="pills-profile"
+                                aria-selected="false"
+                                >{{ globals.languageJson?.documents }}</a
+                            >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
-                               role="tab" (click)="onClickGradeInfoTab()" aria-controls="pills-contact"
-                               aria-selected="false">{{globals.languageJson?.grade_info}}</a>
+                            <a
+                                class="nav-link"
+                                id="pills-contact-tab"
+                                data-toggle="pill"
+                                href="#pills-contact"
+                                role="tab"
+                                (click)="onClickGradeInfoTab()"
+                                aria-controls="pills-contact"
+                                aria-selected="false"
+                                >{{ globals.languageJson?.grade_info }}</a
+                            >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-shipping-tab" data-toggle="pill" href="#pills-shipping"
-                               role="tab" aria-controls="pills-shipping" aria-selected="false">Shipping</a>
+                            <a
+                                class="nav-link"
+                                id="pills-shipping-tab"
+                                data-toggle="pill"
+                                href="#pills-shipping"
+                                role="tab"
+                                aria-controls="pills-shipping"
+                                aria-selected="false"
+                                >Shipping</a
+                            >
                         </li>
 
-                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web"><button
-                                    *ngIf="bookedService.order_status !== 'RECEIVED'" type="button"
-                                    class="btn problem-btn" routerLink="/ordermanagement/order-support"
-                                    [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}</button>
+                        <li class="pull-right ml-auto problem-text" id="have-a-problem-web">
+                            <button
+                                *ngIf="bookedService.order_status !== 'RECEIVED'"
+                                type="button"
+                                class="btn problem-btn"
+                                routerLink="/ordermanagement/order-support"
+                                [queryParams]="{ id: orderBookId }"
+                            >
+                                {{ globals.languageJson?.have_a_problem }}
+                            </button>
                         </li>
-
                     </ul>
                     <div class="pull-right ml-auto problem-text" id="have-a-problem-mobile">
-                        <button *ngIf="bookedService.order_status !== 'RECEIVED'" type="button" class="btn problem-btn"
-                                routerLink="/ordermanagement/order-support"
-                                [queryParams]="{id: orderBookId}">{{globals.languageJson?.have_a_problem}}</button>
+                        <button
+                            *ngIf="bookedService.order_status !== 'RECEIVED'"
+                            type="button"
+                            class="btn problem-btn"
+                            routerLink="/ordermanagement/order-support"
+                            [queryParams]="{ id: orderBookId }"
+                        >
+                            {{ globals.languageJson?.have_a_problem }}
+                        </button>
                     </div>
                     <div class="tab-content mt-md-5" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                             aria-labelledby="pills-home-tab">
+                        <div
+                            class="tab-pane fade show active"
+                            id="pills-home"
+                            role="tabpanel"
+                            aria-labelledby="pills-home-tab"
+                        >
                             <app-booked-order-details></app-booked-order-details>
                         </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                             aria-labelledby="pills-profile-tab">
+                        <div
+                            class="tab-pane fade"
+                            id="pills-profile"
+                            role="tabpanel"
+                            aria-labelledby="pills-profile-tab"
+                        >
                             <sewn-booked-documents></sewn-booked-documents>
                         </div>
-                        <div class="tab-pane fade" id="pills-contact" role="tabpanel"
-                             aria-labelledby="pills-contact-tab">
+                        <div
+                            class="tab-pane fade"
+                            id="pills-contact"
+                            role="tabpanel"
+                            aria-labelledby="pills-contact-tab"
+                        >
                             <div class="row">
-
                                 <app-booked-grade-info></app-booked-grade-info>
-
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="pills-shipping" role="tabpanel"
-                             aria-labelledby="pills-shipping-tab">
+                        <div
+                            class="tab-pane fade"
+                            id="pills-shipping"
+                            role="tabpanel"
+                            aria-labelledby="pills-shipping-tab"
+                        >
                             <app-booked-shipping></app-booked-shipping>
                         </div>
                     </div>
@@ -331,63 +494,63 @@
                     </div>
                 </div>
             </div> -->
-
-
-
             </div>
-            <div class="shipping-div shipping-div--mbVesrion col-lg-4 col-md-12 mixups-tabs--pd0 bg-shipping ">
-                <div class="shipping-div__info ">
+            <div class="shipping-div shipping-div--mbVesrion col-lg-4 col-md-12 mixups-tabs--pd0 bg-shipping">
+                <div class="shipping-div__info">
                     <div class="d-flex">
-                        <div class="pull-left shipping-addr">{{globals.languageJson?.delivery_address}}
-                        </div>
+                        <div class="pull-left shipping-addr">{{ globals.languageJson?.delivery_address }}</div>
                         <!-- <div class="pull-right ml-auto edit-text"><img class="edit-icon" src="assets/images/shape-edit.png"
                             alt="Edit"> Edit</div> -->
                     </div>
-                    <div class=" d-flex mt-1 addr-text" *ngIf="bookedService.shipping_address">
-                        {{bookedService['shipping_address']['address_line1']}},
-                        {{bookedService['shipping_address']['address_line2']}},
-                        {{bookedService['shipping_address']['zipcode']}} -
-                        {{bookedService['shipping_address']['state']}},
-                        {{GetCountry(bookedService['shipping_address']['country'])}}
+                    <div class="d-flex mt-1 addr-text" *ngIf="bookedService.shipping_address">
+                        {{ bookedService['shipping_address']['address_line1'] }},
+                        {{ bookedService['shipping_address']['address_line2'] }},
+                        {{ bookedService['shipping_address']['zipcode'] }} -
+                        {{ bookedService['shipping_address']['state'] }},
+                        {{ GetCountry(bookedService['shipping_address']['country']) }}
                     </div>
                     <div class="d-flex mt-3">
-                        <img class="img-logo" src="assets/images/google-image.png" alt="Map">
-
+                        <img class="img-logo" src="assets/images/google-image.png" alt="Map" />
                     </div>
                 </div>
-                <div class="d-none d-md-block ">
+                <div class="d-none d-md-block">
                     <div class="d-flex mt-4">
-                        <div class="pull-left estate-details">Estate details
-                        </div>
-                        <div class="pull-right ml-auto view-details">{{globals.languageJson?.view_details}}</div>
+                        <div class="pull-left estate-details">Estate details</div>
+                        <div class="pull-right ml-auto view-details">{{ globals.languageJson?.view_details }}</div>
                     </div>
 
                     <div class="d-flex mt-3 border-div">
-                        <div class="p-0"><img class="img-estate" [src]="bookedService.company_image_thumbnail_url"
-                                 alt="User"></div>
+                        <div class="p-0">
+                            <img class="img-estate" [src]="bookedService.company_image_thumbnail_url" alt="User" />
+                        </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">{{bookedService.owner_name}}</li>
+                                <li class="estate-name">{{ bookedService.owner_name }}</li>
                                 <li class="estate-number pt-1">
-                                    <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings"> <img
-                                             class="" src="assets/images/star-1.png" alt="User"> <span
-                                              class="star-no pl-1">{{bookedService.rating}}</span>
+                                    <span class="cursor-pointer" routerLink="/ordermanagement/review-ratings">
+                                        <img class="" src="assets/images/star-1.png" alt="User" />
+                                        <span class="star-no pl-1">{{ bookedService.rating }}</span>
                                     </span>
                                 </li>
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
                             <span class="bg-msg">
-                                <img class="message-icon message-icon-default" src="assets/images/message-icon.svg"
-                                     alt="Message">
-                                <img class="message-icon message-icon-active" src="assets/images/green-msg-icon.svg"
-                                     alt="Message">
-                                <span class="estate-message pl-2 ">Message</span>
+                                <img
+                                    class="message-icon message-icon-default"
+                                    src="assets/images/message-icon.svg"
+                                    alt="Message"
+                                />
+                                <img
+                                    class="message-icon message-icon-active"
+                                    src="assets/images/green-msg-icon.svg"
+                                    alt="Message"
+                                />
+                                <span class="estate-message pl-2">Message</span>
                             </span>
                         </div>
                     </div>
                     <table class="recent-time m-auto">
-
                         <!-- <tr>
                         <td> <span class="list-que"> Company Number : </span></td>
                         <td> <span class="list-ans"> 8685657 </span> </td>
@@ -399,62 +562,75 @@
 
                     </tr> -->
                         <tr>
-                            <td> <span class="list-que"> Address: </span></td>
-                            <td> <span class="list-ans"> {{bookedService.address_line1}},
-                                    {{bookedService.address_line2}}, {{bookedService.zipcode}} - {{bookedService.city}}
-                                </span> </td>
-
+                            <td><span class="list-que"> Address: </span></td>
+                            <td>
+                                <span class="list-ans">
+                                    {{ bookedService.address_line1 }}, {{ bookedService.address_line2 }},
+                                    {{ bookedService.zipcode }} - {{ bookedService.city }}
+                                </span>
+                            </td>
                         </tr>
                     </table>
                 </div>
                 <div class="Stakeholders-mbVersion col-12">
                     <div class="d-flex mt-md-4 mb-3">
-                        <div class="pull-left estate-details">{{globals.languageJson?.stakeholders}}
-                        </div>
+                        <div class="pull-left estate-details">{{ globals.languageJson?.stakeholders }}</div>
                     </div>
                     <div class="d-flex mt-3 border-div">
-                        <div class="p-0"><img class="img-estate" [src]="bookedService.estate_thumbnail_url" alt="User">
+                        <div class="p-0">
+                            <img class="img-estate" [src]="bookedService.estate_thumbnail_url" alt="User" />
                         </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">{{bookedService.estate_name}}</li>
+                                <li class="estate-name">{{ bookedService.estate_name }}</li>
                                 <li class="estate-number pt-1">
-                                    {{bookedService.estate_owner}}
+                                    {{ bookedService.estate_owner }}
                                 </li>
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
                             <span class="bg-msg">
-                                <img class="message-icon message-icon-default" src="assets/images/message-icon.svg"
-                                     alt="Message">
-                                <img class="message-icon message-icon-active" src="assets/images/green-msg-icon.svg"
-                                     alt="Message">
-                                <span class="estate-message pl-2 ">Message</span>
+                                <img
+                                    class="message-icon message-icon-default"
+                                    src="assets/images/message-icon.svg"
+                                    alt="Message"
+                                />
+                                <img
+                                    class="message-icon message-icon-active"
+                                    src="assets/images/green-msg-icon.svg"
+                                    alt="Message"
+                                />
+                                <span class="estate-message pl-2">Message</span>
                             </span>
                         </div>
                     </div>
                     <div class="d-flex mt-3">
-                        <div class="p-0"><img class="img-estate" [src]="bookedService.roaster_thumbnail_url" alt="User">
+                        <div class="p-0">
+                            <img class="img-estate" [src]="bookedService.roaster_thumbnail_url" alt="User" />
                         </div>
                         <div class="pull-left">
                             <ul class="details-list p-0 ml-2 ml-md-3">
-                                <li class="estate-name">{{bookedService.roaster_name}}</li>
+                                <li class="estate-name">{{ bookedService.roaster_name }}</li>
                                 <li class="estate-number pt-1">
-                                    {{bookedService.roaster_owner}}
+                                    {{ bookedService.roaster_owner }}
                                 </li>
                             </ul>
                         </div>
                         <div class="pull-right ml-auto">
                             <span class="bg-msg">
-
-                                <img class="message-icon message-icon-default" src="assets/images/message-icon.svg"
-                                     alt="Message">
-                                <img class="message-icon message-icon-active" src="assets/images/green-msg-icon.svg"
-                                     alt="Message">
-                                <span class="estate-message pl-2 ">Message</span>
+                                <img
+                                    class="message-icon message-icon-default"
+                                    src="assets/images/message-icon.svg"
+                                    alt="Message"
+                                />
+                                <img
+                                    class="message-icon message-icon-active"
+                                    src="assets/images/green-msg-icon.svg"
+                                    alt="Message"
+                                />
+                                <span class="estate-message pl-2">Message</span>
                             </span>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -462,19 +638,15 @@
     </div>
 </div>
 
-
-
 <div class="row mt-4">
     <div class="col-12">
         <div class="recent-fff">
-
-
             <div class="col-lg-12 bg-shipping">
-
                 <div class="w-100 col-lg-6 col-md-12 recent-activity-content">
-                    <p class=" w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
-                    <p class="w-100 activity-date mb-4">Tuesday,4th Jan 2020 <img class="pl-2"
-                             src="assets/images/active.png"></p>
+                    <p class="w-100 recent-title fnt-play mb-2 mb-md-3">Recent Activity</p>
+                    <p class="w-100 activity-date mb-4">
+                        Tuesday,4th Jan 2020 <img class="pl-2" src="assets/images/active.png" />
+                    </p>
                     <!-- <div class="row w-100 activity-list">
                     <span class="col-md-3 list-time">
                             12:44pm
@@ -499,14 +671,16 @@
                                     Assignment made ready
                             </span>
                         </div> -->
-                    <div class="d-flex mt-4 col-12 border-div flex-column flex-md-row"
-                         *ngFor="let activity of bookedService.recentactivityarray">
+                    <div
+                        class="d-flex mt-4 col-12 border-div flex-column flex-md-row"
+                        *ngFor="let activity of bookedService.recentactivityarray"
+                    >
                         <div class="d-none d-md-inline-block p-0">
                             <!-- <img class="img-estate" src="assets/images/activity1.png" alt="User"> -->
-                            <p class="timing">{{activity.created_at | date : 'shortTime' }}</p>
+                            <p class="timing">{{ activity.created_at | date: 'shortTime' }}</p>
                         </div>
                         <div class="pull-left">
-                            <ul class="details-list p-0 ">
+                            <ul class="details-list p-0">
                                 <!-- <li class="list-name d-none d-md-inline-block">Finca La Pampa</li> -->
                                 <!-- <li class="list-user mb-2 pt-1 d-none d-md-inline-block">
                                     <p class="mb-0">Coffee Estate</p>
@@ -514,13 +688,14 @@
 
                                 <li class="list-activity">
                                     <div
-                                         class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile">
-                                        {{activity.created_at | date : 'shortTime' }}
+                                        class="mb-1 text-left fnt-600 fnt-mb-14 d-block d-md-none list-time list-time--mobile"
+                                    >
+                                        {{ activity.created_at | date: 'shortTime' }}
                                     </div>
-                                    <p class="mb-0 confirmation"><span class="d-none d-md-inline-block pr-3">|</span>
-                                        {{activity.status | titlecase}}
+                                    <p class="mb-0 confirmation">
+                                        <span class="d-none d-md-inline-block pr-3">|</span>
+                                        {{ activity.status | titlecase }}
                                     </p>
-
                                 </li>
                             </ul>
                         </div>
@@ -532,24 +707,23 @@
                             (click)="cancelOrder()">Cancel order</button>
                     </div> -->
                 </div>
-                <div class="col-lg-6 col-12">
-
-                </div>
-
+                <div class="col-lg-6 col-12"></div>
             </div>
-
 
             <!-- <div class="w-100 mt-5 pb-5 d-none d-md-inline-block">
                 <button type="button" class="btn cancel-order-btn"
                     (click)="cancelOrder()">{{globals.languageJson?.cancel_order}}</button>
             </div> -->
             <div class="w-100 chat-div">
-                <button type="button" class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                        routerLink="/ordermanagement/order-chat"
-                        [queryParams]="{id: orderBookId}">{{globals.languageJson?.order}} #{{orderBookId}}
-                    {{globals.languageJson?.chat}} <span class="chat-indicator">
-                        &#x25CF;</span><img class="pull-right ml-auto" src="assets/images/back-arrow.png"></button>
-
+                <button
+                    type="button"
+                    class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
+                    [routerLink]="['/ordermanagement/order-chat/', SERVICE_TYPE, orderBookId]"
+                >
+                    {{ globals.languageJson?.order }} #{{ orderBookId }} {{ globals.languageJson?.chat }}
+                    <span class="chat-indicator"> &#x25CF;</span
+                    ><img class="pull-right ml-auto" src="assets/images/back-arrow.png" />
+                </button>
             </div>
         </div>
     </div>

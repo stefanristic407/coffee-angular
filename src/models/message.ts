@@ -1,4 +1,4 @@
-// NOTE:  Avoid using module, use file based types for better maintainability
+// NOTE:  Avoid using typescript module, use file based modules for better maintainability
 export enum WSOrganizationType {
     FACILITATOR = 'fc',
     ROASTER = 'ro',
@@ -14,6 +14,15 @@ export enum ThreadActivityType {
     adduser = 'AU',
     removeuser = 'RU',
 }
+
+export enum ThreadType {
+    gc_order = 'gc_order',
+    dispute = 'dispute',
+    service_request = 'service_request',
+    mr_order = 'mr_order',
+    normal = 'normal',
+}
+
 export enum WSChatMessageType {
     auth = 'auth', // Authenicate user
     threads = 'threads', // Get Thread Listing

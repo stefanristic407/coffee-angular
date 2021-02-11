@@ -10,7 +10,7 @@ import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { filter } from 'rxjs/operators';
 import { MenuService } from '@components';
-import { ChatService } from './../components/sewn-direct-message/chat.service';
+import { ChatHandlerService } from '../../services/chat/chat-handler.service';
 
 @Component({
     selector: 'app-layout',
@@ -54,7 +54,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         private toastrService: ToastrService,
         private translateService: TranslateService,
         public globals: GlobalsService,
-        public chat: ChatService,
+        public chat: ChatHandlerService,
         public menuService: MenuService,
     ) {
         this.translateService.addLangs(this.supportLanguages);

@@ -1,3 +1,4 @@
+import { OrderChatThreadResolver } from '../../services/chat/order-chat-thread.resolver';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // import { PagenotfoundComponent } from '../people/pagenotfound/pagenotfound.component';
@@ -40,6 +41,7 @@ import { MrOrdersComponent } from './microroaster-orders/mr-orders/mr-orders.com
 import { MrRequestDetailsComponent } from './microroaster-orders/mr-request-details/mr-request-details.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AssignUserComponent } from './assign-user/assign-user.component';
+import { SewnOrderChatComponent } from './sewn-order-chat/sewn-order-chat.component';
 
 const routes: Routes = [
     {
@@ -126,21 +128,36 @@ const routes: Routes = [
                 component: RatingComponent,
                 canActivate: [AuthGuard],
             },
+
             {
-                path: 'order-chat',
+                path: 'order-chat/:chatType/:orderId',
+                component: SewnOrderChatComponent,
+                canActivate: [AuthGuard],
+                resolve: {
+                    threadList: OrderChatThreadResolver,
+                    ,
+                },
+            },
+
+            /**
+             * These entries are kept for debugging purposes will be remove it later
+             */
+            {
+                path: 'dep-order-chat',
                 component: OrderChatComponent,
                 canActivate: [AuthGuard],
             },
-            {
-                path: 'pre-order-chat',
-                component: PreOrderChatComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: 'book-order-chat',
-                component: BookOrderChatComponent,
-                canActivate: [AuthGuard],
-            },
+            // {
+            //     path: 'dep-pre-order-chat',
+            //     component: PreOrderChatComponent,
+            //     canActivate: [AuthGuard],
+            // },
+            // {
+            //     path: 'dep-book-order-chat',
+            //     component: BookOrderChatComponent,
+            //     canActivate: [AuthGuard],
+            // },
+
             {
                 path: 'horeca-orders',
                 component: HorecaOrdersComponent,
