@@ -22,16 +22,25 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     chartData: any[] = [];
     customerType = '';
     chartType = 'day';
+    barPadding = 88;
     periods: any[] = [
         {
-            value: 0,
+            value: 'lastWeek',
             label: 'last 7 days',
         },
         {
-            value: 1,
+            value: 'lastMonth',
             label: 'last 30 days',
         },
+        // {
+        //     value: 'lastYear',
+        //     label: 'last Year',
+        // },
     ];
+    colorScheme = {
+        domain: ['#2DAEA8', '#2DAEA8', '#2DAEA8', '#2DAEA8', '#2DAEA8', '#2DAEA8'],
+    };
+    periodsValue = 'lastWeek';
     customerTypelist: any[] = [
         {
             value: '',
@@ -47,53 +56,9 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
         },
     ];
     selPeriod = 0;
-
-    chartArea = { border: { width: 0 } };
-    public primaryXAxis = {
-        valueType: 'DateTime',
-        labelFormat: 'd',
-        intervalType: 'Days',
-        interval: 1,
-        minimum: new Date(),
-        maximum: new Date(),
-        edgeLabelPlacement: 'Shift',
-        majorGridLines: { width: 0 },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-    };
-
-    public primaryYAxis = {
-        visible: !Browser.isDevice,
-        minimum: 0,
-        maximum: 30,
-        labelFormat: '{value}',
-        rangePadding: 'None',
-        lineStyle: { width: 0 },
-        majorGridLines: { width: 0 },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        titleStyle: {
-            size: '16px',
-            color: '#232334',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-    marker = {
-        dataLabel: {
-            visible: true,
-            template: '<div>$ ${point.y}</div>',
-            font: { size: '12px', fontFamily: 'Muli', fontWeight: '600', color: '#232334' },
-        },
-    };
-    saleData = [
-        { name: 'Mobiles', value: 105000 },
-        { name: 'Laptop', value: 55000 },
-        { name: 'AC', value: 15000 },
-        { name: 'Headset', value: 150000 },
-        { name: 'Fridge', value: 20000 },
-    ];
-
+    saleData = [];
+    dateFrom: string;
+    dateTo: string;
     constructor(
         private cookieService: CookieService,
         public globals: GlobalsService,
@@ -103,9 +68,18 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
         private welcomeSrv: WelcomeService,
     ) {}
 
+    yAxisTickFormatting(value) {
+        return '$ ' + value.toLocaleString();
+    }
+
     ngOnInit(): void {
         this.roasterId = this.cookieService.get('roaster_id');
-        this.getStats();
+        const date = moment().format('YYYY-MM-DD');
+        const lastWeekStart = moment().subtract(6, 'day').format('YYYY-MM-DD');
+        const lastWeekEnd = date;
+        this.dateFrom = lastWeekStart;
+        this.dateTo = lastWeekEnd;
+        this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
     }
 
     ngOnDestroy() {
@@ -114,20 +88,36 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
         }
     }
 
-    getStats() {
-        const dateFrom = moment().startOf('day').subtract(1, 'months').format('YYYY-MM-DD');
+    getSalesChartData(dateFrom, dateTo, customerType, chartType) {
         this.userSrv
             .getStats(this.roasterId, {
                 sections: 'sales',
-                customer_type: this.customerType,
-                chart_type: this.chartType,
+                customer_type: customerType,
+                chart_type: chartType,
                 date_from: dateFrom,
+                date_to: dateTo,
             })
             .subscribe((res: any) => {
-                console.log('sales: ', this.sales);
+                console.log('sales: ', res);
                 if (res.success) {
                     this.sales = res.result.sales;
-                    this.makeChartData();
+                    this.saleData = this.generateBlankData();
+                    if (this.sales && this.sales.sales_stats) {
+                        const originSaleData = this.sales.sales_stats;
+                        originSaleData.map((item: any) => {
+                            this.saleData.map((blankItem: any) => {
+                                if (
+                                    item.year === blankItem.year &&
+                                    item.month === blankItem.month &&
+                                    item.date === blankItem.day
+                                ) {
+                                    blankItem.earnings = item.earnings;
+                                    blankItem.value = item.earnings;
+                                }
+                            });
+                        });
+                        console.log('sales data: ', this.saleData);
+                    }
                 } else {
                     this.toastrService.error('Error while getting stats');
                 }
@@ -135,70 +125,85 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     }
 
     changeCustomerType(value) {
+        console.log('changed customer type: ', value);
         this.customerType = value;
-        this.getStats();
+        this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
     }
 
-    changePeriod(value: number = null) {
-        if (value != null) {
-            this.selPeriod = value;
+    changePeriod(value: string) {
+        console.log('changed period: ', value);
+        this.periodsValue = value;
+        const date = moment().format('YYYY-MM-DD');
+        switch (value) {
+            case 'lastWeek':
+                this.barPadding = 88;
+                const lastWeekStart = moment().subtract(6, 'day').format('YYYY-MM-DD');
+                const lastWeekEnd = date;
+                this.dateFrom = lastWeekStart;
+                this.dateTo = lastWeekEnd;
+                this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+                break;
+            case 'lastMonth':
+                this.barPadding = 9;
+                const startOfLastMonth = moment().subtract(30, 'day').format('YYYY-MM-DD');
+                const endOfLastMonth = date;
+                this.dateFrom = startOfLastMonth;
+                this.dateTo = endOfLastMonth;
+                this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+                break;
+            case 'lastYear':
+                this.barPadding = 5;
+                const currentYear = new Date();
+                const lastYear = currentYear.getFullYear() - 1;
+                const startOfLastYear = lastYear + '-01-01';
+                const endOfLastYear = lastYear + '-12-31';
+                this.dateFrom = startOfLastYear;
+                this.dateTo = endOfLastYear;
+                this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+                break;
+            default:
+                break;
         }
-        const minimum =
-            this.selPeriod === 0
-                ? moment().startOf('day').subtract(7, 'days').toDate()
-                : moment().startOf('day').subtract(1, 'months').toDate();
-        this.primaryXAxis = {
-            ...this.primaryXAxis,
-            minimum,
-            maximum: moment().startOf('day').subtract(24, 'hours').toDate(),
-        };
     }
 
-    makeChartData() {
-        this.changePeriod();
-        const tempData = [];
-        _.chain(this.sales.sales_stats)
-            .map((item) => {
-                const key = moment(new Date(`${item.month}-${item.date}-${item.year}`)).format('YYYY/MM/DD');
-                return {
-                    key,
-                    data: item,
-                };
-            })
-            .groupBy('key')
-            .map((value, key) => {
-                const earnings = _.reduce(
-                    value,
-                    (acc, val) => {
-                        return acc + (val.data?.earnings || 0);
-                    },
-                    0,
-                );
-                return {
-                    key,
-                    earnings,
-                };
-            })
-            .value()
-            .forEach((element) => {
-                tempData.push({
-                    x: new Date(element.key),
-                    y: +element.earnings.toFixed(0),
-                });
-            });
+    generateBlankData() {
+        const startDate = moment(this.dateFrom);
+        const endDate = moment(this.dateTo);
 
-        const maxValue = _.max(_.pluck(tempData, 'y')) * 1.2;
-        this.primaryYAxis = {
-            ...this.primaryYAxis,
-            maximum: maxValue,
-        };
-        this.chartData = tempData;
-        console.log('chartData: ', this.chartData);
+        let day = startDate;
+        const blankData = [];
+        let name = '';
+        while (day <= endDate) {
+            switch (this.periodsValue) {
+                case 'lastWeek':
+                    name = day.toDate().toLocaleString('default', { weekday: 'short' });
+                    break;
+                case 'lastMonth':
+                    name = day.toDate().getDate().toString();
+                    break;
+                case 'lastYear':
+                    name = day.toDate().getMonth().toString() + 1;
+                    break;
+                default:
+                    break;
+            }
+            const item = {
+                date: day.toDate(),
+                day: day.toDate().getDate(),
+                earnings: 0,
+                month: day.toDate().getMonth() + 1,
+                year: day.toDate().getFullYear(),
+                name,
+                // value: 100000 * Math.random(),
+                value: 0,
+            };
+            blankData.push(item);
+            day = day.clone().add(1, 'd');
+        }
+
+        console.log('blankData', blankData);
+        return blankData;
     }
 
-    // dateTickFormatting(val: any): string {
-    //     if (val instanceof Date) {
-    //         return (<Date>val).toLocaleString('de-DE');
-    //     }
-    // }
+    makeChartData() {}
 }

@@ -74,6 +74,19 @@ export class SourcingService {
         this.getEstateCertificates();
     }
 
+    clearQueryParams() {
+        this.queryParams.next({
+            origin: '',
+            species: '',
+            name: '',
+            grade: null,
+            crop_year: null,
+            weight: 'kg',
+            sort_by: '',
+            sort_order: 'asc',
+        });
+    }
+
     // Estate detail apis
     estateDetailList() {
         this.userService.getAvailableEstateList(this.roasterId, this.estateId).subscribe((res: any) => {

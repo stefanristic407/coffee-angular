@@ -6,10 +6,8 @@
 .p-dialog {
     background: #fff;
     border: none;
-    padding: 0 1rem;
     width: 90vw;
     @media (min-width: 768px) {
-        padding: 0 1.5rem;
         width: 75vw;
     }
 }
@@ -29,10 +27,13 @@
     font-size: 20px;
 }
 .p-dialog .p-dialog-content {
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0;
+    border-radius: 4px;
 }
 .p-dialog .p-dialog-footer {
     padding-left: 0;
     padding-right: 0;
+}
+.p-dialog-mask {
+    background-color: rgba(0, 0, 0, 0.8) !important;
 }

@@ -18,6 +18,10 @@
                 color: $general-text-color;
                 padding: 0.857rem 1.5rem;
                 font-weight: 600;
+                padding: 0 8px 9px 8px;
+                @media (min-width: 768px) {
+                    padding: 0 24px 9px 24px;
+                }
 
                 &::before {
                     content: '';
@@ -55,4 +59,8 @@
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
     background: transparent;
     color: $primary-color;
+}
+
+.p-tabmenu-nav .p-menuitem-text {
+    line-height: normal !important;
 }

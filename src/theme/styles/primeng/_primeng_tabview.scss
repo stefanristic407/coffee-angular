@@ -31,6 +31,10 @@
     color: $general-text-color;
     font-weight: 600;
     white-space: nowrap;
+    padding: 0 8px 9px 8px;
+    @media (min-width: 768px) {
+        padding: 0 24px 9px 24px;
+    }
 
     &::before {
         content: '';
@@ -69,4 +73,8 @@
 .p-tabview .p-tabview-panels {
     border: none;
     padding: 0;
+}
+
+.p-tabview-title {
+    line-height: normal !important;
 }

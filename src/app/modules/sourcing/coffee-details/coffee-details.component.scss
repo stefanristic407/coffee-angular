@@ -1,3 +1,18 @@
+.content-block {
+    @media (min-width: 768px) {
+        padding: 32px 24px;
+    }
+}
+.left-block {
+    @media (min-width: 768px) {
+        padding-right: 53px;
+    }
+}
+.right-block {
+    @media (min-width: 768px) {
+        padding-left: 6px;
+    }
+}
 .checked {
     font-size: 16px;
     @media (min-width: 768px) {
