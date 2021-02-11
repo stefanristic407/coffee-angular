@@ -4,9 +4,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { SocketService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
@@ -31,7 +32,7 @@ export class UserserviceService {
     // private url = "https://fed-api.sewnstaging.com/api";
     // private deleteUrl = "https://fed-api.sewnstaging.com/deleteapi";
 
-    constructor(private http: HttpClient, public cookieService: CookieService) {}
+    constructor(private http: HttpClient, public cookieService: CookieService, private socketService: SocketService) {}
 
     //API Function Name : Roaster Login
     //API Description: This API calls helps to get the username and password of the user and send to the backend to check the user is valid or not.
@@ -66,7 +67,12 @@ export class UserserviceService {
         var data = {};
         data['api_call'] = '/users/token';
         data['token'] = this.cookieService.get('Auth');
-        return this.http.post(this.deleteUrl, data);
+        return this.http.post(this.deleteUrl, data).pipe(
+            tap(() => {
+                // Closing socket connection on logout
+                this.socketService.destorySocket();
+            }),
+        );
     }
 
     //API Function Name :Roaster Profile

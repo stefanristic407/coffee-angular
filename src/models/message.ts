@@ -38,6 +38,7 @@ export enum WSChatMessageType {
     unblock = 'unblock', // UnBlock a user
     blocklist = 'blocklist', // Get Block List
     users = 'users', // Get Multiple users details
+    getCreate = 'get-create',
 }
 
 export interface WSRequest<RequestBody> {
@@ -82,7 +83,7 @@ export interface ThreadListItem {
     meta_data: string;
     name: string;
     status: true;
-    type: string;
+    type: ThreadType;
     type_id: number;
     unread?: number;
     messages: [];
@@ -154,7 +155,18 @@ export interface IncomingChatMessage extends ChatMessage {
     member: ChatMessageMember & { user: ThreadMembers };
     thread_id: number;
 }
-
+export interface RecentUserListItem {
+    computed_fullname: string;
+    computed_profile_dp: string;
+    computed_organization_name: string;
+    lastname: string;
+    firstname: string;
+    organization_id: number;
+    organization_type: WSOrganizationType;
+    profile_pic: string;
+    id: number;
+    user_id: number;
+}
 export interface UserListItem {
     email_verified: boolean;
     firstname: string;

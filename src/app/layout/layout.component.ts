@@ -1,3 +1,4 @@
+import { SocketService } from '@services';
 import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -56,6 +57,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         public globals: GlobalsService,
         public chat: ChatHandlerService,
         public menuService: MenuService,
+        private socket: SocketService,
     ) {
         this.translateService.addLangs(this.supportLanguages);
         if (localStorage.getItem('locale')) {
@@ -69,6 +71,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
+        this.socket.initSocketService(); // Enable socket service
         this.chatStateSubcription = this.chat.isOpen.subscribe((x) => {
             if (x) {
                 this.activeLink = 'MESSAGES';

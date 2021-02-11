@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { combineLatest } from 'rxjs';
 import { HealthCheckComponent } from './health-check/health-check.component';
 import { LayoutComponent } from './layout/layout.component';
 

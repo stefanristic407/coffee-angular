@@ -135,7 +135,6 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
                 resolve: {
                     threadList: OrderChatThreadResolver,
-                    ,
                 },
             },
 
