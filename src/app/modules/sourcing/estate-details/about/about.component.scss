@@ -67,10 +67,13 @@
     }
 }
 
-.prodcoffee {
+.media-wrap {
     width: 100%;
-    position: relative;
-    height: 234px;
+    height: 200px;
+
+    @media (min-width: 768px) {
+        height: 234px;
+    }
     @media (max-width: 767px) {
         width: unset;
         margin: 0 -8px;
