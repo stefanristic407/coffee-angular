@@ -31,8 +31,8 @@ export class SourcingComponent implements OnInit {
     ];
     cropItems: any[];
     weightItems: any[] = [
-        { label: 'KG', value: 'kg' },
         { label: 'lb', value: 'lb' },
+        { label: 'Kg', value: 'kg' },
     ];
     sortItems: any[] = [
         { label: 'Name (A-Z)', value: 'name' },
