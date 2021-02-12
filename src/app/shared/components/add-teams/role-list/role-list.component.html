@@ -34,7 +34,7 @@
                         <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
                     </th>
             
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null"
+                    <th *ngFor="let col of columns"
                         [style.width]="col.width ? col.width + '%' : '30%'" [ngClass]="{'d-md-none': col.field == 'add_user'}">
                         <span class="primeng-table-header">{{col.header}}</span>
                         <p-sortIcon *ngIf="col.sortable === true" [field]="col.field" ariaLabel="Activate to sort"
@@ -87,7 +87,7 @@
                         <span *ngSwitchCase="'actions'">
                             <ng-container>
                                 <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
-                                    <p class="ellipsisClass mb-0 mt-0"><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
+                                    <img class="ellipse-image" src="assets/images/ellipses.png" alt="">
                                 </a>
                                 <ng-template #poplistTemplate>
                                     <div id="popover-mobile-content">

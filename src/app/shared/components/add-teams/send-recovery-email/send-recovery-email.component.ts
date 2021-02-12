@@ -17,12 +17,11 @@ export class SendRecoveryEmailComponent implements OnInit {
     currentRoleID: any = '';
     selectedRole: any = 'Select Role';
     roleList: any = [];
-    roaster_id: any = '';
+    roasterID: any = '';
     breadCrumbItem: MenuItem[] = [];
     isEdit = false;
     statusToggle = false;
-    last_activated = '';
-    userDetails = {};
+    userDetails: any;
     userID = '';
     deleteRoles: any = [];
     userForm: FormGroup;
@@ -38,8 +37,10 @@ export class SendRecoveryEmailComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.roaster_id = this.cookieService.get('roaster_id');
-        this.currentRoleID = this.route.snapshot.queryParams['roleID'] ? this.route.snapshot.queryParams['roleID'] : '';
+        this.roasterID = this.cookieService.get('roaster_id');
+        this.currentRoleID = this.route.snapshot.queryParams.roleID
+            ? Number(this.route.snapshot.queryParams.roleID)
+            : '';
         this.supplyBreadCrumb();
         this.listRoles();
         this.userForm = this.fb.group({
@@ -52,10 +53,9 @@ export class SendRecoveryEmailComponent implements OnInit {
                 Validators.compose([Validators.required, Validators.email]),
             ),
         });
-        this.userDetails['last_activated'] = '';
-        this.userDetails['roles'] = [];
-        if (this.route.snapshot.queryParams['userID'] != undefined) {
-            this.userID = decodeURIComponent(this.route.snapshot.queryParams['userID']);
+        this.userDetails = { last_activated: '', roles: [], status: '' };
+        if (this.route.snapshot.queryParams.userID) {
+            this.userID = decodeURIComponent(this.route.snapshot.queryParams.userID);
         } else {
             this.toastrService.error('Error in getting the user Id');
             this.router.navigate(['/people/user-management']);
@@ -63,38 +63,37 @@ export class SendRecoveryEmailComponent implements OnInit {
         this.getUserData();
     }
     getUserData(): void {
-        this.userService.getRoasterUserData(this.roaster_id, this.userID).subscribe((result) => {
-            console.log(result['result']);
-            if (result && result['success']) {
+        this.userService.getRoasterUserData(this.roasterID, this.userID).subscribe((result: any) => {
+            if (result && result.success) {
                 this.userForm.setValue({
-                    name: result['result']['firstname'] + ' ' + result['result']['lastname'],
-                    email: result['result']['email'],
+                    name: result.result.firstname + ' ' + result.result.lastname,
+                    email: result.result.email,
                 });
-                this.userDetails['last_activated'] = result['result']['created_at'];
-                this.userDetails['status'] = result['result']['status'];
-                this.statusToggle = result['result']['status'] == 'ACTIVE' ? true : false;
+                this.userDetails.last_activated = result.result.created_at ? result.result.created_at : '';
+                this.userDetails.status = result.result.status;
+                this.statusToggle = result.result.status === 'ACTIVE' ? true : false;
                 this.listAssignedRoles();
             }
         });
     }
     listAssignedRoles(): void {
-        this.roasterService.getUserBasedRoles(this.roaster_id, this.userID).subscribe((response) => {
-            if (response['success'] == true) {
-                this.userDetails['roles'] = response['result'];
+        this.roasterService.getUserBasedRoles(this.roasterID, this.userID).subscribe((response: any) => {
+            if (response.success === true) {
+                this.userDetails.roles = response.result;
             } else {
                 this.toastrService.error('Error while getting the roles of the user.');
             }
         });
     }
     listRoles(): void {
-        this.roasterService.getRoles(this.roaster_id).subscribe(
-            (response) => {
-                if (response['success']) {
-                    const getCurrentRole = response['result'].find((ele) => ele['id'] == this.currentRoleID);
-                    this.selectedRole = getCurrentRole ? getCurrentRole['name'] : 'Select Role';
-                    this.currentRoleID = getCurrentRole ? getCurrentRole['id'] : '';
+        this.roasterService.getRoles(this.roasterID).subscribe(
+            (response: any) => {
+                if (response.success) {
+                    const getCurrentRole = response.result.find((ele) => ele.id === this.currentRoleID);
+                    this.selectedRole = getCurrentRole ? getCurrentRole.name : 'Select Role';
+                    this.currentRoleID = getCurrentRole ? getCurrentRole.id : '';
                 }
-                this.roleList = response['result'];
+                this.roleList = response.result;
             },
             (err) => {
                 console.log(err);
@@ -122,23 +121,24 @@ export class SendRecoveryEmailComponent implements OnInit {
     }
     addRole(): void {
         this.isEdit = true;
-        this.userDetails['roles'].push({ id: '', name: '', isNew: true });
+        this.userDetails.roles.push({ id: '', name: '', isNew: true });
+        this.updateForm();
     }
     onEditCancel() {
         this.isEdit = false;
         this.getUserData();
     }
     validateFields(): boolean {
-        if (!this.userForm.valid || !this.userDetails['roles']) {
+        if (!this.userForm.valid || !this.userDetails.roles) {
             return false;
         } else {
-            const findEmptyRole = this.userDetails['roles'].find((ele) => ele['id'] === '');
+            const findEmptyRole = this.userDetails.roles.find((ele) => !ele.id);
             return findEmptyRole ? false : true;
         }
         return true;
     }
     onSave(): void {
-        const getUserStatus = this.userDetails['status'] == 'ACTIVE' ? true : false;
+        const getUserStatus = this.userDetails.status === 'ACTIVE' ? true : false;
         if (getUserStatus !== this.statusToggle) {
             if (this.statusToggle) {
                 this.enableUser();
@@ -150,28 +150,28 @@ export class SendRecoveryEmailComponent implements OnInit {
         }
     }
     updateForm(): void {
-        this.userForm['controls']['name'].enable();
-        this.userForm['controls']['email'].enable();
+        this.userForm.controls.name.enable();
+        this.userForm.controls.email.enable();
         if (!this.isEdit || !this.statusToggle) {
-            this.userForm['controls']['name'].disable();
-            this.userForm['controls']['email'].disable();
+            this.userForm.controls.name.disable();
+            this.userForm.controls.email.disable();
         }
     }
     updateUserDetails() {
         const getValidate = this.validateFields();
         if (getValidate) {
             const inputObj = {
-                firstname: this.userForm['controls']['name']['value'],
+                firstname: this.userForm.controls.name.value,
                 lastname: '',
-                email: this.userForm['controls']['email']['value'],
+                email: this.userForm.controls.email.value,
             };
-            this.userService.updateUserData(inputObj, this.roaster_id, this.userID).subscribe(
-                (res) => {
-                    if (res && res['success']) {
+            this.userService.updateUserData(inputObj, this.roasterID, this.userID).subscribe(
+                (res: any) => {
+                    if (res && res.success) {
                         if (this.deleteRoles && this.deleteRoles.length > 0) {
                             this.deleteRoleForUser();
                         }
-                        const getNewRole = this.userDetails['roles'].find((ele) => ele['isNew'] && ele['id']);
+                        const getNewRole = this.userDetails.roles.find((ele) => ele.isNew && ele.id);
                         if (getNewRole) {
                             this.addNewRoles();
                         }
@@ -190,24 +190,27 @@ export class SendRecoveryEmailComponent implements OnInit {
     }
     deleteRoleForUser(): void {
         this.deleteRoles.forEach((ele) => {
-            this.roasterService.deleteRoasterUserRole(this.roaster_id, ele, this.userID).subscribe((data) => {
-                if (!data['success']) {
-                    this.toastrService.error('Error while deleting the role');
-                }
-            }),
+            this.roasterService.deleteRoasterUserRole(this.roasterID, ele, this.userID).subscribe(
+                (data: any) => {
+                    if (!data.success) {
+                        this.toastrService.error('Error while deleting the role');
+                    }
+                },
                 (err) => {
                     this.toastrService.error('Error while deleting the role');
-                };
+                },
+            );
         });
     }
     addNewRoles() {
-        const getNewRoles = this.userDetails['roles'].filter((ele) => ele['isNew'] == true && ele['id']);
+        const getNewRoles = this.userDetails.roles.filter((ele) => ele.isNew && ele.id);
         getNewRoles.forEach((ele) => {
-            const roleID = parseInt(ele['id']);
-            this.roasterService.assignUserBasedUserRoles(this.roaster_id, roleID, this.userID).subscribe(
-                (result) => {
-                    if (result['success'] == true) {
+            const roleID = Number(ele.id);
+            this.roasterService.assignUserBasedUserRoles(this.roasterID, roleID, this.userID).subscribe(
+                (result: any) => {
+                    if (result.success) {
                         this.toastrService.success('Role has been assigned to the user.');
+                        getNewRoles.isNew = false;
                         this.listAssignedRoles();
                     } else {
                         this.toastrService.error('Error while assigning the role');
@@ -220,9 +223,9 @@ export class SendRecoveryEmailComponent implements OnInit {
         });
     }
     enableUser() {
-        this.roasterService.enableAdminUser(this.roaster_id, this.userID).subscribe(
-            (response) => {
-                if (response['success'] == true) {
+        this.roasterService.enableAdminUser(this.roasterID, this.userID).subscribe(
+            (response: any) => {
+                if (response.success) {
                     this.toastrService.success('User has been enabled');
                     this.updateUserDetails();
                 } else {
@@ -235,9 +238,9 @@ export class SendRecoveryEmailComponent implements OnInit {
         );
     }
     disableUser() {
-        this.roasterService.disableAdminUsers(this.roaster_id, this.userID).subscribe(
-            (value) => {
-                if (value['success'] == true) {
+        this.roasterService.disableAdminUsers(this.roasterID, this.userID).subscribe(
+            (value: any) => {
+                if (value.success) {
                     this.toastrService.success('User has been disabled');
                     this.isEdit = false;
                     this.updateForm();
@@ -254,23 +257,23 @@ export class SendRecoveryEmailComponent implements OnInit {
         console.log('onSend');
     }
     removeRole(idx): void {
-        const getRole = this.userDetails['roles'][idx];
+        const getRole = this.userDetails.roles[idx];
         if (getRole) {
-            this.deleteRoles.push(getRole['id']);
+            this.deleteRoles.push(getRole.id);
         }
-        this.userDetails['roles'].splice(idx, 1);
+        this.userDetails.roles.splice(idx, 1);
     }
     sendMail() {
         const body = {
-            name: this.userForm.controls['name']['value'],
+            name: this.userForm.controls.name.value,
             portal: 'Roaster',
             content_type: 'invite_with_url',
-            senders: [this.userForm.controls['email']['value']],
+            senders: [this.userForm.controls.email.value],
             url: 'https://qa-roaster-portal.sewnstaging.com/#/auth/update-password',
         };
         this.userService.sendUrlToEmail(body).subscribe(
-            (res) => {
-                if (res['status'] == '200 OK') {
+            (res: any) => {
+                if (res.status === '200 OK') {
                     this.toastrService.success('Email has been sent successfully');
                 } else {
                     this.toastrService.error('Error while sending email to the User');

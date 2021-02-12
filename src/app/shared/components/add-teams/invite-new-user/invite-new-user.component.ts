@@ -17,7 +17,7 @@ export class InviteNewUserComponent implements OnInit {
     currentRoleID: any = '';
     selectedRole: any = 'Select Role';
     roleList: any = [];
-    roaster_id: any = '';
+    roasterID: any = '';
     breadCrumbItem: MenuItem[] = [];
     password = 'Ro@Sewn1234';
     @ViewChild(EditUserDetailsComponent, { static: false }) userDetails;
@@ -32,20 +32,22 @@ export class InviteNewUserComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.roaster_id = this.cookieService.get('roaster_id');
-        this.currentRoleID = this.route.snapshot.queryParams['roleID'] ? this.route.snapshot.queryParams['roleID'] : '';
+        this.roasterID = this.cookieService.get('roaster_id');
+        this.currentRoleID = this.route.snapshot.queryParams.roleID
+            ? Number(this.route.snapshot.queryParams.roleID)
+            : '';
         this.supplyBreadCrumb();
         this.listRoles();
     }
     listRoles(): void {
-        this.roasterService.getRoles(this.roaster_id).subscribe(
-            (response) => {
-                if (response['success']) {
-                    const getCurrentRole = response['result'].find((ele) => ele['id'] == this.currentRoleID);
-                    this.selectedRole = getCurrentRole ? getCurrentRole['name'] : 'Select Role';
-                    this.currentRoleID = getCurrentRole ? getCurrentRole['id'] : '';
+        this.roasterService.getRoles(this.roasterID).subscribe(
+            (response: any) => {
+                if (response.success) {
+                    const getCurrentRole = response.result.find((ele) => ele.id === this.currentRoleID);
+                    this.selectedRole = getCurrentRole ? getCurrentRole.name : 'Select Role';
+                    this.currentRoleID = getCurrentRole ? getCurrentRole.id : '';
                 }
-                this.roleList = response['result'];
+                this.roleList = response.result;
             },
             (err) => {
                 console.error(err);
@@ -53,8 +55,8 @@ export class InviteNewUserComponent implements OnInit {
         );
     }
     setTeamRole(currentRole): void {
-        this.selectedRole = currentRole['name'];
-        this.currentRoleID = currentRole['id'];
+        this.selectedRole = currentRole.name;
+        this.currentRoleID = currentRole.id;
     }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
@@ -83,19 +85,21 @@ export class InviteNewUserComponent implements OnInit {
                 }
             });
         } else {
+            this.userDetails.userForm.markAllAsTouched();
             this.toastrService.error('Please fill correct data');
         }
     }
     async addUserToRoaster(userInput) {
-        const addUserResponse = await this.userService.addUserRoaster(userInput).toPromise();
-        if (addUserResponse && addUserResponse['success']) {
-            const assignRoleResponse = await this.roasterService
-                .assignUserBasedUserRoles(this.roaster_id, this.currentRoleID, addUserResponse['result']['user_id'])
+        const addUserResponse: any = await this.userService.addUserRoaster(userInput).toPromise();
+        if (addUserResponse && addUserResponse.success) {
+            const assignRoleResponse: any = await this.roasterService
+                .assignUserBasedUserRoles(this.roasterID, this.currentRoleID, addUserResponse.result.user_id)
                 .toPromise();
-            if (assignRoleResponse && assignRoleResponse['success']) {
+            if (assignRoleResponse && assignRoleResponse.success) {
                 const getEmailInput = this.getEmailInputBody(userInput);
-                const sendInviteEmail = this.userService.sendUrlToEmail(getEmailInput).toPromise();
-                if (sendInviteEmail && sendInviteEmail['status'] === '200 OK') {
+                const sendInviteEmail: any = await this.userService.sendUrlToEmail(getEmailInput).toPromise();
+                if (sendInviteEmail && sendInviteEmail.status === '200 OK') {
+                    this.toastrService.success('Invite sent successfully');
                     return;
                 } else {
                     this.showError('email');
@@ -108,9 +112,9 @@ export class InviteNewUserComponent implements OnInit {
         }
     }
     showError(flag) {
-        if (flag == 'add') {
+        if (flag === 'add') {
             this.toastrService.error('Error while creating a new user');
-        } else if (flag == 'assign') {
+        } else if (flag === 'assign') {
             this.toastrService.error('Error while assigning a role to new user');
         } else {
             this.toastrService.error('Error while sending Invite to new user');
@@ -133,9 +137,9 @@ export class InviteNewUserComponent implements OnInit {
     }
     getUserInputObj(item) {
         return {
-            firstname: item['name'],
+            firstname: item.name,
             lastname: '',
-            email: item['email'],
+            email: item.email,
             password: this.password,
             confirm_password: this.password,
             timezone: '',

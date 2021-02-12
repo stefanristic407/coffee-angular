@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { GlobalsService, RoasterserviceService, UserserviceService } from '@services';
@@ -6,18 +6,21 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-team-member-table',
     templateUrl: './team-member-table.component.html',
     styleUrls: ['./team-member-table.component.scss'],
 })
-export class TeamMemberTableComponent implements OnInit {
+export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     roasterID: any;
     breadCrumbItem: MenuItem[] = [];
     selectedRole = 'Role';
     termStatus;
     termRole;
+    termRoleName;
     termSearch = '';
     tableColumns: any = [];
     tableValue: any = [];
@@ -33,6 +36,8 @@ export class TeamMemberTableComponent implements OnInit {
     modalUserRoasterId = '';
     modalUserRoasterName = '';
     loginId: any;
+    tableRows;
+    @ViewChild('input') input: ElementRef;
     constructor(
         public router: Router,
         private roasterService: RoasterserviceService,
@@ -76,11 +81,12 @@ export class TeamMemberTableComponent implements OnInit {
             },
             {
                 field: 'roles',
-                header: 'All Roles',
+                header: '',
                 sortable: false,
                 width: 20,
             },
         ];
+        this.tableRows = 10;
         this.statusFilterArray = [
             { name: 'Active', value: 'active' },
             { name: 'Inactive', value: 'Inactive' },
@@ -108,10 +114,11 @@ export class TeamMemberTableComponent implements OnInit {
         this.roasterService.getRoles(this.roasterID).subscribe(
             (response: any) => {
                 if (response.success) {
-                    const getCurrentRole = response.result.find((ele) => ele.id === this.currentRoleID);
+                    const getCurrentRole: any = response.result.find((ele) => ele.id === this.currentRoleID);
                     this.selectedRole = getCurrentRole ? getCurrentRole.name : '';
                     if (!this.isAddMember) {
                         this.termRole = this.currentRoleID;
+                        this.termRoleName = getCurrentRole.name;
                     }
                 }
                 this.roleList = response.result;
@@ -123,20 +130,25 @@ export class TeamMemberTableComponent implements OnInit {
             },
         );
     }
-    getTableData(): void {
+    getTableData(event?): void {
         this.selectedUsers = [];
+        this.roasterUsers = [];
+        this.tableValue = [];
         const postData: any = {};
         postData.role_id = this.termRole ? this.termRole : '';
         postData.name = this.termSearch ? this.termSearch : '';
+        postData.per_page = 10;
+        if (event) {
+            const currentPage = event.first / this.tableRows;
+            postData.page = currentPage + 1;
+        }
         postData.status = this.termStatus ? this.termStatus : undefined;
-        postData.per_page = 100;
         this.roasterService.getRoasterUsers(this.roasterID, postData).subscribe(
             (result: any) => {
                 if (result.success) {
                     const userData = result.result;
                     if (userData && userData.length > 0) {
-                        this.roasterUsers = [];
-                        this.tableValue = [];
+                        this.totalCount = result.result_info.total_count;
                         userData.forEach((element, index) => {
                             const tempData: any = {};
                             tempData.id = element.id;
@@ -212,9 +224,6 @@ export class TeamMemberTableComponent implements OnInit {
             },
         };
         this.router.navigate(['/people/invite-member'], navigationExtras);
-    }
-    onSearch(event) {
-        this.getTableData();
     }
     assignUsersToRole(): void {
         let count = 0;
@@ -311,6 +320,23 @@ export class TeamMemberTableComponent implements OnInit {
         });
     }
     filterCall() {
+        if (this.termRole) {
+            const getRole = this.roleList.find((ele) => ele.id === this.termRole);
+            this.termRoleName = getRole && getRole.name ? getRole.name : '';
+        }
         this.getTableData();
+    }
+    ngAfterViewInit() {
+        // server-side search
+        fromEvent(this.input.nativeElement, 'keyup')
+            .pipe(
+                filter(Boolean),
+                debounceTime(400),
+                distinctUntilChanged(),
+                tap((text) => {
+                    this.getTableData();
+                }),
+            )
+            .subscribe();
     }
 }

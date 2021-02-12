@@ -16,6 +16,20 @@
 ::ng-deep .userTable .p-datatable .p-sortable-column:not(.p-highlight):hover {
     background: #ffffff;
 }
+::ng-deep .userTable .headerFilter .p-inputtext {
+    padding-left: 0px;
+}
+.rolesHeader {
+    font-weight: 700;
+}
+::ng-deep .userTable .ui-column-filter {
+    margin-bottom: 0px !important;
+    border: 0px !important;
+    background: inherit;
+}
+::ng-deep .userTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: #ffffff;
+}
 .tableDataFont {
     font-family: Muli;
     font-size: 14px;
@@ -28,7 +42,7 @@
     color: #232334;
 }
 .typeofStatus-active {
-    color: $primary-color;
+    color: #649a2b;
 }
 .typeofStatus-disabled {
     color: #979797;
