@@ -45,7 +45,10 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.estate?.name || 'NA' }}</td>
                     <td>{{ item.lot?.country | country }}</td>
-                    <td>{{ item.lot?.varieties[0] || 'NA' }}</td>
+                    <td>
+                        {{ item.lot?.varieties[0] || 'NA' }}
+                        {{ item.lot?.varieties?.length > 1 ? ' +' + (item.lot.varieties.length - 1) : '' }}
+                    </td>
                     <td>{{ item.price_unit }}{{ item.price }} {{ Currencies[item.price_unit] }}&nbsp;/&nbsp;kg</td>
                     <td>{{ item.quantity_count }}&nbsp;{{ item.quantity_type | lowercase }}</td>
                     <td>{{ item.flavours?.length ? item.flavours.join(', ') : 'NA' }}</td>

@@ -1,9 +1,9 @@
 <div class="pt-3 pt-md-45 px-3 px-md-0">
     <ng-container *ngIf="sourcing.estateGalleryImages?.length; else empty">
-        <div class="row gutter-26">
-            <div class="col-6 col-lg-4 mb-2 mb-md-3" *ngFor="let item of sourcing.estateGalleryImages">
+        <div class="row gutter-8 gutter-md-26 card-block">
+            <div class="col-6 col-lg-4 card-wrap" *ngFor="let item of sourcing.estateGalleryImages">
                 <div class="square">
-                    <div class="content">
+                    <div class="content br-4 overflow-hidden">
                         <app-media [url]="item.url"></app-media>
                     </div>
                 </div>
@@ -11,7 +11,9 @@
         </div>
     </ng-container>
 </div>
-
+<a *ngIf="globals.device === 'desktop'" class="estate-chat-btn active" routerLink="/features/sourcing-chat">
+    <span>Chat with {{ sourcing.estate?.name }}</span>
+</a>
 <ng-template #empty>
     <app-empty title="No data available"></app-empty>
 </ng-template>

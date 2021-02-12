@@ -110,11 +110,9 @@ export class SourcingService {
     }
 
     getEstateHomepage() {
-        console.log('estateId', this.estateId);
         this.userService.getEstateBrandProfileDetail(this.estateId, 'home-page').subscribe((res: any) => {
             if (res.success) {
                 this.estateHomepage = res.result;
-                console.log(this.estateHomepage);
             }
         });
     }
@@ -136,6 +134,7 @@ export class SourcingService {
     }
 
     getLotsList() {
+        this.estateLots = null;
         this.userService.getavailableLots(this.roasterId, this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.estateLots = res.result;
@@ -172,7 +171,6 @@ export class SourcingService {
         this.userService.getEachEsateReviews(this.estateId).subscribe((res: any) => {
             if (res.success) {
                 this.reviewsList = res.result;
-                console.log(this.reviewsList);
             }
         });
     }

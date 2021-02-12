@@ -1,3 +1,15 @@
+.card-block {
+    margin-top: -8px;
+    @media (min-width: 768px) {
+        margin-top: -26px;
+    }
+}
+.card-wrap {
+    margin-top: 8px;
+    @media (min-width: 768px) {
+        margin-top: 26px;
+    }
+}
 .square {
     position: relative;
     width: 100%;

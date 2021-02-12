@@ -38,6 +38,11 @@ export class FilterComponent implements OnInit {
         this.close();
     }
 
+    clear() {
+        this.sourcingSrv.clearQueryParams();
+        this.close();
+    }
+
     close() {
         this.ref.close();
     }
