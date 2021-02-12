@@ -29,14 +29,20 @@
                         {{ data.lot?.species?.length > 1 ? ' +' + (data.lot.species.length - 1) : '' }}
                     </h6>
                 </div>
-                <div class="orgin-att d-none d-md-block">
+                <div class="orgin-att">
                     <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.variety }}</label>
                     <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
                         {{ data.lot?.varieties[0] || 'NA' }}
                         {{ data.lot?.varieties?.length > 1 ? ' +' + (data.lot.varieties.length - 1) : '' }}
                     </h6>
                 </div>
-                <div class="orgin-att w-100">
+                <div class="orgin-att">
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.processing }}</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
+                        {{ data.wetmilling_process_name || 'NA' }}
+                    </h6>
+                </div>
+                <div class="orgin-att">
                     <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.flavour }}</label>
                     <div *ngIf="data.flavours?.length">
                         <div class="custom-chip mb-2 mr-25" *ngFor="let flavour of data.flavours">
