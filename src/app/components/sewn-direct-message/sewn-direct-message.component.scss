@@ -61,6 +61,7 @@
     font-family: 'Muli', sans-serif;
     overflow: hidden;
     float: right;
+    border-left: 1px solid #dedede;
 }
 
 .chat-head {
@@ -307,8 +308,12 @@
 }
 
 .account {
-    margin-bottom: 15px;
+    margin-bottom: 8px;
+    margin-top: 8px;
     cursor: pointer;
+    &.activate_account {
+        background-color: #f8f8f8;
+    }
 }
 
 .chat-profile__time {
@@ -815,6 +820,14 @@
     padding: 10px;
     position: relative;
     z-index: 9;
+}
+
+.recent-tag {
+    font-size: 14px;
+    color: #747588;
+    font-weight: 600;
+    display: block;
+    margin: 15px 20px;
 }
 
 @media (max-width: 767px) {

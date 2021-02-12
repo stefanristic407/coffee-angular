@@ -9,7 +9,7 @@
         }"
     >
         <!--Remove expand mode-->
-        <div class="chat-head">
+        <div class="chat-head" data-element="chat-head">
             <button class="back-to-shrinkMode" (click)="closeExapndView()">
                 <img src="assets/images/dm-back-arrow.svg" />
             </button>
@@ -416,20 +416,47 @@
 
                             <div class="chat-accounts__name">
                                 <!--User Search-->
-                                <div class="clearfix account" *ngFor="let user of usersList">
-                                    <div class="d-inline-block profile-pic">
-                                        <span
-                                            class="profile-pic__item bg-profile"
-                                            [style.backgroundImage]="user.computed_profile_dp"
-                                        ></span>
-                                    </div>
-                                    <div class="chat-profile clearfix">
-                                        <div class="chat-profile__name d-inline-block">
-                                            <h5 class="name">{{ user.computed_fullname }}</h5>
-                                            <span class="status">{{ user.computed_organization_name }}</span>
+                                <ng-container *ngIf="!userSearchKeywords">
+                                    <span class="recent-tag">Recents</span>
+                                    <div
+                                        class="clearfix account"
+                                        *ngFor="let user of recentUserList"
+                                        (click)="openThreadWithUser(user)"
+                                    >
+                                        <div class="d-inline-block profile-pic">
+                                            <span
+                                                class="profile-pic__item bg-profile"
+                                                [style.backgroundImage]="user.computed_profile_dp"
+                                            ></span>
+                                        </div>
+                                        <div class="chat-profile clearfix">
+                                            <div class="chat-profile__name d-inline-block">
+                                                <h5 class="name">{{ user.computed_fullname }}</h5>
+                                                <span class="status">{{ user.computed_organization_name }}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </ng-container>
+                                <ng-container *ngIf="userSearchKeywords">
+                                    <div
+                                        class="clearfix account"
+                                        *ngFor="let user of usersList"
+                                        (click)="openThreadWithUser(user)"
+                                    >
+                                        <div class="d-inline-block profile-pic">
+                                            <span
+                                                class="profile-pic__item bg-profile"
+                                                [style.backgroundImage]="user.computed_profile_dp"
+                                            ></span>
+                                        </div>
+                                        <div class="chat-profile clearfix">
+                                            <div class="chat-profile__name d-inline-block">
+                                                <h5 class="name">{{ user.computed_fullname }}</h5>
+                                                <span class="status">{{ user.computed_organization_name }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
                             </div>
                         </ng-container>
 
@@ -454,6 +481,7 @@
                                 <!--Account-->
                                 <div
                                     class="clearfix account"
+                                    [ngClass]="{ activate_account: openedThread && thread.id === openedThread.id }"
                                     *ngFor="let thread of threadList | searchFilter: threadSearchKeyword"
                                     (click)="openThreadChat(thread)"
                                 >

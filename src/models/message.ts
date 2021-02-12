@@ -171,6 +171,7 @@ export interface UserListItem {
     email_verified: boolean;
     firstname: string;
     id: number;
+    user_id: number;
     language: string; // or any specific value
     lastname: string;
     organization_id: number;
@@ -181,4 +182,9 @@ export interface UserListItem {
     computed_fullname: string;
     computed_profile_dp: string;
     computed_organization_name: string;
+}
+export interface OpenChatThread {
+    user_id: number;
+    org_type: WSOrganizationType;
+    org_id: number;
 }

@@ -1,4 +1,4 @@
-import { ServiceCommunicationType, WSOrganizationType } from '@models';
+import { OpenChatThread, ServiceCommunicationType, WSOrganizationType } from '@models';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -28,7 +28,7 @@ export class ChatHandlerService {
         });
     }
 
-    public openChatThread(payload: { user_id: number; org_type: WSOrganizationType; org_id: number }) {
+    public openChatThread(payload: OpenChatThread) {
         this.chatSubject.next({
             requestType: ServiceCommunicationType.OPEN_THREAD,
             payload,

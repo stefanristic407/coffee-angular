@@ -48,7 +48,7 @@ export class SocketService implements OnDestroy {
     }
 
     private handleSusbscription = (WSMessage: WSResponse<unknown>) => {
-        const arr = Object.keys(WSChatMessageType);
+        const arr = Object.values(WSChatMessageType);
         if (arr.includes(WSMessage.type)) {
             // Created Handlers for your message types
             this.chatReceive.next(WSMessage);
