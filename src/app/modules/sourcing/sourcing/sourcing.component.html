@@ -76,12 +76,13 @@
                             : ''
                     }}"
                 ></p-dropdown>
-                <p-dropdown
+                <p-selectButton
                     [options]="weightItems"
                     [(ngModel)]="queryParams.weight"
                     (onChange)="filterCall()"
-                    styleClass="round-border mb-25 mb-md-4 d-none d-md-inline-flex"
-                ></p-dropdown>
+                    styleClass="round-select  mb-25 mb-md-4 d-none d-md-inline-flex"
+                >
+                </p-selectButton>
             </div>
 
             <div class="position-relative">
