@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { RatingModule } from 'ng-starrating';
 
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
@@ -131,6 +130,7 @@ import { OtherCuppingServiceComponent } from './green-grading/cupping-report/oth
 import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
 import { ProductListComponent } from './e-commerce/product-list/product-list.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
     declarations: [
