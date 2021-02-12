@@ -9,6 +9,7 @@ export const environment = {
     encryptionKey: 'sewen_secrete_key',
     microRoasterWeb: 'https://microroaster.sewnstaging.com',
     horecaWeb: 'https://partners.sewnstaging.com',
+    agroUrl: 'https://api.agromonitoring.com/agro/1.0/',
     production: false,
 };
 
