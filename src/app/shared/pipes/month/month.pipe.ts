@@ -5,7 +5,7 @@ import * as moment from 'moment';
     name: 'month',
 })
 export class MonthPipe implements PipeTransform {
-    transform(value: string, args?): string {
-        return value ? moment(value, 'M').format('MMM') : 'NA';
+    transform(value: string, format?): string {
+        return value ? moment(value, 'M').format(format || 'MMM') : 'NA';
     }
 }
