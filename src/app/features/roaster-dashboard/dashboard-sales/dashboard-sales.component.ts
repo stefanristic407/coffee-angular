@@ -59,6 +59,7 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
     saleData = [];
     dateFrom: string;
     dateTo: string;
+    showDataLabel = true;
     constructor(
         private cookieService: CookieService,
         public globals: GlobalsService,
@@ -142,6 +143,8 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                 this.dateFrom = lastWeekStart;
                 this.dateTo = lastWeekEnd;
                 this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+                this.showDataLabel = true;
+
                 break;
             case 'lastMonth':
                 this.barPadding = 9;
@@ -150,6 +153,7 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                 this.dateFrom = startOfLastMonth;
                 this.dateTo = endOfLastMonth;
                 this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+                this.showDataLabel = false;
                 break;
             case 'lastYear':
                 this.barPadding = 5;
@@ -160,6 +164,8 @@ export class DashboardSalesComponent implements OnInit, OnDestroy {
                 this.dateFrom = startOfLastYear;
                 this.dateTo = endOfLastYear;
                 this.getSalesChartData(this.dateFrom, this.dateTo, this.customerType, this.chartType);
+                this.showDataLabel = true;
+
                 break;
             default:
                 break;
