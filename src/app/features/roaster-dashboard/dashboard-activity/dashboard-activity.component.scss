@@ -75,6 +75,13 @@ tr:nth-child(even) {
     transition: background-color 0.2s, box-shadow 0.2s;
 }
 
+::ng-deep .ui-table .ui-table-tbody > tr,
+tr:nth-child(odd) {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
 .table-responsive {
     overflow: initial;
 }
@@ -84,7 +91,7 @@ tr:nth-child(even) {
 }
 
 .p-highlight {
-    background-color: #ffffff !important;
+    background-color: #f8f8f8 !important;
     color: #333333 !important;
 }
 
