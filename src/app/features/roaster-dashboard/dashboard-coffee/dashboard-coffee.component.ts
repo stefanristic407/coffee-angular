@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GlobalsService } from 'src/services/globals.service';
 import { WelcomeService } from '../welcome.service';
@@ -28,7 +29,7 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
             name: 'Prebook',
         },
     };
-    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    constructor(private router: Router, public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 
     ngOnInit(): void {
         this.stockSub = this.welcomeSrv.stock$.subscribe((res: any) => {
@@ -56,5 +57,9 @@ export class DashboardCoffeeComponent implements OnInit, OnDestroy {
             });
         });
         this.chartData = tempData;
+    }
+
+    goToOrderDetails(item: any) {
+        this.router.navigateByUrl(`/ordermanagement/order-booked?data=${item.type}&id=${item.id}`);
     }
 }

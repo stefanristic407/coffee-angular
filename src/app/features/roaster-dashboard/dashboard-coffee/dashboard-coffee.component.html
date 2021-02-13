@@ -37,7 +37,11 @@
                                 </tr>
                             </thead>
                             <tbody class="customtable">
-                                <tr class="ticket-boby-txt" *ngFor="let item of orders.slice(0, 5)">
+                                <tr
+                                    class="ticket-boby-txt"
+                                    *ngFor="let item of orders.slice(0, 5)"
+                                    (click)="goToOrderDetails(item)"
+                                >
                                     <td>#{{ item.id }}</td>
                                     <td>{{ item.estate_name }}</td>
                                     <td>
