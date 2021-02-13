@@ -11,7 +11,9 @@
     width: 18px;
     height: 18px;
 }
-
+.p-checkbox .p-checkbox-box .p-checkbox-icon {
+    font-size: 12px;
+}
 .p-checkbox .p-checkbox-box.p-highlight {
     border-color: $primary-color;
     background: $primary-color;
