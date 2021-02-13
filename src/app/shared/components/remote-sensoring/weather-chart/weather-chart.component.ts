@@ -32,6 +32,9 @@ export class WeatherChartComponent implements OnInit {
             label: 'Temperature',
             title: 'Temperature(°C)',
             unit: '°C',
+            interval: 5,
+            minimum: 0,
+            maximum: 30,
         },
         {
             value: 1,
@@ -119,16 +122,31 @@ export class WeatherChartComponent implements OnInit {
         valueType: 'DateTime',
         interval: 1,
         edgeLabelPlacement: 'Shift',
+        lineStyle: { width: 0 },
         majorGridLines: { width: 0 },
+        majorTickLines: { width: 0 },
+        minorTickLines: { width: 0 },
+        labelStyle: {
+            size: '16px',
+            color: '#747588',
+            fontFamily: 'Muli',
+            fontWeight: '500',
+        },
     };
 
     public primaryYAxis = {
         labelFormat: '{value}',
-        rangePadding: 'None',
         lineStyle: { width: 0 },
+        plotOffsetBottom: 16,
         majorGridLines: { dashArray: '7,5' },
         majorTickLines: { width: 0 },
         minorTickLines: { width: 0 },
+        labelStyle: {
+            size: '16px',
+            color: '#747588',
+            fontFamily: 'Muli',
+            fontWeight: '500',
+        },
         titleStyle: {
             size: '16px',
             color: '#232334',
@@ -168,38 +186,41 @@ export class WeatherChartComponent implements OnInit {
     constructor(public agroSrv: AgroService) {}
 
     ngOnInit(): void {
-        this.changeWeatherType(0);
-        this.changePeriod(0);
+        this.changeWeatherType();
+        this.changePeriod();
     }
 
-    changeWeatherType(value) {
-        this.selWeatherType = value;
+    changeWeatherType() {
         this.primaryYAxis = {
             ...this.primaryYAxis,
             ...this.weatherTypes[this.selWeatherType],
         };
-        if (value === 2) {
+        if (this.selWeatherType === 1) {
+            // Wind
+            this.periods = this.periodsForAll.slice(0, 3);
+            this.selPeriod = 0;
+        } else if (this.selWeatherType === 2) {
+            // Rain
             this.periods = this.periodsForRain;
             this.selPeriod = 0;
         } else {
             this.periods = this.periodsForAll;
         }
-        this.updateChartSetting();
-        this.makeData();
+        this.selPeriod = 0;
+        this.changePeriod();
     }
 
-    changePeriod(value) {
-        this.selPeriod = value;
+    changePeriod() {
         this.primaryXAxis = {
             ...this.primaryXAxis,
             ...this.periods[this.selPeriod],
         };
         this.updateChartSetting();
-        this.getHistoricalWeather();
+        this.getData();
     }
 
     changeDate() {
-        this.getHistoricalWeather();
+        this.getData();
     }
 
     updateChartSetting() {
@@ -214,7 +235,7 @@ export class WeatherChartComponent implements OnInit {
         }
     }
 
-    getHistoricalWeather() {
+    getData() {
         let query;
         switch (this.periods[this.selPeriod].period) {
             case 'daily': {

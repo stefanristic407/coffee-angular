@@ -26,7 +26,7 @@
     "@angular/service-worker": "~9.1.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
-    "@swimlane/ngx-charts": "^14.0.0",
+    "@swimlane/ngx-charts": "^17.0.0",
     "@syncfusion/ej2-angular-charts": "^18.4.30",
     "angular-datatables": "^6.0.0",
     "angular-ng-autocomplete": "^2.0.1",
