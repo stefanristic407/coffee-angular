@@ -80,7 +80,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-block d-sm-block d-md-block mb-2 mt-2" *ngIf="isLast && statusToggle">
+                    <div class="d-block d-sm-block d-md-block mb-2 mt-2" *ngIf="isEdit && isLast && statusToggle">
                         <img src="assets/images/add-partner.svg" />
                         <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addRole();">
                             {{globals.languageJson?.assign_role}}

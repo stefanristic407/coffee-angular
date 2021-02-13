@@ -22,6 +22,9 @@
 .rolesHeader {
     font-weight: 700;
 }
+.selectedRoleHeader {
+    color: $primary-color;
+}
 ::ng-deep .userTable .ui-column-filter {
     margin-bottom: 0px !important;
     border: 0px !important;

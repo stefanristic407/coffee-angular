@@ -5,10 +5,18 @@
         </div>
     </div>
     <div class="row m-0 mt-4">
-        <div *ngIf="isAddMember" class="d-inline col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 primary_txt">{{globals.languageJson?.add_team_members}}
-            <span class="primary_txt roleTxt-selector" (click)="op.toggle($event)">
+        
+        <div *ngIf="isAddMember" class="d-inline col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 primary_txt userTable">{{globals.languageJson?.add_team_members}}
+            <p-dropdown [options]="roleList" optionLabel="name" optionValue="id"
+                (onChange)="setTeamRole();" scrollHeight="225px" placeholder="All Roles" [(ngModel)]="currentRoleID"
+                styleClass="round-border mr-2 mb-3 mb-md-4 ui-column-filter headerFilter">
+                <ng-template pTemplate="selectedItem">
+                    <span class="primary_txt rolesHeader selectedRoleHeader">{{selectedRole}}</span>
+                </ng-template>
+            </p-dropdown>
+            <!-- <span class="primary_txt roleTxt-selector" (click)="op.toggle($event)">
                 {{selectedRole}}
-                <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span>
+                <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span> -->
             <div class="secondary_txt mt-1">{{globals.languageJson?.select_members_role}}</div>
         </div>
         <div *ngIf="isAddMember" class="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 d-none d-sm-none d-md-flex">
@@ -252,15 +260,16 @@
         
         </p-table>
     </div>
-    <p-overlayPanel #op [dismissable]="true" appendTo="body">
-        <div class="overflow-popover">
-            <ul class="custom-popover">
-                <li class="content_list" *ngFor="let role of roleList" (click)="setTeamRole(role.name,role.id);op.hide();">
-                    {{role.name}}</li>
-            </ul>
-            <button class="btn addrole_button" routerLink="/people/create-role">{{globals.languageJson?.add_role}}
-                <!-- <span class="addrole_content">Add role</span> -->
-            </button>
+    <!-- <ng-template #deleteTemplate>
+        <div class="modal-body mt-5 mb-5 text-center fnt-muli">
+            <div><img src="assets/images/delete-role.svg" alt=""></div>
+            <div class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
+            <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">You sure you really want to delete this?</div>
+            <div class="mt-4">
+                <button class="btn btn-stroked" (click)="modalRef.hide();">{{globals.languageJson?.cancel}}</button>
+                <button class="btn btn-raised ml-3"
+                    (click)="modalRef.hide();deleteRole(this.deleteRoleID)">{{globals.languageJson?.delete}}</button>
+            </div>
         </div>
-    </p-overlayPanel>
+    </ng-template> -->
 </div>

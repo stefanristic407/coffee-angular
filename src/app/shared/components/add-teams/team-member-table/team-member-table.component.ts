@@ -17,7 +17,7 @@ import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators'
 export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     roasterID: any;
     breadCrumbItem: MenuItem[] = [];
-    selectedRole = 'Role';
+    selectedRole;
     termStatus;
     termRole;
     termRoleName;
@@ -212,9 +212,9 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj4);
     }
-    setTeamRole(roleName, roleID): void {
-        this.currentRoleID = roleID;
-        this.selectedRole = roleName;
+    setTeamRole(): void {
+        const getSelectedRole = this.roleList.find((ele) => ele['id'] === this.currentRoleID);
+        this.selectedRole = getSelectedRole ? getSelectedRole.name : '';
         this.filterSelectedRoleUser();
     }
     inviteNewMembers() {
