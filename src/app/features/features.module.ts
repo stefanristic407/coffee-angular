@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { RatingModule } from 'ng-starrating';
 
 import { ChatNotificationComponent } from './chat-notification/chat-notification.component';
 import { OnboardCustomersComponent } from './onboard-customers/onboard-customers.component';
@@ -133,6 +132,7 @@ import { ProductListComponent } from './e-commerce/product-list/product-list.com
 import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
 import { VarientDetailsComponent } from './e-commerce/varient-details/varient-details.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
     declarations: [

@@ -77,6 +77,7 @@ import { SendRecoveryEmailComponent } from './components/add-teams/send-recovery
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 // #region material
 const MATMODULES = [];
@@ -179,6 +180,7 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         SendRecoveryEmailComponent,
         BlogCardComponent,
         BarChartComponent,
+        StarRatingComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -196,6 +198,7 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         ...PIPES,
         BlogCardComponent,
         BarChartComponent,
+        StarRatingComponent,
     ],
 })
 export class SharedModule {}
