@@ -93,12 +93,8 @@
                                 <p>{{ sourcing.estate?.location || 'NA' }}</p>
                             </li>
                             <li>
-                                <label>{{ globals.languageJson?.region }} :</label>
-                                <p>{{ sourcing.estate?.region || 'NA' }}</p>
-                            </li>
-                            <li>
-                                <label>{{ globals.languageJson?.average_annual_prodcution_crops }} :</label>
-                                <p>{{ sourcing.estate?.total_production + ' tons' || 'NA' }}</p>
+                                <label>Varieties :</label>
+                                <p>{{ sourcing.estate?.varieties || 'NA' }}</p>
                             </li>
                             <li>
                                 <label class="pr-5"
@@ -125,6 +121,10 @@
                             <li>
                                 <label>Wild animals in the <br />region :</label>
                                 <p>{{ sourcing.estate?.wild_animals || 'NA' }}</p>
+                            </li>
+                            <li>
+                                <label>{{ globals.languageJson?.average_annual_prodcution_crops }} :</label>
+                                <p>{{ sourcing.estate?.total_production + ' tons' || 'NA' }}</p>
                             </li>
                         </ul>
                     </div>
