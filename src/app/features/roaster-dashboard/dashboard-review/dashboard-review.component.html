@@ -14,7 +14,13 @@
                 </h2>
                 <p class="fnt-14 fnt-bold fnt-muli text-clr588 mb-md-1 mb-0">out of 5</p>
                 <div *ngIf="reviewsSummary" class="d-flex star-wrap mt-2">
-                    <app-star-rating [ratingValue]="reviewsSummary.rating"></app-star-rating>
+                    <p-rating
+                        [(ngModel)]="reviewsSummary.rating"
+                        [readonly]="true"
+                        [stars]="5"
+                        [cancel]="false"
+                        class="fnt-20"
+                    ></p-rating>
                 </div>
 
                 <p class="fnt-14 fnt-bold fnt-muli text-clr334 pt-3">

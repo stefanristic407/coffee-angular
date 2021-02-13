@@ -18,6 +18,7 @@
                         [data]="chartData"
                         [total]="((sourcing?.total_coffee || 0) / 1000).toFixed(0) + ' Tonnes'"
                         [description]="'Total coffee available'"
+                        [tooltipDisabled]="false"
                     ></app-pie-chart>
                 </div>
             </div>

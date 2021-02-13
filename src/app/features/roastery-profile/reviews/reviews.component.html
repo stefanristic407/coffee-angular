@@ -15,7 +15,13 @@
                             uncheckedcolor="#d6d6d6"
                             size="26px"
                         ></star-rating> -->
-                        <app-star-rating [ratingValue]="4"></app-star-rating>
+                        <p-rating
+                            [(ngModel)]="reviewvalue"
+                            [readonly]="true"
+                            [stars]="5"
+                            [cancel]="false"
+                            class="fnt-12"
+                        ></p-rating>
                     </div>
 
                     <p class="cust-review pt-3">78 {{ globals.languageJson?.customer_reviews }}</p>

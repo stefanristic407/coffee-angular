@@ -15,6 +15,7 @@
                             [data]="chartData"
                             [total]="((stock?.total_coffee || 0) / 1000).toFixed(1) + ' ton'"
                             [description]="'Total Coffee sourced'"
+                            [tooltipDisabled]="false"
                         ></app-pie-chart>
                     </div>
                 </div>
