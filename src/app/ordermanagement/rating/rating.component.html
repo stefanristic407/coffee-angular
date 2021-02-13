@@ -85,41 +85,47 @@
                                 <label class="fnt-16 fnt-bold text-clr334">
                                     {{ globals.languageJson?.overall_experience }}
                                 </label>
-                                <span style="font-size: 24px">
-                                    <p-rating formControlName="overall_experience" [cancel]="false"></p-rating>
-                                    <small
-                                        *ngIf="infoForm.controls.overall_experience.errors?.required"
-                                        class="p-error fnt-14 fnt-600"
-                                    >
-                                        Tap the stars to rate
-                                    </small>
-                                </span>
+                                <p-rating
+                                    formControlName="overall_experience"
+                                    [cancel]="false"
+                                    class="star-input-wrap"
+                                ></p-rating>
+                                <small
+                                    *ngIf="infoForm.controls.overall_experience.errors?.required"
+                                    class="p-error fnt-14 fnt-600"
+                                >
+                                    Tap the stars to rate
+                                </small>
                             </div>
                             <div class="sewn-form-field col-lg-4 col-md-12 col-12">
                                 <label class="fnt-16 fnt-bold text-clr334">{{
                                     globals.languageJson?.communication
                                 }}</label>
-                                <span style="font-size: 24px">
-                                    <p-rating formControlName="communication" [cancel]="false"></p-rating>
-                                    <small
-                                        *ngIf="infoForm.controls.communication.errors?.required"
-                                        class="p-error fnt-14 fnt-600"
-                                    >
-                                        Tap the stars to rate
-                                    </small>
-                                </span>
+                                <p-rating
+                                    formControlName="communication"
+                                    [cancel]="false"
+                                    class="star-input-wrap"
+                                ></p-rating>
+                                <small
+                                    *ngIf="infoForm.controls.communication.errors?.required"
+                                    class="p-error fnt-14 fnt-600"
+                                >
+                                    Tap the stars to rate
+                                </small>
                             </div>
                             <div class="sewn-form-field col-lg-4 col-md-12 col-12">
                                 <label class="fnt-16 fnt-bold text-clr334">Green coffee</label>
-                                <span style="font-size: 24px">
-                                    <p-rating formControlName="green_coffee" [cancel]="false"></p-rating>
-                                    <small
-                                        *ngIf="infoForm.controls.green_coffee.errors?.required"
-                                        class="p-error fnt-14 fnt-600"
-                                    >
-                                        Tap the stars to rate
-                                    </small>
-                                </span>
+                                <p-rating
+                                    formControlName="green_coffee"
+                                    [cancel]="false"
+                                    class="star-input-wrap"
+                                ></p-rating>
+                                <small
+                                    *ngIf="infoForm.controls.green_coffee.errors?.required"
+                                    class="p-error fnt-14 fnt-600"
+                                >
+                                    Tap the stars to rate
+                                </small>
                             </div>
                         </div>
                         <div class="row">
