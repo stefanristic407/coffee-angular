@@ -111,11 +111,12 @@
                                         {{ review.reviewed_by_type == 'ro' ? 'Roaster' : 'Facilitator' }}
                                     </p>
                                     <div class="d-flex align-items-center">
-                                        <span class="fnt-12 lh-normal">
+                                        <span>
                                             <p-rating
                                                 [ngModel]="review.total_rating"
                                                 [cancel]="false"
                                                 [readonly]="true"
+                                                class="fnt-12 lh-normal"
                                             ></p-rating
                                         ></span>
                                         <span class="fnt-14 lh-normal fnt-bold text-clr334 ml-1">

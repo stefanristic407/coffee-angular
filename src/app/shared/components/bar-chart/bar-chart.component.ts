@@ -27,7 +27,7 @@ export class BarChartComponent implements OnInit {
     @Input() arcWidth = 0.24;
     @Input() tooltipDisabled = true;
     @Input() noBarWhenZero = true;
-    @Input() showDataLabel = true;
+    @Input() showDataLabel = false;
     @Input() scheme = {
         domain: ['#2DAEA8', '#0D6B67', '#AAC6E7', '#4D5B6C', '#CECECE', '#86A1B9'],
     };

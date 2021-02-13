@@ -55,9 +55,7 @@
         color: transparent;
         background-image: url(/assets/images/star-orange.svg);
     }
-    &.ng-dirty {
-        .p-rating-icon {
-            background-image: url(/assets/images/star-required.svg);
-        }
-    }
+}
+.ng-dirty.ng-invalid > .p-rating:not(.p-disabled):not(.p-readonly) .p-rating-icon {
+    background-image: url(/assets/images/star-required.svg);
 }

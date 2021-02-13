@@ -21,17 +21,25 @@
     .tooltip-caret.position-top {
         border-top-color: white;
         box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+        text {
+            fill: #747588;
+        }
     }
 
     background-color: white;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
     padding: 5px;
+    color: #747588;
+    text {
+        fill: #747588;
+    }
 }
 
 ::ng-deep .textDataLabel {
     font-size: 12px;
     font-family: 'Muli';
     font-weight: bold;
+    fill: #747588;
     // transform: translate(-20px, -8px);
 }
 
@@ -40,4 +48,17 @@
 }
 ::ng-deep .ng-tns-c229-5:before {
     content: '$';
+}
+
+::ng-deep .tick {
+    text {
+        fill: #747588;
+    }
+}
+
+::ng-deep .y,
+.axis {
+    text {
+        fill: #747588;
+    }
 }

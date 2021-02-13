@@ -546,10 +546,13 @@ input[type='number'] {
 .bg-f8 {
     background-color: $primary-bg-color;
 }
+.bg-fa {
+    background-color: #faf8f4;
+}
 
 // link with arrow
 .arrow-link {
-    color: $brown-color;
+    color: $brown-color !important;
     font-weight: 700;
     position: relative;
     padding-right: 16px;
@@ -570,7 +573,7 @@ input[type='number'] {
 
     &:hover {
         color: $brown-color;
-        text-decoration: none;
+        text-decoration: underline !important;
     }
 
     &.green {
