@@ -15,6 +15,11 @@
     overflow: hidden;
 }
 
+a.nav-link {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+}
+
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: #232334;
@@ -64,7 +69,6 @@
 }
 
 li.nav-item {
-    margin-right: 7%;
     position: relative;
     top: 0.25rem;
 }
