@@ -78,7 +78,9 @@ import { SendRecoveryEmailComponent } from './components/add-teams/send-recovery
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
-
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
+import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -163,6 +165,9 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         ...MATMODULES,
         // third libs
         ...THIRDMODULES,
+        NgxEchartsModule.forRoot({
+            echarts,
+        }),
     ],
     declarations: [
         // your components
@@ -181,6 +186,7 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         SendRecoveryEmailComponent,
         BlogCardComponent,
         BarChartComponent,
+        HorizontalBarComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
