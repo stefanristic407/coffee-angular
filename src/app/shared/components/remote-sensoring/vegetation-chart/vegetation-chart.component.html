@@ -24,6 +24,7 @@
                 dateFormat="dd.mm.yy"
                 [readonlyInput]="true"
                 [showButtonBar]="true"
+                [maxDate]="maxDate"
                 placeholder="Selected dates"
                 styleClass="round-border single-calendar mr-25"
             ></p-calendar>
@@ -37,6 +38,7 @@
                 dateFormat="dd.mm.yy"
                 [readonlyInput]="true"
                 [showButtonBar]="true"
+                [maxDate]="maxDate"
                 placeholder="Selected dates"
                 styleClass="round-border single-calendar mr-25"
             ></p-calendar>
@@ -47,6 +49,7 @@
                 dateFormat="dd.mm.yy"
                 [readonlyInput]="true"
                 [showButtonBar]="true"
+                [maxDate]="maxDate"
                 placeholder="Selected dates"
                 styleClass="round-border single-calendar mr-25"
             ></p-calendar>
@@ -59,67 +62,12 @@
         ></p-dropdown>
     </div>
 </div>
-<div class="row mt-0 mt-md-4">
-    <div class="col-12" style="height: 360px">
-        <div *ngIf="loading" class="d-flex justify-content-center align-items-center h-100">
-            <p-progressSpinner
-                [style]="{ width: '50px', height: '50px' }"
-                strokeWidth="8"
-                fill="#ffffff"
-                animationDuration="2s"
-            ></p-progressSpinner>
-        </div>
-        <ng-container *ngIf="!loading">
-            <ng-container *ngIf="chartData1?.length; else empty">
-                <ejs-chart
-                    style="display: block"
-                    id="vegetationChartcontainer"
-                    [primaryXAxis]="primaryXAxis"
-                    [primaryYAxis]="primaryYAxis"
-                    [tooltip]="tooltip"
-                    [chartArea]="chartArea"
-                    [palettes]="palette"
-                    [legendSettings]="legendSettings"
-                    height="360px"
-                >
-                    <e-series-collection>
-                        <e-series
-                            [dataSource]="chartData1"
-                            type="Line"
-                            xName="x"
-                            yName="y"
-                            width="2"
-                            [marker]="periods[selPeriod].period == 'range' ? '' : marker"
-                            tooltipMappingName="tooltip"
-                        >
-                        </e-series>
-                        <e-series
-                            [dataSource]="chartData2"
-                            type="Line"
-                            xName="x"
-                            yName="y"
-                            width="2"
-                            [marker]="periods[selPeriod].period == 'range' ? '' : marker"
-                            tooltipMappingName="tooltip"
-                        >
-                        </e-series>
-                        <e-series
-                            [dataSource]="chartData3"
-                            type="Line"
-                            xName="x"
-                            yName="y"
-                            width="2"
-                            [marker]="periods[selPeriod].period == 'range' ? '' : marker"
-                            tooltipMappingName="tooltip"
-                        >
-                        </e-series>
-                    </e-series-collection>
-                </ejs-chart>
-            </ng-container>
-        </ng-container>
-    </div>
+<div class="mt-0 mt-md-4">
+    <app-line-chart
+        [data]="data"
+        [loading]="loading"
+        [xAxis]="primaryXAxis"
+        [yAxis]="primaryYAxis"
+        [showMarker]="periods[selPeriod].period == 'range' ? false : true"
+    ></app-line-chart>
 </div>
-
-<ng-template #empty>
-    <app-empty title="No data available"></app-empty>
-</ng-template>

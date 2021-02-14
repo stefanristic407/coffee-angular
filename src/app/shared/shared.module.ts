@@ -81,6 +81,7 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -150,6 +151,7 @@ const COMPONENTS = [
     ReadMoreComponent,
     UploaderComponent,
     LoadingComponent,
+    LineChartComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];

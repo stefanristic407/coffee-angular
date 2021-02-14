@@ -15,7 +15,7 @@ export class UvChartComponent implements OnInit {
     dateFormats = ['DD MMM', 'DD MMM', 'DD MMM'];
 
     loading = true;
-    chartData1: any[] = [];
+    data: any[];
     legends: any[] = [];
     showLegend = false;
     weatherTypes: any[] = [
@@ -55,62 +55,13 @@ export class UvChartComponent implements OnInit {
     ];
     selPeriod = 0;
 
-    public primaryXAxis = {
-        valueType: 'DateTime',
-        interval: 1,
-        edgeLabelPlacement: 'Shift',
-        lineStyle: { width: 0 },
-        plotOffsetBottom: 16,
-        majorGridLines: { width: 0 },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        labelStyle: {
-            size: '16px',
-            color: '#747588',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-
-    public primaryYAxis = {
-        labelFormat: '{value}',
-        rangePadding: 'None',
-        lineStyle: { width: 0 },
-        majorGridLines: { dashArray: '7,5' },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        labelStyle: {
-            size: '16px',
-            color: '#747588',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-        titleStyle: {
-            size: '16px',
-            color: '#232334',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-    public chartArea = {
-        border: {
-            width: 0,
-        },
-    };
+    public primaryXAxis = {};
+    public primaryYAxis = {};
     palette = ['#2DAEA8', '#0D6B67'];
-    public marker = {
-        visible: true,
-        height: 10,
-        width: 10,
-    };
-    public tooltip: any = {
-        enable: true,
-        template: '${tooltip}',
-    };
-    legendSettings = { visible: false };
-    selectedDate = new Date();
+    maxDate = moment().subtract(1, 'days').toDate();
+    selectedDate = moment().subtract(1, 'days').toDate();
     startDate = moment().subtract(3, 'months').toDate();
-    endDate = new Date();
+    endDate = moment().subtract(1, 'days').toDate();
     weatherData: any[] = [];
 
     constructor(public agroSrv: AgroService) {}
@@ -121,19 +72,13 @@ export class UvChartComponent implements OnInit {
     }
 
     changeWeatherType() {
-        this.primaryYAxis = {
-            ...this.primaryYAxis,
-            ...this.weatherTypes[this.selWeatherType],
-        };
+        this.primaryYAxis = this.weatherTypes[this.selWeatherType];
         this.selPeriod = 0;
         this.changePeriod();
     }
 
     changePeriod() {
-        this.primaryXAxis = {
-            ...this.primaryXAxis,
-            ...this.periods[this.selPeriod],
-        };
+        this.primaryXAxis = this.periods[this.selPeriod];
         this.updateChartSetting();
         this.getHistoricalUv();
     }
@@ -256,10 +201,10 @@ export class UvChartComponent implements OnInit {
                 tooltip,
             });
         });
-        this.chartData1 = tempData1;
+        this.data = [tempData1];
     }
 
     clearData() {
-        this.chartData1 = [];
+        this.data = null;
     }
 }

@@ -1,0 +1,46 @@
+<div [style.height]="height">
+    <ng-container *ngIf="!isLoading; else loading">
+        <ng-container *ngIf="data?.length && data[0].length; else empty">
+            <ejs-chart
+                style="display: block"
+                [id]="containerId"
+                [primaryXAxis]="primaryXAxis"
+                [primaryYAxis]="primaryYAxis"
+                [tooltip]="tooltip"
+                [chartArea]="chartArea"
+                [palettes]="palette"
+                [legendSettings]="legendSettings"
+                [height]="height"
+            >
+                <e-series-collection>
+                    <e-series
+                        *ngFor="let item of data; index as i"
+                        [dataSource]="item"
+                        type="Line"
+                        xName="x"
+                        yName="y"
+                        width="2"
+                        [marker]="showMarker ? marker : ''"
+                        tooltipMappingName="tooltip"
+                    >
+                    </e-series>
+                </e-series-collection>
+            </ejs-chart>
+        </ng-container>
+    </ng-container>
+</div>
+
+<ng-template #empty>
+    <app-empty title="No data available"></app-empty>
+</ng-template>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <p-progressSpinner
+            [style]="{ width: '50px', height: '50px' }"
+            strokeWidth="8"
+            fill="#ffffff"
+            animationDuration="2s"
+        ></p-progressSpinner>
+    </div>
+</ng-template>

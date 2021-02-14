@@ -20,10 +20,10 @@ export class WeatherChartComponent implements OnInit {
         5: 'humidity',
     };
     dateKeyStrings = ['YYYY/MM/DD/HH', 'YYYY/MM/DD', 'YYYY/MM/DD', 'YYYY/MM/DD'];
+    palette = ['#2DAEA8', '#0D6B67', '#AAC6E7'];
 
     loading = true;
-    chartData1: any[] = [];
-    chartData2: any[] = [];
+    data: any[];
     legends: any[] = [];
     showLegend = false;
     weatherTypes: any[] = [
@@ -133,65 +133,12 @@ export class WeatherChartComponent implements OnInit {
     selPeriod = 0;
     dateFormats = ['DD MMM, LT', 'DD MMM', 'DD MMM', 'DD MMM'];
 
-    public primaryXAxis = {
-        valueType: 'DateTime',
-        interval: 1,
-        edgeLabelPlacement: 'Shift',
-        lineStyle: { width: 0 },
-        majorGridLines: { width: 0 },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        labelStyle: {
-            size: '16px',
-            color: '#747588',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-
-    public primaryYAxis = {
-        labelFormat: '{value}',
-        lineStyle: { width: 0 },
-        plotOffsetBottom: 16,
-        majorGridLines: { dashArray: '7,5' },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        labelStyle: {
-            size: '16px',
-            color: '#747588',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-        titleStyle: {
-            size: '16px',
-            color: '#232334',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-    public chartArea = {
-        border: {
-            width: 0,
-        },
-    };
-    palette = ['#2DAEA8', '#0D6B67'];
-    public marker = {
-        visible: true,
-        height: 10,
-        width: 10,
-    };
-    public tooltip: any = {
-        enable: true,
-        fill: '#fff',
-        border: {
-            width: 0,
-        },
-        template: '${tooltip}',
-    };
-    legendSettings = { visible: false };
-    selectedDate = new Date();
+    public primaryXAxis = {};
+    public primaryYAxis = {};
+    maxDate = moment().subtract(1, 'days').toDate();
+    selectedDate = moment().subtract(1, 'days').toDate();
     startDate = moment().subtract(3, 'months').toDate();
-    endDate = new Date();
+    endDate = moment().subtract(1, 'days').toDate();
     weatherData: any[] = [];
 
     constructor(public agroSrv: AgroService) {}
@@ -202,10 +149,7 @@ export class WeatherChartComponent implements OnInit {
     }
 
     changeWeatherType() {
-        this.primaryYAxis = {
-            ...this.primaryYAxis,
-            ...this.weatherTypes[this.selWeatherType],
-        };
+        this.primaryYAxis = this.weatherTypes[this.selWeatherType];
         if (this.selWeatherType === 1) {
             // Wind
             this.periods = this.periodsForAll.slice(0, 3);
@@ -222,10 +166,7 @@ export class WeatherChartComponent implements OnInit {
     }
 
     changePeriod() {
-        this.primaryXAxis = {
-            ...this.primaryXAxis,
-            ...this.periods[this.selPeriod],
-        };
+        this.primaryXAxis = this.periods[this.selPeriod];
         this.updateChartSetting();
         this.getData();
     }
@@ -431,12 +372,10 @@ export class WeatherChartComponent implements OnInit {
                 tooltip,
             });
         });
-        this.chartData1 = tempData1;
-        this.chartData2 = tempData2;
+        this.data = [tempData1, tempData2];
     }
 
     clearData() {
-        this.chartData1 = [];
-        this.chartData2 = [];
+        this.data = null;
     }
 }
