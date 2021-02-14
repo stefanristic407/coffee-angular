@@ -81,24 +81,7 @@
                                 </div>
 
                                 <div #ContainerRef *ngIf="sales && sales.sales_stats; else blank">
-                                    <app-bar-chart
-                                        [width]="ContainerRef.offsetWidth"
-                                        [height]="400"
-                                        [results]="saleData"
-                                        [xAxisLabel]="'Date'"
-                                        [legendTitle]="'Product Sale Chart'"
-                                        [yAxisLabel]="'Sale(USD)'"
-                                        [legend]="false"
-                                        [showXAxisLabel]="false"
-                                        [showYAxisLabel]="true"
-                                        [xAxis]="true"
-                                        [yAxis]="true"
-                                        [gradient]="false"
-                                        [barPadding]="barPadding"
-                                        [scheme]="colorScheme"
-                                        [noBarWhenZero]="true"
-                                        [showDataLabel]="showDataLabel"
-                                    >
+                                    <app-bar-chart [results]="saleData" [labelShow]="showDataLabel" [unitName]="'USD'">
                                     </app-bar-chart>
                                 </div>
                                 <ng-template #blank>
