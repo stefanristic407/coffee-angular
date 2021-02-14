@@ -46,31 +46,45 @@
 </div>
 <div class="row mt-0 mt-md-4">
     <div class="col-12" style="height: 360px">
-        <ng-container *ngIf="chartData1?.length">
-            <ejs-chart
-                style="display: block"
-                id="uvChartcontainer"
-                [primaryXAxis]="primaryXAxis"
-                [primaryYAxis]="primaryYAxis"
-                [tooltip]="tooltip"
-                [chartArea]="chartArea"
-                [palettes]="palette"
-                [legendSettings]="legendSettings"
-                height="360px"
-            >
-                <e-series-collection>
-                    <e-series
-                        [dataSource]="chartData1"
-                        type="Line"
-                        xName="x"
-                        yName="y"
-                        width="2"
-                        [marker]="marker"
-                        tooltipMappingName="label"
-                    >
-                    </e-series>
-                </e-series-collection>
-            </ejs-chart>
+        <div *ngIf="loading" class="d-flex justify-content-center align-items-center h-100">
+            <p-progressSpinner
+                [style]="{ width: '50px', height: '50px' }"
+                strokeWidth="8"
+                fill="#ffffff"
+                animationDuration="2s"
+            ></p-progressSpinner>
+        </div>
+        <ng-container *ngIf="!loading">
+            <ng-container *ngIf="chartData1?.length; else empty">
+                <ejs-chart
+                    style="display: block"
+                    id="uvChartcontainer"
+                    [primaryXAxis]="primaryXAxis"
+                    [primaryYAxis]="primaryYAxis"
+                    [tooltip]="tooltip"
+                    [chartArea]="chartArea"
+                    [palettes]="palette"
+                    [legendSettings]="legendSettings"
+                    height="360px"
+                >
+                    <e-series-collection>
+                        <e-series
+                            [dataSource]="chartData1"
+                            type="Line"
+                            xName="x"
+                            yName="y"
+                            width="2"
+                            [marker]="periods[selPeriod].period == 'range' ? '' : marker"
+                            tooltipMappingName="tooltip"
+                        >
+                        </e-series>
+                    </e-series-collection>
+                </ejs-chart>
+            </ng-container>
         </ng-container>
     </div>
 </div>
+
+<ng-template #empty>
+    <app-empty title="No data available"></app-empty>
+</ng-template>

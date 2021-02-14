@@ -14,7 +14,7 @@ export class UvChartComponent implements OnInit {
     dateKeyStrings = ['YYYY/MM/DD', 'YYYY/MM/DD', 'YYYY/MM/DD'];
     dateFormats = ['DD MMM', 'DD MMM', 'DD MMM'];
 
-    appLanguage?: any;
+    loading = true;
     chartData1: any[] = [];
     legends: any[] = [];
     showLegend = false;
@@ -24,6 +24,9 @@ export class UvChartComponent implements OnInit {
             label: 'UVI',
             title: 'UV Index',
             unit: '',
+            interval: 5,
+            minimum: 0,
+            maximum: 20,
         },
     ];
     selWeatherType = 0;
@@ -57,6 +60,7 @@ export class UvChartComponent implements OnInit {
         interval: 1,
         edgeLabelPlacement: 'Shift',
         lineStyle: { width: 0 },
+        plotOffsetBottom: 16,
         majorGridLines: { width: 0 },
         majorTickLines: { width: 0 },
         minorTickLines: { width: 0 },
@@ -101,15 +105,7 @@ export class UvChartComponent implements OnInit {
     };
     public tooltip: any = {
         enable: true,
-        fill: '#fff',
-        border: {
-            width: 0,
-        },
-        textStyle: {
-            color: '#747588',
-            fontFamily: 'Muli',
-        },
-        format: '${point.tooltip}',
+        template: '${tooltip}',
     };
     legendSettings = { visible: false };
     selectedDate = new Date();
@@ -157,6 +153,7 @@ export class UvChartComponent implements OnInit {
     }
 
     getHistoricalUv() {
+        this.loading = true;
         let query;
         switch (this.periods[this.selPeriod].period) {
             case 'daily': {
@@ -191,10 +188,14 @@ export class UvChartComponent implements OnInit {
         this.agroSrv.getHistoricalUv(this.polygonId, query).subscribe(
             (res: any) => {
                 this.weatherData = res;
+                this.clearData();
                 this.processData();
+                this.loading = false;
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
+                this.clearData();
+                this.loading = false;
             },
         );
     }
@@ -236,16 +237,29 @@ export class UvChartComponent implements OnInit {
         const tempData1 = [];
         this.weatherData.forEach((element, index) => {
             const y = element.uvi.toFixed(2);
-            const label = `${moment.unix(element.dt).format(this.dateFormats[this.selPeriod])}
-        <br /><strong>
-        ${this.legends[0].abbr + ' ' + y + this.weatherTypes[this.selWeatherType].unit}</strong>`;
+
+            const unit = this.weatherTypes[this.selWeatherType].unit;
+            const timeStr = moment.unix(element.dt).format(this.dateFormats[this.selPeriod]);
+            const data1Str = this.legends[0].abbr + ' ' + y + unit;
+
+            const tooltip =
+                `<div class='chart-tooltip' >` +
+                `<div class='fnt-12 fnt-600 fnt-muli text-clr334'>` +
+                `${timeStr}` +
+                `</div><div class='fnt-14 fnt-600 fnt-muli text-clr588'>` +
+                `${data1Str}` +
+                `</div></div>`;
 
             tempData1.push({
                 x: moment.unix(element.dt).toDate(),
                 y,
-                label,
+                tooltip,
             });
         });
         this.chartData1 = tempData1;
+    }
+
+    clearData() {
+        this.chartData1 = [];
     }
 }

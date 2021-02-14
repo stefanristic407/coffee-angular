@@ -21,7 +21,7 @@ export class WeatherChartComponent implements OnInit {
     };
     dateKeyStrings = ['YYYY/MM/DD/HH', 'YYYY/MM/DD', 'YYYY/MM/DD', 'YYYY/MM/DD'];
 
-    appLanguage?: any;
+    loading = true;
     chartData1: any[] = [];
     chartData2: any[] = [];
     legends: any[] = [];
@@ -32,40 +32,54 @@ export class WeatherChartComponent implements OnInit {
             label: 'Temperature',
             title: 'Temperature(°C)',
             unit: '°C',
-            interval: 5,
+            interval: 10,
             minimum: 0,
-            maximum: 30,
+            maximum: 50,
         },
         {
             value: 1,
             label: 'Wind',
             title: 'Wind Speed(m/s)',
             unit: 'm/s',
+            interval: 5,
             minimum: 0,
+            maximum: 20,
         },
         {
             value: 2,
             label: 'Rainfall',
             title: 'Rainfall(mm)',
             unit: 'mm',
+            interval: 5,
+            minimum: 0,
+            maximum: 20,
         },
         {
             value: 3,
             label: 'Cloudiness',
             title: 'Cloudiness(%)',
             unit: '%',
+            interval: 20,
+            minimum: 0,
+            maximum: 100,
         },
         {
             value: 4,
             label: 'Pressure',
             title: 'Pressure(hPa)',
             unit: 'hPa',
+            interval: 5,
+            minimum: 995,
+            maximum: 1020,
         },
         {
             value: 5,
             label: 'Humidity',
             title: 'Humidity(%)',
             unit: '%',
+            interval: 20,
+            minimum: 0,
+            maximum: 100,
         },
     ];
     selWeatherType = 0;
@@ -168,15 +182,10 @@ export class WeatherChartComponent implements OnInit {
     };
     public tooltip: any = {
         enable: true,
-        // fill: '#fff',
-        // border: {
-        //     width: 0,
-        // },
-        // textStyle: {
-        //     color: '#747588',
-        //     fontFamily: 'Muli',
-        // },
-        // format: '${point.tooltip}',
+        fill: '#fff',
+        border: {
+            width: 0,
+        },
         template: '${tooltip}',
     };
     legendSettings = { visible: false };
@@ -246,6 +255,7 @@ export class WeatherChartComponent implements OnInit {
     }
 
     getData() {
+        this.loading = true;
         let query;
         switch (this.periods[this.selPeriod].period) {
             case 'daily': {
@@ -280,10 +290,14 @@ export class WeatherChartComponent implements OnInit {
         this.agroSrv.getHistoricalWeather(this.polygonId, query).subscribe(
             (res: any) => {
                 this.weatherData = res;
+                this.clearData();
                 this.processData();
+                this.loading = false;
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
+                this.clearData();
+                this.loading = false;
             },
         );
     }
@@ -419,5 +433,10 @@ export class WeatherChartComponent implements OnInit {
         });
         this.chartData1 = tempData1;
         this.chartData2 = tempData2;
+    }
+
+    clearData() {
+        this.chartData1 = [];
+        this.chartData2 = [];
     }
 }

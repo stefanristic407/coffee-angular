@@ -15,7 +15,7 @@
                     type="Column"
                     xName="x"
                     yName="y"
-                    [marker]="marker"
+                    [marker]="periods[selPeriod].period == 'range' ? '' : marker"
                     [cornerRadius]="cornerRadius"
                     [columnWidth]="0.1"
                 ></e-series>

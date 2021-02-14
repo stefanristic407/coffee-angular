@@ -26,6 +26,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
@@ -105,6 +106,7 @@ const THIRDMODULES = [
     InputTextModule,
     MultiSelectModule,
     OverlayPanelModule,
+    ProgressSpinnerModule,
     RatingModule,
     SelectButtonModule,
     SliderModule,
