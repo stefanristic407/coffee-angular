@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-12 mb-3">
+    <div class="col-12 mb-3 mb-md-45">
         <div class="bg-fa br-4 fnt-16 fnt-600 fnt-muli text-clr5d p-3 mt-4">
             <span> Evaluate UV levels on your ordered lot. </span>
         </div>
     </div>
-    <div class="col-12 w-100 text-right">
+    <div class="col-12 w-100 d-flex justify-content-end align-items-center">
         <div class="d-inline-flex mr-5" *ngIf="showLegend">
             <div *ngFor="let item of legends; let i = index" class="legend-wrap d-inline-flex align-items-center ml-4">
                 <div [style.background-color]="palette[i]"></div>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <ng-container *ngIf="periods[selPeriod].period === 'range'">
-            <span class="fnt-14 fnt-bold fnt-muli text-grey588 mr-3">Selected dates</span>
+            <span class="fnt-14 fnt-bold fnt-muli text-clr588 mr-3">Selected dates</span>
             <p-calendar
                 [(ngModel)]="startDate"
                 (onSelect)="changeDate()"
@@ -23,7 +23,7 @@
                 [readonlyInput]="true"
                 [showButtonBar]="true"
                 placeholder="Selected dates"
-                styleClass="round-border single-calendar mr-3"
+                styleClass="round-border single-calendar mr-25"
             ></p-calendar>
             <p-calendar
                 [(ngModel)]="endDate"
@@ -33,14 +33,15 @@
                 [readonlyInput]="true"
                 [showButtonBar]="true"
                 placeholder="Selected dates"
-                styleClass="round-border single-calendar mr-3"
+                styleClass="round-border single-calendar mr-25"
             ></p-calendar>
         </ng-container>
-        <app-select
-            [items]="periods"
-            [value]="periods[selPeriod].value"
-            (valueChange)="changePeriod($event)"
-        ></app-select>
+        <p-dropdown
+            [options]="periods"
+            [(ngModel)]="selPeriod"
+            (onChange)="changePeriod()"
+            styleClass="round-border"
+        ></p-dropdown>
     </div>
 </div>
 <div class="row mt-0 mt-md-4">

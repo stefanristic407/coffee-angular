@@ -32,12 +32,16 @@ export class WeatherChartComponent implements OnInit {
             label: 'Temperature',
             title: 'Temperature(°C)',
             unit: '°C',
+            interval: 5,
+            minimum: 0,
+            maximum: 30,
         },
         {
             value: 1,
             label: 'Wind',
             title: 'Wind Speed(m/s)',
             unit: 'm/s',
+            minimum: 0,
         },
         {
             value: 2,
@@ -119,16 +123,31 @@ export class WeatherChartComponent implements OnInit {
         valueType: 'DateTime',
         interval: 1,
         edgeLabelPlacement: 'Shift',
+        lineStyle: { width: 0 },
         majorGridLines: { width: 0 },
+        majorTickLines: { width: 0 },
+        minorTickLines: { width: 0 },
+        labelStyle: {
+            size: '16px',
+            color: '#747588',
+            fontFamily: 'Muli',
+            fontWeight: '500',
+        },
     };
 
     public primaryYAxis = {
         labelFormat: '{value}',
-        rangePadding: 'None',
         lineStyle: { width: 0 },
+        plotOffsetBottom: 16,
         majorGridLines: { dashArray: '7,5' },
         majorTickLines: { width: 0 },
         minorTickLines: { width: 0 },
+        labelStyle: {
+            size: '16px',
+            color: '#747588',
+            fontFamily: 'Muli',
+            fontWeight: '500',
+        },
         titleStyle: {
             size: '16px',
             color: '#232334',
@@ -149,15 +168,16 @@ export class WeatherChartComponent implements OnInit {
     };
     public tooltip: any = {
         enable: true,
-        fill: '#fff',
-        border: {
-            width: 0,
-        },
-        textStyle: {
-            color: '#747588',
-            fontFamily: 'Muli',
-        },
-        format: '${point.tooltip}',
+        // fill: '#fff',
+        // border: {
+        //     width: 0,
+        // },
+        // textStyle: {
+        //     color: '#747588',
+        //     fontFamily: 'Muli',
+        // },
+        // format: '${point.tooltip}',
+        template: '${tooltip}',
     };
     legendSettings = { visible: false };
     selectedDate = new Date();
@@ -168,53 +188,64 @@ export class WeatherChartComponent implements OnInit {
     constructor(public agroSrv: AgroService) {}
 
     ngOnInit(): void {
-        this.changeWeatherType(0);
-        this.changePeriod(0);
+        this.changeWeatherType();
+        this.changePeriod();
     }
 
-    changeWeatherType(value) {
-        this.selWeatherType = value;
+    changeWeatherType() {
         this.primaryYAxis = {
             ...this.primaryYAxis,
             ...this.weatherTypes[this.selWeatherType],
         };
-        if (value === 2) {
+        if (this.selWeatherType === 1) {
+            // Wind
+            this.periods = this.periodsForAll.slice(0, 3);
+            this.selPeriod = 0;
+        } else if (this.selWeatherType === 2) {
+            // Rain
             this.periods = this.periodsForRain;
             this.selPeriod = 0;
         } else {
             this.periods = this.periodsForAll;
         }
-        this.updateChartSetting();
-        this.makeData();
+        this.selPeriod = 0;
+        this.changePeriod();
     }
 
-    changePeriod(value) {
-        this.selPeriod = value;
+    changePeriod() {
         this.primaryXAxis = {
             ...this.primaryXAxis,
             ...this.periods[this.selPeriod],
         };
         this.updateChartSetting();
-        this.getHistoricalWeather();
+        this.getData();
     }
 
     changeDate() {
-        this.getHistoricalWeather();
+        this.getData();
     }
 
     updateChartSetting() {
         if (this.selWeatherType === 0 && (this.selPeriod === 1 || this.selPeriod === 2)) {
             // Legend setting of which has two lines
             this.showLegend = true;
-            this.legends = [{ label: 'Minimum' }, { label: 'Maximum' }];
+            this.legends = [
+                { label: 'Minimum', abbr: 'Min' },
+                { label: 'Maximum', abbr: 'Min' },
+            ];
         } else {
             // Legend setting of which has one line
             this.showLegend = false;
-            this.legends = [{ label: this.weatherTypes[this.selWeatherType].label }];
+            this.legends = [
+                {
+                    label: this.weatherTypes[this.selWeatherType].label,
+                    abbr: this.weatherTypes[this.selWeatherType].label,
+                },
+            ];
         }
     }
 
-    getHistoricalWeather() {
+    getData() {
         let query;
         switch (this.periods[this.selPeriod].period) {
             case 'daily': {
@@ -360,22 +391,30 @@ export class WeatherChartComponent implements OnInit {
                     y = element[this.WeatherConst[this.selWeatherType]].toFixed(1);
                 }
             }
-            const label = `${moment.unix(element.dt).format(this.dateFormats[this.selPeriod])}
-        <br /><strong>
-        ${this.legends[0].label + ' ' + y + this.weatherTypes[this.selWeatherType].unit}
-        ${
-            this.legends[1] ? ' ' + this.legends[1].label + ' ' + y1 + this.weatherTypes[this.selWeatherType].unit : ''
-        }</strong>`;
+
+            const unit = this.weatherTypes[this.selWeatherType].unit;
+            const timeStr = moment.unix(element.dt).format(this.dateFormats[this.selPeriod]);
+            const data1Str = this.legends[0].abbr + ' ' + y + unit;
+            const data2Str = this.legends[1] ? ' ' + this.legends[1].abbr + ' ' + y1 + unit : '';
+
+            const tooltip =
+                `<div class='chart-tooltip' >` +
+                `<div class='fnt-12 fnt-600 fnt-muli text-clr334'>` +
+                `${timeStr}` +
+                `</div><div class='fnt-14 fnt-600 fnt-muli text-clr588'>` +
+                `${data1Str}` +
+                `${data2Str}` +
+                `</div></div>`;
 
             tempData1.push({
                 x: moment.unix(element.dt).toDate(),
                 y,
-                label,
+                tooltip,
             });
             tempData2.push({
                 x: moment.unix(element.dt).toDate(),
                 y: y1,
-                label,
+                tooltip,
             });
         });
         this.chartData1 = tempData1;

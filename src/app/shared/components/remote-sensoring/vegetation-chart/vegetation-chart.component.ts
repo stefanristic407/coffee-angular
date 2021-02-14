@@ -50,7 +50,16 @@ export class VegetationChartComponent implements OnInit {
         valueType: 'DateTime',
         interval: 1,
         edgeLabelPlacement: 'Shift',
+        lineStyle: { width: 0 },
         majorGridLines: { width: 0 },
+        majorTickLines: { width: 0 },
+        minorTickLines: { width: 0 },
+        labelStyle: {
+            size: '16px',
+            color: '#747588',
+            fontFamily: 'Muli',
+            fontWeight: '500',
+        },
     };
 
     public primaryYAxis = {
@@ -60,6 +69,12 @@ export class VegetationChartComponent implements OnInit {
         majorGridLines: { dashArray: '7,5' },
         majorTickLines: { width: 0 },
         minorTickLines: { width: 0 },
+        labelStyle: {
+            size: '16px',
+            color: '#747588',
+            fontFamily: 'Muli',
+            fontWeight: '500',
+        },
         titleStyle: {
             size: '16px',
             color: '#232334',
@@ -99,22 +114,20 @@ export class VegetationChartComponent implements OnInit {
     constructor(public agroSrv: AgroService) {}
 
     ngOnInit(): void {
-        this.changeWeatherType(0);
-        this.changePeriod(0);
+        this.changeWeatherType();
+        this.changePeriod();
     }
 
-    changeWeatherType(value) {
-        this.selWeatherType = value;
+    changeWeatherType() {
         this.primaryYAxis = {
             ...this.primaryYAxis,
             ...this.weatherTypes[this.selWeatherType],
         };
-        this.updateChartSetting();
-        this.makeData();
+        this.selPeriod = 0;
+        this.changePeriod();
     }
 
-    changePeriod(value) {
-        this.selPeriod = value;
+    changePeriod() {
         this.primaryXAxis = {
             ...this.primaryXAxis,
             ...this.periods[this.selPeriod],
