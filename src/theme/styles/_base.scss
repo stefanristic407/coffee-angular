@@ -2,6 +2,9 @@
 
 // Layout style
 .container {
+    @media (min-width: 768px) {
+        max-width: 734px;
+    }
     @media (min-width: 1280px) {
         max-width: 1270px !important;
     }
