@@ -718,8 +718,7 @@
                 <button
                     type="button"
                     class="btn col-md-4 pull-right ml-auto chat-btn stricky-order"
-                    routerLink="/ordermanagement/order-chat"
-                    [queryParams]="{ id: orderBookId }"
+                    [routerLink]="['/ordermanagement/order-chat/', SERVICE_TYPE, orderBookId]"
                 >
                     {{ globals.languageJson?.order }} #{{ orderBookId }} {{ globals.languageJson?.chat }}
                     <span class="chat-indicator"> &#x25CF;</span

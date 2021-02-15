@@ -1,11 +1,11 @@
-import { ServiceCommunicationType } from '@models';
+import { OpenChatThread, ServiceCommunicationType, WSOrganizationType } from '@models';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ChatService {
+export class ChatHandlerService {
     public chatSubject = new Subject<{
         requestType: ServiceCommunicationType;
         payload?: any;
@@ -28,9 +28,10 @@ export class ChatService {
         });
     }
 
-    public openChatThread() {
+    public openChatThread(payload: OpenChatThread) {
         this.chatSubject.next({
             requestType: ServiceCommunicationType.OPEN_THREAD,
+            payload,
         });
     }
 
