@@ -1,13 +1,10 @@
 import { Subscription } from 'rxjs';
-import { ThreadMembers, ChatMessage, IncomingChatMessage } from './../../../models/message';
-/* tslint:disable no-string-literal */
-
-import { ChatHandlerService } from '../../../services/chat/chat-handler.service';
-import { GlobalsService, SocketService, UserserviceService } from '@services';
+import {} from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { WSOrganizationType, ThreadListItem } from '@models';
+import { WSOrganizationType, ThreadListItem, ThreadMembers, ChatMessage, IncomingChatMessage } from '@models';
+import { ChatHandlerService, GlobalsService, SocketService, UserserviceService } from '@services';
 @Component({
     selector: 'app-sewn-order-chat',
     templateUrl: './sewn-order-chat.component.html',

@@ -1,4 +1,4 @@
-import { OrderChatThreadResolver } from '../../services/chat/order-chat-thread.resolver';
+import { OrderChatThreadResolver } from '@services';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // import { PagenotfoundComponent } from '../people/pagenotfound/pagenotfound.component';

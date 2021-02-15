@@ -1,4 +1,4 @@
-import { ChatHandlerService } from '../../../../services/chat/chat-handler.service';
+import { ChatHandlerService } from '@services';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GlobalsService } from 'src/services/globals.service';

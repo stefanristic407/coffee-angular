@@ -1,4 +1,4 @@
-import { SocketService } from '@services';
+import { SocketService, ChatHandlerService } from '@services';
 import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,7 +11,6 @@ import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { filter } from 'rxjs/operators';
 import { MenuService } from '@components';
-import { ChatHandlerService } from '../../services/chat/chat-handler.service';
 
 @Component({
     selector: 'app-layout',
