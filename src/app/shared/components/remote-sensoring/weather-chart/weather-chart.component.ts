@@ -150,8 +150,13 @@ export class WeatherChartComponent implements OnInit {
 
     changeWeatherType() {
         this.primaryYAxis = this.weatherTypes[this.selWeatherType];
-        if (this.selWeatherType === 1) {
-            // Wind
+        if (
+            this.selWeatherType === 1 ||
+            this.selWeatherType === 3 ||
+            this.selWeatherType === 4 ||
+            this.selWeatherType === 5
+        ) {
+            // Wind, Cloudiness, Pressure, Humidity
             this.periods = this.periodsForAll.slice(0, 3);
             this.selPeriod = 0;
         } else if (this.selWeatherType === 2) {
