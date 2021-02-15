@@ -58,9 +58,9 @@ span.star {
     }
     &:hover {
         color: $brown-color;
-        &::before {
-            transform: translateX(-6px);
-        }
+        // &::before {
+        //     transform: translateX(-6px);
+        // }
     }
 }
 
