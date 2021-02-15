@@ -61,6 +61,7 @@ export class SourcingComponent implements OnInit {
             },
         ];
         this.cropItems = this.globals.monthList;
+        this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();
 
