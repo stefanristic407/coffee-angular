@@ -11,7 +11,7 @@
                         <div class="source-det-tit d-md-flex">
                             <div class="d-flex justify-content-center mr-md-2 pr-md-1">
                                 <app-avatar
-                                    [size]="globals.device === 'desktop' ? 54 : 90"
+                                    [size]="globals.device == 'mobile' ? 90 : 54"
                                     [src]="sourcing.estate?.company_image_thumbnail_url"
                                     [name]="sourcing.estate?.name"
                                 ></app-avatar>
