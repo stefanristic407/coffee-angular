@@ -26,6 +26,11 @@
 .p-dropdown.highlight {
     border-color: $primary-color;
 }
+.p-dropdown .p-dropdown-trigger {
+    width: unset;
+    padding-left: 16px;
+    padding-right: 16px;
+}
 .p-dropdown-panel {
     border: none;
     padding: 4px;
@@ -94,7 +99,7 @@
 
 .p-dropdown .p-dropdown-clear-icon {
     color: $button-icon-color;
-    right: 10px;
+    right: 16px;
     opacity: 1;
     background: #fff;
     z-index: 10;
@@ -102,7 +107,7 @@
 }
 
 .p-dropdown-open .p-dropdown-clear-icon {
-    right: 10px;
+    right: 16px;
     opacity: 0;
     transition: none;
 }

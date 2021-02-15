@@ -11,10 +11,11 @@
                         selectedItemsLabel="{0} Origins"
                         [filter]="false"
                         (onChange)="filterCall()"
-                        styleClass="w-100 mb-3 mb-md-4 border-rounded-right-0 {{
+                        styleClass="show-clear w-100 mb-3 mb-md-4 border-rounded-right-0 {{
                             queryParams.origin?.length ? 'highlight' : ''
                         }}"
-                    ></p-multiSelect>
+                    >
+                    </p-multiSelect>
                 </div>
                 <div class="col-6 col-md-3">
                     <p-multiSelect
@@ -75,6 +76,14 @@
                             ? 'highlight'
                             : ''
                     }}"
+                ></p-dropdown>
+                <p-dropdown
+                    [options]="availableItems"
+                    [(ngModel)]="queryParams.available_coffee"
+                    (onChange)="filterCall()"
+                    [showClear]="true"
+                    placeholder="Available coffee"
+                    styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
                 ></p-dropdown>
                 <p-selectButton
                     [options]="weightItems"
