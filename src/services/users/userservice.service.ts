@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SocketService } from '@services';
+import { SocketService } from '../socket.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
