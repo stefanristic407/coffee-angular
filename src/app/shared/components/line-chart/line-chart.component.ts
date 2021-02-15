@@ -30,7 +30,6 @@ export class LineChartComponent implements OnInit {
         edgeLabelPlacement: 'Shift',
         lineStyle: { width: 0 },
         plotOffsetLeft: 6,
-        plotOffsetRight: 6,
         majorGridLines: { width: 0 },
         majorTickLines: { width: 0 },
         minorTickLines: { width: 0 },
