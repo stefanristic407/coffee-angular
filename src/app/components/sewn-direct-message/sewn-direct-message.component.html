@@ -8,6 +8,11 @@
             'expand-active': (chatService.isOpen | async) && openedThread && (chatService.isExpand | async)
         }"
     >
+        <ng-container
+            *ngIf="chatService.isOpen"
+            appLifecyclehook
+            (viewChecked)="chatVisibilityRendered.next(chatService.isOpen.value)"
+        ></ng-container>
         <!--Remove expand mode-->
         <div class="chat-head" data-element="chat-head">
             <button class="back-to-shrinkMode" (click)="closeExapndView()">
@@ -19,14 +24,17 @@
         <div class="chat-body">
             <!--Expand Mode div-->
             <div class="chat-body__expand" data-element="chat-body-expand">
-                <ng-container *ngIf="chatService.isExpand | async">
+                <ng-container
+                    appLifecyclehook
+                    (viewChecked)="chatBoxpanelRendered.next('EXPAND')"
+                    *ngIf="chatService.isExpand | async"
+                >
                     <div class="live-caht__head clearfix" data-element="live-chat-head">
                         <div class="live-account-profile">
                             <button class="back-to-accounts" (click)="backToAccountListing()">
                                 <img src="assets/images/dm-back-arrow.svg" />
                             </button>
-
-                            <div class="d-inline-block profile-pic">
+                            <div class="d-inline-block profile-pic pointer" (click)="openUserInfoPanel(openedThread)">
                                 <span
                                     class="profile-pic__item bg-profile"
                                     [style.backgroundImage]="openedThread?.computed_targetedUser.computed_profile_dp"
@@ -37,9 +45,11 @@
                                     class="offline-account"
                                 ></span>
                             </div>
-                            <div class="chat-profile clearfix">
+                            <div class="chat-profile clearfix pointer" (click)="openUserInfoPanel(openedThread)">
                                 <div class="chat-profile__name d-inline-block">
-                                    <h5 class="name">{{ openedThread?.computed_targetedUser.computed_fullname }}</h5>
+                                    <h5 class="name">
+                                        {{ openedThread?.computed_targetedUser.computed_fullname }}
+                                    </h5>
                                     <span class="status">
                                         {{ openedThread?.computed_targetedUser.computed_organization_name }}
                                     </span>
@@ -56,43 +66,42 @@
                                     </span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="chat-seeting position-relative" *ngIf="openedThread">
+                            <a class="menu-arrow">
+                                <p><img class="ellipse-image" src="assets/images/three-dots.svg" alt="" /></p>
+                            </a>
 
-                            <div class="chat-seeting position-relative" *ngIf="openedThread">
-                                <a class="menu-arrow">
-                                    <p><img class="ellipse-image" src="assets/images/three-dots.svg" alt="" /></p>
-                                </a>
+                            <div class="chat-seeting__items">
+                                <ul class="list-group custom-popover chat-seeting__content">
+                                    <li
+                                        *ngIf="!openedThread.computed_mute"
+                                        class="list-group-item"
+                                        (click)="openedThread.computed_mute = true"
+                                    >
+                                        <a class="pointer-item">Mute </a>
+                                    </li>
+                                    <li
+                                        *ngIf="openedThread.computed_mute"
+                                        class="list-group-item"
+                                        (click)="openedThread.computed_mute = false"
+                                    >
+                                        <a class="pointer-item">Unmute </a>
+                                    </li>
 
-                                <div class="chat-seeting__items">
-                                    <ul class="list-group custom-popover chat-seeting__content">
-                                        <li
-                                            *ngIf="!openedThread.computed_mute"
-                                            class="list-group-item"
-                                            (click)="openedThread.computed_mute = true"
-                                        >
-                                            <a class="pointer-item">Mute </a>
-                                        </li>
-                                        <li
-                                            *ngIf="openedThread.computed_mute"
-                                            class="list-group-item"
-                                            (click)="openedThread.computed_mute = false"
-                                        >
-                                            <a class="pointer-item">Unmute </a>
-                                        </li>
-
-                                        <li class="list-group-item list-group-item__disabled">
-                                            <a class="pointer-item">{{ globals.languageJson?.mark_unread }}</a>
-                                        </li>
-                                        <li class="list-group-item list-group-item__disabled">
-                                            <a class="pointer-item">{{ globals.languageJson?.archive }}</a>
-                                        </li>
-                                        <li class="list-group-item list-group-item__disabled">
-                                            <a class="pointer-item">{{ globals.languageJson?.report }}</a>
-                                        </li>
-                                        <li class="list-group-item list-group-item__disabled">
-                                            <a class="pointer-item">{{ globals.languageJson?.delete_conversation }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <li class="list-group-item list-group-item__disabled">
+                                        <a class="pointer-item">{{ globals.languageJson?.mark_unread }}</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item__disabled">
+                                        <a class="pointer-item">{{ globals.languageJson?.archive }}</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item__disabled">
+                                        <a class="pointer-item">{{ globals.languageJson?.report }}</a>
+                                    </li>
+                                    <li class="list-group-item list-group-item__disabled">
+                                        <a class="pointer-item">{{ globals.languageJson?.delete_conversation }}</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -189,17 +198,23 @@
                     <!-- <ng-template #liveChatRef> -->
                     <div
                         data-element="live-chat"
-                        class="live-chat"
+                        class="live-chat collapse-chat"
                         [ngClass]="{ active: openedThread && !(chatService.isExpand | async) }"
                     >
-                        <ng-container *ngIf="!(chatService.isExpand | async)">
+                        <ng-container
+                            appLifecyclehook
+                            (viewChecked)="chatBoxpanelRendered.next('COLLAPSE')"
+                            *ngIf="!(chatService.isExpand | async)"
+                        >
                             <div class="live-caht__head clearfix" data-element="live-chat-head">
                                 <div class="live-account-profile">
                                     <button class="back-to-accounts" (click)="backToAccountListing()">
                                         <img src="assets/images/dm-back-arrow.svg" />
                                     </button>
-
-                                    <div class="d-inline-block profile-pic">
+                                    <div
+                                        class="d-inline-block profile-pic pointer"
+                                        (click)="openUserInfoPanel(openedThread)"
+                                    >
                                         <span
                                             class="profile-pic__item bg-profile"
                                             [style.backgroundImage]="
@@ -215,7 +230,10 @@
                                             class="offline-account"
                                         ></span>
                                     </div>
-                                    <div class="chat-profile clearfix">
+                                    <div
+                                        class="chat-profile clearfix pointer"
+                                        (click)="openUserInfoPanel(openedThread)"
+                                    >
                                         <div class="chat-profile__name d-inline-block">
                                             <h5 class="name">
                                                 {{ openedThread?.computed_targetedUser.computed_fullname }}
@@ -235,6 +253,7 @@
                                             </span>
                                         </div>
                                     </div>
+
                                     <div class="chat-seeting position-relative" *ngIf="openedThread">
                                         <a class="menu-arrow">
                                             <p>
@@ -364,24 +383,72 @@
 
                     <!--Account Setting-->
 
-                    <div data-element="account-setting" class="account-setting">
-                        <div class="account-setting__back">
-                            <div class="back-to-conversation">
-                                <img src="assets/images/dm-back-arrow.svg" />
-                                <span>Back to Conversation list</span>
-                            </div>
-
-                            <div class="account-setting__profile clearfix">
-                                <div class="set-profile">
-                                    <img src="assets/images/dm-account-profile.png" />
+                    <div data-element="account-setting" class="account-setting" [ngClass]="{ open: selectedUser }">
+                        <ng-container *ngIf="selectedUser">
+                            <div class="account-setting__back">
+                                <div class="back-to-conversation" (click)="closeUserInfoPanel()">
+                                    <img src="assets/images/dm-back-arrow.svg" />
+                                    <span>Back to Conversation list</span>
                                 </div>
+                                <div class="account-setting__profile clearfix">
+                                    <div class="set-profile">
+                                        <span
+                                            class="bg-user-dp"
+                                            [style.backgroundImage]="selectedUser.computed_profile_dp"
+                                        ></span>
+                                    </div>
+                                    <div class="set-profile-name">
+                                        <h5 class="name">{{ selectedUser.computed_fullname }}</h5>
+                                        <span class="status"> {{ selectedUser.computed_organization_name }}</span>
+                                    </div>
+                                </div>
+                                <div class="account-setting-option">
+                                    <!--Search in conversion-->
+                                    <div class="account-setting-option__item">
+                                        <a class="d-flex justify-content-between align-items-center" href="#"
+                                            ><span class="fnt-16 fnt-muli fnt-600 text-clr334 d-inline-block">{{
+                                                globals.languageJson?.serach_conversation
+                                            }}</span
+                                            ><img class="ml-auto" src="assets/images/setting-arrow.svg"
+                                        /></a>
+                                    </div>
 
-                                <div class="set-profile-name">
-                                    <h5 class="name">Umesh</h5>
-                                    <span class="status">Coffee Estate</span>
+                                    <!--Clear Conversion-->
+                                    <div
+                                        class="account-setting-option__item d-flex justify-content-between align-items-center"
+                                    >
+                                        <span class="fnt-16 fnt-muli fnt-600 text-clr334 d-inline-block">{{
+                                            globals.languageJson?.notifications
+                                        }}</span>
+                                        <div class="notification-control ml-auto">
+                                            <input type="radio" name="notification" value="off" />
+                                            <input type="radio" name="notification" value="on" />
+                                            <span class="switch-control"></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Clear Conversion-->
+                                    <div class="account-setting-option__item">
+                                        <a class="d-flex justify-content-between align-items-center" href="#"
+                                            ><span class="fnt-16 fnt-muli fnt-600 text-clr334 d-inline-block">{{
+                                                globals.languageJson?.clear_conversation
+                                            }}</span
+                                            ><img class="ml-auto" src="assets/images/setting-arrow.svg"
+                                        /></a>
+                                    </div>
+
+                                    <!--Report User-->
+                                    <div class="account-setting-option__item">
+                                        <a class="d-flex justify-content-between align-items-center" href="#"
+                                            ><span class="fnt-16 fnt-muli fnt-600 text-clr334 d-inline-block">{{
+                                                globals.languageJson?.report_user
+                                            }}</span
+                                            ><img class="ml-auto" src="assets/images/setting-arrow.svg"
+                                        /></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </ng-container>
                     </div>
 
                     <!--All accounts body with search-->

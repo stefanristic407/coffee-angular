@@ -4,7 +4,7 @@ import { UserserviceService, SocketService } from '@services';
 import { HttpClient } from '@angular/common/http';
 import { ChatHandlerService } from '../../../services/chat/chat-handler.service';
 import { GlobalsService } from '@services';
-import { catchError, debounce, first } from 'rxjs/operators';
+import { catchError, debounce, first, filter } from 'rxjs/operators';
 import { Subscription, Observable, BehaviorSubject, fromEvent, interval, Subject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit, OnDestroy, AfterViewInit, Renderer2, ElementRef } from '@angular/core';
@@ -45,6 +45,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     usersList: UserListItem[] = [];
     recentUserList: RecentUserListItem[] = [];
     userSearchKeywords = '';
+    selectedUser: ThreadMembers | null = null;
     threadListConfig = {
         perPage: 100,
         activePage: 1,
@@ -70,8 +71,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     showOffensiveMessageError = false;
     offensiveTimeout = 0;
     public lastMessageRendered = new Subject();
+    public chatBoxpanelRendered = new Subject<'EXPAND' | 'COLLAPSE'>();
     public userSearchPanelRendered = new Subject();
     public threadFinderReturned = new Subject();
+    public chatVisibilityRendered = new Subject<boolean>();
 
     constructor(
         private cookieService: CookieService,
@@ -314,17 +317,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     }
                     if (this.openedThread && this.openedThread.id === message.thread_id) {
                         this.updateChatMessageBodyElRef();
-                        let isCurrentlyBottom = false;
-                        if (this.chatMessageBodyElement) {
-                            isCurrentlyBottom =
-                                this.chatMessageBodyElement.scrollTop + this.chatMessageBodyElement.clientHeight ===
-                                this.chatMessageBodyElement.scrollHeight;
-                        }
+                        let isOnChatBottom = this.isCurrentlyBottom();
                         if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
                             this.SM['lastRender'].unsubscribe();
                         }
                         this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                            if (isCurrentlyBottom) {
+                            if (isOnChatBottom) {
                                 this.scrollbottom();
                             }
                         });
@@ -338,6 +336,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                             this.playNotificationSound();
                         }
                     }
+                    const threadIndex = this.threadList.findIndex((thread) => thread.id === inThread.id);
+                    this.threadList.splice(threadIndex, 1);
+                    this.threadList.unshift(inThread); //Pushing into top
                 } else {
                     this.threadRequestByNewMessage(message.thread_id);
                 }
@@ -345,6 +346,15 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         } else {
             console.log('Websocket:Incoming Message : Failure');
         }
+    }
+    isCurrentlyBottom() {
+        if (this.chatMessageBodyElement) {
+            return (
+                this.chatMessageBodyElement.scrollTop + this.chatMessageBodyElement.clientHeight ===
+                this.chatMessageBodyElement.scrollHeight
+            );
+        }
+        return false;
     }
 
     handleThreadHistory(WSmsg: WSResponse<ChatMessage[]>) {
@@ -442,6 +452,9 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 const existingThread = this.threadList.find((t) => t.id === thread.id);
                 if (!existingThread) {
                     this.threadList.unshift(thread);
+                }
+                if (!thread.computed_mute) {
+                    this.playNotificationSound();
                 }
                 this.updateUserStatus();
                 this.updateUnRead();
@@ -563,7 +576,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.render.setStyle(chat, 'height', `${chatBoxCalculatedHeight}px`);
         this.render.setStyle(chatBox, 'height', `${chatBodyCalculatedHeight}px`);
         this.render.setStyle(liveChat, 'height', `${panelHeight}px`);
-        this.render.setStyle(accountSetting, 'height', `${panelHeight}px`);
+        this.render.setStyle(accountSetting, 'height', `${chatBodyCalculatedHeight}px`);
         this.render.setStyle(accountBody, 'height', `${panelHeight}px`);
 
         if (window.innerWidth <= 768) {
@@ -572,7 +585,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.closeExapndView();
             }
         } else {
-            this.render.setStyle(chatbodyExpand, 'height', `${panelHeight}px`);
+            this.render.setStyle(chatbodyExpand, 'height', `${chatBodyCalculatedHeight}px`);
         }
         // this.chatBodyHeightAdjust();
     };
@@ -709,6 +722,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.socket.chatSent.next(this.getMessagePayload(msg));
             this.messageInput = '';
             this.chatBodyHeightAdjust();
+            if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
+                this.SM['lastRender'].unsubscribe();
+            }
+            this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                this.chatBodyHeightAdjust();
+            });
         }
     }
 
@@ -869,6 +888,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     closePanel() {
+        this.openedThread = null;
+        this.messageList = [];
         this.chatService.isOpen.next(false);
         this.chatService.isExpand.next(false);
     }
@@ -891,13 +912,24 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
             // console.log('Last render on openExapndView');
             this.chatBodyHeightAdjust();
-            this.scrollbottom();
             this.viewPortSizeChanged();
+            this.scrollbottom();
         });
+
+        if (this.SM['chatBoxpanelRendered'] && this.SM['chatBoxpanelRendered'].unsubscribe) {
+            this.SM['chatBoxpanelRendered'].unsubscribe();
+        }
+        this.SM['chatBoxpanelRendered'] = this.chatBoxpanelRendered
+            .pipe(
+                filter((x) => x === 'EXPAND'),
+                first(),
+            )
+            .subscribe(() => {
+                console.log('expand rendered');
+                this.chatBodyHeightAdjust();
+                this.viewPortSizeChanged();
+            });
         this.chatService.isExpand.next(true);
-        this.chatBodyHeightAdjust();
-        this.scrollbottom();
-        this.viewPortSizeChanged();
     }
     closeExapndView() {
         this.chatMessageHeadElement = null;
@@ -913,6 +945,20 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.scrollbottom();
             this.viewPortSizeChanged();
         });
+
+        if (this.SM['chatBoxpanelRendered'] && this.SM['chatBoxpanelRendered'].unsubscribe) {
+            this.SM['chatBoxpanelRendered'].unsubscribe();
+        }
+        this.SM['chatBoxpanelRendered'] = this.chatBoxpanelRendered
+            .pipe(
+                filter((x) => x === 'COLLAPSE'),
+                first(),
+            )
+            .subscribe(() => {
+                console.log('Collapse rendered');
+                this.chatBodyHeightAdjust();
+                this.viewPortSizeChanged();
+            });
         this.chatService.isExpand.next(false);
     }
 
@@ -924,7 +970,17 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
+    openUserInfoPanel(thread: ThreadListItem) {
+        this.selectedUser = thread?.computed_targetedUser || null;
+    }
+    closeUserInfoPanel() {
+        this.selectedUser = null;
+    }
+
     openPanel() {
+        this.openedThread = null;
+        this.messageList = [];
+        this.selectedUser = null;
         if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
             this.SM['lastRender'].unsubscribe();
         }
@@ -932,6 +988,20 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             this.chatBodyHeightAdjust();
             this.scrollbottom();
         });
+
+        if (this.SM['chatVisibilityRendered'] && this.SM['chatVisibilityRendered'].unsubscribe) {
+            this.SM['chatVisibilityRendered'].unsubscribe();
+        }
+        this.SM['chatVisibilityRendered'] = this.chatVisibilityRendered
+            .pipe(
+                filter((x) => x),
+                first(),
+            )
+            .subscribe((x) => {
+                this.viewPortSizeChanged();
+                this.chatBodyHeightAdjust();
+                this.scrollbottom();
+            });
         this.chatService.isExpand.next(false);
         this.chatService.isOpen.next(true);
     }
