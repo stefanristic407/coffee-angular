@@ -10,7 +10,9 @@
                 </p>
             </div>
             <div class="d-none d-md-block">
-                <button type="button" class="btn-stroked mr-2">Preview</button>
+                <a class="btn-stroked mr-2" [href]="roasterSlug | roasterBrandLink: 'home-page'" target="_blank">
+                    Preview
+                </a>
                 <button type="button" class="btn-raised ml-1" (click)="saveHomeProfile()">Save</button>
             </div>
         </div>
