@@ -6,86 +6,42 @@ import { WelcomeService } from '../welcome.service';
 import * as _ from 'underscore';
 
 @Component({
-  selector: 'app-dashboard-sourcing',
-  templateUrl: './dashboard-sourcing.component.html',
-  styleUrls: ['./dashboard-sourcing.component.scss'],
+    selector: 'app-dashboard-sourcing',
+    templateUrl: './dashboard-sourcing.component.html',
+    styleUrls: ['./dashboard-sourcing.component.scss'],
 })
 export class DashboardSourcingComponent implements OnInit, OnDestroy {
-  chartData: any[] = [];
-  chartArea = { border: { width: 0 } };
-  primaryXAxis = {
-    valueType: 'Category',
-    majorGridLines: { width: 0 },
-    majorTickLines: { width: 0 },
-    minorTickLines: { width: 0 },
-    labelStyle: {
-      size: '14px',
-      color: '#747588',
-      fontFamily: 'Muli',
-      fontWeight: '600',
-    },
-  };
-  primaryYAxis = {
-    visible: !Browser.isDevice,
-    labelFormat: '{value}',
-    minimum: 0,
-    maximum: 100,
-    rangePadding: 'None',
-    majorGridLines: { width: 0 },
-    majorTickLines: { width: 0 },
-    minorTickLines: { width: 0 },
-    labelStyle: {
-      size: '14px',
-      color: '#747588',
-      fontFamily: 'Muli',
-      fontWeight: '600',
-    },
-  };
-  tooltip = { enable: true };
-  marker = {
-    dataLabel: {
-      visible: true,
-      template: '<div>${point.y} ton</div>',
-      font: { size: '12px', fontFamily: 'Muli', fontWeight: '600', color: '#232334' },
-    },
-    columnWidth: 0.5,
-  };
-  cornerRadius = {
-    topLeft: 10,
-    topRight: 10,
-  };
+    chartData: any[] = [];
+    sourcing: any;
+    sourcingSub: Subscription;
+    constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
 
-  sourcing: any;
-  sourcingSub: Subscription;
+    ngOnInit(): void {
+        this.sourcingSub = this.welcomeSrv.sourcing$.subscribe((res: any) => {
+            if (res && res.sourcing_stats) {
+                this.sourcing = res;
+                this.makeChartData(res.sourcing_stats);
+            }
+            this.sourcing = res;
+        });
+    }
 
-  constructor(public globals: GlobalsService, private welcomeSrv: WelcomeService) {}
+    ngOnDestroy() {
+        this.sourcingSub.unsubscribe();
+    }
 
-  ngOnInit(): void {
-    this.sourcingSub = this.welcomeSrv.sourcing$.subscribe((res: any) => {
-      this.sourcing = res;
-      if (this.sourcing) {
-        this.makeChartData();
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.sourcingSub.unsubscribe();
-  }
-
-  makeChartData() {
-    const tempData = [];
-    this.sourcing.sourcing_stats.forEach((element) => {
-      tempData.push({
-        x: element.origin,
-        y: +(element.available_quantity / 1000).toFixed(0),
-      });
-    });
-    const maxValue = _.max(_.pluck(tempData, 'y')) * 1.2;
-    this.primaryYAxis = {
-      ...this.primaryYAxis,
-      maximum: maxValue,
-    };
-    this.chartData = tempData;
-  }
+    makeChartData(oriData) {
+        oriData.map((item: any) => {
+            this.globals.countryList.map((country: any) => {
+                if (country.isoCode.toLowerCase() === item.origin.toLowerCase()) {
+                    const tempItem = {
+                        name: country.name,
+                        value: item.available_quantity,
+                    };
+                    this.chartData.push(tempItem);
+                }
+            });
+        });
+        console.log('result chart data: ', this.chartData);
+    }
 }

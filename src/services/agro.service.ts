@@ -34,6 +34,14 @@ export class AgroService {
             `${this.apiUrl}weather/history?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`,
         );
     }
+    // weather/history/accumulated_precipitation?polyid=5aaa8052cbbbb5000b73ff66&start=1517502031&end=1519834831&threshold=284
+
+    getAccumulatedPrecipitation(polyid, query: any = {}) {
+        query = this.checkTime(query);
+        return this.http.get(
+            `${this.apiUrl}weather/history/accumulated_precipitation?appid=${this.appid}&polyid=${polyid}&start=${query.start}&end=${query.end}`,
+        );
+    }
 
     getHistoricalSoil(polyid, query: any = {}) {
         query = this.checkTime(query);

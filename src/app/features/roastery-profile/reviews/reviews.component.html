@@ -7,14 +7,21 @@
                     <p class="rating-value1 rev-value mb-md-1 mb-0">{{ this.reviewvalue.toFixed(1) }}</p>
                     <p class="estate-rate mb-md-1 mb-0">out of 5</p>
                     <div class="d-flex rating-space">
-                        <star-rating
+                        <!-- <star-rating
                             value="4"
                             totalstars="{{ totalstar }}"
                             checkedcolor="#ffa001"
                             readonly="true"
                             uncheckedcolor="#d6d6d6"
                             size="26px"
-                        ></star-rating>
+                        ></star-rating> -->
+                        <p-rating
+                            [(ngModel)]="reviewvalue"
+                            [readonly]="true"
+                            [stars]="5"
+                            [cancel]="false"
+                            class="fnt-12"
+                        ></p-rating>
                     </div>
 
                     <p class="cust-review pt-3">78 {{ globals.languageJson?.customer_reviews }}</p>
@@ -314,14 +321,14 @@
                                         </li>
                                         <li class="d-flex rating-space">
                                             <!-- <star-rating value="2" totalstars={{totalstar}} checkedcolor="#ffa001" readonly="true" uncheckedcolor="#979797" size="19px" (rate)="onRate($event)"></star-rating>  -->
-                                            <star-rating
+                                            <!-- <star-rating
                                                 value="review.total_rating"
                                                 totalstars="5"
                                                 checkedcolor="#ffa001"
                                                 readonly="true"
                                                 uncheckedcolor="#d6d6d6"
                                                 size="19px"
-                                            ></star-rating>
+                                            ></star-rating> -->
                                             <p class="rating-value">{{ review.total_rating?.toFixed(1) }}</p>
                                         </li>
                                     </ul>

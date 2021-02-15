@@ -73,3 +73,35 @@
         }
     }
 }
+
+.round-select {
+    &.p-selectbutton {
+        background: transparent;
+        border-color: $primary-border-color;
+        border-radius: 20px;
+        padding: 1px;
+
+        .p-button {
+            background: transparent;
+            border: none;
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            justify-content: center;
+            border-radius: 18px !important;
+            color: $general-text-color;
+        }
+        .p-button.p-highlight {
+            background: $primary-color;
+            color: #fff;
+        }
+        .p-button:not(.p-state-disabled):not(.p-state-active):hover {
+            background: transparent;
+            color: $general-text-color;
+        }
+        .p-button.p-highlight:not(.p-state-disabled):not(.p-state-active):hover {
+            background: $primary-color;
+            color: #fff;
+        }
+    }
+}

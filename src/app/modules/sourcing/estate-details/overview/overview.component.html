@@ -30,9 +30,25 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
                                 <img src="assets/images/estate.svg" />
+                                <h6>{{ globals.languageJson?.region }}</h6>
+                                <h3>{{ sourcing.estate?.region || 'NA' }}</h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
+                            <div class="real-estate">
+                                <img src="assets/images/estate.svg" />
                                 <h6>Total farm area</h6>
                                 <h3 *ngIf="sourcing.estate?.total_area != ''">
                                     {{ sourcing.estate?.total_area + ' acres' || 'NA' }}
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
+                            <div class="real-estate">
+                                <img src="assets/images/estate.svg" />
+                                <h6>Farm yield / Ha</h6>
+                                <h3 *ngIf="sourcing.estate?.total_area != ''">
+                                    {{ sourcing.estate?.farm_yield || 'NA' }}
                                 </h3>
                             </div>
                         </div>
@@ -49,10 +65,10 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-6 mb-45">
                             <div class="real-estate">
                                 <img src="assets/images/harveaster.svg" />
-                                <h6>{{ globals.languageJson?.crop_year }}</h6>
+                                <h6>Harvest Season</h6>
                                 <h3>
-                                    {{ sourcing.estate?.crop_year_start | month }} -
-                                    {{ sourcing.estate?.crop_year_end | month }}
+                                    {{ sourcing.estate?.crop_year_start | month: 'MMMM' }} -
+                                    {{ sourcing.estate?.crop_year_end | month: 'MMMM' }}
                                 </h3>
                             </div>
                         </div>
@@ -77,12 +93,8 @@
                                 <p>{{ sourcing.estate?.location || 'NA' }}</p>
                             </li>
                             <li>
-                                <label>{{ globals.languageJson?.region }} :</label>
-                                <p>{{ sourcing.estate?.region || 'NA' }}</p>
-                            </li>
-                            <li>
-                                <label>{{ globals.languageJson?.average_annual_prodcution_crops }} :</label>
-                                <p>{{ sourcing.estate?.total_production + ' tons' || 'NA' }}</p>
+                                <label>Varieties :</label>
+                                <p>{{ sourcing.estate?.varieties || 'NA' }}</p>
                             </li>
                             <li>
                                 <label class="pr-5"
@@ -109,6 +121,10 @@
                             <li>
                                 <label>Wild animals in the <br />region :</label>
                                 <p>{{ sourcing.estate?.wild_animals || 'NA' }}</p>
+                            </li>
+                            <li>
+                                <label>{{ globals.languageJson?.average_annual_prodcution_crops }} :</label>
+                                <p>{{ sourcing.estate?.total_production + ' tons' || 'NA' }}</p>
                             </li>
                         </ul>
                     </div>

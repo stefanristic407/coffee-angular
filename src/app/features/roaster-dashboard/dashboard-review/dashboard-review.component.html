@@ -13,15 +13,14 @@
                     {{ reviewsSummary?.rating.toFixed(1) || '-' }}
                 </h2>
                 <p class="fnt-14 fnt-bold fnt-muli text-clr588 mb-md-1 mb-0">out of 5</p>
-                <div *ngIf="reviewsSummary" class="d-flex star-wrap">
-                    <star-rating
-                        value="{{ reviewsSummary.rating }}"
-                        totalstars="{{ totalstar }}"
-                        checkedcolor="#ffa001"
-                        readonly="true"
-                        uncheckedcolor="#d6d6d6"
-                        size="26px"
-                    ></star-rating>
+                <div *ngIf="reviewsSummary" class="d-flex star-wrap mt-2">
+                    <p-rating
+                        [(ngModel)]="reviewsSummary.rating"
+                        [readonly]="true"
+                        [stars]="5"
+                        [cancel]="false"
+                        class="fnt-20"
+                    ></p-rating>
                 </div>
 
                 <p class="fnt-14 fnt-bold fnt-muli text-clr334 pt-3">
