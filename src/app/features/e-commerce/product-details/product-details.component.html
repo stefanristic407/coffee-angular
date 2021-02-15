@@ -10,12 +10,22 @@
                 <div class="float-right">
                     <span class="primary_txt pr-3">Product Visibility : </span>
                     <div class="btn-group toggleDiv">
-                        <div class="btn" [ngClass]="productForm['controls']['is_public']['value'] ? 'enableBtn' : ''" id="activeStatus"
-                            (click)="togglePublic(true)">
-                            Active</div>
-                        <div class="btn" (click)="togglePublic(false)"
-                            [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''" id="disableStatus">
-                            Disable</div>
+                        <div
+                            class="btn disbableBtn"
+                            [ngClass]="productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
+                            id="activeStatus"
+                            (click)="togglePublic(true)"
+                        >
+                            Active
+                        </div>
+                        <div
+                            class="btn disbableBtn"
+                            (click)="togglePublic(false)"
+                            [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
+                            id="disableStatus"
+                        >
+                            Disable
+                        </div>
                     </div>
                 </div>
             </div>
@@ -25,32 +35,62 @@
                 </div>
                 <div class="col-6 p-0">
                     <div class="btn-group toggleDiv float-right">
-                        <div class="btn" [ngClass]="productForm['controls']['is_public']['value'] ? 'enableBtn' : ''" id="activeStatus"
-                            (click)="togglePublic(true)">
-                            Active</div>
-                        <div class="btn" (click)="togglePublic(false)"
-                            [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''" id="disableStatus">
-                            Disable</div>
+                        <div
+                            class="btn"
+                            [ngClass]="productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
+                            id="activeStatus"
+                            (click)="togglePublic(true)"
+                        >
+                            Active
+                        </div>
+                        <div
+                            class="btn"
+                            (click)="togglePublic(false)"
+                            [ngClass]="!productForm['controls']['is_public']['value'] ? 'enableBtn' : ''"
+                            id="disableStatus"
+                        >
+                            Disable
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
-                    <label>Product Name<span class="star">*</span></label>
-                    <input type="text" placeholder="product name" formControlName="name" pInputText />
-                    <small *ngIf="productForm.controls['name'].errors.required" class="p-error"> Required </small>
+                <label>Product Name<span class="star">*</span></label>
+                <input
+                    type="text"
+                    placeholder="product name"
+                    formControlName="name"
+                    pInputText
+                    (input)="onInputChange()"
+                />
+                <small *ngIf="productForm.controls['name'].errors?.required" class="p-error"> Required </small>
             </div>
             <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
-                    <label>Product eligible for<span class="star">*</span></label>
-                    <p-dropdown [options]="eligibleArray" optionLabel="label" placeholder="Select subscription type" [style]="{'width':'100%'}"
-                        formControlName="purchase_type" optionValue="value"></p-dropdown>
+                <label>Product eligible for<span class="star">*</span></label>
+                <p-dropdown
+                    [options]="eligibleArray"
+                    optionLabel="label"
+                    placeholder="Select subscription type"
+                    [style]="{ width: '100%' }"
+                    formControlName="purchase_type"
+                    optionValue="value"
+                ></p-dropdown>
+                <small *ngIf="productForm.controls['purchase_type'].errors?.required" class="p-error"> Required </small>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100">
                 <label>Product Description<span class="star">*</span></label>
-                <textarea type="text" class="descriptionText-area" placeholder="Tell us a bit about the product " formControlName="description" pInputText></textarea>
+                <textarea
+                    type="text"
+                    class="descriptionText-area"
+                    placeholder="Tell us a bit about the product "
+                    formControlName="description"
+                    pInputText
+                ></textarea>
+                <small *ngIf="productForm.controls['description'].errors?.required" class="p-error"> Required </small>
             </div>
         </div>
         <div class="divSeperator"></div>
@@ -59,10 +99,17 @@
                 <span class="primary_txt">Variants</span>
             </div>
             <div class="col-12 col-sm-12 col-md-8 mt-2">
-                <p-checkbox formControlName="is_variants_included" binary="true" label="If this product has options like roasted coffee batch, flavour profile, availability etc.">
+                <p-checkbox
+                    formControlName="is_variants_included"
+                    binary="true"
+                    label="If this product has options like roasted coffee batch, flavour profile, availability etc."
+                >
                 </p-checkbox>
             </div>
-            <div *ngIf="productForm['value']['is_variants_included']"class="col-12 col-sm-12 col-md-4 d-none d-sm-none d-md-block">
+            <div
+                *ngIf="productForm['value']['is_variants_included']"
+                class="col-12 col-sm-12 col-md-4 d-none d-sm-none d-md-block"
+            >
                 <div class="pull-right addWeightDiv">
                     <img class="" src="assets/images/add_grey.svg" />
                     <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewVarients()">
@@ -72,32 +119,55 @@
             </div>
         </div>
         <div class="col-12 d-flex d-sm-flex d-md-none p-0">
-            <p-dropdown [options]="variantTypeArray" optionLabel="label" placeholder="Please select the variant" class="w-100"
-                [style]="{'width':'100%'}" [(ngModel)] = "currentVariant" [ngModelOptions]="{standalone: true}" optionValue="value">
+            <p-dropdown
+                [options]="variantTypeArray"
+                optionLabel="label"
+                placeholder="Please select the variant"
+                class="w-100"
+                [style]="{ width: '100%' }"
+                [(ngModel)]="currentVariant"
+                [ngModelOptions]="{ standalone: true }"
+                optionValue="value"
+            >
                 <ng-template let-weight pTemplate="item">
-                    <span *ngIf="weight.label">{{weight.label}}</span>
+                    <span *ngIf="weight.label">{{ weight.label }}</span>
                     <span *ngIf="!weight.label" class="weightVariantBtn">
                         <img class="" src="assets/images/add_grey.svg" />
-                        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addNewVarients()">
+                        <span
+                            class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
+                            (click)="addNewVarients()"
+                        >
                             Add new variant
                         </span>
                     </span>
                 </ng-template>
             </p-dropdown>
         </div>
-        <div [ngClass]="{'isProductOption' : !productForm['value']['is_variants_included']}">
+        <div [ngClass]="{ isProductOption: !productForm['value']['is_variants_included'] }">
             <p-tabView [(activeIndex)]="currentVariant">
-                <p-tabPanel formArrayName="varients"
-                    *ngFor="let varient of productForm.controls['varients']['controls']; let i = index; last as isLast">
+                <p-tabPanel
+                    formArrayName="varients"
+                    *ngFor="let varient of productForm.controls['varients']['controls']; let i = index; last as isLast"
+                >
                     <ng-template pTemplate="header">
-                        <span>{{varient['value']['varient_name']}}</span>
+                        <span>{{ varient['value']['varient_name'] }}</span>
                     </ng-template>
                     <div [formGroupName]="i">
                         <div class="row mt-4">
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <label>Select roasted coffee batch<span class="star">*</span></label>
-                                <p-dropdown [options]="roastedBatches" optionLabel="roast_batch_name" placeholder="Please select the batch" [style]="{'width':'100%'}"
-                                    formControlName="rc_batch_id" optionValue="id" (onChange)="onBatchChange(i)"></p-dropdown>
+                                <p-dropdown
+                                    [options]="roastedBatches"
+                                    optionLabel="roast_batch_name"
+                                    placeholder="Please select the batch"
+                                    [style]="{ width: '100%' }"
+                                    formControlName="rc_batch_id"
+                                    optionValue="id"
+                                    (onChange)="onBatchChange(i)"
+                                ></p-dropdown>
+                                <small *ngIf="varient['controls']['rc_batch_id'].errors?.required" class="p-error">
+                                    Required
+                                </small>
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 sewn-form-field w-100">
                                 <label>Roaster Ref No.<span class="star">*</span></label>
@@ -172,21 +242,37 @@
                             <div class="col-12 col-sm-12 col-md-12 sewn-form-field w-100">
                                 <label>Flavour profile</label>
                                 <div>
-                                    <span class="flavour-item d-inline-block" *ngFor="let flavour of varient['controls']['flavour_profile']['value']">
+                                    <span
+                                        class="flavour-item d-inline-block"
+                                        *ngFor="let flavour of varient['controls']['flavour_profile']['value']"
+                                    >
                                         {{ flavour.flavour_profile_name }}
                                     </span>
                                 </div>
-                                
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <label>Roaster notes</label>
-                                <textarea type="text" class="roasterDivText-area"readonly placeholder="" formControlName="roaster_notes" pInputText></textarea>
+                                <textarea
+                                    type="text"
+                                    class="roasterDivText-area"
+                                    readonly
+                                    placeholder=""
+                                    formControlName="roaster_notes"
+                                    pInputText
+                                ></textarea>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 sewn-form-field w-100">
                                 <label>Recipes</label>
-                                <textarea type="text" class="roasterDivText-area" readonly placeholder="" formControlName="recipes" pInputText></textarea>
+                                <textarea
+                                    type="text"
+                                    class="roasterDivText-area"
+                                    readonly
+                                    placeholder=""
+                                    formControlName="recipes"
+                                    pInputText
+                                ></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -195,9 +281,18 @@
                             </div>
                             <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                                 <label>Select a brewing method<span class="star">*</span></label>
-                                <p-dropdown [options]="brewingMethodArray" optionLabel="label" placeholder="Please select a method"
-                                    [style]="{'width':'100%'}" formControlName="brewing_method" optionValue="value">
+                                <p-dropdown
+                                    [options]="brewingMethodArray"
+                                    optionLabel="label"
+                                    placeholder="Please select a method"
+                                    [style]="{ width: '100%' }"
+                                    formControlName="brewing_method"
+                                    optionValue="value"
+                                >
                                 </p-dropdown>
+                                <small *ngIf="varient['controls']['brewing_method'].errors?.required" class="p-error">
+                                    Required
+                                </small>
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 sewn-form-field w-100">
                                 <div>
@@ -205,6 +300,12 @@
                                     <label class="float-right">0/10 words</label>
                                 </div>
                                 <input type="text" formControlName="roaster_recommendation" pInputText />
+                                <small
+                                    *ngIf="varient['controls']['roaster_recommendation'].errors?.required"
+                                    class="p-error"
+                                >
+                                    Required
+                                </small>
                             </div>
                         </div>
                         <div class="divSeperator"></div>
@@ -213,7 +314,11 @@
                                 <span class="primary_txt">Product Weights</span>
                             </div>
                             <div class="col-12">
-                                <app-varient-details #cmp [varientDetails]="varient" (onWeightCreate)="onWeightCreate($event)"></app-varient-details>
+                                <app-varient-details
+                                    #cmp
+                                    [varientDetails]="varient"
+                                    (onWeightCreate)="onWeightCreate($event)"
+                                ></app-varient-details>
                             </div>
                         </div>
                         <div class="divSeperator"></div>
@@ -222,10 +327,14 @@
             </p-tabView>
         </div>
         <div class="col-12 p-0 mb-3">
-            <span class="primary_txt">Boxes details</span><br>
+            <span class="primary_txt">Boxes details</span><br />
             <span>Add values per crate to let your customer know</span>
         </div>
-        <div formArrayName="crates" *ngFor="let box of productForm.controls['crates']['controls']; let i = index; last as isLast" class="mt-4">
+        <div
+            formArrayName="crates"
+            *ngFor="let box of productForm.controls['crates']['controls']; let i = index; last as isLast"
+            class="mt-4"
+        >
             <div [formGroupName]="i" class="row">
                 <div class="col-3 col-sm-2 col-md-2 col-md-2 col-lg-2 col-xl-2 sewn-form-field w-100 pr-0">
                     <label>Box value<span class="star">*</span></label>
@@ -241,56 +350,56 @@
                     <label class="d-none d-sm-none d-md-block">Number of bags<span class="star">*</span></label>
                     <label class="d-block d-sm-block d-md-none">No. of bags<span class="star">*</span></label>
                     <input type="number" placeholder="" formControlName="crate_capacity" pInputText />
+                    <small *ngIf="box.controls['crate_capacity'].errors?.required" class="p-error"> Required </small>
                 </div>
             </div>
         </div>
         <div class="divSeperator"></div>
         <div class="row mt-4">
-            <div class="col-12 mb-3">
-                <span class="primary_txt">VAT Details</span><br>
-            </div>
+            <div class="col-12 mb-3"><span class="primary_txt">VAT Details</span><br /></div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 sewn-form-field w-100">
                 <label>Select VAT trasaction type<span class="star">*</span></label>
-                <p-dropdown [options]="vatSettings" optionLabel="label" placeholder="Select subscription type"
-                    [style]="{'width':'100%'}" formControlName="vat_setting_id" optionValue="value"></p-dropdown>
+                <p-dropdown
+                    [options]="vatSettings"
+                    optionLabel="label"
+                    placeholder="Select subscription type"
+                    [style]="{ width: '100%' }"
+                    formControlName="vat_setting_id"
+                    optionValue="value"
+                ></p-dropdown>
+                <small *ngIf="productForm.controls['vat_setting_id'].errors?.required" class="p-error">
+                    Required
+                </small>
             </div>
             <div class="col-12 col-sm-12 col-md-3 col-md-3 col-lg-3 col-xl-3 sewn-form-field w-100">
                 <label>Is the product price inclusive of VAT<span class="star">*</span></label>
-                <p-checkbox formControlName="is_price_including_vat" binary="true" class="mt-3"
-                    label="The price is inclusive of VAT">
+                <p-checkbox
+                    formControlName="is_price_including_vat"
+                    binary="true"
+                    class="mt-3"
+                    label="The price is inclusive of VAT"
+                >
                 </p-checkbox>
             </div>
         </div>
         <div class="row mt-4 d-none d-sm-none d-md-flex">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button type="button" class="btn btn-stroked" (click)="onCancel()">
-                    Cancel
-                </button>
-                <button type="submit" class="btn btn-raised ml-4" (click)="onSave()">
-                    Save
-                </button>
+                <button type="button" class="btn btn-stroked" (click)="onCancel()">Cancel</button>
+                <button type="submit" class="btn btn-raised ml-4" (click)="onSave()">Save</button>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                <button type="button" class="btn btn-raised pull-right" (click)="onSave()">
-                    Publish
-                </button>
+                <button type="button" class="btn btn-raised pull-right" (click)="onSave()">Publish</button>
             </div>
         </div>
         <div class="row mt-4 d-block d-sm-block d-md-none">
             <div class="col-12 col-sm-12">
-                <button type="button" class="btn btn-raised w-100" (click)="onSave()">
-                    Publish
-                </button>
+                <button type="button" class="btn btn-raised w-100" (click)="onSave()">Publish</button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
-                <button type="submit" class="btn btn-raised w-100">
-                    Save
-                </button>
+                <button type="submit" class="btn btn-raised w-100">Save</button>
             </div>
             <div class="col-12 col-sm-12 mt-3">
-                <button type="button" class="btn btn-stroked w-100" (click)="onCancel()">
-                    Cancel
-                </button>
+                <button type="button" class="btn btn-stroked w-100" (click)="onCancel()">Cancel</button>
             </div>
         </div>
     </div>

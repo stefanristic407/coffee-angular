@@ -1,12 +1,18 @@
+@import 'variables';
 .toggleDiv {
     border: 1px solid #d6d6d6;
     padding: 2px;
+    height: 2rem;
+    border-radius: 4px;
 }
 .enableBtn {
-    background-color: #30855c;
-    padding: 4px 16px;
+    background-color: $primary-color;
+    padding: 0px 16px;
     color: #fff !important;
     border-radius: 4px !important;
+}
+.disbableBtn {
+    padding: 0px 16px;
 }
 .addWeightDiv {
     border: 1px solid #747588;

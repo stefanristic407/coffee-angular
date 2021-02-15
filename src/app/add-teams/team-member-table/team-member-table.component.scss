@@ -33,6 +33,10 @@
 ::ng-deep .userTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
     background: #ffffff;
 }
+::ng-deep .userDialog .p-dialog-header {
+    display: none;
+}
+
 .tableDataFont {
     font-family: Muli;
     font-size: 14px;

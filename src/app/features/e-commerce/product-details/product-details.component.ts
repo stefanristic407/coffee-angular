@@ -221,7 +221,7 @@ export class ProductDetailsComponent implements OnInit {
     createEmptyVarient() {
         const getVarients = this.productForm ? (this.productForm.get('varients') as FormArray) : [];
         return this.fb.group({
-            rc_batch_id: '',
+            rc_batch_id: ['', Validators.compose([Validators.required])],
             varient_name: 'Varient ' + (getVarients.length + 1),
             roaster_ref_no: '',
             batch_ref_no: '',
@@ -240,8 +240,8 @@ export class ProductDetailsComponent implements OnInit {
             flavour_profile: [],
             roaster_notes: '',
             recipes: '',
-            brewing_method: '',
-            roaster_recommendation: '',
+            brewing_method: ['', Validators.compose([Validators.required])],
+            roaster_recommendation: ['', Validators.compose([Validators.required])],
         });
     }
     createEmptyCrate() {
@@ -282,9 +282,15 @@ export class ProductDetailsComponent implements OnInit {
                 this.createNewProduct(productObj);
             }
         } else {
-            //this.productForm.markAllAsTouched();
+            this.productForm.markAllAsTouched();
+            this.varientComponent.forEach((child, childIndex) => {
+                child.weightForm.markAllAsTouched();
+            });
             this.toasterService.error('Please fill all Data');
         }
+    }
+    onInputChange() {
+        console.log(this.productForm);
     }
     createNewProduct(productObj) {
         this.services.addProductDetails(this.roasterId, productObj).subscribe(

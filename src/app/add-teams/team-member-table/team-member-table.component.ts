@@ -37,6 +37,9 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     modalUserRoasterName = '';
     loginId: any;
     tableRows;
+    popupDisplay = false;
+    selectedUserID: any;
+    popupDetails = { message: '', buttonName: '', showIcon: false };
     @ViewChild('input') input: ElementRef;
     constructor(
         public router: Router,
@@ -307,6 +310,32 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                         this.toastrService.success('User has been made Admin Successfully!');
                     }
                 });
+        }
+    }
+    showPopup(userID, flag) {
+        this.selectedUserID = userID;
+        this.popupDisplay = true;
+        if (flag === 'delete') {
+            this.popupDetails.message = 'You sure you really want to delete this?';
+            this.popupDetails.buttonName = 'Delete';
+            this.popupDetails.showIcon = true;
+        } else if (flag === 'enable') {
+            this.popupDetails.message = 'Are you sure you want to enable the account?';
+            this.popupDetails.buttonName = 'Enable';
+            this.popupDetails.showIcon = false;
+        } else {
+            this.popupDetails.message = 'Are you sure you want to disable the account?';
+            this.popupDetails.buttonName = 'Disable';
+            this.popupDetails.showIcon = false;
+        }
+    }
+    makePopupAction() {
+        if (this.popupDetails.buttonName === 'Delete') {
+            this.deleteRoasterUser(this.selectedUserID);
+        } else if (this.popupDetails.buttonName === 'Enable') {
+            this.userEnable(this.selectedUserID);
+        } else {
+            this.userDisable(this.selectedUserID);
         }
     }
     deleteRoasterUser(userID: any) {
