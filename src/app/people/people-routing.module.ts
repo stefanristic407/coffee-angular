@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddMembersComponent } from './add-members/add-members.component';
-//import { CreateRoleComponent } from './create-role/create-role.component';
 import { PeopleComponent } from './people.component';
 import { PDirectMessagingComponent } from './p-direct-messaging/p-direct-messaging.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { MicroRoasterDetailsComponent } from './customer-management/micro-roaster-details/micro-roaster-details.component';
 import { HorecaDetailsComponent } from './customer-management/horeca-details/horeca-details.component';
 import { DiscountEditComponent } from './customer-management/discount-edit/discount-edit.component';
-import { InviteNewUserComponent } from '@app/shared/components/add-teams/invite-new-user/invite-new-user.component';
+import { InviteNewUserComponent } from './../add-teams/invite-new-user/invite-new-user.component';
 import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { PermissionErrorComponent } from '../people/permission-error/permission-error.component';
 import { AuthGuard } from '../guards/auth.guard';
-import { CreateRoleComponent } from '../shared/components/add-teams/create-role/create-role.component';
-import { RoleListComponent } from '@app/shared/components/add-teams/role-list/role-list.component';
-import { TeamMemberTableComponent } from '@app/shared/components/add-teams/team-member-table/team-member-table.component';
-import { SendRecoveryEmailComponent } from '@app/shared/components/add-teams/send-recovery-email/send-recovery-email.component';
+import { CreateRoleComponent } from './../add-teams/create-role/create-role.component';
+import { RoleListComponent } from './../add-teams/role-list/role-list.component';
+import { TeamMemberTableComponent } from './../add-teams/team-member-table/team-member-table.component';
+import { SendRecoveryEmailComponent } from './../add-teams/send-recovery-email/send-recovery-email.component';
 const routes: Routes = [
     {
         path: '',

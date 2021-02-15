@@ -23,6 +23,10 @@ export const routes: Routes = [
                 loadChildren: () =>
                     import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
             },
+            {
+                path: 'dispute-system',
+                loadChildren: () => import('./dispute-system/dispute-system.module').then((m) => m.DisputeSystemModule),
+            },
             { path: 'people', loadChildren: () => import('./people/people.module').then((m) => m.PeopleModule) },
             {
                 path: 'invite-friends',
