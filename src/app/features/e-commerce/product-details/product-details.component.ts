@@ -289,9 +289,6 @@ export class ProductDetailsComponent implements OnInit {
             this.toasterService.error('Please fill all Data');
         }
     }
-    onInputChange() {
-        console.log(this.productForm);
-    }
     createNewProduct(productObj) {
         this.services.addProductDetails(this.roasterId, productObj).subscribe(
             (res) => {

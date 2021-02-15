@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
+// import { ChatHandlerService } from './../../../services/chat/chat-handler.service';
+// import { WSOrganizationType } from '@models';
 
 @Component({
     selector: 'app-team-member-table',
@@ -50,6 +52,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         public route: ActivatedRoute,
         public userService: UserserviceService,
         private modalService: BsModalService,
+        //private messageService: ChatHandlerService,
         public sharedService: SharedServiceService,
     ) {}
 
@@ -337,6 +340,13 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
         } else {
             this.userDisable(this.selectedUserID);
         }
+    }
+    sendDirectMessage(userID) {
+        // this.messageService.openChatThread({
+        //     user_id: userID,
+        //     org_type: WSOrganizationType.ROASTER,
+        //     org_id: this.roasterID,
+        // });
     }
     deleteRoasterUser(userID: any) {
         this.roasterService.deleteRoasterUser(this.roasterID, userID).subscribe((response: any) => {

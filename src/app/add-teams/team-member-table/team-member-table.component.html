@@ -251,7 +251,7 @@
                                                     }}</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item">{{
+                                                    <a class="pointer-item" (click)="sendDirectMessage(rowData.id)">{{
                                                         globals.languageJson?.send_a_message
                                                     }}</a>
                                                 </li>
@@ -387,7 +387,9 @@
                                                 }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <a class="pointer-item">{{ globals.languageJson?.send_a_message }}</a>
+                                                <a class="pointer-item" (click)="sendDirectMessage(rowData.id)">{{
+                                                    globals.languageJson?.send_a_message
+                                                }}</a>
                                             </li>
                                             <li class="list-group-item">
                                                 <a class="pointer-item">{{
