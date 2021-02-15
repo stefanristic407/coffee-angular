@@ -17,7 +17,6 @@
 // Read only
 .p-rating.p-readonly {
     .p-rating-icon.pi-star-o {
-        color: transparent;
         &::before {
             content: '\e937';
         }
