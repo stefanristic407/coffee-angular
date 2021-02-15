@@ -32,15 +32,24 @@
                     <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">{{ data.country | country }}</h6>
                 </div>
                 <div class="orgin-att">
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.region }}</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">{{ data.region }}</h6>
+                </div>
+                <div class="orgin-att">
                     <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.altitude }}</label>
                     <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
                         {{ data.altitude?.gte }}-{{ data.altitude?.lte }} m
                     </h6>
                 </div>
                 <div class="orgin-att">
-                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.crop_year }}</label>
-                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0">
-                        {{ data.crop_year?.gte | month }} - {{ data.crop_year?.lte | month }}
+                    <label class="fnt-mb-14 lh-normal text-clr588 mb-2">{{ globals.languageJson?.variety }}</label>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0 d-none d-md-block">
+                        {{ data.varieties?.slice(0, 2).join(', ') || 'NA' }}
+                        {{ data.varieties?.length > 2 ? ', +' + (data.varieties.length - 2) + ' more' : '' }}
+                    </h6>
+                    <h6 class="fnt-14 lh-normal fnt-bold text-clr334 ellipsis mb-0 d-md-none">
+                        {{ data.varieties?.slice(0, 1).join(', ') || 'NA' }}
+                        {{ data.varieties?.length > 1 ? ' +' + (data.varieties.length - 1) : '' }}
                     </h6>
                 </div>
             </div>
