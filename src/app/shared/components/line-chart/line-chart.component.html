@@ -13,17 +13,31 @@
                 [height]="height"
             >
                 <e-series-collection>
-                    <e-series
-                        *ngFor="let item of data; index as i"
-                        [dataSource]="item"
-                        type="Line"
-                        xName="x"
-                        yName="y"
-                        width="2"
-                        [marker]="showMarker ? marker : ''"
-                        tooltipMappingName="tooltip"
-                    >
-                    </e-series>
+                    <ng-container *ngFor="let item of data; index as i">
+                        <e-series
+                            *ngIf="type == 'Area'"
+                            [dataSource]="item"
+                            type="Line"
+                            xName="x"
+                            yName="y"
+                            width="2"
+                            [marker]="showMarker ? marker : ''"
+                            tooltipMappingName="tooltip"
+                        >
+                        </e-series>
+                        <e-series
+                            [dataSource]="item"
+                            [type]="type"
+                            xName="x"
+                            yName="y"
+                            width="2"
+                            [marker]="showMarker ? marker : ''"
+                            tooltipMappingName="tooltip"
+                            fill="#2eb1ab"
+                            [opacity]="type == 'Line' ? 1 : 0.1"
+                        >
+                        </e-series>
+                    </ng-container>
                 </e-series-collection>
             </ejs-chart>
         </ng-container>

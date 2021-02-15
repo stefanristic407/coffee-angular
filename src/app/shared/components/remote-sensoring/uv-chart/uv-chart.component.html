@@ -53,5 +53,6 @@
         [xAxis]="primaryXAxis"
         [yAxis]="primaryYAxis"
         [showMarker]="periods[selPeriod].period == 'range' ? false : true"
+        [type]="periods[selPeriod].period == 'range' ? 'Area' : 'Line'"
     ></app-line-chart>
 </div>

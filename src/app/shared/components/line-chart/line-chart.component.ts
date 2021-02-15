@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IPointRenderEventArgs } from '@syncfusion/ej2-angular-charts';
 
 @Component({
     selector: 'app-line-chart',
@@ -8,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LineChartComponent implements OnInit {
     @Input() isLoading;
     @Input() height = '360px';
+    @Input() type = 'Line';
     @Input() data: any[];
     @Input() showMarker = true;
     @Input()
@@ -27,6 +29,8 @@ export class LineChartComponent implements OnInit {
         interval: 1,
         edgeLabelPlacement: 'Shift',
         lineStyle: { width: 0 },
+        plotOffsetLeft: 6,
+        plotOffsetRight: 6,
         majorGridLines: { width: 0 },
         majorTickLines: { width: 0 },
         minorTickLines: { width: 0 },
@@ -66,6 +70,7 @@ export class LineChartComponent implements OnInit {
             width: 0,
         },
     };
+    border: any = { width: 2 };
     palette = ['#2DAEA8', '#0D6B67', '#AAC6E7'];
     legendSettings = { visible: false };
     marker = {

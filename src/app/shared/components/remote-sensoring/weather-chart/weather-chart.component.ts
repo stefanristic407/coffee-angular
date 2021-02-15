@@ -91,6 +91,7 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'h',
             intervalType: 'Hours',
             period: 'daily',
+            interval: 1,
         },
         {
             value: 1,
@@ -98,6 +99,7 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'd',
             intervalType: 'Days',
             period: 'twoWeeks',
+            interval: 1,
         },
         {
             value: 2,
@@ -105,6 +107,7 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'd',
             intervalType: 'Days',
             period: 'month',
+            interval: 1,
         },
         {
             value: 3,
@@ -112,6 +115,7 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'd MMM',
             intervalType: 'Months',
             period: 'range',
+            interval: 1,
         },
     ];
     periodsForRain: any[] = [
@@ -121,13 +125,15 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'h',
             intervalType: 'Hours',
             period: 'daily',
+            interval: 3,
         },
         {
             value: 1,
             label: 'Accumulated rainfall',
-            labelFormat: 'y',
-            intervalType: 'Years',
+            labelFormat: 'yyyy MMM',
+            intervalType: 'Months',
             period: 'range',
+            interval: 1,
         },
     ];
     selPeriod = 0;
@@ -149,7 +155,6 @@ export class WeatherChartComponent implements OnInit {
     }
 
     changeWeatherType() {
-        this.primaryYAxis = this.weatherTypes[this.selWeatherType];
         if (
             this.selWeatherType === 1 ||
             this.selWeatherType === 3 ||
@@ -171,7 +176,6 @@ export class WeatherChartComponent implements OnInit {
     }
 
     changePeriod() {
-        this.primaryXAxis = this.periods[this.selPeriod];
         this.updateChartSetting();
         this.getData();
     }
@@ -181,6 +185,17 @@ export class WeatherChartComponent implements OnInit {
     }
 
     updateChartSetting() {
+        this.primaryYAxis = this.weatherTypes[this.selWeatherType];
+        if (this.selWeatherType === 2 && this.selPeriod === 1) {
+            this.primaryYAxis = JSON.parse(
+                JSON.stringify({
+                    ...this.primaryYAxis,
+                    interval: 200,
+                    maximum: 1000,
+                }),
+            );
+        }
+        this.primaryXAxis = this.periods[this.selPeriod];
         if (this.selWeatherType === 0 && (this.selPeriod === 1 || this.selPeriod === 2)) {
             // Legend setting of which has two lines
             this.showLegend = true;
@@ -233,19 +248,35 @@ export class WeatherChartComponent implements OnInit {
             }
         }
 
-        this.agroSrv.getHistoricalWeather(this.polygonId, query).subscribe(
-            (res: any) => {
-                this.weatherData = res;
-                this.clearData();
-                this.processData();
-                this.loading = false;
-            },
-            (err: HttpErrorResponse) => {
-                console.log(err);
-                this.clearData();
-                this.loading = false;
-            },
-        );
+        if (this.selWeatherType === 2 && this.selPeriod === 1) {
+            this.agroSrv.getAccumulatedPrecipitation(this.polygonId, query).subscribe(
+                (res: any) => {
+                    this.weatherData = res;
+                    this.clearData();
+                    this.processRainFall();
+                    this.loading = false;
+                },
+                (err: HttpErrorResponse) => {
+                    console.log(err);
+                    this.clearData();
+                    this.loading = false;
+                },
+            );
+        } else {
+            this.agroSrv.getHistoricalWeather(this.polygonId, query).subscribe(
+                (res: any) => {
+                    this.weatherData = res;
+                    this.clearData();
+                    this.processData();
+                    this.loading = false;
+                },
+                (err: HttpErrorResponse) => {
+                    console.log(err);
+                    this.clearData();
+                    this.loading = false;
+                },
+            );
+        }
     }
 
     processData() {
@@ -325,6 +356,38 @@ export class WeatherChartComponent implements OnInit {
                     clouds,
                     pressure,
                     humidity,
+                };
+            })
+            .value();
+        this.makeData();
+    }
+
+    processRainFall() {
+        const self = this;
+        this.weatherData = _.chain(this.weatherData)
+            .map((item) => {
+                let key;
+                key = moment.unix(item.dt).format(self.dateKeyStrings[self.selPeriod]);
+                return {
+                    key,
+                    data: item,
+                };
+            })
+            .groupBy('key')
+            .map((value, key) => {
+                const dt = value[0].data.dt;
+                const rain =
+                    _.reduce(
+                        value,
+                        (acc, val) => {
+                            return acc + (val.data.rain || 0);
+                        },
+                        0,
+                    ) / (value.length || 1);
+                return {
+                    key,
+                    dt,
+                    rain,
                 };
             })
             .value();
