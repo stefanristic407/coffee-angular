@@ -4,6 +4,12 @@
     padding: 1.5rem;
     border-radius: 4px;
 }
+.main-block {
+    padding: 32px 48px 64px 48px;
+}
+.contentDiv {
+    height: 37.56rem;
+}
 .inputPadding {
     margin-top: 3rem;
 }
@@ -74,5 +80,11 @@
     .removeRoleBtn {
         padding: 0px 15px;
         margin-bottom: 0.5rem;
+    }
+    .main-block {
+        padding: 16px 24px 32px 24px;
+    }
+    .contentDiv {
+        height: auto;
     }
 }
