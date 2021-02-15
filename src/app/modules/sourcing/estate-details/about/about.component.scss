@@ -71,12 +71,12 @@
     width: 100%;
     height: 200px;
 
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
         height: 234px;
     }
     @media (max-width: 767px) {
         width: unset;
-        margin: 0 -8px;
+        margin: 0 8px;
     }
 }
 

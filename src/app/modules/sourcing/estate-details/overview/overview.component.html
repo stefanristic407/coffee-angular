@@ -94,13 +94,16 @@
                             </li>
                             <li>
                                 <label>Varieties :</label>
-                                <p>{{ sourcing.estate?.varieties || 'NA' }}</p>
+                                <p>
+                                    {{ sourcing.estate?.varieties.split(',').join(', ') || 'NA' }}
+                                </p>
                             </li>
                             <li>
-                                <label class="pr-5"
+                                <label class="pr-lg-5 d-none d-md-block"
                                     >{{ globals.languageJson?.average_annual_production_coffee }} :</label
                                 >
-                                <p>{{ sourcing.estate?.coffee_production + ' tons' || 'NA' }}</p>
+                                <label class="d-md-none">Average annual prodcution :</label>
+                                <p>{{ (sourcing.estate?.coffee_production || 0) + ' tons' }}</p>
                             </li>
                             <li>
                                 <label>{{ globals.languageJson?.access_to_agronomist }} :</label>
@@ -191,6 +194,6 @@
     </div>
 </div>
 
-<a *ngIf="globals.device === 'desktop'" class="estate-chat-btn active" routerLink="/features/sourcing-chat">
+<a class="estate-chat-btn active d-none d-md-block" routerLink="/features/sourcing-chat">
     <span>Chat with {{ sourcing.estate?.name }}</span>
 </a>

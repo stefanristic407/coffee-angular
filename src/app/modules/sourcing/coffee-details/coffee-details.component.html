@@ -3,7 +3,7 @@
         <div class="w-100 pb-3">
             <a class="back-page" routerLink="/sourcing/coffee-list"> {{ globals.languageJson?.back }}</a>
         </div>
-        <div class="solid-divider d-md-none w-100"></div>
+        <div class="solid-divider d-md-none mx-n3"></div>
 
         <div class="mt-3 mb-3">
             <div class="w-100 d-flex justify-content-between pb-2 pb-md-1">
@@ -18,7 +18,7 @@
 
                     <div class="d-inline-block">
                         <h2 class="fnt-18 fnt-bold text-clr24 mb-0">{{ sourcing.harvestDetail?.estate_name }}</h2>
-                        <div class="d-flex justify-content-center justify-content-md-start align-items-center">
+                        <div class="d-flex align-items-center">
                             <span class="fa fa-star checked mr-2"></span>
                             <h6 class="fnt-18 fnt-700 custom-link mb-0">
                                 {{ (sourcing.harvestDetail?.estate_rating || 0).toFixed(2) }}
@@ -169,14 +169,29 @@
                                         <div class="real-estate">
                                             <img src="assets/images/varient.svg" />
                                             <h6>{{ globals.languageJson?.species }}</h6>
-                                            <h3>{{ sourcing.harvestDetail?.species }}</h3>
+                                            <h3 class="elipsis">
+                                                {{ sourcing.harvestDetail?.species.split(',')[0] || 'NA' }}
+                                                {{
+                                                    sourcing.harvestDetail?.species.split(',')?.length > 1
+                                                        ? ' +' + (sourcing.harvestDetail?.species.split(',').length - 1)
+                                                        : ''
+                                                }}
+                                            </h3>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 mb-45 pb-md-2">
                                         <div class="real-estate">
                                             <img src="assets/images/estate.svg" />
                                             <h6>{{ globals.languageJson?.variety }}</h6>
-                                            <h3>{{ sourcing.harvestDetail?.varieties }}</h3>
+                                            <h3>
+                                                {{ sourcing.harvestDetail?.varieties.split(',')[0] || 'NA' }}
+                                                {{
+                                                    sourcing.harvestDetail?.varieties.split(',')?.length > 1
+                                                        ? ' +' +
+                                                          (sourcing.harvestDetail?.varieties.split(',').length - 1)
+                                                        : ''
+                                                }}
+                                            </h3>
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-4 mb-45 pb-md-2">
