@@ -1,8 +1,6 @@
-import { OpenChatThread, RecentUserListItem } from './../../../models/message';
 /* tslint:disable no-string-literal */
-import { UserserviceService, SocketService } from '@services';
+import { UserserviceService, SocketService, ChatHandlerService } from '@services';
 import { HttpClient } from '@angular/common/http';
-import { ChatHandlerService } from '../../../services/chat/chat-handler.service';
 import { GlobalsService } from '@services';
 import { catchError, debounce, first, filter } from 'rxjs/operators';
 import { Subscription, Observable, BehaviorSubject, fromEvent, interval, Subject } from 'rxjs';
@@ -22,6 +20,8 @@ import {
     IncomingChatMessage,
     UserListItem,
     ThreadType,
+    OpenChatThread,
+    RecentUserListItem,
 } from '@models';
 
 const badwordsRegExp = require('badwords/regexp') as RegExp;
