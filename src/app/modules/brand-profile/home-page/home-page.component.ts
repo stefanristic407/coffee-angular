@@ -21,6 +21,7 @@ export class HomePageComponent implements OnInit {
     breadItems: any[];
     certificates: any[];
     roasterId: string;
+    roasterSlug: string;
     featuredProducts: any[];
     infoForm: FormGroup;
 
@@ -36,6 +37,7 @@ export class HomePageComponent implements OnInit {
         public roasterService: RoasterserviceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 
     ngOnInit(): void {

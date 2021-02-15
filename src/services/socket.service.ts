@@ -1,8 +1,7 @@
-import { WSResponse, WSRequest } from './../models/message';
+import { WSResponse, WSRequest, WSOrganizationType, WSChatMessageType } from '@models';
 import { environment } from '../environments/environment';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { CookieService } from 'ngx-cookie-service';
-import { WSOrganizationType, WSChatMessageType } from '../models/message';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription, Subject } from 'rxjs';
 

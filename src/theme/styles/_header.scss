@@ -375,6 +375,10 @@
     transform: rotate(135deg);
 }
 
+.nav-links__item:hover::after {
+    width: 100%;
+}
+
 @media (min-width: 768px) {
     .nav-links__item.arrow::before {
         top: calc(35% + 1px);

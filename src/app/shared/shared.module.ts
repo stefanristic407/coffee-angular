@@ -48,6 +48,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { CountryPipe } from './pipes/country/country.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
+import { RoasterBrandLinkPipe } from './pipes/roaster-brand-link.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -148,7 +149,7 @@ const COMPONENTS = [
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
-const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
+const PIPES = [CountryPipe, FileNamePipe, MonthPipe, RoasterBrandLinkPipe, WordCountPipe];
 // #endregion
 
 @NgModule({

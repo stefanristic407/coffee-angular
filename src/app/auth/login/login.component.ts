@@ -237,6 +237,7 @@ export class LoginComponent implements OnInit {
                                 if (result['success'] == true) {
                                     this.loginButtonValue = 'Logging in';
                                     this.cookieService.set('name', result['result'].name);
+                                    this.cookieService.set('roasterSlug', result['result'].slug);
                                     if (result['result'].status == 'ACTIVE') {
                                         this.userService
                                             .getRoasterProfile(data['result'].roasters.id)
