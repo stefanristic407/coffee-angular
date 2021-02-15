@@ -126,7 +126,7 @@ span.star {
 
     label {
         float: left;
-        width: 45%;
+        width: 48%;
         margin-bottom: 0;
         color: #747588;
         font-size: 14px;
@@ -140,19 +140,19 @@ span.star {
 
     p {
         margin-bottom: 0;
-        width: 55%;
+        width: 52%;
         float: left;
         font-size: 14px;
         font-weight: 500;
         line-height: normal;
         color: #232334;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
         label {
             width: 36%;
         }
         p {
-            width: 60%;
+            width: 64%;
         }
     }
 }
