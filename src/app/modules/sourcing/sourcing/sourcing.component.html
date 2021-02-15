@@ -15,6 +15,12 @@
                             queryParams.origin?.length ? 'highlight' : ''
                         }}"
                     >
+                        <ng-template pTemplate="header">
+                            <span
+                                class="clear-btn pi pi-times {{ queryParams.origin?.length ? 'show' : '' }}"
+                                (click)="queryParams.origin = null; filterCall()"
+                            ></span>
+                        </ng-template>
                     </p-multiSelect>
                 </div>
                 <div class="col-6 col-md-3">
@@ -30,7 +36,14 @@
                         styleClass="w-100 mb-3 mb-md-4 border-rounded-left-0 border-rounded-right-md-0 {{
                             queryParams.species?.length ? 'highlight' : ''
                         }}"
-                    ></p-multiSelect>
+                    >
+                        <ng-template pTemplate="header">
+                            <span
+                                class="clear-btn pi pi-times {{ queryParams.species?.length ? 'show' : '' }}"
+                                (click)="queryParams.species = null; filterCall()"
+                            ></span>
+                        </ng-template>
+                    </p-multiSelect>
                 </div>
                 <div class="col-12 col-md-4 mb-3 mb-md-4">
                     <span class="p-input-icon-left custom-search w-100">
