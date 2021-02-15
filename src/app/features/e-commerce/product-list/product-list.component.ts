@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedServiceService } from '@app/shared/services/shared-service.service';
 import { DashboardserviceService, GlobalsService, RoasterserviceService } from '@services';
@@ -14,13 +15,11 @@ import { MenuItem } from 'primeng/api';
 })
 export class ProductListComponent implements OnInit {
     breadCrumbItem: MenuItem[] = [];
-    showStatus = false;
-    showOrigin = false;
-    statusFilter = '';
-    originFilter = '';
+    statusFilter;
+    originFilter;
+    priceFilter;
     termSearch = '';
     showPrice = false;
-    priceFilter = '';
     tableColumns = [];
     tableValue = [];
     totalCount = 0;
@@ -28,6 +27,10 @@ export class ProductListComponent implements OnInit {
     deleteProductID = '';
     modalRef: BsModalRef;
     roasterID: any = '';
+    originArray: any = [];
+    priceRangeArray: any = [];
+    statusArray: any = [];
+    searchForm: FormGroup;
 
     constructor(
         public router: Router,
@@ -38,6 +41,7 @@ export class ProductListComponent implements OnInit {
         public modalService: BsModalService,
         public globals: GlobalsService,
         public sharedService: SharedServiceService,
+        private fb: FormBuilder,
     ) {}
 
     ngOnInit(): void {
@@ -46,6 +50,16 @@ export class ProductListComponent implements OnInit {
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }
+        this.searchForm = this.fb.group({
+            searchField: new FormControl({ value: '' }, Validators.compose([Validators.required])),
+        });
+        this.searchForm.setValue({ searchField: '' });
+        this.searchForm.controls.searchField.valueChanges.subscribe((value) => {
+            this.termSearch = value;
+            this.getTableData();
+        });
+
+        this.loadFilterValues();
         this.tableColumns = [
             {
                 field: 'name',
@@ -97,6 +111,17 @@ export class ProductListComponent implements OnInit {
         ];
         this.supplyBreadCrumb();
     }
+    loadFilterValues() {
+        this.originArray = this.globals.countryList;
+        this.priceRangeArray = [
+            { label: '$0-$500', value: { price_min: '0', price_max: '500' } },
+            { label: '$500-$1000', value: { price_min: '500', price_max: '1000' } },
+        ];
+        this.statusArray = [
+            { label: 'In Stock', value: 'IN-STOCK' },
+            { label: 'Sold', value: 'OUT-OF-STOCK' },
+        ];
+    }
     supplyBreadCrumb(): void {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
@@ -111,17 +136,20 @@ export class ProductListComponent implements OnInit {
         this.breadCrumbItem.push(obj2);
     }
     getTableData(event?) {
-        // const postData = {};
-        // postData['role_id'] = this.filterRoleID ? this.filterRoleID : '';
-
-        // postData['name'] = this.termSearch ? this.termSearch : '';
-        // // eslint-disable-next-line no-constant-condition
-        // postData['status'] = !this.termStatus ? undefined : this.termStatus == 'Status' ? '' : this.statusValue;
-        // postData['per_page'] = 100;
-        this.roasterService.getSelectProductDetails(this.roasterID).subscribe(
-            (data) => {
-                if (data['success']) {
-                    this.tableValue = data['result'];
+        const postData: any = {};
+        postData.origin = this.originFilter ? this.originFilter : '';
+        if (this.priceFilter) {
+            postData.price_min = this.priceFilter.price_min;
+            postData.price_max = this.priceFilter.price_max;
+        }
+        postData.status = this.statusFilter ? this.statusFilter : '';
+        postData.name = this.termSearch ? this.termSearch : '';
+        postData.per_page = 100;
+        this.roasterService.getSelectProductDetails(this.roasterID, postData).subscribe(
+            (data: any) => {
+                this.tableValue = [];
+                if (data.success) {
+                    this.tableValue = data.result;
                 } else {
                     this.toastrService.error('Error while getting the agreement list!');
                 }
@@ -131,12 +159,17 @@ export class ProductListComponent implements OnInit {
             },
         );
     }
-    setType(pricerange): void {
-        console.log(pricerange);
+    filterCall() {
+        this.getTableData();
     }
-    setOrigin(origin): void {}
-    setStatus(status): void {}
-    deleteproduct(): void {}
+    deleteproduct(): void {
+        this.roasterService.deleteProductDetails(this.roasterID, this.deleteProductID).subscribe((res) => {
+            if (res.success) {
+                this.toastrService.success('Product deleted successfully');
+                this.getTableData();
+            }
+        });
+    }
     openDeleteModal(template1: TemplateRef<any>, deleteId: any) {
         this.modalRef = this.modalService.show(template1);
         this.deleteProductID = deleteId;

@@ -60,6 +60,9 @@
     .ng-dirty + .p-error {
         display: block !important;
     }
+    .ng-touched + .p-error {
+        display: block !important;
+    }
 
     // Styles for inputgroup with custom addon
     .p-inputgroup.custom-addon {

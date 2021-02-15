@@ -4,9 +4,12 @@
             <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
         </div>
         <div class="col-2">
-            <button type="submit" class="btn pull-right btn-raised d-md-block d-none"
-                routerLink="/features/add-product">
-                {{globals.languageJson?.add_product}}
+            <button
+                type="submit"
+                class="btn pull-right btn-raised d-md-block d-none"
+                routerLink="/features/new-product"
+            >
+                {{ globals.languageJson?.add_product }}
             </button>
         </div>
     </div>
@@ -16,67 +19,100 @@
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col-6">
-            <div class="d-inline border-total col-sm-6" id="role_id">
-                <a class="pointer-item" [popover]="originTemplate" placement="bottom" container="body" [outsideClick]="true"
-                    #pop1="bs-popover">
-                    <p *ngIf="!originFilter" class="d-inline filter" (click)="showOrigin = !showOrigin;">
-                        {{ globals.languageJson?.origins }}&nbsp;<img
-                            src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                    <p *ngIf="originFilter" class="d-inline filter" (click)="showOrigin = !showOrigin;">
-                        {{ originFilter }}&nbsp;<img
-                            src="{{ showOrigin ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>&nbsp;&nbsp;
-            <div class="d-inline border-total col-sm-6" id="role_id">
-                <a class="pointer-item" [popover]="typeTemplate" placement="bottom" container="body" [outsideClick]="true"
-                    #pop2="bs-popover">
-                    <p *ngIf="!priceFilter"class="d-inline filter" (click)="showPrice = !showPrice;">
-                        Price ranges&nbsp;<img src="{{ showPrice ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                    <p *ngIf="priceFilter" class="d-inline filter" (click)="showPrice = !showPrice;">
-                        {{ priceFilter }}&nbsp;<img
-                            src="{{ showPrice ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>&nbsp;&nbsp;
-            <div class="d-inline border-total status-div col-sm-6" id="status_id">
-                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" [outsideClick]="true"
-                    #pop3="bs-popover">
-                    <p *ngIf="!statusFilter"class="d-inline filter" (click)="showStatus = !showStatus;">
-                        Status&nbsp; <img
-                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                    <p *ngIf="statusFilter" class="d-inline filter" (click)="showStatus = !showStatus;">
-                        {{ statusFilter }}&nbsp; <img
-                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>
+        <div [formGroup]="searchForm" class="d-block d-sm-block d-md-none col-12 mt-3">
+            <input
+                type="text"
+                name="search"
+                class="search-raised w-100 m-0"
+                formControlName="searchField"
+                placeholder="{{ globals.languageJson?.search_name_role }}"
+            />
         </div>
-        <div class="col-6">
-            <input type="text" name="search" class="search-raised pull-right" [(ngModel)]="termSearch"
-                placeholder="{{globals.languageJson?.search_name_role}}" />
+        <div class="col-12 col-sm-12 col-md-6 filterLayout">
+            <p-dropdown
+                [options]="originArray"
+                optionLabel="name"
+                optionValue="isoCode"
+                [(ngModel)]="originFilter"
+                (onChange)="filterCall()"
+                scrollHeight="225px"
+                [showClear]="true"
+                placeholder="Origin"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ originFilter ? 'highlight' : '' }}"
+            >
+            </p-dropdown>
+            <p-dropdown
+                [options]="priceRangeArray"
+                optionLabel="label"
+                optionValue="value"
+                [(ngModel)]="priceFilter"
+                (onChange)="filterCall()"
+                scrollHeight="225px"
+                [showClear]="true"
+                placeholder="Price"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ priceFilter ? 'highlight' : '' }}"
+            >
+            </p-dropdown>
+            <p-dropdown
+                [options]="statusArray"
+                optionLabel="label"
+                optionValue="value"
+                [(ngModel)]="statusFilter"
+                (onChange)="filterCall()"
+                scrollHeight="225px"
+                [showClear]="true"
+                placeholder="Status"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ statusFilter ? 'highlight' : '' }}"
+            >
+            </p-dropdown>
+        </div>
+        <div [formGroup]="searchForm" class="d-none d-sm-none d-md-block col-6">
+            <input
+                type="text"
+                name="search"
+                class="search-raised pull-right"
+                formControlName="searchField"
+                placeholder="{{ globals.languageJson?.search_name_role }}"
+            />
         </div>
     </div>
-    <div class="table-container userTable mt-2 mb-2">
-        <p-table #myTable [class.table-mobile]="sharedService.isMobileView" [value]="tableValue" [columns]="tableColumns"
-            [(selection)]="selectedProducts" dataKey="id" [resizableColumns]="true" styleClass="ui-table-customers"
-            [showCurrentPageReport]="false" [paginator]="false" [lazy]="true" (onLazyLoad)="getTableData($event)"
-            [totalRecords]="totalCount" selectionMode="multiple"
-            [responsive]="sharedService.isMobileView">
+    <div class="table-container userTable mt-2 mb-2 productListTable">
+        <p-table
+            #myTable
+            [class.table-mobile]="sharedService.isMobileView"
+            [value]="tableValue"
+            [columns]="tableColumns"
+            [(selection)]="selectedProducts"
+            dataKey="id"
+            [resizableColumns]="true"
+            styleClass="ui-table-customers"
+            [showCurrentPageReport]="false"
+            [paginator]="false"
+            [lazy]="true"
+            (onLazyLoad)="getTableData($event)"
+            [totalRecords]="totalCount"
+            selectionMode="multiple"
+            [responsive]="sharedService.isMobileView"
+        >
             <ng-template pTemplate="header" let-columns>
                 <tr class="d-none d-sm-none d-md-table-row">
                     <th style="width: 5%" class="">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null"
-                        [style.width]="col.width ? col.width + '%' : '30%'" [ngClass]="{'d-md-none': col.field == 'add_user'}">
-                        <span class="primeng-table-header">{{col.header}}</span>
-                        <p-sortIcon *ngIf="col.sortable === true" [field]="col.field" ariaLabel="Activate to sort"
-                            ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+                    <th
+                        *ngFor="let col of columns"
+                        [pSortableColumn]="col.sortable === true ? col.field : null"
+                        [style.width]="col.width ? col.width + '%' : '30%'"
+                        [ngClass]="{ 'd-md-none': col.field == 'add_user' }"
+                    >
+                        <span class="primeng-table-header">{{ col.header }}</span>
+                        <p-sortIcon
+                            *ngIf="col.sortable === true"
+                            [field]="col.field"
+                            ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"
+                        >
                         </p-sortIcon>
                     </th>
                 </tr>
@@ -86,32 +122,164 @@
                     <td class="d-none d-sm-none d-md-table-cell">
                         <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                     </td>
-                    <!-- [ngClass]="{'d-none': col.field == 'status'}" -->
-                    <td *ngFor="let col of columns" [ngSwitch]="col.field" [style.width]="col.width ? col.width + '%' : '30%'"
-                        >
+                    <td
+                        *ngFor="let col of columns"
+                        [ngSwitch]="col.field"
+                        [style.width]="col.width ? col.width + '%' : '30%'"
+                        [ngClass]="{
+                            'd-none':
+                                col.field == 'status' ||
+                                col.field == 'origin' ||
+                                col.field == 'estate_name' ||
+                                col.field == 'weight' ||
+                                col.field == 'price' ||
+                                col.field == 'actions' ||
+                                col.field == 'roast_level',
+                            'd-sm-none':
+                                col.field == 'status' ||
+                                col.field == 'origin' ||
+                                col.field == 'estate_name' ||
+                                col.field == 'weight' ||
+                                col.field == 'price' ||
+                                col.field == 'actions' ||
+                                col.field == 'roast_level',
+                            'd-md-table-cell':
+                                col.field == 'status' ||
+                                col.field == 'origin' ||
+                                col.field == 'estate_name' ||
+                                col.field == 'weight' ||
+                                col.field == 'price' ||
+                                col.field == 'actions' ||
+                                col.field == 'roast_level',
+                            nameMobileHeader: col.field == 'name'
+                        }"
+                    >
                         <span *ngSwitchCase="'name'" class="">
-                            <span class="d-md-inline-block">
+                            <span class="d-none d-sm-none d-md-inline-block">
                                 <img class="img-file" src="{{ rowData['featured_image'] }}" />
                             </span>
-                            <span class="d-md-inline-block pl-3">
+                            <div class="d-none d-sm-none d-md-inline-block ml-3 row">
                                 <span class="mb-1">{{ rowData['name'] }}</span>
                                 <div>
-                                    <img src="assets/images/star-1.png" alt="" /><span class="pl-2">{{rowData['rating']}}</span>
+                                    <img src="assets/images/star-1.png" alt="" /><span class="pl-2">{{
+                                        rowData['rating']
+                                    }}</span>
                                 </div>
-                            </span>
+                            </div>
+                            <div class="d-block d-sm-block d-md-none row m-0">
+                                <div class="col-12 borderCard p-3">
+                                    <span>{{ rowData[col.field] | titlecase }}</span>
+                                    <span class="float-right"
+                                        ><img src="assets/images/star-1.png" alt="" /><span class="pl-2">{{
+                                            rowData['rating']
+                                        }}</span></span
+                                    >
+                                </div>
+                                <div class="col-12 row p-3 m-0 mobileCard">
+                                    <div class="col-4">
+                                        <img class="w-100 productHeight" src="{{ rowData['featured_image'] }}" />
+                                    </div>
+                                    <div class="col-8 cardBottom p-0">
+                                        <div class="mobileCardBody">
+                                            <span class="secondary_txt">Product: </span>
+                                            <span class="float-right primary_txt mobileValueTxt">{{
+                                                rowData['name']
+                                            }}</span>
+                                        </div>
+                                        <div class="mobileCardBody">
+                                            <span class="secondary_txt">Origin: </span>
+                                            <span class="float-right primary_txt mobileValueTxt">{{
+                                                rowData['origin']
+                                            }}</span>
+                                        </div>
+                                        <div class="mobileCardBody">
+                                            <span class="secondary_txt">Estate: </span>
+                                            <span class="float-right primary_txt mobileValueTxt">{{
+                                                rowData['estate_name']
+                                            }}</span>
+                                        </div>
+                                        <div class="mobileCardBody">
+                                            <span class="secondary_txt">Roast: </span>
+                                            <span class="float-right primary_txt mobileValueTxt">{{
+                                                rowData['roast_level']
+                                            }}</span>
+                                        </div>
+                                        <div class="pt-3">
+                                            <span class="secondary_txt">Price: </span>
+                                            <span class="float-right primary_txt mobileValueTxt"
+                                                >${{ rowData['price'] }}</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 editDiv">
+                                    <span>
+                                        <a
+                                            class="fnt-muli editBtn"
+                                            [routerLink]="['/features/new-product/' + rowData['id']]"
+                                            >{{ globals.languageJson?.edit_product }}</a
+                                        >
+                                        <span class="float-right">
+                                            <a
+                                                class="menu-arrow"
+                                                [popover]="poplistTemplate"
+                                                placement="left"
+                                                [outsideClick]="true"
+                                                #pop="bs-popover"
+                                            >
+                                                <img
+                                                    class="ellipse-image pl-3"
+                                                    src="assets/images/more-opns-file.png"
+                                                    alt=""
+                                                />
+                                            </a>
+                                            <ng-template #poplistTemplate>
+                                                <div id="popover-mobile-content">
+                                                    <ul class="list-group custom-popover">
+                                                        <li class="list-group-item">
+                                                            <a
+                                                                class="pointer-item"
+                                                                (click)="
+                                                                    openDeleteModal(deleteTemplate, rowData['id']);
+                                                                    pop.hide()
+                                                                "
+                                                                >{{ globals.languageJson?.delete }}</a
+                                                            >
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </ng-template>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
                         </span>
                         <span *ngSwitchCase="'actions'" class="">
                             <span>
-                                <a class="fnt-muli editBtn" [routerLink]="['/features/product/' + rowData['id']]">{{globals.languageJson?.edit_product }}</a>
+                                <a class="fnt-muli editBtn" [routerLink]="['/features/new-product/' + rowData['id']]">{{
+                                    globals.languageJson?.edit_product
+                                }}</a>
                                 <span class="float-right">
-                                    <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true" #pop="bs-popover">
+                                    <a
+                                        class="menu-arrow"
+                                        [popover]="poplistTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop="bs-popover"
+                                    >
                                         <img class="ellipse-image pl-3" src="assets/images/more-opns-file.png" alt="" />
                                     </a>
                                     <ng-template #poplistTemplate>
                                         <div id="popover-mobile-content">
                                             <ul class="list-group custom-popover">
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item" (click)="openDeleteModal(deleteTemplate, rowData['id']); pop.hide()">{{ globals.languageJson?.delete }}</a>
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="
+                                                            openDeleteModal(deleteTemplate, rowData['id']); pop.hide()
+                                                        "
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
                                                 </li>
                                             </ul>
                                         </div>
@@ -122,6 +290,12 @@
                         <span *ngSwitchCase="'status'" class="">
                             <span>{{ rowData[col.field] | titlecase }}</span>
                         </span>
+                        <span *ngSwitchCase="'weight'" class="">
+                            <span>{{ rowData[col.field] }} lb</span>
+                        </span>
+                        <span *ngSwitchCase="'price'" class="">
+                            <span>${{ rowData[col.field] }}</span>
+                        </span>
                         <span *ngSwitchDefault>
                             <span>{{ rowData[col.field] }}</span>
                         </span>
@@ -131,51 +305,6 @@
         </p-table>
     </div>
 </div>
-<ng-template #allTemplate>
-    <div id="status-content">
-        <ul class="list-group">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('');">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Active');">Active</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setStatus('Disabled');">Disabled</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-<ng-template #typeTemplate>
-    <div id="status-content">
-        <ul class="list-group">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setType('');">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setType('$0-$500');">$0-$500</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setType('$500-$1000');">$500-$1000</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-<ng-template #originTemplate>
-    <div id="status-content">
-        <ul class="list-group">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('');">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Colombia');">Colombia</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setOrigin('Ethiopia');">Ethiopia</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
 <ng-template #deleteTemplate>
     <div class="modal-body mt-5 mb-5 text-center fnt-muli">
         <div><img src="assets/images/delete-role.svg" alt="" /></div>

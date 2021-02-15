@@ -234,7 +234,7 @@ span.star {
 .primary_txt {
     font-family: Muli;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -252,6 +252,18 @@ span.star {
     color: #747588;
 }
 
+.editBtn {
+    font-weight: bold;
+    color: #80460b !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+.deleteModal {
+    width: 450px;
+    @media (max-width: 768px) {
+        width: auto;
+    }
+}
 ngx-intl-tel-input {
     .custom-intl-tel-input {
         height: 50px !important;

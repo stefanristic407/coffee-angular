@@ -129,6 +129,8 @@ import { ConfirmPreorderLotComponent } from './confirm-preorder-lot/confirm-preo
 import { OtherCuppingServiceComponent } from './green-grading/cupping-report/other-cupping-service/other-cupping-service.component';
 import { OtherGenerateReportComponent } from './green-grading/cupping-report/other-generate-report/other-generate-report.component';
 import { ProductListComponent } from './e-commerce/product-list/product-list.component';
+import { ProductDetailsComponent } from './e-commerce/product-details/product-details.component';
+import { VarientDetailsComponent } from './e-commerce/varient-details/varient-details.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
 
@@ -247,6 +249,8 @@ import { RatingModule } from 'primeng/rating';
         OtherCuppingServiceComponent,
         OtherGenerateReportComponent,
         ProductListComponent,
+        ProductDetailsComponent,
+        VarientDetailsComponent,
     ],
     imports: [
         CommonModule,
