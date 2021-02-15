@@ -14,10 +14,15 @@
     background-color: #ffffff;
     overflow: hidden;
 }
-
+@media screen and (min-width: 992px) {
+    a.nav-link {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+}
 a.nav-link {
-    padding-left: 24px !important;
-    padding-right: 24px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
 }
 
 .nav-pills .nav-link.active,

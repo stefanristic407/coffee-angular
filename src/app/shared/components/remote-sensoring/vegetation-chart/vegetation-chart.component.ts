@@ -14,10 +14,8 @@ export class VegetationChartComponent implements OnInit {
     dateKeyStrings = ['YYYY/MM/DD'];
     dateFormats = ['DD MMM'];
 
-    appLanguage?: any;
-    chartData1: any[] = [];
-    chartData2: any[] = [];
-    chartData3: any[] = [];
+    loading = true;
+    data: any[];
     legends: any[] = [];
     showLegend = false;
     weatherTypes: any[] = [
@@ -26,12 +24,18 @@ export class VegetationChartComponent implements OnInit {
             label: 'NDVI',
             title: 'NDVI Value',
             unit: '',
+            interval: 0.2,
+            minimum: 0,
+            maximum: 1.0,
         },
         {
             value: 1,
             label: 'EVI',
             title: 'EVI Value',
             unit: '',
+            interval: 0.2,
+            minimum: 0,
+            maximum: 1.0,
         },
     ];
     selWeatherType = 0;
@@ -46,69 +50,13 @@ export class VegetationChartComponent implements OnInit {
     ];
     selPeriod = 0;
 
-    public primaryXAxis = {
-        valueType: 'DateTime',
-        interval: 1,
-        edgeLabelPlacement: 'Shift',
-        lineStyle: { width: 0 },
-        majorGridLines: { width: 0 },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        labelStyle: {
-            size: '16px',
-            color: '#747588',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-
-    public primaryYAxis = {
-        labelFormat: '{value}',
-        rangePadding: 'None',
-        lineStyle: { width: 0 },
-        majorGridLines: { dashArray: '7,5' },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        labelStyle: {
-            size: '16px',
-            color: '#747588',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-        titleStyle: {
-            size: '16px',
-            color: '#232334',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-    public chartArea = {
-        border: {
-            width: 0,
-        },
-    };
+    public primaryXAxis = {};
+    public primaryYAxis = {};
     palette = ['#2DAEA8', '#0D6B67', '#AAC6E7'];
-    public marker = {
-        visible: true,
-        height: 10,
-        width: 10,
-    };
-    public tooltip: any = {
-        enable: true,
-        fill: '#fff',
-        border: {
-            width: 0,
-        },
-        textStyle: {
-            color: '#747588',
-            fontFamily: 'Muli',
-        },
-        format: '${point.tooltip}',
-    };
-    legendSettings = { visible: false };
-    selectedDate = new Date();
+    maxDate = moment().subtract(1, 'days').toDate();
+    selectedDate = moment().subtract(1, 'days').toDate();
     startDate = moment().subtract(3, 'months').toDate();
-    endDate = new Date();
+    endDate = moment().subtract(1, 'days').toDate();
     weatherData: any[] = [];
 
     constructor(public agroSrv: AgroService) {}
@@ -119,19 +67,13 @@ export class VegetationChartComponent implements OnInit {
     }
 
     changeWeatherType() {
-        this.primaryYAxis = {
-            ...this.primaryYAxis,
-            ...this.weatherTypes[this.selWeatherType],
-        };
+        this.primaryYAxis = this.weatherTypes[this.selWeatherType];
         this.selPeriod = 0;
         this.changePeriod();
     }
 
     changePeriod() {
-        this.primaryXAxis = {
-            ...this.primaryXAxis,
-            ...this.periods[this.selPeriod],
-        };
+        this.primaryXAxis = this.periods[this.selPeriod];
         this.updateChartSetting();
         this.getData();
     }
@@ -150,6 +92,7 @@ export class VegetationChartComponent implements OnInit {
     }
 
     getData() {
+        this.loading = true;
         let query;
         switch (this.periods[this.selPeriod].period) {
             case 'twoWeeks': {
@@ -177,10 +120,14 @@ export class VegetationChartComponent implements OnInit {
         this.agroSrv.getHistoricalNdvi(this.polygonId, query).subscribe(
             (res: any) => {
                 this.weatherData = res;
+                this.clearData();
                 this.processData();
+                this.loading = false;
             },
             (err: HttpErrorResponse) => {
                 console.log(err);
+                this.clearData();
+                this.loading = false;
             },
         );
     }
@@ -248,33 +195,43 @@ export class VegetationChartComponent implements OnInit {
             y = element.min.toFixed(3);
             y1 = element.mean.toFixed(3);
             y2 = element.max.toFixed(3);
-            const label = `${moment.unix(element.dt).format(this.dateFormats[this.selPeriod])}
-        <br /><strong>
-        ${this.legends[0].abbr + ' ' + y + this.weatherTypes[this.selWeatherType].unit}
-        ${this.legends[1] ? ' ' + this.legends[1].abbr + ' ' + y1 + this.weatherTypes[this.selWeatherType].unit : ''}${
-                this.legends[2]
-                    ? ' ' + this.legends[2].abbr + ' ' + y1 + this.weatherTypes[this.selWeatherType].unit
-                    : ''
-            }</strong>`;
+
+            const unit = this.weatherTypes[this.selWeatherType].unit;
+            const timeStr = moment.unix(element.dt).format(this.dateFormats[this.selPeriod]);
+            const data1Str = this.legends[0].abbr + ' ' + y + unit;
+            const data2Str = this.legends[1] ? ' ' + this.legends[1].abbr + ' ' + y1 + unit : '';
+            const data3Str = this.legends[2] ? ' ' + this.legends[2].abbr + ' ' + y2 + unit : '';
+
+            const tooltip =
+                `<div class='chart-tooltip' >` +
+                `<div class='fnt-12 fnt-600 fnt-muli text-clr334'>` +
+                `${timeStr}` +
+                `</div><div class='fnt-14 fnt-600 fnt-muli text-clr588'>` +
+                `${data1Str}` +
+                `${data2Str}` +
+                `${data3Str}` +
+                `</div></div>`;
 
             tempData1.push({
                 x: moment.unix(element.dt).toDate(),
                 y,
-                label,
+                tooltip,
             });
             tempData2.push({
                 x: moment.unix(element.dt).toDate(),
                 y: y1,
-                label,
+                tooltip,
             });
             tempData3.push({
                 x: moment.unix(element.dt).toDate(),
                 y: y2,
-                label,
+                tooltip,
             });
         });
-        this.chartData1 = tempData1;
-        this.chartData2 = tempData2;
-        this.chartData3 = tempData3;
+        this.data = [tempData1, tempData2, tempData3];
+    }
+
+    clearData() {
+        this.data = null;
     }
 }

@@ -26,6 +26,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
@@ -70,7 +71,10 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
-
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
+import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -98,6 +102,7 @@ const THIRDMODULES = [
     InputTextModule,
     MultiSelectModule,
     OverlayPanelModule,
+    ProgressSpinnerModule,
     RatingModule,
     SelectButtonModule,
     SliderModule,
@@ -139,6 +144,7 @@ const COMPONENTS = [
     ReadMoreComponent,
     UploaderComponent,
     LoadingComponent,
+    LineChartComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
@@ -154,6 +160,9 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         ...MATMODULES,
         // third libs
         ...THIRDMODULES,
+        NgxEchartsModule.forRoot({
+            echarts,
+        }),
     ],
     declarations: [
         // your components
@@ -165,6 +174,7 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         ConfirmComponent,
         BlogCardComponent,
         BarChartComponent,
+        HorizontalBarComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
