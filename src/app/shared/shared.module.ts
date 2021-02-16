@@ -46,6 +46,7 @@ import { MatVideoModule } from 'mat-video';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 import { CountryPipe } from './pipes/country/country.pipe';
+import { EstateBrandLinkPipe } from './pipes/estate-brand-link.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
 import { RoasterBrandLinkPipe } from './pipes/roaster-brand-link.pipe';
@@ -149,7 +150,7 @@ const COMPONENTS = [
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
-const PIPES = [CountryPipe, FileNamePipe, MonthPipe, RoasterBrandLinkPipe, WordCountPipe];
+const PIPES = [CountryPipe, EstateBrandLinkPipe, FileNamePipe, MonthPipe, RoasterBrandLinkPipe, WordCountPipe];
 // #endregion
 
 @NgModule({

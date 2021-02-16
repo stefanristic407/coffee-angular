@@ -14,8 +14,6 @@ import { SourcingService } from '../sourcing.service';
 export class EstateDetailsComponent implements OnInit {
     appLanguage?: any;
     isLoaded = false;
-    brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
-    estateProfile = 'https://qa-estates-portal.sewnstaging.com/features/estate-profile';
     selectedTab = 0;
     userId: string;
 
@@ -24,7 +22,7 @@ export class EstateDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private cookieSrv: CookieService,
         public sourcing: SourcingService,
-        private chatSrv: ChatHandlerService,
+        public chatSrv: ChatHandlerService,
     ) {
         this.userId = this.cookieSrv.get('user_id');
     }

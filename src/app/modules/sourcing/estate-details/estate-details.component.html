@@ -29,10 +29,10 @@
                             </div>
                         </div>
                         <div class="source-knowmore d-flex align-items-center justify-content-between mt-4 mt-md-0">
-                            <a class="btn-raised mr-md-25" routerLink="/sourcing/sourcing-chat">
+                            <button class="btn-raised mr-md-25" (click)="chatWithEstate()">
                                 {{ globals.languageJson?.contact_us }}
-                            </a>
-                            <a class="btn-stroked" [href]="brandProfileEstateWeb">
+                            </button>
+                            <a class="btn-stroked" [href]="sourcing.estate?.slug | estateBrandLink" target="_blank">
                                 {{ globals.languageJson?.know_more }}
                             </a>
                         </div>
