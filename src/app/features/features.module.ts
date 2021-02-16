@@ -131,6 +131,7 @@ import { OtherGenerateReportComponent } from './green-grading/cupping-report/oth
 import { ProductListComponent } from './e-commerce/product-list/product-list.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
+import {ListboxModule} from 'primeng/listbox';
 
 @NgModule({
     declarations: [
@@ -262,6 +263,7 @@ import { RatingModule } from 'primeng/rating';
         MatProgressBarModule,
         SharedModule,
         NgxChartsModule,
+        ListboxModule
     ],
 })
 export class FeaturesModule {}
