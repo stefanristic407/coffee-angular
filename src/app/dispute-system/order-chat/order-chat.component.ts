@@ -33,15 +33,17 @@ export class OrderChatComponent implements OnInit {
     ngOnInit(): void {
         this.roasterID = this.cookieService.get('roaster_id');
         this.roasterName = this.cookieService.get('name');
-        this.orderID = Number(decodeURIComponent(this.route.snapshot.queryParams.id));
+        this.route.params.subscribe((params) => {
+            this.orderID = params.orderId ? params.orderId : '';
+            this.getOrderDetails();
+            this.getOrderDisputes();
+        });
         this.currentDisputeID = this.route.snapshot.queryParams.ticketId
             ? decodeURIComponent(this.route.snapshot.queryParams.ticketId)
             : undefined;
         this.orderType = this.route.snapshot.queryParams.orderType
             ? decodeURIComponent(this.route.snapshot.queryParams.orderType)
             : undefined;
-        this.getOrderDetails();
-        this.getOrderDisputes();
     }
     getOrderDetails() {
         this.roasterService.getViewOrderDetails(this.roasterID, this.orderID, this.orderType).subscribe(
@@ -147,6 +149,6 @@ export class OrderChatComponent implements OnInit {
                 id: this.orderID,
             },
         };
-        this.router.navigate(['/order-management/assign-user'], navigationExtras);
+        this.router.navigate(['/dispute-system/assign-user'], navigationExtras);
     }
 }

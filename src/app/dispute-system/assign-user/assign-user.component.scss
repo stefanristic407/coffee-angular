@@ -1,0 +1,9 @@
+.containerDiv {
+    padding: 7rem 2rem;
+    margin: auto;
+    text-align: center;
+    width: 50%;
+}
+:host ::ng-deep .userDropdown .p-autocomplete-item {
+    text-align: left;
+}

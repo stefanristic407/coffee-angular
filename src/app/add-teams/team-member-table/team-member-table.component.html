@@ -251,9 +251,11 @@
                                                     }}</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item" (click)="sendDirectMessage(rowData.id)">{{
-                                                        globals.languageJson?.send_a_message
-                                                    }}</a>
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="sendDirectMessage(rowData.id); pop11.hide()"
+                                                        >{{ globals.languageJson?.send_a_message }}</a
+                                                    >
                                                 </li>
                                                 <li class="list-group-item">
                                                     <a class="pointer-item">{{
@@ -387,9 +389,11 @@
                                                 }}</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <a class="pointer-item" (click)="sendDirectMessage(rowData.id)">{{
-                                                    globals.languageJson?.send_a_message
-                                                }}</a>
+                                                <a
+                                                    class="pointer-item"
+                                                    (click)="sendDirectMessage(rowData.id); pop11.hide()"
+                                                    >{{ globals.languageJson?.send_a_message }}</a
+                                                >
                                             </li>
                                             <li class="list-group-item">
                                                 <a class="pointer-item">{{

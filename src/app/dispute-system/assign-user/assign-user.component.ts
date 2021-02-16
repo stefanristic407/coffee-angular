@@ -60,13 +60,8 @@ export class AssignUserComponent implements OnInit {
             (res: any) => {
                 console.log(res);
                 if (res && res.success) {
-                    const navigationExtras: NavigationExtras = {
-                        queryParams: {
-                            id: this.orderID,
-                        },
-                    };
                     this.toasterService.success('Sucessfully assigned');
-                    this.router.navigate(['/ordermanagement/order-chat'], navigationExtras);
+                    this.router.navigate(['/dispute-system/order-chat'], this.orderID);
                 }
             },
             (err) => {

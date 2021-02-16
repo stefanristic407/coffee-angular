@@ -3,14 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-found.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { AssignUserComponent } from './assign-user/assign-user.component';
+import { DisputeComponent } from './dispute/dispute.component';
 import { OrderChatComponent } from './order-chat/order-chat.component';
 const routes: Routes = [
     {
         path: '',
-        component: OrderChatComponent,
+        component: DisputeComponent,
         children: [
             {
-                path: 'order-chat',
+                path: 'order-chat/:chatType/:orderId',
                 component: OrderChatComponent,
                 canActivate: [AuthGuard],
             },

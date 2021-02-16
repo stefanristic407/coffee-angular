@@ -1,28 +1,33 @@
-<section>
-    <div class="bg-fff">
-        <section class="col-sm-12 col-md-12 col-lg-12">
-            <p class="primary_txt">Assign a User</p>
-            <p class="secondary_txt text-center">
-                Please assign a team memeber who would be a point of contact for queries and issues with the order
-            </p>
-            <div class="row justify-content-center">
-                <div class="sewn-form-field w-100">
-                    <p-autoComplete class="form-control email" placeholder="Please enter an name" name="email"
-                        field="name" [(ngModel)]="searchFilter" [suggestions]="userList"
-                        (onSelect)="onSelectUser($event)" (completeMethod)="onSearch($event)" required>
-                    </p-autoComplete>
-                </div>
+<div class="main-block">
+    <div class="col-sm-12 col-md-12 col-lg-12 containerDiv">
+        <p class="primary_txt">Assign a User</p>
+        <p class="secondary_txt text-center mb-4">
+            Please assign a team memeber who would be a point of contact for queries and issues with the order
+        </p>
+        <div class="row justify-content-center pb-5">
+            <div class="sewn-form-field w-100">
+                <p-autoComplete
+                    class="userDropdown"
+                    placeholder="Please enter an name"
+                    name="email"
+                    field="name"
+                    [(ngModel)]="searchFilter"
+                    [suggestions]="userList"
+                    (onSelect)="onSelectUser($event)"
+                    (completeMethod)="onSearch($event)"
+                    required
+                >
+                </p-autoComplete>
             </div>
+        </div>
 
-            <div class="d-flex justify-content-center continue-web">
-                <div class="mt-2">
-                    <button class="btn btn-stroked mr-3" routerLink="/ordermanagement/order-booked"
-                        [queryParams]="{ id: orderID }">
-                        Cancel
-                    </button>
-                    <button class="btn btn-raised" [disabled]="!userDetails" (click)="onAssign()">Assign</button>
-                </div>
+        <div class="d-flex justify-content-center continue-web">
+            <div class="mt-2">
+                <button class="btn btn-stroked mr-3" [routerLink]="['/dispute-system/order-chat/', orderID]">
+                    Cancel
+                </button>
+                <button class="btn btn-raised" [disabled]="!userDetails" (click)="onAssign()">Assign</button>
             </div>
-        </section>
+        </div>
     </div>
-</section>
+</div>
