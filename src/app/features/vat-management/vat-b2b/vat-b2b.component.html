@@ -1,6 +1,6 @@
 <section>
-    <div class="row">
-        <div class="pls-note">
+    <div class="">
+        <div class="col-12 pls-note">
             <p class="fnt-13 fnt-400 fnt-muli text-clr334 m-0"> <span class="fnt-700">Please note  : </span> Edit VAT rate only when you are sure of a change in the rates. A slight mistake can lead to a penalty from the authorities. </p>
         </div>
         <div class="table-container mb-2 mt-4 col-12">
@@ -54,8 +54,8 @@
                     <ng-container >
                         <tr *ngFor="let item of vatService.b2bEcommerceList; let l=index">
                                 <td>
-                                   <p *ngIf="vatService.editB2Bmode && eachId!=item.id">{{item.country}}</p>
-                                   <p *ngIf="vatService.editB2Bmode && eachId==item.id && updateVatmode">{{item.country}}</p>
+                                   <p *ngIf="vatService.editB2Bmode && eachId!=item.id">{{item.country | country}}</p>
+                                   <p *ngIf="vatService.editB2Bmode && eachId==item.id && updateVatmode">{{item.country | country}}</p>
                                    <div class="Onboard-input" *ngIf="editTableRow && eachId==item.id">
                                         <select id="country" name="Year" class="form-control select-region" (keyup)="onKeyPress($event)" [(ngModel)]="eachCountry" name="country" required="" (change)="changeCountry()">
                                             <option  value="" selected="" disabled=""> Select a Country</option>

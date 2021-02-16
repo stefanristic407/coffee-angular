@@ -9,6 +9,7 @@ import { RaiseTicketComponent } from './raise-ticket/raise-ticket.component';
 import { SelectOrderComponent } from './select-order/select-order.component';
 import { SharedModule } from './../shared/shared.module';
 import { PeopleRoutingModule } from './dispute-routing.module';
+import { DisputeComponent } from './dispute/dispute.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { PeopleRoutingModule } from './dispute-routing.module';
         FaqQuestionComponent,
         RaiseTicketComponent,
         SelectOrderComponent,
+        DisputeComponent,
     ],
     imports: [CommonModule, SharedModule, PeopleRoutingModule],
 })

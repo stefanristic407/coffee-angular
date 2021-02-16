@@ -47,11 +47,11 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     userSearchKeywords = '';
     selectedUser: ThreadMembers | null = null;
     threadListConfig = {
-        perPage: 100,
+        perPage: 200,
         activePage: 1,
     };
     messageListConfig = {
-        perPage: 200,
+        perPage: 300,
         activePage: 1,
     };
     messageList: ChatMessage[] = [];
@@ -59,7 +59,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
 
     threadSearchKeyword = '';
 
-    audioPlayer = new Audio('assets/sounds/notification.mp3');
+    incomingAudioPlayer = new Audio('assets/sounds/msg-incoming.mp3');
+    outgoingAudioPlayer = new Audio('assets/sounds/msg-outgoing.mp3');
 
     chatMessageHeadElement: HTMLElement | null = null;
     chatMessageBodyElement: HTMLElement | null = null;
@@ -98,7 +99,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         if (!this.ORGANIZATION_ID) {
             console.log('Direct Message: ORGANIZATION_ID is missing');
         }
-        this.audioPlayer.load();
+        this.incomingAudioPlayer.load();
+        this.outgoingAudioPlayer.load();
 
         this.initializeWebSocket();
         this.updateUserStatus();
@@ -235,7 +237,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     findThread(payload: OpenChatThread) {
-        // Sending Request
+        console.log('Open chat request payload', payload);
         this.socket.chatSent.next({
             timestamp: this.getTimeStamp(),
             type: WSChatMessageType.getCreate,
@@ -315,27 +317,29 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     if (user) {
                         this.processThreadUser(user);
                     }
-                    if (this.openedThread && this.openedThread.id === message.thread_id) {
-                        this.updateChatMessageBodyElRef();
-                        let isOnChatBottom = this.isCurrentlyBottom();
-                        if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
-                            this.SM['lastRender'].unsubscribe();
-                        }
-                        this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
-                            if (isOnChatBottom) {
-                                this.scrollbottom();
+                    if (this.openedThread)
+                        if (this.openedThread && this.openedThread.id === message.thread_id) {
+                            this.updateChatMessageBodyElRef();
+                            // let isOnChatBottom = this.isCurrentlyBottom();
+                            if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
+                                this.SM['lastRender'].unsubscribe();
                             }
-                        });
-                        this.messageList.push(message);
-                        this.openedThread.computed_lastActivityText = message.content;
-                        this.sendReadToken(message.id);
-                    } else {
-                        inThread.computed_lastActivityText = message.content;
-                        this.updateUnRead();
-                        if (!inThread.computed_mute) {
-                            this.playNotificationSound();
+                            this.SM['lastRender'] = this.lastMessageRendered.pipe(first()).subscribe((x) => {
+                                // if (isOnChatBottom) {
+                                this.scrollbottom();
+                                // }
+                            });
+                            this.messageList.push(message);
+                            this.openedThread.computed_lastActivityText = message.content;
+                            this.sendReadToken(message.id);
+                        } else {
+                            inThread.computed_lastActivityText = message.content;
+                            this.updateUnRead();
+                            if (!inThread.computed_mute) {
+                                // The play sound is'nt playing for sender since his chat open
+                                this.playNotificationSound('INCOMING');
+                            }
                         }
-                    }
                     const threadIndex = this.threadList.findIndex((thread) => thread.id === inThread.id);
                     this.threadList.splice(threadIndex, 1);
                     this.threadList.unshift(inThread); //Pushing into top
@@ -454,7 +458,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                     this.threadList.unshift(thread);
                 }
                 if (!thread.computed_mute) {
-                    this.playNotificationSound();
+                    this.playNotificationSound('INCOMING');
                 }
                 this.updateUserStatus();
                 this.updateUnRead();
@@ -483,8 +487,12 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         }
     }
 
-    playNotificationSound() {
-        this.audioPlayer.play();
+    playNotificationSound(type: 'INCOMING' | 'OUTGOING') {
+        if (type === 'INCOMING') {
+            this.incomingAudioPlayer.play();
+        } else if (type === 'OUTGOING') {
+            this.outgoingAudioPlayer.play();
+        }
     }
 
     updateUserStatus = () => {
@@ -718,8 +726,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
                 this.offensiveTimeout = window.setTimeout(this.offensiveTimeoutHandler, 5000);
                 msg = msg.replace(badwordsRegExp, '****');
             }
-
             this.socket.chatSent.next(this.getMessagePayload(msg));
+            this.playNotificationSound('OUTGOING');
             this.messageInput = '';
             this.chatBodyHeightAdjust();
             if (this.SM['lastRender'] && this.SM['lastRender'].unsubscribe) {
