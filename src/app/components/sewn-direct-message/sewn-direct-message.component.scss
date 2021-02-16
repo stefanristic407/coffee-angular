@@ -223,9 +223,10 @@
     display: none;
 }
 
-.chat-control__expand {
-    width: 30px;
-    height: 30px;
+.chat-control__expand,
+.chat-control__close {
+    width: 36px;
+    height: 36px;
     display: none;
     border-radius: 2px;
     border: solid 1px #747588;
@@ -234,18 +235,10 @@
     cursor: pointer;
     pointer-events: all;
 }
-
 .chat-control__close {
-    width: 20px;
-    height: 20px;
     display: inline-block;
     margin-left: 15px;
     border-radius: 2px;
-    border: solid 1px #747588;
-    padding: 5px;
-    position: relative;
-    cursor: pointer;
-    pointer-events: all;
 }
 
 .chat-control__expand img {
