@@ -84,6 +84,16 @@
     <div *ngIf="!selectedTab" class="main-block mt-3 pt-md-3 pt-lg-45">
         <app-overview-ratings></app-overview-ratings>
     </div>
+
+    <a
+        *ngIf="
+            (selectedTab == 0 || selectedTab == 1 || selectedTab == 2 || selectedTab == 4) && !(chatSrv.isOpen | async)
+        "
+        class="estate-chat-btn active d-none d-md-block"
+        (click)="chatWithEstate()"
+    >
+        <span>Chat with {{ sourcing.estate?.name }}</span>
+    </a>
 </section>
 
 <ng-template #loading>
