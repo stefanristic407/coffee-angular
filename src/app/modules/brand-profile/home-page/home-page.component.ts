@@ -132,7 +132,7 @@ export class HomePageComponent implements OnInit {
         }
     }
 
-    saveHomeProfile() {
+    savePageData() {
         if (this.infoForm.valid) {
             const postData = {
                 ...this.infoForm.value,

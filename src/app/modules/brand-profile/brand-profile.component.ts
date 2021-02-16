@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { GlobalsService } from 'src/services/globals.service';
 
 @Component({
@@ -40,8 +41,11 @@ export class BrandProfileComponent implements OnInit {
             slug: 'visit-us',
         },
     ];
+    roasterSlug: string;
 
-    constructor(public globals: GlobalsService) {}
+    constructor(public globals: GlobalsService, private cookieService: CookieService) {
+        this.roasterSlug = this.cookieService.get('roasterSlug');
+    }
 
     ngOnInit(): void {
         this.breadItems = [

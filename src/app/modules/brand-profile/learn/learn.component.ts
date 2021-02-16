@@ -17,33 +17,9 @@ import * as _ from 'lodash';
 })
 export class LearnComponent implements OnInit {
     roasterId: string;
+    roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
-
-    appLanguage?: any;
-    brandProfileActive: any = 0;
-    countValue: any = 0;
-    banner_title: string = '';
-    intro_title: string = '';
-    title: string = '';
-    answer: string = '';
-    answer1: string = '';
-    answer2: string = '';
-    answer3: string = '';
-    answer4: string = '';
-    imageUrl: any;
-    banner_id: any;
-    intro_id: any;
-    step1_id: any;
-    step2_id: any;
-    step3_id: any;
-    step4_id: any;
-    banner_image_name: any;
-    intro_image_name: any;
-    step1_image_name: any;
-    step2_image_name: any;
-    step3_image_name: any;
-    step4_image_name: any;
 
     constructor(
         private fb: FormBuilder,
@@ -56,6 +32,7 @@ export class LearnComponent implements OnInit {
         public roasterService: RoasterserviceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 
     ngOnInit(): void {
@@ -115,7 +92,7 @@ export class LearnComponent implements OnInit {
         });
     }
 
-    saveBrandProfile() {
+    savePageData() {
         if (this.infoForm.valid) {
             const postData = {
                 ...this.infoForm.value,
