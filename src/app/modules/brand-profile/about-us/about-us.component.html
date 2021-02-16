@@ -1,21 +1,6 @@
 <section>
     <div class="main-block">
-        <p-breadcrumb [model]="breadItems" styleClass="mb-25 mb-md-4"></p-breadcrumb>
-
-        <div class="d-flex justify-content-between align-items-start mb-3 mb-md-45 pt-3">
-            <div>
-                <h4 class="fnt-18 lh-normal fnt-700 text-clr334 mb-2 mb-md-25">About us</h4>
-                <div class="fnt-mb-14 lh-normal fnt-normal text-clr588">
-                    Add details according to respective sections to create your brand profile website
-                </div>
-            </div>
-            <div class="d-none d-md-block">
-                <a class="btn-stroked mr-25" [href]="roasterSlug | roasterBrandLink: 'about-us'" target="_blank">
-                    Preview
-                </a>
-                <button type="button" class="btn-raised" (click)="savePageData()">Save</button>
-            </div>
-        </div>
+        <app-brand-profile-header pageSlug="about-us" (saveClick)="savePageData()"></app-brand-profile-header>
 
         <form [formGroup]="infoForm" novalidate>
             <div class="row">
@@ -226,15 +211,6 @@
             </div>
         </form>
 
-        <div class="mt-45 d-none d-md-block">
-            <button type="button" class="btn-stroked mr-4" routerLink="/brand-profile">Cancel</button>
-            <button type="button" class="btn-raised" (click)="savePageData()">Save</button>
-        </div>
-        <div class="mt-4 d-flex flex-wrap d-md-none">
-            <button type="button" class="btn-raised w-100" (click)="savePageData()">Save</button>
-            <a class="btn-stroked w-100 mt-2" [href]="roasterSlug | roasterBrandLink: 'about-us'" target="_blank">
-                Preview
-            </a>
-        </div>
+        <app-brand-profile-footer pageSlug="about-us" (saveClick)="savePageData()"></app-brand-profile-footer>
     </div>
 </section>

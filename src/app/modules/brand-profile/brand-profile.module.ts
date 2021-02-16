@@ -11,6 +11,8 @@ import { LearnComponent } from './learn/learn.component';
 import { SustainabilityComponent } from './sustainability/sustainability.component';
 import { VisitUsComponent } from './visit-us/visit-us.component';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
+import { BrandProfileHeaderComponent } from './brand-profile-header/brand-profile-header.component';
+import { BrandProfileFooterComponent } from './brand-profile-footer/brand-profile-footer.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +23,8 @@ import { FeaturedProductsComponent } from './featured-products/featured-products
         SustainabilityComponent,
         VisitUsComponent,
         FeaturedProductsComponent,
+        BrandProfileHeaderComponent,
+        BrandProfileFooterComponent,
     ],
     imports: [CommonModule, BrandProfileRoutingModule, SharedModule],
 })
