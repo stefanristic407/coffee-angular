@@ -24,6 +24,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
+import { MenuModule } from 'primeng/menu';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -102,6 +103,7 @@ const THIRDMODULES = [
     InputSwitchModule,
     InputTextareaModule,
     InputTextModule,
+    MenuModule,
     MultiSelectModule,
     OverlayPanelModule,
     ProgressSpinnerModule,

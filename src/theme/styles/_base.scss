@@ -10,6 +10,11 @@
     }
 }
 
+div[class^='col-'] {
+    // For pMenu Please don't remove
+    position: unset;
+}
+
 .gutter-8.row {
     margin-right: -4px;
     margin-left: -4px;
