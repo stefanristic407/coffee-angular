@@ -10,6 +10,7 @@ export const environment = {
     microRoasterWeb: 'https://microroaster.sewnstaging.com',
     horecaWeb: 'https://partners.sewnstaging.com',
     agroUrl: 'https://api.agromonitoring.com/agro/1.0/',
+    estateBrandProfileUrl: 'https://www.sewnstaging.com/estate',
     roasterBrandProfileUrl: 'https://www.sewnstaging.com/roaster',
     production: true,
 };

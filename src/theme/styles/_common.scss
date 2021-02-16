@@ -61,6 +61,7 @@ span.star {
     }
     &:hover {
         color: $brown-color;
+        text-decoration: underline !important;
         // &::before {
         //     transform: translateX(-6px);
         // }
@@ -172,18 +173,19 @@ span.star {
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #ffffff;
+    color: #ffffff !important;
     text-align: left;
     position: fixed;
     right: 10%;
     bottom: 0px;
-    z-index: 99;
+    z-index: 991;
     width: 100%;
     max-width: 370px;
 
     &:hover {
         text-decoration: none;
         color: #fff;
+        cursor: pointer;
     }
 
     &::after {

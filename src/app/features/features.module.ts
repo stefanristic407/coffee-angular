@@ -133,6 +133,7 @@ import { ProductDetailsComponent } from './e-commerce/product-details/product-de
 import { VarientDetailsComponent } from './e-commerce/varient-details/varient-details.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RatingModule } from 'primeng/rating';
+import {ListboxModule} from 'primeng/listbox';
 
 @NgModule({
     declarations: [
@@ -266,6 +267,7 @@ import { RatingModule } from 'primeng/rating';
         MatProgressBarModule,
         SharedModule,
         NgxChartsModule,
+        ListboxModule
     ],
 })
 export class FeaturesModule {}
