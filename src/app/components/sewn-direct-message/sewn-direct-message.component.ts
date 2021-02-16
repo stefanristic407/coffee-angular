@@ -551,6 +551,8 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
     };
 
     viewPortSizeChanged = () => {
+        const expandBackDrop =
+            (this.elRef?.nativeElement?.querySelector('[data-element="expand-backdrop"]') as HTMLElement) || null;
         const chat = (this.elRef?.nativeElement?.querySelector('[data-element="chat"]') as HTMLElement) || null;
         const chatBox = (this.elRef?.nativeElement?.querySelector('[data-element="chat-box"]') as HTMLElement) || null;
         const header = (document.querySelector('header') as HTMLElement) || null;
@@ -577,6 +579,10 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
             chatHeadHeight = chatHead.offsetHeight;
         }
 
+        if (this.chatService.isExpand.value && expandBackDrop) {
+            this.render.setStyle(expandBackDrop, 'top', `${chatHeadHeight}px`);
+        }
+
         const chatBoxCalculatedHeight = window.innerHeight - diff;
         const chatBodyCalculatedHeight = chatBoxCalculatedHeight - chatHeadHeight;
         const panelHeight = chatBodyCalculatedHeight - (chatAccountHead?.offsetHeight || 0);
@@ -587,7 +593,7 @@ export class SewnDirectMessageComponent implements OnInit, OnDestroy, AfterViewI
         this.render.setStyle(accountSetting, 'height', `${chatBodyCalculatedHeight}px`);
         this.render.setStyle(accountBody, 'height', `${panelHeight}px`);
 
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 767) {
             this.render.removeStyle(chatbodyExpand, 'height');
             if (this.chatService.isExpand.value) {
                 this.closeExapndView();
