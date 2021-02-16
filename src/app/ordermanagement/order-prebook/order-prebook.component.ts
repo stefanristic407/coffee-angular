@@ -1,3 +1,4 @@
+import { ServiceChatTypes } from './../../../models/service-chat';
 // AUTHOR : Sindhuja
 // PAGE DESCRIPTION : This page contains functions of Order Pre-Book.
 import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, AfterViewInit } from '@angular/core';
@@ -41,6 +42,7 @@ export class OrderPrebookComponent implements OnInit, AfterContentInit, AfterVie
     appLanguage?: any;
     orderPreBookId: any;
     countryValue: any;
+    SERVICE_TYPE = ServiceChatTypes.RO_ES;
 
     constructor(
         public prebookService: OrderPrebookService,
@@ -206,7 +208,7 @@ export class OrderPrebookComponent implements OnInit, AfterContentInit, AfterVie
         });
 
         // chat
-        const toggleChatboxBtn = document.querySelector('.js-chatbox-toggle');
+
         const chatbox = document.querySelector('.js-chatbox');
         const chatboxMsgDisplay = document.querySelector('.js-chatbox-display');
         const chatboxForm = document.querySelector('.js-chatbox-form');
@@ -223,32 +225,19 @@ export class OrderPrebookComponent implements OnInit, AfterContentInit, AfterVie
 
         // Toggle the visibility of the chatbox element when clicked
         // And change the icon depending on visibility
-        if (toggleChatboxBtn) {
-            toggleChatboxBtn.addEventListener('click', () => {
-                chatbox.classList.toggle('chatbox--is-visible');
-
-                if (chatbox.classList.contains('chatbox--is-visible')) {
-                    toggleChatboxBtn.innerHTML =
-                        '<i class="pi pi-angle-down" style="float:right; margin-top:-11px;"></i>';
-                } else {
-                    toggleChatboxBtn.innerHTML =
-                        '<i class="pi pi-angle-up" style="float:right; margin-top:-11px;"></i>';
-                }
-            });
-        }
 
         // Form input using method createChatBubble
         // To append any user message to display
-        chatboxForm.addEventListener('submit', (e) => {
-            //   const chatInput = document.querySelector(".js-chatbox-input");
-            const chatInput = (document.getElementById('js-chatbox-input') as HTMLInputElement).value;
-            //   console.log("chat text coming"+chatInput);
+        // chatboxForm.addEventListener('submit', (e) => {
+        //     //   const chatInput = document.querySelector(".js-chatbox-input");
+        //     const chatInput = (document.getElementById('js-chatbox-input') as HTMLInputElement).value;
+        //     //   console.log("chat text coming"+chatInput);
 
-            createChatBubble(chatInput);
+        //     createChatBubble(chatInput);
 
-            e.preventDefault();
-            this.myForm.nativeElement.reset();
-        });
+        //     e.preventDefault();
+        //     this.myForm.nativeElement.reset();
+        // });
     }
 
     // onRate($event: { newValue: number }) {

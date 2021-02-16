@@ -1,6 +1,6 @@
-import { ChatService } from './../../../../components/sewn-direct-message/chat.service';
+import { ChatHandlerService, GlobalsService } from '@services';
 import { Component, OnInit } from '@angular/core';
-import { GlobalsService } from 'src/services/globals.service';
+import {} from 'src/services/globals.service';
 import { SourcingService } from '../../sourcing.service';
 
 @Component({
@@ -9,16 +9,11 @@ import { SourcingService } from '../../sourcing.service';
     styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-
     brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
 
-    constructor(
-        public globals: GlobalsService,
-        public sourcing: SourcingService,
-        public chat: ChatService,
-    ) { }
+    constructor(public globals: GlobalsService, public sourcing: SourcingService, public chat: ChatHandlerService) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
     message() {
         this.chat.showChatPanel();
     }

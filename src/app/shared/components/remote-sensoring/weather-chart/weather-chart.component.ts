@@ -20,10 +20,10 @@ export class WeatherChartComponent implements OnInit {
         5: 'humidity',
     };
     dateKeyStrings = ['YYYY/MM/DD/HH', 'YYYY/MM/DD', 'YYYY/MM/DD', 'YYYY/MM/DD'];
+    palette = ['#2DAEA8', '#0D6B67', '#AAC6E7'];
 
-    appLanguage?: any;
-    chartData1: any[] = [];
-    chartData2: any[] = [];
+    loading = true;
+    data: any[];
     legends: any[] = [];
     showLegend = false;
     weatherTypes: any[] = [
@@ -32,40 +32,54 @@ export class WeatherChartComponent implements OnInit {
             label: 'Temperature',
             title: 'Temperature(°C)',
             unit: '°C',
-            interval: 5,
+            interval: 10,
             minimum: 0,
-            maximum: 30,
+            maximum: 50,
         },
         {
             value: 1,
             label: 'Wind',
             title: 'Wind Speed(m/s)',
             unit: 'm/s',
+            interval: 5,
             minimum: 0,
+            maximum: 20,
         },
         {
             value: 2,
             label: 'Rainfall',
             title: 'Rainfall(mm)',
             unit: 'mm',
+            interval: 5,
+            minimum: 0,
+            maximum: 20,
         },
         {
             value: 3,
             label: 'Cloudiness',
             title: 'Cloudiness(%)',
             unit: '%',
+            interval: 20,
+            minimum: 0,
+            maximum: 100,
         },
         {
             value: 4,
             label: 'Pressure',
             title: 'Pressure(hPa)',
             unit: 'hPa',
+            interval: 5,
+            minimum: 995,
+            maximum: 1020,
         },
         {
             value: 5,
             label: 'Humidity',
             title: 'Humidity(%)',
             unit: '%',
+            interval: 20,
+            minimum: 0,
+            maximum: 100,
         },
     ];
     selWeatherType = 0;
@@ -77,6 +91,7 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'h',
             intervalType: 'Hours',
             period: 'daily',
+            interval: 1,
         },
         {
             value: 1,
@@ -84,6 +99,7 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'd',
             intervalType: 'Days',
             period: 'twoWeeks',
+            interval: 1,
         },
         {
             value: 2,
@@ -91,6 +107,7 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'd',
             intervalType: 'Days',
             period: 'month',
+            interval: 1,
         },
         {
             value: 3,
@@ -98,6 +115,7 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'd MMM',
             intervalType: 'Months',
             period: 'range',
+            interval: 1,
         },
     ];
     periodsForRain: any[] = [
@@ -107,82 +125,26 @@ export class WeatherChartComponent implements OnInit {
             labelFormat: 'h',
             intervalType: 'Hours',
             period: 'daily',
+            interval: 3,
         },
         {
             value: 1,
             label: 'Accumulated rainfall',
-            labelFormat: 'y',
-            intervalType: 'Years',
+            labelFormat: 'yyyy MMM',
+            intervalType: 'Months',
             period: 'range',
+            interval: 1,
         },
     ];
     selPeriod = 0;
     dateFormats = ['DD MMM, LT', 'DD MMM', 'DD MMM', 'DD MMM'];
 
-    public primaryXAxis = {
-        valueType: 'DateTime',
-        interval: 1,
-        edgeLabelPlacement: 'Shift',
-        lineStyle: { width: 0 },
-        majorGridLines: { width: 0 },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        labelStyle: {
-            size: '16px',
-            color: '#747588',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-
-    public primaryYAxis = {
-        labelFormat: '{value}',
-        lineStyle: { width: 0 },
-        plotOffsetBottom: 16,
-        majorGridLines: { dashArray: '7,5' },
-        majorTickLines: { width: 0 },
-        minorTickLines: { width: 0 },
-        labelStyle: {
-            size: '16px',
-            color: '#747588',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-        titleStyle: {
-            size: '16px',
-            color: '#232334',
-            fontFamily: 'Muli',
-            fontWeight: '500',
-        },
-    };
-    public chartArea = {
-        border: {
-            width: 0,
-        },
-    };
-    palette = ['#2DAEA8', '#0D6B67'];
-    public marker = {
-        visible: true,
-        height: 10,
-        width: 10,
-    };
-    public tooltip: any = {
-        enable: true,
-        // fill: '#fff',
-        // border: {
-        //     width: 0,
-        // },
-        // textStyle: {
-        //     color: '#747588',
-        //     fontFamily: 'Muli',
-        // },
-        // format: '${point.tooltip}',
-        template: '${tooltip}',
-    };
-    legendSettings = { visible: false };
-    selectedDate = new Date();
+    public primaryXAxis = {};
+    public primaryYAxis = {};
+    maxDate = moment().subtract(1, 'days').toDate();
+    selectedDate = moment().subtract(1, 'days').toDate();
     startDate = moment().subtract(3, 'months').toDate();
-    endDate = new Date();
+    endDate = moment().subtract(1, 'days').toDate();
     weatherData: any[] = [];
 
     constructor(public agroSrv: AgroService) {}
@@ -193,12 +155,13 @@ export class WeatherChartComponent implements OnInit {
     }
 
     changeWeatherType() {
-        this.primaryYAxis = {
-            ...this.primaryYAxis,
-            ...this.weatherTypes[this.selWeatherType],
-        };
-        if (this.selWeatherType === 1) {
-            // Wind
+        if (
+            this.selWeatherType === 1 ||
+            this.selWeatherType === 3 ||
+            this.selWeatherType === 4 ||
+            this.selWeatherType === 5
+        ) {
+            // Wind, Cloudiness, Pressure, Humidity
             this.periods = this.periodsForAll.slice(0, 3);
             this.selPeriod = 0;
         } else if (this.selWeatherType === 2) {
@@ -213,10 +176,6 @@ export class WeatherChartComponent implements OnInit {
     }
 
     changePeriod() {
-        this.primaryXAxis = {
-            ...this.primaryXAxis,
-            ...this.periods[this.selPeriod],
-        };
         this.updateChartSetting();
         this.getData();
     }
@@ -226,6 +185,17 @@ export class WeatherChartComponent implements OnInit {
     }
 
     updateChartSetting() {
+        this.primaryYAxis = this.weatherTypes[this.selWeatherType];
+        if (this.selWeatherType === 2 && this.selPeriod === 1) {
+            this.primaryYAxis = JSON.parse(
+                JSON.stringify({
+                    ...this.primaryYAxis,
+                    interval: 200,
+                    maximum: 1000,
+                }),
+            );
+        }
+        this.primaryXAxis = this.periods[this.selPeriod];
         if (this.selWeatherType === 0 && (this.selPeriod === 1 || this.selPeriod === 2)) {
             // Legend setting of which has two lines
             this.showLegend = true;
@@ -246,6 +216,7 @@ export class WeatherChartComponent implements OnInit {
     }
 
     getData() {
+        this.loading = true;
         let query;
         switch (this.periods[this.selPeriod].period) {
             case 'daily': {
@@ -277,15 +248,35 @@ export class WeatherChartComponent implements OnInit {
             }
         }
 
-        this.agroSrv.getHistoricalWeather(this.polygonId, query).subscribe(
-            (res: any) => {
-                this.weatherData = res;
-                this.processData();
-            },
-            (err: HttpErrorResponse) => {
-                console.log(err);
-            },
-        );
+        if (this.selWeatherType === 2 && this.selPeriod === 1) {
+            this.agroSrv.getAccumulatedPrecipitation(this.polygonId, query).subscribe(
+                (res: any) => {
+                    this.weatherData = res;
+                    this.clearData();
+                    this.processRainFall();
+                    this.loading = false;
+                },
+                (err: HttpErrorResponse) => {
+                    console.log(err);
+                    this.clearData();
+                    this.loading = false;
+                },
+            );
+        } else {
+            this.agroSrv.getHistoricalWeather(this.polygonId, query).subscribe(
+                (res: any) => {
+                    this.weatherData = res;
+                    this.clearData();
+                    this.processData();
+                    this.loading = false;
+                },
+                (err: HttpErrorResponse) => {
+                    console.log(err);
+                    this.clearData();
+                    this.loading = false;
+                },
+            );
+        }
     }
 
     processData() {
@@ -371,6 +362,38 @@ export class WeatherChartComponent implements OnInit {
         this.makeData();
     }
 
+    processRainFall() {
+        const self = this;
+        this.weatherData = _.chain(this.weatherData)
+            .map((item) => {
+                let key;
+                key = moment.unix(item.dt).format(self.dateKeyStrings[self.selPeriod]);
+                return {
+                    key,
+                    data: item,
+                };
+            })
+            .groupBy('key')
+            .map((value, key) => {
+                const dt = value[0].data.dt;
+                const rain =
+                    _.reduce(
+                        value,
+                        (acc, val) => {
+                            return acc + (val.data.rain || 0);
+                        },
+                        0,
+                    ) / (value.length || 1);
+                return {
+                    key,
+                    dt,
+                    rain,
+                };
+            })
+            .value();
+        this.makeData();
+    }
+
     makeData() {
         const tempData1 = [];
         const tempData2 = [];
@@ -417,7 +440,10 @@ export class WeatherChartComponent implements OnInit {
                 tooltip,
             });
         });
-        this.chartData1 = tempData1;
-        this.chartData2 = tempData2;
+        this.data = [tempData1, tempData2];
+    }
+
+    clearData() {
+        this.data = null;
     }
 }

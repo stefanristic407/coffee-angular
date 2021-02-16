@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { combineLatest } from 'rxjs';
 import { HealthCheckComponent } from './health-check/health-check.component';
 import { LayoutComponent } from './layout/layout.component';
 
@@ -22,6 +21,10 @@ export const routes: Routes = [
                 path: 'ordermanagement',
                 loadChildren: () =>
                     import('./ordermanagement/ordermanagement.module').then((m) => m.OrdermanagementModule),
+            },
+            {
+                path: 'dispute-system',
+                loadChildren: () => import('./dispute-system/dispute-system.module').then((m) => m.DisputeSystemModule),
             },
             { path: 'people', loadChildren: () => import('./people/people.module').then((m) => m.PeopleModule) },
             {

@@ -3,7 +3,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
-import { UserserviceService } from './users/userservice.service';
 
 @Injectable({
     providedIn: 'root',
@@ -5397,7 +5396,6 @@ export class GlobalsService {
         public lightbox: Lightbox,
         private cookieService: CookieService,
         private deviceSrv: DeviceDetectorService,
-        private userService: UserserviceService,
     ) {
         this.roaster_id = this.cookieService.get('roaster_id');
         // console.log(this.permissions);

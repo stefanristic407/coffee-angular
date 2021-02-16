@@ -1,0 +1,70 @@
+@import 'variables';
+.toggleDiv {
+    border: 1px solid #d6d6d6;
+    padding: 2px;
+    height: 2rem;
+    border-radius: 4px;
+}
+.enableBtn {
+    background-color: $primary-color;
+    padding: 0px 16px;
+    color: #fff !important;
+    border-radius: 4px !important;
+}
+.disbableBtn {
+    padding: 0px 16px;
+}
+.addWeightDiv {
+    border: 1px solid #747588;
+    padding: 8px 16px 8px 12px;
+    border-radius: 2px;
+}
+.descriptionText-area {
+    height: 5.25rem;
+}
+.roasterDivText-area {
+    height: 7.62rem;
+}
+.flavour-item {
+    padding: 8px 16px;
+    border-radius: 17px;
+    background-color: #747588;
+    color: #fff;
+    margin: 5px;
+}
+
+.isProductOption > .p-tabview > .p-tabview-nav {
+    display: none;
+}
+.equal-operators {
+    font-size: 14px;
+    font-weight: 600;
+    color: #454545;
+    position: relative;
+    min-height: 1px;
+    float: left;
+    vertical-align: middle;
+    padding: 9px 7px;
+    margin-top: 30px;
+}
+.divSeperator {
+    border: 1px dashed #d6d6d6;
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+}
+@media screen and (max-width: 767px) {
+    .weightVariantBtn {
+        border: solid 1px #30855c;
+        color: #30855c;
+        padding: 0.5rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    :host ::ng-deep .p-tabview-nav {
+        display: none;
+    }
+    .p-dropdown {
+        width: 100%;
+    }
+}

@@ -10,7 +10,9 @@
                 </p>
             </div>
             <div class="d-none d-md-block">
-                <button type="button" class="btn-stroked mr-2">Preview</button>
+                <a class="btn-stroked mr-2" [href]="roasterSlug | roasterBrandLink: 'home-page'" target="_blank">
+                    Preview
+                </a>
                 <button type="button" class="btn-raised ml-1" (click)="saveHomeProfile()">Save</button>
             </div>
         </div>
@@ -27,7 +29,7 @@
                         <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-4">Size - 1440 x 423 px</p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
-                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <!-- <app-uploader formControlName="banner_file"></app-uploader> -->
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>

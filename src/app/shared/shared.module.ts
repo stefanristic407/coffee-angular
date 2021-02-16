@@ -26,6 +26,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RatingModule } from 'primeng/rating';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
@@ -47,6 +48,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { CountryPipe } from './pipes/country/country.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
+import { RoasterBrandLinkPipe } from './pipes/roaster-brand-link.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -62,24 +64,18 @@ import { ImageMapComponent } from './components/remote-sensoring/image-map/image
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { MediaComponent } from './components/media/media.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
-import { CreateRoleComponent } from './components/add-teams/create-role/create-role.component';
-import { ManagePermissionComponent } from './components/add-teams/manage-permission/manage-permission.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
-import { RoleListComponent } from './components/add-teams/role-list/role-list.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
-import { TeamMemberTableComponent } from './components/add-teams/team-member-table/team-member-table.component';
 import { UploaderComponent } from './components/uploader/uploader.component';
 
 import { ConfirmComponent } from './components/confirm/confirm.component';
-import { InviteNewUserComponent } from './components/add-teams/invite-new-user/invite-new-user.component';
-import { EditUserDetailsComponent } from './components/add-teams/edit-user-details/edit-user-details.component';
-import { SendRecoveryEmailComponent } from './components/add-teams/send-recovery-email/send-recovery-email.component';
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
+import { LineChartComponent } from './components/line-chart/line-chart.component';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -107,6 +103,7 @@ const THIRDMODULES = [
     InputTextModule,
     MultiSelectModule,
     OverlayPanelModule,
+    ProgressSpinnerModule,
     RatingModule,
     SelectButtonModule,
     SliderModule,
@@ -148,10 +145,11 @@ const COMPONENTS = [
     ReadMoreComponent,
     UploaderComponent,
     LoadingComponent,
+    LineChartComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
-const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
+const PIPES = [CountryPipe, FileNamePipe, MonthPipe, RoasterBrandLinkPipe, WordCountPipe];
 // #endregion
 
 @NgModule({
@@ -173,15 +171,8 @@ const PIPES = [CountryPipe, FileNamePipe, MonthPipe, WordCountPipe];
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
         ...PIPES,
-        CreateRoleComponent,
-        ManagePermissionComponent,
         BreadcrumbComponent,
-        RoleListComponent,
-        TeamMemberTableComponent,
         ConfirmComponent,
-        InviteNewUserComponent,
-        EditUserDetailsComponent,
-        SendRecoveryEmailComponent,
         BlogCardComponent,
         BarChartComponent,
         HorizontalBarComponent,

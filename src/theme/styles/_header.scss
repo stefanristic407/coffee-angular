@@ -1,40 +1,20 @@
 /* header css */
 .company-logo {
     display: inline-block;
+    margin-left: 16px;
     margin-right: 20px;
-}
-
-.company-logo > .company-logo__img > img {
-    width: auto;
-    height: 100%;
+    height: 32px;
+    & > img {
+        width: auto;
+        height: 100%;
+    }
 }
 
 /* Mobile screen css for hedader start*/
 @media (max-width: 767px) {
     header {
         position: relative;
-        padding: 0 15px;
         background-color: #ffffff;
-    }
-    .pad-header {
-        position: relative;
-    }
-    .header-searach {
-        /* order: 3;
-        margin: auto;
-        width: 100%;
-        padding: 15px;
-        margin-top: 15px;
-        background-color: #f8f8f8;
-        display: none;
-        opacity: 0;
-        visibility: hidden;
-        height: 0; */
-        position: absolute;
-        right: -25px;
-    }
-    .header-searach input {
-        display: none;
     }
     .search-on-site > .search-on-site__input {
         border: 0 !important;
@@ -54,15 +34,16 @@
     .header-profile-links__item:last-child {
         margin-right: 0 !important;
     }
-    .company-logo {
-        width: 110px;
-        margin-right: 0 !important;
-    }
     .profile-link__info {
         display: none !important;
         opacity: 0;
         visibility: hidden;
     }
+}
+/* Mobile screen css for hedader end*/
+
+// Tablet screen
+@media (max-width: 991px) {
     .sidenav-mb {
         position: fixed;
         top: 0;
@@ -118,15 +99,6 @@
         pointer-events: all;
         z-index: 1;
     }
-    /* .sidenav-mb::before {
-        content: "";
-        position: absolute;
-        background: rgba(0, 0, 0, 0.6);
-        pointer-events: all;
-        z-index: 9;
-        width: 100%;
-        height: 100%;
-    } */
     .sidenav-mb__content {
         padding-top: 60px;
         background: #ffffff;
@@ -182,16 +154,6 @@
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
     }
-    /* .nav-links__item.active a::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #f8f8f8;
-        z-index: -1;
-    } */
     .nav-links__item.active .nav-dropdown a::before {
         content: none !important;
         display: none !important;
@@ -246,41 +208,50 @@
     .nav-dropdown li a {
         color: #232334 !important;
     }
-}
-/* Mobile screen css for hedader end*/
-
-@media (min-width: 768px) {
-    .sidenav-mb__close {
-        display: none;
-        visibility: hidden;
-        opacity: 0;
+    .active.nav-links__item.arrow::before {
+        border-top: 1.5px solid #3d8462;
+        border-right: 1.5px solid #3d8462;
+        top: calc(35% + 7px);
+        transform: rotate(315deg);
     }
-    .company-logo > .company-logo__img {
-        height: 36px;
+    .show.nav-dropdown {
+        display: block;
+        opacity: 1;
     }
 }
 
 @media (min-width: 768px) {
     .company-logo {
         margin-right: 30px;
+        height: 36px;
     }
-}
-
-@media (min-width: 992px) {
-    .company-logo {
-        margin-right: 40px;
-    }
-}
-
-@media (min-width: 768px) {
     .search-on-site {
         width: 230px;
     }
 }
 
 @media (min-width: 992px) {
+    .company-logo {
+        margin-left: 0;
+        margin-right: 40px;
+    }
+    .sidenav-mb__close {
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+    }
     .search-on-site {
         width: 350px;
+    }
+    .nav-links__item.arrow:hover::before {
+        border-top: 1.5px solid #3d8462;
+        border-right: 1.5px solid #3d8462;
+        top: calc(35% + 7px);
+        transform: rotate(315deg);
+    }
+    .nav-links__item.arrow:hover .nav-dropdown {
+        display: block;
+        opacity: 1;
     }
 }
 
@@ -375,6 +346,10 @@
     transform: rotate(135deg);
 }
 
+.nav-links__item:hover::after {
+    width: 100%;
+}
+
 @media (min-width: 768px) {
     .nav-links__item.arrow::before {
         top: calc(35% + 1px);
@@ -439,7 +414,7 @@
     text-decoration: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .nav-dropdown {
         position: absolute;
         top: 100%;

@@ -1,3 +1,4 @@
+import { SocketService, ChatHandlerService } from '@services';
 import { AfterViewInit, Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
@@ -10,7 +11,6 @@ import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { filter } from 'rxjs/operators';
 import { MenuService } from '@components';
-import { ChatService } from './../components/sewn-direct-message/chat.service';
 
 @Component({
     selector: 'app-layout',
@@ -54,8 +54,9 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         private toastrService: ToastrService,
         private translateService: TranslateService,
         public globals: GlobalsService,
-        public chat: ChatService,
+        public chat: ChatHandlerService,
         public menuService: MenuService,
+        private socket: SocketService,
     ) {
         this.translateService.addLangs(this.supportLanguages);
         if (localStorage.getItem('locale')) {
@@ -69,6 +70,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
+        this.socket.initSocketService(); // Enable socket service
         this.chatStateSubcription = this.chat.isOpen.subscribe((x) => {
             if (x) {
                 this.activeLink = 'MESSAGES';

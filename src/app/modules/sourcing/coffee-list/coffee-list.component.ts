@@ -58,7 +58,6 @@ export class CoffeeListComponent implements OnInit, OnDestroy {
             this.isLoaded = true;
             if (res.success) {
                 this.coffeedata = res.result;
-                console.warn(this.coffeedata);
             }
         });
     }

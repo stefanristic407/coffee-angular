@@ -9,6 +9,7 @@
 @import 'primeng_dropdown';
 @import 'primeng_inputtext';
 @import 'primeng_multiselect';
+@import 'primeng_progressbar';
 @import 'primeng_rating';
 @import 'primeng_selectbutton';
 @import 'primeng_table';
@@ -52,12 +53,16 @@
         font-size: 14px;
         font-weight: 600;
     }
-    .ng-dirty~.p-error {
+    .ng-dirty ~ .p-error {
         display: block !important;
     }
-    .ng-dirty+.p-error {
+    .ng-dirty + .p-error {
         display: block !important;
     }
+    .ng-touched + .p-error {
+        display: block !important;
+    }
+
     // Styles for inputgroup with custom addon
     .p-inputgroup.custom-addon {
         position: relative;
@@ -84,12 +89,12 @@
     }
 }
 
-p-inputnumber.ng-dirty.ng-invalid>.p-inputnumber>.p-inputtext {
+p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
     border-color: $error-border-color;
 }
 
 // Icon input
-.p-input-icon-left>i:first-of-type {
+.p-input-icon-left > i:first-of-type {
     color: $button-icon-color;
 }
 
@@ -106,18 +111,21 @@ p-inputnumber.ng-dirty.ng-invalid>.p-inputnumber>.p-inputtext {
         transform: translateY(-50%);
         left: 8px;
     }
-    &>.p-inputtext {
+    & > .p-inputtext {
         padding-left: 3.125rem;
     }
 }
 
 // Search auto complete
 .header-search {
-    &>.p-inputtext {
+    & > .p-inputtext {
         color: $general-text-color;
         font-size: 16px;
         font-weight: normal;
         @media (min-width: 768px) {
+            width: 180px;
+        }
+        @media (min-width: 992px) {
             width: 378px;
         }
     }
@@ -129,7 +137,7 @@ p-inputnumber.ng-dirty.ng-invalid>.p-inputnumber>.p-inputtext {
 }
 
 .p-inputwrapper-filled .header-search {
-    &>.p-inputtext {
+    & > .p-inputtext {
         border-color: $primary-color;
     }
 }

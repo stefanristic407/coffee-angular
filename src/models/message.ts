@@ -1,4 +1,4 @@
-// NOTE:  Avoid using module, use file based types for better maintainability
+// NOTE:  Avoid using typescript module, use file based modules for better maintainability
 export enum WSOrganizationType {
     FACILITATOR = 'fc',
     ROASTER = 'ro',
@@ -14,6 +14,15 @@ export enum ThreadActivityType {
     adduser = 'AU',
     removeuser = 'RU',
 }
+
+export enum ThreadType {
+    gc_order = 'gc_order',
+    dispute = 'dispute',
+    service_request = 'service_request',
+    mr_order = 'mr_order',
+    normal = 'normal',
+}
+
 export enum WSChatMessageType {
     auth = 'auth', // Authenicate user
     threads = 'threads', // Get Thread Listing
@@ -29,6 +38,7 @@ export enum WSChatMessageType {
     unblock = 'unblock', // UnBlock a user
     blocklist = 'blocklist', // Get Block List
     users = 'users', // Get Multiple users details
+    getCreate = 'get-create',
 }
 
 export interface WSRequest<RequestBody> {
@@ -73,7 +83,7 @@ export interface ThreadListItem {
     meta_data: string;
     name: string;
     status: true;
-    type: string;
+    type: ThreadType;
     type_id: number;
     unread?: number;
     messages: [];
@@ -145,11 +155,23 @@ export interface IncomingChatMessage extends ChatMessage {
     member: ChatMessageMember & { user: ThreadMembers };
     thread_id: number;
 }
-
+export interface RecentUserListItem {
+    computed_fullname: string;
+    computed_profile_dp: string;
+    computed_organization_name: string;
+    lastname: string;
+    firstname: string;
+    organization_id: number;
+    organization_type: WSOrganizationType;
+    profile_pic: string;
+    id: number;
+    user_id: number;
+}
 export interface UserListItem {
     email_verified: boolean;
     firstname: string;
     id: number;
+    user_id: number;
     language: string; // or any specific value
     lastname: string;
     organization_id: number;
@@ -160,4 +182,9 @@ export interface UserListItem {
     computed_fullname: string;
     computed_profile_dp: string;
     computed_organization_name: string;
+}
+export interface OpenChatThread {
+    user_id: number;
+    org_type: WSOrganizationType;
+    org_id: number;
 }
