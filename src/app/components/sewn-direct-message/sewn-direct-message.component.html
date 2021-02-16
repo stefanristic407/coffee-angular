@@ -5,7 +5,7 @@
         data-element="chat"
         [ngClass]="{
             open: (chatService.isOpen | async),
-            'expand-active': (chatService.isOpen | async) && openedThread && (chatService.isExpand | async)
+            'expand-active container': (chatService.isOpen | async) && openedThread && (chatService.isExpand | async)
         }"
     >
         <ng-container

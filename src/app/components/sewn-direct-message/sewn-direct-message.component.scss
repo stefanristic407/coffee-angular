@@ -73,7 +73,9 @@
 }
 
 .expand-active {
+    left: 0px;
     box-shadow: 0 10px 9px 0 rgba(233, 233, 233, 0.5);
+    padding: 0px;
     background-color: #ffffff;
 }
 
@@ -204,7 +206,7 @@
 }
 
 .chat-accounts__name {
-    height: calc(100% - 110px);
+    height: calc(100% - 130px);
     overflow-y: auto;
 }
 
@@ -905,6 +907,12 @@
     /* .chat {
         width: 85%;
     } */
+    // .expand-active {
+    //     .chat-box {
+    //         width: 55%;
+    //     }
+    // }
+
     .chat-box {
         width: 55%;
         margin-left: auto;
@@ -929,6 +937,14 @@
 }
 
 @media (min-width: 992px) {
+    .expand-active {
+        .chat-box {
+            width: 50%;
+        }
+        .chat-body__expand {
+            width: 50%;
+        }
+    }
     .chat-box {
         width: 36%;
     }
@@ -946,6 +962,14 @@
 }
 
 @media (min-width: 1300px) {
+    .expand-active {
+        .chat-box {
+            width: 40%;
+        }
+        .chat-body__expand {
+            width: 60%;
+        }
+    }
     .chat-box {
         width: 32%;
     }
@@ -955,6 +979,14 @@
 }
 
 @media (min-width: 1400px) {
+    .expand-active {
+        .chat-box {
+            width: 40%;
+        }
+        .chat-body__expand {
+            width: 60%;
+        }
+    }
     .chat-box {
         width: 25%;
     }
