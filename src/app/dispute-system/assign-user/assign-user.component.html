@@ -4,8 +4,8 @@
         <p class="secondary_txt text-center mb-4">
             Please assign a team memeber who would be a point of contact for queries and issues with the order
         </p>
-        <div class="row justify-content-center pb-5">
-            <div class="sewn-form-field w-100">
+        <div class="row justify-content-center inputDiv">
+            <div class="sewn-form-field w-100 align-items-center">
                 <p-autoComplete
                     class="userDropdown"
                     placeholder="Please enter an name"
@@ -23,7 +23,10 @@
 
         <div class="d-flex justify-content-center continue-web">
             <div class="mt-2">
-                <button class="btn btn-stroked mr-3" [routerLink]="['/dispute-system/order-chat/', orderID]">
+                <button
+                    class="btn btn-stroked mr-3"
+                    [routerLink]="['/dispute-system/order-chat/', SERVICE_TYPE, orderID]"
+                >
                     Cancel
                 </button>
                 <button class="btn btn-raised" [disabled]="!userDetails" (click)="onAssign()">Assign</button>

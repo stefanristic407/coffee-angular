@@ -134,7 +134,7 @@ export class VarientDetailsComponent implements OnInit {
                 this.weights.push(weightForm);
             });
             console.log(this.weights);
-            this.createWeightVariantArray();
+            //this.createWeightVariantArray();
         }
     }
     loadGrindVariants(grindForm, item): void {
@@ -178,14 +178,13 @@ export class VarientDetailsComponent implements OnInit {
         });
     }
     setProductImages(productArray) {
-        const result = [];
         const productEmptyArray = [];
-        const startIndex = result ? result.length : 0;
+        const startIndex = productArray ? productArray.length : 0;
         for (let i = startIndex; i < 3; i++) {
             const fileObj = { fileDetails: null };
             productEmptyArray.push(fileObj);
         }
-        return result.concat(productEmptyArray);
+        return productArray.concat(productEmptyArray);
     }
     createEmptyGrindVarient() {
         return this.fb.group({

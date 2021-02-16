@@ -133,7 +133,7 @@ export class CreateRoleComponent implements OnInit {
             routerLink: '/people/manage-role',
             disabled: false,
         };
-        const obj4: MenuItem = { label: this.globals.languageJson?.create_role, disabled: true };
+        const obj4: MenuItem = { label: this.globals.languageJson?.create_role };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj3);

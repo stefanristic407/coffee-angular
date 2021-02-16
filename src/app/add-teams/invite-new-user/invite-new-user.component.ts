@@ -69,7 +69,7 @@ export class InviteNewUserComponent implements OnInit {
             routerLink: '/people/manage-role',
             disabled: false,
         };
-        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles, disabled: true };
+        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
         this.breadCrumbItem.push(obj4);

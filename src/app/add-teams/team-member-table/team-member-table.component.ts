@@ -155,6 +155,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                     const userData = result.result;
                     if (userData && userData.length > 0) {
                         this.totalCount = result.result_info.total_count;
+                        this.roasterUsers = [];
                         userData.forEach((element, index) => {
                             const tempData: any = {};
                             tempData.id = element.id;
@@ -165,12 +166,23 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
                             const roleList = [];
                             if (element.roles) {
                                 const rolesName = element.roles.split(',');
-                                rolesName.forEach((ele) => {
+                                let roleLable = '';
+                                rolesName.forEach((ele, roleIndex) => {
                                     const getRoles = this.roleList.find((item) => item.name === ele);
                                     if (getRoles) {
                                         roleList.push(getRoles);
                                     }
+                                    if (roleIndex < 2) {
+                                        roleLable = roleLable + ele;
+                                        if (roleIndex !== rolesName.length - 1) {
+                                            roleLable = roleLable + ', ';
+                                        }
+                                    }
+                                    if (roleIndex === 2) {
+                                        roleLable = roleLable + '+2';
+                                    }
                                 });
+                                tempData.roleLable = roleLable;
                             }
                             tempData.roles = roleList;
                             this.roasterUsers.push(tempData);
@@ -192,6 +204,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
     }
     filterSelectedRoleUser(): void {
         this.tableValue = [];
+        console.log(this.roasterUsers);
         this.roasterUsers.forEach((ele) => {
             const findCurrentRoleID = ele.roles ? ele.roles.find((item) => item.id === this.currentRoleID) : undefined;
             if ((this.isAddMember && !findCurrentRoleID) || (!this.isAddMember && findCurrentRoleID)) {
@@ -210,7 +223,7 @@ export class TeamMemberTableComponent implements OnInit, AfterViewInit {
             routerLink: '/people/manage-role',
             disabled: false,
         };
-        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles, disabled: true };
+        const obj4: MenuItem = { label: this.globals.languageJson?.manage_roles };
         if (!this.isAddMember) {
             obj4.label = this.globals.languageJson?.user_management;
         }

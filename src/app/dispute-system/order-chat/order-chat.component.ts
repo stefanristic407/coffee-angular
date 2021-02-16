@@ -38,8 +38,8 @@ export class OrderChatComponent implements OnInit {
             this.getOrderDetails();
             this.getOrderDisputes();
         });
-        this.currentDisputeID = this.route.snapshot.queryParams.ticketId
-            ? decodeURIComponent(this.route.snapshot.queryParams.ticketId)
+        this.currentDisputeID = this.route.snapshot.queryParams.disputeID
+            ? Number(decodeURIComponent(this.route.snapshot.queryParams.disputeID))
             : undefined;
         this.orderType = this.route.snapshot.queryParams.orderType
             ? decodeURIComponent(this.route.snapshot.queryParams.orderType)

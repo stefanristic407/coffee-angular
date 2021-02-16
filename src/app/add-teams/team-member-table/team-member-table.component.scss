@@ -25,16 +25,47 @@
 .selectedRoleHeader {
     color: $primary-color;
 }
+.popupExpression_txt {
+    font-family: PlayfairDisplay;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    color: #020202;
+}
+.popupMessage_txt {
+    font-family: PlayfairDisplay;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #5d5d5d;
+}
 ::ng-deep .userTable .ui-column-filter {
     margin-bottom: 0px !important;
     border: 0px !important;
     background: inherit;
 }
-::ng-deep .userTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+::ng-deep .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
     background: #ffffff;
+}
+::ng-deep .userTable .p-datatable .p-datatable-tbody > tr:last-child {
+    border-bottom: 1px dashed #d6d6d6;
+}
+::ng-deep .userTable .p-datatable .p-paginator-bottom {
+    background-color: transparent;
+    border-width: 0;
+    margin: 22px 0;
 }
 ::ng-deep .userDialog .p-dialog-header {
     display: none;
+}
+::ng-deep .userDropdown .p-dropdown {
+    margin-bottom: 0px !important;
 }
 
 .tableDataFont {
@@ -242,6 +273,8 @@
     :host ::ng-deep .p-datatable-tbody > tr > .nameMobileHeader {
         border-top: 1px solid #d6d6d6;
         background-color: #f8f8f8;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
     }
     :host ::ng-deep .p-datatable-tbody > tr > .emailMobileClass {
         padding-bottom: 1rem !important;
@@ -249,6 +282,8 @@
     :host ::ng-deep .p-datatable-tbody > tr > .roleMobileBottom {
         margin-bottom: 14px;
         border-bottom: 1px solid #d6d6d6 !important;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
         padding-top: 1rem;
         border-top: 1px dashed #d6d6d6;
     }
