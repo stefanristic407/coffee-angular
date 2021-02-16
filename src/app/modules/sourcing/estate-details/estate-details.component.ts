@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
 import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { WSOrganizationType } from '@models';
+import { ChatHandlerService } from '@services';
 import { SourcingService } from '../sourcing.service';
 
 @Component({
@@ -11,11 +14,18 @@ import { SourcingService } from '../sourcing.service';
 export class EstateDetailsComponent implements OnInit {
     appLanguage?: any;
     isLoaded = false;
-    brandProfileEstateWeb = 'https://qa-brand-profile.sewnstaging.com/estatebrandprofile/green-coffee';
-    estateProfile = 'https://qa-estates-portal.sewnstaging.com/features/estate-profile';
     selectedTab = 0;
+    userId: string;
 
-    constructor(public globals: GlobalsService, private route: ActivatedRoute, public sourcing: SourcingService) {}
+    constructor(
+        public globals: GlobalsService,
+        private route: ActivatedRoute,
+        private cookieSrv: CookieService,
+        public sourcing: SourcingService,
+        public chatSrv: ChatHandlerService,
+    ) {
+        this.userId = this.cookieSrv.get('user_id');
+    }
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
@@ -40,5 +50,13 @@ export class EstateDetailsComponent implements OnInit {
         this.sourcing.estateGalleryFiles();
         this.sourcing.getEstateReviews();
         this.sourcing.getEstateSummary();
+    }
+
+    chatWithEstate() {
+        this.chatSrv.openChatThread({
+            user_id: +this.userId,
+            org_type: WSOrganizationType.ESTATE,
+            org_id: +this.sourcing.estateId,
+        });
     }
 }

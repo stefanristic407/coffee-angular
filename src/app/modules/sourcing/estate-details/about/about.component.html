@@ -101,7 +101,7 @@
                                 [url]="sourcing.estateHomepage?.award_file_url"
                             ></app-media>
                         </div>
-                        <div class="mx-2 mb-1 contacts-mob d-md-none">
+                        <div class="mx-2 mb-1 d-md-none mt-3 pt-1 mt-md-0 pt-md-0">
                             <ng-container *ngTemplateOutlet="contacts"></ng-container>
                         </div>
                         <div class="row justify-content-end mx-2 mx-md-0 mt-1 mt-md-45 d-md-none d-lg-flex">
@@ -118,12 +118,8 @@
     </div>
 </div>
 
-<a class="estate-chat-btn active d-none d-md-block" routerLink="/features/sourcing-chat">
-    <span>Chat with {{ sourcing.estate?.name }}</span>
-</a>
-
 <ng-template #contacts>
-    <h2 class="fnt-18 lh-normal fnt-bold text-clr334 mb-4 d-none d-md-block">
+    <h2 class="fnt-18 lh-normal fnt-bold text-clr334 mb-3 mb-md-4">
         {{ globals.languageJson?.employees }}
     </h2>
     <div class="d-flex flex-wrap justify-content-between justify-content-md-start contact-block">
