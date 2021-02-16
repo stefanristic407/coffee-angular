@@ -21,24 +21,23 @@
                     <span class="primary_txt rolesHeader selectedRoleHeader">{{ selectedRole }}</span>
                 </ng-template>
             </p-dropdown>
-            <!-- <span class="primary_txt roleTxt-selector" (click)="op.toggle($event)">
-                {{selectedRole}}
-                <img src="assets/images/active.png" alt="user" class="icon-select image_cursor" /></span> -->
             <div class="secondary_txt mt-1">{{ globals.languageJson?.select_members_role }}</div>
         </div>
-        <div *ngIf="isAddMember" class="col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 d-none d-sm-none d-md-flex">
-            <div class="w-100">
-                <button class="btn btn-raised pull-right" (click)="inviteNewMembers()">
-                    <span class="update_text">{{ globals.languageJson?.invite_new_members }}</span>
-                </button>
+        <div *ngIf="isAddMember" class="col-sm-12 col-md-6 col-lg-6 col-xl-6 row p-0 d-none d-sm-none d-md-flex">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 w-100 p-0">
                 <input
                     type="text"
                     #input
                     name="search"
-                    class="search-raised pull-right mr-3"
+                    class="search-raised pull-right"
                     [(ngModel)]="termSearch"
                     placeholder="{{ globals.languageJson?.search_name_role }}"
                 />
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 p-0">
+                <button class="btn btn-raised pull-right" (click)="inviteNewMembers()">
+                    <span class="update_text">{{ globals.languageJson?.invite_new_members }}</span>
+                </button>
             </div>
         </div>
         <div *ngIf="isAddMember" class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-block d-sm-block d-md-none mt-4">
@@ -73,7 +72,7 @@
             />
         </div>
     </div>
-    <div class="row searchContainer">
+    <div class="row searchContainer userDropdown">
         <div *ngIf="isAddMember" class="col-sm-12 col-md-6 col-lg-4 d-block d-sm-block d-md-none mt-4 mb-4">
             <input
                 type="text"
@@ -84,7 +83,7 @@
                 placeholder="{{ globals.languageJson?.search_name_role }}"
             />
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8 d-flex align-items-center">
             <p-dropdown
                 [options]="statusFilterArray"
                 optionLabel="name"
@@ -111,7 +110,7 @@
         </div>
         <div
             *ngIf="selectedUsers && selectedUsers.length > 0"
-            class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 pt-3 d-none d-sm-none d-md-flex align-items-center justify-content-end"
+            class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 d-none d-sm-none d-md-flex align-items-center justify-content-end"
         >
             <span class="secondary_txt float-right mr-3"> Selected: {{ selectedUsers.length | number: '2.0' }} </span>
             <button
@@ -324,7 +323,8 @@
                             </div>
                         </span>
                         <span *ngSwitchCase="'roles'">
-                            <div
+                            <span>{{ rowData['roleLable'] }}</span>
+                            <!-- <span
                                 *ngFor="let role of rowData[col.field]; let i = index; last as isLast"
                                 class="d-none d-sm-none d-md-block tableDataFont"
                             >
@@ -333,7 +333,7 @@
                                 <span *ngIf="rowData[col.field].length > 2 && isLast"
                                     >+{{ rowData[col.field].length - 2 }}</span
                                 >
-                            </div>
+                            </span> -->
                             <div class="d-flex d-sm-flex d-md-none">
                                 <span class="prime-table-label w-50 mobileLable"> All Roles </span>
                                 <div class="w-50 ml-2">
@@ -463,8 +463,8 @@
     >
         <div class="mt-5 mb-5 text-center fnt-muli">
             <div><img *ngIf="popupDetails?.showIcon" src="assets/images/delete-role.svg" alt="" /></div>
-            <div *ngIf="popupDetails?.showIcon" class="fnt-play fnt-24 fnt-bold oh__text mt-2">Oh noh :(</div>
-            <div class="fnt-muli fnt-18 fnt-normal delete__text mt-2 pb-3">
+            <div *ngIf="popupDetails?.showIcon" class="popupExpression_txt mt-2">Oh noh :(</div>
+            <div class="popupMessage_txt mt-2 pb-3">
                 {{ popupDetails?.message }}
             </div>
             <div class="mt-4">

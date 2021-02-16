@@ -19,6 +19,29 @@
     border: solid 1px #d6d6d6;
     background-color: #ffffff;
 }
+::ng-deep .userDialog .p-dialog-header {
+    display: none;
+}
+.popupExpression_txt {
+    font-family: PlayfairDisplay;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    color: #020202;
+}
+.popupMessage_txt {
+    font-family: PlayfairDisplay;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #5d5d5d;
+}
 .img-file {
     width: 53px;
     height: 85px;
@@ -40,6 +63,9 @@
 }
 ::ng-deep .productListTable .p-checkbox {
     margin-left: 0px;
+}
+::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: #ffffff;
 }
 
 .list-group-item:hover {
