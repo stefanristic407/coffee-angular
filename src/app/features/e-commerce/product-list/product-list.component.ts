@@ -31,6 +31,7 @@ export class ProductListComponent implements OnInit {
     priceRangeArray: any = [];
     statusArray: any = [];
     searchForm: FormGroup;
+    popupDisplay = false;
 
     constructor(
         public router: Router,
@@ -145,9 +146,9 @@ export class ProductListComponent implements OnInit {
         postData.status = this.statusFilter ? this.statusFilter : '';
         postData.name = this.termSearch ? this.termSearch : '';
         postData.per_page = 100;
+        this.tableValue = [];
         this.roasterService.getSelectProductDetails(this.roasterID, postData).subscribe(
             (data: any) => {
-                this.tableValue = [];
                 if (data.success) {
                     this.tableValue = data.result;
                 } else {
@@ -163,15 +164,24 @@ export class ProductListComponent implements OnInit {
         this.getTableData();
     }
     deleteproduct(): void {
-        this.roasterService.deleteProductDetails(this.roasterID, this.deleteProductID).subscribe((res) => {
-            if (res.success) {
-                this.toastrService.success('Product deleted successfully');
-                this.getTableData();
-            }
-        });
+        this.roasterService.deleteProductDetails(this.roasterID, this.deleteProductID).subscribe(
+            (res) => {
+                if (res.success) {
+                    this.toastrService.success('Product deleted successfully');
+                    this.getTableData();
+                } else {
+                    this.toastrService.error('Error while deleting the product');
+                }
+                this.popupDisplay = false;
+            },
+            (err) => {
+                this.popupDisplay = false;
+                this.toastrService.error('Error while deleting the product');
+            },
+        );
     }
-    openDeleteModal(template1: TemplateRef<any>, deleteId: any) {
-        this.modalRef = this.modalService.show(template1);
+    openDeleteModal(deleteId: any) {
+        this.popupDisplay = true;
         this.deleteProductID = deleteId;
     }
 }

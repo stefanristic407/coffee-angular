@@ -5,6 +5,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { AssignUserComponent } from './assign-user/assign-user.component';
 import { DisputeComponent } from './dispute/dispute.component';
 import { OrderChatComponent } from './order-chat/order-chat.component';
+import { OrderSupportComponent } from './order-support/order-support.component';
 const routes: Routes = [
     {
         path: '',
@@ -18,6 +19,11 @@ const routes: Routes = [
             {
                 path: 'assign-user',
                 component: AssignUserComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-support/:orderId',
+                component: OrderSupportComponent,
                 canActivate: [AuthGuard],
             },
             {

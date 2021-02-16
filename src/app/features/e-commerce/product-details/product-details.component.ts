@@ -88,6 +88,7 @@ export class ProductDetailsComponent implements OnInit {
             { label: 'AeroPress', value: 'aeropress' },
             { label: 'Moka Pot', value: 'mocha-pot' },
             { label: 'Chemix', value: 'chemex' },
+            { lable: 'Presskanna eller Chemex', value: 'Presskanna eller Chemex' },
         ];
         this.eligibleArray = [
             { label: 'One Time', value: 'one-time' },

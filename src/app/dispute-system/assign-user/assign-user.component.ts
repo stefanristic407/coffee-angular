@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RoasterserviceService } from '@services';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { ServiceChatTypes } from '@models';
 
 @Component({
     selector: 'app-assign-user',
@@ -16,6 +17,7 @@ export class AssignUserComponent implements OnInit {
     roasterId = '';
     userList: any = [];
     disputeID = '';
+    SERVICE_TYPE = ServiceChatTypes.RO_ES;
     constructor(
         private route: ActivatedRoute,
         private roasterService: RoasterserviceService,
@@ -61,7 +63,15 @@ export class AssignUserComponent implements OnInit {
                 console.log(res);
                 if (res && res.success) {
                     this.toasterService.success('Sucessfully assigned');
-                    this.router.navigate(['/dispute-system/order-chat'], this.orderID);
+                    const navigationExtras: NavigationExtras = {
+                        queryParams: {
+                            disputeID: this.disputeID,
+                        },
+                    };
+                    this.router.navigate(
+                        ['/dispute-system/order-chat', this.SERVICE_TYPE, this.orderID],
+                        navigationExtras,
+                    );
                 }
             },
             (err) => {

@@ -14,12 +14,8 @@
             >
                 Mark as resolved
             </button>
-            <button
-                *ngIf="!currentDisputeID && orderDetails && orderDetails['status'] !== 'Received'"
-                routerLink="/ordermanagement/order-support"
-                [queryParams]="{ id: orderID }"
-                class="btn pull-right btn-raised"
-            >
+            <!-- *ngIf="!currentDisputeID && orderDetails && orderDetails['status'] !== 'Received'" -->
+            <button [routerLink]="['/dispute-system/order-support/', orderID]" class="btn pull-right btn-raised">
                 Have a problem?
             </button>
         </div>
@@ -66,7 +62,9 @@
         <div
             class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 no-gutters d-flex align-items-center justify-content-end"
         >
-            <span class="text-highlited pr-3" (click)="navigateAssignUser()"> Change assigned user</span>
+            <span *ngIf="currentDisputeID" class="text-highlited pr-3" (click)="navigateAssignUser()">
+                Change assigned user</span
+            >
             <span *ngIf="isView" class="text-highlited" (click)="isView = false">Close tickets</span>
             <span *ngIf="!isView" class="text-highlited" (click)="isView = true">View tickets</span>
         </div>
@@ -115,7 +113,7 @@
                 *ngIf="currentDisputeID && showEscalateBtn"
                 class="btn btn-stroked float-right"
                 [disabled]="showEscalateBtn"
-                title="Already ticket has been escalated"
+                title="Already dispute has been escalated"
             >
                 <span class="track">Escalate</span>
             </button>
