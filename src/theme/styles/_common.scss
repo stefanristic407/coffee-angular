@@ -5,6 +5,9 @@
     border-radius: 4px;
     padding: 1rem;
     @media (min-width: 768px) {
+        padding: 24px 16px 16px 16px;
+    }
+    @media (min-width: 992px) {
         padding: 32px 48px 24px 48px;
     }
 }
@@ -123,7 +126,7 @@ span.star {
 
     label {
         float: left;
-        width: 36%;
+        width: 48%;
         margin-bottom: 0;
         color: #747588;
         font-size: 14px;
@@ -137,12 +140,20 @@ span.star {
 
     p {
         margin-bottom: 0;
-        width: 60%;
+        width: 52%;
         float: left;
         font-size: 14px;
         font-weight: 500;
         line-height: normal;
         color: #232334;
+    }
+    @media (min-width: 992px) {
+        label {
+            width: 36%;
+        }
+        p {
+            width: 64%;
+        }
     }
 }
 .estate-focus:not(.with-last-border) ul li:last-child {
@@ -234,7 +245,7 @@ span.star {
 .primary_txt {
     font-family: Muli;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -252,6 +263,18 @@ span.star {
     color: #747588;
 }
 
+.editBtn {
+    font-weight: bold;
+    color: #80460b !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+.deleteModal {
+    width: 450px;
+    @media (max-width: 768px) {
+        width: auto;
+    }
+}
 ngx-intl-tel-input {
     .custom-intl-tel-input {
         height: 50px !important;

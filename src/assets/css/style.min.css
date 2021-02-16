@@ -17528,10 +17528,6 @@ ul {
     padding-bottom: 4.8rem;
 }
 
-.pad-logo {
-    padding: 0 14px !important;
-}
-
 .procedure {
     color: #80460b !important;
 }
@@ -17608,22 +17604,6 @@ ul {
 .table td,
 .table th {
     vertical-align: middle !important;
-}
-
-@media (min-width: 1280px) {
-    .header-container {
-        min-width: 100% !important;
-    }
-    .pad-header {
-        padding-left: 60px;
-        padding-right: 60px;
-    }
-}
-
-@media (min-width: 1280px) {
-    .sewn-container {
-        max-width: 1240px !important;
-    }
 }
 
 

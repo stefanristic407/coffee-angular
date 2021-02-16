@@ -14,7 +14,14 @@
                         styleClass="w-100 mb-3 mb-md-4 border-rounded-right-0 {{
                             queryParams.origin?.length ? 'highlight' : ''
                         }}"
-                    ></p-multiSelect>
+                    >
+                        <ng-template pTemplate="header">
+                            <span
+                                class="clear-btn pi pi-times {{ queryParams.origin?.length ? 'show' : '' }}"
+                                (click)="queryParams.origin = null; filterCall()"
+                            ></span>
+                        </ng-template>
+                    </p-multiSelect>
                 </div>
                 <div class="col-6 col-md-3">
                     <p-multiSelect
@@ -29,7 +36,14 @@
                         styleClass="w-100 mb-3 mb-md-4 border-rounded-left-0 border-rounded-right-md-0 {{
                             queryParams.species?.length ? 'highlight' : ''
                         }}"
-                    ></p-multiSelect>
+                    >
+                        <ng-template pTemplate="header">
+                            <span
+                                class="clear-btn pi pi-times {{ queryParams.species?.length ? 'show' : '' }}"
+                                (click)="queryParams.species = null; filterCall()"
+                            ></span>
+                        </ng-template>
+                    </p-multiSelect>
                 </div>
                 <div class="col-12 col-md-4 mb-3 mb-md-4">
                     <span class="p-input-icon-left custom-search w-100">
@@ -76,11 +90,19 @@
                             : ''
                     }}"
                 ></p-dropdown>
+                <p-dropdown
+                    [options]="availableItems"
+                    [(ngModel)]="queryParams.available_coffee"
+                    (onChange)="filterCall()"
+                    [showClear]="true"
+                    placeholder="Available coffee"
+                    styleClass="round-border mr-25 mb-25 mb-md-4 {{ queryParams.available_coffee ? 'highlight' : '' }}"
+                ></p-dropdown>
                 <p-selectButton
                     [options]="weightItems"
                     [(ngModel)]="queryParams.weight"
                     (onChange)="filterCall()"
-                    styleClass="round-select  mb-25 mb-md-4 d-none d-md-inline-flex"
+                    styleClass="round-select  mb-25 mb-md-4 "
                 >
                 </p-selectButton>
             </div>

@@ -1,0 +1,188 @@
+<section>
+    <div class="main-block">
+        <div class="row mb-3">
+            <div class="col-8">
+                <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+            </div>
+            <div class="col-4 d-none d-sm-none d-md-block">
+                <button
+                    *ngIf="!isEdit"
+                    class="btn pull-right btn-raised d-md-block d-none"
+                    (click)="isEdit = !isEdit; updateForm()"
+                >
+                    {{ globals.languageJson?.edit }}
+                </button>
+                <button
+                    *ngIf="!isEdit"
+                    class="btn pull-right btn-stroked d-md-block d-none mr-3"
+                    routerLink="/people/manage-role"
+                >
+                    {{ globals.languageJson?.cancel }}
+                </button>
+                <button *ngIf="isEdit" class="btn pull-right btn-raised d-md-block d-none" (click)="onSave()">
+                    {{ globals.languageJson?.save }}
+                </button>
+                <button
+                    *ngIf="isEdit"
+                    class="btn pull-right btn-stroked d-md-block d-none mr-3"
+                    (click)="onEditCancel(); updateForm()"
+                >
+                    {{ globals.languageJson?.cancel }}
+                </button>
+            </div>
+        </div>
+        <div *ngIf="userDetails" class="row no-gutters contentDiv">
+            <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 editBorder userDiv">
+                <div class="row p-0">
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <span class="primary_txt">{{ globals.languageJson?.edit }}</span>
+                        <div class="mt-2">
+                            <span class="greyText">{{ globals.languageJson?.account_activated }}</span
+                            >&nbsp;
+                            <span *ngIf="userDetails && userDetails['last_activated']" class="dateFont">{{
+                                userDetails['last_activated'] | date: 'd MMM , y, h:mm
+                                a'
+                            }}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-none d-sm-none d-md-block">
+                        <div class="btn-group pull-right toggleDiv" [ngClass]="{ disabledbutton: !isEdit }">
+                            <div
+                                class="btn disbableBtn"
+                                [ngClass]="statusToggle ? 'enableBtn' : ''"
+                                id="activeStatus"
+                                (click)="statusToggle = !statusToggle; updateForm()"
+                            >
+                                Active
+                            </div>
+                            <div
+                                class="btn disbableBtn"
+                                (click)="statusToggle = !statusToggle; updateForm()"
+                                [ngClass]="!statusToggle ? 'enableBtn' : ''"
+                                id="disableStatus"
+                            >
+                                Disable
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div [formGroup]="userForm" class="row inputPadding p-0">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="sewn-form-field w-100">
+                            <label class="secondary_txt">Name<span class="star">*</span></label>
+                            <input type="text" placeholder="Enter your full name" formControlName="name" pInputText />
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="sewn-form-field w-100">
+                            <label class="secondary_txt">Enter work e-mail address<span class="star">*</span></label>
+                            <input type="text" placeholder="you@example.com" formControlName="email" pInputText />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="secondary_txt">Role(s)<span class="star">*</span></label>
+                </div>
+                <div *ngFor="let item of userDetails['roles']; let i = index; last as isLast">
+                    <div class="row p-0">
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 sewn-form-field w-100 mb-3">
+                            <input
+                                *ngIf="!item['isNew']"
+                                type="text"
+                                readonly
+                                [(ngModel)]="item.name"
+                                [ngModelOptions]="{ standalone: true }"
+                                pInputText
+                            />
+                            <p-dropdown
+                                *ngIf="item['isNew']"
+                                [options]="roleList"
+                                optionLabel="name"
+                                placeholder="Select role"
+                                [style]="{ width: '100%' }"
+                                [(ngModel)]="item['id']"
+                                [disabled]="!statusToggle"
+                                optionValue="id"
+                            >
+                            </p-dropdown>
+                        </div>
+                        <div *ngIf="isEdit && statusToggle" class="d-md-flex col-3 align-items-center removeRoleBtn">
+                            <div class="delete-wrap fnt-muli">
+                                <span class="fnt-700 text-highlited cursor-pointer" (click)="removeRole(i)">
+                                    Remove role
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-block d-sm-block d-md-block mb-2 mt-2" *ngIf="isEdit && isLast && statusToggle">
+                        <img src="assets/images/add-partner.svg" />
+                        <span class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer" (click)="addRole()">
+                            {{ globals.languageJson?.assign_role }}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 d-block d-sm-block d-md-none p-0 mt-3 mb-3">
+                    <label class="d-block d-sm-block d-md-none">Status<span class="star">*</span></label>
+                    <div class="btn-group toggleDiv" [ngClass]="{ disabledbutton: !isEdit }">
+                        <div
+                            class="btn disbableBtn"
+                            [ngClass]="statusToggle ? 'enableBtn' : ''"
+                            id="activeStatus"
+                            (click)="statusToggle = !statusToggle"
+                        >
+                            Active
+                        </div>
+                        <div
+                            class="btn disbableBtn"
+                            (click)="statusToggle = !statusToggle"
+                            [ngClass]="!statusToggle ? 'enableBtn' : ''"
+                            id="disableStatus"
+                        >
+                            Disable
+                        </div>
+                    </div>
+                </div>
+                <div class="d-block d-sm-block d-md-none">
+                    <button *ngIf="!isEdit" class="btn btn-raised w-100" (click)="isEdit = !isEdit; updateForm()">
+                        {{ globals.languageJson?.edit }}
+                    </button>
+                    <button *ngIf="!isEdit" class="btn btn-stroked w-100 mt-3" routerLink="/people/manage-role">
+                        {{ globals.languageJson?.cancel }}
+                    </button>
+                    <button *ngIf="isEdit" class="btn btn-raised w-100" (click)="onSave()">
+                        {{ globals.languageJson?.save }}
+                    </button>
+                    <button *ngIf="isEdit" class="btn btn-stroked w-100 mt-3" (click)="onEditCancel(); updateForm()">
+                        {{ globals.languageJson?.cancel }}
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 d-none d-sm-none d-md-block emailDiv">
+                <div class="ml-3 h-100 containerBackground">
+                    <div class="col-12 p-0 ml-3 p-3">
+                        <div class="primary_txt mb-1">{{ globals.languageJson?.recovery_email }}</div>
+                        <span class="greyText">{{ globals.languageJson?.recovery_link_desription }}. </span>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-0 ml-3 p-3">
+                        <button class="btn btn-stroked mt-2" (click)="sendMail()">
+                            {{ globals.languageJson?.send }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-block d-sm-block d-md-none col-sm-12 col-md-3 col-lg-3 col-xl-3 p-4">
+                <div class="h-100 containerBackground">
+                    <div class="col-12 p-3">
+                        <div class="primary_txt mb-1">{{ globals.languageJson?.recovery_email }}</div>
+                        <span class="greyText">{{ globals.languageJson?.recovery_link_desription }}. </span>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 p-3">
+                        <button class="btn btn-stroked w-100 mt-2" (click)="sendMail()">
+                            {{ globals.languageJson?.send }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
