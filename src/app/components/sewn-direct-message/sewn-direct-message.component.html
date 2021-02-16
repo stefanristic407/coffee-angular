@@ -108,8 +108,8 @@
 
                     <!--Live Chats are going here-->
                     <div class="live-chat-message-body position-relative" data-element="live-chat-message-body">
-                        <span *ngFor="let message of messageList; let last = last" [attr.data-chat-id]="message.id">
-                            <span appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
+                        <div *ngFor="let message of messageList; let last = last" [attr.data-chat-id]="message.id">
+                            <div appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
                                 <div class="message-to live-chat-message-body__text" *ngIf="message.isActiveUser">
                                     <p class="live-time">{{ message.computed_date }}</p>
                                     <div class="message-body">
@@ -126,9 +126,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </span>
-                            <span class="done"></span>
-                        </span>
+                            </div>
+                        </div>
                     </div>
 
                     <div data-element="message-form">
@@ -300,11 +299,11 @@
 
                             <!--Live Chats are going here-->
                             <div class="live-chat-message-body position-relative" data-element="live-chat-message-body">
-                                <span
+                                <div
                                     *ngFor="let message of messageList; let last = last"
                                     [attr.data-chat-id]="message.id"
                                 >
-                                    <span appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
+                                    <div appLifecyclehook (viewChecked)="last && lastMessageRendered.next('done')">
                                         <div
                                             class="message-to live-chat-message-body__text"
                                             *ngIf="message.isActiveUser"
@@ -327,9 +326,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </span>
-                                    <span class="done"></span>
-                                </span>
+                                    </div>
+                                </div>
                             </div>
 
                             <!--Send Message div-->
@@ -481,7 +479,7 @@
                                 />
                             </div>
 
-                            <div class="chat-accounts__name">
+                            <div class="chat-accounts__name user-list-padding">
                                 <!--User Search-->
                                 <ng-container *ngIf="!userSearchKeywords">
                                     <span class="recent-tag">Recents</span>
@@ -547,40 +545,50 @@
                             <div class="chat-accounts__name">
                                 <!--Account-->
                                 <div
-                                    class="clearfix account"
+                                    class="thread-block"
                                     [ngClass]="{ activate_account: openedThread && thread.id === openedThread.id }"
                                     *ngFor="let thread of threadList | searchFilter: threadSearchKeyword"
-                                    (click)="openThreadChat(thread)"
                                 >
-                                    <div class="d-inline-block profile-pic">
-                                        <span
-                                            class="profile-pic__item bg-profile"
-                                            [style.backgroundImage]="thread.computed_targetedUser.computed_profile_dp"
-                                        ></span>
-                                        <span *ngIf="thread.computed_targetedUser.online" class="live-account"></span>
-                                        <span
-                                            *ngIf="!thread.computed_targetedUser.online"
-                                            class="offline-account"
-                                        ></span>
-                                    </div>
-                                    <div class="chat-profile clearfix">
-                                        <div class="chat-profile__name d-inline-block">
-                                            <div class="chat-profile__time">
-                                                <span>{{ thread.computed_createdAt }}</span>
-                                            </div>
-                                            <h5 class="name">{{ thread.computed_targetedUser.computed_fullname }}</h5>
-                                            <span class="status">{{
-                                                thread.computed_targetedUser.computed_organization_name
-                                            }}</span>
-                                        </div>
-
-                                        <div class="chat-messaged">
-                                            <p class="chat-messaged__text">{{ thread.computed_lastActivityText }}</p>
+                                    <div class="clearfix account" (click)="openThreadChat(thread)">
+                                        <div class="d-inline-block profile-pic">
                                             <span
-                                                *ngIf="thread.unread && thread.unread > 0"
-                                                class="chat-messaged__total"
-                                                >{{ thread.unread }}</span
-                                            >
+                                                class="profile-pic__item bg-profile"
+                                                [style.backgroundImage]="
+                                                    thread.computed_targetedUser.computed_profile_dp
+                                                "
+                                            ></span>
+                                            <span
+                                                *ngIf="thread.computed_targetedUser.online"
+                                                class="live-account"
+                                            ></span>
+                                            <span
+                                                *ngIf="!thread.computed_targetedUser.online"
+                                                class="offline-account"
+                                            ></span>
+                                        </div>
+                                        <div class="chat-profile clearfix">
+                                            <div class="chat-profile__name d-inline-block">
+                                                <div class="chat-profile__time">
+                                                    <span>{{ thread.computed_createdAt }}</span>
+                                                </div>
+                                                <h5 class="name">
+                                                    {{ thread.computed_targetedUser.computed_fullname }}
+                                                </h5>
+                                                <span class="status">{{
+                                                    thread.computed_targetedUser.computed_organization_name
+                                                }}</span>
+                                            </div>
+
+                                            <div class="chat-messaged">
+                                                <p class="chat-messaged__text">
+                                                    {{ thread.computed_lastActivityText }}
+                                                </p>
+                                                <span
+                                                    *ngIf="thread.unread && thread.unread > 0"
+                                                    class="chat-messaged__total"
+                                                    >{{ thread.unread }}</span
+                                                >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
