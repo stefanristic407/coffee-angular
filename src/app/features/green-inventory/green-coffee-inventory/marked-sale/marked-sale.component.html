@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="title-header">
         <div class="hover-filters d-inline-block">
             <div class="d-inline border-total col-sm-6" id="status_id">
@@ -41,19 +41,195 @@
             </div>
         </div>
     </div>
+</div> -->
+
+<div class="mt-2 pt-2">
+    <p-dropdown
+        [options]="sellerItems"
+        [(ngModel)]="termStatus"
+        (onChange)="setStatus()"
+        scrollHeight="225px"
+        placeholder="{{ globals.languageJson?.all_origins }}"
+        [autoDisplayFirst]="false"
+        styleClass="round-border mr-2 mb-3 mb-md-4 {{ termStatus ? 'highlight' : '' }}"
+    ></p-dropdown>
+    <div class="float-right d-inline mobile-lead">
+        <p-dropdown
+            [options]="displayItems"
+            [(ngModel)]="display"
+            (onChange)="setDisplay()"
+            scrollHeight="225px"
+            placeholder="Display"
+            [autoDisplayFirst]="false"
+            styleClass="round-border mb-3 mb-md-4 {{ display ? 'highlight' : '' }}"
+        ></p-dropdown>
+    </div>
 </div>
-<div class="table-container mb-2 mt-4">
+
+<!-- Primeng table for Marked for sale -->
+<div class="mt-4">
+    <p-table
+        #markedTable
+        [class.table-mobile]="primeTableService.isMobileView"
+        [value]="primeTableService.records"
+        [columns]="primeTableService._allColumns"
+        [(selection)]="primeTableService.selectedRecords"
+        dataKey="id"
+        styleClass="ui-table-customers"
+        [rows]="primeTableService.rows"
+        [showCurrentPageReport]="false"
+        [loading]="primeTableService.loading"
+        [paginator]="true"
+        [lazy]="true"
+        (onLazyLoad)="primeTableService.getData($event)"
+        [totalRecords]="primeTableService.totalRecords"
+        [sortField]="'created_at'"
+        [responsive]="primeTableService.isMobileView"
+    >
+        <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" [style.width]="col.width ? col.width + 'px' : '50px'" />
+            </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.sortable === true ? col.field : null">
+                    <span class="primeng-table-header">{{ col.header }}</span>
+                    <p-sortIcon
+                        *ngIf="col.sortable === true"
+                        [field]="col.field"
+                        ariaLabel="Activate to sort"
+                        ariaLabelDesc="Activate to sort in descending order"
+                        ariaLabelAsc="Activate to sort in ascending order"
+                    >
+                    </p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'facilitator_name'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Facilitator
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['facilitator_name'] }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'service_type'">
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
+                                Type of service
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView" class="truncate">
+                                {{ rowData['service_type'] }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'id'">
+                        <div>
+                            <p *ngIf="primeTableService.isMobileView" class="fnt-18 txt-clr334 fnt-bold mb-0">
+                                Service #{{ rowData['id'] }}
+                            </p>
+                            <p *ngIf="primeTableService.isMobileView" class="fnt-mb-14 text-clr588 fnt-600 mb-0">
+                                Date requested :
+                                <span class="txt-clr334">{{ rowData['requested_date'] | date: 'dd/mm/yyyy' }}</span>
+                            </p>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'requested_date'">
+                        <div class="d-flex">
+                            <div></div>
+
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label w-50">
+                                Date Requested
+                            </span>
+
+                            <span [class.w-50]="primeTableService.isMobileView">
+                                {{ rowData['requested_date'] | date: 'dd/mm/yyyy' }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'status'">
+                        <span *ngIf="!primeTableService.isMobileView">
+                            {{ rowData[col.field] | titlecase }}
+                        </span>
+                        <div class="d-flex">
+                            <span *ngIf="primeTableService.isMobileView" class="mobile-heading w-50">
+                                {{ rowData[col.field] | titlecase }}
+                            </span>
+                            <span
+                                *ngIf="!primeTableService.isMobileView"
+                                [class.prime-table-heading]="primeTableService.isMobileView"
+                                class="w-50"
+                            >
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'actions'" class="text-center">
+                        <ng-container *ngIf="!primeTableService.isMobileView">
+                            <span class="custom-link">View Order</span>
+                        </ng-container>
+
+                        <ng-container *ngIf="primeTableService.isMobileView">
+                            <span class="pull-right custom-link">View Order </span>
+                        </ng-container>
+                    </span>
+
+                    <span *ngSwitchCase="'options'" class="text-center">
+                        <ng-container *ngIf="!primeTableService.isMobileView">
+                            <a
+                                class="menu-arrow"
+                                [popover]="poplistTemplate"
+                                placement="left"
+                                [outsideClick]="true"
+                                #pop="bs-popover"
+                            >
+                                <p><img class="ellipse-image" src="assets/images/ellipses.png" alt="" /></p>
+                            </a>
+                            <ng-template #poplistTemplate>
+                                <div id="popover-mobile-content">
+                                    <ul class="list-group custom-popover">
+                                        <li class="list-group-item">
+                                            <a class="pointer-item" (click)="pop.hide()">Edit</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <a class="pointer-item" (click)="pop.hide()"> Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                    </span>
+
+                    <span *ngSwitchDefault>
+                        {{ rowData[col.field] }}
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!-- <div class="table-container mb-2 mt-4">
     <div class="table-responsive"
         *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
         <table class="table">
             <thead class="table-header">
                 <tr class="header-row">
-                    <!-- <th>
-                        <label class="b-check first-t check-top-header">
-                                        <input type="checkbox" checked="checked"  name="all" [checked]="isAllChecked()" (change)="checkAll($event)" >
-                                        <span class="checkmark"></span>
-                                    </label>
-                    </th> -->
+                    
                     <th scope="col">Product Name</th>
                     <th scope="col">Estate Name</th>
                     <th scope="col">
@@ -70,12 +246,7 @@
             </thead>
             <tbody class="customtable">
                 <tr class="ticket-boby-txt cursor-pointer" *ngFor="let item of mainData">
-                    <!-- <td>
-                        <label class="b-check check-middle-header">
-                                        <input type="checkbox" name="sizecb[]" value="{{ item.id }}"  [(ngModel)]="item.state"/>
-                                        <span class="checkmark"></span>
-                                    </label>
-                    </td> -->
+                   
                     <td>
                         {{ item?.product_name }}
                     </td>
@@ -116,9 +287,9 @@
             </tbody>
         </table>
     </div>
-</div>
+</div>  -->
 
-
+<!-- 
 <ng-template #allTemplate>
     <div id="status-content">
         <ul class="list-group">
@@ -164,4 +335,4 @@
             </li>
         </ul>
     </div>
-</ng-template>
+</ng-template> -->

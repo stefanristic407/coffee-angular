@@ -853,7 +853,7 @@ export class RoasterserviceService {
     //E-com APIs-ends
 
     //Get Procured Coffees List
-    getProcuredCoffeeList(roaster_id: any, origin?, displayCount?, searchString?) {
+    getProcuredCoffeeList(roaster_id: any, origin?, displayCount?, searchString?): Observable<any> {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/procured-coffees';
         data['method'] = 'GET';

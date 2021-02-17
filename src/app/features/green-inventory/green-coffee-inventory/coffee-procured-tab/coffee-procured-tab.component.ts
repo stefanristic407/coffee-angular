@@ -1,104 +1,256 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { CookieService } from 'ngx-cookie-service';
 import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 import { NavigationExtras, Router } from '@angular/router';
+import { PrimeTableService } from 'src/services/prime-table.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Table } from 'primeng/table';
 
 @Component({
-  selector: 'app-coffee-procured-tab',
-  templateUrl: './coffee-procured-tab.component.html',
-  styleUrls: ['./coffee-procured-tab.component.css']
+    selector: 'app-coffee-procured-tab',
+    templateUrl: './coffee-procured-tab.component.html',
+    styleUrls: ['./coffee-procured-tab.component.scss'],
 })
 export class CoffeeProcuredTabComponent implements OnInit {
-  termStatus: any;
-  showStatus: boolean = true;
+    // tslint:disable: variable-name
+    termStatus: any;
+    showStatus = true;
 
-  display: any;
-  showDisplay: boolean = true;
-  appLanguage?: any;
-  roaster_id: string;
-  mainData: any[] = [];
-  originArray: any[] = [];
-  searchString: string = '';
+    display: any;
+    showDisplay = true;
+    appLanguage?: any;
+    roaster_id: string;
+    mainData: any[] = [];
+    originArray: any[] = [];
+    searchString = '';
+    sellerItems = [
+        { label: 'All origins', value: null },
+        { label: 'Sweden', value: 'Sweden' },
+        { label: 'UK', value: 'UK' },
+        { label: 'Germany', value: 'Germany' },
+    ];
+    displayItems = [
+        { label: 'All', value: '' },
+        { label: 'Display 10', value: 10 },
+        { label: 'Display 20', value: 20 },
+        { label: 'Display 25', value: 25 },
+        { label: 'Display 50', value: 50 },
+    ];
+    @Input('form')
+    set form(value: FormGroup) {
+        this._form = value;
+    }
 
-  constructor(public globals: GlobalsService, public roasterService: RoasterserviceService,
-    public router: Router, public cookieService: CookieService, public roasteryProfileService: RoasteryProfileService,) {
-    this.termStatus = { name: 'All', isoCode: '' };
-    this.display = '10';
-    this.roaster_id = this.cookieService.get('roaster_id');
-  }
+    get form() {
+        return this._form;
+    }
 
-  ngOnInit(): void {
-    this.appLanguage = this.globals.languageJson;
-    this.getProcuredCoffeeList();
-    this.originArray.push({ name: 'All', isoCode: '' });
-    this.originArray = this.originArray.concat(this.roasteryProfileService.countryList);
+    constructor(
+        public globals: GlobalsService,
+        public roasterService: RoasterserviceService,
+        public router: Router,
+        public cookieService: CookieService,
+        public roasteryProfileService: RoasteryProfileService,
+        public primeTableService: PrimeTableService,
+        public fb: FormBuilder,
+    ) {
+        this.termStatus = { name: 'All origins', isoCode: '' };
+        this.display = '10';
+        this.roaster_id = this.cookieService.get('roaster_id');
+        this.primeTableService.rows = 10;
+        this.primeTableService.sortBy = 'created_at';
+    }
 
-  }
-  getProcuredCoffeeList() {
-    let origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.isoCode : undefined;
-    let displayCount = this.display ? this.display : undefined;
-    let searchString = this.searchString ? this.searchString : undefined;
-    this.mainData = [];
-    this.roasterService.getProcuredCoffeeList(this.roaster_id, origin, displayCount, searchString).subscribe(
-      response => {
-        console.log(response);
-        if (response && response['result']) {
-          this.mainData = response['result'];
+    // tslint:disable: variable-name
+    public _form: FormGroup;
+
+    @ViewChild('procuredCoffeeTable', { static: true }) table: Table;
+    public isMobile = false;
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event?) {
+        this.initializeTable();
+    }
+
+    initializeTable() {
+        this.primeTableService.windowWidth = window.innerWidth;
+
+        if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
+            this.primeTableService.isMobileView = true;
+            this.primeTableService.allColumns = [
+                {
+                    field: 'status',
+                    header: 'Status',
+                    sortable: false,
+                    width: 40,
+                },
+                {
+                    field: 'id',
+                    header: '',
+                    sortable: false,
+                    width: 100,
+                },
+                {
+                    field: 'facilitator_name',
+                    header: 'Facilitator',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'service_type',
+                    header: 'Type of service',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'actions',
+                    header: '',
+                    sortable: false,
+                    width: 40,
+                },
+            ];
+        } else {
+            this.primeTableService.isMobileView = false;
+            this.primeTableService.allColumns = [
+                {
+                    field: 'id',
+                    header: 'Order ID',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'availability_name',
+                    header: 'Availibility Name',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'estate_name',
+                    header: 'Estate Name',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'origin',
+                    header: 'Origin',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'order_reference',
+                    header: 'Roaster Ref. No.',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'varieties',
+                    header: 'Variety',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'quantity',
+                    header: 'Quantity',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'cup_score',
+                    header: 'Cup score',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'status',
+                    header: 'Status',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'actions',
+                    header: 'Actions',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'options',
+                    header: '',
+                    sortable: false,
+                    width: 30,
+                },
+            ];
         }
-      }, err => {
-        console.log(err);
-      }
-    );
-  }
-
-  setStatus(term: any, term1?) {
-    this.termStatus = term;
-    this.getProcuredCoffeeList();
-  }
-  toggleStatus() {
-    this.showStatus = !this.showStatus;
-    if (this.showStatus == false) {
-      document.getElementById('status_id').style.border = "1px solid #30855c";
     }
-    else {
-      document.getElementById('status_id').style.border = "1px solid #d6d6d6";
+
+    ngOnInit(): void {
+        this.primeTableService.url = `/ro/${this.roaster_id}/procured-coffees`;
+
+        this.initializeTable();
+
+        this.primeTableService.form = this.form;
+
+        this.primeTableService.form?.valueChanges.subscribe((data) =>
+            setTimeout(() => {
+                this.table.reset();
+            }, 100),
+        );
+
+        this.appLanguage = this.globals.languageJson;
+        // this.getProcuredCoffeeList();
+        this.originArray.push({ name: 'All origins', isoCode: '' });
+        this.originArray = this.originArray.concat(this.roasteryProfileService.countryList);
     }
-  }
+    // getProcuredCoffeeList() {
+    //     const origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.isoCode : undefined;
+    //     const displayCount = this.display ? this.display : undefined;
+    //     const searchString = this.searchString ? this.searchString : undefined;
+    //     this.mainData = [];
+    //     this.roasterService.getProcuredCoffeeList(this.roaster_id, origin, displayCount, searchString).subscribe(
+    //         (response) => {
+    //             console.log(response);
+    //             if (response && response.result) {
+    //                 this.mainData = response.result;
+    //             }
+    //         },
+    //         (err) => {
+    //             console.log(err);
+    //         },
+    //     );
+    // }
 
-  setDisplay(displayData: any) {
-    this.display = displayData;
-    this.getProcuredCoffeeList();
-  }
-  toggleDisplay() {
-    this.showDisplay = !this.showDisplay;
-    if (this.showDisplay == false) {
-      document.getElementById('display_id').style.border = "1px solid #30855c";
+    // setStatus(term: any, term1?) {
+    //     this.termStatus = term;
+    //     this.getProcuredCoffeeList();
+    // }
+    setStatus() {
+        this.primeTableService.form?.patchValue({
+            status: this.termStatus,
+        });
     }
-    else {
-      document.getElementById('display_id').style.border = "1px solid #d6d6d6";
-
+    toggleStatus() {
+        this.showStatus = !this.showStatus;
     }
-  }
-  // Function Name : CheckAll
-  // Description: This function helps to check all roles of the role list.
-  checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
-  }
 
-  // Function Name : IsAllchecked
-  // Description: This function helps to check single role.
-  isAllChecked() {
-    return this.mainData.every(_ => _.state);
-  }
-  onEdit(item) {
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        orderId: item.id,
-      }
-    };
-    this.router.navigate(["/features/lot-sale"], navigationExtras);
-  }
+    setDisplay() {
+        if (this.display) {
+            this.primeTableService.rows = this.display;
+        } else {
+            this.primeTableService.rows = 10;
+        }
 
+        this.table.reset();
+    }
+
+    // onEdit(item) {
+    //     const navigationExtras: NavigationExtras = {
+    //         queryParams: {
+    //             orderId: item.id,
+    //         },
+    //     };
+    //     let link = [];
+    //     link = [['/features/lot-sale'], navigationExtras];
+    //     return link;
+    // }
 }
