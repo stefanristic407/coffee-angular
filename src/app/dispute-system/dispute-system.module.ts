@@ -10,6 +10,7 @@ import { SelectOrderComponent } from './select-order/select-order.component';
 import { SharedModule } from './../shared/shared.module';
 import { PeopleRoutingModule } from './dispute-routing.module';
 import { DisputeComponent } from './dispute/dispute.component';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,6 @@ import { DisputeComponent } from './dispute/dispute.component';
         SelectOrderComponent,
         DisputeComponent,
     ],
-    imports: [CommonModule, SharedModule, PeopleRoutingModule],
+    imports: [CommonModule, SharedModule, PeopleRoutingModule, AccordionModule],
 })
 export class DisputeSystemModule {}

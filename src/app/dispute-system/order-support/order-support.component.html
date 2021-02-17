@@ -12,58 +12,37 @@
                 placeholder="{{ globals.languageJson?.search_name_role }}"
             />
         </div>
+        <div class="col-12 d-flex d-sm-flex d-md-none justify-content-end mt-2">
+            <span
+                class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
+                [routerLink]="['/dispute-system/raised-tickets/', orderID]"
+            >
+                {{ globals.languageJson?.assign_role }}
+            </span>
+        </div>
     </div>
     <div class="row">
         <div class="col-6">
             <span class="primary_txt">Order Support</span>
         </div>
-        <div class="col-6 d-flex">
+        <div class="col-6 d-none d-sm-none d-md-flex">
             <button class="btn btn-raised ml-auto" [routerLink]="['/dispute-system/raised-tickets/', orderID]">
                 View all my raised tickets
             </button>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-            <button class="btn  dashboard-button" (click)="buyingCoffee()"><img class="logo-img "
-                    src="assets/images/coffee-bean.png">
-                <p class="btn-name">Buying Coffee</p> <img class="icon-img "
-                    src="assets/images/unfilled-arrow.png">
-            </button>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-            <button class="btn  dashboard-button" (click)="requestSamples()"><img class="logo-img"
-                    src="assets/images/request.png">
-                <p class="btn-name">Requesting Samples</p> <img class="icon-img "
-                    src="assets/images/unfilled-arrow.png">
-            </button>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-            <button class="btn dashboard-button " (click)="payment()"><img class="logo-img "
-                    src="assets/images/payment.png">
-                <p class="btn-name">Payment</p> <img class="icon-img " src="assets/images/unfilled-arrow.png">
-            </button>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-            <button class="btn dashboard-button " (click)="coffeeBulks()"><img class="logo-img "
-                    src="assets/images/coffee-plant.png">
-                <p class="btn-name">Coffee Bulks</p> <img class="icon-img "
-                    src="assets/images/unfilled-arrow.png">
+    <div class="row mt-3">
+        <div *ngFor="let item of buttonArray" class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <div class="d-flex d-sm-flex d-md-none align-items-center mobileCardDiv" (click)="selectCard(item.label)">
+                <img class="logo-img" [src]="item.logo" />
+                <p class="primary_txt m-0 pl-3">{{ item.label }}</p>
+                <img class="icon-img ml-auto" src="assets/images/unfilled-arrow.png" />
+            </div>
+            <button class="btn dashboard-button d-none d-sm-none d-md-block" (click)="selectCard(item.label)">
+                <img class="logo-img" [src]="item.logo" />
+                <p class="primary_txt">{{ item.label }}</p>
+                <img class="icon-img" src="assets/images/unfilled-arrow.png" />
             </button>
         </div>
     </div>
-    <div class="row mt-2">
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-            <button class="btn dashboard-button " (click)="shipping()"><img class="logo-img "
-                    src="assets/images/shipping.png">
-                <p class="btn-name">Shipping</p> <img class="icon-img " src="assets/images/unfilled-arrow.png">
-            </button>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
-            <button class="btn dashboard-button " (click)="others()"><img class="logo-img"
-                    src="assets/images/others.png">
-                <p class="btn-name">Others</p> <img class="icon-img " src="assets/images/unfilled-arrow.png">
-            </button>
-        </div>
-    </div> -->
 </div>
