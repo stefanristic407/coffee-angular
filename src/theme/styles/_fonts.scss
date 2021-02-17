@@ -153,6 +153,12 @@
     line-height: 1.5;
 }
 
+@media (min-width: 768px) {
+    .lh-md-normal {
+        line-height: normal;
+    }
+}
+
 //////////////////// Font Color
 .text-clr5d {
     color: #5d5d5d;
@@ -176,6 +182,10 @@
 
 .text-clr4d {
     color: #4d4d4d;
+}
+
+.text-clrab {
+    color: #ababab;
 }
 
 .text-clr000 {

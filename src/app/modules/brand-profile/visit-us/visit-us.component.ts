@@ -19,6 +19,7 @@ import { RoasteryProfileService } from 'src/app/features/roastery-profile/roaste
 })
 export class VisitUsComponent implements OnInit {
     roasterId: string;
+    roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
     cities: any[] = [];
@@ -28,10 +29,6 @@ export class VisitUsComponent implements OnInit {
     PhoneNumberFormat = PhoneNumberFormat;
     preferredCountries: CountryISO[] = [CountryISO.Sweden, CountryISO.India];
 
-    appLanguage?: any;
-    brandProfileActive: any = 0;
-    banner_file: any;
-    banner_title: string = '';
     country: string = '';
     state: string = '';
     address1: string = '';
@@ -61,6 +58,7 @@ export class VisitUsComponent implements OnInit {
         public roasterProfileService: RoasteryProfileService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterSlug = this.cookieService.get('roasterSlug');
         this.questionArray.push({
             id: 1,
             question: '',
@@ -187,7 +185,7 @@ export class VisitUsComponent implements OnInit {
         }
     }
 
-    saveVisitProfile() {
+    savePageData() {
         console.log(this.infoForm.value);
         return;
         if (this.infoForm.valid) {

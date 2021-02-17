@@ -1,67 +1,70 @@
 <ng-container *ngIf="sourcing.reviewsList; else empty">
     <div class="row gutter-8 gutter-md-16">
-        <div class="col-lg-4 col-md-12">
-            <div class="p-4 br-main br-4">
-                <div class="review-block">
-                    <p class="fnt-18 fnt-md-16 lh-normal fnt-bold text-clr334 mb-2">
-                        {{ globals.languageJson?.reviews }}
-                    </p>
+        <div class="col-lg-4 col-md-12 mb-md-3 mb-lg-0">
+            <div class="p-4 br-main br-4 m-n2 m-md-0">
+                <div class="review-block row">
+                    <div class="col-12 col-md-6 col-lg-12">
+                        <p class="fnt-18 fnt-md-16 lh-normal fnt-bold text-clr334 mb-2">
+                            {{ globals.languageJson?.reviews }}
+                        </p>
 
-                    <h2 class="total-rating lh-normal fnt-bold text-clr334">
-                        {{ sourcing.estateReviewsSummary?.rating.toFixed(1) || '-' }}
-                    </h2>
-                    <div class="fnt-14 lh-normal fnt-bold text-clr588 mb-25">out of 5</div>
-                    <span class="star-wrap">
-                        <p-rating
-                            [ngModel]="sourcing.estateReviewsSummary?.rating"
-                            [cancel]="false"
-                            [readonly]="true"
-                        ></p-rating
-                    ></span>
-
-                    <div class="fnt-14 lh-normal fnt-bold text-clr334 pt-3 pt-md-45 mb-4">
-                        {{ sourcing.estateReviewsSummary?.total_review || '-' }} customer reviews
+                        <h2 class="total-rating lh-normal fnt-bold text-clr334">
+                            {{ sourcing.estateReviewsSummary?.rating.toFixed(1) || '-' }}
+                        </h2>
+                        <div class="fnt-14 lh-normal fnt-bold text-clr588 mb-25">out of 5</div>
+                        <span class="star-wrap">
+                            <p-rating
+                                [ngModel]="sourcing.estateReviewsSummary?.rating"
+                                [cancel]="false"
+                                [readonly]="true"
+                            ></p-rating
+                        ></span>
                     </div>
-                    <table *ngIf="sourcing.estateReviewsSummary" class="mb-md-4">
-                        <tr *ngFor="let item of sourcing.estateReviewStars">
-                            <td>
-                                <span class="fnt-14 lh-normal fnt-bold text-clr334">
-                                    {{ item.label }}
-                                    <span class="fa fa-star mr-25 mr-md-3"></span>
-                                </span>
-                            </td>
-                            <td>
-                                <div class="progress">
-                                    <div
-                                        class="progress-bar"
-                                        role="progressbar"
-                                        aria-valuenow="60"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                        [style.width]="item.percent + '%'"
-                                        [style.background-color]="item.color"
-                                    >
-                                        <span class="sr-only">{{ item.percent }}% Complete</span>
+                    <div class="col-12 col-md-6 col-lg-12">
+                        <div class="fnt-14 lh-normal fnt-bold text-clr334 pt-3 pt-md-0 pt-lg-45 mb-4">
+                            {{ sourcing.estateReviewsSummary?.total_review || '-' }} customer reviews
+                        </div>
+                        <table *ngIf="sourcing.estateReviewsSummary" class="mb-md-4">
+                            <tr *ngFor="let item of sourcing.estateReviewStars">
+                                <td>
+                                    <span class="fnt-14 lh-normal fnt-bold text-clr334">
+                                        {{ item.label }}
+                                        <span class="fa fa-star mr-25 mr-md-3"></span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="progress">
+                                        <div
+                                            class="progress-bar"
+                                            role="progressbar"
+                                            aria-valuenow="60"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            [style.width]="item.percent + '%'"
+                                            [style.background-color]="item.color"
+                                        >
+                                            <span class="sr-only">{{ item.percent }}% Complete</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="fnt-14 lh-normal text-clr588 ml-25"> ({{ item.value }}) </span>
-                            </td>
-                        </tr>
-                    </table>
+                                </td>
+                                <td>
+                                    <span class="fnt-14 lh-normal text-clr588 ml-25"> ({{ item.value }}) </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-lg-8 col-md-12">
-            <div class="p-md-4 br-md-main br-4 mt-3 mt-md-0">
+            <div class="p-md-4 br-md-main br-4 mt-4 mt-md-0">
                 <div class="d-flex flex-wrap">
                     <div class="mr-3 mr-md-5">
                         <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
                             {{ globals.languageJson?.overall_experience | titlecase }}
                         </p>
-                        <p class="fnt-14 fnt-bold text-clr334">
+                        <p class="fnt-14 lh-normal fnt-bold text-clr334">
                             <span class="fa fa-star mr-1"></span>
                             {{ sourcing.estateReviewsAverage?.overall_experience | number: '1.1-1' }}
                         </p>
@@ -70,19 +73,19 @@
                         <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">
                             {{ globals.languageJson?.communication | titlecase }}
                         </p>
-                        <p class="fnt-14 fnt-bold text-clr334">
+                        <p class="fnt-14 lh-normal fnt-bold text-clr334">
                             <span class="fa fa-star mr-1"></span>
                             {{ sourcing.estateReviewsAverage?.communication | number: '1.1-1' }}
                         </p>
                     </div>
                     <div class="mr-3 mr-md-5 d-none d-md-block">
                         <p class="fnt-12 lh-normal fnt-600 text-clr588 mb-1 mb-md-2 text-nowrap">Green coffee</p>
-                        <p class="fnt-14 fnt-bold text-clr334">
+                        <p class="fnt-14 lh-normal fnt-bold text-clr334">
                             <span class="fa fa-star mr-1"></span>
                             {{ sourcing.estateReviewsAverage?.green_coffee | number: '1.1-1' }}
                         </p>
                     </div>
-                    <div class="ml-md-auto mb-3">
+                    <div class="ml-md-auto mb-4">
                         <p-dropdown
                             [options]="termItems"
                             [(ngModel)]="termStatus"

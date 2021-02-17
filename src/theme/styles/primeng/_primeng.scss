@@ -1,5 +1,4 @@
 // Custom Theming for Prime Ng
-
 @import '../variables';
 @import 'primeng_autocomplete';
 @import 'primeng_breadcrumb';
@@ -9,6 +8,7 @@
 @import 'primeng_dialog';
 @import 'primeng_dropdown';
 @import 'primeng_inputtext';
+@import 'primeng_menu';
 @import 'primeng_multiselect';
 @import 'primeng_progressbar';
 @import 'primeng_rating';
@@ -16,7 +16,7 @@
 @import 'primeng_table';
 @import 'primeng_tabmenu';
 @import 'primeng_tabview';
-
+@import 'primeng_listbox';
 // global
 .p-component {
     font-family: $general-font-family;
@@ -60,6 +60,9 @@
     .ng-dirty + .p-error {
         display: block !important;
     }
+    .ng-touched + .p-error {
+        display: block !important;
+    }
 
     // Styles for inputgroup with custom addon
     .p-inputgroup.custom-addon {
@@ -81,7 +84,6 @@
             padding-right: 4rem;
         }
     }
-
     .p-autocomplete,
     .p-dropdown {
         width: 100%;
@@ -96,6 +98,7 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
 .p-input-icon-left > i:first-of-type {
     color: $button-icon-color;
 }
+
 .custom-search,
 .header-search {
     position: relative;
@@ -113,6 +116,7 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
         padding-left: 3.125rem;
     }
 }
+
 // Search auto complete
 .header-search {
     & > .p-inputtext {
@@ -120,6 +124,9 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
         font-size: 16px;
         font-weight: normal;
         @media (min-width: 768px) {
+            width: 180px;
+        }
+        @media (min-width: 992px) {
             width: 378px;
         }
     }
@@ -129,6 +136,7 @@ p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
         font-weight: normal !important;
     }
 }
+
 .p-inputwrapper-filled .header-search {
     & > .p-inputtext {
         border-color: $primary-color;

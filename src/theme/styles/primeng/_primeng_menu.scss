@@ -1,0 +1,49 @@
+// Custom Theming for Prime Ng
+
+@import '../variables';
+
+.p-menu.p-menu-overlay {
+    border: none;
+    padding: 4px;
+    margin-top: 8px;
+    border-radius: 4px;
+    box-shadow: 0 22px 34px 0 rgba(0, 0, 0, 0.08);
+
+    &::before,
+    &::after {
+        position: absolute;
+        display: block;
+        content: '';
+        border-width: 0 0.5rem 0.5rem 0.5rem;
+        border-color: transparent;
+        border-style: solid;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &::before {
+        border-bottom-color: rgba(0, 0, 0, 0.25);
+    }
+
+    &::after {
+        border-bottom-color: #fff;
+    }
+}
+.p-menu .p-menuitem-link {
+    color: $muted-text-color;
+    border-radius: 2px;
+    padding: 0.75rem 2rem 0.75rem 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+}
+.p-menu .p-menuitem-link .p-menuitem-text {
+    color: $muted-text-color;
+}
+.p-menu .p-menuitem-link:not(.p-disabled):hover {
+    color: $general-text-color;
+    background: $primary-bg-color;
+}
+.p-menu .p-menuitem-link:focus {
+    box-shadow: none;
+}

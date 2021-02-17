@@ -1,0 +1,41 @@
+@import 'variables';
+.roleTxt-selector {
+    color: $primary-color;
+    cursor: pointer;
+}
+.custom-popover {
+    li {
+        list-style: none;
+        padding-right: 4.5rem;
+        border: none !important;
+    }
+}
+.content_list {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+    padding: 10px 0px 8px 3px;
+    cursor: pointer;
+    &:hover {
+        color: #232334;
+        background-color: #f8f8f8;
+    }
+}
+.content_list::ng-deep {
+    .ui-overlaypanel {
+        border: none !important;
+        border-radius: 6px !important;
+        box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
+        background-color: #ffffff;
+        margin-left: -9px;
+        &:before {
+            border-bottom-color: #fffafa !important;
+        }
+    }
+    .ui-overlaypanel-shifted {
+        &:after {
+            right: 10.9em !important;
+        }
+    }
+}

@@ -1,0 +1,90 @@
+@import 'variables';
+.editBorder {
+    border: 1px solid #d6d6d6;
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+.main-block {
+    padding: 32px 48px 64px 48px;
+}
+.contentDiv {
+    height: 37.56rem;
+}
+.inputPadding {
+    margin-top: 3rem;
+}
+.removeRoleBtn {
+    padding: 0px;
+}
+.userDiv {
+    width: 49.5rem;
+}
+.emailDiv {
+    width: 20.5rem;
+}
+.dateFont {
+    font-size: 14px;
+    font-weight: 700;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+
+.text-highlited {
+    font-weight: 700;
+    color: #80460b !important;
+    cursor: pointer;
+}
+.text-highlited:hover {
+    text-decoration: underline !important;
+}
+.containerBackground {
+    background: #fcfbf8;
+}
+.toggleDiv {
+    border: 1px solid #d6d6d6;
+    padding: 2px;
+    height: 2rem;
+    border-radius: 4px;
+}
+.enableBtn {
+    background-color: $primary-color;
+    padding: 0px 16px;
+    color: #fff !important;
+    border-radius: 4px !important;
+}
+.disbableBtn {
+    padding: 0px 16px;
+}
+.greyText {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    color: #747588;
+}
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+@media all and (max-width: 767px) {
+    .editBorder {
+        border: 0px !important;
+        padding: 1rem;
+        border-radius: 4px;
+    }
+    .inputPadding {
+        margin-top: 1rem;
+    }
+    .removeRoleBtn {
+        padding: 0px 15px;
+        margin-bottom: 0.5rem;
+    }
+    .main-block {
+        padding: 16px 24px 32px 24px;
+    }
+    .contentDiv {
+        height: auto;
+    }
+}

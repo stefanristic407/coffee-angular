@@ -1,0 +1,480 @@
+<div class="main-block">
+    <div class="row mb-3 p-0">
+        <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        </div>
+    </div>
+    <div class="row m-0 mt-4">
+        <div *ngIf="isAddMember" class="d-inline col-sm-12 col-md-6 col-lg-6 col-xl-6 p-0 primary_txt userTable">
+            {{ globals.languageJson?.add_team_members }}
+            <p-dropdown
+                [options]="roleList"
+                optionLabel="name"
+                optionValue="id"
+                (onChange)="setTeamRole()"
+                scrollHeight="225px"
+                placeholder="All Roles"
+                [(ngModel)]="currentRoleID"
+                styleClass="round-border mr-2 mb-3 mb-md-4 ui-column-filter headerFilter"
+            >
+                <ng-template pTemplate="selectedItem">
+                    <span class="primary_txt rolesHeader selectedRoleHeader">{{ selectedRole }}</span>
+                </ng-template>
+            </p-dropdown>
+            <div class="secondary_txt mt-1">{{ globals.languageJson?.select_members_role }}</div>
+        </div>
+        <div *ngIf="isAddMember" class="col-sm-12 col-md-6 col-lg-6 col-xl-6 row p-0 d-none d-sm-none d-md-flex">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 w-100 p-0">
+                <input
+                    type="text"
+                    #input
+                    name="search"
+                    class="search-raised pull-right"
+                    [(ngModel)]="termSearch"
+                    placeholder="{{ globals.languageJson?.search_name_role }}"
+                />
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 p-0">
+                <button class="btn btn-raised pull-right" (click)="inviteNewMembers()">
+                    <span class="update_text">{{ globals.languageJson?.invite_new_members }}</span>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="isAddMember" class="col-sm-12 col-md-4 col-lg-4 col-xl-4 p-0 d-block d-sm-block d-md-none mt-4">
+            <button class="btn btn-raised w-100" (click)="inviteNewMembers()">
+                <span class="update_text">{{ globals.languageJson?.invite_new_members }}</span>
+            </button>
+        </div>
+        <div *ngIf="!isAddMember" class="d-inline primary_txt col-sm-12 col-md-6 col-lg-8 col-xl-8 p-0">
+            User Management
+        </div>
+        <div
+            *ngIf="!isAddMember"
+            class="col-sm-12 col-md-6 col-lg-4 col-xl-4 d-block d-sm-block d-md-none mt-4 mb-4 p-0"
+        >
+            <input
+                type="text"
+                #input
+                name="search"
+                class="search-raised pull-right m-0 w-100"
+                [(ngModel)]="termSearch"
+                placeholder="{{ globals.languageJson?.search_name_role }}"
+            />
+        </div>
+        <div *ngIf="!isAddMember" class="col-sm-12 col-md-6 col-lg-4 search-div d-none d-sm-none d-md-block p-0">
+            <input
+                type="text"
+                #input
+                name="search"
+                class="search-raised pull-right"
+                [(ngModel)]="termSearch"
+                placeholder="{{ globals.languageJson?.search_name_role }}"
+            />
+        </div>
+    </div>
+    <div class="row searchContainer userDropdown">
+        <div *ngIf="isAddMember" class="col-sm-12 col-md-6 col-lg-4 d-block d-sm-block d-md-none mt-4 mb-4">
+            <input
+                type="text"
+                #input
+                name="search"
+                class="search-raised pull-right m-0 w-100"
+                [(ngModel)]="termSearch"
+                placeholder="{{ globals.languageJson?.search_name_role }}"
+            />
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8 d-flex align-items-center">
+            <p-dropdown
+                [options]="statusFilterArray"
+                optionLabel="name"
+                optionValue="value"
+                [(ngModel)]="termStatus"
+                (onChange)="filterCall()"
+                scrollHeight="225px"
+                [showClear]="true"
+                placeholder="Status"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ termStatus ? 'highlight' : '' }}"
+            >
+            </p-dropdown>
+            <p-dropdown
+                [options]="roleList"
+                optionLabel="name"
+                optionValue="id"
+                [(ngModel)]="termRole"
+                (onChange)="filterCall()"
+                scrollHeight="225px"
+                placeholder="Role"
+                styleClass="round-border mr-2 mb-3 mb-md-4 {{ termRole ? 'highlight' : '' }}"
+            >
+            </p-dropdown>
+        </div>
+        <div
+            *ngIf="selectedUsers && selectedUsers.length > 0"
+            class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 d-none d-sm-none d-md-flex align-items-center justify-content-end"
+        >
+            <span class="secondary_txt float-right mr-3"> Selected: {{ selectedUsers.length | number: '2.0' }} </span>
+            <button
+                *ngIf="selectedUsers.length > 0"
+                type="button"
+                class="btn btn-raised float-right"
+                (click)="assignUsersToRole()"
+            >
+                {{ globals.languageJson?.assign }}
+            </button>
+        </div>
+    </div>
+    <div *ngIf="selectedUsers && selectedUsers.length > 0" class="d-flex d-sm-flex d-md-none pt-3 align-items-center">
+        <span class="secondary_txt"> {{ selectedUsers.length }} selected </span>
+        <button
+            *ngIf="selectedUsers.length > 0"
+            type="button"
+            class="btn btn-raised pull-right ml-auto"
+            (click)="assignUsersToRole()"
+        >
+            {{ globals.languageJson?.assign }}
+        </button>
+    </div>
+    <div *ngIf="roleList && roleList.length" class="table-container userTable mb-2">
+        <p-table
+            #myTable
+            [class.table-mobile]="sharedService.isMobileView"
+            [value]="tableValue"
+            [columns]="tableColumns"
+            dataKey="id"
+            [resizableColumns]="true"
+            styleClass="ui-table-customers"
+            [showCurrentPageReport]="false"
+            [paginator]="true"
+            [rows]="tableRows"
+            [lazy]="true"
+            (onLazyLoad)="getTableData($event)"
+            [totalRecords]="totalCount"
+            selectionMode="multiple"
+            [(selection)]="selectedUsers"
+            [responsive]="sharedService.isMobileView"
+        >
+            <ng-template pTemplate="header" let-columns>
+                <tr class="d-none d-sm-none d-md-table-row">
+                    <th *ngIf="isAddMember" style="width: 5%" class="">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    <th
+                        *ngFor="let col of columns"
+                        [style.width]="col.width ? col.width + '%' : '30%'"
+                        [ngClass]="{ 'd-md-none': col.field == 'add_user', 'curosr-pointer': col.field == 'roles' }"
+                    >
+                        <span class="primeng-table-header">{{ col.header }}</span>
+                        <p-sortIcon
+                            *ngIf="col.sortable === true"
+                            [field]="col.field"
+                            ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order"
+                        >
+                        </p-sortIcon>
+                        <p-dropdown
+                            *ngIf="col.field == 'roles'"
+                            [options]="roleList"
+                            optionLabel="name"
+                            optionValue="id"
+                            (onChange)="filterCall()"
+                            scrollHeight="225px"
+                            placeholder="All Roles"
+                            [(ngModel)]="termRole"
+                            appendTo="body"
+                            styleClass="round-border mr-2 mb-3 mb-md-4 ui-column-filter headerFilter"
+                        >
+                            <ng-template pTemplate="selectedItem">
+                                <span class="rolesHeader">{{ termRoleName }}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr class="cursor-pointer">
+                    <td *ngIf="isAddMember" class="d-none d-sm-none d-md-table-cell">
+                        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    </td>
+                    <td
+                        *ngFor="let col of columns"
+                        [ngSwitch]="col.field"
+                        [style.width]="col.width ? col.width + '%' : '30%'"
+                        [ngClass]="{
+                            'd-none': col.field == 'status' || col.field == 'actions',
+                            'd-sm-none': col.field == 'status' || col.field == 'actions',
+                            'd-md-table-cell': col.field == 'status' || col.field == 'actions',
+                            rolesColumn: col.field == 'roles',
+                            nameMobileHeader: col.field == 'name',
+                            roleMobileBottom: col.field == 'roles',
+                            emailMobileClass: col.field == 'email'
+                        }"
+                    >
+                        <span *ngSwitchCase="'name'" class="">
+                            <span class="d-none d-sm-none d-md-block tableDataFont">
+                                {{ rowData[col.field] }}
+                            </span>
+                            <div class="d-block d-sm-block d-md-none">
+                                <span>{{ rowData[col.field] }}</span>
+                                <span
+                                    *ngIf="rowData['status'] == 'ACTIVE'"
+                                    class="tableDataFont typeofStatus-active ml-3"
+                                    >&#9679; Active
+                                </span>
+                                <span
+                                    *ngIf="rowData['status'] == 'INACTIVE'"
+                                    class="tableDataFont typeofStatus-disabled ml-3"
+                                    >&#9679; Disabled
+                                </span>
+                                <p-tableCheckbox
+                                    *ngIf="isAddMember"
+                                    class="float-right"
+                                    [value]="rowData"
+                                ></p-tableCheckbox>
+                                <ng-container *ngIf="!isAddMember">
+                                    <a
+                                        class="menu-arrow float-right"
+                                        [popover]="poplistTemplate"
+                                        placement="left"
+                                        [outsideClick]="true"
+                                        #pop11="bs-popover"
+                                    >
+                                        <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                    </a>
+                                    <ng-template #poplistTemplate>
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group custom-popover">
+                                                <li class="list-group-item">
+                                                    <a class="pointer-item" (click)="editMember(rowData.id)">{{
+                                                        globals.languageJson?.edit
+                                                    }}</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="sendDirectMessage(rowData.id); pop11.hide()"
+                                                        >{{ globals.languageJson?.send_a_message }}</a
+                                                    >
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a class="pointer-item">{{
+                                                        globals.languageJson?.send_recovery_email
+                                                    }}</a>
+                                                </li>
+                                                <li
+                                                    *ngIf="rowData.status == 'ACTIVE' && rowData.id != loginId"
+                                                    class="list-group-item"
+                                                >
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="showPopup(rowData.id, 'disable'); pop11.hide()"
+                                                        >{{ globals.languageJson?.disable_account }}</a
+                                                    >
+                                                </li>
+                                                <li
+                                                    *ngIf="rowData.status == 'INACTIVE' && rowData.id != loginId"
+                                                    class="list-group-item"
+                                                >
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="showPopup(rowData.id, 'enable'); pop11.hide()"
+                                                        >{{ globals.languageJson?.enable_account }}</a
+                                                    >
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a class="pointer-item">{{
+                                                        globals.languageJson?.simulated_login
+                                                    }}</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a class="pointer-item" (click)="makeAdmin(rowData)">{{
+                                                        globals.languageJson?.make_admin
+                                                    }}</a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a class="pointer-item">{{
+                                                        globals.languageJson?.customize_permissions
+                                                    }}</a>
+                                                </li>
+                                                <li *ngIf="rowData.id != loginId" class="list-group-item">
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="showPopup(rowData.id, 'delete'); pop11.hide()"
+                                                        >{{ globals.languageJson?.delete }}</a
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
+                                </ng-container>
+                            </div>
+                        </span>
+                        <span *ngSwitchCase="'last_login_at'" class="">
+                            <span class="d-none d-sm-none d-md-block tableDataFont">
+                                {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a' }}
+                            </span>
+                            <div class="d-flex d-sm-flex d-md-none">
+                                <span class="prime-table-label w-50 mobileLable"> Last Login </span>
+                                <div class="w-50 d-flex justify-content-end">
+                                    <span class="tableDataFont">
+                                        {{ rowData[col.field] | date: 'dd/MM/yyyy h:mm a' }}
+                                    </span>
+                                </div>
+                            </div>
+                        </span>
+                        <span *ngSwitchCase="'roles'">
+                            <span>{{ rowData['roleLable'] }}</span>
+                            <!-- <span
+                                *ngFor="let role of rowData[col.field]; let i = index; last as isLast"
+                                class="d-none d-sm-none d-md-block tableDataFont"
+                            >
+                                <span *ngIf="i < 2">{{ role.name }}</span>
+                                <span *ngIf="i < 1 && !isLast">, </span>
+                                <span *ngIf="rowData[col.field].length > 2 && isLast"
+                                    >+{{ rowData[col.field].length - 2 }}</span
+                                >
+                            </span> -->
+                            <div class="d-flex d-sm-flex d-md-none">
+                                <span class="prime-table-label w-50 mobileLable"> All Roles </span>
+                                <div class="w-50 ml-2">
+                                    <div
+                                        *ngFor="let role of rowData[col.field]; let i = index; last as isLast"
+                                        class="tableDataFont"
+                                    >
+                                        <span *ngIf="i < 2">{{ role.name }}</span>
+                                        <span *ngIf="i < 1 && !isLast">, </span>
+                                        <span *ngIf="rowData[col.field].length > 2 && isLast"
+                                            >+{{ rowData[col.field].length - 2 }}</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        <span *ngSwitchCase="'email'" class="">
+                            <span class="d-none d-sm-none d-md-block tableDataFont">
+                                {{ rowData[col.field] }}
+                            </span>
+                            <div class="d-flex d-sm-flex d-md-none">
+                                <span class="prime-table-label w-50 mobileLable"> Email </span>
+                                <span class="w-50 tableDataFont">
+                                    {{ rowData[col.field] }}
+                                </span>
+                            </div>
+                        </span>
+                        <span *ngSwitchCase="'status'" class="d-none d-sm-none d-md-block">
+                            <span *ngIf="rowData['status'] == 'ACTIVE'" class="tableDataFont typeofStatus-active"
+                                >&#9679; Active
+                            </span>
+                            <span *ngIf="rowData['status'] == 'INACTIVE'" class="tableDataFont typeofStatus-disabled"
+                                >&#9679; Disabled
+                            </span>
+                        </span>
+                        <span *ngSwitchCase="'actions'">
+                            <ng-container>
+                                <a
+                                    class="menu-arrow"
+                                    [popover]="poplistTemplate"
+                                    placement="left"
+                                    [outsideClick]="true"
+                                    #pop11="bs-popover"
+                                >
+                                    <img class="ellipse-image" src="assets/images/ellipses.png" alt="" />
+                                </a>
+                                <ng-template #poplistTemplate>
+                                    <div id="popover-mobile-content">
+                                        <ul class="list-group custom-popover">
+                                            <li class="list-group-item">
+                                                <a class="pointer-item" (click)="editMember(rowData.id)">{{
+                                                    globals.languageJson?.edit
+                                                }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a
+                                                    class="pointer-item"
+                                                    (click)="sendDirectMessage(rowData.id); pop11.hide()"
+                                                    >{{ globals.languageJson?.send_a_message }}</a
+                                                >
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a class="pointer-item">{{
+                                                    globals.languageJson?.send_recovery_email
+                                                }}</a>
+                                            </li>
+                                            <li
+                                                *ngIf="rowData.status == 'ACTIVE' && rowData.id != loginId"
+                                                class="list-group-item"
+                                            >
+                                                <a
+                                                    class="pointer-item"
+                                                    (click)="showPopup(rowData.id, 'disable'); pop11.hide()"
+                                                    >{{ globals.languageJson?.disable_account }}</a
+                                                >
+                                            </li>
+                                            <li
+                                                *ngIf="rowData.status == 'INACTIVE' && rowData.id != loginId"
+                                                class="list-group-item"
+                                            >
+                                                <a
+                                                    class="pointer-item"
+                                                    (click)="showPopup(rowData.id, 'enable'); pop11.hide()"
+                                                    >{{ globals.languageJson?.enable_account }}</a
+                                                >
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a class="pointer-item">{{ globals.languageJson?.simulated_login }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a class="pointer-item" (click)="makeAdmin(rowData)">{{
+                                                    globals.languageJson?.make_admin
+                                                }}</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a class="pointer-item">{{
+                                                    globals.languageJson?.customize_permissions
+                                                }}</a>
+                                            </li>
+                                            <li *ngIf="rowData.id != loginId" class="list-group-item">
+                                                <a
+                                                    class="pointer-item"
+                                                    (click)="showPopup(rowData.id, 'delete'); pop11.hide()"
+                                                    >{{ globals.languageJson?.delete }}</a
+                                                >
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </span>
+                        <span *ngSwitchDefault>
+                            <span>{{ rowData[col.field] }}</span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <p-dialog
+        *ngIf="popupDisplay"
+        header=""
+        position="center"
+        [style]="{ width: '28.12rem' }"
+        styleClass="userDialog"
+        [(visible)]="popupDisplay"
+    >
+        <div class="mt-5 mb-5 text-center fnt-muli">
+            <div><img *ngIf="popupDetails?.showIcon" src="assets/images/delete-role.svg" alt="" /></div>
+            <div *ngIf="popupDetails?.showIcon" class="popupExpression_txt mt-2">Oh noh :(</div>
+            <div class="popupMessage_txt mt-2 pb-3">
+                {{ popupDetails?.message }}
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-stroked" (click)="popupDisplay = false">
+                    {{ globals.languageJson?.cancel }}
+                </button>
+                <button class="btn btn-raised ml-3" (click)="popupDisplay = false; makePopupAction()">
+                    {{ popupDetails?.buttonName }}
+                </button>
+            </div>
+        </div>
+    </p-dialog>
+</div>

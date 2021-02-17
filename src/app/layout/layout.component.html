@@ -7,228 +7,210 @@
 
 <header class="stricky" *ngIf="loaded">
     <nav class="bg-white nav-top1">
-        <div class="container sewn-container">
-            <div class="pad-header col-12">
-                <div class="row align-items-center">
-                    <a class="sidenav-hamberg d-md-none" (click)="openSideNav()">
-                        <img src="assets/images/hamberg.svg" alt="hamberg" />
-                    </a>
-                    <div class="company-logo pad-logo">
-                        <a class="company-logo__img d-inline-block" [routerLink]="['/features/welcome-aboard']">
-                            <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <a class="sidenav-hamberg d-lg-none" (click)="openSideNav()">
+                    <img src="assets/images/hamberg.svg" alt="hamberg" class="d-md-none" />
+                    <img src="assets/images/hamberg-tablet.svg" alt="hamberg" class="d-none d-md-block" />
+                </a>
+                <a class="company-logo d-inline-block" [routerLink]="['/features/welcome-aboard']">
+                    <img src="assets/images/Sewn-logo.svg" alt="Comany-Logo" />
+                </a>
+                <div class="d-none d-md-inline-block">
+                    <p-autoComplete
+                        [(ngModel)]="text"
+                        [suggestions]="results"
+                        field="title"
+                        (onSelect)="redirect($event)"
+                        (completeMethod)="search($event)"
+                        placeholder="Search.."
+                        styleClass="header-search"
+                        scrollHeight="225px"
+                    >
+                    </p-autoComplete>
+                </div>
+                <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                        <a [routerLink]="['/people/team-members']" class="d-inline-block image-card">
+                            <img class="img" src="assets/images/add.svg" />
                         </a>
-                    </div>
-                    <div class="d-none d-md-inline-block">
-                        <p-autoComplete
-                            [(ngModel)]="text"
-                            [suggestions]="results"
-                            field="title"
-                            (onSelect)="redirect($event)"
-                            (completeMethod)="search($event)"
-                            placeholder="Search.."
-                            styleClass="header-search"
-                            scrollHeight="225px"
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                        <a
+                            (click)="toggleMessagePanel()"
+                            class="d-inline-block cursor-pointer start-messaging image-card"
                         >
-                        </p-autoComplete>
-                    </div>
-                    <ul class="header-profile-links ml-md-auto d-flex align-items-center p-15">
-                        <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
+                            <img class="img" src="assets/images/mess.svg" />
+                        </a>
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container">
+                        <a
+                            href="javascript:void(0)"
+                            class="d-inline-block image-card"
+                            role="button"
+                            [popover]="notifList"
+                            placement="bottom"
+                            container="body"
+                            [outsideClick]="true"
                         >
-                            <a [routerLink]="['/people/team-members']" class="d-inline-block image-card">
-                                <img class="img" src="assets/images/add.svg" />
-                            </a>
-                        </li>
-                        <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
-                        >
-                            <a
-                                (click)="openMessagePanel()"
-                                class="d-inline-block cursor-pointer start-messaging image-card"
-                            >
-                                <img class="img" src="assets/images/mess.svg" />
-                            </a>
-                        </li>
-                        <li
-                            class="header-profile-links__item d-inline-block ml-md-3 ml-lg-4 pl-xl-2 zoom-effect-container"
-                        >
-                            <a
-                                href="javascript:void(0)"
-                                class="d-inline-block image-card"
-                                role="button"
-                                [popover]="notifList"
-                                placement="bottom"
-                                container="body"
-                                [outsideClick]="true"
-                            >
-                                <img class="img" src="assets/images/notification.svg " />
-                            </a>
-                            <ng-template #notifList>
-                                <div class="notification-header">
-                                    <span
-                                        class="notfi-header-title fnt-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 ng-star-inserted"
-                                        >Notifications</span
+                            <img class="img" src="assets/images/notification.svg " />
+                        </a>
+                        <ng-template #notifList>
+                            <div class="notification-header">
+                                <span
+                                    class="notfi-header-title fnt-18 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 ng-star-inserted"
+                                    >Notifications</span
+                                >
+                                <a href="javascript:void(0)" class="notif-close">
+                                    <img src="assets/images/notif-close-icon.svg" />
+                                </a>
+                                <a href="javascript:void(0)" class="mark-all under-mark">Mark all read</a>
+                            </div>
+                            <div class="notification-body">
+                                <ul class="p-0">
+                                    <li>
+                                        <div class="border-container">
+                                            <div class="notifi-cotainer">
+                                                <p
+                                                    class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
+                                                >
+                                                    Order Shipped!
+                                                </p>
+                                                <div class="notif-description">
+                                                    <P class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2"
+                                                        >Your green coffee order placed with Finca La Pampa estate has
+                                                        been shipped</P
+                                                    >
+                                                </div>
+                                                <p class="under-mark">Order #13213</p>
+                                                <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">2 hours ago</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="border-container">
+                                            <div class="notifi-cotainer">
+                                                <p
+                                                    class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
+                                                >
+                                                    Order Shipped!
+                                                </p>
+                                                <div class="notif-description active">
+                                                    <P class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2"
+                                                        >Your green coffee order placed with Finca La Pampa estate has
+                                                        been shipped</P
+                                                    >
+                                                </div>
+                                                <p class="under-mark">Order #13213</p>
+                                                <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">2 hours ago</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                    </li>
+                    <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
+                        <div class="profile-link d-flex align-items-center">
+                            <div class="d-inline-block mr-md-2">
+                                <app-avatar [size]="38" [src]="profilePic || 'assets/images/profile.svg'"> </app-avatar>
+                            </div>
+                            <div class="profile-link__info pl-lg-1 float-right">
+                                <div>
+                                    <a
+                                        class="profile-name"
+                                        role="button"
+                                        [popover]="popTemplate"
+                                        placement="bottom"
+                                        #pop2="bs-popover"
+                                        container="body"
+                                        [outsideClick]="true"
                                     >
-                                    <a href="javascript:void(0)" class="notif-close">
-                                        <img src="assets/images/notif-close-icon.svg" />
-                                    </a>
-                                    <a href="javascript:void(0)" class="mark-all under-mark">Mark all read</a>
-                                </div>
-                                <div class="notification-body">
-                                    <ul class="p-0">
-                                        <li>
-                                            <div class="border-container">
-                                                <div class="notifi-cotainer">
-                                                    <p
-                                                        class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
-                                                    >
-                                                        Order Shipped!
-                                                    </p>
-                                                    <div class="notif-description">
-                                                        <P class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2"
-                                                            >Your green coffee order placed with Finca La Pampa estate
-                                                            has been shipped</P
-                                                        >
-                                                    </div>
-                                                    <p class="under-mark">Order #13213</p>
-                                                    <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">
-                                                        2 hours ago
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="border-container">
-                                                <div class="notifi-cotainer">
-                                                    <p
-                                                        class="fnt-16 fnt-bold fnt-muli text-clr334 mb-1 mb-md-2 d-none d-md-block"
-                                                    >
-                                                        Order Shipped!
-                                                    </p>
-                                                    <div class="notif-description active">
-                                                        <P class="fnt-14 fnt-normal fnt-muli text-clr588 mb-2"
-                                                            >Your green coffee order placed with Finca La Pampa estate
-                                                            has been shipped</P
-                                                        >
-                                                    </div>
-                                                    <p class="under-mark">Order #13213</p>
-                                                    <p class="fnt-12 fnt-normal fnt-muli text-clr588 mb-2">
-                                                        2 hours ago
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </ng-template>
-                        </li>
-                        <li class="header-profile-links__item d-inline-block ml-md-3 pl-xl-2">
-                            <div class="profile-link d-flex align-items-center">
-                                <div class="d-inline-block mr-md-2">
-                                    <app-avatar [size]="38" [src]="profilePic || 'assets/images/profile.svg'">
-                                    </app-avatar>
-                                </div>
-                                <div class="profile-link__info pl-lg-1 float-right">
-                                    <div>
-                                        <a
-                                            class="profile-name"
-                                            role="button"
-                                            [popover]="popTemplate"
-                                            placement="bottom"
-                                            #pop2="bs-popover"
-                                            container="body"
-                                            [outsideClick]="true"
+                                        <h6 class="d-block fnt-16 fnt-600 text-clr24 m-0">
+                                            {{ userName }}
+                                            <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
+                                        </h6>
+                                        <span
+                                            class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
+                                            style="transform: translateY(-10px)"
+                                            >{{ rolename | titlecase }}</span
                                         >
-                                            <h6 class="d-block fnt-16 fnt-600 text-clr24 m-0">
-                                                {{ userName }}
-                                                <span class="pl-1"><img src="assets/images/triangle.svg" /> </span>
-                                            </h6>
-                                            <span
-                                                class="d-inline-block text-clr5d fnt-12 fnt-mont fnt-500 pt-2"
-                                                style="transform: translateY(-10px)"
-                                                >{{ rolename | titlecase }}</span
-                                            >
-                                        </a>
-                                        <ng-template #popTemplate>
-                                            <div id="popover-mobile-content">
-                                                <ul class="list-group">
-                                                    <li
-                                                        class="list-group-item"
-                                                        *ngIf="this.globals.checkItem('settings-management')"
+                                    </a>
+                                    <ng-template #popTemplate>
+                                        <div id="popover-mobile-content">
+                                            <ul class="list-group">
+                                                <li
+                                                    class="list-group-item"
+                                                    *ngIf="this.globals.checkItem('settings-management')"
+                                                >
+                                                    <a
+                                                        class="cursor-dots"
+                                                        [routerLink]="['/features/roastery-profile']"
+                                                        (click)="pop2.hide()"
+                                                        >{{ globals.languageJson?.roastery_profile }}</a
                                                     >
-                                                        <a
-                                                            class="cursor-dots"
-                                                            [routerLink]="['/features/roastery-profile']"
-                                                            (click)="pop2.hide()"
-                                                            >{{ globals.languageJson?.roastery_profile }}</a
-                                                        >
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <a
-                                                            class="cursor-dots"
-                                                            [routerLink]="['/features/myprofile']"
-                                                            (click)="pop2.hide()"
-                                                            >{{ globals.languageJson?.my_profile }}
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <a
-                                                            class="cursor-dots"
-                                                            [routerLink]="['/features/account-settings']"
-                                                            (click)="pop2.hide()"
-                                                            >{{ globals.languageJson?.account_settings }}</a
-                                                        >
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <a class="cursor-dots" (click)="userLogout()"
-                                                            >{{ globals.languageJson?.logout }}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </ng-template>
-                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="cursor-dots"
+                                                        [routerLink]="['/features/myprofile']"
+                                                        (click)="pop2.hide()"
+                                                        >{{ globals.languageJson?.my_profile }}
+                                                    </a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a
+                                                        class="cursor-dots"
+                                                        [routerLink]="['/features/account-settings']"
+                                                        (click)="pop2.hide()"
+                                                        >{{ globals.languageJson?.account_settings }}</a
+                                                    >
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <a class="cursor-dots" (click)="userLogout()"
+                                                        >{{ globals.languageJson?.logout }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </ng-template>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
     <nav class="bg-f8">
-        <div class="container sewn-container">
-            <div class="pad-header col-12">
-                <div class="row">
-                    <div class="w-100 sidenav-mb">
-                        <span class="sidenav-mb__hide"></span>
-                        <div class="sidenav-mb__content">
-                            <div class="sidenav-mb__close">
-                                <img src="assets/images/close-icon.png" />
-                            </div>
-                            <div class="">
-                                <app-menu [menuParentId]="0"></app-menu>
-                            </div>
-                            <ul class="nav-links fnt-muli pad-5">
-                                <li
-                                    class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
-                                >
-                                    <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
-                                        >{{ globals.languageJson?.account_settings }}
-                                    </a>
-                                </li>
-                                <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
-                                    <a class="d-inline-block fnt-600">{{ globals.languageJson?.help_support }} </a>
-                                </li>
-                                <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
-                                    <a class="d-inline-block fnt-600" (click)="userLogout()"
-                                        >{{ globals.languageJson?.logout }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+        <div class="container">
+            <div class="w-100 sidenav-mb">
+                <span class="sidenav-mb__hide"></span>
+                <div class="sidenav-mb__content">
+                    <div class="sidenav-mb__close">
+                        <img src="assets/images/close-icon.png" />
                     </div>
+                    <div class="">
+                        <app-menu [menuParentId]="0"></app-menu>
+                    </div>
+                    <ul class="nav-links fnt-muli pad-5">
+                        <li
+                            class="nav-links__item d-md-inline-block position-relative mobile-farm settings-list mt-md-0 mt-5"
+                        >
+                            <a class="d-inline-block fnt-600" [routerLink]="['/features/account-settings']"
+                                >{{ globals.languageJson?.account_settings }}
+                            </a>
+                        </li>
+                        <li class="nav-links__item d-md-inline-block position-relative mobile-farm help-list">
+                            <a class="d-inline-block fnt-600">{{ globals.languageJson?.help_support }} </a>
+                        </li>
+                        <li class="nav-links__item d-md-inline-block position-relative mobile-farm logout-list">
+                            <a class="d-inline-block fnt-600" (click)="userLogout()"
+                                >{{ globals.languageJson?.logout }}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -336,7 +318,7 @@
 </footer>
 
 <div class="layout-wrap">
-    <div class="container sewn-container" *ngIf="loaded">
+    <div class="container" *ngIf="loaded">
         <div class="router-design">
             <!-- <app-direct-messaging></app-direct-messaging> -->
             <app-sewn-direct-message></app-sewn-direct-message>

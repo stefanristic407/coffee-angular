@@ -18,6 +18,7 @@ import { promise } from 'protractor';
 })
 export class AboutUsComponent implements OnInit {
     roasterId: string;
+    roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
     roasterUsers: any[] = [];
@@ -39,6 +40,7 @@ export class AboutUsComponent implements OnInit {
         public roasterService: RoasterserviceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 
     ngOnInit(): void {
@@ -90,7 +92,7 @@ export class AboutUsComponent implements OnInit {
         });
     }
 
-    saveAboutProfile() {
+    savePageData() {
         console.log(this.infoForm);
         if (this.infoForm.valid) {
             const promises = [];

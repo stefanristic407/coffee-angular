@@ -30,6 +30,10 @@ export class SourcingComponent implements OnInit {
         { label: '90+', value: ['90', '100'] },
     ];
     cropItems: any[];
+    availableItems: any[] = [
+        { label: 'Yes', value: 1 },
+        { label: 'No', value: 0 },
+    ];
     weightItems: any[] = [
         { label: 'lb', value: 'lb' },
         { label: 'Kg', value: 'kg' },
@@ -57,6 +61,7 @@ export class SourcingComponent implements OnInit {
             },
         ];
         this.cropItems = this.globals.monthList;
+        this.sourcingSrv.clearQueryParams();
         this.queryParams = { ...this.sourcingSrv.queryParams.getValue() };
         this.viewMode = this.sourcingSrv.viewMode.getValue();
 

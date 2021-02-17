@@ -1,10 +1,10 @@
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Gallery, ImageItem, ImageSize } from 'ng-gallery';
 import { Lightbox } from 'ng-gallery/lightbox';
 import { RoasterserviceService } from '@services';
-import { UserserviceService } from '@services';
+import { GlobalsService } from '@services';
 
 @Component({
     selector: 'app-uploader',
@@ -19,13 +19,30 @@ import { UserserviceService } from '@services';
     ],
 })
 export class UploaderComponent implements OnInit, ControlValueAccessor {
+    @ViewChild('fileInput', { static: false }) fileInput;
     inputId = Math.random() * 1000;
     onChange: any;
     onTouched: any;
     files: any[] = [];
+    fileIndex = null;
     @Input() count = 1;
     @Input() type = 'all';
     acceptType: string;
+    items = [
+        {
+            label: 'Edit',
+            command: () => {
+                console.log('update');
+                this.fileInput.nativeElement.click();
+            },
+        },
+        {
+            label: 'Delete',
+            command: () => {
+                this.delete(this.fileIndex);
+            },
+        },
+    ];
 
     writeValue(value: any): void {
         if (value) {
@@ -50,8 +67,8 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
     constructor(
         public gallery: Gallery,
         public lightbox: Lightbox,
+        private globalSrv: GlobalsService,
         private roasterSrv: RoasterserviceService,
-        private userService: UserserviceService,
     ) {}
 
     ngOnInit(): void {
@@ -71,7 +88,11 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
                 (res: any) => {
                     if (res.success) {
                         if (this.count > 1) {
-                            this.files = this.files.concat([res.result]);
+                            if (this.fileIndex) {
+                                this.files[this.fileIndex] = res.result;
+                            } else {
+                                this.files = this.files.concat([res.result]);
+                            }
                             this.onChange(this.files);
                         } else {
                             this.files = JSON.parse(JSON.stringify([res.result]));
@@ -107,5 +128,23 @@ export class UploaderComponent implements OnInit, ControlValueAccessor {
         });
         lightboxRef.load(items);
         this.lightbox.open(0);
+    }
+
+    isVideo(url) {
+        if (url) {
+            const ext = url.split('.').pop();
+            if (ext === 'mp4') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    showUploader() {
+        if (this.globalSrv.device === 'mobile') {
+            return !(this.files?.length >= this.count);
+        } else {
+            return !(this.count > 1 && this.files?.length >= this.count);
+        }
     }
 }

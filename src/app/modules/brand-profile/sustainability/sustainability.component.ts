@@ -17,6 +17,7 @@ import { RoasterserviceService } from '@services';
 })
 export class SustainabilityComponent implements OnInit {
     roasterId: string;
+    roasterSlug: string;
     breadItems: any[];
     infoForm: FormGroup;
 
@@ -31,6 +32,7 @@ export class SustainabilityComponent implements OnInit {
         private roasterService: RoasterserviceService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
+        this.roasterSlug = this.cookieService.get('roasterSlug');
     }
 
     ngOnInit(): void {
@@ -64,7 +66,7 @@ export class SustainabilityComponent implements OnInit {
         this.getSubstainabilityDetails();
     }
 
-    saveBrandProfile() {
+    savePageData() {
         if (this.infoForm.valid) {
             const postData = {
                 ...this.infoForm.value,
