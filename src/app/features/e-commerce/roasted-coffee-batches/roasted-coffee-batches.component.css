@@ -1,8 +1,3 @@
-.bread-nav {
-    padding-top: 2rem;
-    padding-left: 3rem;
-}
-
 .grading__total {
     padding: 10px 48px 40px;
 }
@@ -71,7 +66,7 @@ label {
 }
 
 .search-raised {
-    width: 100%;
+    width: 68%;
     height: 38px;
     background-color: #fff;
     background: url(/assets/images/search-user.png) no-repeat scroll 11px 11px;
@@ -87,7 +82,6 @@ label {
     background-color: #ffffff;
     margin-left: 10px;
 }
-
 
 /* Popover css */
 
@@ -144,122 +138,6 @@ label {
     font-size: 14px;
 }
 
-.search-div {
-    margin-top: 2rem;
-}
-
-
-/* .green_grading_cont{
-    margin-top: 2%;
-} */
-
-.select-title {
-    font-family: Muli;
-    font-weight: bold;
-    color: #232334;
-    font-size: 16px;
-    margin-top: 2rem;
-    margin-bottom: 0;
-}
-
-.table-header {
-    border-radius: 4px;
-    background-color: #f8f8f8;
-}
-
-.header-row {
-    border: none !important;
-}
-
-table th,
-table td {
-    border: none !important;
-}
-
-tr {
-    border-bottom: 1px dashed #d6d6d6;
-}
-
-tr:last-child {
-    border-bottom-style: none;
-    border-bottom-color: none;
-}
-
-.table thead th {
-    color: #232334;
-    font-size: 14px;
-    font-weight: bold;
-    font-family: 'Muli';
-}
-
-.table tbody tr {
-    color: #232334;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Muli';
-}
-
-span.checkmark {
-    background-color: #fff !important;
-    border: solid 1px #979797;
-    border-radius: 2px;
-}
-
-.customcheckbox input:checked~.checkmark {
-    background-color: #30855c !important;
-}
-
-.table-container {
-    margin: 0.5rem 0;
-    border-radius: 4px;
-    border: solid 1px #d6d6d6;
-    padding: 4px;
-}
-
-.checkmark {
-    top: 2px !important;
-    left: 8px !important;
-    height: 17px !important;
-    width: 17px !important;
-}
-
-.customcheckbox .checkmark:after {
-    left: 5px !important;
-    top: 1px !important;
-    border-width: 0 2px 2px 0 !important;
-}
-
-.manage-profiles {
-    border-radius: 4px;
-    background-color: #30855c;
-    border: 1px solid #30855c;
-    color: #fff;
-    cursor: pointer;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.manage-profiles:hover {
-    box-shadow: 0 0 7px 1px rgba(67, 146, 108, 0.5);
-}
-
-.create-batch {
-    border-radius: 4px;
-    background-color: #ffffff;
-    border: 1px solid #30855c;
-    color: #30855c;
-    cursor: pointer;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.create-batch:hover {
-    background-color: #30855c;
-    color: #fff;
-}
-
 .view__details {
     font-family: Muli;
     font-size: 14px;
@@ -313,8 +191,8 @@ span.checkmark {
     left: 15%;
 }
 
- ::ng-deep .tooltiptext::after {
-    content: "";
+::ng-deep .tooltiptext::after {
+    content: '';
     position: absolute;
     bottom: 100%;
     left: 12%;
@@ -324,11 +202,11 @@ span.checkmark {
     border-color: transparent transparent #ffffff transparent;
 }
 
- ::ng-deep td:hover .tooltiptext {
+::ng-deep td:hover .tooltiptext {
     visibility: visible;
 }
 
- ::ng-deep .table_ellipsis {
+::ng-deep .table_ellipsis {
     max-width: 45px;
     /* width: 54px; */
     text-overflow: ellipsis;
@@ -374,4 +252,58 @@ span.checkmark {
     font-size: 14px;
     font-weight: 700;
     padding: 11px 30px;
+}
+
+::ng-deep .productListTable .p-checkbox {
+    margin-left: 0px;
+}
+::ng-deep .productListTable .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: #ffffff;
+}
+.bord-profile {
+    border-radius: 4px;
+    border: solid 1px #d6d6d6;
+}
+@media screen and (max-width: 767px) {
+    .filterLayout {
+        margin-top: 1.5rem;
+    }
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .nameMobileHeader {
+        padding: 0px;
+        width: 100% !important;
+    }
+    .mobileValueTxt {
+        font-size: 14px !important;
+    }
+    .mobileCardBody {
+        border-bottom: 1px dashed #d6d6d6;
+        padding: 1rem 0px;
+    }
+    :host ::ng-deep .productListTable .p-datatable-tbody > tr > .cardBottom {
+        margin-bottom: 14px;
+        border-bottom: 1px solid #d6d6d6 !important;
+    }
+    :host ::ng-deep .productListTable .p-datatable .p-datatable-tbody > tr {
+        border-bottom: 0px !important;
+    }
+    .borderCard {
+        background-color: #f8f8f8;
+        border: 1px solid #d6d6d6;
+    }
+    .productHeight {
+        height: 138px !important;
+    }
+    .mobileCard {
+        border-left: 1px solid #d6d6d6;
+        border-right: 1px solid #d6d6d6;
+        border-bottom: 1px solid #d6d6d6;
+    }
+    .editDiv {
+        border: 1px solid #d6d6d6;
+        padding: 20px 15px;
+        margin-bottom: 1rem !important;
+    }
+    .bord-profile {
+        border: none;
+    }
 }

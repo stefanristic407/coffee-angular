@@ -601,13 +601,10 @@ export class RoasterserviceService {
         console.log(data);
         return this.http.post(this.url, data);
     }
-    getRoasterCoffeeBatchs(roaster_id: any) {
+    getRoasterCoffeeBatchs(roaster_id: any, postData?) {
         var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roasted-batches';
-        // data['params'] = params;
+        data['api_call'] = '/ro/' + roaster_id + '/roasted-batches?' + this.serlialise(postData);
         data['token'] = this.cookieService.get('Auth');
-        //  const params = new HttpParams().append( 'file_module', fileModule )
-        console.log(data);
         return this.http.post(this.url, data);
     }
     getSelectOrderListTable(roaster_id: any) {
@@ -762,7 +759,7 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any) {
+    deleteRoastedCoffeeBatch(roaster_id: any, batch_id: any): Observable<any> {
         var data = {};
         data['api_call'] = `/ro/${roaster_id}/roasted-batches/${batch_id}`;
         data['token'] = this.cookieService.get('Auth');
