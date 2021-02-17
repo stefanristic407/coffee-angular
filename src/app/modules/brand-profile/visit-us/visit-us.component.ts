@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { maxWordCountValidator } from '@services';
@@ -9,10 +10,12 @@ import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
+import { ConfirmComponent } from '@shared';
 @Component({
     selector: 'app-visit-us',
     templateUrl: './visit-us.component.html',
     styleUrls: ['./visit-us.component.scss'],
+    providers: [DialogService],
 })
 export class VisitUsComponent implements OnInit {
     roasterId: string;
@@ -20,17 +23,14 @@ export class VisitUsComponent implements OnInit {
     breadItems: any[];
     infoForm: FormGroup;
     cities: any[] = [];
-
-    selectedDate = new Date();
+    questionForm: FormGroup;
+    editQuestion = false;
+    selQuestion = null;
 
     savedFaqArray: any[] = [];
-    questionArray = [];
-    public addanotherrow: number;
-    questionTypeError: string;
-    questionAnswerError: string;
-    questionError: string;
 
     constructor(
+        public dialogSrv: DialogService,
         private fb: FormBuilder,
         private router: Router,
         private formSrv: FormService,
@@ -42,15 +42,6 @@ export class VisitUsComponent implements OnInit {
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.roasterSlug = this.cookieService.get('roasterSlug');
-        this.questionArray.push({
-            id: 1,
-            question: '',
-            answer: '',
-            type: '',
-        });
-        this.questionTypeError = '';
-        this.questionError = '';
-        this.questionAnswerError = '';
     }
     ngOnInit(): void {
         this.breadItems = [
@@ -76,117 +67,20 @@ export class VisitUsComponent implements OnInit {
         this.getFAQList();
     }
 
-    hasPhoneError(isValid: any): void {
-        console.log(isValid);
-        if (!isValid) {
-            this.infoForm.controls.phone.setErrors({ invalid: true });
-        } else {
-            this.infoForm.controls.phone.setErrors(null);
-        }
-    }
-    getPhoneNumber(phoneNumber: string): void {
-        console.log(phoneNumber);
-        console.log(this.infoForm.value.phone);
-    }
-    telInputObject(obj: any): void {
-        obj.setNumber('+7-89881898615');
-    }
-
-    changeDate(value) {
-        console.log(value);
-    }
-    drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
-    }
-
-    // Description: This function helps for saving question.
-    saveQuestion(rowcount, event) {
-        for (let j = 0; j < this.questionArray.length; j++) {
-            if (this.questionArray[j].question === '' && this.questionArray[j].answer === '') {
-                $('.myAlert-top').show();
-                this.questionTypeError = 'Please Fill the mandatory Fields';
-                this.questionAnswerError = 'Please Fill the mandatory Fields';
-                this.questionError = 'Please Fill the mandatory Fields';
-                document.getElementById('question_answer').style.border = '1px solid #d50000';
-                document.getElementById('question').style.border = '1px solid #d50000';
-                // document.getElementById("certification_year").style.border =
-                // "1px solid #d50000";
-                document.getElementById('question_type').style.border = '1px solid #d50000';
-                setTimeout(() => {
-                    this.questionTypeError = '';
-                    this.questionAnswerError = '';
-                    this.questionError = '';
-                }, 3000);
+    getVisitDetails() {
+        this.userService.getPageDetails(this.roasterId, 'visit-us').subscribe(async (res: any) => {
+            if (res.success) {
+                this.infoForm.patchValue(res.result);
+                this.infoForm.get('storeTime').setValue([res.result.store_open_time, res.result.store_close_time]);
+                this.changeCountry();
+                if (res.result.banner_file) {
+                    this.infoForm.controls.banner_file.setValue({
+                        id: res.result.banner_file,
+                        url: res.result.banner_file_url,
+                    });
+                }
             }
-            // else if (
-            //   this.questionArray[j].type == "" ||
-            //   this.questionArray[j].type == null ||
-            //   this.questionArray[j].type == undefined
-            // ) {
-            //   $(".myAlert-top").show();
-            //   this.questionTypeError = "Please enter type";
-            //   document.getElementById("question_type").style.border =
-            //     "1px solid #d50000";
-            //   setTimeout(() => {
-            //     this.questionTypeError = "";
-            //   }, 3000);
-            // }
-            else if (
-                this.questionArray[j].answer == '' ||
-                this.questionArray[j].answer == null ||
-                this.questionArray[j].answer == undefined
-            ) {
-                $('.myAlert-top').show();
-                this.questionAnswerError = 'Please enter Answer';
-                document.getElementById('question_answer').style.border = '1px solid #d50000';
-                setTimeout(() => {
-                    this.questionAnswerError = '';
-                }, 3000);
-            } else if (
-                this.questionArray[j].question == '' ||
-                this.questionArray[j].question == null ||
-                this.questionArray[j].question == undefined
-            ) {
-                $('.myAlert-top').show();
-                this.questionError = 'Please enter question';
-                document.getElementById('question').style.border = '1px solid #d50000';
-                setTimeout(() => {
-                    this.questionError = '';
-                }, 3000);
-            } else {
-                const payload = {
-                    question: this.questionArray[j].question,
-                    faq_type: 'DISPUTE',
-                    answer: this.questionArray[j].answer,
-                    status: 'ENABLED',
-                };
-                this.userService.addFAQ(this.roasterId, payload).subscribe(
-                    (data) => {
-                        // console.log(data)
-                        this.savedFaqArray.push({
-                            id: this.questionArray[j].id,
-                            question: this.questionArray[j].question,
-                            type: this.questionArray[j].type,
-                            answer: this.questionArray[j].answer,
-                        });
-                        this.questionArray = [];
-                        this.getFAQList();
-                        this.toastrService.success('FAQ added successfully');
-                    },
-                    (err) => {
-                        this.toastrService.error('Error while adding');
-                    },
-                );
-            }
-        }
-        if (this.questionArray.length === 0) {
-            this.questionArray.push({
-                id: 1,
-                question: '',
-                answer: '',
-                type: '',
-            });
-        }
+        });
     }
 
     savePageData() {
@@ -219,55 +113,93 @@ export class VisitUsComponent implements OnInit {
         }
     }
 
-    getVisitDetails() {
-        this.userService.getPageDetails(this.roasterId, 'visit-us').subscribe(async (res: any) => {
+    getFAQList() {
+        this.userService.getFAQList(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                this.infoForm.patchValue(res.result);
-                this.infoForm.get('storeTime').setValue([res.result.store_open_time, res.result.store_close_time]);
-                this.changeCountry();
-                if (res.result.banner_file) {
-                    this.infoForm.controls.banner_file.setValue({
-                        id: res.result.banner_file,
-                        url: res.result.banner_file_url,
-                    });
-                }
+                this.savedFaqArray = res.result;
             }
         });
     }
 
-    addnewrow() {
-        if (this.questionArray.length == 1) {
-            return;
-        }
-        var newrowc = this.addanotherrow + 1;
-        this.addanotherrow = newrowc;
-        this.questionArray.push({
-            question: '',
-            answer: '',
-            type: '',
-            id: 1,
-        });
-        //this.licenseArray.push(this.licenseArray.length);
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
     }
 
-    getFAQList() {
-        this.userService.getFAQList(this.roasterId).subscribe((data) => {
-            this.savedFaqArray = data['result'];
+    refreshQuestionForm(idx = null) {
+        this.questionForm = this.fb.group({
+            question: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
+            answer: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
         });
+        this.selQuestion = idx;
+        if (idx != null) {
+            this.questionForm.patchValue(this.savedFaqArray[idx]);
+        }
+        this.editQuestion = true;
+    }
+
+    saveQuestion() {
+        if (this.questionForm.valid) {
+            const postData = {
+                ...this.questionForm.value,
+                status: 'ENABLED',
+            };
+            if (this.selQuestion == null) {
+                this.userService.addFAQ(this.roasterId, postData).subscribe(
+                    (res: any) => {
+                        if (res.success) {
+                            this.getFAQList();
+                            this.toastrService.success('FAQ added successfully');
+                            this.editQuestion = false;
+                        } else {
+                            this.toastrService.error('Error while adding');
+                        }
+                    },
+                    (err) => {
+                        this.toastrService.error('Error while adding');
+                    },
+                );
+            } else {
+                this.userService.updateFAQ(this.roasterId, this.savedFaqArray[this.selQuestion].id, postData).subscribe(
+                    (res: any) => {
+                        if (res.success) {
+                            this.getFAQList();
+                            this.toastrService.success('FAQ updated successfully');
+                            this.editQuestion = false;
+                        } else {
+                            this.toastrService.error('Error while updating');
+                        }
+                    },
+                    (err) => {
+                        this.toastrService.error('Error while updating');
+                    },
+                );
+            }
+        } else {
+            this.formSrv.markGroupDirty(this.questionForm);
+        }
     }
 
     deleteFAQ(faq) {
-        if (confirm('Please confirm! you want to delete?') == true) {
-            this.userService.deleteFAQ(this.roasterId, faq.id).subscribe((response) => {
-                if (response['success'] == true) {
-                    this.toastrService.success('The selected FAQ has been deleted successfully');
-                    this.getFAQList();
-                } else {
-                    this.toastrService.error('Something went wrong while deleting the FAQ');
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Confirm delete',
+                    desp: 'Are you sure want to delete faq',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.userService.deleteFAQ(this.roasterId, faq.id).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success('The selected FAQ has been deleted successfully');
+                            this.getFAQList();
+                        } else {
+                            this.toastrService.error('Something went wrong while deleting the FAQ');
+                        }
+                    });
                 }
             });
-        }
     }
-
-    editFAQ(faq) {}
 }
