@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import { maxWordCountValidator, fileCountValidator } from '@services';
+import { maxWordCountValidator } from '@services';
 import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
 @Component({
     selector: 'app-visit-us',
     templateUrl: './visit-us.component.html',
@@ -23,22 +20,9 @@ export class VisitUsComponent implements OnInit {
     breadItems: any[];
     infoForm: FormGroup;
     cities: any[] = [];
-    SearchCountryField = SearchCountryField;
-    TooltipLabel = TooltipLabel;
-    CountryISO = CountryISO;
-    PhoneNumberFormat = PhoneNumberFormat;
-    preferredCountries: CountryISO[] = [CountryISO.Sweden, CountryISO.India];
 
-    country: string = '';
-    state: string = '';
-    address1: string = '';
-    address2: string = '';
-    city: string = '';
-    zip_code: string = '';
-    email: string = '';
-    phoneNumber: string = '';
-    banner_id: any;
-    banner_image_name: string = '';
+    selectedDate = new Date();
+
     savedFaqArray: any[] = [];
     questionArray = [];
     public addanotherrow: number;
@@ -55,7 +39,6 @@ export class VisitUsComponent implements OnInit {
         private cookieService: CookieService,
         private userService: UserserviceService,
         private roasterService: RoasterserviceService,
-        public roasterProfileService: RoasteryProfileService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.roasterSlug = this.cookieService.get('roasterSlug');
@@ -86,19 +69,40 @@ export class VisitUsComponent implements OnInit {
             zip_code: ['', Validators.compose([Validators.required])],
             email: ['', Validators.compose([Validators.required, Validators.email])],
             phone: ['', Validators.compose([Validators.required])],
+            store_open_days: ['', Validators.compose([Validators.required])],
+            storeTime: [null],
         });
         this.getVisitDetails();
         this.getFAQList();
     }
 
+    hasPhoneError(isValid: any): void {
+        console.log(isValid);
+        if (!isValid) {
+            this.infoForm.controls.phone.setErrors({ invalid: true });
+        } else {
+            this.infoForm.controls.phone.setErrors(null);
+        }
+    }
+    getPhoneNumber(phoneNumber: string): void {
+        console.log(phoneNumber);
+        console.log(this.infoForm.value.phone);
+    }
+    telInputObject(obj: any): void {
+        obj.setNumber('+7-89881898615');
+    }
+
+    changeDate(value) {
+        console.log(value);
+    }
     drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
     }
 
-    //Description: This function helps for saving question.
+    // Description: This function helps for saving question.
     saveQuestion(rowcount, event) {
         for (let j = 0; j < this.questionArray.length; j++) {
-            if (this.questionArray[j].question == '' && this.questionArray[j].answer == '') {
+            if (this.questionArray[j].question === '' && this.questionArray[j].answer === '') {
                 $('.myAlert-top').show();
                 this.questionTypeError = 'Please Fill the mandatory Fields';
                 this.questionAnswerError = 'Please Fill the mandatory Fields';
@@ -175,7 +179,7 @@ export class VisitUsComponent implements OnInit {
                 );
             }
         }
-        if (this.questionArray.length == 0) {
+        if (this.questionArray.length === 0) {
             this.questionArray.push({
                 id: 1,
                 question: '',
@@ -186,13 +190,14 @@ export class VisitUsComponent implements OnInit {
     }
 
     savePageData() {
-        console.log(this.infoForm.value);
-        return;
         if (this.infoForm.valid) {
             const postData = {
                 ...this.infoForm.value,
                 banner_file: this.infoForm.value.banner_file.id,
+                store_open_time: this.infoForm.value.storeTime[0],
+                store_close_time: this.infoForm.value.storeTime[1],
             };
+            delete postData.storeTime;
             this.userService.updateHomeDetails(this.roasterId, postData, 'visit-us').subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('Visit page Details updated successfully');
@@ -217,8 +222,8 @@ export class VisitUsComponent implements OnInit {
     getVisitDetails() {
         this.userService.getPageDetails(this.roasterId, 'visit-us').subscribe(async (res: any) => {
             if (res.success) {
-                console.log('Visit:', res.result);
                 this.infoForm.patchValue(res.result);
+                this.infoForm.get('storeTime').setValue([res.result.store_open_time, res.result.store_close_time]);
                 this.changeCountry();
                 if (res.result.banner_file) {
                     this.infoForm.controls.banner_file.setValue({

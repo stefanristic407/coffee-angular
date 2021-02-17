@@ -1,0 +1,27 @@
+<div class="d-inline-flex align-items-center time-range" [class.opened]="sOpened || eOpened">
+    <p-calendar
+        #calendar
+        [(ngModel)]="startDate"
+        dataType="string"
+        [timeOnly]="true"
+        hourFormat="12"
+        [readonlyInput]="true"
+        (onSelect)="onSelect($event)"
+        (onShow)="sOpened = true"
+        (onClose)="sOpened = false"
+        placeholder="8:30 AM"
+    ></p-calendar>
+    <div class="fnt-300 text-clr000 to-wrap">to</div>
+    <p-calendar
+        #calendar
+        [(ngModel)]="endDate"
+        dataType="string"
+        [timeOnly]="true"
+        hourFormat="12"
+        [readonlyInput]="true"
+        (onSelect)="onSelect($event)"
+        (onShow)="eOpened = true"
+        (onClose)="eOpened = false"
+        placeholder="5:30 PM"
+    ></p-calendar>
+</div>

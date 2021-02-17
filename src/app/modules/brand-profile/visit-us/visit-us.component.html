@@ -40,10 +40,12 @@
                     </div>
 
                     <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
-                        <h4 class="fnt-18 lh-normal fnt-700 text-clr334">Contact Info</h4>
-                        <p class="fnt-14 fnt-600 text-clr334 mb-4 mb-md-45">Your details to get in touch!</p>
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-3">Contact Info</h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4 mb-md-45">Your details to get in touch!</p>
 
-                        <h4 class="fnt-18 fnt-700 text-clr334 mb-4">Address<span class="star">*</span></h4>
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">
+                            Address<span class="star">*</span>
+                        </h4>
 
                         <div class="row">
                             <div class="col-12 col-md-6 sewn-form-field">
@@ -112,7 +114,7 @@
                         </div>
 
                         <div class="divider mb-4"></div>
-                        <h4 class="fnt-18 lh-normal fnt-700 text-clr334 mb-4">
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">
                             Contact details<span class="star">*</span>
                         </h4>
 
@@ -138,31 +140,33 @@
                                     >Phone Number<span class="star">*</span>
                                     <span class="flag-icon flag-icon-gr"></span>
                                 </label>
-                                <ngx-intl-tel-input
-                                    [cssClass]="'custom-intl-tel-input'"
-                                    [preferredCountries]="preferredCountries"
-                                    [enableAutoCountrySelect]="true"
-                                    [enablePlaceholder]="true"
-                                    [searchCountryFlag]="true"
-                                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                    [selectFirstCountry]="false"
-                                    [maxLength]="'15'"
-                                    [tooltipField]="TooltipLabel.Name"
-                                    [separateDialCode]="true"
-                                    [numberFormat]="PhoneNumberFormat.National"
-                                    formControlName="phone"
-                                    class="w-100"
-                                    required
-                                >
-                                </ngx-intl-tel-input>
-                                <small *ngIf="infoForm.controls.phone.errors?.required" class="p-error">
-                                    Please enter phone number
+                                <app-phone-number formControlName="phone"></app-phone-number>
+                                <small *ngIf="infoForm.controls.phone.invalid" class="p-error d-block">
+                                    Please enter valid phone number
                                 </small>
                             </div>
                         </div>
 
                         <div class="divider mb-4"></div>
-                        <h4 class="fnt-18 fnt-700 text-clr334 mb-4">Store timings<span class="star">*</span></h4>
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-3 mb-md-4">
+                            Store timings<span class="star">*</span>
+                        </h4>
+
+                        <div class="w-100">
+                            <div class="sewn-form-field col-md-6 px-0">
+                                <app-day-picker formControlName="store_open_days"></app-day-picker>
+                                <small *ngIf="infoForm.controls.store_open_days.errors?.required" class="p-error">
+                                    Please select the open days
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="sewn-form-field col-md-6 px-0 mb-0">
+                            <app-time-range formControlName="storeTime"></app-time-range>
+                            <small *ngIf="infoForm.controls.storeTime.errors?.required" class="p-error">
+                                Please select the time
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>

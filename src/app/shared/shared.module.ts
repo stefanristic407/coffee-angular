@@ -44,7 +44,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from 'ng-gallery/lightbox';
 import { MatVideoModule } from 'mat-video';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { Ng2TelInputModule } from 'ng2-tel-input';
 
 import { CountryPipe } from './pipes/country/country.pipe';
 import { EstateBrandLinkPipe } from './pipes/estate-brand-link.pipe';
@@ -78,6 +78,9 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { HorizontalBarComponent } from './components/horizontal-bar/horizontal-bar.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
+import { TimeRangeComponent } from './components/time-range/time-range.component';
+import { DayPickerComponent } from './components/day-picker/day-picker.component';
+import { PhoneNumberComponent } from './components/phone-number/phone-number.component';
 // #region material
 const MATMODULES = [];
 // #endregion
@@ -124,7 +127,7 @@ const THIRDMODULES = [
     GalleryModule,
     LightboxModule,
     MatVideoModule,
-    NgxIntlTelInputModule,
+    Ng2TelInputModule,
 ];
 // #endregion
 
@@ -149,6 +152,13 @@ const COMPONENTS = [
     UploaderComponent,
     LoadingComponent,
     LineChartComponent,
+    TimeRangeComponent,
+    DayPickerComponent,
+    BlogCardComponent,
+    BarChartComponent,
+    BreadcrumbComponent,
+    HorizontalBarComponent,
+    PhoneNumberComponent,
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
@@ -174,11 +184,6 @@ const PIPES = [CountryPipe, EstateBrandLinkPipe, FileNamePipe, MonthPipe, Roaste
         ...COMPONENTS_NOROUNT,
         ...DIRECTIVES,
         ...PIPES,
-        BreadcrumbComponent,
-        ConfirmComponent,
-        BlogCardComponent,
-        BarChartComponent,
-        HorizontalBarComponent,
     ],
     entryComponents: COMPONENTS_NOROUNT,
     exports: [
@@ -191,11 +196,8 @@ const PIPES = [CountryPipe, EstateBrandLinkPipe, FileNamePipe, MonthPipe, Roaste
         ...THIRDMODULES,
         // your components
         ...COMPONENTS,
-        BreadcrumbComponent,
         ...DIRECTIVES,
         ...PIPES,
-        BlogCardComponent,
-        BarChartComponent,
     ],
 })
 export class SharedModule {}
