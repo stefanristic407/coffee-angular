@@ -151,27 +151,47 @@
                             </small>
                         </div>
                         <div class="overflow-auto">
-                            <div class="row flex-nowrap gutter-8 gutter-md-16">
-                                <div *ngFor="let i of [0, 1, 2, 3]" class="col-6 col-lg-3 mb-3 md-md-0">
-                                    <div
-                                        class="select-product cursor-pointer"
-                                        routerLink="/brand-profile/featured-products"
-                                    >
-                                        <ng-container *ngIf="featuredProducts && featuredProducts[i]; else select">
+                            <div>
+                                <div class="d-flex" cdkDropList (cdkDropListDropped)="drop($event)">
+                                    <ng-container *ngFor="let i of [0, 1, 2, 3]">
+                                        <div
+                                            *ngIf="featuredProducts && featuredProducts[i]"
+                                            class="select-product cursor-move bg-white"
+                                            cdkDrag
+                                        >
                                             <img
                                                 class="product-img"
                                                 [src]="featuredProducts[i].featured_image"
                                                 alt="Product"
                                             />
-                                            <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">
-                                                {{ featuredProducts[i].name }}
-                                            </p>
-                                        </ng-container>
-                                        <ng-template #select>
-                                            <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                                            <img src="assets/images/move.svg" class="move-btn" />
+                                            <img
+                                                src="assets/images/close-circle.svg"
+                                                class="remove-btn"
+                                                (click)="removeFeaturedProduct(i)"
+                                            />
+                                            <div class="bottom-wrap">
+                                                <span class="fnt-12 lh-normal text-white fnt-bold ellipsis">
+                                                    {{ featuredProducts[i].name }}
+                                                </span>
+                                                <a routerLink="/brand-profile/featured-products">
+                                                    <img src="assets/images/menu.svg" alt="menu" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div
+                                            *ngIf="!(featuredProducts && featuredProducts[i])"
+                                            class="select-product bg-f8"
+                                        >
+                                            <a routerLink="/brand-profile/featured-products">
+                                                <img
+                                                    class="plus-circle cursor-pointer"
+                                                    src="assets/images/plus-circle.svg"
+                                                />
+                                            </a>
                                             <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">Select a product</p>
-                                        </ng-template>
-                                    </div>
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </div>
                         </div>

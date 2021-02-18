@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -10,6 +11,7 @@ import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
 import { ConfirmComponent } from '@shared';
+import * as _ from 'underscore';
 @Component({
     selector: 'app-home-page',
     templateUrl: './home-page.component.html',
@@ -212,6 +214,23 @@ export class HomePageComponent implements OnInit {
         this.roasterService.getFeaturedProducts(this.roasterId).subscribe((res: any) => {
             if (res.success) {
                 this.featuredProducts = res.result;
+            }
+        });
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.featuredProducts, event.previousIndex, event.currentIndex);
+    }
+
+    removeFeaturedProduct(idx) {
+        this.featuredProducts.splice(idx, 1);
+        const productIds = _.pluck(this.featuredProducts, 'id');
+        this.roasterService.updateFeatured(this.roasterId, productIds).subscribe((res: any) => {
+            if (res.success) {
+                this.toastrService.success('Featured products updated successfully');
+                this.getFeaturedProducts();
+            } else {
+                this.toastrService.error('Error while updating featured products');
             }
         });
     }
