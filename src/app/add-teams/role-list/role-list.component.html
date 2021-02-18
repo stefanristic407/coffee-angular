@@ -26,7 +26,7 @@
         </button>
     </div>
     <div
-        class="table-container roleTable mt-3"
+        class="role-table-container roleTable mt-3"
         *ngIf="this.globals.checkItem('acl-list') || this.globals.checkItem('acl-management')"
     >
         <p-table
@@ -89,6 +89,15 @@
                                 <span class="d-flex flex-grow-1 mt-1">
                                     {{ rowData['name'] }}
                                 </span>
+                                <div class="greyClass mt-1 mr-5 justify-content-end">
+                                    <span>
+                                        <img
+                                            src="assets/images/role-grey.svg"
+                                            alt="Dashboard"
+                                            (click)="teamMembers(rowData, true)"
+                                        />
+                                    </span>
+                                </div>
                                 <span class="show_btns d-none d-sm-none d-md-block">
                                     <button
                                         type="button"

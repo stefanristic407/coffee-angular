@@ -1,9 +1,12 @@
-.table-container {
+.role-table-container {
     border-radius: 4px;
     border: solid 1px #d6d6d6;
 }
 .show_btns {
-    margin-right: 3.5rem;
+    margin-right: 3rem;
+}
+.greyClass {
+    display: none !important;
 }
 ::ng-deep .roleTable .p-datatable .p-sortable-column:not(.p-highlight):hover {
     background: #ffffff;
@@ -47,6 +50,17 @@
 .pointer-item {
     cursor: pointer;
 }
+@media only screen and (max-width: 1240px) {
+    .show_btns {
+        display: none !important;
+    }
+    .rowClass:hover > td > .tdClass > .d-md-flex > .show_btns {
+        display: none !important;
+    }
+    .greyClass {
+        display: flex !important;
+    }
+}
 @media only screen and (max-width: 767px) {
     :host ::ng-deep .roleTable .p-datatable .p-datatable-tbody > tr {
         border: 1px solid #d6d6d6;
@@ -56,7 +70,18 @@
     .ellipsisClass {
         float: right;
     }
-    .table-container {
+    .role-table-container {
+        border: solid 0px #d6d6d6;
+    }
+    :host ::ng-deep .roleTable .p-datatable .p-datatable-tbody > tr {
+        border: 1px solid #d6d6d6;
+        display: flex;
+        margin-bottom: 16px;
+    }
+    .ellipsisClass {
+        float: right;
+    }
+    .role-table-container {
         border: solid 0px #d6d6d6;
     }
 }

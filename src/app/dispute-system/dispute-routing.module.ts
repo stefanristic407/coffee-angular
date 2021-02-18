@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from '../error-module/page-not-found/page-not-f
 import { AuthGuard } from '../guards/auth.guard';
 import { AssignUserComponent } from './assign-user/assign-user.component';
 import { DisputeComponent } from './dispute/dispute.component';
+import { FaqQuestionComponent } from './faq-question/faq-question.component';
 import { OrderChatComponent } from './order-chat/order-chat.component';
 import { OrderSupportComponent } from './order-support/order-support.component';
 const routes: Routes = [
@@ -24,6 +25,11 @@ const routes: Routes = [
             {
                 path: 'order-support/:orderId',
                 component: OrderSupportComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'order-support-faq/:orderId',
+                component: FaqQuestionComponent,
                 canActivate: [AuthGuard],
             },
             {
