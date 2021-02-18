@@ -8,8 +8,16 @@
         border: solid 1px #30855c;
     }
     @media (min-width: 768px) {
+        min-height: 280px;
+        padding: 2rem;
+    }
+    @media (min-width: 992px) {
         min-height: 305px;
         padding: 2rem;
+        &.small {
+            min-height: 221px;
+            padding-bottom: 1rem;
+        }
     }
     .title-wrap {
         font-size: 14px;
@@ -41,5 +49,12 @@
         position: relative;
         top: -3px;
         right: 3px;
+    }
+}
+
+.slug-input {
+    width: 175px;
+    .p-inputtext {
+        padding: 0.8125rem 0.75rem !important;
     }
 }
