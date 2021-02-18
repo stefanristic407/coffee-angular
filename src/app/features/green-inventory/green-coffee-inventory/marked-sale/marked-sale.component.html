@@ -31,7 +31,7 @@
 </div>
 
 <!-- Primeng table for Marked for sale -->
-<div class="mt-4">
+<div class="mt-4 border-class">
     <p-table
         #markedTable
         [class.table-mobile]="primeTableService.isMobileView"
@@ -107,6 +107,16 @@
 
                             <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
                                 {{ rowData['origin'] | titlecase }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'varieties'">
+                        <div class="d-flex">
+                            <div></div>
+
+                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['varieties'] | titlecase }}
                             </span>
                         </div>
                     </span>

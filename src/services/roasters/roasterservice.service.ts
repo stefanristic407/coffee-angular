@@ -1161,4 +1161,14 @@ export class RoasterserviceService {
         };
         return this.http.post(this.url, data);
     }
+
+    // Get the Roaster order notes list
+    getRoasterNotes(roasterId, orderId): Observable<any> {
+        const data = {
+            api_call: `/ro/${roasterId}/orders/${orderId}/notes`,
+            token: this.cookieService.get('Auth'),
+            method: 'GET',
+        };
+        return this.http.post(this.url, data);
+    }
 }

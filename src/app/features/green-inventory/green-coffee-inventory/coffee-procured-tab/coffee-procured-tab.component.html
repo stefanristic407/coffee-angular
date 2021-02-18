@@ -22,7 +22,7 @@
 </div>
 
 <!-- Primeng table for Procured Coffee -->
-<div class="mt-4">
+<div class="mt-4 border-class">
     <p-table
         #procuredCoffeeTable
         [class.table-mobile]="primeTableService.isMobileView"
@@ -86,6 +86,14 @@
 
                             <span [class.w-50]="primeTableService.isMobileView">
                                 {{ rowData['estate_name'] }}
+                            </span>
+                        </div>
+                    </span>
+
+                    <span *ngSwitchCase="'varieties'">
+                        <div class="d-flex">
+                            <span *ngIf="!primeTableService.isMobileView" class="truncate break-word">
+                                {{ rowData['varieties'] }}
                             </span>
                         </div>
                     </span>

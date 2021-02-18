@@ -72,6 +72,7 @@ export class ProcuredCoffeeComponent implements OnInit {
     ];
     breadItems: any = [];
     selectedTab = 0;
+    roasterNotes: any = [];
     constructor(
         public gallery: Gallery,
         public lightbox: Lightbox,
@@ -101,6 +102,7 @@ export class ProcuredCoffeeComponent implements OnInit {
         lightboxRef.load(this.items);
         this.language();
         this.getOrderDetails();
+        this.getRoasterNotes();
     }
     getOrderDetails() {
         this.roasterService.getProcuredCoffeeDetails(this.roaster_id, this.orderID).subscribe(
@@ -129,6 +131,18 @@ export class ProcuredCoffeeComponent implements OnInit {
                     this.orderDetails.flavour_profile = result.flavours;
                     this.orderDetails.wet_mill = result.wet_milling.name;
                     this.orderDetails.processing = result.processing_types;
+                }
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
+    }
+    getRoasterNotes() {
+        this.roasterService.getRoasterNotes(this.roaster_id, this.orderID).subscribe(
+            (response) => {
+                if (response && response.success && response.result) {
+                    this.roasterNotes = response.result;
                 }
             },
             (err) => {
