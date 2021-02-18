@@ -1150,4 +1150,15 @@ export class RoasterserviceService {
         };
         return this.http.post(this.url, data);
     }
+
+    // Save the slug for the organization
+    updateRoasterSlug(roasterId, slug: any) {
+        const data = {
+            api_call: `/ro/${roasterId}/slug`,
+            token: this.cookieService.get('Auth'),
+            method: 'POST',
+            data: { slug },
+        };
+        return this.http.post(this.url, data);
+    }
 }

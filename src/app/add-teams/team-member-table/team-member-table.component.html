@@ -34,7 +34,7 @@
                     placeholder="{{ globals.languageJson?.search_name_role }}"
                 />
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 p-0">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 p-0 inviteBtn">
                 <button class="btn btn-raised pull-right" (click)="inviteNewMembers()">
                     <span class="update_text">{{ globals.languageJson?.invite_new_members }}</span>
                 </button>
@@ -103,6 +103,7 @@
                 [(ngModel)]="termRole"
                 (onChange)="filterCall()"
                 scrollHeight="225px"
+                [showClear]="true"
                 placeholder="Role"
                 styleClass="round-border mr-2 mb-3 mb-md-4 {{ termRole ? 'highlight' : '' }}"
             >
@@ -137,7 +138,7 @@
     <div *ngIf="roleList && roleList.length" class="table-container userTable mb-2">
         <p-table
             #myTable
-            [class.table-mobile]="sharedService.isMobileView"
+            [class.table-mobile]="true"
             [value]="tableValue"
             [columns]="tableColumns"
             dataKey="id"
@@ -151,11 +152,11 @@
             [totalRecords]="totalCount"
             selectionMode="multiple"
             [(selection)]="selectedUsers"
-            [responsive]="sharedService.isMobileView"
+            [responsive]="true"
         >
             <ng-template pTemplate="header" let-columns>
                 <tr class="d-none d-sm-none d-md-table-row">
-                    <th *ngIf="isAddMember" style="width: 5%" class="">
+                    <th *ngIf="isAddMember" style="width: 5%" class="checkBoxClass">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
                     <th
@@ -193,7 +194,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr class="cursor-pointer">
-                    <td *ngIf="isAddMember" class="d-none d-sm-none d-md-table-cell">
+                    <td *ngIf="isAddMember" class="d-none d-sm-none d-md-table-cell checkBoxClass">
                         <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                     </td>
                     <td
@@ -214,7 +215,7 @@
                             <span class="d-none d-sm-none d-md-block tableDataFont">
                                 {{ rowData[col.field] }}
                             </span>
-                            <div class="d-block d-sm-block d-md-none">
+                            <div class="d-block d-sm-block d-md-none mobileNameDiv">
                                 <span>{{ rowData[col.field] }}</span>
                                 <span
                                     *ngIf="rowData['status'] == 'ACTIVE'"
@@ -233,7 +234,7 @@
                                 ></p-tableCheckbox>
                                 <ng-container *ngIf="!isAddMember">
                                     <a
-                                        class="menu-arrow float-right"
+                                        class="menu-arrow float-right ellipsisWidth"
                                         [popover]="poplistTemplate"
                                         placement="left"
                                         [outsideClick]="true"
@@ -323,7 +324,7 @@
                             </div>
                         </span>
                         <span *ngSwitchCase="'roles'">
-                            <span>{{ rowData['roleLable'] }}</span>
+                            <span class="d-none d-sm-none d-md-block tableDataFont">{{ rowData['roleLable'] }}</span>
                             <!-- <span
                                 *ngFor="let role of rowData[col.field]; let i = index; last as isLast"
                                 class="d-none d-sm-none d-md-block tableDataFont"
@@ -336,7 +337,10 @@
                             </span> -->
                             <div class="d-flex d-sm-flex d-md-none">
                                 <span class="prime-table-label w-50 mobileLable"> All Roles </span>
-                                <div class="w-50 ml-2">
+                                <span class="w-50 tableDataFont ml-2">
+                                    {{ rowData['roleLable'] }}
+                                </span>
+                                <!-- <div class="w-50 ml-2">
                                     <div
                                         *ngFor="let role of rowData[col.field]; let i = index; last as isLast"
                                         class="tableDataFont"
@@ -347,7 +351,7 @@
                                             >+{{ rowData[col.field].length - 2 }}</span
                                         >
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </span>
                         <span *ngSwitchCase="'email'" class="">
@@ -372,7 +376,7 @@
                         <span *ngSwitchCase="'actions'">
                             <ng-container>
                                 <a
-                                    class="menu-arrow"
+                                    class="menu-arrow d-md-block w-50"
                                     [popover]="poplistTemplate"
                                     placement="left"
                                     [outsideClick]="true"

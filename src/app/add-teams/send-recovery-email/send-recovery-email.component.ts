@@ -104,16 +104,13 @@ export class SendRecoveryEmailComponent implements OnInit {
         const obj1: MenuItem = {
             label: this.globals.languageJson?.home,
             routerLink: '/features/welcome-aboard',
-            disabled: false,
         };
         const obj2: MenuItem = {
             label: this.globals.languageJson?.people,
             routerLink: '/people/manage-role',
-            disabled: true,
         };
         const obj3: MenuItem = {
             label: 'User Management',
-            disabled: true,
         };
         this.breadCrumbItem.push(obj1);
         this.breadCrumbItem.push(obj2);
