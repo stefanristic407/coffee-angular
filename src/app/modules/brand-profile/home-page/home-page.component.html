@@ -116,10 +116,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-4">Size - 540 x 445 px</p>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 540 x 445 px</p>
                             <app-uploader formControlName="wizard_image" type="image"></app-uploader>
                             <small *ngIf="infoForm.controls.wizard_image.errors?.required" class="p-error">
                                 Please upload
@@ -150,26 +150,28 @@
                                 Please input 15 words
                             </small>
                         </div>
-                        <div class="row gutter-8 gutter-md-16">
-                            <div *ngFor="let i of [0, 1, 2, 3]" class="col-lg-3 mb-3 md-md-0">
-                                <div
-                                    class="select-product cursor-pointer"
-                                    routerLink="/brand-profile/featured-products"
-                                >
-                                    <ng-container *ngIf="featuredProducts && featuredProducts[i]; else select">
-                                        <img
-                                            class="product-img"
-                                            [src]="featuredProducts[i].featured_image"
-                                            alt="Product"
-                                        />
-                                        <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">
-                                            {{ featuredProducts[i].name }}
-                                        </p>
-                                    </ng-container>
-                                    <ng-template #select>
-                                        <img class="plus-circle" src="assets/images/plus-circle.svg" />
-                                        <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">Select a product</p>
-                                    </ng-template>
+                        <div class="overflow-auto">
+                            <div class="row flex-nowrap gutter-8 gutter-md-16">
+                                <div *ngFor="let i of [0, 1, 2, 3]" class="col-6 col-lg-3 mb-3 md-md-0">
+                                    <div
+                                        class="select-product cursor-pointer"
+                                        routerLink="/brand-profile/featured-products"
+                                    >
+                                        <ng-container *ngIf="featuredProducts && featuredProducts[i]; else select">
+                                            <img
+                                                class="product-img"
+                                                [src]="featuredProducts[i].featured_image"
+                                                alt="Product"
+                                            />
+                                            <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">
+                                                {{ featuredProducts[i].name }}
+                                            </p>
+                                        </ng-container>
+                                        <ng-template #select>
+                                            <img class="plus-circle" src="assets/images/plus-circle.svg" />
+                                            <p class="fnt-14 fnt-600 fnt-muli text-clr588 m-0">Select a product</p>
+                                        </ng-template>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -228,10 +230,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-4">Size - 540 x 445 px</p>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 540 x 445 px</p>
                             <app-uploader formControlName="traceability_story_file_1"></app-uploader>
                             <small *ngIf="infoForm.controls.traceability_story_file_1.errors?.required" class="p-error">
                                 Please upload
@@ -281,10 +283,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-4">Size - 600 x 650 px</p>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 600 x 650 px</p>
                             <app-uploader formControlName="sustainability_file_1"></app-uploader>
                             <small *ngIf="infoForm.controls.sustainability_file_1.errors?.required" class="p-error">
                                 Please upload
@@ -313,10 +315,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload 2 Images<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 fnt-muli text-clr588 mb-4">Size - 600 x 650 px</p>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 600 x 650 px</p>
                             <app-uploader formControlName="roastery_images" [count]="2" type="image"></app-uploader>
                             <small *ngIf="infoForm.controls.roastery_images.errors?.fileCount" class="p-error">
                                 Please upload 2 images

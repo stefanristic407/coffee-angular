@@ -60,10 +60,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 815 x 449 px</p>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 815 x 449 px</p>
                             <app-uploader formControlName="intro_file"></app-uploader>
                             <small *ngIf="infoForm.controls.intro_file.errors?.required" class="p-error">
                                 Please upload
@@ -165,10 +165,10 @@
                             </div>
 
                             <div class="w-100 sewn-form-field mb-2">
-                                <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                                <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                     Upload {{ i === 3 ? '2 Image/Video' : 'an Image/Video' }}<span class="star">*</span>
                                 </p>
-                                <p class="fnt-14 fnt-600 text-clr588 mb-4">
+                                <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
                                     Size - {{ i === 3 ? '282 x 460' : '389 x 417' }} px
                                 </p>
                                 <app-uploader
@@ -194,7 +194,7 @@
                     <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
                         <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-4">Product Labels</h4>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 A short description*<span class="star">*</span>
                                 <span class="pull-right text-clr588">
@@ -219,10 +219,10 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload 4 label icons<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 100 x 100 px</p>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 100 x 100 px</p>
                             <app-uploader formControlName="product_label_icon" [count]="4" type="image"></app-uploader>
                             <small *ngIf="infoForm.controls.product_label_icon.errors?.fileCount" class="p-error">
                                 Please upload 4 icons
