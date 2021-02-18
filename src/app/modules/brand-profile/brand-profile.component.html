@@ -27,9 +27,15 @@
                     {{ '' | roasterBrandLink }}
                 </div>
                 <div class="sewn-form-field slug-input mr-3 mr-md-2 mb-0">
-                    <input type="text" [(ngModel)]="slug" placeholder="your-custom-name" pInputText />
+                    <input
+                        type="text"
+                        [(ngModel)]="slug"
+                        placeholder="your-custom-name"
+                        pInputText
+                        [readonly]="roasterSlug"
+                    />
                 </div>
-                <a *ngIf="!slug" class="btn-raised" (click)="updateSlug()">
+                <a *ngIf="!roasterSlug" class="btn-raised" (click)="updateSlug()">
                     {{ globals.languageJson?.save }}
                 </a>
             </div>
