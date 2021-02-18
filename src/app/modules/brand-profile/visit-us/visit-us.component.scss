@@ -10,13 +10,20 @@
         span {
             margin-left: 16px;
             color: $button-icon-color;
-            transform: rotate(-180deg);
             transition: all 0.2s;
         }
 
         &.collapsed {
             span {
-                transform: rotate(0deg);
+                transform: rotate(-180deg);
+            }
+        }
+
+        &:not(.collapsed) {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            h2 {
+                color: $general-text-color !important;
             }
         }
 
@@ -33,6 +40,19 @@
         }
     }
     .answer-wrap {
-        padding: 8px 8px;
+        padding: 16px 24px 24px 24px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-top: none;
+        @media (min-width: 768px) {
+            padding: 16px 48px 24px 36px;
+        }
+    }
+
+    .btn-wrap {
+        margin-top: 8px;
+        @media (min-width: 768px) {
+            margin-top: 14px;
+        }
     }
 }

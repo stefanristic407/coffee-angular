@@ -35,12 +35,15 @@
 
 // sewn-form-field
 .sewn-form-field {
-    margin-bottom: 1.375rem;
+    margin-bottom: 1rem;
     display: inline-flex;
     flex-direction: column;
+    @media (min-width: 768px) {
+        margin-bottom: 1.5rem;
+    }
     label {
         color: $general-text-color;
-        line-height: 1;
+        line-height: normal;
         margin-bottom: 0.5rem;
         font-weight: 600;
     }
