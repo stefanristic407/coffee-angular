@@ -28,12 +28,12 @@ span.star {
 
 .back-page {
     position: relative;
-    padding-left: 24px;
-    font-size: 14px;
+    padding-left: 32px;
+    font-size: 16px;
     color: $brown-color;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
-    line-height: 16px;
+    line-height: 20px;
     text-decoration: none !important;
     @media (min-width: 768px) {
         padding-left: 32px;
@@ -45,10 +45,10 @@ span.star {
     &::before {
         content: '';
         position: absolute;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         left: 0;
-        top: 1px;
+        top: 0;
         background-image: url('/assets/images/back-arrow-1.svg');
         background-size: cover;
         background-position: center;
@@ -62,9 +62,6 @@ span.star {
     &:hover {
         color: $brown-color;
         text-decoration: underline !important;
-        // &::before {
-        //     transform: translateX(-6px);
-        // }
     }
 }
 
