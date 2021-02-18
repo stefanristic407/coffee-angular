@@ -1,0 +1,7 @@
+<div class="d-flex justify-content-between">
+    <div *ngFor="let item of days; index as i">
+        <div class="day-warp" [class.checked]="!!item.checked" (click)="onClick(i)">
+            <span>{{ item.label }}</span>
+        </div>
+    </div>
+</div>

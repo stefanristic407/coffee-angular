@@ -1,0 +1,24 @@
+@import '_variables.scss';
+
+.day-warp {
+    width: 24px;
+    height: 24px;
+    font-weight: 600;
+    color: $muted-text-color;
+    background: $primary-bg-color;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (min-width: 768px) {
+        width: 36px;
+        height: 36px;
+        font-weight: normal;
+    }
+
+    &.checked {
+        color: #fff;
+        background: $primary-color;
+    }
+}

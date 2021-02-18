@@ -1,0 +1,8 @@
+<input
+    type="text"
+    ng2TelInput
+    class="phone-number-input w-100"
+    (ng2TelOutput)="getPhoneNumber($event)"
+    (hasError)="hasError($event)"
+    (intlTelInputObject)="telInputObject($event)"
+/>

@@ -203,6 +203,7 @@ export class LoginComponent implements OnInit {
                         this.cookieService.set('userName', data.result.first_name + ' ' + data.result.last_name);
                         this.cookieService.set('Auth', data['Authorization']);
                         this.cookieService.set('roaster_id', data['result'].roasters.id);
+                        this.cookieService.set('roasterSlug', data['result'].roasters.org_slug);
 
                         this.userService.getUserPermissions(data['result'].roasters.id).subscribe(
                             (result) => {
@@ -237,7 +238,6 @@ export class LoginComponent implements OnInit {
                                 if (result['success'] == true) {
                                     this.loginButtonValue = 'Logging in';
                                     this.cookieService.set('name', result['result'].name);
-                                    this.cookieService.set('roasterSlug', result['result'].slug);
                                     if (result['result'].status == 'ACTIVE') {
                                         this.userService
                                             .getRoasterProfile(data['result'].roasters.id)

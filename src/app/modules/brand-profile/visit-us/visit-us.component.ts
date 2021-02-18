@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
-import { SearchCountryField, TooltipLabel, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import { maxWordCountValidator, fileCountValidator } from '@services';
+import { maxWordCountValidator } from '@services';
 import { FormService } from '@services';
 import { GlobalsService } from '@services';
 import { RoasterserviceService } from '@services';
 import { UserserviceService } from '@services';
-import { RoasteryProfileService } from 'src/app/features/roastery-profile/roastery-profile.service';
+import { ConfirmComponent } from '@shared';
 @Component({
     selector: 'app-visit-us',
     templateUrl: './visit-us.component.html',
     styleUrls: ['./visit-us.component.scss'],
+    providers: [DialogService],
 })
 export class VisitUsComponent implements OnInit {
     roasterId: string;
@@ -23,30 +23,14 @@ export class VisitUsComponent implements OnInit {
     breadItems: any[];
     infoForm: FormGroup;
     cities: any[] = [];
-    SearchCountryField = SearchCountryField;
-    TooltipLabel = TooltipLabel;
-    CountryISO = CountryISO;
-    PhoneNumberFormat = PhoneNumberFormat;
-    preferredCountries: CountryISO[] = [CountryISO.Sweden, CountryISO.India];
+    questionForm: FormGroup;
+    editQuestion = false;
+    selQuestion = null;
 
-    country: string = '';
-    state: string = '';
-    address1: string = '';
-    address2: string = '';
-    city: string = '';
-    zip_code: string = '';
-    email: string = '';
-    phoneNumber: string = '';
-    banner_id: any;
-    banner_image_name: string = '';
     savedFaqArray: any[] = [];
-    questionArray = [];
-    public addanotherrow: number;
-    questionTypeError: string;
-    questionAnswerError: string;
-    questionError: string;
 
     constructor(
+        public dialogSrv: DialogService,
         private fb: FormBuilder,
         private router: Router,
         private formSrv: FormService,
@@ -55,19 +39,9 @@ export class VisitUsComponent implements OnInit {
         private cookieService: CookieService,
         private userService: UserserviceService,
         private roasterService: RoasterserviceService,
-        public roasterProfileService: RoasteryProfileService,
     ) {
         this.roasterId = this.cookieService.get('roaster_id');
         this.roasterSlug = this.cookieService.get('roasterSlug');
-        this.questionArray.push({
-            id: 1,
-            question: '',
-            answer: '',
-            type: '',
-        });
-        this.questionTypeError = '';
-        this.questionError = '';
-        this.questionAnswerError = '';
     }
     ngOnInit(): void {
         this.breadItems = [
@@ -86,113 +60,38 @@ export class VisitUsComponent implements OnInit {
             zip_code: ['', Validators.compose([Validators.required])],
             email: ['', Validators.compose([Validators.required, Validators.email])],
             phone: ['', Validators.compose([Validators.required])],
+            store_open_days: ['', Validators.compose([Validators.required])],
+            storeTime: [null],
         });
         this.getVisitDetails();
         this.getFAQList();
     }
 
-    drop(event: CdkDragDrop<string[]>) {
-        moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
-    }
-
-    //Description: This function helps for saving question.
-    saveQuestion(rowcount, event) {
-        for (let j = 0; j < this.questionArray.length; j++) {
-            if (this.questionArray[j].question == '' && this.questionArray[j].answer == '') {
-                $('.myAlert-top').show();
-                this.questionTypeError = 'Please Fill the mandatory Fields';
-                this.questionAnswerError = 'Please Fill the mandatory Fields';
-                this.questionError = 'Please Fill the mandatory Fields';
-                document.getElementById('question_answer').style.border = '1px solid #d50000';
-                document.getElementById('question').style.border = '1px solid #d50000';
-                // document.getElementById("certification_year").style.border =
-                // "1px solid #d50000";
-                document.getElementById('question_type').style.border = '1px solid #d50000';
-                setTimeout(() => {
-                    this.questionTypeError = '';
-                    this.questionAnswerError = '';
-                    this.questionError = '';
-                }, 3000);
+    getVisitDetails() {
+        this.userService.getPageDetails(this.roasterId, 'visit-us').subscribe(async (res: any) => {
+            if (res.success) {
+                this.infoForm.patchValue(res.result);
+                this.infoForm.get('storeTime').setValue([res.result.store_open_time, res.result.store_close_time]);
+                this.changeCountry();
+                if (res.result.banner_file) {
+                    this.infoForm.controls.banner_file.setValue({
+                        id: res.result.banner_file,
+                        url: res.result.banner_file_url,
+                    });
+                }
             }
-            // else if (
-            //   this.questionArray[j].type == "" ||
-            //   this.questionArray[j].type == null ||
-            //   this.questionArray[j].type == undefined
-            // ) {
-            //   $(".myAlert-top").show();
-            //   this.questionTypeError = "Please enter type";
-            //   document.getElementById("question_type").style.border =
-            //     "1px solid #d50000";
-            //   setTimeout(() => {
-            //     this.questionTypeError = "";
-            //   }, 3000);
-            // }
-            else if (
-                this.questionArray[j].answer == '' ||
-                this.questionArray[j].answer == null ||
-                this.questionArray[j].answer == undefined
-            ) {
-                $('.myAlert-top').show();
-                this.questionAnswerError = 'Please enter Answer';
-                document.getElementById('question_answer').style.border = '1px solid #d50000';
-                setTimeout(() => {
-                    this.questionAnswerError = '';
-                }, 3000);
-            } else if (
-                this.questionArray[j].question == '' ||
-                this.questionArray[j].question == null ||
-                this.questionArray[j].question == undefined
-            ) {
-                $('.myAlert-top').show();
-                this.questionError = 'Please enter question';
-                document.getElementById('question').style.border = '1px solid #d50000';
-                setTimeout(() => {
-                    this.questionError = '';
-                }, 3000);
-            } else {
-                const payload = {
-                    question: this.questionArray[j].question,
-                    faq_type: 'DISPUTE',
-                    answer: this.questionArray[j].answer,
-                    status: 'ENABLED',
-                };
-                this.userService.addFAQ(this.roasterId, payload).subscribe(
-                    (data) => {
-                        // console.log(data)
-                        this.savedFaqArray.push({
-                            id: this.questionArray[j].id,
-                            question: this.questionArray[j].question,
-                            type: this.questionArray[j].type,
-                            answer: this.questionArray[j].answer,
-                        });
-                        this.questionArray = [];
-                        this.getFAQList();
-                        this.toastrService.success('FAQ added successfully');
-                    },
-                    (err) => {
-                        this.toastrService.error('Error while adding');
-                    },
-                );
-            }
-        }
-        if (this.questionArray.length == 0) {
-            this.questionArray.push({
-                id: 1,
-                question: '',
-                answer: '',
-                type: '',
-            });
-        }
+        });
     }
 
     savePageData() {
-        console.log(this.infoForm.value);
-        return;
         if (this.infoForm.valid) {
             const postData = {
                 ...this.infoForm.value,
                 banner_file: this.infoForm.value.banner_file.id,
+                store_open_time: this.infoForm.value.storeTime[0],
+                store_close_time: this.infoForm.value.storeTime[1],
             };
+            delete postData.storeTime;
             this.userService.updateHomeDetails(this.roasterId, postData, 'visit-us').subscribe((res: any) => {
                 if (res.success) {
                     this.toastrService.success('Visit page Details updated successfully');
@@ -214,55 +113,93 @@ export class VisitUsComponent implements OnInit {
         }
     }
 
-    getVisitDetails() {
-        this.userService.getPageDetails(this.roasterId, 'visit-us').subscribe(async (res: any) => {
+    getFAQList() {
+        this.userService.getFAQList(this.roasterId).subscribe((res: any) => {
             if (res.success) {
-                console.log('Visit:', res.result);
-                this.infoForm.patchValue(res.result);
-                this.changeCountry();
-                if (res.result.banner_file) {
-                    this.infoForm.controls.banner_file.setValue({
-                        id: res.result.banner_file,
-                        url: res.result.banner_file_url,
-                    });
-                }
+                this.savedFaqArray = res.result;
             }
         });
     }
 
-    addnewrow() {
-        if (this.questionArray.length == 1) {
-            return;
-        }
-        var newrowc = this.addanotherrow + 1;
-        this.addanotherrow = newrowc;
-        this.questionArray.push({
-            question: '',
-            answer: '',
-            type: '',
-            id: 1,
-        });
-        //this.licenseArray.push(this.licenseArray.length);
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.savedFaqArray, event.previousIndex, event.currentIndex);
     }
 
-    getFAQList() {
-        this.userService.getFAQList(this.roasterId).subscribe((data) => {
-            this.savedFaqArray = data['result'];
+    refreshQuestionForm(idx = null) {
+        this.questionForm = this.fb.group({
+            question: ['', Validators.compose([Validators.required, maxWordCountValidator(15)])],
+            answer: ['', Validators.compose([Validators.required, maxWordCountValidator(100)])],
         });
+        this.selQuestion = idx;
+        if (idx != null) {
+            this.questionForm.patchValue(this.savedFaqArray[idx]);
+        }
+        this.editQuestion = true;
+    }
+
+    saveQuestion() {
+        if (this.questionForm.valid) {
+            const postData = {
+                ...this.questionForm.value,
+                status: 'ENABLED',
+            };
+            if (this.selQuestion == null) {
+                this.userService.addFAQ(this.roasterId, postData).subscribe(
+                    (res: any) => {
+                        if (res.success) {
+                            this.getFAQList();
+                            this.toastrService.success('FAQ added successfully');
+                            this.editQuestion = false;
+                        } else {
+                            this.toastrService.error('Error while adding');
+                        }
+                    },
+                    (err) => {
+                        this.toastrService.error('Error while adding');
+                    },
+                );
+            } else {
+                this.userService.updateFAQ(this.roasterId, this.savedFaqArray[this.selQuestion].id, postData).subscribe(
+                    (res: any) => {
+                        if (res.success) {
+                            this.getFAQList();
+                            this.toastrService.success('FAQ updated successfully');
+                            this.editQuestion = false;
+                        } else {
+                            this.toastrService.error('Error while updating');
+                        }
+                    },
+                    (err) => {
+                        this.toastrService.error('Error while updating');
+                    },
+                );
+            }
+        } else {
+            this.formSrv.markGroupDirty(this.questionForm);
+        }
     }
 
     deleteFAQ(faq) {
-        if (confirm('Please confirm! you want to delete?') == true) {
-            this.userService.deleteFAQ(this.roasterId, faq.id).subscribe((response) => {
-                if (response['success'] == true) {
-                    this.toastrService.success('The selected FAQ has been deleted successfully');
-                    this.getFAQList();
-                } else {
-                    this.toastrService.error('Something went wrong while deleting the FAQ');
+        this.dialogSrv
+            .open(ConfirmComponent, {
+                data: {
+                    title: 'Confirm delete',
+                    desp: 'Are you sure want to delete faq',
+                },
+                showHeader: false,
+                styleClass: 'confirm-dialog',
+            })
+            .onClose.subscribe((action: any) => {
+                if (action === 'yes') {
+                    this.userService.deleteFAQ(this.roasterId, faq.id).subscribe((res: any) => {
+                        if (res.success) {
+                            this.toastrService.success('The selected FAQ has been deleted successfully');
+                            this.getFAQList();
+                        } else {
+                            this.toastrService.error('Something went wrong while deleting the FAQ');
+                        }
+                    });
                 }
             });
-        }
     }
-
-    editFAQ(faq) {}
 }

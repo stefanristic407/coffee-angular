@@ -4,14 +4,20 @@
     padding: 1.5rem;
     border-radius: 4px;
 }
-.main-block {
-    padding: 32px 48px 64px 48px;
-}
 .contentDiv {
     height: 37.56rem;
 }
 .inputPadding {
     margin-top: 3rem;
+}
+.role_txt {
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
 }
 .removeRoleBtn {
     padding: 0px;
@@ -51,12 +57,15 @@
 }
 .enableBtn {
     background-color: $primary-color;
-    padding: 0px 16px;
+    padding: 4px 16px;
     color: #fff !important;
+    font-size: 12px;
     border-radius: 4px !important;
 }
 .disbableBtn {
-    padding: 0px 16px;
+    padding: 4px 16px;
+    color: #979797;
+    font-size: 12px;
 }
 .greyText {
     font-family: Muli;
@@ -74,15 +83,15 @@
         padding: 1rem;
         border-radius: 4px;
     }
+    .userDiv {
+        padding: 0px;
+    }
     .inputPadding {
         margin-top: 1rem;
     }
     .removeRoleBtn {
         padding: 0px 15px;
         margin-bottom: 0.5rem;
-    }
-    .main-block {
-        padding: 16px 24px 32px 24px;
     }
     .contentDiv {
         height: auto;
