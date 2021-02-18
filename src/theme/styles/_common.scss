@@ -28,12 +28,12 @@ span.star {
 
 .back-page {
     position: relative;
-    padding-left: 24px;
-    font-size: 14px;
+    padding-left: 32px;
+    font-size: 16px;
     color: $brown-color;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
-    line-height: 16px;
+    line-height: 20px;
     text-decoration: none !important;
     @media (min-width: 768px) {
         padding-left: 32px;
@@ -45,10 +45,10 @@ span.star {
     &::before {
         content: '';
         position: absolute;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         left: 0;
-        top: 1px;
+        top: 0;
         background-image: url('/assets/images/back-arrow-1.svg');
         background-size: cover;
         background-position: center;
@@ -62,9 +62,6 @@ span.star {
     &:hover {
         color: $brown-color;
         text-decoration: underline !important;
-        // &::before {
-        //     transform: translateX(-6px);
-        // }
     }
 }
 
@@ -277,45 +274,6 @@ span.star {
         width: auto;
     }
 }
-ngx-intl-tel-input {
-    .custom-intl-tel-input {
-        height: 50px !important;
-        border: 1px solid $primary-border-color !important;
-        border-radius: 4px;
-        color: $general-text-color;
-        font-family: 'Muli', sans-serif !important;
-        font-weight: bold;
-        font-size: 14px;
-
-        &:hover {
-            border-color: $primary-color !important;
-        }
-    }
-
-    .iti__selected-flag {
-        margin-left: 8px !important;
-    }
-
-    .iti__flag-container {
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
-    }
-
-    .iti--allow-dropdown input {
-        padding-left: 63px !important;
-    }
-
-    .dropdown-toggle {
-        border-right: 1px solid #d6d6d6 !important;
-    }
-    &.w-100 .iti--allow-dropdown {
-        width: 100% !important;
-
-        .custom-intl-tel-input {
-            width: 100% !important;
-        }
-    }
-}
 
 .chart-tooltip {
     background-color: #fff;
@@ -351,4 +309,43 @@ ngx-intl-tel-input {
     // & > div {
     //     min-width: 968px;
     // }
+}
+
+// Phone number input
+.phone-number-input {
+    height: 50px !important;
+    border: 1px solid $primary-border-color;
+    border-radius: 4px;
+    color: $general-text-color;
+    font-family: 'Muli', sans-serif !important;
+    font-weight: 600;
+    font-size: 14px;
+    padding-left: 64px !important;
+    &:hover {
+        border-color: $primary-color !important;
+    }
+}
+
+.iti__flag-container {
+    left: 9px !important;
+}
+
+.iti__selected-flag {
+    border-right: 1px solid #d6d6d6 !important;
+}
+
+.iti {
+    width: 100% !important;
+}
+
+.iti__flag-container {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.phone-number-input.ng-invalid {
+    border: 1px solid $invalid-color !important;
+    &:hover {
+        border-color: $invalid-color !important;
+    }
 }

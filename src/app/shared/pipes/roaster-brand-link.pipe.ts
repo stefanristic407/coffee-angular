@@ -6,6 +6,6 @@ import { environment } from '@env/environment';
 })
 export class RoasterBrandLinkPipe implements PipeTransform {
     transform(slug: string, page: string = ''): string {
-        return `${environment.roasterBrandProfileUrl}/${slug}/${page}`;
+        return `${environment.roasterBrandProfileUrl}/${slug ? slug + '/' : ''}${page}`;
     }
 }
