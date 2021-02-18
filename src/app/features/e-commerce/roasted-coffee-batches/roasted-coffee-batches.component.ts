@@ -7,210 +7,237 @@ import { data } from 'jquery';
 import { RoasterserviceService } from 'src/services/roasters/roasterservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import {GlobalsService} from 'src/services/globals.service';
+import { GlobalsService } from 'src/services/globals.service';
 import { UserserviceService } from 'src/services/users/userservice.service';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { SharedServiceService } from '@app/shared/services/shared-service.service';
 
 @Component({
-  selector: 'app-roasted-coffee-batches',
-  templateUrl: './roasted-coffee-batches.component.html',
-  styleUrls: ['./roasted-coffee-batches.component.css']
+    selector: 'app-roasted-coffee-batches',
+    templateUrl: './roasted-coffee-batches.component.html',
+    styleUrls: ['./roasted-coffee-batches.component.css'],
 })
 export class RoastedCoffeeBatchesComponent implements OnInit {
-  termRole: any;
-  roles: any;
-  role_id: any;
-  termStatus: any;
-  teamRole: any;
-  showVar: boolean = true;
-  showRole: boolean = true;
-  term: any;
-  odd: boolean = false ;
-  appLanguage?: any;
+    termRole: any;
+    roles: any;
+    role_id: any;
+    termStatus: any;
+    teamRole: any;
+    showVar: boolean = true;
+    showRole: boolean = true;
+    term: any;
+    odd: boolean = false;
+    appLanguage?: any;
 
-  mainData: any[] = [
-    //   {
-    // 	id: '23092',
-    // 	batchname: 'Cambucha',
-    // 	estatename: 'Finca La Pampa',
-    // 	quantity: '200kg',
-    // 	createdon:'24 Jan 2020 ',
-    // 	profile:'Mild roast-467'
-    //   },
-    //   {
-    // 	id: '23092',
-    // 	batchname: 'Aero940',
-    // 	estatename: 'Finca La Pampa',
-    // 	quantity: '500kg',
-    // 	createdon:'12 Jan 2020',
-    // 	profile:'Light - medium 940'
-    //   },
-    //   {
-    // 	id: '39509',
-    // 	batchname: 'Mocha038',
-    // 	estatename: 'Finca La Toboba',
-    // 	quantity: '200kg',
-    // 	createdon:'24 Jan 2020 ',
-    // 	profile:'Mild roast-467'
-    //   },
-    //   {
-    // 	id: '23092',
-    // 	batchname: 'Cambucha',
-    // 	estatename: 'Finca La Pampa',
-    // 	quantity: '140kg',
-    // 	createdon:'13 Oct 2018',
-    // 	profile:'Medium458'
-    //   },
-    //   {
-    // 	id: '92830',
-    // 	batchname: '2879- dark',
-    // 	estatename: 'Asoproaaa',
-    // 	quantity: '279kg',
-    // 	createdon:'02 Dec 2019',
-    // 	profile:'2879- dark'
-    // },
-    // {
-    // 	id: '32940',
-    // 	batchname: 'Cambucha',
-    // 	estatename: 'Cafe Directo',
-    // 	quantity: '450kg',
-    // 	createdon:'22 Nov 2019',
-    // 	profile:'Light - medium 940'
-    // },
-    // {
-    // 	id: '02901',
-    // 	batchname: 'Aero940',
-    // 	estatename: 'La Isabela',
-    // 	quantity: '217kg',
-    // 	createdon:'19 Sep 2019',
-    // 	profile:'Medium458'
-    //   }
-  ]
-  roleData: string;
-  roleID: string;
-  roasterId: any;
-  batchId: string | number | boolean;
-  modalRef: BsModalRef;
-  deleteBatchId: any;
-  constructor(public router: Router,
-    public cookieService: CookieService,
-    public dashboard: DashboardserviceService,
-    private roasterService: RoasterserviceService,
-    private toastrService: ToastrService,
-    private userService : UserserviceService,
-    private modalService: BsModalService,
-    public globals: GlobalsService) {
-    this.termStatus = '';
-    this.termRole = '';
-    this.roasterId = this.cookieService.get('roaster_id');
-  }
+    mainData: any[] = [];
+    roleData: string;
+    roleID: string;
+    roasterId: any;
+    batchId: string | number | boolean;
+    modalRef: BsModalRef;
+    deleteBatchId: '';
+    searchForm: FormGroup;
+    profileArray: any = [];
+    profileFilter;
+    roasterID: any = '';
+    tableColumns = [];
+    tableValue = [];
+    totalCount = 0;
+    termSearch = '';
+    selectedProfiles = [];
+    popupDisplay = false;
 
-  openDeleteModal(template1:TemplateRef<any>,deleteId:any){
-    this.modalRef = this.modalService.show(template1);
-    this.deleteBatchId = deleteId;
+    breadItems = [
+        { label: 'Home', routerLink: '/roaster-dashboard' },
+        { label: 'Inventory' },
+        { label: 'New roasted coffee batch' },
+    ];
+    constructor(
+        public router: Router,
+        public cookieService: CookieService,
+        public dashboard: DashboardserviceService,
+        private roasterService: RoasterserviceService,
+        private toastrService: ToastrService,
+        private userService: UserserviceService,
+        private modalService: BsModalService,
+        public globals: GlobalsService,
+        private fb: FormBuilder,
+        public sharedService: SharedServiceService,
+    ) {
+        this.termStatus = '';
+        this.termRole = '';
+        this.roasterId = this.cookieService.get('roaster_id');
     }
 
-
-  ngOnInit(): void {
-    this.roasterCoffeeBatchsData();
-    this.appLanguage = this.globals.languageJson;
-  }
-
-  setTeamRole(term: any, roleId: any) {
-    this.teamRole = term;
-    this.role_id = roleId;
-  }
-  // Function Name : Status Filiter 
-  // Description: This function helps to filiter the users based on the selected status fiiter.
-
-  setStatus(term: any) {
-    this.termStatus = term;
-    console.log(this.termStatus)
-  }
-  // Function Name : Roles Filiter
-  // Description: This function helps to filiter the users based on the selected roles fiiter. 
-
-  setRole(term: any) {
-    this.termRole = term;
-  }
-  toggleRole() {
-    this.showRole = !this.showRole;
-    if (this.showRole == false) {
-      document.getElementById('role_id').style.border = "1px solid #30855c";
+    ngOnInit(): void {
+        this.sharedService.windowWidth = window.innerWidth;
+        this.roasterID = this.cookieService.get('roaster_id');
+        if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
+            this.sharedService.isMobileView = true;
+        }
+        this.appLanguage = this.globals.languageJson;
+        this.searchForm = this.fb.group({
+            searchField: new FormControl({ value: '' }, Validators.compose([Validators.required])),
+        });
+        this.searchForm.setValue({ searchField: '' });
+        this.searchForm.controls.searchField.valueChanges.subscribe((value) => {
+            //   this.termSearch = value;
+            this.roasterCoffeeBatchsData();
+        });
+        this.loadFilterValues();
+        this.tableColumns = [
+            {
+                field: 'roast_batch_name',
+                header: 'Batch name',
+                sortable: false,
+                width: 12,
+            },
+            {
+                field: 'order_id',
+                header: 'Order ID',
+                sortable: false,
+                width: 8,
+            },
+            {
+                field: 'estate_name',
+                header: 'Estate name',
+                width: 15,
+            },
+            {
+                field: 'roaster_ref_no',
+                header: 'Roaster Ref. No.',
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'created_at',
+                header: 'Created on',
+                sortable: false,
+                width: 10,
+            },
+            {
+                field: 'roasting_profile_quantity',
+                header: 'Quantity',
+                sortable: false,
+                width: 8,
+            },
+            {
+                field: 'roasting_profile_name',
+                header: 'Roasting profile',
+                sortable: false,
+                width: 15,
+            },
+            {
+                field: 'actions',
+                header: 'Actions',
+                sortable: false,
+                width: 15,
+            },
+        ];
     }
-    else {
-      document.getElementById('role_id').style.border = "1px solid #d6d6d6";
 
+    loadFilterValues() {
+        this.profileArray = [
+            { label: 'Light', value: 'Light' },
+            { label: 'Light Medium', value: 'Light Medium' },
+            { label: 'Medium', value: 'Medium' },
+            { label: 'Medium Dark', value: 'Medium Dark' },
+            { label: 'Dark', value: 'Dark' },
+        ];
     }
-  }
 
-  toggleStatus() {
-    this.showVar = !this.showVar;
-    if (this.showVar == false) {
-      document.getElementById('status_id').style.border = "1px solid #30855c";
+    setTeamRole(term: any, roleId: any) {
+        this.teamRole = term;
+        this.role_id = roleId;
     }
-    else {
-      document.getElementById('status_id').style.border = "1px solid #d6d6d6";
+    // Function Name : Status Filiter
+    // Description: This function helps to filiter the users based on the selected status fiiter.
 
+    setStatus(term: any) {
+        this.termStatus = term;
+        console.log(this.termStatus);
     }
-  }
-  // Function Name : CheckAll
-  // Description: This function helps to check all roles of the role list.
-  checkAll(ev: any) {
-    this.mainData.forEach(x => x.state = ev.target.checked)
-  }
+    // Function Name : Roles Filiter
+    // Description: This function helps to filiter the users based on the selected roles fiiter.
 
-  // Function Name : IsAllchecked
-  // Description: This function helps to check single role.
-  isAllChecked() {
-    return this.mainData.every(_ => _.state);
-  }
-
-  // Table data 
-  roasterCoffeeBatchsData() {
-    this.roasterService.getRoasterCoffeeBatchs(this.roasterId).subscribe(
-      data => {
-        if (data['success'] == true) {
-          if (data['result'] == null || data['result'].length == 0) {
-            this.odd = true ;
-            this.toastrService.error("Table Data is empty");
-          }
-          else {
-            this.odd = false ;
-            this.mainData = data['result'];
-          }
+    setRole(term: any) {
+        this.termRole = term;
+    }
+    toggleRole() {
+        this.showRole = !this.showRole;
+        if (this.showRole == false) {
+            document.getElementById('role_id').style.border = '1px solid #30855c';
         } else {
-          this.odd = true ;
-          this.toastrService.error("Error while getting the agreement list!");
+            document.getElementById('role_id').style.border = '1px solid #d6d6d6';
         }
-      }
-    )
-  }
-
-  
-  redirectToEdit(item){
-    this.batchId = item.id;
-    this.globals.selected_order_id = item.order_id;
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        "batchId": encodeURIComponent(this.batchId),
-      }
     }
 
-    this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
-  }
-
-  deleteRoastedBatch(deleteId : any){
-    this.roasterService.deleteRoastedCoffeeBatch(this.roasterId,deleteId).subscribe(
-      data => {
-        if(data['success'] = true){
-          this.toastrService.success("Roasted Coffee Batch deleted successfully");
-          this.roasterCoffeeBatchsData();
+    toggleStatus() {
+        this.showVar = !this.showVar;
+        if (this.showVar == false) {
+            document.getElementById('status_id').style.border = '1px solid #30855c';
+        } else {
+            document.getElementById('status_id').style.border = '1px solid #d6d6d6';
         }
-        else{
-          this.toastrService.error("Error while deletign the roasting profile");
-        }
-      }
-    )
-  }
+    }
 
+    // Table data
+    roasterCoffeeBatchsData() {
+        const postData: any = {};
+
+        postData.status = this.profileFilter ? this.profileFilter : '';
+        postData.name = this.termSearch ? this.termSearch : '';
+        postData.per_page = 100;
+        this.tableValue = [];
+        this.roasterService.getRoasterCoffeeBatchs(this.roasterId, postData).subscribe(
+            (data: any) => {
+                if (data.success) {
+                    this.tableValue = data.result;
+                } else {
+                    this.toastrService.error('Error while getting the roasted coffee batch list!');
+                }
+            },
+            (err) => {
+                this.toastrService.error('Error while getting the roasted coffee batch list!');
+            },
+        );
+    }
+
+    redirectToEdit(item) {
+        this.batchId = item.id;
+        this.globals.selected_order_id = item.order_id;
+        let navigationExtras: NavigationExtras = {
+            queryParams: {
+                batchId: encodeURIComponent(this.batchId),
+            },
+        };
+
+        this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
+    }
+
+    deleteRoastedBatch() {
+        this.roasterService.deleteRoastedCoffeeBatch(this.roasterId, this.deleteBatchId).subscribe(
+            (res) => {
+                if (res.success) {
+                    this.toastrService.success('Roasted Coffee Batch deleted successfully');
+                    this.roasterCoffeeBatchsData();
+                } else {
+                    this.toastrService.error('Error while deletign the roasting profile');
+                }
+                this.popupDisplay = false;
+            },
+            (err) => {
+                this.popupDisplay = false;
+                this.toastrService.error('Error while deletign the roasting profile');
+            },
+        );
+    }
+    filterCall() {
+        this.roasterCoffeeBatchsData();
+    }
+
+    openDeleteModal(deleteId: any) {
+        this.popupDisplay = true;
+        this.deleteBatchId = deleteId;
+    }
 }
