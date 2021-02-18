@@ -16,10 +16,7 @@ import { Table } from 'primeng/table';
 export class CoffeeProcuredTabComponent implements OnInit {
     // tslint:disable: variable-name
     termStatus: any;
-    showStatus = true;
-
     display: any;
-    showDisplay = true;
     appLanguage?: any;
     roaster_id: string;
     mainData: any[] = [];
@@ -27,9 +24,9 @@ export class CoffeeProcuredTabComponent implements OnInit {
     searchString = '';
     sellerItems = [
         { label: 'All origins', value: null },
-        { label: 'Sweden', value: 'Sweden' },
+        { label: 'Sweden', value: 'SE' },
         { label: 'UK', value: 'UK' },
-        { label: 'Germany', value: 'Germany' },
+        { label: 'India', value: 'IN' },
     ];
     displayItems = [
         { label: 'All', value: '' },
@@ -71,44 +68,44 @@ export class CoffeeProcuredTabComponent implements OnInit {
 
     @HostListener('window:resize', ['$event'])
     onResize(event?) {
-        this.initializeTable();
+        this.initializeTableProcuredCoffee();
     }
 
-    initializeTable() {
+    initializeTableProcuredCoffee() {
         this.primeTableService.windowWidth = window.innerWidth;
 
         if (this.primeTableService.windowWidth <= this.primeTableService.responsiveStartsAt) {
             this.primeTableService.isMobileView = true;
             this.primeTableService.allColumns = [
                 {
-                    field: 'status',
-                    header: 'Status',
-                    sortable: false,
-                    width: 40,
-                },
-                {
                     field: 'id',
-                    header: '',
-                    sortable: false,
-                    width: 100,
-                },
-                {
-                    field: 'facilitator_name',
-                    header: 'Facilitator',
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'service_type',
-                    header: 'Type of service',
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'actions',
-                    header: '',
+                    header: 'Order ID',
                     sortable: false,
                     width: 40,
+                },
+                {
+                    field: 'order_reference',
+                    header: 'Roaster order ref.',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'availability_name',
+                    header: 'Availability Name',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'estate_name',
+                    header: 'Estate Name',
+                    sortable: false,
+                    width: 50,
+                },
+                {
+                    field: 'quantity',
+                    header: 'Quantity',
+                    sortable: false,
+                    width: 50,
                 },
             ];
         } else {
@@ -124,13 +121,13 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'availability_name',
                     header: 'Availibility Name',
                     sortable: false,
-                    width: 50,
+                    width: 70,
                 },
                 {
                     field: 'estate_name',
                     header: 'Estate Name',
                     sortable: false,
-                    width: 50,
+                    width: 70,
                 },
                 {
                     field: 'origin',
@@ -142,7 +139,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
                     field: 'order_reference',
                     header: 'Roaster Ref. No.',
                     sortable: false,
-                    width: 50,
+                    width: 70,
                 },
                 {
                     field: 'varieties',
@@ -187,7 +184,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
     ngOnInit(): void {
         this.primeTableService.url = `/ro/${this.roaster_id}/procured-coffees`;
 
-        this.initializeTable();
+        this.initializeTableProcuredCoffee();
 
         this.primeTableService.form = this.form;
 
@@ -199,8 +196,8 @@ export class CoffeeProcuredTabComponent implements OnInit {
 
         this.appLanguage = this.globals.languageJson;
         // this.getProcuredCoffeeList();
-        this.originArray.push({ name: 'All origins', isoCode: '' });
-        this.originArray = this.originArray.concat(this.roasteryProfileService.countryList);
+        // this.originArray.push({ name: 'All origins', isoCode: '' });
+        // this.originArray = this.originArray.concat(this.roasteryProfileService.countryList);
     }
     // getProcuredCoffeeList() {
     //     const origin = this.termStatus && this.termStatus.name !== 'All' ? this.termStatus.isoCode : undefined;
@@ -228,9 +225,7 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.primeTableService.form?.patchValue({
             status: this.termStatus,
         });
-    }
-    toggleStatus() {
-        this.showStatus = !this.showStatus;
+        this.table.reset();
     }
 
     setDisplay() {
@@ -243,14 +238,9 @@ export class CoffeeProcuredTabComponent implements OnInit {
         this.table.reset();
     }
 
-    // onEdit(item) {
-    //     const navigationExtras: NavigationExtras = {
-    //         queryParams: {
-    //             orderId: item.id,
-    //         },
-    //     };
-    //     let link = [];
-    //     link = [['/features/lot-sale'], navigationExtras];
-    //     return link;
-    // }
+    onEdit(item) {
+        let link = [];
+        link = [`/features/lot-sale/${item.id}`];
+        return link;
+    }
 }

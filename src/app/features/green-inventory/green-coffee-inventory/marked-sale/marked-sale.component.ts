@@ -15,19 +15,22 @@ import { Table } from 'primeng/table';
 export class MarkedSaleComponent implements OnInit {
     // tslint:disable: variable-name
     termStatus: any;
-    showStatus = true;
-
     display: any;
-    showDisplay = true;
+    termOrigin: any;
     appLanguage?: any;
-
     mainData: any[] = [];
     roaster_id: string;
     sellerItems = [
         { label: 'All origins', value: null },
-        { label: 'Sweden', value: 'Sweden' },
+        { label: 'Sweden', value: 'SE' },
         { label: 'UK', value: 'UK' },
-        { label: 'Germany', value: 'Germany' },
+        { label: 'India', value: 'IN' },
+    ];
+    statusItems = [
+        { label: 'All', value: null },
+        { label: 'In stock', value: 'IN_STOCK' },
+        { label: 'Hidden', value: 'HIDDEN' },
+        { label: 'Sold', value: 'SOLD' },
     ];
     displayItems = [
         { label: 'All', value: '' },
@@ -81,29 +84,29 @@ export class MarkedSaleComponent implements OnInit {
                     sortable: false,
                     width: 40,
                 },
+                // {
+                //     field: 'id',
+                //     header: '',
+                //     sortable: false,
+                //     width: 100,
+                // },
                 {
-                    field: 'id',
-                    header: '',
-                    sortable: false,
-                    width: 100,
-                },
-                {
-                    field: 'facilitator_name',
-                    header: 'Facilitator',
-                    sortable: false,
-                    width: 50,
-                },
-                {
-                    field: 'service_type',
-                    header: 'Type of service',
+                    field: 'product_name',
+                    header: 'Product Name',
                     sortable: false,
                     width: 50,
                 },
                 {
-                    field: 'actions',
-                    header: '',
+                    field: 'estate_name',
+                    header: 'Estate Name',
                     sortable: false,
-                    width: 40,
+                    width: 50,
+                },
+                {
+                    field: 'origin',
+                    header: 'Origin',
+                    sortable: false,
+                    width: 50,
                 },
             ];
         } else {
@@ -116,7 +119,7 @@ export class MarkedSaleComponent implements OnInit {
                     width: 50,
                 },
                 {
-                    field: 'availability_name',
+                    field: 'estate_name',
                     header: 'Estate Name',
                     sortable: false,
                     width: 50,
@@ -204,9 +207,13 @@ export class MarkedSaleComponent implements OnInit {
         this.primeTableService.form?.patchValue({
             status: this.termStatus,
         });
+        this.table.reset();
     }
-    toggleStatus() {
-        this.showStatus = !this.showStatus;
+    setOrigin() {
+        this.primeTableService.form?.patchValue({
+            origin: this.termOrigin,
+        });
+        this.table.reset();
     }
 
     setDisplay() {
@@ -219,12 +226,9 @@ export class MarkedSaleComponent implements OnInit {
         this.table.reset();
     }
 
-    // onEdit(item) {
-    //   let navigationExtras: NavigationExtras = {
-    //     queryParams: {
-    //       orderId: item.order_id,
-    //     }
-    //   };
-    //   this.router.navigate(["/features/lot-sale"], navigationExtras);
-    // }
+    onEdit(item) {
+        let link = [];
+        link = [`/features/lot-sale/${item.id}`];
+        return link;
+    }
 }

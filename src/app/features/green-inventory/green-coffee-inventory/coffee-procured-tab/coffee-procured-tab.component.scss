@@ -174,3 +174,7 @@ tr:last-child {
 .check-middle-header .checkmark {
     top: -3px !important;
 }
+
+.p-datatable .p-datatable-tbody > tr > td:first-child {
+    padding-left: 0rem !important;
+}

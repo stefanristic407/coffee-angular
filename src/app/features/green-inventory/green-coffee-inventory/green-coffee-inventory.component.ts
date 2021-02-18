@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalsService } from 'src/services/globals.service';
 import { CoffeeProcuredTabComponent } from './coffee-procured-tab/coffee-procured-tab.component';
 import { MarkedSaleComponent } from './marked-sale/marked-sale.component';
+import { PrimeTableService } from 'src/services/prime-table.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-green-coffee-inventory',
@@ -19,9 +21,14 @@ export class GreenCoffeeInventoryComponent implements OnInit {
         { label: 'Green coffee management' },
     ];
     selectedTab = 0;
+    isProcuredTab = true;
     @ViewChild(CoffeeProcuredTabComponent, { static: false }) procureTab;
     @ViewChild(MarkedSaleComponent, { static: false }) markForSaleTab;
-    constructor(public globals: GlobalsService) {}
+    constructor(
+        public globals: GlobalsService,
+        public cookieService: CookieService,
+        public primeTableService: PrimeTableService,
+    ) {}
 
     ngOnInit(): void {
         this.language();
@@ -32,12 +39,20 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     }
     onSearch(event) {
         this.procureTab.searchString = event;
-        this.procureTab.getProcuredCoffeeList();
     }
-    onClickMarkForSaleTab() {
-        this.markForSaleTab.getCoffeeSaleList();
-    }
-    onClickProcuredCoffee() {
-        this.procureTab.getProcuredCoffeeList();
+    // onClickMarkForSaleTab() {
+    //     this.markForSaleTab.initializeTable();
+    // }
+    // onClickProcuredCoffee() {
+    //     this.procureTab.initializeTableProcuredCoffee();
+    // }
+    handleChange(event: any) {
+        if (event.index === 0) {
+            this.isProcuredTab = true;
+            // this.onClickProcuredCoffee();
+        } else {
+            this.isProcuredTab = false;
+            // this.onClickMarkForSaleTab();
+        }
     }
 }

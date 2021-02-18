@@ -1,59 +1,23 @@
-<!-- <div class="row">
-    <div class="title-header">
-        <div class="hover-filters d-inline-block">
-            <div class="d-inline border-total col-sm-6" id="status_id">
-                <p class="d-inline filter-text" *ngIf="termStatus.name == 'All'">{{globals.languageJson?.status}}&nbsp;
-                </p>
-                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop2="bs-popover">
-                    <p class="d-inline filter" *ngIf="termStatus.name == 'All'" (click)="toggleStatus()">
-                        &nbsp; <img
-                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-                <a class="pointer-item" [popover]="allTemplate" placement="bottom" container="body" #pop="bs-popover">
-                    <p class="d-inline filter" *ngIf="termStatus.name != 'All'" (click)="toggleStatus()">
-                        {{ termStatus.name }}&nbsp; <img
-                            src="{{ showStatus ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                    </p>
-                </a>
-            </div>
-        </div>
-
-        <div class="d-inline display_div">
-            <div class="hover-filters d-inline-block">
-                <div class="float-right border-order top-space" id="display_id">
-                    <p class="d-inline filter-text">Display &#9679;</p>
-                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true"
-                        container="body" #pop9="bs-popover">
-                        <p class="d-inline filter" *ngIf="display == '-1'" (click)="toggleDisplay()">
-                            &nbsp; &nbsp; <img
-                                src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                        </p>
-                    </a>
-                    <a class="pointer-item" [popover]="displayTemplate" placement="bottom" [outsideClick]="true"
-                        container="body" #pop10="bs-popover">
-                        <p class="d-inline filter" *ngIf="display != '-1'" (click)="toggleDisplay()">
-                            {{ display }}&nbsp; &nbsp; <img
-                                src="{{ showDisplay ? 'assets/images/down-arrow.svg' : 'assets/images/user-down.svg'}}" />
-                        </p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <div class="mt-2 pt-2">
     <p-dropdown
         [options]="sellerItems"
-        [(ngModel)]="termStatus"
-        (onChange)="setStatus()"
+        [(ngModel)]="termOrigin"
+        (onChange)="setOrigin()"
         scrollHeight="225px"
         placeholder="{{ globals.languageJson?.all_origins }}"
         [autoDisplayFirst]="false"
+        styleClass="round-border mr-2 mb-3 mb-md-4 {{ termOrigin ? 'highlight' : '' }}"
+    ></p-dropdown>
+    <p-dropdown
+        [options]="statusItems"
+        [(ngModel)]="termStatus"
+        (onChange)="setStatus()"
+        scrollHeight="225px"
+        placeholder="{{ globals.languageJson?.status }}"
+        [autoDisplayFirst]="false"
         styleClass="round-border mr-2 mb-3 mb-md-4 {{ termStatus ? 'highlight' : '' }}"
     ></p-dropdown>
-    <div class="float-right d-inline mobile-lead">
+    <div class="float-right mobile-lead">
         <p-dropdown
             [options]="displayItems"
             [(ngModel)]="display"
@@ -111,52 +75,38 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
                 <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <span *ngSwitchCase="'facilitator_name'">
+                    <span *ngSwitchCase="'product_name'">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                Facilitator
+                                Product Name
                             </span>
 
                             <span [class.w-50]="primeTableService.isMobileView">
-                                {{ rowData['facilitator_name'] }}
+                                {{ rowData['product_name'] }}
                             </span>
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'service_type'">
+                    <span *ngSwitchCase="'estate_name'">
                         <div class="d-flex">
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label text-clr588 w-50">
-                                Type of service
+                                Estate Name
                             </span>
 
                             <span [class.w-50]="primeTableService.isMobileView" class="truncate">
-                                {{ rowData['service_type'] }}
+                                {{ rowData['estate_name'] }}
                             </span>
                         </div>
                     </span>
 
-                    <span *ngSwitchCase="'id'">
-                        <div>
-                            <p *ngIf="primeTableService.isMobileView" class="fnt-18 txt-clr334 fnt-bold mb-0">
-                                Service #{{ rowData['id'] }}
-                            </p>
-                            <p *ngIf="primeTableService.isMobileView" class="fnt-mb-14 text-clr588 fnt-600 mb-0">
-                                Date requested :
-                                <span class="txt-clr334">{{ rowData['requested_date'] | date: 'dd/mm/yyyy' }}</span>
-                            </p>
-                        </div>
-                    </span>
-
-                    <span *ngSwitchCase="'requested_date'">
+                    <span *ngSwitchCase="'origin'">
                         <div class="d-flex">
                             <div></div>
 
-                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label w-50">
-                                Date Requested
-                            </span>
+                            <span *ngIf="primeTableService.isMobileView" class="prime-table-label w-50"> Origin </span>
 
                             <span [class.w-50]="primeTableService.isMobileView">
-                                {{ rowData['requested_date'] | date: 'dd/mm/yyyy' }}
+                                {{ rowData['origin'] }}
                             </span>
                         </div>
                     </span>
@@ -170,21 +120,26 @@
                                 {{ rowData[col.field] | titlecase }}
                             </span>
                             <span
-                                *ngIf="!primeTableService.isMobileView"
+                                *ngIf="!primeTableService.isMobileView; else mobile_name"
                                 [class.prime-table-heading]="primeTableService.isMobileView"
                                 class="w-50"
                             >
                             </span>
+                            <ng-template #mobile_name>
+                                <span class="ml-auto">
+                                    <ng-container *ngIf="primeTableService.isMobileView">
+                                        <span class="pull-right custom-link" [routerLink]="onEdit(rowData)"
+                                            >View Order
+                                        </span>
+                                    </ng-container>
+                                </span>
+                            </ng-template>
                         </div>
                     </span>
 
                     <span *ngSwitchCase="'actions'" class="text-center">
                         <ng-container *ngIf="!primeTableService.isMobileView">
-                            <span class="custom-link">View Order</span>
-                        </ng-container>
-
-                        <ng-container *ngIf="primeTableService.isMobileView">
-                            <span class="pull-right custom-link">View Order </span>
+                            <span class="custom-link" [routerLink]="onEdit(rowData)">View Order</span>
                         </ng-container>
                     </span>
 
@@ -222,117 +177,3 @@
         </ng-template>
     </p-table>
 </div>
-
-<!-- <div class="table-container mb-2 mt-4">
-    <div class="table-responsive"
-        *ngIf="globals.permissions['coffee-list'].view || globals.permissions['coffee-management'].manage">
-        <table class="table">
-            <thead class="table-header">
-                <tr class="header-row">
-                    
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Estate Name</th>
-                    <th scope="col">
-                        Origin
-                    </th>
-                    <th scope="col">Variety</th>
-                    <th scope="col">Available</th>
-                    <th scope="col">Cup score</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">{{globals.languageJson?.actions}}</th>
-                    <th scope="col"></th>
-
-                </tr>
-            </thead>
-            <tbody class="customtable">
-                <tr class="ticket-boby-txt cursor-pointer" *ngFor="let item of mainData">
-                   
-                    <td>
-                        {{ item?.product_name }}
-                    </td>
-                    <td>{{ item?.estate_name }}</td>
-                    <td>{{ item?.origin }} </td>
-                    <td>{{ item?.varieties }}</td>
-                    <td>{{ item?.quantity }} {{item.quantity_type}} </td>
-                    <td>
-                        {{item?.cup_score}}
-                    </td>
-
-                    <td>
-                        {{item?.status | titlecase}}
-                    </td>
-                    <td class="view-order" routerLink="/features/lot-sale" [queryParams]="{orderId: item.order_id}">view
-                    </td>
-                    <td>
-                        <a class="menu-arrow" [popover]="poplistTemplate" placement="left" [outsideClick]="true"
-                            #pop="bs-popover">
-                            <p><img class="ellipse-image" src="assets/images/ellipses.png" alt=""></p>
-                        </a>
-                        <ng-template #poplistTemplate>
-                            <div id="popover-mobile-content">
-                                <ul class="list-group custom-popover">
-                                    <li class="list-group-item"
-                                        *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage">
-                                        <a class="pointer-item" (click)="onEdit(item);pop.hide();">Edit </a>
-                                    </li>
-                                    <li class="list-group-item"
-                                        *ngIf="globals.checkItem('coffee-management') && globals.permissions['coffee-management'].manage">
-                                        <a class="pointer-item" (click)="pop.hide();">Delete</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </ng-template>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>  -->
-
-<!-- 
-<ng-template #allTemplate>
-    <div id="status-content">
-        <ul class="list-group">
-            <li class="list-group-item item-color">
-                <a class="pointer-item"
-                    (click)="setStatus('All', 'All'); pop.hide(); pop2.hide();toggleStatus()">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item"
-                    (click)="setStatus('Instock', 'IN_STOCK'); pop.hide(); pop2.hide();toggleStatus()">Instock</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item"
-                    (click)="setStatus('Hidden', 'HIDDEN'); pop.hide(); pop2.hide();toggleStatus()">Hidden</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item"
-                    (click)="setStatus('Sold', 'SOLD'); pop.hide(); pop2.hide();toggleStatus()">Sold</a>
-            </li>
-        </ul>
-    </div>
-</ng-template>
-
-
-
-<ng-template #displayTemplate>
-    <div id="status-content">
-        <ul class="list-group custom-popover">
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setDisplay('');pop9.hide();pop10.hide();toggleDisplay()">All</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setDisplay('10');pop9.hide();pop10.hide();toggleDisplay()">10</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setDisplay('20');pop9.hide();pop10.hide();toggleDisplay()">20</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setDisplay('25');pop9.hide();pop10.hide();toggleDisplay()">25</a>
-            </li>
-            <li class="list-group-item item-color">
-                <a class="pointer-item" (click)="setDisplay('50');pop9.hide();pop10.hide();toggleDisplay()">50</a>
-            </li>
-        </ul>
-    </div>
-</ng-template> -->
