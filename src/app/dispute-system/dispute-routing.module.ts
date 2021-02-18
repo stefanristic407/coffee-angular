@@ -7,13 +7,15 @@ import { DisputeComponent } from './dispute/dispute.component';
 import { FaqQuestionComponent } from './faq-question/faq-question.component';
 import { OrderChatComponent } from './order-chat/order-chat.component';
 import { OrderSupportComponent } from './order-support/order-support.component';
+import { RaisedTicketsComponent } from './raised-tickets/raised-tickets.component';
+import { SelectOrderComponent } from './select-order/select-order.component';
 const routes: Routes = [
     {
         path: '',
         component: DisputeComponent,
         children: [
             {
-                path: 'order-chat/:chatType/:orderId',
+                path: 'order-chat/:orderId',
                 component: OrderChatComponent,
                 canActivate: [AuthGuard],
             },
@@ -30,6 +32,16 @@ const routes: Routes = [
             {
                 path: 'order-support-faq/:orderId',
                 component: FaqQuestionComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'raised-tickets',
+                component: RaisedTicketsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'select-order',
+                component: SelectOrderComponent,
                 canActivate: [AuthGuard],
             },
             {

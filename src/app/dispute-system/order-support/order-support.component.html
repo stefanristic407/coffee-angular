@@ -15,9 +15,10 @@
         <div class="col-12 d-flex d-sm-flex d-md-none justify-content-end mt-2">
             <span
                 class="ml-2 fnt-muli fnt-700 fnt-14 text-highlited cursor-pointer"
-                [routerLink]="['/dispute-system/raised-tickets/', orderID]"
+                [routerLink]="['/dispute-system/raised-tickets/']"
+                [queryParams]="{ id: orderID }"
             >
-                {{ globals.languageJson?.assign_role }}
+                View all my raised tickets
             </span>
         </div>
     </div>
@@ -26,7 +27,11 @@
             <span class="primary_txt">Order Support</span>
         </div>
         <div class="col-6 d-none d-sm-none d-md-flex">
-            <button class="btn btn-raised ml-auto" [routerLink]="['/dispute-system/raised-tickets/', orderID]">
+            <button
+                class="btn btn-raised ml-auto"
+                [routerLink]="['/dispute-system/select-order/']"
+                [queryParams]="{ id: orderID }"
+            >
                 View all my raised tickets
             </button>
         </div>
