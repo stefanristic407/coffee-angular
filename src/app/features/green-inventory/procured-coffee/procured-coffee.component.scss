@@ -3,7 +3,7 @@
 }
 
 .g-box .ng-star-inserted {
-    border-radius: 0px!important;
+    border-radius: 0px !important;
 }
 
 .source-cont-available {
@@ -36,7 +36,7 @@
 
 .g-thumbs-container,
 #basic-test {
-    background-color: #FFF !important;
+    background-color: #fff !important;
 }
 
 .pro-logo {
@@ -118,6 +118,10 @@
     float: left;
     border-bottom: 1px dashed #eeeeee;
     padding: 16px 0;
+
+    &:last-child {
+        border-bottom: none;
+    }
 }
 
 .estate-focus ul li:last-child {
@@ -154,7 +158,7 @@
 }
 
 .cetify-logo ul li img {
-    width: 100%
+    width: 100%;
 }
 
 .prodcoffee {
@@ -203,7 +207,7 @@
 }
 
 .p-gal img {
-    width: 100%
+    width: 100%;
 }
 
 .profile-des h4 {
@@ -326,13 +330,7 @@
     top: auto;
 }
 
-
 /*Product Details*/
-
-.prodect-details {
-    /* padding: 24px;
-    border: 1px solid #ebebeb; */
-}
 
 .p-h2 {
     color: #232334;
@@ -356,7 +354,7 @@
 
 .produect-pro {
     border-radius: 2px;
-    border: solid 1px #747588;
+    border: solid 1px #d6d6d6;
     padding: 24px;
 }
 
@@ -401,7 +399,7 @@
 }
 
 .estate-focus .sugar-prod li:before {
-    content: "";
+    content: '';
     position: absolute;
     left: 10px;
     top: 11px;
@@ -486,7 +484,7 @@ ul li {
     display: none;
 }
 
-@media (max-width:640px) {
+@media (max-width: 640px) {
     .source-cont-available {
         padding: 24px 8px;
     }
@@ -563,7 +561,7 @@ ul li {
     }
     .s-certified {
         width: 33%;
-        display: inline-block;
+        // display: inline-block;
         float: right;
     }
     .s-certified ul li {
@@ -674,7 +672,7 @@ ul li {
 li.nav-item {
     margin-right: 7%;
     position: relative;
-    top: .25rem;
+    top: 0.25rem;
 }
 
 .nav-pills .nav-link {
@@ -687,7 +685,7 @@ li.nav-item {
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link {
+.nav-pills .show > .nav-link {
     color: #232334;
     font-size: 14px;
     font-weight: 600;
@@ -710,13 +708,13 @@ li.nav-item {
 
 .nav-link {
     display: block;
-    padding: 0rem 1rem .5rem 1rem;
+    padding: 0rem 1rem 0.5rem 1rem;
 }
 
 li.nav-item {
     margin-right: 3%;
     position: relative;
-    top: .25rem;
+    top: 0.25rem;
 }
 
 .nav-pills .nav-link.active:before {

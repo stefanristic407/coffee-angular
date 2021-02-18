@@ -96,7 +96,7 @@
                                 Quantity
                             </span>
 
-                            <span [class.w-50]="primeTableService.isMobileView">
+                            <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
                                 {{ rowData['quantity'] }}&nbsp; {{ rowData['quantity_type'] }}
                             </span>
                         </div>
@@ -127,7 +127,11 @@
                                                     <a class="pointer-item" (click)="pop.hide()">View order page</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <a class="pointer-item" (click)="pop.hide()">
+                                                    <a
+                                                        class="pointer-item"
+                                                        (click)="pop.hide()"
+                                                        [routerLink]="availabilityPage(rowData)"
+                                                    >
                                                         Go to Availability page</a
                                                     >
                                                 </li>
@@ -189,7 +193,13 @@
                                             <a class="pointer-item" (click)="pop.hide()">View order page</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <a class="pointer-item" (click)="pop.hide()"> Go to Availability page</a>
+                                            <a
+                                                class="pointer-item"
+                                                (click)="pop.hide()"
+                                                [routerLink]="availabilityPage(rowData)"
+                                            >
+                                                Go to Availability page</a
+                                            >
                                         </li>
                                     </ul>
                                 </div>

@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'app-lot-sale',
     templateUrl: './lot-sale.component.html',
-    styleUrls: ['./lot-sale.component.css'],
+    styleUrls: ['./lot-sale.component.scss'],
 })
 export class LotSaleComponent implements OnInit {
     // tslint:disable: variable-name

@@ -239,8 +239,9 @@ export class CoffeeProcuredTabComponent implements OnInit {
     }
 
     onEdit(item) {
-        let link = [];
-        link = [`/features/lot-sale/${item.id}`];
-        return link;
+        return `/features/lot-sale/${item.id}`;
+    }
+    availabilityPage(item) {
+        return `/features/procured-coffee/${item.id}`;
     }
 }

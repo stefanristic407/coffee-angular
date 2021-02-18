@@ -40,19 +40,11 @@ export class GreenCoffeeInventoryComponent implements OnInit {
     onSearch(event) {
         this.procureTab.searchString = event;
     }
-    // onClickMarkForSaleTab() {
-    //     this.markForSaleTab.initializeTable();
-    // }
-    // onClickProcuredCoffee() {
-    //     this.procureTab.initializeTableProcuredCoffee();
-    // }
     handleChange(event: any) {
         if (event.index === 0) {
             this.isProcuredTab = true;
-            // this.onClickProcuredCoffee();
         } else {
             this.isProcuredTab = false;
-            // this.onClickMarkForSaleTab();
         }
     }
 }

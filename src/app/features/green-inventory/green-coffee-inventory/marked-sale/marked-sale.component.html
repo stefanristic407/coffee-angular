@@ -105,8 +105,8 @@
 
                             <span *ngIf="primeTableService.isMobileView" class="prime-table-label w-50"> Origin </span>
 
-                            <span [class.w-50]="primeTableService.isMobileView">
-                                {{ rowData['origin'] }}
+                            <span *ngIf="primeTableService.isMobileView" class="w-50 pl-2">
+                                {{ rowData['origin'] | titlecase }}
                             </span>
                         </div>
                     </span>
