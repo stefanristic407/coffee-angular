@@ -592,9 +592,9 @@ export class RoasterserviceService {
         return this.http.post(this.url, data);
     }
 
-    getRoastingProfile(roaster_id: any) {
+    getRoastingProfile(roaster_id: any, postData?) {
         var data = {};
-        data['api_call'] = '/ro/' + roaster_id + '/roasting-profile';
+        data['api_call'] = '/ro/' + roaster_id + '/roasting-profile?' + this.serlialise(postData);
         // data['params'] = params;
         data['token'] = this.cookieService.get('Auth');
         //  const params = new HttpParams().append( 'file_module', fileModule )

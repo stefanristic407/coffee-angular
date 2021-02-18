@@ -71,7 +71,6 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
 
     ngOnInit(): void {
         this.sharedService.windowWidth = window.innerWidth;
-        this.roasterID = this.cookieService.get('roaster_id');
         if (this.sharedService.windowWidth <= this.sharedService.responsiveStartsAt) {
             this.sharedService.isMobileView = true;
         }

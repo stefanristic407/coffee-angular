@@ -149,63 +149,6 @@ label {
 .top__spacing {
     margin-top: -10px;
 }
-
-::ng-deep .ui-overlaypanel {
-    border: none !important;
-    border-radius: 6px !important;
-    box-shadow: 0 0 17px 2px rgba(27, 27, 27, 0.08) !important;
-    background-color: #ffffff;
-    /* margin-top: 16px; */
-    margin-left: -9px;
-}
-
-::ng-deep .ui-overlaypanel:before {
-    border-bottom-color: #fffafa !important;
-}
-
-::ng-deep .ui-overlaypanel-shifted:after {
-    right: 10.9em !important;
-}
-
-::ng-deep .tooltiptext {
-    visibility: hidden;
-    width: auto;
-    object-fit: contain;
-    border-radius: 4px;
-    box-shadow: 0 -22px 34px 0 rgba(0, 0, 0, 0.08);
-    border: solid 0.5px #ebebeb;
-    background-color: #ffffff;
-    line-height: 1.43;
-    letter-spacing: normal;
-    color: #747588;
-    font-size: 14px;
-    text-align: center;
-    padding: 15px 20px 15px 20px;
-    left: 22%;
-    display: inline;
-    margin-top: 2%;
-    margin-left: 1.5%;
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    left: 15%;
-}
-
-::ng-deep .tooltiptext::after {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 12%;
-    margin-left: -5px;
-    border-width: 8px;
-    border-style: solid;
-    border-color: transparent transparent #ffffff transparent;
-}
-
-::ng-deep td:hover .tooltiptext {
-    visibility: visible;
-}
-
 ::ng-deep .table_ellipsis {
     max-width: 45px;
     /* width: 54px; */
