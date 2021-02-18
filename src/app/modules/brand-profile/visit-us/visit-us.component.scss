@@ -3,8 +3,8 @@
 .faq-card {
     .question-wrap {
         height: 50px;
-        padding-left: 6px;
-        padding-right: 16px;
+        padding-left: 4px;
+        padding-right: 8px;
         cursor: move;
 
         span {
@@ -17,6 +17,18 @@
         &.collapsed {
             span {
                 transform: rotate(0deg);
+            }
+        }
+
+        .move-icon {
+            height: 20px;
+        }
+
+        @media (min-width: 768px) {
+            padding-left: 6px;
+            padding-right: 16px;
+            .move-icon {
+                height: 24px;
             }
         }
     }
