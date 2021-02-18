@@ -16,7 +16,11 @@ export class SocketService implements OnDestroy {
 
     public chatSent = new Subject<WSRequest<unknown>>();
     public chatReceive = new Subject<WSResponse<unknown>>();
-    public ChatSentSubscription: Subscription | null = null;
+    public orderChatSent = new Subject<WSRequest<unknown>>();
+    public orderChatReceive = new Subject<WSResponse<unknown>>();
+    public chatSentSubscription: Subscription | null = null;
+    public orderChatSentSubscription: Subscription | null = null;
+
     public activeState = false;
 
     constructor(public cookieService: CookieService) {
@@ -30,7 +34,10 @@ export class SocketService implements OnDestroy {
                 `${environment.wsEndpoint}/${this.ORGANIZATION_TYPE}/${this.ORGANIZATION_ID}/messaging`,
             );
             this.WSSubscriptionToken = this.WSSubject.subscribe(this.handleSusbscription);
-            this.ChatSentSubscription = this.chatSent.subscribe((payload) => {
+            this.chatSentSubscription = this.chatSent.subscribe((payload) => {
+                this.WSSubject.next(payload);
+            });
+            this.orderChatSentSubscription = this.orderChatReceive.subscribe((payload) => {
                 this.WSSubject.next(payload);
             });
             this.activeState = true;
@@ -51,6 +58,7 @@ export class SocketService implements OnDestroy {
         if (arr.includes(WSMessage.type)) {
             // Created Handlers for your message types
             this.chatReceive.next(WSMessage);
+            this.orderChatReceive.next(WSMessage);
         }
     };
 
@@ -58,18 +66,16 @@ export class SocketService implements OnDestroy {
         if (this.WSSubscriptionToken && this.WSSubscriptionToken.unsubscribe) {
             this.WSSubscriptionToken.unsubscribe();
         }
-        if (this.ChatSentSubscription && this.ChatSentSubscription.unsubscribe) {
-            this.ChatSentSubscription.unsubscribe();
+        if (this.chatSentSubscription && this.chatSentSubscription.unsubscribe) {
+            this.chatSentSubscription.unsubscribe();
+        }
+        if (this.orderChatSentSubscription && this.orderChatSentSubscription.unsubscribe) {
+            this.orderChatSentSubscription.unsubscribe();
         }
     }
 
     public ngOnDestroy() {
         this.WSSubject.complete();
-        if (this.WSSubscriptionToken && this.WSSubscriptionToken.unsubscribe) {
-            this.WSSubscriptionToken.unsubscribe();
-        }
-        if (this.ChatSentSubscription && this.ChatSentSubscription.unsubscribe) {
-            this.ChatSentSubscription.unsubscribe();
-        }
+        this.clearSubscriptions();
     }
 }
