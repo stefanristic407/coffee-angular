@@ -18576,6 +18576,12 @@ button:focus {
 }
 
 @media (min-width: 992px) {
+    .mobile-lead {
+        display: block;
+    }
+    .web-lead{
+        display: none !important;
+    }
     .dispute-order__conversation {
         width: 70%;
     }
@@ -19027,6 +19033,12 @@ button:focus {
         border: solid 1px #ebebeb;
         background-color: #f8f8f8;
         margin-bottom: 15px;
+    }
+    .web-lead{
+        display: block !important;
+    }
+    .mobile-lead {
+        display: none !important;
     }
 }
 
