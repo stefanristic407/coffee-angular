@@ -72,68 +72,6 @@ export class HomePageComponent implements OnInit {
         this.loaded = true;
     }
 
-    onFileChange(event: any, width: any, height: any, FieldValue: any) {
-        const files = event.target.files;
-
-        if (files.length > 0) {
-            for (let i = 0; i < files.length; i++) {
-                if (
-                    files[i].type === 'image/png' ||
-                    files[i].type === 'image/jpg' ||
-                    files[i].type === 'image/jpeg' ||
-                    files[0].type === 'image/gif'
-                ) {
-                    const reader = new FileReader();
-                    const img = new Image();
-                    const fileValue = event.target.files[i];
-                    // console.log(fileValue)
-                    img.src = window.URL.createObjectURL(fileValue);
-                    reader.readAsDataURL(fileValue);
-                    reader.onload = () => {
-                        setTimeout(() => {
-                            const widthValue = img.naturalWidth;
-                            const heightValue = img.naturalHeight;
-
-                            window.URL.revokeObjectURL(img.src);
-                            // console.log(widthValue + '*' + widthValue);
-                            if (widthValue === width && widthValue === height) {
-                                alert(`photo should be ${width} x ${height} size`);
-                            } else {
-                                const imgURL = reader.result;
-                                if (imgURL) {
-                                    const formData: FormData = new FormData();
-                                    const fileName = fileValue.name;
-                                    formData.append('file', fileValue, fileName);
-                                    formData.append('name', fileName);
-                                    formData.append('file_module', 'Brand-Profile');
-                                    formData.append('api_call', '/ro/' + this.roasterId + '/file-manager/files');
-                                    formData.append('token', this.cookieService.get('Auth'));
-                                    // this.roasterService.uploadFiles(formData).subscribe((data) => {
-                                    //     if (data['success'] === true) {
-                                    //         this.toastrService.success('File uploaded successfully');
-                                    //         if (FieldValue === 'Traceability') {
-                                    //             this['traceability_id_' + [i + 1]] = data['result'].id;
-                                    //             this['traceability_image_name_' + [i + 1]] = fileName;
-                                    //         } else if (FieldValue === 'Substainability') {
-                                    //             this['substainability_id_' + [i + 1]] = data['result'].id;
-                                    //             this['substainability_image_name_' + [i + 1]] = fileName;
-                                    //         } else if (FieldValue === 'Feature') {
-                                    //             this.feature_id = data['result'].id;
-                                    //             this.feature_image_name = fileName;
-                                    //         }
-                                    //     } else {
-                                    //         this.toastrService.error('Error while uploading the File');
-                                    //     }
-                                    // });
-                                }
-                            }
-                        }, 2000);
-                    };
-                }
-            }
-        }
-    }
-
     savePageData() {
         if (this.infoForm.valid) {
             const postData = {

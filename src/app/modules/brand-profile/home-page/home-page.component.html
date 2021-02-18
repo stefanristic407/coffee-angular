@@ -16,7 +16,7 @@
                         <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
-                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -120,7 +120,12 @@
                                 Upload an Image<span class="star">*</span>
                             </p>
                             <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 540 x 445 px</p>
-                            <app-uploader formControlName="wizard_image" type="image"></app-uploader>
+                            <app-uploader
+                                formControlName="wizard_image"
+                                type="image"
+                                [width]="540"
+                                [height]="445"
+                            ></app-uploader>
                             <small *ngIf="infoForm.controls.wizard_image.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -254,7 +259,11 @@
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
                             <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 540 x 445 px</p>
-                            <app-uploader formControlName="traceability_story_file_1"></app-uploader>
+                            <app-uploader
+                                formControlName="traceability_story_file_1"
+                                [width]="540"
+                                [height]="445"
+                            ></app-uploader>
                             <small *ngIf="infoForm.controls.traceability_story_file_1.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -307,7 +316,11 @@
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
                             <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 600 x 650 px</p>
-                            <app-uploader formControlName="sustainability_file_1"></app-uploader>
+                            <app-uploader
+                                formControlName="sustainability_file_1"
+                                [width]="600"
+                                [height]="650"
+                            ></app-uploader>
                             <small *ngIf="infoForm.controls.sustainability_file_1.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -339,7 +352,13 @@
                                 Upload 2 Images<span class="star">*</span>
                             </p>
                             <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 600 x 650 px</p>
-                            <app-uploader formControlName="roastery_images" [count]="2" type="image"></app-uploader>
+                            <app-uploader
+                                formControlName="roastery_images"
+                                [count]="2"
+                                type="image"
+                                [width]="600"
+                                [height]="650"
+                            ></app-uploader>
                             <small *ngIf="infoForm.controls.roastery_images.errors?.fileCount" class="p-error">
                                 Please upload 2 images
                             </small>

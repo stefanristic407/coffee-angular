@@ -1,6 +1,9 @@
-<div class="d-flex flex-wrap mt-n2">
+<div class="d-flex flex-wrap align-items-end mt-n2">
     <ng-container *ngFor="let item of files; index as i">
-        <div class="file-wrap fnt-600 text-clr588 ellipsis mt-2 d-none d-md-block" (click)="openPicture(item.url)">
+        <div
+            class="file-wrap lh-normal fnt-600 text-clr588 ellipsis mt-2 d-none d-md-block"
+            (click)="openPicture(item.url)"
+        >
             {{ item.url | fileName: 20 }}
             <img src="assets/images/close.svg" alt="Delete" (click)="$event.stopPropagation(); delete(i)" />
         </div>
