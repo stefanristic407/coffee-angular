@@ -41,7 +41,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="row">
-                <div *ngFor="let item of products" class="col-md-2 col-lg-4 px-md-4 mb-45">
+                <div *ngFor="let item of products" class="col-md-6 col-lg-4 px-md-4 mb-45">
                     <div
                         class="product-card br-8 bg-f8 p-4 cursor-pointer"
                         [class.selected]="item.is_featured"
@@ -51,12 +51,13 @@
                             <img [src]="item.featured_image" alt="Product" />
                         </div>
                         <div>
-                            <div class="chip-list">
+                            <div *ngIf="item.flavours" class="chip-list">
                                 <div class="custom-chip mb-2 mr-2" *ngFor="let flavour of item.flavours.split(',')">
                                     {{ flavour }}
                                 </div>
                             </div>
-                            <div class="text-clr334 mb-4">{{ item.name }}</div>
+                            <div *ngIf="!item.flavours" class="no-flavours">NA</div>
+                            <div class="text-clr334 ellipsis mb-4">{{ item.name }}</div>
                             <h3 class="fnt-20 fnt-bold text-clr334 mb-1">{{ item.origin | country }}</h3>
                             <div class="fnt-bold text-clr588">
                                 <span>${{ item.price }}</span>

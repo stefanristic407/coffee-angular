@@ -231,7 +231,7 @@
                                 <button
                                     type="submit"
                                     class="leave-feedback btn mt-3"
-                                    (click)="bookedService.leaveFeedback(orderBookId)"
+                                    [routerLink]="orderBookId | orderRatingLink"
                                 >
                                     Leave a feedback
                                 </button>
@@ -279,7 +279,7 @@
                                 <button
                                     type="submit"
                                     class="cancel-order btn mt-3"
-                                    (click)="bookedService.leaveFeedback(orderBookId)"
+                                    [routerLink]="orderBookId | orderRatingLink"
                                 >
                                     {{ globals.languageJson?.leave_a_feedback }}
                                 </button>
@@ -288,7 +288,7 @@
                                 <button
                                     type="submit"
                                     class="yes-order leave-feedback-booked btn mt-3"
-                                    (click)="bookedService.leaveFeedback(orderBookId)"
+                                    [routerLink]="orderBookId | orderRatingLink"
                                 >
                                     Leave a feedback
                                 </button>

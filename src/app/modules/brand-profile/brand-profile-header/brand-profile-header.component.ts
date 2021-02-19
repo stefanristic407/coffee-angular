@@ -28,7 +28,7 @@ export class BrandProfileHeaderComponent implements OnInit {
         this.breadItems = [
             { label: this.globals.languageJson?.home, routerLink: '/features/welcome-aboard' },
             { label: this.globals.languageJson?.brand_profile, routerLink: '/brand-profile' },
-            { label: this.globals.languageJson[this.pageSlug] || this.pageSlug },
+            { label: this.globals.languageJson[this.pageSlug.replace('-', '_')] || this.pageSlug },
         ];
     }
 
