@@ -1152,20 +1152,15 @@ export class UserserviceService {
         };
         return this.http.put(this.putUrl, data);
     }
-    addReviewOrder(roaster_id: any, orderId: any, body: any) {
-        const data = {
-            api_call: '/ro/' + roaster_id + '/orders/' + orderId + '/reviews',
-            method: 'POST',
-            data: body,
-            token: this.cookieService.get('Auth'),
-        };
-        return this.http.post(this.roasterUrl, data);
-    }
 
-    // RO can Post review for MR based on an MR GC Order
-    addMrReviewOrder(roaster_id: any, orderId: any, body: any) {
+    // Save the rating and review of an order.
+    addReviewOrder(roasterId: any, orderId: any, body: any, orgType?) {
+        let endPoint = 'orders';
+        if (orgType && orgType === 'mr') {
+            endPoint = 'mr-orders';
+        }
         const data = {
-            api_call: `/ro/${roaster_id}/mr-orders/${orderId}/reviews`,
+            api_call: `/ro/${roasterId}/${endPoint}/${orderId}/reviews`,
             method: 'POST',
             data: body,
             token: this.cookieService.get('Auth'),

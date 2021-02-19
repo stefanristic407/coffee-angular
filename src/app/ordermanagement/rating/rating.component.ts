@@ -96,26 +96,22 @@ export class RatingComponent implements OnInit {
     submitRating() {
         if (this.infoForm.valid) {
             this.submitted = true;
-            let request;
-            if (this.orgType === OrgType.ESTATE) {
-                request = this.userService.addReviewOrder(this.roasterId, this.orderId, this.infoForm.value);
-            } else if (this.orgType === OrgType.MICRO_ROASTER) {
-                request = this.userService.addMrReviewOrder(this.roasterId, this.orderId, this.infoForm.value);
-            }
-            request.subscribe((res: any) => {
-                this.submitted = false;
-                if (res.success) {
-                    this.toastrService.success('Rate and Review of order submitted successfully');
-                } else if (!res.success) {
-                    if (res.messages.order_id === 'not_found') {
-                        this.toastrService.error('Order Id not found.');
-                    } else if (res.messages.review.find((element) => element === 'already_exists')) {
-                        this.toastrService.error('Review already exists.');
+            this.userService
+                .addReviewOrder(this.roasterId, this.orderId, this.infoForm.value, this.orgType)
+                .subscribe((res: any) => {
+                    this.submitted = false;
+                    if (res.success) {
+                        this.toastrService.success('Rate and Review of order submitted successfully');
+                    } else if (!res.success) {
+                        if (res.messages.order_id === 'not_found') {
+                            this.toastrService.error('Order Id not found.');
+                        } else if (res.messages.review.find((element) => element === 'already_exists')) {
+                            this.toastrService.error('Review already exists.');
+                        }
+                    } else {
+                        this.toastrService.error('Error while submitting details');
                     }
-                } else {
-                    this.toastrService.error('Error while submitting details');
-                }
-            });
+                });
         } else {
             this.formSrv.markGroupDirty(this.infoForm);
         }
