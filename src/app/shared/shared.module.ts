@@ -48,10 +48,12 @@ import { MatVideoModule } from 'mat-video';
 import { Ng2TelInputModule } from 'ng2-tel-input';
 
 import { CountryPipe } from './pipes/country/country.pipe';
-import { EstateBrandLinkPipe } from './pipes/estate-brand-link.pipe';
+import { EstateBrandLinkPipe } from './pipes/link/estate-brand-link.pipe';
+import { RoasterBrandLinkPipe } from './pipes/link/roaster-brand-link.pipe';
+import { OrderRatingLinkPipe } from './pipes/link/order-rating-link.pipe';
 import { FileNamePipe } from './pipes/file-name.pipe';
 import { MonthPipe } from './pipes/month/month.pipe';
-import { RoasterBrandLinkPipe } from './pipes/roaster-brand-link.pipe';
+import { OrgTypePipe } from './pipes/org-type.pipe';
 import { WordCountPipe } from './pipes/word-count/word-count.pipe';
 
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -164,7 +166,16 @@ const COMPONENTS = [
 ];
 const COMPONENTS_NOROUNT = [ConfirmComponent];
 const DIRECTIVES = [];
-const PIPES = [CountryPipe, EstateBrandLinkPipe, FileNamePipe, MonthPipe, RoasterBrandLinkPipe, WordCountPipe];
+const PIPES = [
+    CountryPipe,
+    EstateBrandLinkPipe,
+    FileNamePipe,
+    MonthPipe,
+    RoasterBrandLinkPipe,
+    OrderRatingLinkPipe,
+    OrgTypePipe,
+    WordCountPipe,
+];
 // #endregion
 
 @NgModule({

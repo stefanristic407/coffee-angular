@@ -176,7 +176,7 @@
                                     <button
                                         type="submit"
                                         class="cancel-order btn mt-3"
-                                        routerLink="/ordermanagement/rating"
+                                        [routerLink]="bookId | orderRatingLink: orgType"
                                     >
                                         Leave a feedback!
                                     </button>
@@ -205,7 +205,7 @@
                                     <button
                                         type="submit"
                                         class="cancel-order btn mt-3"
-                                        routerLink="/ordermanagement/rating"
+                                        [routerLink]="bookId | orderRatingLink: orgType"
                                     >
                                         Leave a feedback!
                                     </button>

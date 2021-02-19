@@ -744,7 +744,7 @@ export class RoasterserviceService {
     getViewOrderDetails(roaster_id: any, order_id: any, orderType?) {
         var data = {};
         data['api_call'] = '/ro/' + roaster_id + '/orders/' + order_id;
-        if (orderType && orderType == 'MR') {
+        if (orderType && (orderType == 'MR' || orderType == 'mr')) {
             data['api_call'] = '/ro/' + roaster_id + '/mr-orders/' + order_id;
         }
         data['token'] = this.cookieService.get('Auth');
