@@ -746,7 +746,8 @@ input[type='number'] {
     border-bottom: solid 1px #dedede;
 }
 .v-divider {
-    height: 100%;
+    position: relative;
+    min-height: 100%;
     width: 0;
     border-left: solid 1px #ebebeb;
 }
