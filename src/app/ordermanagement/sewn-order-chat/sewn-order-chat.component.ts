@@ -1,4 +1,3 @@
-import { ServiceChatTypes } from '@models';
 /* tslint:disable no-string-literal */
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -6,7 +5,14 @@ import { OrderCharThreadListItem } from '@models';
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { WSOrganizationType, ThreadListItem, ThreadMembers, ChatMessage, IncomingChatMessage } from '@models';
+import {
+    WSOrganizationType,
+    ThreadListItem,
+    ThreadMembers,
+    ChatMessage,
+    IncomingChatMessage,
+    ServiceChatTypes,
+} from '@models';
 import { ChatHandlerService, GlobalsService, SocketService, UserserviceService } from '@services';
 @Component({
     selector: 'app-sewn-order-chat',
@@ -46,10 +52,10 @@ export class SewnOrderChatComponent implements OnInit {
     constructor(
         private cookieService: CookieService,
         public globals: GlobalsService,
-        private socket: SocketService,
         public chatService: ChatHandlerService,
         private userService: UserserviceService,
         private activateRoute: ActivatedRoute,
+        private socket: SocketService,
     ) {}
 
     ngOnInit(): void {
@@ -73,6 +79,7 @@ export class SewnOrderChatComponent implements OnInit {
             console.log('Order chat Message: ORGANIZATION_ID is missing');
         }
         this.audioPlayer.load();
+        this.
     }
 
     getReadableTime(tTime: string = '') {
