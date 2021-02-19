@@ -38,18 +38,12 @@
 
                             <div class="pl-2 pl-md-3">
                                 <ul class="p-0 mb-4">
-                                    <li class="d-flex align-items-end mb-1 mb-md-2">
-                                        <span class="fnt-16 lh-normal fnt-bold text-clr334">{{ ownerName }}</span>
-                                        <span class="fnt-14 lh-normal fnt-600 text-clr97 ml-3 d-none d-md-block"
-                                            >{{ globals.languageJson?.last_seen }} {{ lastLoginAt | date: 'h:mma' }}
-                                        </span>
+                                    <li class="fnt-16 lh-normal fnt-bold text-clr334 mb-1 mb-md-2">
+                                        {{ ownerName }}
                                     </li>
-                                    <li class="fnt-mb-14 lh-normal fnt-bold text-clr588 mb-1 mb-md-2">
+                                    <li class="fnt-mb-14 lh-normal fnt-bold text-clr588 mb-2">
                                         {{ orgType | orgType }}
                                     </li>
-                                    <p class="fnt-12 lh-normal fnt-600 text-clr97 d-md-none mt-1 mb-3">
-                                        {{ globals.languageJson?.last_seen }} {{ lastLoginAt | date: 'h:mm LT' }}
-                                    </p>
                                     <li class="d-flex mb-3">
                                         <span class="fnt-12">
                                             <p-rating [ngModel]="rating" [cancel]="false" [readonly]="true"></p-rating
