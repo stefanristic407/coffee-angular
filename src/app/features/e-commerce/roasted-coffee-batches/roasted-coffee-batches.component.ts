@@ -52,6 +52,7 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
         { label: 'Inventory' },
         { label: 'New roasted coffee batch' },
     ];
+    ordId: any;
     constructor(
         public router: Router,
         public cookieService: CookieService,
@@ -205,12 +206,14 @@ export class RoastedCoffeeBatchesComponent implements OnInit {
     redirectToEdit(item) {
         this.batchId = item.id;
         this.globals.selected_order_id = item.order_id;
+        this.ordId = item.order_id;
+
         let navigationExtras: NavigationExtras = {
             queryParams: {
-                batchId: encodeURIComponent(this.batchId),
+                batchId: this.batchId ? this.batchId : undefined,
+                ordId: this.ordId ? this.ordId : undefined,
             },
         };
-
         this.router.navigate(['/features/new-roasted-batch'], navigationExtras);
     }
 
