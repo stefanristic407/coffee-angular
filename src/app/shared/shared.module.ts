@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
@@ -89,11 +90,12 @@ const MATMODULES = [];
 const THIRDMODULES = [
     AutocompleteLibModule,
     AnimateOnScrollModule,
+    DragDropModule,
     ModalModule,
     PopoverModule,
     TypeaheadModule,
-    BreadcrumbModule,
     AutoCompleteModule,
+    BreadcrumbModule,
     ButtonModule,
     CalendarModule,
     CarouselModule,

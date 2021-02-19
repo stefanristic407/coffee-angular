@@ -16,7 +16,7 @@
                         <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
-                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -40,8 +40,8 @@
                     </div>
 
                     <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
-                        <h4 class="fnt-18 fnt-700 text-clr334">Intro</h4>
-                        <p class="fnt-14 fnt-600 text-clr334">Give yourself a small intro!</p>
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Intro</h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Give yourself a small intro!</p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
                             <label>
@@ -60,11 +60,11 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 815 x 449 px</p>
-                            <app-uploader formControlName="intro_file"></app-uploader>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 500 x 540 px</p>
+                            <app-uploader formControlName="intro_file" [width]="500" [height]="540"></app-uploader>
                             <small *ngIf="infoForm.controls.intro_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -72,8 +72,12 @@
                     </div>
 
                     <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
-                        <h4 class="fnt-18 fnt-700 text-clr334">Info about your sustainability work</h4>
-                        <p class="fnt-14 fnt-600 text-clr334">Give a brief intro about your sustainability practises</p>
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">
+                            Info about your sustainability work
+                        </h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
+                            Give a brief intro about your sustainability practises
+                        </p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
                             <label>
@@ -107,7 +111,9 @@
 
                         <ng-container *ngFor="let i of [1, 2, 3, 4]">
                             <div class="divider my-4"></div>
-                            <h4 class="fnt-18 fnt-700 text-clr334">Your sustainability pratice #{{ i }}</h4>
+                            <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-4">
+                                Your sustainability pratice #{{ i }}
+                            </h4>
 
                             <div class="w-100 sewn-form-field mb-4 mb-md-45">
                                 <label>
@@ -159,15 +165,17 @@
                             </div>
 
                             <div class="w-100 sewn-form-field mb-2">
-                                <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                                <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                     Upload {{ i === 3 ? '2 Image/Video' : 'an Image/Video' }}<span class="star">*</span>
                                 </p>
-                                <p class="fnt-14 fnt-600 text-clr588 mb-4">
+                                <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">
                                     Size - {{ i === 3 ? '282 x 460' : '389 x 417' }} px
                                 </p>
                                 <app-uploader
                                     formControlName="section{{ i }}_file"
                                     [count]="i == 3 ? 2 : 1"
+                                    [width]="i === 3 ? 282 : 389"
+                                    [height]="i === 3 ? 460 : 417"
                                 ></app-uploader>
                                 <small
                                     *ngIf="infoForm.controls['section' + i + '_file'].errors?.required"
@@ -186,9 +194,9 @@
                     </div>
 
                     <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
-                        <h4 class="fnt-18 fnt-700 text-clr334">Product Labels</h4>
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-4">Product Labels</h4>
 
-                        <div class="w-100 sewn-form-field mb-4 mb-md-45">
+                        <div class="w-100 sewn-form-field">
                             <label>
                                 A short description*<span class="star">*</span>
                                 <span class="pull-right text-clr588">
@@ -213,11 +221,17 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload 4 label icons<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 100 x 100 px</p>
-                            <app-uploader formControlName="product_label_icon" [count]="4" type="image"></app-uploader>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 100 x 100 px</p>
+                            <app-uploader
+                                formControlName="product_label_icon"
+                                [count]="4"
+                                type="image"
+                                [width]="100"
+                                [height]="100"
+                            ></app-uploader>
                             <small *ngIf="infoForm.controls.product_label_icon.errors?.fileCount" class="p-error">
                                 Please upload 4 icons
                             </small>

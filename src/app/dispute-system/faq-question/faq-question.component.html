@@ -1,1 +1,82 @@
-<p>faq-question works!</p>
+<div class="main-block">
+    <div class="row mb-3">
+        <div class="col-9 d-none d-sm-none d-md-block">
+            <app-breadcrumb [items]="breadCrumbItem"></app-breadcrumb>
+        </div>
+        <div class="col-12 d-flex d-sm-flex d-md-none align-items-center">
+            <div class="back-href cursor-pointer">
+                <img class="back-arrow-butn mr-2" src="assets/images/do-back-arrow.svg" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 d-flex">
+            <button class="btn btn-raised ml-auto" [routerLink]="['/dispute-system/raised-tickets/', orderID]">
+                Raise a ticket
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mb-3">
+            <span *ngIf="buttonValue" class="primary_txt">{{ buttonValue }}</span>
+        </div>
+        <div class="col-12">
+            <div class="main-block faqClass questionContainer">
+                <div class="col-12 p-0">
+                    <p-accordion expandIcon="pi pi-fw pi-chevron-down" collapseIcon="pi pi-fw pi-chevron-up">
+                        <p-accordionTab *ngFor="let item of questionDetails; let i = index" [header]="item.question">
+                            <div class="card-body">
+                                <div class="questionContent" [innerHtml]="item.answer"></div>
+                                <p class="commonContent pt-4 pb-4 mb-0">
+                                    Still need help?
+                                    <a
+                                        class="text-highlited"
+                                        routerLink="/ordermanagement/raise-ticket-form"
+                                        [queryParams]="{ id: orderID }"
+                                        >Click here</a
+                                    >
+                                    to raise a ticket
+                                </p>
+                            </div>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+                <div class="col-12 row no-gutters p-4 resultDiv">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex align-items-center">
+                        <span class="resultText"> Did you get the help you need? </span>
+                    </div>
+                    <div
+                        class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 justify-content-end d-none d-sm-none d-md-block"
+                    >
+                        <button
+                            class="btn btn-raised float-right"
+                            [routerLink]="['/dispute-system/raised-tickets/', orderID]"
+                        >
+                            No, Raise a ticket
+                        </button>
+                        <button
+                            class="btn btn-stroked float-right mr-3"
+                            [routerLink]="['/ordermanagement/order-booked/']"
+                            [queryParams]="{ id: orderID }"
+                        >
+                            Yes
+                        </button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3 d-flex d-sm-flex d-md-none">
+                        <button
+                            class="btn btn-stroked mr-3 flex-grow-1"
+                            [routerLink]="['/ordermanagement/order-booked/']"
+                            [queryParams]="{ id: orderID }"
+                        >
+                            Yes
+                        </button>
+                        <button
+                            class="btn btn-raised flex-grow-1"
+                            [routerLink]="['/dispute-system/raised-tickets/', orderID]"
+                        >
+                            No, Raise a ticket
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

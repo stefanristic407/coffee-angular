@@ -1,0 +1,100 @@
+::ng-deep .p-accordion-header .p-accordion-header-link {
+    background: #ffffff !important;
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+    border: 0px !important;
+    text-decoration: none !important;
+    padding: 1.5rem 0px !important;
+    box-shadow: none !important;
+}
+::ng-deep .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
+    background: #ffffff !important;
+    font-family: Muli;
+    font-size: 16px !important;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334 !important;
+    border: 0px !important;
+    text-decoration: none;
+    padding: 0px;
+}
+.resultDiv {
+    background-color: #faf8f4;
+}
+.resultText {
+    font-family: Muli;
+    font-size: 16px !important;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334 !important;
+    border: 0px !important;
+    text-decoration: none;
+    padding: 0px;
+}
+.questionContainer {
+    border: 1px solid #d6d6d6;
+}
+::ng-deep .p-accordion-content {
+    border: 0px !important;
+    padding-left: 1.8rem !important;
+    padding-top: 0.5rem !important;
+    border-bottom: 1px dashed #d6d6d6 !important;
+}
+.faqClass .card-body {
+    padding: 0px;
+}
+.questionContent {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: #232334;
+}
+.commonContent {
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #232334;
+}
+.text-highlited {
+    font-weight: 700;
+    color: #80460b !important;
+    cursor: pointer;
+}
+.text-highlited:hover {
+    text-decoration: underline !important;
+}
+.back-href {
+    color: #80460b;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+@media (max-width: 768px) {
+    ::ng-deep .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon {
+        position: absolute;
+        right: 0;
+    }
+    ::ng-deep .p-accordion-content {
+        padding-left: 2px !important;
+    }
+}

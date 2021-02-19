@@ -16,7 +16,7 @@
                         <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 1440 x 465 px</p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
-                            <app-uploader formControlName="banner_file"></app-uploader>
+                            <app-uploader formControlName="banner_file" [width]="1440" [height]="465"></app-uploader>
                             <small *ngIf="infoForm.controls.banner_file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -40,8 +40,8 @@
                     </div>
 
                     <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
-                        <h4 class="fnt-18 fnt-700 text-clr334">Intro</h4>
-                        <p class="fnt-14 fnt-600 text-clr334">Give yourself a small intro!</p>
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Intro</h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">Give yourself a small intro!</p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
                             <label>
@@ -84,11 +84,11 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image / Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 495 x 536 px</p>
-                            <app-uploader formControlName="intro_file_1"></app-uploader>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 495 x 536 px</p>
+                            <app-uploader formControlName="intro_file_1" [width]="495" [height]="536"></app-uploader>
                             <small *ngIf="infoForm.controls.intro_file_1.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -96,8 +96,8 @@
                     </div>
 
                     <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
-                        <h4 class="fnt-18 fnt-700 text-clr334">Who we are</h4>
-                        <p class="fnt-14 fnt-600 text-clr334">
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Who we are</h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
                             Your customers can personalise their coffee from this section.
                         </p>
 
@@ -132,11 +132,11 @@
                         </div>
 
                         <div class="w-100 sewn-form-field mb-2">
-                            <p class="fnt-14 fnt-600 text-clr334 mb-1">
+                            <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-2">
                                 Upload an Image/Video<span class="star">*</span>
                             </p>
-                            <p class="fnt-14 fnt-600 text-clr588 mb-4">Size - 600 x 543 px</p>
-                            <app-uploader formControlName="file"></app-uploader>
+                            <p class="fnt-mb-14 lh-normal fnt-600 text-clr588 mb-3 mb-md-4">Size - 600 x 543 px</p>
+                            <app-uploader formControlName="file" [width]="600" [height]="543"></app-uploader>
                             <small *ngIf="infoForm.controls.file.errors?.required" class="p-error">
                                 Please upload
                             </small>
@@ -144,8 +144,10 @@
                     </div>
 
                     <div class="br-main br-2 mt-4 mt-md-45 p-3 p-md-4">
-                        <h4 class="fnt-18 fnt-700 text-clr334">Your team members</h4>
-                        <p class="fnt-14 fnt-600 text-clr334">Select your emplyees to display on your website page</p>
+                        <h4 class="fnt-16 lh-normal fnt-700 text-clr334 mb-2 mb-md-3">Your team members</h4>
+                        <p class="fnt-14 lh-normal fnt-600 text-clr334 mb-4">
+                            Select your emplyees to display on your website page
+                        </p>
 
                         <div class="w-100 sewn-form-field mb-4 mb-md-45">
                             <label>
